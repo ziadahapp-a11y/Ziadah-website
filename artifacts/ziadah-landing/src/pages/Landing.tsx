@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
 import HomeCalculator from "../components/HomeCalculator";
+import TeamSection from "../components/TeamSection";
 
 const storeLogos = [
   { name: "عسل رشوف", src: "/logos/assal-rashouf.svg" },
@@ -1594,6 +1595,8 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      {/* TEAM */}
+      <TeamSection />
       {/* PRICING */}
       <section id="pricing">
         <div className="wrap">
