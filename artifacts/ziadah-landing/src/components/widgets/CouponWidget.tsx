@@ -16,7 +16,7 @@ export default function CouponWidget() {
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>٣٠ ر</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>30 ر</div>
             <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", marginTop: 2 }}>خصم على طلبك الآن</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(168,85,247,.3)" }} />
@@ -36,7 +36,7 @@ export default function CouponWidget() {
           fontWeight: 600,
         }}>
           <span>⏱️</span>
-          <span>ينتهي خلال: ١٤:٥٨</span>
+          <span>ينتهي خلال: 14:58</span>
         </div>
       </div>
       <button style={{

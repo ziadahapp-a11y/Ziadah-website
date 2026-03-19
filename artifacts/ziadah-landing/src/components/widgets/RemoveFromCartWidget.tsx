@@ -37,8 +37,8 @@ export default function RemoveFromCartWidget() {
               <div style={{ fontSize: 24, flexShrink: 0 }}>👟</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>حذاء رياضي نايك</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)" }}>مقاس ٤٢ — أسود</div>
-                <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>٢٨٠ ⃁</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)" }}>مقاس 42 — أسود</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>280 ⃁</div>
               </div>
               <button style={{
                 padding: "5px 9px", borderRadius: 7,
@@ -61,7 +61,7 @@ export default function RemoveFromCartWidget() {
               هل أنت متأكد من الحذف؟
             </div>
             <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 14 }}>
-              حذاء رياضي نايك — ٢٨٠ ⃁
+              حذاء رياضي نايك — 280 ⃁
             </div>
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 14px",
@@ -90,13 +90,13 @@ export default function RemoveFromCartWidget() {
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>حذاء رياضي نايك</div>
                   <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 3 }}>
-                    <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>٢٨٠ ⃁</span>
-                    <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>٢٣٨ ⃁</span>
+                    <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>280 ⃁</span>
+                    <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>238 ⃁</span>
                     <span style={{
                       fontSize: 9, fontWeight: 700, padding: "2px 6px",
                       borderRadius: 50, background: "rgba(16,185,129,.15)",
                       border: "1px solid rgba(16,185,129,.3)", color: "#10b981",
-                    }}>وفّر ١٥٪</span>
+                    }}>وفّر 15٪</span>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function RemoveFromCartWidget() {
                 fontSize: 10, color: "#f87171", fontWeight: 600,
               }}>
                 <span>⏱️</span>
-                <span>ينتهي العرض خلال: ٠٩:٥٨</span>
+                <span>ينتهي العرض خلال: 09:58</span>
               </div>
               <button style={{
                 width: "100%", padding: "9px",

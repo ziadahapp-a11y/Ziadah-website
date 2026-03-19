@@ -29,7 +29,7 @@ export default function Support() {
 
   const quickLinks = [
     { label: "التحدث مع الدعم", href: "https://api.whatsapp.com/send/?phone=966510131856", icon: "💬", desc: "رد خلال ساعة", ext: true },
-    { label: "احجز اجتماعاً", href: "https://calendar.app.google/pjtPBzs9TUPipUEF6", icon: "📅", desc: "جلسة ٣٠ دقيقة", ext: true },
+    { label: "احجز اجتماعاً", href: "https://calendar.app.google/pjtPBzs9TUPipUEF6", icon: "📅", desc: "جلسة 30 دقيقة", ext: true },
     { label: "لوحة تحكم زد", href: "https://web.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة", ext: true },
     { label: "لوحة تحكم سلة", href: "https://dashboard.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة", ext: true },
   ];

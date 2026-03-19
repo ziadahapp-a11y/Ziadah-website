@@ -32,7 +32,7 @@ export default function AddToCartWidget() {
               كريم مرطب SPF 50
             </div>
             <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginBottom: 16 }}>
-              الكمية: ١ × ٨٩ ⃁
+              الكمية: 1 × 89 ⃁
             </div>
             <div style={{
               display: "inline-flex",
@@ -101,7 +101,7 @@ export default function AddToCartWidget() {
                     سيروم فيتامين C المشرّق
                   </div>
                   <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>يكمل الكريم بشكل مثالي</div>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>٦٥ ⃁</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>65 ⃁</div>
                 </div>
               </div>
               <button style={{

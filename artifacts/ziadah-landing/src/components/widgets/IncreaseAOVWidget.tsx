@@ -14,21 +14,21 @@ export default function IncreaseAOVWidget() {
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 شحن مجاني عند ٣٠٠ ⃁</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي ١١٤ ⃁</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 شحن مجاني عند 300 ⃁</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي 114 ⃁</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "rgba(255,255,255,.12)", overflow: "hidden", marginBottom: 3 }}>
             <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))" }} />
           </div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
-            ٦٢٪ من عتبة الشحن المجاني
+            62٪ من عتبة الشحن المجاني
           </div>
         </div>
 
         <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة لإكمال الطلب:</div>
         {[
-          { emoji: "🧴", name: "بلسم شعر مرطّب", price: "٦٥", origPrice: "٨٥" },
-          { emoji: "🪥", name: "فرشاة تدليك الشعر", price: "٤٩", origPrice: "٦٩" },
+          { emoji: "🧴", name: "بلسم شعر مرطّب", price: "65", origPrice: "85" },
+          { emoji: "🪥", name: "فرشاة تدليك الشعر", price: "49", origPrice: "69" },
         ].map((p, i) => (
           <div key={i} style={{
             display: "flex",

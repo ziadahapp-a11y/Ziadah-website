@@ -2,9 +2,9 @@ import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 const allOptions = [
-  { qty: "اشترِ 1", label: "بدون خصم", price: "٤٩ ⃁", origPrice: null as string | null, badge: null as string | null },
-  { qty: "اشترِ 2", label: "خصم ٢٠٪", price: "٧٩ ⃁", origPrice: "٩٨ ⃁", badge: "-٢٠٪" },
-  { qty: "اشترِ 3", label: "خصم ٣٠٪ + شحن مجاني", price: "١٠٣ ⃁", origPrice: "١٤٧ ⃁", badge: "-٣٠٪" },
+  { qty: "اشترِ 1", label: "بدون خصم", price: "49 ⃁", origPrice: null as string | null, badge: null as string | null },
+  { qty: "اشترِ 2", label: "خصم 20٪", price: "79 ⃁", origPrice: "98 ⃁", badge: "-20٪" },
+  { qty: "اشترِ 3", label: "خصم 30٪ + شحن مجاني", price: "103 ⃁", origPrice: "147 ⃁", badge: "-30٪" },
 ];
 
 export default function BuyMoreSaveMoreWidget() {

@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function CategoryPageWidget() {
   const products = [
-    { emoji: "🎧", name: "سماعة لاسلكية ANC", price: "٣٨٩", origPrice: "٤٩٩", badge: "⭐ الأكثر مبيعاً", hot: true },
-    { emoji: "🔊", name: "مكبر صوت محمول", price: "١٨٩", origPrice: null, badge: "جديد", hot: false },
-    { emoji: "🎵", name: "مشغّل موسيقى MP3", price: "١٢٩", origPrice: "١٦٩", badge: null, hot: false },
+    { emoji: "🎧", name: "سماعة لاسلكية ANC", price: "389", origPrice: "499", badge: "⭐ الأكثر مبيعاً", hot: true },
+    { emoji: "🔊", name: "مكبر صوت محمول", price: "189", origPrice: null, badge: "جديد", hot: false },
+    { emoji: "🎵", name: "مشغّل موسيقى MP3", price: "129", origPrice: "169", badge: null, hot: false },
   ];
 
   return (

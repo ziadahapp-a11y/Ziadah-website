@@ -1710,10 +1710,10 @@ export default function Landing() {
                 {/* Stats grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {[
-                    { label: "الظهور", value: "١٢٤,٧٠٠", icon: "👁", color: "#06b6d4" },
-                    { label: "النقرات", value: "٨,٩٢٠", sub: "٧.١٪", icon: "🖱", color: "#a855f7" },
-                    { label: "التحويلات", value: "٢,٣٤٠", sub: "٢٦.٢٪", icon: "✅", color: "#10b981" },
-                    { label: "إجمالي المبيعات", value: "٩٣,٦٠٠ ⃁", icon: "💰", color: "#f59e0b" },
+                    { label: "الظهور", value: "124,700", icon: "👁", color: "#06b6d4" },
+                    { label: "النقرات", value: "8,920", sub: "7.1٪", icon: "🖱", color: "#a855f7" },
+                    { label: "التحويلات", value: "2,340", sub: "26.2٪", icon: "✅", color: "#10b981" },
+                    { label: "إجمالي المبيعات", value: "93,600 ⃁", icon: "💰", color: "#f59e0b" },
                   ].map((s, i) => (
                     <div key={i} style={{ padding: "14px 14px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12 }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
@@ -1730,7 +1730,7 @@ export default function Landing() {
                     <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(16,185,129,.08)"/>
                   </svg>
-                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>+٢٣٪ نمو في المبيعات خلال آخر ٣٠ يوم</div>
+                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>+23٪ نمو في المبيعات خلال آخر 30 يوم</div>
                 </div>
               </GlassCard>
 
@@ -1754,9 +1754,9 @@ export default function Landing() {
                 {/* Product rows */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {[
-                    { name: "كريم مرطب فاخر", clicks: "٣,٢٤٠", clickRate: "٤.٨٪", conv: "٨٧٠", convRate: "٢٦.٨٪", sales: "٣٤,٨٠٠ ⃁", color: "#a855f7" },
-                    { name: "واقي شمس SPF 50", clicks: "٢,١١٠", clickRate: "٣.٣٪", conv: "٥٤٠", convRate: "٢٥.٦٪", sales: "٢٤,٣٠٠ ⃁", color: "#06b6d4" },
-                    { name: "سيروم فيتامين C", clicks: "١,٨٩٠", clickRate: "٢.٩٪", conv: "٤٦٠", convRate: "٢٤.٣٪", sales: "١٨,٤٠٠ ⃁", color: "#10b981" },
+                    { name: "كريم مرطب فاخر", clicks: "3,240", clickRate: "4.8٪", conv: "870", convRate: "26.8٪", sales: "34,800 ⃁", color: "#a855f7" },
+                    { name: "واقي شمس SPF 50", clicks: "2,110", clickRate: "3.3٪", conv: "540", convRate: "25.6٪", sales: "24,300 ⃁", color: "#06b6d4" },
+                    { name: "سيروم فيتامين C", clicks: "1,890", clickRate: "2.9٪", conv: "460", convRate: "24.3٪", sales: "18,400 ⃁", color: "#10b981" },
                   ].map((p, i) => (
                     <div key={i} style={{ padding: "12px 14px", background: "rgba(0,0,0,.18)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>

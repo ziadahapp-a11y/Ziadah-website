@@ -27,8 +27,8 @@ export default function HomePageWidget() {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>حذاء جري Ultraboost</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>﷼٤٩٩</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼٦٤٩</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>﷼499</span>
+                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼649</span>
               </div>
             </div>
             <button style={{
@@ -60,15 +60,15 @@ export default function HomePageWidget() {
           <span style={{ fontSize: 12 }}>⏱️</span>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>هذا العرض ينتهي خلال</div>
-            <div style={{ fontSize: 11, fontWeight: 900, color: "#fff" }}>٠٢:٤٧:١٣</div>
+            <div style={{ fontSize: 11, fontWeight: 900, color: "#fff" }}>02:47:13</div>
           </div>
         </div>
 
         <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginBottom: 7 }}>الأكثر مبيعاً في فئاتك:</div>
         <div style={{ display: "flex", gap: 7 }}>
           {[
-            { emoji: "🧢", name: "كاب رياضي", price: "٨٩" },
-            { emoji: "🎽", name: "تيشيرت رياضي", price: "١٢٩" },
+            { emoji: "🧢", name: "كاب رياضي", price: "89" },
+            { emoji: "🎽", name: "تيشيرت رياضي", price: "129" },
           ].map((p, i) => (
             <div key={i} style={{
               flex: 1,

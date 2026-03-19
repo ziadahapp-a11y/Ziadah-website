@@ -13,8 +13,8 @@ export default function IncreaseConversionWidget() {
           textAlign: "center",
         }}>
           <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 4 }}>🎉 هديتك كعميل جديد</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>خصم ٥٠ ⃁</div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>على أول طلب فوق ٢٠٠ ⃁</div>
+          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>خصم 50 ⃁</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>على أول طلب فوق 200 ⃁</div>
           <div style={{ fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, marginTop: 6 }}>WELCOME50</div>
         </div>
 
@@ -25,9 +25,9 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
         }}>
           {[
-            { icon: "⭐", text: "4.9/5 — ٢٣,٠٠٠+ تقييم" },
-            { icon: "🔄", text: "إرجاع مجاني خلال ١٤ يوم" },
-            { icon: "🚚", text: "توصيل سريع خلال ٢-٣ أيام" },
+            { icon: "⭐", text: "4.9/5 — 23,000+ تقييم" },
+            { icon: "🔄", text: "إرجاع مجاني خلال 14 يوم" },
+            { icon: "🚚", text: "توصيل سريع خلال 2-3 أيام" },
           ].map((item, i) => (
             <div key={i} style={{
               display: "flex",
@@ -55,7 +55,7 @@ export default function IncreaseConversionWidget() {
           alignItems: "center",
         }}>
           <span style={{ fontSize: 14 }}>👥</span>
-          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>٣ أشخاص اشتروا هذا المنتج في آخر ساعة</span>
+          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>3 أشخاص اشتروا هذا المنتج في آخر ساعة</span>
         </div>
       </div>
 

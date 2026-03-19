@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function CrossSellWidget() {
   const suggestions = [
-    { emoji: "📱", name: "غلاف حماية للهاتف", price: "٣٩", origPrice: "٥٩", badge: "الأكثر شراءً معه" },
-    { emoji: "🛡️", name: "واقي شاشة زجاجي", price: "١٥", origPrice: null, badge: null },
-    { emoji: "🔋", name: "شاحن لاسلكي سريع", price: "٦٥", origPrice: "٨٥", badge: null },
+    { emoji: "📱", name: "غلاف حماية للهاتف", price: "39", origPrice: "59", badge: "الأكثر شراءً معه" },
+    { emoji: "🛡️", name: "واقي شاشة زجاجي", price: "15", origPrice: null, badge: null },
+    { emoji: "🔋", name: "شاحن لاسلكي سريع", price: "65", origPrice: "85", badge: null },
   ];
 
   return (
@@ -71,7 +71,7 @@ export default function CrossSellWidget() {
         border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        أضف المختارة للسلة — وفّر ٢٠ ⃁
+        أضف المختارة للسلة — وفّر 20 ⃁
       </button>
     </UseCaseWidgetPreview>
   );

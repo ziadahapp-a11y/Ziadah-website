@@ -2,8 +2,8 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function FreeShippingThresholdWidget() {
   const products = [
-    { emoji: "💍", name: "سلسال ذهب بحجر ياقوت", price: "٤٥" },
-    { emoji: "💎", name: "حلق ذهب بحجر ياقوت", price: "١٠٠" },
+    { emoji: "💍", name: "سلسال ذهب بحجر ياقوت", price: "45" },
+    { emoji: "💎", name: "حلق ذهب بحجر ياقوت", price: "100" },
   ];
 
   const progress = 69;
@@ -20,7 +20,7 @@ export default function FreeShippingThresholdWidget() {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 خل الشحن مجاني</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي ١٤٥ ريال</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي 145 ريال</span>
           </div>
           <div style={{
             height: 7,
@@ -38,7 +38,7 @@ export default function FreeShippingThresholdWidget() {
             }} />
           </div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", textAlign: "center" }}>
-            باقي ١٤٥ ريال للشحن، ضيف المنتجات
+            باقي 145 ريال للشحن، ضيف المنتجات
           </div>
         </div>
         <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة:</div>

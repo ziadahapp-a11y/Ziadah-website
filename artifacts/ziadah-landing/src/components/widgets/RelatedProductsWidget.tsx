@@ -6,13 +6,13 @@ export default function RelatedProductsWidget() {
       emoji: "🎧",
       name: "رأس شاحن وكيبل آيفون",
       reviews: "4.95 ⭐ · 4681 مراجعة",
-      price: "٢٤٠",
+      price: "240",
     },
     {
       emoji: "🔌",
       name: "سماعة رأس من آبل",
       reviews: "4.95 ⭐ · 4681 مراجعة",
-      price: "٢٤٠",
+      price: "240",
     },
   ];
 

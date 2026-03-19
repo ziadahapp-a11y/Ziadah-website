@@ -2,13 +2,13 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function BundleDealsWidget() {
   const bundle = [
-    { emoji: "💄", name: "غسول وجه", origPrice: "٧٩", price: "—" },
-    { emoji: "✨", name: "سيروم فيتامين C", origPrice: "٩٩", price: "—" },
-    { emoji: "🧴", name: "مرطب بشرة SPF", origPrice: "٧١", price: "—" },
+    { emoji: "💄", name: "غسول وجه", origPrice: "79", price: "—" },
+    { emoji: "✨", name: "سيروم فيتامين C", origPrice: "99", price: "—" },
+    { emoji: "🧴", name: "مرطب بشرة SPF", origPrice: "71", price: "—" },
   ];
 
   return (
-    <UseCaseWidgetPreview title="حزمة روتين الصباح" subtitle="وفّر ٥٠ ريال على المجموعة">
+    <UseCaseWidgetPreview title="حزمة روتين الصباح" subtitle="وفّر 50 ريال على المجموعة">
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>محتويات الحزمة:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -68,7 +68,7 @@ export default function BundleDealsWidget() {
       }}>
         <div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>المجموع الأصلي</div>
-          <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", textDecoration: "line-through", fontWeight: 700 }}>﷼٢٤٩</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", textDecoration: "line-through", fontWeight: 700 }}>﷼249</div>
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{
@@ -78,11 +78,11 @@ export default function BundleDealsWidget() {
             borderRadius: 20,
             background: "rgba(124,58,237,0.3)",
             color: "#c084fc",
-          }}>وفّر ٥٠ ريال</div>
+          }}>وفّر 50 ريال</div>
         </div>
         <div style={{ textAlign: "left" }}>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>سعر الحزمة</div>
-          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>﷼١٩٩</div>
+          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>﷼199</div>
         </div>
       </div>
 
