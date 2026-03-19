@@ -9,7 +9,7 @@ interface UseCaseWidgetPreviewProps {
 export default function UseCaseWidgetPreview({ title, subtitle, children }: UseCaseWidgetPreviewProps) {
   return (
     <div style={{
-      background: "#fff",
+      background: "rgba(255,255,255,0.08)",
       border: "2px solid #7c3aed",
       borderRadius: 20,
       boxShadow: "0 8px 40px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08)",
@@ -37,7 +37,15 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         </div>
         <div style={{ width: 30 }} />
       </div>
-      <div style={{ padding: "16px", fontFamily: "var(--font, 'Tajawal', sans-serif)", direction: "rtl" }}>
+      <div style={{
+        padding: "16px",
+        fontFamily: "var(--font, 'Tajawal', sans-serif)",
+        direction: "rtl",
+        background: "rgba(255,255,255,0.15)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        borderTop: "1px solid rgba(255,255,255,0.2)",
+      }}>
         {children}
       </div>
     </div>
