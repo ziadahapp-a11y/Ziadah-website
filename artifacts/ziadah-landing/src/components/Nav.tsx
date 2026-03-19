@@ -66,49 +66,6 @@ const platformItems = [
   { label: "شوبيفاي", href: "#", enabled: false, badge: "قريباً" },
 ];
 
-const helpItems = [
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
-    ),
-    label: "الأسئلة الشائعة",
-    subtitle: "إجابات لأكثر الأسئلة تكراراً",
-    href: "/#faq",
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
-    ),
-    label: "تواصل معنا",
-    subtitle: "فريق الدعم جاهز لمساعدتك",
-    href: "/support",
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
-    ),
-    label: "البريد الإلكتروني",
-    subtitle: "راسلنا وسنرد خلال 24 ساعة",
-    href: "mailto:support@ziadah.sa",
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M9 2a7 7 0 105.47 11.59l3.47 3.47a1 1 0 001.42-1.42l-3.47-3.47A7 7 0 009 2zm0 2a5 5 0 110 10 5 5 0 010-10z" fill="currentColor"/></svg>
-    ),
-    label: "مركز المعرفة",
-    subtitle: "مقالات وشروحات تفصيلية",
-    href: "/blog",
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
-    ),
-    label: "طلب ميزة جديدة",
-    subtitle: "شاركنا أفكارك لتطوير المنصة",
-    href: "/support",
-  },
-];
-
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
   return (
     <div
@@ -212,7 +169,241 @@ function PlatformsDropdown() {
   );
 }
 
-function HelpDropdown() {
+function FeatureRequestModal({ onClose }: { onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
+    setError("");
+    try {
+      const baseUrl = import.meta.env.BASE_URL || "/";
+      const res = await fetch(`${baseUrl}api/feature-request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, description }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "فشل الإرسال");
+      }
+      setSuccess(true);
+      setTimeout(() => onClose(), 2500);
+    } catch {
+      setError("حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <div
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{
+        position: "fixed", inset: 0, zIndex: 9000,
+        background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: 20,
+      }}
+    >
+      <div style={{
+        background: "rgba(8,6,20,.98)", border: "1px solid rgba(124,58,237,.3)",
+        borderRadius: 24, padding: 40, width: "100%", maxWidth: 500,
+        position: "relative", direction: "rtl",
+        boxShadow: "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
+      }}>
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute", top: 16, left: 16,
+            background: "rgba(255,255,255,.08)", border: "none", color: "#fff",
+            width: 36, height: 36, borderRadius: 10, fontSize: 18,
+            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          ✕
+        </button>
+
+        {success ? (
+          <div style={{ textAlign: "center", padding: "20px 0" }}>
+            <div style={{
+              width: 64, height: 64, borderRadius: "50%",
+              background: "rgba(16,185,129,.15)", border: "1px solid rgba(16,185,129,.4)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              margin: "0 auto 20px", fontSize: 28,
+            }}>
+              ✓
+            </div>
+            <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 10 }}>
+              تم الإرسال بنجاح!
+            </h3>
+            <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "rgba(255,255,255,.55)", lineHeight: 1.7 }}>
+              شكراً لمشاركتك فكرتك معنا. سنراجعها ونتواصل معك قريباً.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div style={{ marginBottom: 28 }}>
+              <div style={{
+                width: 48, height: 48, borderRadius: 14,
+                background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                marginBottom: 16,
+              }}>
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="rgba(168,85,247,.8)"/>
+                </svg>
+              </div>
+              <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
+                طلب ميزة جديدة
+              </h3>
+              <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "rgba(255,255,255,.5)", lineHeight: 1.7 }}>
+                شاركنا أفكارك لتطوير المنصة وسنعمل على إضافة أفضل الاقتراحات.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                  الاسم
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  placeholder="اسمك الكريم"
+                  style={{
+                    width: "100%", padding: "12px 16px",
+                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
+                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    outline: "none", direction: "rtl", boxSizing: "border-box",
+                  }}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
+                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                  البريد الإلكتروني
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="example@email.com"
+                  style={{
+                    width: "100%", padding: "12px 16px",
+                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
+                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    outline: "none", direction: "ltr", textAlign: "right", boxSizing: "border-box",
+                  }}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
+                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                />
+              </div>
+
+              <div>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                  وصف الميزة المطلوبة
+                </label>
+                <textarea
+                  required
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  placeholder="اشرح الميزة التي تودّ إضافتها وكيف ستفيد متجرك..."
+                  rows={4}
+                  style={{
+                    width: "100%", padding: "12px 16px",
+                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
+                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    outline: "none", direction: "rtl", resize: "vertical", boxSizing: "border-box",
+                  }}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
+                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                />
+              </div>
+
+              {error && (
+                <div style={{
+                  padding: "10px 14px", borderRadius: 10,
+                  background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)",
+                  color: "#f87171", fontFamily: "var(--font)", fontSize: 13,
+                }}>
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={sending}
+                style={{
+                  width: "100%", padding: "14px",
+                  background: sending ? "rgba(124,58,237,.4)" : "linear-gradient(135deg,#7c3aed,#5b21b6)",
+                  border: "none", borderRadius: 50, color: "#fff",
+                  fontFamily: "var(--font)", fontSize: 15, fontWeight: 700,
+                  cursor: sending ? "not-allowed" : "pointer",
+                  transition: "all .25s", marginTop: 4,
+                  boxShadow: sending ? "none" : "0 0 30px rgba(124,58,237,.4)",
+                }}
+              >
+                {sending ? "جاري الإرسال..." : "إرسال الطلب"}
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
+  const helpItems = [
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
+      ),
+      label: "الأسئلة الشائعة",
+      subtitle: "إجابات لأكثر الأسئلة تكراراً",
+      href: "/#faq",
+      isModal: false,
+    },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
+      ),
+      label: "تواصل معنا",
+      subtitle: "فريق الدعم جاهز لمساعدتك",
+      href: "/support",
+      isModal: false,
+    },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
+      ),
+      label: "البريد الإلكتروني",
+      subtitle: "راسلنا وسنرد خلال 24 ساعة",
+      href: "mailto:support@ziadah.app",
+      isModal: false,
+    },
+    {
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
+      ),
+      label: "طلب ميزة جديدة",
+      subtitle: "شاركنا أفكارك لتطوير المنصة",
+      href: "#",
+      isModal: true,
+    },
+  ];
+
   return (
     <div style={{
       position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 300,
@@ -220,24 +411,48 @@ function HelpDropdown() {
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
       boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
-      {helpItems.map((item) => (
-        <Link
-          key={item.label}
-          href={item.href}
-          style={{
-            display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-            borderRadius: 12, textDecoration: "none", transition: "background .2s",
-          }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-        >
-          <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
-          </div>
-        </Link>
-      ))}
+      {helpItems.map((item) => {
+        if (item.isModal) {
+          return (
+            <button
+              key={item.label}
+              onClick={onFeatureRequest}
+              style={{
+                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
+                borderRadius: 12, background: "transparent", border: "none",
+                cursor: "pointer", width: "100%", transition: "background .2s",
+                textAlign: "right",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+              </div>
+            </button>
+          );
+        }
+        return (
+          <Link
+            key={item.label}
+            href={item.href}
+            style={{
+              display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
+              borderRadius: 12, textDecoration: "none", transition: "background .2s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }
@@ -246,7 +461,6 @@ const mobileNavItems = [
   { label: "الرئيسة", href: "/", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
   { label: "حالات الاستخدام", href: "/features", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> },
   { label: "قصص النجاح", href: "/success-stories", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
-  { label: "المدونة", href: "/blog", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
   { label: "حاسبة الأثر", href: "/calculator", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg> },
 ];
 
@@ -472,6 +686,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -508,6 +723,8 @@ export default function Nav() {
 
   return (
     <>
+      {featureModalOpen && <FeatureRequestModal onClose={() => setFeatureModalOpen(false)} />}
+
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, right: "4%", left: "4%", zIndex: 900,
@@ -607,29 +824,15 @@ export default function Nav() {
               </Link>
             </li>
 
-            {/* المدونة */}
-            <li>
-              <Link href="/blog" style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/blog" || location.startsWith("/blog/") ? "#fff" : "rgba(255,255,255,.55)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/blog" || location.startsWith("/blog/") ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
-              }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => { if (!location.startsWith("/blog")) e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
-              >
-                المدونة
-              </Link>
-            </li>
-
             {/* المساعدة */}
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button style={navBtnStyle(openDrop === "help")}>
                   المساعدة {chevron(openDrop === "help")}
                 </button>
-                {openDrop === "help" && <HelpDropdown />}
+                {openDrop === "help" && (
+                  <HelpDropdown onFeatureRequest={() => { setOpenDrop(null); setFeatureModalOpen(true); }} />
+                )}
               </DropdownWrapper>
             </li>
           </ul>

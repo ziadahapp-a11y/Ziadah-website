@@ -1851,7 +1851,7 @@ export default function Landing() {
         </div>
       </section>
       {/* HELP CENTER */}
-      <section id="help">
+      <section id="faq">
         <div className="wrap">
           <SecTag>مركز المساعدة</SecTag>
           <h2 className="st rv d1" style={{ marginBottom: 48 }}>
@@ -1988,6 +1988,7 @@ export default function Landing() {
               {faqs.map((f, i) => (
                 <div key={i} className={`fi rv d${(i % 2) + 1}`}>
                   <button
+                    type="button"
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     style={{
                       background:
