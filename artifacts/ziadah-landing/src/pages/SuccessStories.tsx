@@ -645,8 +645,6 @@ export default function SuccessStories() {
     <>
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <style>{`
-        .filter-bar::-webkit-scrollbar { display: none; }
-        .filter-bar { -ms-overflow-style: none; scrollbar-width: none; }
         .filter-btn {
           display: inline-flex;
           align-items: center;
@@ -663,6 +661,13 @@ export default function SuccessStories() {
           transition: all 0.22s ease;
           font-family: var(--font);
           backdrop-filter: blur(12px);
+        }
+        @media (max-width: 480px) {
+          .filter-btn {
+            padding: 7px 12px;
+            font-size: 12px;
+            gap: 4px;
+          }
         }
         .filter-btn:hover {
           border-color: rgba(168,85,247,.5);
@@ -791,16 +796,15 @@ export default function SuccessStories() {
       </section>
       {/* FILTER BAR */}
       <section style={{ position: "relative", zIndex: 10, paddingLeft: "5%", paddingRight: "5%", marginBottom: 16 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
             className="filter-bar rv d2"
             style={{
               display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
               gap: 8,
-              overflowX: "auto",
-              paddingBottom: 8,
-              WebkitOverflowScrolling: "touch",
             }}
           >
             {filterTabs.map(sector => (
@@ -815,17 +819,6 @@ export default function SuccessStories() {
               </button>
             ))}
           </div>
-          {/* Gradient fade indicator — RTL: appears on the left edge */}
-          <div style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            bottom: 8,
-            width: 48,
-            background: "linear-gradient(to right, var(--bg) 30%, transparent)",
-            pointerEvents: "none",
-            zIndex: 1,
-          }} />
         </div>
       </section>
       {/* STORIES */}

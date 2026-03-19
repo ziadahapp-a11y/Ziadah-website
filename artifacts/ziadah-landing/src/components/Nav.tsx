@@ -1013,13 +1013,20 @@ export default function Nav() {
       <nav className="mobile-bottom-nav">
         {mobileNavItems.map((item) => {
           const isActive = item.type === "link" && (location === item.href || (item.href === "/" && location === "/"));
-          const isDropdownActive = item.type === "dropdown" && moreOpen;
+          const dropdownKey = item.type === "dropdown" && "dropdownKey" in item ? item.dropdownKey : undefined;
+          const isDropdownActive = item.type === "dropdown" && moreOpen && moreInitialAccordion === dropdownKey;
           return (
             <span
               key={item.label}
               onClick={() => {
-                if (item.type === "dropdown") {
-                  setMoreOpen(!moreOpen);
+                if (item.type === "dropdown" && dropdownKey !== undefined) {
+                  if (moreOpen && moreInitialAccordion === dropdownKey) {
+                    setMoreOpen(false);
+                    setMoreInitialAccordion(null);
+                  } else {
+                    setMoreInitialAccordion(dropdownKey);
+                    setMoreOpen(true);
+                  }
                 } else {
                   navigateTo(item.href);
                 }
