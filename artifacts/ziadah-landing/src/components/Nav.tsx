@@ -20,7 +20,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: "المنتج",
+    label: "الخصائص",
     dropdown: [
       { label: "الخصائص التفصيلية", href: "/features", desc: "الأهداف وطرق العرض والأنشطة الـ ٩" },
       { label: "حالات الاستخدام", href: "/features#usecases", desc: "حسب قطاع متجرك" },
