@@ -26,6 +26,7 @@ import Addons from "@/pages/use-cases/Addons";
 import BuyTogether from "@/pages/use-cases/BuyTogether";
 import BundleDeals from "@/pages/use-cases/BundleDeals";
 import BuyMoreSaveMore from "@/pages/use-cases/BuyMoreSaveMore";
+import CheckoutPage from "@/pages/use-cases/CheckoutPage";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -65,6 +66,7 @@ function Router() {
       <Route path="/use-cases/buy-together" component={BuyTogether} />
       <Route path="/use-cases/bundle-deals" component={BundleDeals} />
       <Route path="/use-cases/buy-more-save-more" component={BuyMoreSaveMore} />
+      <Route path="/use-cases/checkout" component={CheckoutPage} />
       <Route component={NotFound} />
     </Switch>
   );

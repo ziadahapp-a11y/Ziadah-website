@@ -25,6 +25,7 @@ const useCasesDropdown: { sections: UseCaseSection[] } = {
       items: [
         { label: "صفحة المنتج", href: "/use-cases/product-page" },
         { label: "صفحة السلة", href: "/use-cases/cart" },
+        { label: "صفحة الدفع", href: "/use-cases/checkout" },
         { label: "صفحة الشكر", href: "/use-cases/thank-you" },
         { label: "الصفحة الرئيسية", href: "/use-cases/home" },
         { label: "صفحة التصنيف", href: "/use-cases/category" },
