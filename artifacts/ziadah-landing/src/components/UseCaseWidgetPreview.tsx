@@ -10,19 +10,22 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
   return (
     <div
       style={{
-        background: "rgba(255,255,255,0.08)",
+        background: "rgba(6,1,13,0.85)",
         border: "2px solid #7c3aed",
         borderRadius: 20,
         boxShadow: "0 8px 40px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08)",
         overflow: "hidden",
         direction: "rtl",
-        minWidth: 280,
+        width: "100%",
         maxWidth: 360,
         margin: "0 auto",
       }}
-      className="text-right mt-[0px] mb-[0px] bg-[#06010d26]">
+      className="text-right mt-[0px] mb-[0px]">
       <div style={{
-        background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
+        background: "linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(91,33,182,0.35) 100%)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderBottom: "1px solid rgba(124,58,237,0.3)",
         padding: "12px 18px",
         display: "flex",
         alignItems: "center",
@@ -44,12 +47,12 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
           padding: "16px",
           fontFamily: "var(--font, 'Tajawal', sans-serif)",
           direction: "rtl",
-          background: "rgba(255,255,255,0.15)",
+          background: "rgba(255,255,255,0.04)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderTop: "1px solid rgba(255,255,255,0.2)",
+          borderTop: "1px solid rgba(255,255,255,0.1)",
         }}
-        className="ml-[10px] mr-[10px] border-t-[0px] mt-[9px] mb-[9px] pt-[16px] pb-[16px] bg-[#09021ae8]">
+        className="ml-[10px] mr-[10px] border-t-[0px] mt-[9px] mb-[9px] pt-[16px] pb-[16px]">
         {children}
       </div>
     </div>

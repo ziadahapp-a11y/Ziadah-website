@@ -1,25 +1,35 @@
+import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
+const initialProducts = [
+  {
+    emoji: "👕",
+    name: "ستر قميص رجالية بنمط حطابي",
+    reviews: "4.95 ⭐ · 4681 مراجعة",
+    price: 240,
+    originalPrice: null as number | null,
+    checked: true,
+    tag: "هذا المنتج",
+  },
+  {
+    emoji: "👟",
+    name: "حذاء لويفي أون رانتيو كلاود",
+    reviews: "4.95 ⭐ · 4984 مراجعة",
+    price: 2451,
+    originalPrice: 3154,
+    checked: true,
+    tag: null as string | null,
+  },
+];
+
 export default function BuyTogetherWidget() {
-  const products = [
-    {
-      emoji: "👕",
-      name: "ستر قميص رجالية بنمط حطابي",
-      reviews: "4.95 ⭐ · 4681 مراجعة",
-      price: "٢٤٠",
-      checked: true,
-      tag: "هذا المنتج",
-    },
-    {
-      emoji: "👟",
-      name: "حذاء لويفي أون رانتيو كلاود",
-      reviews: "4.95 ⭐ · 4984 مراجعة",
-      price: "٢٤٥١",
-      originalPrice: "٣١٥٤",
-      checked: true,
-      tag: null,
-    },
-  ];
+  const [products, setProducts] = useState(initialProducts);
+
+  const toggle = (idx: number) => {
+    setProducts(prev => prev.map((p, i) => i === idx ? { ...p, checked: !p.checked } : p));
+  };
+
+  const total = products.filter(p => p.checked).reduce((s, p) => s + p.price, 0);
 
   return (
     <UseCaseWidgetPreview title="منتجات يتم شراؤها معاً" subtitle="اشتروا معاً">
@@ -27,14 +37,16 @@ export default function BuyTogetherWidget() {
         <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>منتجات يفضلها العملاء معاً</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
-            <div key={i} style={{
+            <div key={i} onClick={() => toggle(i)} style={{
               display: "flex",
               gap: 10,
               padding: "10px",
               borderRadius: 12,
-              background: "rgba(255,255,255,.06)",
-              border: "1.5px solid rgba(255,255,255,.12)",
+              background: p.checked ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.06)",
+              border: p.checked ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid rgba(255,255,255,.12)",
               alignItems: "center",
+              cursor: "pointer",
+              transition: "all .2s ease",
             }}>
               <div style={{
                 width: 18,
@@ -45,6 +57,7 @@ export default function BuyTogetherWidget() {
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
+                transition: "all .2s ease",
               }}>
                 {p.checked && <span style={{ color: "#fff", fontSize: 10, fontWeight: 900 }}>✓</span>}
               </div>
@@ -82,8 +95,8 @@ export default function BuyTogetherWidget() {
         fontWeight: 800,
         border: "none",
         cursor: "pointer",
-      }}>
-        اشتر المجموعة الكاملة — ⃁٢٦٩١
+      }} className="widget-btn">
+        اشتر المجموعة الكاملة — ⃁{total}
       </button>
     </UseCaseWidgetPreview>
   );

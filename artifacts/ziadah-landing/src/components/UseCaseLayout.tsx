@@ -63,6 +63,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <div className="noise"/>
       <ParticleBackground />
       <Nav />
+
       {/* HERO */}
       <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
@@ -80,6 +81,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           {data.hero.tagline}
         </div>
       </section>
+
       {/* WHAT WE DO */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
@@ -92,12 +94,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </div>
         </div>
       </section>
+
       {/* STATS */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div className="uc-stats-grid" style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(data.stats.length, 4)}, 1fr)`, gap: 16 }}>
+          <div className="uc-stats-grid rv">
             {data.stats.map((s, i) => (
-              <div key={i} className={`gc rv d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
+              <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
                 <div className="shine"/>
                 <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>{s.value}</div>
                 <div style={{ fontSize: 13, color: "var(--td)" }}>{s.label}</div>
@@ -106,6 +109,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </div>
         </div>
       </section>
+
       {/* STRATEGIES */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -126,6 +130,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </div>
         </div>
       </section>
+
       {/* EXAMPLE SCENARIO */}
       {data.exampleScenario && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
@@ -141,9 +146,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 {data.exampleScenario.steps.map((step, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                     <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
-                    <p
-                      style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}
-                      className="text-[16px] pb-[4px]">{step}</p>
+                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>{step}</p>
                   </div>
                 ))}
               </div>
@@ -155,6 +158,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </div>
         </section>
       )}
+
       {/* PLANS */}
       {data.plans && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
@@ -173,8 +177,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </div>
         </section>
       )}
+
       {/* EXTRA SECTIONS */}
       {data.extraSections}
+
       {/* CTA */}
       <section className="cta-sec" style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
@@ -193,6 +199,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <p className="cta-note">تجربة مجانية 14 يوم • بدون بطاقة</p>
         </div>
       </section>
+
       {/* FOOTER */}
       <footer>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -215,8 +222,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <Link href="/use-cases/product-page" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة المنتج</Link>
               <Link href="/use-cases/cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة السلة</Link>
               <Link href="/use-cases/cross-sell" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>البيع المتقاطع</Link>
-              <Link href="/use-cases/add-to-cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>إضافة للسلة</Link>
-              <Link href="/use-cases/remove-from-cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الحذف من السلة</Link>
             </div>
             <div className="ft-col">
               <h4>الدعم</h4>

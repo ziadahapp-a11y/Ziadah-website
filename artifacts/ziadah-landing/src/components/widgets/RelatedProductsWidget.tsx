@@ -59,7 +59,7 @@ export default function RelatedProductsWidget() {
                 border: "none",
                 cursor: "pointer",
                 flexShrink: 0,
-              }}>
+              }} className="widget-btn-sm">
                 أضف للسلة
               </button>
             </div>

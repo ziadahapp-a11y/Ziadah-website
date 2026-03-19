@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import CrossSellWidget from "../../components/widgets/CrossSellWidget";
 
 const data: UseCasePageData = {
   hero: {
@@ -55,6 +56,18 @@ const data: UseCasePageData = {
     result: "في جميع هذه الأمثلة، معدل قبول الاقتراح المتقاطع بين 25 و45٪ — كل قبول واحد يساوي طلباً إضافياً بدون تكلفة تسويق.",
   },
   extraSections: (
+    <>
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
+          مثال حي
+        </div>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر البيع المتقاطع للعميل؟</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة ويدجت البيع المتقاطع كما يراها عميلك فعلياً</p>
+        <CrossSellWidget />
+      </div>
+    </section>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
@@ -65,10 +78,7 @@ const data: UseCasePageData = {
               <div style={{ fontSize: 18, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>🔗 البيع المتقاطع (Cross-sell)</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"].map((item, i) => (
-                  <li
-                    key={i}
-                    style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}
-                    className="text-[16px]">
+                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
                   </li>
                 ))}
@@ -78,10 +88,7 @@ const data: UseCasePageData = {
               <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>⬆️ البيع البديل (Upsell)</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"].map((item, i) => (
-                  <li
-                    key={i}
-                    style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}
-                    className="text-[16px]">
+                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
                   </li>
                 ))}
@@ -91,6 +98,7 @@ const data: UseCasePageData = {
         </div>
       </div>
     </section>
+    </>
   ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل البيع المتقاطع في متجرك اليوم",

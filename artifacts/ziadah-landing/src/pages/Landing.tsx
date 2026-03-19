@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
 import HomeCalculator from "../components/HomeCalculator";
-import PlatformPickerButton from "../components/PlatformPickerButton";
 import TeamSection from "../components/TeamSection";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
@@ -100,29 +99,6 @@ function SecTag({ children }: { children: React.ReactNode }) {
 export default function Landing() {
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const section = params.get("section");
-    const hash = window.location.hash.replace(/^#/, "");
-    const target = section || hash;
-
-    if (!target) return;
-
-    const timer = setTimeout(() => {
-      const el = document.getElementById(target);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-      if (section) {
-        const url = new URL(window.location.href);
-        url.searchParams.delete("section");
-        window.history.replaceState({}, "", url.toString());
-      }
-    }, 150);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -369,12 +345,14 @@ export default function Landing() {
             جهازه، مشترياته السابقة، و....
           </p>
           <div className="hero-ctas">
-            <PlatformPickerButton
-              mode="split"
+            <a
+              href="https://apps.zid.sa/application/1826"
+              target="_blank"
+              rel="noreferrer"
               className="btn-p"
-              style={{ padding: "15px 36px", fontSize: 16, fontWeight: 800 }}
-              splitStyle={{ gap: 12 }}
-            />
+            >
+              فعّل الذكاء الاصطناعي الآن
+            </a>
             <a href="#hiw" className="btn-g">
               شوف كيف يعمل
             </a>
@@ -628,7 +606,9 @@ export default function Landing() {
               <br />
               في متجرك
             </h2>
-            <p className="ssub rv d2">هذا الي يطلع لعملاؤك فعلياً داخل المتجر</p>
+            <p className="ssub rv d2">
+              هكذا تبدو الويدجتات التي يراها عملاؤك فعلياً داخل المتجر
+            </p>
           </div>
         </div>
         {(() => {
@@ -1640,7 +1620,7 @@ export default function Landing() {
                   "المنتجات الرهيبة ما تتحرك بسرعة",
                   "تكلفة تسويق عالية لكل بيع إضافي",
                 ].map((t) => (
-                  <div key={t} className="ba-row ba-row-b text-[16px]">
+                  <div key={t} className="ba-row ba-row-b">
                     {t}
                   </div>
                 ))}
@@ -1676,7 +1656,7 @@ export default function Landing() {
                   "حركة المخزون تتسارع بدون جهد",
                   "تكلفة تسويق صفر ⃁ على البيع الإضافي",
                 ].map((t) => (
-                  <div key={t} className="ba-row ba-row-a text-[16px]">
+                  <div key={t} className="ba-row ba-row-a">
                     {t}
                   </div>
                 ))}
@@ -1869,21 +1849,18 @@ export default function Landing() {
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
-                {p.cta === "تواصل معنا" ? (
-                  <a
-                    href="#"
-                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                  >
-                    {p.cta}
-                  </a>
-                ) : (
-                  <PlatformPickerButton
-                    mode="dropdown"
-                    label={p.cta}
-                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                    wrapperStyle={{ display: "block", width: "100%" }}
-                  />
-                )}
+                <a
+                  href={
+                    p.cta === "تواصل معنا"
+                      ? "#"
+                      : "https://apps.zid.sa/application/1826"
+                  }
+                  target={p.cta === "تواصل معنا" ? undefined : "_blank"}
+                  rel="noreferrer"
+                  className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                >
+                  {p.cta}
+                </a>
               </GlassCard>
             ))}
           </div>

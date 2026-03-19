@@ -53,7 +53,7 @@ export default function CouponWidget() {
         alignItems: "center",
         justifyContent: "center",
         gap: 6,
-      }}>
+      }} className="widget-btn">
         <span>📋</span> انسخ الكود
       </button>
     </UseCaseWidgetPreview>

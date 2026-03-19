@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import IncreaseAOVWidget from "../../components/widgets/IncreaseAOVWidget";
 
 const data: UseCasePageData = {
   hero: {
@@ -60,6 +61,19 @@ const data: UseCasePageData = {
     ],
     result: "25,000 ⃁ شهرياً = 300,000 ⃁ سنوياً — مجرد تحسين متوسط السلة بـ 20٪.",
   },
+  extraSections: (
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
+          مثال حي
+        </div>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يُحرّك زيادة العميل لرفع سلّته؟</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو ويدجت رفع متوسط الطلب كما يراه عميلك فعلياً</p>
+        <IncreaseAOVWidget />
+      </div>
+    </section>
+  ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع متوسط سلتك بـ 20٪ في الشهر الأول",
   ctaDesc: "أدوات Upsell وCombo وعتبة الشحن جاهزة — فعّلها الآن.",

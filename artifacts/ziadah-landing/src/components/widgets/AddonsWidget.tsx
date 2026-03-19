@@ -1,12 +1,21 @@
+import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
+const initialAddons = [
+  { emoji: "📱", name: "غلاف حماية للهاتف", price: 39, checked: true },
+  { emoji: "🔋", name: "شاحن لاسلكي سريع", price: 65, checked: false },
+  { emoji: "🎧", name: "سماعة لاسلكية", price: 89, checked: true },
+  { emoji: "🛡️", name: "واقي شاشة زجاجي", price: 15, checked: false },
+];
+
 export default function AddonsWidget() {
-  const addons = [
-    { emoji: "📱", name: "غلاف حماية للهاتف", price: "+٣٩ ⃁", checked: true },
-    { emoji: "🔋", name: "شاحن لاسلكي سريع", price: "+٦٥ ⃁", checked: false },
-    { emoji: "🎧", name: "سماعة لاسلكية", price: "+٨٩ ⃁", checked: true },
-    { emoji: "🛡️", name: "واقي شاشة زجاجي", price: "+١٥ ⃁", checked: false },
-  ];
+  const [addons, setAddons] = useState(initialAddons);
+
+  const toggle = (idx: number) => {
+    setAddons(prev => prev.map((a, i) => i === idx ? { ...a, checked: !a.checked } : a));
+  };
+
+  const total = addons.filter(a => a.checked).reduce((s, a) => s + a.price, 0);
 
   return (
     <UseCaseWidgetPreview title="إضافات مكملة للمنتج" subtitle="لاتنسَ تضيف المجموعة كاملة">
@@ -16,7 +25,7 @@ export default function AddonsWidget() {
           className="mt-[8px] text-[9px]">إضافات تكميلية للمنتج</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
-            <div key={i} style={{
+            <div key={i} onClick={() => toggle(i)} style={{
               display: "flex",
               alignItems: "center",
               gap: 9,
@@ -24,6 +33,8 @@ export default function AddonsWidget() {
               borderRadius: 10,
               background: a.checked ? "rgba(124,58,237,.15)" : "rgba(255,255,255,.05)",
               border: a.checked ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid rgba(255,255,255,.1)",
+              cursor: "pointer",
+              transition: "all .2s ease",
             }}>
               <div style={{
                 width: 17,
@@ -34,6 +45,7 @@ export default function AddonsWidget() {
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
+                transition: "all .2s ease",
               }}>
                 {a.checked && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
               </div>
@@ -41,7 +53,7 @@ export default function AddonsWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>{a.price}</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} ⃁</div>
             </div>
           ))}
         </div>
@@ -57,7 +69,7 @@ export default function AddonsWidget() {
         marginBottom: 10,
       }}>
         <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>الإجمالي مع الإضافات</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+١٢٨ ر</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} ر</span>
       </div>
       <button style={{
         width: "100%",
@@ -69,7 +81,7 @@ export default function AddonsWidget() {
         fontWeight: 800,
         border: "none",
         cursor: "pointer",
-      }}>
+      }} className="widget-btn">
         أضف الإضافات المختارة للسلة
       </button>
     </UseCaseWidgetPreview>

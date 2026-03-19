@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import { Link } from "wouter";
-import PlatformPickerButton from "./PlatformPickerButton";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -146,10 +145,14 @@ export default function HomeCalculator() {
                   <Link href="/calculator" className="hc-btn-primary">
                     حاسبة تفصيلية ←
                   </Link>
-                  <PlatformPickerButton
-                    mode="split"
+                  <a
+                    href="https://apps.zid.sa/app/ziadah"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="hc-btn-secondary"
-                  />
+                  >
+                    ابدأ مجاناً
+                  </a>
                 </div>
               </div>
             </div>
