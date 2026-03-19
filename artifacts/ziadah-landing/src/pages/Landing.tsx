@@ -333,10 +333,10 @@ export default function Landing() {
             </span>
           </div>
           <h1 className="ht pt-[0px] pb-[0px]">
-            مسوّق داخل متجرك
+            تسويق منتجاتك
             <em>بالذكاء الاصطناعي</em>
             <span className="grad mt-[10px] mb-[10px] pt-[10px] pb-[10px]">
-              أخبر منك بعميلك
+              داخل متجرك
             </span>
           </h1>
           <p className="hero-sub">
