@@ -42,7 +42,7 @@ export default function Support() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", overflow: "hidden" }}>
         {/* Glow */}
         <div style={{ position: "absolute", width: 900, height: 600, background: "radial-gradient(ellipse,rgba(124,58,237,.18) 0%,rgba(124,58,237,.05) 45%,transparent 70%)", top: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
 
