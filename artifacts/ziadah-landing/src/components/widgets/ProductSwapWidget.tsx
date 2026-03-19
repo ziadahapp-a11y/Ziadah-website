@@ -43,7 +43,7 @@ export default function ProductSwapWidget() {
               <div style={{ fontSize: 11, fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>رأس شاحن وكيبل آيفون</div>
               <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>4.95 ⭐ · 4681 مراجعة</div>
               <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 4 }}>
-                <span style={{ fontSize: 14, fontWeight: 900, color: "#111827" }}>꜁٢٤٠</span>
+                <span style={{ fontSize: 14, fontWeight: 900, color: "#111827" }}>⃁٢٤٠</span>
                 <span style={{
                   fontSize: 9,
                   padding: "2px 7px",
@@ -51,7 +51,7 @@ export default function ProductSwapWidget() {
                   background: "#dcfce7",
                   color: "#16a34a",
                   fontWeight: 700,
-                }}>وفّر ٤٠ ꜁</span>
+                }}>وفّر ٤٠ ⃁</span>
               </div>
             </div>
           </div>

@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function BuyMoreSaveMoreWidget() {
   const options = [
-    { qty: "اشترِ 1", label: "بدون خصم", price: "٤٩ ꜁", badge: null, selected: false },
-    { qty: "اشترِ 2", label: "خصم ٢٠٪", price: "٧٩ ꜁", badge: "-٢٠٪", selected: true },
-    { qty: "اشترِ 3", label: "خصم ٣٠٪ + شحن مجاني", price: "١٠٣ ꜁", badge: "-٣٠٪", selected: false },
+    { qty: "اشترِ 1", label: "بدون خصم", price: "٤٩ ⃁", badge: null, selected: false },
+    { qty: "اشترِ 2", label: "خصم ٢٠٪", price: "٧٩ ⃁", badge: "-٢٠٪", selected: true },
+    { qty: "اشترِ 3", label: "خصم ٣٠٪ + شحن مجاني", price: "١٠٣ ⃁", badge: "-٣٠٪", selected: false },
   ];
 
   return (

@@ -10,7 +10,7 @@ function fmt(n: number, decimals = 0): string {
 }
 
 function fmtCurrency(n: number): string {
-  return fmt(Math.round(n)) + " ꜁";
+  return fmt(Math.round(n)) + " ⃁";
 }
 
 function fmtPct(n: number, decimals = 1): string {
@@ -234,7 +234,7 @@ export default function Calculator() {
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " ꜁",
+      display: fmt(aov) + " ⃁",
       color: "#a855f7",
       colorRgb: "168,85,247",
     },

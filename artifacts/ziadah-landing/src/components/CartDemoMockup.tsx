@@ -213,7 +213,7 @@ export default function CartDemoMockup() {
                       }}
                     >
                       200{" "}
-                      <span style={{ fontSize: 11, fontWeight: 700 }}>꜁</span>
+                      <span style={{ fontSize: 11, fontWeight: 700 }}>⃁</span>
                     </div>
                   </div>
                 </div>
@@ -336,7 +336,7 @@ export default function CartDemoMockup() {
                   <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginRight: 6 }}>✓</span>
                   <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>دفع عند الاستلام مجاني</span>
                   <span style={{ flex: 1 }} />
-                  <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>30 ꜁ وفر</span>
+                  <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>30 ⃁ وفر</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -418,7 +418,7 @@ export default function CartDemoMockup() {
                             }}
                           >
                             {p.price}{" "}
-                            <span style={{ fontSize: 9 }}>꜁</span>
+                            <span style={{ fontSize: 9 }}>⃁</span>
                           </span>
                           {p.originalPrice && (
                             <span
@@ -428,7 +428,7 @@ export default function CartDemoMockup() {
                                 textDecoration: "line-through",
                               }}
                             >
-                              {p.originalPrice} ꜁
+                              {p.originalPrice} ⃁
                             </span>
                           )}
                           {p.discount && (
@@ -494,7 +494,7 @@ export default function CartDemoMockup() {
                     }}
                   >
                     1165.00{" "}
-                    <span style={{ fontSize: 12 }}>꜁</span>
+                    <span style={{ fontSize: 12 }}>⃁</span>
                   </span>
                   <span
                     style={{

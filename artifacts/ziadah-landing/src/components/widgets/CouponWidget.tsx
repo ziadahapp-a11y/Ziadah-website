@@ -16,7 +16,7 @@ export default function CouponWidget() {
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "#7c3aed", lineHeight: 1 }}>٣٠ ꜁</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: "#7c3aed", lineHeight: 1 }}>٣٠ ⃁</div>
             <div style={{ fontSize: 9, color: "#6b7280", marginTop: 2 }}>خصم على طلبك الآن</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(124,58,237,.15)" }} />

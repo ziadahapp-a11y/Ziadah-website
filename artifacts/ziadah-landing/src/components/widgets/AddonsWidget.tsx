@@ -2,10 +2,10 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function AddonsWidget() {
   const addons = [
-    { emoji: "📱", name: "غلاف حماية للهاتف", price: "+٣٩ ꜁", checked: true },
-    { emoji: "🔋", name: "شاحن لاسلكي سريع", price: "+٦٥ ꜁", checked: false },
-    { emoji: "🎧", name: "سماعة لاسلكية", price: "+٨٩ ꜁", checked: true },
-    { emoji: "🛡️", name: "واقي شاشة زجاجي", price: "+١٥ ꜁", checked: false },
+    { emoji: "📱", name: "غلاف حماية للهاتف", price: "+٣٩ ⃁", checked: true },
+    { emoji: "🔋", name: "شاحن لاسلكي سريع", price: "+٦٥ ⃁", checked: false },
+    { emoji: "🎧", name: "سماعة لاسلكية", price: "+٨٩ ⃁", checked: true },
+    { emoji: "🛡️", name: "واقي شاشة زجاجي", price: "+١٥ ⃁", checked: false },
   ];
 
   return (
@@ -55,7 +55,7 @@ export default function AddonsWidget() {
         marginBottom: 10,
       }}>
         <span style={{ fontSize: 10, color: "#6b7280" }}>الإجمالي مع الإضافات</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed" }}>+١٢٨ ꜁</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed" }}>+١٢٨ ⃁</span>
       </div>
       <button style={{
         width: "100%",
