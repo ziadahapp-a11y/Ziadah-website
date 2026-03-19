@@ -1130,10 +1130,10 @@ export default function SuccessStories() {
         }
         .sticky-filter-bar {
           position: fixed;
-          top: 0;
+          top: 80px;
           right: 0;
           left: 0;
-          z-index: 100;
+          z-index: 800;
           padding: 14px 5%;
           background: rgba(10,10,20,.85);
           backdrop-filter: blur(20px);
