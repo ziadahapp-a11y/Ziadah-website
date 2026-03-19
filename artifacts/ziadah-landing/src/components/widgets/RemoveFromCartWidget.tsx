@@ -110,9 +110,11 @@ export default function RemoveFromCartWidget() {
               <button style={{
                 width: "100%", padding: "9px",
                 borderRadius: 9,
-                background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-                color: "#fff", fontSize: 11, fontWeight: 800,
-                border: "none", cursor: "pointer",
+                background: "rgba(16,185,129,0.12)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                color: "#34d399", fontSize: 14, fontWeight: 800,
+                border: "1px solid rgba(16,185,129,0.2)", cursor: "pointer",
               }}>
                 ✅ استفد من الخصم وأبقِه
               </button>

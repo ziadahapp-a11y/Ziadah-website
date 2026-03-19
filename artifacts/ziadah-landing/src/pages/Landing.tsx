@@ -627,18 +627,18 @@ export default function Landing() {
 
             const renderCard = (item: typeof allWidgets[0], key: number) => (
               <div key={key} style={{
-                width: 320,
+                width: 280,
                 flexShrink: 0,
                 display: "flex",
                 flexDirection: "column",
-                gap: 16,
-                padding: "20px",
-                borderRadius: 20,
-                background: `rgba(255,255,255,0.04)`,
-                backdropFilter: "blur(16px)",
-                WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                boxShadow: `0 0 24px 0 rgba(${item.rgb},0.08), inset 0 1px 0 rgba(255,255,255,0.07)`,
+                gap: 12,
+                padding: "16px",
+                borderRadius: 16,
+                background: `rgba(255,255,255,0.03)`,
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1px solid rgba(255,255,255,0.06)",
+                boxShadow: `0 4px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.04)`,
               }}>
                 <div
                   style={{

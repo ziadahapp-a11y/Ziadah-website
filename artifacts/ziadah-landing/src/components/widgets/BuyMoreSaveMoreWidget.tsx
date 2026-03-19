@@ -34,7 +34,7 @@ export default function BuyMoreSaveMoreWidget() {
                   height: 16,
                   borderRadius: "50%",
                   border: isSelected ? "none" : "1.5px solid rgba(255,255,255,.25)",
-                  background: isSelected ? "#7c3aed" : "transparent",
+                  background: isSelected ? "rgba(124,58,237,0.5)" : "transparent",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -54,7 +54,7 @@ export default function BuyMoreSaveMoreWidget() {
                       fontWeight: 800,
                       padding: "2px 7px",
                       borderRadius: 20,
-                      background: "#7c3aed",
+                      background: "rgba(124,58,237,0.5)",
                       color: "#fff",
                     }}>{opt.badge}</div>
                   )}

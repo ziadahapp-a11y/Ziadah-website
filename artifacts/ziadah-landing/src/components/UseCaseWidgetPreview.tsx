@@ -10,23 +10,25 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
   return (
     <div
       style={{
-        background: "rgba(6,1,13,0.85)",
-        border: "2px solid #7c3aed",
-        borderRadius: 20,
-        boxShadow: "0 8px 40px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08)",
+        background: "rgba(6,1,13,0.55)",
+        border: "1px solid rgba(124,58,237,0.15)",
+        borderRadius: 16,
+        boxShadow: "0 8px 32px rgba(124,58,237,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04)",
         overflow: "hidden",
         direction: "rtl",
         width: "100%",
-        maxWidth: 360,
+        maxWidth: 320,
         margin: "0 auto",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
       }}
       className="text-right mt-[0px] mb-[0px]">
       <div style={{
-        background: "linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(91,33,182,0.35) 100%)",
+        background: "linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(91,33,182,0.05) 100%)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(124,58,237,0.3)",
-        padding: "12px 18px",
+        borderBottom: "1px solid rgba(124,58,237,0.1)",
+        padding: "10px 16px",
         display: "flex",
         alignItems: "center",
         gap: 8,
@@ -44,13 +46,13 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
       </div>
       <div
         style={{
-          padding: "16px",
+          padding: "12px",
           fontFamily: "var(--font, 'Rubik', sans-serif)",
           direction: "rtl",
-          background: "rgba(255,255,255,0.04)",
+          background: "rgba(255,255,255,0.02)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          borderTop: "1px solid rgba(255,255,255,0.1)",
+          borderTop: "none",
         }}
         className="ml-[10px] mr-[10px] border-t-[0px] mt-[9px] mb-[9px] pt-[16px] pb-[16px]">
         {children}

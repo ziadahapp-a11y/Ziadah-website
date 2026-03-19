@@ -34,11 +34,13 @@ export default function HomePageWidget() {
             <button style={{
               padding: "5px 10px",
               borderRadius: 20,
-              background: "#7c3aed",
-              color: "#fff",
-              fontSize: 9,
+              background: "rgba(124,58,237,0.12)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              color: "#c084fc",
+              fontSize: 14,
               fontWeight: 800,
-              border: "none",
+              border: "1px solid rgba(124,58,237,0.2)",
               cursor: "pointer",
               flexShrink: 0,
             }} className="widget-btn-sm">أضف</button>

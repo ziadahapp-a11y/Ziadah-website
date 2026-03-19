@@ -68,11 +68,11 @@ export default function CategoryPageWidget() {
               <button style={{
                 padding: "5px 10px",
                 borderRadius: 20,
-                background: p.hot ? "#7c3aed" : "rgba(255,255,255,.1)",
-                color: "#fff",
-                fontSize: 9,
+                background: p.hot ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,.1)",
+                color: p.hot ? "#c084fc" : "#fff",
+                fontSize: 14,
                 fontWeight: 800,
-                border: "none",
+                border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "none",
                 cursor: "pointer",
                 flexShrink: 0,
               }} className="widget-btn-sm">سلة</button>

@@ -43,7 +43,7 @@ export default function BundleDealsWidget() {
                 width: 16,
                 height: 16,
                 borderRadius: "50%",
-                background: "#7c3aed",
+                background: "rgba(124,58,237,0.5)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -76,8 +76,8 @@ export default function BundleDealsWidget() {
             fontWeight: 800,
             padding: "3px 10px",
             borderRadius: 20,
-            background: "#7c3aed",
-            color: "#fff",
+            background: "rgba(124,58,237,0.3)",
+            color: "#c084fc",
           }}>وفّر ٥٠ ريال</div>
         </div>
         <div style={{ textAlign: "left" }}>
@@ -90,11 +90,13 @@ export default function BundleDealsWidget() {
         width: "100%",
         padding: "10px",
         borderRadius: 12,
-        background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
-        color: "#fff",
-        fontSize: 11,
+        background: "rgba(124,58,237,0.12)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        color: "#c084fc",
+        fontSize: 14,
         fontWeight: 800,
-        border: "none",
+        border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         🎁 أضف الحزمة للسلة

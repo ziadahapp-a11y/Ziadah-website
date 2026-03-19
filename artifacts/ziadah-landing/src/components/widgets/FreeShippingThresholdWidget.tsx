@@ -33,7 +33,7 @@ export default function FreeShippingThresholdWidget() {
               height: "100%",
               width: `${progress}%`,
               borderRadius: 10,
-              background: "linear-gradient(90deg, #7c3aed, #a855f7)",
+              background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))",
               transition: "width .5s ease",
             }} />
           </div>

@@ -107,9 +107,11 @@ export default function AddToCartWidget() {
               <button style={{
                 width: "100%", padding: "8px",
                 borderRadius: 9,
-                background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
-                color: "#fff", fontSize: 11, fontWeight: 800,
-                border: "none", cursor: "pointer",
+                background: "rgba(124,58,237,0.12)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                color: "#c084fc", fontSize: 14, fontWeight: 800,
+                border: "1px solid rgba(124,58,237,0.2)", cursor: "pointer",
               }}>
                 + أضف السيروم للسلة
               </button>

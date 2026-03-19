@@ -18,7 +18,7 @@ export default function IncreaseAOVWidget() {
             <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي ١١٤ ⃁</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "rgba(255,255,255,.12)", overflow: "hidden", marginBottom: 3 }}>
-            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, #7c3aed, #a855f7)" }} />
+            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))" }} />
           </div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
             ٦٢٪ من عتبة الشحن المجاني

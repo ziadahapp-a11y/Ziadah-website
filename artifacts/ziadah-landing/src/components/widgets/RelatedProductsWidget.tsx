@@ -52,11 +52,13 @@ export default function RelatedProductsWidget() {
               <button style={{
                 padding: "6px 12px",
                 borderRadius: 20,
-                background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
-                color: "#fff",
-                fontSize: 9,
+                background: "rgba(124,58,237,0.12)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                color: "#c084fc",
+                fontSize: 14,
                 fontWeight: 800,
-                border: "none",
+                border: "1px solid rgba(124,58,237,0.2)",
                 cursor: "pointer",
                 flexShrink: 0,
               }} className="widget-btn-sm">

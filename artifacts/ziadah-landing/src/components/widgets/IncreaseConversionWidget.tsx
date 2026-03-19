@@ -63,11 +63,13 @@ export default function IncreaseConversionWidget() {
         width: "100%",
         padding: "10px",
         borderRadius: 12,
-        background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-        color: "#fff",
-        fontSize: 12,
+        background: "rgba(16,185,129,0.12)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        color: "#34d399",
+        fontSize: 14,
         fontWeight: 800,
-        border: "none",
+        border: "1px solid rgba(16,185,129,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         اشترِ الآن واحصل على الخصم
