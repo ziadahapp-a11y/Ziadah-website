@@ -358,8 +358,8 @@ export default function Landing() {
               {
                 step: "الخطوة ١",
                 title: "فعّل التطبيق",
-                desc: "بضغطة زر واحدة في منصة زد أو سلة. لا إعداد تقني، لا تكوين مسبق، لا خبرة مطلوبة.",
-                chip: "٣٠ ثانية فقط",
+                desc: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة, مايحتاج خبرة تقنية..",
+                chip: "30 ثانية فقط",
                 icon: (
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <rect
@@ -409,7 +409,7 @@ export default function Landing() {
               {
                 step: "الخطوة ٢",
                 title: "الذكاء الاصطناعي يتعلم",
-                desc: "يدرس كل عميل - منطقته، جهازه، مشترياته، وأنماط تصفحه. يبدأ فوراً بدون أي تدخل منك.",
+                desc: "يحلل كل عميل - منطقته، جهازه، مشترياته، وأنماط تصفحه, وأسرار خاصة فينا, ويبدأ مباشرة بدون أي تدخل منك.",
                 chip: "تعلم مستمر يومياً",
                 icon: (
                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
@@ -972,7 +972,7 @@ export default function Landing() {
                         </svg>
                       </div>
                       <div className="demo-sb">
-                        <div className="demo-sn">حذاء Adidas Ultraboost</div>
+                        <div className="demo-sn">عرض الكولاجين </div>
                         <div className="demo-sw">
                           يكمل مشروب البروتين في سلتك
                         </div>
@@ -1481,7 +1481,7 @@ export default function Landing() {
                         </svg>
                       </div>
                       <div className="demo-sb">
-                        <div className="demo-sn">باليت Huda Beauty</div>
+                        <div className="demo-sn">باليت مكياج </div>
                         <div className="demo-sw">يكمل العطر الذي اشترته</div>
                       </div>
                       <div className="demo-sp">٢٨٩ ر.س</div>
@@ -1522,7 +1522,7 @@ export default function Landing() {
                         </svg>
                       </div>
                       <div className="demo-sb">
-                        <div className="demo-sn">كريم La Mer مرطب</div>
+                        <div className="demo-sn">كريم يوسرين مرطب</div>
                         <div className="demo-sw">مقترن مع كريمك في السلة</div>
                       </div>
                       <div className="demo-sp">٤٤٩ ر.س</div>
@@ -1606,7 +1606,7 @@ export default function Landing() {
                     </svg>
                   </div>
                   <div>
-                    <div className="gp-title">الأهداف (Goals)</div>
+                    <div className="gp-title">الأهداف</div>
                     <div className="gp-sub">ماذا نحقق من كل عميل؟</div>
                   </div>
                 </div>
@@ -1678,7 +1678,7 @@ export default function Landing() {
                     </svg>
                   </div>
                   <div>
-                    <div className="gp-title">طرق العرض (Presentations)</div>
+                    <div className="gp-title">طرق العرض</div>
                     <div className="gp-sub">كيف يُعرض المنتج على العميل؟</div>
                   </div>
                 </div>
