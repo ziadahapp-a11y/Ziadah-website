@@ -113,12 +113,12 @@ export default function RemoveFromCartWidget() {
                 <span>{tr.offerExpires}</span>
               </div>
               <button style={{
-                width: "100%", padding: "9px",
+                width: "100%", padding: "7px 10px",
                 borderRadius: 9,
                 background: "rgba(16,185,129,0.12)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                color: "#34d399", fontSize: 14, fontWeight: 800,
+                color: "#34d399", fontSize: 11, fontWeight: 800,
                 border: "1px solid rgba(16,185,129,0.2)", cursor: "pointer",
               }}>
                 {tr.btnAccept}
