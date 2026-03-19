@@ -124,7 +124,7 @@ export default function HomeCalculator() {
             <span className="stag-dot" />
             جرّب الآن
           </div>
-          <h2 className="st rv d1">احسب إيرادك الإضافي</h2>
+          <h2 className="st rv d1 font-semibold">احسب إيرادك الإضافي</h2>
           <p className="ssub rv d2">حرّك الأرقام وشوف كم تكسب إضافي كل شهر مع زيادة</p>
         </div>
 
