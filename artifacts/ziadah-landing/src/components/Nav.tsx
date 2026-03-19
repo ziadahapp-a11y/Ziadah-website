@@ -434,6 +434,26 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
             </button>
           );
         }
+        if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              style={{
+                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
+                borderRadius: 12, textDecoration: "none", transition: "background .2s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+              </div>
+            </a>
+          );
+        }
         return (
           <Link
             key={item.label}
@@ -645,21 +665,40 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المساعدة</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
-        {helpItems.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            onClick={onClose}
-            style={{
-              display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-              borderRadius: 12, background: "rgba(255,255,255,.04)",
-              textDecoration: "none",
-            }}
-          >
-            <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
-          </Link>
-        ))}
+        {helpItems.map((item) => {
+          if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={onClose}
+                style={{
+                  display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                  borderRadius: 12, background: "rgba(255,255,255,.04)",
+                  textDecoration: "none",
+                }}
+              >
+                <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+              </a>
+            );
+          }
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={onClose}
+              style={{
+                display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                borderRadius: 12, background: "rgba(255,255,255,.04)",
+                textDecoration: "none",
+              }}
+            >
+              <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+            </Link>
+          );
+        })}
       </div>
 
       <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
