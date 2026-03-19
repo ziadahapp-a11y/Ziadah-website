@@ -28,10 +28,10 @@ export default function AddToCartWidget() {
         {step === "adding" && (
           <div style={{ textAlign: "center", padding: "28px 0" }}>
             <div style={{ fontSize: 36, marginBottom: 10 }}>🛍️</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
               كريم مرطب SPF 50
             </div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginBottom: 16 }}>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,.5)", marginBottom: 16 }}>
               الكمية: ١ × ٨٩ ⃁
             </div>
             <div style={{
@@ -42,7 +42,7 @@ export default function AddToCartWidget() {
               borderRadius: 50,
               background: "rgba(124,58,237,.15)",
               border: "1px solid rgba(124,58,237,.3)",
-              fontSize: 11,
+              fontSize: 14,
               color: "var(--p4, #a855f7)",
             }}>
               <span style={{ display: "inline-block" }}>⏳</span>
@@ -60,10 +60,10 @@ export default function AddToCartWidget() {
               display: "flex", alignItems: "center", justifyContent: "center",
               margin: "0 auto 12px", fontSize: 22,
             }}>✓</div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: "#10b981", marginBottom: 4 }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: "#10b981", marginBottom: 4 }}>
               تمت الإضافة للسلة!
             </div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)" }}>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)" }}>
               كريم مرطب SPF 50
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function AddToCartWidget() {
               background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.2)",
             }}>
               <span style={{ fontSize: 14 }}>✅</span>
-              <span style={{ fontSize: 10, color: "#10b981", fontWeight: 700 }}>تمت الإضافة للسلة</span>
+              <span style={{ fontSize: 14, color: "#10b981", fontWeight: 700 }}>تمت الإضافة للسلة</span>
             </div>
             <div style={{
               padding: "12px",
@@ -86,7 +86,7 @@ export default function AddToCartWidget() {
               border: "1.5px solid rgba(168,85,247,.25)",
               backdropFilter: "blur(12px)",
             }}>
-              <div style={{ fontSize: 10, color: "#a855f7", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
+              <div style={{ fontSize: 14, color: "#a855f7", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
                 ✨ عملاء اشتروا هذا اشتروا أيضاً
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
@@ -97,18 +97,18 @@ export default function AddToCartWidget() {
                   fontSize: 22, flexShrink: 0,
                 }}>🧴</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#fff", marginBottom: 2 }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 2 }}>
                     سيروم فيتامين C المشرّق
                   </div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>يكمل الكريم بشكل مثالي</div>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>٦٥ ⃁</div>
+                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)" }}>يكمل الكريم بشكل مثالي</div>
+                  <div style={{ fontSize: 14, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>٦٥ ⃁</div>
                 </div>
               </div>
               <button style={{
                 width: "100%", padding: "8px",
                 borderRadius: 9,
                 background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
-                color: "#fff", fontSize: 11, fontWeight: 800,
+                color: "#fff", fontSize: 14, fontWeight: 800,
                 border: "none", cursor: "pointer",
               }}>
                 + أضف السيروم للسلة
@@ -120,7 +120,7 @@ export default function AddToCartWidget() {
                 width: "100%", marginTop: 10, padding: "7px",
                 borderRadius: 9, background: "transparent",
                 border: "1px solid rgba(255,255,255,.12)",
-                color: "rgba(255,255,255,.4)", fontSize: 10,
+                color: "rgba(255,255,255,.4)", fontSize: 14,
                 cursor: "pointer",
               }}
             >

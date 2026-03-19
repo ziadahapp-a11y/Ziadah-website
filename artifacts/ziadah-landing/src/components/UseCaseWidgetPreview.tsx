@@ -37,8 +37,8 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
           <div style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(255,255,255,.3)" }} />
         </div>
         <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>{title}</div>
-          {subtitle && <div style={{ fontSize: 9, color: "rgba(255,255,255,.65)", marginTop: 1 }}>{subtitle}</div>}
+          <div style={{ fontSize: 14, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>{title}</div>
+          {subtitle && <div style={{ fontSize: 14, color: "rgba(255,255,255,.65)", marginTop: 1 }}>{subtitle}</div>}
         </div>
         <div style={{ width: 30 }} />
       </div>

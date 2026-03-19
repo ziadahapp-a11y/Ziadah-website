@@ -13,7 +13,7 @@ export default function BuyMoreSaveMoreWidget() {
   return (
     <UseCaseWidgetPreview title="عروض الكميات" subtitle="اشترِ أكثر وفّر أكثر">
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>اشتر أكثر ووفّر أكثر</div>
+        <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>اشتر أكثر ووفّر أكثر</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {allOptions.map((opt, i) => {
             const isSelected = i === selected;
@@ -44,13 +44,13 @@ export default function BuyMoreSaveMoreWidget() {
                   {isSelected && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{opt.qty}</div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>{opt.label}</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{opt.qty}</div>
+                  <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)" }}>{opt.label}</div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 3 }}>
                   {opt.badge && (
                     <div style={{
-                      fontSize: 9,
+                      fontSize: 14,
                       fontWeight: 800,
                       padding: "2px 7px",
                       borderRadius: 20,
@@ -59,9 +59,9 @@ export default function BuyMoreSaveMoreWidget() {
                     }}>{opt.badge}</div>
                   )}
                   {opt.origPrice && (
-                    <div style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>{opt.origPrice}</div>
+                    <div style={{ fontSize: 14, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>{opt.origPrice}</div>
                   )}
-                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "#c084fc" : "#fff" }}>{opt.price}</div>
+                  <div style={{ fontSize: 14, fontWeight: 800, color: isSelected ? "#c084fc" : "#fff" }}>{opt.price}</div>
                 </div>
               </div>
             );
@@ -69,7 +69,7 @@ export default function BuyMoreSaveMoreWidget() {
         </div>
       </div>
       <div style={{
-        fontSize: 10,
+        fontSize: 14,
         color: "#34d399",
         background: "rgba(16,185,129,.1)",
         border: "1px solid rgba(16,185,129,.25)",

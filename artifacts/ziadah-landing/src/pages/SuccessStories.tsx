@@ -646,7 +646,7 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
               <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "var(--t)" }}>{s.store}</h3>
               <span className="platform-tag-v2">{s.platform}</span>
             </div>
-            <div style={{ fontSize: 13, color: "var(--td)", marginTop: 4 }}>
+            <div style={{ fontSize: 14, color: "var(--td)", marginTop: 4 }}>
               <span className="sector-badge-v2">
                 {SECTOR_ICONS[s.sector] || "◆"} {s.sector}
               </span>
@@ -717,7 +717,7 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
           <div className="story-person-avatar" style={{ background: s.color }}>{s.logo}</div>
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{s.person}</div>
-            <div style={{ fontSize: 12, color: "var(--td)" }}>{s.role}</div>
+            <div style={{ fontSize: 14, color: "var(--td)" }}>{s.role}</div>
           </div>
         </div>
         <button
@@ -858,7 +858,7 @@ export default function SuccessStories() {
           align-items: center;
           padding: 3px 10px;
           border-radius: 6px;
-          font-size: 11px;
+          font-size: 14px;
           font-weight: 700;
           background: rgba(255,255,255,.06);
           border: 1px solid rgba(255,255,255,.1);
@@ -868,7 +868,7 @@ export default function SuccessStories() {
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          font-size: 12px;
+          font-size: 14px;
           color: var(--td);
           font-weight: 500;
         }
@@ -904,7 +904,7 @@ export default function SuccessStories() {
           margin-bottom: 6px;
         }
         .metric-label-v2 {
-          font-size: 11px;
+          font-size: 14px;
           color: var(--td);
           font-weight: 500;
           line-height: 1.4;
@@ -932,7 +932,7 @@ export default function SuccessStories() {
           border: 1px solid rgba(124,58,237,.2);
         }
         .comparison-label-v2 {
-          font-size: 11px;
+          font-size: 14px;
           font-weight: 800;
           text-transform: uppercase;
           letter-spacing: 1px;
@@ -948,7 +948,7 @@ export default function SuccessStories() {
           align-items: center;
         }
         .comparison-key {
-          font-size: 12px;
+          font-size: 14px;
           color: var(--td);
         }
         .comparison-val {
@@ -984,7 +984,7 @@ export default function SuccessStories() {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 800;
           color: #fff;
           flex-shrink: 0;
@@ -998,7 +998,7 @@ export default function SuccessStories() {
           border: 1px solid rgba(168,85,247,.25);
           background: rgba(168,85,247,.08);
           color: #c084fc;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           cursor: pointer;
           font-family: var(--font);
@@ -1029,7 +1029,7 @@ export default function SuccessStories() {
           border-radius: 14px;
         }
         .strategy-title-v2 {
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 800;
           color: #c084fc;
           margin-bottom: 10px;
@@ -1041,7 +1041,7 @@ export default function SuccessStories() {
           border-radius: 14px;
         }
         .results-title-v2 {
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 800;
           color: #10b981;
           margin-bottom: 10px;
@@ -1049,7 +1049,7 @@ export default function SuccessStories() {
         .result-item-v2 {
           display: flex;
           gap: 8px;
-          font-size: 13px;
+          font-size: 14px;
           color: var(--tm);
           line-height: 1.6;
           align-items: flex-start;
@@ -1070,7 +1070,7 @@ export default function SuccessStories() {
           border: 1.5px solid var(--b1);
           background: var(--s1);
           color: var(--td);
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           cursor: pointer;
           white-space: nowrap;
@@ -1097,7 +1097,7 @@ export default function SuccessStories() {
           height: 20px;
           padding: 0 6px;
           border-radius: 6px;
-          font-size: 11px;
+          font-size: 14px;
           font-weight: 800;
           background: rgba(255,255,255,.15);
           line-height: 1;
@@ -1232,7 +1232,7 @@ export default function SuccessStories() {
           .metric-value-v2 { font-size: 20px !important; }
           .metric-card-v2 { padding: 12px 10px !important; }
           .sectors-grid-v2 { grid-template-columns: 1fr !important; }
-          .filter-btn-v2 { padding: 8px 12px; font-size: 12px; gap: 4px; }
+          .filter-btn-v2 { padding: 8px 12px; font-size: 14px; gap: 4px; }
           .hero-stat-v2 { padding: 14px 16px; }
           .story-footer-v2 { flex-direction: column; gap: 12px; align-items: flex-start !important; }
         }
@@ -1265,7 +1265,7 @@ export default function SuccessStories() {
             <div key={l} className="hero-stat-v2" style={{ "--accent": c } as React.CSSProperties}>
               <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
               <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
-              <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
+              <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 600 }}>{l}</div>
             </div>
           ))}
         </div>
@@ -1299,7 +1299,7 @@ export default function SuccessStories() {
               key={sector}
               className={`filter-btn-v2${activeSector === sector ? " active" : ""}`}
               onClick={() => handleSectorChange(sector)}
-              style={{ padding: "7px 14px", fontSize: 12 }}
+              style={{ padding: "7px 14px", fontSize: 14 }}
             >
               <span>{SECTOR_ICONS[sector] || "◆"}</span>
               <span>{sector}</span>
@@ -1319,7 +1319,7 @@ export default function SuccessStories() {
               </div>
               <button
                 onClick={() => handleSectorChange("الكل")}
-                style={{ fontSize: 12, color: "var(--td)", background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
+                style={{ fontSize: 14, color: "var(--td)", background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
               >
                 عرض الكل
               </button>
@@ -1359,9 +1359,9 @@ export default function SuccessStories() {
                   <div style={{ fontSize: 38, lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4, color: "var(--t)" }}>{s.name}</div>
-                    <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
+                    <div style={{ fontSize: 14, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
                     {count > 0 && (
-                      <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 14, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>
                         {count} قصة نجاح
                       </div>
                     )}

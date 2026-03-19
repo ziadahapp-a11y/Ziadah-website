@@ -319,7 +319,7 @@ export default function Blog() {
                           background: `${categoryColors[post.category]}22`,
                           border: `1px solid ${categoryColors[post.category]}55`,
                           color: categoryColors[post.category],
-                          fontSize: 11,
+                          fontSize: 14,
                           fontWeight: 700,
                           letterSpacing: 0.5,
                         }}
@@ -350,7 +350,7 @@ export default function Blog() {
                       </h2>
                       <p
                         style={{
-                          fontSize: 13,
+                          fontSize: 14,
                           color: "var(--tm)",
                           lineHeight: 1.7,
                           marginBottom: 16,
@@ -373,7 +373,7 @@ export default function Blog() {
                             display: "flex",
                             alignItems: "center",
                             gap: 6,
-                            fontSize: 12,
+                            fontSize: 14,
                             color: "var(--td)",
                           }}
                         >
@@ -401,7 +401,7 @@ export default function Blog() {
                         </div>
                         <span
                           style={{
-                            fontSize: 12,
+                            fontSize: 14,
                             color: "var(--td)",
                           }}
                         >

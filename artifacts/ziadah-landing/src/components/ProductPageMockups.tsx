@@ -13,7 +13,7 @@ export default function ProductPageMockups() {
               background: "rgba(168,85,247,.08)",
               border: "1px solid rgba(168,85,247,.2)",
               color: "#a855f7",
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: 700,
               letterSpacing: 1,
               textTransform: "uppercase" as const,
@@ -128,7 +128,7 @@ function MockupCard({
           borderRadius: 50,
           background: `rgba(${colorToRgb(accentColor)},.09)`,
           border: `1px solid rgba(${colorToRgb(accentColor)},.25)`,
-          fontSize: 11,
+          fontSize: 14,
           fontWeight: 800,
           color: accentColor,
           letterSpacing: 0.5,
@@ -232,7 +232,7 @@ function StatusBar({ accentColor }: { accentColor: string }) {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "0 16px 8px",
-        fontSize: 9,
+        fontSize: 14,
         color: "rgba(255,255,255,.5)",
         fontWeight: 600,
       }}
@@ -303,7 +303,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
         </div>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 14,
             fontWeight: 700,
             color: "rgba(255,255,255,.9)",
             marginBottom: 3,
@@ -319,12 +319,12 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
             justifyContent: "space-between",
           }}
         >
-          <span style={{ fontSize: 12, fontWeight: 900, color: accentColor }}>
+          <span style={{ fontSize: 14, fontWeight: 900, color: accentColor }}>
             200 ⃁
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
             <Stars />
-            <span style={{ fontSize: 8, color: "rgba(255,255,255,.4)" }}>
+            <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>
               (200)
             </span>
           </div>
@@ -338,7 +338,7 @@ function Stars() {
   return (
     <div style={{ display: "flex", gap: 1 }}>
       {[...Array(5)].map((_, i) => (
-        <span key={i} style={{ fontSize: 8, color: "#f59e0b" }}>
+        <span key={i} style={{ fontSize: 14, color: "#f59e0b" }}>
           ★
         </span>
       ))}
@@ -375,7 +375,7 @@ function SectionDivider({
       />
       <span
         style={{
-          fontSize: 9,
+          fontSize: 14,
           fontWeight: 800,
           color: color,
           letterSpacing: 0.3,
@@ -407,14 +407,14 @@ function AddToCartBtn({
         width: full ? "100%" : "auto",
         borderRadius: 8,
         background: `linear-gradient(135deg, ${color} 0%, rgba(${colorToRgb(color)},.75) 100%)`,
-        fontSize: 9,
+        fontSize: 14,
         fontWeight: 800,
         color: "#fff",
         cursor: "pointer",
         boxShadow: `0 4px 12px rgba(${colorToRgb(color)},.35)`,
       }}
     >
-      <span style={{ fontSize: 9 }}>🛒</span> {label}
+      <span style={{ fontSize: 14 }}>🛒</span> {label}
     </div>
   );
 }
@@ -461,7 +461,7 @@ function CrossSellContent() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <p
                 style={{
-                  fontSize: 9,
+                  fontSize: 14,
                   fontWeight: 700,
                   color: "rgba(255,255,255,.85)",
                   marginBottom: 2,
@@ -472,7 +472,7 @@ function CrossSellContent() {
               >
                 {p.name}
               </p>
-              <span style={{ fontSize: 9, color: "#06b6d4", fontWeight: 800 }}>
+              <span style={{ fontSize: 14, color: "#06b6d4", fontWeight: 800 }}>
                 {p.price}
               </span>
             </div>
@@ -520,7 +520,7 @@ function BundleContent() {
           >
             📿
           </div>
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)" }}>+</span>
+          <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>+</span>
           <div
             style={{
               width: 44,
@@ -546,7 +546,7 @@ function BundleContent() {
         >
           <p
             style={{
-              fontSize: 9,
+              fontSize: 14,
               color: "rgba(255,255,255,.6)",
               marginBottom: 4,
             }}
@@ -563,7 +563,7 @@ function BundleContent() {
           >
             <span
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 900,
                 color: "#a855f7",
               }}
@@ -572,7 +572,7 @@ function BundleContent() {
             </span>
             <span
               style={{
-                fontSize: 9,
+                fontSize: 14,
                 color: "rgba(255,255,255,.3)",
                 textDecoration: "line-through",
               }}
@@ -591,7 +591,7 @@ function BundleContent() {
             borderRadius: 6,
             background: "rgba(168,85,247,.15)",
             border: "1px solid rgba(168,85,247,.3)",
-            fontSize: 9,
+            fontSize: 14,
             fontWeight: 800,
             color: "#a855f7",
             marginBottom: 8,
@@ -599,7 +599,7 @@ function BundleContent() {
             justifyContent: "center",
           }}
         >
-          <span style={{ fontSize: 9 }}>💰</span> وفر 20% عند الشراء معاً
+          <span style={{ fontSize: 14 }}>💰</span> وفر 20% عند الشراء معاً
         </div>
 
         <AddToCartBtn color="#a855f7" label="أضف الحزمة للسلة" full />
@@ -662,7 +662,7 @@ function VolumeContent() {
                   padding: "2px 6px",
                   borderRadius: 4,
                   background: "#10b981",
-                  fontSize: 7,
+                  fontSize: 14,
                   fontWeight: 800,
                   color: "#fff",
                 }}
@@ -681,7 +681,7 @@ function VolumeContent() {
               <div>
                 <p
                   style={{
-                    fontSize: 10,
+                    fontSize: 14,
                     fontWeight: 800,
                     color: opt.highlight ? "#10b981" : "rgba(255,255,255,.75)",
                     marginBottom: 2,
@@ -692,7 +692,7 @@ function VolumeContent() {
                 <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 14,
                       fontWeight: 900,
                       color: opt.highlight ? "#10b981" : "rgba(255,255,255,.85)",
                     }}
@@ -702,7 +702,7 @@ function VolumeContent() {
                   {opt.discount && (
                     <span
                       style={{
-                        fontSize: 7,
+                        fontSize: 14,
                         fontWeight: 700,
                         color: "#10b981",
                         padding: "1px 4px",
@@ -717,7 +717,7 @@ function VolumeContent() {
                 {opt.shipping && (
                   <span
                     style={{
-                      fontSize: 7,
+                      fontSize: 14,
                       fontWeight: 700,
                       color: "#f59e0b",
                       marginTop: 2,

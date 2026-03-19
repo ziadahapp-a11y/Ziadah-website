@@ -20,8 +20,8 @@ export default function CategoryPageWidget() {
           background: "rgba(124,58,237,.1)",
           border: "1px solid rgba(124,58,237,.2)",
         }}>
-          <span style={{ fontSize: 12 }}>🎯</span>
-          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>مرتّبة حسب اهتماماتك السابقة</span>
+          <span style={{ fontSize: 14 }}>🎯</span>
+          <span style={{ fontSize: 14, color: "#c084fc", fontWeight: 700 }}>مرتّبة حسب اهتماماتك السابقة</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -47,10 +47,10 @@ export default function CategoryPageWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>{p.name}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{p.name}</div>
                 {p.badge && (
                   <div style={{
-                    fontSize: 8,
+                    fontSize: 14,
                     padding: "1px 6px",
                     borderRadius: 20,
                     background: p.hot ? "rgba(168,85,247,.25)" : "rgba(6,182,212,.2)",
@@ -61,8 +61,8 @@ export default function CategoryPageWidget() {
                   }}>{p.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "#fff" }}>﷼{p.price}</span>
-                  {p.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>}
+                  <span style={{ fontSize: 14, fontWeight: 800, color: p.hot ? "#c084fc" : "#fff" }}>﷼{p.price}</span>
+                  {p.origPrice && <span style={{ fontSize: 14, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>}
                 </div>
               </div>
               <button style={{
@@ -70,7 +70,7 @@ export default function CategoryPageWidget() {
                 borderRadius: 20,
                 background: p.hot ? "#7c3aed" : "rgba(255,255,255,.1)",
                 color: "#fff",
-                fontSize: 9,
+                fontSize: 14,
                 fontWeight: 800,
                 border: "none",
                 cursor: "pointer",

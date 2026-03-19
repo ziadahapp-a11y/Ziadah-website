@@ -90,7 +90,7 @@ export default function Support() {
           <div style={{ maxWidth: 580, margin: "12px auto 0", background: "rgba(6,4,18,.98)", border: "1px solid var(--b2)", borderRadius: 18, padding: "8px 8px", textAlign: "right", backdropFilter: "blur(32px)", boxShadow: "0 24px 60px rgba(0,0,0,.6)" }}>
             {searchResults.length > 0 ? (
               <>
-                <div style={{ padding: "6px 14px 8px", fontSize: 11, fontWeight: 700, color: "var(--td)", textTransform: "uppercase", letterSpacing: 1 }}>
+                <div style={{ padding: "6px 14px 8px", fontSize: 14, fontWeight: 700, color: "var(--td)", textTransform: "uppercase", letterSpacing: 1 }}>
                   {searchResults.length} نتيجة
                 </div>
                 {searchResults.map((a, i) => (
@@ -102,7 +102,7 @@ export default function Support() {
                   >
                     <div style={{ flex: 1, textAlign: "right" }}>
                       <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{a.title}</div>
-                      <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{a.categoryLabel} · {a.time} قراءة</div>
+                      <div style={{ fontSize: 14, color: "var(--td)", marginTop: 3 }}>{a.categoryLabel} · {a.time} قراءة</div>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 4, transform: "rotate(180deg)" }}>
                       <path d="M9 3L5 7l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -134,7 +134,7 @@ export default function Support() {
                 <span style={{ fontSize: 24, lineHeight: 1 }}>{l.icon}</span>
                 <div>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>{l.label}</div>
-                  <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{l.desc}</div>
+                  <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>{l.desc}</div>
                 </div>
               </a>
             ))}
@@ -150,11 +150,11 @@ export default function Support() {
           <div className="support-cats rv" style={{ gap: 8, marginBottom: 32, overflowX: "auto", paddingBottom: 4 }}>
             {categories.map(c => (
               <button key={c.id} onClick={() => setActiveCategory(c.id)}
-                style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}
+                style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}
               >
                 <span style={{ fontSize: 15 }}>{c.icon}</span>
                 {c.label}
-                <span style={{ fontSize: 11, opacity: 0.6, background: "rgba(255,255,255,.08)", padding: "1px 8px", borderRadius: 20 }}>
+                <span style={{ fontSize: 14, opacity: 0.6, background: "rgba(255,255,255,.08)", padding: "1px 8px", borderRadius: 20 }}>
                   {c.articles.length}
                 </span>
               </button>
@@ -170,11 +170,11 @@ export default function Support() {
                 <div className="shine"/>
                 {categories.map(c => (
                   <button key={c.id} onClick={() => setActiveCategory(c.id)}
-                    style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: activeCategory === c.id ? `${c.color}12` : "transparent", borderRight: activeCategory === c.id ? `3px solid ${c.color}` : "3px solid transparent", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 400, cursor: "pointer", transition: "all .2s", textAlign: "right" }}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: activeCategory === c.id ? `${c.color}12` : "transparent", borderRight: activeCategory === c.id ? `3px solid ${c.color}` : "3px solid transparent", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeCategory === c.id ? 700 : 400, cursor: "pointer", transition: "all .2s", textAlign: "right" }}
                   >
                     <span style={{ fontSize: 17 }}>{c.icon}</span>
                     <span style={{ flex: 1 }}>{c.label}</span>
-                    <span style={{ fontSize: 11, color: "var(--td)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{c.articles.length}</span>
+                    <span style={{ fontSize: 14, color: "var(--td)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{c.articles.length}</span>
                   </button>
                 ))}
               </div>
@@ -186,7 +186,7 @@ export default function Support() {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 28 }}>{activeCat.icon}</span>
                 <h2 style={{ fontSize: 24, fontWeight: 900 }}>{activeCat.label}</h2>
-                <span style={{ marginRight: "auto", fontSize: 12, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>
+                <span style={{ marginRight: "auto", fontSize: 14, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>
                   {activeCat.articles.length} مقالة
                 </span>
               </div>
@@ -207,8 +207,8 @@ export default function Support() {
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{a.title}</div>
-                        <div style={{ fontSize: 12, color: "var(--td)", lineHeight: 1.6 }}>{a.desc}</div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 12, fontSize: 11, color: "var(--td)" }}>
+                        <div style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.6 }}>{a.desc}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 12, fontSize: 14, color: "var(--td)" }}>
                           <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                             <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
                             <path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
@@ -239,7 +239,7 @@ export default function Support() {
                 شروحات مرئية خطوة بخطوة لكل ميزة في زيادة
               </p>
             </div>
-            <div style={{ fontSize: 12, color: "var(--td)", background: "var(--s1)", border: "1px solid var(--b1)", padding: "6px 14px", borderRadius: 20, flexShrink: 0 }}>
+            <div style={{ fontSize: 14, color: "var(--td)", background: "var(--s1)", border: "1px solid var(--b1)", padding: "6px 14px", borderRadius: 20, flexShrink: 0 }}>
               سيتم إضافة الفيديوهات قريباً
             </div>
           </div>
@@ -259,21 +259,21 @@ export default function Support() {
                         <path d="M7 5l10 5-10 5V5z" fill="rgba(168,85,247,.8)"/>
                       </svg>
                     </div>
-                    <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 600, position: "relative", zIndex: 1 }}>قريباً</div>
+                    <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", fontWeight: 600, position: "relative", zIndex: 1 }}>قريباً</div>
                   </div>
                   {/* Duration badge */}
-                  <div style={{ position: "absolute", bottom: 10, left: 10, background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)", padding: "3px 8px", borderRadius: 6, fontSize: 11, fontWeight: 700, color: "#fff" }}>
+                  <div style={{ position: "absolute", bottom: 10, left: 10, background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)", padding: "3px 8px", borderRadius: 6, fontSize: 14, fontWeight: 700, color: "#fff" }}>
                     {v.duration}
                   </div>
                   {/* Category badge */}
-                  <div style={{ position: "absolute", top: 10, right: 10, background: "rgba(124,58,237,.3)", border: "1px solid rgba(168,85,247,.4)", backdropFilter: "blur(8px)", padding: "3px 10px", borderRadius: 20, fontSize: 10, fontWeight: 700, color: "var(--p4)" }}>
+                  <div style={{ position: "absolute", top: 10, right: 10, background: "rgba(124,58,237,.3)", border: "1px solid rgba(168,85,247,.4)", backdropFilter: "blur(8px)", padding: "3px 10px", borderRadius: 20, fontSize: 14, fontWeight: 700, color: "var(--p4)" }}>
                     {v.category}
                   </div>
                 </div>
                 {/* Video info */}
                 <div style={{ padding: "16px 18px 18px" }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{v.title}</div>
-                  <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{v.description}</div>
+                  <div style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.6 }}>{v.description}</div>
                 </div>
               </div>
             ))}

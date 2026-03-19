@@ -21,7 +21,7 @@ export default function AddonsWidget() {
     <UseCaseWidgetPreview title="إضافات مكملة للمنتج" subtitle="لاتنسَ تضيف المجموعة كاملة">
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
+          style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
           className="mt-[8px] text-[9px]">إضافات تكميلية للمنتج</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
@@ -47,13 +47,13 @@ export default function AddonsWidget() {
                 flexShrink: 0,
                 transition: "all .2s ease",
               }}>
-                {a.checked && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
+                {a.checked && <span style={{ color: "#fff", fontSize: 14, fontWeight: 900 }}>✓</span>}
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} ⃁</div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} ⃁</div>
             </div>
           ))}
         </div>
@@ -68,8 +68,8 @@ export default function AddonsWidget() {
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>الإجمالي مع الإضافات</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} ر</span>
+        <span style={{ fontSize: 14, color: "rgba(255,255,255,.5)" }}>الإجمالي مع الإضافات</span>
+        <span style={{ fontSize: 14, fontWeight: 800, color: "#c084fc" }}>+{total} ر</span>
       </div>
       <button style={{
         width: "100%",
@@ -77,7 +77,7 @@ export default function AddonsWidget() {
         borderRadius: 10,
         background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
         color: "#fff",
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: 800,
         border: "none",
         cursor: "pointer",

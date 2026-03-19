@@ -10,7 +10,7 @@ export default function CrossSellWidget() {
   return (
     <UseCaseWidgetPreview title="منتجات يشتريها الآخرون معه" subtitle="كملّ طلبك بهذه المنتجات">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>عملاء اشتروا هذا اشتروا أيضاً:</div>
+        <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>عملاء اشتروا هذا اشتروا أيضاً:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {suggestions.map((s, i) => (
             <div key={i} style={{
@@ -34,13 +34,13 @@ export default function CrossSellWidget() {
                 flexShrink: 0,
               }}>{s.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{s.name}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{s.name}</div>
                 {s.badge && (
-                  <div style={{ fontSize: 8, padding: "1px 6px", borderRadius: 20, background: "rgba(6,182,212,.2)", color: "#06b6d4", fontWeight: 700, display: "inline-block", marginTop: 2 }}>{s.badge}</div>
+                  <div style={{ fontSize: 14, padding: "1px 6px", borderRadius: 20, background: "rgba(6,182,212,.2)", color: "#06b6d4", fontWeight: 700, display: "inline-block", marginTop: 2 }}>{s.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>﷼{s.price}</span>
-                  {s.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{s.origPrice}</span>}
+                  <span style={{ fontSize: 14, fontWeight: 800, color: "#c084fc" }}>﷼{s.price}</span>
+                  {s.origPrice && <span style={{ fontSize: 14, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{s.origPrice}</span>}
                 </div>
               </div>
               <button style={{
@@ -48,7 +48,7 @@ export default function CrossSellWidget() {
                 borderRadius: 20,
                 background: "rgba(124,58,237,.25)",
                 color: "#c084fc",
-                fontSize: 9,
+                fontSize: 14,
                 fontWeight: 800,
                 border: "1px solid rgba(168,85,247,.3)",
                 cursor: "pointer",
@@ -64,7 +64,7 @@ export default function CrossSellWidget() {
         borderRadius: 12,
         background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
         color: "#fff",
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: 800,
         border: "none",
         cursor: "pointer",

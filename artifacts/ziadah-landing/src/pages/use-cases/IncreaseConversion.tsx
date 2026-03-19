@@ -59,7 +59,7 @@ const data: UseCasePageData = {
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
           مثال حي
         </div>
@@ -85,7 +85,7 @@ const data: UseCasePageData = {
               <div key={i} style={{ padding: "20px 20px", background: "rgba(0,0,0,.25)", border: "1px solid var(--b1)", borderRadius: 14 }}>
                 <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
                 <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 6, color: item.color }}>{item.title}</div>
-                <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{item.desc}</div>
+                <div style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.6 }}>{item.desc}</div>
               </div>
             ))}
           </div>

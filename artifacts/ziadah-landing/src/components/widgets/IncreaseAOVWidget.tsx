@@ -14,18 +14,18 @@ export default function IncreaseAOVWidget() {
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 شحن مجاني عند ٣٠٠ ⃁</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي ١١٤ ⃁</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>🚚 شحن مجاني عند ٣٠٠ ⃁</span>
+            <span style={{ fontSize: 14, color: "#c084fc", fontWeight: 700 }}>باقي ١١٤ ⃁</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "rgba(255,255,255,.12)", overflow: "hidden", marginBottom: 3 }}>
             <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, #7c3aed, #a855f7)" }} />
           </div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
             ٦٢٪ من عتبة الشحن المجاني
           </div>
         </div>
 
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة لإكمال الطلب:</div>
+        <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة لإكمال الطلب:</div>
         {[
           { emoji: "🧴", name: "بلسم شعر مرطّب", price: "٦٥", origPrice: "٨٥" },
           { emoji: "🪥", name: "فرشاة تدليك الشعر", price: "٤٩", origPrice: "٦٩" },
@@ -52,10 +52,10 @@ export default function IncreaseAOVWidget() {
               flexShrink: 0,
             }}>{p.emoji}</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{p.name}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{p.name}</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>
+                <span style={{ fontSize: 14, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</span>
+                <span style={{ fontSize: 14, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>
               </div>
             </div>
             <button style={{
@@ -63,7 +63,7 @@ export default function IncreaseAOVWidget() {
               borderRadius: 20,
               background: "rgba(124,58,237,.25)",
               color: "#c084fc",
-              fontSize: 9,
+              fontSize: 14,
               fontWeight: 800,
               border: "1px solid rgba(168,85,247,.3)",
               cursor: "pointer",
@@ -74,7 +74,7 @@ export default function IncreaseAOVWidget() {
       </div>
 
       <div style={{
-        fontSize: 10,
+        fontSize: 14,
         color: "#34d399",
         background: "rgba(16,185,129,.1)",
         border: "1px solid rgba(16,185,129,.25)",

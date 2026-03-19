@@ -669,7 +669,7 @@ export default function Landing() {
                       lineHeight: 1.2,
                       textShadow: `0 0 20px rgba(${item.rgb},.35)`,
                     }}>{item.label}</div>
-                    <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.55, marginTop: 4 }}>{item.desc}</div>
+                    <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.55, marginTop: 4 }}>{item.desc}</div>
                   </div>
                 </div>
                 {item.widget}
@@ -1694,7 +1694,7 @@ export default function Landing() {
                   </div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير الحملة</div>
-                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>نظرة شاملة على أداء كل حملة</div>
+                    <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>نظرة شاملة على أداء كل حملة</div>
                   </div>
                 </div>
 
@@ -1702,9 +1702,9 @@ export default function Landing() {
                 <div style={{ padding: "10px 14px", background: "rgba(124,58,237,.06)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }}/>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>حملة اشترِ معاً — إبريل 2025</span>
+                    <span style={{ fontSize: 14, fontWeight: 700 }}>حملة اشترِ معاً — إبريل 2025</span>
                   </div>
-                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>نشطة</span>
+                  <span style={{ fontSize: 14, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>نشطة</span>
                 </div>
 
                 {/* Stats grid */}
@@ -1718,8 +1718,8 @@ export default function Landing() {
                     <div key={i} style={{ padding: "14px 14px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12 }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
                       <div style={{ fontSize: 18, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
-                      {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>معدل {s.sub}</div>}
-                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
+                      {s.sub && <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>معدل {s.sub}</div>}
+                      <div style={{ fontSize: 14, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -1730,7 +1730,7 @@ export default function Landing() {
                     <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(16,185,129,.08)"/>
                   </svg>
-                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>+٢٣٪ نمو في المبيعات خلال آخر ٣٠ يوم</div>
+                  <div style={{ fontSize: 14, color: "#10b981", fontWeight: 700 }}>+٢٣٪ نمو في المبيعات خلال آخر ٣٠ يوم</div>
                 </div>
               </GlassCard>
 
@@ -1747,7 +1747,7 @@ export default function Landing() {
                   </div>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير المنتجات</div>
-                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>أداء كل منتج داخل الحملة</div>
+                    <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>أداء كل منتج داخل الحملة</div>
                   </div>
                 </div>
 
@@ -1762,9 +1762,9 @@ export default function Landing() {
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                           <div style={{ width: 6, height: 6, borderRadius: "50%", background: p.color, boxShadow: `0 0 6px ${p.color}`, flexShrink: 0 }}/>
-                          <span style={{ fontSize: 13, fontWeight: 700 }}>{p.name}</span>
+                          <span style={{ fontSize: 14, fontWeight: 700 }}>{p.name}</span>
                         </div>
-                        <span style={{ fontSize: 13, fontWeight: 900, color: "#10b981" }}>{p.sales}</span>
+                        <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>{p.sales}</span>
                       </div>
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {[
@@ -1772,9 +1772,9 @@ export default function Landing() {
                           { l: "تحويل", v: p.conv, r: p.convRate },
                         ].map((m, j) => (
                           <div key={j} style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                            <span style={{ fontSize: 12, color: "var(--td)" }}>{m.l}:</span>
-                            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
-                            <span style={{ fontSize: 11, color: p.color, background: `rgba(${p.color === "#a855f7" ? "168,85,247" : p.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
+                            <span style={{ fontSize: 14, color: "var(--td)" }}>{m.l}:</span>
+                            <span style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
+                            <span style={{ fontSize: 14, color: p.color, background: `rgba(${p.color === "#a855f7" ? "168,85,247" : p.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
                           </div>
                         ))}
                       </div>
@@ -1782,7 +1782,7 @@ export default function Landing() {
                   ))}
                 </div>
 
-                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
+                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 14, color: "var(--tm)", textAlign: "center" }}>
                   📊 تقارير فورية تُحدَّث تلقائياً • تصدير بضغطة واحدة
                 </div>
               </GlassCard>
@@ -1811,7 +1811,7 @@ export default function Landing() {
                 ].map((s, i) => (
                   <div key={i} style={{ textAlign: "center" }}>
                     <div style={{ fontSize: 20, fontWeight: 900, color: "var(--p3)" }}>{s.v}</div>
-                    <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{s.l}</div>
+                    <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>{s.l}</div>
                   </div>
                 ))}
               </div>

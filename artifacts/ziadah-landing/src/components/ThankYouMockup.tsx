@@ -65,8 +65,8 @@ export default function ThankYouMockup() {
                 justifyContent: "space-between",
               }}>
                 <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>ملخص الطلب</div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e" }}>
-                  <span style={{ color: "#8e8e93", fontSize: 11, fontWeight: 500 }}>الإجمالي: </span>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e" }}>
+                  <span style={{ color: "#8e8e93", fontSize: 14, fontWeight: 500 }}>الإجمالي: </span>
                   <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 ⃁</span>
                 </div>
               </div>
@@ -88,14 +88,14 @@ export default function ThankYouMockup() {
                   </div>
                   <div>
                     <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>شكرا لك محمد!</div>
-                    <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 2 }}>تم استلام طلبك بنجاح</div>
+                    <div style={{ fontSize: 14, color: "#8e8e93", marginTop: 2 }}>تم استلام طلبك بنجاح</div>
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "#f9fafb", borderRadius: 10 }}>
-                  <span style={{ fontSize: 11, color: "#6b7280" }}>رقم الطلب:</span>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: "#374151", letterSpacing: "0.5px" }}>#ORD-2024-8847</span>
+                  <span style={{ fontSize: 14, color: "#6b7280" }}>رقم الطلب:</span>
+                  <span style={{ fontSize: 14, fontWeight: 800, color: "#374151", letterSpacing: "0.5px" }}>#ORD-2024-8847</span>
                 </div>
-                <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 8, lineHeight: 1.5 }}>
+                <div style={{ fontSize: 14, color: "#8e8e93", marginTop: 8, lineHeight: 1.5 }}>
                   📧 تأكيد تم إرساله إلى: <span style={{ color: "#374151", fontWeight: 600 }}>mo***@gmail.com</span>
                 </div>
               </div>
@@ -103,8 +103,8 @@ export default function ThankYouMockup() {
               <div style={{ margin: "10px 10px 0", background: "#fff", borderRadius: 16, padding: "14px 14px 16px", boxShadow: "0 2px 12px rgba(0,0,0,.07)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 800, color: "#1c1c1e" }}>نسيت المنتجات الرهيبة ذي!</div>
-                    <div style={{ fontSize: 10, color: "#8e8e93", marginTop: 2 }}>بس ليك أنت — عرض محدود الوقت</div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>نسيت المنتجات الرهيبة ذي!</div>
+                    <div style={{ fontSize: 14, color: "#8e8e93", marginTop: 2 }}>بس ليك أنت — عرض محدود الوقت</div>
                   </div>
                   <div style={{ display: "flex", gap: 4 }}>
                     <div style={{
@@ -112,7 +112,7 @@ export default function ThankYouMockup() {
                       borderRadius: 20,
                       background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
                       color: "#fff",
-                      fontSize: 9,
+                      fontSize: 14,
                       fontWeight: 800,
                       whiteSpace: "nowrap" as const,
                     }}>
@@ -123,7 +123,7 @@ export default function ThankYouMockup() {
                       borderRadius: 20,
                       background: "rgba(16,185,129,.12)",
                       color: "#10b981",
-                      fontSize: 9,
+                      fontSize: 14,
                       fontWeight: 800,
                       border: "1px solid rgba(16,185,129,.25)",
                       whiteSpace: "nowrap" as const,
@@ -158,15 +158,15 @@ export default function ThankYouMockup() {
                         {["⌚", "🎧", "🎒"][i]}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 11, fontWeight: 700, color: "#1c1c1e", lineHeight: 1.2, marginBottom: 2 }}>{p.name}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: "#1c1c1e", lineHeight: 1.2, marginBottom: 2 }}>{p.name}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                          <span style={{ fontSize: 9, color: "#f59e0b" }}>★★★★★</span>
-                          <span style={{ fontSize: 9, color: "#8e8e93" }}>{p.rating} ({p.reviews})</span>
+                          <span style={{ fontSize: 14, color: "#f59e0b" }}>★★★★★</span>
+                          <span style={{ fontSize: 14, color: "#8e8e93" }}>{p.rating} ({p.reviews})</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
-                          <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} ⃁</span>
-                          <span style={{ fontSize: 9, color: "#c4b5fd", textDecoration: "line-through" }}>{p.oldPrice}</span>
-                          <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>{p.discount}-</span>
+                          <span style={{ fontSize: 14, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} ⃁</span>
+                          <span style={{ fontSize: 14, color: "#c4b5fd", textDecoration: "line-through" }}>{p.oldPrice}</span>
+                          <span style={{ fontSize: 14, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>{p.discount}-</span>
                         </div>
                       </div>
                       <button style={{
@@ -175,7 +175,7 @@ export default function ThankYouMockup() {
                         background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
                         color: "#fff",
                         border: "none",
-                        fontSize: 10,
+                        fontSize: 14,
                         fontWeight: 700,
                         cursor: "pointer",
                         whiteSpace: "nowrap" as const,
@@ -196,7 +196,7 @@ export default function ThankYouMockup() {
                   background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
                   color: "#fff",
                   border: "none",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 800,
                   cursor: "pointer",
                   display: "flex",
@@ -218,7 +218,7 @@ export default function ThankYouMockup() {
                   background: "#1c1c1e",
                   color: "#fff",
                   border: "none",
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: 700,
                   cursor: "pointer",
                   fontFamily: "var(--font)",
