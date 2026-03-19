@@ -9,6 +9,7 @@ const stories = [
     sector: "مستلزمات التنظيف",
     logo: "ب",
     color: "linear-gradient(135deg,#06b6d4,#0891b2)",
+    accent: "#06b6d4",
     tagline: "نوافذ ذكية تحوّل كل زيارة إلى فرصة بيع مضاعفة",
     founded: "2020",
     platform: "سلة",
@@ -36,6 +37,7 @@ const stories = [
     sector: "مستلزمات التنظيف",
     logo: "ر",
     color: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+    accent: "#7c3aed",
     tagline: "151,507 تحويل — الوصول للعميل في اللحظة الصح",
     founded: "2019",
     platform: "سلة",
@@ -63,6 +65,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "ز",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
+    accent: "#ec4899",
     tagline: "تجربة عميل راقية بهدايا مجانية ذكية تزيد الولاء",
     founded: "2021",
     platform: "سلة",
@@ -90,6 +93,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "م",
     color: "linear-gradient(135deg,#10b981,#059669)",
+    accent: "#10b981",
     tagline: "خصم الكمية الذكي يحوّل المشتري الواحد إلى متعدد",
     founded: "2022",
     platform: "زد",
@@ -117,6 +121,7 @@ const stories = [
     sector: "الأزياء الرجالية",
     logo: "س",
     color: "linear-gradient(135deg,#f59e0b,#d97706)",
+    accent: "#f59e0b",
     tagline: "كروس سيل ذكي يرفع قيمة الطلب في أقمشة الرجال",
     founded: "2020",
     platform: "سلة",
@@ -144,6 +149,7 @@ const stories = [
     sector: "العطور والبخور",
     logo: "د",
     color: "linear-gradient(135deg,#4f46e5,#4338ca)",
+    accent: "#4f46e5",
     tagline: "نوافذ موسمية تعزز اكتشاف العود والبخور الفاخر",
     founded: "2019",
     platform: "سلة",
@@ -171,6 +177,7 @@ const stories = [
     sector: "العطور والبخور",
     logo: "ف",
     color: "linear-gradient(135deg,#ec4899,#9333ea)",
+    accent: "#ec4899",
     tagline: "تقليل السلات المتروكة وتحويل التردد إلى قرار شراء",
     founded: "2021",
     platform: "سلة",
@@ -198,6 +205,7 @@ const stories = [
     sector: "الغذاء والعسل",
     logo: "ه",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
+    accent: "#f59e0b",
     tagline: "عرض 2+1 يضاعف حجم السلة ورضا العميل",
     founded: "2021",
     platform: "سلة",
@@ -225,6 +233,7 @@ const stories = [
     sector: "العبايات",
     logo: "ث",
     color: "linear-gradient(135deg,#059669,#064e3b)",
+    accent: "#059669",
     tagline: "تحويل الزوار الجدد إلى مشترين من أول زيارة",
     founded: "2020",
     platform: "سلة",
@@ -252,6 +261,7 @@ const stories = [
     sector: "التبرعات",
     logo: "ق",
     color: "linear-gradient(135deg,#4f46e5,#4338ca)",
+    accent: "#4f46e5",
     tagline: "رسائل مؤثرة تحوّل الزوار إلى متبرعين فاعلين",
     founded: "2018",
     platform: "سلة",
@@ -279,6 +289,7 @@ const stories = [
     sector: "تسوق متنوع",
     logo: "ك",
     color: "linear-gradient(135deg,#06b6d4,#0891b2)",
+    accent: "#06b6d4",
     tagline: "كود خصم 5٪ يُنقذ السلات المتروكة ويضاعف الإيرادات",
     founded: "2021",
     platform: "زد",
@@ -306,6 +317,7 @@ const stories = [
     sector: "العطور والبخور",
     logo: "ع",
     color: "linear-gradient(135deg,#a855f7,#7c3aed)",
+    accent: "#a855f7",
     tagline: "استرداد الطلبات في لحظة الحذف من السلة",
     founded: "2020",
     platform: "سلة",
@@ -333,6 +345,7 @@ const stories = [
     sector: "الأزياء الرجالية",
     logo: "ت",
     color: "linear-gradient(135deg,#059669,#047857)",
+    accent: "#059669",
     tagline: "3,774 تحويل — الترويج الموسمي الذكي يحقق أرقاماً قياسية",
     founded: "2018",
     platform: "زد",
@@ -360,6 +373,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "S",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
+    accent: "#ec4899",
     tagline: "1,005 تحويل في موسم الجمعة البيضاء — الذكاء في التوقيت",
     founded: "2021",
     platform: "سلة",
@@ -387,6 +401,7 @@ const stories = [
     sector: "العطور والبخور",
     logo: "ف",
     color: "linear-gradient(135deg,#7c3aed,#4f46e5)",
+    accent: "#7c3aed",
     tagline: "باقات المعطرات الذكية ترفع قيمة كل طلب",
     founded: "2021",
     platform: "سلة",
@@ -414,6 +429,7 @@ const stories = [
     sector: "اللياقة البدنية",
     logo: "ن",
     color: "linear-gradient(135deg,#10b981,#059669)",
+    accent: "#10b981",
     tagline: "تحويل لحظة الحذف من السلة إلى فرصة بيع ذكية",
     founded: "2020",
     platform: "زد",
@@ -441,6 +457,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "ك",
     color: "linear-gradient(135deg,#f59e0b,#d97706)",
+    accent: "#f59e0b",
     tagline: "ترويج المنتجات الجديدة بأعلى معدل إضافة للسلة",
     founded: "2022",
     platform: "سلة",
@@ -468,6 +485,7 @@ const stories = [
     sector: "الأزياء الرجالية",
     logo: "ك",
     color: "linear-gradient(135deg,#06b6d4,#4f46e5)",
+    accent: "#06b6d4",
     tagline: "إنقاذ الطلبات في مرحلة الدفع النهائية",
     founded: "2021",
     platform: "زد",
@@ -495,6 +513,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "ر",
     color: "linear-gradient(135deg,#ec4899,#9333ea)",
+    accent: "#ec4899",
     tagline: "حملات المناسبات الوطنية تحقق ذروة المبيعات",
     founded: "2020",
     platform: "سلة",
@@ -522,6 +541,7 @@ const stories = [
     sector: "العناية بالبشرة",
     logo: "ه",
     color: "linear-gradient(135deg,#f43f5e,#be123c)",
+    accent: "#f43f5e",
     tagline: "أعلى ظهور للمنتجات الجديدة من أول لحظة دخول",
     founded: "2021",
     platform: "سلة",
@@ -549,6 +569,7 @@ const stories = [
     sector: "الأجهزة المنزلية",
     logo: "ي",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
+    accent: "#f59e0b",
     tagline: "خصم 50٪ على الوحدة الثانية يضاعف حجم الطلب فوراً",
     founded: "2021",
     platform: "زد",
@@ -602,11 +623,140 @@ const sectors = [
 
 const allSectors = Array.from(new Set(stories.map(s => s.sector)));
 
+function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div
+      className={`story-card-v2 rv d${(index % 3) + 1}`}
+      style={{ position: "relative", overflow: "hidden" }}
+    >
+      <div className="story-accent-line" style={{ background: s.color }} />
+
+      <div className="story-header-v2">
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1 }}>
+          <div className="story-logo-v2" style={{ background: s.color }}>
+            {s.logo}
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+              <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "var(--t)" }}>{s.store}</h3>
+              <span className="platform-tag-v2">{s.platform}</span>
+            </div>
+            <div style={{ fontSize: 13, color: "var(--td)", marginTop: 4 }}>
+              <span className="sector-badge-v2">
+                {SECTOR_ICONS[s.sector] || "◆"} {s.sector}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="story-tagline-v2">{s.tagline}</div>
+
+      <div className="story-metrics-v2">
+        {s.metrics.map(m => (
+          <div key={m.label} className="metric-card-v2">
+            <div className="metric-value-v2" style={{ color: m.color }}>{m.value}</div>
+            <div className="metric-label-v2">{m.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="story-comparison-v2">
+        <div className="comparison-box-v2 before-box">
+          <div className="comparison-label-v2">قبل زيادة</div>
+          <div className="comparison-row">
+            <span className="comparison-key">متوسط الطلب</span>
+            <span className="comparison-val">{s.before.aov} ⃁</span>
+          </div>
+          <div className="comparison-row">
+            <span className="comparison-key">التحويل</span>
+            <span className="comparison-val">{s.before.conv}</span>
+          </div>
+          <div className="comparison-row">
+            <span className="comparison-key">المبيعات الشهرية</span>
+            <span className="comparison-val">{s.before.monthly} ⃁</span>
+          </div>
+        </div>
+        <div className="comparison-arrow-v2">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="14" fill="rgba(168,85,247,.15)" />
+            <path d="M8 14H20M14 8L20 14L14 20" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
+        <div className="comparison-box-v2 after-box">
+          <div className="comparison-label-v2 after-label">بعد زيادة</div>
+          <div className="comparison-row">
+            <span className="comparison-key">متوسط الطلب</span>
+            <span className="comparison-val highlight">{s.after.aov} ⃁</span>
+          </div>
+          <div className="comparison-row">
+            <span className="comparison-key">التحويل</span>
+            <span className="comparison-val highlight">{s.after.conv}</span>
+          </div>
+          <div className="comparison-row">
+            <span className="comparison-key">المبيعات الشهرية</span>
+            <span className="comparison-val highlight">{s.after.monthly} ⃁</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="story-quote-v2">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(168,85,247,.3)" style={{ flexShrink: 0, marginTop: 2 }}>
+          <path d="M11 7.5V11H7.5C7.5 12.3807 8.61929 13.5 10 13.5V15.5C7.51472 15.5 5.5 13.4853 5.5 11V7.5H11ZM18.5 7.5V11H15C15 12.3807 16.1193 13.5 17.5 13.5V15.5C15.0147 15.5 13 13.4853 13 11V7.5H18.5Z"/>
+        </svg>
+        <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.9, fontStyle: "italic" }}>{s.quote}</p>
+      </div>
+
+      <div className="story-footer-v2">
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div className="story-person-avatar" style={{ background: s.color }}>{s.logo}</div>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{s.person}</div>
+            <div style={{ fontSize: 12, color: "var(--td)" }}>{s.role}</div>
+          </div>
+        </div>
+        <button
+          className="expand-btn-v2"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "إخفاء التفاصيل" : "عرض التفاصيل"}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}>
+            <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div className={`story-details-v2 ${expanded ? "expanded" : ""}`}>
+        <div className="details-inner-v2">
+          <div className="strategy-box-v2">
+            <div className="strategy-title-v2">الاستراتيجية</div>
+            <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.8 }}>{s.strategy}</p>
+          </div>
+          <div className="results-box-v2">
+            <div className="results-title-v2">النتائج الموثقة</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {s.results.map(r => (
+                <div key={r} className="result-item-v2">
+                  <span className="result-check-v2">✓</span>
+                  <span>{r}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function SuccessStories() {
   const [activeSector, setActiveSector] = useState("الكل");
   const [visible, setVisible] = useState(true);
   const filterRef = useRef<HTMLDivElement>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const [stickyFilter, setStickyFilter] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
@@ -618,8 +768,16 @@ export default function SuccessStories() {
 
   useEffect(() => {
     if (!visible) return;
-    document.querySelectorAll(".story-card.rv").forEach(el => el.classList.add("on"));
+    document.querySelectorAll(".story-card-v2.rv").forEach(el => el.classList.add("on"));
   }, [activeSector, visible]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setStickyFilter(window.scrollY > 480);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSectorChange = (sector: string) => {
     if (sector === activeSector) return;
@@ -645,12 +803,261 @@ export default function SuccessStories() {
     <>
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <style>{`
-        .filter-btn {
+        .story-accent-line {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          height: 3px;
+          border-radius: 16px 16px 0 0;
+        }
+        .story-card-v2 {
+          background: var(--s1);
+          border: 1px solid var(--b1);
+          border-radius: 20px;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+          position: relative;
+          backdrop-filter: blur(20px);
+        }
+        .story-card-v2:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 24px 64px rgba(0,0,0,.4), 0 0 0 1px rgba(168,85,247,.15);
+          border-color: rgba(168,85,247,.2);
+        }
+        .story-header-v2 {
+          padding: 28px 32px 0;
+          display: flex;
+          align-items: flex-start;
+          gap: 16;
+        }
+        .story-logo-v2 {
+          width: 52px;
+          height: 52px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          font-weight: 900;
+          color: #fff;
+          flex-shrink: 0;
+          box-shadow: 0 6px 24px rgba(0,0,0,.3);
+        }
+        .platform-tag-v2 {
+          display: inline-flex;
+          align-items: center;
+          padding: 3px 10px;
+          border-radius: 6px;
+          font-size: 11px;
+          font-weight: 700;
+          background: rgba(255,255,255,.06);
+          border: 1px solid rgba(255,255,255,.1);
+          color: var(--td);
+        }
+        .sector-badge-v2 {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 12px;
+          color: var(--td);
+          font-weight: 500;
+        }
+        .story-tagline-v2 {
+          padding: 16px 32px 0;
+          font-size: 17px;
+          font-weight: 700;
+          color: var(--t);
+          line-height: 1.6;
+        }
+        .story-metrics-v2 {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          padding: 20px 32px;
+        }
+        .metric-card-v2 {
+          padding: 16px 14px;
+          background: rgba(0,0,0,.2);
+          border: 1px solid rgba(255,255,255,.06);
+          border-radius: 14px;
+          text-align: center;
+          transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .metric-card-v2:hover {
+          border-color: rgba(168,85,247,.25);
+          background: rgba(0,0,0,.3);
+        }
+        .metric-value-v2 {
+          font-size: 24px;
+          font-weight: 900;
+          line-height: 1.1;
+          margin-bottom: 6px;
+        }
+        .metric-label-v2 {
+          font-size: 11px;
+          color: var(--td);
+          font-weight: 500;
+          line-height: 1.4;
+        }
+        .story-comparison-v2 {
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          gap: 12px;
+          align-items: center;
+          padding: 0 32px 20px;
+        }
+        .comparison-box-v2 {
+          padding: 16px 18px;
+          border-radius: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .before-box {
+          background: rgba(0,0,0,.15);
+          border: 1px solid rgba(255,255,255,.05);
+        }
+        .after-box {
+          background: rgba(124,58,237,.08);
+          border: 1px solid rgba(124,58,237,.2);
+        }
+        .comparison-label-v2 {
+          font-size: 11px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: var(--td);
+          margin-bottom: 4px;
+        }
+        .comparison-label-v2.after-label {
+          color: #c084fc;
+        }
+        .comparison-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .comparison-key {
+          font-size: 12px;
+          color: var(--td);
+        }
+        .comparison-val {
+          font-size: 14px;
+          font-weight: 800;
+          color: var(--t);
+        }
+        .comparison-val.highlight {
+          color: #a855f7;
+        }
+        .comparison-arrow-v2 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .story-quote-v2 {
+          display: flex;
+          gap: 12px;
+          padding: 0 32px 20px;
+          align-items: flex-start;
+        }
+        .story-footer-v2 {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 32px;
+          border-top: 1px solid rgba(255,255,255,.06);
+        }
+        .story-person-avatar {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 13px;
+          font-weight: 800;
+          color: #fff;
+          flex-shrink: 0;
+        }
+        .expand-btn-v2 {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 16px;
+          border-radius: 10px;
+          border: 1px solid rgba(168,85,247,.25);
+          background: rgba(168,85,247,.08);
+          color: #c084fc;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: var(--font);
+          transition: all 0.2s ease;
+        }
+        .expand-btn-v2:hover {
+          background: rgba(168,85,247,.15);
+          border-color: rgba(168,85,247,.4);
+        }
+        .story-details-v2 {
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease;
+        }
+        .story-details-v2.expanded {
+          max-height: 500px;
+        }
+        .details-inner-v2 {
+          padding: 0 32px 28px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .strategy-box-v2 {
+          padding: 20px;
+          background: rgba(124,58,237,.06);
+          border: 1px solid rgba(124,58,237,.15);
+          border-radius: 14px;
+        }
+        .strategy-title-v2 {
+          font-size: 13px;
+          font-weight: 800;
+          color: #c084fc;
+          margin-bottom: 10px;
+        }
+        .results-box-v2 {
+          padding: 20px;
+          background: rgba(16,185,129,.06);
+          border: 1px solid rgba(16,185,129,.15);
+          border-radius: 14px;
+        }
+        .results-title-v2 {
+          font-size: 13px;
+          font-weight: 800;
+          color: #10b981;
+          margin-bottom: 10px;
+        }
+        .result-item-v2 {
+          display: flex;
+          gap: 8px;
+          font-size: 13px;
+          color: var(--tm);
+          line-height: 1.6;
+          align-items: flex-start;
+        }
+        .result-check-v2 {
+          color: #10b981;
+          font-weight: 800;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .filter-btn-v2 {
           display: inline-flex;
           align-items: center;
           gap: 6px;
           padding: 10px 18px;
-          border-radius: 100px;
+          border-radius: 12px;
           border: 1.5px solid var(--b1);
           background: var(--s1);
           color: var(--td);
@@ -662,108 +1069,144 @@ export default function SuccessStories() {
           font-family: var(--font);
           backdrop-filter: blur(12px);
         }
-        @media (max-width: 480px) {
-          .filter-btn {
-            padding: 7px 12px;
-            font-size: 12px;
-            gap: 4px;
-          }
-        }
-        .filter-btn:hover {
-          border-color: rgba(168,85,247,.5);
+        .filter-btn-v2:hover {
+          border-color: rgba(168,85,247,.4);
           color: var(--t);
           background: rgba(168,85,247,.08);
         }
-        .filter-btn.active {
+        .filter-btn-v2.active {
           background: linear-gradient(135deg,#7c3aed,#a855f7);
           border-color: transparent;
           color: #fff;
-          box-shadow: 0 4px 20px rgba(124,58,237,.4);
+          box-shadow: 0 4px 20px rgba(124,58,237,.35);
         }
-        .filter-count {
+        .filter-count-v2 {
           display: inline-flex;
           align-items: center;
           justify-content: center;
           min-width: 20px;
           height: 20px;
           padding: 0 6px;
-          border-radius: 100px;
+          border-radius: 6px;
           font-size: 11px;
           font-weight: 800;
           background: rgba(255,255,255,.15);
           line-height: 1;
         }
-        .filter-btn.active .filter-count {
+        .filter-btn-v2.active .filter-count-v2 {
           background: rgba(255,255,255,.25);
         }
-        .filter-btn:not(.active) .filter-count {
-          background: rgba(168,85,247,.15);
+        .filter-btn-v2:not(.active) .filter-count-v2 {
+          background: rgba(168,85,247,.12);
           color: #a855f7;
         }
-        .stories-fade {
-          transition: opacity 0.22s ease, transform 0.22s ease;
+        .sticky-filter-bar {
+          position: fixed;
+          top: 0;
+          right: 0;
+          left: 0;
+          z-index: 100;
+          padding: 14px 5%;
+          background: rgba(10,10,20,.85);
+          backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255,255,255,.06);
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
         }
-        .stories-fade.hidden {
+        .sticky-filter-bar.visible {
+          transform: translateY(0);
+        }
+        .stories-fade-v2 {
+          transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .stories-fade-v2.hidden {
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(12px);
         }
-        .stories-fade.shown {
+        .stories-fade-v2.shown {
           opacity: 1;
           transform: translateY(0);
         }
-        .sector-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          padding: 4px 12px;
-          border-radius: 100px;
-          font-size: 11px;
-          font-weight: 700;
-          background: rgba(168,85,247,.12);
-          border: 1px solid rgba(168,85,247,.25);
-          color: #c084fc;
-          letter-spacing: 0.3px;
-        }
-        .story-card {
-          overflow: hidden;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .story-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 20px 60px rgba(124,58,237,.2);
-        }
-        .hero-stat {
-          padding: 16px 28px;
+        .hero-stat-v2 {
+          padding: 20px 32px;
           background: var(--s1);
           border: 1px solid var(--b1);
           border-radius: 16px;
           backdrop-filter: blur(20px);
-          transition: transform 0.2s ease, border-color 0.2s ease;
-          min-width: 140px;
+          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
           text-align: center;
+          position: relative;
+          overflow: hidden;
         }
-        .hero-stat:hover {
+        .hero-stat-v2:hover {
+          transform: translateY(-4px);
+          border-color: rgba(168,85,247,.3);
+          box-shadow: 0 12px 40px rgba(0,0,0,.3);
+        }
+        .hero-stat-v2::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          height: 2px;
+          border-radius: 16px 16px 0 0;
+        }
+        .sector-card-v2 {
+          padding: 24px 22px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          cursor: pointer;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        .sector-card-v2:hover {
           transform: translateY(-3px);
-          border-color: rgba(168,85,247,.4);
+          box-shadow: 0 16px 48px rgba(0,0,0,.3);
+          border-color: rgba(168,85,247,.25);
         }
+        .sector-card-v2::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 3px;
+          background: linear-gradient(to bottom, #a855f7, #06b6d4);
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+        .sector-card-v2:hover::after {
+          opacity: 1;
+        }
+
         @media (max-width: 1024px) {
-          .sectors-grid { grid-template-columns: 1fr 1fr !important; }
+          .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 768px) {
-          .story-grid { grid-template-columns: 1fr !important; }
-          .story-left-panel { border-left: none !important; border-bottom: 1px solid var(--b1) !important; padding: 28px 22px !important; }
-          .story-right-panel { padding: 28px 22px !important; }
-          .story-metrics-grid { grid-template-columns: 1fr 1fr !important; }
-          .story-before-after { grid-template-columns: 1fr 1fr !important; }
-          .story-arrow { display: none !important; }
-          .hero-stat { padding: 14px 20px; min-width: 120px; }
-          .sectors-grid { grid-template-columns: 1fr 1fr !important; }
+          .story-metrics-v2 { grid-template-columns: 1fr 1fr !important; }
+          .story-comparison-v2 { grid-template-columns: 1fr !important; gap: 8px !important; }
+          .comparison-arrow-v2 { transform: rotate(90deg); justify-self: center; }
+          .story-header-v2 { padding: 24px 20px 0 !important; }
+          .story-tagline-v2 { padding: 12px 20px 0 !important; font-size: 15px !important; }
+          .story-metrics-v2 { padding: 16px 20px !important; }
+          .story-comparison-v2 { padding: 0 20px 16px !important; }
+          .story-quote-v2 { padding: 0 20px 16px !important; }
+          .story-footer-v2 { padding: 14px 20px !important; }
+          .details-inner-v2 { grid-template-columns: 1fr !important; padding: 0 20px 20px !important; }
+          .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
+          .hero-stat-v2 { padding: 16px 20px; }
         }
         @media (max-width: 480px) {
-          .sectors-grid { grid-template-columns: 1fr !important; }
-          .story-metrics-grid { grid-template-columns: 1fr !important; }
-          .story-before-after { grid-template-columns: 1fr !important; }
-          .hero-stat { min-width: 100px; }
+          .story-metrics-v2 { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+          .metric-value-v2 { font-size: 20px !important; }
+          .metric-card-v2 { padding: 12px 10px !important; }
+          .sectors-grid-v2 { grid-template-columns: 1fr !important; }
+          .filter-btn-v2 { padding: 8px 12px; font-size: 12px; gap: 4px; }
+          .hero-stat-v2 { padding: 14px 16px; }
+          .story-footer-v2 { flex-direction: column; gap: 12px; align-items: flex-start !important; }
         }
       `}</style>
       <div className="bg-wrap">
@@ -773,33 +1216,38 @@ export default function SuccessStories() {
       <div className="noise"/>
       <ParticleBackground />
       <Nav />
-      {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 16, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+
+      <section style={{ paddingTop: 140, paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
-        <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
+        <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>أثر مستدام</span>
+          <br />
+          <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>بأرقام موثقة من تجار حقيقيين</span>
         </h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 20px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>+700 متجر استخدم زيادة, نشارك معك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.</p>
-        <div className="rv d3" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+        <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "var(--td)" }}>
+          +700 متجر استخدم زيادة لتحقيق نتائج استثنائية. نشاركك قصصهم الحقيقية بأرقام واضحة ونتائج ملموسة.
+        </p>
+        <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
           {[
             ["700+", "متجر نشط", "#a855f7"],
             ["10M+", "⃁ مبيعات إضافية", "#06b6d4"],
             ["35%", "متوسط زيادة الطلب", "#10b981"],
             ["90%", "رضا التجار", "#f59e0b"],
           ].map(([v, l, c]) => (
-            <div key={l} className="hero-stat">
-              <div style={{ fontSize: "clamp(26px,3vw,38px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 4 }}>{v}</div>
+            <div key={l} className="hero-stat-v2" style={{ "--accent": c } as React.CSSProperties}>
+              <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
+              <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
               <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
             </div>
           ))}
         </div>
       </section>
-      {/* FILTER BAR */}
-      <section style={{ position: "relative", zIndex: 10, paddingLeft: "5%", paddingRight: "5%", marginBottom: 16 }}>
+
+      <section style={{ position: "relative", zIndex: 10, paddingLeft: "5%", paddingRight: "5%", marginBottom: 20, marginTop: 8 }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
-            className="filter-bar rv d2"
+            className="rv d2"
             style={{
               display: "flex",
               flexWrap: "wrap",
@@ -810,20 +1258,37 @@ export default function SuccessStories() {
             {filterTabs.map(sector => (
               <button
                 key={sector}
-                className={`filter-btn${activeSector === sector ? " active" : ""}`}
+                className={`filter-btn-v2${activeSector === sector ? " active" : ""}`}
                 onClick={() => handleSectorChange(sector)}
               >
                 <span>{SECTOR_ICONS[sector] || "◆"}</span>
                 <span>{sector}</span>
-                <span className="filter-count">{sectorCounts[sector] || 0}</span>
+                <span className="filter-count-v2">{sectorCounts[sector] || 0}</span>
               </button>
             ))}
           </div>
         </div>
       </section>
-      {/* STORIES */}
+
+      <div className={`sticky-filter-bar ${stickyFilter ? "visible" : ""}`}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 6 }}>
+          {filterTabs.map(sector => (
+            <button
+              key={sector}
+              className={`filter-btn-v2${activeSector === sector ? " active" : ""}`}
+              onClick={() => handleSectorChange(sector)}
+              style={{ padding: "7px 14px", fontSize: 12 }}
+            >
+              <span>{SECTOR_ICONS[sector] || "◆"}</span>
+              <span>{sector}</span>
+              <span className="filter-count-v2">{sectorCounts[sector] || 0}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", paddingBottom: 80 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
           {activeSector !== "الكل" && (
             <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ fontSize: 15, color: "var(--td)" }}>
@@ -832,152 +1297,54 @@ export default function SuccessStories() {
               </div>
               <button
                 onClick={() => handleSectorChange("الكل")}
-                style={{ fontSize: 12, color: "var(--td)", background: "none", border: "1px solid var(--b1)", borderRadius: 100, padding: "3px 10px", cursor: "pointer", fontFamily: "var(--font)" }}
+                style={{ fontSize: 12, color: "var(--td)", background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
               >
                 عرض الكل
               </button>
             </div>
           )}
           <div
-            className={`stories-fade ${visible ? "shown" : "hidden"}`}
-            style={{ display: "flex", flexDirection: "column", gap: 36 }}
+            className={`stories-fade-v2 ${visible ? "shown" : "hidden"}`}
+            style={{ display: "flex", flexDirection: "column", gap: 24 }}
           >
             {filteredStories.map((s, i) => (
-              <div key={s.store + s.sector} className={`gc story-card rv d${(i % 2) + 1}`} style={{ padding: 0 }}>
-                <div className="shine"/>
-                <div className="story-grid" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", minHeight: 0 }}>
-                  {/* Left: profile */}
-                  <div className="story-left-panel" style={{ padding: "48px 40px", background: "rgba(0,0,0,.25)", borderLeft: "1px solid var(--b1)", display: "flex", flexDirection: "column", gap: 20 }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                        <div style={{
-                          width: 58,
-                          height: 58,
-                          borderRadius: 18,
-                          background: s.color,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 24,
-                          fontWeight: 900,
-                          boxShadow: `0 8px 32px rgba(124,58,237,.3), 0 0 0 1px rgba(255,255,255,.1)`,
-                          flexShrink: 0,
-                        }}>{s.logo}</div>
-                        <div>
-                          <div style={{ fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{s.store}</div>
-                          <div style={{ fontSize: 12, color: "var(--td)" }}>{s.platform} · منذ {s.founded}</div>
-                        </div>
-                      </div>
-                      <div>
-                        <span className="sector-badge">
-                          {SECTOR_ICONS[s.sector] || "◆"} {s.sector}
-                        </span>
-                      </div>
-                    </div>
-                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.85, fontStyle: "italic", borderRight: "3px solid rgba(168,85,247,.3)", paddingRight: 16, margin: 0 }}>
-                      "{s.quote}"
-                    </p>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 }}>{s.logo}</div>
-                      <div>
-                        <div style={{ fontSize: 14, fontWeight: 700 }}>{s.person}</div>
-                        <div style={{ fontSize: 11, color: "var(--td)" }}>{s.role}</div>
-                      </div>
-                    </div>
-                    <div style={{ padding: "16px 18px", background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", borderRadius: 14, fontSize: 13, color: "var(--tm)", lineHeight: 1.75 }}>
-                      <span style={{ color: "var(--p3)", fontWeight: 700 }}>الاستراتيجية: </span>{s.strategy}
-                    </div>
-                  </div>
-                  {/* Right: metrics */}
-                  <div className="story-right-panel" style={{ padding: "48px 44px", display: "flex", flexDirection: "column", gap: 28 }}>
-                    <div>
-                      <div style={{ fontSize: 12, color: "var(--td)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 10 }}>القصة</div>
-                      <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.4 }}>{s.tagline}</div>
-                    </div>
-                    <div className="story-metrics-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                      {s.metrics.map(m => (
-                        <div key={m.label} style={{
-                          padding: "20px 22px",
-                          background: "rgba(0,0,0,.25)",
-                          border: "1px solid var(--b1)",
-                          borderRadius: 16,
-                          transition: "border-color 0.2s",
-                        }}>
-                          <div style={{ fontSize: 32, fontWeight: 900, color: m.color, lineHeight: 1, marginBottom: 8 }}>{m.value}</div>
-                          <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 500 }}>{m.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="story-before-after" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
-                      <div style={{ padding: "14px 18px", background: "rgba(0,0,0,.2)", borderRadius: 14, textAlign: "center" }}>
-                        <div style={{ fontSize: 10, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>قبل زيادة</div>
-                        <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب</div>
-                        <div style={{ fontSize: 20, fontWeight: 900, color: "#fff", marginTop: 4 }}>{s.before.aov} <span style={{ fontSize: 12, fontWeight: 600 }}>⃁</span></div>
-                      </div>
-                      <div className="story-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                          <path d="M6 16H26M18 8L26 16L18 24" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                        <div style={{ fontSize: 10, color: "#a855f7", fontWeight: 700 }}>تطوّر</div>
-                      </div>
-                      <div style={{ padding: "14px 18px", background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", borderRadius: 14, textAlign: "center" }}>
-                        <div style={{ fontSize: 10, color: "#c084fc", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>بعد زيادة</div>
-                        <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب</div>
-                        <div style={{ fontSize: 20, fontWeight: 900, color: "#a855f7", marginTop: 4 }}>{s.after.aov} <span style={{ fontSize: 12, fontWeight: 600 }}>⃁</span></div>
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 700, marginBottom: 12, letterSpacing: 0.5 }}>النتائج الموثقة:</div>
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        {s.results.map(r => (
-                          <div key={r} style={{ display: "flex", gap: 10, fontSize: 13.5, color: "var(--tm)", alignItems: "flex-start", lineHeight: 1.6 }}>
-                            <span style={{ color: "#10b981", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>✓</span>{r}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <StoryCard key={s.store + s.sector} s={s} index={i} />
             ))}
           </div>
         </div>
       </section>
-      {/* SECTORS */}
+
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 52 }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>حسب القطاع</div>
             <h2 className="st rv d1" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
-            <p className="ssub rv d2" style={{ margin: "0 auto" }}>زيادة يعمل مع جميع أنواع المتاجر</p>
+            <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك</p>
           </div>
-          <div className="sectors-grid rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+          <div className="sectors-grid-v2 rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
             {sectors.map(s => {
               const count = stories.filter(st => st.sector === s.name).length;
               return (
                 <div
                   key={s.name}
-                  className="gc"
-                  style={{ padding: "28px 24px", display: "flex", alignItems: "center", gap: 18, cursor: "pointer", transition: "transform 0.2s, box-shadow 0.2s" }}
+                  className="gc sector-card-v2"
                   onClick={() => {
                     handleSectorChange(s.name);
                     window.scrollTo({ top: 520, behavior: "smooth" });
                   }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(124,58,237,.2)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = ""; (e.currentTarget as HTMLDivElement).style.boxShadow = ""; }}
                 >
                   <div className="shine"/>
-                  <div style={{ fontSize: 42, lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
+                  <div style={{ fontSize: 38, lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 800, fontSize: 16, marginBottom: 4 }}>{s.name}</div>
+                    <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4, color: "var(--t)" }}>{s.name}</div>
                     <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
                     {count > 0 && (
-                      <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "2px 8px", borderRadius: 100 }}>
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>
                         {count} قصة نجاح
                       </div>
                     )}
                   </div>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4, flexShrink: 0 }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.3, flexShrink: 0 }}>
                     <path d="M10 4L6 8L10 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
@@ -986,7 +1353,7 @@ export default function SuccessStories() {
           </div>
         </div>
       </section>
-      {/* CTA */}
+
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>

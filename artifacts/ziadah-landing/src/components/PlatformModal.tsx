@@ -175,9 +175,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           </a>
         </div>
 
-        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>
-          تجربة مجانية 14 يوم · بدون بطاقة
-        </p>
+        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>تجربة مجانية 7 أيام · بدون بطاقة</p>
       </div>
     </div>
   );
