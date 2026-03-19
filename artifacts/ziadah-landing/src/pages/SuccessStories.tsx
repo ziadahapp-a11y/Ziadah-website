@@ -720,13 +720,13 @@ export default function SuccessStories() {
           box-shadow: 0 20px 60px rgba(124,58,237,.2);
         }
         .hero-stat {
-          padding: 24px 40px;
+          padding: 16px 28px;
           background: var(--s1);
           border: 1px solid var(--b1);
-          border-radius: 20px;
+          border-radius: 16px;
           backdrop-filter: blur(20px);
           transition: transform 0.2s ease, border-color 0.2s ease;
-          min-width: 160px;
+          min-width: 140px;
           text-align: center;
         }
         .hero-stat:hover {
@@ -743,7 +743,7 @@ export default function SuccessStories() {
           .story-metrics-grid { grid-template-columns: 1fr 1fr !important; }
           .story-before-after { grid-template-columns: 1fr 1fr !important; }
           .story-arrow { display: none !important; }
-          .hero-stat { padding: 18px 24px; min-width: 120px; }
+          .hero-stat { padding: 14px 20px; min-width: 120px; }
           .sectors-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 480px) {
@@ -761,13 +761,13 @@ export default function SuccessStories() {
       <ParticleBackground />
       <Nav />
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 40, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 140, paddingBottom: 16, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>أثر مستدام</span>
         </h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 32px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>+700 متجر استخدم زيادة, نشارك معك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.</p>
-        <div className="rv d3" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
+        <p className="ssub rv d2" style={{ margin: "0 auto 20px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>+700 متجر استخدم زيادة, نشارك معك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.</p>
+        <div className="rv d3" style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           {[
             ["700+", "متجر نشط", "#a855f7"],
             ["10M+", "꜁ مبيعات إضافية", "#06b6d4"],
@@ -775,14 +775,14 @@ export default function SuccessStories() {
             ["90%", "رضا التجار", "#f59e0b"],
           ].map(([v, l, c]) => (
             <div key={l} className="hero-stat">
-              <div style={{ fontSize: "clamp(28px,3vw,40px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
+              <div style={{ fontSize: "clamp(26px,3vw,38px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 4 }}>{v}</div>
               <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
             </div>
           ))}
         </div>
       </section>
       {/* FILTER BAR */}
-      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 32 }}>
+      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 16 }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
