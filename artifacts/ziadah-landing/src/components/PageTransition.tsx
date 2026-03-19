@@ -19,6 +19,42 @@ export function navigateTo(path: string) {
   }
 }
 
+// Use this for hash-fragment links like /#faq or /#pricing
+// If already on the base path, smooth-scroll directly; otherwise navigate first then scroll
+export function navigateToHash(href: string) {
+  const hashIndex = href.indexOf("#");
+  if (hashIndex === -1) {
+    navigateTo(href);
+    return;
+  }
+  const hash = href.slice(hashIndex + 1);
+  const basePath = href.slice(0, hashIndex) || "/";
+  const currentPath = window.location.pathname;
+
+  const scrollToTarget = () => {
+    const el = document.getElementById(hash);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  if (currentPath === basePath || (basePath === "/" && currentPath === "/")) {
+    scrollToTarget();
+  } else {
+    navigateTo(basePath);
+    // Retry until the target element appears in the DOM (or give up after 2s)
+    const start = Date.now();
+    const poll = () => {
+      if (document.getElementById(hash)) {
+        scrollToTarget();
+      } else if (Date.now() - start < 2000) {
+        setTimeout(poll, 50);
+      }
+    };
+    setTimeout(poll, 100);
+  }
+}
+
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const [, navigate] = useLocation();
   const [state, setState] = useState<TransitionState>("idle");

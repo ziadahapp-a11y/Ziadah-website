@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { navigateTo } from "@/components/PageTransition";
+import { navigateTo, navigateToHash } from "@/components/PageTransition";
 
 const Logo = () => (
   <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
@@ -458,7 +458,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
         return (
           <span
             key={item.label}
-            onClick={() => navigateTo(item.href)}
+            onClick={() => item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href)}
             style={{
               display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
               borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
@@ -663,10 +663,10 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         حاسبة الأثر
       </span>
 
-      <a href="/#pricing" onClick={onClose} style={directLinkStyle}>
+      <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
         الأسعار
-      </a>
+      </span>
 
       <span onClick={() => { navigateTo("/blog"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
@@ -732,7 +732,7 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
               );
             }
             return (
-              <span key={item.label} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+              <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
                 <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
                 {item.label}
               </span>
@@ -874,17 +874,17 @@ export default function Nav() {
 
             {/* الأسعار */}
             <li>
-              <a href="/#pricing" style={{
+              <span onClick={() => navigateToHash("/#pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", transition: "all .2s",
+                textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,.55)"}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"}
               >
                 الأسعار
-              </a>
+              </span>
             </li>
 
             {/* حاسبة الأثر */}
@@ -964,14 +964,14 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
             <li>
-              <a href="/#pricing" style={{
+              <span onClick={() => navigateToHash("/#pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", transition: "all .2s",
+                textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}>
                 الأسعار
-              </a>
+              </span>
             </li>
             <li>
               <span onClick={() => navigateTo("/calculator")} style={{
