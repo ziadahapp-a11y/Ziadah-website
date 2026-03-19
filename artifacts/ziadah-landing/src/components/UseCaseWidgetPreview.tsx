@@ -20,7 +20,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         maxWidth: 360,
         margin: "0 auto",
       }}
-      className="bg-[#00000014] text-right mt-[0px] mb-[0px]">
+      className="text-right mt-[0px] mb-[0px] bg-[#06010d26]">
       <div style={{
         background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
         padding: "12px 18px",
