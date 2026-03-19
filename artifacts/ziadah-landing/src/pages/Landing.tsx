@@ -1550,8 +1550,8 @@ export default function Landing() {
           </div>
         </div>
         <div className="marquee-row" style={{ marginBottom: 20 }}>
-          <div className="marquee-track marquee-rtl">
-            {[...testimonialsRow1, ...testimonialsRow1].map((t, i) => (
+          <div className="marquee-track marquee-rtl" style={{ animationDuration: `${testimonialsRow1.length * 4}s` }}>
+            {[...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1].map((t, i) => (
               <div key={i} className="gc tc-card-slim">
                 <div className="tc-stars">★★★★★</div>
                 <div className="tc-text">{t.text}</div>
@@ -1567,8 +1567,8 @@ export default function Landing() {
           </div>
         </div>
         <div className="marquee-row">
-          <div className="marquee-track marquee-ltr">
-            {[...testimonialsRow2, ...testimonialsRow2].map((t, i) => (
+          <div className="marquee-track marquee-ltr" style={{ animationDuration: `${testimonialsRow2.length * 4}s` }}>
+            {[...testimonialsRow2, ...testimonialsRow2, ...testimonialsRow2].map((t, i) => (
               <div key={i} className="gc tc-card-slim">
                 <div className="tc-stars">★★★★★</div>
                 <div className="tc-text">{t.text}</div>

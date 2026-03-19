@@ -187,13 +187,13 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 .tc-name{font-size:13px;font-weight:700;}
 .tc-role{font-size:11px;color:var(--td);}
 /* ── MARQUEE TESTIMONIALS ── */
-@keyframes marquee-rtl{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes marquee-ltr{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+@keyframes marquee-rtl{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
+@keyframes marquee-ltr{0%{transform:translateX(-33.333%)}100%{transform:translateX(0)}}
 .marquee-row{overflow:hidden;width:100%;mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);}
 .marquee-track{display:flex;width:max-content;will-change:transform;direction:ltr;}
 .marquee-row:hover .marquee-track{animation-play-state:paused;}
-.marquee-rtl{animation:marquee-rtl 40s linear infinite;}
-.marquee-ltr{animation:marquee-ltr 40s linear infinite;}
+.marquee-rtl{animation:marquee-rtl linear infinite;}
+.marquee-ltr{animation:marquee-ltr linear infinite;}
 .tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-right:16px;direction:rtl;}
 
 /* ── PRICING ── */
