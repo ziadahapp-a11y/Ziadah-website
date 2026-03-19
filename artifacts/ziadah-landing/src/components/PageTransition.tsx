@@ -25,7 +25,6 @@ export function navigateTo(path: string) {
   }
 }
 
-<<<<<<< HEAD
 // Use this for hash-fragment links like /#faq or /#pricing
 // If already on the base path, smooth-scroll directly; otherwise navigate first then scroll
 export function navigateToHash(href: string) {

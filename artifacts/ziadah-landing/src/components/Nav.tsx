@@ -479,10 +479,10 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
 }
 
 const mobileNavItems = [
-  { label: "الرئيسة", href: "/", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
-  { label: "حالات الاستخدام", href: "/features", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg> },
-  { label: "قصص النجاح", href: "/success-stories", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
-  { label: "حاسبة الأثر", href: "/calculator", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg> },
+  { label: "الرئيسة", href: "/", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>, type: "link" as const },
+  { label: "حالات الاستخدام", href: "#", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>, type: "dropdown" as const, dropdownKey: "usecases" },
+  { label: "قصص النجاح", href: "/success-stories", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>, type: "link" as const },
+  { label: "حاسبة الأثر", href: "/calculator", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>, type: "link" as const },
 ];
 
 const mobileHelpItems = [
@@ -562,9 +562,15 @@ function MobileAccordionItem({
   );
 }
 
-function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
+function MobileMoreDropdown({ onClose, initialAccordion, onFeatureRequest }: { onClose: () => void; initialAccordion?: string | null; onFeatureRequest?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(initialAccordion || null);
+
+  useEffect(() => {
+    if (initialAccordion !== undefined) {
+      setOpenAccordion(initialAccordion);
+    }
+  }, [initialAccordion]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -575,6 +581,11 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
 
   const toggleAccordion = (key: string) => {
     setOpenAccordion(prev => prev === key ? null : key);
@@ -594,170 +605,191 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div
-      ref={ref}
-      style={{
-        position: "fixed",
-        bottom: "calc(64px + env(safe-area-inset-bottom))",
-        left: 0,
-        right: 0,
-        zIndex: 950,
-        background: "rgba(8,6,20,.98)",
-        border: "1px solid rgba(255,255,255,.1)",
-        borderBottom: "none",
-        borderRadius: "20px 20px 0 0",
-        padding: "16px 16px 8px",
-        backdropFilter: "blur(32px)",
-        boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
-        maxHeight: "80vh",
-        overflowY: "auto",
-        animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
-        <button
-          onClick={onClose}
-          style={{
-            background: "rgba(255,255,255,.08)", border: "none", color: "rgba(255,255,255,.6)",
-            width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
-            display: "flex", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          ✕
-        </button>
-      </div>
-
-      <span onClick={() => { navigateTo("/"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        الرئيسة
-      </span>
-
-      <MobileAccordionItem
-        label="حالات الاستخدام"
-        icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>}
-        isOpen={openAccordion === "usecases"}
-        onToggle={() => toggleAccordion("usecases")}
+    <>
+      <div
+        onClick={onClose}
+        style={{
+          position: "fixed", inset: 0, zIndex: 940,
+          background: "rgba(0,0,0,.5)", backdropFilter: "blur(4px)",
+        }}
+      />
+      <div
+        ref={ref}
+        style={{
+          position: "fixed",
+          bottom: "calc(64px + env(safe-area-inset-bottom))",
+          left: 0,
+          right: 0,
+          zIndex: 950,
+          background: "rgba(8,6,20,.98)",
+          border: "1px solid rgba(255,255,255,.1)",
+          borderBottom: "none",
+          borderRadius: "20px 20px 0 0",
+          padding: "16px 16px 8px",
+          backdropFilter: "blur(32px)",
+          boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
+          maxHeight: "75vh",
+          overflowY: "auto",
+          animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
+        }}
       >
-        {useCasesDropdown.sections.map((section) => (
-          <div key={section.title} style={{ marginBottom: 10 }}>
-            <div style={{ fontSize: 10, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5 }}>{section.title}</div>
-            <div style={{ display: "grid", gridTemplateColumns: section.items.length > 3 ? "1fr 1fr" : "1fr", gap: 4 }}>
-              {section.items.map((item) => (
-                <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
-                  {item.label}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </MobileAccordionItem>
-
-      <span onClick={() => { navigateTo("/success-stories"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        قصص النجاح
-      </span>
-
-      <span onClick={() => { navigateTo("/calculator"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
-        حاسبة الأثر
-      </span>
-
-      <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        الأسعار
-      </span>
-
-      <span onClick={() => { navigateTo("/blog"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-        المدونة
-      </span>
-
-      <MobileAccordionItem
-        label="المنصات"
-        icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
-        isOpen={openAccordion === "platforms"}
-        onToggle={() => toggleAccordion("platforms")}
-      >
-        <div style={{ display: "flex", gap: 6 }}>
-          {platformItems.map((item) =>
-            item.enabled ? (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                onClick={onClose}
-                style={{ flex: 1, ...subLinkStyle, textAlign: "center" }}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <div
-                key={item.label}
-                style={{
-                  flex: 1, padding: "9px 12px", borderRadius: 10, textAlign: "center",
-                  background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
-                  fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-                }}
-              >
-                {item.label}
-                <span style={{ display: "block", fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
-              </div>
-            )
-          )}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
+          <button
+            onClick={onClose}
+            style={{
+              background: "rgba(255,255,255,.08)", border: "none", color: "rgba(255,255,255,.6)",
+              width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            ✕
+          </button>
         </div>
-      </MobileAccordionItem>
 
-      <MobileAccordionItem
-        label="المساعدة"
-        icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>}
-        isOpen={openAccordion === "help"}
-        onToggle={() => toggleAccordion("help")}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          {mobileHelpItems.map((item) => {
-            const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
-            const itemStyle: React.CSSProperties = {
-              display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-              borderRadius: 10, background: "rgba(255,255,255,.04)",
-              textDecoration: "none", color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-            };
-            if (isExternal) {
-              return (
-                <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
-                  <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+        <span onClick={() => { navigateTo("/"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          الرئيسة
+        </span>
+
+        <MobileAccordionItem
+          label="حالات الاستخدام"
+          icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>}
+          isOpen={openAccordion === "usecases"}
+          onToggle={() => toggleAccordion("usecases")}
+        >
+          {useCasesDropdown.sections.map((section) => (
+            <div key={section.title} style={{ marginBottom: 10 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5 }}>{section.title}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {section.items.map((item) => (
+                  <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
+                    {item.label}
+                    {item.subtitle && (
+                      <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.35)", marginTop: 2 }}>{item.subtitle}</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </MobileAccordionItem>
+
+        <span onClick={() => { navigateTo("/success-stories"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          قصص النجاح
+        </span>
+
+        <span onClick={() => { navigateTo("/calculator"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+          حاسبة الأثر
+        </span>
+
+        <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          الأسعار
+        </span>
+
+        <span onClick={() => { navigateTo("/blog"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          المدونة
+        </span>
+
+        <MobileAccordionItem
+          label="المنصات"
+          icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
+          isOpen={openAccordion === "platforms"}
+          onToggle={() => toggleAccordion("platforms")}
+        >
+          <div style={{ display: "flex", gap: 6 }}>
+            {platformItems.map((item) =>
+              item.enabled ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={onClose}
+                  style={{ flex: 1, ...subLinkStyle, textAlign: "center" }}
+                >
                   {item.label}
                 </a>
-              );
-            }
-            return (
-              <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                {item.label}
-              </span>
-            );
-          })}
-        </div>
-      </MobileAccordionItem>
+              ) : (
+                <div
+                  key={item.label}
+                  style={{
+                    flex: 1, padding: "9px 12px", borderRadius: 10, textAlign: "center",
+                    background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
+                    fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                  }}
+                >
+                  {item.label}
+                  <span style={{ display: "block", fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
+                </div>
+              )
+            )}
+          </div>
+        </MobileAccordionItem>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 10 }}>
-        <a href="#" onClick={onClose} style={{
-          flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-          border: "1px solid rgba(255,255,255,.2)", background: "transparent",
-          color: "#fff", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
-        }}>
-          احجز اجتماع
-        </a>
-        <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
-          flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-          background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
-          textDecoration: "none", fontFamily: "var(--font)", border: "none",
-        }}>
-          ابدأ الآن
-        </a>
+        <MobileAccordionItem
+          label="المساعدة"
+          icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>}
+          isOpen={openAccordion === "help"}
+          onToggle={() => toggleAccordion("help")}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            {mobileHelpItems.map((item) => {
+              const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
+              const isFeatureRequest = item.href === "#" && item.label === "طلب ميزة جديدة";
+              const itemStyle: React.CSSProperties = {
+                display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                borderRadius: 10, background: "rgba(255,255,255,.04)",
+                textDecoration: "none", color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              };
+              if (isFeatureRequest && onFeatureRequest) {
+                return (
+                  <span key={item.label} onClick={() => { onClose(); onFeatureRequest(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                    {item.label}
+                  </span>
+                );
+              }
+              if (isExternal) {
+                return (
+                  <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
+                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                    {item.label}
+                  </a>
+                );
+              }
+              return (
+                <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+                  <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                  {item.label}
+                </span>
+              );
+            })}
+          </div>
+        </MobileAccordionItem>
+
+        <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 10 }}>
+          <a href="#" onClick={onClose} style={{
+            flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+            border: "1px solid rgba(255,255,255,.2)", background: "transparent",
+            color: "#fff", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
+          }}>
+            احجز اجتماع
+          </a>
+          <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
+            flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+            background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
+            textDecoration: "none", fontFamily: "var(--font)", border: "none",
+          }}>
+            ابدأ الآن
+          </a>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -765,6 +797,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [moreInitialAccordion, setMoreInitialAccordion] = useState<string | null>(null);
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -775,7 +808,7 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  useEffect(() => { setOpenDrop(null); setMoreOpen(false); }, [location]);
+  useEffect(() => { setOpenDrop(null); setMoreOpen(false); setMoreInitialAccordion(null); }, [location]);
 
   const handleHoverStart = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -1000,7 +1033,7 @@ export default function Nav() {
                 <button style={navBtnStyle(openDrop === "help2")}>
                   المساعدة {chevron(openDrop === "help2")}
                 </button>
-                {openDrop === "help2" && <HelpDropdown />}
+                {openDrop === "help2" && <HelpDropdown onFeatureRequest={() => { setOpenDrop(null); setFeatureModalOpen(true); }} />}
               </DropdownWrapper>
             </li>
           </ul>
@@ -1010,15 +1043,28 @@ export default function Nav() {
       {/* MOBILE BOTTOM NAV */}
       <nav className="mobile-bottom-nav">
         {mobileNavItems.map((item) => {
-          const isActive = location === item.href || (item.href === "/" && location === "/");
+          const isActive = item.type === "link" && (location === item.href || (item.href === "/" && location === "/"));
+          const isDropdownActive = item.type === "dropdown" && moreOpen && moreInitialAccordion === (item as any).dropdownKey;
           return (
             <span
               key={item.label}
-              onClick={() => navigateTo(item.href)}
+              onClick={() => {
+                if (item.type === "dropdown") {
+                  if (moreOpen && moreInitialAccordion === (item as any).dropdownKey) {
+                    setMoreOpen(false);
+                    setMoreInitialAccordion(null);
+                  } else {
+                    setMoreInitialAccordion((item as any).dropdownKey);
+                    setMoreOpen(true);
+                  }
+                } else {
+                  navigateTo(item.href);
+                }
+              }}
               style={{
                 display: "flex", flexDirection: "column", alignItems: "center",
                 gap: 3, flex: 1, textDecoration: "none",
-                color: isActive ? "var(--p)" : "rgba(255,255,255,.45)",
+                color: (isActive || isDropdownActive) ? "var(--p)" : "rgba(255,255,255,.45)",
                 fontSize: 10, fontWeight: 600, fontFamily: "var(--font)",
                 padding: "6px 0", transition: "color .2s", cursor: "pointer",
               }}
@@ -1029,11 +1075,18 @@ export default function Nav() {
           );
         })}
         <button
-          onClick={() => setMoreOpen(v => !v)}
+          onClick={() => {
+            if (moreOpen && !moreInitialAccordion) {
+              setMoreOpen(false);
+            } else {
+              setMoreInitialAccordion(null);
+              setMoreOpen(true);
+            }
+          }}
           style={{
             display: "flex", flexDirection: "column", alignItems: "center",
             gap: 3, flex: 1, background: "none", border: "none",
-            color: moreOpen ? "var(--p)" : "rgba(255,255,255,.45)",
+            color: (moreOpen && !moreInitialAccordion) ? "var(--p)" : "rgba(255,255,255,.45)",
             fontSize: 10, fontWeight: 600, fontFamily: "var(--font)",
             padding: "6px 0", cursor: "pointer", transition: "color .2s",
           }}
@@ -1046,7 +1099,7 @@ export default function Nav() {
       </nav>
 
       {/* MOBILE MORE DROPDOWN */}
-      {moreOpen && <MobileMoreDropdown onClose={() => setMoreOpen(false)} />}
+      {moreOpen && <MobileMoreDropdown onClose={() => { setMoreOpen(false); setMoreInitialAccordion(null); }} initialAccordion={moreInitialAccordion} onFeatureRequest={() => setFeatureModalOpen(true)} />}
     </>
   );
 }
