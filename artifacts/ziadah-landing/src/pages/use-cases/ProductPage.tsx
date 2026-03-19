@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import ProductPageMockups from "../../components/ProductPageMockups";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,6 +58,7 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
+  extraSections: <ProductPageMockups />,
 };
 
 export default function ProductPage() {
