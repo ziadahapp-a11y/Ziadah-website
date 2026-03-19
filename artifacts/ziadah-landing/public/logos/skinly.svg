@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" fill="none">
+  <rect width="160" height="60" rx="8" fill="transparent"/>
+  <ellipse cx="32" cy="30" rx="14" ry="18" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="52" y="35" font-family="Georgia, serif" font-size="18" font-weight="600" fill="#1a1a1a">skinly</text>
+</svg>

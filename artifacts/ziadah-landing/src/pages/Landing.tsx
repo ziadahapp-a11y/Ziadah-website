@@ -4,22 +4,22 @@ import Nav from "../components/Nav";
 import HomeCalculator from "../components/HomeCalculator";
 
 const storeLogos = [
-  "عسل رشوف",
-  "الجباره",
-  "skinly",
-  "سكندز",
-  "FABIAN",
-  "Nahla Oil",
-  "متجر العطور",
-  "جمعية القرآن",
-  "عسل رشوف",
-  "الجباره",
-  "skinly",
-  "سكندز",
-  "FABIAN",
-  "Nahla Oil",
-  "متجر العطور",
-  "جمعية القرآن",
+  { name: "عسل رشوف", src: "/logos/assal-rashouf.svg" },
+  { name: "الجباره", src: "/logos/aljabarah.svg" },
+  { name: "skinly", src: "/logos/skinly.svg" },
+  { name: "سكندز", src: "/logos/scundz.svg" },
+  { name: "FABIAN", src: "/logos/fabian.svg" },
+  { name: "Nahla Oil", src: "/logos/nahla-oil.svg" },
+  { name: "متجر العطور", src: "/logos/atoor.svg" },
+  { name: "جمعية القرآن", src: "/logos/quran-society.svg" },
+  { name: "عسل رشوف", src: "/logos/assal-rashouf.svg" },
+  { name: "الجباره", src: "/logos/aljabarah.svg" },
+  { name: "skinly", src: "/logos/skinly.svg" },
+  { name: "سكندز", src: "/logos/scundz.svg" },
+  { name: "FABIAN", src: "/logos/fabian.svg" },
+  { name: "Nahla Oil", src: "/logos/nahla-oil.svg" },
+  { name: "متجر العطور", src: "/logos/atoor.svg" },
+  { name: "جمعية القرآن", src: "/logos/quran-society.svg" },
 ];
 
 function GlassCard({
@@ -360,7 +360,7 @@ export default function Landing() {
           <div className="lt">
             {storeLogos.map((l, i) => (
               <div key={i} className="lc">
-                {l}
+                <img src={l.src} alt={l.name} className="logo-img" />
               </div>
             ))}
           </div>

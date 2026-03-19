@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" fill="none">
+  <rect width="160" height="60" rx="8" fill="transparent"/>
+  <path d="M20 42 Q30 18 40 28 Q50 38 60 18 Q70 4 80 20" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="80" cy="22" r="5" fill="#1a1a1a"/>
+  <text x="90" y="38" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1a1a1a">عسل رشوف</text>
+</svg>

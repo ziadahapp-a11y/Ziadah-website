@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" fill="none">
+  <rect width="160" height="60" rx="8" fill="transparent"/>
+  <rect x="12" y="15" width="30" height="30" rx="6" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <line x1="12" y1="30" x2="42" y2="30" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="50" y="36" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">سكندز</text>
+</svg>

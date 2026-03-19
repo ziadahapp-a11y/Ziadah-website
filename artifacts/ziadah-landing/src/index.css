@@ -94,8 +94,10 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 .lt{display:flex;gap:12px;width:max-content;animation:lscr 28s linear infinite;}
 .lt:hover{animation-play-state:paused;}
 @keyframes lscr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.lc{padding:9px 22px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;color:var(--td);font-size:13px;font-weight:600;white-space:nowrap;transition:all .25s;backdrop-filter:blur(10px);}
-.lc:hover{color:var(--tm);border-color:var(--b2);}
+.lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:all .25s;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;}
+.lc:hover{border-color:var(--b2);}
+.logo-img{height:40px;width:auto;max-width:140px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.45);transition:filter .3s,opacity .3s;}
+.lc:hover .logo-img{filter:brightness(0) invert(1) opacity(0.85);}
 
 /* ── HOME CALCULATOR ── */
 .hc-sec{padding:0 5% 100px;position:relative;z-index:2;}

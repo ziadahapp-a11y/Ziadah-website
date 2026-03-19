@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 60" fill="none">
+  <rect width="160" height="60" rx="8" fill="transparent"/>
+  <polygon points="25,48 45,12 65,48" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <text x="72" y="38" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#1a1a1a">الجباره</text>
+</svg>
