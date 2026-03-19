@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
+import Footer from "../components/Footer";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 
@@ -310,9 +311,7 @@ export default function Support() {
         </div>
       </section>
 
-      <footer style={{ padding: "32px 5%", borderTop: "1px solid var(--b1)", position: "relative", zIndex: 2, textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "var(--td)" }}>© 2025 Ziadah. جميع الحقوق محفوظة.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

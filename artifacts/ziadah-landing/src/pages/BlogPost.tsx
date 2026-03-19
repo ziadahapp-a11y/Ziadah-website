@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
+import Footer from "../components/Footer";
 import { blogPosts, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 
@@ -746,19 +747,7 @@ export default function BlogPost() {
       )}
 
       {/* FOOTER */}
-      <footer
-        style={{
-          padding: "32px 5%",
-          borderTop: "1px solid var(--b1)",
-          position: "relative",
-          zIndex: 2,
-          textAlign: "center",
-        }}
-      >
-        <p style={{ fontSize: 13, color: "var(--td)" }}>
-          © ٢٠٢٥ Ziadah. جميع الحقوق محفوظة.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

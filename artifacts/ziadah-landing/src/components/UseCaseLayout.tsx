@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import ParticleBackground from "./ParticleBackground";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
+import Footer from "./Footer";
 
 export interface UseCaseHero {
   tag: string;
@@ -206,44 +207,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* FOOTER */}
-      <footer>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div className="ft-top">
-            <div className="ft-brand">
-              <div className="ft-logo">
-                <div className="ft-lm"><span style={{ fontSize: 14, fontWeight: 900 }}>ز</span></div>
-                <span className="ft-lt">زيادة</span>
-              </div>
-              <p className="ft-desc">ذكاء اصطناعي يرفع مبيعات متجرك تلقائياً</p>
-            </div>
-            <div className="ft-col">
-              <h4>المنتج</h4>
-              <span onClick={() => navigateTo("/features")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>الخصائص</span>
-              <a href="/#pricing" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الأسعار</a>
-              <span onClick={() => navigateTo("/success-stories")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>قصص نجاح</span>
-            </div>
-            <div className="ft-col">
-              <h4>حالات الاستخدام</h4>
-              <span onClick={() => navigateTo("/use-cases/product-page")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة المنتج</span>
-              <span onClick={() => navigateTo("/use-cases/cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة السلة</span>
-              <span onClick={() => navigateTo("/use-cases/cross-sell")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>البيع المتقاطع</span>
-              <span onClick={() => navigateTo("/use-cases/add-to-cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>إضافة للسلة</span>
-              <span onClick={() => navigateTo("/use-cases/remove-from-cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>الحذف من السلة</span>
-            </div>
-            <div className="ft-col">
-              <h4>الدعم</h4>
-              <span onClick={() => navigateTo("/support")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>مركز الدعم</span>
-            </div>
-          </div>
-          <div className="ft-bot">
-            <span className="ft-copy">© 2025 زيادة. جميع الحقوق محفوظة.</span>
-            <div className="ft-links">
-              <a href="#">سياسة الخصوصية</a>
-              <a href="#">الشروط والأحكام</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

@@ -10,6 +10,8 @@ import Calculator from "@/pages/Calculator";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/not-found";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import ProductPage from "@/pages/use-cases/ProductPage";
 import CartPage from "@/pages/use-cases/CartPage";
 import ThankYouPage from "@/pages/use-cases/ThankYouPage";
@@ -72,6 +74,8 @@ function Router() {
       <Route path="/use-cases/checkout" component={CheckoutPage} />
       <Route path="/use-cases/add-to-cart" component={AddToCartPage} />
       <Route path="/use-cases/remove-from-cart" component={RemoveFromCartPage} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );

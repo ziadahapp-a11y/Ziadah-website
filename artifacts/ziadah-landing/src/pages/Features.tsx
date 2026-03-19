@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
+import Footer from "../components/Footer";
 
 const goals = [
   { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", subtitle: "زيادة عدد المنتجات في كل طلب", color: "#a855f7", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", boost: "+28٪ متوسط المنتجات في السلة" },
@@ -270,9 +271,7 @@ export default function Features() {
         </div>
       </section>
 
-      <footer style={{ padding: "32px 5%", borderTop: "1px solid var(--b1)", position: "relative", zIndex: 2, textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "var(--td)" }}>© 2025 Ziadah. جميع الحقوق محفوظة.</p>
-      </footer>
+      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

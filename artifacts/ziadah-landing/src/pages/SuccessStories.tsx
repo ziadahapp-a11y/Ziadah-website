@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
+import Footer from "../components/Footer";
 
 const stories = [
   {
@@ -1366,9 +1367,7 @@ export default function SuccessStories() {
           </div>
         </div>
       </section>
-      <footer style={{ padding: "32px 5%", borderTop: "1px solid var(--b1)", position: "relative", zIndex: 2, textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "var(--td)" }}>© 2026 Ziadah. جميع الحقوق محفوظة.</p>
-      </footer>
+      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
