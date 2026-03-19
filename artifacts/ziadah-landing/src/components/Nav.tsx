@@ -23,27 +23,27 @@ const useCasesDropdown: { sections: UseCaseSection[] } = {
     {
       title: "حسب الصفحات",
       items: [
-        { label: "صفحة المنتج", href: "/features#product-page" },
-        { label: "صفحة السلة", href: "/features#cart" },
-        { label: "صفحة الشكر", href: "/features#thank-you" },
-        { label: "الصفحة الرئيسية", href: "/features#home" },
-        { label: "صفحة التصنيف", href: "/features#category" },
-        { label: "جميع الصفحات", href: "/features#all" },
+        { label: "صفحة المنتج", href: "/use-cases/product-page" },
+        { label: "صفحة السلة", href: "/use-cases/cart" },
+        { label: "صفحة الشكر", href: "/use-cases/thank-you" },
+        { label: "الصفحة الرئيسية", href: "/use-cases/home" },
+        { label: "صفحة التصنيف", href: "/use-cases/category" },
+        { label: "جميع الصفحات", href: "/use-cases/all-pages" },
       ],
     },
     {
       title: "حسب الأنشطة",
       items: [
-        { label: "البيع المتقاطع", href: "/features#cross-sell", subtitle: "اقترح منتجات مكملة لزيادة السلة" },
-        { label: "البيع البديل", href: "/features#upsell", subtitle: "اعرض بديل أغلى بقيمة أعلى" },
+        { label: "البيع المتقاطع", href: "/use-cases/cross-sell", subtitle: "اقترح منتجات مكملة لزيادة السلة" },
+        { label: "البيع البديل", href: "/use-cases/upsell", subtitle: "اعرض بديل أغلى بقيمة أعلى" },
       ],
     },
     {
       title: "حسب الأهداف",
       items: [
-        { label: "زيادة متوسط السلة", href: "/features#aov" },
-        { label: "تقليل التخلي عن السلة", href: "/features#abandonment" },
-        { label: "رفع معدل التحويل", href: "/features#conversion" },
+        { label: "زيادة متوسط السلة", href: "/use-cases/increase-aov" },
+        { label: "تقليل التخلي عن السلة", href: "/use-cases/reduce-abandon" },
+        { label: "رفع معدل التحويل", href: "/use-cases/increase-conversion" },
       ],
     },
   ],

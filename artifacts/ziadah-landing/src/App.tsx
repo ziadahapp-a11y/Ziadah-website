@@ -6,6 +6,17 @@ import Support from "@/pages/Support";
 import Features from "@/pages/Features";
 import Calculator from "@/pages/Calculator";
 import NotFound from "@/pages/not-found";
+import ProductPage from "@/pages/use-cases/ProductPage";
+import CartPage from "@/pages/use-cases/CartPage";
+import ThankYouPage from "@/pages/use-cases/ThankYouPage";
+import HomePage from "@/pages/use-cases/HomePage";
+import CategoryPage from "@/pages/use-cases/CategoryPage";
+import AllPages from "@/pages/use-cases/AllPages";
+import CrossSell from "@/pages/use-cases/CrossSell";
+import Upsell from "@/pages/use-cases/Upsell";
+import IncreaseAOV from "@/pages/use-cases/IncreaseAOV";
+import ReduceAbandon from "@/pages/use-cases/ReduceAbandon";
+import IncreaseConversion from "@/pages/use-cases/IncreaseConversion";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -18,6 +29,17 @@ function Router() {
       <Route path="/support" component={Support} />
       <Route path="/features" component={Features} />
       <Route path="/calculator" component={Calculator} />
+      <Route path="/use-cases/product-page" component={ProductPage} />
+      <Route path="/use-cases/cart" component={CartPage} />
+      <Route path="/use-cases/thank-you" component={ThankYouPage} />
+      <Route path="/use-cases/home" component={HomePage} />
+      <Route path="/use-cases/category" component={CategoryPage} />
+      <Route path="/use-cases/all-pages" component={AllPages} />
+      <Route path="/use-cases/cross-sell" component={CrossSell} />
+      <Route path="/use-cases/upsell" component={Upsell} />
+      <Route path="/use-cases/increase-aov" component={IncreaseAOV} />
+      <Route path="/use-cases/reduce-abandon" component={ReduceAbandon} />
+      <Route path="/use-cases/increase-conversion" component={IncreaseConversion} />
       <Route component={NotFound} />
     </Switch>
   );
