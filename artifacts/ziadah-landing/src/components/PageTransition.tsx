@@ -48,16 +48,17 @@ export function navigateToHash(href: string) {
     scrollToTarget();
   } else {
     navigateTo(basePath);
-    // Retry until the target element appears in the DOM (or give up after 2s)
+    // Wait for page transition animation to finish (zoom-out 280ms + zoom-in 250ms = ~530ms)
+    // then poll until the target element appears in the DOM (or give up after 3s)
     const start = Date.now();
     const poll = () => {
       if (document.getElementById(hash)) {
         scrollToTarget();
-      } else if (Date.now() - start < 2000) {
+      } else if (Date.now() - start < 3000) {
         setTimeout(poll, 50);
       }
     };
-    setTimeout(poll, 100);
+    setTimeout(poll, 620);
   }
 }
 

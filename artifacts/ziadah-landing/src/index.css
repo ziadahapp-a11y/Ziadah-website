@@ -357,6 +357,14 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   to{opacity:1;transform:translateY(0);}
 }
 
+/* ── MEDIUM DESKTOP NAV (1025-1280px): compact single-row ── */
+@media(min-width:1025px) and (max-width:1280px){
+  .desktop-nav{padding:0 14px!important;right:2%!important;left:2%!important;}
+  .nav-links-inline li button,.nav-links-inline li span{font-size:12.5px!important;padding:6px 10px!important;}
+  .nav-ctas a{font-size:12px!important;padding:7px 13px!important;}
+  .nav-top-row{height:52px!important;}
+}
+
 /* ── TABLET NAV (769-1024px): two-row layout ── */
 @media(min-width:769px) and (max-width:1024px){
   .desktop-nav{
