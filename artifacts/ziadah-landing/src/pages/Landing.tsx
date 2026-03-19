@@ -282,7 +282,7 @@ export default function Landing() {
             </span>
           </div>
           <h1 className="ht text-[72px]">
-            بيّاع داخل متجرك
+            مسوّق داخل متجرك
             <em>بالذكاء الاصطناعي</em>
             <span className="grad pt-[10px] pb-[10px] mt-[10px] mb-[10px]">
               أخبر منك بعميلك
@@ -347,7 +347,7 @@ export default function Landing() {
             <h2 className="st rv d1 text-[48px]">
               ما تحتاج تسوي شي..
               <br />
-              فعّل فقط والذكاء الاصطناعي يتولى الباقي
+              فعّل وزيادة يتولى الباقي
             </h2>
             <p className="ssub rv d2">
               التعلم الآلي يبدأ يدرس عملائك من أول لحظة ويتحسن يوم بعد يوم
@@ -551,7 +551,7 @@ export default function Landing() {
               تجربة مصممة له
             </h2>
             <p className="ssub rv d2">
-              الذكاء الاصطناعي يعرف من هو عميلك ويعرض له المنتجات المناسبة
+              زيادة يعرف من هو عميلك ويعرض له المنتجات المناسبة
               تلقائياً
             </p>
           </div>
@@ -560,203 +560,9 @@ export default function Landing() {
             <div className="rv d1">
               <div className="demo-card">
                 <div className="demo-illo">
-                  <svg
-                    viewBox="0 0 460 280"
-                    fill="none"
-                    preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <defs>
-                      <radialGradient id="bgm" cx="60%" cy="35%" r="70%">
-                        <stop offset="0%" stopColor="#1e1245" />
-                        <stop offset="55%" stopColor="#0d0a22" />
-                        <stop offset="100%" stopColor="#060412" />
-                      </radialGradient>
-                      <radialGradient id="gm" cx="50%" cy="60%" r="50%">
-                        <stop
-                          offset="0%"
-                          stopColor="#7c3aed"
-                          stopOpacity=".32"
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#7c3aed"
-                          stopOpacity="0"
-                        />
-                      </radialGradient>
-                    </defs>
-                    <rect width="460" height="280" fill="url(#bgm)" />
-                    <ellipse
-                      cx="230"
-                      cy="210"
-                      rx="130"
-                      ry="100"
-                      fill="url(#gm)"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="274"
-                      rx="65"
-                      ry="7"
-                      fill="rgba(0,0,0,.45)"
-                    />
-                    <path
-                      d="M188 258 L188 148 Q188 137 198 133 Q213 127 230 125 Q247 127 262 133 Q272 137 272 148 L272 258Z"
-                      fill="rgba(250,248,244,.97)"
-                      stroke="rgba(215,212,208,.35)"
-                      strokeWidth=".8"
-                    />
-                    <line
-                      x1="230"
-                      y1="132"
-                      x2="230"
-                      y2="185"
-                      stroke="rgba(180,178,175,.35)"
-                      strokeWidth="1"
-                    />
-                    <path
-                      d="M188 150 Q166 165 157 198 Q163 203 171 200 Q177 172 190 160Z"
-                      fill="rgba(250,248,244,.96)"
-                    />
-                    <path
-                      d="M272 150 Q294 165 303 198 Q297 203 289 200 Q283 172 270 160Z"
-                      fill="rgba(250,248,244,.96)"
-                    />
-                    <ellipse
-                      cx="160"
-                      cy="201"
-                      rx="10"
-                      ry="8"
-                      fill="rgba(195,168,140,.9)"
-                      transform="rotate(-15 160 201)"
-                    />
-                    <ellipse
-                      cx="300"
-                      cy="201"
-                      rx="10"
-                      ry="8"
-                      fill="rgba(195,168,140,.9)"
-                      transform="rotate(15 300 201)"
-                    />
-                    <rect
-                      x="222"
-                      y="107"
-                      width="16"
-                      height="20"
-                      rx="6"
-                      fill="rgba(195,168,140,.95)"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="90"
-                      rx="27"
-                      ry="29"
-                      fill="rgba(195,168,140,.95)"
-                    />
-                    <ellipse
-                      cx="222"
-                      cy="88"
-                      rx="3.8"
-                      ry="4.5"
-                      fill="rgba(55,38,22,.72)"
-                    />
-                    <ellipse
-                      cx="238"
-                      cy="88"
-                      rx="3.8"
-                      ry="4.5"
-                      fill="rgba(55,38,22,.72)"
-                    />
-                    <path
-                      d="M224 98 Q230 104 236 98"
-                      stroke="rgba(100,65,40,.6)"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M210 98 Q218 108 230 109 Q242 108 250 98"
-                      fill="rgba(35,22,12,.18)"
-                    />
-                    <path
-                      d="M203 80 Q203 46 230 43 Q257 46 257 80 Q254 88 248 90 Q240 94 230 94 Q220 94 212 90 Q206 88 203 80Z"
-                      fill="rgba(250,247,242,.97)"
-                      stroke="rgba(210,207,202,.3)"
-                      strokeWidth=".8"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="62"
-                      rx="30"
-                      ry="13"
-                      fill="rgba(12,10,8,.92)"
-                      stroke="rgba(12,10,8,.95)"
-                      strokeWidth="8"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="60"
-                      rx="28"
-                      ry="11"
-                      fill="rgba(12,10,8,.9)"
-                    />
-                    <path
-                      d="M205 72 Q210 74 215 70 Q218 66 222 71"
-                      stroke="rgba(170,25,25,.3)"
-                      strokeWidth="1.5"
-                      fill="none"
-                    />
-                    <path
-                      d="M238 72 Q242 74 246 70 Q249 66 252 71"
-                      stroke="rgba(170,25,25,.3)"
-                      strokeWidth="1.5"
-                      fill="none"
-                    />
-                    <rect
-                      x="152"
-                      y="197"
-                      width="14"
-                      height="9"
-                      rx="3"
-                      fill="rgba(95,95,115,.8)"
-                      stroke="rgba(155,155,175,.45)"
-                      strokeWidth=".8"
-                    />
-                    <line
-                      x1="140"
-                      y1="152"
-                      x2="320"
-                      y2="152"
-                      stroke="rgba(124,58,237,.1)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <line
-                      x1="140"
-                      y1="172"
-                      x2="320"
-                      y2="172"
-                      stroke="rgba(6,182,212,.07)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <line
-                      x1="140"
-                      y1="192"
-                      x2="320"
-                      y2="192"
-                      stroke="rgba(124,58,237,.07)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <circle cx="32" cy="32" r="2" fill="rgba(124,58,237,.4)" />
-                    <circle cx="428" cy="32" r="2" fill="rgba(6,182,212,.4)" />
-                  </svg>
+                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 60% 35%, #1e1245 0%, #0d0a22 55%, #060412 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                    <img src="/avatar-male.png" alt="ناصر" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                  </div>
                   <div className="demo-fade" />
                   <div className="demo-pill">
                     <span className="demo-pill-dot" />
@@ -1034,192 +840,9 @@ export default function Landing() {
             <div className="rv d2">
               <div className="demo-card">
                 <div className="demo-illo">
-                  <svg
-                    viewBox="0 0 460 280"
-                    fill="none"
-                    preserveAspectRatio="xMidYMid slice"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <defs>
-                      <radialGradient id="bgf" cx="40%" cy="35%" r="70%">
-                        <stop offset="0%" stopColor="#1f0a32" />
-                        <stop offset="55%" stopColor="#0f0818" />
-                        <stop offset="100%" stopColor="#060410" />
-                      </radialGradient>
-                      <radialGradient id="gf" cx="50%" cy="60%" r="50%">
-                        <stop
-                          offset="0%"
-                          stopColor="#9333ea"
-                          stopOpacity=".28"
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#9333ea"
-                          stopOpacity="0"
-                        />
-                      </radialGradient>
-                    </defs>
-                    <rect width="460" height="280" fill="url(#bgf)" />
-                    <ellipse
-                      cx="230"
-                      cy="210"
-                      rx="130"
-                      ry="100"
-                      fill="url(#gf)"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="274"
-                      rx="62"
-                      ry="7"
-                      fill="rgba(0,0,0,.45)"
-                    />
-                    <path
-                      d="M178 258 Q175 238 172 208 Q170 175 175 158 Q182 140 195 135 Q212 128 230 126 Q248 128 265 135 Q278 140 285 158 Q290 175 288 208 Q285 238 282 258Z"
-                      fill="rgba(17,14,26,.97)"
-                      stroke="rgba(45,40,60,.4)"
-                      strokeWidth=".8"
-                    />
-                    <path
-                      d="M175 160 Q150 170 140 200 Q145 207 153 204 Q162 178 178 168Z"
-                      fill="rgba(17,14,26,.97)"
-                    />
-                    <path
-                      d="M285 160 Q310 170 320 200 Q315 207 307 204 Q298 178 282 168Z"
-                      fill="rgba(17,14,26,.97)"
-                    />
-                    <ellipse
-                      cx="143"
-                      cy="205"
-                      rx="9"
-                      ry="7"
-                      fill="rgba(195,168,140,.85)"
-                      transform="rotate(-10 143 205)"
-                    />
-                    <ellipse
-                      cx="317"
-                      cy="205"
-                      rx="9"
-                      ry="7"
-                      fill="rgba(195,168,140,.85)"
-                      transform="rotate(10 317 205)"
-                    />
-                    <rect
-                      x="222"
-                      y="107"
-                      width="16"
-                      height="20"
-                      rx="6"
-                      fill="rgba(195,168,140,.95)"
-                    />
-                    <ellipse
-                      cx="230"
-                      cy="88"
-                      rx="25"
-                      ry="27"
-                      fill="rgba(195,168,140,.95)"
-                    />
-                    <ellipse
-                      cx="222"
-                      cy="86"
-                      rx="3.8"
-                      ry="4.5"
-                      fill="rgba(45,30,18,.75)"
-                    />
-                    <ellipse
-                      cx="238"
-                      cy="86"
-                      rx="3.8"
-                      ry="4.5"
-                      fill="rgba(45,30,18,.75)"
-                    />
-                    <path
-                      d="M218 82 Q222 80 226 82"
-                      stroke="rgba(25,15,8,.6)"
-                      strokeWidth="1.2"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M234 82 Q238 80 242 82"
-                      stroke="rgba(25,15,8,.6)"
-                      strokeWidth="1.2"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M224 96 Q230 102 236 96"
-                      stroke="rgba(135,88,72,.65)"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M205 67 Q204 44 230 40 Q256 44 255 67 Q252 84 246 91 Q238 97 230 98 Q222 97 214 91 Q208 84 205 67Z"
-                      fill="rgba(20,17,30,.98)"
-                      stroke="rgba(45,40,60,.3)"
-                      strokeWidth=".8"
-                    />
-                    <path
-                      d="M205 70 Q196 88 194 118 Q198 121 202 119 Q206 95 210 78Z"
-                      fill="rgba(20,17,30,.97)"
-                    />
-                    <path
-                      d="M255 70 Q264 88 266 118 Q262 121 258 119 Q254 95 250 78Z"
-                      fill="rgba(20,17,30,.97)"
-                    />
-                    <path
-                      d="M258 138 Q268 152 271 172"
-                      stroke="rgba(35,30,50,.9)"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      fill="none"
-                    />
-                    <rect
-                      x="135"
-                      y="200"
-                      width="13"
-                      height="8"
-                      rx="2.5"
-                      fill="rgba(170,170,190,.7)"
-                      stroke="rgba(195,195,215,.4)"
-                      strokeWidth=".8"
-                    />
-                    <line
-                      x1="130"
-                      y1="155"
-                      x2="330"
-                      y2="155"
-                      stroke="rgba(168,85,247,.1)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <line
-                      x1="130"
-                      y1="175"
-                      x2="330"
-                      y2="175"
-                      stroke="rgba(236,72,153,.07)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <line
-                      x1="130"
-                      y1="195"
-                      x2="330"
-                      y2="195"
-                      stroke="rgba(168,85,247,.07)"
-                      strokeWidth="1"
-                      strokeDasharray="4 8"
-                    />
-                    <circle cx="32" cy="32" r="2" fill="rgba(236,72,153,.4)" />
-                    <circle cx="428" cy="32" r="2" fill="rgba(168,85,247,.4)" />
-                  </svg>
+                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                    <img src="/avatar-female.png" alt="نوره" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                  </div>
                   <div className="demo-fade" />
                   <div className="demo-pill">
                     <span className="demo-pill-dot" />
@@ -1540,7 +1163,7 @@ export default function Landing() {
           <div className="tc" style={{ marginBottom: 56 }}>
             <SecTag>الأهداف وطرق العرض</SecTag>
             <h2 className="st rv d1">
-              الذكاء الاصطناعي يختار
+              زيادة يختار
               <br />
               الأنسب لكل عميل تلقائياً
             </h2>
