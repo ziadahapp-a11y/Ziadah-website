@@ -369,10 +369,12 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 
 .mobile-top-bar{display:none;}
+.hero-mobile-logo{display:none;}
 
 @media(max-width:768px){
   .desktop-nav{display:none!important;}
-  .mobile-top-bar{display:flex!important;}
+  .mobile-top-bar{display:none!important;}
+  .hero-mobile-logo{display:flex;justify-content:center;margin-bottom:28px;}
   .mobile-bottom-nav{
     display:flex;position:fixed;bottom:0;left:0;right:0;z-index:900;
     background:rgba(3,3,11,.97);border-top:1px solid rgba(255,255,255,.08);
@@ -392,7 +394,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .reports-banner-stats{flex-direction:row!important;justify-content:center!important;gap:24px!important;}
   .uc-reports-inner{grid-template-columns:1fr!important;}
   section{padding:56px 4%;}
-  body{padding-bottom:72px;padding-top:52px;}
+  body{padding-bottom:72px;padding-top:0;}
 
   /* FLOATING CARDS */
   .floating-card--hide-mobile{display:none;}

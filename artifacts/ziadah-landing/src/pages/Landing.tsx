@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
-import Nav from "../components/Nav";
+import Nav, { Logo } from "../components/Nav";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import Footer from "../components/Footer";
@@ -325,6 +325,9 @@ export default function Landing() {
           <div className="hero-glow" />
           <FloatingUseCaseCards />
           <div className="hero-in">
+            <div className="hero-mobile-logo">
+              <Logo />
+            </div>
             <div className="hbadge">
               <span className="hbadge-pill">AI مفعّل</span>
               <span className="hbadge-txt">

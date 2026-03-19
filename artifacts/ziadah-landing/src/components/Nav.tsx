@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 
-const Logo = () => (
+export const Logo = () => (
   <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
     <img src="/logo.png" alt="زيادة" style={{ height: 40, width: "auto" }} />
   </span>
@@ -840,12 +840,11 @@ export default function Nav() {
         borderRadius: 18, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
       }}>
-        {/* Top row: logo + CTAs (always visible) */}
+        {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           height: 58,
         }}>
-          <Logo />
           <ul className="nav-links-inline" style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
             {/* الرئيسة */}
             <li>
@@ -1040,7 +1039,7 @@ export default function Nav() {
         background: "rgba(3,3,11,.88)",
         borderBottom: "1px solid rgba(255,255,255,.08)",
         backdropFilter: "blur(32px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
+        alignItems: "center", justifyContent: "center",
         height: 52,
         padding: "0 20px",
       }}>
