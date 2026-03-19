@@ -1,5 +1,6 @@
-import { Switch, Route, Router as WouterRouter } from "wouter";
+import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 import Landing from "@/pages/Landing";
 import SuccessStories from "@/pages/SuccessStories";
 import Support from "@/pages/Support";
@@ -20,6 +21,14 @@ import IncreaseConversion from "@/pages/use-cases/IncreaseConversion";
 import "./index.css";
 
 const queryClient = new QueryClient();
+
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
 
 function Router() {
   return (
@@ -49,6 +58,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <ScrollToTop />
         <Router />
       </WouterRouter>
     </QueryClientProvider>
