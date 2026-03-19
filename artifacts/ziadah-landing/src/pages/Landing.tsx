@@ -139,8 +139,8 @@ export default function Landing() {
   }, []);
 
   const prices = {
-    m: { s: 29, g: 290, p: 790, b: 1990 },
-    y: { s: 290, g: 2990, p: 7990, b: 15990 },
+    m: { s: 29, g: 290, p: 790, b: "1,990" },
+    y: { s: 24, g: 249, p: 665, b: "1,332" },
   };
 
   const testimonialsRow1 = [
@@ -1819,7 +1819,7 @@ export default function Landing() {
                       <span className="p-num">{p.price}</span>
                       <span className="p-cur">⃁</span>
                       <span className="p-per">
-                        / {pricingMode === "y" ? "سنة" : "شهر"}
+                        / شهر
                       </span>
                     </>
                   ) : (
