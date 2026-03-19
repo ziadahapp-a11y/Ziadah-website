@@ -4,9 +4,37 @@ import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 
+function getInitialFilters() {
+  const params = new URLSearchParams(window.location.search);
+  const cat = params.get("cat") ?? "all";
+  const search = params.get("search") ?? "";
+  const validCat = categories.some((c) => c.id === cat) ? cat : "all";
+  return { cat: validCat, search };
+}
+
 export default function Blog() {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [search, setSearch] = useState("");
+  const initial = getInitialFilters();
+  const [activeCategory, setActiveCategory] = useState(initial.cat);
+  const [search, setSearch] = useState(initial.search);
+
+  function updateUrl(cat: string, searchVal: string) {
+    const params = new URLSearchParams();
+    if (cat !== "all") params.set("cat", cat);
+    if (searchVal.trim()) params.set("search", searchVal);
+    const query = params.toString();
+    const newUrl = window.location.pathname + (query ? `?${query}` : "");
+    window.history.replaceState(null, "", newUrl);
+  }
+
+  function handleCategoryChange(cat: string) {
+    setActiveCategory(cat);
+    updateUrl(cat, search);
+  }
+
+  function handleSearchChange(val: string) {
+    setSearch(val);
+    updateUrl(activeCategory, val);
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -96,7 +124,7 @@ export default function Blog() {
         >
           <input
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             placeholder="ابحث في المقالات..."
             style={{
               width: "100%",
@@ -170,7 +198,7 @@ export default function Blog() {
             {categories.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
                 style={{
                   padding: "9px 20px",
                   borderRadius: 50,
