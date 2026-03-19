@@ -320,7 +320,7 @@ export default function Landing() {
               <div className="sbi-l">منتج تم شراؤه</div>
             </div>
             <div className="sbi">
-              <div className="sbi-n">+٤٠M</div>
+              <div className="sbi-n">+40 مليون</div>
               <div className="sbi-l">ظهور ناجح</div>
             </div>
           </div>
