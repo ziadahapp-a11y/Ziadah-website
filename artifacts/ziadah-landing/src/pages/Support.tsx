@@ -138,7 +138,7 @@ export default function Support() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
           {/* Category Pills (Mobile-friendly horizontal scroll) */}
-          <div className="support-cats rv" style={{ display: "flex", gap: 8, marginBottom: 32, overflowX: "auto", paddingBottom: 4 }}>
+          <div className="support-cats rv" style={{ gap: 8, marginBottom: 32, overflowX: "auto", paddingBottom: 4 }}>
             {categories.map(c => (
               <button key={c.id} onClick={() => setActiveCategory(c.id)}
                 style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}

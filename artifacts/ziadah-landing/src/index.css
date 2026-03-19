@@ -310,7 +310,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .ft-links a:hover{color:var(--tm);}
 
 /* ── SUPPORT PAGE ── */
-.support-cats{scrollbar-width:none;-ms-overflow-style:none;}
+.support-cats{scrollbar-width:none;-ms-overflow-style:none;display:none;}
 .support-cats::-webkit-scrollbar{display:none;}
 .support-layout{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start;}
 .support-sidebar{position:sticky;top:88px;}
@@ -325,6 +325,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .ba-grid{grid-template-columns:1fr 1fr;}.ba-arrow-wrap{display:none;}
   .hc-wrap{grid-template-columns:1fr;}.hc-left{position:static;}
   .demo-grid{grid-template-columns:1fr;}
+  .support-cats{display:flex;}
   .support-layout{grid-template-columns:1fr;}
   .support-sidebar{display:none;}
 }
