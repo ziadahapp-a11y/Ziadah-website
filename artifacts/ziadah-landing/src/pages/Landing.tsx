@@ -594,8 +594,8 @@ export default function Landing() {
         </div>
       </section>
       {/* LIVE WIDGETS SHOWCASE */}
-      <section id="widgets-showcase" style={{ position: "relative", zIndex: 2, padding: "80px 5%" }}>
-        <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+      <section id="widgets-showcase" style={{ position: "relative", zIndex: 2, padding: "80px 0", background: "transparent" }}>
+        <div style={{ maxWidth: 1300, margin: "0 auto", paddingInline: "5%" }}>
           <div className="tc" style={{ marginBottom: 56 }}>
             <div className="stag rv">
               <span className="stag-dot" />
@@ -610,86 +610,72 @@ export default function Landing() {
               هكذا تبدو الويدجتات التي يراها عملاؤك فعلياً داخل المتجر
             </p>
           </div>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: 32,
-          }}>
-            {[
-              {
-                icon: "📦",
-                label: "عروض الكميات",
-                desc: "تحفيز العميل على شراء كميات أكبر بعروض تدريجية واضحة",
-                widget: <BuyMoreSaveMoreWidget />,
-                color: "#a855f7",
-              },
-              {
-                icon: "🤝",
-                label: "الشراء معاً",
-                desc: "اجمع منتجات مكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً",
-                widget: <BuyTogetherWidget />,
-                color: "#06b6d4",
-              },
-              {
-                icon: "➕",
-                label: "إضافات مكملة",
-                desc: "اعرض إضافات وظيفية تكمّل منتجك الأساسي بنظام اختيار متعدد",
-                widget: <AddonsWidget />,
-                color: "#10b981",
-              },
-              {
-                icon: "🔎",
-                label: "منتجات ذات صلة",
-                desc: "اقترح لكل عميل المنتجات الأقرب لاهتمامه بزر إضافة مباشر",
-                widget: <RelatedProductsWidget />,
-                color: "#f59e0b",
-              },
-              {
-                icon: "🏷️",
-                label: "قسيمة خصم",
-                desc: "كود خصم تلقائي للعملاء المترددين يدفعهم للشراء الآن",
-                widget: <CouponWidget />,
-                color: "#ec4899",
-              },
-              {
-                icon: "🚚",
-                label: "الوصول للشحن المجاني",
-                desc: "اقترح منتجات تسد الفجوة للشحن المجاني لرفع قيمة الطلب",
-                widget: <FreeShippingThresholdWidget />,
-                color: "#7c3aed",
-              },
-              {
-                icon: "⬆️",
-                label: "استبدال المنتج (Upsell)",
-                desc: "اقترح نسخة أفضل من المنتج بطريقة تُبرز القيمة لا مجرد السعر",
-                widget: <ProductSwapWidget />,
-                color: "#4f46e5",
-              },
-            ].map((item, i) => (
-              <div key={i} className={`rv d${(i % 4) + 1}`} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 12,
-                    background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : item.color === "#10b981" ? "16,185,129" : item.color === "#f59e0b" ? "245,158,11" : item.color === "#ec4899" ? "236,72,153" : item.color === "#7c3aed" ? "124,58,237" : "79,70,229"},.1)`,
-                    border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : item.color === "#10b981" ? "16,185,129" : item.color === "#f59e0b" ? "245,158,11" : item.color === "#ec4899" ? "236,72,153" : item.color === "#7c3aed" ? "124,58,237" : "79,70,229"},.22)`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 20,
-                    flexShrink: 0,
-                  }}>{item.icon}</div>
-                  <div>
-                    <div style={{ fontSize: 15, fontWeight: 800, color: "var(--t)" }}>{item.label}</div>
-                    <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
-                  </div>
-                </div>
-                {item.widget}
-              </div>
-            ))}
-          </div>
         </div>
+        {(() => {
+          const allWidgets = [
+            { icon: "📦", label: "عروض الكميات", desc: "تحفيز العميل على شراء كميات أكبر بعروض تدريجية واضحة", widget: <BuyMoreSaveMoreWidget />, rgb: "168,85,247" },
+            { icon: "🤝", label: "الشراء معاً", desc: "اجمع منتجات مكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً", widget: <BuyTogetherWidget />, rgb: "6,182,212" },
+            { icon: "➕", label: "إضافات مكملة", desc: "اعرض إضافات وظيفية تكمّل منتجك الأساسي بنظام اختيار متعدد", widget: <AddonsWidget />, rgb: "16,185,129" },
+            { icon: "🔎", label: "منتجات ذات صلة", desc: "اقترح لكل عميل المنتجات الأقرب لاهتمامه بزر إضافة مباشر", widget: <RelatedProductsWidget />, rgb: "245,158,11" },
+            { icon: "🏷️", label: "قسيمة خصم", desc: "كود خصم تلقائي للعملاء المترددين يدفعهم للشراء الآن", widget: <CouponWidget />, rgb: "236,72,153" },
+            { icon: "🚚", label: "الوصول للشحن المجاني", desc: "اقترح منتجات تسد الفجوة للشحن المجاني لرفع قيمة الطلب", widget: <FreeShippingThresholdWidget />, rgb: "124,58,237" },
+            { icon: "⬆️", label: "استبدال المنتج (Upsell)", desc: "اقترح نسخة أفضل من المنتج بطريقة تُبرز القيمة لا مجرد السعر", widget: <ProductSwapWidget />, rgb: "79,70,229" },
+          ];
+          const row1 = allWidgets.slice(0, 4);
+          const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
+
+          const renderCard = (item: typeof allWidgets[0], key: number) => (
+            <div key={key} style={{
+              width: 320,
+              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+              padding: "20px",
+              borderRadius: 20,
+              background: `rgba(255,255,255,0.04)`,
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: `0 0 24px 0 rgba(${item.rgb},0.08), inset 0 1px 0 rgba(255,255,255,0.07)`,
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 12,
+                  background: `rgba(${item.rgb},.1)`,
+                  border: `1px solid rgba(${item.rgb},.22)`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 20,
+                  flexShrink: 0,
+                }}>{item.icon}</div>
+                <div>
+                  <div style={{ fontSize: 15, fontWeight: 800, color: "var(--t)" }}>{item.label}</div>
+                  <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
+                </div>
+              </div>
+              {item.widget}
+            </div>
+          );
+
+          return (
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <div className="marquee-row">
+                <div className="marquee-track marquee-rtl" style={{ animationDuration: "32s", gap: 24, paddingInline: 12 }}>
+                  {[...row1, ...row1, ...row1].map((item, i) => renderCard(item, i))}
+                </div>
+              </div>
+              <div className="marquee-row">
+                <div className="marquee-track marquee-ltr" style={{ animationDuration: "30s", gap: 24, paddingInline: 12 }}>
+                  {[...row2, ...row2, ...row2].map((item, i) => renderCard(item, i))}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </section>
       {/* PERSONALIZATION DEMO */}
       <section id="demo">
