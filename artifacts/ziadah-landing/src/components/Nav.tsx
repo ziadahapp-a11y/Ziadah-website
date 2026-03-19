@@ -398,6 +398,15 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
     },
     {
       icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor"/></svg>
+      ),
+      label: "المدونة",
+      subtitle: "مقالات ونصائح لتنمية تجارتك",
+      href: "/blog",
+      isModal: false,
+    },
+    {
+      icon: (
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
       ),
       label: "طلب ميزة جديدة",
