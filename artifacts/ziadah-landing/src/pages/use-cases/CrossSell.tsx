@@ -78,7 +78,10 @@ const data: UseCasePageData = {
               <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>⬆️ البيع البديل (Upsell)</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"].map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                  <li
+                    key={i}
+                    style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}
+                    className="text-[16px]">
                     <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
                   </li>
                 ))}
