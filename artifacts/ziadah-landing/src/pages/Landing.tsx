@@ -29,22 +29,6 @@ const storeLogos = [
   { name: "مزيد", src: "/logos/mazeed.png" },
   { name: "AlSalman Oud", src: "/logos/alsalman-oud.png" },
   { name: "PC Palace", src: "/logos/pc-palace.png" },
-  { name: "BestClean", src: "/logos/bestclean.png" },
-  { name: "Reeq Alnahl", src: "/logos/reeq-alnahl.png" },
-  { name: "Altamimi", src: "/logos/altamimi.png" },
-  { name: "ZUM", src: "/logos/zum.png" },
-  { name: "CB", src: "/logos/cb.png" },
-  { name: "12 CUPS", src: "/logos/12cups.png" },
-  { name: "RIBAL", src: "/logos/ribal.png" },
-  { name: "SHFT", src: "/logos/shft.png" },
-  { name: "FOR HER", src: "/logos/for-her.png" },
-  { name: "Abaq Alghim", src: "/logos/abaq-alghim.png" },
-  { name: "FABIAN", src: "/logos/fabian.png" },
-  { name: "Natural Touch", src: "/logos/natural-touch.png" },
-  { name: "image_223", src: "/logos/image-223.png" },
-  { name: "مزيد", src: "/logos/mazeed.png" },
-  { name: "AlSalman Oud", src: "/logos/alsalman-oud.png" },
-  { name: "PC Palace", src: "/logos/pc-palace.png" },
 ];
 
 function GlassCard({
@@ -382,9 +366,12 @@ export default function Landing() {
       {/* LOGOS */}
       <div className="logos-sec">
         <p className="logos-lbl rv">فخورين بثقتهم</p>
-        <div className="logos-mask">
-          <div className="lt">
-            {storeLogos.map((l, i) => (
+        <div className="logos-mask marquee-row">
+          <div
+            className="marquee-track marquee-rtl"
+            style={{ animationDuration: `${storeLogos.length * 1.75}s` }}
+          >
+            {[...storeLogos, ...storeLogos, ...storeLogos].map((l, i) => (
               <div key={i} className="lc">
                 <img src={l.src} alt={l.name} className="logo-img" />
               </div>
