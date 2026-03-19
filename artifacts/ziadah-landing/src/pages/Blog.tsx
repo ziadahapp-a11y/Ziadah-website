@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
-import { BreadcrumbSchema } from "../components/JsonLd";
+import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
 
@@ -102,6 +102,7 @@ export default function Blog() {
       canonical="/blog"
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
+    <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: isAr ? p.title : (p.titleEn || p.title), summary: isAr ? p.summary : (p.summaryEn || p.summary), publishDateIso: p.publishDateIso }))} />
     <div
       style={{
         background: "var(--bg)",

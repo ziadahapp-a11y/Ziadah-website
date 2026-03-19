@@ -4,7 +4,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
-import { SoftwareAppSchema, BreadcrumbSchema } from "../components/JsonLd";
+import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
 
@@ -70,6 +70,7 @@ export default function Features() {
     />
     <SoftwareAppSchema />
     <BreadcrumbSchema items={[{ name: ft.breadcrumbHome, url: "/" }, { name: ft.breadcrumbFeatures, url: "/features" }]} />
+    <WebPageSchema name={ft.seoTitle} description={ft.seoDesc} url="/features" />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>

@@ -3,7 +3,7 @@ import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
-import { BreadcrumbSchema } from "../components/JsonLd";
+import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 
@@ -256,6 +256,7 @@ export default function Calculator() {
         canonical="/calculator"
       />
       <BreadcrumbSchema items={[{ name: tr.breadcrumbHome, url: "/" }, { name: tr.breadcrumbCalc, url: "/calculator" }]} />
+      <WebPageSchema name={tr.seoTitle} description={tr.seoDesc} url="/calculator" />
       <div
         style={{
           background: "var(--bg)",

@@ -6,7 +6,7 @@ import HomeCalculator from "../components/HomeCalculator";
 import Footer from "../components/Footer";
 import TeamSection from "../components/TeamSection";
 import SEO from "../components/SEO";
-import { OrganizationSchema, FAQSchema } from "../components/JsonLd";
+import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
 import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
@@ -186,6 +186,9 @@ export default function Landing() {
         canonical="/"
       />
       <OrganizationSchema />
+      <SoftwareAppSchema />
+      <WebSiteSchema />
+      <HowToSchema />
       <FAQSchema faqs={faqs} />
       <div
         style={{

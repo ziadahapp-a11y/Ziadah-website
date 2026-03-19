@@ -19,7 +19,7 @@ export function OrganizationSchema() {
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
     logo: "https://www.ziadah.app/logo.png",
-    description: "AI platform for optimizing sales of Zid and Salla stores through personalized recommendations and smart offers",
+    description: "منصة ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
     sameAs: [
       "https://twitter.com/ziadah_app",
       "https://www.instagram.com/ziadah.app",
@@ -46,13 +46,14 @@ export function SoftwareAppSchema() {
     name: "Ziadah",
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
-    description: "AI application for Zid and Salla stores that increases average order value and conversion rate through personalized recommendations",
+    description: "تطبيق ذكاء اصطناعي لمتاجر زد وسلة يرفع متوسط قيمة الطلب ومعدل التحويل عبر توصيات مخصصة",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, iOS, Android",
+    inLanguage: "ar",
     offers: [
       {
         "@type": "Offer",
-        name: "Starter Plan",
+        name: "باقة الانطلاقة",
         price: "24",
         priceCurrency: "SAR",
         priceSpecification: {
@@ -64,13 +65,13 @@ export function SoftwareAppSchema() {
       },
       {
         "@type": "Offer",
-        name: "Growth Plan",
+        name: "باقة النمو",
         price: "249",
         priceCurrency: "SAR"
       },
       {
         "@type": "Offer",
-        name: "Professional Plan",
+        name: "باقة الاحترافية",
         price: "665",
         priceCurrency: "SAR"
       }
@@ -78,8 +79,137 @@ export function SoftwareAppSchema() {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
-      reviewCount: "700"
+      reviewCount: "700",
+      bestRating: "5",
+      worstRating: "1"
+    },
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        author: {
+          "@type": "Organization",
+          name: "ريبال"
+        },
+        reviewBody: "زيادة ساعدنا نوصل للعميل في اللحظة الصح بعرض بسيط وفعّال جداً. الأثر على المبيعات والتحويلات كان واضحاً ومقاساً. كمان زيادة خلّتنا نرفع متوسط قيمة الطلب عبر استراتيجية مدروسة لكل عرض ومنتج.",
+        datePublished: "2024-11-01"
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        author: {
+          "@type": "Organization",
+          name: "التميمي"
+        },
+        reviewBody: "زيادة ساعدنا نرفع قيمة الطلب دون التأثير على تجربة العميل. العروض تظهر في الوقت الصح وتشجع العميل على إضافة قطع أكثر بدون تردد.",
+        datePublished: "2024-10-15"
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        author: {
+          "@type": "Organization",
+          name: "Skinly"
+        },
+        reviewBody: "زيادة ساعدتنا نشتغل مع العملاء في اللحظة الصح دون ما نقاطع تجربة التسوق. العروض الذكية شجّعت العملاء يضيفون منتجات أكثر ويكملون طلباتهم أسرع.",
+        datePublished: "2024-12-01"
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        author: {
+          "@type": "Organization",
+          name: "بست كلين"
+        },
+        reviewBody: "زيادة غيّر طريقة تعاملنا مع العملاء. صار العميل يكتشف منتجاتنا الثانية بشكل تلقائي والسلة تكبر بدون ما نزيد إعلانات. سهل الإعداد والنتائج جاءت سريعة.",
+        datePublished: "2024-09-20"
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        },
+        author: {
+          "@type": "Organization",
+          name: "عبق الغيم"
+        },
+        reviewBody: "الفكرة كانت ذكية — تقدم للعميل خصماً بالضبط لما يحاول يحذف المنتج من السلة. هذا التوقيت غيّر كل شيء. 1,122 تحويل و248 ألف ريال ما كانت لتحصل بدون زيادة.",
+        datePublished: "2024-11-10"
+      }
+    ]
+  };
+  return <JsonLd data={data} />;
+}
+
+export function WebSiteSchema() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "زيادة",
+    alternateName: "Ziadah",
+    url: "https://www.ziadah.app",
+    inLanguage: "ar",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://www.ziadah.app/blog?search={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
     }
+  };
+  return <JsonLd data={data} />;
+}
+
+export function HowToSchema() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "كيف تعمل زيادة — 3 خطوات لرفع مبيعات متجرك",
+    description: "زيادة تعمل بثلاث خطوات بسيطة: فعّل التطبيق، دع الذكاء الاصطناعي يتعلم، واستقبل النتائج تلقائياً",
+    inLanguage: "ar",
+    totalTime: "PT30S",
+    step: [
+      {
+        "@type": "HowToStep",
+        position: 1,
+        name: "فعّل التطبيق",
+        text: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة، ما يحتاج خبرة تقنية.",
+        url: "https://www.ziadah.app/#hiw"
+      },
+      {
+        "@type": "HowToStep",
+        position: 2,
+        name: "الذكاء الاصطناعي يتعلم",
+        text: "يحلل كل عميل — منطقته، جهازه، مشترياته، وأنماط تصفحه، ويبدأ مباشرة بدون أي تدخل منك.",
+        url: "https://www.ziadah.app/#hiw"
+      },
+      {
+        "@type": "HowToStep",
+        position: 3,
+        name: "المبيعات ترتفع تلقائياً",
+        text: "كل عميل يحصل على العرض الأنسب له في اللحظة الصح — بتكلفة تسويق صفر ريال.",
+        url: "https://www.ziadah.app/#hiw"
+      }
+    ]
   };
   return <JsonLd data={data} />;
 }
@@ -119,6 +249,7 @@ export function ArticleSchema({
     headline: title,
     description,
     datePublished: publishDate,
+    inLanguage: "ar",
     author: {
       "@type": "Organization",
       name: authorName,
@@ -151,6 +282,60 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
       name: item.name,
       item: `https://www.ziadah.app${item.url}`
     }))
+  };
+  return <JsonLd data={data} />;
+}
+
+export function ItemListSchema({ posts }: {
+  posts: Array<{ slug: string; title: string; summary: string; publishDateIso: string }>
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
+    description: "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
+    url: "https://www.ziadah.app/blog",
+    inLanguage: "ar",
+    itemListElement: posts.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Article",
+        "@id": `https://www.ziadah.app/blog/${post.slug}`,
+        url: `https://www.ziadah.app/blog/${post.slug}`,
+        name: post.title,
+        description: post.summary,
+        datePublished: post.publishDateIso
+      }
+    }))
+  };
+  return <JsonLd data={data} />;
+}
+
+export function WebPageSchema({
+  name,
+  description,
+  url,
+  breadcrumb
+}: {
+  name: string;
+  description: string;
+  url: string;
+  breadcrumb?: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: `https://www.ziadah.app${url}`,
+    inLanguage: "ar",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "زيادة",
+      url: "https://www.ziadah.app"
+    },
+    ...(breadcrumb ? { breadcrumb } : {})
   };
   return <JsonLd data={data} />;
 }

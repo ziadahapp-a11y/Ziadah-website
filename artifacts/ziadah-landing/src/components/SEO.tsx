@@ -36,7 +36,7 @@ export default function SEO({
       <meta name="description" content={description} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-      <link rel="alternate" hrefLang="en" href={canonicalUrl || SITE_URL} />
+      <link rel="alternate" hrefLang="ar-SA" href={canonicalUrl || SITE_URL} />
 
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
@@ -45,7 +45,7 @@ export default function SEO({
       <meta property="og:image:height" content="630" />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content="ar_SA" />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
       {publishDate && <meta property="article:published_time" content={publishDate} />}
       {author && <meta property="article:author" content={author} />}

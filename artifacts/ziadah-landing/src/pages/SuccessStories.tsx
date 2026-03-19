@@ -4,7 +4,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
-import { BreadcrumbSchema } from "../components/JsonLd";
+import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 
 const stories = [
@@ -1054,6 +1054,11 @@ export default function SuccessStories() {
       canonical="/success-stories"
     />
     <BreadcrumbSchema items={[{ name: isAr ? "الرئيسية" : "Home", url: "/" }, { name: isAr ? "قصص النجاح" : "Success Stories", url: "/success-stories" }]} />
+    <WebPageSchema
+      name={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
+      description={isAr ? "اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة." : "Discover how leading Saudi stores achieved exceptional results with Ziadah: from Ribal with 151,507 conversions to Altamimi with SAR 932,517 in sales. Real success stories with verified numbers."}
+      url="/success-stories"
+    />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <style>{`
         .story-accent-line {
