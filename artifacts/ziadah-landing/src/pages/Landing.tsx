@@ -254,10 +254,12 @@ export default function Landing() {
                 {tr.landing.aiBadgeText}
               </span>
             </div>
-            <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] text-[72px] font-semibold">
-              {tr.landing.heroTitle1}
-              <em>{tr.landing.heroTitleEm}</em>
-              <span className="grad mt-[10px] mb-[10px] text-[72px] font-semibold pt-[10px] pb-[10px]">
+            <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
+              <span className="ht-line1">
+                {tr.landing.heroTitle1}
+              </span>
+              {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
+              <span className="grad font-semibold">
                 {tr.landing.heroTitleGrad}
               </span>
             </h1>

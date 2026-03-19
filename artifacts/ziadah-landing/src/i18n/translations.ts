@@ -101,9 +101,9 @@ export const t = {
     landing: {
       aiBadge: "AI مفعّل",
       aiBadgeText: "ذكاء اصطناعي + تعلم آلي يعمل الآن",
-      heroTitle1: "زيادة حجم ",
+      heroTitle1: "زيادة حجم طلباتك",
       heroTitleEm: "",
-      heroTitleGrad: "طلباتك",
+      heroTitleGrad: "باقتراح منتجات إضافية عن طريق الذكاء الاصطناعي",
       heroSub: "فعّل التطبيق <strong>بضغطة زر واحدة</strong>.. وبيتعلم على عملائك تلقائياً ويعطي كل عميل <strong>تجربة مخصصة 100%</strong> حسب منطقته، جهازه، مشترياته السابقة، و....",
       ctaPrimary: "فعّل الذكاء الاصطناعي الآن",
       ctaSecondary: "شوف كيف يعمل",
@@ -587,9 +587,9 @@ export const t = {
     landing: {
       aiBadge: "AI Active",
       aiBadgeText: "AI + Machine Learning running now",
-      heroTitle1: "Grow Your ",
+      heroTitle1: "Grow Your Order Volume",
       heroTitleEm: "",
-      heroTitleGrad: "Order Volume",
+      heroTitleGrad: "with AI-Powered Product Suggestions",
       heroSub: "Activate with <strong>a single click</strong>.. it learns your customers automatically and gives each customer a <strong>100% personalized experience</strong> based on their region, device, past purchases, and more.",
       ctaPrimary: "Activate AI Now",
       ctaSecondary: "See How It Works",
