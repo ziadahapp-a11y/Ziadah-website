@@ -876,6 +876,8 @@ export default function Nav() {
           display: "flex", alignItems: "center", justifyContent: "space-between",
           height: 58,
         }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <Logo />
           <ul className="nav-links-inline" style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
             <li>
               <span onClick={() => navigateTo("/")} style={{
@@ -965,6 +967,7 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
           </ul>
+          </div>
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <LanguageSwitcher />
