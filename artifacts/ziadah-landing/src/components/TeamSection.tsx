@@ -34,9 +34,7 @@ export default function TeamSection() {
             <br />
             <span className="grad">زيادة</span>
           </h2>
-          <p className="ssub rv d2">
-            أشخاص شغوفون يعملون يومياً لتمكين التجار من النمو بالذكاء الاصطناعي
-          </p>
+          <p className="ssub rv d2">خبرة تتجاوز ال10 سنوات في التجارة الإلكترونية والتسويق الرقمي.</p>
         </div>
 
         <div
@@ -135,7 +133,6 @@ export default function TeamSection() {
           ))}
         </div>
       </div>
-
       <style>{`
         @media (max-width: 900px) {
           .team-grid {
