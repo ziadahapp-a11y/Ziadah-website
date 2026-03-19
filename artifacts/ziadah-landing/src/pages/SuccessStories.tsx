@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { Link } from "wouter";
+import { useEffect, useState, useRef } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 
@@ -60,7 +59,7 @@ const stories = [
   },
   {
     store: "زونا",
-    sector: "منتجات العناية بالبشرة",
+    sector: "العناية بالبشرة",
     logo: "ز",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
     tagline: "تجربة عميل راقية بهدايا مجانية ذكية تزيد الولاء",
@@ -87,7 +86,7 @@ const stories = [
   },
   {
     store: "مكنة",
-    sector: "منتجات العناية بالبشرة",
+    sector: "العناية بالبشرة",
     logo: "م",
     color: "linear-gradient(135deg,#10b981,#059669)",
     tagline: "خصم الكمية الذكي يحوّل المشتري الواحد إلى متعدد",
@@ -114,7 +113,7 @@ const stories = [
   },
   {
     store: "سيار",
-    sector: "أشمغة وأقمشة رجالية",
+    sector: "الأزياء الرجالية",
     logo: "س",
     color: "linear-gradient(135deg,#f59e0b,#d97706)",
     tagline: "كروس سيل ذكي يرفع قيمة الطلب في أقمشة الرجال",
@@ -141,7 +140,7 @@ const stories = [
   },
   {
     store: "دخون الإماراتية",
-    sector: "عود وبخور",
+    sector: "العطور والبخور",
     logo: "د",
     color: "linear-gradient(135deg,#4f46e5,#4338ca)",
     tagline: "نوافذ موسمية تعزز اكتشاف العود والبخور الفاخر",
@@ -168,7 +167,7 @@ const stories = [
   },
   {
     store: "فيبان",
-    sector: "عطور",
+    sector: "العطور والبخور",
     logo: "ف",
     color: "linear-gradient(135deg,#ec4899,#9333ea)",
     tagline: "تقليل السلات المتروكة وتحويل التردد إلى قرار شراء",
@@ -195,7 +194,7 @@ const stories = [
   },
   {
     store: "هني دوز",
-    sector: "عسل طبيعي",
+    sector: "الغذاء والعسل",
     logo: "ه",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
     tagline: "عرض 2+1 يضاعف حجم السلة ورضا العميل",
@@ -222,7 +221,7 @@ const stories = [
   },
   {
     store: "دثار",
-    sector: "عبايات الحج واللباس المحتشم",
+    sector: "العبايات",
     logo: "ث",
     color: "linear-gradient(135deg,#059669,#064e3b)",
     tagline: "تحويل الزوار الجدد إلى مشترين من أول زيارة",
@@ -249,7 +248,7 @@ const stories = [
   },
   {
     store: "جمعية تحفيظ القرآن — خميس مشيط",
-    sector: "تبرعات إلكترونية",
+    sector: "التبرعات",
     logo: "ق",
     color: "linear-gradient(135deg,#4f46e5,#4338ca)",
     tagline: "رسائل مؤثرة تحوّل الزوار إلى متبرعين فاعلين",
@@ -303,7 +302,7 @@ const stories = [
   },
   {
     store: "عبق الغيم",
-    sector: "عطور ومعطرات",
+    sector: "العطور والبخور",
     logo: "ع",
     color: "linear-gradient(135deg,#a855f7,#7c3aed)",
     tagline: "استرداد الطلبات في لحظة الحذف من السلة",
@@ -330,7 +329,7 @@ const stories = [
   },
   {
     store: "التميمي",
-    sector: "أقمشة ونسيج رجالي",
+    sector: "الأزياء الرجالية",
     logo: "ت",
     color: "linear-gradient(135deg,#059669,#047857)",
     tagline: "3,774 تحويل — الترويج الموسمي الذكي يحقق أرقاماً قياسية",
@@ -357,7 +356,7 @@ const stories = [
   },
   {
     store: "Skinly",
-    sector: "العناية بالبشرة والجمال",
+    sector: "العناية بالبشرة",
     logo: "S",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
     tagline: "1,005 تحويل في موسم الجمعة البيضاء — الذكاء في التوقيت",
@@ -384,7 +383,7 @@ const stories = [
   },
   {
     store: "فيرزاسكا",
-    sector: "عطور ومعطرات",
+    sector: "العطور والبخور",
     logo: "ف",
     color: "linear-gradient(135deg,#7c3aed,#4f46e5)",
     tagline: "باقات المعطرات الذكية ترفع قيمة كل طلب",
@@ -411,7 +410,7 @@ const stories = [
   },
   {
     store: "فيتنيس نيد",
-    sector: "مستلزمات لياقة بدنية",
+    sector: "اللياقة البدنية",
     logo: "ن",
     color: "linear-gradient(135deg,#10b981,#059669)",
     tagline: "تحويل لحظة الحذف من السلة إلى فرصة بيع ذكية",
@@ -438,7 +437,7 @@ const stories = [
   },
   {
     store: "كلارا",
-    sector: "منتجات تجميل ومستحضرات",
+    sector: "العناية بالبشرة",
     logo: "ك",
     color: "linear-gradient(135deg,#f59e0b,#d97706)",
     tagline: "ترويج المنتجات الجديدة بأعلى معدل إضافة للسلة",
@@ -465,7 +464,7 @@ const stories = [
   },
   {
     store: "كابزون",
-    sector: "أزياء وإكسسوارات",
+    sector: "الأزياء الرجالية",
     logo: "ب",
     color: "linear-gradient(135deg,#06b6d4,#4f46e5)",
     tagline: "إنقاذ الطلبات في مرحلة الدفع النهائية",
@@ -492,7 +491,7 @@ const stories = [
   },
   {
     store: "ركن الجمال",
-    sector: "منتجات التجميل",
+    sector: "العناية بالبشرة",
     logo: "ر",
     color: "linear-gradient(135deg,#ec4899,#9333ea)",
     tagline: "حملات المناسبات الوطنية تحقق ذروة المبيعات",
@@ -519,7 +518,7 @@ const stories = [
   },
   {
     store: "فور هير",
-    sector: "منتجات تجميل نسائية",
+    sector: "العناية بالبشرة",
     logo: "ه",
     color: "linear-gradient(135deg,#f43f5e,#be123c)",
     tagline: "أعلى ظهور للمنتجات الجديدة من أول لحظة دخول",
@@ -546,7 +545,7 @@ const stories = [
   },
   {
     store: "كايزون",
-    sector: "أجهزة مطبخ ومنزلية",
+    sector: "الأجهزة المنزلية",
     logo: "ي",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
     tagline: "خصم 50٪ على الوحدة الثانية يضاعف حجم الطلب فوراً",
@@ -573,19 +572,39 @@ const stories = [
   },
 ];
 
+const SECTOR_ICONS: Record<string, string> = {
+  "الكل": "✦",
+  "مستلزمات التنظيف": "🧴",
+  "العناية بالبشرة": "💄",
+  "العطور والبخور": "🕌",
+  "الأزياء الرجالية": "👔",
+  "الغذاء والعسل": "🍯",
+  "اللياقة البدنية": "💪",
+  "التبرعات": "🤲",
+  "الأجهزة المنزلية": "🏠",
+  "العبايات": "🌙",
+  "تسوق متنوع": "🛍️",
+};
+
 const sectors = [
-  { name: "مستلزمات التنظيف", icon: "🧴", stores: "+45 متجر", avg: "+32٪ مبيعات" },
-  { name: "العناية بالبشرة والجمال", icon: "💄", stores: "+120 متجر", avg: "+38٪ مبيعات" },
-  { name: "العطور والبخور", icon: "🕌", stores: "+80 متجر", avg: "+34٪ مبيعات" },
-  { name: "الأزياء والأقمشة الرجالية", icon: "👔", stores: "+150 متجر", avg: "+35٪ مبيعات" },
-  { name: "الغذاء والعسل الطبيعي", icon: "🍯", stores: "+60 متجر", avg: "+28٪ مبيعات" },
-  { name: "مستلزمات اللياقة البدنية", icon: "💪", stores: "+40 متجر", avg: "+30٪ مبيعات" },
-  { name: "التبرعات والمنظمات الخيرية", icon: "🤲", stores: "+30 متجر", avg: "+50٪ تبرعات" },
-  { name: "الأجهزة المنزلية والمطبخ", icon: "🏠", stores: "+55 متجر", avg: "+26٪ مبيعات" },
-  { name: "العبايات واللباس المحتشم", icon: "🌙", stores: "+35 متجر", avg: "+32٪ مبيعات" },
+  { name: "مستلزمات التنظيف", icon: "🧴", stores: "+٤٥ متجر", avg: "+٣٢٪ مبيعات" },
+  { name: "العناية بالبشرة", icon: "💄", stores: "+١٢٠ متجر", avg: "+٣٨٪ مبيعات" },
+  { name: "العطور والبخور", icon: "🕌", stores: "+٨٠ متجر", avg: "+٣٤٪ مبيعات" },
+  { name: "الأزياء الرجالية", icon: "👔", stores: "+١٥٠ متجر", avg: "+٣٥٪ مبيعات" },
+  { name: "الغذاء والعسل", icon: "🍯", stores: "+٦٠ متجر", avg: "+٢٨٪ مبيعات" },
+  { name: "اللياقة البدنية", icon: "💪", stores: "+٤٠ متجر", avg: "+٣٠٪ مبيعات" },
+  { name: "التبرعات", icon: "🤲", stores: "+٣٠ متجر", avg: "+٥٠٪ تبرعات" },
+  { name: "الأجهزة المنزلية", icon: "🏠", stores: "+٥٥ متجر", avg: "+٢٦٪ مبيعات" },
+  { name: "العبايات", icon: "🌙", stores: "+٣٥ متجر", avg: "+٣٢٪ مبيعات" },
 ];
 
+const allSectors = Array.from(new Set(stories.map(s => s.sector)));
+
 export default function SuccessStories() {
+  const [activeSector, setActiveSector] = useState("الكل");
+  const [visible, setVisible] = useState(true);
+  const filterRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
       es.forEach(e => { if (e.isIntersecting) e.target.classList.add("on"); });
@@ -594,8 +613,130 @@ export default function SuccessStories() {
     return () => obs.disconnect();
   }, []);
 
+  const handleSectorChange = (sector: string) => {
+    if (sector === activeSector) return;
+    setVisible(false);
+    setTimeout(() => {
+      setActiveSector(sector);
+      setVisible(true);
+    }, 220);
+  };
+
+  const filteredStories = activeSector === "الكل"
+    ? stories
+    : stories.filter(s => s.sector === activeSector);
+
+  const sectorCounts: Record<string, number> = { "الكل": stories.length };
+  allSectors.forEach(sec => {
+    sectorCounts[sec] = stories.filter(s => s.sector === sec).length;
+  });
+
+  const filterTabs = ["الكل", ...allSectors];
+
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
+      <style>{`
+        .filter-bar::-webkit-scrollbar { display: none; }
+        .filter-bar { -ms-overflow-style: none; scrollbar-width: none; }
+        .filter-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 10px 18px;
+          border-radius: 100px;
+          border: 1.5px solid var(--b1);
+          background: var(--s1);
+          color: var(--td);
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.22s ease;
+          font-family: var(--font);
+          backdrop-filter: blur(12px);
+        }
+        .filter-btn:hover {
+          border-color: rgba(168,85,247,.5);
+          color: var(--t);
+          background: rgba(168,85,247,.08);
+        }
+        .filter-btn.active {
+          background: linear-gradient(135deg,#7c3aed,#a855f7);
+          border-color: transparent;
+          color: #fff;
+          box-shadow: 0 4px 20px rgba(124,58,237,.4);
+        }
+        .filter-count {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 20px;
+          height: 20px;
+          padding: 0 6px;
+          border-radius: 100px;
+          font-size: 11px;
+          font-weight: 800;
+          background: rgba(255,255,255,.15);
+          line-height: 1;
+        }
+        .filter-btn.active .filter-count {
+          background: rgba(255,255,255,.25);
+        }
+        .filter-btn:not(.active) .filter-count {
+          background: rgba(168,85,247,.15);
+          color: #a855f7;
+        }
+        .stories-fade {
+          transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+        .stories-fade.hidden {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        .stories-fade.shown {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .sector-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          padding: 4px 12px;
+          border-radius: 100px;
+          font-size: 11px;
+          font-weight: 700;
+          background: rgba(168,85,247,.12);
+          border: 1px solid rgba(168,85,247,.25);
+          color: #c084fc;
+          letter-spacing: 0.3px;
+        }
+        .story-card {
+          overflow: hidden;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .story-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 20px 60px rgba(124,58,237,.2);
+        }
+        .hero-stat {
+          padding: 24px 40px;
+          background: var(--s1);
+          border: 1px solid var(--b1);
+          border-radius: 20px;
+          backdrop-filter: blur(20px);
+          transition: transform 0.2s ease, border-color 0.2s ease;
+          min-width: 160px;
+          text-align: center;
+        }
+        .hero-stat:hover {
+          transform: translateY(-3px);
+          border-color: rgba(168,85,247,.4);
+        }
+        @media (max-width: 768px) {
+          .story-grid { grid-template-columns: 1fr !important; }
+          .hero-stat { padding: 18px 24px; min-width: 120px; }
+        }
+      `}</style>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
         <div className="bg-grid"/>
@@ -607,106 +748,223 @@ export default function SuccessStories() {
       {/* HERO */}
       <section style={{ paddingTop: 140, paddingBottom: 80, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
-        <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,68px)", marginTop: 8 }}>أرقام لا تكذب<br />من تجار أثقوا فيها</h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>+700 متجر يستخدم زيادة يومياً. هنا نشارك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.</p>
+        <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
+          أرقام لا تكذب<br />
+          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            من تجار أثقوا فيها
+          </span>
+        </h1>
+        <p className="ssub rv d2" style={{ margin: "0 auto 52px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>
+          +٧٠٠ متجر يستخدم زيادة يومياً. هنا نشارك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.
+        </p>
         <div className="rv d3" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
-          {[["700+","متجر نشط"],["10M+","ريال مبيعات إضافية"],["35٪","متوسط زيادة الطلب"]].map(([v,l])=>(
-            <div key={l} style={{ padding: "18px 32px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 16, backdropFilter: "blur(20px)" }}>
-              <div style={{ fontSize: 32, fontWeight: 900, color: "var(--p3)" }}>{v}</div>
-              <div style={{ fontSize: 13, color: "var(--td)", marginTop: 4 }}>{l}</div>
+          {[
+            ["٧٠٠+", "متجر نشط", "#a855f7"],
+            ["١٠M+", "ريال مبيعات إضافية", "#06b6d4"],
+            ["٣٥٪", "متوسط زيادة الطلب", "#10b981"],
+            ["٩٠٪", "رضا التجار", "#f59e0b"],
+          ].map(([v, l, c]) => (
+            <div key={l} className="hero-stat">
+              <div style={{ fontSize: "clamp(28px,3vw,40px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
+              <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* FILTER BAR */}
+      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 48 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div
+            ref={filterRef}
+            className="filter-bar rv d2"
+            style={{
+              display: "flex",
+              gap: 8,
+              overflowX: "auto",
+              paddingBottom: 8,
+              scrollSnapType: "x mandatory",
+            }}
+          >
+            {filterTabs.map(sector => (
+              <button
+                key={sector}
+                className={`filter-btn${activeSector === sector ? " active" : ""}`}
+                onClick={() => handleSectorChange(sector)}
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <span>{SECTOR_ICONS[sector] || "◆"}</span>
+                <span>{sector}</span>
+                <span className="filter-count">{sectorCounts[sector] || 0}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* STORIES */}
       <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", paddingBottom: 80 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexDirection: "column", gap: 40 }}>
-          {stories.map((s, i) => (
-            <div key={s.store} className={`gc rv d${(i%2)+1}`} style={{ padding: "0", overflow: "hidden" }}>
-              <div className="shine"/>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", minHeight: 0 }}>
-                {/* Left: profile */}
-                <div style={{ padding: "48px 40px", background: "rgba(0,0,0,.25)", borderLeft: "1px solid var(--b1)", display: "flex", flexDirection: "column", gap: 20 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 8 }}>
-                    <div style={{ width: 52, height: 52, borderRadius: 16, background: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 900, boxShadow: `0 0 24px rgba(124,58,237,.3)` }}>{s.logo}</div>
-                    <div>
-                      <div style={{ fontSize: 20, fontWeight: 900 }}>{s.store}</div>
-                      <div style={{ fontSize: 12, color: "var(--td)" }}>{s.sector} · {s.platform} · منذ {s.founded}</div>
-                    </div>
-                  </div>
-                  <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, fontStyle: "italic", borderRight: "2px solid rgba(168,85,247,.3)", paddingRight: 14 }}>"{s.quote}"</p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <div style={{ width: 32, height: 32, borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>{s.logo}</div>
-                    <div><div style={{ fontSize: 13, fontWeight: 700 }}>{s.person}</div><div style={{ fontSize: 11, color: "var(--td)" }}>{s.role}</div></div>
-                  </div>
-                  <div style={{ padding: "14px 16px", background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", borderRadius: 12, fontSize: 13, color: "var(--tm)", lineHeight: 1.7 }}>
-                    <span style={{ color: "var(--p3)", fontWeight: 700 }}>الاستراتيجية: </span>{s.strategy}
-                  </div>
-                </div>
-                {/* Right: metrics */}
-                <div style={{ padding: "48px 40px", display: "flex", flexDirection: "column", gap: 28 }}>
-                  <div>
-                    <div style={{ fontSize: 13, color: "var(--td)", letterSpacing: 1.2, textTransform: "uppercase", fontWeight: 700, marginBottom: 8 }}>القصة</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, lineHeight: 1.3 }}>{s.tagline}</div>
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    {s.metrics.map(m => (
-                      <div key={m.label} style={{ padding: "18px 20px", background: "rgba(0,0,0,.25)", border: "1px solid var(--b1)", borderRadius: 14 }}>
-                        <div style={{ fontSize: 28, fontWeight: 900, color: m.color, lineHeight: 1 }}>{m.value}</div>
-                        <div style={{ fontSize: 12, color: "var(--td)", marginTop: 6 }}>{m.label}</div>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          {activeSector !== "الكل" && (
+            <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{ fontSize: 15, color: "var(--td)" }}>
+                عرض <span style={{ color: "var(--p3)", fontWeight: 800 }}>{filteredStories.length}</span> قصة في قطاع{" "}
+                <span style={{ color: "var(--t)", fontWeight: 700 }}>{activeSector}</span>
+              </div>
+              <button
+                onClick={() => handleSectorChange("الكل")}
+                style={{ fontSize: 12, color: "var(--td)", background: "none", border: "1px solid var(--b1)", borderRadius: 100, padding: "3px 10px", cursor: "pointer", fontFamily: "var(--font)" }}
+              >
+                عرض الكل
+              </button>
+            </div>
+          )}
+          <div
+            className={`stories-fade ${visible ? "shown" : "hidden"}`}
+            style={{ display: "flex", flexDirection: "column", gap: 36 }}
+          >
+            {filteredStories.map((s, i) => (
+              <div key={s.store + s.sector} className={`gc story-card rv d${(i % 2) + 1}`} style={{ padding: 0 }}>
+                <div className="shine"/>
+                <div className="story-grid" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", minHeight: 0 }}>
+                  {/* Left: profile */}
+                  <div style={{ padding: "48px 40px", background: "rgba(0,0,0,.25)", borderLeft: "1px solid var(--b1)", display: "flex", flexDirection: "column", gap: 20 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                        <div style={{
+                          width: 58,
+                          height: 58,
+                          borderRadius: 18,
+                          background: s.color,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontSize: 24,
+                          fontWeight: 900,
+                          boxShadow: `0 8px 32px rgba(124,58,237,.3), 0 0 0 1px rgba(255,255,255,.1)`,
+                          flexShrink: 0,
+                        }}>{s.logo}</div>
+                        <div>
+                          <div style={{ fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{s.store}</div>
+                          <div style={{ fontSize: 12, color: "var(--td)" }}>{s.platform} · منذ {s.founded}</div>
+                        </div>
                       </div>
-                    ))}
+                      <div>
+                        <span className="sector-badge">
+                          {SECTOR_ICONS[s.sector] || "◆"} {s.sector}
+                        </span>
+                      </div>
+                    </div>
+                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.85, fontStyle: "italic", borderRight: "3px solid rgba(168,85,247,.3)", paddingRight: 16, margin: 0 }}>
+                      "{s.quote}"
+                    </p>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 800, flexShrink: 0 }}>{s.logo}</div>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 700 }}>{s.person}</div>
+                        <div style={{ fontSize: 11, color: "var(--td)" }}>{s.role}</div>
+                      </div>
+                    </div>
+                    <div style={{ padding: "16px 18px", background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", borderRadius: 14, fontSize: 13, color: "var(--tm)", lineHeight: 1.75 }}>
+                      <span style={{ color: "var(--p3)", fontWeight: 700 }}>الاستراتيجية: </span>{s.strategy}
+                    </div>
                   </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-                    <div style={{ padding: "12px 16px", background: "rgba(0,0,0,.2)", borderRadius: 12, textAlign: "center" }}>
-                      <div style={{ fontSize: 10, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>قبل زيادة</div>
-                      <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب <span style={{ fontWeight: 800, color: "#fff" }}>{s.before.aov} ر.س</span></div>
+                  {/* Right: metrics */}
+                  <div style={{ padding: "48px 44px", display: "flex", flexDirection: "column", gap: 28 }}>
+                    <div>
+                      <div style={{ fontSize: 12, color: "var(--td)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 10 }}>القصة</div>
+                      <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.4 }}>{s.tagline}</div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14H22M15 8L22 14L15 20" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </div>
-                    <div style={{ padding: "12px 16px", background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", borderRadius: 12, textAlign: "center" }}>
-                      <div style={{ fontSize: 10, color: "var(--p3)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>بعد زيادة</div>
-                      <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب <span style={{ fontWeight: 800, color: "var(--p3)" }}>{s.after.aov} ر.س</span></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 700, marginBottom: 10 }}>النتائج الموثقة:</div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-                      {s.results.map(r => (
-                        <div key={r} style={{ display: "flex", gap: 8, fontSize: 13, color: "var(--tm)", alignItems: "flex-start" }}>
-                          <span style={{ color: "#10b981", fontWeight: 800, flexShrink: 0 }}>✓</span>{r}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {s.metrics.map(m => (
+                        <div key={m.label} style={{
+                          padding: "20px 22px",
+                          background: "rgba(0,0,0,.25)",
+                          border: "1px solid var(--b1)",
+                          borderRadius: 16,
+                          transition: "border-color 0.2s",
+                        }}>
+                          <div style={{ fontSize: 32, fontWeight: 900, color: m.color, lineHeight: 1, marginBottom: 8 }}>{m.value}</div>
+                          <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 500 }}>{m.label}</div>
                         </div>
                       ))}
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
+                      <div style={{ padding: "14px 18px", background: "rgba(0,0,0,.2)", borderRadius: 14, textAlign: "center" }}>
+                        <div style={{ fontSize: 10, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>قبل زيادة</div>
+                        <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب</div>
+                        <div style={{ fontSize: 20, fontWeight: 900, color: "#fff", marginTop: 4 }}>{s.before.aov} <span style={{ fontSize: 12, fontWeight: 600 }}>ر.س</span></div>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                          <path d="M6 16H26M18 8L26 16L18 24" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        <div style={{ fontSize: 10, color: "#a855f7", fontWeight: 700 }}>تطوّر</div>
+                      </div>
+                      <div style={{ padding: "14px 18px", background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", borderRadius: 14, textAlign: "center" }}>
+                        <div style={{ fontSize: 10, color: "#c084fc", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>بعد زيادة</div>
+                        <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب</div>
+                        <div style={{ fontSize: 20, fontWeight: 900, color: "#a855f7", marginTop: 4 }}>{s.after.aov} <span style={{ fontSize: 12, fontWeight: 600 }}>ر.س</span></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 700, marginBottom: 12, letterSpacing: 0.5 }}>النتائج الموثقة:</div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        {s.results.map(r => (
+                          <div key={r} style={{ display: "flex", gap: 10, fontSize: 13.5, color: "var(--tm)", alignItems: "flex-start", lineHeight: 1.6 }}>
+                            <span style={{ color: "#10b981", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>✓</span>{r}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* SECTORS */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ textAlign: "center", marginBottom: 52 }}>
             <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>حسب القطاع</div>
-            <h2 className="st rv d1">نجاح في كل قطاع</h2>
+            <h2 className="st rv d1" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
             <p className="ssub rv d2" style={{ margin: "0 auto" }}>زيادة يعمل مع جميع أنواع المتاجر</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }} className="rv d2">
-            {sectors.map(s => (
-              <div key={s.name} className="gc" style={{ padding: "28px 24px", display: "flex", alignItems: "center", gap: 16 }}>
-                <div className="shine"/>
-                <div style={{ fontSize: 36 }}>{s.icon}</div>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: 16 }}>{s.name}</div>
-                  <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{s.stores} · {s.avg}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="rv d2">
+            {sectors.map(s => {
+              const count = stories.filter(st => st.sector === s.name).length;
+              return (
+                <div
+                  key={s.name}
+                  className="gc"
+                  style={{ padding: "28px 24px", display: "flex", alignItems: "center", gap: 18, cursor: "pointer", transition: "transform 0.2s, box-shadow 0.2s" }}
+                  onClick={() => {
+                    handleSectorChange(s.name);
+                    window.scrollTo({ top: 520, behavior: "smooth" });
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 40px rgba(124,58,237,.2)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.transform = ""; (e.currentTarget as HTMLDivElement).style.boxShadow = ""; }}
+                >
+                  <div className="shine"/>
+                  <div style={{ fontSize: 42, lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 800, fontSize: 16, marginBottom: 4 }}>{s.name}</div>
+                    <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
+                    {count > 0 && (
+                      <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "2px 8px", borderRadius: 100 }}>
+                        {count} قصة نجاح
+                      </div>
+                    )}
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ opacity: 0.4, flexShrink: 0 }}>
+                    <path d="M10 4L6 8L10 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
