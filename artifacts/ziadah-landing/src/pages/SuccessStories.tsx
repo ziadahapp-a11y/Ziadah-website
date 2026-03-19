@@ -787,8 +787,8 @@ export default function SuccessStories() {
         </div>
       </section>
       {/* FILTER BAR */}
-      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 16 }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <section style={{ position: "relative", zIndex: 10, paddingLeft: "5%", paddingRight: "5%", marginBottom: 16 }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
           <div
             ref={filterRef}
             className="filter-bar rv d2"
@@ -797,7 +797,7 @@ export default function SuccessStories() {
               gap: 8,
               overflowX: "auto",
               paddingBottom: 8,
-              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
             }}
           >
             {filterTabs.map(sector => (
@@ -805,7 +805,6 @@ export default function SuccessStories() {
                 key={sector}
                 className={`filter-btn${activeSector === sector ? " active" : ""}`}
                 onClick={() => handleSectorChange(sector)}
-                style={{ scrollSnapAlign: "start" }}
               >
                 <span>{SECTOR_ICONS[sector] || "◆"}</span>
                 <span>{sector}</span>
@@ -813,6 +812,17 @@ export default function SuccessStories() {
               </button>
             ))}
           </div>
+          {/* Gradient fade indicator — RTL: appears on the left edge */}
+          <div style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 8,
+            width: 48,
+            background: "linear-gradient(to right, var(--bg) 30%, transparent)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }} />
         </div>
       </section>
       {/* STORIES */}
