@@ -101,6 +101,29 @@ export default function Landing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const section = params.get("section");
+    const hash = window.location.hash.replace(/^#/, "");
+    const target = section || hash;
+
+    if (!target) return;
+
+    const timer = setTimeout(() => {
+      const el = document.getElementById(target);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (section) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("section");
+        window.history.replaceState({}, "", url.toString());
+      }
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
     const obs = new IntersectionObserver(
       (es) => {
         es.forEach((e) => {

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
+import { useScrollToSection } from "../hooks/useScrollToSection";
 
 const Logo = () => (
   <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
@@ -366,45 +367,52 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
-  const helpItems = [
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
-      ),
-      label: "الأسئلة الشائعة",
-      subtitle: "إجابات لأكثر الأسئلة تكراراً",
-      href: "/#faq",
-      isModal: false,
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
-      ),
-      label: "تواصل معنا",
-      subtitle: "فريق الدعم جاهز لمساعدتك",
-      href: "/support",
-      isModal: false,
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
-      ),
-      label: "البريد الإلكتروني",
-      subtitle: "راسلنا وسنرد خلال 24 ساعة",
-      href: "mailto:support@ziadah.app",
-      isModal: false,
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
-      ),
-      label: "طلب ميزة جديدة",
-      subtitle: "شاركنا أفكارك لتطوير المنصة",
-      href: "#",
-      isModal: true,
-    },
-  ];
+const helpItems = [
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
+    ),
+    label: "الأسئلة الشائعة",
+    subtitle: "إجابات لأكثر الأسئلة تكراراً",
+    href: "/#faq",
+    isModal: false,
+    isSection: true,
+    sectionId: "faq",
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
+    ),
+    label: "تواصل معنا",
+    subtitle: "فريق الدعم جاهز لمساعدتك",
+    href: "/support",
+    isModal: false,
+    isSection: false,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
+    ),
+    label: "البريد الإلكتروني",
+    subtitle: "راسلنا وسنرد خلال 24 ساعة",
+    href: "mailto:support@ziadah.app",
+    isModal: false,
+    isSection: false,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
+    ),
+    label: "طلب ميزة جديدة",
+    subtitle: "شاركنا أفكارك لتطوير المنصة",
+    href: "#",
+    isModal: true,
+    isSection: false,
+  },
+];
+
+function HelpDropdown({ onFeatureRequest }: { onFeatureRequest?: () => void }) {
+  const scrollToSection = useScrollToSection();
 
   return (
     <div style={{
@@ -414,25 +422,44 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       {helpItems.map((item) => {
+        const itemStyle: React.CSSProperties = {
+          display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
+          borderRadius: 12, background: "transparent", border: "none",
+          cursor: "pointer", width: "100%", transition: "background .2s",
+          textAlign: "right",
+        };
+        const itemContent = (
+          <>
+            <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+            </div>
+          </>
+        );
         if (item.isModal) {
           return (
             <button
               key={item.label}
-              onClick={onFeatureRequest}
-              style={{
-                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-                borderRadius: 12, background: "transparent", border: "none",
-                cursor: "pointer", width: "100%", transition: "background .2s",
-                textAlign: "right",
-              }}
+              onClick={onFeatureRequest ?? undefined}
+              style={itemStyle}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             >
-              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
-              </div>
+              {itemContent}
+            </button>
+          );
+        }
+        if (item.isSection && item.sectionId) {
+          return (
+            <button
+              key={item.label}
+              onClick={() => scrollToSection(item.sectionId!)}
+              style={itemStyle}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            >
+              {itemContent}
             </button>
           );
         }
@@ -441,18 +468,11 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
             <a
               key={item.label}
               href={item.href}
-              style={{
-                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-                borderRadius: 12, textDecoration: "none", transition: "background .2s",
-              }}
+              style={{ ...itemStyle, textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             >
-              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
-              </div>
+              {itemContent}
             </a>
           );
         }
@@ -460,18 +480,11 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
           <Link
             key={item.label}
             href={item.href}
-            style={{
-              display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-              borderRadius: 12, textDecoration: "none", transition: "background .2s",
-            }}
+            style={{ ...itemStyle, textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
-            <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
-            </div>
+            {itemContent}
           </Link>
         );
       })}
@@ -488,6 +501,7 @@ const mobileNavItems = [
 
 function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
+  const scrollToSection = useScrollToSection();
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -641,17 +655,17 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>روابط سريعة</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
-        <a
-          href="/#pricing"
-          onClick={onClose}
+        <button
+          onClick={() => { scrollToSection("pricing"); onClose(); }}
           style={{
             display: "block", padding: "10px 12px", borderRadius: 12,
-            background: "rgba(255,255,255,.04)", textDecoration: "none",
+            background: "rgba(255,255,255,.04)", border: "none",
             color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
+            cursor: "pointer",
           }}
         >
           الأسعار
-        </a>
+        </button>
         <Link
           href="/calculator"
           onClick={onClose}
@@ -667,7 +681,24 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المساعدة</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
-        {helpItems.map((item) => {
+        {helpItems.filter(item => !item.isModal).map((item) => {
+          if (item.isSection && item.sectionId) {
+            return (
+              <button
+                key={item.label}
+                onClick={() => { scrollToSection(item.sectionId!); onClose(); }}
+                style={{
+                  display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                  borderRadius: 12, background: "rgba(255,255,255,.04)",
+                  border: "none", cursor: "pointer", width: "100%", textAlign: "right",
+                  fontFamily: "var(--font)",
+                }}
+              >
+                <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+              </button>
+            );
+          }
           if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
             return (
               <a
@@ -730,6 +761,7 @@ export default function Nav() {
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const scrollToSection = useScrollToSection();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
@@ -836,17 +868,18 @@ export default function Nav() {
 
             {/* الأسعار */}
             <li>
-              <a href="/#pricing" style={{
+              <button onClick={() => scrollToSection("pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", transition: "all .2s",
+                background: "transparent", border: "none", cursor: "pointer",
+                transition: "all .2s",
               }}
                 onMouseEnter={e => e.currentTarget.style.color = "#fff"}
                 onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,.55)"}
               >
                 الأسعار
-              </a>
+              </button>
             </li>
 
             {/* حاسبة الأثر */}
@@ -926,14 +959,15 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
             <li>
-              <a href="/#pricing" style={{
+              <button onClick={() => scrollToSection("pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", transition: "all .2s",
+                background: "transparent", border: "none", cursor: "pointer",
+                transition: "all .2s",
               }}>
                 الأسعار
-              </a>
+              </button>
             </li>
             <li>
               <Link href="/calculator" style={{
