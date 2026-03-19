@@ -766,9 +766,7 @@ export default function SuccessStories() {
         <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>أثر مستدام</span>
         </h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 32px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>
-          +٧٠٠ متجر يستخدم زيادة يومياً. هنا نشارك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.
-        </p>
+        <p className="ssub rv d2" style={{ margin: "0 auto 32px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>+700 متجر استخدم زيادة, نشارك معك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.</p>
         <div className="rv d3" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           {[
             ["700+", "متجر نشط", "#a855f7"],
