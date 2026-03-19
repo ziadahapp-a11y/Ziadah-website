@@ -101,6 +101,7 @@ export default function CartDemoMockup() {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div
+            className="phone-mockup-wrap"
             style={{
               width: 340,
               maxWidth: "100%",

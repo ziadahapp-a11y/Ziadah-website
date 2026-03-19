@@ -85,7 +85,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {/* WHAT WE DO */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <div className="gc rv" style={{ padding: "48px 52px" }}>
+          <div className="gc rv uc-what-card" style={{ padding: "48px 52px" }}>
             <div className="shine"/>
             <div style={{ textAlign: "center", marginBottom: 0 }}>
               <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>{data.whatWeDoTitle}</h2>
@@ -98,7 +98,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {/* STATS */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(data.stats.length, 4)}, 1fr)`, gap: 16 }}>
+          <div className="uc-stats-grid" style={{ display: "grid", gridTemplateColumns: `repeat(${Math.min(data.stats.length, 4)}, 1fr)`, gap: 16 }}>
             {data.stats.map((s, i) => (
               <div key={i} className={`gc rv d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
                 <div className="shine"/>

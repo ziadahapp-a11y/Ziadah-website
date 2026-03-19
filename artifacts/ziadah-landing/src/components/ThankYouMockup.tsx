@@ -22,8 +22,9 @@ export default function ThankYouMockup() {
         </div>
 
         <div className="rv d1" style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{
+          <div className="phone-mockup-wrap" style={{
             width: 340,
+            maxWidth: "100%",
             background: "linear-gradient(160deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%)",
             borderRadius: 44,
             padding: "14px 12px",

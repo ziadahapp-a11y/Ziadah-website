@@ -733,9 +733,24 @@ export default function SuccessStories() {
           transform: translateY(-3px);
           border-color: rgba(168,85,247,.4);
         }
+        @media (max-width: 1024px) {
+          .sectors-grid { grid-template-columns: 1fr 1fr !important; }
+        }
         @media (max-width: 768px) {
           .story-grid { grid-template-columns: 1fr !important; }
+          .story-left-panel { border-left: none !important; border-bottom: 1px solid var(--b1) !important; padding: 28px 22px !important; }
+          .story-right-panel { padding: 28px 22px !important; }
+          .story-metrics-grid { grid-template-columns: 1fr 1fr !important; }
+          .story-before-after { grid-template-columns: 1fr 1fr !important; }
+          .story-arrow { display: none !important; }
           .hero-stat { padding: 18px 24px; min-width: 120px; }
+          .sectors-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .sectors-grid { grid-template-columns: 1fr !important; }
+          .story-metrics-grid { grid-template-columns: 1fr !important; }
+          .story-before-after { grid-template-columns: 1fr !important; }
+          .hero-stat { min-width: 100px; }
         }
       `}</style>
       <div className="bg-wrap">
@@ -823,7 +838,7 @@ export default function SuccessStories() {
                 <div className="shine"/>
                 <div className="story-grid" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", minHeight: 0 }}>
                   {/* Left: profile */}
-                  <div style={{ padding: "48px 40px", background: "rgba(0,0,0,.25)", borderLeft: "1px solid var(--b1)", display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div className="story-left-panel" style={{ padding: "48px 40px", background: "rgba(0,0,0,.25)", borderLeft: "1px solid var(--b1)", display: "flex", flexDirection: "column", gap: 20 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                         <div style={{
@@ -865,12 +880,12 @@ export default function SuccessStories() {
                     </div>
                   </div>
                   {/* Right: metrics */}
-                  <div style={{ padding: "48px 44px", display: "flex", flexDirection: "column", gap: 28 }}>
+                  <div className="story-right-panel" style={{ padding: "48px 44px", display: "flex", flexDirection: "column", gap: 28 }}>
                     <div>
                       <div style={{ fontSize: 12, color: "var(--td)", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700, marginBottom: 10 }}>القصة</div>
                       <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.4 }}>{s.tagline}</div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div className="story-metrics-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                       {s.metrics.map(m => (
                         <div key={m.label} style={{
                           padding: "20px 22px",
@@ -884,13 +899,13 @@ export default function SuccessStories() {
                         </div>
                       ))}
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
+                    <div className="story-before-after" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
                       <div style={{ padding: "14px 18px", background: "rgba(0,0,0,.2)", borderRadius: 14, textAlign: "center" }}>
                         <div style={{ fontSize: 10, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>قبل زيادة</div>
                         <div style={{ fontSize: 13, color: "var(--tm)" }}>متوسط الطلب</div>
                         <div style={{ fontSize: 20, fontWeight: 900, color: "#fff", marginTop: 4 }}>{s.before.aov} <span style={{ fontSize: 12, fontWeight: 600 }}>ر.س</span></div>
                       </div>
-                      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                      <div className="story-arrow" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                           <path d="M6 16H26M18 8L26 16L18 24" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -927,7 +942,7 @@ export default function SuccessStories() {
             <h2 className="st rv d1" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
             <p className="ssub rv d2" style={{ margin: "0 auto" }}>زيادة يعمل مع جميع أنواع المتاجر</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }} className="rv d2">
+          <div className="sectors-grid rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
             {sectors.map(s => {
               const count = stories.filter(st => st.sector === s.name).length;
               return (

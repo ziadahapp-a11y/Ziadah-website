@@ -69,7 +69,7 @@ export default function Features() {
         <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>الأهداف الـ 5، طرق العرض الـ 5، الأنشطة الـ 9، وحالات الاستخدام لكل قطاع - مشروحة بالتفصيل.</p>
 
         {/* Tabs */}
-        <div className="rv d3" style={{ display: "inline-flex", gap: 4, padding: 4, background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 16, backdropFilter: "blur(20px)" }}>
+        <div className="feat-tabs rv d3" style={{ display: "inline-flex", gap: 4, padding: 4, background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 16, backdropFilter: "blur(20px)" }}>
           {[
             { id: "goals" as const, label: "الأهداف الـ 5" },
             { id: "presentations" as const, label: "طرق العرض الـ 5" },
@@ -90,7 +90,7 @@ export default function Features() {
             {goals.map((g, i) => (
               <div key={g.id} className={`gc rv d${(i%2)+1}`} style={{ padding: 0, overflow: "hidden" }}>
                 <div className="shine"/>
-                <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto" }}>
+                <div className="feat-goals-outer" style={{ display: "grid", gridTemplateColumns: "auto 1fr auto" }}>
                   <div style={{ width: 8, background: g.color, opacity: 0.7 }}/>
                   <div style={{ padding: "32px 36px" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 16 }}>
@@ -103,7 +103,7 @@ export default function Features() {
                         <div style={{ fontSize: 13, color: "var(--td)" }}>{g.subtitle}</div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+                    <div className="feat-goals-inner" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>الوصف</div>
                         <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{g.desc}</p>
@@ -134,7 +134,7 @@ export default function Features() {
       {/* PRESENTATIONS */}
       {activeTab === "presentations" && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div className="feat-presentations-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
             {presentations.map((p, i) => (
               <div key={p.title} className={`gc rv d${(i%2)+1}`} style={{ padding: "36px 32px" }}>
                 <div className="shine"/>
@@ -162,7 +162,7 @@ export default function Features() {
       {activeTab === "activities" && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 48 }}>
+            <div className="feat-activities-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 48 }}>
               {activities.map((a, i) => (
                 <div key={a.num} className={`gc rv d${(i%3)+1}`} style={{ padding: "28px 24px" }}>
                   <div className="shine"/>
@@ -219,7 +219,7 @@ export default function Features() {
       {/* USE CASES */}
       {activeTab === "usecases" && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 18 }}>
+          <div className="feat-usecases-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 18 }}>
             {usecases.map((u, i) => (
               <div key={u.sector} className={`gc rv d${(i%2)+1}`} style={{ padding: "32px 28px" }}>
                 <div className="shine"/>

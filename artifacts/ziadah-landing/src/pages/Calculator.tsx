@@ -309,6 +309,7 @@ export default function Calculator() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div
+                className="calc-result-cols"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr",
@@ -661,10 +662,23 @@ export default function Calculator() {
       </section>
 
       <style>{`
+        @media (max-width: 1024px) {
+          .calc-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
         @media (max-width: 768px) {
           .calc-grid {
             grid-template-columns: 1fr !important;
           }
+          .calc-result-cols {
+            grid-template-columns: 1fr !important;
+          }
+          .impact-grid {
+            grid-template-columns: 1fr 1fr !important;
+          }
+        }
+        @media (max-width: 480px) {
           .impact-grid {
             grid-template-columns: 1fr !important;
           }

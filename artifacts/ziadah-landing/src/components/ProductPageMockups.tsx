@@ -148,8 +148,10 @@ function MockupCard({
       </div>
 
       <div
+        className="phone-mockup-wrap"
         style={{
           width: 270,
+          maxWidth: "100%",
           background: "rgba(255,255,255,.04)",
           borderRadius: 44,
           border: "2px solid rgba(255,255,255,.1)",
