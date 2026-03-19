@@ -284,7 +284,7 @@ export default function Landing() {
           <h1 className="ht text-[72px] pt-[0px] pb-[0px]">
             مسوّق داخل متجرك
             <em>بالذكاء الاصطناعي</em>
-            <span className="grad pt-[10px] pb-[10px] mt-[10px] mb-[10px]">
+            <span className="grad mt-[10px] mb-[10px] pt-[10px] pb-[10px]">
               أخبر منك بعميلك
             </span>
           </h1>
