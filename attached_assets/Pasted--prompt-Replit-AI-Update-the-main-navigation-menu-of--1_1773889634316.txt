@@ -1,0 +1,76 @@
+هذا الـ prompt الكامل، انسخه وحطه في Replit AI مباشرة:
+
+---
+
+Update the main navigation menu of this website with the following structure. The menu is RTL (Arabic, right-to-left). Replace whatever exists with this exact structure:
+
+**Menu items (right to left order):**
+
+1. **الرئيسة** - simple link, no dropdown
+
+2. **حالات الاستخدام** - dropdown with 3 grouped sections:
+
+Group 1 title: "حسب الصفحات"
+- صفحة الدفع
+- صفحة المنتج
+- الصفحة الرئيسة
+- صفحة إتمام الطلب
+- صفحة السلة
+- صفحة التصنيفات
+
+Group 2 title: "حسب الأنشطة"
+- الإضافة للسلة — subtitle: "بع أكثر فوراً بعروض سلسة بنقرة واحدة بعد إتمام الطلب"
+- الحذف من السلة
+
+Group 3 title: "حسب الأهداف"
+- الوصول للشحن المجاني
+- عروض الكميات
+- إضافة المنتجات
+
+3. **قصص النجاح** - simple link, no dropdown
+
+4. **المنصات** - dropdown:
+- سلة
+- زد
+- شوبيفاي — with a "قريباً" badge next to it (grayed out, not clickable)
+
+5. **الأسعار** - simple link, no dropdown
+
+6. **المساعدة** - dropdown with icon + title + subtitle for each item:
+- المدونة — "استراتيجيات مثبتة، أخبار من عالم التجارة الإلكترونية"
+- احجز اجتماع — "اكتشف ميّزات المنصة وكيف تساعدك على رفع مبيعاتك"
+- حاسبة العوائد — "اكتشف كم إيراداً إضافياً يمكنك تحقيقه عبر قمع البيع الإضافي بعد الشراء"
+- مجموعة أدوات التجارة الإلكترونية — "احصل مجاناً على مجموعتنا المتنامية من الملفات والقوالب والأدلة المتخصصة"
+- مركز المساعدة — "احصل على دعم فريقنا على مدار الساعة أو ابحث في مكتبة المقالات"
+
+**Two CTA buttons on the left side of the navbar:**
+- "احجز اجتماع" — outlined button (border only, no fill)
+- "ابدأ الآن" — filled button with the site's primary color
+
+**Desktop requirements:**
+- Full RTL layout (dir="rtl")
+- Dropdowns open on hover
+- Keep all existing styles, colors, and fonts - only change the menu content and structure
+- Do not remove or modify any other part of the page
+
+---
+
+**Mobile requirements (max-width: 768px):**
+
+Hide the top navbar completely on mobile. Instead, show a fixed bottom navigation bar at the bottom of the screen with 5 items as icon + label buttons:
+
+1. 🏠 الرئيسة
+2. ✦ حالات الاستخدام
+3. 🏆 قصص النجاح
+4. 💰 الأسعار
+5. ☰ المزيد — tapping this opens a full-screen overlay showing the remaining items: المنصات، المساعدة, plus the two CTA buttons (احجز اجتماع، ابدأ الآن)
+
+**Bottom bar requirements:**
+- Fixed position, sticks to the bottom of the screen at all times
+- Full width, white background, subtle top border or shadow
+- Icons centered above labels, equal spacing between all 5 items
+- Active item highlighted with the site's primary color
+- RTL layout
+- Add bottom padding to the page content so nothing gets hidden behind the bar
+- Dropdowns for "حالات الاستخدام" and "المنصات" open as a bottom sheet sliding up from the bar when tapped
+- Do not show the top navbar at all on mobile
