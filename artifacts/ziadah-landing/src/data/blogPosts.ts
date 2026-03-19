@@ -14,12 +14,12 @@ export interface BlogPost {
 }
 
 export const categories = [
-  { id: "all", label: "جميع المقالات" },
-  { id: "استراتيجيات البيع", label: "استراتيجيات البيع" },
-  { id: "شروحات المنصة", label: "شروحات المنصة" },
-  { id: "الذكاء الاصطناعي", label: "الذكاء الاصطناعي" },
-  { id: "دليل التاجر", label: "دليل التاجر" },
-  { id: "التجارة الإلكترونية", label: "التجارة الإلكترونية" },
+  { id: "all", label: "جميع المقالات", labelEn: "All Articles" },
+  { id: "استراتيجيات البيع", label: "استراتيجيات البيع", labelEn: "Sales Strategies" },
+  { id: "شروحات المنصة", label: "شروحات المنصة", labelEn: "Platform Tutorials" },
+  { id: "الذكاء الاصطناعي", label: "الذكاء الاصطناعي", labelEn: "Artificial Intelligence" },
+  { id: "دليل التاجر", label: "دليل التاجر", labelEn: "Merchant Guide" },
+  { id: "التجارة الإلكترونية", label: "التجارة الإلكترونية", labelEn: "E-Commerce" },
 ];
 
 export const categoryColors: Record<string, string> = {

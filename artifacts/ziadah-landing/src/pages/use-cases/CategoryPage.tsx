@@ -71,9 +71,67 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
   ctaDesc: "توجيه ذكي في اللحظة المناسبة = عميل يشتري بدلاً من أن يغادر.",
+  heroEn: {
+    tag: "By Pages",
+    title: "Category Page",
+    subtitle: "The customer is in comparison and browsing mode — a golden opportunity to guide them toward the highest-value and most relevant products for their interests.",
+    tagline: "Smart guidance before the purchase decision",
+    icon: "📁",
+  },
+  whatWeDoTitleEn: "How does Ziadah work on the category page?",
+  whatWeDoDescEn:
+    "The category page is the moment of search and comparison — the customer hasn't decided which product they want yet. Ziadah leverages this moment smartly: it reorders products based on purchase probability for each customer, highlights combos and value bundles between product cards, and displays 'Best Seller' and 'Top Rated' badges on products matching their profile. Instead of random browsing, the customer enters a guided path toward purchase.",
+  strategyTitleEn: "Ziadah's strategies on the category page",
+  strategiesEn: [
+    {
+      icon: "🎯",
+      title: "Smart Personalized Ordering",
+      desc: "Ziadah reorders product cards based on each customer's purchase probability — the most relevant products appear first for every visitor.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🏷️",
+      title: "Trust Badges",
+      desc: "Places 'Best Seller', 'Editor's Pick', and 'Ending Soon' badges on appropriate products to drive purchase decisions.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "🎁",
+      title: "In-Catalog Combos",
+      desc: "Shows embedded combo cards between regular products that bundle two or more items at a price lower than what the customer would expect.",
+      color: "#10b981",
+    },
+    {
+      icon: "📊",
+      title: "'You Might Like' Filter",
+      desc: "Adds a featured section that collects products matching the customer's interests inferred from their previous behavior.",
+      color: "#06b6d4",
+    },
+  ],
+  statsEn: [
+    { value: "+27%", label: "Category-to-product click-through rate", color: "#a855f7" },
+    { value: "+33%", label: "Add-to-cart rate", color: "#10b981" },
+    { value: "+21%", label: "Average order value", color: "#06b6d4" },
+    { value: "-24%", label: "Purchase decision time", color: "#ec4899" },
+  ],
+  exampleScenarioEn: {
+    title: "A customer browsing the 'Audio Devices' category",
+    steps: [
+      "The customer opens the audio devices category and sees 40 products.",
+      "Ziadah knows from their history they're interested in quality and have a mid-range budget (previously bought products between 300-600 SAR).",
+      "It reorders products: speakers within their budget appear first, with a 'Best Seller This Week' badge on one.",
+      "A combo card appears: 'Speaker + stand + charging cable at 15% off'.",
+    ],
+    result: "The customer found what they wanted in under two minutes and added the combo to cart directly.",
+  },
+  plansEn: ["Growth", "Professional", "Business"],
+  ctaTitleEn: "Turn category browsing into a purchase decision",
+  ctaDescEn: "Smart guidance at the right moment = a customer who buys instead of leaving.",
   seo: {
     title: "تحسين صفحة التصنيف — زيادة",
+    titleEn: "Optimize Category Page — Ziadah",
     description: "وجّه العميل نحو المنتجات الأعلى قيمة في صفحة التصنيف. زيادة يُرتّب عرض المنتجات ذكياً بناءً على سلوك العميل.",
+    descriptionEn: "Guide customers toward the highest-value products on the category page. Ziadah intelligently reorders product display based on customer behavior.",
     canonical: "/use-cases/category",
   },
 };

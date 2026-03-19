@@ -96,9 +96,67 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل منتجاتك إلى حزم تبيع نفسها",
   ctaDesc: "زيادة يبني الحزمة ويختار الخصم ويعرضها في الوقت الصحيح — أنت تجني النتيجة.",
+  heroEn: {
+    tag: "By Display Method",
+    title: "Bundle Deals",
+    subtitle: "Combine two or more products at a discounted price in a single bundle — the customer gains real savings and the store increases order value in one go.",
+    tagline: "Bundles convince with value before they convince with price",
+    icon: "🎁",
+  },
+  whatWeDoTitleEn: "What are bundle deals and how does Ziadah build them?",
+  whatWeDoDescEn:
+    "Bundle deals combine two or more products in a single package at a total price lower than their individual prices combined. Ziadah builds these bundles intelligently: it selects products that complement each other based on order association data, calculates the optimal discount for each bundle to motivate the decision while protecting profit margins, then displays them at the right time and page with savings clearly highlighted.",
+  strategyTitleEn: "Types of bundle deals in Ziadah",
+  strategiesEn: [
+    {
+      icon: "🧩",
+      title: "Functional Complement Bundle",
+      desc: "Two or three products that functionally complete each other in one set — a phone with case and screen protector, or a complete skincare routine.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🎁",
+      title: "Gift Bundle",
+      desc: "A curated product collection styled as a 'gift box' highlighting total value and applied discount — drives purchases during holidays and gift-giving occasions.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "🍽️",
+      title: "Complete Meal Bundle",
+      desc: "For restaurants and food products: combining the main dish, sides, and drink in a meal at a unified price lower than individual items.",
+      color: "#10b981",
+    },
+    {
+      icon: "🔢",
+      title: "Quantity Pack",
+      desc: "Selling a set number of the same product as a single pack at a lower price than buying individually — ideal for consumables and wholesale buyers.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+52%", label: "Bundle acceptance rate when savings are clearly shown", color: "#a855f7" },
+    { value: "+39%", label: "Average order value with at least one bundle", color: "#06b6d4" },
+    { value: "+25%", label: "Total revenue margin despite the bundle discount", color: "#10b981" },
+    { value: "68%", label: "Of customers prefer the bundle over individual purchase when they see the savings", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples from various industries",
+    steps: [
+      "💄 Beauty: 'Morning Routine' bundle = cleanser + serum + moisturizer at 199 SAR instead of 249 SAR (save 50 SAR) — a clear offer that convinces with value.",
+      "💻 Electronics: 'Productivity' bundle = laptop + mouse + bag at 1,899 SAR instead of 2,150 SAR — the big saving justifies an immediate decision.",
+      "🍔 Restaurant: Family meal = 4 burgers + 4 drinks + large fries at 119 SAR instead of 148 SAR — suits quick family decisions.",
+      "🧴 Haircare: 'Healthy Hair' bundle = shampoo + conditioner + weekly mask at 89 SAR instead of 112 SAR — saving 23 SAR convinces the customer to get the full set.",
+    ],
+    result: "The customer who sees savings clearly (the amount, not just the percentage) converts at 52% — transparency in the discount is the strongest driver of purchase decisions.",
+  },
+  plansEn: ["Growth", "Professional", "Business"],
+  ctaTitleEn: "Turn your products into bundles that sell themselves",
+  ctaDescEn: "Ziadah builds the bundle, chooses the discount, and displays it at the right time — you reap the results.",
   seo: {
     title: "عروض الحزم — زيادة",
+    titleEn: "Bundle Deals — Ziadah",
     description: "اجمع منتجين أو أكثر في حزمة بسعر مخفوض وارفع قيمة الطلب دفعة واحدة. زيادة يُنشئ عروض الحزم الذكية لمتجرك على زد وسلة.",
+    descriptionEn: "Combine two or more products in a discounted bundle and boost order value instantly. Ziadah creates smart bundle deals for your Zid and Salla store.",
     canonical: "/use-cases/bundle-deals",
   },
 };

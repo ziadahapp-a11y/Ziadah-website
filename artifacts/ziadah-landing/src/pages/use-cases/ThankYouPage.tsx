@@ -59,9 +59,67 @@ const data: UseCasePageData = {
   ctaTitle: "حوّل صفحة الشكر إلى مصدر دخل إضافي",
   ctaDesc: "ابنِ ولاء حقيقي وحفّز الطلبات المتكررة من أولى خطوات العلاقة مع العميل.",
   extraSections: <ThankYouMockup />,
+  heroEn: {
+    tag: "By Pages",
+    title: "Thank You Page",
+    subtitle: "Right after completing the purchase — the customer is at peak satisfaction and openness. This golden moment is perfect for suggesting a complementary product or inviting them to order again.",
+    tagline: "A satisfied buyer is the most ready customer to buy again",
+    icon: "🎉",
+  },
+  whatWeDoTitleEn: "How does Ziadah work on the thank you page?",
+  whatWeDoDescEn:
+    "After completing the order, the customer sees the thank you page — which is usually a dead page offering nothing. Ziadah transforms it into a sales opportunity: it shows a smart complementary product related to what they just bought, an upsell version for their next order, or an invitation to subscribe to an exclusive offer. The tone here isn't salesy — it's a warm, personalized experience that builds loyalty and drives repeat orders.",
+  strategyTitleEn: "Ziadah's strategies on the thank you page",
+  strategiesEn: [
+    {
+      icon: "🎯",
+      title: "Post-Purchase Complementary Product",
+      desc: "Shows a directly complementary product to what the customer just bought — with the logic 'Most who bought this also added...' to stimulate the second order.",
+      color: "#a855f7",
+    },
+    {
+      icon: "⬆️",
+      title: "Upsell for Next Order",
+      desc: "Suggests an upgrade or better version for the next order — with a special limited-time offer to incentivize return.",
+      color: "#10b981",
+    },
+    {
+      icon: "🏷️",
+      title: "Next Purchase Coupon",
+      desc: "Gives the customer a discount coupon for their next order with a limited time window (24-48 hours) to create urgency and bring them back.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "❤️",
+      title: "Personal Loyalty Building",
+      desc: "Shows recommendations built on the customer's complete profile, making every thank you page visit a different, personalized experience.",
+      color: "#ec4899",
+    },
+  ],
+  statsEn: [
+    { value: "+48%", label: "Repeat purchase rate", color: "#a855f7" },
+    { value: "+26%", label: "Second order value", color: "#06b6d4" },
+    { value: "+35%", label: "Return coupon usage rate", color: "#10b981" },
+    { value: "+42%", label: "Long-term customer satisfaction", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "A customer who bought a new phone",
+    steps: [
+      "The customer completed a Galaxy phone purchase at 1,800 SAR.",
+      "A personalized thank you page from Ziadah appears instead of the usual static page.",
+      "Shown: 'Customers who bought this phone also added → screen protector + case + Bluetooth earbuds as a bundle for 280 SAR'.",
+      "Also shown: a 15% coupon for any order within the next 48 hours.",
+    ],
+    result: "38% of these customers added accessories immediately, and 22% returned within 48 hours using the coupon.",
+  },
+  plansEn: ["Professional", "Business"],
+  ctaTitleEn: "Turn the thank you page into an additional revenue source",
+  ctaDescEn: "Build real loyalty and drive repeat orders from the very first steps of the customer relationship.",
   seo: {
     title: "عروض صفحة الشكر — زيادة",
+    titleEn: "Thank You Page Offers — Ziadah",
     description: "اللحظة بعد الشراء هي الأكثر انفتاحاً. زيادة يستثمر صفحة الشكر لاقتراح منتج تكميلي وتعزيز الولاء وزيادة معدل التكرار.",
+    descriptionEn: "The post-purchase moment is the most open. Ziadah leverages the thank you page to suggest complementary products, build loyalty, and increase repeat order rates.",
     canonical: "/use-cases/thank-you",
   },
 };

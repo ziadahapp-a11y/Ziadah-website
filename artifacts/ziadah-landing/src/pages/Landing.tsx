@@ -15,6 +15,8 @@ import RelatedProductsWidget from "../components/widgets/RelatedProductsWidget";
 import CouponWidget from "../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 const storeLogos = [
   { name: "BestClean", src: "/logos/bestclean.png" },
@@ -86,6 +88,8 @@ function SecTag({ children }: { children: React.ReactNode }) {
 }
 
 export default function Landing() {
+  const { lang, dir } = useLanguage();
+  const tr = t[lang];
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
@@ -147,122 +151,35 @@ export default function Landing() {
     y: { s: 24, g: 249, p: 665, b: "1,332" },
   };
 
-  const testimonialsRow1 = [
-    {
-      text: "زيادة ساعدنا نوصل للعميل في اللحظة الصح بعرض بسيط وفعّال جداً. الأثر على المبيعات والتحويلات كان واضحاً ومقاساً. كمان زيادة خلّتنا نرفع متوسط قيمة الطلب عبر استراتيجية مدروسة لكل عرض ومنتج.",
-      name: "ريبال",
-      role: "متجر مستلزمات التنظيف — 151,507 تحويل",
-      av: "ر",
-      col: "linear-gradient(135deg,#7c3aed,#5b21b6)",
-    },
-    {
-      text: "زيادة ساعدنا نرفع قيمة الطلب دون التأثير على تجربة العميل. العروض تظهر في الوقت الصح وتشجع العميل على إضافة قطع أكثر بدون تردد.",
-      name: "التميمي",
-      role: "متجر أقمشة رجالي — 932,517 ⃁ مبيعات",
-      av: "ت",
-      col: "linear-gradient(135deg,#059669,#047857)",
-    },
-    {
-      text: "زيادة ساعدتنا نشتغل مع العملاء في اللحظة الصح دون ما نقاطع تجربة التسوق. العروض الذكية شجّعت العملاء يضيفون منتجات أكثر ويكملون طلباتهم أسرع.",
-      name: "Skinly",
-      role: "متجر عناية بالبشرة — 704,676 ⃁ مبيعات",
-      av: "S",
-      col: "linear-gradient(135deg,#ec4899,#be185d)",
-    },
-    {
-      text: "الباقات المجمعة كانت متاحة لكن العملاء نادراً ما يكتشفونها. زيادة حل هذه المشكلة بنافذة موجهة تظهر في الوقت الصح وترفع متوسط قيمة الطلب بشكل واضح.",
-      name: "فيرزاسكا",
-      role: "متجر عطور ومعطرات — 957 تحويل",
-      av: "ف",
-      col: "linear-gradient(135deg,#7c3aed,#4f46e5)",
-    },
-    {
-      text: "كنا نخسر طلبات كثيرة في لحظة الحذف من السلة. زيادة حل هذه المشكلة بدقة — خصم ذكي يظهر في اللحظة الحاسمة ويحوّل قرار الإلغاء إلى شراء فعلي.",
-      name: "فيتنيس نيد",
-      role: "متجر مستلزمات لياقة — 75,722 ⃁ مبيعات",
-      av: "ن",
-      col: "linear-gradient(135deg,#10b981,#059669)",
-    },
-    {
-      text: "زيادة غيّر طريقة تعاملنا مع العملاء. صار العميل يكتشف منتجاتنا الثانية بشكل تلقائي والسلة تكبر بدون ما نزيد إعلانات.",
-      name: "بست كلين",
-      role: "متجر مستلزمات التنظيف",
-      av: "ب",
-      col: "linear-gradient(135deg,#06b6d4,#0891b2)",
-    },
+  const row1Avatars = ["ر", "ت", "S", "ف", "ن", "ب"];
+  const row1Colors = [
+    "linear-gradient(135deg,#7c3aed,#5b21b6)",
+    "linear-gradient(135deg,#059669,#047857)",
+    "linear-gradient(135deg,#ec4899,#be185d)",
+    "linear-gradient(135deg,#7c3aed,#4f46e5)",
+    "linear-gradient(135deg,#10b981,#059669)",
+    "linear-gradient(135deg,#06b6d4,#0891b2)",
   ];
-  const testimonialsRow2 = [
-    {
-      text: "الفكرة كانت ذكية — تقدم للعميل خصماً بالضبط لما يحاول يحذف المنتج من السلة. هذا التوقيت غيّر كل شيء. 1,122 تحويل و248 ألف ⃁ ما كانت لتحصل بدون زيادة.",
-      name: "عبق الغيم",
-      role: "متجر عطور — 248,816 ⃁ مبيعات",
-      av: "ع",
-      col: "linear-gradient(135deg,#a855f7,#7c3aed)",
-    },
-    {
-      text: "اليوم الوطني كان دائماً فرصة لكننا ما كنا نعرف كيف نستغلها صح. زيادة ساعدنا نطلق حملة مخصصة للمناسبة وصلنا لأرقام ما حققناها من قبل.",
-      name: "ركن الجمال",
-      role: "متجر تجميل — 119,903 ⃁ مبيعات",
-      av: "ر",
-      col: "linear-gradient(135deg,#ec4899,#9333ea)",
-    },
-    {
-      text: "كود الخصم 5٪ كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. 716 تحويل و543 ألف ⃁ مبيعات إضافية.",
-      name: "كلوز باي",
-      role: "متجر تسوق متنوع — 543,000 ⃁ مبيعات",
-      av: "ك",
-      col: "linear-gradient(135deg,#06b6d4,#0891b2)",
-    },
-    {
-      text: "زيادة أثبت أنه مناسب حتى للمنظمات غير الربحية. الرسائل المؤثرة شجّعت المتبرعين على المبادرة فوراً وزاد متوسط التبرع بشكل ملحوظ.",
-      name: "جمعية تحفيظ القرآن",
-      role: "منصة تبرعات إلكترونية",
-      av: "ق",
-      col: "linear-gradient(135deg,#4f46e5,#4338ca)",
-    },
-    {
-      text: "إطلاق منتجات جديدة كان تحدياً دائماً. زيادة حل المشكلة بنافذة ذكية تعرض المنتج الجديد بخصم في اللحظة المناسبة. النتيجة 655 تحويل و247 ألف ⃁.",
-      name: "كلارا",
-      role: "متجر منتجات تجميل — 247,438 ⃁ مبيعات",
-      av: "ك",
-      col: "linear-gradient(135deg,#f59e0b,#d97706)",
-    },
-    {
-      text: "الفكرة بسيطة — 50٪ على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. نتائج سريعة ومقنعة ما توقعناها.",
-      name: "كايزون",
-      role: "متجر أجهزة منزلية — 76,257 ⃁ مبيعات",
-      av: "ي",
-      col: "linear-gradient(135deg,#f59e0b,#92400e)",
-    },
+  const row2Avatars = ["ع", "ر", "ك", "ق", "ك", "ي"];
+  const row2Colors = [
+    "linear-gradient(135deg,#a855f7,#7c3aed)",
+    "linear-gradient(135deg,#ec4899,#9333ea)",
+    "linear-gradient(135deg,#06b6d4,#0891b2)",
+    "linear-gradient(135deg,#4f46e5,#4338ca)",
+    "linear-gradient(135deg,#f59e0b,#d97706)",
+    "linear-gradient(135deg,#f59e0b,#92400e)",
   ];
-    const faqs = [
-    {
-      q: "هل يتطلب مني خبرة تقنية؟",
-      a: "لا، بمجرد تفعيل التطبيق الذكاء الاصطناعي يبدأ يعمل لوحده. ما تحتاج تحدد أي حملات أو إعدادات تقنية.",
-    },
-    {
-      q: "كيف يتعلم الذكاء الاصطناعي على عملائي؟",
-      a: "يحلل بيانات التصفح، الطلبات السابقة، الموقع الجغرافي، نوع الجهاز، وأوقات الشراء. كل هذا يحدث تلقائياً وبشكل خاص لكل عميل.",
-    },
-    {
-      q: "كم وقت تحتاج حتى أرى نتائج؟",
-      a: "معظم التجار يلاحظون فرقاً في أول أسبوع. النتائج تتحسن تدريجياً مع تراكم البيانات.",
-    },
-    {
-      q: "ما الفرق بين زيادة والتطبيقات الأخرى؟",
-      a: "العروض المخصصة في سلة تعمل في حدث واحد فقط. زيادة شامل جميع أنواع الاقتراحات, يستخدم الذكاء الاصطناعي, قاعدة بيانات ضخمة تستفيد منها مباشرة عند تفعيلك التطبيق .",
-    },
-    {
-      q: "هل هناك ضمان على النتائج؟",
-      a: "باقة الأعمال تأتي مع ضمان ذهبي لتحقيق 10 أضعاف العائد على الاستثمار. بقية الباقات معها تجربة مجانية وسهولة إلغاء في أي وقت.",
-    },
-  ];
+  const trRow1 = tr.landing.testimonialsRow1 as { text: string; name: string; role: string }[];
+  const trRow2 = tr.landing.testimonialsRow2 as { text: string; name: string; role: string }[];
+  const testimonialsRow1 = trRow1.map((t, i) => ({ ...t, av: row1Avatars[i], col: row1Colors[i] }));
+  const testimonialsRow2 = trRow2.map((t, i) => ({ ...t, av: row2Avatars[i], col: row2Colors[i] }));
+  const faqs = tr.landing.faqList as { q: string; a: string }[];
 
   return (
     <>
       <SEO
-        title="تسويق منتجاتك بالذكاء الاصطناعي داخل متجرك"
-        description="زيادة — منصة الذكاء الاصطناعي لمتاجر زد وسلة. فعّل التطبيق بضغطة زر وابدأ في زيادة مبيعاتك وتحسين تجربة عملائك تلقائياً."
+        title={tr.landing.seoTitle}
+        description={tr.landing.seoDesc}
         canonical="/"
       />
       <OrganizationSchema />
@@ -272,7 +189,7 @@ export default function Landing() {
           background: "var(--bg)",
           minHeight: "100vh",
           fontFamily: "var(--font)",
-          direction: "rtl",
+          direction: dir,
           color: "var(--t)",
         }}
       >
@@ -329,58 +246,54 @@ export default function Landing() {
               <Logo />
             </div>
             <div className="hbadge">
-              <span className="hbadge-pill">AI مفعّل</span>
+              <span className="hbadge-pill">{tr.landing.aiBadge}</span>
               <span className="hbadge-txt">
-                ذكاء اصطناعي + تعلم آلي يعمل الآن
+                {tr.landing.aiBadgeText}
               </span>
             </div>
             <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] text-[72px] font-semibold">
-              تسويق منتجاتك
-              <em>بالذكاء الاصطناعي</em>
+              {tr.landing.heroTitle1}
+              <em>{tr.landing.heroTitleEm}</em>
               <span className="grad mt-[10px] mb-[10px] text-[72px] font-semibold pt-[10px] pb-[10px]">
-                داخل متجرك
+                {tr.landing.heroTitleGrad}
               </span>
             </h1>
-            <p className="hero-sub">
-              فعّل التطبيق <strong>بضغطة زر واحدة</strong>.. وبيتعلم على عملائك
-              تلقائياً ويعطي كل عميل <strong>تجربة مخصصة 100%</strong> حسب منطقته،
-              جهازه، مشترياته السابقة، و....
-            </p>
+            <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
             <div className="hero-ctas">
               <button
                 onClick={() => setPlatformModalOpen(true)}
                 className="btn-p"
                 style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
               >
-                فعّل الذكاء الاصطناعي الآن
+                {tr.landing.ctaPrimary}
               </button>
               <a href="#hiw" className="btn-g">
-                شوف كيف يعمل
+                {tr.landing.ctaSecondary}
               </a>
             </div>
             <div className="sbar">
               <div className="sbi">
-                <div className="sbi-n">+700</div>
-                <div className="sbi-l text-[14px]">متجر </div>
+                <div className="sbi-n">{tr.landing.stat1Value}</div>
+                <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
               </div>
               <div className="sbi">
-                <div className="sbi-n">+20 مليون</div>
-                <div className="sbi-l">⃁ مبيعات إضافية</div>
+                <div className="sbi-n">{tr.landing.stat2Value}</div>
+                <div className="sbi-l">{tr.landing.stat2Label}</div>
               </div>
               <div className="sbi">
-                <div className="sbi-n">+200 ألف</div>
-                <div className="sbi-l">منتج تم شراؤه</div>
+                <div className="sbi-n">{tr.landing.stat3Value}</div>
+                <div className="sbi-l">{tr.landing.stat3Label}</div>
               </div>
               <div className="sbi">
-                <div className="sbi-n">+40 مليون</div>
-                <div className="sbi-l">ظهور ناجح</div>
+                <div className="sbi-n">{tr.landing.stat4Value}</div>
+                <div className="sbi-l">{tr.landing.stat4Label}</div>
               </div>
             </div>
           </div>
         </section>
         {/* LOGOS */}
         <div className="logos-sec">
-          <p className="logos-lbl rv">فخورين بثقتهم</p>
+          <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
           <div className="logos-mask marquee-row">
             <div
               className="marquee-track marquee-rtl"
@@ -400,23 +313,21 @@ export default function Landing() {
         <section id="hiw">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>كيف تعمل؟</SecTag>
+              <SecTag>{tr.landing.hiwTag}</SecTag>
               <h2 className="st rv d1 text-[48px] font-semibold">
-                ما تحتاج تسوي شي..
-                <span aria-hidden="true" style={{ display: "block", height: "15px" }} />
-                فعّل وزيادة يتولى الباقي
+                {tr.landing.hiwTitle}
               </h2>
               <p className="ssub rv d2">
-                التعلم الآلي يبدأ يدرس عملائك من أول لحظة ويتحسن يوم بعد يوم
+                {tr.landing.hiwSubtitle}
               </p>
             </div>
             <div className="hiw-grid">
               {[
                 {
-                  step: "الخطوة 1",
-                  title: "فعّل التطبيق",
-                  desc: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة, مايحتاج خبرة تقنية..",
-                  chip: "30 ثانية فقط",
+                  step: tr.landing.step1Label,
+                  title: tr.landing.step1Title,
+                  desc: tr.landing.step1Desc,
+                  chip: tr.landing.step1Chip,
                   icon: (
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                       <rect
@@ -464,10 +375,10 @@ export default function Landing() {
                   ),
                 },
                 {
-                  step: "الخطوة 2",
-                  title: "الذكاء الاصطناعي يتعلم",
-                  desc: "يحلل كل عميل - منطقته، جهازه، مشترياته، وأنماط تصفحه, وأسرار خاصة فينا, ويبدأ مباشرة بدون أي تدخل منك.",
-                  chip: "تعلم مستمر يومياً",
+                  step: tr.landing.step2Label,
+                  title: tr.landing.step2Title,
+                  desc: tr.landing.step2Desc,
+                  chip: tr.landing.step2Chip,
                   icon: (
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                       <circle
@@ -529,10 +440,10 @@ export default function Landing() {
                   ),
                 },
                 {
-                  step: "الخطوة 3",
-                  title: "المبيعات ترتفع تلقائياً",
-                  desc: "كل عميل يحصل على العرض الأنسب له في اللحظة الصح - بتكلفة تسويق صفر ⃁.",
-                  chip: "نتائج من أول يوم",
+                  step: tr.landing.step3Label,
+                  title: tr.landing.step3Title,
+                  desc: tr.landing.step3Desc,
+                  chip: tr.landing.step3Chip,
                   icon: (
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                       <rect
@@ -603,26 +514,28 @@ export default function Landing() {
             <div className="tc" style={{ marginBottom: 56 }}>
               <div className="stag rv">
                 <span className="stag-dot" />
-                أمثلة حية
+                {tr.landing.widgetsTag}
               </div>
               <h2 className="st rv d1 font-semibold">
-                شاهد كيف يعمل زيادة
-                <br />
-                في متجرك
+                {tr.landing.widgetsTitle}
               </h2>
-              <p className="ssub rv d2">ما سيظهر لعملائك داخل المتجر</p>
+              <p className="ssub rv d2">
+                {tr.landing.widgetsSubtitle}
+              </p>
             </div>
           </div>
           {(() => {
-            const allWidgets = [
-              { icon: "📦", label: "عروض الكميات", desc: "تحفيز العميل على شراء كميات أكبر بعروض تدريجية واضحة", widget: <BuyMoreSaveMoreWidget />, rgb: "168,85,247" },
-              { icon: "🤝", label: "الشراء معاً", desc: "اجمع منتجات مكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً", widget: <BuyTogetherWidget />, rgb: "6,182,212" },
-              { icon: "➕", label: "إضافات مكملة", desc: "اعرض إضافات وظيفية تكمّل منتجك الأساسي بنظام اختيار متعدد", widget: <AddonsWidget />, rgb: "16,185,129" },
-              { icon: "🔎", label: "منتجات ذات صلة", desc: "اقترح لكل عميل المنتجات الأقرب لاهتمامه بزر إضافة مباشر", widget: <RelatedProductsWidget />, rgb: "245,158,11" },
-              { icon: "🏷️", label: "قسيمة خصم", desc: "كود خصم تلقائي للعملاء المترددين يدفعهم للشراء الآن", widget: <CouponWidget />, rgb: "236,72,153" },
-              { icon: "🚚", label: "الوصول للشحن المجاني", desc: "اقترح منتجات تسد الفجوة للشحن المجاني لرفع قيمة الطلب", widget: <FreeShippingThresholdWidget />, rgb: "124,58,237" },
-              { icon: "⬆️", label: "استبدال المنتج (Upsell)", desc: "اقترح نسخة أفضل من المنتج بطريقة تُبرز القيمة لا مجرد السعر", widget: <ProductSwapWidget />, rgb: "79,70,229" },
-            ];
+            const widgetIcons = ["📦", "🤝", "➕", "🔎", "🏷️", "🚚", "⬆️"];
+            const widgetRgbs = ["168,85,247", "6,182,212", "16,185,129", "245,158,11", "236,72,153", "124,58,237", "79,70,229"];
+            const widgetComponents = [<BuyMoreSaveMoreWidget />, <BuyTogetherWidget />, <AddonsWidget />, <RelatedProductsWidget />, <CouponWidget />, <FreeShippingThresholdWidget />, <ProductSwapWidget />];
+            const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
+            const allWidgets = wLabels.map((wl, idx) => ({
+              icon: widgetIcons[idx],
+              label: wl.label,
+              desc: wl.desc,
+              widget: widgetComponents[idx],
+              rgb: widgetRgbs[idx],
+            }));
             const row1 = allWidgets.slice(0, 4);
             const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
 
@@ -646,7 +559,7 @@ export default function Landing() {
                     display: "flex",
                     alignItems: "center",
                     gap: 12,
-                    direction: "rtl",
+                    direction: dir,
                     flexDirection: "row",
                     padding: "4px 0",
                   }}>
@@ -663,7 +576,7 @@ export default function Landing() {
                     flexShrink: 0,
                     boxShadow: `0 0 12px rgba(${item.rgb},.15)`,
                   }}>{item.icon}</div>
-                  <div style={{ flex: 1, textAlign: "right" }}>
+                  <div style={{ flex: 1, textAlign: lang === "ar" ? "right" : "left" }}>
                     <div style={{
                       fontSize: 15,
                       fontWeight: 900,
@@ -699,15 +612,12 @@ export default function Landing() {
         <section id="demo">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>التخصيص الذكي</SecTag>
+              <SecTag>{tr.landing.personTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
-                كل عميل يحصل على
-                <br />
-                تجربة مصممة له
+                {tr.landing.personTitle}
               </h2>
               <p className="ssub rv d2">
-                زيادة يعرف من هو عميلك ويعرض له المنتجات المناسبة
-                تلقائياً
+                {tr.landing.personSub}
               </p>
             </div>
             <div className="demo-grid">
@@ -721,7 +631,7 @@ export default function Landing() {
                     <div className="demo-fade" />
                     <div className="demo-pill">
                       <span className="demo-pill-dot" />
-                      AI يحلل سلوكه
+                      {tr.landing.aiAnalyzes1}
                     </div>
                     <div className="demo-shelf">
                       <div className="demo-prod">
@@ -752,7 +662,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>حذاء رياضي</span>
+                        <span>{tr.landing.demoMaleShelf1}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -789,7 +699,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>سماعات</span>
+                        <span>{tr.landing.demoMaleShelf2}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -823,7 +733,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>زجاجة ماء</span>
+                        <span>{tr.landing.demoMaleShelf3}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -858,17 +768,17 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>دمبل</span>
+                        <span>{tr.landing.demoMaleShelf4}</span>
                       </div>
                     </div>
                   </div>
                   <div className="demo-info">
                     <div className="demo-top">
                       <div>
-                        <div className="demo-name">ناصر</div>
-                        <div className="demo-meta">الرياض · آيفون · 28 سنة</div>
+                        <div className="demo-name">{tr.landing.demoMaleName}</div>
+                        <div className="demo-meta">{tr.landing.demoMaleMeta}</div>
                       </div>
-                      <div className="demo-chip">92٪</div>
+                      <div className="demo-chip">{tr.landing.demoMaleChip}</div>
                     </div>
                     <div className="demo-sigs">
                       <div className="demo-sig">
@@ -878,7 +788,7 @@ export default function Landing() {
                             boxShadow: "0 0 6px #a855f7",
                           }}
                         />{" "}
-                        يتصفح المستلزمات الرياضية
+                        {tr.landing.demoMaleSig1}
                       </div>
                       <div className="demo-sig">
                         <i
@@ -887,7 +797,7 @@ export default function Landing() {
                             boxShadow: "0 0 6px #06b6d4",
                           }}
                         />{" "}
-                        سلته تحوي مشروب بروتين
+                        {tr.landing.demoMaleSig2}
                       </div>
                       <div className="demo-sig">
                         <i
@@ -896,10 +806,10 @@ export default function Landing() {
                             boxShadow: "0 0 6px #10b981",
                           }}
                         />{" "}
-                        اشترى حذاء قبل شهر
+                        {tr.landing.demoMaleSig3}
                       </div>
                     </div>
-                    <div className="demo-sl">المقترحات بالذكاء الاصطناعي</div>
+                    <div className="demo-sl">{tr.landing.aiSuggestions}</div>
                     <div className="demo-suggs">
                       <div className="demo-sugg">
                         <div
@@ -933,12 +843,12 @@ export default function Landing() {
                           </svg>
                         </div>
                         <div className="demo-sb">
-                          <div className="demo-sn">عرض الكولاجين </div>
+                          <div className="demo-sn">{tr.landing.demoMaleSugg1Name}</div>
                           <div className="demo-sw">
-                            يكمل مشروب البروتين في سلتك
+                            {tr.landing.demoMaleSugg1Sub}
                           </div>
                         </div>
-                        <div className="demo-sp">349 ⃁</div>
+                        <div className="demo-sp">{tr.landing.demoMaleSugg1Price}</div>
                       </div>
                       <div className="demo-sugg">
                         <div
@@ -979,12 +889,12 @@ export default function Landing() {
                           </svg>
                         </div>
                         <div className="demo-sb">
-                          <div className="demo-sn">سماعات JBL Reflect</div>
+                          <div className="demo-sn">{tr.landing.demoMaleSugg2Name}</div>
                           <div className="demo-sw">
-                            78٪ يشترونها مع نفس الحذاء
+                            {tr.landing.demoMaleSugg2Sub}
                           </div>
                         </div>
-                        <div className="demo-sp">219 ⃁</div>
+                        <div className="demo-sp">{tr.landing.demoMaleSugg2Price}</div>
                       </div>
                     </div>
                   </div>
@@ -1001,7 +911,7 @@ export default function Landing() {
                     <div className="demo-fade" />
                     <div className="demo-pill">
                       <span className="demo-pill-dot" />
-                      AI يحلل سلوكها
+                      {tr.landing.aiAnalyzes2}
                     </div>
                     <div className="demo-shelf">
                       <div className="demo-prod">
@@ -1051,7 +961,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>باليت مكياج</span>
+                        <span>{tr.landing.demoFemaleShelf1}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -1093,7 +1003,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>عطر</span>
+                        <span>{tr.landing.demoFemaleShelf2}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -1135,7 +1045,7 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>كريم</span>
+                        <span>{tr.landing.demoFemaleShelf3}</span>
                       </div>
                       <div className="demo-prod">
                         <div
@@ -1164,15 +1074,15 @@ export default function Landing() {
                             />
                           </svg>
                         </div>
-                        <span>مرطب</span>
+                        <span>{tr.landing.demoFemaleShelf4}</span>
                       </div>
                     </div>
                   </div>
                   <div className="demo-info">
                     <div className="demo-top">
                       <div>
-                        <div className="demo-name">نوره</div>
-                        <div className="demo-meta">جدة · سامسونج · 24 سنة</div>
+                        <div className="demo-name">{tr.landing.demoFemaleName}</div>
+                        <div className="demo-meta">{tr.landing.demoFemaleMeta}</div>
                       </div>
                       <div
                         className="demo-chip"
@@ -1182,7 +1092,7 @@ export default function Landing() {
                           color: "#f9a8d4",
                         }}
                       >
-                        96٪
+                        {tr.landing.demoFemaleChip}
                       </div>
                     </div>
                     <div className="demo-sigs">
@@ -1193,7 +1103,7 @@ export default function Landing() {
                             boxShadow: "0 0 6px #ec4899",
                           }}
                         />{" "}
-                        تتصفح منتجات التجميل
+                        {tr.landing.demoFemaleSig1}
                       </div>
                       <div className="demo-sig">
                         <i
@@ -1202,7 +1112,7 @@ export default function Landing() {
                             boxShadow: "0 0 6px #a855f7",
                           }}
                         />{" "}
-                        اشترت عطراً الأسبوع الماضي
+                        {tr.landing.demoFemaleSig2}
                       </div>
                       <div className="demo-sig">
                         <i
@@ -1211,10 +1121,10 @@ export default function Landing() {
                             boxShadow: "0 0 6px #f59e0b",
                           }}
                         />{" "}
-                        سلتها تحوي كريم مرطب
+                        {tr.landing.demoFemaleSig3}
                       </div>
                     </div>
-                    <div className="demo-sl">المقترحات بالذكاء الاصطناعي</div>
+                    <div className="demo-sl">{tr.landing.aiSuggestions}</div>
                     <div className="demo-suggs">
                       <div className="demo-sugg">
                         <div
@@ -1259,8 +1169,8 @@ export default function Landing() {
                           </svg>
                         </div>
                         <div className="demo-sb">
-                          <div className="demo-sn">باليت مكياج </div>
-                          <div className="demo-sw">يكمل العطر الذي اشترته</div>
+                          <div className="demo-sn">{tr.landing.demoFemaleSugg1Name}</div>
+                          <div className="demo-sw">{tr.landing.demoFemaleSugg1Sub}</div>
                         </div>
                         <div className="demo-sp">289 ⃁</div>
                       </div>
@@ -1300,8 +1210,8 @@ export default function Landing() {
                           </svg>
                         </div>
                         <div className="demo-sb">
-                          <div className="demo-sn">كريم يوسرين مرطب</div>
-                          <div className="demo-sw">مقترن مع كريمك في السلة</div>
+                          <div className="demo-sn">{tr.landing.demoFemaleSugg2Name}</div>
+                          <div className="demo-sw">{tr.landing.demoFemaleSugg2Sub}</div>
                         </div>
                         <div className="demo-sp">449 ⃁</div>
                       </div>
@@ -1316,13 +1226,11 @@ export default function Landing() {
         <section id="gp">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>الأهداف وطرق العرض</SecTag>
+              <SecTag>{tr.landing.goalsTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
-                زيادة يختار
-                <br />
-                الأنسب لكل عميل تلقائياً
+                {tr.landing.goalsTitle}
               </h2>
-              <p className="ssub rv d2">يحدد الأهداف وطرق العرض المناسبة ويعرضها للعميل مباشرة</p>
+              <p className="ssub rv d2">{tr.landing.goalsSub}</p>
             </div>
             <div className="gp-grid">
               <GlassCard className="rv d1">
@@ -1384,21 +1292,12 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div className="gp-title">الأهداف</div>
-                      <div className="gp-sub">ماذا نحقق من كل عميل؟</div>
+                      <div className="gp-title">{tr.landing.goalsTitle1}</div>
+                      <div className="gp-sub">{tr.landing.goalsSub1}</div>
                     </div>
                   </div>
                   <div className="gp-items">
-                    {[
-                      [
-                        "إضافة المزيد من المنتجات",
-                        "زيادة عدد المنتجات في كل طلب",
-                      ],
-                      ["عرض الكميات ", "لشراء كميات أكبر من نفس المنتج"],
-                      ["استبدال المنتج", "لعرض منتج بديل أفضل أو أعلى قيمة"],
-                      ["الوصول للشحن المجاني", "عند إضافة المنتجات يصل العميل للشحن المجاني"],
-                      ["كود خصم", "إظهار أكواد خصم للعميل"],
-                    ].map(([t, s]) => (
+                    {(tr.landing.goalsList as [string,string][]).map(([t, s]) => (
                       <div key={t} className="gp-row">
                         <div className="gdot gdot-p" />
                         <div>
@@ -1456,18 +1355,12 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div className="gp-title">طرق العرض</div>
-                      <div className="gp-sub">كيف يُعرض المنتج على العميل؟</div>
+                      <div className="gp-title">{tr.landing.goalsTitle2}</div>
+                      <div className="gp-sub">{tr.landing.goalsSub2}</div>
                     </div>
                   </div>
                   <div className="gp-items">
-                    {[
-                      ["منتجات ذات صلة", "إظهار زر الإضافة لكل منتج"],
-                      ["إضافات (Add-ons)", "إظهار طريقة الاختبار المتعدد"],
-                      ["الشراء معاً", "تجميع المنتجات بطريقة الشراء معاً"],
-                      ["عروض الحزم", "لشراء أكثر من منتج معاً بسعر مخفض"],
-                      ["اشتر أكثر ووفر أكثر", "عروض الكميات لشراء كميات أكبر من نفس المنتج"],
-                    ].map(([t, s]) => (
+                    {(tr.landing.displayList as [string,string][]).map(([t, s]) => (
                       <div key={t} className="gp-row">
                         <div className="gdot gdot-c" />
                         <div>
@@ -1553,12 +1446,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <div className="gp-banner-t">
-                    زيادة يجمع كل شيء تلقائياً
+                    {tr.landing.autoBannerTitle}
                   </div>
                   <div className="gp-banner-d">
-                    ما تحتاج تختار الهدف أو الطريقة يدوياً. زيادة بيحلل كل عميل
-                    ويختار الهدف المناسب + طريقة العرض الأنسب، بدون أي
-                    تدخل منك، ويتحسن مع الوقت تلقائياً.
+                    {tr.landing.autoBannerDesc}
                   </div>
                 </div>
               </GlassCard>
@@ -1587,10 +1478,10 @@ export default function Landing() {
                 </div>
                 <div>
                   <div className="gp-banner-t">
-                    أو تحكّم يدوياً متى تريد
+                    {tr.landing.manualBannerTitle}
                   </div>
                   <div className="gp-banner-d">
-                    زيادة يشتغل تلقائياً بالكامل، لكن لو حبيت تتدخل فالتحكم بيدك. تقدر تحدد الاقتراحات يدوياً، تختار المنتجات، وتضبط طريقة العرض لكل حالة — التلقائي والتحكم اليدوي يعملان جنباً إلى جنب.
+                    {tr.landing.manualBannerDesc}
                   </div>
                 </div>
               </GlassCard>
@@ -1601,31 +1492,23 @@ export default function Landing() {
         <section id="why">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>ليش زيادة؟</SecTag>
+              <SecTag>{tr.landing.whyTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
-                الفرق يظهر
-                <br />
-                من أول طلب
+                {tr.landing.whyTitle}
               </h2>
-              <p className="ssub rv d2">قبل وبعد تفعيل زيادة</p>
+              <p className="ssub rv d2">{tr.landing.whySub}</p>
             </div>
             <div className="ba-grid">
               <GlassCard className="ba-card rv d1">
-                <div className="ba-lbl ba-lbl-b text-[16px]">قبل زيادة</div>
+                <div className="ba-lbl ba-lbl-b text-[16px]">{tr.landing.beforeLabel}</div>
                 <div className="ba-list">
-                  {[
-                    "عميل يشتري منتج واحد ويروح",
-                    "لا اقتراحات ولا تخصيص لأي عميل",
-                    "خسارة فرص بيع في كل طلب",
-                    "المنتجات الرهيبة ما تتحرك بسرعة",
-                    "تكلفة تسويق عالية لكل بيع إضافي",
-                  ].map((t) => (
-                    <div key={t} className="ba-row ba-row-b">
-                      {t}
+                  {(tr.landing.beforeList as string[]).map((item) => (
+                    <div key={item} className="ba-row ba-row-b">
+                      {item}
                     </div>
                   ))}
                 </div>
-                <div className="ba-foot ba-foot-b">متوسط قيمة الطلب: ثابت</div>
+                <div className="ba-foot ba-foot-b">{tr.landing.beforeFoot}</div>
               </GlassCard>
               <div className="ba-arrow-wrap rv d2">
                 <div className="ba-arrow-circle">
@@ -1647,22 +1530,16 @@ export default function Landing() {
                   borderColor: "rgba(124,58,237,.2)",
                 }}
               >
-                <div className="ba-lbl ba-lbl-a text-[16px]">بعد زيادة </div>
+                <div className="ba-lbl ba-lbl-a text-[16px]">{tr.landing.afterLabel}</div>
                 <div className="ba-list">
-                  {[
-                    "كل عميل يشتري أكثر - تجربة مخصصة 100%",
-                    "AI يختار العرض الأنسب لكل شخص تلقائياً",
-                    "كل طلب يحقق أقصى قيمة ممكنة",
-                    "حركة المخزون تتسارع بدون جهد",
-                    "تكلفة تسويق صفر ⃁ على البيع الإضافي",
-                  ].map((t) => (
-                    <div key={t} className="ba-row ba-row-a">
-                      {t}
+                  {(tr.landing.afterList as string[]).map((item) => (
+                    <div key={item} className="ba-row ba-row-a">
+                      {item}
                     </div>
                   ))}
                 </div>
                 <div className="ba-foot ba-foot-a">
-                  متوسط قيمة الطلب: <span style={{ fontSize: 24 }}>+35٪</span>
+                  {tr.landing.afterFoot} <span style={{ fontSize: 24 }}>{tr.landing.afterFootValue}</span>
                 </div>
               </GlassCard>
             </div>
@@ -1672,14 +1549,12 @@ export default function Landing() {
         <section id="reports">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>التقارير المفصلة</SecTag>
+              <SecTag>{tr.landing.reportsTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
-                كل قرار مبني على
-                <br />
-                بيانات دقيقة ومفصّلة
+                {tr.landing.reportsTitle}
               </h2>
               <p className="ssub rv d2">
-                تقارير على مستوى الحملة وعلى مستوى كل منتج — حتى تعرف بالضبط ما الذي يشتغل
+                {tr.landing.reportsSub}
               </p>
             </div>
 
@@ -1696,8 +1571,8 @@ export default function Landing() {
                     </svg>
                   </div>
                   <div>
-                    <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير الحملة</div>
-                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>نظرة شاملة على أداء كل حملة</div>
+                    <div style={{ fontSize: 16, fontWeight: 800 }}>{tr.landing.reportsCampaignTitle}</div>
+                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsCampaignSub}</div>
                   </div>
                 </div>
 
@@ -1705,26 +1580,24 @@ export default function Landing() {
                 <div style={{ padding: "10px 14px", background: "rgba(124,58,237,.06)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }}/>
-                    <span style={{ fontSize: 13, fontWeight: 700 }}>حملة اشترِ معاً — إبريل 2025</span>
+                    <span style={{ fontSize: 13, fontWeight: 700 }}>{tr.landing.reportsCampaignName}</span>
                   </div>
-                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>نشطة</span>
+                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>{tr.landing.reportsCampaignActive}</span>
                 </div>
 
                 {/* Stats grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                  {[
-                    { label: "الظهور", value: "124,700", icon: "👁", color: "#06b6d4" },
-                    { label: "النقرات", value: "8,920", sub: "7.1٪", icon: "🖱", color: "#a855f7" },
-                    { label: "التحويلات", value: "2,340", sub: "26.2٪", icon: "✅", color: "#10b981" },
-                    { label: "إجمالي المبيعات", value: "93,600 ⃁", icon: "💰", color: "#f59e0b" },
-                  ].map((s, i) => (
+                  {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
+                    const colors = ["#06b6d4", "#a855f7", "#10b981", "#f59e0b"];
+                    return (
                     <div key={i} style={{ padding: "14px 14px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12 }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
-                      <div style={{ fontSize: 18, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
-                      {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>معدل {s.sub}</div>}
+                      <div style={{ fontSize: 18, fontWeight: 900, color: colors[i], lineHeight: 1 }}>{s.value}</div>
+                      {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
                       <div style={{ fontSize: 11, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
 
                 {/* Mini trend bar */}
@@ -1733,7 +1606,7 @@ export default function Landing() {
                     <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
                     <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(16,185,129,.08)"/>
                   </svg>
-                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>+23٪ نمو في المبيعات خلال آخر 30 يوم</div>
+                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>{tr.landing.reportsGrowth}</div>
                 </div>
               </GlassCard>
 
@@ -1749,44 +1622,44 @@ export default function Landing() {
                     </svg>
                   </div>
                   <div>
-                    <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير المنتجات</div>
-                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>أداء كل منتج داخل الحملة</div>
+                    <div style={{ fontSize: 16, fontWeight: 800 }}>{tr.landing.reportsProductTitle}</div>
+                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsProductSub}</div>
                   </div>
                 </div>
 
                 {/* Product rows */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {[
-                    { name: "كريم مرطب فاخر", clicks: "3,240", clickRate: "4.8٪", conv: "870", convRate: "26.8٪", sales: "34,800 ⃁", color: "#a855f7" },
-                    { name: "واقي شمس SPF 50", clicks: "2,110", clickRate: "3.3٪", conv: "540", convRate: "25.6٪", sales: "24,300 ⃁", color: "#06b6d4" },
-                    { name: "سيروم فيتامين C", clicks: "1,890", clickRate: "2.9٪", conv: "460", convRate: "24.3٪", sales: "18,400 ⃁", color: "#10b981" },
-                  ].map((p, i) => (
+                  {(tr.landing.reportsProducts as { name: string; clicks: string; clickRate: string; conv: string; convRate: string; sales: string }[]).map((p, i) => {
+                    const pColors = ["#a855f7", "#06b6d4", "#10b981"];
+                    const pColor = pColors[i] || "#a855f7";
+                    return (
                     <div key={i} style={{ padding: "12px 14px", background: "rgba(0,0,0,.18)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                          <div style={{ width: 6, height: 6, borderRadius: "50%", background: p.color, boxShadow: `0 0 6px ${p.color}`, flexShrink: 0 }}/>
+                          <div style={{ width: 6, height: 6, borderRadius: "50%", background: pColor, boxShadow: `0 0 6px ${pColor}`, flexShrink: 0 }}/>
                           <span style={{ fontSize: 13, fontWeight: 700 }}>{p.name}</span>
                         </div>
                         <span style={{ fontSize: 13, fontWeight: 900, color: "#10b981" }}>{p.sales}</span>
                       </div>
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {[
-                          { l: "نقرات", v: p.clicks, r: p.clickRate },
-                          { l: "تحويل", v: p.conv, r: p.convRate },
+                          { l: tr.landing.reportsClicksLabel, v: p.clicks, r: p.clickRate },
+                          { l: tr.landing.reportsConvLabel, v: p.conv, r: p.convRate },
                         ].map((m, j) => (
                           <div key={j} style={{ display: "flex", gap: 4, alignItems: "center" }}>
                             <span style={{ fontSize: 12, color: "var(--td)" }}>{m.l}:</span>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
-                            <span style={{ fontSize: 11, color: p.color, background: `rgba(${p.color === "#a855f7" ? "168,85,247" : p.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
+                            <span style={{ fontSize: 11, color: pColor, background: `rgba(${pColor === "#a855f7" ? "168,85,247" : pColor === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
                           </div>
                         ))}
                       </div>
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
 
                 <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
-                  📊 تقارير فورية تُحدَّث تلقائياً • تصدير بضغطة واحدة
+                  {tr.landing.reportsFooter}
                 </div>
               </GlassCard>
             </div>
@@ -1801,17 +1674,13 @@ export default function Landing() {
                 </svg>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>بيانات دقيقة — قرارات أذكى</div>
+                <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>{tr.landing.reportsBannerTitle}</div>
                 <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>
-                  لا مجرد أرقام عامة — تقارير حملة بحملة ومنتج بمنتج. اعرف ما يشتغل وضاعفه، وما لا يشتغل وحسّنه.
+                  {tr.landing.reportsBannerDesc}
                 </div>
               </div>
               <div className="reports-banner-stats" style={{ display: "flex", gap: 20, flexShrink: 0, flexWrap: "wrap" }}>
-                {[
-                  { v: "حملة", l: "مستوى التقرير الأول" },
-                  { v: "منتج", l: "مستوى التقرير الثاني" },
-                  { v: "فوري", l: "تحديث البيانات" },
-                ].map((s, i) => (
+                {(tr.landing.reportsBannerStats as { v: string; l: string }[]).map((s, i) => (
                   <div key={i} style={{ textAlign: "center" }}>
                     <div style={{ fontSize: 20, fontWeight: 900, color: "var(--p3)" }}>{s.v}</div>
                     <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{s.l}</div>
@@ -1825,14 +1694,12 @@ export default function Landing() {
         <section id="testimonials" style={{ overflowX: "hidden", paddingLeft: 0, paddingRight: 0 }}>
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>آراء تجارنا</SecTag>
+              <SecTag>{tr.landing.testimonialsTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
-                آراء حقيقية
-                <br />
-                من تجار حقيقيين
+                {tr.landing.testimonialsTitle}
               </h2>
               <p className="ssub rv d2">
-                تقييمات موثقة من متاجر تستخدم زيادة يومياً
+                {tr.landing.testimonialsSub}
               </p>
             </div>
           </div>
@@ -1877,10 +1744,10 @@ export default function Landing() {
         <section id="pricing">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 24 }}>
-              <SecTag>الأسعار</SecTag>
-              <h2 className="st rv d1 font-semibold">استثمار مسترد</h2>
+              <SecTag>{tr.landing.pricingTag}</SecTag>
+              <h2 className="st rv d1 font-semibold">{tr.landing.pricingTitle}</h2>
               <p className="ssub rv d2">
-                باقات مصممة حسب حجم متجرك - شاملة الضريبة
+                {tr.landing.pricingSub}
               </p>
             </div>
             <div
@@ -1892,83 +1759,56 @@ export default function Landing() {
                   className={`ptb${pricingMode === "m" ? " on" : ""}`}
                   onClick={() => setPricingMode("m")}
                 >
-                  شهري
+                  {tr.landing.monthly}
                 </button>
                 <button
                   className={`ptb${pricingMode === "y" ? " on" : ""}`}
                   onClick={() => setPricingMode("y")}
                 >
-                  سنوي<span className="save-pill">30٪</span>
+                  {tr.landing.yearly}<span className="save-pill">{tr.landing.yearlyDiscount}</span>
                 </button>
               </div>
             </div>
             <div className="pg">
               {[
                 {
-                  name: "الانطلاقة",
-                  desc: "للمبتدئين والراغبين بالتجربة",
+                  name: tr.landing.planStarter,
+                  desc: tr.landing.planStarterDesc,
                   price: prices[pricingMode].s,
                   feat: false,
                   badge: null,
-                  list: [
-                    "ذكاء اصطناعي أساسي",
-                    "اقتراحات لامحدودة",
-                    "مبيعات لامحدودة",
-                    "مزامنة تلقائية للمنتجات",
-                    "اقتراح في صفحة المنتج",
-                    "تحليلات عامة",
-                  ],
-                  cta: "اشترك الآن",
+                  list: tr.landing.planStarterList as string[],
+                  cta: tr.landing.subscribeNow,
                   fill: false,
                 },
                 {
-                  name: "النمو",
-                  desc: "للتجار الأفراد",
+                  name: tr.landing.planGrowth,
+                  desc: tr.landing.planGrowthDesc,
                   price: prices[pricingMode].g,
                   feat: true,
-                  badge: "الأكثر طلباً",
-                  list: [
-                    "ذكاء اصطناعي متقدم",
-                    "كل مزايا الانطلاقة",
-                    "عروض الكوبونات",
-                    "اقتراح في 6 نقاط من الرحلة",
-                    "تحليلات مفصلة للمنتج",
-                    "إضافة فريق عمل 2",
-                  ],
-                  cta: "اشترك الآن",
+                  badge: tr.landing.planGrowthBadge,
+                  list: tr.landing.planGrowthList as string[],
+                  cta: tr.landing.subscribeNow,
                   fill: true,
                 },
                 {
-                  name: "الاحترافية",
-                  desc: "للشركات والمؤسسات",
+                  name: tr.landing.planPro,
+                  desc: tr.landing.planProDesc,
                   price: prices[pricingMode].p,
                   feat: false,
                   badge: null,
-                  list: [
-                    "ذكاء اصطناعي كامل",
-                    "كل مزايا النمو",
-                    "اقتراح في 10 نقاط من الرحلة",
-                    "اقتراح في صفحة الدفع وبعده",
-                    "دعم الثيمات الخاصة",
-                    "فريق عمل لامحدود",
-                  ],
-                  cta: "اشترك الآن",
+                  list: tr.landing.planProList as string[],
+                  cta: tr.landing.subscribeNow,
                   fill: false,
                 },
                 {
-                  name: "الأعمال",
-                  desc: "للمنشآت الكبيرة",
+                  name: tr.landing.planBusiness,
+                  desc: tr.landing.planBusinessDesc,
                   price: prices[pricingMode].b,
                   feat: false,
                   badge: null,
-                  list: [
-                    "كل مزايا الاحترافية",
-                    "مدير نجاح يدير حسابك",
-                    "مراجعة شهرية استراتيجية",
-                    "دعم تقني مخصص 24/7",
-                    "ضمان ذهبي 10x عائد الاستثمار",
-                  ],
-                  cta: "اشترك الآن",
+                  list: tr.landing.planBusinessList as string[],
+                  cta: tr.landing.subscribeNow,
                   fill: false,
                 },
               ].map((p, i) => (
@@ -1985,14 +1825,14 @@ export default function Landing() {
                         <span className="p-num">{p.price}</span>
                         <span className="p-cur">⃁</span>
                         <span className="p-per">
-                          / شهر
+                          {tr.landing.perMonth}
                         </span>
                       </>
                     ) : (
                       <span
                         style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}
                       >
-                        مخصص
+                        {tr.landing.custom}
                       </span>
                     )}
                   </div>
@@ -2017,15 +1857,15 @@ export default function Landing() {
         {/* HELP CENTER */}
         <section id="faq">
           <div className="wrap">
-            <SecTag>مركز المساعدة</SecTag>
+            <SecTag>{tr.landing.faqTag}</SecTag>
             <h2 className="st rv d1 font-semibold" style={{ marginBottom: 48 }}>
-              كيف نقدر نساعدك؟
+              {tr.landing.faqTitle}
             </h2>
             <div className="hc-wrap">
               <GlassCard className="hc-left rv">
-                <h3>نحن هنا لك</h3>
+                <h3>{tr.landing.faqWeAreHere}</h3>
                 <p>
-                  فريق زيادة يدعمك من أول يوم حتى تحقق نتائج حقيقية. ما تمشي وحدك.
+                  {tr.landing.faqWeAreHereDesc}
                 </p>
                 <div className="hc-btns">
                   <a
@@ -2043,8 +1883,8 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div>تواصل عبر واتساب</div>
-                      <div className="hcb-sub">رد خلال ساعة</div>
+                      <div>{tr.landing.faqWhatsapp}</div>
+                      <div className="hcb-sub">{tr.landing.faqWhatsappSub}</div>
                     </div>
                   </a>
                   <a
@@ -2110,8 +1950,8 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div>احجز اجتماع</div>
-                      <div className="hcb-sub">جلسة 30 دقيقة مجانية</div>
+                      <div>{tr.landing.faqBookMeeting}</div>
+                      <div className="hcb-sub">{tr.landing.faqBookMeetingSub}</div>
                     </div>
                   </a>
                   <a href="/support" className="hcb hcb-doc">
@@ -2142,8 +1982,8 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div>مركز المساعدة</div>
-                      <div className="hcb-sub">دليل خطوة بخطوة</div>
+                      <div>{tr.landing.faqDocs}</div>
+                      <div className="hcb-sub">{tr.landing.faqDocsSub}</div>
                     </div>
                   </a>
                 </div>
@@ -2214,13 +2054,12 @@ export default function Landing() {
             <GlassCard className="cta-box rv">
               <div className="cta-glow" />
               <h2>
-                جاهز ترفع
-                <br />
-                مبيعاتك؟
+                {tr.landing.ctaTitle.split('\n').map((line: string, i: number) => (
+                  <span key={i}>{line}{i === 0 && <br />}</span>
+                ))}
               </h2>
               <p>
-                تفعيل في دقيقتين · الذكاء الاصطناعي يبدأ يتعلم فوراً · ضمان
-                استرداد
+                {tr.landing.ctaDesc}
               </p>
               <div className="cta-btns">
                 <button
@@ -2231,10 +2070,10 @@ export default function Landing() {
                   <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
                   </svg>
-                  فعّل الآن
+                  {tr.landing.ctaBtn}
                 </button>
               </div>
-              <div className="cta-note text-[16px]">+700 متجر سبقوك · +20 مليون ⃁ مبيعات إضافية</div>
+              <div className="cta-note text-[16px]">{tr.landing.ctaNote}</div>
             </GlassCard>
           </div>
         </section>

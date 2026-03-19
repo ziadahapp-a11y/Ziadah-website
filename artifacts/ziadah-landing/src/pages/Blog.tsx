@@ -6,6 +6,8 @@ import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
+import { useLanguage } from "../i18n/LanguageContext";
+import { t } from "../i18n/translations";
 
 function getInitialFilters() {
   const params = new URLSearchParams(window.location.search);
@@ -16,6 +18,8 @@ function getInitialFilters() {
 }
 
 export default function Blog() {
+  const { lang, dir, isAr } = useLanguage();
+  const tx = t[lang].blog;
   const initial = getInitialFilters();
   const [activeCategory, setActiveCategory] = useState(initial.cat);
   const [search, setSearch] = useState(initial.search);
@@ -64,20 +68,22 @@ export default function Blog() {
     return matchCat && matchSearch;
   });
 
+  const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
+
   return (
     <>
     <SEO
-      title="مدونة زيادة — مركز المعرفة للتجارة الإلكترونية"
-      description="مقالات تعليمية احترافية حول التجارة الإلكترونية، الذكاء الاصطناعي، واستراتيجيات النمو. دليلك الشامل لتحسين مبيعات متجرك."
+      title={tx.seoTitle}
+      description={tx.seoDesc}
       canonical="/blog"
     />
-    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "المدونة", url: "/blog" }]} />
+    <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <div
       style={{
         background: "var(--bg)",
         minHeight: "100vh",
         fontFamily: "var(--font)",
-        direction: "rtl",
+        direction: dir,
         color: "var(--t)",
       }}
     >
@@ -105,7 +111,7 @@ export default function Blog() {
       >
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot" />
-          مدونة زيادة
+          {tx.tag}
         </div>
         <h1
           className="rv d1"
@@ -117,14 +123,13 @@ export default function Blog() {
             letterSpacing: "-1.5px",
           }}
         >
-          مركز المعرفة
+          {tx.heroTitle}
         </h1>
         <p
           className="ssub rv d2"
           style={{ margin: "0 auto 36px", maxWidth: 560 }}
         >
-          مقالات تعليمية احترافية حول التجارة الإلكترونية، الذكاء الاصطناعي،
-          واستراتيجيات النمو لمتجرك
+          {tx.heroSub}
         </p>
 
         {/* Search */}
@@ -135,7 +140,7 @@ export default function Blog() {
           <input
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder="ابحث في المقالات..."
+            placeholder={tx.searchPlaceholder}
             style={{
               width: "100%",
               padding: "15px 50px 15px 20px",
@@ -163,7 +168,8 @@ export default function Blog() {
             fill="none"
             style={{
               position: "absolute",
-              left: 18,
+              left: isAr ? 18 : undefined,
+              right: isAr ? undefined : 18,
               top: "50%",
               transform: "translateY(-50%)",
             }}
@@ -229,7 +235,7 @@ export default function Blog() {
                   backdropFilter: "blur(16px)",
                 }}
               >
-                {cat.label}
+                {getCatLabel(cat)}
               </button>
             ))}
           </div>
@@ -254,7 +260,7 @@ export default function Blog() {
                 fontSize: 16,
               }}
             >
-              لم يتم العثور على مقالات مطابقة. جرّب بحثاً مختلفاً.
+              {tx.noResults}
             </div>
           ) : (
             <div
@@ -265,7 +271,10 @@ export default function Blog() {
                 gap: 24,
               }}
             >
-              {filtered.map((post, i) => (
+              {filtered.map((post, i) => {
+                const catObj = categories.find(c => c.id === post.category);
+                const catDisplay = catObj ? getCatLabel(catObj) : post.category;
+                return (
                 <div
                   key={post.slug}
                   onClick={() => navigateTo(`/blog/${post.slug}`)}
@@ -312,7 +321,8 @@ export default function Blog() {
                         style={{
                           position: "absolute",
                           top: 16,
-                          right: 16,
+                          right: isAr ? 16 : undefined,
+                          left: isAr ? undefined : 16,
                           zIndex: 2,
                           padding: "4px 12px",
                           borderRadius: 50,
@@ -324,7 +334,7 @@ export default function Blog() {
                           letterSpacing: 0.5,
                         }}
                       >
-                        {post.category}
+                        {catDisplay}
                       </div>
                     </div>
 
@@ -397,7 +407,7 @@ export default function Blog() {
                               strokeLinecap="round"
                             />
                           </svg>
-                          {post.readTime} قراءة
+                          {post.readTime} {tx.readSuffix}
                         </div>
                         <span
                           style={{
@@ -411,7 +421,8 @@ export default function Blog() {
                     </div>
                   </article>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

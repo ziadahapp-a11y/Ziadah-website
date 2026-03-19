@@ -103,9 +103,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل البيع المتقاطع في متجرك اليوم",
   ctaDesc: "كل عميل يمكن أن يشتري أكثر — أنت فقط بحاجة لمن يذكّره في الوقت المناسب.",
+  heroEn: {
+    tag: "By Activity",
+    title: "Cross-Selling",
+    subtitle: "Suggest what completes the customer's purchase — functionally or thematically related products that add real value to their experience and increase cart value.",
+    tagline: "Someone buying shampoo forgets the conditioner — until Ziadah reminds them",
+    icon: "🔗",
+  },
+  whatWeDoTitleEn: "What is cross-selling and how does Ziadah implement it?",
+  whatWeDoDescEn:
+    "Cross-selling is suggesting complementary products that add value to what the customer is buying — not a replacement, but an addition. Ziadah implements it in three ways: (1) products frequently bought together based on thousands of actual orders, (2) functional add-ons related to the main product, (3) curated combo bundles that combine complementary products at a unified price. AI decides what to show, where, and when for each customer individually.",
+  strategyTitleEn: "Cross-selling methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "🛒",
+      title: "Bought Together (BTAT)",
+      desc: "Extracts from the real order database the most frequently co-purchased products — then displays them together with trusted social proof: 'Customers who bought this also bought...'",
+      color: "#a855f7",
+    },
+    {
+      icon: "➕",
+      title: "Functional Add-ons",
+      desc: "Suggests direct additions that functionally complement the main product — like a cord for a gym bag, a clasp for a gemstone, or a case for a phone. Always logical and acceptable.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "🎁",
+      title: "Smart Combo Bundles",
+      desc: "Combines complementary products in a discounted bundle that clearly shows savings. The customer feels like a winner and the store increases order value.",
+      color: "#10b981",
+    },
+    {
+      icon: "🎯",
+      title: "Profile-Based Personalization",
+      desc: "Not every customer suits the same suggestion. Ziadah considers gender, region, typical budget, and past order count to choose the most relevant suggestion.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+32%", label: "Average number of products in cart", color: "#a855f7" },
+    { value: "+28%", label: "Average order value", color: "#06b6d4" },
+    { value: "+41%", label: "Recommendation acceptance rate", color: "#10b981" },
+    { value: "+19%", label: "Customer satisfaction with the experience", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples from different industries",
+    steps: [
+      "🍕 Restaurant: Customer bought a burger → suggested: fries + drink + extra sauce (complete meal combo).",
+      "💄 Beauty: Customer bought foundation → suggested: primer + setting powder + application sponge.",
+      "💻 Electronics: Customer bought a laptop → suggested: bag + wireless mouse + cooling pad.",
+      "👕 Fashion: Customer bought a shirt → suggested: matching pants + belt in the same color.",
+    ],
+    result: "In all these examples, the cross-sell acceptance rate ranges from 25-45% — each acceptance equals an extra order without marketing cost.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Activate cross-selling in your store today",
+  ctaDescEn: "Every customer can buy more — you just need someone to remind them at the right time.",
   seo: {
     title: "البيع المتقاطع (Cross-sell) — زيادة",
+    titleEn: "Cross-Selling — Ziadah",
     description: "اقترح للعميل منتجات تكمّل شراءه وترفع قيمة سلته. زيادة يُحلّل سلوك الشراء ليعرض التوصيات الأنسب في اللحظة الصحيحة.",
+    descriptionEn: "Suggest complementary products that complete the customer's purchase and increase cart value. Ziadah analyzes buying behavior to show the best recommendations at the right moment.",
     canonical: "/use-cases/cross-sell",
   },
 };

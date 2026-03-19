@@ -95,9 +95,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عروض الكميات وحفّز الشراء الأكبر",
   ctaDesc: "كل وحدة إضافية تبيعها هي إيراد بلا تكلفة تسويق إضافية — دع زيادة يُدير العروض تلقائياً.",
+  heroEn: {
+    tag: "By Display Method",
+    title: "Buy More, Save More",
+    subtitle: "Motivate customers to buy larger quantities of the same product with clear tiered offers — the more they buy, the more they save.",
+    tagline: "A customer who sees the savings always buys more",
+    icon: "📦",
+  },
+  whatWeDoTitleEn: "What is 'Buy More, Save More' and how does it work in Ziadah?",
+  whatWeDoDescEn:
+    "Volume discount offers (Buy More Save More) present the customer with a tiered pricing table: the more units they buy of the same product, the lower the per-unit price. Ziadah builds these offers automatically and displays them visually — a progress bar or tier table — showing exactly how much they save by adding one more unit. AI calculates the optimal price tiers based on each product's margin and store purchase patterns.",
+  strategyTitleEn: "Volume Offer Display Methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "📊",
+      title: "Tiered Pricing Table",
+      desc: "Displays a clear table: 1 unit = 49 SAR | 2 units = 44 SAR each | 3+ = 39 SAR each — the customer sees the difference instantly.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🔋",
+      title: "Savings Progress Bar",
+      desc: "Shows a visual bar indicating how close the customer is to the next tier — 'Add one more unit and save an extra 30 SAR'.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "🎯",
+      title: "Actual Savings Calculator",
+      desc: "Instead of just showing percentages, Ziadah displays the exact amount saved when choosing a larger quantity — more convincing and clearer value.",
+      color: "#10b981",
+    },
+    {
+      icon: "⏳",
+      title: "Time-Limited Volume Offers",
+      desc: "Ziadah adds urgency with volume deals that expire within a set time — accelerating the decision to buy in larger quantities.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+61%", label: "Increase in bulk purchase rate when tiers are displayed", color: "#a855f7" },
+    { value: "+45%", label: "Average order revenue with volume offers", color: "#06b6d4" },
+    { value: "+34%", label: "Repeat purchase rate as stock depletes slowly", color: "#10b981" },
+    { value: "2.8x", label: "Average quantity purchased vs. without volume offers", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples from various industries",
+    steps: [
+      "☕ Coffee: 250g bag = 49 SAR / 2 bags = 89 SAR (save 9 SAR) / 3 bags = 119 SAR (save 28 SAR) — a bar shows 'Add one more bag to save 28 SAR'.",
+      "🧴 Cleaning supplies: 1L cleaner = 22 SAR / 3 bottles = 19 SAR each / 6 bottles = 16 SAR each — a clear tier table beside the product.",
+      "💊 Supplements: Protein box = 149 SAR / 2 boxes = 139 SAR each / 3 boxes = 125 SAR each — with a note: '3-month supply at the price of extra months'.",
+      "🖊️ Stationery: Pen = 8 SAR / 6-pack = 42 SAR (save 6 SAR) / 12-pack = 72 SAR (save 24 SAR) — quantity options with clear buttons.",
+    ],
+    result: "Showing a progress bar 'Add one more unit and save X SAR' increases the rate of choosing larger quantities by 42% compared to a static tier table — a direct, personal message motivates more.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Activate volume offers and drive bigger purchases",
+  ctaDescEn: "Every extra unit you sell is revenue without additional marketing cost — let Ziadah manage offers automatically.",
   seo: {
     title: "اشترِ أكثر ووفّر أكثر — زيادة",
+    titleEn: "Buy More, Save More — Ziadah",
     description: "حفّز عملاءك على شراء كميات أكبر بعروض تدريجية ذكية. زيادة يُنشئ جداول الشرائح التحفيزية لمتجرك على زد وسلة تلقائياً.",
+    descriptionEn: "Motivate your customers to buy larger quantities with smart tiered offers. Ziadah automatically creates incentive tier tables for your Zid and Salla store.",
     canonical: "/use-cases/buy-more-save-more",
   },
 };

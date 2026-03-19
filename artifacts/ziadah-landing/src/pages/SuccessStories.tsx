@@ -5,6 +5,7 @@ import PlatformModal from "../components/PlatformModal";
 import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const stories = [
   {
@@ -597,6 +598,254 @@ const stories = [
   },
 ];
 
+const storyEn: Record<string, {
+  store: string; tagline: string; metricsLabels: string[];
+  quote: string; person: string; role: string; strategy: string; results: string[];
+}> = {
+  "بست كلين": {
+    store: "BestClean",
+    tagline: "Smart popups turn every visit into a doubled sales opportunity",
+    metricsLabels: ["Increase in avg. cart value", "Increase in conversion rate", "Increase in monthly sales", "Activation time"],
+    quote: "Ziadah changed how we deal with customers. Now customers discover our other products automatically and the cart grows without increasing ad spend. Easy setup and quick results.",
+    person: "BestClean Team",
+    role: "Cleaning Supplies Store",
+    strategy: "Activating smart marketing popups that motivate customers to buy and display additional products when any item is added to cart.",
+    results: ["Average cart value rose from 90 to 120 SAR", "Notable increase in full product catalog browsing", "Monthly sales doubled within two months", "Raised average cart value without changing ad spend"],
+  },
+  "ريبال": {
+    store: "Ribal",
+    tagline: "151,507 conversions — reaching the customer at the right moment",
+    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Return on investment"],
+    quote: "Ziadah helped us reach the customer at the right moment with a simple yet effective offer. The impact on sales and conversions was clear and measurable. It also helped us raise average order value through a thoughtful strategy for every offer and product.",
+    person: "Ribal Team",
+    role: "Cleaning Supplies Store — ribalpower.sa",
+    strategy: "Activating marketing popups that motivate customers to order when adding to cart or starting checkout, reducing abandoned carts.",
+    results: ["151,507 verified conversions via the platform", "SAR 1,024,379 in total sales achieved", "Exceptional 7.68% conversion rate", "Raised average order value with a custom strategy per product"],
+  },
+  "زونا": {
+    store: "Zona",
+    tagline: "A premium customer experience with smart free gifts that boost loyalty",
+    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in monthly sales", "Customer satisfaction"],
+    quote: "The free product experience changed how our customers see the store. They feel valued and personally cared for. Ziadah made it easy to deliver this experience automatically and intelligently.",
+    person: "Zona Team",
+    role: "Skincare Products Store",
+    strategy: "Activating marketing popups that motivate the customer to choose an additional product for free when adding an item to cart.",
+    results: ["Average order rose from 160 to 210 SAR", "Improved customer experience with smart free gift offers", "Boosted customer satisfaction and repeat purchases", "Conversion rate increased from 1.8% to 2.9%"],
+  },
+  "مكنة": {
+    store: "Makana",
+    tagline: "Smart quantity discounts turn single buyers into multi-buyers",
+    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Subscription ROI"],
+    quote: "Smart popups changed customer behavior. Instead of buying one, they add a second to the cart thanks to the discount shown right in front of them. The results were immediate and clear in the numbers.",
+    person: "Makana Team",
+    role: "Skincare Products Store",
+    strategy: "Activating marketing popups to encourage adding another unit of the same product when added to cart, with a clear incentive discount.",
+    results: ["Average order rose from 120 to 170 SAR", "Increased average order value via quantity discounts", "Motivated customers to buy more without increasing ads", "Targeted popups at the right moment"],
+  },
+  "سيار": {
+    store: "Sayyar",
+    tagline: "Smart cross-sell raises order value in men's fabrics",
+    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Custom offers per product"],
+    quote: "Many of our customers didn't know we had complementary products. Now Ziadah shows them at the right moment and they buy immediately. The impact on average order was clearly visible.",
+    person: "Sayyar Team",
+    role: "Men's Shmagh & Fabrics Store",
+    strategy: "Activating marketing popups to add suggested products with an extra discount when adding an item to cart.",
+    results: ["Average order rose from 220 to 295 SAR", "Notable increase in complementary product discovery", "Raised average order via smart cross-sell", "Custom offers per product based on customer selection"],
+  },
+  "دخون الإماراتية": {
+    store: "Dukhoon Al-Emaratia",
+    tagline: "Seasonal smart popups boost discovery of premium oud & incense",
+    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Smart seasonal popups"],
+    quote: "Oud and incense products have a special nature — the customer wants to discover more. Ziadah understood this and now shows complementary products in a way that suits our luxury shopping experience.",
+    person: "Dukhoon Al-Emaratia Team",
+    role: "Premium Oud & Incense Store",
+    strategy: "Activating marketing popups to add suggested products with an extra discount when adding an item to cart.",
+    results: ["Average order rose from 350 to 450 SAR", "Enhanced discovery of suggested products significantly", "Raised average order with suitable seasonal offers", "Smart popups tailored to oud products"],
+  },
+  "فيبان": {
+    store: "Fiban",
+    tagline: "Reducing abandoned carts and turning hesitation into purchase decisions",
+    metricsLabels: ["Increase in conversion rate", "Reduction in abandoned carts", "Increase in sales", "Immediate impact after activation"],
+    quote: "We had a major abandoned cart problem. Ziadah solved it simply — a smart popup at the right moment motivates the customer to complete the purchase. Easy to set up and a clear difference from day one.",
+    person: "Fiban Team",
+    role: "Perfume Store",
+    strategy: "Activating marketing popups to motivate the customer to complete the purchase when adding an item to cart.",
+    results: ["Notable reduction in abandoned carts", "Motivated purchase completion at the critical moment", "Average order rose from 190 to 240 SAR", "Easy to implement with immediate impact"],
+  },
+  "هني دوز": {
+    store: "Honey Does",
+    tagline: "Buy 2+1 offer doubles cart size and customer satisfaction",
+    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Buy 2+1 free offer"],
+    quote: "We had the 2+1 offer but customers didn't know about it. Ziadah now shows it clearly and attractively at the right moment, so our sales rose significantly and customers buy larger quantities.",
+    person: "Honey Does Team",
+    role: "Natural Honey Store",
+    strategy: "Activating a marketing popup offering buy 2+1 free with clear value display to encourage the customer to take advantage.",
+    results: ["Average order rose from 80 to 125 SAR", "Increased cart size via smart 2+1 offers", "Clear value proposition displayed to the customer", "Notable improvement in average order value"],
+  },
+  "دثار": {
+    store: "Dithar",
+    tagline: "Converting new visitors into buyers from their first visit",
+    metricsLabels: ["Increase in conversion rate", "Increase in sales", "New visitor conversion", "Free shipping as incentive"],
+    quote: "Ziadah helped us reach new visitors from the first second. The smart popup with best-selling products and free shipping turned visits into actual purchases and the difference was tangible in sales numbers.",
+    person: "Dithar Team",
+    role: "Hajj Abayas & Modest Clothing Store",
+    strategy: "Activating a marketing popup that appears immediately on the homepage showcasing best-selling products with discount percentages and free shipping.",
+    results: ["Converted new visitors into buyers from first visit", "Highlighted best-selling products immediately upon entry", "Free shipping as an effective incentive increased completion", "Average order rose from 130 to 170 SAR"],
+  },
+  "جمعية تحفيظ القرآن — خميس مشيط": {
+    store: "Quran Memorization Society — Khamis Mushait",
+    tagline: "Impactful messages turn visitors into active donors",
+    metricsLabels: ["Increase in avg. donation", "Increase in conversion rate", "Increase in total donations", "Suitable for non-profit sites"],
+    quote: "Ziadah proved it works even for non-profit organizations. The impactful messages that appear during browsing encouraged donors to act immediately and the average donation increased significantly.",
+    person: "Society Management",
+    role: "Quran Memorization Society — Khamis Mushait",
+    strategy: "Using Ziadah to activate marketing popups with impactful messages during browsing, encouraging donors to act immediately.",
+    results: ["Raised donation rate through impactful messages", "Motivated immediate action from visitors", "Average donation rose from 50 to 70 SAR", "Monthly total donations doubled significantly"],
+  },
+  "كلوز باي": {
+    store: "CloseBy",
+    tagline: "5% discount code rescues abandoned carts and doubles revenue",
+    metricsLabels: ["Total conversions", "Total sales", "Smart popup timing", "Effective discount code"],
+    quote: "The 5% discount code was simple but its impact was massive. Hesitant customers started completing orders immediately. Result: 716 conversions and SAR 543K in additional sales.",
+    person: "CloseBy Team",
+    role: "General Shopping Store",
+    strategy: "Launching a 'Don't miss 5% discount code' campaign via Ziadah, with a smart popup appearing at the right time to motivate purchase completion.",
+    results: ["716 verified conversions via the platform", "SAR 543,000 in total sales achieved", "Converted abandoned carts into actual sales", "Smart popup timing increased completion rate"],
+  },
+  "عبق الغيم": {
+    store: "Abaq Alghim",
+    tagline: "Recovering orders at the moment of cart removal",
+    metricsLabels: ["Total conversions", "Total sales", "Recovery at removal moment", "Targeted smart campaign"],
+    quote: "The idea was clever — offer the customer a discount exactly when they try to remove a product from the cart. This timing changed everything. 1,122 conversions and SAR 248K wouldn't have happened without Ziadah.",
+    person: "Abaq Alghim Team",
+    role: "Perfume & Fragrances Store",
+    strategy: "Activating the 'remove product from cart' event via Ziadah, launching a smart campaign with a discount code shown at the moment of removal.",
+    results: ["1,122 verified conversions via the platform", "SAR 248,816 in total sales achieved", "Recovered orders at the moment of cart removal", "Discount code turns cancellation into purchase"],
+  },
+  "التميمي": {
+    store: "Altamimi",
+    tagline: "3,774 conversions — smart seasonal promotion achieves record numbers",
+    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Smart seasonal suggestions"],
+    quote: "Ziadah helped us raise order value without affecting the customer experience. Offers appear at the right time and encourage customers to add more items effortlessly.",
+    person: "Altamimi Team",
+    role: "Men's Fabrics & Textiles Store — altamimitex.net",
+    strategy: "Activating the 'add to cart' event via Ziadah, promoting seasonal products with smart marketing popups suggesting additional items matching the customer's selections.",
+    results: ["3,774 verified conversions during the season", "SAR 932,517 in total sales achieved", "3.05% conversion rate above average", "Smart suggestions based on customer selections"],
+  },
+  "Skinly": {
+    store: "Skinly",
+    tagline: "1,005 conversions in Black Friday season — intelligence in timing",
+    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Smart seasonal leverage"],
+    quote: "Ziadah helped us engage customers at the right moment without interrupting their shopping experience. Smart offers encouraged customers to add more products and complete orders faster.",
+    person: "Skinly Team",
+    role: "Skincare & Beauty Store — skin-ly.com",
+    strategy: "Activating the add-to-cart event via Ziadah, launching a campaign with discounts on complementary products to drive order completion.",
+    results: ["1,005 verified conversions in Black Friday season", "SAR 704,676 in total sales achieved", "Exceptional 6.10% conversion rate", "Raised order value via cross-sell and upsell offers"],
+  },
+  "فيرزاسكا": {
+    store: "Verzasca",
+    tagline: "Smart fragrance bundles raise the value of every order",
+    metricsLabels: ["Total conversions", "Total sales", "Effective bundle promotion", "Increased product discovery"],
+    quote: "Bundle deals were available but customers rarely discovered them. Ziadah solved this with a targeted popup that appears at the right time and clearly raises average order value.",
+    person: "Verzasca Team",
+    role: "Perfume & Fragrances Store",
+    strategy: "Activating the add-to-cart event with a popup offering a discount on fragrance bundles.",
+    results: ["957 verified conversions via the platform", "SAR 77,000 in total sales achieved", "Effective promotion of bundle deals", "Targeted popups increased product discovery"],
+  },
+  "فيتنيس نيد": {
+    store: "Fitness Need",
+    tagline: "Turning the cart removal moment into a smart sales opportunity",
+    metricsLabels: ["Total conversions", "Total sales", "Recovery at removal moment", "Reduced lost orders"],
+    quote: "We were losing many orders at the moment of cart removal. Ziadah solved this precisely — a smart discount at the critical moment turns a cancellation into an actual purchase.",
+    person: "Fitness Need Team",
+    role: "Fitness Equipment Store",
+    strategy: "Activating the 'remove product from cart' event in Ziadah, showing any customer removing a product a smart offer with a special discount on the same product.",
+    results: ["207 verified conversions via the platform", "SAR 75,722 in total sales achieved", "Turned cart removal moment into a sales opportunity", "Smart discounts close the deal at the last moment"],
+  },
+  "كلارا": {
+    store: "Clara",
+    tagline: "Promoting new products with the highest add-to-cart rate",
+    metricsLabels: ["Total conversions", "Total sales", "Effective new product promotion", "Targeted discounts"],
+    quote: "Launching new products was always a challenge. Ziadah solved it with a smart popup showing the new product with a discount at the right moment. Result: 655 conversions and SAR 247K.",
+    person: "Clara Team",
+    role: "Beauty & Cosmetics Store",
+    strategy: "Activating the add-to-cart event via Ziadah with a marketing popup featuring a special discount to motivate purchase completion.",
+    results: ["655 verified conversions via the platform", "SAR 247,438 in total sales achieved", "Effective promotion of new products", "Targeted discounts motivated purchase completion"],
+  },
+  "كابزون": {
+    store: "Capzone",
+    tagline: "Rescuing orders at the final payment stage",
+    metricsLabels: ["Total conversions", "Total sales", "Rescue orders at checkout", "Discount encouraging return"],
+    quote: "The problem was customers reaching checkout then leaving. Ziadah solved this with a smart popup at the last moment with a convincing offer. The improvement in completion rate was clear.",
+    person: "Capzone Team",
+    role: "Fashion & Accessories Store",
+    strategy: "Launching a campaign via the 'complete order' event in Ziadah, showing a motivating popup at the final purchase stage offering a discount on the next or current order.",
+    results: ["155 verified conversions via the platform", "SAR 41,000 in total sales achieved", "Rescued orders at the final payment stage", "Next-order discount encourages return visits"],
+  },
+  "ركن الجمال": {
+    store: "Beauty Corner",
+    tagline: "National holiday campaigns achieve peak sales",
+    metricsLabels: ["Total conversions", "Total sales", "National holiday campaigns", "Targeted popups boost completion"],
+    quote: "National Day was always an opportunity but we never knew how to leverage it properly. Ziadah helped us launch a custom campaign and we hit numbers we'd never achieved before.",
+    person: "Beauty Corner Team",
+    role: "Beauty Products Store",
+    strategy: "Launching a special National Day campaign via Ziadah built on the add-to-cart event with a custom marketing popup and motivating offer.",
+    results: ["689 verified conversions during National Day", "SAR 119,903 in total sales achieved", "Smart leverage of peak seasons and occasions", "Custom campaigns for national holidays"],
+  },
+  "فور هير": {
+    store: "For Her",
+    tagline: "Maximum visibility for new products from the first moment of entry",
+    metricsLabels: ["Total conversions", "Total sales", "Instant new product visibility", "Targeting every visitor instantly"],
+    quote: "We launched a new product and wanted everyone to know about it. Ziadah helped us show it to every visitor from the first second they enter the store. Awareness rose and sales came faster than expected.",
+    person: "For Her Team",
+    role: "Women's Beauty Products Store",
+    strategy: "Activating the homepage event via Ziadah, showing the new product in a prominent marketing popup as soon as the customer enters the store.",
+    results: ["650 verified conversions via the platform", "SAR 135,382 in total sales achieved", "Promoted new products with maximum visibility", "Targeted every visitor from the first moment of entry"],
+  },
+  "كايزون": {
+    store: "Kaizon",
+    tagline: "50% off the second unit doubles order size instantly",
+    metricsLabels: ["Total conversions", "Total sales", "50% off second unit", "Quick and clear results"],
+    quote: "The idea was simple — 50% off the second grinder. But executing it smartly through Ziadah changed the numbers. The customer sees the offer when adding the first, then adds the second immediately. Quick, convincing results.",
+    person: "Kaizon Team",
+    role: "Kitchen & Home Appliances Store",
+    strategy: "Launching a campaign via Ziadah offering 50% off the second unit once the first is added to cart, through an attractive in-store marketing popup.",
+    results: ["322 verified conversions via the platform", "SAR 76,257 in total sales achieved", "Effective order size increase via second-unit discounts", "Raised cart value without increasing ad spend"],
+  },
+};
+
+const SECTOR_NAME_EN: Record<string, string> = {
+  "الكل": "All",
+  "مستلزمات التنظيف": "Cleaning Supplies",
+  "العناية بالبشرة": "Skincare",
+  "العطور والبخور": "Perfumes & Incense",
+  "الأزياء الرجالية": "Men's Fashion",
+  "الغذاء والعسل": "Food & Honey",
+  "اللياقة البدنية": "Fitness",
+  "التبرعات": "Donations",
+  "الأجهزة المنزلية": "Home Appliances",
+  "العبايات": "Abayas",
+  "تسوق متنوع": "General Shopping",
+};
+
+const PLATFORM_EN: Record<string, string> = {
+  "سلة": "Salla",
+  "زد": "Zid",
+};
+
+const sectorsEn = [
+  { nameAr: "مستلزمات التنظيف", name: "Cleaning Supplies", icon: "🧴", stores: "+45 stores", avg: "+32% sales" },
+  { nameAr: "العناية بالبشرة", name: "Skincare", icon: "💄", stores: "+120 stores", avg: "+38% sales" },
+  { nameAr: "العطور والبخور", name: "Perfumes & Incense", icon: "🕌", stores: "+80 stores", avg: "+34% sales" },
+  { nameAr: "الأزياء الرجالية", name: "Men's Fashion", icon: "👔", stores: "+150 stores", avg: "+35% sales" },
+  { nameAr: "الغذاء والعسل", name: "Food & Honey", icon: "🍯", stores: "+60 stores", avg: "+28% sales" },
+  { nameAr: "اللياقة البدنية", name: "Fitness", icon: "💪", stores: "+40 stores", avg: "+30% sales" },
+  { nameAr: "التبرعات", name: "Donations", icon: "🤲", stores: "+30 stores", avg: "+50% donations" },
+  { nameAr: "الأجهزة المنزلية", name: "Home Appliances", icon: "🏠", stores: "+55 stores", avg: "+26% sales" },
+  { nameAr: "العبايات", name: "Abayas", icon: "🌙", stores: "+35 stores", avg: "+32% sales" },
+  { nameAr: "تسوق متنوع", name: "General Shopping", icon: "🛍️", stores: "+25 stores", avg: "+29% sales" },
+];
+
 const SECTOR_ICONS: Record<string, string> = {
   "الكل": "✦",
   "مستلزمات التنظيف": "🧴",
@@ -626,8 +875,9 @@ const sectors = [
 
 const allSectors = Array.from(new Set(stories.map(s => s.sector)));
 
-function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
+function StoryCard({ s, index, isAr }: { s: typeof stories[0]; index: number; isAr: boolean }) {
   const [expanded, setExpanded] = useState(false);
+  const en = storyEn[s.store];
 
   return (
     <div
@@ -643,43 +893,43 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-              <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "var(--t)" }}>{s.store}</h3>
-              <span className="platform-tag-v2">{s.platform}</span>
+              <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "var(--t)" }}>{isAr ? s.store : (en?.store || s.store)}</h3>
+              <span className="platform-tag-v2">{isAr ? s.platform : (PLATFORM_EN[s.platform] || s.platform)}</span>
             </div>
             <div style={{ fontSize: 13, color: "var(--td)", marginTop: 4 }}>
               <span className="sector-badge-v2">
-                {SECTOR_ICONS[s.sector] || "◆"} {s.sector}
+                {SECTOR_ICONS[s.sector] || "◆"} {isAr ? s.sector : (SECTOR_NAME_EN[s.sector] || s.sector)}
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="story-tagline-v2">{s.tagline}</div>
+      <div className="story-tagline-v2">{isAr ? s.tagline : (en?.tagline || s.tagline)}</div>
 
       <div className="story-metrics-v2">
-        {s.metrics.map(m => (
+        {s.metrics.map((m, mi) => (
           <div key={m.label} className="metric-card-v2">
             <div className="metric-value-v2" style={{ color: m.color }}>{m.value}</div>
-            <div className="metric-label-v2">{m.label}</div>
+            <div className="metric-label-v2">{isAr ? m.label : (en?.metricsLabels[mi] || m.label)}</div>
           </div>
         ))}
       </div>
 
       <div className="story-comparison-v2">
         <div className="comparison-box-v2 before-box">
-          <div className="comparison-label-v2">قبل زيادة</div>
+          <div className="comparison-label-v2">{isAr ? "قبل زيادة" : "Before Ziadah"}</div>
           <div className="comparison-row">
-            <span className="comparison-key">متوسط الطلب</span>
-            <span className="comparison-val">{s.before.aov} ⃁</span>
+            <span className="comparison-key">{isAr ? "متوسط الطلب" : "Avg. Order"}</span>
+            <span className="comparison-val">{s.before.aov} {isAr ? "⃁" : "SAR"}</span>
           </div>
           <div className="comparison-row">
-            <span className="comparison-key">التحويل</span>
+            <span className="comparison-key">{isAr ? "التحويل" : "Conversion"}</span>
             <span className="comparison-val">{s.before.conv}</span>
           </div>
           <div className="comparison-row">
-            <span className="comparison-key">المبيعات الشهرية</span>
-            <span className="comparison-val">{s.before.monthly} ⃁</span>
+            <span className="comparison-key">{isAr ? "المبيعات الشهرية" : "Monthly Sales"}</span>
+            <span className="comparison-val">{s.before.monthly} {isAr ? "⃁" : "SAR"}</span>
           </div>
         </div>
         <div className="comparison-arrow-v2">
@@ -689,18 +939,18 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
           </svg>
         </div>
         <div className="comparison-box-v2 after-box">
-          <div className="comparison-label-v2 after-label">بعد زيادة</div>
+          <div className="comparison-label-v2 after-label">{isAr ? "بعد زيادة" : "After Ziadah"}</div>
           <div className="comparison-row">
-            <span className="comparison-key">متوسط الطلب</span>
-            <span className="comparison-val highlight">{s.after.aov} ⃁</span>
+            <span className="comparison-key">{isAr ? "متوسط الطلب" : "Avg. Order"}</span>
+            <span className="comparison-val highlight">{s.after.aov} {isAr ? "⃁" : "SAR"}</span>
           </div>
           <div className="comparison-row">
-            <span className="comparison-key">التحويل</span>
+            <span className="comparison-key">{isAr ? "التحويل" : "Conversion"}</span>
             <span className="comparison-val highlight">{s.after.conv}</span>
           </div>
           <div className="comparison-row">
-            <span className="comparison-key">المبيعات الشهرية</span>
-            <span className="comparison-val highlight">{s.after.monthly} ⃁</span>
+            <span className="comparison-key">{isAr ? "المبيعات الشهرية" : "Monthly Sales"}</span>
+            <span className="comparison-val highlight">{s.after.monthly} {isAr ? "⃁" : "SAR"}</span>
           </div>
         </div>
       </div>
@@ -709,22 +959,22 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
         <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(168,85,247,.3)" style={{ flexShrink: 0, marginTop: 2 }}>
           <path d="M11 7.5V11H7.5C7.5 12.3807 8.61929 13.5 10 13.5V15.5C7.51472 15.5 5.5 13.4853 5.5 11V7.5H11ZM18.5 7.5V11H15C15 12.3807 16.1193 13.5 17.5 13.5V15.5C15.0147 15.5 13 13.4853 13 11V7.5H18.5Z"/>
         </svg>
-        <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.9, fontStyle: "italic" }}>{s.quote}</p>
+        <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.9, fontStyle: "italic" }}>{isAr ? s.quote : (en?.quote || s.quote)}</p>
       </div>
 
       <div className="story-footer-v2">
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div className="story-person-avatar" style={{ background: s.color }}>{s.logo}</div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{s.person}</div>
-            <div style={{ fontSize: 12, color: "var(--td)" }}>{s.role}</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{isAr ? s.person : (en?.person || s.person)}</div>
+            <div style={{ fontSize: 12, color: "var(--td)" }}>{isAr ? s.role : (en?.role || s.role)}</div>
           </div>
         </div>
         <button
           className="expand-btn-v2"
           onClick={() => setExpanded(!expanded)}
         >
-          {expanded ? "إخفاء التفاصيل" : "عرض التفاصيل"}
+          {expanded ? (isAr ? "إخفاء التفاصيل" : "Hide Details") : (isAr ? "عرض التفاصيل" : "Show Details")}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}>
             <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -734,13 +984,13 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
       <div className={`story-details-v2 ${expanded ? "expanded" : ""}`}>
         <div className="details-inner-v2">
           <div className="strategy-box-v2">
-            <div className="strategy-title-v2">الاستراتيجية</div>
-            <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.8 }}>{s.strategy}</p>
+            <div className="strategy-title-v2">{isAr ? "الاستراتيجية" : "Strategy"}</div>
+            <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.8 }}>{isAr ? s.strategy : (en?.strategy || s.strategy)}</p>
           </div>
           <div className="results-box-v2">
-            <div className="results-title-v2">النتائج الموثقة</div>
+            <div className="results-title-v2">{isAr ? "النتائج الموثقة" : "Verified Results"}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {s.results.map(r => (
+              {(isAr ? s.results : (en?.results || s.results)).map(r => (
                 <div key={r} className="result-item-v2">
                   <span className="result-check-v2">✓</span>
                   <span>{r}</span>
@@ -755,11 +1005,13 @@ function StoryCard({ s, index }: { s: typeof stories[0]; index: number }) {
 }
 
 export default function SuccessStories() {
+  const { isAr, dir } = useLanguage();
   const [activeSector, setActiveSector] = useState("الكل");
   const [visible, setVisible] = useState(true);
   const filterRef = useRef<HTMLDivElement>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [stickyFilter, setStickyFilter] = useState(false);
+  const sectorDisplay = (arName: string) => isAr ? arName : (SECTOR_NAME_EN[arName] || arName);
 
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
@@ -805,12 +1057,12 @@ export default function SuccessStories() {
   return (
     <>
     <SEO
-      title="قصص النجاح — متاجر زادت مبيعاتها مع زيادة"
-      description="اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة."
+      title={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
+      description={isAr ? "اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة." : "Discover how leading Saudi stores achieved exceptional results with Ziadah: from Ribal with 151,507 conversions to Altamimi with SAR 932,517 in sales. Real success stories with verified numbers."}
       canonical="/success-stories"
     />
-    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "قصص النجاح", url: "/success-stories" }]} />
-    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
+    <BreadcrumbSchema items={[{ name: isAr ? "الرئيسية" : "Home", url: "/" }, { name: isAr ? "قصص النجاح" : "Success Stories", url: "/success-stories" }]} />
+    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <style>{`
         .story-accent-line {
           position: absolute;
@@ -1246,22 +1498,27 @@ export default function SuccessStories() {
       <Nav />
 
       <section style={{ paddingTop: 140, paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
-        <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
+        <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "قصص نجاح حقيقية" : "Real Success Stories"}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
-          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>أثر مستدام</span>
+          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{isAr ? "أثر مستدام" : "Lasting Impact"}</span>
           <br />
-          <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>بأرقام موثقة من تجار حقيقيين</span>
+          <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>{isAr ? "بأرقام موثقة من تجار حقيقيين" : "With verified numbers from real merchants"}</span>
         </h1>
         <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "var(--td)" }}>
-          +700 متجر استخدم زيادة لتحقيق نتائج استثنائية. نشاركك قصصهم الحقيقية بأرقام واضحة ونتائج ملموسة.
+          {isAr ? "+700 متجر استخدم زيادة لتحقيق نتائج استثنائية. نشاركك قصصهم الحقيقية بأرقام واضحة ونتائج ملموسة." : "+700 stores used Ziadah to achieve exceptional results. We share their real stories with clear numbers and tangible outcomes."}
         </p>
         <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          {[
+          {(isAr ? [
             ["700+", "متجر نشط", "#a855f7"],
             ["10M+", "⃁ مبيعات إضافية", "#06b6d4"],
             ["35%", "متوسط زيادة الطلب", "#10b981"],
             ["90%", "رضا التجار", "#f59e0b"],
-          ].map(([v, l, c]) => (
+          ] : [
+            ["700+", "Active Stores", "#a855f7"],
+            ["$2.5M+", "Additional Sales", "#06b6d4"],
+            ["35%", "Avg. Order Increase", "#10b981"],
+            ["90%", "Merchant Satisfaction", "#f59e0b"],
+          ]).map(([v, l, c]) => (
             <div key={l} className="hero-stat-v2" style={{ "--accent": c } as React.CSSProperties}>
               <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
               <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
@@ -1284,7 +1541,7 @@ export default function SuccessStories() {
                 onClick={() => handleSectorChange(sector)}
               >
                 <span>{SECTOR_ICONS[sector] || "◆"}</span>
-                <span>{sector}</span>
+                <span>{sectorDisplay(sector)}</span>
                 <span className="filter-count-v2">{sectorCounts[sector] || 0}</span>
               </button>
             ))}
@@ -1302,7 +1559,7 @@ export default function SuccessStories() {
               style={{ padding: "7px 14px", fontSize: 12 }}
             >
               <span>{SECTOR_ICONS[sector] || "◆"}</span>
-              <span>{sector}</span>
+              <span>{sectorDisplay(sector)}</span>
               <span className="filter-count-v2">{sectorCounts[sector] || 0}</span>
             </button>
           ))}
@@ -1314,14 +1571,17 @@ export default function SuccessStories() {
           {activeSector !== "الكل" && (
             <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ fontSize: 15, color: "var(--td)" }}>
-                عرض <span style={{ color: "var(--p3)", fontWeight: 800 }}>{filteredStories.length}</span> قصة في قطاع{" "}
-                <span style={{ color: "var(--t)", fontWeight: 700 }}>{activeSector}</span>
+                {isAr ? (
+                  <>عرض <span style={{ color: "var(--p3)", fontWeight: 800 }}>{filteredStories.length}</span> قصة في قطاع{" "}<span style={{ color: "var(--t)", fontWeight: 700 }}>{activeSector}</span></>
+                ) : (
+                  <>Showing <span style={{ color: "var(--p3)", fontWeight: 800 }}>{filteredStories.length}</span> {filteredStories.length === 1 ? "story" : "stories"} in{" "}<span style={{ color: "var(--t)", fontWeight: 700 }}>{SECTOR_NAME_EN[activeSector] || activeSector}</span></>
+                )}
               </div>
               <button
                 onClick={() => handleSectorChange("الكل")}
                 style={{ fontSize: 12, color: "var(--td)", background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
               >
-                عرض الكل
+                {isAr ? "عرض الكل" : "Show All"}
               </button>
             </div>
           )}
@@ -1330,7 +1590,7 @@ export default function SuccessStories() {
             style={{ display: "flex", flexDirection: "column", gap: 24 }}
           >
             {filteredStories.map((s, i) => (
-              <StoryCard key={s.store + s.sector} s={s} index={i} />
+              <StoryCard key={s.store + s.sector} s={s} index={i} isAr={isAr} />
             ))}
           </div>
         </div>
@@ -1339,19 +1599,20 @@ export default function SuccessStories() {
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>حسب القطاع</div>
-            <h2 className="st rv d1 font-semibold" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
-            <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك</p>
+            <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "حسب القطاع" : "By Sector"}</div>
+            <h2 className="st rv d1 font-semibold" style={{ marginBottom: 12 }}>{isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}</h2>
+            <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>{isAr ? "زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك" : "Ziadah works with all types of stores — discover the results in your industry"}</p>
           </div>
           <div className="sectors-grid-v2 rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
-            {sectors.map(s => {
-              const count = stories.filter(st => st.sector === s.name).length;
+            {(isAr ? sectors : sectorsEn).map(s => {
+              const sectorArName = isAr ? s.name : (s as typeof sectorsEn[0]).nameAr;
+              const count = stories.filter(st => st.sector === sectorArName).length;
               return (
                 <div
                   key={s.name}
                   className="gc sector-card-v2"
                   onClick={() => {
-                    handleSectorChange(s.name);
+                    handleSectorChange(sectorArName);
                     window.scrollTo({ top: 520, behavior: "smooth" });
                   }}
                 >
@@ -1362,7 +1623,7 @@ export default function SuccessStories() {
                     <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
                     {count > 0 && (
                       <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>
-                        {count} قصة نجاح
+                        {count} {isAr ? "قصة نجاح" : (count === 1 ? "success story" : "success stories")}
                       </div>
                     )}
                   </div>
@@ -1380,10 +1641,10 @@ export default function SuccessStories() {
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>
             <div className="shine"/><div className="cta-glow"/>
-            <h2 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>متجرك القادم في قائمة النجاح</h2>
-            <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>انضم لـ +700 متجر وابدأ رحلتك اليوم</p>
+            <h2 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{isAr ? "متجرك القادم في قائمة النجاح" : "Your Store Is Next on the Success List"}</h2>
+            <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{isAr ? "انضم لـ +700 متجر وابدأ رحلتك اليوم" : "Join +700 stores and start your journey today"}</p>
             <div className="cta-btns">
-              <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>فعّل الآن</button>
+              <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>{isAr ? "فعّل الآن" : "Activate Now"}</button>
             </div>
           </div>
         </div>

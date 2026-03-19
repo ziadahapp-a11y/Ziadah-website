@@ -103,9 +103,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض الإضافات الذكي في متجرك",
   ctaDesc: "الإضافة الصغيرة تراكمية — كل طلب مع إضافتين يرفع إيراداتك الشهرية بشكل ملموس.",
+  heroEn: {
+    tag: "By Display Method",
+    title: "Add-ons",
+    subtitle: "Show customers functional add-ons that complement their main product — using a multi-select approach that maximizes acceptance and increases order value.",
+    tagline: "Small add-ons make a big difference in revenue",
+    icon: "➕",
+  },
+  whatWeDoTitleEn: "What are Add-ons and how does Ziadah implement them?",
+  whatWeDoDescEn:
+    "Add-ons present the customer with a list of additional products that functionally complement or enhance their main purchase — not a replacement or competitor, but a complement. What makes Ziadah's implementation unique is the multi-select approach: instead of suggesting one add-on, it displays a selectable assortment with a total price that updates instantly with each selection. AI chooses what to display based on actual store data and personalizes the list for each customer.",
+  strategyTitleEn: "Add-on display methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "☑️",
+      title: "Multi-Select Checkboxes",
+      desc: "Customers see a list of add-ons with checkboxes — they select what they want and see the total update instantly. Significantly improves add-on acceptance rates.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🎯",
+      title: "Product-Specific Suggestions",
+      desc: "Each product has a custom add-on list tailored specifically to it — no generic lists. Ziadah learns from order data which add-ons are most accepted with each specific product.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "💰",
+      title: "Highlight Add-on Value",
+      desc: "Each add-on displays its price clearly with a brief value message — 'Protect your phone' or 'Complete your set' — making the choice logical and easy.",
+      color: "#10b981",
+    },
+    {
+      icon: "📍",
+      title: "Right Moment Display",
+      desc: "The add-on list appears when adding the product to cart or on the product page — at the moment when the customer is in a buying mindset.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+44%", label: "Add-on list acceptance rate", color: "#a855f7" },
+    { value: "+31%", label: "Average order value with at least one add-on", color: "#06b6d4" },
+    { value: "2.3", label: "Average number of add-ons selected per order", color: "#10b981" },
+    { value: "+22%", label: "Repeat purchases from customers who chose add-ons", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Examples from various industries",
+    steps: [
+      "📱 Electronics: Customer adds a phone to cart → list appears: [✓] Protective case +39 SAR, [✓] Screen protector +15 SAR, [ ] Wireless earbuds +89 SAR — they select and see the total update.",
+      "🌿 Haircare: Customer buys shampoo → add-ons shown: [✓] Matching conditioner +28 SAR, [ ] Weekly mask +45 SAR, [✓] Strengthening serum +62 SAR.",
+      "🎮 Gaming: Customer buys a controller → sees: [✓] Carrying case +35 SAR, [✓] Rechargeable batteries +29 SAR, [ ] Anti-slip grip cover +19 SAR.",
+      "🍕 Restaurant: Customer orders pizza → selects from: [✓] Extra sauce +6 SAR, [✓] Cheese crust +12 SAR, [ ] Drink +15 SAR.",
+    ],
+    result: "Multi-select increases the average number of add-ons selected from 0.7 (single suggestion) to 2.3 — three times the additional sales with the same effort.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Activate smart add-on offers in your store",
+  ctaDescEn: "Small add-ons are cumulative — every order with two add-ons noticeably boosts your monthly revenue.",
   seo: {
     title: "الإضافات (Add-ons) — زيادة لمتجرك",
+    titleEn: "Add-ons — Ziadah for Your Store",
     description: "استخدم زيادة لعرض إضافات وظيفية تُكمّل منتج العميل الأساسي بأسلوب اختبار متعدد يرفع قيمة الطلب ويزيد الإيرادات.",
+    descriptionEn: "Use Ziadah to display functional add-ons that complement the customer's main product with a multi-select approach that boosts order value and revenue.",
     canonical: "/use-cases/addons",
   },
 };

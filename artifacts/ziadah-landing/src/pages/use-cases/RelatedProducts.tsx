@@ -94,9 +94,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض المنتجات ذات الصلة اليوم",
   ctaDesc: "كل زيارة فرصة — دع زيادة يقترح المنتج المناسب بزر الإضافة المباشر.",
+  heroEn: {
+    tag: "By Display Method",
+    title: "Related Products",
+    subtitle: "Show each customer the products closest to their interests — an add-to-cart button ready with every suggestion, from click to cart in two seconds.",
+    tagline: "A customer who sees what they want buys without thinking",
+    icon: "🔎",
+  },
+  whatWeDoTitleEn: "What is the 'Related Products' display and how does it work in Ziadah?",
+  whatWeDoDescEn:
+    "This display method highlights a smartly curated list of products beside or below the product the customer is viewing, with each card featuring a direct 'Add to Cart' button — no need to open the product page. Ziadah's AI selects what to show based on: the customer's browsing history, purchase record, and products frequently bought together across thousands of actual orders in the same store. The result: contextually relevant suggestions without annoyance, and an add button that requires no extra steps.",
+  strategyTitleEn: "Related Products display methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "🤖",
+      title: "Personalized recommendations",
+      desc: "Based on the customer's profile, past purchases, and current browsing, Ziadah selects products suited specifically to them — not a generic list for everyone.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🛒",
+      title: "Direct Add Button",
+      desc: "Every product card features an instant 'Add to Cart' button that works without leaving the current page — reducing friction and boosting conversion.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "📊",
+      title: "Smart Priority Ordering",
+      desc: "Products don't appear randomly — Ziadah ranks them by purchase probability for this customer, showing the most relevant and profitable ones first.",
+      color: "#10b981",
+    },
+    {
+      icon: "🔄",
+      title: "Dynamic Updates",
+      desc: "The displayed list updates in real-time as the customer's behavior changes or when they add a product to cart — no repetition, no static list.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+38%", label: "Increase in product add-to-cart rate", color: "#a855f7" },
+    { value: "+26%", label: "Average number of products per order", color: "#06b6d4" },
+    { value: "42%", label: "Of customers interact with the related products list", color: "#10b981" },
+    { value: "3 sec", label: "Average time to add from suggestion display", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples from different industries",
+    steps: [
+      "🍔 Restaurant: Customer views a burger → related products appear: fries, drink, extra sauce — each with an independent add button.",
+      "💄 Beauty: Customer views a moisturizer → shown: matching cleanser + complementary serum + eye cream — with an add button for each.",
+      "💻 Electronics: Customer views headphones → sees: carrying case + Bluetooth adapter + portable battery — with a quick add button.",
+      "👟 Fashion: Customer views running shoes → shown: matching socks + gym bag + replacement laces — they add what they want instantly.",
+    ],
+    result: "Average acceptance of 'Related Products' suggestions reaches 38% with a direct add button vs. 16% with links only — the design difference makes the revenue difference.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Activate related products display today",
+  ctaDescEn: "Every visit is an opportunity — let Ziadah suggest the right product with a direct add button.",
   seo: {
     title: "المنتجات ذات الصلة — زيادة",
+    titleEn: "Related Products — Ziadah",
     description: "اعرض لكل عميل المنتجات الأقرب لاهتمامه مع زر الإضافة الجاهز. زيادة يُخصّص التوصيات لكل زائر بناءً على سلوكه الفعلي.",
+    descriptionEn: "Show each customer the products closest to their interests with a ready add button. Ziadah personalizes recommendations for every visitor based on their actual behavior.",
     canonical: "/use-cases/related-products",
   },
 };

@@ -103,9 +103,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض 'الشراء معاً' في متجرك",
   ctaDesc: "بيانات عملاؤك تعرف ما يُشترى معاً — دع زيادة يعرضه تلقائياً لكل زائر.",
+  heroEn: {
+    tag: "By Display Method",
+    title: "Frequently Bought Together",
+    subtitle: "Bundle complementary products in a single offer that convinces customers to buy the complete set — backed by real order data and a design that highlights compatibility.",
+    tagline: "The complete set sells better than each item alone",
+    icon: "🤝",
+  },
+  whatWeDoTitleEn: "What is 'Frequently Bought Together' and how does it work in Ziadah?",
+  whatWeDoDescEn:
+    "The 'Frequently Bought Together' method shows the customer a group of products selected because they are frequently purchased together or functionally complement each other — displayed as a bundled offer with a one-click 'Add All to Cart' option. Ziadah extracts these groups from actual store order data using association analysis algorithms, then displays them with a design that highlights compatibility and simplifies the decision.",
+  strategyTitleEn: "'Frequently Bought Together' display methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "📈",
+      title: "Real Association Analysis",
+      desc: "Ziadah analyzes thousands of orders to extract the most frequently co-purchased products — no manual guesswork, just real data from your store.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🖱️",
+      title: "One-Click Add All",
+      desc: "An 'Add All to Cart' button adds all group products at once — reducing friction and speeding up the decision.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "💬",
+      title: "Trusted Social Proof",
+      desc: "The offer includes a data-backed message like 'Customers who bought this also bought...' — building trust and accelerating the decision.",
+      color: "#10b981",
+    },
+    {
+      icon: "🎨",
+      title: "Visual Composite Display",
+      desc: "Products are shown as a group image or card grid highlighting compatibility, with the total price displayed if the customer chooses the complete set.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+35%", label: "Orders containing more than one product", color: "#a855f7" },
+    { value: "+29%", label: "Average order value with 'Bought Together' offer", color: "#06b6d4" },
+    { value: "48%", label: "Of customers click on the 'Bought Together' offer", color: "#10b981" },
+    { value: "+17%", label: "Customer satisfaction with the complete purchase experience", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples from various industries",
+    steps: [
+      "☕ Coffee: Customer views a coffee machine → sees 'Bought Together' set: machine + grinder + capsule collection — 'Customers who bought this machine also bought this set'.",
+      "📷 Photography: Customer views a camera → shown: camera + carrying bag + memory card + spare battery as one set.",
+      "💪 Fitness: Customer views a resistance band → suggested set: band + gloves + exercise mat — with an 'Add Complete Set' button.",
+      "🧴 Skincare: Customer views face wash → skincare set: wash + toner + moisturizer — 'The most popular routine bought together by our customers'.",
+    ],
+    result: "Showing 'Bought Together' with a one-click add-all option increases complete set adoption from 9% to 33% — three out of every ten customers choose the set instead of a single item.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Activate 'Frequently Bought Together' in your store",
+  ctaDescEn: "Your customer data knows what's bought together — let Ziadah display it automatically for every visitor.",
   seo: {
     title: "الشراء معاً (Buy Together) — زيادة",
+    titleEn: "Frequently Bought Together — Ziadah",
     description: "اجمع المنتجات المُكمّلة في عرض واحد مقنع. زيادة يحلل الطلبات الفعلية ليقترح التوليفات الأنسب ويرفع قيمة السلة.",
+    descriptionEn: "Bundle complementary products in one compelling offer. Ziadah analyzes real orders to suggest the best combinations and increase cart value.",
     canonical: "/use-cases/buy-together",
   },
 };

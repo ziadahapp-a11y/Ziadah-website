@@ -71,9 +71,67 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "اجعل كل زائر يشعر أن المتجر بُني له",
   ctaDesc: "تجربة مخصصة من اللحظة الأولى = عميل يشتري ويعود.",
+  heroEn: {
+    tag: "By Pages",
+    title: "Home Page",
+    subtitle: "The first thing the customer sees in your store — a smart first impression that welcomes every visitor with a personalized experience based on their history and behavior.",
+    tagline: "Every customer sees a different store designed personally for them",
+    icon: "🏠",
+  },
+  whatWeDoTitleEn: "How does Ziadah work on the home page?",
+  whatWeDoDescEn:
+    "The home page in most stores shows the same content to everyone. Ziadah changes this completely: for returning customers it shows what they left in their last visit and products related to their purchases. For new visitors it shows top-rated and best-selling products. For repeat customers it shows loyalty offers and money-saving combos. Every home page visit becomes a personalized experience that increases engagement and shortens the path to purchase.",
+  strategyTitleEn: "Ziadah's strategies on the home page",
+  strategiesEn: [
+    {
+      icon: "🔄",
+      title: "Continue Where You Left Off",
+      desc: "For returning customers, shows products they browsed in their last visit with a 'Still interested?' message that saves them search time.",
+      color: "#a855f7",
+    },
+    {
+      icon: "⭐",
+      title: "Top Rated in Your Category",
+      desc: "Shows the best-selling and highest-rated products in categories the customer has shown interest in — an experience that gives new customers confidence.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "🎁",
+      title: "Money-Saving Combo Bundles",
+      desc: "Displays curated bundles of complementary products at a lower total price. Perfect for customers who haven't decided what they want yet.",
+      color: "#10b981",
+    },
+    {
+      icon: "🕐",
+      title: "Limited-Time Offers",
+      desc: "Places countdown timers and temporary offers at the top of the page based on buying habits — creates real urgency, not manufactured.",
+      color: "#06b6d4",
+    },
+  ],
+  statsEn: [
+    { value: "+34%", label: "Browse time on site", color: "#a855f7" },
+    { value: "+29%", label: "Product click-through rate", color: "#06b6d4" },
+    { value: "+22%", label: "Returning customer conversion rate", color: "#10b981" },
+    { value: "-18%", label: "Home page bounce rate", color: "#ec4899" },
+  ],
+  exampleScenarioEn: {
+    title: "A customer returns to a sportswear store",
+    steps: [
+      "The customer visited the store a week ago and browsed running shoes but didn't buy.",
+      "On returning today, the home page greets them with a custom section: 'Best-selling running shoes this week'.",
+      "Below it, a combo appears: 'Running shoes + sports socks + hydration belt' at 18% off.",
+      "In the top corner: 'Offer expires in 3 hours' on the shoe they previously browsed.",
+    ],
+    result: "The customer went directly to the product and completed the purchase with the combo — purchase time dropped from 12 minutes to 3 minutes.",
+  },
+  plansEn: ["Growth", "Professional", "Business"],
+  ctaTitleEn: "Make every visitor feel the store was built for them",
+  ctaDescEn: "A personalized experience from the first moment = a customer who buys and returns.",
   seo: {
     title: "تخصيص الصفحة الرئيسية — زيادة",
+    titleEn: "Home Page Personalization — Ziadah",
     description: "رحّب بكل زائر بتجربة مخصصة في صفحتك الرئيسية. زيادة يُعرّف كل عميل ويقدّم توصيات بناءً على سلوكه وتاريخ شراءه.",
+    descriptionEn: "Welcome every visitor with a personalized experience on your home page. Ziadah identifies each customer and delivers recommendations based on their behavior and purchase history.",
     canonical: "/use-cases/home",
   },
 };

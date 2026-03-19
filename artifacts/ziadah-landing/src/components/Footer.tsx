@@ -1,6 +1,10 @@
 import { navigateTo } from "@/components/PageTransition";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function Footer() {
+  const { lang } = useLanguage();
+  const tr = t[lang];
   return (
     <footer>
       <div className="wrap">
@@ -15,112 +19,48 @@ export default function Footer() {
               <span className="ft-lt">زيادة</span>
             </div>
             <p className="ft-desc">
-              بيّاع شاطر بالذكاء الاصطناعي يرفع حجم الطلبات في متجرك تلقائياً.
+              {tr.footer.tagline}
             </p>
             <div className="ft-soc">
-              <a
-                href="https://twitter.com/ZiadahApp"
-                target="_blank"
-                rel="noreferrer"
-                className="ftsi"
-              >
-                𝕏
-              </a>
-              <a href="#" className="ftsi">
-                ig
-              </a>
-              <a
-                href="https://linkedin.com/company/ziadahapp"
-                target="_blank"
-                rel="noreferrer"
-                className="ftsi"
-              >
-                in
-              </a>
+              <a href="https://twitter.com/ZiadahApp" target="_blank" rel="noreferrer" className="ftsi">𝕏</a>
+              <a href="#" className="ftsi">ig</a>
+              <a href="https://linkedin.com/company/ziadahapp" target="_blank" rel="noreferrer" className="ftsi">in</a>
             </div>
           </div>
           <div className="ft-col">
-            <h4>المنتج</h4>
-            <a href="#hiw">كيف تعمل؟</a>
-            <a href="#gp">الأهداف والعرض</a>
-            <a href="#why">ليش زيادة؟</a>
-            <a href="#pricing">الأسعار</a>
+            <h4>{tr.footer.product}</h4>
+            <a href="#hiw">{tr.footer.howItWorks}</a>
+            <a href="#gp">{tr.footer.goalsDisplay}</a>
+            <a href="#why">{tr.footer.whyZiadah}</a>
+            <a href="#pricing">{tr.footer.pricing}</a>
           </div>
           <div className="ft-col">
-            <h4>المنصات</h4>
-            <a
-              href="https://apps.zid.sa/application/1826"
-              target="_blank"
-              rel="noreferrer"
-            >
-              منصة زد
-            </a>
-            <a
-              href="https://apps.salla.sa/ar/app/1099604538"
-              target="_blank"
-              rel="noreferrer"
-            >
-              منصة سلة
-            </a>
-            <a
-              href="https://web.ziadah.app/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              لوحة التحكم - زد
-            </a>
-            <a
-              href="https://dashboard.ziadah.app/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              لوحة التحكم - سلة
-            </a>
+            <h4>{tr.footer.platforms}</h4>
+            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer">{tr.footer.zidPlatform}</a>
+            <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer">{tr.footer.sallaPlatform}</a>
+            <a href="https://web.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardZid}</a>
+            <a href="https://dashboard.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardSalla}</a>
           </div>
           <div className="ft-col">
-            <h4>المدونة</h4>
-            <a href="/blog">جميع المقالات</a>
-            <a href="/blog?cat=استراتيجيات البيع">استراتيجيات البيع</a>
-            <a href="/blog?cat=الذكاء الاصطناعي">الذكاء الاصطناعي</a>
-            <a href="/blog?cat=دليل التاجر">دليل التاجر</a>
-            <a href="/blog?cat=شروحات المنصة">شروحات المنصة</a>
+            <h4>{tr.footer.blog}</h4>
+            <a href="/blog">{tr.footer.allArticles}</a>
+            <a href="/blog?cat=استراتيجيات البيع">{tr.footer.salesStrategies}</a>
+            <a href="/blog?cat=الذكاء الاصطناعي">{tr.footer.ai}</a>
+            <a href="/blog?cat=دليل التاجر">{tr.footer.merchantGuide}</a>
+            <a href="/blog?cat=شروحات المنصة">{tr.footer.platformGuides}</a>
           </div>
           <div className="ft-col">
-            <h4>تواصل معنا</h4>
-            <a
-              href="https://api.whatsapp.com/send/?phone=966510131856"
-              target="_blank"
-              rel="noreferrer"
-            >
-              واتساب
-            </a>
-            <a
-              href="https://calendar.app.google/pjtPBzs9TUPipUEF6"
-              target="_blank"
-              rel="noreferrer"
-            >
-              احجز اجتماع
-            </a>
-            <a href="#testimonials">قصص النجاح</a>
+            <h4>{tr.footer.contact}</h4>
+            <a href="https://api.whatsapp.com/send/?phone=966510131856" target="_blank" rel="noreferrer">{tr.footer.whatsapp}</a>
+            <a href="https://calendar.app.google/pjtPBzs9TUPipUEF6" target="_blank" rel="noreferrer">{tr.footer.bookMeeting}</a>
+            <a href="#testimonials">{tr.footer.successStories}</a>
           </div>
         </div>
         <div className="ft-bot">
-          <div className="ft-copy">
-            © 2025 Ziadah. جميع الحقوق محفوظة. شاملة الضريبة.
-          </div>
+          <div className="ft-copy">{tr.footer.copyright}</div>
           <div className="ft-links">
-            <span
-              onClick={() => navigateTo("/privacy")}
-              style={{ cursor: "pointer" }}
-            >
-              سياسة الخصوصية
-            </span>
-            <span
-              onClick={() => navigateTo("/terms")}
-              style={{ cursor: "pointer" }}
-            >
-              شروط الاستخدام
-            </span>
+            <span onClick={() => navigateTo("/privacy")} style={{ cursor: "pointer" }}>{tr.footer.privacy}</span>
+            <span onClick={() => navigateTo("/terms")} style={{ cursor: "pointer" }}>{tr.footer.terms}</span>
           </div>
         </div>
       </div>

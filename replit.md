@@ -97,13 +97,19 @@ Utility scripts package. Each script is a `.ts` file in `src/` with a correspond
 
 ### `artifacts/ziadah-landing` (`@workspace/ziadah-landing`)
 
-Arabic RTL landing page for the Ziadah AI-powered e-commerce marketing platform. Built with React + Vite + wouter for routing.
+Bilingual (Arabic/English) landing page for the Ziadah AI-powered e-commerce marketing platform. Built with React + Vite + wouter for routing.
 
-- Pages: Landing, Support, Blog, Calculator, Features, Success Stories, 16+ use-case pages
-- Layout: RTL (direction: rtl), Arabic-first, responsive (mobile/tablet/desktop)
+- Pages: Landing, Support, Blog, Calculator, Features, Success Stories, Privacy, Terms, 19 use-case pages
+- **i18n**: React Context (`src/i18n/LanguageContext.tsx`) + static translation objects (`src/i18n/translations.ts`)
+  - Arabic is default; English opt-in via language switcher (EN/عربي) in navbar
+  - Language persisted in `localStorage("ziadah_lang")`
+  - `document.documentElement.dir` set dynamically (RTL for Arabic, LTR for English)
+  - Use-case pages use `*En` optional fields in their data objects; `UseCaseLayout` picks AR/EN based on lang
+  - Features, Calculator, SuccessStories, Blog, Support pages each have their own translation section in `translations.ts`
+- Layout: RTL/LTR dynamic, Arabic-first, responsive (mobile/tablet/desktop)
 - CSS: Custom CSS in `src/index.css` (no Tailwind). Uses CSS variables, glass-card components, marquee animations
 - Key responsive breakpoints: 768px (tablet), 1024px (desktop grid), 480px (small mobile)
-- RTL overflow handling: `overflow-x: hidden` on html/body/#root to prevent RTL-induced horizontal scroll
+- Overflow handling: `overflow-x: hidden` on html/body/#root to prevent horizontal scroll
 - Use-case pages use shared `UseCaseLayout` component with widget previews
 - Mobile nav: bottom tab bar; Desktop nav: top horizontal navbar
 - Font: Tajawal (Arabic-optimized Google Font)

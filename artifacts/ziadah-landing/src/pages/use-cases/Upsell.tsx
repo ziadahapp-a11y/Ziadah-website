@@ -103,9 +103,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع قيمة كل طلب بالترقية الذكية",
   ctaDesc: "عميل واحد يختار النسخة الأفضل يساوي طلبين — فعّل Upsell مع زيادة اليوم.",
+  heroEn: {
+    tag: "By Activity",
+    title: "Upselling",
+    subtitle: "Show a better, higher-value version of the product — Ziadah convinces the customer to upgrade when they see the real difference in value, not just price.",
+    tagline: "Not every customer knows there's something better",
+    icon: "⬆️",
+  },
+  whatWeDoTitleEn: "What is upselling and how does Ziadah implement it?",
+  whatWeDoDescEn:
+    "Upselling is convincing the customer to switch from the product they're viewing to a higher-quality version or newer model — but smartly, highlighting value rather than just the price difference. Ziadah first calculates whether this customer is a candidate for an upgrade (based on past purchases and typical budget), then shows the alternative highlighting tangible differences that justify the cost difference. The result: a customer who feels they found a better deal, and a store earning 20-45% more per order.",
+  strategyTitleEn: "Upselling methods in Ziadah",
+  strategiesEn: [
+    {
+      icon: "🏆",
+      title: "Higher Tier — Clearer Value",
+      desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
+      color: "#a855f7",
+    },
+    {
+      icon: "📦",
+      title: "Bigger Size — Lower Cost",
+      desc: "For consumable products, shows the larger size with per-unit cost calculated. The customer realizes bigger is cheaper — and chooses it.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "⭐",
+      title: "Premium Edition",
+      desc: "Displays the Premium edition with its additional benefits highlighted attractively — perfect for customers who value quality.",
+      color: "#10b981",
+    },
+    {
+      icon: "🔄",
+      title: "Newer Model",
+      desc: "For electronics and tech, compares the model being viewed with the latest one — highlighting new features in a clear format.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+41%", label: "Average order value", color: "#a855f7" },
+    { value: "+28%", label: "Upgrade suggestion acceptance rate", color: "#06b6d4" },
+    { value: "+35%", label: "Long-term customer satisfaction", color: "#10b981" },
+    { value: "+22%", label: "Repeat purchase rate", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Real examples across industries",
+    steps: [
+      "🎧 Electronics: Customer views headphones at 120 SAR → sees 'Headphones at 190 SAR — active noise cancellation + 20-hour battery + 2-year warranty' with a direct comparison.",
+      "💐 Perfumes: Customer views 30ml perfume → finds '100ml version for 310 SAR (saving 35% per ml)'.",
+      "🌿 Skincare: Customer chose a basic cream → premium cream appears, same weight but 30 SAR more with a list of more active ingredients.",
+      "📚 Courses: Subscriber on basic plan → sees upgrade to advanced plan for 80 SAR more with 3 extra courses and a certificate.",
+    ],
+    result: "Upgrade acceptance rate ranges from 22-35% when presented correctly with value emphasis — and each acceptance directly increases revenue.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Increase every order value with smart upgrades",
+  ctaDescEn: "One customer choosing the better version equals two orders — activate Upsell with Ziadah today.",
   seo: {
     title: "البيع البديل (Upsell) — زيادة",
+    titleEn: "Upselling — Ziadah",
     description: "أقنع عميلك بالترقية للنسخة الأعلى قيمة مع زيادة. عروض Upsell ذكية تُبرز الفارق الحقيقي وترفع قيمة الطلب بشكل مقنع.",
+    descriptionEn: "Convince your customers to upgrade to the higher-value version with Ziadah. Smart upsell offers highlight the real difference and convincingly increase order value.",
     canonical: "/use-cases/upsell",
   },
 };

@@ -97,9 +97,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ضاعف إيراداتك بنفس عدد الزوار",
   ctaDesc: "رفع CVR بنسبة صغيرة يساوي آلاف ⃁ شهرياً — فعّل زيادة الآن.",
+  heroEn: {
+    tag: "By Goals",
+    title: "Increase Conversion Rate",
+    subtitle: "Conversion rate (CVR) is the percentage of your store visitors who complete a purchase — increasing it means earning more with the same number of visitors.",
+    tagline: "Every 1% in CVR = thousands of SAR monthly",
+    icon: "📈",
+  },
+  whatWeDoTitleEn: "Why is conversion rate more important than visitor count?",
+  whatWeDoDescEn:
+    "A store with 1,000 visitors at a 3% conversion rate gets 30 orders. Raising the conversion rate to 5% means 50 orders — with the same ad budget. The average conversion rate for Arabic e-commerce stores ranges between 1-3%. Ziadah increases it through an integrated system: personalized experiences that remove friction, targeted offers that reduce hesitation, social proof that builds trust, and smart incentives at the right moment.",
+  strategyTitleEn: "How does Ziadah increase conversion rate?",
+  strategiesEn: [
+    {
+      icon: "🎯",
+      title: "Personalized Experience = Faster Decision",
+      desc: "Every customer sees the most relevant products upon arrival. No distraction, no long searches — a direct path from arrival to purchase that shortens decision time.",
+      color: "#a855f7",
+    },
+    {
+      icon: "⭐",
+      title: "Smart Social Proof",
+      desc: "Shows 'Customers like you bought this' with real reviews and ratings from your region or segment — builds trust and reduces purchase fear.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "🏷️",
+      title: "First Purchase Incentive",
+      desc: "For new visitors who haven't purchased yet: offers a special coupon for their first order or a time-limited deal to convince them to try the store.",
+      color: "#10b981",
+    },
+    {
+      icon: "📱",
+      title: "Mobile Experience Optimization",
+      desc: "Over 70% of store browsing comes from phones. Ziadah optimizes recommendation display and makes them easy to interact with on small screens.",
+      color: "#06b6d4",
+    },
+  ],
+  statsEn: [
+    { value: "+25%", label: "Overall conversion rate", color: "#a855f7" },
+    { value: "-40%", label: "Purchase decision time", color: "#06b6d4" },
+    { value: "+32%", label: "New visitor conversion rate", color: "#10b981" },
+    { value: "+45%", label: "Returning customer conversion rate", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "Calculating the impact of raising CVR by 2%",
+    steps: [
+      "A fashion store receives 8,000 visitors/month at a 2% conversion rate = 160 orders.",
+      "After activating Ziadah: personalization and first-order coupons raise CVR to 4%.",
+      "Same 8,000 visitors → 320 orders at 400 SAR average = 128,000 SAR.",
+      "Previous revenue: 160 × 400 = 64,000 SAR. Increase: 64,000 SAR/month.",
+    ],
+    result: "Revenue doubled without spending a single extra SAR on ads — just by improving conversion rate.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Double your revenue with the same number of visitors",
+  ctaDescEn: "Raising CVR by a small percentage equals thousands of SAR monthly — activate Ziadah now.",
   seo: {
     title: "رفع معدل التحويل (CVR) — زيادة",
+    titleEn: "Increase Conversion Rate (CVR) — Ziadah",
     description: "حوّل زوار متجرك إلى مشترين بمعدلات أعلى مع زيادة. تخصيص ذكي يجعل قرار الشراء أسرع وأسهل لكل عميل.",
+    descriptionEn: "Convert your store visitors into buyers at higher rates with Ziadah. Smart personalization makes the purchase decision faster and easier for every customer.",
     canonical: "/use-cases/increase-conversion",
   },
 };

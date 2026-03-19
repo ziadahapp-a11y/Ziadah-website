@@ -3,10 +3,12 @@ import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
-import { blogPosts, categoryColors } from "../data/blogPosts";
+import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
 import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
+import { useLanguage } from "../i18n/LanguageContext";
+import { t } from "../i18n/translations";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -290,6 +292,8 @@ function formatInline(text: string): React.ReactNode {
 }
 
 export default function BlogPost() {
+  const { lang, dir, isAr } = useLanguage();
+  const tx = t[lang].blog;
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
 
@@ -307,6 +311,11 @@ export default function BlogPost() {
     return () => obs.disconnect();
   }, [params.slug]);
 
+  const getCatDisplay = (catId: string) => {
+    const catObj = categories.find(c => c.id === catId);
+    return catObj ? (isAr ? catObj.label : catObj.labelEn) : catId;
+  };
+
   if (!post) {
     return (
       <div
@@ -314,7 +323,7 @@ export default function BlogPost() {
           background: "var(--bg)",
           minHeight: "100vh",
           fontFamily: "var(--font)",
-          direction: "rtl",
+          direction: dir,
           color: "var(--t)",
           display: "flex",
           flexDirection: "column",
@@ -331,7 +340,7 @@ export default function BlogPost() {
         <div className="noise" />
         <Nav />
         <h1 style={{ fontSize: 32, fontWeight: 900, position: "relative", zIndex: 2 }}>
-          المقال غير موجود
+          {tx.notFound}
         </h1>
         <span
           onClick={() => navigateTo("/blog")}
@@ -343,7 +352,7 @@ export default function BlogPost() {
             cursor: "pointer",
           }}
         >
-          ← العودة للمدونة
+          {tx.backToBlog}
         </span>
       </div>
     );
@@ -367,8 +376,8 @@ export default function BlogPost() {
       slug={post.slug}
     />
     <BreadcrumbSchema items={[
-      { name: "الرئيسية", url: "/" },
-      { name: "المدونة", url: "/blog" },
+      { name: tx.breadcrumbHome, url: "/" },
+      { name: tx.breadcrumbBlog, url: "/blog" },
       { name: post.title, url: `/blog/${post.slug}` }
     ]} />
     <div
@@ -376,7 +385,7 @@ export default function BlogPost() {
         background: "var(--bg)",
         minHeight: "100vh",
         fontFamily: "var(--font)",
-        direction: "rtl",
+        direction: dir,
         color: "var(--t)",
       }}
     >
@@ -458,7 +467,7 @@ export default function BlogPost() {
                 ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
             >
-              الرئيسة
+              {tx.breadcrumbHome}
             </span>
             <span>›</span>
             <span
@@ -469,7 +478,7 @@ export default function BlogPost() {
                 ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
             >
-              المدونة
+              {tx.breadcrumbBlog}
             </span>
             <span>›</span>
             <span
@@ -478,7 +487,7 @@ export default function BlogPost() {
                 cursor: "pointer",
               }}
             >
-              {post.category}
+              {getCatDisplay(post.category)}
             </span>
           </nav>
 
@@ -497,7 +506,7 @@ export default function BlogPost() {
                 marginBottom: 16,
               }}
             >
-              {post.category}
+              {getCatDisplay(post.category)}
             </span>
 
             <h1
@@ -544,7 +553,7 @@ export default function BlogPost() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {post.readTime} قراءة
+                {post.readTime} {tx.readSuffix}
               </span>
               <span
                 style={{
@@ -581,7 +590,8 @@ export default function BlogPost() {
             style={{
               padding: "20px 24px",
               marginBottom: 32,
-              borderRight: `3px solid ${categoryColors[post.category]}`,
+              borderRight: isAr ? `3px solid ${categoryColors[post.category]}` : undefined,
+              borderLeft: isAr ? undefined : `3px solid ${categoryColors[post.category]}`,
               borderRadius: 14,
             }}
           >
@@ -618,7 +628,7 @@ export default function BlogPost() {
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.7")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
             >
-              ← العودة لجميع المقالات
+              {tx.backToAll}
             </span>
           </div>
         </div>
@@ -654,7 +664,7 @@ export default function BlogPost() {
                   display: "inline-block",
                 }}
               />
-              مقالات ذات صلة
+              {tx.relatedArticles}
             </h2>
             <div
               style={{
@@ -714,7 +724,7 @@ export default function BlogPost() {
                           marginBottom: 6,
                         }}
                       >
-                        {rel.category}
+                        {getCatDisplay(rel.category)}
                       </span>
                       <h3
                         style={{
@@ -756,7 +766,7 @@ export default function BlogPost() {
                             strokeLinecap="round"
                           />
                         </svg>
-                        {rel.readTime} قراءة
+                        {rel.readTime} {tx.readSuffix}
                       </span>
                     </div>
                   </article>

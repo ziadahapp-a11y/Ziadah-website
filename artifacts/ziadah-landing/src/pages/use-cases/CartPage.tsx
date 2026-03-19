@@ -81,9 +81,67 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل سلة النيّة إلى سلة مكتملة",
   ctaDesc: "قلّل التخلي وارفع قيمة الطلب في نفس الوقت مع زيادة.",
+  heroEn: {
+    tag: "By Pages",
+    title: "Cart Page",
+    subtitle: "The last golden opportunity before checkout — the customer is ready to buy, and any smart recommendation at this moment directly increases order value.",
+    tagline: "Customer at the cart = the perfect time to boost",
+    icon: "🛒",
+  },
+  whatWeDoTitleEn: "How does Ziadah work on the cart page?",
+  whatWeDoDescEn:
+    "The cart page is the peak moment of purchase intent — the customer has convinced themselves to buy and is one step from payment. Ziadah leverages this moment wisely: it displays small complementary products that don't disrupt the decision, calculates the gap between cart value and free shipping and suggests what fills it, and deploys a timed discount coupon for hesitating customers to push them to complete immediately.",
+  strategyTitleEn: "Ziadah's strategies on the cart page",
+  strategiesEn: [
+    {
+      icon: "🛒",
+      title: "Bought Together (BTAT)",
+      desc: "Shows products that thousands of customers have bought with the same items in the cart. Social, trustworthy, and highly effective.",
+      color: "#10b981",
+    },
+    {
+      icon: "➕",
+      title: "Low-Cost Add-ons",
+      desc: "Suggests small-priced add-ons that complement current purchases — like a cover, gift wrapping, or extended warranty. Easy to approve and they boost order value.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "💰",
+      title: "Complete for Free Shipping",
+      desc: "Ziadah calculates the gap between cart value and the free shipping threshold and suggests a product at exactly the missing amount. A powerful incentive customers happily accept.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "🏷️",
+      title: "Discount Coupon for Hesitators",
+      desc: "If the customer spends too long in the cart without completing, a timed coupon (10-15 minutes) appears to push them to buy now.",
+      color: "#ec4899",
+    },
+  ],
+  statsEn: [
+    { value: "-38%", label: "Cart abandonment rate", color: "#ec4899" },
+    { value: "+22%", label: "Average order value", color: "#a855f7" },
+    { value: "+31%", label: "Orders exceeding shipping threshold", color: "#10b981" },
+    { value: "+18%", label: "Purchase completion rate", color: "#06b6d4" },
+  ],
+  exampleScenarioEn: {
+    title: "A customer with a 170 SAR cart",
+    steps: [
+      "The customer added two beauty products worth 170 SAR.",
+      "Ziadah discovers the free shipping threshold is 200 SAR — the gap is only 30 SAR.",
+      "Instantly shows: 'Add 30 SAR to get free shipping' + a hair conditioner at 32 SAR as a suggestion.",
+      "The customer adds the conditioner happily because the savings feel tangible and direct.",
+    ],
+    result: "The order rose from 170 to 202 SAR and the customer felt they benefited from the deal.",
+  },
+  plansEn: ["Growth", "Professional", "Business"],
+  ctaTitleEn: "Turn the intent cart into a completed cart",
+  ctaDescEn: "Reduce abandonment and increase order value at the same time with Ziadah.",
   seo: {
     title: "تحسين صفحة السلة — زيادة",
+    titleEn: "Optimize Cart Page — Ziadah",
     description: "ارفع قيمة الطلب في صفحة السلة عبر توصيات ذكية من زيادة. آخر فرصة قبل الدفع لزيادة إيراداتك بدون تكاليف إضافية.",
+    descriptionEn: "Increase order value on the cart page with smart recommendations from Ziadah. The last chance before checkout to boost revenue without extra costs.",
     canonical: "/use-cases/cart",
   },
 };

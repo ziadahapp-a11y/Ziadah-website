@@ -8,14 +8,18 @@ export interface FullArticle {
   id: string;
   categoryId: string;
   title: string;
+  titleEn?: string;
   desc: string;
+  descEn?: string;
   time: string;
+  timeEn?: string;
   sections: ArticleSection[];
 }
 
 export interface Category {
   id: string;
   label: string;
+  labelEn?: string;
   color: string;
   icon: string;
   articles: FullArticle[];
@@ -25,6 +29,7 @@ export const categories: Category[] = [
   {
     id: "start",
     label: "البداية السريعة",
+    labelEn: "Quick Start",
     color: "#a855f7",
     icon: "⚡",
     articles: [
@@ -32,8 +37,11 @@ export const categories: Category[] = [
         id: "start-zid",
         categoryId: "start",
         title: "كيف تفعّل زيادة على منصة زد؟",
+        titleEn: "How to Activate Ziadah on Zid?",
         desc: "خطوات التفعيل بالتفصيل - من الدخول للمتجر حتى أول اقتراح ذكي.",
-        time: "3 دقائق",
+        descEn: "Step-by-step activation guide — from store login to your first smart recommendation.",
+        time: "٣ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "تفعيل زيادة على منصة زد عملية سهلة لا تستغرق أكثر من 10 دقائق. اتبع هذه الخطوات لتبدأ باستقبال توصيات ذكية في متجرك فوراً." },
           { type: "heading", text: "المتطلبات الأساسية" },
@@ -67,8 +75,11 @@ export const categories: Category[] = [
         id: "start-salla",
         categoryId: "start",
         title: "كيف تفعّل زيادة على منصة سلة؟",
+        titleEn: "How to Activate Ziadah on Salla?",
         desc: "دليل التفعيل الكامل على سلة مع صور توضيحية لكل خطوة.",
-        time: "3 دقائق",
+        descEn: "Complete activation guide on Salla with screenshots for every step.",
+        time: "٣ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "زيادة متاحة على منصة سلة كتطبيق رسمي في متجر التطبيقات. هذا الدليل يأخذك خطوة بخطوة من التثبيت حتى أول توصية تظهر في متجرك." },
           { type: "heading", text: "خطوة 1: تثبيت التطبيق" },
@@ -101,8 +112,11 @@ export const categories: Category[] = [
         id: "start-first-campaign",
         categoryId: "start",
         title: "إعداد أول حملة توصية ذكية",
+        titleEn: "Setting Up Your First Smart Recommendation Campaign",
         desc: "كيف تختار الهدف الأول وطريقة العرض المناسبة لمتجرك.",
-        time: "5 دقائق",
+        descEn: "How to choose your first goal and the right display method for your store.",
+        time: "٥ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "بعد ربط متجرك بزيادة، الخطوة التالية هي إنشاء أول حملة توصية. الحملة هي مجموعة من الإعدادات التي تحدد: ماذا تريد تحقيقه، وأين تظهر التوصيات، وكيف تبدو." },
           { type: "heading", text: "ما هي الحملة في زيادة؟" },
@@ -134,8 +148,11 @@ export const categories: Category[] = [
         id: "start-products",
         categoryId: "start",
         title: "ربط المنتجات والفئات",
+        titleEn: "Linking Products and Categories",
         desc: "كيف يتعرف الذكاء الاصطناعي على كتالوج منتجاتك تلقائياً.",
-        time: "4 دقائق",
+        descEn: "How AI automatically recognizes your product catalog.",
+        time: "٤ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "أحد أذكى ميزات زيادة هو أنه يتعلم كتالوج منتجاتك تلقائياً دون أن تحتاج لإدخال أي بيانات يدوية. لكن هناك خطوات تنظيمية بسيطة تساعد الذكاء الاصطناعي على فهم منتجاتك بشكل أفضل." },
           { type: "heading", text: "كيف يتعلم الذكاء الاصطناعي منتجاتك؟" },
@@ -157,8 +174,11 @@ export const categories: Category[] = [
         id: "start-analytics",
         categoryId: "start",
         title: "فهم لوحة التحليلات",
+        titleEn: "Understanding the Analytics Dashboard",
         desc: "شرح كل مقياس في لوحة التحكم وكيف تقرأ النتائج بشكل صحيح.",
-        time: "6 دقائق",
+        descEn: "Explanation of every metric in the dashboard and how to read results correctly.",
+        time: "٦ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "لوحة التحليلات في زيادة هي نافذتك على أداء توصياتك الذكية. فهم هذه المقاييس بشكل صحيح يساعدك على اتخاذ قرارات أذكى لتحسين نتائج متجرك." },
           { type: "heading", text: "المقاييس الرئيسية" },
@@ -186,8 +206,11 @@ export const categories: Category[] = [
         id: "start-faq",
         categoryId: "start",
         title: "أسئلة شائعة للمبتدئين",
-        desc: "أكثر 10 أسئلة يسألها التجار الجدد مع إجاباتها الكاملة.",
-        time: "7 دقائق",
+        titleEn: "Frequently Asked Questions for Beginners",
+        desc: "أكثر ١٠ أسئلة يسألها التجار الجدد مع إجاباتها الكاملة.",
+        descEn: "Top 10 questions new merchants ask with complete answers.",
+        time: "٧ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "جمعنا لك أكثر الأسئلة التي يطرحها التجار الجدد عند بدء استخدام زيادة. إجابات شاملة توفر عليك وقت البحث." },
           { type: "heading", text: "1. كم من الوقت حتى أرى نتائج؟" },
@@ -218,15 +241,19 @@ export const categories: Category[] = [
   {
     id: "features",
     label: "الخصائص والإعدادات",
+    labelEn: "Features & Settings",
     color: "#06b6d4",
     icon: "⚙️",
     articles: [
       {
         id: "features-goals",
         categoryId: "features",
-        title: "شرح الأهداف الـ 5 بالتفصيل",
+        title: "شرح الأهداف الـ ٥ بالتفصيل",
+        titleEn: "The 5 Goals Explained in Detail",
         desc: "متى تستخدم كل هدف وما الفرق بين زيادة الكمية وزيادة قيمة السلة.",
-        time: "8 دقائق",
+        descEn: "When to use each goal and the difference between quantity increase and cart value increase.",
+        time: "٨ دقائق",
+        timeEn: "6 min",
         sections: [
           { type: "paragraph", text: "زيادة يقدم 5 أهداف مختلفة، كل هدف مصمم لتحقيق نتيجة تجارية محددة. اختيار الهدف الصحيح هو الخطوة الأهم في بناء حملة ناجحة." },
           { type: "heading", text: "الهدف 1: زيادة قيمة السلة (AOV)" },
@@ -270,9 +297,12 @@ export const categories: Category[] = [
       {
         id: "features-display",
         categoryId: "features",
-        title: "طرق العرض الـ 5 وكيف تختار المناسب",
+        title: "طرق العرض الـ ٥ وكيف تختار المناسب",
+        titleEn: "The 5 Display Methods and How to Choose",
         desc: "مقارنة بين منتجات ذات صلة، Add-ons، Combo، وبقية طرق العرض.",
-        time: "10 دقائق",
+        descEn: "Comparison between Related Products, Add-ons, Combo, and other display methods.",
+        time: "١٠ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "طريقة العرض تحدد كيف تُقدَّم التوصيات للعميل بصرياً وتجارياً. كل طريقة لها سيكولوجية مختلفة وتناسب سياقات شراء مختلفة." },
           { type: "heading", text: "1. منتجات ذات صلة (Related Products)" },
@@ -317,8 +347,11 @@ export const categories: Category[] = [
         id: "features-coupons",
         categoryId: "features",
         title: "إعداد عروض الكوبونات الذكية",
+        titleEn: "Setting Up Smart Coupon Offers",
         desc: "كيف تضع شروط الكوبون وتربطه بهدف معين لزيادة الفعالية.",
-        time: "6 دقائق",
+        descEn: "How to set coupon conditions and link them to a specific goal for maximum effectiveness.",
+        time: "٦ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "الكوبونات الذكية في زيادة تختلف عن كوبونات المتجر العادية - فهي مرتبطة بسلوك العميل وتُفعَّل تلقائياً في اللحظة المناسبة لتحقيق أقصى تأثير." },
           { type: "heading", text: "الفرق بين الكوبون العادي والكوبون الذكي" },
@@ -348,8 +381,11 @@ export const categories: Category[] = [
         id: "features-customization",
         categoryId: "features",
         title: "تخصيص شكل الاقتراحات في متجرك",
+        titleEn: "Customizing Recommendation Appearance in Your Store",
         desc: "تغيير الألوان، النصوص، وطريقة عرض التوصيات لتناسب تصميم متجرك.",
-        time: "5 دقائق",
+        descEn: "Changing colors, text, and display style to match your store design.",
+        time: "٥ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "زيادة يتيح لك تخصيص شكل التوصيات بالكامل لتبدو كجزء طبيعي من تصميم متجرك وليس كإضافة خارجية. هذا يرفع نسبة التفاعل بشكل كبير." },
           { type: "heading", text: "خيارات التخصيص البصري" },
@@ -376,8 +412,11 @@ export const categories: Category[] = [
         id: "features-targeting",
         categoryId: "features",
         title: "إعداد قواعد الاستهداف المخصصة",
+        titleEn: "Setting Up Custom Targeting Rules",
         desc: "تحديد شرائح عملاء معينة للحملات المخصصة بناءً على سلوكهم.",
-        time: "9 دقائق",
+        descEn: "Targeting specific customer segments for custom campaigns based on their behavior.",
+        time: "٩ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "قواعد الاستهداف تتيح لك إظهار توصيات مختلفة لعملاء مختلفين في نفس الوقت. العميل الجديد يرى توصيات مختلفة عن العميل المتكرر." },
           { type: "heading", text: "أنواع شرائح الاستهداف" },
@@ -409,9 +448,12 @@ export const categories: Category[] = [
       {
         id: "features-touchpoints",
         categoryId: "features",
-        title: "فهم نقاط الاقتراح الـ 9 ورحلة العميل",
+        title: "فهم نقاط الاقتراح الـ ٩ ورحلة العميل",
+        titleEn: "Understanding the 9 Suggestion Points and Customer Journey",
         desc: "أين تظهر التوصيات في كل خطوة من رحلة الشراء وكيف تحسينها.",
-        time: "12 دقائق",
+        descEn: "Where recommendations appear at each step of the purchase journey and how to optimize them.",
+        time: "١٢ دقائق",
+        timeEn: "6 min",
         sections: [
           { type: "paragraph", text: "زيادة يدعم 9 نقاط اقتراح مختلفة تغطي كامل رحلة العميل من دخول المتجر حتى ما بعد الشراء. كل نقطة لها وظيفة مختلفة وتأثير مختلف على المبيعات." },
           { type: "heading", text: "النقاط قبل الشراء (4 نقاط)" },
@@ -442,6 +484,7 @@ export const categories: Category[] = [
   {
     id: "ai",
     label: "الذكاء الاصطناعي",
+    labelEn: "Artificial Intelligence",
     color: "#10b981",
     icon: "🤖",
     articles: [
@@ -449,8 +492,11 @@ export const categories: Category[] = [
         id: "ai-learn",
         categoryId: "ai",
         title: "كيف يتعلم الذكاء الاصطناعي على عملائك؟",
+        titleEn: "How Does AI Learn About Your Customers?",
         desc: "شرح مبسط لآلية التعلم الآلي وكيف يتحسن النظام مع كل طلب.",
-        time: "7 دقائق",
+        descEn: "Simple explanation of the machine learning mechanism and how the system improves with every order.",
+        time: "٧ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "الذكاء الاصطناعي في زيادة ليس مجرد قواعد برمجية ثابتة - إنه نظام يتعلم ويتطور باستمرار بناءً على بيانات متجرك الفريدة. فهم كيف يعمل يساعدك على استخدامه بشكل أذكى." },
           { type: "heading", text: "مرحلة جمع البيانات" },
@@ -468,8 +514,11 @@ export const categories: Category[] = [
         id: "ai-data",
         categoryId: "ai",
         title: "البيانات التي يحللها النظام",
+        titleEn: "Data the System Analyzes",
         desc: "قائمة كاملة بالإشارات التي يستخدمها AI: الموقع، الجهاز، السلوك، التاريخ.",
-        time: "6 دقائق",
+        descEn: "Complete list of signals AI uses: location, device, behavior, history.",
+        time: "٦ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "الذكاء الاصطناعي في زيادة لا يقتصر على تاريخ الشراء فقط - بل يحلل عشرات الإشارات في آنٍ واحد لتكون التوصية دقيقة في الوقت المناسب لكل عميل." },
           { type: "heading", text: "إشارات السلوك الآني (Real-time)" },
@@ -511,8 +560,11 @@ export const categories: Category[] = [
         id: "ai-time",
         categoryId: "ai",
         title: "كم وقت يحتاج الذكاء الاصطناعي ليتعلم؟",
+        titleEn: "How Long Does AI Need to Learn?",
         desc: "مراحل التعلم ومتى تبدأ النتائج تتحسن بشكل ملحوظ.",
-        time: "4 دقائق",
+        descEn: "Learning stages and when results start to noticeably improve.",
+        time: "٤ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "أحد الأسئلة الأكثر شيوعاً من التجار الجدد: \"متى سأرى فرقاً حقيقياً في مبيعاتي؟\" الإجابة تعتمد على حجم نشاط متجرك، لكن هذا التقسيم الزمني يعطيك توقعات واقعية." },
           { type: "heading", text: "الأسبوع الأول: مرحلة البيانات الأولية" },
@@ -535,8 +587,11 @@ export const categories: Category[] = [
         id: "ai-interpret",
         categoryId: "ai",
         title: "تفسير توصيات الذكاء الاصطناعي",
+        titleEn: "Interpreting AI Recommendations",
         desc: "كيف تقرأ سبب اقتراح الذكاء الاصطناعي لمنتج معين لعميل بعينه.",
-        time: "8 دقائق",
+        descEn: "How to understand why AI suggested a specific product to a specific customer.",
+        time: "٨ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "زيادة يتيح لك رؤية \"سبب\" كل توصية - لماذا اقترح النظام منتجاً معيناً لعميل معين. هذه الشفافية تساعدك على فهم النظام والثقة في قراراته." },
           { type: "heading", text: "أنواع أسباب التوصية" },
@@ -564,8 +619,11 @@ export const categories: Category[] = [
         id: "ai-privacy",
         categoryId: "ai",
         title: "الخصوصية وحماية بيانات العملاء",
+        titleEn: "Privacy and Customer Data Protection",
         desc: "ما البيانات التي نجمعها وكيف نحميها وفق لوائح حماية البيانات.",
-        time: "5 دقائق",
+        descEn: "What data we collect and how we protect it according to data protection regulations.",
+        time: "٥ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "الخصوصية ليست مجرد التزام قانوني لدينا - بل ركيزة أساسية في تصميم زيادة. فهم سياسة الخصوصية يساعدك في الإجابة عن أسئلة عملائك بثقة." },
           { type: "heading", text: "ما الذي نجمعه" },
@@ -593,8 +651,11 @@ export const categories: Category[] = [
         id: "ai-improve",
         categoryId: "ai",
         title: "رفع دقة التوصيات يدوياً",
+        titleEn: "Manually Improving Recommendation Accuracy",
         desc: "نصائح لتحسين جودة التوصيات من خلال ربط الفئات والمنتجات بشكل أفضل.",
-        time: "9 دقائق",
+        descEn: "Tips for improving recommendation quality through better category and product linking.",
+        time: "٩ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "رغم قوة الذكاء الاصطناعي، هناك إجراءات بسيطة تستطيع أن تفعلها لمساعدة النظام وتوجيهه نحو توصيات أدق وأكثر ملاءمة لطبيعة متجرك." },
           { type: "heading", text: "تحسين بنية الفئات" },
@@ -629,6 +690,7 @@ export const categories: Category[] = [
   {
     id: "billing",
     label: "الأسعار والفواتير",
+    labelEn: "Pricing & Billing",
     color: "#f59e0b",
     icon: "💳",
     articles: [
@@ -636,8 +698,11 @@ export const categories: Category[] = [
         id: "billing-plans",
         categoryId: "billing",
         title: "مقارنة الباقات الأربع بالتفصيل",
+        titleEn: "Comparing the Four Plans in Detail",
         desc: "ما الذي تحصل عليه في كل باقة وكيف تختار المناسب لحجم متجرك.",
-        time: "6 دقائق",
+        descEn: "What you get in each plan and how to choose the right one for your store size.",
+        time: "٦ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "زيادة يقدم أربع باقات مصممة لمراحل نمو مختلفة. اختيار الباقة الصحيحة يضمن أنك تدفع فقط مقابل ما تحتاجه فعلاً." },
           { type: "heading", text: "باقة النمو (Starter)" },
@@ -685,8 +750,11 @@ export const categories: Category[] = [
         id: "billing-monthly-annual",
         categoryId: "billing",
         title: "الفرق بين الاشتراك الشهري والسنوي",
+        titleEn: "Monthly vs. Annual Subscription Difference",
         desc: "حساب التوفير السنوي وكيف يعمل التحويل بين الباقتين.",
-        time: "3 دقائق",
+        descEn: "Annual savings calculation and how switching between the two works.",
+        time: "٣ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "يمكنك الاشتراك في زيادة على أساس شهري أو سنوي. كلاهما يمنحك نفس الخصائص، لكن الاشتراك السنوي يوفر عليك مبلغاً ملحوظاً." },
           { type: "heading", text: "التوفير في الاشتراك السنوي" },
@@ -713,8 +781,11 @@ export const categories: Category[] = [
         id: "billing-invoice",
         categoryId: "billing",
         title: "كيف تُحتسب الفاتورة الشهرية؟",
+        titleEn: "How Is the Monthly Invoice Calculated?",
         desc: "توضيح آلية الاحتساب وتاريخ التجديد والرسوم المشمولة بالضريبة.",
-        time: "4 دقائق",
+        descEn: "Explanation of the calculation method, renewal date, and VAT-inclusive fees.",
+        time: "٤ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "الفاتورة في زيادة بسيطة وشفافة. لا رسوم خفية ولا مفاجآت. هذا دليل كامل لفهم كيف تُحتسب وتُرسل فاتورتك." },
           { type: "heading", text: "تاريخ الاحتساب" },
@@ -737,8 +808,11 @@ export const categories: Category[] = [
         id: "billing-upgrade",
         categoryId: "billing",
         title: "الترقية أو الخفض بين الباقات",
+        titleEn: "Upgrading or Downgrading Between Plans",
         desc: "كيف تغير باقتك في أي وقت وما يحدث للرصيد المتبقي.",
-        time: "3 دقائق",
+        descEn: "How to change your plan at any time and what happens to the remaining balance.",
+        time: "٣ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "زيادة يتيح لك تغيير باقتك في أي وقت بشكل مرن. سواء أردت الترقية لباقة أعلى أو الخفض لباقة أدنى، العملية سلسة وبدون تعقيدات." },
           { type: "heading", text: "الترقية لباقة أعلى" },
@@ -761,8 +835,11 @@ export const categories: Category[] = [
         id: "billing-cancel",
         categoryId: "billing",
         title: "سياسة الإلغاء واسترداد المبلغ",
+        titleEn: "Cancellation and Refund Policy",
         desc: "شروط الإلغاء وكيفية طلب استرداد وفق الضمان المقدم.",
-        time: "5 دقائق",
+        descEn: "Cancellation terms and how to request a refund under the provided guarantee.",
+        time: "٥ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "نؤمن بأن رضاك هو أولويتنا. لذلك نقدم سياسة إلغاء واسترداد واضحة وعادلة بدون شروط معقدة." },
           { type: "heading", text: "ضمان الاسترداد خلال 14 يوماً" },
@@ -792,8 +869,11 @@ export const categories: Category[] = [
         id: "billing-payment",
         categoryId: "billing",
         title: "طرق الدفع المتاحة وكيف تحدّث بياناتك",
+        titleEn: "Available Payment Methods and Updating Your Details",
         desc: "الدفع عبر بطاقات مدى وفيزا وماستر وإدارة بيانات الدفع.",
-        time: "3 دقائق",
+        descEn: "Payment via Mada, Visa, and Mastercard, and managing payment information.",
+        time: "٣ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "زيادة يدعم طرق الدفع الشائعة في المنطقة العربية، ويوفر بوابة دفع آمنة ومشفرة." },
           { type: "heading", text: "طرق الدفع المقبولة" },
@@ -823,6 +903,7 @@ export const categories: Category[] = [
   {
     id: "technical",
     label: "التقنية والتكامل",
+    labelEn: "Technical & Integration",
     color: "#ec4899",
     icon: "🔧",
     articles: [
@@ -830,8 +911,11 @@ export const categories: Category[] = [
         id: "technical-integration",
         categoryId: "technical",
         title: "كيف يتكامل زيادة مع زد وسلة؟",
+        titleEn: "How Does Ziadah Integrate with Zid and Salla?",
         desc: "شرح الاتصال التقني بين زيادة والمنصتين وكيف تتم المزامنة.",
-        time: "6 دقائق",
+        descEn: "Explanation of the technical connection between Ziadah and both platforms and how sync works.",
+        time: "٦ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "زيادة يتكامل مع منصتي زد وسلة عبر واجهات برمجية (API) رسمية ومعتمدة. هذا التكامل العميق هو ما يجعل التوصيات دقيقة وفورية." },
           { type: "heading", text: "آلية الربط التقني" },
@@ -854,8 +938,11 @@ export const categories: Category[] = [
         id: "technical-themes",
         categoryId: "technical",
         title: "التعامل مع ثيمات المتاجر المخصصة",
+        titleEn: "Working with Custom Store Themes",
         desc: "كيف تضمن ظهور الاقتراحات بشكل صحيح في ثيمات غير القياسية.",
-        time: "8 دقائق",
+        descEn: "How to ensure recommendations display correctly in non-standard themes.",
+        time: "٨ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "زيادة مصمم للعمل مع الثيمات القياسية تلقائياً، لكن الثيمات المخصصة أو المعدّلة قد تحتاج بعض الضبط الإضافي لضمان ظهور التوصيات بشكل صحيح." },
           { type: "heading", text: "الثيمات القياسية (تعمل تلقائياً)" },
@@ -883,8 +970,11 @@ export const categories: Category[] = [
         id: "technical-analytics",
         categoryId: "technical",
         title: "تكامل زيادة مع Google Analytics",
+        titleEn: "Ziadah Integration with Google Analytics",
         desc: "كيف تتبع أداء الاقتراحات في تقارير Analytics.",
-        time: "7 دقائق",
+        descEn: "How to track recommendation performance in Analytics reports.",
+        time: "٧ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "ربط زيادة بـ Google Analytics يعطيك صورة أكمل عن تأثير التوصيات على رحلة العميل الكاملة، من النقر على التوصية حتى إتمام الشراء." },
           { type: "heading", text: "ما ترسله زيادة لـ Analytics" },
@@ -919,8 +1009,11 @@ export const categories: Category[] = [
         id: "technical-speed",
         categoryId: "technical",
         title: "سرعة الموقع وتأثير زيادة",
+        titleEn: "Website Speed and Ziadah's Impact",
         desc: "كيف صممنا زيادة ليكون خفيفاً ولا يؤثر على سرعة متجرك.",
-        time: "4 دقائق",
+        descEn: "How we designed Ziadah to be lightweight and not affect your store's speed.",
+        time: "٤ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "سرعة متجرك تؤثر مباشرة على مبيعاتك - كل ثانية تأخير تعني انخفاضاً في التحويلات. لذلك بنينا زيادة من البداية ليكون أخف ما يمكن." },
           { type: "heading", text: "الأرقام التقنية" },
@@ -946,8 +1039,11 @@ export const categories: Category[] = [
         id: "technical-team",
         categoryId: "technical",
         title: "إضافة فريق العمل وإدارة الصلاحيات",
+        titleEn: "Adding Team Members and Managing Permissions",
         desc: "كيف تضيف أعضاء للفريق وتحدد صلاحيات كل منهم.",
-        time: "5 دقائق",
+        descEn: "How to add team members and set permissions for each one.",
+        time: "٥ دقائق",
+        timeEn: "3 min",
         sections: [
           { type: "paragraph", text: "زيادة يدعم إدارة الفريق بصلاحيات مرنة. يمكنك إضافة أعضاء فريقك ومنحهم وصولاً محدداً حسب دورهم دون منحهم صلاحيات كاملة." },
           { type: "heading", text: "مستويات الصلاحيات" },
@@ -975,8 +1071,11 @@ export const categories: Category[] = [
         id: "technical-troubleshoot",
         categoryId: "technical",
         title: "استكشاف الأخطاء الشائعة وحلها",
+        titleEn: "Troubleshooting Common Issues",
         desc: "قائمة بأكثر المشكلات تكراراً وكيف تحلها بنفسك.",
-        time: "10 دقائق",
+        descEn: "List of the most common problems and how to solve them yourself.",
+        time: "١٠ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "جمعنا لك أكثر 8 مشكلات تقنية يواجهها التجار مع حلول سريعة يمكنك تطبيقها بنفسك في دقائق." },
           { type: "heading", text: "المشكلة 1: التوصيات لا تظهر في المتجر" },
@@ -1036,6 +1135,7 @@ export const categories: Category[] = [
   {
     id: "strategies",
     label: "استراتيجيات النمو",
+    labelEn: "Growth Strategies",
     color: "#8b5cf6",
     icon: "📈",
     articles: [
@@ -1043,8 +1143,11 @@ export const categories: Category[] = [
         id: "strategies-fashion",
         categoryId: "strategies",
         title: "أفضل الاستراتيجيات لمتاجر الأزياء",
+        titleEn: "Best Strategies for Fashion Stores",
         desc: "حزم الإطقم وتجميع الإكسسوارات والخصومات التدريجية - دليل الموضة.",
-        time: "10 دقائق",
+        descEn: "Set bundles, accessory grouping, and tiered discounts — a fashion guide.",
+        time: "١٠ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "متاجر الأزياء لديها فرصة ذهبية مع زيادة لأن المنتجات مترابطة طبيعياً - الإطقم الكاملة، الإكسسوارات المكملة، والأحجام المختلفة كلها فرص للبيع الإضافي." },
           { type: "heading", text: "استراتيجية 1: حزمة الإطقم الكاملة (Complete the Look)" },
@@ -1077,8 +1180,11 @@ export const categories: Category[] = [
         id: "strategies-food",
         categoryId: "strategies",
         title: "زيادة مبيعات متاجر الغذاء والمشروبات",
+        titleEn: "Boosting Sales for Food & Beverage Stores",
         desc: "استراتيجيات Combo والاشتراكات الدورية لمتاجر المأكولات والمشروبات.",
-        time: "9 دقائق",
+        descEn: "Combo strategies and subscription models for food and beverage stores.",
+        time: "٩ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "متاجر الغذاء والمشروبات لديها معدل شراء تكراري طبيعي عالٍ - التحدي هو رفع قيمة كل طلب وتحويل العملاء من مشترين عشوائيين لمشتركين منتظمين." },
           { type: "heading", text: "استراتيجية 1: وجبات وحزم Combo" },
@@ -1111,8 +1217,11 @@ export const categories: Category[] = [
         id: "strategies-beauty",
         categoryId: "strategies",
         title: "تعظيم الأرباح لمتاجر الجمال والعناية",
+        titleEn: "Maximizing Profits for Beauty & Care Stores",
         desc: "روتين العناية الكاملة وتوصيات المنتجات المكملة لرفع سلة الجمال.",
-        time: "11 دقائق",
+        descEn: "Complete care routines and complementary product recommendations to grow the beauty cart.",
+        time: "١١ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "متاجر الجمال والعناية تملك ميزة فريدة: عملاؤها يبحثون عن روتين متكامل وليس منتجاً واحداً. الاستراتيجيات الصحيحة تحول هذا البحث لفرصة رفع السلة بشكل كبير." },
           { type: "heading", text: "استراتيجية 1: روتين العناية الكاملة" },
@@ -1145,8 +1254,11 @@ export const categories: Category[] = [
         id: "strategies-data",
         categoryId: "strategies",
         title: "كيف تستخدم البيانات لتحسين أداء حملاتك",
+        titleEn: "Using Data to Improve Campaign Performance",
         desc: "قراءة تقارير التحليلات واتخاذ قرارات ذكية بناءً على البيانات.",
-        time: "12 دقائق",
+        descEn: "Reading analytics reports and making smart decisions based on data.",
+        time: "١٢ دقائق",
+        timeEn: "6 min",
         sections: [
           { type: "paragraph", text: "البيانات هي الفرق بين التخمين والقرارات الذكية. تعلّم كيف تقرأ تقارير زيادة لتتخذ قرارات تحسّن نتائجك باستمرار." },
           { type: "heading", text: "تقرير 1: أداء الحملات" },
@@ -1175,8 +1287,11 @@ export const categories: Category[] = [
         id: "strategies-seasons",
         categoryId: "strategies",
         title: "موسم الأعياد والمناسبات - دليل الاستعداد",
+        titleEn: "Holiday Season Preparation Guide",
         desc: "كيف تعد متجرك وزيادة لموسم رمضان والجمعة السوداء والأعياد.",
-        time: "8 دقائق",
+        descEn: "How to prepare your store and Ziadah for Ramadan, Black Friday, and holidays.",
+        time: "٨ دقائق",
+        timeEn: "5 min",
         sections: [
           { type: "paragraph", text: "المواسم الكبرى تمثل 30-40٪ من مبيعات السنة لكثير من المتاجر. التحضير الجيد مسبقاً يعني فرقاً كبيراً في الأرقام النهائية." },
           { type: "heading", text: "رمضان الكريم" },
@@ -1204,8 +1319,11 @@ export const categories: Category[] = [
         id: "strategies-roi",
         categoryId: "strategies",
         title: "قياس عائد الاستثمار من زيادة بدقة",
+        titleEn: "Accurately Measuring ROI from Ziadah",
         desc: "كيف تحسب صافي العائد مع مراعاة تكلفة الاشتراك والإيرادات الإضافية.",
-        time: "7 دقائق",
+        descEn: "Step-by-step method to calculate the exact return on your investment in Ziadah.",
+        time: "٧ دقائق",
+        timeEn: "4 min",
         sections: [
           { type: "paragraph", text: "زيادة استثمار، وكل استثمار يحتاج حساب عائد. هذا الدليل يعطيك معادلة واضحة لحساب ROI بدقة وتحديد هل أنت تستفيد فعلاً أم لا." },
           { type: "heading", text: "معادلة حساب العائد" },
@@ -1301,7 +1419,12 @@ export function searchArticles(query: string): (FullArticle & { categoryLabel: s
   const results: (FullArticle & { categoryLabel: string; categoryColor: string })[] = [];
   for (const cat of categories) {
     for (const article of cat.articles) {
-      if (article.title.includes(query) || article.desc.includes(query)) {
+      if (
+        article.title.includes(query) ||
+        article.desc.includes(query) ||
+        (article.titleEn && article.titleEn.toLowerCase().includes(q)) ||
+        (article.descEn && article.descEn.toLowerCase().includes(q))
+      ) {
         results.push({ ...article, categoryLabel: cat.label, categoryColor: cat.color });
       }
     }

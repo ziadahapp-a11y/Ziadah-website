@@ -350,9 +350,67 @@ const data: UseCasePageData = {
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",
   extraSections: <CheckoutMockup />,
+  heroEn: {
+    tag: "By Pages",
+    title: "Checkout Page",
+    subtitle: "The last moment before the order is complete — and it's golden. Ziadah leverages it to increase order value with smart offers that encourage customers to add before paying.",
+    tagline: "Last recommendation before payment = highest return with least effort",
+    icon: "💳",
+  },
+  whatWeDoTitleEn: "How does Ziadah work on the checkout page?",
+  whatWeDoDescEn:
+    "When the customer reaches the checkout page, their decision is nearly final — making it the best moment to suggest additional products without being intrusive. Ziadah analyzes the cart and calculates the gap between the order total and the free shipping threshold, suggesting products at exactly the missing value. It also shows complementary products that can be added with one click, along with timed offers that incentivize adding before completing payment.",
+  strategyTitleEn: "Ziadah's strategies on the checkout page",
+  strategiesEn: [
+    {
+      icon: "🚚",
+      title: "Complete for Free Shipping",
+      desc: "Ziadah calculates the gap between order value and free shipping threshold and suggests products at exactly the missing value with a visual progress bar motivating the customer to add.",
+      color: "#7c3aed",
+    },
+    {
+      icon: "✅",
+      title: "One-Click Cross-sell",
+      desc: "Shows complementary products with a checkbox add option — easy and quick — without needing to go back to product pages.",
+      color: "#10b981",
+    },
+    {
+      icon: "🎁",
+      title: "Checkout-Time Offers",
+      desc: "Ziadah launches timed exclusive offers that appear only on the checkout page, creating natural urgency that makes the customer add before it's too late.",
+      color: "#f59e0b",
+    },
+    {
+      icon: "⬆️",
+      title: "Upsell with Upgrade Option",
+      desc: "Shows a better version or alternative product at a different price with clear savings or additional value highlighted — noticeably increases average order value.",
+      color: "#06b6d4",
+    },
+  ],
+  statsEn: [
+    { value: "+27%", label: "Average order value", color: "#a855f7" },
+    { value: "+19%", label: "Purchase completion rate", color: "#10b981" },
+    { value: "-34%", label: "Checkout abandonment rate", color: "#ec4899" },
+    { value: "+41%", label: "Orders exceeding shipping threshold", color: "#06b6d4" },
+  ],
+  exampleScenarioEn: {
+    title: "Customer at checkout with a 55 SAR order",
+    steps: [
+      "The customer is on the checkout page with a 55 SAR order and a 200 SAR free shipping threshold.",
+      "Ziadah discovers the gap is 145 SAR — shows a 'Complete for Free Shipping' bar with suggested products.",
+      "Two products appear at 45 and 100 SAR — totaling exactly 145 SAR — with easy checkboxes.",
+      "The customer adds both products with two clicks and gets free shipping as a reward.",
+    ],
+    result: "The order rose from 55 to 200 SAR and the customer felt the decision was in their favor — because they saved shipping costs.",
+  },
+  plansEn: ["Growth", "Professional", "Business"],
+  ctaTitleEn: "Turn the checkout page into a smart sales opportunity",
+  ctaDescEn: "Activate Ziadah and watch your order values rise with every payment.",
   seo: {
     title: "عروض صفحة الدفع — زيادة",
+    titleEn: "Checkout Page Offers — Ziadah",
     description: "استثمر اللحظة الأخيرة قبل إتمام الطلب. زيادة يعرض عروضاً ذكية في صفحة الدفع ترفع قيمة الطلب وتشجع العميل على الإضافة.",
+    descriptionEn: "Leverage the last moment before completing the order. Ziadah displays smart offers on the checkout page that increase order value and encourage customers to add more.",
     canonical: "/use-cases/checkout",
   },
 };

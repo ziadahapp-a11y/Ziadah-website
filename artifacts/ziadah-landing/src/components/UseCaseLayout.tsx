@@ -6,6 +6,8 @@ import PlatformModal from "./PlatformModal";
 import Footer from "./Footer";
 import SEO from "./SEO";
 import { BreadcrumbSchema } from "./JsonLd";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export interface UseCaseHero {
   tag: string;
@@ -36,19 +38,31 @@ export interface ExampleScenario {
 
 export interface UseCasePageData {
   hero: UseCaseHero;
+  heroEn?: UseCaseHero;
   whatWeDoTitle: string;
+  whatWeDoTitleEn?: string;
   whatWeDoDesc: string;
+  whatWeDoDescEn?: string;
   strategyTitle: string;
+  strategyTitleEn?: string;
   strategies: StrategyCard[];
+  strategiesEn?: StrategyCard[];
   stats: StatItem[];
+  statsEn?: StatItem[];
   exampleScenario?: ExampleScenario;
+  exampleScenarioEn?: ExampleScenario;
   plans?: string[];
+  plansEn?: string[];
   ctaTitle: string;
+  ctaTitleEn?: string;
   ctaDesc: string;
+  ctaDescEn?: string;
   extraSections?: React.ReactNode;
   seo?: {
     title: string;
+    titleEn?: string;
     description: string;
+    descriptionEn?: string;
     canonical: string;
     breadcrumbs?: Array<{ name: string; url: string }>;
   };
@@ -56,6 +70,22 @@ export interface UseCasePageData {
 
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const { lang, dir } = useLanguage();
+  const tr = t[lang];
+  const isEn = lang === "en";
+
+  const hero = (isEn && data.heroEn) ? data.heroEn : data.hero;
+  const whatWeDoTitle = (isEn && data.whatWeDoTitleEn) ? data.whatWeDoTitleEn : data.whatWeDoTitle;
+  const whatWeDoDesc = (isEn && data.whatWeDoDescEn) ? data.whatWeDoDescEn : data.whatWeDoDesc;
+  const strategyTitle = (isEn && data.strategyTitleEn) ? data.strategyTitleEn : data.strategyTitle;
+  const strategies = (isEn && data.strategiesEn) ? data.strategiesEn : data.strategies;
+  const stats = (isEn && data.statsEn) ? data.statsEn : data.stats;
+  const exampleScenario = (isEn && data.exampleScenarioEn) ? data.exampleScenarioEn : data.exampleScenario;
+  const plans = (isEn && data.plansEn) ? data.plansEn : data.plans;
+  const ctaTitle = (isEn && data.ctaTitleEn) ? data.ctaTitleEn : data.ctaTitle;
+  const ctaDesc = (isEn && data.ctaDescEn) ? data.ctaDescEn : data.ctaDesc;
+  const seoTitle = (isEn && data.seo?.titleEn) ? data.seo.titleEn : data.seo?.title;
+  const seoDesc = (isEn && data.seo?.descriptionEn) ? data.seo.descriptionEn : data.seo?.description;
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -71,14 +101,14 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     {data.seo && (
       <>
         <SEO
-          title={data.seo.title}
-          description={data.seo.description}
+          title={seoTitle || ""}
+          description={seoDesc || ""}
           canonical={data.seo.canonical}
         />
-        <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: "الرئيسية", url: "/" }, { name: data.hero.title, url: data.seo.canonical }]} />
+        <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: tr.useCaseLayout.breadcrumbHome, url: "/" }, { name: hero.title, url: data.seo.canonical }]} />
       </>
     )}
-    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
+    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
         <div className="bg-grid"/>
@@ -91,17 +121,17 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot"/>
-          {data.hero.tag}
+          {hero.tag}
         </div>
-        <div style={{ fontSize: 72, marginTop: 12, marginBottom: 12 }}>{data.hero.icon}</div>
+        <div style={{ fontSize: 72, marginTop: 12, marginBottom: 12 }}>{hero.icon}</div>
         <h1 className="rv d1" style={{ fontSize: "clamp(36px,5vw,64px)", fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.05, marginBottom: 16 }}>
-          {data.hero.title}
+          {hero.title}
         </h1>
         <p className="rv d2" style={{ fontSize: 18, color: "var(--tm)", maxWidth: 600, margin: "0 auto 20px", lineHeight: 1.8 }}>
-          {data.hero.subtitle}
+          {hero.subtitle}
         </p>
         <div className="rv d3" style={{ display: "inline-block", padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", color: "var(--p4)", fontSize: 15, fontWeight: 700, marginBottom: 48 }}>
-          {data.hero.tagline}
+          {hero.tagline}
         </div>
       </section>
 
@@ -111,8 +141,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="gc rv uc-what-card" style={{ padding: "48px 52px" }}>
             <div className="shine"/>
             <div style={{ textAlign: "center", marginBottom: 0 }}>
-              <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>{data.whatWeDoTitle}</h2>
-              <p style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.85, maxWidth: 720, margin: "0 auto" }}>{data.whatWeDoDesc}</p>
+              <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>{whatWeDoTitle}</h2>
+              <p style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.85, maxWidth: 720, margin: "0 auto" }}>{whatWeDoDesc}</p>
             </div>
           </div>
         </div>
@@ -122,7 +152,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="uc-stats-grid rv">
-            {data.stats.map((s, i) => (
+            {stats.map((s, i) => (
               <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
                 <div className="shine"/>
                 <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>{s.value}</div>
@@ -136,9 +166,9 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {/* STRATEGIES */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>{data.strategyTitle}</h2>
+          <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>{strategyTitle}</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18 }}>
-            {data.strategies.map((s, i) => (
+            {strategies.map((s, i) => (
               <div key={i} className={`gc gc-lift rv d${(i % 4) + 1}`} style={{ padding: "32px 28px" }}>
                 <div className="shine"/>
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
@@ -155,18 +185,18 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* EXAMPLE SCENARIO */}
-      {data.exampleScenario && (
+      {exampleScenario && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <div className="gc rv" style={{ padding: "40px 48px" }}>
               <div className="shine"/>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.2)", color: "#06b6d4", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 20 }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 7px #06b6d4" }}/>
-                مثال تطبيقي
+                {tr.useCaseLayout.exampleLabel}
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 28 }}>{data.exampleScenario.title}</h3>
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 28 }}>{exampleScenario.title}</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                {data.exampleScenario.steps.map((step, i) => (
+                {exampleScenario.steps.map((step, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                     <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
                     <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>{step}</p>
@@ -175,7 +205,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               </div>
               <div style={{ marginTop: 28, padding: "18px 22px", background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.2)", borderRadius: 14, display: "flex", gap: 12, alignItems: "center" }}>
                 <span style={{ fontSize: 22 }}>✅</span>
-                <p style={{ fontSize: 15, color: "#10b981", fontWeight: 700 }}>{data.exampleScenario.result}</p>
+                <p style={{ fontSize: 15, color: "#10b981", fontWeight: 700 }}>{exampleScenario.result}</p>
               </div>
             </div>
           </div>
@@ -183,16 +213,16 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       )}
 
       {/* PLANS */}
-      {data.plans && (
+      {plans && (
         <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <div className="gc rv" style={{ padding: "36px 48px" }}>
               <div className="shine"/>
               <div style={{ textAlign: "center", marginBottom: 24 }}>
-                <h3 style={{ fontSize: 20, fontWeight: 800 }}>متاح في الباقات</h3>
+                <h3 style={{ fontSize: 20, fontWeight: 800 }}>{tr.useCaseLayout.availableIn}</h3>
               </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-                {data.plans.map((plan, i) => (
+                {plans.map((plan, i) => (
                   <div key={i} style={{ padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", fontSize: 14, fontWeight: 700, color: "var(--p4)" }}>{plan}</div>
                 ))}
               </div>
@@ -212,23 +242,23 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 7px #a855f7" }}/>
-                التقارير المفصلة
+                {tr.useCaseLayout.reportsTag}
               </div>
             </div>
             <div className="uc-reports-inner" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 32, alignItems: "center" }}>
               <div>
                 <h3 style={{ fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 900, marginBottom: 12 }}>
-                  قِس كل شيء — حملة بحملة، ومنتج بمنتج
+                  {tr.useCaseLayout.reportsTitle}
                 </h3>
                 <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.8, maxWidth: 600 }}>
-                  زيادة يمنحك تقارير دقيقة على مستوى كل حملة: عدد الظهور، النقرات ومعدلها، التحويلات، وإجمالي المبيعات. وداخل كل حملة تجد تقريراً لكل منتج على حدة — حتى تعرف بالضبط ما الذي يحقق النتائج وتضاعفه.
+                  {tr.useCaseLayout.reportsDesc}
                 </p>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
                 {[
-                  { icon: "📊", label: "تقارير الحملة", sub: "ظهور · نقرات · تحويل · مبيعات", color: "#a855f7" },
-                  { icon: "📦", label: "تقارير المنتج", sub: "نقرات · تحويل · مبيعات لكل منتج", color: "#06b6d4" },
-                  { icon: "⚡", label: "بيانات فورية", sub: "تُحدَّث تلقائياً في الوقت الفعلي", color: "#10b981" },
+                  { icon: "📊", label: tr.useCaseLayout.campaignReports, sub: tr.useCaseLayout.campaignReportsSub, color: "#a855f7" },
+                  { icon: "📦", label: tr.useCaseLayout.productReports, sub: tr.useCaseLayout.productReportsSub, color: "#06b6d4" },
+                  { icon: "⚡", label: tr.useCaseLayout.liveData, sub: tr.useCaseLayout.liveDataSub, color: "#10b981" },
                 ].map((item, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, minWidth: 240 }}>
                     <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.2)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
@@ -251,18 +281,18 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
           <div className="shine"/>
           <div className="cta-glow"/>
-          <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>{data.ctaTitle}</h2>
-          <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{data.ctaDesc}</p>
+          <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>{ctaTitle}</h2>
+          <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{ctaDesc}</p>
           <div className="cta-btns">
             <button
               onClick={() => setPlatformModalOpen(true)}
               className="cta-btn cb-zid"
               style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
             >
-              <span>🚀</span> فعّل الآن
+              <span>🚀</span> {tr.useCaseLayout.activateNow}
             </button>
           </div>
-          <p className="cta-note">تجربة مجانية 14 يوم • بدون بطاقة</p>
+          <p className="cta-note">{tr.useCaseLayout.ctaNote}</p>
         </div>
       </section>
 

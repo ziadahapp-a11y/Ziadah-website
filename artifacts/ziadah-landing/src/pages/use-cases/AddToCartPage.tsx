@@ -73,9 +73,67 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل كل إضافة للسلة إلى فرصة بيع إضافية",
   ctaDesc: "زيادة يتدخل في اللحظة المثلى ليرفع قيمة كل طلب تلقائياً.",
+  heroEn: {
+    tag: "By Activity",
+    title: "Add to Cart",
+    subtitle: "The moment the customer clicks 'Add to Cart' is a golden opportunity — purchase intent is at its peak and Ziadah seizes it to show a complementary recommendation that instantly increases order value.",
+    tagline: "The moment of adding = peak purchase intent",
+    icon: "🛍️",
+  },
+  whatWeDoTitleEn: "How does Ziadah leverage the add-to-cart moment?",
+  whatWeDoDescEn:
+    "When the customer clicks 'Add to Cart', they've already made their decision — making them most receptive to an additional suggestion. Ziadah detects this moment and instantly shows a complementary product selected by AI based on thousands of actual orders. It doesn't interrupt the experience — it enriches it with an offer the customer feels they were waiting for.",
+  strategyTitleEn: "Ziadah's strategies at the add-to-cart moment",
+  strategiesEn: [
+    {
+      icon: "⚡",
+      title: "Instant Recommendation at Add-to-Cart",
+      desc: "The moment 'Add to Cart' is clicked, a sleek glassmorphism popup appears with one complementary product only — carefully selected for direct relevance to the added product.",
+      color: "#a855f7",
+    },
+    {
+      icon: "🤝",
+      title: "'Bought Together' Principle",
+      desc: "Ziadah shows products that other customers actually bought with the same product. Social proof significantly increases acceptance rates.",
+      color: "#06b6d4",
+    },
+    {
+      icon: "🎯",
+      title: "Single Recommendation, No Overwhelm",
+      desc: "Showing just one product at the add-to-cart moment — no list to overwhelm the customer. Focusing on a single option significantly increases conversion rate.",
+      color: "#10b981",
+    },
+    {
+      icon: "📊",
+      title: "AI-Powered Personalization",
+      desc: "Ziadah analyzes customer behavior, history, and current cart value to choose the most suitable suggestion — not just a random related product.",
+      color: "#f59e0b",
+    },
+  ],
+  statsEn: [
+    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#a855f7" },
+    { value: "38%", label: "Recommendation acceptance rate at add-to-cart moment", color: "#06b6d4" },
+    { value: "+27%", label: "Additional revenue from every shopping session", color: "#10b981" },
+    { value: "x2.4", label: "Faster purchase decision vs. home page recommendation", color: "#f59e0b" },
+  ],
+  exampleScenarioEn: {
+    title: "A customer added foundation to her cart",
+    steps: [
+      "The customer chose foundation at 110 SAR and clicked 'Add to Cart'.",
+      "Ziadah detected the moment and instantly showed: 'Customers who bought this foundation also bought setting primer at 55 SAR'.",
+      "The offer appeared in an elegant glassmorphism design that doesn't interrupt the experience — one button: 'Add to Cart'.",
+      "The customer added the primer with one click because it's logical and complements what she bought.",
+    ],
+    result: "Order value rose from 110 to 165 SAR with a purchase decision the customer didn't plan — but she's happy about it.",
+  },
+  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  ctaTitleEn: "Turn every add-to-cart into an additional sales opportunity",
+  ctaDescEn: "Ziadah intervenes at the optimal moment to automatically increase every order value.",
   seo: {
     title: "التوصية عند إضافة للسلة — زيادة",
+    titleEn: "Add-to-Cart Recommendation — Ziadah",
     description: "حوّل لحظة إضافة المنتج للسلة إلى فرصة بيع إضافية ذكية مع زيادة. عروض مخصصة في أعلى لحظات نية الشراء ترفع AOV فوراً.",
+    descriptionEn: "Turn the add-to-cart moment into a smart upsell opportunity with Ziadah. Personalized offers at peak purchase intent moments instantly boost AOV.",
     canonical: "/use-cases/add-to-cart",
   },
 };

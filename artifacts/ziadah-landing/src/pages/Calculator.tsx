@@ -4,6 +4,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -139,7 +141,7 @@ function SliderCard({
             height: 28,
             opacity: 0,
             cursor: "pointer",
-            direction: "rtl",
+            direction: "rtl" as const,
           }}
         />
         <div
@@ -160,6 +162,8 @@ function SliderCard({
 }
 
 export default function Calculator() {
+  const { lang, dir } = useLanguage();
+  const tr = t[lang].calculator;
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
@@ -210,7 +214,7 @@ export default function Calculator() {
 
   const sliders: SliderCardProps[] = [
     {
-      label: "الزوار الشهريون",
+      label: tr.monthlyVisitors,
       value: visitors,
       min: 1000,
       max: 500000,
@@ -221,7 +225,7 @@ export default function Calculator() {
       colorRgb: "59,130,246",
     },
     {
-      label: "معدل التحويل",
+      label: tr.conversionRate,
       value: convRate,
       min: 0.5,
       max: 15,
@@ -232,7 +236,7 @@ export default function Calculator() {
       colorRgb: "34,197,94",
     },
     {
-      label: "متوسط قيمة الطلب",
+      label: tr.avgOrderValue,
       value: aov,
       min: 50,
       max: 5000,
@@ -247,17 +251,17 @@ export default function Calculator() {
   return (
     <>
       <SEO
-        title="حاسبة أثر زيادة — احسب مكاسبك المتوقعة"
-        description="استخدم حاسبة زيادة التفاعلية لمعرفة كم ستزيد مبيعاتك عند استخدام توصيات الذكاء الاصطناعي. أدخل بيانات متجرك واحصل على توقعات دقيقة."
+        title={tr.seoTitle}
+        description={tr.seoDesc}
         canonical="/calculator"
       />
-      <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "الحاسبة", url: "/calculator" }]} />
+      <BreadcrumbSchema items={[{ name: tr.breadcrumbHome, url: "/" }, { name: tr.breadcrumbCalc, url: "/calculator" }]} />
       <div
         style={{
           background: "var(--bg)",
           minHeight: "100vh",
           fontFamily: "var(--font)",
-          direction: "rtl",
+          direction: dir,
           color: "var(--t)",
         }}
       >
@@ -284,7 +288,7 @@ export default function Calculator() {
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <div className="stag rv" style={{ display: "inline-flex" }}>
                 <span className="stag-dot" />
-                أداة تفاعلية
+                {tr.tag}
               </div>
               <h1
                 className="st rv d1"
@@ -293,11 +297,11 @@ export default function Calculator() {
                   marginTop: 12,
                   marginBottom: 8,
                 }}
-              >حاسبة أثر زيادة ✨</h1>
+              >{tr.title}</h1>
               <p
                 className="ssub rv d2"
                 style={{ margin: "0 auto", maxWidth: 520 }}
-              >بناءً على متوسط أداء المتاجر</p>
+              >{tr.subtitle}</p>
             </div>
 
             <div
@@ -341,23 +345,23 @@ export default function Calculator() {
                         letterSpacing: 0.3,
                       }}
                     >
-                      بدون توصيات
+                      {tr.withoutRec}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.avgOrder}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmtCurrency(aov)}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmtCurrency(r.baseRevenue)}
                         </div>
@@ -396,7 +400,7 @@ export default function Calculator() {
                         zIndex: 1,
                       }}
                     >
-                      مع توصيات Cross-sell / Upsell
+                      {tr.withRec}
                     </div>
                     <div
                       style={{
@@ -408,13 +412,13 @@ export default function Calculator() {
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.effectiveAvgOrder}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                           <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                             {fmtCurrency(r.effectiveAov)}
@@ -435,7 +439,7 @@ export default function Calculator() {
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmtCurrency(r.newRevenue)}
                         </div>
@@ -485,7 +489,7 @@ export default function Calculator() {
                         display: "inline-block",
                       }}
                     />
-                    ملخص الأثر
+                    {tr.impactSummary}
                   </div>
                   <div
                     style={{
@@ -514,7 +518,7 @@ export default function Calculator() {
                           fontWeight: 600,
                         }}
                       >
-                        إيراد إضافي
+                        {tr.additionalRevenue}
                       </div>
                       <div
                         style={{
@@ -533,7 +537,7 @@ export default function Calculator() {
                           marginTop: 4,
                         }}
                       >
-                        /شهر
+                        {tr.perMonth}
                       </div>
                     </div>
                     <div
@@ -553,7 +557,7 @@ export default function Calculator() {
                           fontWeight: 600,
                         }}
                       >
-                        نمو الإيراد
+                        {tr.revenueGrowth}
                       </div>
                       <div
                         style={{
@@ -572,7 +576,7 @@ export default function Calculator() {
                           marginTop: 4,
                         }}
                       >
-                        نسبة الزيادة
+                        {tr.growthRate}
                       </div>
                     </div>
                     <div
@@ -592,7 +596,7 @@ export default function Calculator() {
                           fontWeight: 600,
                         }}
                       >
-                        زيادة متوسط الطلب
+                        {tr.aovIncrease}
                       </div>
                       <div
                         style={{
@@ -611,7 +615,7 @@ export default function Calculator() {
                           marginTop: 4,
                         }}
                       >
-                        لكل طلب
+                        {tr.perOrder}
                       </div>
                     </div>
                   </div>
@@ -628,7 +632,7 @@ export default function Calculator() {
                     lineHeight: 1.7,
                   }}
                 >
-                  * هذه الأرقام تقديرية بناءً على المدخلات المختارة وتجارب عملاء زيادة. النتائج الفعلية تختلف حسب طبيعة المتجر والمنتجات والجمهور المستهدف.
+                  {tr.disclaimer}
                 </div>
 
                 <button
@@ -660,7 +664,7 @@ export default function Calculator() {
                       "0 8px 32px rgba(124,58,237,.35)";
                   }}
                 >
-                  فعّل زيادة وحقق هذه الأرقام الآن
+                  {tr.cta}
                 </button>
               </div>
             </div>
