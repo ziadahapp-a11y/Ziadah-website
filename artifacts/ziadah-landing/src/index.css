@@ -376,6 +376,12 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
     backdrop-filter:blur(32px);padding:6px 0 calc(6px + env(safe-area-inset-bottom));
     align-items:center;justify-content:space-around;
   }
+  .mobile-bottom-nav span,.mobile-bottom-nav button{
+    font-size:11px!important;
+  }
+  .mobile-bottom-nav svg{
+    width:20px!important;height:20px!important;
+  }
   .hiw-grid,.test-grid,.pg,.demo-grid{grid-template-columns:1fr;}
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}
   .reports-grid{grid-template-columns:1fr!important;}
