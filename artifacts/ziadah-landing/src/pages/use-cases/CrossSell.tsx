@@ -65,7 +65,10 @@ const data: UseCasePageData = {
               <div style={{ fontSize: 18, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>🔗 البيع المتقاطع (Cross-sell)</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"].map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                  <li
+                    key={i}
+                    style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}
+                    className="text-[16px]">
                     <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
                   </li>
                 ))}
