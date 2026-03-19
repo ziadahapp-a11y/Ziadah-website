@@ -139,8 +139,8 @@ export default function Landing() {
   }, []);
 
   const prices = {
-    m: { s: 29, g: 290, p: 790 },
-    y: { s: 290, g: 2990, p: 7990 },
+    m: { s: 29, g: 290, p: 790, b: 1990 },
+    y: { s: 290, g: 2990, p: 7990, b: 15990 },
   };
 
   const testimonialsRow1 = [
@@ -1792,7 +1792,7 @@ export default function Landing() {
               {
                 name: "الأعمال",
                 desc: "للمنشآت الكبيرة",
-                price: null,
+                price: prices[pricingMode].b,
                 feat: false,
                 badge: null,
                 list: [
@@ -1802,7 +1802,7 @@ export default function Landing() {
                   "دعم تقني مخصص 24/7",
                   "ضمان ذهبي 10x عائد الاستثمار",
                 ],
-                cta: "تواصل معنا",
+                cta: "اشترك الآن",
                 fill: false,
               },
             ].map((p, i) => (
@@ -1836,22 +1836,13 @@ export default function Landing() {
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
-                {p.cta === "تواصل معنا" ? (
-                  <a
-                    href="#"
-                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                  >
-                    {p.cta}
-                  </a>
-                ) : (
-                  <button
+                <button
                     onClick={() => setPlatformModalOpen(true)}
                     className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
                     style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
                   >
                     {p.cta}
                   </button>
-                )}
               </GlassCard>
             ))}
           </div>
