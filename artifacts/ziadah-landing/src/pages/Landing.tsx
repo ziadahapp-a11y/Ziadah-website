@@ -640,23 +640,37 @@ export default function Landing() {
               boxShadow: `0 0 24px 0 rgba(${item.rgb},0.08), inset 0 1px 0 rgba(255,255,255,0.07)`,
             }}>
               <div
-                style={{ display: "flex", alignItems: "center", gap: 10 }}
-                className="text-right">
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  direction: "rtl",
+                  flexDirection: "row",
+                  padding: "4px 0",
+                }}>
                 <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 12,
-                  background: `rgba(${item.rgb},.1)`,
-                  border: `1px solid rgba(${item.rgb},.22)`,
+                  width: 44,
+                  height: 44,
+                  borderRadius: 14,
+                  background: `rgba(${item.rgb},.12)`,
+                  border: `1px solid rgba(${item.rgb},.28)`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: 20,
+                  fontSize: 22,
                   flexShrink: 0,
+                  boxShadow: `0 0 12px rgba(${item.rgb},.15)`,
                 }}>{item.icon}</div>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: "var(--t)" }}>{item.label}</div>
-                  <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
+                <div style={{ flex: 1, textAlign: "right" }}>
+                  <div style={{
+                    fontSize: 15,
+                    fontWeight: 900,
+                    color: `rgba(${item.rgb},1)`,
+                    letterSpacing: "-0.3px",
+                    lineHeight: 1.2,
+                    textShadow: `0 0 20px rgba(${item.rgb},.35)`,
+                  }}>{item.label}</div>
+                  <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.55, marginTop: 4 }}>{item.desc}</div>
                 </div>
               </div>
               {item.widget}
