@@ -1974,9 +1974,7 @@ export default function Landing() {
                 منصة سلة - فعّل الآن
               </a>
             </div>
-            <div className="cta-note">
-              +٧٠٠ متجر سبقوك · +١٠ مليون ريال مبيعات إضافية
-            </div>
+            <div className="cta-note text-[16px]">+700 متجر سبقوك · +20 مليون ريال مبيعات إضافية</div>
           </GlassCard>
         </div>
       </section>
