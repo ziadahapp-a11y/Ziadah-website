@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
+import HomeCalculator from "../components/HomeCalculator";
 
 const storeLogos = [
   "عسل رشوف",
@@ -365,6 +366,8 @@ export default function Landing() {
           </div>
         </div>
       </div>
+      {/* HOME CALCULATOR */}
+      <HomeCalculator />
       {/* HOW IT WORKS */}
       <section id="hiw">
         <div className="wrap">
