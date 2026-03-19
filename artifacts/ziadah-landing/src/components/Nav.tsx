@@ -5,11 +5,8 @@ const AN = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
 function toA(n: number) { return String(n).replace(/[0-9]/g, d => AN[+d]); }
 
 const Logo = () => (
-  <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
-    <div style={{ width: 32, height: 32, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#9333ea)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 0 20px rgba(124,58,237,.5)" }}>
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" stroke="rgba(255,255,255,.25)" strokeWidth=".5" strokeLinejoin="round"/></svg>
-    </div>
-    <span style={{ fontSize: 20, fontWeight: 900, color: "#fff" }}>زيادة</span>
+  <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+    <img src="/logo.png" alt="زيادة" style={{ height: 40, width: "auto" }} />
   </Link>
 );
 
