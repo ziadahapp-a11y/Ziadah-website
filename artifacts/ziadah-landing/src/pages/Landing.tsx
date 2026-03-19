@@ -281,7 +281,7 @@ export default function Landing() {
               ذكاء اصطناعي + تعلم آلي يعمل الآن
             </span>
           </div>
-          <h1 className="ht">
+          <h1 className="ht text-[72px]">
             بيّاع داخل متجرك
             <em>بالذكاء الاصطناعي</em>
             <span className="grad mt-[0px] mb-[0px] pt-[10px] pb-[15px]">
