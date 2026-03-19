@@ -15,28 +15,28 @@ export interface BlogPost {
 
 export const categories = [
   { id: "all", label: "جميع المقالات", labelEn: "All Articles" },
-  { id: "استراتيجيات البيع", label: "استراتيجيات البيع", labelEn: "Sales Strategies" },
-  { id: "شروحات المنصة", label: "شروحات المنصة", labelEn: "Platform Tutorials" },
-  { id: "الذكاء الاصطناعي", label: "الذكاء الاصطناعي", labelEn: "Artificial Intelligence" },
-  { id: "دليل التاجر", label: "دليل التاجر", labelEn: "Merchant Guide" },
-  { id: "التجارة الإلكترونية", label: "التجارة الإلكترونية", labelEn: "E-Commerce" },
-  { id: "دراسات وأبحاث", label: "دراسات وأبحاث", labelEn: "Studies & Research" },
+  { id: "sales-strategies", label: "استراتيجيات البيع", labelEn: "Sales Strategies" },
+  { id: "platform-tutorials", label: "شروحات المنصة", labelEn: "Platform Tutorials" },
+  { id: "artificial-intelligence", label: "الذكاء الاصطناعي", labelEn: "Artificial Intelligence" },
+  { id: "merchant-guide", label: "دليل التاجر", labelEn: "Merchant Guide" },
+  { id: "ecommerce", label: "التجارة الإلكترونية", labelEn: "E-Commerce" },
+  { id: "studies-research", label: "دراسات وأبحاث", labelEn: "Studies & Research" },
 ];
 
 export const categoryColors: Record<string, string> = {
-  "استراتيجيات البيع": "#a855f7",
-  "شروحات المنصة": "#06b6d4",
-  "الذكاء الاصطناعي": "#10b981",
-  "دليل التاجر": "#f59e0b",
-  "التجارة الإلكترونية": "#ec4899",
-  "دراسات وأبحاث": "#3b82f6",
+  "sales-strategies": "#a855f7",
+  "platform-tutorials": "#06b6d4",
+  "artificial-intelligence": "#10b981",
+  "merchant-guide": "#f59e0b",
+  "ecommerce": "#ec4899",
+  "studies-research": "#3b82f6",
 };
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-increase-average-order-value",
     title: "10 طرق مجربة لرفع متوسط قيمة الطلب في متجرك",
-    category: "استراتيجيات البيع",
+    category: "sales-strategies",
     categoryColor: "#a855f7",
     readTime: "8 دقائق",
     publishDate: "12 مارس 2025",
@@ -110,7 +110,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "upsell-vs-cross-sell",
     title: "الفرق بين Upsell وCross-sell وكيف تستخدم كلاً منهما في متجرك",
-    category: "استراتيجيات البيع",
+    category: "sales-strategies",
     categoryColor: "#a855f7",
     readTime: "6 دقائق",
     publishDate: "5 مارس 2025",
@@ -171,7 +171,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ai-recommendations-guide",
     title: "كيف يعمل الذكاء الاصطناعي في توصيات المنتجات؟ دليل شامل للتاجر",
-    category: "الذكاء الاصطناعي",
+    category: "artificial-intelligence",
     categoryColor: "#10b981",
     readTime: "10 دقائق",
     publishDate: "28 فبراير 2025",
@@ -245,7 +245,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-ai-learns-customer-behavior",
     title: "كيف يتعلم الذكاء الاصطناعي من سلوك عملاء متجرك؟",
-    category: "الذكاء الاصطناعي",
+    category: "artificial-intelligence",
     categoryColor: "#10b981",
     readTime: "7 دقائق",
     publishDate: "20 فبراير 2025",
@@ -329,7 +329,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ziadah-platform-setup-guide",
     title: "دليل إعداد زيادة خطوة بخطوة: من التثبيت لأول نتيجة",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "12 دقائق",
     publishDate: "15 مارس 2025",
@@ -425,7 +425,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "5-goals-explained",
     title: "الأهداف الخمسة في زيادة: متى تستخدم كل هدف؟",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "9 دقائق",
     publishDate: "8 مارس 2025",
@@ -522,7 +522,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ramadan-sales-strategy",
     title: "دليل رمضان: كيف تضاعف مبيعاتك في أبرك شهر تجاري في العام",
-    category: "دليل التاجر",
+    category: "merchant-guide",
     categoryColor: "#f59e0b",
     readTime: "11 دقائق",
     publishDate: "1 مارس 2025",
@@ -608,7 +608,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "personalization-ecommerce",
     title: "التخصيص في التجارة الإلكترونية: لماذا يشتري عملاؤك من أمازون أكثر منك؟",
-    category: "التجارة الإلكترونية",
+    category: "ecommerce",
     categoryColor: "#ec4899",
     readTime: "8 دقائق",
     publishDate: "22 فبراير 2025",
@@ -681,7 +681,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "product-page-optimization",
     title: "صفحة المنتج المثالية: 8 عناصر تزيد معدل التحويل بنسبة 40٪",
-    category: "التجارة الإلكترونية",
+    category: "ecommerce",
     categoryColor: "#ec4899",
     readTime: "9 دقائق",
     publishDate: "18 فبراير 2025",
@@ -777,7 +777,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "understanding-ziadah-dashboard",
     title: "فهم لوحة تحليلات زيادة: كيف تقرأ الأرقام وتتخذ قرارات أفضل",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "8 دقائق",
     publishDate: "10 مارس 2025",
@@ -874,7 +874,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "seasonal-campaigns-guide",
     title: "دليل الحملات الموسمية: كيف تستعد لكل موسم تجاري في السنة",
-    category: "دليل التاجر",
+    category: "merchant-guide",
     categoryColor: "#f59e0b",
     readTime: "10 دقائق",
     publishDate: "25 فبراير 2025",
@@ -955,7 +955,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "first-recommendation-campaign",
     title: "أول حملة توصية لك في زيادة: دليل عملي من الصفر",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "7 دقائق",
     publishDate: "3 مارس 2025",
@@ -1054,7 +1054,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ecommerce-data-analysis-guide",
     title: "قراءة بيانات متجرك: دليل التاجر لفهم الأرقام واتخاذ قرارات ذكية",
-    category: "دليل التاجر",
+    category: "merchant-guide",
     categoryColor: "#f59e0b",
     readTime: "11 دقائق",
     publishDate: "12 فبراير 2025",
@@ -1170,7 +1170,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "cross-sell-feature-ziadah",
     title: "خاصية البيع المتقاطع في زيادة: كيف يقترح الذكاء الاصطناعي المنتجات المكملة بدقة",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٩ دقائق",
     publishDate: "١ أبريل ٢٠٢٥",
@@ -1307,7 +1307,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "upsell-feature-ziadah",
     title: "خاصية البيع البديل في زيادة: اقتراح المنتج الأعلى قيمة في اللحظة المناسبة",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "١٠ دقائق",
     publishDate: "٣ أبريل ٢٠٢٥",
@@ -1456,7 +1456,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "bundle-deals-feature-ziadah",
     title: "حزم المنتجات الذكية في زيادة: كيف ترفع قيمة السلة بنسبة ٤٠٪ إلى ٦٠٪",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٩ دقائق",
     publishDate: "٥ أبريل ٢٠٢٥",
@@ -1599,7 +1599,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "buy-together-feature-ziadah",
     title: "خاصية اشترِ معاً (Buy Together) في زيادة: التعلم من أنماط الشراء الجماعي",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٨ دقائق",
     publishDate: "٧ أبريل ٢٠٢٥",
@@ -1730,7 +1730,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "addons-feature-ziadah",
     title: "خاصية الإضافات الذكية (Addons) في زيادة: الملحقات الوظيفية التي يحتاجها عملاؤك",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٨ دقائق",
     publishDate: "٩ أبريل ٢٠٢٥",
@@ -1896,7 +1896,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "buy-more-save-more-feature-ziadah",
     title: "عروض الكميات في زيادة: استراتيجية 'اشترِ أكثر وفّر أكثر' لرفع قطع الطلب",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٨ دقائق",
     publishDate: "١١ أبريل ٢٠٢٥",
@@ -2053,7 +2053,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "related-products-feature-ziadah",
     title: "خاصية المنتجات ذات الصلة في زيادة: الذكاء الاصطناعي يحلل أنماط التصفح لعروض دقيقة",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٩ دقائق",
     publishDate: "١٣ أبريل ٢٠٢٥",
@@ -2202,7 +2202,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "cart-page-upsell-feature",
     title: "صفحة السلة كنقطة بيع في زيادة: استراتيجيات رفع الطلب قبل لحظة الدفع",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٩ دقائق",
     publishDate: "١٥ أبريل ٢٠٢٥",
@@ -2339,7 +2339,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "thank-you-page-feature-ziadah",
     title: "صفحة الشكر كفرصة بيع في زيادة: تحويل التأكيد إلى طلب ثانٍ",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٨ دقائق",
     publishDate: "١٧ أبريل ٢٠٢٥",
@@ -2478,7 +2478,7 @@ Buy Together أقوى في الإقناع لأنه يعتمد على **الدل�
   {
     slug: "dynamic-coupons-exit-intent-ziadah",
     title: "الكوبونات الديناميكية وExit Intent في زيادة: استرداد العملاء المترددين",
-    category: "شروحات المنصة",
+    category: "platform-tutorials",
     categoryColor: "#06b6d4",
     readTime: "٩ دقائق",
     publishDate: "١٩ أبريل ٢٠٢٥",
@@ -2642,7 +2642,7 @@ Exit Intent هو تقنية ترصد متى يهمّ الزائر بمغادرة
   {
     slug: "upselling-revenue-impact-research",
     title: "دراسة: تأثير Upselling على الإيرادات — إحصاءات من McKinsey وForrester",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١١ دقائق",
     publishDate: "٢١ أبريل ٢٠٢٥",
@@ -2772,7 +2772,7 @@ McKinsey تُحدد معياراً واضحاً:
   {
     slug: "cross-selling-amazon-research",
     title: "دراسة: كيف تحقق أمازون ٣٥٪ من إيراداتها عبر التوصيات — أبحاث أكاديمية",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٢ دقائق",
     publishDate: "٢٣ أبريل ٢٠٢٥",
@@ -2914,7 +2914,7 @@ University of Pennsylvania's Wharton School نشر بحثاً (2020) عن قيم
   {
     slug: "upselling-common-mistakes",
     title: "٥ أخطاء شائعة في Upselling تخسرك العملاء — مدعومة بدراسات سلوكية",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٠ دقائق",
     publishDate: "٢٥ أبريل ٢٠٢٥",
@@ -3072,7 +3072,7 @@ Journal of Consumer Psychology بحث "Ad Repetition" (2020):
   {
     slug: "psychology-of-upselling",
     title: "علم نفس الشراء: لماذا يقبل العميل Upsell؟ أبحاث سلوكية واقتصادية",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٢ دقائق",
     publishDate: "٢٧ أبريل ٢٠٢٥",
@@ -3227,7 +3227,7 @@ Cialdini أثبت أيضاً أن الشح يرفع القيمة المُدرَ�
   {
     slug: "personalization-conversion-research",
     title: "دراسة: تأثير التوصيات الشخصية على معدل التحويل — أبحاث Accenture وSalesforce",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١١ دقائق",
     publishDate: "٢٩ أبريل ٢٠٢٥",
@@ -3382,7 +3382,7 @@ Cialdini أثبت أيضاً أن الشح يرفع القيمة المُدرَ�
   {
     slug: "fashion-upselling-guide",
     title: "Upselling في قطاع الأزياء: دليل عملي بالأرقام والدراسات",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١١ دقائق",
     publishDate: "١ مايو ٢٠٢٥",
@@ -3532,7 +3532,7 @@ Cross-Sell قميص كلاسيكي لمن يشتري قميصاً كاجوالا
   {
     slug: "beauty-cross-selling-guide",
     title: "Cross-Selling في قطاع التجميل والعناية: استراتيجيات الروتين اليومي والحزم الموسمية",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٠ دقائق",
     publishDate: "٣ مايو ٢٠٢٥",
@@ -3689,7 +3689,7 @@ Cross-Sell لمن يشتري الشامبو: "أكملي روتين شعرك م�
   {
     slug: "increase-upsell-acceptance-300-percent",
     title: "كيف ترفع قبول العميل للعروض الإضافية بنسبة ٣٠٠٪ — A/B Testing وأبحاث UX",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٢ دقائق",
     publishDate: "٥ مايو ٢٠٢٥",
@@ -3852,7 +3852,7 @@ A/B Testing المستمر يُحسّن معدل التحويل وتجربة ا�
   {
     slug: "smart-recommendations-comparison-study",
     title: "مقارنة: المتاجر التي تستخدم توصيات ذكية مقابل التي لا تستخدمها — أرقام ودراسات",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١١ دقائق",
     publishDate: "٧ مايو ٢٠٢٥",
@@ -4006,7 +4006,7 @@ Sephora (رائدة التجميل الإلكتروني) نشرت:
   {
     slug: "future-of-smart-selling-2025-2030",
     title: "مستقبل البيع الذكي: توقعات ٢٠٢٥ - ٢٠٣٠ من Gartner وStatista",
-    category: "دراسات وأبحاث",
+    category: "studies-research",
     categoryColor: "#3b82f6",
     readTime: "١٢ دقائق",
     publishDate: "٩ مايو ٢٠٢٥",

@@ -9,9 +9,19 @@ import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
 
+const legacyCategoryMap: Record<string, string> = {
+  "استراتيجيات البيع": "sales-strategies",
+  "شروحات المنصة": "platform-tutorials",
+  "الذكاء الاصطناعي": "artificial-intelligence",
+  "دليل التاجر": "merchant-guide",
+  "التجارة الإلكترونية": "ecommerce",
+  "دراسات وأبحاث": "studies-research",
+};
+
 function getInitialFilters() {
   const params = new URLSearchParams(window.location.search);
-  const cat = params.get("cat") ?? "all";
+  const rawCat = params.get("cat") ?? "all";
+  const cat = legacyCategoryMap[rawCat] ?? rawCat;
   const search = params.get("search") ?? "";
   const validCat = categories.some((c) => c.id === cat) ? cat : "all";
   return { cat: validCat, search };
@@ -57,14 +67,21 @@ export default function Blog() {
     return () => obs.disconnect();
   }, []);
 
+  const getCategoryLabel = (catId: string) => {
+    const catObj = categories.find(c => c.id === catId);
+    if (!catObj) return catId;
+    return isAr ? catObj.label : catObj.labelEn;
+  };
+
   const filtered = blogPosts.filter((post) => {
     const matchCat =
       activeCategory === "all" || post.category === activeCategory;
+    const catLabel = getCategoryLabel(post.category);
     const matchSearch =
       !search.trim() ||
       post.title.includes(search) ||
       post.summary.includes(search) ||
-      post.category.includes(search);
+      catLabel.includes(search);
     return matchCat && matchSearch;
   });
 
