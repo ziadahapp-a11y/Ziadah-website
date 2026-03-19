@@ -20,6 +20,11 @@ import Upsell from "@/pages/use-cases/Upsell";
 import IncreaseAOV from "@/pages/use-cases/IncreaseAOV";
 import ReduceAbandon from "@/pages/use-cases/ReduceAbandon";
 import IncreaseConversion from "@/pages/use-cases/IncreaseConversion";
+import RelatedProducts from "@/pages/use-cases/RelatedProducts";
+import Addons from "@/pages/use-cases/Addons";
+import BuyTogether from "@/pages/use-cases/BuyTogether";
+import BundleDeals from "@/pages/use-cases/BundleDeals";
+import BuyMoreSaveMore from "@/pages/use-cases/BuyMoreSaveMore";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -53,6 +58,11 @@ function Router() {
       <Route path="/use-cases/increase-conversion" component={IncreaseConversion} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/use-cases/related-products" component={RelatedProducts} />
+      <Route path="/use-cases/addons" component={Addons} />
+      <Route path="/use-cases/buy-together" component={BuyTogether} />
+      <Route path="/use-cases/bundle-deals" component={BundleDeals} />
+      <Route path="/use-cases/buy-more-save-more" component={BuyMoreSaveMore} />
       <Route component={NotFound} />
     </Switch>
   );

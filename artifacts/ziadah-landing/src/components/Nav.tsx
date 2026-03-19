@@ -39,6 +39,16 @@ const useCasesDropdown: { sections: UseCaseSection[] } = {
       ],
     },
     {
+      title: "حسب طريقة العرض",
+      items: [
+        { label: "منتجات ذات صلة", href: "/use-cases/related-products", subtitle: "زر الإضافة مع كل توصية" },
+        { label: "الإضافات (Add-ons)", href: "/use-cases/addons", subtitle: "اختبار متعدد لتعظيم القبول" },
+        { label: "الشراء معاً", href: "/use-cases/buy-together", subtitle: "تجميع منتجات مترابطة" },
+        { label: "عروض الحزم", href: "/use-cases/bundle-deals", subtitle: "أكثر من منتج بسعر مخفض" },
+        { label: "اشترِ أكثر ووفّر أكثر", href: "/use-cases/buy-more-save-more", subtitle: "عروض الكميات التدريجية" },
+      ],
+    },
+    {
       title: "حسب الأهداف",
       items: [
         { label: "زيادة متوسط السلة", href: "/use-cases/increase-aov" },
@@ -113,11 +123,11 @@ function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: Rea
 function UseCasesMegaMenu() {
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 560,
+      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 760,
       background: "rgba(8,6,20,.97)", border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: 20, backdropFilter: "blur(32px)",
       boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
-      display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16,
+      display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
     }}>
       {useCasesDropdown.sections.map((section) => (
         <div key={section.title}>
@@ -462,6 +472,29 @@ export default function Nav() {
             >
               ✕
             </button>
+
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--p4)", marginBottom: 4, marginTop: 16 }}>حسب طريقة العرض</div>
+            {[
+              { label: "منتجات ذات صلة", href: "/use-cases/related-products" },
+              { label: "الإضافات (Add-ons)", href: "/use-cases/addons" },
+              { label: "الشراء معاً", href: "/use-cases/buy-together" },
+              { label: "عروض الحزم", href: "/use-cases/bundle-deals" },
+              { label: "اشترِ أكثر ووفّر أكثر", href: "/use-cases/buy-more-save-more" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMoreOpen(false)}
+                style={{
+                  display: "block", padding: "14px 16px", borderRadius: 14,
+                  background: "rgba(255,255,255,.04)", textDecoration: "none",
+                  color: "#fff", fontSize: 15, fontWeight: 500,
+                  fontFamily: "var(--font)",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
 
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--p4)", marginBottom: 4, marginTop: 16 }}>المنصات</div>
             {platformItems.map((item) => (
