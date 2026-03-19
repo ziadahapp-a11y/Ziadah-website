@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
+import PlatformModal from "../components/PlatformModal";
 
 const goals = [
   { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", subtitle: "زيادة عدد المنتجات في كل طلب", color: "#a855f7", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", boost: "+28٪ متوسط المنتجات في السلة" },
@@ -43,6 +44,7 @@ const usecases = [
 
 export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
@@ -53,6 +55,7 @@ export default function Features() {
   }, []);
 
   return (
+    <>
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
@@ -261,8 +264,7 @@ export default function Features() {
             <h2 style={{ fontSize: "clamp(30px,4vw,50px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>جاهز تفعّل كل هذه الخصائص؟</h2>
             <p style={{ color: "var(--tm)", marginBottom: 36, position: "relative", zIndex: 1 }}>الذكاء الاصطناعي يختار الأنسب لعملائك تلقائياً</p>
             <div className="cta-btns">
-              <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="cta-btn cb-zid"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>فعّل على زد</a>
-              <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" className="cta-btn cb-salla"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="3" fill="rgba(255,255,255,.3)"/><path d="M6 9h6M9 6v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>فعّل على سلة</a>
+              <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>فعّل الآن</button>
             </div>
           </div>
         </div>
@@ -272,5 +274,7 @@ export default function Features() {
         <p style={{ fontSize: 13, color: "var(--td)" }}>© 2025 Ziadah. جميع الحقوق محفوظة.</p>
       </footer>
     </div>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }

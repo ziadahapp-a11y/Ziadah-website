@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
+import PlatformModal from "../components/PlatformModal";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -160,6 +161,7 @@ export default function Calculator() {
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const aovUplift = 30;
   const acceptRate = 20;
 
@@ -241,6 +243,7 @@ export default function Calculator() {
   ];
 
   return (
+    <>
     <div
       style={{
         background: "var(--bg)",
@@ -624,12 +627,11 @@ export default function Calculator() {
                 * هذه الأرقام تقديرية بناءً على المدخلات المختارة وتجارب عملاء زيادة. النتائج الفعلية تختلف حسب طبيعة المتجر والمنتجات والجمهور المستهدف.
               </div>
 
-              <a
-                href="https://apps.zid.sa/application/1826"
-                target="_blank"
-                rel="noreferrer"
+              <button
+                onClick={() => setPlatformModalOpen(true)}
                 style={{
                   display: "block",
+                  width: "100%",
                   textAlign: "center",
                   padding: "16px 32px",
                   background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
@@ -639,7 +641,7 @@ export default function Calculator() {
                   fontFamily: "var(--font)",
                   fontSize: 16,
                   fontWeight: 800,
-                  textDecoration: "none",
+                  cursor: "pointer",
                   transition: "all .25s",
                   boxShadow: "0 8px 32px rgba(124,58,237,.35)",
                 }}
@@ -655,7 +657,7 @@ export default function Calculator() {
                 }}
               >
                 فعّل زيادة وحقق هذه الأرقام الآن
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -685,5 +687,7 @@ export default function Calculator() {
         }
       `}</style>
     </div>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }

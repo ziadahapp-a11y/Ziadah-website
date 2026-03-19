@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Nav from "./Nav";
 import ParticleBackground from "./ParticleBackground";
 import { navigateTo } from "@/components/PageTransition";
+import PlatformModal from "./PlatformModal";
 
 export interface UseCaseHero {
   tag: string;
@@ -45,6 +46,8 @@ export interface UseCasePageData {
 }
 
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       (es) => { es.forEach((e) => { if (e.isIntersecting) e.target.classList.add("on"); }); },
@@ -55,6 +58,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   }, []);
 
   return (
+    <>
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
@@ -189,12 +193,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>{data.ctaTitle}</h2>
           <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{data.ctaDesc}</p>
           <div className="cta-btns">
-            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="cta-btn cb-zid">
-              <span>🚀</span> فعّل على زد
-            </a>
-            <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" className="cta-btn cb-salla">
-              <span>⚡</span> فعّل على سلة
-            </a>
+            <button
+              onClick={() => setPlatformModalOpen(true)}
+              className="cta-btn cb-zid"
+              style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
+            >
+              <span>🚀</span> فعّل الآن
+            </button>
           </div>
           <p className="cta-note">تجربة مجانية 14 يوم • بدون بطاقة</p>
         </div>
@@ -238,6 +243,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         </div>
       </footer>
     </div>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }
 

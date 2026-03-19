@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
+import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import TeamSection from "../components/TeamSection";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
@@ -99,6 +100,7 @@ function SecTag({ children }: { children: React.ReactNode }) {
 export default function Landing() {
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -269,6 +271,7 @@ export default function Landing() {
   ];
 
   return (
+    <>
     <div
       style={{
         background: "var(--bg)",
@@ -345,14 +348,13 @@ export default function Landing() {
             جهازه، مشترياته السابقة، و....
           </p>
           <div className="hero-ctas">
-            <a
-              href="https://apps.zid.sa/application/1826"
-              target="_blank"
-              rel="noreferrer"
+            <button
+              onClick={() => setPlatformModalOpen(true)}
               className="btn-p"
+              style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
             >
               فعّل الذكاء الاصطناعي الآن
-            </a>
+            </button>
             <a href="#hiw" className="btn-g">
               شوف كيف يعمل
             </a>
@@ -1847,18 +1849,22 @@ export default function Landing() {
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
-                <a
-                  href={
-                    p.cta === "تواصل معنا"
-                      ? "#"
-                      : "https://apps.zid.sa/application/1826"
-                  }
-                  target={p.cta === "تواصل معنا" ? undefined : "_blank"}
-                  rel="noreferrer"
-                  className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                >
-                  {p.cta}
-                </a>
+                {p.cta === "تواصل معنا" ? (
+                  <a
+                    href="#"
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                  >
+                    {p.cta}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => setPlatformModalOpen(true)}
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
+                  >
+                    {p.cta}
+                  </button>
+                )}
               </GlassCard>
             ))}
           </div>
@@ -2073,41 +2079,16 @@ export default function Landing() {
               استرداد
             </p>
             <div className="cta-btns">
-              <a
-                href="https://apps.zid.sa/application/1826"
-                target="_blank"
-                rel="noreferrer"
+              <button
+                onClick={() => setPlatformModalOpen(true)}
                 className="cta-btn cb-zid"
+                style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
                 </svg>
-                منصة زد - فعّل الآن
-              </a>
-              <a
-                href="https://apps.salla.sa/ar/app/1099604538"
-                target="_blank"
-                rel="noreferrer"
-                className="cta-btn cb-salla"
-              >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <rect
-                    x="3"
-                    y="3"
-                    width="12"
-                    height="12"
-                    rx="3"
-                    fill="rgba(255,255,255,.3)"
-                  />
-                  <path
-                    d="M6 9h6M9 6v6"
-                    stroke="#fff"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                منصة سلة - فعّل الآن
-              </a>
+                فعّل الآن
+              </button>
             </div>
             <div className="cta-note text-[16px]">+700 متجر سبقوك · +20 مليون ⃁ مبيعات إضافية</div>
           </GlassCard>
@@ -2228,5 +2209,7 @@ export default function Landing() {
         </div>
       </footer>
     </div>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }

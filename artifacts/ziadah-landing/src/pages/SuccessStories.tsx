@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
+import PlatformModal from "../components/PlatformModal";
 
 const stories = [
   {
@@ -605,6 +606,7 @@ export default function SuccessStories() {
   const [activeSector, setActiveSector] = useState("الكل");
   const [visible, setVisible] = useState(true);
   const filterRef = useRef<HTMLDivElement>(null);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
@@ -640,6 +642,7 @@ export default function SuccessStories() {
   const filterTabs = ["الكل", ...allSectors];
 
   return (
+    <>
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <style>{`
         .filter-bar::-webkit-scrollbar { display: none; }
@@ -998,8 +1001,7 @@ export default function SuccessStories() {
             <h2 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>متجرك القادم في قائمة النجاح</h2>
             <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>انضم لـ +700 متجر وابدأ رحلتك اليوم</p>
             <div className="cta-btns">
-              <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="cta-btn cb-zid"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>فعّل الآن على زد</a>
-              <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" className="cta-btn cb-salla"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="3" width="12" height="12" rx="3" fill="rgba(255,255,255,.3)"/><path d="M6 9h6M9 6v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/></svg>فعّل الآن على سلة</a>
+              <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>فعّل الآن</button>
             </div>
           </div>
         </div>
@@ -1008,5 +1010,7 @@ export default function SuccessStories() {
         <p style={{ fontSize: 13, color: "var(--td)" }}>© 2026 Ziadah. جميع الحقوق محفوظة.</p>
       </footer>
     </div>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }
