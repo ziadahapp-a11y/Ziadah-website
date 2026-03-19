@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import ThankYouMockup from "../../components/ThankYouMockup";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,6 +58,7 @@ const data: UseCasePageData = {
   plans: ["الاحترافية", "الأعمال"],
   ctaTitle: "حوّل صفحة الشكر إلى مصدر دخل إضافي",
   ctaDesc: "ابنِ ولاء حقيقي وحفّز الطلبات المتكررة من أولى خطوات العلاقة مع العميل.",
+  extraSections: <ThankYouMockup />,
 };
 
 export default function ThankYouPage() {
