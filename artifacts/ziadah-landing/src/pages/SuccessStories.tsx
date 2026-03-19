@@ -1104,8 +1104,8 @@ export default function SuccessStories() {
           border-radius: 6px;
           font-size: 11px;
           font-weight: 700;
-          background: rgba(255,255,255,.06);
-          border: 1px solid rgba(255,255,255,.1);
+          background: var(--s1);
+          border: 1px solid var(--b1);
           color: var(--td);
         }
         .sector-badge-v2 {
@@ -1132,7 +1132,7 @@ export default function SuccessStories() {
         .metric-card-v2 {
           padding: 16px 14px;
           background: rgba(0,0,0,.2);
-          border: 1px solid rgba(255,255,255,.06);
+          border: 1px solid var(--b1);
           border-radius: 14px;
           text-align: center;
           transition: border-color 0.2s ease, background 0.2s ease;
@@ -1169,7 +1169,7 @@ export default function SuccessStories() {
         }
         .before-box {
           background: rgba(0,0,0,.15);
-          border: 1px solid rgba(255,255,255,.05);
+          border: 1px solid var(--b1);
         }
         .after-box {
           background: rgba(124,58,237,.08);
@@ -1219,7 +1219,7 @@ export default function SuccessStories() {
           align-items: center;
           justify-content: space-between;
           padding: 16px 32px;
-          border-top: 1px solid rgba(255,255,255,.06);
+          border-top: 1px solid var(--b1);
         }
         .story-person-avatar {
           width: 34px;
@@ -1230,7 +1230,7 @@ export default function SuccessStories() {
           justify-content: center;
           font-size: 13px;
           font-weight: 800;
-          color: #fff;
+          color: var(--t);
           flex-shrink: 0;
         }
         .expand-btn-v2 {
@@ -1343,11 +1343,11 @@ export default function SuccessStories() {
           border-radius: 6px;
           font-size: 11px;
           font-weight: 800;
-          background: rgba(255,255,255,.15);
+          background: var(--s3);
           line-height: 1;
         }
         .filter-btn-v2.active .filter-count-v2 {
-          background: rgba(255,255,255,.25);
+          background: var(--s3);
         }
         .filter-btn-v2:not(.active) .filter-count-v2 {
           background: rgba(168,85,247,.12);
@@ -1504,7 +1504,7 @@ export default function SuccessStories() {
         </div>
       </section>
 
-      <section style={{ position: "sticky", top: 80, zIndex: 800, paddingLeft: "5%", paddingRight: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "rgba(10,10,20,.85)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
+      <section style={{ position: "sticky", top: 80, zIndex: 800, paddingLeft: "5%", paddingRight: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "var(--bg)", backdropFilter: "blur(20px)", borderBottom: "1px solid var(--b1)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}

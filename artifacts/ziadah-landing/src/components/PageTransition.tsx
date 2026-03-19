@@ -196,7 +196,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
             position: "fixed",
             inset: 0,
             zIndex: 9990,
-            background: "#080614",
+            background: "var(--bg)",
             pointerEvents: "all",
             opacity: phase === "zoom-out" ? 1 : 0,
             transition: phase === "zoom-out"

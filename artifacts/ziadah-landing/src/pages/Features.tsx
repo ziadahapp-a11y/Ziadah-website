@@ -93,7 +93,7 @@ export default function Features() {
             { id: "activities" as const, label: ft.tabActivities },
             { id: "usecases" as const, label: ft.tabUsecases },
           ].map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: "10px 22px", borderRadius: 12, border: "none", background: activeTab === tab.id ? "rgba(124,58,237,.2)" : "transparent", color: activeTab === tab.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", transition: "all .25s", borderColor: activeTab === tab.id ? "rgba(124,58,237,.4)" : "transparent", outline: activeTab === tab.id ? "1px solid rgba(124,58,237,.3)" : "none" }}>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: "10px 22px", borderRadius: 12, border: "none", background: activeTab === tab.id ? "rgba(124,58,237,.2)" : "transparent", color: activeTab === tab.id ? "var(--p)" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", transition: "all .25s", borderColor: activeTab === tab.id ? "rgba(124,58,237,.4)" : "transparent", outline: activeTab === tab.id ? "1px solid rgba(124,58,237,.3)" : "none" }}>
               {tab.label}
             </button>
           ))}

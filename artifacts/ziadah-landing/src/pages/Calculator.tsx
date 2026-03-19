@@ -49,8 +49,8 @@ function SliderCard({
   return (
     <div
       style={{
-        background: "rgba(255,255,255,.04)",
-        border: "1px solid rgba(255,255,255,.09)",
+        background: "var(--s1)",
+        border: "1px solid var(--b1)",
         borderRadius: 16,
         padding: "24px 28px",
         borderRight: `4px solid ${color}`,
@@ -80,7 +80,7 @@ function SliderCard({
           style={{
             fontSize: 15,
             fontWeight: 700,
-            color: "rgba(255,255,255,.9)",
+            color: "var(--t)",
           }}
         >
           {label}
@@ -108,7 +108,7 @@ function SliderCard({
             position: "relative",
             height: 8,
             borderRadius: 4,
-            background: "rgba(255,255,255,.1)",
+            background: "var(--b1)",
             marginBottom: 6,
           }}
         >
@@ -149,7 +149,7 @@ function SliderCard({
             display: "flex",
             justifyContent: "space-between",
             fontSize: 11,
-            color: "rgba(255,255,255,.3)",
+            color: "var(--td)",
             marginTop: 4,
           }}
         >
@@ -329,18 +329,18 @@ export default function Calculator() {
                 >
                   <div
                     style={{
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.1)",
+                      background: "var(--s1)",
+                      border: "1px solid var(--b1)",
                       borderRadius: 16,
                       padding: "24px 22px",
-                      borderTop: "3px solid rgba(255,255,255,.18)",
+                      borderTop: "3px solid var(--b2)",
                     }}
                   >
                     <div
                       style={{
                         fontSize: 13,
                         fontWeight: 700,
-                        color: "rgba(255,255,255,.45)",
+                        color: "var(--td)",
                         marginBottom: 18,
                         letterSpacing: 0.3,
                       }}
@@ -349,20 +349,20 @@ export default function Calculator() {
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.avgOrder}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.avgOrder}</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
                           {fmtCurrency(aov)}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
                           {fmtCurrency(r.baseRevenue)}
                         </div>
                       </div>
@@ -412,13 +412,13 @@ export default function Calculator() {
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.effectiveAvgOrder}</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.effectiveAvgOrder}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                           <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                             {fmtCurrency(r.effectiveAov)}
@@ -439,7 +439,7 @@ export default function Calculator() {
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmtCurrency(r.newRevenue)}
                         </div>
@@ -513,7 +513,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.4)",
+                          color: "var(--td)",
                           marginBottom: 8,
                           fontWeight: 600,
                         }}
@@ -533,7 +533,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--td)",
                           marginTop: 4,
                         }}
                       >
@@ -552,7 +552,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.4)",
+                          color: "var(--td)",
                           marginBottom: 8,
                           fontWeight: 600,
                         }}
@@ -572,7 +572,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--td)",
                           marginTop: 4,
                         }}
                       >
@@ -591,7 +591,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.4)",
+                          color: "var(--td)",
                           marginBottom: 8,
                           fontWeight: 600,
                         }}
@@ -611,7 +611,7 @@ export default function Calculator() {
                       <div
                         style={{
                           fontSize: 11,
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--td)",
                           marginTop: 4,
                         }}
                       >
@@ -623,12 +623,12 @@ export default function Calculator() {
 
                 <div
                   style={{
-                    background: "rgba(255,255,255,.03)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "var(--s1)",
+                    border: "1px solid var(--b1)",
                     borderRadius: 12,
                     padding: "16px 20px",
                     fontSize: 12,
-                    color: "rgba(255,255,255,.3)",
+                    color: "var(--td)",
                     lineHeight: 1.7,
                   }}
                 >

@@ -84,7 +84,7 @@ export default function SupportArticle() {
             <span
               onClick={() => navigateTo("/support")}
               style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
               onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
             >
               {tx.breadcrumbHelpCenter}
@@ -95,7 +95,7 @@ export default function SupportArticle() {
             <span
               onClick={() => navigateTo("/support")}
               style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
               onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
             >
               {catLabel}
@@ -134,7 +134,7 @@ export default function SupportArticle() {
             {(isAr ? article.sections : (article.sectionsEn || article.sections)).map((section, i) => {
               if (section.type === "heading") {
                 return (
-                  <h2 key={i} style={{ fontSize: 21, fontWeight: 800, color: "#fff", marginTop: 12, paddingBottom: 10, borderBottom: `1px solid ${category.color}20` }}>
+                  <h2 key={i} style={{ fontSize: 21, fontWeight: 800, color: "var(--t)", marginTop: 12, paddingBottom: 10, borderBottom: `1px solid ${category.color}20` }}>
                     {section.text}
                   </h2>
                 );
@@ -167,7 +167,7 @@ export default function SupportArticle() {
                 return (
                   <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     {section.items.map((item, j) => (
-                      <div key={j} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 14px", background: "rgba(255,255,255,.03)", border: "1px solid var(--b1)", borderRadius: 10 }}>
+                      <div key={j} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 14px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 10 }}>
                         <div style={{ width: 6, height: 6, borderRadius: "50%", background: category.color, flexShrink: 0, marginTop: 8 }}/>
                         <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, margin: 0 }}>{item}</p>
                       </div>
@@ -184,7 +184,7 @@ export default function SupportArticle() {
                     </div>
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 800, color: "#10b981", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>{tx.tipLabel}</div>
-                      <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
+                      <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
                     </div>
                   </div>
                 );
@@ -198,7 +198,7 @@ export default function SupportArticle() {
                     </div>
                     <div>
                       <div style={{ fontSize: 11, fontWeight: 800, color: "#f59e0b", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>{tx.warningLabel}</div>
-                      <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
+                      <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
                     </div>
                   </div>
                 );
@@ -214,7 +214,7 @@ export default function SupportArticle() {
               <span
                 onClick={() => navigateTo("/support")}
                 style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--tm)", textDecoration: "none", fontSize: 14, fontWeight: 600, transition: "color .2s", cursor: "pointer" }}
-                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
                 onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--tm)")}
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -251,7 +251,7 @@ export default function SupportArticle() {
                       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--b1)"; (e.currentTarget as HTMLElement).style.background = "var(--s1)"; }}
                     >
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{getArticleTitle(s)}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{getArticleTitle(s)}</div>
                         <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{getArticleTime(s)} {tx.readSuffix}</div>
                       </div>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isAr ? "rotate(180deg)" : "none", flexShrink: 0 }}>

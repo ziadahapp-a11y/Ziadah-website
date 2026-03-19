@@ -108,7 +108,7 @@ export default function CartDemoMockup() {
               background: "#fff",
               borderRadius: 36,
               boxShadow:
-                "0 32px 80px rgba(0,0,0,0.22), 0 0 0 10px #1a1a2e, 0 0 0 12px #2d2d4e",
+                "0 32px 80px rgba(0,0,0,0.22), 0 0 0 10px var(--s2), 0 0 0 12px var(--s3)",
               overflow: "hidden",
               position: "relative",
               fontFamily: "var(--font, 'Rubik', sans-serif)",
@@ -117,7 +117,7 @@ export default function CartDemoMockup() {
             <div
               style={{
                 height: 28,
-                background: "#1a1a2e",
+                background: "var(--s2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -128,7 +128,7 @@ export default function CartDemoMockup() {
                   width: 80,
                   height: 8,
                   borderRadius: 10,
-                  background: "#0f0f1e",
+                  background: "var(--s2)",
                 }}
               />
             </div>
@@ -450,7 +450,7 @@ export default function CartDemoMockup() {
                       <button
                         style={{
                           background: purple,
-                          color: "#fff",
+                          color: "var(--t)",
                           border: "none",
                           borderRadius: 8,
                           padding: "6px 8px",
@@ -509,8 +509,8 @@ export default function CartDemoMockup() {
                 <button
                   style={{
                     width: "100%",
-                    background: "#111",
-                    color: "#fff",
+                    background: "var(--s2)",
+                    color: "var(--t)",
                     border: "none",
                     borderRadius: 10,
                     padding: "12px 0",
@@ -535,7 +535,7 @@ export default function CartDemoMockup() {
             <div
               style={{
                 height: 20,
-                background: "#1a1a2e",
+                background: "var(--s2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -546,7 +546,7 @@ export default function CartDemoMockup() {
                   width: 48,
                   height: 5,
                   borderRadius: 10,
-                  background: "#0f0f1e",
+                  background: "var(--s2)",
                 }}
               />
             </div>

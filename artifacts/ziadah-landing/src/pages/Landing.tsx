@@ -17,6 +17,7 @@ import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThres
 import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
+import { useTheme } from "@/ThemeContext";
 
 const storeLogos = [
   { name: "BestClean", src: "/logos/bestclean.png" },
@@ -90,6 +91,8 @@ function SecTag({ children }: { children: React.ReactNode }) {
 export default function Landing() {
   const { lang, dir } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
@@ -204,7 +207,7 @@ export default function Landing() {
             position: "fixed",
             pointerEvents: "none",
             zIndex: 9999,
-            mixBlendMode: "screen",
+            mixBlendMode: isLight ? "multiply" : "screen",
             transition: "width .18s,height .18s,background .18s",
             top: -999,
             left: -999,
@@ -548,11 +551,11 @@ export default function Landing() {
                 gap: 12,
                 padding: "16px",
                 borderRadius: 16,
-                background: `rgba(255,255,255,0.03)`,
+                background: "var(--s1)",
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                boxShadow: `0 4px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.04)`,
+                border: "1px solid var(--b1)",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}>
                 <div
                   style={{
@@ -1590,7 +1593,7 @@ export default function Landing() {
                   {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
                     const colors = ["#06b6d4", "#a855f7", "#10b981", "#f59e0b"];
                     return (
-                    <div key={i} style={{ padding: "14px 14px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12 }}>
+                    <div key={i} style={{ padding: "14px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12 }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
                       <div style={{ fontSize: 18, fontWeight: 900, color: colors[i], lineHeight: 1 }}>{s.value}</div>
                       {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
@@ -1633,7 +1636,7 @@ export default function Landing() {
                     const pColors = ["#a855f7", "#06b6d4", "#10b981"];
                     const pColor = pColors[i] || "#a855f7";
                     return (
-                    <div key={i} style={{ padding: "12px 14px", background: "rgba(0,0,0,.18)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div key={i} style={{ padding: "12px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                           <div style={{ width: 6, height: 6, borderRadius: "50%", background: pColor, boxShadow: `0 0 6px ${pColor}`, flexShrink: 0 }}/>

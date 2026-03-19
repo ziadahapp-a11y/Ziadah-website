@@ -32,7 +32,7 @@ function renderContent(content: string) {
             fontWeight: 800,
             marginTop: 40,
             marginBottom: 16,
-            color: "#fff",
+            color: "var(--t)",
             letterSpacing: "-0.5px",
           }}
         >
@@ -61,7 +61,7 @@ function renderContent(content: string) {
           style={{
             fontSize: 15,
             fontWeight: 700,
-            color: "#fff",
+            color: "var(--t)",
             marginBottom: 8,
           }}
         >
@@ -227,7 +227,7 @@ function renderContent(content: string) {
                         color: "var(--tm)",
                         background:
                           ri % 2 === 0
-                            ? "rgba(255,255,255,.02)"
+                            ? "var(--s1)"
                             : "transparent",
                       }}
                     >
@@ -282,7 +282,7 @@ function formatInline(text: string): React.ReactNode {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} style={{ color: "#fff", fontWeight: 700 }}>
+        <strong key={i} style={{ color: "var(--t)", fontWeight: 700 }}>
           {part.slice(2, -2)}
         </strong>
       );
@@ -468,7 +468,7 @@ export default function BlogPost() {
             <span
               onClick={() => navigateTo("/")}
               style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
               onMouseLeave={(e) =>
                 ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
@@ -479,7 +479,7 @@ export default function BlogPost() {
             <span
               onClick={() => navigateTo("/blog")}
               style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
               onMouseLeave={(e) =>
                 ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
@@ -737,7 +737,7 @@ export default function BlogPost() {
                           fontSize: 15,
                           fontWeight: 700,
                           lineHeight: 1.45,
-                          color: "#fff",
+                          color: "var(--t)",
                           marginBottom: 8,
                         }}
                       >

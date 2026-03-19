@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
+import { ThemeProvider } from "@/ThemeContext";
 import Landing from "@/pages/Landing";
 import SuccessStories from "@/pages/SuccessStories";
 import Support from "@/pages/Support";
@@ -84,16 +85,18 @@ function Router() {
 
 function App() {
   return (
-    <LanguageProvider>
-      <QueryClientProvider client={queryClient}>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <ScrollToTop />
-          <PageTransition>
-            <Router />
-          </PageTransition>
-        </WouterRouter>
-      </QueryClientProvider>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={queryClient}>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <ScrollToTop />
+            <PageTransition>
+              <Router />
+            </PageTransition>
+          </WouterRouter>
+        </QueryClientProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

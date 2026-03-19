@@ -14,18 +14,18 @@ export default function IncreaseAOVWidget() {
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 Free shipping at 300 SAR</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>🚚 Free shipping at 300 SAR</span>
             <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>114 SAR remaining</span>
           </div>
-          <div style={{ height: 6, borderRadius: 10, background: "rgba(255,255,255,.12)", overflow: "hidden", marginBottom: 3 }}>
+          <div style={{ height: 6, borderRadius: 10, background: "var(--s3)", overflow: "hidden", marginBottom: 3 }}>
             <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))" }} />
           </div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
+          <div style={{ fontSize: 9, color: "var(--td)", textAlign: "center" }}>
             62% toward free shipping threshold
           </div>
         </div>
 
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>Suggested products to complete your order:</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 7 }}>Suggested products to complete your order:</div>
         {[
           { emoji: "🧴", name: "Moisturizing Hair Conditioner", price: "65", origPrice: "85" },
           { emoji: "🪥", name: "Hair Massage Brush", price: "49", origPrice: "69" },
@@ -36,8 +36,8 @@ export default function IncreaseAOVWidget() {
             gap: 9,
             padding: "8px 10px",
             borderRadius: 10,
-            background: "rgba(255,255,255,.06)",
-            border: "1.5px solid rgba(255,255,255,.1)",
+            background: "var(--s1)",
+            border: "1.5px solid var(--b1)",
             marginBottom: 6,
           }}>
             <div style={{
@@ -52,10 +52,10 @@ export default function IncreaseAOVWidget() {
               flexShrink: 0,
             }}>{p.emoji}</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{p.name}</div>
+              <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
                 <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>
+                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>
               </div>
             </div>
             <button style={{

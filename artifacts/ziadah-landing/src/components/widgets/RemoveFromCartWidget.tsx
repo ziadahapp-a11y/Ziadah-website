@@ -27,17 +27,17 @@ export default function RemoveFromCartWidget() {
       <div style={{ minHeight: 220 }}>
         {step === "cart" && (
           <div>
-            <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>Shopping Cart</div>
+            <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>Shopping Cart</div>
             <div style={{
               display: "flex", gap: 8, alignItems: "center",
               padding: "10px", borderRadius: 10,
-              background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.1)",
+              background: "var(--s1)", border: "1px solid var(--b1)",
               marginBottom: 10,
             }}>
               <div style={{ fontSize: 24, flexShrink: 0 }}>👟</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Nike Running Shoes</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)" }}>Size 42 — Black</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)" }}>Nike Running Shoes</div>
+                <div style={{ fontSize: 10, color: "var(--td)" }}>Size 42 — Black</div>
                 <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>280 SAR</div>
               </div>
               <button style={{
@@ -48,7 +48,7 @@ export default function RemoveFromCartWidget() {
                 🗑️ Remove
               </button>
             </div>
-            <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)", textAlign: "center" }}>
+            <div style={{ fontSize: 10, color: "var(--td)", textAlign: "center" }}>
               Customer clicks "Remove"...
             </div>
           </div>
@@ -57,10 +57,10 @@ export default function RemoveFromCartWidget() {
         {step === "confirm" && (
           <div style={{ textAlign: "center", padding: "12px 0" }}>
             <div style={{ fontSize: 30, marginBottom: 10 }}>😟</div>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 6 }}>
               Are you sure you want to remove?
             </div>
-            <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 14 }}>
+            <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 14 }}>
               Nike Running Shoes — 280 SAR
             </div>
             <div style={{
@@ -88,9 +88,9 @@ export default function RemoveFromCartWidget() {
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <div style={{ fontSize: 24 }}>👟</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Nike Running Shoes</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)" }}>Nike Running Shoes</div>
                   <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 3 }}>
-                    <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>280 SAR</span>
+                    <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>280 SAR</span>
                     <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>238 SAR</span>
                     <span style={{
                       fontSize: 9, fontWeight: 700, padding: "2px 6px",
@@ -131,8 +131,8 @@ export default function RemoveFromCartWidget() {
               style={{
                 width: "100%", marginTop: 8, padding: "7px",
                 borderRadius: 9, background: "transparent",
-                border: "1px solid rgba(255,255,255,.1)",
-                color: "rgba(255,255,255,.3)", fontSize: 10,
+                border: "1px solid var(--b1)",
+                color: "var(--td)", fontSize: 10,
                 cursor: "pointer",
               }}
             >

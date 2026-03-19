@@ -10,7 +10,7 @@ export default function CrossSellWidget() {
   return (
     <UseCaseWidgetPreview title="Others also buy with this" subtitle="Complete your order with these products">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>Customers who bought this also bought:</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}>Customers who bought this also bought:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {suggestions.map((s, i) => (
             <div key={i} style={{
@@ -19,8 +19,8 @@ export default function CrossSellWidget() {
               gap: 9,
               padding: "9px 10px",
               borderRadius: 10,
-              background: i === 0 ? "rgba(124,58,237,.15)" : "rgba(255,255,255,.05)",
-              border: i === 0 ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid rgba(255,255,255,.1)",
+              background: i === 0 ? "rgba(124,58,237,.15)" : "var(--s1)",
+              border: i === 0 ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid var(--b1)",
             }}>
               <div style={{
                 width: 32,
@@ -34,13 +34,13 @@ export default function CrossSellWidget() {
                 flexShrink: 0,
               }}>{s.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{s.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{s.name}</div>
                 {s.badge && (
                   <div style={{ fontSize: 8, padding: "1px 6px", borderRadius: 20, background: "rgba(6,182,212,.2)", color: "#06b6d4", fontWeight: 700, display: "inline-block", marginTop: 2 }}>{s.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
                   <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>SAR {s.price}</span>
-                  {s.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR {s.origPrice}</span>}
+                  {s.origPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {s.origPrice}</span>}
                 </div>
               </div>
               <button style={{

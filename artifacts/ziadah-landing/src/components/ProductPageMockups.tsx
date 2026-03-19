@@ -153,9 +153,9 @@ function MockupCard({
         style={{
           width: 270,
           maxWidth: "100%",
-          background: "rgba(255,255,255,.04)",
+          background: "var(--s1)",
           borderRadius: 44,
-          border: "2px solid rgba(255,255,255,.1)",
+          border: "2px solid var(--b1)",
           boxShadow: `0 0 40px rgba(${colorToRgb(accentColor)},.12), 0 20px 60px rgba(0,0,0,.5)`,
           padding: "14px 10px",
           position: "relative",
@@ -203,7 +203,7 @@ function MockupCard({
               width: 90,
               height: 5,
               borderRadius: 3,
-              background: "rgba(255,255,255,.2)",
+              background: "var(--s3)",
             }}
           />
         </div>
@@ -234,7 +234,7 @@ function StatusBar({ accentColor }: { accentColor: string }) {
         alignItems: "center",
         padding: "0 16px 8px",
         fontSize: 9,
-        color: "rgba(255,255,255,.5)",
+        color: "var(--tm)",
         fontWeight: 600,
       }}
     >
@@ -245,7 +245,7 @@ function StatusBar({ accentColor }: { accentColor: string }) {
             width: 12,
             height: 6,
             borderRadius: 2,
-            border: "1px solid rgba(255,255,255,.4)",
+            border: "1px solid var(--b2)",
             padding: "1px",
             position: "relative",
           }}
@@ -267,7 +267,7 @@ function StatusBar({ accentColor }: { accentColor: string }) {
               width: 2,
               height: 4,
               borderRadius: 1,
-              background: "rgba(255,255,255,.4)",
+              background: "var(--s3)",
             }}
           />
         </div>
@@ -281,7 +281,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
     <div style={{ padding: "0 12px 10px" }}>
       <div
         style={{
-          background: "rgba(255,255,255,.04)",
+          background: "var(--s1)",
           borderRadius: 14,
           padding: "10px 12px",
           marginBottom: 8,
@@ -306,7 +306,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
           style={{
             fontSize: 11,
             fontWeight: 700,
-            color: "rgba(255,255,255,.9)",
+            color: "var(--t)",
             marginBottom: 3,
             textAlign: "left",
           }}
@@ -325,7 +325,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
             <Stars />
-            <span style={{ fontSize: 8, color: "rgba(255,255,255,.4)" }}>
+            <span style={{ fontSize: 8, color: "var(--td)" }}>
               (200)
             </span>
           </div>
@@ -410,7 +410,7 @@ function AddToCartBtn({
         background: `linear-gradient(135deg, ${color} 0%, rgba(${colorToRgb(color)},.75) 100%)`,
         fontSize: 9,
         fontWeight: 800,
-        color: "#fff",
+        color: "var(--t)",
         cursor: "pointer",
         boxShadow: `0 4px 12px rgba(${colorToRgb(color)},.35)`,
       }}
@@ -435,7 +435,7 @@ function CrossSellContent() {
           <div
             key={i}
             style={{
-              background: "rgba(255,255,255,.04)",
+              background: "var(--s1)",
               border: "1px solid rgba(6,182,212,.12)",
               borderRadius: 10,
               padding: "7px 9px",
@@ -464,7 +464,7 @@ function CrossSellContent() {
                 style={{
                   fontSize: 9,
                   fontWeight: 700,
-                  color: "rgba(255,255,255,.85)",
+                  color: "var(--t)",
                   marginBottom: 2,
                   whiteSpace: "nowrap",
                   overflow: "hidden",
@@ -521,7 +521,7 @@ function BundleContent() {
           >
             📿
           </div>
-          <span style={{ fontSize: 12, color: "rgba(255,255,255,.4)" }}>+</span>
+          <span style={{ fontSize: 12, color: "var(--td)" }}>+</span>
           <div
             style={{
               width: 44,
@@ -548,7 +548,7 @@ function BundleContent() {
           <p
             style={{
               fontSize: 9,
-              color: "rgba(255,255,255,.6)",
+              color: "var(--tm)",
               marginBottom: 4,
             }}
           >
@@ -574,7 +574,7 @@ function BundleContent() {
             <span
               style={{
                 fontSize: 9,
-                color: "rgba(255,255,255,.3)",
+                color: "var(--td)",
                 textDecoration: "line-through",
               }}
             >
@@ -644,10 +644,10 @@ function VolumeContent() {
             style={{
               background: opt.highlight
                 ? "rgba(16,185,129,.1)"
-                : "rgba(255,255,255,.03)",
+                : "var(--s1)",
               border: opt.highlight
                 ? "1px solid rgba(16,185,129,.35)"
-                : "1px solid rgba(255,255,255,.07)",
+                : "1px solid var(--b1)",
               borderRadius: 10,
               padding: "7px 9px",
               position: "relative",
@@ -665,7 +665,7 @@ function VolumeContent() {
                   background: "#10b981",
                   fontSize: 7,
                   fontWeight: 800,
-                  color: "#fff",
+                  color: "var(--t)",
                 }}
               >
                 ⭐ Best Value
@@ -684,7 +684,7 @@ function VolumeContent() {
                   style={{
                     fontSize: 10,
                     fontWeight: 800,
-                    color: opt.highlight ? "#10b981" : "rgba(255,255,255,.75)",
+                    color: opt.highlight ? "#10b981" : "var(--tm)",
                     marginBottom: 2,
                   }}
                 >
@@ -695,7 +695,7 @@ function VolumeContent() {
                     style={{
                       fontSize: 10,
                       fontWeight: 900,
-                      color: opt.highlight ? "#10b981" : "rgba(255,255,255,.85)",
+                      color: opt.highlight ? "#10b981" : "var(--t)",
                     }}
                   >
                     {opt.price}
@@ -736,7 +736,7 @@ function VolumeContent() {
                   borderRadius: "50%",
                   border: opt.highlight
                     ? "2px solid #10b981"
-                    : "2px solid rgba(255,255,255,.2)",
+                    : "2px solid var(--b2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",

@@ -87,16 +87,16 @@ export default function Support() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder={tx.searchPlaceholder}
-            style={{ width: "100%", padding: "16px 54px 16px 52px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: 50, color: "#fff", fontFamily: "var(--font)", fontSize: 15, outline: "none", backdropFilter: "blur(20px)", transition: "border .25s, box-shadow .25s" }}
+            style={{ width: "100%", padding: "16px 54px 16px 52px", background: "var(--s1)", border: "1px solid var(--b2)", borderRadius: 50, color: "var(--t)", fontFamily: "var(--font)", fontSize: 15, outline: "none", backdropFilter: "blur(20px)", transition: "border .25s, box-shadow .25s" }}
             onFocus={e => { e.target.style.borderColor = "rgba(168,85,247,.55)"; e.target.style.boxShadow = "0 0 0 4px rgba(124,58,237,.08)"; }}
-            onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,.12)"; e.target.style.boxShadow = "none"; }}
+            onBlur={e => { e.target.style.borderColor = ""; e.target.style.boxShadow = "none"; }}
           />
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ position: "absolute", right: isAr ? 20 : undefined, left: isAr ? undefined : 20, top: "50%", transform: "translateY(-50%)" }}>
-            <circle cx="8" cy="8" r="5.5" stroke="rgba(255,255,255,.3)" strokeWidth="1.4"/>
-            <line x1="12" y1="12" x2="16" y2="16" stroke="rgba(255,255,255,.3)" strokeWidth="1.4" strokeLinecap="round"/>
+            <circle cx="8" cy="8" r="5.5" stroke="var(--td)" strokeWidth="1.4"/>
+            <line x1="12" y1="12" x2="16" y2="16" stroke="var(--td)" strokeWidth="1.4" strokeLinecap="round"/>
           </svg>
           {search && (
-            <button onClick={() => setSearch("")} style={{ position: "absolute", left: isAr ? 16 : undefined, right: isAr ? undefined : 16, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,.08)", border: "none", color: "var(--td)", width: 24, height: 24, borderRadius: 50, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, transition: "background .2s" }}>
+            <button onClick={() => setSearch("")} style={{ position: "absolute", left: isAr ? 16 : undefined, right: isAr ? undefined : 16, top: "50%", transform: "translateY(-50%)", background: "var(--s2)", border: "none", color: "var(--td)", width: 24, height: 24, borderRadius: 50, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, transition: "background .2s" }}>
               ✕
             </button>
           )}
@@ -104,7 +104,7 @@ export default function Support() {
 
         {/* Search Results Dropdown */}
         {search.trim() && (
-          <div style={{ maxWidth: 580, margin: "12px auto 0", background: "rgba(6,4,18,.98)", border: "1px solid var(--b2)", borderRadius: 18, padding: "8px 8px", textAlign: isAr ? "right" : "left", backdropFilter: "blur(32px)", boxShadow: "0 24px 60px rgba(0,0,0,.6)" }}>
+          <div style={{ maxWidth: 580, margin: "12px auto 0", background: "var(--bg)", border: "1px solid var(--b2)", borderRadius: 18, padding: "8px 8px", textAlign: isAr ? "right" : "left", backdropFilter: "blur(32px)", boxShadow: "0 24px 60px rgba(0,0,0,.6)" }}>
             {searchResults.length > 0 ? (
               <>
                 <div style={{ padding: "6px 14px 8px", fontSize: 11, fontWeight: 700, color: "var(--td)", textTransform: "uppercase", letterSpacing: 1 }}>
@@ -118,7 +118,7 @@ export default function Support() {
                     onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                   >
                     <div style={{ flex: 1, textAlign: isAr ? "right" : "left" }}>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{getArticleTitle(a)}</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{getArticleTitle(a)}</div>
                       <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}</div>
                     </div>
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 4, transform: isAr ? "rotate(180deg)" : "none" }}>
@@ -143,7 +143,7 @@ export default function Support() {
             {quickLinks.map(l => (
               <a key={l.label} href={l.href} target={l.ext ? "_blank" : undefined} rel="noreferrer"
                 className="gc"
-                style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", textDecoration: "none", color: "#fff", transition: "all .25s" }}
+                style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", textDecoration: "none", color: "var(--t)", transition: "all .25s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
               >
@@ -167,11 +167,11 @@ export default function Support() {
           <div className="support-cats rv" style={{ gap: 8, marginBottom: 32, overflowX: "auto", paddingBottom: 4 }}>
             {categories.map(c => (
               <button key={c.id} onClick={() => setActiveCategory(c.id)}
-                style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}
+                style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? c.color : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}
               >
                 <span style={{ fontSize: 15 }}>{c.icon}</span>
                 {getCatLabel(c)}
-                <span style={{ fontSize: 11, opacity: 0.6, background: "rgba(255,255,255,.08)", padding: "1px 8px", borderRadius: 20 }}>
+                <span style={{ fontSize: 11, opacity: 0.6, background: "var(--s2)", padding: "1px 8px", borderRadius: 20 }}>
                   {c.articles.length}
                 </span>
               </button>
@@ -187,11 +187,11 @@ export default function Support() {
                 <div className="shine"/>
                 {categories.map(c => (
                   <button key={c.id} onClick={() => setActiveCategory(c.id)}
-                    style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: activeCategory === c.id ? `${c.color}12` : "transparent", borderRight: isAr && activeCategory === c.id ? `3px solid ${c.color}` : (isAr ? "3px solid transparent" : undefined), borderLeft: !isAr && activeCategory === c.id ? `3px solid ${c.color}` : (!isAr ? "3px solid transparent" : undefined), color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 400, cursor: "pointer", transition: "all .2s", textAlign: isAr ? "right" : "left" }}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: activeCategory === c.id ? `${c.color}12` : "transparent", borderRight: isAr && activeCategory === c.id ? `3px solid ${c.color}` : (isAr ? "3px solid transparent" : undefined), borderLeft: !isAr && activeCategory === c.id ? `3px solid ${c.color}` : (!isAr ? "3px solid transparent" : undefined), color: activeCategory === c.id ? c.color : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 400, cursor: "pointer", transition: "all .2s", textAlign: isAr ? "right" : "left" }}
                   >
                     <span style={{ fontSize: 17 }}>{c.icon}</span>
                     <span style={{ flex: 1 }}>{getCatLabel(c)}</span>
-                    <span style={{ fontSize: 11, color: "var(--td)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{c.articles.length}</span>
+                    <span style={{ fontSize: 11, color: "var(--td)", background: "var(--s1)", padding: "2px 8px", borderRadius: 20 }}>{c.articles.length}</span>
                   </button>
                 ))}
               </div>
@@ -223,7 +223,7 @@ export default function Support() {
                         {i + 1}
                       </div>
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{getArticleTitle(a)}</div>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--t)", lineHeight: 1.4, marginBottom: 6 }}>{getArticleTitle(a)}</div>
                         <div style={{ fontSize: 12, color: "var(--td)", lineHeight: 1.6 }}>{getArticleDesc(a)}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 12, fontSize: 11, color: "var(--td)" }}>
                           <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -278,7 +278,7 @@ export default function Support() {
                         <path d="M7 5l10 5-10 5V5z" fill="rgba(168,85,247,.8)"/>
                       </svg>
                     </div>
-                    <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 600, position: "relative", zIndex: 1 }}>{tx.videoSoonLabel}</div>
+                    <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 600, position: "relative", zIndex: 1 }}>{tx.videoSoonLabel}</div>
                   </div>
                   <div style={{ position: "absolute", bottom: 10, left: 10, background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)", padding: "3px 8px", borderRadius: 6, fontSize: 11, fontWeight: 700, color: "#fff" }}>
                     {v.duration}
@@ -288,7 +288,7 @@ export default function Support() {
                   </div>
                 </div>
                 <div style={{ padding: "16px 18px 18px" }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{vTitle}</div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--t)", lineHeight: 1.4, marginBottom: 6 }}>{vTitle}</div>
                   <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{vDesc}</div>
                 </div>
               </div>

@@ -32,14 +32,14 @@ export default function CategoryPageWidget() {
               gap: 9,
               padding: "9px 10px",
               borderRadius: 12,
-              background: p.hot ? "rgba(124,58,237,.15)" : "rgba(255,255,255,.06)",
-              border: p.hot ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid rgba(255,255,255,.1)",
+              background: p.hot ? "rgba(124,58,237,.15)" : "var(--s1)",
+              border: p.hot ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid var(--b1)",
             }}>
               <div style={{
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: p.hot ? "rgba(168,85,247,.2)" : "rgba(255,255,255,.08)",
+                background: p.hot ? "rgba(168,85,247,.2)" : "var(--s2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -47,7 +47,7 @@ export default function CategoryPageWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>{p.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{p.name}</div>
                 {p.badge && (
                   <div style={{
                     fontSize: 8,
@@ -61,18 +61,18 @@ export default function CategoryPageWidget() {
                   }}>{p.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "#fff" }}>SAR {p.price}</span>
-                  {p.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "var(--t)" }}>SAR {p.price}</span>
+                  {p.origPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>}
                 </div>
               </div>
               <button style={{
                 padding: "5px 10px",
                 borderRadius: 20,
-                background: p.hot ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,.1)",
-                color: p.hot ? "#c084fc" : "#fff",
+                background: p.hot ? "rgba(124,58,237,0.2)" : "var(--s2)",
+                color: p.hot ? "#c084fc" : "var(--t)",
                 fontSize: 14,
                 fontWeight: 800,
-                border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "none",
+                border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "1px solid var(--b1)",
                 cursor: "pointer",
                 flexShrink: 0,
               }} className="widget-btn-sm">Cart</button>

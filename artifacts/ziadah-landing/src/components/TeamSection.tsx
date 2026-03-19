@@ -48,7 +48,7 @@ export default function TeamSection() {
               key={member.name}
               className={`rv d${(i % 3) + 1}`}
               style={{
-                background: "rgba(255,255,255,0.03)",
+                background: "var(--s1)",
                 border: "1px solid rgba(168,85,247,0.15)",
                 borderRadius: 20,
                 overflow: "hidden",
@@ -108,7 +108,7 @@ export default function TeamSection() {
                   style={{
                     fontSize: 18,
                     fontWeight: 700,
-                    color: "#f1e8ff",
+                    color: "var(--t)",
                     margin: "0 0 6px",
                     fontFamily: "var(--font)",
                   }}
@@ -118,7 +118,7 @@ export default function TeamSection() {
                 <p
                   style={{
                     fontSize: 13,
-                    color: "rgba(196,132,252,0.8)",
+                    color: "var(--p4)",
                     margin: 0,
                     lineHeight: 1.5,
                     fontFamily: "var(--font)",

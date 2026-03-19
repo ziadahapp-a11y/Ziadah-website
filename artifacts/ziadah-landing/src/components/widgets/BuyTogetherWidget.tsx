@@ -34,7 +34,7 @@ export default function BuyTogetherWidget() {
   return (
     <UseCaseWidgetPreview title="Frequently Bought Together" subtitle="Bought together">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>Products customers love together</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>Products customers love together</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -42,8 +42,8 @@ export default function BuyTogetherWidget() {
               gap: 10,
               padding: "10px",
               borderRadius: 12,
-              background: p.checked ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.06)",
-              border: p.checked ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid rgba(255,255,255,.12)",
+              background: p.checked ? "rgba(124,58,237,.12)" : "var(--s1)",
+              border: p.checked ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid var(--b2)",
               alignItems: "center",
               cursor: "pointer",
               transition: "all .2s ease",
@@ -52,7 +52,7 @@ export default function BuyTogetherWidget() {
                 width: 18,
                 height: 18,
                 borderRadius: 5,
-                background: p.checked ? "rgba(124,58,237,0.5)" : "rgba(255,255,255,.1)",
+                background: p.checked ? "rgba(124,58,237,0.5)" : "var(--b1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -73,11 +73,11 @@ export default function BuyTogetherWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>{p.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
                 <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#fff" }}>SAR {p.price}</span>
-                  {p.originalPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>SAR {p.originalPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "var(--t)" }}>SAR {p.price}</span>
+                  {p.originalPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {p.originalPrice}</span>}
                 </div>
               </div>
               {p.tag && <div style={{ fontSize: 8, padding: "2px 7px", borderRadius: 20, background: "rgba(124,58,237,.2)", color: "#c084fc", fontWeight: 700, flexShrink: 0 }}>{p.tag}</div>}

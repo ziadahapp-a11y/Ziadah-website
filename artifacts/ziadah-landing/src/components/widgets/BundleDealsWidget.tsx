@@ -10,7 +10,7 @@ export default function BundleDealsWidget() {
   return (
     <UseCaseWidgetPreview title="Morning Routine Bundle" subtitle="Save 50 SAR on the complete set">
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>Bundle contents:</div>
+        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>Bundle contents:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {bundle.map((item, i) => (
             <div key={i} style={{
@@ -19,8 +19,8 @@ export default function BundleDealsWidget() {
               gap: 9,
               padding: "8px 10px",
               borderRadius: 10,
-              background: "rgba(255,255,255,.06)",
-              border: "1.5px solid rgba(255,255,255,.1)",
+              background: "var(--s1)",
+              border: "1.5px solid var(--b1)",
             }}>
               <div style={{
                 width: 32,
@@ -34,9 +34,9 @@ export default function BundleDealsWidget() {
                 flexShrink: 0,
               }}>{item.emoji}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{item.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{item.name}</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>SAR {item.origPrice}</span>
+                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {item.origPrice}</span>
                 </div>
               </div>
               <div style={{
@@ -49,7 +49,7 @@ export default function BundleDealsWidget() {
                 justifyContent: "center",
                 flexShrink: 0,
               }}>
-                <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>
+                <span style={{ color: "var(--t)", fontSize: 9, fontWeight: 900 }}>✓</span>
               </div>
             </div>
           ))}
@@ -67,8 +67,8 @@ export default function BundleDealsWidget() {
         alignItems: "center",
       }}>
         <div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>Original total</div>
-          <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", textDecoration: "line-through", fontWeight: 700 }}>SAR 249</div>
+          <div style={{ fontSize: 9, color: "var(--tm)" }}>Original total</div>
+          <div style={{ fontSize: 11, color: "var(--td)", textDecoration: "line-through", fontWeight: 700 }}>SAR 249</div>
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{
@@ -81,7 +81,7 @@ export default function BundleDealsWidget() {
           }}>Save 50 SAR</div>
         </div>
         <div style={{ textAlign: "left" }}>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>Bundle price</div>
+          <div style={{ fontSize: 9, color: "var(--tm)" }}>Bundle price</div>
           <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>SAR 199</div>
         </div>
       </div>

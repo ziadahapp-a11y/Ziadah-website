@@ -168,10 +168,10 @@ export default function Blog() {
             style={{
               width: "100%",
               padding: "15px 50px 15px 20px",
-              background: "rgba(255,255,255,.05)",
-              border: "1px solid rgba(255,255,255,.12)",
+              background: "var(--s1)",
+              border: "1px solid var(--b2)",
               borderRadius: 50,
-              color: "#fff",
+              color: "var(--t)",
               fontFamily: "var(--font)",
               fontSize: 15,
               outline: "none",
@@ -182,7 +182,7 @@ export default function Blog() {
               (e.target.style.borderColor = "rgba(168,85,247,.5)")
             }
             onBlur={(e) =>
-              (e.target.style.borderColor = "rgba(255,255,255,.12)")
+              (e.target.style.borderColor = "")
             }
           />
           <svg
@@ -377,7 +377,7 @@ export default function Blog() {
                           fontWeight: 800,
                           lineHeight: 1.4,
                           marginBottom: 10,
-                          color: "#fff",
+                          color: "var(--t)",
                         }}
                       >
                         {getTitle(post)}

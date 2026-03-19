@@ -28,11 +28,12 @@ export default function AddToCartWidget() {
         {step === "adding" && (
           <div style={{ textAlign: "center", padding: "28px 0" }}>
             <div style={{ fontSize: 36, marginBottom: 10 }}>🛍️</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--t)", marginBottom: 6 }}>
               SPF 50 Moisturizing Cream
             </div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginBottom: 16 }}>
+            <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 16 }}>
               Qty: 1 × 89 SAR
+            </div>
             </div>
             <div style={{
               display: "inline-flex",
@@ -63,8 +64,9 @@ export default function AddToCartWidget() {
             <div style={{ fontSize: 13, fontWeight: 800, color: "#10b981", marginBottom: 4 }}>
               Added to cart!
             </div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)" }}>
+            <div style={{ fontSize: 11, color: "var(--td)" }}>
               SPF 50 Moisturizing Cream
+            </div>
             </div>
           </div>
         )}
@@ -92,15 +94,15 @@ export default function AddToCartWidget() {
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <div style={{
                   width: 44, height: 44, borderRadius: 10,
-                  background: "rgba(255,255,255,.08)",
+                  background: "var(--s2)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 22, flexShrink: 0,
                 }}>🧴</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#fff", marginBottom: 2 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>
                     Brightening Vitamin C Serum
                   </div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>Perfectly complements the cream</div>
+                  <div style={{ fontSize: 10, color: "var(--td)" }}>Perfectly complements the cream</div>
                   <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>65 SAR</div>
                 </div>
               </div>
@@ -121,8 +123,8 @@ export default function AddToCartWidget() {
               style={{
                 width: "100%", marginTop: 10, padding: "7px",
                 borderRadius: 9, background: "transparent",
-                border: "1px solid rgba(255,255,255,.12)",
-                color: "rgba(255,255,255,.4)", fontSize: 10,
+                border: "1px solid var(--b2)",
+                color: "var(--td)", fontSize: 10,
                 cursor: "pointer",
               }}
             >

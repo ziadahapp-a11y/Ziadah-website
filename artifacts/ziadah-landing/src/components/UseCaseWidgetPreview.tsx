@@ -10,7 +10,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
   return (
     <div
       style={{
-        background: "rgba(6,1,13,0.55)",
+        background: "var(--s1)",
         border: "1px solid rgba(124,58,237,0.15)",
         borderRadius: 16,
         boxShadow: "0 8px 32px rgba(124,58,237,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04)",
@@ -22,7 +22,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
       }}
-      className="text-left mt-[0px] mb-[0px]">
+      className="widget-preview text-left mt-[0px] mb-[0px]">
       <div style={{
         background: "linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(91,33,182,0.05) 100%)",
         backdropFilter: "blur(16px)",
@@ -34,13 +34,13 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         gap: 8,
       }}>
         <div style={{ display: "flex", gap: 5 }}>
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(255,255,255,.3)" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(255,255,255,.3)" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "rgba(255,255,255,.3)" }} />
+          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
+          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
+          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
         </div>
         <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: "#fff", letterSpacing: ".5px" }}>{title}</div>
-          {subtitle && <div style={{ fontSize: 9, color: "rgba(255,255,255,.65)", marginTop: 1 }}>{subtitle}</div>}
+          <div style={{ fontSize: 11, fontWeight: 800, color: "var(--t)", letterSpacing: ".5px" }}>{title}</div>
+          {subtitle && <div style={{ fontSize: 9, color: "var(--tm)", marginTop: 1 }}>{subtitle}</div>}
         </div>
         <div style={{ width: 30 }} />
       </div>
@@ -49,7 +49,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
           padding: "12px",
           fontFamily: "var(--font, 'Rubik', sans-serif)",
           direction: "ltr",
-          background: "rgba(255,255,255,0.02)",
+          background: "transparent",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           borderTop: "none",

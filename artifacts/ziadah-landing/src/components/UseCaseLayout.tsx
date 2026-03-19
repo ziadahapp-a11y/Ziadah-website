@@ -260,7 +260,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                   { icon: "📦", label: tr.useCaseLayout.productReports, sub: tr.useCaseLayout.productReportsSub, color: "#06b6d4" },
                   { icon: "⚡", label: tr.useCaseLayout.liveData, sub: tr.useCaseLayout.liveDataSub, color: "#10b981" },
                 ].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, minWidth: 240 }}>
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, minWidth: 240 }}>
                     <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.2)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
                       {item.icon}
                     </div>

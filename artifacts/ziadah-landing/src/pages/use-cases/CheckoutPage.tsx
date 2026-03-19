@@ -3,11 +3,11 @@ import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <div style={{
     width: 280,
-    background: "rgba(15,10,35,.95)",
-    border: "1px solid rgba(255,255,255,.12)",
+    background: "var(--s1)",
+    border: "1px solid var(--b2)",
     borderRadius: 36,
     overflow: "hidden",
-    boxShadow: "0 32px 80px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.1)",
+    boxShadow: "0 32px 80px rgba(0,0,0,.15)",
     backdropFilter: "blur(12px)",
     flexShrink: 0,
     ...style,
@@ -15,7 +15,7 @@ const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: R
     <div style={{
       display: "flex", justifyContent: "center", paddingTop: 14, paddingBottom: 8,
     }}>
-      <div style={{ width: 80, height: 6, background: "rgba(255,255,255,.2)", borderRadius: 99 }} />
+      <div style={{ width: 80, height: 6, background: "var(--s3)", borderRadius: 99 }} />
     </div>
     <div style={{ padding: "0 16px 24px" }}>
       {children}
@@ -26,10 +26,10 @@ const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: R
 const PhoneTopBar = () => (
   <div style={{
     display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "8px 0 12px", borderBottom: "1px solid rgba(255,255,255,.08)", marginBottom: 12,
+    padding: "8px 0 12px", borderBottom: "1px solid var(--b1)", marginBottom: 12,
   }}>
-    <span style={{ fontSize: 13, color: "rgba(255,255,255,.7)", fontWeight: 700 }}>ملخص الطلب</span>
-    <span style={{ fontSize: 13, color: "rgba(255,255,255,.9)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
+    <span style={{ fontSize: 13, color: "var(--tm)", fontWeight: 700 }}>ملخص الطلب</span>
+    <span style={{ fontSize: 13, color: "var(--t)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
   </div>
 );
 
@@ -37,13 +37,13 @@ const ShippingRow = ({ method, time, price, highlighted }: { method: string; tim
   <div style={{
     display: "flex", justifyContent: "space-between", alignItems: "flex-start",
     padding: "8px 0",
-    borderBottom: highlighted ? "none" : "1px solid rgba(255,255,255,.06)",
+    borderBottom: highlighted ? "none" : "1px solid var(--b1)",
   }}>
     <div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: highlighted ? "#10b981" : "rgba(255,255,255,.85)" }}>{method}</div>
-      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{time}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: highlighted ? "#10b981" : "var(--t)" }}>{method}</div>
+      <div style={{ fontSize: 10, color: "var(--td)", marginTop: 2 }}>{time}</div>
     </div>
-    {price && <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.6)" }}>{price}</div>}
+    {price && <div style={{ fontSize: 12, fontWeight: 700, color: "var(--tm)" }}>{price}</div>}
   </div>
 );
 
@@ -54,15 +54,15 @@ const ProductCard = ({
 }) => (
   <div style={{
     display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,.06)",
+    padding: "10px 0", borderBottom: "1px solid var(--b1)",
   }}>
     <div style={{ flex: 1, paddingLeft: 8 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 3 }}>{name}</div>
-      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 3 }}>{name}</div>
+      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
           <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
         </div>
       )}
       {!originalPrice && (
@@ -80,8 +80,8 @@ const ProductCard = ({
     {checked !== undefined && (
       <div style={{
         width: 22, height: 22, borderRadius: 6, flexShrink: 0,
-        background: checked ? "#7c3aed" : "rgba(255,255,255,.08)",
-        border: `1px solid ${checked ? "#7c3aed" : "rgba(255,255,255,.2)"}`,
+        background: checked ? "#7c3aed" : "var(--s2)",
+        border: `1px solid ${checked ? "#7c3aed" : "var(--b2)"}`,
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         {checked && <span style={{ color: "#fff", fontSize: 11 }}>✓</span>}
@@ -97,21 +97,21 @@ const AddToCartRow = ({
 }) => (
   <div style={{
     display: "flex", alignItems: "center", gap: 8, padding: "8px 0",
-    borderBottom: "1px solid rgba(255,255,255,.06)",
+    borderBottom: "1px solid var(--b1)",
   }}>
     <div style={{
       width: 52, height: 52, borderRadius: 10, flexShrink: 0, overflow: "hidden",
-      background: "rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20,
+      background: "var(--s1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20,
     }}>
       {image}
     </div>
     <div style={{ flex: 1 }}>
-      <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 2 }}>{name}</div>
-      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{name}</div>
+      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,.85)" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--t)" }}>{price} ⃁</span>
         {originalPrice && (
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
         )}
         {discount && (
           <span style={{
@@ -139,7 +139,7 @@ function CheckoutMockup() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <h2 style={{
           fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 900, textAlign: "center",
-          marginBottom: 40, color: "#fff",
+          marginBottom: 40, color: "var(--t)",
         }}>
           كيف يبدو زيادة في صفحة الدفع؟
         </h2>
@@ -160,7 +160,7 @@ function CheckoutMockup() {
               <PhoneTopBar />
 
               {/* Shipping method */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
                 طريقة الشحن
               </div>
               <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
@@ -171,18 +171,18 @@ function CheckoutMockup() {
                 borderRadius: 14, padding: "12px 14px", margin: "12px 0",
               }}>
                 <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,.8)", marginBottom: 8 }}>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.85)", marginBottom: 8 }}>
                   باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
                 </div>
                 <div style={{
-                  background: "rgba(255,255,255,.2)", borderRadius: 99, height: 5, overflow: "hidden",
+                  background: "var(--s3)", borderRadius: 99, height: 5, overflow: "hidden",
                 }}>
                   <div style={{ width: "30%", height: "100%", background: "#fff", borderRadius: 99 }} />
                 </div>
               </div>
 
               {/* Cross-sell product checkboxes */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 4 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>
                 منتجات مقترحة
               </div>
               <ProductCard name="سلسلال ذهب بحجر ياقوت" reviews="4681" price="45" checked={true} />
@@ -193,15 +193,15 @@ function CheckoutMockup() {
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 paddingTop: 10, paddingBottom: 4,
               }}>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>الدفع</span>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>تعديل</span>
+                <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
+                <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
               </div>
 
               {/* Pay button */}
               <div style={{
-                background: "#111", border: "1px solid rgba(255,255,255,.1)",
+                background: "var(--s2)", border: "1px solid var(--b1)",
                 borderRadius: 14, padding: "12px 0", textAlign: "center",
-                fontSize: 14, fontWeight: 900, color: "#fff", marginTop: 8,
+                fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
               }}>
                 ادفع الآن
               </div>
@@ -221,7 +221,7 @@ function CheckoutMockup() {
               <PhoneTopBar />
 
               {/* Shipping options */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
                 طريقة الشحن
               </div>
               <ShippingRow method="مجاني" time="" highlighted />
@@ -272,15 +272,15 @@ function CheckoutMockup() {
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 paddingTop: 10, paddingBottom: 4,
               }}>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>الدفع</span>
-                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>تعديل</span>
+                <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
+                <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
               </div>
 
               {/* Pay button */}
               <div style={{
-                background: "#111", border: "1px solid rgba(255,255,255,.1)",
+                background: "var(--s2)", border: "1px solid var(--b1)",
                 borderRadius: 14, padding: "12px 0", textAlign: "center",
-                fontSize: 14, fontWeight: 900, color: "#fff", marginTop: 8,
+                fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
               }}>
                 ادفع الآن
               </div>

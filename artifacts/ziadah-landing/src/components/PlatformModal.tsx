@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTheme } from "../ThemeContext";
 
 interface PlatformModalProps {
   open: boolean;
@@ -6,6 +7,8 @@ interface PlatformModalProps {
 }
 
 export default function PlatformModal({ open, onClose }: PlatformModalProps) {
+  const { theme } = useTheme();
+  const lt = theme === "light";
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -36,16 +39,16 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "rgba(15,10,30,0.85)",
+          background: lt ? "rgba(255,255,255,.95)" : "rgba(15,10,30,0.85)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(168,85,247,0.3)",
+          border: `1px solid ${lt ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.3)"}`,
           borderRadius: 20,
           padding: "40px 32px 32px",
           maxWidth: 480,
           width: "100%",
           position: "relative",
-          boxShadow: "0 24px 80px rgba(124,58,237,0.35), 0 0 0 1px rgba(168,85,247,0.1)",
+          boxShadow: lt ? "0 24px 80px rgba(0,0,0,.12)" : "0 24px 80px rgba(124,58,237,0.35), 0 0 0 1px rgba(168,85,247,0.1)",
           textAlign: "center",
         }}
       >
@@ -57,10 +60,10 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             position: "absolute",
             top: 14,
             left: 14,
-            background: "rgba(255,255,255,0.08)",
-            border: "1px solid rgba(255,255,255,0.12)",
+            background: "var(--s2)",
+            border: "1px solid var(--b2)",
             borderRadius: 8,
-            color: "rgba(255,255,255,0.7)",
+            color: "var(--tm)",
             cursor: "pointer",
             fontSize: 18,
             width: 32,
@@ -71,12 +74,12 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             transition: "all .2s",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.15)";
-            e.currentTarget.style.color = "#fff";
+            e.currentTarget.style.background = lt ? "rgba(0,0,0,.08)" : "rgba(255,255,255,0.15)";
+            e.currentTarget.style.color = "var(--t)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = "rgba(255,255,255,0.08)";
-            e.currentTarget.style.color = "rgba(255,255,255,0.7)";
+            e.currentTarget.style.background = "var(--s2)";
+            e.currentTarget.style.color = "var(--tm)";
           }}
         >
           ✕
@@ -86,10 +89,10 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
           Choose Your Platform
         </p>
-        <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#fff", marginBottom: 8, lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "var(--t)", marginBottom: 8, lineHeight: 1.2 }}>
           Which platform is your store on?
         </h3>
-        <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, marginBottom: 32 }}>
+        <p style={{ color: "var(--td)", fontSize: 14, marginBottom: 32 }}>
           Activate Ziadah in 2 minutes and start making more sales instantly
         </p>
 
@@ -175,7 +178,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           </a>
         </div>
 
-        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>7-day free trial · No credit card required</p>
+        <p style={{ color: "var(--td)", fontSize: 12, marginTop: 20 }}>7-day free trial · No credit card required</p>
       </div>
     </div>
   );

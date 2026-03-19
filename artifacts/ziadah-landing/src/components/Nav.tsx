@@ -3,6 +3,46 @@ import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
+import { useTheme } from "@/ThemeContext";
+
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  const isLight = theme === "light";
+  return (
+    <button
+      onClick={toggleTheme}
+      title={isLight ? "تفعيل المود الليلي" : "تفعيل المود النهاري"}
+      style={{
+        display: "flex", alignItems: "center", justifyContent: "center",
+        width: 36, height: 36, borderRadius: 10,
+        background: isLight ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.07)",
+        border: `1px solid ${isLight ? "rgba(124,58,237,.25)" : "rgba(255,255,255,.12)"}`,
+        color: isLight ? "#7c3aed" : "rgba(255,255,255,.7)",
+        cursor: "pointer", transition: "all .25s", flexShrink: 0,
+      }}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(124,58,237,.2)" : "rgba(255,255,255,.13)"; }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.07)"; }}
+    >
+      {isLight ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      )}
+    </button>
+  );
+}
 
 export const Logo = () => (
   <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
@@ -12,19 +52,22 @@ export const Logo = () => (
 
 function LanguageSwitcher() {
   const { lang, setLang } = useLanguage();
+  const { theme } = useTheme();
+  const isLt = theme === "light";
   return (
     <button
       onClick={() => setLang(lang === "ar" ? "en" : "ar")}
       style={{
         display: "flex", alignItems: "center", gap: 5,
         padding: "6px 12px", borderRadius: 8,
-        background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.12)",
-        color: "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
+        background: isLt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)",
+        border: `1px solid ${isLt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.12)"}`,
+        color: isLt ? "rgba(15,10,35,.7)" : "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.13)"; }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.07)"; }}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = isLt ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.13)"; }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = isLt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)"; }}
       title={lang === "ar" ? "Switch to English" : "التبديل للعربية"}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -113,13 +156,16 @@ function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: Rea
 function UseCasesMegaMenu() {
   const { lang } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const lt = theme === "light";
   const useCasesDropdown = getUseCasesDropdown(tr);
   return (
     <div style={{
       position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 760,
-      background: "rgba(8,6,20,.97)", border: "1px solid rgba(255,255,255,.1)",
+      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 20, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
       display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
     }}>
       {useCasesDropdown.sections.map((section) => (
@@ -134,14 +180,14 @@ function UseCasesMegaMenu() {
               style={{
                 display: "block", padding: "8px 8px", borderRadius: 10,
                 textDecoration: "none", transition: "background .2s", fontSize: 13,
-                fontWeight: 500, color: "#fff", cursor: "pointer",
+                fontWeight: 500, color: "var(--t)", cursor: "pointer",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.4)", marginTop: 2 }}>
+                <span style={{ display: "block", fontSize: 11, color: "var(--td)", marginTop: 2 }}>
                   {item.subtitle}
                 </span>
               )}
@@ -156,13 +202,16 @@ function UseCasesMegaMenu() {
 function PlatformsDropdown() {
   const { lang } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const lt = theme === "light";
   const platformItems = getPlatformItems(tr);
   return (
     <div style={{
       position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 200,
-      background: "rgba(8,6,20,.97)", border: "1px solid rgba(255,255,255,.1)",
+      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       {platformItems.map((item) => {
         if (!item.enabled) {
@@ -171,14 +220,14 @@ function PlatformsDropdown() {
               key={item.label}
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 14px", borderRadius: 12, color: "rgba(255,255,255,.3)",
+                padding: "10px 14px", borderRadius: 12, color: "var(--td)",
                 fontSize: 14, fontWeight: 500, cursor: "default",
               }}
             >
               <span>{item.label}</span>
               <span style={{
-                fontSize: 10, fontWeight: 700, background: "rgba(255,255,255,.08)",
-                color: "rgba(255,255,255,.35)", padding: "2px 8px", borderRadius: 20,
+                fontSize: 10, fontWeight: 700, background: "var(--s2)",
+                color: "var(--td)", padding: "2px 8px", borderRadius: 20,
               }}>
                 {item.badge}
               </span>
@@ -193,7 +242,7 @@ function PlatformsDropdown() {
             rel="noreferrer"
             style={{
               display: "block", padding: "10px 14px", borderRadius: 12,
-              textDecoration: "none", color: "#fff", fontSize: 14, fontWeight: 500,
+              textDecoration: "none", color: "var(--t)", fontSize: 14, fontWeight: 500,
               transition: "background .2s",
             }}
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
@@ -210,6 +259,8 @@ function PlatformsDropdown() {
 function FeatureRequestModal({ onClose }: { onClose: () => void }) {
   const { lang, dir } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const lt = theme === "light";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
@@ -252,16 +303,17 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
       }}
     >
       <div style={{
-        background: "rgba(8,6,20,.98)", border: "1px solid rgba(124,58,237,.3)",
+        background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
+        border: `1px solid ${lt ? "rgba(124,58,237,.2)" : "rgba(124,58,237,.3)"}`,
         borderRadius: 24, padding: 40, width: "100%", maxWidth: 500,
         position: "relative", direction: dir,
-        boxShadow: "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
+        boxShadow: lt ? "0 40px 100px rgba(0,0,0,.12), 0 0 60px rgba(124,58,237,.08)" : "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
       }}>
         <button
           onClick={onClose}
           style={{
             position: "absolute", top: 16, left: 16,
-            background: "rgba(255,255,255,.08)", border: "none", color: "#fff",
+            background: "var(--s2)", border: "none", color: "var(--t)",
             width: 36, height: 36, borderRadius: 10, fontSize: 18,
             cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
           }}
@@ -279,10 +331,10 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
             }}>
               ✓
             </div>
-            <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 10 }}>
+            <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "var(--t)", marginBottom: 10 }}>
               {tr.featureModal.successTitle}
             </h3>
-            <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "rgba(255,255,255,.55)", lineHeight: 1.7 }}>
+            <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "var(--td)", lineHeight: 1.7 }}>
               {tr.featureModal.successText}
             </p>
           </div>
@@ -299,17 +351,17 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
                   <path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="rgba(168,85,247,.8)"/>
                 </svg>
               </div>
-              <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
+              <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "var(--t)", marginBottom: 8 }}>
                 {tr.featureModal.title}
               </h3>
-              <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "rgba(255,255,255,.5)", lineHeight: 1.7 }}>
+              <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "var(--td)", lineHeight: 1.7 }}>
                 {tr.featureModal.subtitle}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
                   {tr.featureModal.name}
                 </label>
                 <input
@@ -320,17 +372,17 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
                   placeholder={tr.featureModal.namePlaceholder}
                   style={{
                     width: "100%", padding: "12px 16px",
-                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
-                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    background: "var(--s1)", border: "1px solid var(--b2)",
+                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: dir, boxSizing: "border-box",
                   }}
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                  onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
               </div>
 
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
                   {tr.featureModal.email}
                 </label>
                 <input
@@ -341,17 +393,17 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
                   placeholder="example@email.com"
                   style={{
                     width: "100%", padding: "12px 16px",
-                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
-                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    background: "var(--s1)", border: "1px solid var(--b2)",
+                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: "ltr", textAlign: dir === "rtl" ? "right" : "left", boxSizing: "border-box",
                   }}
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                  onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
               </div>
 
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
                   {tr.featureModal.descLabel}
                 </label>
                 <textarea
@@ -362,12 +414,12 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
                   rows={4}
                   style={{
                     width: "100%", padding: "12px 16px",
-                    background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)",
-                    borderRadius: 12, color: "#fff", fontFamily: "var(--font)", fontSize: 14,
+                    background: "var(--s1)", border: "1px solid var(--b2)",
+                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: dir, resize: "vertical", boxSizing: "border-box",
                   }}
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,.12)"}
+                  onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
               </div>
 
@@ -407,6 +459,8 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
 function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
   const { lang } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const lt = theme === "light";
   const helpItems = [
     {
       icon: (
@@ -458,9 +512,10 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
   return (
     <div style={{
       position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 300,
-      background: "rgba(8,6,20,.97)", border: "1px solid rgba(255,255,255,.1)",
+      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       {helpItems.map((item) => {
         if (item.isModal) {
@@ -479,8 +534,8 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
             >
               <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
               </div>
             </button>
           );
@@ -499,8 +554,8 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
             >
               <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
               </div>
             </a>
           );
@@ -518,8 +573,8 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
           >
             <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
             <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
+              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
             </div>
           </span>
         );
@@ -540,8 +595,8 @@ function MobileAccordionItem({
         style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           width: "100%", padding: "12px 14px", borderRadius: 14,
-          background: isOpen ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.05)",
-          border: "none", color: isOpen ? "#fff" : "rgba(255,255,255,.75)",
+          background: isOpen ? "rgba(124,58,237,.12)" : "var(--s1)",
+          border: "none", color: isOpen ? "var(--t)" : "var(--tm)",
           fontSize: 14, fontWeight: 600, fontFamily: "var(--font)", cursor: "pointer",
           textAlign: "left",
         }}
@@ -569,6 +624,8 @@ function MobileAccordionItem({
 function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { onClose: () => void; onFeatureRequest?: () => void; initialAccordion?: string | null }) {
   const { lang, dir } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const lt = theme === "light";
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
 
@@ -596,15 +653,15 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
 
   const directLinkStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
-    borderRadius: 14, background: "rgba(255,255,255,.05)", textDecoration: "none",
-    color: "rgba(255,255,255,.75)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
+    borderRadius: 14, background: "var(--s1)", textDecoration: "none",
+    color: "var(--tm)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
     marginBottom: 6,
   };
 
   const subLinkStyle: React.CSSProperties = {
     display: "block", padding: "9px 12px", borderRadius: 10,
-    background: "rgba(255,255,255,.04)", textDecoration: "none",
-    color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+    background: "var(--s1)", textDecoration: "none",
+    color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
   const mobileHelpItems = [
@@ -647,13 +704,13 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
           left: 0,
           right: 0,
           zIndex: 950,
-          background: "rgba(8,6,20,.98)",
-          border: "1px solid rgba(255,255,255,.1)",
+          background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
+          border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
           borderBottom: "none",
           borderRadius: "20px 20px 0 0",
           padding: "16px 16px 8px",
           backdropFilter: "blur(32px)",
-          boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
+          boxShadow: lt ? "0 -8px 40px rgba(0,0,0,.1)" : "0 -8px 40px rgba(0,0,0,.6)",
           maxHeight: "80vh",
           overflowY: "auto",
           animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
@@ -661,11 +718,11 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>{tr.nav.menu}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 1, textTransform: "uppercase" }}>{tr.nav.menu}</span>
           <button
             onClick={onClose}
             style={{
-              background: "rgba(255,255,255,.08)", border: "none", color: "rgba(255,255,255,.6)",
+              background: "var(--s2)", border: "none", color: "var(--tm)",
               width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -719,12 +776,12 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "9px 12px", borderRadius: 10,
-                    background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
+                    background: "var(--s1)", color: "var(--td)",
                     fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                   }}
                 >
                   <span>{item.label}</span>
-                  {item.badge && <span style={{ fontSize: 10, color: "rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                  {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                 </div>
               )
             )}
@@ -743,8 +800,8 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
               const isFeatureRequest = item.href === "#" && item.label === tr.nav.featureRequest;
               const itemStyle: React.CSSProperties = {
                 display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-                borderRadius: 10, background: "rgba(255,255,255,.04)",
-                textDecoration: "none", color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                borderRadius: 10, background: "var(--s1)",
+                textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
               };
               if (isFeatureRequest && onFeatureRequest) {
                 return (
@@ -794,8 +851,8 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
         <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 4 }}>
           <a href="#" onClick={onClose} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-            border: "1px solid rgba(255,255,255,.2)", background: "transparent",
-            color: "#fff", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
+            border: "1px solid var(--b2)", background: "transparent",
+            color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
           }}>
             {tr.nav.bookMeeting}
           </a>
@@ -808,7 +865,8 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
           </a>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", paddingBottom: 4 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 8, paddingBottom: 4 }}>
+          <ThemeToggle />
           <LanguageSwitcher />
         </div>
       </div>
@@ -819,6 +877,8 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
 export default function Nav() {
   const { lang } = useLanguage();
   const tr = t[lang];
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -847,7 +907,7 @@ export default function Nav() {
   const navBtnStyle = (isOpen: boolean): React.CSSProperties => ({
     display: "flex", alignItems: "center", gap: 5, padding: "8px 14px",
     borderRadius: 10, background: isOpen ? "rgba(124,58,237,.12)" : "transparent",
-    border: "none", color: isOpen ? "#fff" : "rgba(255,255,255,.55)",
+    border: "none", color: isOpen ? "var(--t)" : "var(--tm)",
     fontFamily: "var(--font)", fontSize: 14, fontWeight: 500, cursor: "pointer",
     transition: "all .2s", whiteSpace: "nowrap",
   });
@@ -865,9 +925,13 @@ export default function Nav() {
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, right: "4%", left: "4%", zIndex: 900,
-        background: scrolled ? "rgba(3,3,11,.97)" : "rgba(3,3,11,.82)",
-        border: `1px solid ${scrolled ? "rgba(255,255,255,.13)" : "rgba(255,255,255,.07)"}`,
-        boxShadow: scrolled ? "0 8px 40px rgba(0,0,0,.5)" : "none",
+        background: isLight
+          ? (scrolled ? "rgba(241,245,249,.97)" : "rgba(241,245,249,.88)")
+          : (scrolled ? "rgba(3,3,11,.97)" : "rgba(3,3,11,.82)"),
+        border: `1px solid ${isLight
+          ? (scrolled ? "rgba(0,0,0,.14)" : "rgba(0,0,0,.08)")
+          : (scrolled ? "rgba(255,255,255,.13)" : "rgba(255,255,255,.07)")}`,
+        boxShadow: scrolled ? (isLight ? "0 8px 40px rgba(0,0,0,.12)" : "0 8px 40px rgba(0,0,0,.5)") : "none",
         borderRadius: 18, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
       }}>
@@ -882,13 +946,13 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
                 {tr.nav.home}
               </span>
@@ -906,13 +970,13 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/success-stories")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
                 {tr.nav.successStories}
               </span>
@@ -930,12 +994,12 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateToHash("/#pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: "rgba(255,255,255,.55)",
+                color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--tm)"}
               >
                 {tr.nav.pricing}
               </span>
@@ -944,13 +1008,13 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/calculator")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
                 {tr.nav.calculator}
               </span>
@@ -970,6 +1034,7 @@ export default function Nav() {
           </div>
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            <ThemeToggle />
             <LanguageSwitcher />
             <a href="#" className="nb nav-cta-outline">{tr.nav.bookMeeting}</a>
             <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="nb nav-cta-fill">{tr.nav.startNow}</a>
@@ -982,7 +1047,7 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
@@ -1001,7 +1066,7 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/success-stories")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
@@ -1020,7 +1085,7 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateToHash("/#pricing")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: "rgba(255,255,255,.55)",
+                color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}>
@@ -1030,7 +1095,7 @@ export default function Nav() {
             <li>
               <span onClick={() => navigateTo("/calculator")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
+                color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
@@ -1055,12 +1120,13 @@ export default function Nav() {
       {/* MOBILE TOP BAR */}
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(3,3,11,.88)",
-        borderBottom: "1px solid rgba(255,255,255,.08)",
+        background: isLight ? "rgba(241,245,249,.92)" : "rgba(3,3,11,.88)",
+        borderBottom: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
         backdropFilter: "blur(32px)",
         alignItems: "center", justifyContent: "center",
         height: 52,
         padding: "0 20px",
+        transition: "background .3s, border-color .3s",
       }}>
         <Logo />
       </div>
@@ -1068,8 +1134,10 @@ export default function Nav() {
       {/* MOBILE NAV */}
       <div className="mobile-nav" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(6,4,18,.97)", borderTop: "1px solid rgba(255,255,255,.08)",
+        background: isLight ? "rgba(241,245,249,.97)" : "rgba(6,4,18,.97)",
+        borderTop: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
+        transition: "background .3s, border-color .3s",
       }}>
         <div style={{ display: "flex", height: 64 }}>
           {[
@@ -1104,7 +1172,7 @@ export default function Nav() {
                 style={{
                   flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 4, background: "none", border: "none",
-                  color: isActive ? "#a855f7" : "rgba(255,255,255,.45)",
+                  color: isActive ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                 }}

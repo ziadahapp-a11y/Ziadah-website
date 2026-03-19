@@ -21,7 +21,7 @@ export default function AddonsWidget() {
     <UseCaseWidgetPreview title="Complementary Add-ons" subtitle="Don't forget to complete your set">
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
+          style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
           className="mt-[8px] text-[9px]">Complementary add-ons for your product</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
@@ -31,8 +31,8 @@ export default function AddonsWidget() {
               gap: 9,
               padding: "8px 10px",
               borderRadius: 10,
-              background: a.checked ? "rgba(124,58,237,.15)" : "rgba(255,255,255,.05)",
-              border: a.checked ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid rgba(255,255,255,.1)",
+              background: a.checked ? "rgba(124,58,237,.15)" : "var(--s1)",
+              border: a.checked ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid var(--b1)",
               cursor: "pointer",
               transition: "all .2s ease",
             }}>
@@ -40,7 +40,7 @@ export default function AddonsWidget() {
                 width: 17,
                 height: 17,
                 borderRadius: 5,
-                background: a.checked ? "rgba(124,58,237,0.5)" : "rgba(255,255,255,.1)",
+                background: a.checked ? "rgba(124,58,237,0.5)" : "var(--b1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -51,9 +51,9 @@ export default function AddonsWidget() {
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} SAR</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "var(--td)" }}>+{a.price} SAR</div>
             </div>
           ))}
         </div>
@@ -68,7 +68,7 @@ export default function AddonsWidget() {
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>Total with add-ons</span>
+        <span style={{ fontSize: 10, color: "var(--tm)" }}>Total with add-ons</span>
         <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} SAR</span>
       </div>
       <button style={{

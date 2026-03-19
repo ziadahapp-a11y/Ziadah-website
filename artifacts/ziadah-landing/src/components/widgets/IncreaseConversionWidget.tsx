@@ -12,10 +12,10 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
           textAlign: "center",
         }}>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 4 }}>🎉 Your gift as a new customer</div>
+          <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 4 }}>🎉 Your gift as a new customer</div>
           <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>50 SAR Discount</div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>On first order over 200 SAR</div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, marginTop: 6 }}>WELCOME50</div>
+          <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>On first order over 200 SAR</div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>WELCOME50</div>
         </div>
 
         <div style={{
@@ -35,11 +35,11 @@ export default function IncreaseConversionWidget() {
               alignItems: "center",
               padding: "6px 10px",
               borderRadius: 8,
-              background: "rgba(255,255,255,.05)",
-              border: "1px solid rgba(255,255,255,.1)",
+              background: "var(--s1)",
+              border: "1px solid var(--b1)",
             }}>
               <span style={{ fontSize: 12 }}>{item.icon}</span>
-              <span style={{ fontSize: 10, color: "rgba(255,255,255,.75)", fontWeight: 600 }}>{item.text}</span>
+              <span style={{ fontSize: 10, color: "var(--tm)", fontWeight: 600 }}>{item.text}</span>
             </div>
           ))}
         </div>
