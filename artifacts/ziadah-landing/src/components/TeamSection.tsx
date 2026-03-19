@@ -30,9 +30,9 @@ export default function TeamSection() {
             فريقنا
           </div>
           <h2 className="st rv d1" style={{ fontSize: 48 }}>
-            الفريق الذي يبني
+            فريق
             <br />
-            <span className="grad">مستقبل التجارة الذكية</span>
+            <span className="grad">زيادة</span>
           </h2>
           <p className="ssub rv d2">
             أشخاص شغوفون يعملون يومياً لتمكين التجار من النمو بالذكاء الاصطناعي
