@@ -116,7 +116,7 @@ function UseCasesMegaMenu() {
   const useCasesDropdown = getUseCasesDropdown(tr);
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 760,
+      position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 760,
       background: "rgba(8,6,20,.97)", border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: 20, backdropFilter: "blur(32px)",
       boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
