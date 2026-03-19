@@ -1535,7 +1535,7 @@ export default function Landing() {
         </div>
       </section>
       {/* TESTIMONIALS */}
-      <section id="testimonials" style={{ overflow: "hidden" }}>
+      <section id="testimonials" style={{ overflowX: "hidden", paddingLeft: 0, paddingRight: 0 }}>
         <div className="wrap">
           <div className="tc" style={{ marginBottom: 56 }}>
             <SecTag>آراء تجارنا</SecTag>
