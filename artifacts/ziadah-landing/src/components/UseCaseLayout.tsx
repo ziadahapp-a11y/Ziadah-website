@@ -227,6 +227,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <span onClick={() => navigateTo("/use-cases/product-page")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة المنتج</span>
               <span onClick={() => navigateTo("/use-cases/cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة السلة</span>
               <span onClick={() => navigateTo("/use-cases/cross-sell")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>البيع المتقاطع</span>
+              <span onClick={() => navigateTo("/use-cases/add-to-cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>إضافة للسلة</span>
+              <span onClick={() => navigateTo("/use-cases/remove-from-cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>الحذف من السلة</span>
             </div>
             <div className="ft-col">
               <h4>الدعم</h4>
