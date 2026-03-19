@@ -749,8 +749,7 @@ export default function SuccessStories() {
       <section style={{ paddingTop: 140, paddingBottom: 40, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
-          أرقام لا تكذب<br />
-          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>حققوها المتاجر </span>
+          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>أثر مستدام</span>
         </h1>
         <p className="ssub rv d2" style={{ margin: "0 auto 32px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>
           +٧٠٠ متجر يستخدم زيادة يومياً. هنا نشارك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.
