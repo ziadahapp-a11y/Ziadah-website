@@ -19,7 +19,9 @@ export default function RelatedProductsWidget() {
   return (
     <UseCaseWidgetPreview title="اقتراح منتجات ذات علاقة" subtitle="منتجات يفضلها العملاء">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>منتجات يفضلها العملاء</div>
+        <div
+          style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
+          className="mt-[5px] text-[10px]">منتجات يفضلها العملاء</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
             <div key={i} style={{
