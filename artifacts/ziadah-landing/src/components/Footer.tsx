@@ -23,7 +23,8 @@ export default function Footer() {
             </p>
             <div className="ft-soc">
               <a href="https://twitter.com/ZiadahApp" target="_blank" rel="noreferrer" className="ftsi">𝕏</a>
-              <a href="#" className="ftsi">ig</a>
+              <a href="https://www.instagram.com/ziadahapp" target="_blank" rel="noreferrer" className="ftsi">ig</a>
+              <a href="https://www.tiktok.com/@ziadahapp" target="_blank" rel="noreferrer" className="ftsi">tt</a>
               <a href="https://linkedin.com/company/ziadahapp" target="_blank" rel="noreferrer" className="ftsi">in</a>
             </div>
           </div>
