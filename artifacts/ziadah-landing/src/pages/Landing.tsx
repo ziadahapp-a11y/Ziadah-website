@@ -639,7 +639,9 @@ export default function Landing() {
               border: "1px solid rgba(255,255,255,0.1)",
               boxShadow: `0 0 24px 0 rgba(${item.rgb},0.08), inset 0 1px 0 rgba(255,255,255,0.07)`,
             }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: 10 }}
+                className="text-right">
                 <div style={{
                   width: 40,
                   height: 40,
