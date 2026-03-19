@@ -96,8 +96,8 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 @keyframes lscr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:all .25s;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;}
 .lc:hover{border-color:var(--b2);}
-.logo-img{height:40px;width:auto;max-width:140px;object-fit:contain;filter:brightness(0) invert(1) opacity(0.45);transition:filter .3s,opacity .3s;}
-.lc:hover .logo-img{filter:brightness(0) invert(1) opacity(0.85);}
+.logo-img{height:40px;width:auto;max-width:140px;object-fit:contain;opacity:0.85;transition:opacity .3s;}
+.lc:hover .logo-img{opacity:1;}
 
 /* ── HOME CALCULATOR ── */
 .hc-sec{padding:0 5% 100px;position:relative;z-index:2;}
