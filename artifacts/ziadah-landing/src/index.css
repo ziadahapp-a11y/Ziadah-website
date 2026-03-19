@@ -92,7 +92,6 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 .logos-lbl{text-align:center;font-size:11px;font-weight:700;color:var(--td);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;}
 .logos-mask{overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);}
 .lt{display:flex;gap:12px;width:max-content;animation:lscr 28s linear infinite;}
-.lt:hover{animation-play-state:paused;}
 @keyframes lscr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:all .25s;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;}
 .lc:hover{border-color:var(--b2);}
