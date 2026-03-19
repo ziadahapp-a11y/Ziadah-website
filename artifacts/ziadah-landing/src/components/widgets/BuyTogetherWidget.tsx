@@ -63,8 +63,8 @@ export default function BuyTogetherWidget() {
                 <div style={{ fontSize: 10, fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
                 <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#111827" }}>﷼{p.price}</span>
-                  {p.originalPrice && <span style={{ fontSize: 9, color: "#9ca3af", textDecoration: "line-through" }}>﷼{p.originalPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#111827" }}>꜁{p.price}</span>
+                  {p.originalPrice && <span style={{ fontSize: 9, color: "#9ca3af", textDecoration: "line-through" }}>꜁{p.originalPrice}</span>}
                 </div>
               </div>
               {p.tag && <div style={{ fontSize: 8, padding: "2px 7px", borderRadius: 20, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700, flexShrink: 0 }}>{p.tag}</div>}
@@ -83,7 +83,7 @@ export default function BuyTogetherWidget() {
         border: "none",
         cursor: "pointer",
       }}>
-        اشتر المجموعة الكاملة — ﷼٢٦٩١
+        اشتر المجموعة الكاملة — ꜁٢٦٩١
       </button>
     </UseCaseWidgetPreview>
   );

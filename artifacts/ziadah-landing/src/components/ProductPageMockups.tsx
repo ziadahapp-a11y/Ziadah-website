@@ -320,7 +320,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
           }}
         >
           <span style={{ fontSize: 12, fontWeight: 900, color: accentColor }}>
-            200 ر.س
+            200 ꜁
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
             <Stars />
@@ -421,9 +421,9 @@ function AddToCartBtn({
 
 function CrossSellContent() {
   const relatedProducts = [
-    { name: "مسبحة فضة 925", price: "150 ر.س", emoji: "🪬" },
-    { name: "علبة هدايا مخملية", price: "35 ر.س", emoji: "🎁" },
-    { name: "مسبحة عود طبيعي", price: "180 ر.س", emoji: "🌿" },
+    { name: "مسبحة فضة 925", price: "150 ꜁", emoji: "🪬" },
+    { name: "علبة هدايا مخملية", price: "35 ꜁", emoji: "🎁" },
+    { name: "مسبحة عود طبيعي", price: "180 ꜁", emoji: "🌿" },
   ];
 
   return (
@@ -568,7 +568,7 @@ function BundleContent() {
                 color: "#a855f7",
               }}
             >
-              280 ر.س
+              280 ꜁
             </span>
             <span
               style={{
@@ -577,7 +577,7 @@ function BundleContent() {
                 textDecoration: "line-through",
               }}
             >
-              350 ر.س
+              350 ꜁
             </span>
           </div>
         </div>
@@ -612,21 +612,21 @@ function VolumeContent() {
   const options = [
     {
       qty: "1 قطعة",
-      price: "200 ر.س",
+      price: "200 ꜁",
       discount: null,
       shipping: null,
       highlight: false,
     },
     {
       qty: "2 قطعتين",
-      price: "320 ر.س",
+      price: "320 ꜁",
       discount: "خصم 20%",
       shipping: null,
       highlight: false,
     },
     {
       qty: "3 قطع",
-      price: "420 ر.س",
+      price: "420 ꜁",
       discount: "خصم 30%",
       shipping: "شحن مجاني",
       highlight: true,

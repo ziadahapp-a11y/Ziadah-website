@@ -67,7 +67,7 @@ export default function ThankYouMockup() {
                 <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>ملخص الطلب</div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e" }}>
                   <span style={{ color: "#8e8e93", fontSize: 11, fontWeight: 500 }}>الإجمالي: </span>
-                  <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 ر.س</span>
+                  <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 ꜁</span>
                 </div>
               </div>
 
@@ -164,7 +164,7 @@ export default function ThankYouMockup() {
                           <span style={{ fontSize: 9, color: "#8e8e93" }}>{p.rating} ({p.reviews})</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
-                          <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} ر.س</span>
+                          <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} ꜁</span>
                           <span style={{ fontSize: 9, color: "#c4b5fd", textDecoration: "line-through" }}>{p.oldPrice}</span>
                           <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>{p.discount}-</span>
                         </div>

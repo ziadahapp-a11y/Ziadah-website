@@ -29,7 +29,7 @@ const PhoneTopBar = () => (
     padding: "8px 0 12px", borderBottom: "1px solid rgba(255,255,255,.08)", marginBottom: 12,
   }}>
     <span style={{ fontSize: 13, color: "rgba(255,255,255,.7)", fontWeight: 700 }}>ملخص الطلب</span>
-    <span style={{ fontSize: 13, color: "rgba(255,255,255,.9)", fontWeight: 700 }}>61.60 ريال سعودي</span>
+    <span style={{ fontSize: 13, color: "rgba(255,255,255,.9)", fontWeight: 700 }}>61.60 ꜁ سعودي</span>
   </div>
 );
 
@@ -61,12 +61,12 @@ const ProductCard = ({
       <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ﷼</span>
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ﷼</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ꜁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ꜁</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ﷼</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ꜁</span>
       )}
       {discount && (
         <span style={{
@@ -109,9 +109,9 @@ const AddToCartRow = ({
       <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 2 }}>{name}</div>
       <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,.85)" }}>{price} ﷼</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,.85)" }}>{price} ꜁</span>
         {originalPrice && (
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ﷼</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ꜁</span>
         )}
         {discount && (
           <span style={{
@@ -172,7 +172,7 @@ function CheckoutMockup() {
               }}>
                 <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
                 <div style={{ fontSize: 10, color: "rgba(255,255,255,.8)", marginBottom: 8 }}>
-                  باقي لك 145 ريال للشحن المجاني، ضيف المنتجات.
+                  باقي لك 145 ꜁ للشحن المجاني، ضيف المنتجات.
                 </div>
                 <div style={{
                   background: "rgba(255,255,255,.2)", borderRadius: 99, height: 5, overflow: "hidden",
@@ -225,7 +225,7 @@ function CheckoutMockup() {
                 طريقة الشحن
               </div>
               <ShippingRow method="مجاني" time="" highlighted />
-              <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ريال سعودي" />
+              <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ꜁ سعودي" />
 
               {/* Upsell headline */}
               <div style={{
@@ -242,7 +242,7 @@ function CheckoutMockup() {
                 borderRadius: 12, padding: "10px 14px", marginBottom: 12,
               }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: "#10b981" }}>30</span>
-                <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>﷼ شحن مجاني ✓</span>
+                <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>꜁ شحن مجاني ✓</span>
               </div>
 
               {/* Upsell product rows */}
@@ -337,14 +337,14 @@ const data: UseCasePageData = {
     { value: "+41٪", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
   ],
   exampleScenario: {
-    title: "عميل عند الدفع بطلب قيمته 55 ريال",
+    title: "عميل عند الدفع بطلب قيمته 55 ꜁",
     steps: [
-      "العميل في صفحة الدفع بطلب بقيمة 55 ريال وعتبة الشحن المجاني 200 ريال.",
-      "يكتشف زيادة أن الفجوة 145 ريال — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
-      "يظهر منتجان بسعر 45 و100 ريال معاً — مجموعهما 145 ريال بالضبط — مع خانة اختيار سهلة.",
+      "العميل في صفحة الدفع بطلب بقيمة 55 ꜁ وعتبة الشحن المجاني 200 ꜁.",
+      "يكتشف زيادة أن الفجوة 145 ꜁ — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
+      "يظهر منتجان بسعر 45 و100 ꜁ معاً — مجموعهما 145 ꜁ بالضبط — مع خانة اختيار سهلة.",
       "العميل يضيف المنتجين بنقرتين ويحصل على شحن مجاني كمكافأة.",
     ],
-    result: "الطلب ارتفع من 55 إلى 200 ريال والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
+    result: "الطلب ارتفع من 55 إلى 200 ꜁ والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
   },
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",

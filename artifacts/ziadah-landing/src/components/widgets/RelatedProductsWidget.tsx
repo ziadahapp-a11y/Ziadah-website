@@ -45,7 +45,7 @@ export default function RelatedProductsWidget() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#111827", marginTop: 2 }}>﷼{p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#111827", marginTop: 2 }}>꜁{p.price}</div>
               </div>
               <button style={{
                 padding: "6px 12px",

@@ -20,7 +20,7 @@ export default function FreeShippingThresholdWidget() {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color: "#111827" }}>🚚 خل الشحن مجاني</span>
-            <span style={{ fontSize: 9, color: "#7c3aed", fontWeight: 700 }}>باقي ١٤٥ ريال</span>
+            <span style={{ fontSize: 9, color: "#7c3aed", fontWeight: 700 }}>باقي ١٤٥ ꜁</span>
           </div>
           <div style={{
             height: 7,
@@ -38,7 +38,7 @@ export default function FreeShippingThresholdWidget() {
             }} />
           </div>
           <div style={{ fontSize: 9, color: "#6b7280", textAlign: "center" }}>
-            باقي ١٤٥ ريال للشحن، ضيف المنتجات
+            باقي ١٤٥ ꜁ للشحن، ضيف المنتجات
           </div>
         </div>
         <div style={{ fontSize: 10, color: "#6b7280", marginBottom: 7 }}>منتجات مقترحة:</div>
@@ -66,7 +66,7 @@ export default function FreeShippingThresholdWidget() {
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: "#111827" }}>{p.name}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#7c3aed" }}>﷼{p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#7c3aed" }}>꜁{p.price}</div>
               </div>
               <div style={{
                 width: 20,

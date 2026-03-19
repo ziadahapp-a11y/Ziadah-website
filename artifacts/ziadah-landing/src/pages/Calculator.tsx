@@ -9,8 +9,8 @@ function fmt(n: number, decimals = 0): string {
   });
 }
 
-function fmtSAR(n: number): string {
-  return fmt(Math.round(n)) + " SAR";
+function fmtCurrency(n: number): string {
+  return fmt(Math.round(n)) + " ꜁";
 }
 
 function fmtPct(n: number, decimals = 1): string {
@@ -234,7 +234,7 @@ export default function Calculator() {
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " SAR",
+      display: fmt(aov) + " ꜁",
       color: "#a855f7",
       colorRgb: "168,85,247",
     },
@@ -346,13 +346,13 @@ export default function Calculator() {
                     <div>
                       <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
                       <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
-                        {fmtSAR(aov)}
+                        {fmtCurrency(aov)}
                       </div>
                     </div>
                     <div>
                       <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
                       <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
-                        {fmtSAR(r.baseRevenue)}
+                        {fmtCurrency(r.baseRevenue)}
                       </div>
                     </div>
                   </div>
@@ -410,7 +410,7 @@ export default function Calculator() {
                       <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                         <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                          {fmtSAR(r.effectiveAov)}
+                          {fmtCurrency(r.effectiveAov)}
                         </span>
                         <span
                           style={{
@@ -423,14 +423,14 @@ export default function Calculator() {
                             padding: "2px 7px",
                           }}
                         >
-                          +{fmtSAR(r.aovIncrease)}
+                          +{fmtCurrency(r.aovIncrease)}
                         </span>
                       </div>
                     </div>
                     <div>
                       <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
                       <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                        {fmtSAR(r.newRevenue)}
+                        {fmtCurrency(r.newRevenue)}
                       </div>
                     </div>
                   </div>
@@ -517,7 +517,7 @@ export default function Calculator() {
                         lineHeight: 1.1,
                       }}
                     >
-                      +{fmtSAR(r.addRevenue)}
+                      +{fmtCurrency(r.addRevenue)}
                     </div>
                     <div
                       style={{
@@ -595,7 +595,7 @@ export default function Calculator() {
                         lineHeight: 1.1,
                       }}
                     >
-                      +{fmtSAR(r.aovIncrease)}
+                      +{fmtCurrency(r.aovIncrease)}
                     </div>
                     <div
                       style={{

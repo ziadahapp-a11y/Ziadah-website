@@ -107,7 +107,7 @@ export default function HomeCalculator() {
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " SAR",
+      display: fmt(aov) + " ꜁",
       color: "#a855f7",
       colorRgb: "168,85,247",
     },
@@ -138,7 +138,7 @@ export default function HomeCalculator() {
                 <div className="hc-result-label">الإيراد الإضافي الشهري</div>
                 <div className="hc-result-amount">
                   {fmt(Math.round(addRevenue))}
-                  <span className="hc-result-currency"> SAR</span>
+                  <span className="hc-result-currency"> ꜁</span>
                 </div>
                 <div className="hc-result-note">بناءً على 20% قبول توصيات Cross-sell / Upsell ورفع AOV بـ30%</div>
                 <div className="hc-result-ctas">
