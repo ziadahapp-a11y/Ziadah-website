@@ -344,7 +344,7 @@ export default function Landing() {
         <div className="wrap">
           <div className="tc" style={{ marginBottom: 56 }}>
             <SecTag>كيف تعمل؟</SecTag>
-            <h2 className="st rv d1">
+            <h2 className="st rv d1 text-[48px]">
               ما تحتاج تسوي شي..
               <br />
               فعّل فقط والذكاء الاصطناعي يتولى الباقي
