@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import TeamSection from "../components/TeamSection";
 import SEO from "../components/SEO";
 import { OrganizationSchema, FAQSchema } from "../components/JsonLd";
+import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
 import AddonsWidget from "../components/widgets/AddonsWidget";
@@ -322,6 +323,7 @@ export default function Landing() {
         {/* HERO */}
         <section className="hero">
           <div className="hero-glow" />
+          <FloatingUseCaseCards />
           <div className="hero-in">
             <div className="hbadge">
               <span className="hbadge-pill">AI مفعّل</span>

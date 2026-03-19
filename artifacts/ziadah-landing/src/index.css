@@ -63,6 +63,12 @@ h2.st{font-size:clamp(34px,4.5vw,58px);font-weight:600;letter-spacing:-1.5px;lin
 .nb-fill{background:#fff;border:none;color:#000;}
 .nb-fill:hover{background:#e5e5e5;transform:translateY(-1px);}
 
+/* ── FLOATING USE-CASE CARDS ── */
+.floating-cards-layer{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.floating-card{position:absolute;opacity:.35;animation:float-drift var(--dur,7s) ease-in-out infinite alternate;will-change:transform;}
+.floating-card-widget{transform:scale(.55);transform-origin:top center;width:300px;filter:blur(0.4px) saturate(.7);transition:none;}
+@keyframes float-drift{from{transform:translateY(0px) rotate(var(--r,0deg))}to{transform:translateY(-20px) rotate(calc(var(--r,0deg) + 3deg))}}
+
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:130px;padding-bottom:80px;position:relative;z-index:2;padding-left:5%;padding-right:5%;overflow:hidden;}
 .hero-glow{position:absolute;width:1100px;height:800px;background:radial-gradient(ellipse,rgba(124,58,237,.24) 0%,rgba(124,58,237,.07) 42%,transparent 68%);top:50%;left:50%;transform:translate(-50%,-56%);pointer-events:none;animation:hpulse 5s ease-in-out infinite alternate;}
@@ -378,6 +384,10 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .uc-reports-inner{grid-template-columns:1fr!important;}
   section{padding:56px 4%;}
   body{padding-bottom:72px;}
+
+  /* FLOATING CARDS */
+  .floating-card--hide-mobile{display:none;}
+  .floating-card-widget{transform:scale(.4);width:260px;}
 
   /* HERO */
   h1.ht{font-size:clamp(32px,9vw,48px);letter-spacing:-2px;}
