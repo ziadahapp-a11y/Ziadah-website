@@ -160,8 +160,8 @@ export default function Calculator() {
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
-  const [aovUplift, setAovUplift] = useState(30);
-  const [acceptRate, setAcceptRate] = useState(20);
+  const aovUplift = 30;
+  const acceptRate = 20;
 
   const calc = useCallback(() => {
     const orders = visitors * (convRate / 100);
@@ -187,7 +187,7 @@ export default function Calculator() {
       revGrowth,
       aovIncrease,
     };
-  }, [visitors, convRate, aov, aovUplift, acceptRate]);
+  }, [visitors, convRate, aov]);
 
   const r = calc();
 
@@ -237,28 +237,6 @@ export default function Calculator() {
       display: fmt(aov) + " SAR",
       color: "#a855f7",
       colorRgb: "168,85,247",
-    },
-    {
-      label: "نسبة زيادة قيمة الطلب عبر Upsell/Cross-sell",
-      value: aovUplift,
-      min: 10,
-      max: 60,
-      step: 1,
-      onChange: setAovUplift,
-      display: fmt(aovUplift) + "%",
-      color: "#f97316",
-      colorRgb: "249,115,22",
-    },
-    {
-      label: "معدل قبول التوصية",
-      value: acceptRate,
-      min: 5,
-      max: 50,
-      step: 1,
-      onChange: setAcceptRate,
-      display: fmt(acceptRate) + "%",
-      color: "#14b8a6",
-      colorRgb: "20,184,166",
     },
   ];
 
