@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import { useScrollToSection } from "../hooks/useScrollToSection";
+import PlatformPickerButton from "./PlatformPickerButton";
 
 const Logo = () => (
   <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
@@ -742,13 +743,17 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         }}>
           احجز اجتماع
         </a>
-        <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
-          flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-          background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
-          textDecoration: "none", fontFamily: "var(--font)", border: "none",
-        }}>
-          ابدأ الآن
-        </a>
+        <PlatformPickerButton
+          mode="dropdown"
+          label="ابدأ الآن"
+          wrapperStyle={{ flex: 1 }}
+          style={{
+            width: "100%", display: "flex", justifyContent: "center", textAlign: "center",
+            padding: "12px 16px", borderRadius: 12,
+            background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
+            fontFamily: "var(--font)", border: "none",
+          }}
+        />
       </div>
     </div>
   );
@@ -913,7 +918,11 @@ export default function Nav() {
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10 }}>
             <a href="#" className="nb nav-cta-outline">احجز اجتماع</a>
-            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="nb nav-cta-fill">ابدأ الآن</a>
+            <PlatformPickerButton
+              mode="dropdown"
+              label="ابدأ الآن"
+              className="nb nav-cta-fill"
+            />
           </div>
         </div>
 

@@ -358,7 +358,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .nav-top-row{height:52px!important;}
   .nav-links-inline{display:none!important;}
   .nav-links-row2{display:block!important;}
-  .nav-ctas a{font-size:12px!important;padding:7px 14px!important;}
+  .nav-ctas a,.nav-ctas button{font-size:12px!important;padding:7px 14px!important;}
 }
 
 @media(max-width:768px){

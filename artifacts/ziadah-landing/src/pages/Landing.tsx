@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
 import HomeCalculator from "../components/HomeCalculator";
+import PlatformPickerButton from "../components/PlatformPickerButton";
 import TeamSection from "../components/TeamSection";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
@@ -368,14 +369,12 @@ export default function Landing() {
             جهازه، مشترياته السابقة، و....
           </p>
           <div className="hero-ctas">
-            <a
-              href="https://apps.zid.sa/application/1826"
-              target="_blank"
-              rel="noreferrer"
+            <PlatformPickerButton
+              mode="split"
               className="btn-p"
-            >
-              فعّل الذكاء الاصطناعي الآن
-            </a>
+              style={{ padding: "15px 36px", fontSize: 16, fontWeight: 800 }}
+              splitStyle={{ gap: 12 }}
+            />
             <a href="#hiw" className="btn-g">
               شوف كيف يعمل
             </a>
@@ -1870,18 +1869,21 @@ export default function Landing() {
                     <li key={l}>{l}</li>
                   ))}
                 </ul>
-                <a
-                  href={
-                    p.cta === "تواصل معنا"
-                      ? "#"
-                      : "https://apps.zid.sa/application/1826"
-                  }
-                  target={p.cta === "تواصل معنا" ? undefined : "_blank"}
-                  rel="noreferrer"
-                  className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                >
-                  {p.cta}
-                </a>
+                {p.cta === "تواصل معنا" ? (
+                  <a
+                    href="#"
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                  >
+                    {p.cta}
+                  </a>
+                ) : (
+                  <PlatformPickerButton
+                    mode="dropdown"
+                    label={p.cta}
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                    wrapperStyle={{ display: "block", width: "100%" }}
+                  />
+                )}
               </GlassCard>
             ))}
           </div>
