@@ -10,12 +10,22 @@ interface Particle {
   pulseSpeed: number;
 }
 
+interface Ripple {
+  x: number;
+  y: number;
+  radius: number;
+  maxRadius: number;
+  alpha: number;
+  born: number;
+}
+
 const COLORS = [
   "168,85,247",   // purple
   "6,182,212",    // cyan
   "236,72,153",   // pink
   "124,58,237",   // deep purple
   "99,102,241",   // indigo
+  "32,201,151",   // teal/turquoise
 ];
 
 export default function ParticleBackground() {
@@ -23,6 +33,7 @@ export default function ParticleBackground() {
   const mouse = useRef({ x: -9999, y: -9999 });
   const frameRef = useRef(0);
   const particles = useRef<Particle[]>([]);
+  const ripples = useRef<Ripple[]>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -52,7 +63,7 @@ export default function ParticleBackground() {
         });
       }
     }
-    spawn(130);
+    spawn(260);
 
     function draw() {
       const W = canvas!.width;
@@ -61,16 +72,40 @@ export default function ParticleBackground() {
 
       const mx = mouse.current.x;
       const my = mouse.current.y;
+      const now = performance.now();
+
+      // Draw ripples
+      ripples.current = ripples.current.filter((r) => r.alpha > 0.01);
+      ripples.current.forEach((r) => {
+        const age = (now - r.born) / 800;
+        r.radius = r.maxRadius * Math.min(age, 1);
+        r.alpha = Math.max(0, 0.55 * (1 - age));
+
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(168,85,247,${r.alpha})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        const inner = ctx.createRadialGradient(r.x, r.y, Math.max(0, r.radius - 20), r.x, r.y, r.radius + 20);
+        inner.addColorStop(0, `rgba(124,58,237,0)`);
+        inner.addColorStop(0.5, `rgba(168,85,247,${r.alpha * 0.18})`);
+        inner.addColorStop(1, `rgba(0,0,0,0)`);
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.radius + 20, 0, Math.PI * 2);
+        ctx.fillStyle = inner;
+        ctx.fill();
+      });
 
       particles.current.forEach((p, i) => {
         // Mouse repulsion / attraction
         const dx = mx - p.x;
         const dy = my - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 160 && dist > 0) {
-          const force = (160 - dist) / 160;
-          p.vx -= (dx / dist) * force * 0.022;
-          p.vy -= (dy / dist) * force * 0.022;
+        if (dist < 220 && dist > 0) {
+          const force = (220 - dist) / 220;
+          p.vx -= (dx / dist) * force * 0.032;
+          p.vy -= (dy / dist) * force * 0.032;
         }
 
         // Velocity cap + damping
@@ -116,13 +151,13 @@ export default function ParticleBackground() {
           const ddx = p.x - q.x;
           const ddy = p.y - q.y;
           const d = Math.sqrt(ddx * ddx + ddy * ddy);
-          if (d < 115) {
-            const lineAlpha = (1 - d / 115) * 0.14;
+          if (d < 160) {
+            const lineAlpha = (1 - d / 160) * 0.22;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = `rgba(${p.color},${lineAlpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
@@ -130,12 +165,13 @@ export default function ParticleBackground() {
 
       // Mouse aura
       if (mx > 0 && mx < W && my > 0 && my < H) {
-        const aura = ctx.createRadialGradient(mx, my, 0, mx, my, 200);
-        aura.addColorStop(0, "rgba(124,58,237,0.06)");
-        aura.addColorStop(0.5, "rgba(6,182,212,0.03)");
+        const aura = ctx.createRadialGradient(mx, my, 0, mx, my, 280);
+        aura.addColorStop(0, "rgba(124,58,237,0.09)");
+        aura.addColorStop(0.4, "rgba(6,182,212,0.05)");
+        aura.addColorStop(0.7, "rgba(32,201,151,0.03)");
         aura.addColorStop(1, "rgba(0,0,0,0)");
         ctx.beginPath();
-        ctx.arc(mx, my, 200, 0, Math.PI * 2);
+        ctx.arc(mx, my, 280, 0, Math.PI * 2);
         ctx.fillStyle = aura;
         ctx.fill();
       }
@@ -149,14 +185,43 @@ export default function ParticleBackground() {
       mouse.current.y = e.clientY;
     };
     const onLeave = () => { mouse.current.x = -9999; mouse.current.y = -9999; };
+
+    const onClick = (e: MouseEvent) => {
+      const cx = e.clientX;
+      const cy = e.clientY;
+      const maxR = 180;
+
+      ripples.current.push({
+        x: cx, y: cy,
+        radius: 0,
+        maxRadius: maxR,
+        alpha: 0.55,
+        born: performance.now(),
+      });
+
+      // Push nearby particles outward
+      particles.current.forEach((p) => {
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxR && dist > 0) {
+          const force = ((maxR - dist) / maxR) * 2.8;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+      });
+    };
+
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("click", onClick);
 
     return () => {
       cancelAnimationFrame(frameRef.current);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("click", onClick);
     };
   }, []);
 
