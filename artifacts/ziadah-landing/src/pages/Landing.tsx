@@ -398,7 +398,7 @@ export default function Landing() {
               <SecTag>كيف تعمل؟</SecTag>
               <h2 className="st rv d1 text-[48px] font-semibold">
                 ما تحتاج تسوي شي..
-                <br />
+                <span aria-hidden="true" style={{ display: "block", height: "15px" }} />
                 فعّل وزيادة يتولى الباقي
               </h2>
               <p className="ssub rv d2">
