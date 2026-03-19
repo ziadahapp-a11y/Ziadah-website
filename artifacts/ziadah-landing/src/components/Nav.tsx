@@ -70,6 +70,49 @@ const platformItems = [
   { label: "شوبيفاي", href: "#", enabled: false, badge: "قريباً" },
 ];
 
+const helpItemsData = [
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
+    ),
+    label: "الأسئلة الشائعة",
+    subtitle: "إجابات لأكثر الأسئلة تكراراً",
+    href: "/#faq",
+    isModal: false,
+    isSection: true,
+    sectionId: "faq",
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
+    ),
+    label: "تواصل معنا",
+    subtitle: "فريق الدعم جاهز لمساعدتك",
+    href: "/support",
+    isModal: false,
+    isSection: false,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
+    ),
+    label: "البريد الإلكتروني",
+    subtitle: "راسلنا وسنرد خلال 24 ساعة",
+    href: "mailto:support@ziadah.app",
+    isModal: false,
+    isSection: false,
+  },
+  {
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
+    ),
+    label: "طلب ميزة جديدة",
+    subtitle: "شاركنا أفكارك لتطوير المنصة",
+    href: "#",
+    isModal: true,
+  },
+];
+
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
   return (
     <div
@@ -368,51 +411,8 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-const helpItems = [
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
-    ),
-    label: "الأسئلة الشائعة",
-    subtitle: "إجابات لأكثر الأسئلة تكراراً",
-    href: "/#faq",
-    isModal: false,
-    isSection: true,
-    sectionId: "faq",
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
-    ),
-    label: "تواصل معنا",
-    subtitle: "فريق الدعم جاهز لمساعدتك",
-    href: "/support",
-    isModal: false,
-    isSection: false,
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
-    ),
-    label: "البريد الإلكتروني",
-    subtitle: "راسلنا وسنرد خلال 24 ساعة",
-    href: "mailto:support@ziadah.app",
-    isModal: false,
-    isSection: false,
-  },
-  {
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
-    ),
-    label: "طلب ميزة جديدة",
-    subtitle: "شاركنا أفكارك لتطوير المنصة",
-    href: "#",
-    isModal: true,
-    isSection: false,
-  },
-];
-
 function HelpDropdown({ onFeatureRequest }: { onFeatureRequest?: () => void }) {
+  const helpItems = helpItemsData;
   const scrollToSection = useScrollToSection();
 
   return (
@@ -500,9 +500,10 @@ const mobileNavItems = [
   { label: "حاسبة الأثر", href: "/calculator", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg> },
 ];
 
-function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
+function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void; onFeatureRequest: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const scrollToSection = useScrollToSection();
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -513,6 +514,45 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
+
+  const toggleSection = (section: string) => {
+    setOpenSection(prev => prev === section ? null : section);
+  };
+
+  const chevronIcon = (isOpen: boolean) => (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 12 12"
+      fill="none"
+      style={{ transform: isOpen ? "rotate(180deg)" : "none", transition: "transform .3s cubic-bezier(.23,1,.32,1)", flexShrink: 0 }}
+    >
+      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+
+  const accordionHeaderStyle: React.CSSProperties = {
+    display: "flex", alignItems: "center", justifyContent: "space-between",
+    padding: "12px 14px", borderRadius: 12, background: "transparent",
+    border: "none", color: "#fff", fontSize: 15, fontWeight: 600,
+    fontFamily: "var(--font)", cursor: "pointer", width: "100%",
+    textAlign: "right", transition: "background .2s",
+  };
+
+  const AccordionBody = ({ isOpen, children }: { isOpen: boolean; children: React.ReactNode }) => (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateRows: isOpen ? "1fr" : "0fr",
+        transition: "grid-template-rows .3s cubic-bezier(.23,1,.32,1)",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ minHeight: 0, opacity: isOpen ? 1 : 0, transition: "opacity .25s" }}>
+        {children}
+      </div>
+    </div>
+  );
 
   return (
     <div
@@ -527,7 +567,7 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         border: "1px solid rgba(255,255,255,.1)",
         borderBottom: "none",
         borderRadius: "20px 20px 0 0",
-        padding: "16px 16px 8px",
+        padding: "16px 12px 8px",
         backdropFilter: "blur(32px)",
         boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
         maxHeight: "70vh",
@@ -535,7 +575,7 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, padding: "0 2px" }}>
         <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
         <button
           onClick={onClose}
@@ -549,193 +589,223 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         </button>
       </div>
 
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الصفحات</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
-        {useCasesDropdown.sections[0].items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onClose}
-            style={{
-              display: "block", padding: "10px 12px", borderRadius: 12,
-              background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-            }}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
 
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأنشطة</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
-        {useCasesDropdown.sections[1].items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onClose}
-            style={{
-              display: "block", padding: "10px 12px", borderRadius: 12,
-              background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-            }}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
+        <Link href="/" onClick={onClose} style={{
+          display: "block", padding: "12px 14px", borderRadius: 12,
+          color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
+          fontFamily: "var(--font)",
+        }}>
+          الرئيسة
+        </Link>
 
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب طريقة العرض</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
-        {useCasesDropdown.sections[2].items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onClose}
-            style={{
-              display: "block", padding: "10px 12px", borderRadius: 12,
-              background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-            }}
+        <div>
+          <button
+            style={{ ...accordionHeaderStyle, background: openSection === "usecases" ? "rgba(124,58,237,.08)" : "transparent" }}
+            onClick={() => toggleSection("usecases")}
           >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأهداف</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
-        {useCasesDropdown.sections[3].items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onClose}
-            style={{
-              display: "block", padding: "10px 12px", borderRadius: 12,
-              background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-            }}
-          >
-            {item.label}
-          </Link>
-        ))}
-      </div>
-
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المنصات</div>
-      <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
-        {platformItems.map((item) => (
-          item.enabled ? (
-            <a
-              key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                flex: 1, display: "block", padding: "10px 12px", borderRadius: 12, textAlign: "center",
-                background: "rgba(255,255,255,.04)", textDecoration: "none",
-                color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-              }}
-            >
-              {item.label}
-            </a>
-          ) : (
-            <div
-              key={item.label}
-              style={{
-                flex: 1, padding: "10px 12px", borderRadius: 12, textAlign: "center",
-                background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
-                fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-              }}
-            >
-              {item.label}
-              <span style={{ display: "block", fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
+            <span>حالات الاستخدام</span>
+            {chevronIcon(openSection === "usecases")}
+          </button>
+          <AccordionBody isOpen={openSection === "usecases"}>
+            <div style={{ paddingRight: 8, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 12 }}>
+              {useCasesDropdown.sections.map((section) => (
+                <div key={section.title}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 6 }}>
+                    {section.title}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    {section.items.map((item) => (
+                      <Link
+                        key={item.href + item.label}
+                        href={item.href}
+                        onClick={onClose}
+                        style={{
+                          display: "block", padding: "9px 12px", borderRadius: 10,
+                          background: "rgba(255,255,255,.04)", textDecoration: "none",
+                          color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                        }}
+                      >
+                        {item.label}
+                        {item.subtitle && (
+                          <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.4)", marginTop: 2 }}>
+                            {item.subtitle}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          )
-        ))}
-      </div>
+          </AccordionBody>
+        </div>
 
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>روابط سريعة</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
+        <Link href="/success-stories" onClick={onClose} style={{
+          display: "block", padding: "12px 14px", borderRadius: 12,
+          color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
+          fontFamily: "var(--font)",
+        }}>
+          قصص النجاح
+        </Link>
+
+        <div>
+          <button
+            style={{ ...accordionHeaderStyle, background: openSection === "platforms" ? "rgba(124,58,237,.08)" : "transparent" }}
+            onClick={() => toggleSection("platforms")}
+          >
+            <span>المنصات</span>
+            {chevronIcon(openSection === "platforms")}
+          </button>
+          <AccordionBody isOpen={openSection === "platforms"}>
+            <div style={{ paddingRight: 8, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 4 }}>
+              {platformItems.map((item) => (
+                item.enabled ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      display: "block", padding: "9px 12px", borderRadius: 10,
+                      background: "rgba(255,255,255,.04)", textDecoration: "none",
+                      color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "9px 12px", borderRadius: 10,
+                      background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
+                      fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    <span style={{ fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
+                  </div>
+                )
+              ))}
+            </div>
+          </AccordionBody>
+        </div>
+
         <button
           onClick={() => { scrollToSection("pricing"); onClose(); }}
           style={{
-            display: "block", padding: "10px 12px", borderRadius: 12,
-            background: "rgba(255,255,255,.04)", border: "none",
-            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
-            cursor: "pointer",
+            display: "block", padding: "12px 14px", borderRadius: 12,
+            color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
+            fontFamily: "var(--font)", background: "transparent", border: "none",
+            cursor: "pointer", width: "100%", textAlign: "right",
           }}
         >
           الأسعار
         </button>
-        <Link
-          href="/calculator"
-          onClick={onClose}
-          style={{
-            display: "block", padding: "10px 12px", borderRadius: 12,
-            background: "rgba(255,255,255,.04)", textDecoration: "none",
-            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
-          }}
-        >
+
+        <Link href="/calculator" onClick={onClose} style={{
+          display: "block", padding: "12px 14px", borderRadius: 12,
+          color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
+          fontFamily: "var(--font)",
+        }}>
           حاسبة الأثر
         </Link>
+
+        <Link href="/blog" onClick={onClose} style={{
+          display: "block", padding: "12px 14px", borderRadius: 12,
+          color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
+          fontFamily: "var(--font)",
+        }}>
+          المدونة
+        </Link>
+
+        <div>
+          <button
+            style={{ ...accordionHeaderStyle, background: openSection === "help" ? "rgba(124,58,237,.08)" : "transparent" }}
+            onClick={() => toggleSection("help")}
+          >
+            <span>المساعدة</span>
+            {chevronIcon(openSection === "help")}
+          </button>
+          <AccordionBody isOpen={openSection === "help"}>
+            <div style={{ paddingRight: 8, paddingBottom: 8, display: "flex", flexDirection: "column", gap: 4 }}>
+              {helpItemsData.map((item) => {
+                if (item.isModal) {
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => { onClose(); onFeatureRequest(); }}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                        borderRadius: 10, background: "rgba(255,255,255,.04)",
+                        border: "none", cursor: "pointer", width: "100%", textAlign: "right",
+                        fontFamily: "var(--font)",
+                      }}
+                    >
+                      <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+                    </button>
+                  );
+                }
+                if (item.isSection && item.sectionId) {
+                  return (
+                    <button
+                      key={item.label}
+                      onClick={() => { scrollToSection(item.sectionId!); onClose(); }}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                        borderRadius: 10, background: "rgba(255,255,255,.04)",
+                        border: "none", cursor: "pointer", width: "100%", textAlign: "right",
+                        fontFamily: "var(--font)",
+                      }}
+                    >
+                      <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+                    </button>
+                  );
+                }
+                if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={onClose}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                        borderRadius: 10, background: "rgba(255,255,255,.04)",
+                        textDecoration: "none",
+                      }}
+                    >
+                      <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                      <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+                    </a>
+                  );
+                }
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={onClose}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                      borderRadius: 10, background: "rgba(255,255,255,.04)",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+                    <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+                  </Link>
+                );
+              })}
+            </div>
+          </AccordionBody>
+        </div>
+
       </div>
 
-      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المساعدة</div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
-        {helpItems.filter(item => !item.isModal).map((item) => {
-          if (item.isSection && item.sectionId) {
-            return (
-              <button
-                key={item.label}
-                onClick={() => { scrollToSection(item.sectionId!); onClose(); }}
-                style={{
-                  display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                  borderRadius: 12, background: "rgba(255,255,255,.04)",
-                  border: "none", cursor: "pointer", width: "100%", textAlign: "right",
-                  fontFamily: "var(--font)",
-                }}
-              >
-                <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
-                <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
-              </button>
-            );
-          }
-          if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={onClose}
-                style={{
-                  display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                  borderRadius: 12, background: "rgba(255,255,255,.04)",
-                  textDecoration: "none",
-                }}
-              >
-                <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
-                <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
-              </a>
-            );
-          }
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={onClose}
-              style={{
-                display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                borderRadius: 12, background: "rgba(255,255,255,.04)",
-                textDecoration: "none",
-              }}
-            >
-              <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
-            </Link>
-          );
-        })}
-      </div>
-
-      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+      <div style={{ display: "flex", gap: 8, marginTop: 12, marginBottom: 8 }}>
         <a href="#" onClick={onClose} style={{
           flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
           border: "1px solid rgba(255,255,255,.2)", background: "transparent",
@@ -1005,7 +1075,7 @@ export default function Nav() {
                 <button style={navBtnStyle(openDrop === "help2")}>
                   المساعدة {chevron(openDrop === "help2")}
                 </button>
-                {openDrop === "help2" && <HelpDropdown />}
+                {openDrop === "help2" && <HelpDropdown onFeatureRequest={() => { setOpenDrop(null); setFeatureModalOpen(true); }} />}
               </DropdownWrapper>
             </li>
           </ul>
@@ -1051,7 +1121,7 @@ export default function Nav() {
       </nav>
 
       {/* MOBILE MORE DROPDOWN */}
-      {moreOpen && <MobileMoreDropdown onClose={() => setMoreOpen(false)} />}
+      {moreOpen && <MobileMoreDropdown onClose={() => setMoreOpen(false)} onFeatureRequest={() => { setMoreOpen(false); setFeatureModalOpen(true); }} />}
     </>
   );
 }
