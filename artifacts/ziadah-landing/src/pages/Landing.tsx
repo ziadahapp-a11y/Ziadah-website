@@ -1618,7 +1618,7 @@ export default function Landing() {
                   "المنتجات الرهيبة ما تتحرك بسرعة",
                   "تكلفة تسويق عالية لكل بيع إضافي",
                 ].map((t) => (
-                  <div key={t} className="ba-row ba-row-b">
+                  <div key={t} className="ba-row ba-row-b text-[18px]">
                     {t}
                   </div>
                 ))}
