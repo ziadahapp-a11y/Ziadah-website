@@ -1544,10 +1544,7 @@ export default function Landing() {
               <br />
               الأنسب لكل عميل تلقائياً
             </h2>
-            <p className="ssub rv d2">
-              لا تعبئة يدوية، لا حملات تحتاجها. زيادة يختار من هذه القائمة
-              الكاملة حسب كل عميل لوحده
-            </p>
+            <p className="ssub rv d2">يحدد الأهداف وطرق العرض المناسبة ويعرضها للعميل مباشرة</p>
           </div>
           <div className="gp-grid">
             <GlassCard className="rv d1">
