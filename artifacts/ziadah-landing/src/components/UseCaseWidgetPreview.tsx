@@ -37,15 +37,17 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         </div>
         <div style={{ width: 30 }} />
       </div>
-      <div style={{
-        padding: "16px",
-        fontFamily: "var(--font, 'Tajawal', sans-serif)",
-        direction: "rtl",
-        background: "rgba(255,255,255,0.15)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderTop: "1px solid rgba(255,255,255,0.2)",
-      }}>
+      <div
+        style={{
+          padding: "16px",
+          fontFamily: "var(--font, 'Tajawal', sans-serif)",
+          direction: "rtl",
+          background: "rgba(255,255,255,0.15)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          borderTop: "1px solid rgba(255,255,255,0.2)",
+        }}
+        className="bg-[#00000000] ml-[10px] mr-[10px]">
         {children}
       </div>
     </div>
