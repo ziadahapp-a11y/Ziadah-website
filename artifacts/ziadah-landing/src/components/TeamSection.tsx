@@ -30,9 +30,7 @@ export default function TeamSection() {
             فريقنا
           </div>
           <h2 className="st rv d1" style={{ fontSize: 48 }}>
-            فريق
-            <br />
-            <span className="grad">زيادة</span>
+            فريق <span className="grad">زيادة</span>
           </h2>
           <p className="ssub rv d2">خبرة تتجاوز ال10 سنوات في التجارة الإلكترونية والتسويق الرقمي.</p>
         </div>
