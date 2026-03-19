@@ -72,8 +72,8 @@ h2.st{font-size:clamp(34px,4.5vw,58px);font-weight:900;letter-spacing:-1.5px;lin
 .hbadge-pill{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:50px;letter-spacing:.5px;}
 .hbadge-txt{font-size:13px;color:var(--tm);}
 @keyframes fup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-spacing:-3px;margin-bottom:28px;animation:fup .9s ease .15s both;overflow-wrap:break-word;word-wrap:break-word;}
-.ht em{font-style:normal;display:block;font-size:.68em;font-weight:700;color:var(--tm);letter-spacing:-1.5px;margin:10px 0 6px;}
+h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-bottom:28px;animation:fup .9s ease .15s both;overflow-wrap:break-word;word-wrap:break-word;}
+.ht em{font-style:normal;display:block;font-size:.68em;font-weight:600;color:var(--tm);letter-spacing:-1.5px;margin:10px 0 6px;}
 .ht .grad{background:linear-gradient(135deg,var(--p4) 0%,var(--c) 50%,var(--pk) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200%;animation:hgrad 4s ease infinite alternate;display:block;}
 @keyframes hgrad{from{background-position:0%}to{background-position:100%}}
 .hero-sub{font-size:17px;color:var(--tm);max-width:620px;margin:0 auto 40px;line-height:1.88;animation:fup .9s ease .3s both;}
