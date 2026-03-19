@@ -1654,7 +1654,7 @@ export default function Landing() {
                   "حركة المخزون تتسارع بدون جهد",
                   "تكلفة تسويق صفر ⃁ على البيع الإضافي",
                 ].map((t) => (
-                  <div key={t} className="ba-row ba-row-a">
+                  <div key={t} className="ba-row ba-row-a text-[18px]">
                     {t}
                   </div>
                 ))}
