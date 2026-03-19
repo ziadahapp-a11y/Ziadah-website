@@ -120,6 +120,18 @@ export default function Landing() {
     return () => document.removeEventListener("mousemove", onMove);
   }, []);
 
+  useEffect(() => {
+    const handleVisibility = () => {
+      document.body.classList.toggle("page-hidden", document.hidden);
+    };
+    handleVisibility();
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      document.body.classList.remove("page-hidden");
+    };
+  }, []);
+
   const prices = {
     m: { s: 29, g: 290, p: 790 },
     y: { s: 290, g: 2990, p: 7990 },

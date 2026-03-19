@@ -190,10 +190,10 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 @keyframes marquee-rtl{0%{transform:translateX(0)}100%{transform:translateX(-33.333%)}}
 @keyframes marquee-ltr{0%{transform:translateX(-33.333%)}100%{transform:translateX(0)}}
 .marquee-row{overflow:hidden;width:100%;mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);}
-.marquee-track{display:flex;width:max-content;will-change:transform;direction:ltr;}
-.marquee-row:hover .marquee-track{animation-play-state:paused;}
-.marquee-rtl{animation:marquee-rtl linear infinite;}
-.marquee-ltr{animation:marquee-ltr linear infinite;}
+.marquee-track{display:flex;width:max-content;backface-visibility:hidden;transform:translateZ(0);direction:ltr;}
+.marquee-row:hover .marquee-track,.page-hidden .marquee-track{animation-play-state:paused;}
+.marquee-rtl{animation:marquee-rtl linear infinite;animation-fill-mode:forwards;}
+.marquee-ltr{animation:marquee-ltr linear infinite;animation-fill-mode:forwards;}
 .tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-right:16px;direction:rtl;}
 
 /* ── PRICING ── */
