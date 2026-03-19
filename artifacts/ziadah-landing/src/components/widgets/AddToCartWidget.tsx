@@ -34,7 +34,6 @@ export default function AddToCartWidget() {
             <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 16 }}>
               Qty: 1 × 89 SAR
             </div>
-            </div>
             <div style={{
               display: "inline-flex",
               alignItems: "center",
@@ -66,7 +65,6 @@ export default function AddToCartWidget() {
             </div>
             <div style={{ fontSize: 11, color: "var(--td)" }}>
               SPF 50 Moisturizing Cream
-            </div>
             </div>
           </div>
         )}
