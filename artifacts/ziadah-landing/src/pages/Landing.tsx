@@ -600,7 +600,7 @@ export default function Landing() {
                 <span className="stag-dot" />
                 أمثلة حية
               </div>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 شاهد كيف يعمل زيادة
                 <br />
                 في متجرك
@@ -697,7 +697,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>التخصيص الذكي</SecTag>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 كل عميل يحصل على
                 <br />
                 تجربة مصممة له
@@ -1314,7 +1314,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>الأهداف وطرق العرض</SecTag>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 زيادة يختار
                 <br />
                 الأنسب لكل عميل تلقائياً
@@ -1599,7 +1599,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>ليش زيادة؟</SecTag>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 الفرق يظهر
                 <br />
                 من أول طلب
@@ -1670,7 +1670,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>التقارير المفصلة</SecTag>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 كل قرار مبني على
                 <br />
                 بيانات دقيقة ومفصّلة
@@ -1823,7 +1823,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>آراء تجارنا</SecTag>
-              <h2 className="st rv d1">
+              <h2 className="st rv d1 font-semibold">
                 آراء حقيقية
                 <br />
                 من تجار حقيقيين
@@ -1875,7 +1875,7 @@ export default function Landing() {
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 24 }}>
               <SecTag>الأسعار</SecTag>
-              <h2 className="st rv d1">استثمار مسترد</h2>
+              <h2 className="st rv d1 font-semibold">استثمار مسترد</h2>
               <p className="ssub rv d2">
                 باقات مصممة حسب حجم متجرك - شاملة الضريبة
               </p>
@@ -2015,7 +2015,7 @@ export default function Landing() {
         <section id="faq">
           <div className="wrap">
             <SecTag>مركز المساعدة</SecTag>
-            <h2 className="st rv d1" style={{ marginBottom: 48 }}>
+            <h2 className="st rv d1 font-semibold" style={{ marginBottom: 48 }}>
               كيف نقدر نساعدك؟
             </h2>
             <div className="hc-wrap">

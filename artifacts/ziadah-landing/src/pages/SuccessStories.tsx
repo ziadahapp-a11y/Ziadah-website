@@ -1340,7 +1340,7 @@ export default function SuccessStories() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>حسب القطاع</div>
-            <h2 className="st rv d1" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
+            <h2 className="st rv d1 font-semibold" style={{ marginBottom: 12 }}>نجاح في كل قطاع</h2>
             <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك</p>
           </div>
           <div className="sectors-grid-v2 rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>

@@ -234,7 +234,7 @@ export default function Support() {
           <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
             <div>
               <div className="stag" style={{ display: "inline-flex", marginBottom: 12 }}><span className="stag-dot"/>مكتبة الفيديو</div>
-              <h2 className="st" style={{ marginBottom: 6 }}>تعلّم بالفيديو</h2>
+              <h2 className="st font-semibold" style={{ marginBottom: 6 }}>تعلّم بالفيديو</h2>
               <p style={{ fontSize: 15, color: "var(--tm)", maxWidth: 420, lineHeight: 1.7 }}>
                 شروحات مرئية خطوة بخطوة لكل ميزة في زيادة
               </p>
