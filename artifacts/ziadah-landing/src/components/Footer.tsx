@@ -1,9 +1,11 @@
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
+import { useTheme } from "@/ThemeContext";
 
 export default function Footer() {
   const { lang } = useLanguage();
+  const { theme } = useTheme();
   const tr = t[lang];
   return (
     <footer>
@@ -11,12 +13,7 @@ export default function Footer() {
         <div className="ft-top">
           <div className="ft-brand">
             <div className="ft-logo">
-              <div className="ft-lm">
-                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                  <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
-                </svg>
-              </div>
-              <span className="ft-lt">Ziadah</span>
+              <img src={theme === "light" ? "/logo-light.png" : "/logo.png"} alt="Ziadah" style={{ height: 40, width: "auto" }} />
             </div>
             <p className="ft-desc">
               {tr.footer.tagline}

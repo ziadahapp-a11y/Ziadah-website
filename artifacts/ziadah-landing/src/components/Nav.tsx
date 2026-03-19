@@ -44,11 +44,15 @@ function ThemeToggle() {
   );
 }
 
-export const Logo = () => (
-  <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-    <img src="/logo.png" alt="Ziadah" style={{ height: 40, width: "auto" }} />
-  </span>
-);
+export const Logo = () => {
+  const { theme } = useTheme();
+  const logoSrc = theme === "light" ? "/logo-light.png" : "/logo.png";
+  return (
+    <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
+      <img src={logoSrc} alt="Ziadah" style={{ height: 40, width: "auto" }} />
+    </span>
+  );
+};
 
 function LanguageSwitcher() {
   const { lang, setLang } = useLanguage();
