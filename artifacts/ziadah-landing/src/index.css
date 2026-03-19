@@ -191,9 +191,10 @@ h1.ht{font-size:clamp(50px,7.5vw,100px);font-weight:900;line-height:.97;letter-s
 @keyframes marquee-ltr{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
 .marquee-row{overflow:hidden;width:100%;mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);-webkit-mask-image:linear-gradient(to left,transparent 0%,#000 6%,#000 94%,transparent 100%);}
 .marquee-track{display:flex;width:max-content;will-change:transform;}
-.marquee-rtl{animation:marquee-rtl 38s linear infinite;}
-.marquee-ltr{animation:marquee-ltr 38s linear infinite;}
-.tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-left:16px;}
+.marquee-row:hover .marquee-track{animation-play-state:paused;}
+.marquee-rtl{animation:marquee-rtl 40s linear infinite;}
+.marquee-ltr{animation:marquee-ltr 40s linear infinite;}
+.tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-right:16px;}
 
 /* ── PRICING ── */
 .ptog{display:inline-flex;background:var(--s1);border:1px solid var(--b1);border-radius:50px;padding:4px;backdrop-filter:blur(12px);}
