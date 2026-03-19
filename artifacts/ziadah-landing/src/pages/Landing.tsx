@@ -259,13 +259,13 @@ export default function Landing() {
 
   return (
     <>
-    <SEO
-      title="تسويق منتجاتك بالذكاء الاصطناعي داخل متجرك"
-      description="زيادة — منصة الذكاء الاصطناعي لمتاجر زد وسلة. فعّل التطبيق بضغطة زر وابدأ في زيادة مبيعاتك وتحسين تجربة عملائك تلقائياً."
-      canonical="/"
-    />
-    <OrganizationSchema />
-    <FAQSchema faqs={faqs} />
+      <SEO
+        title="تسويق منتجاتك بالذكاء الاصطناعي داخل متجرك"
+        description="زيادة — منصة الذكاء الاصطناعي لمتاجر زد وسلة. فعّل التطبيق بضغطة زر وابدأ في زيادة مبيعاتك وتحسين تجربة عملائك تلقائياً."
+        canonical="/"
+      />
+      <OrganizationSchema />
+      <FAQSchema faqs={faqs} />
       <div
         style={{
           background: "var(--bg)",
@@ -332,7 +332,7 @@ export default function Landing() {
             <h1 className="ht text-[72px] pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-bold">
               تسويق منتجاتك
               <em>بالذكاء الاصطناعي</em>
-              <span className="grad mt-[10px] mb-[10px] text-[72px] pt-[10px] pb-[10px]">
+              <span className="grad mt-[10px] mb-[10px] text-[72px] font-semibold pt-[10px] pb-[10px]">
                 داخل متجرك
               </span>
             </h1>
