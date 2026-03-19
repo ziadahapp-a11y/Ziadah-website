@@ -1,101 +1,36 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-
-interface Article { title: string; desc: string; time: string; }
-interface Category { id: string; icon: JSX.Element; label: string; color: string; articles: Article[]; }
-
-const categories: Category[] = [
-  {
-    id: "start", label: "البداية السريعة", color: "#a855f7",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3L3 11h8l-2 8 10-12h-8l2-7z" fill="rgba(168,85,247,.3)" stroke="#a855f7" strokeWidth="1.4" strokeLinejoin="round"/></svg>,
-    articles: [
-      { title: "كيف تفعّل زيادة على منصة زد؟", desc: "خطوات التفعيل بالتفصيل - من الدخول للمتجر حتى أول اقتراح ذكي.", time: "3 دقائق" },
-      { title: "كيف تفعّل زيادة على منصة سلة؟", desc: "دليل التفعيل الكامل على سلة مع صور توضيحية لكل خطوة.", time: "3 دقائق" },
-      { title: "إعداد أول حملة توصية ذكية", desc: "كيف تختار الهدف الأول وطريقة العرض المناسبة لمتجرك.", time: "5 دقائق" },
-      { title: "ربط المنتجات والفئات", desc: "كيف يتعرف الذكاء الاصطناعي على كتالوج منتجاتك تلقائياً.", time: "4 دقائق" },
-      { title: "فهم لوحة التحليلات", desc: "شرح كل مقياس في لوحة التحكم وكيف تقرأ النتائج بشكل صحيح.", time: "6 دقائق" },
-      { title: "أسئلة شائعة للمبتدئين", desc: "أكثر 10 أسئلة يسألها التجار الجدد مع إجاباتها الكاملة.", time: "7 دقائق" },
-    ],
-  },
-  {
-    id: "features", label: "الخصائص والإعدادات", color: "#06b6d4",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" fill="rgba(6,182,212,.2)" stroke="#06b6d4" strokeWidth="1.3"/><rect x="12" y="3" width="7" height="7" rx="2" fill="rgba(6,182,212,.2)" stroke="#06b6d4" strokeWidth="1.3"/><rect x="3" y="12" width="7" height="7" rx="2" fill="rgba(6,182,212,.2)" stroke="#06b6d4" strokeWidth="1.3"/><rect x="12" y="12" width="7" height="7" rx="2" fill="rgba(6,182,212,.2)" stroke="#06b6d4" strokeWidth="1.3"/></svg>,
-    articles: [
-      { title: "شرح الأهداف الـ 5 بالتفصيل", desc: "متى تستخدم كل هدف وما الفرق بين زيادة الكمية وزيادة قيمة السلة.", time: "8 دقائق" },
-      { title: "طرق العرض الـ 5 وكيف تختار المناسب", desc: "مقارنة بين منتجات ذات صلة، Add-ons، Combo، وبقية طرق العرض.", time: "10 دقائق" },
-      { title: "إعداد عروض الكوبونات الذكية", desc: "كيف تضع شروط الكوبون وتربطه بهدف معين لزيادة الفعالية.", time: "6 دقائق" },
-      { title: "تخصيص شكل الاقتراحات في متجرك", desc: "تغيير الألوان، النصوص، وطريقة عرض التوصيات لتناسب تصميم متجرك.", time: "5 دقائق" },
-      { title: "إعداد قواعد الاستهداف المخصصة", desc: "تحديد شرائح عملاء معينة للحملات المخصصة بناءً على سلوكهم.", time: "9 دقائق" },
-      { title: "فهم نقاط الاقتراح الـ 9 ورحلة العميل", desc: "أين تظهر التوصيات في كل خطوة من رحلة الشراء وكيف تحسينها.", time: "12 دقائق" },
-    ],
-  },
-  {
-    id: "ai", label: "الذكاء الاصطناعي", color: "#10b981",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="9" r="6" fill="rgba(16,185,129,.15)" stroke="#10b981" strokeWidth="1.3"/><path d="M7 18 C7 14 9 13 11 13 C13 13 15 14 15 18" fill="rgba(16,185,129,.08)" stroke="#10b981" strokeWidth="1.3" strokeLinecap="round"/><circle cx="8.5" cy="8.5" r="1" fill="#10b981"/><circle cx="11" cy="8.5" r="1" fill="#10b981"/><circle cx="13.5" cy="8.5" r="1" fill="#10b981"/></svg>,
-    articles: [
-      { title: "كيف يتعلم الذكاء الاصطناعي على عملائك؟", desc: "شرح مبسط لآلية التعلم الآلي وكيف يتحسن النظام مع كل طلب.", time: "7 دقائق" },
-      { title: "البيانات التي يحللها النظام", desc: "قائمة كاملة بالإشارات التي يستخدمها AI: الموقع، الجهاز، السلوك، التاريخ.", time: "6 دقائق" },
-      { title: "كم وقت يحتاج الذكاء الاصطناعي ليتعلم؟", desc: "مراحل التعلم ومتى تبدأ النتائج تتحسن بشكل ملحوظ.", time: "4 دقائق" },
-      { title: "تفسير توصيات الذكاء الاصطناعي", desc: "كيف تقرأ سبب اقتراح الذكاء الاصطناعي لمنتج معين لعميل بعينه.", time: "8 دقائق" },
-      { title: "الخصوصية وحماية بيانات العملاء", desc: "ما البيانات التي نجمعها وكيف نحميها وفق لوائح حماية البيانات.", time: "5 دقائق" },
-      { title: "رفع دقة التوصيات يدوياً", desc: "نصائح لتحسين جودة التوصيات من خلال ربط الفئات والمنتجات بشكل أفضل.", time: "9 دقائق" },
-    ],
-  },
-  {
-    id: "billing", label: "الأسعار والفواتير", color: "#f59e0b",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="13" rx="2.5" fill="rgba(245,158,11,.12)" stroke="#f59e0b" strokeWidth="1.3"/><line x1="3" y1="9" x2="19" y2="9" stroke="#f59e0b" strokeWidth="1" strokeDasharray="2 2"/><rect x="6" y="12" width="4" height="3" rx="1" fill="rgba(245,158,11,.3)"/></svg>,
-    articles: [
-      { title: "مقارنة الباقات الأربع بالتفصيل", desc: "ما الذي تحصل عليه في كل باقة وكيف تختار المناسب لحجم متجرك.", time: "6 دقائق" },
-      { title: "الفرق بين الاشتراك الشهري والسنوي", desc: "حساب التوفير السنوي وكيف يعمل التحويل بين الباقتين.", time: "3 دقائق" },
-      { title: "كيف تُحتسب الفاتورة الشهرية؟", desc: "توضيح آلية الاحتساب وتاريخ التجديد والرسوم المشمولة بالضريبة.", time: "4 دقائق" },
-      { title: "الترقية أو الخفض بين الباقات", desc: "كيف تغير باقتك في أي وقت وما يحدث للرصيد المتبقي.", time: "3 دقائق" },
-      { title: "سياسة الإلغاء واسترداد المبلغ", desc: "شروط الإلغاء وكيفية طلب استرداد وفق الضمان المقدم.", time: "5 دقائق" },
-      { title: "طرق الدفع المتاحة وكيف تحدّث بياناتك", desc: "الدفع عبر بطاقات مدى وفيزا وماستر وإدارة بيانات الدفع.", time: "3 دقائق" },
-    ],
-  },
-  {
-    id: "technical", label: "التقنية والتكامل", color: "#ec4899",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="5" width="16" height="12" rx="2" fill="rgba(236,72,153,.1)" stroke="#ec4899" strokeWidth="1.3"/><path d="M7 9l-2 2 2 2M15 9l2 2-2 2M12 8l-2 6" stroke="#ec4899" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    articles: [
-      { title: "كيف يتكامل زيادة مع زد وسلة؟", desc: "شرح الاتصال التقني بين زيادة والمنصتين وكيف تتم المزامنة.", time: "6 دقائق" },
-      { title: "التعامل مع ثيمات المتاجر المخصصة", desc: "كيف تضمن ظهور الاقتراحات بشكل صحيح في ثيمات غير القياسية.", time: "8 دقائق" },
-      { title: "تكامل زيادة مع Google Analytics", desc: "كيف تتبع أداء الاقتراحات في تقارير Analytics.", time: "7 دقائق" },
-      { title: "سرعة الموقع وتأثير زيادة", desc: "كيف صممنا زيادة ليكون خفيفاً ولا يؤثر على سرعة متجرك.", time: "4 دقائق" },
-      { title: "إضافة فريق العمل وإدارة الصلاحيات", desc: "كيف تضيف أعضاء للفريق وتحدد صلاحيات كل منهم.", time: "5 دقائق" },
-      { title: "استكشاف الأخطاء الشائعة وحلها", desc: "قائمة بأكثر المشكلات تكراراً وكيف تحلها بنفسك.", time: "10 دقائق" },
-    ],
-  },
-  {
-    id: "strategies", label: "استراتيجيات النمو", color: "#8b5cf6",
-    icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="14" width="4" height="6" rx="1" fill="rgba(139,92,246,.2)" stroke="#8b5cf6" strokeWidth="1.2"/><rect x="9" y="9" width="4" height="11" rx="1" fill="rgba(139,92,246,.35)" stroke="#8b5cf6" strokeWidth="1.2"/><rect x="15" y="4" width="4" height="16" rx="1" fill="#8b5cf6" stroke="rgba(139,92,246,.7)" strokeWidth="1.2"/><path d="M5 12 L11 7 L17 2" stroke="rgba(167,139,250,.5)" strokeWidth="1.2" strokeLinecap="round" strokeDasharray="2 2"/></svg>,
-    articles: [
-      { title: "أفضل الاستراتيجيات لمتاجر الأزياء", desc: "حزم الإطقم وتجميع الإكسسوارات والخصومات التدريجية - دليل الموضة.", time: "10 دقائق" },
-      { title: "زيادة مبيعات متاجر الغذاء والمشروبات", desc: "استراتيجيات Combo والاشتراكات الدورية لمتاجر المأكولات والمشروبات.", time: "9 دقائق" },
-      { title: "تعظيم الأرباح لمتاجر الجمال والعناية", desc: "روتين العناية الكاملة وتوصيات المنتجات المكملة لرفع سلة الجمال.", time: "11 دقائق" },
-      { title: "كيف تستخدم البيانات لتحسين أداء حملاتك", desc: "قراءة تقارير التحليلات واتخاذ قرارات ذكية بناءً على البيانات.", time: "12 دقائق" },
-      { title: "موسم الأعياد والمناسبات - دليل الاستعداد", desc: "كيف تعد متجرك وزيادة لموسم رمضان والجمعة السوداء والأعياد.", time: "8 دقائق" },
-      { title: "قياس عائد الاستثمار من زيادة بدقة", desc: "كيف تحسب صافي العائد مع مراعاة تكلفة الاشتراك والإيرادات الإضافية.", time: "7 دقائق" },
-    ],
-  },
-];
+import { categories, videoLibrary, searchArticles } from "../data/support-data";
 
 export default function Support() {
-  const [active, setActive] = useState("start");
+  const [activeCategory, setActiveCategory] = useState("start");
   const [search, setSearch] = useState("");
+  const [, navigate] = useLocation();
 
   useEffect(() => {
-    const obs = new IntersectionObserver(es => {
-      es.forEach(e => { if (e.isIntersecting) e.target.classList.add("on"); });
-    }, { threshold: 0.06, rootMargin: "0px 0px -24px 0px" });
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      es => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add("on"); }); },
+      { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+    );
     document.querySelectorAll(".rv").forEach(el => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
-  const activeCat = categories.find(c => c.id === active)!;
-  const filtered = search.trim()
-    ? categories.flatMap(c => c.articles.filter(a => a.title.includes(search) || a.desc.includes(search)).map(a => ({ ...a, cat: c.label, color: c.color })))
-    : [];
+  const activeCat = categories.find(c => c.id === activeCategory)!;
+  const searchResults = searchArticles(search);
+
+  const quickLinks = [
+    { label: "التحدث مع الدعم", href: "https://api.whatsapp.com/send/?phone=966510131856", icon: "💬", desc: "رد خلال ساعة", ext: true },
+    { label: "احجز اجتماعاً", href: "https://calendar.app.google/pjtPBzs9TUPipUEF6", icon: "📅", desc: "جلسة ٣٠ دقيقة", ext: true },
+    { label: "لوحة تحكم زد", href: "https://web.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة", ext: true },
+    { label: "لوحة تحكم سلة", href: "https://dashboard.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة", ext: true },
+  ];
 
   return (
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
@@ -107,103 +42,269 @@ export default function Support() {
       <ParticleBackground />
       <Nav />
 
-      {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      {/* ─── HERO ─── */}
+      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+        {/* Glow */}
+        <div style={{ position: "absolute", width: 900, height: 600, background: "radial-gradient(ellipse,rgba(124,58,237,.18) 0%,rgba(124,58,237,.05) 45%,transparent 70%)", top: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
+
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>مركز الدعم والمساعدة</div>
-        <h1 className="st rv d1" style={{ fontSize: "clamp(38px,5vw,64px)", marginTop: 8 }}>كيف نقدر نساعدك؟</h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 36px" }}>مقالات شاملة لمساعدتك من التفعيل حتى تحقيق أقصى نتائج</p>
+        <h1 className="rv d1" style={{ fontSize: "clamp(36px,5.5vw,68px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.1, marginTop: 10, marginBottom: 16 }}>
+          كيف نقدر نساعدك؟
+        </h1>
+        <p className="rv d2" style={{ fontSize: 17, color: "var(--tm)", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.8 }}>
+          مقالات شاملة ومفصّلة لمساعدتك في كل خطوة
+        </p>
+
         {/* Search */}
-        <div className="rv d3" style={{ maxWidth: 560, margin: "0 auto", position: "relative" }}>
+        <div className="rv d3" style={{ maxWidth: 580, margin: "0 auto", position: "relative" }}>
           <input
-            value={search} onChange={e => setSearch(e.target.value)}
-            placeholder="ابحث في المقالات..."
-            style={{ width: "100%", padding: "15px 50px 15px 20px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: 50, color: "#fff", fontFamily: "var(--font)", fontSize: 15, outline: "none", backdropFilter: "blur(20px)", transition: "border .25s" }}
-            onFocus={e => e.target.style.borderColor = "rgba(168,85,247,.5)"}
-            onBlur={e => e.target.style.borderColor = "rgba(255,255,255,.12)"}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="ابحث في المقالات... مثال: كيف أفعّل، لوحة التحليلات، الكوبونات"
+            style={{ width: "100%", padding: "16px 54px 16px 52px", background: "rgba(255,255,255,.05)", border: "1px solid rgba(255,255,255,.12)", borderRadius: 50, color: "#fff", fontFamily: "var(--font)", fontSize: 15, outline: "none", backdropFilter: "blur(20px)", transition: "border .25s, box-shadow .25s" }}
+            onFocus={e => { e.target.style.borderColor = "rgba(168,85,247,.55)"; e.target.style.boxShadow = "0 0 0 4px rgba(124,58,237,.08)"; }}
+            onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,.12)"; e.target.style.boxShadow = "none"; }}
           />
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ position: "absolute", left: 18, top: "50%", transform: "translateY(-50%)" }}><circle cx="8" cy="8" r="5.5" stroke="rgba(255,255,255,.3)" strokeWidth="1.4"/><line x1="12" y1="12" x2="16" y2="16" stroke="rgba(255,255,255,.3)" strokeWidth="1.4" strokeLinecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ position: "absolute", right: 20, top: "50%", transform: "translateY(-50%)" }}>
+            <circle cx="8" cy="8" r="5.5" stroke="rgba(255,255,255,.3)" strokeWidth="1.4"/>
+            <line x1="12" y1="12" x2="16" y2="16" stroke="rgba(255,255,255,.3)" strokeWidth="1.4" strokeLinecap="round"/>
+          </svg>
+          {search && (
+            <button onClick={() => setSearch("")} style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", background: "rgba(255,255,255,.08)", border: "none", color: "var(--td)", width: 24, height: 24, borderRadius: 50, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, transition: "background .2s" }}>
+              ✕
+            </button>
+          )}
         </div>
-        {/* Search results */}
+
+        {/* Search Results Dropdown */}
         {search.trim() && (
-          <div style={{ maxWidth: 560, margin: "12px auto 0", background: "rgba(8,6,20,.98)", border: "1px solid var(--b1)", borderRadius: 16, padding: 8, textAlign: "right" }}>
-            {filtered.length > 0 ? filtered.map((a, i) => (
-              <div key={i} style={{ padding: "12px 14px", borderRadius: 12, cursor: "pointer", transition: "background .2s" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
-                <div style={{ fontSize: 14, fontWeight: 700 }}>{a.title}</div>
-                <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{a.cat} · {a.time} قراءة</div>
+          <div style={{ maxWidth: 580, margin: "12px auto 0", background: "rgba(6,4,18,.98)", border: "1px solid var(--b2)", borderRadius: 18, padding: "8px 8px", textAlign: "right", backdropFilter: "blur(32px)", boxShadow: "0 24px 60px rgba(0,0,0,.6)" }}>
+            {searchResults.length > 0 ? (
+              <>
+                <div style={{ padding: "6px 14px 8px", fontSize: 11, fontWeight: 700, color: "var(--td)", textTransform: "uppercase", letterSpacing: 1 }}>
+                  {searchResults.length} نتيجة
+                </div>
+                {searchResults.map((a, i) => (
+                  <div key={i}
+                    onClick={() => { navigate(`/support/article/${a.id}`); setSearch(""); }}
+                    style={{ padding: "12px 14px", borderRadius: 12, cursor: "pointer", transition: "background .2s", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}
+                    onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+                    onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                  >
+                    <div style={{ flex: 1, textAlign: "right" }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{a.title}</div>
+                      <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{a.categoryLabel} · {a.time} قراءة</div>
+                    </div>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0, marginTop: 4, transform: "rotate(180deg)" }}>
+                      <path d="M9 3L5 7l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div style={{ padding: "18px 14px", fontSize: 14, color: "var(--td)", textAlign: "center" }}>
+                لم نعثر على نتائج لـ «{search}»
               </div>
-            )) : <div style={{ padding: "16px 14px", fontSize: 14, color: "var(--td)" }}>لم يتم العثور على نتائج</div>}
+            )}
           </div>
         )}
       </section>
 
-      {/* QUICK LINKS */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      {/* ─── QUICK LINKS ─── */}
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 64px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }} className="rv">
-            {[
-              { label: "التحدث مع الدعم", href: "https://api.whatsapp.com/send/?phone=966510131856", icon: "💬", desc: "رد خلال ساعة" },
-              { label: "احجز اجتماعاً", href: "https://calendar.app.google/pjtPBzs9TUPipUEF6", icon: "📅", desc: "جلسة 30 دقيقة" },
-              { label: "لوحة تحكم زد", href: "https://web.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة" },
-              { label: "لوحة تحكم سلة", href: "https://dashboard.ziadah.app/", icon: "🔗", desc: "ادخل مباشرة" },
-            ].map(l => (
-              <a key={l.label} href={l.href} target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 22px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14, textDecoration: "none", color: "#fff", transition: "all .25s", backdropFilter: "blur(16px)" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.1)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.3)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }} className="rv">
+            {quickLinks.map(l => (
+              <a key={l.label} href={l.href} target={l.ext ? "_blank" : undefined} rel="noreferrer"
+                className="gc"
+                style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", textDecoration: "none", color: "#fff", transition: "all .25s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
               >
-                <span style={{ fontSize: 22 }}>{l.icon}</span>
-                <div><div style={{ fontWeight: 700, fontSize: 14 }}>{l.label}</div><div style={{ fontSize: 11, color: "var(--td)" }}>{l.desc}</div></div>
+                <div className="shine"/>
+                <span style={{ fontSize: 24, lineHeight: 1 }}>{l.icon}</span>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: 14 }}>{l.label}</div>
+                  <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{l.desc}</div>
+                </div>
               </a>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CATEGORIES + ARTICLES */}
+      {/* ─── CATEGORIES + ARTICLES ─── */}
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+
+          {/* Category Pills (Mobile-friendly horizontal scroll) */}
+          <div className="support-cats rv" style={{ display: "flex", gap: 8, marginBottom: 32, overflowX: "auto", paddingBottom: 4 }}>
+            {categories.map(c => (
+              <button key={c.id} onClick={() => setActiveCategory(c.id)}
+                style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 18px", borderRadius: 50, border: `1px solid ${activeCategory === c.id ? c.color + "50" : "var(--b1)"}`, background: activeCategory === c.id ? `${c.color}12` : "var(--s1)", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", whiteSpace: "nowrap", flexShrink: 0 }}
+              >
+                <span style={{ fontSize: 15 }}>{c.icon}</span>
+                {c.label}
+                <span style={{ fontSize: 11, opacity: 0.6, background: "rgba(255,255,255,.08)", padding: "1px 8px", borderRadius: 20 }}>
+                  {c.articles.length}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop: Sidebar + Grid. Mobile: Full width */}
+          <div className="support-layout">
+
+            {/* Sidebar */}
+            <div className="support-sidebar">
+              <div className="gc" style={{ padding: 8 }}>
+                <div className="shine"/>
+                {categories.map(c => (
+                  <button key={c.id} onClick={() => setActiveCategory(c.id)}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: activeCategory === c.id ? `${c.color}12` : "transparent", borderRight: activeCategory === c.id ? `3px solid ${c.color}` : "3px solid transparent", color: activeCategory === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 13, fontWeight: activeCategory === c.id ? 700 : 400, cursor: "pointer", transition: "all .2s", textAlign: "right" }}
+                  >
+                    <span style={{ fontSize: 17 }}>{c.icon}</span>
+                    <span style={{ flex: 1 }}>{c.label}</span>
+                    <span style={{ fontSize: 11, color: "var(--td)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{c.articles.length}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Articles Grid */}
+            <div className="support-articles">
+              {/* Category Header */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 28 }}>{activeCat.icon}</span>
+                <h2 style={{ fontSize: 24, fontWeight: 900 }}>{activeCat.label}</h2>
+                <span style={{ marginRight: "auto", fontSize: 12, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>
+                  {activeCat.articles.length} مقالة
+                </span>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+                {activeCat.articles.map((a, i) => (
+                  <Link key={a.id} href={`/support/article/${a.id}`}
+                    className="gc gc-lift"
+                    style={{ display: "block", padding: "22px 24px", textDecoration: "none", cursor: "pointer", transition: "all .28s cubic-bezier(.23,1,.32,1)" }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = `${activeCat.color}35`; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--b1)"; }}
+                  >
+                    <div className="shine"/>
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                      <div style={{ width: 38, height: 38, borderRadius: 10, background: `${activeCat.color}14`, border: `1px solid ${activeCat.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 14, fontWeight: 800, color: activeCat.color }}>
+                        {i + 1}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{a.title}</div>
+                        <div style={{ fontSize: 12, color: "var(--td)", lineHeight: 1.6 }}>{a.desc}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 12, fontSize: 11, color: "var(--td)" }}>
+                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                            <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/>
+                            <path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+                          </svg>
+                          {a.time} قراءة
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginRight: "auto", transform: "rotate(180deg)", opacity: 0.4 }}>
+                            <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── VIDEO LIBRARY ─── */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "280px 1fr", gap: 24, alignItems: "start" }}>
-          {/* Sidebar */}
-          <div style={{ position: "sticky", top: 88 }}>
-            <div className="gc" style={{ padding: 8 }}>
-              <div className="shine"/>
-              {categories.map(c => (
-                <button key={c.id} onClick={() => setActive(c.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", borderRadius: 12, border: "none", background: active === c.id ? `rgba(${c.id === "start" ? "168,85,247" : c.id === "features" ? "6,182,212" : c.id === "ai" ? "16,185,129" : c.id === "billing" ? "245,158,11" : c.id === "technical" ? "236,72,153" : "139,92,246"},.12)` : "transparent", color: active === c.id ? "#fff" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: active === c.id ? 700 : 500, cursor: "pointer", transition: "all .2s", textAlign: "right" }}>
-                  {c.icon}
-                  <span style={{ flex: 1 }}>{c.label}</span>
-                  <span style={{ fontSize: 11, color: "var(--td)" }}>{c.articles.length}</span>
-                </button>
-              ))}
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
+            <div>
+              <div className="stag" style={{ display: "inline-flex", marginBottom: 12 }}><span className="stag-dot"/>مكتبة الفيديو</div>
+              <h2 className="st" style={{ marginBottom: 6 }}>تعلّم بالفيديو</h2>
+              <p style={{ fontSize: 15, color: "var(--tm)", maxWidth: 420, lineHeight: 1.7 }}>
+                شروحات مرئية خطوة بخطوة لكل ميزة في زيادة
+              </p>
+            </div>
+            <div style={{ fontSize: 12, color: "var(--td)", background: "var(--s1)", border: "1px solid var(--b1)", padding: "6px 14px", borderRadius: 20, flexShrink: 0 }}>
+              سيتم إضافة الفيديوهات قريباً
             </div>
           </div>
 
-          {/* Articles */}
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-              {activeCat.icon}
-              <h2 style={{ fontSize: 26, fontWeight: 900 }}>{activeCat.label}</h2>
-              <span style={{ marginRight: "auto", fontSize: 13, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>{activeCat.articles.length} مقالات</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {activeCat.articles.map((a, i) => (
-                <div key={i} className="gc" style={{ padding: "22px 26px", cursor: "pointer", transition: "all .25s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.07)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.25)"; e.currentTarget.style.transform = "translateX(-4px)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
-                >
-                  <div className="shine"/>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(168,85,247,.1)`, border: "1px solid rgba(168,85,247,.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 14, fontWeight: 700, color: activeCat.color }}>{i + 1}</div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 5 }}>{a.title}</div>
-                      <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{a.desc}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 16 }} className="rv d1">
+            {videoLibrary.map(v => (
+              <div key={v.id} className="gc" style={{ overflow: "hidden" }}>
+                <div className="shine"/>
+                {/* Placeholder thumbnail */}
+                <div style={{ position: "relative", width: "100%", paddingTop: "56.25%", background: "rgba(0,0,0,.4)", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(124,58,237,.15) 0%, rgba(6,182,212,.1) 100%)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
+                    {/* Grid pattern */}
+                    <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(168,85,247,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(168,85,247,.05) 1px, transparent 1px)", backgroundSize: "30px 30px" }}/>
+                    {/* Play button */}
+                    <div style={{ width: 52, height: 52, borderRadius: "50%", background: "rgba(124,58,237,.3)", border: "2px solid rgba(168,85,247,.4)", backdropFilter: "blur(10px)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", zIndex: 1 }}>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M7 5l10 5-10 5V5z" fill="rgba(168,85,247,.8)"/>
+                      </svg>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--td)", flexShrink: 0, marginTop: 4 }}>
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/><path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>
-                      {a.time}
-                    </div>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,.4)", fontWeight: 600, position: "relative", zIndex: 1 }}>قريباً</div>
+                  </div>
+                  {/* Duration badge */}
+                  <div style={{ position: "absolute", bottom: 10, left: 10, background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)", padding: "3px 8px", borderRadius: 6, fontSize: 11, fontWeight: 700, color: "#fff" }}>
+                    {v.duration}
+                  </div>
+                  {/* Category badge */}
+                  <div style={{ position: "absolute", top: 10, right: 10, background: "rgba(124,58,237,.3)", border: "1px solid rgba(168,85,247,.4)", backdropFilter: "blur(8px)", padding: "3px 10px", borderRadius: 20, fontSize: 10, fontWeight: 700, color: "var(--p4)" }}>
+                    {v.category}
                   </div>
                 </div>
-              ))}
+                {/* Video info */}
+                <div style={{ padding: "16px 18px 18px" }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", lineHeight: 1.4, marginBottom: 6 }}>{v.title}</div>
+                  <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{v.description}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CONTACT CTA ─── */}
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+        <div style={{ maxWidth: 840, margin: "0 auto" }}>
+          <div className="gc rv" style={{ padding: "48px 40px", textAlign: "center", position: "relative" }}>
+            <div className="shine"/>
+            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%,rgba(124,58,237,.12),transparent 70%)", pointerEvents: "none", borderRadius: "var(--r)" }}/>
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ fontSize: 40, marginBottom: 16 }}>🤝</div>
+              <h2 style={{ fontSize: "clamp(22px,3vw,34px)", fontWeight: 900, letterSpacing: "-0.5px", marginBottom: 12 }}>لم تجد ما تبحث عنه؟</h2>
+              <p style={{ fontSize: 16, color: "var(--tm)", maxWidth: 460, margin: "0 auto 32px", lineHeight: 1.75 }}>
+                فريق الدعم جاهز لمساعدتك. ردّنا خلال ساعة في أوقات العمل.
+              </p>
+              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+                <a href="https://api.whatsapp.com/send/?phone=966510131856" target="_blank" rel="noreferrer"
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "13px 26px", borderRadius: 50, background: "rgba(37,211,102,.12)", border: "1px solid rgba(37,211,102,.25)", color: "#25d366", textDecoration: "none", fontWeight: 700, fontSize: 14, transition: "all .25s" }}
+                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(37,211,102,.2)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(37,211,102,.12)"; e.currentTarget.style.transform = "none"; }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  واتساب
+                </a>
+                <a href="https://calendar.app.google/pjtPBzs9TUPipUEF6" target="_blank" rel="noreferrer"
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "13px 26px", borderRadius: 50, background: "linear-gradient(135deg,var(--p),#5b21b6)", color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: 14, boxShadow: "0 0 30px rgba(124,58,237,.3)", transition: "all .25s" }}
+                  onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 0 50px rgba(124,58,237,.5)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 0 30px rgba(124,58,237,.3)"; e.currentTarget.style.transform = "none"; }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect x="1.5" y="2.5" width="13" height="12" rx="2" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M1.5 6.5h13" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M5 1.5v2M11 1.5v2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                  احجز جلسة مجانية
+                </a>
+              </div>
             </div>
           </div>
         </div>

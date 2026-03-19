@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Landing from "@/pages/Landing";
 import SuccessStories from "@/pages/SuccessStories";
 import Support from "@/pages/Support";
+import SupportArticle from "@/pages/SupportArticle";
 import Features from "@/pages/Features";
 import Calculator from "@/pages/Calculator";
 import Blog from "@/pages/Blog";
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/" component={Landing} />
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
+      <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/features" component={Features} />
       <Route path="/calculator" component={Calculator} />
       <Route path="/use-cases/product-page" component={ProductPage} />
