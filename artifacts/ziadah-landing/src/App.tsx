@@ -6,6 +6,8 @@ import SuccessStories from "@/pages/SuccessStories";
 import Support from "@/pages/Support";
 import Features from "@/pages/Features";
 import Calculator from "@/pages/Calculator";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/not-found";
 import ProductPage from "@/pages/use-cases/ProductPage";
 import CartPage from "@/pages/use-cases/CartPage";
@@ -49,6 +51,8 @@ function Router() {
       <Route path="/use-cases/increase-aov" component={IncreaseAOV} />
       <Route path="/use-cases/reduce-abandon" component={ReduceAbandon} />
       <Route path="/use-cases/increase-conversion" component={IncreaseConversion} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPost} />
       <Route component={NotFound} />
     </Switch>
   );

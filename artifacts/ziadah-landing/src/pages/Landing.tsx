@@ -2062,6 +2062,14 @@ export default function Landing() {
               </a>
             </div>
             <div className="ft-col">
+              <h4>المدونة</h4>
+              <a href="/blog">جميع المقالات</a>
+              <a href="/blog?cat=استراتيجيات البيع">استراتيجيات البيع</a>
+              <a href="/blog?cat=الذكاء الاصطناعي">الذكاء الاصطناعي</a>
+              <a href="/blog?cat=دليل التاجر">دليل التاجر</a>
+              <a href="/blog?cat=شروحات المنصة">شروحات المنصة</a>
+            </div>
+            <div className="ft-col">
               <h4>تواصل معنا</h4>
               <a
                 href="https://api.whatsapp.com/send/?phone=966510131856"
