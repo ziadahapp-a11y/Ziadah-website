@@ -11,7 +11,9 @@ export default function AddonsWidget() {
   return (
     <UseCaseWidgetPreview title="إضافات مكملة للمنتج" subtitle="لاتنسَ تضيف المجموعة كاملة">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>إضافات تكميلية للمنتج</div>
+        <div
+          style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
+          className="mt-[8px] text-[9px]">إضافات تكميلية للمنتج</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
             <div key={i} style={{
