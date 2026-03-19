@@ -1101,6 +1101,25 @@ export default function SuccessStories() {
           background: rgba(168,85,247,.12);
           color: #a855f7;
         }
+        .filter-scroll-wrap {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
+        }
+        @media (max-width: 768px) {
+          .filter-scroll-wrap {
+            flex-wrap: nowrap !important;
+            justify-content: flex-start !important;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+          }
+          .filter-scroll-wrap::-webkit-scrollbar {
+            display: none;
+          }
+        }
         .sticky-filter-bar {
           position: fixed;
           top: 0;
@@ -1248,13 +1267,7 @@ export default function SuccessStories() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
-            className="rv d2"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: 8,
-            }}
+            className="rv d2 filter-scroll-wrap"
           >
             {filterTabs.map(sector => (
               <button
@@ -1272,7 +1285,7 @@ export default function SuccessStories() {
       </section>
 
       <div className={`sticky-filter-bar ${stickyFilter ? "visible" : ""}`}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 6 }}>
+        <div className="filter-scroll-wrap" style={{ maxWidth: 1200, margin: "0 auto" }}>
           {filterTabs.map(sector => (
             <button
               key={sector}
