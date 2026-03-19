@@ -614,6 +614,11 @@ export default function SuccessStories() {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!visible) return;
+    document.querySelectorAll(".story-card.rv").forEach(el => el.classList.add("on"));
+  }, [activeSector, visible]);
+
   const handleSectorChange = (sector: string) => {
     if (sector === activeSector) return;
     setVisible(false);
