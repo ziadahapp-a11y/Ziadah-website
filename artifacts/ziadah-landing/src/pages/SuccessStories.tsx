@@ -1010,7 +1010,6 @@ export default function SuccessStories() {
   const [visible, setVisible] = useState(true);
   const filterRef = useRef<HTMLDivElement>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const [stickyFilter, setStickyFilter] = useState(false);
   const sectorDisplay = (arName: string) => isAr ? arName : (SECTOR_NAME_EN[arName] || arName);
 
   useEffect(() => {
@@ -1026,13 +1025,6 @@ export default function SuccessStories() {
     document.querySelectorAll(".story-card-v2.rv").forEach(el => el.classList.add("on"));
   }, [activeSector, visible]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setStickyFilter(window.scrollY > 480);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleSectorChange = (sector: string) => {
     if (sector === activeSector) return;
@@ -1380,22 +1372,6 @@ export default function SuccessStories() {
             display: none;
           }
         }
-        .sticky-filter-bar {
-          position: fixed;
-          top: 80px;
-          right: 0;
-          left: 0;
-          z-index: 800;
-          padding: 14px 5%;
-          background: rgba(10,10,20,.85);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255,255,255,.06);
-          transform: translateY(-100%);
-          transition: transform 0.3s ease;
-        }
-        .sticky-filter-bar.visible {
-          transform: translateY(0);
-        }
         .stories-fade-v2 {
           transition: opacity 0.25s ease, transform 0.25s ease;
         }
@@ -1528,7 +1504,7 @@ export default function SuccessStories() {
         </div>
       </section>
 
-      <section style={{ position: "relative", zIndex: 10, paddingLeft: "5%", paddingRight: "5%", marginBottom: 20, marginTop: 8 }}>
+      <section style={{ position: "sticky", top: 80, zIndex: 800, paddingLeft: "5%", paddingRight: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "rgba(10,10,20,.85)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,.06)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
@@ -1548,23 +1524,6 @@ export default function SuccessStories() {
           </div>
         </div>
       </section>
-
-      <div className={`sticky-filter-bar ${stickyFilter ? "visible" : ""}`}>
-        <div className="filter-scroll-wrap" style={{ maxWidth: 1200, margin: "0 auto" }}>
-          {filterTabs.map(sector => (
-            <button
-              key={sector}
-              className={`filter-btn-v2${activeSector === sector ? " active" : ""}`}
-              onClick={() => handleSectorChange(sector)}
-              style={{ padding: "7px 14px", fontSize: 12 }}
-            >
-              <span>{SECTOR_ICONS[sector] || "◆"}</span>
-              <span>{sectorDisplay(sector)}</span>
-              <span className="filter-count-v2">{sectorCounts[sector] || 0}</span>
-            </button>
-          ))}
-        </div>
-      </div>
 
       <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", paddingBottom: 80 }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
