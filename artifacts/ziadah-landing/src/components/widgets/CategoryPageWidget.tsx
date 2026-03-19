@@ -2,13 +2,13 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function CategoryPageWidget() {
   const products = [
-    { emoji: "🎧", name: "سماعة لاسلكية ANC", price: "389", origPrice: "499", badge: "⭐ الأكثر مبيعاً", hot: true },
-    { emoji: "🔊", name: "مكبر صوت محمول", price: "189", origPrice: null, badge: "جديد", hot: false },
-    { emoji: "🎵", name: "مشغّل موسيقى MP3", price: "129", origPrice: "169", badge: null, hot: false },
+    { emoji: "🎧", name: "ANC Wireless Headphones", price: "389", origPrice: "499", badge: "⭐ Best Seller", hot: true },
+    { emoji: "🔊", name: "Portable Bluetooth Speaker", price: "189", origPrice: null, badge: "New", hot: false },
+    { emoji: "🎵", name: "MP3 Music Player", price: "129", origPrice: "169", badge: null, hot: false },
   ];
 
   return (
-    <UseCaseWidgetPreview title="أجهزة الصوت" subtitle="مرتّبة خصيصاً لك">
+    <UseCaseWidgetPreview title="Audio Devices" subtitle="Sorted especially for you">
       <div style={{ marginBottom: 8 }}>
         <div style={{
           display: "flex",
@@ -21,7 +21,7 @@ export default function CategoryPageWidget() {
           border: "1px solid rgba(124,58,237,.2)",
         }}>
           <span style={{ fontSize: 12 }}>🎯</span>
-          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>مرتّبة حسب اهتماماتك السابقة</span>
+          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>Sorted based on your past interests</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -61,8 +61,8 @@ export default function CategoryPageWidget() {
                   }}>{p.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "#fff" }}>﷼{p.price}</span>
-                  {p.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "#fff" }}>SAR {p.price}</span>
+                  {p.origPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>}
                 </div>
               </div>
               <button style={{
@@ -75,7 +75,7 @@ export default function CategoryPageWidget() {
                 border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "none",
                 cursor: "pointer",
                 flexShrink: 0,
-              }} className="widget-btn-sm">سلة</button>
+              }} className="widget-btn-sm">Cart</button>
             </div>
           ))}
         </div>

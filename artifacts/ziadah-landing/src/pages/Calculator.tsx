@@ -141,7 +141,7 @@ function SliderCard({
             height: 28,
             opacity: 0,
             cursor: "pointer",
-            direction: "rtl" as const,
+            direction: "ltr" as const,
           }}
         />
         <div

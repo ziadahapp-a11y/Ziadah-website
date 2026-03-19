@@ -32,7 +32,7 @@ const storeLogos = [
   { name: "FABIAN", src: "/logos/fabian.png" },
   { name: "Natural Touch", src: "/logos/natural-touch.png" },
   { name: "image_223", src: "/logos/image-223.png" },
-  { name: "مزيد", src: "/logos/mazeed.png" },
+  { name: "Mazeed", src: "/logos/mazeed.png" },
   { name: "AlSalman Oud", src: "/logos/alsalman-oud.png" },
   { name: "PC Palace", src: "/logos/pc-palace.png" },
 ];
@@ -151,7 +151,7 @@ export default function Landing() {
     y: { s: 24, g: 249, p: 665, b: "1,332" },
   };
 
-  const row1Avatars = ["ر", "ت", "S", "ف", "ن", "ب"];
+  const row1Avatars = ["R", "T", "S", "F", "N", "B"];
   const row1Colors = [
     "linear-gradient(135deg,#7c3aed,#5b21b6)",
     "linear-gradient(135deg,#059669,#047857)",
@@ -160,7 +160,7 @@ export default function Landing() {
     "linear-gradient(135deg,#10b981,#059669)",
     "linear-gradient(135deg,#06b6d4,#0891b2)",
   ];
-  const row2Avatars = ["ع", "ر", "ك", "ق", "ك", "ي"];
+  const row2Avatars = ["A", "R", "K", "Q", "K", "Y"];
   const row2Colors = [
     "linear-gradient(135deg,#a855f7,#7c3aed)",
     "linear-gradient(135deg,#ec4899,#9333ea)",
@@ -626,7 +626,7 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 60% 35%, #1e1245 0%, #0d0a22 55%, #060412 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-male.png" alt="ناصر" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img src="/avatar-male.png" alt="Nasser" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">
@@ -906,7 +906,7 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-female.png" alt="نوره" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img src="/avatar-female.png" alt="Noura" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">

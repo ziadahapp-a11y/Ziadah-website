@@ -7,12 +7,12 @@ import FreeShippingThresholdWidget from "./widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "./widgets/ProductSwapWidget";
 
 const floatingWidgets = [
-  { widget: <BuyMoreSaveMoreWidget />, label: "عروض الكميات" },
-  { widget: <BuyTogetherWidget />, label: "الشراء معاً" },
-  { widget: <AddonsWidget />, label: "إضافات مكملة" },
-  { widget: <RelatedProductsWidget />, label: "منتجات ذات صلة" },
-  { widget: <CouponWidget />, label: "قسيمة خصم" },
-  { widget: <FreeShippingThresholdWidget />, label: "شحن مجاني" },
+  { widget: <BuyMoreSaveMoreWidget />, label: "Quantity Offers" },
+  { widget: <BuyTogetherWidget />, label: "Buy Together" },
+  { widget: <AddonsWidget />, label: "Complementary Add-ons" },
+  { widget: <RelatedProductsWidget />, label: "Related Products" },
+  { widget: <CouponWidget />, label: "Discount Coupon" },
+  { widget: <FreeShippingThresholdWidget />, label: "Free Shipping" },
   { widget: <ProductSwapWidget />, label: "Upsell" },
 ];
 

@@ -1,8 +1,8 @@
 export default function ThankYouMockup() {
   const products = [
-    { name: "ساعة رياضية سمارت", rating: "4.95", reviews: 128, oldPrice: "299", newPrice: "149", discount: "50%" },
-    { name: "سماعة بلوتوث لاسلكية", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%" },
-    { name: "حقيبة رياضية متعددة", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%" },
+    { name: "Smart Sports Watch", rating: "4.95", reviews: 128, oldPrice: "299", newPrice: "149", discount: "50%" },
+    { name: "Wireless Bluetooth Earbuds", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%" },
+    { name: "Multi-purpose Gym Bag", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%" },
   ];
 
   return (
@@ -11,13 +11,13 @@ export default function ThankYouMockup() {
         <div className="rv" style={{ textAlign: "center", marginBottom: 40 }}>
           <div className="stag" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />
-            معاينة تفاعلية
+            Interactive Preview
           </div>
           <h2 style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginTop: 12, marginBottom: 12 }}>
-            هكذا تبدو صفحة الشكر مع زيادة
+            This is how the Thank You page looks with Ziadah
           </h2>
           <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.8, maxWidth: 540, margin: "0 auto" }}>
-            معاينة حية لتجربة العميل بعد إتمام الشراء — توصيات ذكية تحوّل صفحة الشكر إلى فرصة مبيعات
+            A live preview of the customer experience after purchase — smart recommendations turn the Thank You page into a sales opportunity
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export default function ThankYouMockup() {
               borderRadius: 34,
               overflow: "hidden",
               minHeight: 580,
-              direction: "rtl",
+              direction: "ltr",
               fontFamily: "var(--font)",
             }}>
               <div style={{
@@ -64,10 +64,10 @@ export default function ThankYouMockup() {
                 alignItems: "center",
                 justifyContent: "space-between",
               }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>ملخص الطلب</div>
+                <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>Order Summary</div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e" }}>
-                  <span style={{ color: "#8e8e93", fontSize: 11, fontWeight: 500 }}>الإجمالي: </span>
-                  <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 ⃁</span>
+                  <span style={{ color: "#8e8e93", fontSize: 11, fontWeight: 500 }}>Total: </span>
+                  <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 SAR</span>
                 </div>
               </div>
 
@@ -87,24 +87,24 @@ export default function ThankYouMockup() {
                     ✅
                   </div>
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>شكرا لك محمد!</div>
-                    <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 2 }}>تم استلام طلبك بنجاح</div>
+                    <div style={{ fontSize: 14, fontWeight: 800, color: "#1c1c1e" }}>Thank you, Mohammed!</div>
+                    <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 2 }}>Your order has been received</div>
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 10px", background: "#f9fafb", borderRadius: 10 }}>
-                  <span style={{ fontSize: 11, color: "#6b7280" }}>رقم الطلب:</span>
+                  <span style={{ fontSize: 11, color: "#6b7280" }}>Order #:</span>
                   <span style={{ fontSize: 11, fontWeight: 800, color: "#374151", letterSpacing: "0.5px" }}>#ORD-2024-8847</span>
                 </div>
                 <div style={{ fontSize: 11, color: "#8e8e93", marginTop: 8, lineHeight: 1.5 }}>
-                  📧 تأكيد تم إرساله إلى: <span style={{ color: "#374151", fontWeight: 600 }}>mo***@gmail.com</span>
+                  📧 Confirmation sent to: <span style={{ color: "#374151", fontWeight: 600 }}>mo***@gmail.com</span>
                 </div>
               </div>
 
               <div style={{ margin: "10px 10px 0", background: "#fff", borderRadius: 16, padding: "14px 14px 16px", boxShadow: "0 2px 12px rgba(0,0,0,.07)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 800, color: "#1c1c1e" }}>نسيت المنتجات الرهيبة ذي!</div>
-                    <div style={{ fontSize: 10, color: "#8e8e93", marginTop: 2 }}>بس ليك أنت — عرض محدود الوقت</div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: "#1c1c1e" }}>Don't miss these amazing products!</div>
+                    <div style={{ fontSize: 10, color: "#8e8e93", marginTop: 2 }}>Just for you — limited time offer</div>
                   </div>
                   <div style={{ display: "flex", gap: 4 }}>
                     <div style={{
@@ -116,7 +116,7 @@ export default function ThankYouMockup() {
                       fontWeight: 800,
                       whiteSpace: "nowrap" as const,
                     }}>
-                      خصم 50٪
+                      50% Off
                     </div>
                     <div style={{
                       padding: "3px 7px",
@@ -128,7 +128,7 @@ export default function ThankYouMockup() {
                       border: "1px solid rgba(16,185,129,.25)",
                       whiteSpace: "nowrap" as const,
                     }}>
-                      شحن مجاني
+                      Free Shipping
                     </div>
                   </div>
                 </div>
@@ -164,9 +164,9 @@ export default function ThankYouMockup() {
                           <span style={{ fontSize: 9, color: "#8e8e93" }}>{p.rating} ({p.reviews})</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
-                          <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} ⃁</span>
+                          <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} SAR</span>
                           <span style={{ fontSize: 9, color: "#c4b5fd", textDecoration: "line-through" }}>{p.oldPrice}</span>
-                          <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>{p.discount}-</span>
+                          <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>-{p.discount}</span>
                         </div>
                       </div>
                       <button style={{
@@ -182,7 +182,7 @@ export default function ThankYouMockup() {
                         flexShrink: 0,
                         fontFamily: "var(--font)",
                       }}>
-                        اضف للسلة
+                        Add to Cart
                       </button>
                     </div>
                   ))}
@@ -206,7 +206,7 @@ export default function ThankYouMockup() {
                   fontFamily: "var(--font)",
                   boxShadow: "0 4px 16px rgba(124,58,237,.4)",
                 }}>
-                  <span>🛒</span> أضف الكل وأوفر أكثر
+                  <span>🛒</span> Add All & Save More
                 </button>
               </div>
 
@@ -223,7 +223,7 @@ export default function ThankYouMockup() {
                   cursor: "pointer",
                   fontFamily: "var(--font)",
                 }}>
-                  متابعة التسوق →
+                  Continue Shopping →
                 </button>
               </div>
             </div>

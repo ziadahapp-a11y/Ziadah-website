@@ -10,10 +10,10 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType>({
-  lang: "ar",
+  lang: "en",
   setLang: () => {},
-  dir: "rtl",
-  isAr: true,
+  dir: "ltr",
+  isAr: false,
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -22,7 +22,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem("ziadah_lang");
       if (stored === "en" || stored === "ar") return stored;
     } catch {}
-    return "ar";
+    return "en";
   });
 
   const dir = lang === "ar" ? "rtl" : "ltr";

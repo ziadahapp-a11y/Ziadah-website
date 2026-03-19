@@ -131,7 +131,7 @@ export default function SupportArticle() {
 
           {/* Article Content */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {article.sections.map((section, i) => {
+            {(isAr ? article.sections : (article.sectionsEn || article.sections)).map((section, i) => {
               if (section.type === "heading") {
                 return (
                   <h2 key={i} style={{ fontSize: 21, fontWeight: 800, color: "#fff", marginTop: 12, paddingBottom: 10, borderBottom: `1px solid ${category.color}20` }}>

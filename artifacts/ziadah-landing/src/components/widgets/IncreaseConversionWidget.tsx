@@ -2,7 +2,7 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function IncreaseConversionWidget() {
   return (
-    <UseCaseWidgetPreview title="عرض خاص للمشترين الجدد" subtitle="جرّب بثقة">
+    <UseCaseWidgetPreview title="Special Offer for New Customers" subtitle="Buy with confidence">
       <div style={{ marginBottom: 12 }}>
         <div style={{
           padding: "12px 14px",
@@ -12,9 +12,9 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
           textAlign: "center",
         }}>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 4 }}>🎉 هديتك كعميل جديد</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>خصم 50 ⃁</div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>على أول طلب فوق 200 ⃁</div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 4 }}>🎉 Your gift as a new customer</div>
+          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>50 SAR Discount</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginTop: 2 }}>On first order over 200 SAR</div>
           <div style={{ fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: 1, marginTop: 6 }}>WELCOME50</div>
         </div>
 
@@ -25,9 +25,9 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
         }}>
           {[
-            { icon: "⭐", text: "4.9/5 — 23,000+ تقييم" },
-            { icon: "🔄", text: "إرجاع مجاني خلال 14 يوم" },
-            { icon: "🚚", text: "توصيل سريع خلال 2-3 أيام" },
+            { icon: "⭐", text: "4.9/5 — 23,000+ reviews" },
+            { icon: "🔄", text: "Free returns within 14 days" },
+            { icon: "🚚", text: "Fast delivery in 2-3 days" },
           ].map((item, i) => (
             <div key={i} style={{
               display: "flex",
@@ -55,7 +55,7 @@ export default function IncreaseConversionWidget() {
           alignItems: "center",
         }}>
           <span style={{ fontSize: 14 }}>👥</span>
-          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>3 أشخاص اشتروا هذا المنتج في آخر ساعة</span>
+          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>3 people bought this product in the last hour</span>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function IncreaseConversionWidget() {
         border: "1px solid rgba(16,185,129,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        اشترِ الآن واحصل على الخصم
+        Buy Now & Get the Discount
       </button>
     </UseCaseWidgetPreview>
   );

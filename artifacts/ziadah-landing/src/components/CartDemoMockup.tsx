@@ -5,7 +5,7 @@ export default function CartDemoMockup() {
 
   const products = [
     {
-      name: "شماغ الجنادرية كلاسيك رجالي",
+      name: "Classic Men's Shemagh",
       rating: "4.95",
       reviews: "6984",
       price: "241",
@@ -15,7 +15,7 @@ export default function CartDemoMockup() {
       bg: "#fef2f2",
     },
     {
-      name: "سبحة بكلايت بلون أزرق",
+      name: "Blue Bakelite Prayer Beads",
       rating: "4.95",
       reviews: "6984",
       price: "200",
@@ -25,7 +25,7 @@ export default function CartDemoMockup() {
       bg: "#eff6ff",
     },
     {
-      name: "سبحة بكلايت بلون أصفر",
+      name: "Yellow Bakelite Prayer Beads",
       rating: "4.95",
       reviews: "6984",
       price: "200",
@@ -42,7 +42,7 @@ export default function CartDemoMockup() {
         position: "relative",
         zIndex: 2,
         padding: "0 5% 80px",
-        direction: "rtl",
+        direction: "ltr",
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -73,7 +73,7 @@ export default function CartDemoMockup() {
                 boxShadow: `0 0 7px ${purple}`,
               }}
             />
-            معاينة تفاعلية
+            Interactive Preview
           </div>
           <h2
             style={{
@@ -83,7 +83,7 @@ export default function CartDemoMockup() {
               color: "var(--t)",
             }}
           >
-            كيف تبدو في متجرك؟
+            How does it look in your store?
           </h2>
           <p
             style={{
@@ -94,8 +94,8 @@ export default function CartDemoMockup() {
               lineHeight: 1.8,
             }}
           >
-            هكذا تظهر توصيات زيادة الذكية مباشرة داخل صفحة سلة التسوق لدى
-            عملائك
+            This is how Ziadah's smart recommendations appear directly inside
+            your customers' shopping cart page
           </p>
         </div>
 
@@ -137,7 +137,7 @@ export default function CartDemoMockup() {
               style={{
                 background: "#f8f8fc",
                 minHeight: 580,
-                direction: "rtl",
+                direction: "ltr",
               }}
             >
               <div
@@ -147,7 +147,7 @@ export default function CartDemoMockup() {
                   borderBottom: "1px solid #f0f0f5",
                 }}
               >
-                <div style={{ textAlign: "right" }}>
+                <div style={{ textAlign: "left" }}>
                   <span
                     style={{
                       fontSize: 26,
@@ -156,7 +156,7 @@ export default function CartDemoMockup() {
                       letterSpacing: -1,
                     }}
                   >
-                    السلة
+                    Cart
                   </span>
                 </div>
               </div>
@@ -203,7 +203,7 @@ export default function CartDemoMockup() {
                         lineHeight: 1.4,
                       }}
                     >
-                      سبحة بكلايت بلون أحمر
+                      Red Bakelite Prayer Beads
                     </div>
                     <div
                       style={{
@@ -213,7 +213,7 @@ export default function CartDemoMockup() {
                       }}
                     >
                       200{" "}
-                      <span style={{ fontSize: 11, fontWeight: 700 }}>⃁</span>
+                      <span style={{ fontSize: 11, fontWeight: 700 }}>SAR</span>
                     </div>
                   </div>
                 </div>
@@ -305,7 +305,7 @@ export default function CartDemoMockup() {
                       color: "#111",
                     }}
                   >
-                    منتجات تهمك
+                    Products you may like
                   </span>
                 </div>
                 <div
@@ -316,7 +316,7 @@ export default function CartDemoMockup() {
                     marginBottom: 10,
                   }}
                 >
-                  ضيفها بخصم خاص لك الآن
+                  Add them now with a special discount
                 </div>
 
                 <div
@@ -332,11 +332,11 @@ export default function CartDemoMockup() {
                   }}
                 >
                   <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981" }}>✓</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>شحن مجاني</span>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginRight: 6 }}>✓</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>دفع عند الاستلام مجاني</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>Free shipping</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginLeft: 6 }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>Free COD</span>
                   <span style={{ flex: 1 }} />
-                  <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>30 ⃁ وفر</span>
+                  <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>Save 30 SAR</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -400,7 +400,7 @@ export default function CartDemoMockup() {
                             {p.rating}
                           </span>
                           <span style={{ fontSize: 9, color: "#888" }}>
-                            {p.reviews} مراجعة
+                            {p.reviews} reviews
                           </span>
                         </div>
                         <div
@@ -418,7 +418,7 @@ export default function CartDemoMockup() {
                             }}
                           >
                             {p.price}{" "}
-                            <span style={{ fontSize: 9 }}>⃁</span>
+                            <span style={{ fontSize: 9 }}>SAR</span>
                           </span>
                           {p.originalPrice && (
                             <span
@@ -428,7 +428,7 @@ export default function CartDemoMockup() {
                                 textDecoration: "line-through",
                               }}
                             >
-                              {p.originalPrice} ⃁
+                              {p.originalPrice} SAR
                             </span>
                           )}
                           {p.discount && (
@@ -442,7 +442,7 @@ export default function CartDemoMockup() {
                                 padding: "1px 4px",
                               }}
                             >
-                              وفر {p.discount}
+                              Save {p.discount}
                             </span>
                           )}
                         </div>
@@ -462,7 +462,7 @@ export default function CartDemoMockup() {
                           fontFamily: "inherit",
                         }}
                       >
-                        اضف للسلة
+                        Add to Cart
                       </button>
                     </div>
                   ))}
@@ -488,22 +488,22 @@ export default function CartDemoMockup() {
                 >
                   <span
                     style={{
-                      fontSize: 15,
-                      fontWeight: 900,
-                      color: "#111",
-                    }}
-                  >
-                    1165.00{" "}
-                    <span style={{ fontSize: 12 }}>⃁</span>
-                  </span>
-                  <span
-                    style={{
                       fontSize: 13,
                       fontWeight: 700,
                       color: purple,
                     }}
                   >
-                    الاجمالي
+                    Total
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 900,
+                      color: "#111",
+                    }}
+                  >
+                    1,165.00{" "}
+                    <span style={{ fontSize: 12 }}>SAR</span>
                   </span>
                 </div>
                 <button
@@ -525,7 +525,7 @@ export default function CartDemoMockup() {
                     fontFamily: "inherit",
                   }}
                 >
-                  🛍 إتمام الطلب
+                  🛍 Checkout
                 </button>
               </div>
 

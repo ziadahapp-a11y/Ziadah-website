@@ -6,7 +6,7 @@ import { t } from "@/i18n/translations";
 
 export const Logo = () => (
   <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-    <img src="/logo.png" alt="زيادة" style={{ height: 40, width: "auto" }} />
+    <img src="/logo.png" alt="Ziadah" style={{ height: 40, width: "auto" }} />
   </span>
 );
 
@@ -439,8 +439,8 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       icon: (
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor"/></svg>
       ),
-      label: "المدونة",
-      subtitle: "مقالات ونصائح لتنمية تجارتك",
+      label: tr.nav.blog,
+      subtitle: tr.nav.blogSub,
       href: "/blog",
       isModal: false,
     },
@@ -543,7 +543,7 @@ function MobileAccordionItem({
           background: isOpen ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.05)",
           border: "none", color: isOpen ? "#fff" : "rgba(255,255,255,.75)",
           fontSize: 14, fontWeight: 600, fontFamily: "var(--font)", cursor: "pointer",
-          textAlign: "right",
+          textAlign: "left",
         }}
       >
         <span style={{ display: "flex", alignItems: "center", gap: 10 }}>

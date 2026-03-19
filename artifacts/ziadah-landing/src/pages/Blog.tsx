@@ -73,12 +73,19 @@ export default function Blog() {
     return isAr ? catObj.label : catObj.labelEn;
   };
 
+  const getTitle = (p: typeof blogPosts[0]) => isAr ? p.title : (p.titleEn || p.title);
+  const getSummary = (p: typeof blogPosts[0]) => isAr ? p.summary : (p.summaryEn || p.summary);
+  const getReadTime = (p: typeof blogPosts[0]) => isAr ? p.readTime : (p.readTimeEn || p.readTime);
+  const getPublishDate = (p: typeof blogPosts[0]) => isAr ? p.publishDate : (p.publishDateEn || p.publishDate);
+
   const filtered = blogPosts.filter((post) => {
     const matchCat =
       activeCategory === "all" || post.category === activeCategory;
     const catLabel = getCategoryLabel(post.category);
     const matchSearch =
       !search.trim() ||
+      getTitle(post).toLowerCase().includes(search.toLowerCase()) ||
+      getSummary(post).toLowerCase().includes(search.toLowerCase()) ||
       post.title.includes(search) ||
       post.summary.includes(search) ||
       catLabel.includes(search);
@@ -373,7 +380,7 @@ export default function Blog() {
                           color: "#fff",
                         }}
                       >
-                        {post.title}
+                        {getTitle(post)}
                       </h2>
                       <p
                         style={{
@@ -384,7 +391,7 @@ export default function Blog() {
                           flex: 1,
                         }}
                       >
-                        {post.summary}
+                        {getSummary(post)}
                       </p>
                       <div
                         style={{
@@ -424,7 +431,7 @@ export default function Blog() {
                               strokeLinecap="round"
                             />
                           </svg>
-                          {post.readTime} {tx.readSuffix}
+                          {getReadTime(post)} {tx.readSuffix}
                         </div>
                         <span
                           style={{
@@ -432,7 +439,7 @@ export default function Blog() {
                             color: "var(--td)",
                           }}
                         >
-                          {post.publishDate}
+                          {getPublishDate(post)}
                         </span>
                       </div>
                     </div>

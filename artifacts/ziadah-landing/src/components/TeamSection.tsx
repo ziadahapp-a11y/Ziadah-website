@@ -6,12 +6,12 @@ import zainab from "@assets/Frame_1321314906_1773891999654.png";
 import tahseen from "@assets/Frame_1321314907_1773891999654.png";
 
 const team = [
-  { name: "علي الدهنين", role: "الشريك المؤسس - رئيس تطوير المنتج", img: ali },
-  { name: "محمود أحمد", role: "الشريك المؤسس - الرئيس التنفيذي للتقنية", img: mahmoud },
-  { name: "نواف الضراب", role: "الشريك المؤسس - مستشار الأعمال", img: nawaf },
-  { name: "آيات", role: "مسؤول نجاح التجار", img: ayat },
-  { name: "زينب الصفار", role: "مسؤول تسويق المنتج والشراكات", img: zainab },
-  { name: "تحسين الله", role: "مطور واجهة أمامية", img: tahseen },
+  { name: "Ali Al-Dahneen", role: "Co-founder — Head of Product Development", img: ali },
+  { name: "Mahmoud Ahmed", role: "Co-founder — Chief Technology Officer", img: mahmoud },
+  { name: "Nawaf Al-Darray", role: "Co-founder — Business Advisor", img: nawaf },
+  { name: "Ayat", role: "Merchant Success Manager", img: ayat },
+  { name: "Zainab Al-Saffar", role: "Product Marketing & Partnerships Manager", img: zainab },
+  { name: "Tahsinullah", role: "Frontend Developer", img: tahseen },
 ];
 
 export default function TeamSection() {
@@ -27,12 +27,12 @@ export default function TeamSection() {
         <div className="tc" style={{ marginBottom: 56 }}>
           <div className="stag rv">
             <span className="stag-dot" />
-            فريقنا
+            Our Team
           </div>
           <h2 className="st rv d1 font-semibold" style={{ fontSize: 48 }}>
-            فريق <span className="grad">زيادة</span>
+            The <span className="grad">Ziadah</span> Team
           </h2>
-          <p className="ssub rv d2">خبرة تتجاوز ال10 سنوات في التجارة الإلكترونية والتسويق الرقمي.</p>
+          <p className="ssub rv d2">Over 10 years of combined experience in e-commerce and digital marketing.</p>
         </div>
 
         <div

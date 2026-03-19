@@ -15,11 +15,11 @@ export function OrganizationSchema() {
   const data = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "زيادة",
-    alternateName: "Ziadah",
+    name: "Ziadah",
+    alternateName: "زيادة",
     url: "https://www.ziadah.app",
     logo: "https://www.ziadah.app/logo.png",
-    description: "منصة الذكاء الاصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
+    description: "AI platform for optimizing sales of Zid and Salla stores through personalized recommendations and smart offers",
     sameAs: [
       "https://twitter.com/ziadah_app",
       "https://www.instagram.com/ziadah.app",
@@ -29,7 +29,7 @@ export function OrganizationSchema() {
       "@type": "ContactPoint",
       telephone: "+966510131856",
       contactType: "customer service",
-      availableLanguage: "Arabic"
+      availableLanguage: ["English", "Arabic"]
     },
     areaServed: {
       "@type": "Country",
@@ -43,34 +43,34 @@ export function SoftwareAppSchema() {
   const data = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "زيادة",
-    alternateName: "Ziadah",
+    name: "Ziadah",
+    alternateName: "زيادة",
     url: "https://www.ziadah.app",
-    description: "تطبيق ذكاء اصطناعي لمتاجر زد وسلة يرفع متوسط قيمة الطلب ومعدل التحويل عبر توصيات مخصصة",
+    description: "AI application for Zid and Salla stores that increases average order value and conversion rate through personalized recommendations",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, iOS, Android",
     offers: [
       {
         "@type": "Offer",
-        name: "باقة الانطلاقة",
+        name: "Starter Plan",
         price: "24",
         priceCurrency: "SAR",
         priceSpecification: {
           "@type": "UnitPriceSpecification",
           price: "24",
           priceCurrency: "SAR",
-          unitText: "شهرياً"
+          unitText: "Monthly"
         }
       },
       {
         "@type": "Offer",
-        name: "باقة النمو",
+        name: "Growth Plan",
         price: "249",
         priceCurrency: "SAR"
       },
       {
         "@type": "Offer",
-        name: "باقة الاحترافية",
+        name: "Professional Plan",
         price: "665",
         priceCurrency: "SAR"
       }
@@ -105,7 +105,7 @@ export function ArticleSchema({
   description,
   publishDate,
   slug,
-  authorName = "فريق زيادة"
+  authorName = "Ziadah Team"
 }: {
   title: string;
   description: string;
@@ -126,7 +126,7 @@ export function ArticleSchema({
     },
     publisher: {
       "@type": "Organization",
-      name: "زيادة",
+      name: "Ziadah",
       logo: {
         "@type": "ImageObject",
         url: "https://www.ziadah.app/logo.png"

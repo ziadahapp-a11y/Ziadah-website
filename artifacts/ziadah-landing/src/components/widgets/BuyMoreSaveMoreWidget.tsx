@@ -2,18 +2,18 @@ import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 const allOptions = [
-  { qty: "اشترِ 1", label: "بدون خصم", price: "49 ⃁", origPrice: null as string | null, badge: null as string | null },
-  { qty: "اشترِ 2", label: "خصم 20٪", price: "79 ⃁", origPrice: "98 ⃁", badge: "-20٪" },
-  { qty: "اشترِ 3", label: "خصم 30٪ + شحن مجاني", price: "103 ⃁", origPrice: "147 ⃁", badge: "-30٪" },
+  { qty: "Buy 1", label: "No discount", price: "49 SAR", origPrice: null as string | null, badge: null as string | null },
+  { qty: "Buy 2", label: "20% off", price: "79 SAR", origPrice: "98 SAR", badge: "-20%" },
+  { qty: "Buy 3", label: "30% off + Free Shipping", price: "103 SAR", origPrice: "147 SAR", badge: "-30%" },
 ];
 
 export default function BuyMoreSaveMoreWidget() {
   const [selected, setSelected] = useState(1);
 
   return (
-    <UseCaseWidgetPreview title="عروض الكميات" subtitle="اشترِ أكثر وفّر أكثر">
+    <UseCaseWidgetPreview title="Quantity Offers" subtitle="Buy More, Save More">
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>اشتر أكثر ووفّر أكثر</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>Buy more and save more</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {allOptions.map((opt, i) => {
             const isSelected = i === selected;
@@ -78,7 +78,7 @@ export default function BuyMoreSaveMoreWidget() {
         textAlign: "center",
         fontWeight: 700,
       }}>
-        🚚 أفضل خيار للعملاء — شحن مجاني
+        🚚 Best value for customers — Free Shipping
       </div>
     </UseCaseWidgetPreview>
   );

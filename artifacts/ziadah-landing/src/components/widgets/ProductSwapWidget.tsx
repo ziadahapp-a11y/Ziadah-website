@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function ProductSwapWidget() {
   return (
-    <UseCaseWidgetPreview title="استبدال للمنتج" subtitle="هذا المنتج أفضل لك">
+    <UseCaseWidgetPreview title="Product Upgrade" subtitle="This product is better for you">
       <div>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>هذا المنتج أفضل لك</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>This product is better for you</div>
         <div style={{
           padding: "12px",
           borderRadius: 14,
@@ -25,7 +25,7 @@ export default function ProductSwapWidget() {
             color: "#34d399",
             marginBottom: 10,
           }}>
-            ⭐ خصم خاص
+            ⭐ Special Offer
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <div style={{
@@ -40,11 +40,11 @@ export default function ProductSwapWidget() {
               flexShrink: 0,
             }}>🎧</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>رأس شاحن وكيبل آيفون</div>
-              <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>4.95 ⭐ · 4681 مراجعة</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>iPhone Charger Head & Cable</div>
+              <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>4.95 ⭐ · 4,681 reviews</div>
               <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 4 }}>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>﷼280</span>
-                <span style={{ fontSize: 14, fontWeight: 900, color: "#fff" }}>﷼240</span>
+                <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>SAR 280</span>
+                <span style={{ fontSize: 14, fontWeight: 900, color: "#fff" }}>SAR 240</span>
                 <span style={{
                   fontSize: 9,
                   padding: "2px 7px",
@@ -52,7 +52,7 @@ export default function ProductSwapWidget() {
                   background: "rgba(16,185,129,.15)",
                   color: "#34d399",
                   fontWeight: 700,
-                }}>وفّر 40 ⃁</span>
+                }}>Save 40 SAR</span>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ export default function ProductSwapWidget() {
           border: "1px solid rgba(16,185,129,.2)",
         }}>
           <span style={{ color: "#34d399", fontSize: 10 }}>✓</span>
-          <span style={{ fontSize: 9, color: "rgba(255,255,255,.7)" }}>يشمل ضمان سنة كاملة + شحن مجاني</span>
+          <span style={{ fontSize: 9, color: "rgba(255,255,255,.7)" }}>Includes 1-year warranty + free shipping</span>
         </div>
         <button style={{
           width: "100%",
@@ -83,7 +83,7 @@ export default function ProductSwapWidget() {
           border: "1px solid rgba(124,58,237,0.2)",
           cursor: "pointer",
         }} className="widget-btn">
-          استبدال بهذا المنتج
+          Upgrade to this product
         </button>
       </div>
     </UseCaseWidgetPreview>

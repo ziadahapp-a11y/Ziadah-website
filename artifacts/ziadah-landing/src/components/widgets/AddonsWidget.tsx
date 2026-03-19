@@ -2,10 +2,10 @@ import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 const initialAddons = [
-  { emoji: "📱", name: "غلاف حماية للهاتف", price: 39, checked: true },
-  { emoji: "🔋", name: "شاحن لاسلكي سريع", price: 65, checked: false },
-  { emoji: "🎧", name: "سماعة لاسلكية", price: 89, checked: true },
-  { emoji: "🛡️", name: "واقي شاشة زجاجي", price: 15, checked: false },
+  { emoji: "📱", name: "Phone Protective Case", price: 39, checked: true },
+  { emoji: "🔋", name: "Fast Wireless Charger", price: 65, checked: false },
+  { emoji: "🎧", name: "Wireless Earbuds", price: 89, checked: true },
+  { emoji: "🛡️", name: "Glass Screen Protector", price: 15, checked: false },
 ];
 
 export default function AddonsWidget() {
@@ -18,11 +18,11 @@ export default function AddonsWidget() {
   const total = addons.filter(a => a.checked).reduce((s, a) => s + a.price, 0);
 
   return (
-    <UseCaseWidgetPreview title="إضافات مكملة للمنتج" subtitle="لاتنسَ تضيف المجموعة كاملة">
+    <UseCaseWidgetPreview title="Complementary Add-ons" subtitle="Don't forget to complete your set">
       <div style={{ marginBottom: 10 }}>
         <div
           style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
-          className="mt-[8px] text-[9px]">إضافات تكميلية للمنتج</div>
+          className="mt-[8px] text-[9px]">Complementary add-ons for your product</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -53,7 +53,7 @@ export default function AddonsWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} ⃁</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>+{a.price} SAR</div>
             </div>
           ))}
         </div>
@@ -68,8 +68,8 @@ export default function AddonsWidget() {
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>الإجمالي مع الإضافات</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} ر</span>
+        <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>Total with add-ons</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} SAR</span>
       </div>
       <button style={{
         width: "100%",
@@ -84,7 +84,7 @@ export default function AddonsWidget() {
         border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        أضف الإضافات المختارة للسلة
+        Add selected add-ons to cart
       </button>
     </UseCaseWidgetPreview>
   );

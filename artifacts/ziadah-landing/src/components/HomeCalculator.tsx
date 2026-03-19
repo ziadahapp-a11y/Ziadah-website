@@ -81,7 +81,7 @@ export default function HomeCalculator() {
 
   const sliders: SliderProps[] = [
     {
-      label: "الزوار الشهريون",
+      label: "Monthly Visitors",
       value: visitors,
       min: 1000,
       max: 500000,
@@ -92,7 +92,7 @@ export default function HomeCalculator() {
       colorRgb: "59,130,246",
     },
     {
-      label: "معدل التحويل",
+      label: "Conversion Rate",
       value: convRate,
       min: 0.5,
       max: 15,
@@ -103,13 +103,13 @@ export default function HomeCalculator() {
       colorRgb: "34,197,94",
     },
     {
-      label: "متوسط قيمة الطلب",
+      label: "Average Order Value",
       value: aov,
       min: 50,
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " ⃁",
+      display: fmt(aov) + " SAR",
       color: "#a855f7",
       colorRgb: "168,85,247",
     },
@@ -122,10 +122,10 @@ export default function HomeCalculator() {
         <div className="tc" style={{ marginBottom: 48 }}>
           <div className="stag rv" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />
-            جرّب الآن
+            Try It Now
           </div>
-          <h2 className="st rv d1 font-semibold">احسب إيرادك الإضافي</h2>
-          <p className="ssub rv d2">حرّك الأرقام وشوف كم تكسب إضافي كل شهر مع زيادة</p>
+          <h2 className="st rv d1 font-semibold">Calculate Your Additional Revenue</h2>
+          <p className="ssub rv d2">Move the sliders and see how much extra you can earn each month with Ziadah</p>
         </div>
 
         <div className="hc-card rv d2">
@@ -138,26 +138,26 @@ export default function HomeCalculator() {
 
             <div className="hc-result">
               <div className="hc-result-inner">
-                <div className="hc-result-label">الإيراد الإضافي الشهري</div>
+                <div className="hc-result-label">Monthly Additional Revenue</div>
                 <div className="hc-result-amount">
                   {fmt(Math.round(addRevenue))}
-                  <span className="hc-result-currency"> ⃁</span>
+                  <span className="hc-result-currency"> SAR</span>
                 </div>
-                <div className="hc-result-note">بناءً على 20% قبول توصيات Cross-sell / Upsell ورفع AOV بـ30%</div>
+                <div className="hc-result-note">Based on 20% Cross-sell / Upsell acceptance rate and 30% AOV increase</div>
                 <div className="hc-result-ctas">
                   <span
                     onClick={() => navigateTo("/calculator")}
                     className="hc-btn-primary"
                     style={{ cursor: "pointer" }}
                   >
-                    حاسبة تفصيلية ←
+                    Detailed Calculator →
                   </span>
                   <button
                     type="button"
                     onClick={() => setModalOpen(true)}
                     className="hc-btn-secondary"
                   >
-                    ابدأ مجاناً
+                    Start for Free
                   </button>
                 </div>
               </div>

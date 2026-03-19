@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function CouponWidget() {
   return (
-    <UseCaseWidgetPreview title="قسيمة خصم" subtitle="خصم خاص لك الآن">
+    <UseCaseWidgetPreview title="Discount Coupon" subtitle="Special offer just for you">
       <div style={{ textAlign: "center", marginBottom: 14 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 12 }}>خصم خاص لك الآن</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 12 }}>Special offer just for you</div>
         <div style={{
           display: "inline-flex",
           alignItems: "center",
@@ -16,13 +16,13 @@ export default function CouponWidget() {
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>30 ر</div>
-            <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", marginTop: 2 }}>خصم على طلبك الآن</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>30 SAR</div>
+            <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", marginTop: 2 }}>Discount on your order now</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(168,85,247,.3)" }} />
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: "#fff", letterSpacing: "1px" }}>SAVE30</div>
-            <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", marginTop: 2 }}>🚚 شحن مجاني</div>
+            <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", marginTop: 2 }}>🚚 Free Shipping</div>
           </div>
         </div>
         <div style={{
@@ -36,7 +36,7 @@ export default function CouponWidget() {
           fontWeight: 600,
         }}>
           <span>⏱️</span>
-          <span>ينتهي خلال: 14:58</span>
+          <span>Expires in: 14:58</span>
         </div>
       </div>
       <button style={{
@@ -56,7 +56,7 @@ export default function CouponWidget() {
         justifyContent: "center",
         gap: 6,
       }} className="widget-btn">
-        <span>📋</span> انسخ الكود
+        <span>📋</span> Copy Code
       </button>
     </UseCaseWidgetPreview>
   );

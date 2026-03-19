@@ -2,9 +2,9 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function ReduceAbandonWidget() {
   return (
-    <UseCaseWidgetPreview title="عرض خاص لك الآن" subtitle="لا تفوّت هذا العرض!">
+    <UseCaseWidgetPreview title="Special Offer Just for You" subtitle="Don't miss this deal!">
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>لاحظنا أن سلتك لا تزال هنا 🛒</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>We noticed your cart is still here 🛒</div>
 
         <div style={{
           padding: "14px 16px",
@@ -13,8 +13,8 @@ export default function ReduceAbandonWidget() {
           border: "1.5px dashed rgba(236,72,153,.5)",
           marginBottom: 12,
         }}>
-          <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>خصم 10٪</div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)", marginTop: 3 }}>على طلبك الحالي — الآن فقط</div>
+          <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>10% Off</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)", marginTop: 3 }}>On your current order — now only</div>
           <div style={{ fontSize: 13, fontWeight: 900, color: "#fff", letterSpacing: 1, marginTop: 6 }}>SAVE10</div>
         </div>
 
@@ -33,7 +33,7 @@ export default function ReduceAbandonWidget() {
           border: "1px solid rgba(239,68,68,.2)",
         }}>
           <span>⏱️</span>
-          <span>ينتهي خلال: 12:47</span>
+          <span>Expires in: 12:47</span>
         </div>
 
         <div style={{
@@ -47,8 +47,8 @@ export default function ReduceAbandonWidget() {
           alignItems: "center",
         }}>
           <span style={{ fontSize: 14 }}>🚚</span>
-          <div style={{ textAlign: "right", flex: 1 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#34d399" }}>باقي 20 ⃁ للشحن المجاني</div>
+          <div style={{ textAlign: "left", flex: 1 }}>
+            <div style={{ fontSize: 9, fontWeight: 700, color: "#34d399" }}>20 SAR away from free shipping</div>
             <div style={{ height: 4, borderRadius: 10, background: "rgba(255,255,255,.1)", marginTop: 4, overflow: "hidden" }}>
               <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#34d399" }} />
             </div>
@@ -70,11 +70,11 @@ export default function ReduceAbandonWidget() {
         cursor: "pointer",
         marginBottom: 6,
       }} className="widget-btn">
-        أكمل الشراء بخصم 10٪
+        Complete Purchase with 10% Off
       </button>
 
       <div style={{ textAlign: "center", fontSize: 9, color: "rgba(255,255,255,.3)" }}>
-        سيُطبّق الكود تلقائياً عند الدفع
+        Code will be applied automatically at checkout
       </div>
     </UseCaseWidgetPreview>
   );

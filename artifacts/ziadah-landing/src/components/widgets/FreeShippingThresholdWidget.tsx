@@ -2,14 +2,14 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function FreeShippingThresholdWidget() {
   const products = [
-    { emoji: "💍", name: "سلسال ذهب بحجر ياقوت", price: "45" },
-    { emoji: "💎", name: "حلق ذهب بحجر ياقوت", price: "100" },
+    { emoji: "💍", name: "Gold Chain with Ruby Stone", price: "45" },
+    { emoji: "💎", name: "Gold Earrings with Ruby Stone", price: "100" },
   ];
 
   const progress = 69;
 
   return (
-    <UseCaseWidgetPreview title="الوصول للشحن المجاني" subtitle="أكمل للشحن المجاني">
+    <UseCaseWidgetPreview title="Reach Free Shipping" subtitle="Complete your order for free shipping">
       <div style={{ marginBottom: 12 }}>
         <div style={{
           padding: "10px 12px",
@@ -19,8 +19,8 @@ export default function FreeShippingThresholdWidget() {
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 خل الشحن مجاني</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي 145 ريال</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 Get free shipping</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>145 SAR remaining</span>
           </div>
           <div style={{
             height: 7,
@@ -38,10 +38,10 @@ export default function FreeShippingThresholdWidget() {
             }} />
           </div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", textAlign: "center" }}>
-            باقي 145 ريال للشحن، ضيف المنتجات
+            Add 145 SAR more for free shipping
           </div>
         </div>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة:</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>Suggested products:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {products.map((p, i) => (
             <div key={i} style={{
@@ -66,7 +66,7 @@ export default function FreeShippingThresholdWidget() {
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{p.name}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</div>
               </div>
               <div style={{
                 width: 20,

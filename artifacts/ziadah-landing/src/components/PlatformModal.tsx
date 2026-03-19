@@ -52,7 +52,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         {/* Close button */}
         <button
           onClick={onClose}
-          aria-label="إغلاق"
+          aria-label="Close"
           style={{
             position: "absolute",
             top: 14,
@@ -84,13 +84,13 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
         {/* Title */}
         <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
-          اختر منصتك
+          Choose Your Platform
         </p>
         <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#fff", marginBottom: 8, lineHeight: 1.2 }}>
-          على أي منصة متجرك؟
+          Which platform is your store on?
         </h3>
         <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, marginBottom: 32 }}>
-          فعّل زيادة في دقيقتين وابدأ تحقيق مبيعات أكثر فوراً
+          Activate Ziadah in 2 minutes and start making more sales instantly
         </p>
 
         {/* Platform buttons */}
@@ -131,7 +131,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
               <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
             </svg>
-            منصة زد
+            Zid Platform
           </a>
 
           {/* Salla */}
@@ -171,11 +171,11 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
               <rect x="3" y="3" width="12" height="12" rx="3" fill="rgba(255,255,255,0.3)" />
               <path d="M6 9h6M9 6v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            منصة سلة
+            Salla Platform
           </a>
         </div>
 
-        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>تجربة مجانية 7 أيام · بدون بطاقة</p>
+        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>7-day free trial · No credit card required</p>
       </div>
     </div>
   );

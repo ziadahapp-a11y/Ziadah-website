@@ -2,7 +2,7 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function HomePageWidget() {
   return (
-    <UseCaseWidgetPreview title="مرحباً بعودتك 👋" subtitle="متجر مخصص لك">
+    <UseCaseWidgetPreview title="Welcome back 👋" subtitle="A store personalized for you">
       <div style={{ marginBottom: 10 }}>
         <div style={{
           padding: "10px 12px",
@@ -11,7 +11,7 @@ export default function HomePageWidget() {
           border: "1.5px solid rgba(124,58,237,.3)",
           marginBottom: 10,
         }}>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)", marginBottom: 5 }}>تركتها في آخر زيارة:</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)", marginBottom: 5 }}>Left in your last visit:</div>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <div style={{
               width: 36,
@@ -25,10 +25,10 @@ export default function HomePageWidget() {
               flexShrink: 0,
             }}>👟</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>حذاء جري Ultraboost</div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>Ultraboost Running Shoes</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>﷼499</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼649</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>SAR 499</span>
+                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR 649</span>
               </div>
             </div>
             <button style={{
@@ -43,7 +43,7 @@ export default function HomePageWidget() {
               border: "1px solid rgba(124,58,237,0.2)",
               cursor: "pointer",
               flexShrink: 0,
-            }} className="widget-btn-sm">أضف</button>
+            }} className="widget-btn-sm">Add</button>
           </div>
         </div>
 
@@ -59,16 +59,16 @@ export default function HomePageWidget() {
         }}>
           <span style={{ fontSize: 12 }}>⏱️</span>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>هذا العرض ينتهي خلال</div>
+            <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>This offer expires in</div>
             <div style={{ fontSize: 11, fontWeight: 900, color: "#fff" }}>02:47:13</div>
           </div>
         </div>
 
-        <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginBottom: 7 }}>الأكثر مبيعاً في فئاتك:</div>
+        <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", marginBottom: 7 }}>Top sellers in your categories:</div>
         <div style={{ display: "flex", gap: 7 }}>
           {[
-            { emoji: "🧢", name: "كاب رياضي", price: "89" },
-            { emoji: "🎽", name: "تيشيرت رياضي", price: "129" },
+            { emoji: "🧢", name: "Sports Cap", price: "89" },
+            { emoji: "🎽", name: "Sports T-Shirt", price: "129" },
           ].map((p, i) => (
             <div key={i} style={{
               flex: 1,
@@ -80,7 +80,7 @@ export default function HomePageWidget() {
             }}>
               <div style={{ fontSize: 20, marginBottom: 3 }}>{p.emoji}</div>
               <div style={{ fontSize: 9, color: "#fff", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 10, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</div>
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</div>
             </div>
           ))}
         </div>

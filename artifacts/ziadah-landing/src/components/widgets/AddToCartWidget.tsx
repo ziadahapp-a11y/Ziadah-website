@@ -23,16 +23,16 @@ export default function AddToCartWidget() {
   }, [runSequence]);
 
   return (
-    <UseCaseWidgetPreview title="إضافة للسلة" subtitle="توصية ذكية لحظة الإضافة">
+    <UseCaseWidgetPreview title="Add to Cart" subtitle="Smart recommendation at add moment">
       <div style={{ minHeight: 220 }}>
         {step === "adding" && (
           <div style={{ textAlign: "center", padding: "28px 0" }}>
             <div style={{ fontSize: 36, marginBottom: 10 }}>🛍️</div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
-              كريم مرطب SPF 50
+              SPF 50 Moisturizing Cream
             </div>
             <div style={{ fontSize: 12, color: "rgba(255,255,255,.5)", marginBottom: 16 }}>
-              الكمية: 1 × 89 ⃁
+              Qty: 1 × 89 SAR
             </div>
             <div style={{
               display: "inline-flex",
@@ -46,7 +46,7 @@ export default function AddToCartWidget() {
               color: "var(--p4, #a855f7)",
             }}>
               <span style={{ display: "inline-block" }}>⏳</span>
-              جاري الإضافة...
+              Adding to cart...
             </div>
           </div>
         )}
@@ -61,10 +61,10 @@ export default function AddToCartWidget() {
               margin: "0 auto 12px", fontSize: 22,
             }}>✓</div>
             <div style={{ fontSize: 13, fontWeight: 800, color: "#10b981", marginBottom: 4 }}>
-              تمت الإضافة للسلة!
+              Added to cart!
             </div>
             <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)" }}>
-              كريم مرطب SPF 50
+              SPF 50 Moisturizing Cream
             </div>
           </div>
         )}
@@ -77,7 +77,7 @@ export default function AddToCartWidget() {
               background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.2)",
             }}>
               <span style={{ fontSize: 14 }}>✅</span>
-              <span style={{ fontSize: 10, color: "#10b981", fontWeight: 700 }}>تمت الإضافة للسلة</span>
+              <span style={{ fontSize: 10, color: "#10b981", fontWeight: 700 }}>Added to cart</span>
             </div>
             <div style={{
               padding: "12px",
@@ -87,7 +87,7 @@ export default function AddToCartWidget() {
               backdropFilter: "blur(12px)",
             }}>
               <div style={{ fontSize: 10, color: "#a855f7", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
-                ✨ عملاء اشتروا هذا اشتروا أيضاً
+                ✨ Customers who bought this also bought
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <div style={{
@@ -98,10 +98,10 @@ export default function AddToCartWidget() {
                 }}>🧴</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "#fff", marginBottom: 2 }}>
-                    سيروم فيتامين C المشرّق
+                    Brightening Vitamin C Serum
                   </div>
-                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>يكمل الكريم بشكل مثالي</div>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>65 ⃁</div>
+                  <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>Perfectly complements the cream</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>65 SAR</div>
                 </div>
               </div>
               <button style={{
@@ -113,7 +113,7 @@ export default function AddToCartWidget() {
                 color: "#c084fc", fontSize: 14, fontWeight: 800,
                 border: "1px solid rgba(124,58,237,0.2)", cursor: "pointer",
               }}>
-                + أضف السيروم للسلة
+                + Add Serum to Cart
               </button>
             </div>
             <button
@@ -126,7 +126,7 @@ export default function AddToCartWidget() {
                 cursor: "pointer",
               }}
             >
-              ↩ إعادة تشغيل المحاكاة
+              ↩ Replay simulation
             </button>
           </div>
         )}

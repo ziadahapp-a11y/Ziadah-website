@@ -2,15 +2,15 @@ import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 
 export default function BundleDealsWidget() {
   const bundle = [
-    { emoji: "💄", name: "غسول وجه", origPrice: "79", price: "—" },
-    { emoji: "✨", name: "سيروم فيتامين C", origPrice: "99", price: "—" },
-    { emoji: "🧴", name: "مرطب بشرة SPF", origPrice: "71", price: "—" },
+    { emoji: "💄", name: "Face Wash", origPrice: "79", price: "—" },
+    { emoji: "✨", name: "Vitamin C Serum", origPrice: "99", price: "—" },
+    { emoji: "🧴", name: "SPF Moisturizer", origPrice: "71", price: "—" },
   ];
 
   return (
-    <UseCaseWidgetPreview title="حزمة روتين الصباح" subtitle="وفّر 50 ريال على المجموعة">
+    <UseCaseWidgetPreview title="Morning Routine Bundle" subtitle="Save 50 SAR on the complete set">
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>محتويات الحزمة:</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.5)", marginBottom: 10 }}>Bundle contents:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {bundle.map((item, i) => (
             <div key={i} style={{
@@ -36,7 +36,7 @@ export default function BundleDealsWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{item.name}</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>﷼{item.origPrice}</span>
+                  <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>SAR {item.origPrice}</span>
                 </div>
               </div>
               <div style={{
@@ -67,8 +67,8 @@ export default function BundleDealsWidget() {
         alignItems: "center",
       }}>
         <div>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>المجموع الأصلي</div>
-          <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", textDecoration: "line-through", fontWeight: 700 }}>﷼249</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>Original total</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", textDecoration: "line-through", fontWeight: 700 }}>SAR 249</div>
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{
@@ -78,11 +78,11 @@ export default function BundleDealsWidget() {
             borderRadius: 20,
             background: "rgba(124,58,237,0.3)",
             color: "#c084fc",
-          }}>وفّر 50 ريال</div>
+          }}>Save 50 SAR</div>
         </div>
         <div style={{ textAlign: "left" }}>
-          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>سعر الحزمة</div>
-          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>﷼199</div>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.5)" }}>Bundle price</div>
+          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>SAR 199</div>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ export default function BundleDealsWidget() {
         border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        🎁 أضف الحزمة للسلة
+        🎁 Add Bundle to Cart
       </button>
     </UseCaseWidgetPreview>
   );

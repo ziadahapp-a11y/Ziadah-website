@@ -194,7 +194,7 @@ function renderContent(content: string) {
               width: "100%",
               borderCollapse: "collapse",
               fontSize: 14,
-              textAlign: "right",
+              textAlign: "left",
             }}
           >
             <thead>
@@ -358,27 +358,33 @@ export default function BlogPost() {
     );
   }
 
+  const getTitle = (p: typeof blogPosts[0]) => isAr ? p.title : (p.titleEn || p.title);
+  const getSummary = (p: typeof blogPosts[0]) => isAr ? p.summary : (p.summaryEn || p.summary);
+  const getReadTime = (p: typeof blogPosts[0]) => isAr ? p.readTime : (p.readTimeEn || p.readTime);
+  const getPublishDate = (p: typeof blogPosts[0]) => isAr ? p.publishDate : (p.publishDateEn || p.publishDate);
+  const getContent = (p: typeof blogPosts[0]) => isAr ? p.content : (p.contentEn || p.content);
+
   const relatedPosts = blogPosts.filter((p) => post.related.includes(p.slug));
 
   return (
     <>
     <SEO
-      title={post.title}
-      description={post.summary}
+      title={getTitle(post)}
+      description={getSummary(post)}
       canonical={`/blog/${post.slug}`}
       type="article"
       publishDate={post.publishDateIso}
     />
     <ArticleSchema
-      title={post.title}
-      description={post.summary}
+      title={getTitle(post)}
+      description={getSummary(post)}
       publishDate={post.publishDateIso}
       slug={post.slug}
     />
     <BreadcrumbSchema items={[
       { name: tx.breadcrumbHome, url: "/" },
       { name: tx.breadcrumbBlog, url: "/blog" },
-      { name: post.title, url: `/blog/${post.slug}` }
+      { name: getTitle(post), url: `/blog/${post.slug}` }
     ]} />
     <div
       style={{
@@ -518,7 +524,7 @@ export default function BlogPost() {
                 letterSpacing: "-0.5px",
               }}
             >
-              {post.title}
+              {getTitle(post)}
             </h1>
 
             <div
@@ -553,7 +559,7 @@ export default function BlogPost() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {post.readTime} {tx.readSuffix}
+                {getReadTime(post)} {tx.readSuffix}
               </span>
               <span
                 style={{
@@ -579,7 +585,7 @@ export default function BlogPost() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {post.publishDate}
+                {getPublishDate(post)}
               </span>
             </div>
           </div>
@@ -603,12 +609,12 @@ export default function BlogPost() {
                 margin: 0,
               }}
             >
-              {post.summary}
+              {getSummary(post)}
             </p>
           </div>
 
           {/* Content */}
-          <div className="rv d2">{renderContent(post.content)}</div>
+          <div className="rv d2">{renderContent(getContent(post))}</div>
 
           {/* Back link */}
           <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--b1)" }}>
@@ -735,7 +741,7 @@ export default function BlogPost() {
                           marginBottom: 8,
                         }}
                       >
-                        {rel.title}
+                        {getTitle(rel)}
                       </h3>
                       <span
                         style={{
@@ -766,7 +772,7 @@ export default function BlogPost() {
                             strokeLinecap="round"
                           />
                         </svg>
-                        {rel.readTime} {tx.readSuffix}
+                        {getReadTime(rel)} {tx.readSuffix}
                       </span>
                     </div>
                   </article>

@@ -14,6 +14,7 @@ export interface FullArticle {
   time: string;
   timeEn?: string;
   sections: ArticleSection[];
+  sectionsEn?: ArticleSection[];
 }
 
 export interface Category {
@@ -70,6 +71,34 @@ export const categories: Category[] = [
             "إذا تأخرت المزامنة أكثر من 10 دقائق: تواصل مع فريق الدعم عبر واتساب"
           ]},
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Activating Ziadah on the Zid platform is a simple process that takes no more than 10 minutes. Follow these steps to start receiving smart recommendations in your store right away." },
+          { type: "heading", text: "Prerequisites" },
+          { type: "list", items: [
+            "Active account on Zid platform",
+            "Store with updated products",
+            "Subscription to one of Ziadah's plans"
+          ]},
+          { type: "heading", text: "Activation Steps" },
+          { type: "numbered", items: [
+            "Go to the App Store on the Zid platform through the dashboard",
+            "Search for the \"Ziadah\" app in the search bar",
+            "Click \"Add App\" and choose the plan that suits you",
+            "You will be automatically redirected to the Ziadah authentication page — select your store and grant the required permissions",
+            "After authentication, you will be taken directly to the Ziadah dashboard",
+            "The system will automatically sync your products and categories — this may take 1 to 5 minutes depending on store size",
+            "Once the sync is complete, a confirmation message will appear and you'll be ready to create your first campaign"
+          ]},
+          { type: "tip", text: "Tip: Make sure your products on Zid contain clear descriptions and categories — this helps the AI provide more accurate recommendations from the start." },
+          { type: "heading", text: "Verifying Successful Activation" },
+          { type: "paragraph", text: "After activation, navigate to the Ziadah dashboard. If it displays your product and category counts correctly, the activation was successful. You can now create your first recommendation campaign from the \"Campaigns\" section." },
+          { type: "heading", text: "Common Activation Issues" },
+          { type: "list", items: [
+            "If your products don't appear: Make sure the products are set to \"Active\" and not hidden",
+            "If authentication fails: Ensure you have store admin permissions",
+            "If sync takes more than 10 minutes: Contact the support team via WhatsApp"
+          ]},
+        ],
       },
       {
         id: "start-salla",
@@ -107,6 +136,33 @@ export const categories: Category[] = [
           { type: "tip", text: "للحصول على أفضل نتيجة على سلة: فعّل \"التقييمات\" في إعدادات متجرك، لأن زيادة تستخدمها لتحسين دقة التوصيات." },
           { type: "warning", text: "تنبيه: بعض ثيمات سلة المخصصة قد تحتاج إعداداً إضافياً لظهور التوصيات. راجع قسم التقنية والتكامل إذا لم تظهر التوصيات بعد 30 دقيقة." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah is available on Salla as an official app in the App Store. This guide takes you step by step from installation to your first recommendation appearing in your store." },
+          { type: "heading", text: "Step 1: Installing the App" },
+          { type: "numbered", items: [
+            "Log in to the Salla dashboard (Store)",
+            "From the sidebar, click \"Apps\"",
+            "In the App Store, search for \"Ziadah\"",
+            "Click \"Install\" and review the required permissions",
+            "Click \"Allow\" to grant the app the necessary access"
+          ]},
+          { type: "heading", text: "Step 2: Account Setup" },
+          { type: "numbered", items: [
+            "After installation, the Ziadah setup interface will open",
+            "Enter your email to create an account or log in if you already have one",
+            "Choose the appropriate plan (you can start with the free trial)",
+            "Wait a few seconds for the store to be linked"
+          ]},
+          { type: "heading", text: "Step 3: Sync and Testing" },
+          { type: "numbered", items: [
+            "After linking, the system will start fetching product and category data",
+            "Navigate to the Ziadah dashboard and verify your products appear",
+            "Create a first test campaign from the \"New Campaigns\" section",
+            "Open your store and browse a product — you'll notice recommendations appearing"
+          ]},
+          { type: "tip", text: "For best results on Salla: Enable \"Reviews\" in your store settings, as Ziadah uses them to improve recommendation accuracy." },
+          { type: "warning", text: "Note: Some custom Salla themes may require additional setup for recommendations to appear. Check the Technical & Integration section if recommendations don't appear after 30 minutes." },
+        ],
       },
       {
         id: "start-first-campaign",
@@ -143,6 +199,32 @@ export const categories: Category[] = [
             "راقب نسبة التحويل - الزيادة مقارنة بمتوسطك السابق هي قياس النجاح"
           ]},
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "After linking your store to Ziadah, the next step is creating your first recommendation campaign. A campaign is a set of settings that define: what you want to achieve, where recommendations appear, and how they look." },
+          { type: "heading", text: "What Is a Campaign in Ziadah?" },
+          { type: "paragraph", text: "A campaign in Ziadah connects three elements: the goal (what you want to achieve), the suggestion point (where recommendations appear in the store), and the display method (how recommendations look to the customer). Understanding these three elements is key to your campaign's success." },
+          { type: "heading", text: "Choosing Your First Goal — Our Advice" },
+          { type: "paragraph", text: "For stores new to Ziadah, we recommend starting with the \"Increase Cart Value\" goal with recommendations on the product page. This goal delivers quick, measurable results within a week." },
+          { type: "heading", text: "Campaign Creation Steps" },
+          { type: "numbered", items: [
+            "From the dashboard, click \"New Campaign\"",
+            "Enter a campaign name (e.g., \"Product Page Recommendations — April\")",
+            "Choose the goal: Start with \"Increase Cart Value\"",
+            "Choose the suggestion point: \"Product Page\"",
+            "Choose the display method: \"Related Products\" to start",
+            "In the advanced settings, leave them on automatic mode initially",
+            "Click \"Publish Campaign\" and wait 5–10 minutes",
+            "Browse a product in your store to verify recommendations appear"
+          ]},
+          { type: "tip", text: "Golden tip: Don't create more than 2–3 campaigns at the start. Learn from their results first before expanding. Too many campaigns at once can reduce each one's effectiveness." },
+          { type: "heading", text: "How Do You Know Your Campaign Is Working?" },
+          { type: "list", items: [
+            "Go to the analytics dashboard after 24 hours",
+            "Look for the \"Influenced Orders\" metric — you should see numbers",
+            "Monitor the CTR (click-through rate) — 2% or higher is good initially",
+            "Monitor the conversion rate — the increase compared to your previous average is the measure of success"
+          ]},
+        ],
       },
       {
         id: "start-products",
@@ -168,6 +250,22 @@ export const categories: Category[] = [
           { type: "heading", text: "ربط المنتجات يدوياً (اختياري)" },
           { type: "paragraph", text: "زيادة يتيح لك ربط منتجات محددة ببعضها يدوياً إذا أردت تجاوز توصيات الذكاء الاصطناعي في حالات معينة. هذا مفيد للعروض الخاصة أو المنتجات المكملة التي تعرف أنها تباع معاً." },
           { type: "tip", text: "إذا كان متجرك يحتوي على أكثر من 500 منتج، ركّز على تنظيم أكثر 100 منتج مبيعاً أولاً - هذا سيعطيك 80٪ من الفائدة بـ 20٪ من الجهد." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "One of Ziadah's smartest features is that it automatically learns your product catalog without requiring any manual data entry. However, a few simple organizational steps help the AI understand your products better." },
+          { type: "heading", text: "How Does AI Learn Your Products?" },
+          { type: "paragraph", text: "Ziadah analyzes three main sources: product names and descriptions, product categories and subcategories, and buyer behavior (who bought what together). The more accurate this data is, the smarter the recommendations become." },
+          { type: "heading", text: "Best Practices for Organizing Your Products" },
+          { type: "numbered", items: [
+            "Use descriptive product names: Instead of \"T-shirt 123\" write \"Plain Cotton T-shirt — Men's\"",
+            "Add detailed descriptions mentioning materials, uses, and sizes",
+            "Classify every product in the correct category and add subcategories where possible",
+            "Use keywords in descriptions (e.g., \"pairs well with... complements...\")",
+            "Add tags to related products"
+          ]},
+          { type: "heading", text: "Manual Product Linking (Optional)" },
+          { type: "paragraph", text: "Ziadah allows you to manually link specific products together if you want to override AI recommendations in certain cases. This is useful for special offers or complementary products you know sell together." },
+          { type: "tip", text: "If your store has more than 500 products, focus on organizing your top 100 best-selling products first — this will give you 80% of the benefit with 20% of the effort." },
         ],
       },
       {
@@ -200,6 +298,28 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "استخدم خاصية \"تصدير البيانات\" في لوحة التحليلات لمشاركة التقارير مع فريقك أو تحليلها بأدوات إضافية مثل Excel أو Google Sheets." },
           { type: "warning", text: "تنبيه: إذا كان CTR أقل من 1٪ لأسبوع كامل، فهذا يشير إلى أن التوصيات غير ملائمة. راجع إعدادات الهدف وطريقة العرض في حملتك." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The analytics dashboard in Ziadah is your window into the performance of your smart recommendations. Understanding these metrics correctly helps you make smarter decisions to improve your store's results." },
+          { type: "heading", text: "Key Metrics" },
+          { type: "list", items: [
+            "Additional Revenue: The extra amount generated through Ziadah's recommendations — the most important metric for measuring ROI",
+            "Influenced Orders: The number of orders that included a product suggested by Ziadah",
+            "CTR (Click-Through Rate): The percentage of customers who clicked on a recommendation out of all who viewed it",
+            "Recommendation Conversion Rate: Those who clicked a recommendation and actually added it to the cart",
+            "Average Cart Value: How the average order value changed before and after Ziadah"
+          ]},
+          { type: "heading", text: "How to Read the Numbers Correctly" },
+          { type: "paragraph", text: "Don't evaluate results in the first 72 hours — the AI needs time to learn. Wait at least a week before judging a new campaign's performance. Compare numbers to the same period from last week, not just yesterday." },
+          { type: "heading", text: "Performance Benchmarks" },
+          { type: "list", items: [
+            "CTR: 2–5% is considered good for most stores",
+            "Recommendation Conversion Rate: 1–3% is excellent",
+            "Influenced Orders: Should exceed 10% of total orders after one month",
+            "Average Cart Value Increase: 15–30% is a realistic goal for the first month"
+          ]},
+          { type: "tip", text: "Use the \"Export Data\" feature in the analytics dashboard to share reports with your team or analyze them with additional tools like Excel or Google Sheets." },
+          { type: "warning", text: "Warning: If CTR is below 1% for a full week, this indicates the recommendations are not relevant. Review the goal and display method settings in your campaign." },
         ],
       },
       {
@@ -234,6 +354,30 @@ export const categories: Category[] = [
           { type: "heading", text: "10. كيف أقارن أداء الحملات؟" },
           { type: "paragraph", text: "استخدم قسم \"مقارنة الحملات\" في لوحة التحليلات. يمكنك مقارنة أي حملتين جنباً إلى جنب على أي فترة زمنية. هذا يساعدك على معرفة أي الأهداف وطرق العرض أنجح لمتجرك تحديداً." },
           { type: "tip", text: "احفظ هذه الصفحة وشاركها مع فريقك - ستوفر على الجميع الكثير من الأسئلة المتكررة!" },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "We've compiled the most common questions new merchants ask when starting with Ziadah. Comprehensive answers that save you research time." },
+          { type: "heading", text: "1. How long until I see results?" },
+          { type: "paragraph", text: "Recommendations start appearing as soon as you create your first campaign. However, to see a noticeable impact on sales, wait 7–14 days. The AI needs enough data to accurately learn your customer patterns." },
+          { type: "heading", text: "2. Does Ziadah affect my store's speed?" },
+          { type: "paragraph", text: "No. We designed Ziadah to add only 3 kilobytes to each page, and it loads asynchronously. This means it never blocks your page from loading at any point. Check the \"Site Speed\" section in the help center for more." },
+          { type: "heading", text: "3. Can I pause recommendations temporarily?" },
+          { type: "paragraph", text: "Yes. You can pause any campaign with a single click without losing its settings. You can also schedule specific times for the campaign to run, such as during promotional seasons only." },
+          { type: "heading", text: "4. Is my data safe and private?" },
+          { type: "paragraph", text: "Yes, all data is encrypted and we do not share it with third parties. We comply with Gulf and European data protection regulations. Check the Privacy section for full details." },
+          { type: "heading", text: "5. What if I'm not satisfied?" },
+          { type: "paragraph", text: "We offer a full money-back guarantee within 14 days of subscribing to any paid plan. No questions, no complications." },
+          { type: "heading", text: "6. Does Ziadah support all product types?" },
+          { type: "paragraph", text: "Ziadah works with any type of digital or physical product. Recommendations are more accurate when products are similar or complementary. If your store sells very diverse products, use categories correctly." },
+          { type: "heading", text: "7. What happens to recommendations when a product goes out of stock?" },
+          { type: "paragraph", text: "Ziadah automatically syncs with your store's inventory status. Out-of-stock products are not recommended to customers. This happens every 15 minutes to maintain recommendation accuracy." },
+          { type: "heading", text: "8. Can I use Ziadah on two stores?" },
+          { type: "paragraph", text: "Each subscription is linked to one store. If you have more than one store, you'll need a separate subscription for each. We offer discounts for merchants managing multiple stores — contact us to inquire." },
+          { type: "heading", text: "9. Do recommendations work on mobile?" },
+          { type: "paragraph", text: "Yes, recommendations are responsive and designed to work excellently on mobile, tablet, and desktop. Over 70% of Saudi store purchases are made on mobile, so this is a top priority for us." },
+          { type: "heading", text: "10. How do I compare campaign performance?" },
+          { type: "paragraph", text: "Use the \"Compare Campaigns\" section in the analytics dashboard. You can compare any two campaigns side by side over any time period. This helps you determine which goals and display methods work best for your specific store." },
+          { type: "tip", text: "Save this page and share it with your team — it will save everyone a lot of repetitive questions!" },
         ],
       },
     ],
@@ -293,6 +437,45 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "ابدأ بهدف واحد فقط لمدة شهر، ثم أضف الثاني. هذا يعطيك نتائج أوضح وأسهل في التحليل." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah offers 5 different goals, each designed to achieve a specific business outcome. Choosing the right goal is the most important step in building a successful campaign." },
+          { type: "heading", text: "Goal 1: Increase Cart Value (AOV)" },
+          { type: "paragraph", text: "The most popular goal. It focuses on encouraging the customer to add higher-value products or complementary items. Ideal for stores that sell products at various price points." },
+          { type: "list", items: [
+            "When to use: When you want to raise the average order value",
+            "Best suggestion points: Product page and cart page",
+            "Suitable display methods: Upsell, Combo, and Add-ons"
+          ]},
+          { type: "heading", text: "Goal 2: Increase Quantity Sold" },
+          { type: "paragraph", text: "Motivates the customer to buy larger quantities of the same product or similar products. Suitable for stores selling consumable or multi-purchase products." },
+          { type: "list", items: [
+            "When to use: Office supplies, cleaning products, food items",
+            "Best suggestion points: Product page and thank you page",
+            "Suitable display methods: Buy More Save More and Bundle"
+          ]},
+          { type: "heading", text: "Goal 3: Reduce Cart Abandonment" },
+          { type: "paragraph", text: "Works specifically on the cart page to recover customers thinking about leaving without purchasing. Offers deals or alternatives to encourage them to complete their purchase." },
+          { type: "list", items: [
+            "When to use: If your cart abandonment rate is above 70%",
+            "Best suggestion points: Cart page only",
+            "Suitable display methods: Smart coupons and limited-time offers"
+          ]},
+          { type: "heading", text: "Goal 4: Increase Conversion Rate" },
+          { type: "paragraph", text: "Focuses on converting hesitant visitors into buyers. Uses personalized recommendations for each visitor based on their in-store behavior." },
+          { type: "list", items: [
+            "When to use: If you have high traffic but low sales",
+            "Best suggestion points: Homepage and category page",
+            "Suitable display methods: Personalized products and best sellers"
+          ]},
+          { type: "heading", text: "Goal 5: Boost Repeat Purchases and Loyalty" },
+          { type: "paragraph", text: "Targets customers who have previously purchased and suggests products based on their past purchases. Increases repeat purchase rate and customer lifetime value." },
+          { type: "list", items: [
+            "When to use: If you want to increase your returning customer rate",
+            "Best suggestion points: Thank you page and homepage",
+            "Suitable display methods: Reorder and complementary products"
+          ]},
+          { type: "tip", text: "Start with just one goal for a month, then add the second. This gives you clearer and easier-to-analyze results." },
+        ],
       },
       {
         id: "features-display",
@@ -342,6 +525,45 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "ابدأ بـ \"منتجات ذات صلة\" ثم \"Add-ons\" - هاتان الطريقتان تعطيان النتائج الأسرع للمتاجر الجديدة على زيادة." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "The display method determines how recommendations are presented to the customer visually and commercially. Each method has a different psychology and suits different purchase contexts." },
+          { type: "heading", text: "1. Related Products" },
+          { type: "paragraph", text: "The most common and simplest. Displays similar or complementary products in a visual grid. Works great on product pages to increase discovery opportunities." },
+          { type: "list", items: [
+            "Best for: Product page, category page",
+            "Example: Customer views \"Running Shoes\" → sees \"Sports Socks\" and \"Shoe Laces\"",
+            "Strength: Simple and familiar to customers, doesn't distract them"
+          ]},
+          { type: "heading", text: "2. Optional Add-ons" },
+          { type: "paragraph", text: "Displays additional low-priced products that can be added with a single click without leaving the page. Excellent for increasing cart value in a way that doesn't pressure the customer." },
+          { type: "list", items: [
+            "Best for: Product page and cart page",
+            "Example: Customer adds a \"Phone\" → sees \"Screen Protector for 15 SAR\" and \"Phone Case for 20 SAR\"",
+            "Strength: High conversion rate because the price is low and the value is clear"
+          ]},
+          { type: "heading", text: "3. Bundles (Combo / Bundle)" },
+          { type: "paragraph", text: "Groups multiple products into a bundle at a discounted price. Encourages buying more in exchange for greater savings. One of the highest display methods for raising average order value." },
+          { type: "list", items: [
+            "Best for: Product page and homepage",
+            "Example: \"Buy the complete bundle: Shampoo + Conditioner + Moisturizer at 20% off\"",
+            "Strength: Makes the customer feel they're getting a great deal"
+          ]},
+          { type: "heading", text: "4. Upsell" },
+          { type: "paragraph", text: "Suggests a better, higher-priced alternative to the product the customer is viewing. Increases cart value by upgrading the product level." },
+          { type: "list", items: [
+            "Best for: Product page",
+            "Example: Customer views \"Regular Coffee\" → sees \"Premium Coffee for just 30 SAR more\"",
+            "Strength: Very effective in electronics and fashion stores"
+          ]},
+          { type: "heading", text: "5. Smart Coupons" },
+          { type: "paragraph", text: "Offers a discount coupon conditional on purchasing a certain value or specific products. Used to recover hesitant customers and directly increase cart value." },
+          { type: "list", items: [
+            "Best for: Cart page and thank you page",
+            "Example: \"Add 50 SAR to your cart and get 10% off your order\"",
+            "Strength: Creates a sense of urgency and motivates purchase completion"
+          ]},
+          { type: "tip", text: "Start with \"Related Products\" then \"Add-ons\" — these two methods deliver the fastest results for stores new to Ziadah." },
+        ],
       },
       {
         id: "features-coupons",
@@ -376,6 +598,30 @@ export const categories: Category[] = [
           { type: "tip", text: "الكوبونات الذكية الأكثر فعالية هي تلك التي تجعل العميل يضيف 20-30٪ فقط فوق قيمة سلته الحالية للحصول على الخصم. لا تجعل الشرط صعب التحقيق." },
           { type: "warning", text: "تنبيه: لا تستخدم أكثر من كوبونين ذكيين في نفس الوقت على نفس المتجر - قد يربك العميل ويقلل فعالية كليهما." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Smart coupons in Ziadah differ from regular store coupons — they are tied to customer behavior and activate automatically at the right moment for maximum impact." },
+          { type: "heading", text: "Difference Between Regular and Smart Coupons" },
+          { type: "paragraph", text: "Regular coupon: A fixed code the merchant creates manually and distributes to everyone. Smart coupon in Ziadah: Appears automatically for a specific customer at a specific moment based on their cart value and in-store behavior." },
+          { type: "heading", text: "Types of Coupon Conditions" },
+          { type: "list", items: [
+            "Cart value condition: \"Spend more than 200 SAR and get 15% off\"",
+            "Quantity condition: \"Buy 3 or more items and get the 4th free\"",
+            "Category condition: \"Add a product from the Perfumes category and get 10% off the cart\"",
+            "Time condition: \"20% off in the last 30 minutes before cart abandonment\""
+          ]},
+          { type: "heading", text: "Steps to Set Up a Smart Coupon" },
+          { type: "numbered", items: [
+            "Go to the \"Smart Coupons\" section in the Ziadah dashboard",
+            "Click \"New Coupon\" and choose the condition type",
+            "Set the discount value (percentage or fixed amount)",
+            "Set a usage limit if desired",
+            "Link the coupon to an existing campaign or create a new one",
+            "Set the suggestion point: usually the cart page for coupons",
+            "Publish and monitor coupon results in the analytics dashboard"
+          ]},
+          { type: "tip", text: "The most effective smart coupons are those that require the customer to add only 20–30% above their current cart value to get the discount. Don't make the condition too hard to achieve." },
+          { type: "warning", text: "Warning: Don't use more than two smart coupons at the same time on the same store — it may confuse the customer and reduce the effectiveness of both." },
+        ],
       },
       {
         id: "features-customization",
@@ -406,6 +652,27 @@ export const categories: Category[] = [
           { type: "heading", text: "التخصيص عبر CSS المتقدم" },
           { type: "paragraph", text: "للمتاجر التي تحتاج تحكماً أعمق، يوفر زيادة حقل CSS مخصص يتيح لك تعديل أي عنصر بصري بالضبط. هذا موجه للتجار الذين لديهم معرفة تقنية أو مطور." },
           { type: "tip", text: "ابدأ دائماً بتغيير لون الأزرار ليتطابق مع لون زر \"أضف للسلة\" في ثيمك الأساسي - هذا وحده يرفع نسبة النقر بنسبة ملحوظة." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah allows you to fully customize the look of recommendations so they appear as a natural part of your store's design rather than an external add-on. This significantly increases engagement rates." },
+          { type: "heading", text: "Visual Customization Options" },
+          { type: "list", items: [
+            "Colors: Change button, border, and background colors to match your brand identity",
+            "Fonts: Use the same font used in your store",
+            "Size and spacing: Adjust card sizes and spacing between them",
+            "Icons: Choose different icons for the cart and ratings"
+          ]},
+          { type: "heading", text: "Text Customization" },
+          { type: "paragraph", text: "You can change all text displayed in recommendations in Arabic, English, or both. This is important for matching your store's tone of voice." },
+          { type: "list", items: [
+            "Recommendation section title: \"You may also like\" or \"Complementary Products\" or any title you choose",
+            "Add to cart button text: \"Add to Cart\" or \"Buy Now\" or \"Reserve\"",
+            "Bundle text: \"Get All\" or \"Complete Package\"",
+            "Coupon text: Customize the special offer message"
+          ]},
+          { type: "heading", text: "Advanced CSS Customization" },
+          { type: "paragraph", text: "For stores that need deeper control, Ziadah provides a custom CSS field that allows you to modify any visual element precisely. This is intended for merchants with technical knowledge or a developer." },
+          { type: "tip", text: "Always start by changing the button color to match the \"Add to Cart\" button color in your main theme — this alone noticeably increases the click-through rate." },
         ],
       },
       {
@@ -444,6 +711,33 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "ابدأ بقاعدتين فقط: \"عميل جديد\" و\"عميل متكرر\". هذا التقسيم البسيط يمكن أن يرفع نسبة التحويل بنسبة 20-35٪." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Targeting rules allow you to show different recommendations to different customers at the same time. A new customer sees different recommendations than a returning customer." },
+          { type: "heading", text: "Types of Targeting Segments" },
+          { type: "list", items: [
+            "New customer: First visit to the store — sees best-selling products",
+            "Returning customer: Has purchased before — sees products complementary to their previous purchases",
+            "Location-based customer: Customers from a specific city or region",
+            "Device-based customer: Mobile users see a different design than desktop users",
+            "Cart size customer: Customers with carts above 300 SAR see different offers"
+          ]},
+          { type: "heading", text: "Building a Targeting Rule Step by Step" },
+          { type: "numbered", items: [
+            "From the \"Targeting\" section in the dashboard, click \"New Rule\"",
+            "Select the segment type (New visitor, Returning, etc.)",
+            "Add additional conditions if needed (AND/OR)",
+            "Choose the campaign this rule will apply to",
+            "Set the rule priority if there are multiple rules",
+            "Publish and test by visiting the store in an incognito browser"
+          ]},
+          { type: "heading", text: "Successful Targeting Examples" },
+          { type: "list", items: [
+            "Clothing store: Shows women's products to customers who previously bought women's clothing",
+            "Electronics store: Shows accessories compatible with the phone the customer purchased",
+            "Food store: Shows complementary beverages to meals the customer previously ordered"
+          ]},
+          { type: "tip", text: "Start with just two rules: \"New customer\" and \"Returning customer.\" This simple segmentation can increase conversion rates by 20–35%." },
+        ],
       },
       {
         id: "features-touchpoints",
@@ -478,6 +772,30 @@ export const categories: Category[] = [
           { type: "paragraph", text: "لا تفعّل جميع النقاط في وقت واحد. ابدأ بصفحة المنتج وصفحة السلة، ثم أضف صفحة الشكر بعد أسبوعين. هذا يتيح لك دراسة تأثير كل نقطة بشكل منفصل." },
           { type: "tip", text: "صفحة الشكر هي من أكثر النقاط إهمالاً ومن أكثرها فعالية. العميل السعيد بشرائه مستعد للشراء مرة أخرى - لا تفوّت هذه الفرصة." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah supports 9 different suggestion points covering the entire customer journey from entering the store to post-purchase. Each point has a different function and a different impact on sales." },
+          { type: "heading", text: "Pre-Purchase Points (4 Points)" },
+          { type: "list", items: [
+            "1. Homepage: First encounter with the customer — display best sellers or personalized products for returning visitors",
+            "2. Category Page: The customer is browsing a specific category — suggest similar or additional products",
+            "3. Product Page: The customer is interested in a product — best place for Upsell and Cross-sell",
+            "4. Search Page: The customer is searching for something specific — help them find it faster"
+          ]},
+          { type: "heading", text: "During Purchase Points (3 Points)" },
+          { type: "list", items: [
+            "5. Cart Page: Last chance to increase value before payment — excellent for Add-ons and coupons",
+            "6. Checkout Page: Final confirmation for additional items before completing the purchase",
+            "7. Add to Cart Popup: Appears the moment a product is added to the cart"
+          ]},
+          { type: "heading", text: "Post-Purchase Points (2 Points)" },
+          { type: "list", items: [
+            "8. Thank You Page: The customer is in a state of emotional satisfaction — best for repeat purchase recommendations",
+            "9. Follow-up Email: An email sent 24–48 hours after purchase"
+          ]},
+          { type: "heading", text: "Point Usage Strategy" },
+          { type: "paragraph", text: "Don't activate all points at once. Start with the product page and cart page, then add the thank you page after two weeks. This allows you to study each point's impact separately." },
+          { type: "tip", text: "The thank you page is one of the most neglected yet most effective points. A customer happy with their purchase is ready to buy again — don't miss this opportunity." },
+        ],
       },
     ],
   },
@@ -508,6 +826,18 @@ export const categories: Category[] = [
           { type: "heading", text: "التحسين المستمر" },
           { type: "paragraph", text: "بعد كل توصية، يتعلم النظام من النتيجة: هل نقر العميل؟ هل اشترى؟ إذا لم يفعل، ماذا فعل بدلاً من ذلك؟ هذا التغذية الراجعة تجعل النظام أذكى مع مرور الوقت." },
           { type: "tip", text: "نصيحة: متجرك الذي لديه 100 طلب شهرياً سيحصل على توصيات أدق بكثير من متجر لديه 10 طلبات. ركّز على زيادة حجم الطلبات عموماً لتحسين جودة الذكاء الاصطناعي." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The AI in Ziadah is not just a set of fixed programming rules — it is a system that continuously learns and evolves based on your store's unique data. Understanding how it works helps you use it more intelligently." },
+          { type: "heading", text: "Data Collection Phase" },
+          { type: "paragraph", text: "During every visit to your store, the system quietly tracks: What did the customer view? What did they add to the cart? What did they ultimately buy? What did they ignore? This data is stored in a completely anonymous manner." },
+          { type: "heading", text: "Model Building Phase" },
+          { type: "paragraph", text: "The system looks for common patterns: \"Customers who bought A usually also bought B.\" This is called Collaborative Filtering. The more data there is, the more precise and personalized patterns the system discovers." },
+          { type: "heading", text: "Recommendation Phase" },
+          { type: "paragraph", text: "When a new customer visits your store, the system compares their current behavior with millions of stored patterns, then selects the most likely successful recommendation in seconds." },
+          { type: "heading", text: "Continuous Improvement" },
+          { type: "paragraph", text: "After every recommendation, the system learns from the result: Did the customer click? Did they buy? If not, what did they do instead? This feedback makes the system smarter over time." },
+          { type: "tip", text: "Tip: A store with 100 monthly orders will get much more accurate recommendations than a store with 10 orders. Focus on increasing overall order volume to improve AI quality." },
         ],
       },
       {
@@ -555,6 +885,42 @@ export const categories: Category[] = [
           ]},
           { type: "warning", text: "لا نجمع أي بيانات شخصية تعريفية مثل الاسم أو رقم الجوال أو بريد العميل دون موافقته الصريحة. جميع الإشارات مجهولة الهوية." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "The AI in Ziadah doesn't rely on purchase history alone — it analyzes dozens of signals simultaneously to deliver accurate recommendations at the right time for each customer." },
+          { type: "heading", text: "Real-time Behavior Signals" },
+          { type: "list", items: [
+            "Pages visited during this session",
+            "Products viewed and how much time was spent on each",
+            "What was added to and removed from the cart",
+            "Visit source (Google search, social media, direct)",
+            "Search terms used within the store"
+          ]},
+          { type: "heading", text: "Device and Environment Signals" },
+          { type: "list", items: [
+            "Device type (mobile, tablet, computer)",
+            "Time of day and date",
+            "Approximate geographic region (city)",
+            "Preferred language",
+            "Internet connection type"
+          ]},
+          { type: "heading", text: "Historical Signals (for Returning Customers)" },
+          { type: "list", items: [
+            "List of previous purchases and their dates",
+            "Products viewed but not purchased",
+            "Average order value",
+            "Purchase frequency and absence duration",
+            "Most frequently purchased categories"
+          ]},
+          { type: "heading", text: "Product Signals" },
+          { type: "list", items: [
+            "Product names and descriptions",
+            "Product categories and tags",
+            "Prices and profit margins",
+            "Inventory levels",
+            "Customer ratings"
+          ]},
+          { type: "warning", text: "We do not collect any personally identifiable information such as names, phone numbers, or customer emails without their explicit consent. All signals are anonymized." },
+        ],
       },
       {
         id: "ai-time",
@@ -581,6 +947,23 @@ export const categories: Category[] = [
             "فوق 200 طلب شهرياً: أسبوعان كافيان لملاحظة فرق ملحوظ"
           ]},
           { type: "tip", text: "لتسريع التعلم: أضف أوصافاً تفصيلية لأكثر 100 منتج مبيعاً، وتأكد من دقة تصنيف الفئات." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "One of the most common questions from new merchants: \"When will I see a real difference in my sales?\" The answer depends on your store's activity level, but this timeline gives you realistic expectations." },
+          { type: "heading", text: "Week 1: Initial Data Phase" },
+          { type: "paragraph", text: "Recommendations are working and appearing to customers, but the AI relies more on general data (categories and names) than on actual patterns from your store. Good results, but not the best." },
+          { type: "heading", text: "Weeks 2–4: Accelerated Learning Phase" },
+          { type: "paragraph", text: "After the first 50–100 orders, the system begins learning patterns specific to your store's customers. You'll notice a noticeable improvement in recommendation accuracy and click-through rates." },
+          { type: "heading", text: "Month 2: Stabilization and Optimization Phase" },
+          { type: "paragraph", text: "The AI has learned the most important 80% of your store's patterns. Recommendations are now highly accurate and you can experiment and compare different settings." },
+          { type: "heading", text: "Month 3 Onward: Continuous Improvement Phase" },
+          { type: "paragraph", text: "The system adapts to seasonal changes and learns from events and promotions. This is the stage where you see the best results." },
+          { type: "list", items: [
+            "Less than 50 monthly orders: Wait two months before judging performance",
+            "50–200 monthly orders: One month is sufficient for clear results",
+            "Above 200 monthly orders: Two weeks are enough to notice a significant difference"
+          ]},
+          { type: "tip", text: "To accelerate learning: Add detailed descriptions for your top 100 best-selling products and ensure category classifications are accurate." },
         ],
       },
       {
@@ -614,6 +997,28 @@ export const categories: Category[] = [
           { type: "paragraph", text: "أحياناً قد تعرف أنت أفضل من الذكاء الاصطناعي - مثلاً تعرف أن منتجين يُباعان معاً دائماً في ثقافتك المحلية لكن النظام لم يكتشف ذلك بعد. يمكنك ربط المنتجات يدوياً وتجاوز التوصيات التلقائية." },
           { type: "tip", text: "راجع تقرير التوصيات أسبوعياً في أول شهرين. بعد ذلك، مراجعة شهرية كافية." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah allows you to see the \"reason\" behind each recommendation — why the system suggested a specific product to a specific customer. This transparency helps you understand the system and trust its decisions." },
+          { type: "heading", text: "Types of Recommendation Reasons" },
+          { type: "list", items: [
+            "\"Bought by similar customers\": Customers who bought the same product also bought this",
+            "\"Complements your previous purchases\": Matches what this customer has bought before",
+            "\"From your favorite category\": The customer frequently browses this category",
+            "\"Best seller at your time\": Sells frequently at the same time of visit",
+            "\"Complements the current product\": Works perfectly with what the customer is currently viewing"
+          ]},
+          { type: "heading", text: "How to Read the Recommendation Explanation Report" },
+          { type: "numbered", items: [
+            "From the dashboard, navigate to \"Recommendation Details\"",
+            "Select any campaign and click \"Analyze Recommendations\"",
+            "You'll see a list of the most suggested products with the reason for each recommendation",
+            "Look for recommendations that seem \"odd\" — these deserve investigation",
+            "If you see a recommendation that doesn't suit your store, you can exclude specific products from recommendations"
+          ]},
+          { type: "heading", text: "Manual Intervention in Recommendations" },
+          { type: "paragraph", text: "Sometimes you may know better than the AI — for example, you know that two products always sell together in your local culture but the system hasn't discovered this yet. You can manually link products and override automatic recommendations." },
+          { type: "tip", text: "Review the recommendation report weekly during the first two months. After that, a monthly review is sufficient." },
+        ],
       },
       {
         id: "ai-privacy",
@@ -645,6 +1050,28 @@ export const categories: Category[] = [
           { type: "heading", text: "حق الحذف وإدارة البيانات" },
           { type: "paragraph", text: "يحق لأي عميل لديك طلب حذف بياناته. يمكنك إجراء ذلك من لوحة تحكم زيادة في قسم إدارة البيانات. البيانات تُحذف خلال 72 ساعة." },
           { type: "tip", text: "أضف فقرة في صفحة سياسة الخصوصية في متجرك تذكر استخدامك لزيادة كأداة توصيات وكيف تحمي بيانات عملائك. هذا يبني ثقة إضافية مع عملائك." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Privacy is not just a legal obligation for us — it is a fundamental pillar in Ziadah's design. Understanding the privacy policy helps you answer your customers' questions with confidence." },
+          { type: "heading", text: "What We Collect" },
+          { type: "list", items: [
+            "Browsing behavior data: Completely anonymous without name or email",
+            "Anonymous identifiers: A random code for each device that cannot be linked to a real person",
+            "Product and purchase data: From your store catalog only",
+            "Device and approximate location data: At the city level only, no precise location"
+          ]},
+          { type: "heading", text: "What We Never Collect" },
+          { type: "list", items: [
+            "Customer names or phone numbers",
+            "Payment card details",
+            "Login credentials or passwords",
+            "Exact home address or precise location"
+          ]},
+          { type: "heading", text: "Legal Compliance" },
+          { type: "paragraph", text: "Ziadah is designed to comply with: Saudi Arabia's Personal Data Protection Law (PDPL), Gulf data protection regulations, and the GDPR framework for stores with European customers." },
+          { type: "heading", text: "Right to Deletion and Data Management" },
+          { type: "paragraph", text: "Any of your customers has the right to request data deletion. You can do this from the Ziadah dashboard in the Data Management section. Data is deleted within 72 hours." },
+          { type: "tip", text: "Add a paragraph to your store's privacy policy page mentioning your use of Ziadah as a recommendation tool and how you protect customer data. This builds additional trust with your customers." },
         ],
       },
       {
@@ -683,6 +1110,34 @@ export const categories: Category[] = [
           { type: "heading", text: "استبعاد منتجات من التوصيات" },
           { type: "paragraph", text: "بعض المنتجات لا ينبغي توصيتها معاً. مثلاً: منتجات الأطفال لا ينبغي توصيتها مع منتجات للكبار. في إعدادات الاستبعاد، يمكنك منع فئات أو منتجات معينة من الظهور معاً." },
           { type: "tip", text: "خصص 30 دقيقة أسبوعياً لمراجعة \"تقرير التوصيات غير المنطقية\" في لوحة التحكم. إصلاح 10 توصيات خاطئة قد يرفع نسبة التحويل الكلية بشكل ملحوظ." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Despite the AI's power, there are simple actions you can take to help guide the system toward more accurate and relevant recommendations for your store's nature." },
+          { type: "heading", text: "Improving Category Structure" },
+          { type: "paragraph", text: "Clear and logical categories help the AI better understand relationships between products. A product in the wrong category will get wrong recommendations." },
+          { type: "numbered", items: [
+            "Review every category in your store and ensure all products truly belong to it",
+            "Create subcategories if a main category contains very different types",
+            "Add shared tags for related products even if they're in different categories",
+            "Delete empty categories or those containing only one product"
+          ]},
+          { type: "heading", text: "Improving Product Descriptions" },
+          { type: "list", items: [
+            "Explicitly mention \"pairs well with\" or \"complements\" in the description",
+            "Add manufacturing materials, sizes, and usage details",
+            "Use the same keywords for related products",
+            "Add common alternative names for the product if they exist"
+          ]},
+          { type: "heading", text: "Manual Product Linking" },
+          { type: "paragraph", text: "In the Ziadah dashboard, the \"Relationship Management\" section allows you to manually link specific products together. This takes priority over automatic AI recommendations and is useful for:" },
+          { type: "list", items: [
+            "Mandatorily complementary products (e.g., charger + phone)",
+            "Special promotional offers for a limited time",
+            "Pre-designed product bundles"
+          ]},
+          { type: "heading", text: "Excluding Products from Recommendations" },
+          { type: "paragraph", text: "Some products shouldn't be recommended together. For example: children's products shouldn't be recommended with adult products. In the exclusion settings, you can prevent specific categories or products from appearing together." },
+          { type: "tip", text: "Dedicate 30 minutes weekly to reviewing the \"Illogical Recommendations Report\" in the dashboard. Fixing 10 incorrect recommendations can noticeably increase your overall conversion rate." },
         ],
       },
     ],
@@ -745,6 +1200,48 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "إذا كنت غير متأكد، ابدأ بالباقة الأدنى لمدة شهر. الترقية سهلة وفورية، ولن تفقد أي بيانات أو إعدادات." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah offers four plans designed for different growth stages. Choosing the right plan ensures you only pay for what you actually need." },
+          { type: "heading", text: "Starter Plan" },
+          { type: "paragraph", text: "Ideal for new or small stores. Gives you the essential tools to start smart recommendations without complexity." },
+          { type: "list", items: [
+            "Up to 1,000 products",
+            "3 active campaigns at a time",
+            "4 suggestion points",
+            "Basic analytics dashboard",
+            "Email support"
+          ]},
+          { type: "heading", text: "Business Plan" },
+          { type: "paragraph", text: "For growing stores that want to leverage the full power of AI." },
+          { type: "list", items: [
+            "Up to 5,000 products",
+            "10 active campaigns",
+            "All 9 suggestion points",
+            "Custom targeting rules",
+            "Advanced reports",
+            "Priority WhatsApp support"
+          ]},
+          { type: "heading", text: "Pro Plan" },
+          { type: "paragraph", text: "For large stores that want full control and maximum customization." },
+          { type: "list", items: [
+            "Unlimited products",
+            "Unlimited campaigns",
+            "API for custom integration",
+            "Dedicated account manager",
+            "Advanced A/B testing",
+            "Custom reports"
+          ]},
+          { type: "heading", text: "Enterprise Plan" },
+          { type: "paragraph", text: "For multi-branch stores and large business groups with special requirements." },
+          { type: "list", items: [
+            "Multiple stores from a single dashboard",
+            "Custom SLA",
+            "Custom API integration",
+            "Team training",
+            "Custom privacy agreement"
+          ]},
+          { type: "tip", text: "If you're unsure, start with the lowest plan for a month. Upgrading is easy and instant, and you won't lose any data or settings." },
+        ],
       },
       {
         id: "billing-monthly-annual",
@@ -776,6 +1273,27 @@ export const categories: Category[] = [
           { type: "heading", text: "التحويل من سنوي لشهري" },
           { type: "paragraph", text: "يمكنك التحويل للاشتراك الشهري عند انتهاء سنتك الحالية. لا يمكن الانتقال للشهري خلال فترة الاشتراك السنوي قبل انتهائها، لكن يمكنك إيقاف التجديد التلقائي." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "You can subscribe to Ziadah on a monthly or annual basis. Both give you the same features, but the annual subscription saves you a noticeable amount." },
+          { type: "heading", text: "Annual Subscription Savings" },
+          { type: "paragraph", text: "The annual subscription offers a discount equivalent to two free months compared to monthly payments. In other words, you pay for 10 months and get a full 12 months." },
+          { type: "heading", text: "When to Choose Monthly?" },
+          { type: "list", items: [
+            "If you're in a trial period and not sure about continuing",
+            "If your store activity is seasonal (Ramadan, holidays)",
+            "If you're trying Ziadah for the first time"
+          ]},
+          { type: "heading", text: "When to Choose Annual?" },
+          { type: "list", items: [
+            "If you're confident about continuing after the first month",
+            "If your store is active year-round",
+            "If you want to reduce the administrative burden of monthly renewals"
+          ]},
+          { type: "heading", text: "Switching from Monthly to Annual" },
+          { type: "paragraph", text: "You can upgrade to the annual subscription at any time from the dashboard. The remaining balance from your monthly subscription is automatically calculated and deducted from the annual subscription cost." },
+          { type: "heading", text: "Switching from Annual to Monthly" },
+          { type: "paragraph", text: "You can switch to a monthly subscription when your current year ends. You cannot switch to monthly during the annual subscription period before it expires, but you can stop automatic renewal." },
+        ],
       },
       {
         id: "billing-invoice",
@@ -803,6 +1321,23 @@ export const categories: Category[] = [
           { type: "paragraph", text: "تُرسل الفاتورة تلقائياً للبريد الإلكتروني المسجل بعد كل عملية خصم. يمكنك تنزيل جميع فواتيرك السابقة من قسم \"الفواتير\" في لوحة التحكم بصيغة PDF." },
           { type: "tip", text: "إذا كنت تحتاج الفاتورة باسم شركتك ورقم السجل التجاري، يمكنك إضافة هذه البيانات في إعدادات الحساب وستُدرج في جميع فواتيرك القادمة." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Invoicing in Ziadah is simple and transparent. No hidden fees, no surprises. Here is a complete guide to understanding how your invoice is calculated and sent." },
+          { type: "heading", text: "Billing Date" },
+          { type: "paragraph", text: "The invoice is renewed on the same date as your original subscription each month. For example, if you subscribed on March 15, your next invoice will be issued on April 15." },
+          { type: "heading", text: "What the Subscription Includes" },
+          { type: "list", items: [
+            "Base plan fees",
+            "All features included in the selected plan",
+            "Updates and new features automatically",
+            "Technical support according to plan level"
+          ]},
+          { type: "heading", text: "Value Added Tax" },
+          { type: "paragraph", text: "Prices shown on the pricing page do not include VAT (15% in Saudi Arabia). Tax will appear separately on your invoice." },
+          { type: "heading", text: "Receiving Invoices" },
+          { type: "paragraph", text: "Invoices are automatically sent to the registered email after each charge. You can download all your previous invoices from the \"Invoices\" section in the dashboard in PDF format." },
+          { type: "tip", text: "If you need the invoice in your company name with the commercial registration number, you can add this information in account settings and it will be included in all future invoices." },
+        ],
       },
       {
         id: "billing-upgrade",
@@ -829,6 +1364,23 @@ export const categories: Category[] = [
           { type: "warning", text: "تنبيه: إذا كنت تستخدم خصائص موجودة في الباقة الأعلى فقط (مثل عدد حملات أكثر)، ستحتاج لتعطيل الزائد عند الخفض لتجنب الأخطاء." },
           { type: "heading", text: "احتساب الرصيد المتبقي" },
           { type: "paragraph", text: "عند الترقية منتصف الدورة: يُحتسب ما دفعته لهذه الدورة بشكل يومي. الأيام المتبقية تُخصم من تكلفة الباقة الجديدة. لن تدفع مرتين أبداً." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah allows you to change your plan at any time with flexibility. Whether you want to upgrade to a higher plan or downgrade to a lower one, the process is smooth and hassle-free." },
+          { type: "heading", text: "Upgrading to a Higher Plan" },
+          { type: "paragraph", text: "Upgrading is instant. Once confirmed, you immediately get all the features of the new plan. The remaining balance from your current plan is converted as a discount on the new plan." },
+          { type: "numbered", items: [
+            "From the dashboard, go to \"Subscription & Billing\"",
+            "Click \"Change Plan\"",
+            "Select the new plan",
+            "Review the calculated price difference",
+            "Click \"Confirm Upgrade\" and it will be activated immediately"
+          ]},
+          { type: "heading", text: "Downgrading to a Lower Plan" },
+          { type: "paragraph", text: "When downgrading, the current plan continues until the end of the current billing period. After that, you switch to the new plan. No data will be lost, but some features will become unavailable." },
+          { type: "warning", text: "Note: If you're using features exclusive to the higher plan (such as more campaigns), you'll need to disable the excess when downgrading to avoid errors." },
+          { type: "heading", text: "Remaining Balance Calculation" },
+          { type: "paragraph", text: "When upgrading mid-cycle: what you've paid for this cycle is calculated on a daily basis. The remaining days are deducted from the new plan's cost. You will never pay twice." },
         ],
       },
       {
@@ -864,6 +1416,30 @@ export const categories: Category[] = [
           { type: "paragraph", text: "لطلب استرداد ضمن الـ 14 يوماً، تواصل معنا عبر واتساب أو البريد الإلكتروني مع ذكر رقم حسابك وسبب الإلغاء. الاسترداد يُنفَّذ خلال 5-10 أيام عمل على نفس وسيلة الدفع المستخدمة." },
           { type: "tip", text: "قبل الإلغاء، تحدث معنا. كثير من المشكلات حلّها بسيط، وربما نجد لك حلاً أفضل من الإلغاء." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "We believe your satisfaction is our priority. That's why we offer a clear and fair cancellation and refund policy without complicated terms." },
+          { type: "heading", text: "14-Day Money-Back Guarantee" },
+          { type: "paragraph", text: "If you subscribe to any paid plan and decide to cancel within 14 days of your first subscription, we'll refund the full amount with no questions asked. This guarantee is for first-time subscriptions only." },
+          { type: "heading", text: "Cancellation After 14 Days" },
+          { type: "paragraph", text: "You can cancel your subscription at any time. No charges will be applied after the cancellation date. The current plan continues until the end of the paid billing period." },
+          { type: "numbered", items: [
+            "Go to \"Subscription & Billing\" in the dashboard",
+            "Click \"Cancel Subscription\"",
+            "Select a cancellation reason (optional)",
+            "Confirm the cancellation",
+            "You'll receive a confirmation email"
+          ]},
+          { type: "heading", text: "What Happens After Cancellation?" },
+          { type: "list", items: [
+            "Recommendations stop immediately when the current plan expires",
+            "Your data and settings are preserved for 90 days",
+            "You can reactivate the subscription at any time during this period and recover everything",
+            "After 90 days, all data related to your store is deleted"
+          ]},
+          { type: "heading", text: "How to Request a Refund" },
+          { type: "paragraph", text: "To request a refund within the 14-day period, contact us via WhatsApp or email with your account number and cancellation reason. The refund is processed within 5–10 business days to the same payment method used." },
+          { type: "tip", text: "Before canceling, talk to us. Many problems have simple solutions, and we might find a better option for you than cancellation." },
+        ],
       },
       {
         id: "billing-payment",
@@ -896,6 +1472,29 @@ export const categories: Category[] = [
           { type: "heading", text: "التجديد التلقائي" },
           { type: "paragraph", text: "الاشتراك يُجدَّد تلقائياً. ستصلك إشعارات قبل 3 أيام من موعد التجديد. يمكنك إيقاف التجديد التلقائي في أي وقت مع الاحتفاظ بالاشتراك حتى نهاية الفترة الحالية." },
           { type: "tip", text: "إذا رُفضت بطاقتك عند التجديد، لديك 7 أيام لتحديث بيانات الدفع قبل إيقاف الخدمة. ستصلك تنبيهات يومية خلال هذه الفترة." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah supports popular payment methods in the Arab region and provides a secure, encrypted payment gateway." },
+          { type: "heading", text: "Accepted Payment Methods" },
+          { type: "list", items: [
+            "Mada card (direct)",
+            "Visa (credit and debit)",
+            "Mastercard (credit and debit)",
+            "American Express",
+            "Apple Pay (for quick payments)"
+          ]},
+          { type: "heading", text: "Payment Data Security" },
+          { type: "paragraph", text: "We do not store your card numbers. All payment data is securely stored through our licensed payment provider (backed by PCI DSS encryption). We only receive a reference token for automatic renewal." },
+          { type: "heading", text: "Updating Payment Information" },
+          { type: "numbered", items: [
+            "Go to \"Subscription & Billing\"",
+            "Click \"Edit Payment Method\"",
+            "Enter the new card details",
+            "Click \"Save\" — this card will be used for the next renewal"
+          ]},
+          { type: "heading", text: "Automatic Renewal" },
+          { type: "paragraph", text: "The subscription renews automatically. You'll receive notifications 3 days before the renewal date. You can stop automatic renewal at any time while keeping the subscription until the end of the current period." },
+          { type: "tip", text: "If your card is declined during renewal, you have 7 days to update your payment information before the service is suspended. You'll receive daily alerts during this period." },
         ],
       },
     ],
@@ -933,6 +1532,23 @@ export const categories: Category[] = [
           { type: "paragraph", text: "نظام التكامل مصمم بـ Edge Computing - خوادمنا موجودة في مناطق قريبة من المملكة لضمان سرعة استجابة أقل من 100 مللي ثانية في معظم الحالات." },
           { type: "tip", text: "إذا لاحظت تأخراً في ظهور تغييرات المنتجات في توصيات زيادة، يمكنك إجراء \"مزامنة يدوية\" من لوحة تحكم زيادة في قسم الإعدادات." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah integrates with both Zid and Salla platforms through official, certified APIs. This deep integration is what makes recommendations accurate and instant." },
+          { type: "heading", text: "Technical Connection Mechanism" },
+          { type: "paragraph", text: "When you install Ziadah, it receives an OAuth token — a secure access key that allows it to read product and order data without needing your password. This key is encrypted and can be revoked at any time." },
+          { type: "heading", text: "Continuous Sync" },
+          { type: "list", items: [
+            "Products: Instant sync when a product is added or modified",
+            "Inventory: Updated every 15 minutes",
+            "Orders: Instant sync with every new order",
+            "Categories: Synced on any change"
+          ]},
+          { type: "heading", text: "Managing Granted Permissions" },
+          { type: "paragraph", text: "At any time, you can review the permissions granted to Ziadah from your Zid or Salla dashboard, in the Apps section. Permissions are read-only — Ziadah cannot modify your store's data." },
+          { type: "heading", text: "Performance and Speed" },
+          { type: "paragraph", text: "The integration system is built with Edge Computing — our servers are located in regions close to Saudi Arabia to ensure a response time of less than 100 milliseconds in most cases." },
+          { type: "tip", text: "If you notice a delay in product changes appearing in Ziadah's recommendations, you can perform a \"Manual Sync\" from the Ziadah dashboard in the Settings section." },
+        ],
       },
       {
         id: "technical-themes",
@@ -964,6 +1580,28 @@ export const categories: Category[] = [
           { type: "heading", text: "اختبار الظهور الصحيح" },
           { type: "paragraph", text: "بعد التثبيت، افتح أدوات المطور في المتصفح (F12) وابحث عن عناصر بـ class \"ziadah-widget\". إذا وجدتها، فالتكامل ناجح. إذا لم تجدها، هناك مشكلة في التثبيت." },
           { type: "warning", text: "تنبيه: إذا كنت تستخدم ثيم مخصص ولم تره في القائمة المدعومة، تواصل مع فريق الدعم قبل التثبيت. لدينا خبراء يمكنهم مساعدتك في التثبيت." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah is designed to work with standard themes automatically, but custom or modified themes may need some additional adjustments to ensure recommendations appear correctly." },
+          { type: "heading", text: "Standard Themes (Work Automatically)" },
+          { type: "paragraph", text: "Most official Zid and Salla themes fully support Ziadah without any manual intervention. You can verify your theme's compatibility in the supported themes list in the Ziadah dashboard." },
+          { type: "heading", text: "Custom Themes — What You May Need" },
+          { type: "list", items: [
+            "Ensure an HTML container with a specific class or ID exists for each suggestion point",
+            "Ziadah needs specific data-attributes to determine recommendation placement",
+            "Some themes use JavaScript Frameworks that require special configuration"
+          ]},
+          { type: "heading", text: "Manually Adding a Suggestion Point to Your Theme" },
+          { type: "numbered", items: [
+            "From the Ziadah dashboard, go to \"Suggestion Points\"",
+            "Select the point you want to activate (e.g., product page)",
+            "Copy the HTML code provided by Ziadah",
+            "Paste it in the correct position in your theme template file",
+            "Save and test in the store"
+          ]},
+          { type: "heading", text: "Testing Correct Display" },
+          { type: "paragraph", text: "After installation, open browser developer tools (F12) and search for elements with the class \"ziadah-widget\". If you find them, the integration is successful. If not, there's an installation issue." },
+          { type: "warning", text: "Note: If you're using a custom theme and don't see it in the supported list, contact the support team before installation. We have experts who can help you with the setup." },
         ],
       },
       {
@@ -1004,6 +1642,35 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "يمكنك أيضاً ربط زيادة بـ Meta Pixel وTikTok Pixel وSnapchat Pixel للتتبع على منصات التواصل الاجتماعي. هذه التكاملات متاحة في نفس قسم \"التكاملات\"." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Linking Ziadah with Google Analytics gives you a more complete picture of how recommendations impact the entire customer journey, from clicking a recommendation to completing a purchase." },
+          { type: "heading", text: "What Ziadah Sends to Analytics" },
+          { type: "list", items: [
+            "Recommendation view: When the customer sees the recommendations",
+            "Recommendation click: product_click event with the product ID",
+            "Add to cart from recommendation: add_to_cart with the addition source",
+            "Influenced purchase: attribution parameter added to revenue"
+          ]},
+          { type: "heading", text: "Setting Up the Integration" },
+          { type: "numbered", items: [
+            "Ensure Google Analytics 4 (GA4) is installed on your store",
+            "From the Ziadah dashboard, go to \"Integrations\"",
+            "Click on Google Analytics",
+            "Enter your GA4 Measurement ID (starts with G-)",
+            "Enable the tracking events you want",
+            "Publish and wait 24 hours for data to appear in GA4"
+          ]},
+          { type: "heading", text: "Reading Reports in GA4" },
+          { type: "paragraph", text: "In GA4, go to Events and search for events starting with \"ziadah_\". You can create a Conversion Event specifically for influenced purchases to accurately measure ROI." },
+          { type: "heading", text: "Creating a Custom Dashboard in GA4" },
+          { type: "list", items: [
+            "Create a new Exploration in GA4",
+            "Add Dimension: \"Event Name\" and filter by \"contains ziadah\"",
+            "Add Metric: \"Event Count\" and \"Conversions\"",
+            "Add Metric: \"Revenue\" with a Segment for influenced purchases"
+          ]},
+          { type: "tip", text: "You can also link Ziadah with Meta Pixel, TikTok Pixel, and Snapchat Pixel for tracking on social media platforms. These integrations are available in the same \"Integrations\" section." },
+        ],
       },
       {
         id: "technical-speed",
@@ -1033,6 +1700,26 @@ export const categories: Category[] = [
           { type: "heading", text: "اختبار التأثير على سرعتك" },
           { type: "paragraph", text: "يمكنك قياس التأثير الفعلي باستخدام Google PageSpeed Insights مرة قبل تثبيت زيادة ومرة بعده. في الغالب الفرق أقل من 1٪ في Core Web Vitals." },
           { type: "tip", text: "إذا لاحظت أي تأثير على سرعة متجرك بعد تثبيت زيادة، تواصل مع الدعم الفني فوراً. لدينا أدوات تشخيص متقدمة لمعرفة السبب وحله." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Your store's speed directly impacts your sales — every second of delay means a drop in conversions. That's why we built Ziadah from the ground up to be as lightweight as possible." },
+          { type: "heading", text: "Technical Numbers" },
+          { type: "list", items: [
+            "Main script size: Less than 3 kilobytes compressed",
+            "Loading: Fully async — doesn't block page loading",
+            "First API response: Under 100ms for 95% of requests",
+            "Memory usage: Less than 1MB in browser memory"
+          ]},
+          { type: "heading", text: "Performance Optimization Techniques" },
+          { type: "list", items: [
+            "Lazy Loading: Recommendations load only when needed",
+            "Edge Caching: Cache stored close to the user",
+            "Prefetching: Proactively fetches recommendations when likely needed",
+            "Image Optimization: Product images are automatically optimized"
+          ]},
+          { type: "heading", text: "Testing the Impact on Your Speed" },
+          { type: "paragraph", text: "You can measure the actual impact using Google PageSpeed Insights once before installing Ziadah and once after. Typically, the difference is less than 1% in Core Web Vitals." },
+          { type: "tip", text: "If you notice any impact on your store's speed after installing Ziadah, contact technical support immediately. We have advanced diagnostic tools to identify and resolve the issue." },
         ],
       },
       {
@@ -1065,6 +1752,28 @@ export const categories: Category[] = [
           { type: "heading", text: "إدارة الأعضاء الحاليين" },
           { type: "paragraph", text: "يمكنك في أي وقت تعديل صلاحيات عضو موجود أو إزالته من الفريق. الإزالة فورية ويفقد العضو وصوله للوحة التحكم فور الإزالة." },
           { type: "tip", text: "أفضل ممارسة: منح المسوّقين صلاحية \"Marketer\" فقط. هذا يمنعهم من حذف الحملات القديمة عن طريق الخطأ أو الوصول للبيانات المالية." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah supports team management with flexible permissions. You can add team members and grant them specific access based on their role without giving them full permissions." },
+          { type: "heading", text: "Permission Levels" },
+          { type: "list", items: [
+            "Owner: Full permissions including billing and cancellation",
+            "Admin: Everything except billing and deletion",
+            "Marketer: Create and edit campaigns only",
+            "Analyst: Read reports and analytics only"
+          ]},
+          { type: "heading", text: "Adding a New Member" },
+          { type: "numbered", items: [
+            "From account settings, go to \"Team\"",
+            "Click \"Add Member\"",
+            "Enter the new member's email address",
+            "Choose the appropriate permission level",
+            "Click \"Send Invitation\"",
+            "The member will receive a registration email and will appear in the team list"
+          ]},
+          { type: "heading", text: "Managing Existing Members" },
+          { type: "paragraph", text: "You can modify an existing member's permissions or remove them from the team at any time. Removal is immediate and the member loses access to the dashboard instantly upon removal." },
+          { type: "tip", text: "Best practice: Grant marketers \"Marketer\" permission only. This prevents them from accidentally deleting old campaigns or accessing financial data." },
         ],
       },
       {
@@ -1128,6 +1837,59 @@ export const categories: Category[] = [
             "هذا يجدد التوكن ويحل مشكلة انتهاء الصلاحية"
           ]},
           { type: "tip", text: "إذا لم يحل أي مما سبق مشكلتك، تواصل مع الدعم الفني عبر واتساب مع تصوير الشاشة أو وصف تفصيلي للمشكلة. سنحل معظم المشكلات في غضون ساعة." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "We've compiled the 8 most common technical issues merchants face, along with quick solutions you can apply yourself in minutes." },
+          { type: "heading", text: "Issue 1: Recommendations Don't Appear in the Store" },
+          { type: "list", items: [
+            "Ensure the campaign is set to \"Active\" and not \"Paused\"",
+            "Ensure the theme supports Ziadah or that the code has been manually embedded",
+            "Clear the store's cache",
+            "Verify products are synced in the Ziadah dashboard"
+          ]},
+          { type: "heading", text: "Issue 2: Recommendations Appear with Wrong Design" },
+          { type: "list", items: [
+            "Ensure there's no CSS conflicting with Ziadah's widget",
+            "Review the visual customization settings in the campaign",
+            "Try temporarily disabling other extensions to check for conflicts"
+          ]},
+          { type: "heading", text: "Issue 3: Sync Is Delayed or Fails" },
+          { type: "list", items: [
+            "Open the Ziadah dashboard and go to \"Sync Status\"",
+            "Click \"Manual Sync\" and wait for it to complete",
+            "If the issue persists, re-authorize the app from Zid/Salla settings"
+          ]},
+          { type: "heading", text: "Issue 4: Number of Influenced Orders Is Very Low" },
+          { type: "list", items: [
+            "Ensure suggestion points are correct and visible to customers",
+            "Review CTR — if it's high but conversion is low, the issue is with the add-to-cart experience",
+            "Try changing the display method or goal"
+          ]},
+          { type: "heading", text: "Issue 5: Analytics Dashboard Shows Zero" },
+          { type: "list", items: [
+            "Ensure event tracking is enabled in settings",
+            "Ensure you're viewing the correct time period",
+            "Data appears with a maximum delay of 2–4 hours"
+          ]},
+          { type: "heading", text: "Issue 6: Campaign Won't Create" },
+          { type: "list", items: [
+            "Ensure all required fields are filled",
+            "Ensure you haven't exceeded the maximum campaign count for your plan",
+            "Try refreshing the page and trying again"
+          ]},
+          { type: "heading", text: "Issue 7: Recommendations Keep Repeating the Same Products" },
+          { type: "list", items: [
+            "This is normal in the early days before enough data is collected",
+            "Ensure categories and product descriptions are accurate",
+            "Wait a week for recommendation variety to improve"
+          ]},
+          { type: "heading", text: "Issue 8: 401 Error or Expired Authorization" },
+          { type: "list", items: [
+            "Go to the app settings in Zid/Salla",
+            "Remove the Ziadah app and reinstall it",
+            "This renews the token and resolves the expiration issue"
+          ]},
+          { type: "tip", text: "If none of the above resolves your issue, contact technical support via WhatsApp with a screenshot or detailed description of the problem. We resolve most issues within an hour." },
         ],
       },
     ],
@@ -1569,6 +2331,33 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "في موسم الأزياء (رمضان وسبتمبر مع العودة للمدارس والأعياد)، فعّل حملات خاصة للأطقم الكاملة بخصومات محدودة لمدة 72 ساعة فقط." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Fashion stores have a golden opportunity with Ziadah because products are naturally interconnected — complete outfits, complementary accessories, and different sizes are all opportunities for additional sales." },
+          { type: "heading", text: "Strategy 1: Complete the Look Bundle" },
+          { type: "paragraph", text: "The strongest strategy for fashion stores. When a customer views a clothing item, suggest the complete outfit. The increase in cart value is typically 40–70%." },
+          { type: "numbered", items: [
+            "Classify your products correctly: shirt, pants, shoes, bag",
+            "Use shared tags for coordinating items (e.g., \"classic beige\")",
+            "Create a campaign with the \"Increase Cart Value\" goal on the product page",
+            "Choose the \"Combo\" display method with an image of the complete outfit"
+          ]},
+          { type: "heading", text: "Strategy 2: Accessory Grouping" },
+          { type: "paragraph", text: "Accessories (belt, watch, glasses) are added at a relatively low price but achieve a significant increase in cart value." },
+          { type: "list", items: [
+            "Use Add-ons on the product page to display low-priced accessories",
+            "The add-on price should not exceed 25% of the main product price",
+            "Use clear images of the accessory with the main product"
+          ]},
+          { type: "heading", text: "Strategy 3: Alternative Sizes and Colors" },
+          { type: "paragraph", text: "If the desired size is unavailable, suggest an available alternative of the same design in a different color or a similar size. This reduces store abandonment without a purchase." },
+          { type: "heading", text: "Performance Indicators for Fashion Stores" },
+          { type: "list", items: [
+            "Average cart value: Goal to increase by 30–50% within 3 months",
+            "Accessory purchase rate with a main item: Goal of 20–30%",
+            "Suggested product viewing rate: Goal of 40% or higher"
+          ]},
+          { type: "tip", text: "During fashion season (Ramadan, September back-to-school, and holidays), activate special complete outfit campaigns with limited discounts for 72 hours only." },
+        ],
       },
       {
         id: "strategies-food",
@@ -1605,6 +2394,33 @@ export const categories: Category[] = [
           { type: "heading", text: "استراتيجية 4: الاشتراكات الدورية" },
           { type: "paragraph", text: "للمنتجات التي تُشترى بانتظام، اقترح خيار الاشتراك الشهري بخصم ثابت. هذا يحوّل الشراء العشوائي لإيراد متكرر منتظم." },
           { type: "tip", text: "ابدأ باستراتيجية \"تكملة الطلب\" لأنها الأبسط والأسرع نتيجة لمتاجر الغذاء والمشروبات. طبّقها على صفحة السلة وستلاحظ فرقاً خلال أسبوع." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Food and beverage stores have a naturally high repeat purchase rate — the challenge is increasing each order's value and converting random buyers into regular subscribers." },
+          { type: "heading", text: "Strategy 1: Combo Meals and Bundles" },
+          { type: "paragraph", text: "Combining complementary products (drink + meal + dessert) in a bundle at a better price than individual purchases. This increases order value and saves the customer time." },
+          { type: "list", items: [
+            "Study the most popular product combinations customers already buy together",
+            "Create an official bundle at 10–15% less than buying individually",
+            "Display it on the product page and cart page"
+          ]},
+          { type: "heading", text: "Strategy 2: Larger Quantities at Better Prices" },
+          { type: "paragraph", text: "For recurring consumable products (coffee, tea, nuts), suggest a larger size or greater quantity with a tiered discount." },
+          { type: "list", items: [
+            "Use the \"Buy More Save More\" display method",
+            "Example: \"1 kg for 50 SAR, or 3 kg for 130 SAR\"",
+            "This increases cart value and reduces purchase frequency benefiting both you and the customer"
+          ]},
+          { type: "heading", text: "Strategy 3: Order Completion" },
+          { type: "paragraph", text: "When a customer adds a product to their cart, suggest a product that naturally complements it." },
+          { type: "list", items: [
+            "Coffee → Add sugar, milk, or biscuits",
+            "Tea → Add honey or dried thyme",
+            "Nuts → Add dried berries or chocolate"
+          ]},
+          { type: "heading", text: "Strategy 4: Recurring Subscriptions" },
+          { type: "paragraph", text: "For products that are purchased regularly, suggest a monthly subscription option with a fixed discount. This transforms random purchases into regular recurring revenue." },
+          { type: "tip", text: "Start with the \"Order Completion\" strategy as it's the simplest and fastest-yielding for food and beverage stores. Apply it on the cart page and you'll notice a difference within a week." },
         ],
       },
       {
@@ -1643,6 +2459,33 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "موسم رمضان هو الأعلى مبيعاً لمتاجر الجمال في السعودية. استعد بحزم \"روتين رمضان\" 4 أسابيع قبل الشهر الكريم وفعّل الحملات في اليوم الأول." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Beauty and care stores have a unique advantage: their customers are looking for a complete routine, not just a single product. The right strategies turn this search into a significant cart value increase opportunity." },
+          { type: "heading", text: "Strategy 1: Complete Care Routine" },
+          { type: "paragraph", text: "The strongest strategy in beauty. When a customer views a moisturizing cream, suggest the facial cleanser, serum, and sunscreen as a \"complete routine.\"" },
+          { type: "numbered", items: [
+            "Classify your products into routine steps: cleansing, preparation, treatment, moisturizing, protection",
+            "Create shared tags for products that work together",
+            "Display the \"Complete Routine\" as a bundle on each product page",
+            "Use success stories and before-and-after photos to convince the customer"
+          ]},
+          { type: "heading", text: "Strategy 2: Skin Type Complements" },
+          { type: "paragraph", text: "If a customer buys a product for oily skin, suggest other products for the same skin type. This personalization increases trust and purchase rates." },
+          { type: "list", items: [
+            "Add the suitable skin type in product descriptions",
+            "Use tags like \"oily_skin,\" \"dry_skin,\" and \"combination_skin\"",
+            "Create targeting rules based on categories the customer has previously purchased from"
+          ]},
+          { type: "heading", text: "Strategy 3: Trial Size and Full Size" },
+          { type: "paragraph", text: "Suggest a small trial size first, then on the thank you page suggest the full size at a discount. This builds trust and increases customer lifetime value." },
+          { type: "heading", text: "Performance Indicators for Beauty Stores" },
+          { type: "list", items: [
+            "Average products per cart: Goal of 3+ products per order",
+            "Repeat customer rate: Goal of 40% of orders",
+            "Complete routine purchase rate: Goal of 15–25%"
+          ]},
+          { type: "tip", text: "Ramadan season is the highest-selling period for beauty stores in Saudi Arabia. Prepare \"Ramadan Routine\" bundles 4 weeks before the holy month and activate campaigns on day one." },
+        ],
       },
       {
         id: "strategies-data",
@@ -1676,6 +2519,29 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "لا تغير أكثر من متغير واحد في وقت واحد. إذا غيرت الهدف وطريقة العرض ونقطة الاقتراح في نفس الوقت، لن تعرف أيها أحدث الفرق." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Data is the difference between guessing and smart decisions. Learn how to read Ziadah's reports to make decisions that continuously improve your results." },
+          { type: "heading", text: "Report 1: Campaign Performance" },
+          { type: "paragraph", text: "The most important report to start with weekly. It shows additional revenue, click-through rate, and conversion rate for each campaign." },
+          { type: "list", items: [
+            "Look for the campaign with the highest CTR — this campaign should be expanded",
+            "Look for the campaign with the highest conversion rate — this one has an excellent user experience",
+            "Pause campaigns that don't exceed 0.5% CTR after a full week"
+          ]},
+          { type: "heading", text: "Report 2: Most Recommended and Purchased Products" },
+          { type: "paragraph", text: "Shows which products are recommended most and which are actually purchased from recommendations. The gap between the two indicates pricing or image issues." },
+          { type: "heading", text: "Report 3: Customer Journey" },
+          { type: "paragraph", text: "Tracks the complete path from seeing the recommendation to purchasing. If the customer clicks but doesn't buy, the problem is on the product page, not the recommendation." },
+          { type: "heading", text: "Data-Driven Decision-Making Framework" },
+          { type: "numbered", items: [
+            "Identify one metric you want to improve this week (e.g., CTR)",
+            "View the report and identify the weakest campaigns for this metric",
+            "Make only one change (e.g., change the display method)",
+            "Wait 5 days and monitor the result",
+            "If the metric improves, continue. If not, try a different change"
+          ]},
+          { type: "tip", text: "Don't change more than one variable at a time. If you change the goal, display method, and suggestion point all at once, you won't know which one made the difference." },
+        ],
       },
       {
         id: "strategies-seasons",
@@ -1708,6 +2574,28 @@ export const categories: Category[] = [
           { type: "paragraph", text: "هذه المناسبات مثالية لتوصيات هدايا \"طقم متكامل\" بتغليف مميز. الحزم الجاهزة كهدايا لها معدل تحويل أعلى بكثير من المنتجات الفردية." },
           { type: "tip", text: "أنشئ حملات موسمية ذكية تُفعَّل وتُوقف تلقائياً في تواريخ محددة. هذا يوفر عليك الجهد ويضمن أن كل موسم يحصل على حملته المناسبة تماماً." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Major seasons represent 30-40% of annual sales for many stores. Proper advance preparation means a significant difference in final numbers." },
+          { type: "heading", text: "Ramadan" },
+          { type: "paragraph", text: "The most important season for Saudi stores. Successful merchants start preparation 4-6 weeks in advance." },
+          { type: "numbered", items: [
+            "4 weeks before: Review your products and add Ramadan-specific seasonal items",
+            "3 weeks before: Create Ramadan bundles (e.g., coffee, dates, and sweets set)",
+            "2 weeks before: Activate special Ramadan campaigns at appropriate suggestion points",
+            "1 week before: Test all campaigns and verify recommendation accuracy",
+            "During Ramadan: Monitor analytics daily and adjust underperforming campaigns"
+          ]},
+          { type: "heading", text: "Black Friday & Cyber Monday" },
+          { type: "paragraph", text: "A golden opportunity to use smart coupons. Offer discounts that escalate with cart value — the more the customer adds, the bigger the discount." },
+          { type: "list", items: [
+            "Cart SAR 200 → 10% off",
+            "Cart SAR 400 → 15% off",
+            "Cart SAR 600 → 20% off"
+          ]},
+          { type: "heading", text: "National Day, Eid Al-Fitr & Eid Al-Adha" },
+          { type: "paragraph", text: "These occasions are ideal for gift recommendations as 'complete sets' with premium packaging. Ready-made gift bundles have a much higher conversion rate than individual products." },
+          { type: "tip", text: "Create smart seasonal campaigns that activate and deactivate automatically on specific dates. This saves you effort and ensures each season gets its perfectly timed campaign." },
+        ],
       },
       {
         id: "strategies-roi",
@@ -1738,6 +2626,27 @@ export const categories: Category[] = [
             "إذا كان ROI سلبياً بعد شهر: راجع إعدادات الحملات"
           ]},
           { type: "tip", text: "لا تحسب ROI في أول 2 أسبوع. انتظر على الأقل شهراً كاملاً لتحصل على بيانات كافية للحكم الصحيح على العائد." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Ziadah is an investment, and every investment needs an ROI calculation. This guide gives you a clear formula to accurately calculate ROI and determine whether you're truly benefiting." },
+          { type: "heading", text: "ROI Calculation Formula" },
+          { type: "paragraph", text: "ROI = ((Additional Revenue - Subscription Cost) / Subscription Cost) × 100" },
+          { type: "heading", text: "How to Calculate Additional Revenue" },
+          { type: "paragraph", text: "Additional revenue is the amount you wouldn't have earned without Ziadah. The dashboard calculates it automatically, but here's how it's computed:" },
+          { type: "list", items: [
+            "Conservative method: Revenue from recommended products added to cart directly from the recommendation",
+            "Comprehensive method: Increase in average cart value multiplied by total number of orders",
+            "Precise method: Using A/B testing with a control group that doesn't see recommendations"
+          ]},
+          { type: "heading", text: "Practical Example" },
+          { type: "paragraph", text: "A store with 300 monthly orders averaging SAR 250 → total SAR 75,000. After Ziadah, the average rose to SAR 320 → total SAR 96,000. Additional revenue = SAR 21,000. If the subscription is SAR 1,000/month, ROI = (21,000 - 1,000) / 1,000 × 100 = 2000%" },
+          { type: "heading", text: "Indicators of a Successful Store with Ziadah" },
+          { type: "list", items: [
+            "Positive ROI after 1 month: A healthy sign",
+            "ROI above 500% after 3 months: Excellent performance",
+            "If ROI is negative after 1 month: Review campaign settings"
+          ]},
+          { type: "tip", text: "Don't calculate ROI in the first 2 weeks. Wait at least a full month to get enough data for an accurate assessment of the return." },
         ],
       },
     ],

@@ -23,11 +23,11 @@ export default function RemoveFromCartWidget() {
   }, [runSequence]);
 
   return (
-    <UseCaseWidgetPreview title="حذف من السلة" subtitle="عرض احتجاز ذكي لمنع الخسارة">
+    <UseCaseWidgetPreview title="Remove from Cart" subtitle="Smart retention offer to prevent loss">
       <div style={{ minHeight: 220 }}>
         {step === "cart" && (
           <div>
-            <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>سلة التسوق</div>
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>Shopping Cart</div>
             <div style={{
               display: "flex", gap: 8, alignItems: "center",
               padding: "10px", borderRadius: 10,
@@ -36,20 +36,20 @@ export default function RemoveFromCartWidget() {
             }}>
               <div style={{ fontSize: 24, flexShrink: 0 }}>👟</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>حذاء رياضي نايك</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)" }}>مقاس 42 — أسود</div>
-                <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>280 ⃁</div>
+                <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Nike Running Shoes</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)" }}>Size 42 — Black</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>280 SAR</div>
               </div>
               <button style={{
                 padding: "5px 9px", borderRadius: 7,
                 background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.25)",
                 color: "#f87171", fontSize: 10, fontWeight: 700, cursor: "pointer",
               }}>
-                🗑️ حذف
+                🗑️ Remove
               </button>
             </div>
             <div style={{ fontSize: 10, color: "rgba(255,255,255,.3)", textAlign: "center" }}>
-              العميل يضغط "حذف"...
+              Customer clicks "Remove"...
             </div>
           </div>
         )}
@@ -58,17 +58,17 @@ export default function RemoveFromCartWidget() {
           <div style={{ textAlign: "center", padding: "12px 0" }}>
             <div style={{ fontSize: 30, marginBottom: 10 }}>😟</div>
             <div style={{ fontSize: 12, fontWeight: 700, color: "#fff", marginBottom: 6 }}>
-              هل أنت متأكد من الحذف؟
+              Are you sure you want to remove?
             </div>
             <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 14 }}>
-              حذاء رياضي نايك — 280 ⃁
+              Nike Running Shoes — 280 SAR
             </div>
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 14px",
               borderRadius: 50, background: "rgba(245,158,11,.1)",
               border: "1px solid rgba(245,158,11,.3)", fontSize: 10, color: "#f59e0b",
             }}>
-              ⏳ زيادة يعمل على إيجاد حل...
+              ⏳ Ziadah is finding a solution...
             </div>
           </div>
         )}
@@ -83,20 +83,20 @@ export default function RemoveFromCartWidget() {
               marginBottom: 10,
             }}>
               <div style={{ fontSize: 10, color: "#f87171", fontWeight: 700, marginBottom: 6, letterSpacing: 0.5 }}>
-                🔥 قبل أن تحذفه — عرض خاص لك فقط!
+                🔥 Before you remove it — a special offer just for you!
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <div style={{ fontSize: 24 }}>👟</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>حذاء رياضي نايك</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "#fff" }}>Nike Running Shoes</div>
                   <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 3 }}>
-                    <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>280 ⃁</span>
-                    <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>238 ⃁</span>
+                    <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>280 SAR</span>
+                    <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>238 SAR</span>
                     <span style={{
                       fontSize: 9, fontWeight: 700, padding: "2px 6px",
                       borderRadius: 50, background: "rgba(16,185,129,.15)",
                       border: "1px solid rgba(16,185,129,.3)", color: "#10b981",
-                    }}>وفّر 15٪</span>
+                    }}>Save 15%</span>
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function RemoveFromCartWidget() {
                 fontSize: 10, color: "#f87171", fontWeight: 600,
               }}>
                 <span>⏱️</span>
-                <span>ينتهي العرض خلال: 09:58</span>
+                <span>Offer expires in: 09:58</span>
               </div>
               <button style={{
                 width: "100%", padding: "9px",
@@ -116,7 +116,7 @@ export default function RemoveFromCartWidget() {
                 color: "#34d399", fontSize: 14, fontWeight: 800,
                 border: "1px solid rgba(16,185,129,0.2)", cursor: "pointer",
               }}>
-                ✅ استفد من الخصم وأبقِه
+                ✅ Get the discount & keep it
               </button>
             </div>
             <button style={{
@@ -124,7 +124,7 @@ export default function RemoveFromCartWidget() {
               background: "transparent", border: "1px solid rgba(239,68,68,.2)",
               color: "rgba(239,68,68,.5)", fontSize: 10, cursor: "pointer",
             }}>
-              لا، احذف المنتج رغم ذلك
+              No, remove the product anyway
             </button>
             <button
               onClick={runSequence}
@@ -136,7 +136,7 @@ export default function RemoveFromCartWidget() {
                 cursor: "pointer",
               }}
             >
-              ↩ إعادة تشغيل المحاكاة
+              ↩ Replay simulation
             </button>
           </div>
         )}

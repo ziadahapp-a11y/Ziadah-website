@@ -29,7 +29,7 @@ export default function ProductPageMockups() {
                 boxShadow: "0 0 7px #a855f7",
               }}
             />
-            أمثلة حية
+            Live Examples
           </div>
           <h2
             className="rv"
@@ -40,7 +40,7 @@ export default function ProductPageMockups() {
               marginBottom: 14,
             }}
           >
-            شاهد كيف يبدو زيادة في صفحة منتجك
+            See how Ziadah looks on your product page
           </h2>
           <p
             style={{
@@ -51,8 +51,9 @@ export default function ProductPageMockups() {
               lineHeight: 1.8,
             }}
           >
-            ثلاثة سيناريوهات توضّح كيف تظهر توصيات زيادة داخل صفحة المنتج — كل
-            سيناريو يرفع متوسط قيمة الطلب بطريقة مختلفة.
+            Three scenarios showing how Ziadah's recommendations appear inside
+            your product page — each scenario increases average order value in a
+            different way.
           </p>
         </div>
 
@@ -67,7 +68,7 @@ export default function ProductPageMockups() {
           <MockupCard
             label="Cross-sell"
             labelColor="#06b6d4"
-            title="اشتر المجموعة الكاملة"
+            title="Buy the Complete Set"
             accentColor="#06b6d4"
           >
             <CrossSellContent />
@@ -76,7 +77,7 @@ export default function ProductPageMockups() {
           <MockupCard
             label="Bundle"
             labelColor="#a855f7"
-            title="هذا المنتج + إضافة"
+            title="This Product + Add-on"
             accentColor="#a855f7"
           >
             <BundleContent />
@@ -85,7 +86,7 @@ export default function ProductPageMockups() {
           <MockupCard
             label="Volume Discount"
             labelColor="#10b981"
-            title="اشتر أكثر ووفر أكثر"
+            title="Buy More & Save More"
             accentColor="#10b981"
           >
             <VolumeContent />
@@ -307,10 +308,10 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
             fontWeight: 700,
             color: "rgba(255,255,255,.9)",
             marginBottom: 3,
-            textAlign: "right",
+            textAlign: "left",
           }}
         >
-          مسبحة بكلايت أحمر
+          Red Bakelite Prayer Beads
         </p>
         <div
           style={{
@@ -320,7 +321,7 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
           }}
         >
           <span style={{ fontSize: 12, fontWeight: 900, color: accentColor }}>
-            200 ⃁
+            200 SAR
           </span>
           <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
             <Stars />
@@ -389,7 +390,7 @@ function SectionDivider({
 
 function AddToCartBtn({
   color,
-  label = "أضف للسلة",
+  label = "Add to Cart",
   full = false,
 }: {
   color: string;
@@ -421,14 +422,14 @@ function AddToCartBtn({
 
 function CrossSellContent() {
   const relatedProducts = [
-    { name: "مسبحة فضة 925", price: "150 ⃁", emoji: "🪬" },
-    { name: "علبة هدايا مخملية", price: "35 ⃁", emoji: "🎁" },
-    { name: "مسبحة عود طبيعي", price: "180 ⃁", emoji: "🌿" },
+    { name: "925 Silver Prayer Beads", price: "150 SAR", emoji: "🪬" },
+    { name: "Velvet Gift Box", price: "35 SAR", emoji: "🎁" },
+    { name: "Natural Oud Prayer Beads", price: "180 SAR", emoji: "🌿" },
   ];
 
   return (
     <>
-      <SectionDivider label="اشتر المجموعة الكاملة 🔗" color="#06b6d4" />
+      <SectionDivider label="Buy the Complete Set 🔗" color="#06b6d4" />
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {relatedProducts.map((p, i) => (
           <div
@@ -487,7 +488,7 @@ function CrossSellContent() {
 function BundleContent() {
   return (
     <>
-      <SectionDivider label="هذا المنتج + إضافة 🎁" color="#a855f7" />
+      <SectionDivider label="This Product + Add-on 🎁" color="#a855f7" />
       <div
         style={{
           background: "rgba(168,85,247,.06)",
@@ -551,7 +552,7 @@ function BundleContent() {
               marginBottom: 4,
             }}
           >
-            مسبحة بكلايت أحمر + مسبحة فضة 925
+            Red Bakelite Beads + 925 Silver Beads
           </p>
           <div
             style={{
@@ -568,7 +569,7 @@ function BundleContent() {
                 color: "#a855f7",
               }}
             >
-              280 ⃁
+              280 SAR
             </span>
             <span
               style={{
@@ -577,7 +578,7 @@ function BundleContent() {
                 textDecoration: "line-through",
               }}
             >
-              350 ⃁
+              350 SAR
             </span>
           </div>
         </div>
@@ -599,10 +600,10 @@ function BundleContent() {
             justifyContent: "center",
           }}
         >
-          <span style={{ fontSize: 9 }}>💰</span> وفر 20% عند الشراء معاً
+          <span style={{ fontSize: 9 }}>💰</span> Save 20% when bought together
         </div>
 
-        <AddToCartBtn color="#a855f7" label="أضف الحزمة للسلة" full />
+        <AddToCartBtn color="#a855f7" label="Add Bundle to Cart" full />
       </div>
     </>
   );
@@ -611,31 +612,31 @@ function BundleContent() {
 function VolumeContent() {
   const options = [
     {
-      qty: "1 قطعة",
-      price: "200 ⃁",
+      qty: "1 piece",
+      price: "200 SAR",
       discount: null,
       shipping: null,
       highlight: false,
     },
     {
-      qty: "2 قطعتين",
-      price: "320 ⃁",
-      discount: "خصم 20%",
+      qty: "2 pieces",
+      price: "320 SAR",
+      discount: "20% off",
       shipping: null,
       highlight: false,
     },
     {
-      qty: "3 قطع",
-      price: "420 ⃁",
-      discount: "خصم 30%",
-      shipping: "شحن مجاني",
+      qty: "3 pieces",
+      price: "420 SAR",
+      discount: "30% off",
+      shipping: "Free shipping",
       highlight: true,
     },
   ];
 
   return (
     <>
-      <SectionDivider label="اشتر أكثر ووفر أكثر 📦" color="#10b981" />
+      <SectionDivider label="Buy More & Save More 📦" color="#10b981" />
       <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
         {options.map((opt, i) => (
           <div
@@ -658,7 +659,7 @@ function VolumeContent() {
                 style={{
                   position: "absolute",
                   top: 4,
-                  left: 6,
+                  right: 6,
                   padding: "2px 6px",
                   borderRadius: 4,
                   background: "#10b981",
@@ -667,7 +668,7 @@ function VolumeContent() {
                   color: "#fff",
                 }}
               >
-                الأفضل قيمة ⭐
+                ⭐ Best Value
               </div>
             )}
             <div
@@ -756,7 +757,7 @@ function VolumeContent() {
             </div>
           </div>
         ))}
-        <AddToCartBtn color="#10b981" label="أضف للسلة" full />
+        <AddToCartBtn color="#10b981" label="Add to Cart" full />
       </div>
     </>
   );

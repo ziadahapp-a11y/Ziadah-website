@@ -4,7 +4,7 @@ export default function IncreaseAOVWidget() {
   const progress = 62;
 
   return (
-    <UseCaseWidgetPreview title="رفع متوسط الطلب" subtitle="أضف منتجاً وزد توفيرك">
+    <UseCaseWidgetPreview title="Increase Average Order" subtitle="Add a product and save more">
       <div style={{ marginBottom: 12 }}>
         <div style={{
           padding: "11px 14px",
@@ -14,21 +14,21 @@ export default function IncreaseAOVWidget() {
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 شحن مجاني عند 300 ⃁</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي 114 ⃁</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 Free shipping at 300 SAR</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>114 SAR remaining</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "rgba(255,255,255,.12)", overflow: "hidden", marginBottom: 3 }}>
             <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))" }} />
           </div>
           <div style={{ fontSize: 9, color: "rgba(255,255,255,.4)", textAlign: "center" }}>
-            62٪ من عتبة الشحن المجاني
+            62% toward free shipping threshold
           </div>
         </div>
 
-        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة لإكمال الطلب:</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>Suggested products to complete your order:</div>
         {[
-          { emoji: "🧴", name: "بلسم شعر مرطّب", price: "65", origPrice: "85" },
-          { emoji: "🪥", name: "فرشاة تدليك الشعر", price: "49", origPrice: "69" },
+          { emoji: "🧴", name: "Moisturizing Hair Conditioner", price: "65", origPrice: "85" },
+          { emoji: "🪥", name: "Hair Massage Brush", price: "49", origPrice: "69" },
         ].map((p, i) => (
           <div key={i} style={{
             display: "flex",
@@ -54,8 +54,8 @@ export default function IncreaseAOVWidget() {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{p.name}</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</span>
-                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>﷼{p.origPrice}</span>
+                <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</span>
+                <span style={{ fontSize: 9, color: "rgba(255,255,255,.3)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>
               </div>
             </div>
             <button style={{
@@ -68,7 +68,7 @@ export default function IncreaseAOVWidget() {
               border: "1px solid rgba(168,85,247,.3)",
               cursor: "pointer",
               flexShrink: 0,
-            }} className="widget-btn-sm">+ أضف</button>
+            }} className="widget-btn-sm">+ Add</button>
           </div>
         ))}
       </div>
@@ -83,7 +83,7 @@ export default function IncreaseAOVWidget() {
         textAlign: "center",
         fontWeight: 700,
       }}>
-        ✨ أضف منتجاً واحداً فقط للوصول للشحن المجاني!
+        ✨ Add just one more product to get free shipping!
       </div>
     </UseCaseWidgetPreview>
   );

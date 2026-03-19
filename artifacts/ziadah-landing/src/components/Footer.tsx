@@ -16,7 +16,7 @@ export default function Footer() {
                   <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
                 </svg>
               </div>
-              <span className="ft-lt">زيادة</span>
+              <span className="ft-lt">Ziadah</span>
             </div>
             <p className="ft-desc">
               {tr.footer.tagline}
@@ -45,10 +45,10 @@ export default function Footer() {
           <div className="ft-col">
             <h4>{tr.footer.blog}</h4>
             <a href="/blog">{tr.footer.allArticles}</a>
-            <a href="/blog?cat=استراتيجيات البيع">{tr.footer.salesStrategies}</a>
-            <a href="/blog?cat=الذكاء الاصطناعي">{tr.footer.ai}</a>
-            <a href="/blog?cat=دليل التاجر">{tr.footer.merchantGuide}</a>
-            <a href="/blog?cat=شروحات المنصة">{tr.footer.platformGuides}</a>
+            <a href="/blog?cat=Sales Strategies">{tr.footer.salesStrategies}</a>
+            <a href="/blog?cat=Artificial Intelligence">{tr.footer.ai}</a>
+            <a href="/blog?cat=Merchant Guide">{tr.footer.merchantGuide}</a>
+            <a href="/blog?cat=Platform Tutorials">{tr.footer.platformGuides}</a>
           </div>
           <div className="ft-col">
             <h4>{tr.footer.contact}</h4>
