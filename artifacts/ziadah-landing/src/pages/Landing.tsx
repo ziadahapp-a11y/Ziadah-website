@@ -332,7 +332,7 @@ export default function Landing() {
               ذكاء اصطناعي + تعلم آلي يعمل الآن
             </span>
           </div>
-          <h1 className="ht pt-[0px] pb-[0px] text-[72px] font-bold mb-[20px]">
+          <h1 className="ht pt-[0px] pb-[0px] mb-[20px] text-[72px] font-bold">
             تسويق منتجاتك
             <em>بالذكاء الاصطناعي</em>
             <span className="grad mt-[10px] mb-[10px] pt-[10px] pb-[10px]">
