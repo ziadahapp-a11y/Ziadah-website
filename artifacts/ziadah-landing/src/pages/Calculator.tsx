@@ -244,118 +244,195 @@ export default function Calculator() {
 
   return (
     <>
-    <div
-      style={{
-        background: "var(--bg)",
-        minHeight: "100vh",
-        fontFamily: "var(--font)",
-        direction: "rtl",
-        color: "var(--t)",
-      }}
-    >
-      <div className="bg-wrap">
-        <div className="orb o1" />
-        <div className="orb o2" />
-        <div className="orb o3" />
-        <div className="bg-grid" />
-      </div>
-      <div className="noise" />
-      <ParticleBackground />
-      <Nav />
-
-      <section
+      <div
         style={{
-          paddingTop: 130,
-          paddingBottom: 80,
-          position: "relative",
-          zIndex: 2,
-          padding: "130px 5% 80px",
+          background: "var(--bg)",
+          minHeight: "100vh",
+          fontFamily: "var(--font)",
+          direction: "rtl",
+          color: "var(--t)",
         }}
       >
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="stag rv" style={{ display: "inline-flex" }}>
-              <span className="stag-dot" />
-              أداة تفاعلية
-            </div>
-            <h1
-              className="st rv d1"
-              style={{
-                fontSize: "clamp(32px,4.5vw,60px)",
-                marginTop: 12,
-                marginBottom: 8,
-              }}
-            >
-              حاسبة أثر Cross-sell و Upsell ✨
-            </h1>
-            <p
-              className="ssub rv d2"
-              style={{ margin: "0 auto", maxWidth: 520 }}
-            >
-              عدّل الأرقام وشوف الفرق
-            </p>
-          </div>
+        <div className="bg-wrap">
+          <div className="orb o1" />
+          <div className="orb o2" />
+          <div className="orb o3" />
+          <div className="bg-grid" />
+        </div>
+        <div className="noise" />
+        <ParticleBackground />
+        <Nav />
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: 32,
-            }}
-            className="calc-grid"
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {sliders.map((s) => (
-                <SliderCard key={s.label} {...s} />
-              ))}
-            </div>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div
-                className="calc-result-cols"
+        <section
+          style={{
+            paddingTop: 130,
+            paddingBottom: 80,
+            position: "relative",
+            zIndex: 2,
+            padding: "130px 5% 80px",
+          }}
+        >
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 56 }}>
+              <div className="stag rv" style={{ display: "inline-flex" }}>
+                <span className="stag-dot" />
+                أداة تفاعلية
+              </div>
+              <h1
+                className="st rv d1"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: 14,
+                  fontSize: "clamp(32px,4.5vw,60px)",
+                  marginTop: 12,
+                  marginBottom: 8,
                 }}
+              >حاسبة أثر زيادة ✨</h1>
+              <p
+                className="ssub rv d2"
+                style={{ margin: "0 auto", maxWidth: 520 }}
               >
+                عدّل الأرقام وشوف الفرق
+              </p>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 32,
+              }}
+              className="calc-grid"
+            >
+              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                {sliders.map((s) => (
+                  <SliderCard key={s.label} {...s} />
+                ))}
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div
+                  className="calc-result-cols"
                   style={{
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.1)",
-                    borderRadius: 16,
-                    padding: "24px 22px",
-                    borderTop: "3px solid rgba(255,255,255,.18)",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: 14,
                   }}
                 >
                   <div
                     style={{
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "rgba(255,255,255,.45)",
-                      marginBottom: 18,
-                      letterSpacing: 0.3,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.1)",
+                      borderRadius: 16,
+                      padding: "24px 22px",
+                      borderTop: "3px solid rgba(255,255,255,.18)",
                     }}
                   >
-                    بدون توصيات
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: "rgba(255,255,255,.45)",
+                        marginBottom: 18,
+                        letterSpacing: 0.3,
+                      }}
+                    >
+                      بدون توصيات
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                          {fmt(Math.round(r.orders))}
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                          {fmtCurrency(aov)}
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
+                          {fmtCurrency(r.baseRevenue)}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
-                        {fmt(Math.round(r.orders))}
-                      </div>
+
+                  <div
+                    style={{
+                      background: "rgba(34,197,94,.06)",
+                      border: "1px solid rgba(34,197,94,.2)",
+                      borderRadius: 16,
+                      padding: "24px 22px",
+                      borderTop: "3px solid #22c55e",
+                      position: "relative",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                          "radial-gradient(ellipse at 50% 0%,rgba(34,197,94,.08) 0%,transparent 70%)",
+                        pointerEvents: "none",
+                      }}
+                    />
+                    <div
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 700,
+                        color: "#22c55e",
+                        marginBottom: 18,
+                        letterSpacing: 0.3,
+                        position: "relative",
+                        zIndex: 1,
+                      }}
+                    >
+                      مع توصيات Cross-sell / Upsell
                     </div>
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
-                        {fmtCurrency(aov)}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 14,
+                        position: "relative",
+                        zIndex: 1,
+                      }}
+                    >
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
+                          {fmt(Math.round(r.orders))}
+                        </div>
                       </div>
-                    </div>
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
-                        {fmtCurrency(r.baseRevenue)}
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                          <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
+                            {fmtCurrency(r.effectiveAov)}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: 11,
+                              fontWeight: 800,
+                              color: "#22c55e",
+                              background: "rgba(34,197,94,.15)",
+                              border: "1px solid rgba(34,197,94,.3)",
+                              borderRadius: 6,
+                              padding: "2px 7px",
+                            }}
+                          >
+                            +{fmtCurrency(r.aovIncrease)}
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
+                          {fmtCurrency(r.newRevenue)}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -363,11 +440,10 @@ export default function Calculator() {
 
                 <div
                   style={{
-                    background: "rgba(34,197,94,.06)",
-                    border: "1px solid rgba(34,197,94,.2)",
-                    borderRadius: 16,
-                    padding: "24px 22px",
-                    borderTop: "3px solid #22c55e",
+                    background: "linear-gradient(135deg,rgba(251,146,60,.08),rgba(245,158,11,.06))",
+                    border: "1px solid rgba(251,146,60,.25)",
+                    borderRadius: 18,
+                    padding: "28px 28px",
                     position: "relative",
                     overflow: "hidden",
                   }}
@@ -377,317 +453,239 @@ export default function Calculator() {
                       position: "absolute",
                       inset: 0,
                       background:
-                        "radial-gradient(ellipse at 50% 0%,rgba(34,197,94,.08) 0%,transparent 70%)",
+                        "radial-gradient(ellipse at 50% 0%,rgba(251,146,60,.1) 0%,transparent 65%)",
                       pointerEvents: "none",
                     }}
                   />
                   <div
                     style={{
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "#22c55e",
-                      marginBottom: 18,
-                      letterSpacing: 0.3,
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    مع توصيات Cross-sell / Upsell
-                  </div>
-                  <div
-                    style={{
+                      fontSize: 15,
+                      fontWeight: 800,
+                      color: "#fb923c",
+                      marginBottom: 22,
                       display: "flex",
-                      flexDirection: "column",
-                      gap: 14,
+                      alignItems: "center",
+                      gap: 8,
                       position: "relative",
                       zIndex: 1,
                     }}
                   >
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                        {fmt(Math.round(r.orders))}
+                    <span
+                      style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        background: "#fb923c",
+                        display: "inline-block",
+                      }}
+                    />
+                    ملخص الأثر
+                  </div>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr 1fr",
+                      gap: 12,
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                    className="impact-grid"
+                  >
+                    <div
+                      style={{
+                        background: "rgba(0,0,0,.25)",
+                        borderRadius: 14,
+                        padding: "18px 16px",
+                        textAlign: "center",
+                        border: "1px solid rgba(251,146,60,.12)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.4)",
+                          marginBottom: 8,
+                          fontWeight: 600,
+                        }}
+                      >
+                        إيراد إضافي
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "clamp(16px,2.5vw,24px)",
+                          fontWeight: 900,
+                          color: "#fb923c",
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        +{fmtCurrency(r.addRevenue)}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.3)",
+                          marginTop: 4,
+                        }}
+                      >
+                        /شهر
                       </div>
                     </div>
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                        <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                          {fmtCurrency(r.effectiveAov)}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: 11,
-                            fontWeight: 800,
-                            color: "#22c55e",
-                            background: "rgba(34,197,94,.15)",
-                            border: "1px solid rgba(34,197,94,.3)",
-                            borderRadius: 6,
-                            padding: "2px 7px",
-                          }}
-                        >
-                          +{fmtCurrency(r.aovIncrease)}
-                        </span>
+                    <div
+                      style={{
+                        background: "rgba(0,0,0,.25)",
+                        borderRadius: 14,
+                        padding: "18px 16px",
+                        textAlign: "center",
+                        border: "1px solid rgba(251,146,60,.12)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.4)",
+                          marginBottom: 8,
+                          fontWeight: 600,
+                        }}
+                      >
+                        نمو الإيراد
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "clamp(16px,2.5vw,24px)",
+                          fontWeight: 900,
+                          color: "#fb923c",
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {fmtPct(r.revGrowth)}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.3)",
+                          marginTop: 4,
+                        }}
+                      >
+                        نسبة الزيادة
                       </div>
                     </div>
-                    <div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                        {fmtCurrency(r.newRevenue)}
+                    <div
+                      style={{
+                        background: "rgba(0,0,0,.25)",
+                        borderRadius: 14,
+                        padding: "18px 16px",
+                        textAlign: "center",
+                        border: "1px solid rgba(251,146,60,.12)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.4)",
+                          marginBottom: 8,
+                          fontWeight: 600,
+                        }}
+                      >
+                        زيادة متوسط الطلب
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "clamp(16px,2.5vw,24px)",
+                          fontWeight: 900,
+                          color: "#fb923c",
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        +{fmtCurrency(r.aovIncrease)}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: "rgba(255,255,255,.3)",
+                          marginTop: 4,
+                        }}
+                      >
+                        لكل طلب
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div
-                style={{
-                  background: "linear-gradient(135deg,rgba(251,146,60,.08),rgba(245,158,11,.06))",
-                  border: "1px solid rgba(251,146,60,.25)",
-                  borderRadius: 18,
-                  padding: "28px 28px",
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
                 <div
                   style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "radial-gradient(ellipse at 50% 0%,rgba(251,146,60,.1) 0%,transparent 65%)",
-                    pointerEvents: "none",
+                    background: "rgba(255,255,255,.03)",
+                    border: "1px solid rgba(255,255,255,.07)",
+                    borderRadius: 12,
+                    padding: "16px 20px",
+                    fontSize: 12,
+                    color: "rgba(255,255,255,.3)",
+                    lineHeight: 1.7,
                   }}
-                />
-                <div
+                >
+                  * هذه الأرقام تقديرية بناءً على المدخلات المختارة وتجارب عملاء زيادة. النتائج الفعلية تختلف حسب طبيعة المتجر والمنتجات والجمهور المستهدف.
+                </div>
+
+                <button
+                  onClick={() => setPlatformModalOpen(true)}
                   style={{
-                    fontSize: 15,
+                    display: "block",
+                    width: "100%",
+                    textAlign: "center",
+                    padding: "16px 32px",
+                    background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+                    border: "1px solid rgba(168,85,247,.4)",
+                    borderRadius: 14,
+                    color: "#fff",
+                    fontFamily: "var(--font)",
+                    fontSize: 16,
                     fontWeight: 800,
-                    color: "#fb923c",
-                    marginBottom: 22,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    position: "relative",
-                    zIndex: 1,
+                    cursor: "pointer",
+                    transition: "all .25s",
+                    boxShadow: "0 8px 32px rgba(124,58,237,.35)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 12px 40px rgba(124,58,237,.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "none";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 32px rgba(124,58,237,.35)";
                   }}
                 >
-                  <span
-                    style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      background: "#fb923c",
-                      display: "inline-block",
-                    }}
-                  />
-                  ملخص الأثر
-                </div>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr 1fr",
-                    gap: 12,
-                    position: "relative",
-                    zIndex: 1,
-                  }}
-                  className="impact-grid"
-                >
-                  <div
-                    style={{
-                      background: "rgba(0,0,0,.25)",
-                      borderRadius: 14,
-                      padding: "18px 16px",
-                      textAlign: "center",
-                      border: "1px solid rgba(251,146,60,.12)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.4)",
-                        marginBottom: 8,
-                        fontWeight: 600,
-                      }}
-                    >
-                      إيراد إضافي
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "clamp(16px,2.5vw,24px)",
-                        fontWeight: 900,
-                        color: "#fb923c",
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      +{fmtCurrency(r.addRevenue)}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.3)",
-                        marginTop: 4,
-                      }}
-                    >
-                      /شهر
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      background: "rgba(0,0,0,.25)",
-                      borderRadius: 14,
-                      padding: "18px 16px",
-                      textAlign: "center",
-                      border: "1px solid rgba(251,146,60,.12)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.4)",
-                        marginBottom: 8,
-                        fontWeight: 600,
-                      }}
-                    >
-                      نمو الإيراد
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "clamp(16px,2.5vw,24px)",
-                        fontWeight: 900,
-                        color: "#fb923c",
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      {fmtPct(r.revGrowth)}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.3)",
-                        marginTop: 4,
-                      }}
-                    >
-                      نسبة الزيادة
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      background: "rgba(0,0,0,.25)",
-                      borderRadius: 14,
-                      padding: "18px 16px",
-                      textAlign: "center",
-                      border: "1px solid rgba(251,146,60,.12)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.4)",
-                        marginBottom: 8,
-                        fontWeight: 600,
-                      }}
-                    >
-                      زيادة متوسط الطلب
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "clamp(16px,2.5vw,24px)",
-                        fontWeight: 900,
-                        color: "#fb923c",
-                        lineHeight: 1.1,
-                      }}
-                    >
-                      +{fmtCurrency(r.aovIncrease)}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: "rgba(255,255,255,.3)",
-                        marginTop: 4,
-                      }}
-                    >
-                      لكل طلب
-                    </div>
-                  </div>
-                </div>
+                  فعّل زيادة وحقق هذه الأرقام الآن
+                </button>
               </div>
-
-              <div
-                style={{
-                  background: "rgba(255,255,255,.03)",
-                  border: "1px solid rgba(255,255,255,.07)",
-                  borderRadius: 12,
-                  padding: "16px 20px",
-                  fontSize: 12,
-                  color: "rgba(255,255,255,.3)",
-                  lineHeight: 1.7,
-                }}
-              >
-                * هذه الأرقام تقديرية بناءً على المدخلات المختارة وتجارب عملاء زيادة. النتائج الفعلية تختلف حسب طبيعة المتجر والمنتجات والجمهور المستهدف.
-              </div>
-
-              <button
-                onClick={() => setPlatformModalOpen(true)}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  textAlign: "center",
-                  padding: "16px 32px",
-                  background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
-                  border: "1px solid rgba(168,85,247,.4)",
-                  borderRadius: 14,
-                  color: "#fff",
-                  fontFamily: "var(--font)",
-                  fontSize: 16,
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  transition: "all .25s",
-                  boxShadow: "0 8px 32px rgba(124,58,237,.35)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 12px 40px rgba(124,58,237,.5)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "none";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 32px rgba(124,58,237,.35)";
-                }}
-              >
-                فعّل زيادة وحقق هذه الأرقام الآن
-              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <style>{`
-        @media (max-width: 1024px) {
-          .calc-grid {
-            grid-template-columns: 1fr !important;
+        <style>{`
+          @media (max-width: 1024px) {
+            .calc-grid {
+              grid-template-columns: 1fr !important;
+            }
           }
-        }
-        @media (max-width: 768px) {
-          .calc-grid {
-            grid-template-columns: 1fr !important;
+          @media (max-width: 768px) {
+            .calc-grid {
+              grid-template-columns: 1fr !important;
+            }
+            .calc-result-cols {
+              grid-template-columns: 1fr !important;
+            }
+            .impact-grid {
+              grid-template-columns: 1fr 1fr !important;
+            }
           }
-          .calc-result-cols {
-            grid-template-columns: 1fr !important;
+          @media (max-width: 480px) {
+            .impact-grid {
+              grid-template-columns: 1fr !important;
+            }
           }
-          .impact-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .impact-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
-    </div>
-    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+        `}</style>
+      </div>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }
