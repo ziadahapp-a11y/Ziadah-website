@@ -45,7 +45,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
       <div
         style={{
           padding: "16px",
-          fontFamily: "var(--font, 'Tajawal', sans-serif)",
+          fontFamily: "var(--font, 'Rubik', sans-serif)",
           direction: "rtl",
           background: "rgba(255,255,255,0.04)",
           backdropFilter: "blur(12px)",
