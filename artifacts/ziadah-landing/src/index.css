@@ -333,7 +333,23 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .nav-cta-fill{background:var(--p)!important;border:none!important;color:#fff!important;border-radius:10px!important;font-weight:700!important;white-space:nowrap;}
 .nav-cta-fill:hover{background:var(--p2)!important;transform:translateY(-1px);}
 .mobile-bottom-nav{display:none;}
-.mobile-more-overlay{display:none;}
+
+@keyframes slideUpDropdown{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ── TABLET NAV (769-1024px): two-row layout ── */
+@media(min-width:769px) and (max-width:1024px){
+  .desktop-nav{
+    top:10px;padding:0 16px;border-radius:14px;
+    display:flex!important;flex-direction:column;height:auto!important;
+  }
+  .nav-top-row{height:52px!important;}
+  .nav-links-inline{display:none!important;}
+  .nav-links-row2{display:block!important;}
+  .nav-ctas a{font-size:12px!important;padding:7px 14px!important;}
+}
 
 @media(max-width:768px){
   .desktop-nav{display:none!important;}
@@ -342,11 +358,6 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
     background:rgba(3,3,11,.97);border-top:1px solid rgba(255,255,255,.08);
     backdrop-filter:blur(32px);padding:6px 0 calc(6px + env(safe-area-inset-bottom));
     align-items:center;justify-content:space-around;
-  }
-  .mobile-more-overlay{
-    display:flex;position:fixed;inset:0;z-index:1000;
-    background:rgba(3,3,11,.98);backdrop-filter:blur(32px);
-    overflow-y:auto;flex-direction:column;
   }
   .hiw-grid,.test-grid,.pg,.demo-grid{grid-template-columns:1fr;}
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}

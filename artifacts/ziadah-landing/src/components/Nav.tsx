@@ -250,6 +250,224 @@ const mobileNavItems = [
   { label: "حاسبة الأثر", href: "/calculator", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg> },
 ];
 
+function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [onClose]);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        position: "fixed",
+        bottom: "calc(64px + env(safe-area-inset-bottom))",
+        left: 0,
+        right: 0,
+        zIndex: 950,
+        background: "rgba(8,6,20,.98)",
+        border: "1px solid rgba(255,255,255,.1)",
+        borderBottom: "none",
+        borderRadius: "20px 20px 0 0",
+        padding: "16px 16px 8px",
+        backdropFilter: "blur(32px)",
+        boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
+        maxHeight: "70vh",
+        overflowY: "auto",
+        animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
+        <button
+          onClick={onClose}
+          style={{
+            background: "rgba(255,255,255,.08)", border: "none", color: "rgba(255,255,255,.6)",
+            width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الصفحات</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
+        {useCasesDropdown.sections[0].items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            style={{
+              display: "block", padding: "10px 12px", borderRadius: 12,
+              background: "rgba(255,255,255,.04)", textDecoration: "none",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأنشطة</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
+        {useCasesDropdown.sections[1].items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            style={{
+              display: "block", padding: "10px 12px", borderRadius: 12,
+              background: "rgba(255,255,255,.04)", textDecoration: "none",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب طريقة العرض</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
+        {useCasesDropdown.sections[2].items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            style={{
+              display: "block", padding: "10px 12px", borderRadius: 12,
+              background: "rgba(255,255,255,.04)", textDecoration: "none",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأهداف</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
+        {useCasesDropdown.sections[3].items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            onClick={onClose}
+            style={{
+              display: "block", padding: "10px 12px", borderRadius: 12,
+              background: "rgba(255,255,255,.04)", textDecoration: "none",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المنصات</div>
+      <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
+        {platformItems.map((item) => (
+          item.enabled ? (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                flex: 1, display: "block", padding: "10px 12px", borderRadius: 12, textAlign: "center",
+                background: "rgba(255,255,255,.04)", textDecoration: "none",
+                color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              }}
+            >
+              {item.label}
+            </a>
+          ) : (
+            <div
+              key={item.label}
+              style={{
+                flex: 1, padding: "10px 12px", borderRadius: 12, textAlign: "center",
+                background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
+                fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              }}
+            >
+              {item.label}
+              <span style={{ display: "block", fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
+            </div>
+          )
+        ))}
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>روابط سريعة</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
+        <a
+          href="/#pricing"
+          onClick={onClose}
+          style={{
+            display: "block", padding: "10px 12px", borderRadius: 12,
+            background: "rgba(255,255,255,.04)", textDecoration: "none",
+            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
+          }}
+        >
+          الأسعار
+        </a>
+        <Link
+          href="/calculator"
+          onClick={onClose}
+          style={{
+            display: "block", padding: "10px 12px", borderRadius: 12,
+            background: "rgba(255,255,255,.04)", textDecoration: "none",
+            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
+          }}
+        >
+          حاسبة الأثر
+        </Link>
+      </div>
+
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المساعدة</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
+        {helpItems.map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
+            onClick={onClose}
+            style={{
+              display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+              borderRadius: 12, background: "rgba(255,255,255,.04)",
+              textDecoration: "none",
+            }}
+          >
+            <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
+          </Link>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+        <a href="#" onClick={onClose} style={{
+          flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+          border: "1px solid rgba(255,255,255,.2)", background: "transparent",
+          color: "#fff", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
+        }}>
+          احجز اجتماع
+        </a>
+        <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
+          flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+          background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
+          textDecoration: "none", fontFamily: "var(--font)", border: "none",
+        }}>
+          ابدأ الآن
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
@@ -297,124 +515,213 @@ export default function Nav() {
         border: `1px solid ${scrolled ? "rgba(255,255,255,.13)" : "rgba(255,255,255,.07)"}`,
         boxShadow: scrolled ? "0 8px 40px rgba(0,0,0,.5)" : "none",
         borderRadius: 18, padding: "0 24px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        height: 58, backdropFilter: "blur(32px)", transition: "all .4s",
+        backdropFilter: "blur(32px)", transition: "all .4s",
       }}>
-        <Logo />
-        <ul style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
-          {/* الرئيسة */}
-          <li>
-            <Link href="/" style={{
-              display: "block", padding: "8px 14px", borderRadius: 10,
-              color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
-              fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-              textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
-              transition: "all .2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => { if (location !== "/") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
-            >
-              الرئيسة
-            </Link>
-          </li>
+        {/* Top row: logo + CTAs (always visible) */}
+        <div className="nav-top-row" style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          height: 58,
+        }}>
+          <Logo />
+          <ul className="nav-links-inline" style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
+            {/* الرئيسة */}
+            <li>
+              <Link href="/" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+              >
+                الرئيسة
+              </Link>
+            </li>
 
-          {/* حالات الاستخدام */}
-          <li>
-            <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
-              <button style={navBtnStyle(openDrop === "usecases")}>
-                حالات الاستخدام {chevron(openDrop === "usecases")}
-              </button>
-              {openDrop === "usecases" && <UseCasesMegaMenu />}
-            </DropdownWrapper>
-          </li>
+            {/* حالات الاستخدام */}
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "usecases")}>
+                  حالات الاستخدام {chevron(openDrop === "usecases")}
+                </button>
+                {openDrop === "usecases" && <UseCasesMegaMenu />}
+              </DropdownWrapper>
+            </li>
 
-          {/* قصص النجاح */}
-          <li>
-            <Link href="/success-stories" style={{
-              display: "block", padding: "8px 14px", borderRadius: 10,
-              color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
-              fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-              textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
-              transition: "all .2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => { if (location !== "/success-stories") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
-            >
-              قصص النجاح
-            </Link>
-          </li>
+            {/* قصص النجاح */}
+            <li>
+              <Link href="/success-stories" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/success-stories") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+              >
+                قصص النجاح
+              </Link>
+            </li>
 
-          {/* المنصات */}
-          <li>
-            <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
-              <button style={navBtnStyle(openDrop === "platforms")}>
-                المنصات {chevron(openDrop === "platforms")}
-              </button>
-              {openDrop === "platforms" && <PlatformsDropdown />}
-            </DropdownWrapper>
-          </li>
+            {/* المنصات */}
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "platforms")}>
+                  المنصات {chevron(openDrop === "platforms")}
+                </button>
+                {openDrop === "platforms" && <PlatformsDropdown />}
+              </DropdownWrapper>
+            </li>
 
-          {/* الأسعار */}
-          <li>
-            <a href="/#pricing" style={{
-              display: "block", padding: "8px 14px", borderRadius: 10,
-              color: "rgba(255,255,255,.55)",
-              fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-              textDecoration: "none", transition: "all .2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,.55)"}
-            >
-              الأسعار
-            </a>
-          </li>
+            {/* الأسعار */}
+            <li>
+              <a href="/#pricing" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", transition: "all .2s",
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,.55)"}
+              >
+                الأسعار
+              </a>
+            </li>
 
-          {/* حاسبة الأثر */}
-          <li>
-            <Link href="/calculator" style={{
-              display: "block", padding: "8px 14px", borderRadius: 10,
-              color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
-              fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-              textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
-              transition: "all .2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => { if (location !== "/calculator") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
-            >
-              حاسبة الأثر
-            </Link>
-          </li>
+            {/* حاسبة الأثر */}
+            <li>
+              <Link href="/calculator" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/calculator") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+              >
+                حاسبة الأثر
+              </Link>
+            </li>
 
-          {/* المدونة */}
-          <li>
-            <Link href="/blog" style={{
-              display: "block", padding: "8px 14px", borderRadius: 10,
-              color: location === "/blog" || location.startsWith("/blog/") ? "#fff" : "rgba(255,255,255,.55)",
-              fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-              textDecoration: "none", background: location === "/blog" || location.startsWith("/blog/") ? "rgba(124,58,237,.1)" : "transparent",
-              transition: "all .2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-              onMouseLeave={e => { if (!location.startsWith("/blog")) e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
-            >
-              المدونة
-            </Link>
-          </li>
+            {/* المدونة */}
+            <li>
+              <Link href="/blog" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/blog" || location.startsWith("/blog/") ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/blog" || location.startsWith("/blog/") ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}
+                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                onMouseLeave={e => { if (!location.startsWith("/blog")) e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+              >
+                المدونة
+              </Link>
+            </li>
 
-          {/* المساعدة */}
-          <li>
-            <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
-              <button style={navBtnStyle(openDrop === "help")}>
-                المساعدة {chevron(openDrop === "help")}
-              </button>
-              {openDrop === "help" && <HelpDropdown />}
-            </DropdownWrapper>
-          </li>
-        </ul>
+            {/* المساعدة */}
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "help")}>
+                  المساعدة {chevron(openDrop === "help")}
+                </button>
+                {openDrop === "help" && <HelpDropdown />}
+              </DropdownWrapper>
+            </li>
+          </ul>
 
-        <div style={{ display: "flex", gap: 10 }}>
-          <a href="#" className="nb nav-cta-outline">احجز اجتماع</a>
-          <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="nb nav-cta-fill">ابدأ الآن</a>
+          <div className="nav-ctas" style={{ display: "flex", gap: 10 }}>
+            <a href="#" className="nb nav-cta-outline">احجز اجتماع</a>
+            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="nb nav-cta-fill">ابدأ الآن</a>
+          </div>
+        </div>
+
+        {/* Second row: nav links (tablet breakpoint only, injected via CSS) */}
+        <div className="nav-links-row2" style={{ display: "none" }}>
+          <ul style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 4, listStyle: "none", margin: 0, padding: "4px 0 8px", position: "relative" }}>
+            <li>
+              <Link href="/" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}>
+                الرئيسة
+              </Link>
+            </li>
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "usecases2")}>
+                  حالات الاستخدام {chevron(openDrop === "usecases2")}
+                </button>
+                {openDrop === "usecases2" && <UseCasesMegaMenu />}
+              </DropdownWrapper>
+            </li>
+            <li>
+              <Link href="/success-stories" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}>
+                قصص النجاح
+              </Link>
+            </li>
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "platforms2")}>
+                  المنصات {chevron(openDrop === "platforms2")}
+                </button>
+                {openDrop === "platforms2" && <PlatformsDropdown />}
+              </DropdownWrapper>
+            </li>
+            <li>
+              <a href="/#pricing" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", transition: "all .2s",
+              }}>
+                الأسعار
+              </a>
+            </li>
+            <li>
+              <Link href="/calculator" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}>
+                حاسبة الأثر
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/blog" || location.startsWith("/blog/") ? "#fff" : "rgba(255,255,255,.55)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/blog" || location.startsWith("/blog/") ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s",
+              }}>
+                المدونة
+              </Link>
+            </li>
+            <li>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
+                <button style={navBtnStyle(openDrop === "help2")}>
+                  المساعدة {chevron(openDrop === "help2")}
+                </button>
+                {openDrop === "help2" && <HelpDropdown />}
+              </DropdownWrapper>
+            </li>
+          </ul>
         </div>
       </nav>
 
@@ -440,7 +747,7 @@ export default function Nav() {
           );
         })}
         <button
-          onClick={() => setMoreOpen(true)}
+          onClick={() => setMoreOpen(v => !v)}
           style={{
             display: "flex", flexDirection: "column", alignItems: "center",
             gap: 3, flex: 1, background: "none", border: "none",
@@ -456,123 +763,8 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* MOBILE MORE OVERLAY */}
-      {moreOpen && (
-        <div className="mobile-more-overlay" onClick={(e) => { if (e.target === e.currentTarget) setMoreOpen(false); }}>
-          <div style={{
-            width: "100%", maxWidth: 480, margin: "0 auto", padding: "60px 24px 40px",
-            display: "flex", flexDirection: "column", gap: 8,
-          }}>
-            <button
-              onClick={() => setMoreOpen(false)}
-              style={{
-                position: "absolute", top: 16, left: 16, background: "rgba(255,255,255,.08)",
-                border: "none", color: "#fff", width: 40, height: 40, borderRadius: 12,
-                fontSize: 20, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-              }}
-            >
-              ✕
-            </button>
-
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--p4)", marginBottom: 4, marginTop: 16 }}>حسب طريقة العرض</div>
-            {[
-              { label: "منتجات ذات صلة", href: "/use-cases/related-products" },
-              { label: "الإضافات (Add-ons)", href: "/use-cases/addons" },
-              { label: "الشراء معاً", href: "/use-cases/buy-together" },
-              { label: "عروض الحزم", href: "/use-cases/bundle-deals" },
-              { label: "اشترِ أكثر ووفّر أكثر", href: "/use-cases/buy-more-save-more" },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMoreOpen(false)}
-                style={{
-                  display: "block", padding: "14px 16px", borderRadius: 14,
-                  background: "rgba(255,255,255,.04)", textDecoration: "none",
-                  color: "#fff", fontSize: 15, fontWeight: 500,
-                  fontFamily: "var(--font)",
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--p4)", marginBottom: 4, marginTop: 16 }}>المنصات</div>
-            {platformItems.map((item) => (
-              <div key={item.label}>
-                {item.enabled ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      display: "block", padding: "14px 16px", borderRadius: 14,
-                      background: "rgba(255,255,255,.04)", textDecoration: "none",
-                      color: "#fff", fontSize: 15, fontWeight: 500,
-                      fontFamily: "var(--font)",
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <div style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    padding: "14px 16px", borderRadius: 14, background: "rgba(255,255,255,.04)",
-                    color: "rgba(255,255,255,.3)", fontSize: 15, fontWeight: 500,
-                    fontFamily: "var(--font)",
-                  }}>
-                    <span>{item.label}</span>
-                    <span style={{
-                      fontSize: 10, fontWeight: 700, background: "rgba(255,255,255,.08)",
-                      color: "rgba(255,255,255,.35)", padding: "2px 8px", borderRadius: 20,
-                    }}>
-                      {item.badge}
-                    </span>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--p4)", marginBottom: 4, marginTop: 16 }}>المساعدة</div>
-            {helpItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                onClick={() => setMoreOpen(false)}
-                style={{
-                  display: "flex", alignItems: "center", gap: 12, padding: "14px 16px",
-                  borderRadius: 14, background: "rgba(255,255,255,.04)",
-                  textDecoration: "none",
-                }}
-              >
-                <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: "#fff" }}>{item.label}</div>
-                  <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
-                </div>
-              </Link>
-            ))}
-
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 24 }}>
-              <a href="#" style={{
-                display: "block", textAlign: "center", padding: "14px 20px", borderRadius: 14,
-                border: "1px solid rgba(255,255,255,.2)", background: "transparent",
-                color: "#fff", fontSize: 15, fontWeight: 600, textDecoration: "none",
-                fontFamily: "var(--font)",
-              }}>
-                احجز اجتماع
-              </a>
-              <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
-                display: "block", textAlign: "center", padding: "14px 20px", borderRadius: 14,
-                background: "var(--p)", color: "#fff", fontSize: 15, fontWeight: 700,
-                textDecoration: "none", fontFamily: "var(--font)", border: "none",
-              }}>
-                ابدأ الآن
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* MOBILE MORE DROPDOWN */}
+      {moreOpen && <MobileMoreDropdown onClose={() => setMoreOpen(false)} />}
     </>
   );
 }
