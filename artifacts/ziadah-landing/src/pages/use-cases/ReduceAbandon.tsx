@@ -64,7 +64,7 @@ const data: UseCasePageData = {
           مثال حي
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف تظهر رسالة الإنقاذ للعميل؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو ويدجت منع التخلي كما يراه عميلك فعلياً</p>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً</p>
         <ReduceAbandonWidget />
       </div>
     </section>

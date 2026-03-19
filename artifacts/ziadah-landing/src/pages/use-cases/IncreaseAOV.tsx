@@ -69,7 +69,7 @@ const data: UseCasePageData = {
           مثال حي
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يُحرّك زيادة العميل لرفع سلّته؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو ويدجت رفع متوسط الطلب كما يراه عميلك فعلياً</p>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو اقتراح رفع متوسط الطلب كما يراه عميلك فعلياً</p>
         <IncreaseAOVWidget />
       </div>
     </section>

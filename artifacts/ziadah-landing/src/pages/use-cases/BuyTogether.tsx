@@ -64,7 +64,7 @@ const data: UseCasePageData = {
           مثال حي
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة ويدجت الشراء معاً كما يراها عميلك فعلياً</p>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة اقتراح الشراء معاً كما يراها عميلك فعلياً</p>
         <BuyTogetherWidget />
       </div>
     </section>
