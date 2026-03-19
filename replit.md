@@ -94,3 +94,16 @@ Generated React Query hooks and fetch client from the OpenAPI spec (e.g. `useHea
 ### `scripts` (`@workspace/scripts`)
 
 Utility scripts package. Each script is a `.ts` file in `src/` with a corresponding npm script in `package.json`. Run scripts via `pnpm --filter @workspace/scripts run <script>`. Scripts can import any workspace package (e.g., `@workspace/db`) by adding it as a dependency in `scripts/package.json`.
+
+### `artifacts/ziadah-landing` (`@workspace/ziadah-landing`)
+
+Arabic RTL landing page for the Ziadah AI-powered e-commerce marketing platform. Built with React + Vite + wouter for routing.
+
+- Pages: Landing, Support, Blog, Calculator, Features, Success Stories, 16+ use-case pages
+- Layout: RTL (direction: rtl), Arabic-first, responsive (mobile/tablet/desktop)
+- CSS: Custom CSS in `src/index.css` (no Tailwind). Uses CSS variables, glass-card components, marquee animations
+- Key responsive breakpoints: 768px (tablet), 1024px (desktop grid), 480px (small mobile)
+- RTL overflow handling: `overflow-x: hidden` on html/body/#root to prevent RTL-induced horizontal scroll
+- Use-case pages use shared `UseCaseLayout` component with widget previews
+- Mobile nav: bottom tab bar; Desktop nav: top horizontal navbar
+- Font: Tajawal (Arabic-optimized Google Font)

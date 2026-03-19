@@ -1479,7 +1479,6 @@ export default function Landing() {
             </GlassCard>
             <GlassCard
               className="gp-banner rv"
-              style={{ gridColumn: "span 2" }}
             >
               <div className="gp-banner-ico">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
@@ -1563,7 +1562,6 @@ export default function Landing() {
             </GlassCard>
             <GlassCard
               className="gp-banner rv d2"
-              style={{ gridColumn: "span 2" }}
             >
               <div className="gp-banner-ico">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
