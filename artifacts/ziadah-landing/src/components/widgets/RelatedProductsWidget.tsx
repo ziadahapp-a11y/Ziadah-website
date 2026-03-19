@@ -19,7 +19,7 @@ export default function RelatedProductsWidget() {
   return (
     <UseCaseWidgetPreview title="اقتراح منتجات ذات علاقة" subtitle="منتجات يفضلها العملاء">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "#6b7280", marginBottom: 8 }}>منتجات يفضلها العملاء</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>منتجات يفضلها العملاء</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
             <div key={i} style={{
@@ -27,15 +27,15 @@ export default function RelatedProductsWidget() {
               gap: 10,
               padding: "10px",
               borderRadius: 12,
-              background: "#f9fafb",
-              border: "1.5px solid #e5e7eb",
+              background: "rgba(255,255,255,.06)",
+              border: "1.5px solid rgba(255,255,255,.1)",
               alignItems: "center",
             }}>
               <div style={{
                 width: 40,
                 height: 40,
                 borderRadius: 10,
-                background: "rgba(124,58,237,.08)",
+                background: "rgba(124,58,237,.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -43,9 +43,9 @@ export default function RelatedProductsWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>{p.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#111827", marginTop: 2 }}>⃁{p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>﷼{p.price}</div>
               </div>
               <button style={{
                 padding: "6px 12px",

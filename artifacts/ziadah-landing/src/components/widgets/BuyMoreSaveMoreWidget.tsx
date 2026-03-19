@@ -10,7 +10,7 @@ export default function BuyMoreSaveMoreWidget() {
   return (
     <UseCaseWidgetPreview title="عروض الكميات" subtitle="اشترِ أكثر وفّر أكثر">
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 8 }}>اشتر أكثر ووفّر أكثر</div>
+        <div style={{ fontSize: 11, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>اشتر أكثر ووفّر أكثر</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {options.map((opt, i) => (
             <div key={i} style={{
@@ -19,15 +19,15 @@ export default function BuyMoreSaveMoreWidget() {
               gap: 10,
               padding: "9px 12px",
               borderRadius: 12,
-              background: opt.selected ? "rgba(124,58,237,.07)" : "#f9fafb",
-              border: opt.selected ? "1.5px solid #7c3aed" : "1.5px solid #e5e7eb",
+              background: opt.selected ? "rgba(124,58,237,.18)" : "rgba(255,255,255,.05)",
+              border: opt.selected ? "1.5px solid rgba(168,85,247,.5)" : "1.5px solid rgba(255,255,255,.1)",
               cursor: "pointer",
             }}>
               <div style={{
                 width: 16,
                 height: 16,
                 borderRadius: "50%",
-                border: opt.selected ? "none" : "1.5px solid #d1d5db",
+                border: opt.selected ? "none" : "1.5px solid rgba(255,255,255,.25)",
                 background: opt.selected ? "#7c3aed" : "transparent",
                 display: "flex",
                 alignItems: "center",
@@ -37,8 +37,8 @@ export default function BuyMoreSaveMoreWidget() {
                 {opt.selected && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "#111827" }}>{opt.qty}</div>
-                <div style={{ fontSize: 10, color: "#6b7280" }}>{opt.label}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "#fff" }}>{opt.qty}</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)" }}>{opt.label}</div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 {opt.badge && (
@@ -51,7 +51,7 @@ export default function BuyMoreSaveMoreWidget() {
                     color: "#fff",
                   }}>{opt.badge}</div>
                 )}
-                <div style={{ fontSize: 13, fontWeight: 800, color: "#111827" }}>{opt.price}</div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: opt.selected ? "#c084fc" : "#fff" }}>{opt.price}</div>
               </div>
             </div>
           ))}
@@ -59,9 +59,9 @@ export default function BuyMoreSaveMoreWidget() {
       </div>
       <div style={{
         fontSize: 10,
-        color: "#10b981",
-        background: "rgba(16,185,129,.07)",
-        border: "1px solid rgba(16,185,129,.2)",
+        color: "#34d399",
+        background: "rgba(16,185,129,.1)",
+        border: "1px solid rgba(16,185,129,.25)",
         borderRadius: 8,
         padding: "6px 10px",
         textAlign: "center",

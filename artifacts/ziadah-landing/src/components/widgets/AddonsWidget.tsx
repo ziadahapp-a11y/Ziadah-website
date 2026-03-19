@@ -11,7 +11,7 @@ export default function AddonsWidget() {
   return (
     <UseCaseWidgetPreview title="إضافات مكملة للمنتج" subtitle="لاتنسَ تضيف المجموعة كاملة">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "#6b7280", marginBottom: 8 }}>إضافات تكميلية للمنتج</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}>إضافات تكميلية للمنتج</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {addons.map((a, i) => (
             <div key={i} style={{
@@ -20,14 +20,14 @@ export default function AddonsWidget() {
               gap: 9,
               padding: "8px 10px",
               borderRadius: 10,
-              background: a.checked ? "rgba(124,58,237,.05)" : "#f9fafb",
-              border: a.checked ? "1.5px solid rgba(124,58,237,.25)" : "1.5px solid #e5e7eb",
+              background: a.checked ? "rgba(124,58,237,.15)" : "rgba(255,255,255,.05)",
+              border: a.checked ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid rgba(255,255,255,.1)",
             }}>
               <div style={{
                 width: 17,
                 height: 17,
                 borderRadius: 5,
-                background: a.checked ? "#7c3aed" : "#e5e7eb",
+                background: a.checked ? "#7c3aed" : "rgba(255,255,255,.1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -37,9 +37,9 @@ export default function AddonsWidget() {
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "#111827" }}>{a.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#fff" : "rgba(255,255,255,.7)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#7c3aed" : "#9ca3af" }}>{a.price}</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "rgba(255,255,255,.35)" }}>{a.price}</div>
             </div>
           ))}
         </div>
@@ -47,15 +47,15 @@ export default function AddonsWidget() {
       <div style={{
         padding: "8px 12px",
         borderRadius: 10,
-        background: "rgba(124,58,237,.06)",
-        border: "1px solid rgba(124,58,237,.15)",
+        background: "rgba(124,58,237,.1)",
+        border: "1px solid rgba(124,58,237,.25)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "#6b7280" }}>الإجمالي مع الإضافات</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#7c3aed" }}>+١٢٨ ⃁</span>
+        <span style={{ fontSize: 10, color: "rgba(255,255,255,.5)" }}>الإجمالي مع الإضافات</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+١٢٨ ر</span>
       </div>
       <button style={{
         width: "100%",

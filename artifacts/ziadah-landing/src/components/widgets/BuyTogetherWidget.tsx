@@ -24,7 +24,7 @@ export default function BuyTogetherWidget() {
   return (
     <UseCaseWidgetPreview title="منتجات يتم شراؤها معاً" subtitle="اشتروا معاً">
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "#6b7280", marginBottom: 10 }}>منتجات يفضلها العملاء معاً</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 10 }}>منتجات يفضلها العملاء معاً</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
             <div key={i} style={{
@@ -32,15 +32,15 @@ export default function BuyTogetherWidget() {
               gap: 10,
               padding: "10px",
               borderRadius: 12,
-              background: "#f9fafb",
-              border: "1.5px solid #e5e7eb",
+              background: "rgba(255,255,255,.06)",
+              border: "1.5px solid rgba(255,255,255,.12)",
               alignItems: "center",
             }}>
               <div style={{
                 width: 18,
                 height: 18,
                 borderRadius: 5,
-                background: p.checked ? "#7c3aed" : "#e5e7eb",
+                background: p.checked ? "#7c3aed" : "rgba(255,255,255,.1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -52,7 +52,7 @@ export default function BuyTogetherWidget() {
                 width: 36,
                 height: 36,
                 borderRadius: 8,
-                background: "rgba(124,58,237,.08)",
+                background: "rgba(124,58,237,.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -60,14 +60,14 @@ export default function BuyTogetherWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "#111827", lineHeight: 1.3 }}>{p.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
                 <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#111827" }}>⃁{p.price}</span>
-                  {p.originalPrice && <span style={{ fontSize: 9, color: "#9ca3af", textDecoration: "line-through" }}>⃁{p.originalPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#fff" }}>﷼{p.price}</span>
+                  {p.originalPrice && <span style={{ fontSize: 9, color: "rgba(255,255,255,.35)", textDecoration: "line-through" }}>﷼{p.originalPrice}</span>}
                 </div>
               </div>
-              {p.tag && <div style={{ fontSize: 8, padding: "2px 7px", borderRadius: 20, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700, flexShrink: 0 }}>{p.tag}</div>}
+              {p.tag && <div style={{ fontSize: 8, padding: "2px 7px", borderRadius: 20, background: "rgba(124,58,237,.2)", color: "#c084fc", fontWeight: 700, flexShrink: 0 }}>{p.tag}</div>}
             </div>
           ))}
         </div>
