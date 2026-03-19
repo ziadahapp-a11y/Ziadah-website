@@ -196,7 +196,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <span>⚡</span> فعّل على سلة
             </a>
           </div>
-          <p className="cta-note">تجربة مجانية ١٤ يوم • بدون بطاقة</p>
+          <p className="cta-note">تجربة مجانية 14 يوم • بدون بطاقة</p>
         </div>
       </section>
 

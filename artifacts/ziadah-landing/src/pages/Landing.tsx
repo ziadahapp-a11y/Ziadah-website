@@ -21,11 +21,6 @@ const storeLogos = [
   "جمعية القرآن",
 ];
 
-const AN = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-function toA(n: number) {
-  return String(Math.floor(n)).replace(/[0-9]/g, (d) => AN[+d]);
-}
-
 function GlassCard({
   children,
   className = "",
@@ -141,35 +136,35 @@ export default function Landing() {
     {
       text: "زيادة ساعدنا نوصل للعميل في اللحظة الصح بعرض بسيط وفعّال جداً. الأثر على المبيعات والتحويلات كان واضحاً ومقاساً. كمان زيادة خلّتنا نرفع متوسط قيمة الطلب عبر استراتيجية مدروسة لكل عرض ومنتج.",
       name: "ريبال",
-      role: "متجر مستلزمات التنظيف — ١٥١,٥٠٧ تحويل",
+      role: "متجر مستلزمات التنظيف — 151,507 تحويل",
       av: "ر",
       col: "linear-gradient(135deg,#7c3aed,#5b21b6)",
     },
     {
       text: "زيادة ساعدنا نرفع قيمة الطلب دون التأثير على تجربة العميل. العروض تظهر في الوقت الصح وتشجع العميل على إضافة قطع أكثر بدون تردد.",
       name: "التميمي",
-      role: "متجر أقمشة رجالي — ٩٣٢,٥١٧ ريال مبيعات",
+      role: "متجر أقمشة رجالي — 932,517 ريال مبيعات",
       av: "ت",
       col: "linear-gradient(135deg,#059669,#047857)",
     },
     {
       text: "زيادة ساعدتنا نشتغل مع العملاء في اللحظة الصح دون ما نقاطع تجربة التسوق. العروض الذكية شجّعت العملاء يضيفون منتجات أكثر ويكملون طلباتهم أسرع.",
       name: "Skinly",
-      role: "متجر عناية بالبشرة — ٧٠٤,٦٧٦ ريال مبيعات",
+      role: "متجر عناية بالبشرة — 704,676 ريال مبيعات",
       av: "S",
       col: "linear-gradient(135deg,#ec4899,#be185d)",
     },
     {
       text: "الباقات المجمعة كانت متاحة لكن العملاء نادراً ما يكتشفونها. زيادة حل هذه المشكلة بنافذة موجهة تظهر في الوقت الصح وترفع متوسط قيمة الطلب بشكل واضح.",
       name: "فيرزاسكا",
-      role: "متجر عطور ومعطرات — ٩٥٧ تحويل",
+      role: "متجر عطور ومعطرات — 957 تحويل",
       av: "ف",
       col: "linear-gradient(135deg,#7c3aed,#4f46e5)",
     },
     {
       text: "كنا نخسر طلبات كثيرة في لحظة الحذف من السلة. زيادة حل هذه المشكلة بدقة — خصم ذكي يظهر في اللحظة الحاسمة ويحوّل قرار الإلغاء إلى شراء فعلي.",
       name: "فيتنيس نيد",
-      role: "متجر مستلزمات لياقة — ٧٥,٧٢٢ ريال مبيعات",
+      role: "متجر مستلزمات لياقة — 75,722 ريال مبيعات",
       av: "ن",
       col: "linear-gradient(135deg,#10b981,#059669)",
     },
@@ -183,23 +178,23 @@ export default function Landing() {
   ];
   const testimonialsRow2 = [
     {
-      text: "الفكرة كانت ذكية — تقدم للعميل خصماً بالضبط لما يحاول يحذف المنتج من السلة. هذا التوقيت غيّر كل شيء. ١,١٢٢ تحويل و٢٤٨ ألف ريال ما كانت لتحصل بدون زيادة.",
+      text: "الفكرة كانت ذكية — تقدم للعميل خصماً بالضبط لما يحاول يحذف المنتج من السلة. هذا التوقيت غيّر كل شيء. 1,122 تحويل و248 ألف ريال ما كانت لتحصل بدون زيادة.",
       name: "عبق الغيم",
-      role: "متجر عطور — ٢٤٨,٨١٦ ريال مبيعات",
+      role: "متجر عطور — 248,816 ريال مبيعات",
       av: "ع",
       col: "linear-gradient(135deg,#a855f7,#7c3aed)",
     },
     {
       text: "اليوم الوطني كان دائماً فرصة لكننا ما كنا نعرف كيف نستغلها صح. زيادة ساعدنا نطلق حملة مخصصة للمناسبة وصلنا لأرقام ما حققناها من قبل.",
       name: "ركن الجمال",
-      role: "متجر تجميل — ١١٩,٩٠٣ ريال مبيعات",
+      role: "متجر تجميل — 119,903 ريال مبيعات",
       av: "ر",
       col: "linear-gradient(135deg,#ec4899,#9333ea)",
     },
     {
-      text: "كود الخصم ٥٪ كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. ٧١٦ تحويل و٥٤٣ ألف ريال مبيعات إضافية.",
+      text: "كود الخصم 5٪ كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. 716 تحويل و543 ألف ريال مبيعات إضافية.",
       name: "كلوز باي",
-      role: "متجر تسوق متنوع — ٥٤٣,٠٠٠ ريال مبيعات",
+      role: "متجر تسوق متنوع — 543,000 ريال مبيعات",
       av: "ك",
       col: "linear-gradient(135deg,#06b6d4,#0891b2)",
     },
@@ -211,16 +206,16 @@ export default function Landing() {
       col: "linear-gradient(135deg,#4f46e5,#4338ca)",
     },
     {
-      text: "إطلاق منتجات جديدة كان تحدياً دائماً. زيادة حل المشكلة بنافذة ذكية تعرض المنتج الجديد بخصم في اللحظة المناسبة. النتيجة ٦٥٥ تحويل و٢٤٧ ألف ريال.",
+      text: "إطلاق منتجات جديدة كان تحدياً دائماً. زيادة حل المشكلة بنافذة ذكية تعرض المنتج الجديد بخصم في اللحظة المناسبة. النتيجة 655 تحويل و247 ألف ريال.",
       name: "كلارا",
-      role: "متجر منتجات تجميل — ٢٤٧,٤٣٨ ريال مبيعات",
+      role: "متجر منتجات تجميل — 247,438 ريال مبيعات",
       av: "ك",
       col: "linear-gradient(135deg,#f59e0b,#d97706)",
     },
     {
-      text: "الفكرة بسيطة — ٥٠٪ على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. نتائج سريعة ومقنعة ما توقعناها.",
+      text: "الفكرة بسيطة — 50٪ على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. نتائج سريعة ومقنعة ما توقعناها.",
       name: "كايزون",
-      role: "متجر أجهزة منزلية — ٧٦,٢٥٧ ريال مبيعات",
+      role: "متجر أجهزة منزلية — 76,257 ريال مبيعات",
       av: "ي",
       col: "linear-gradient(135deg,#f59e0b,#92400e)",
     },
@@ -244,7 +239,7 @@ export default function Landing() {
     },
     {
       q: "هل هناك ضمان على النتائج؟",
-      a: "باقة الأعمال تأتي مع ضمان ذهبي لتحقيق ١٠ أضعاف العائد على الاستثمار. بقية الباقات معها تجربة مجانية وسهولة إلغاء في أي وقت.",
+      a: "باقة الأعمال تأتي مع ضمان ذهبي لتحقيق 10 أضعاف العائد على الاستثمار. بقية الباقات معها تجربة مجانية وسهولة إلغاء في أي وقت.",
     },
   ];
 
@@ -387,7 +382,7 @@ export default function Landing() {
           <div className="hiw-grid">
             {[
               {
-                step: "الخطوة ١",
+                step: "الخطوة 1",
                 title: "فعّل التطبيق",
                 desc: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة, مايحتاج خبرة تقنية..",
                 chip: "30 ثانية فقط",
@@ -438,7 +433,7 @@ export default function Landing() {
                 ),
               },
               {
-                step: "الخطوة ٢",
+                step: "الخطوة 2",
                 title: "الذكاء الاصطناعي يتعلم",
                 desc: "يحلل كل عميل - منطقته، جهازه، مشترياته، وأنماط تصفحه, وأسرار خاصة فينا, ويبدأ مباشرة بدون أي تدخل منك.",
                 chip: "تعلم مستمر يومياً",
@@ -503,7 +498,7 @@ export default function Landing() {
                 ),
               },
               {
-                step: "الخطوة ٣",
+                step: "الخطوة 3",
                 title: "المبيعات ترتفع تلقائياً",
                 desc: "كل عميل يحصل على العرض الأنسب له في اللحظة الصح - بتكلفة تسويق صفر ريال.",
                 chip: "نتائج من أول يوم",
@@ -742,9 +737,9 @@ export default function Landing() {
                   <div className="demo-top">
                     <div>
                       <div className="demo-name">ناصر</div>
-                      <div className="demo-meta">الرياض · آيفون · ٢٨ سنة</div>
+                      <div className="demo-meta">الرياض · آيفون · 28 سنة</div>
                     </div>
-                    <div className="demo-chip">٩٢٪</div>
+                    <div className="demo-chip">92٪</div>
                   </div>
                   <div className="demo-sigs">
                     <div className="demo-sig">
@@ -814,7 +809,7 @@ export default function Landing() {
                           يكمل مشروب البروتين في سلتك
                         </div>
                       </div>
-                      <div className="demo-sp">٣٤٩ ر.س</div>
+                      <div className="demo-sp">349 ر.س</div>
                     </div>
                     <div className="demo-sugg">
                       <div
@@ -857,10 +852,10 @@ export default function Landing() {
                       <div className="demo-sb">
                         <div className="demo-sn">سماعات JBL Reflect</div>
                         <div className="demo-sw">
-                          ٧٨٪ يشترونها مع نفس الحذاء
+                          78٪ يشترونها مع نفس الحذاء
                         </div>
                       </div>
-                      <div className="demo-sp">٢١٩ ر.س</div>
+                      <div className="demo-sp">219 ر.س</div>
                     </div>
                   </div>
                 </div>
@@ -1048,7 +1043,7 @@ export default function Landing() {
                   <div className="demo-top">
                     <div>
                       <div className="demo-name">نوره</div>
-                      <div className="demo-meta">جدة · سامسونج · ٢٤ سنة</div>
+                      <div className="demo-meta">جدة · سامسونج · 24 سنة</div>
                     </div>
                     <div
                       className="demo-chip"
@@ -1058,7 +1053,7 @@ export default function Landing() {
                         color: "#f9a8d4",
                       }}
                     >
-                      ٩٦٪
+                      96٪
                     </div>
                   </div>
                   <div className="demo-sigs">
@@ -1138,7 +1133,7 @@ export default function Landing() {
                         <div className="demo-sn">باليت مكياج </div>
                         <div className="demo-sw">يكمل العطر الذي اشترته</div>
                       </div>
-                      <div className="demo-sp">٢٨٩ ر.س</div>
+                      <div className="demo-sp">289 ر.س</div>
                     </div>
                     <div className="demo-sugg">
                       <div
@@ -1179,7 +1174,7 @@ export default function Landing() {
                         <div className="demo-sn">كريم يوسرين مرطب</div>
                         <div className="demo-sw">مقترن مع كريمك في السلة</div>
                       </div>
-                      <div className="demo-sp">٤٤٩ ر.س</div>
+                      <div className="demo-sp">449 ر.س</div>
                     </div>
                   </div>
                 </div>
@@ -1540,7 +1535,7 @@ export default function Landing() {
                 ))}
               </div>
               <div className="ba-foot ba-foot-a">
-                متوسط قيمة الطلب: <span style={{ fontSize: 24 }}>+٣٥٪</span>
+                متوسط قيمة الطلب: <span style={{ fontSize: 24 }}>+35٪</span>
               </div>
             </GlassCard>
           </div>
@@ -1621,7 +1616,7 @@ export default function Landing() {
                 className={`ptb${pricingMode === "y" ? " on" : ""}`}
                 onClick={() => setPricingMode("y")}
               >
-                سنوي<span className="save-pill">٣٠٪</span>
+                سنوي<span className="save-pill">30٪</span>
               </button>
             </div>
           </div>
@@ -1654,9 +1649,9 @@ export default function Landing() {
                   "ذكاء اصطناعي متقدم",
                   "كل مزايا الانطلاقة",
                   "عروض الكوبونات",
-                  "اقتراح في ٦ نقاط من الرحلة",
+                  "اقتراح في 6 نقاط من الرحلة",
                   "تحليلات مفصلة للمنتج",
-                  "إضافة فريق عمل ٢",
+                  "إضافة فريق عمل 2",
                 ],
                 cta: "اشترك الآن",
                 fill: true,
@@ -1670,7 +1665,7 @@ export default function Landing() {
                 list: [
                   "ذكاء اصطناعي كامل",
                   "كل مزايا النمو",
-                  "اقتراح في ١٠ نقاط من الرحلة",
+                  "اقتراح في 10 نقاط من الرحلة",
                   "اقتراح في صفحة الدفع وبعده",
                   "دعم الثيمات الخاصة",
                   "فريق عمل لامحدود",
@@ -1688,8 +1683,8 @@ export default function Landing() {
                   "كل مزايا الاحترافية",
                   "مدير نجاح يدير حسابك",
                   "مراجعة شهرية استراتيجية",
-                  "دعم تقني مخصص ٢٤/٧",
-                  "ضمان ذهبي ١٠x عائد الاستثمار",
+                  "دعم تقني مخصص 24/7",
+                  "ضمان ذهبي 10x عائد الاستثمار",
                 ],
                 cta: "تواصل معنا",
                 fill: false,
@@ -1705,7 +1700,7 @@ export default function Landing() {
                 <div className="p-price">
                   {p.price != null ? (
                     <>
-                      <span className="p-num">{toA(p.price)}</span>
+                      <span className="p-num">{p.price}</span>
                       <span className="p-cur">ر.س</span>
                       <span className="p-per">
                         / {pricingMode === "y" ? "سنة" : "شهر"}
@@ -1839,7 +1834,7 @@ export default function Landing() {
                   </div>
                   <div>
                     <div>احجز اجتماع</div>
-                    <div className="hcb-sub">جلسة ٣٠ دقيقة مجانية</div>
+                    <div className="hcb-sub">جلسة 30 دقيقة مجانية</div>
                   </div>
                 </a>
                 <a href="#" className="hcb hcb-doc">
@@ -2087,7 +2082,7 @@ export default function Landing() {
           </div>
           <div className="ft-bot">
             <div className="ft-copy">
-              © ٢٠٢٥ Ziadah. جميع الحقوق محفوظة. شاملة الضريبة.
+              © 2025 Ziadah. جميع الحقوق محفوظة. شاملة الضريبة.
             </div>
             <div className="ft-links">
               <a href="#">سياسة الخصوصية</a>

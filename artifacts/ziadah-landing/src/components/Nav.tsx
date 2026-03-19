@@ -77,7 +77,7 @@ const helpItems = [
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
     ),
     label: "البريد الإلكتروني",
-    subtitle: "راسلنا وسنرد خلال ٢٤ ساعة",
+    subtitle: "راسلنا وسنرد خلال 24 ساعة",
     href: "mailto:support@ziadah.sa",
   },
   {
