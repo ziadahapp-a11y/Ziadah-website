@@ -1656,6 +1656,159 @@ export default function Landing() {
           </div>
         </div>
       </section>
+      {/* DETAILED REPORTS */}
+      <section id="reports">
+        <div className="wrap">
+          <div className="tc" style={{ marginBottom: 56 }}>
+            <SecTag>التقارير المفصلة</SecTag>
+            <h2 className="st rv d1">
+              كل قرار مبني على
+              <br />
+              بيانات دقيقة ومفصّلة
+            </h2>
+            <p className="ssub rv d2">
+              تقارير على مستوى الحملة وعلى مستوى كل منتج — حتى تعرف بالضبط ما الذي يشتغل
+            </p>
+          </div>
+
+          <div className="reports-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            {/* Campaign-level report card */}
+            <GlassCard className="rv d1" style={{ padding: "32px 28px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(124,58,237,.12)" stroke="rgba(168,85,247,.45)" strokeWidth="1.4"/>
+                    <line x1="7" y1="8" x2="15" y2="8" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                    <line x1="7" y1="11" x2="15" y2="11" stroke="rgba(168,85,247,.7)" strokeWidth="1.6" strokeLinecap="round"/>
+                    <line x1="7" y1="14" x2="11" y2="14" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير الحملة</div>
+                  <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>نظرة شاملة على أداء كل حملة</div>
+                </div>
+              </div>
+
+              {/* Campaign name bar */}
+              <div style={{ padding: "10px 14px", background: "rgba(124,58,237,.06)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }}/>
+                  <span style={{ fontSize: 13, fontWeight: 700 }}>حملة اشترِ معاً — إبريل 2025</span>
+                </div>
+                <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>نشطة</span>
+              </div>
+
+              {/* Stats grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                {[
+                  { label: "الظهور", value: "١٢٤,٧٠٠", icon: "👁", color: "#06b6d4" },
+                  { label: "النقرات", value: "٨,٩٢٠", sub: "٧.١٪", icon: "🖱", color: "#a855f7" },
+                  { label: "التحويلات", value: "٢,٣٤٠", sub: "٢٦.٢٪", icon: "✅", color: "#10b981" },
+                  { label: "إجمالي المبيعات", value: "٩٣,٦٠٠ ⃁", icon: "💰", color: "#f59e0b" },
+                ].map((s, i) => (
+                  <div key={i} style={{ padding: "14px 14px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.06)", borderRadius: 12 }}>
+                    <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
+                    <div style={{ fontSize: 18, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</div>
+                    {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>معدل {s.sub}</div>}
+                    <div style={{ fontSize: 11, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mini trend bar */}
+              <div style={{ marginTop: 16, padding: "12px 14px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }}>
+                <svg width="56" height="24" viewBox="0 0 56 24" fill="none">
+                  <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                  <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(16,185,129,.08)"/>
+                </svg>
+                <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>+٢٣٪ نمو في المبيعات خلال آخر ٣٠ يوم</div>
+              </div>
+            </GlassCard>
+
+            {/* Product-level report card */}
+            <GlassCard className="rv d2" style={{ padding: "32px 28px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <rect x="3" y="12" width="4" height="7" rx="1.5" fill="rgba(6,182,212,.2)" stroke="rgba(6,182,212,.55)" strokeWidth="1.2"/>
+                    <rect x="9" y="8" width="4" height="11" rx="1.5" fill="rgba(6,182,212,.35)" stroke="rgba(6,182,212,.65)" strokeWidth="1.2"/>
+                    <rect x="15" y="4" width="4" height="15" rx="1.5" fill="rgba(6,182,212,.55)" stroke="rgba(6,182,212,.8)" strokeWidth="1.2"/>
+                    <path d="M4.5 10.5 L11 7 L17 3.5" stroke="rgba(6,182,212,.4)" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="2 2"/>
+                  </svg>
+                </div>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 800 }}>تقارير المنتجات</div>
+                  <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>أداء كل منتج داخل الحملة</div>
+                </div>
+              </div>
+
+              {/* Product rows */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {[
+                  { name: "كريم مرطب فاخر", clicks: "٣,٢٤٠", clickRate: "٤.٨٪", conv: "٨٧٠", convRate: "٢٦.٨٪", sales: "٣٤,٨٠٠ ⃁", color: "#a855f7" },
+                  { name: "واقي شمس SPF 50", clicks: "٢,١١٠", clickRate: "٣.٣٪", conv: "٥٤٠", convRate: "٢٥.٦٪", sales: "٢٤,٣٠٠ ⃁", color: "#06b6d4" },
+                  { name: "سيروم فيتامين C", clicks: "١,٨٩٠", clickRate: "٢.٩٪", conv: "٤٦٠", convRate: "٢٤.٣٪", sales: "١٨,٤٠٠ ⃁", color: "#10b981" },
+                ].map((p, i) => (
+                  <div key={i} style={{ padding: "12px 14px", background: "rgba(0,0,0,.18)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <div style={{ width: 6, height: 6, borderRadius: "50%", background: p.color, boxShadow: `0 0 6px ${p.color}`, flexShrink: 0 }}/>
+                        <span style={{ fontSize: 13, fontWeight: 700 }}>{p.name}</span>
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 900, color: "#10b981" }}>{p.sales}</span>
+                    </div>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {[
+                        { l: "نقرات", v: p.clicks, r: p.clickRate },
+                        { l: "تحويل", v: p.conv, r: p.convRate },
+                      ].map((m, j) => (
+                        <div key={j} style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                          <span style={{ fontSize: 12, color: "var(--td)" }}>{m.l}:</span>
+                          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
+                          <span style={{ fontSize: 11, color: p.color, background: `rgba(${p.color === "#a855f7" ? "168,85,247" : p.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
+                📊 تقارير فورية تُحدَّث تلقائياً • تصدير بضغطة واحدة
+              </div>
+            </GlassCard>
+          </div>
+
+          {/* Bottom banner */}
+          <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
+            <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <circle cx="13" cy="13" r="10" fill="rgba(124,58,237,.1)" stroke="rgba(168,85,247,.4)" strokeWidth="1.5"/>
+                <path d="M13 8v5l3 3" stroke="#a855f7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="13" cy="13" r="1.5" fill="#a855f7"/>
+              </svg>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 6 }}>بيانات دقيقة — قرارات أذكى</div>
+              <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>
+                لا مجرد أرقام عامة — تقارير حملة بحملة ومنتج بمنتج. اعرف ما يشتغل وضاعفه، وما لا يشتغل وحسّنه.
+              </div>
+            </div>
+            <div className="reports-banner-stats" style={{ display: "flex", gap: 20, flexShrink: 0, flexWrap: "wrap" }}>
+              {[
+                { v: "حملة", l: "مستوى التقرير الأول" },
+                { v: "منتج", l: "مستوى التقرير الثاني" },
+                { v: "فوري", l: "تحديث البيانات" },
+              ].map((s, i) => (
+                <div key={i} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 20, fontWeight: 900, color: "var(--p3)" }}>{s.v}</div>
+                  <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </GlassCard>
+        </div>
+      </section>
       {/* TESTIMONIALS */}
       <section id="testimonials" style={{ overflowX: "hidden", paddingLeft: 0, paddingRight: 0 }}>
         <div className="wrap">

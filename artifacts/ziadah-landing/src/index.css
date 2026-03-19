@@ -372,6 +372,10 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   }
   .hiw-grid,.test-grid,.pg,.demo-grid{grid-template-columns:1fr;}
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}
+  .reports-grid{grid-template-columns:1fr!important;}
+  .reports-banner{flex-direction:column!important;gap:16px!important;}
+  .reports-banner-stats{flex-direction:row!important;justify-content:center!important;gap:24px!important;}
+  .uc-reports-inner{grid-template-columns:1fr!important;}
   section{padding:56px 4%;}
   body{padding-bottom:72px;}
 

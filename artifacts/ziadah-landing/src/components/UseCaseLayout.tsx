@@ -186,6 +186,48 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {/* EXTRA SECTIONS */}
       {data.extraSections}
 
+      {/* REPORTS HIGHLIGHT */}
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div className="gc rv" style={{ padding: "36px 40px", background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
+            <div className="shine"/>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
+                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 7px #a855f7" }}/>
+                التقارير المفصلة
+              </div>
+            </div>
+            <div className="uc-reports-inner" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 32, alignItems: "center" }}>
+              <div>
+                <h3 style={{ fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 900, marginBottom: 12 }}>
+                  قِس كل شيء — حملة بحملة، ومنتج بمنتج
+                </h3>
+                <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.8, maxWidth: 600 }}>
+                  زيادة يمنحك تقارير دقيقة على مستوى كل حملة: عدد الظهور، النقرات ومعدلها، التحويلات، وإجمالي المبيعات. وداخل كل حملة تجد تقريراً لكل منتج على حدة — حتى تعرف بالضبط ما الذي يحقق النتائج وتضاعفه.
+                </p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
+                {[
+                  { icon: "📊", label: "تقارير الحملة", sub: "ظهور · نقرات · تحويل · مبيعات", color: "#a855f7" },
+                  { icon: "📦", label: "تقارير المنتج", sub: "نقرات · تحويل · مبيعات لكل منتج", color: "#06b6d4" },
+                  { icon: "⚡", label: "بيانات فورية", sub: "تُحدَّث تلقائياً في الوقت الفعلي", color: "#10b981" },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "rgba(0,0,0,.2)", border: "1px solid rgba(255,255,255,.07)", borderRadius: 12, minWidth: 240 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.2)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 800 }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{item.sub}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="cta-sec" style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
         <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
