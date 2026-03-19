@@ -259,7 +259,7 @@ export default function Landing() {
                 {tr.landing.heroTitle1}
               </span>
               {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-              <span className="grad font-semibold">
+              <span className="grad font-semibold" style={{ whiteSpace: "pre-line" }}>
                 {tr.landing.heroTitleGrad}
               </span>
             </h1>
