@@ -309,7 +309,7 @@ export default function Landing() {
           <div className="sbar">
             <div className="sbi">
               <div className="sbi-n">+700</div>
-              <div className="sbi-l">متجر </div>
+              <div className="sbi-l text-[14px]">متجر </div>
             </div>
             <div className="sbi">
               <div className="sbi-n">+20 مليون</div>
