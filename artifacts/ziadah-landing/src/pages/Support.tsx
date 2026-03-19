@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
+import { navigateTo } from "@/components/PageTransition";
 
 export default function Support() {
   const [activeCategory, setActiveCategory] = useState("start");
   const [search, setSearch] = useState("");
-  const [, navigate] = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -86,7 +85,7 @@ export default function Support() {
                 </div>
                 {searchResults.map((a, i) => (
                   <div key={i}
-                    onClick={() => { navigate(`/support/article/${a.id}`); setSearch(""); }}
+                    onClick={() => { navigateTo(`/support/article/${a.id}`); setSearch(""); }}
                     style={{ padding: "12px 14px", borderRadius: 12, cursor: "pointer", transition: "background .2s", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}
                     onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
                     onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -184,9 +183,10 @@ export default function Support() {
 
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
                 {activeCat.articles.map((a, i) => (
-                  <Link key={a.id} href={`/support/article/${a.id}`}
+                  <div key={a.id}
+                    onClick={() => navigateTo(`/support/article/${a.id}`)}
                     className="gc gc-lift"
-                    style={{ display: "block", padding: "22px 24px", textDecoration: "none", cursor: "pointer", transition: "all .28s cubic-bezier(.23,1,.32,1)" }}
+                    style={{ display: "block", padding: "22px 24px", cursor: "pointer", transition: "all .28s cubic-bezier(.23,1,.32,1)" }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = `${activeCat.color}35`; }}
                     onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--b1)"; }}
                   >
@@ -210,7 +210,7 @@ export default function Support() {
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>

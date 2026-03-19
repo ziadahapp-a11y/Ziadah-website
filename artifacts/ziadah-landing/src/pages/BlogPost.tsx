@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { Link, useParams } from "wouter";
+import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categoryColors } from "../data/blogPosts";
+import { navigateTo } from "@/components/PageTransition";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -329,17 +330,18 @@ export default function BlogPost() {
         <h1 style={{ fontSize: 32, fontWeight: 900, position: "relative", zIndex: 2 }}>
           المقال غير موجود
         </h1>
-        <Link
-          href="/blog"
+        <span
+          onClick={() => navigateTo("/blog")}
           style={{
             color: "#a855f7",
             textDecoration: "none",
             position: "relative",
             zIndex: 2,
+            cursor: "pointer",
           }}
         >
           ← العودة للمدونة
-        </Link>
+        </span>
       </div>
     );
   }
@@ -426,27 +428,27 @@ export default function BlogPost() {
               padding: "24px 0 20px",
             }}
           >
-            <Link
-              href="/"
-              style={{ color: "var(--td)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+            <span
+              onClick={() => navigateTo("/")}
+              style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
               onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--td)")
+                ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
             >
               الرئيسة
-            </Link>
+            </span>
             <span>›</span>
-            <Link
-              href="/blog"
-              style={{ color: "var(--td)", textDecoration: "none" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+            <span
+              onClick={() => navigateTo("/blog")}
+              style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#fff")}
               onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--td)")
+                ((e.currentTarget as HTMLElement).style.color = "var(--td)")
               }
             >
               المدونة
-            </Link>
+            </span>
             <span>›</span>
             <span
               style={{
@@ -578,8 +580,8 @@ export default function BlogPost() {
 
           {/* Back link */}
           <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--b1)" }}>
-            <Link
-              href="/blog"
+            <span
+              onClick={() => navigateTo("/blog")}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -589,12 +591,13 @@ export default function BlogPost() {
                 fontSize: 15,
                 fontWeight: 600,
                 transition: "opacity .2s",
+                cursor: "pointer",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.7")}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
             >
               ← العودة لجميع المقالات
-            </Link>
+            </span>
           </div>
         </div>
       </section>
@@ -640,10 +643,10 @@ export default function BlogPost() {
               }}
             >
               {relatedPosts.map((rel, i) => (
-                <Link
+                <div
                   key={rel.slug}
-                  href={`/blog/${rel.slug}`}
-                  style={{ textDecoration: "none" }}
+                  onClick={() => navigateTo(`/blog/${rel.slug}`)}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
                 >
                   <article
                     className="gc gc-lift rv"
@@ -735,7 +738,7 @@ export default function BlogPost() {
                       </span>
                     </div>
                   </article>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

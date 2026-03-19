@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
+import { navigateTo } from "@/components/PageTransition";
 
 const Logo = () => (
-  <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+  <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
     <img src="/logo.png" alt="زيادة" style={{ height: 40, width: "auto" }} />
-  </Link>
+  </span>
 );
 
 interface UseCaseItem {
@@ -93,13 +94,13 @@ function UseCasesMegaMenu() {
             {section.title}
           </div>
           {section.items.map((item) => (
-            <Link
+            <span
               key={item.href + item.label}
-              href={item.href}
+              onClick={() => navigateTo(item.href)}
               style={{
                 display: "block", padding: "8px 8px", borderRadius: 10,
                 textDecoration: "none", transition: "background .2s", fontSize: 13,
-                fontWeight: 500, color: "#fff",
+                fontWeight: 500, color: "#fff", cursor: "pointer",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -110,7 +111,7 @@ function UseCasesMegaMenu() {
                   {item.subtitle}
                 </span>
               )}
-            </Link>
+            </span>
           ))}
         </div>
       ))}
@@ -455,12 +456,12 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
           );
         }
         return (
-          <Link
+          <span
             key={item.label}
-            href={item.href}
+            onClick={() => navigateTo(item.href)}
             style={{
               display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-              borderRadius: 12, textDecoration: "none", transition: "background .2s",
+              borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
             }}
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -470,7 +471,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
               <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
             </div>
-          </Link>
+          </span>
         );
       })}
     </div>
@@ -535,72 +536,68 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الصفحات</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
         {useCasesDropdown.sections[0].items.map((item) => (
-          <Link
+          <span
             key={item.href}
-            href={item.href}
-            onClick={onClose}
+            onClick={() => { navigateTo(item.href); onClose(); }}
             style={{
               display: "block", padding: "10px 12px", borderRadius: 12,
               background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", cursor: "pointer",
             }}
           >
             {item.label}
-          </Link>
+          </span>
         ))}
       </div>
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأنشطة</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
         {useCasesDropdown.sections[1].items.map((item) => (
-          <Link
+          <span
             key={item.href}
-            href={item.href}
-            onClick={onClose}
+            onClick={() => { navigateTo(item.href); onClose(); }}
             style={{
               display: "block", padding: "10px 12px", borderRadius: 12,
               background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", cursor: "pointer",
             }}
           >
             {item.label}
-          </Link>
+          </span>
         ))}
       </div>
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب طريقة العرض</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 12 }}>
         {useCasesDropdown.sections[2].items.map((item) => (
-          <Link
+          <span
             key={item.href}
-            href={item.href}
-            onClick={onClose}
+            onClick={() => { navigateTo(item.href); onClose(); }}
             style={{
               display: "block", padding: "10px 12px", borderRadius: 12,
               background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", cursor: "pointer",
             }}
           >
             {item.label}
-          </Link>
+          </span>
         ))}
       </div>
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>حسب الأهداف</div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 12 }}>
         {useCasesDropdown.sections[3].items.map((item) => (
-          <Link
+          <span
             key={item.href}
-            href={item.href}
-            onClick={onClose}
+            onClick={() => { navigateTo(item.href); onClose(); }}
             style={{
               display: "block", padding: "10px 12px", borderRadius: 12,
               background: "rgba(255,255,255,.04)", textDecoration: "none",
-              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+              color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", cursor: "pointer",
             }}
           >
             {item.label}
-          </Link>
+          </span>
         ))}
       </div>
 
@@ -650,17 +647,16 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
         >
           الأسعار
         </a>
-        <Link
-          href="/calculator"
-          onClick={onClose}
+        <span
+          onClick={() => { navigateTo("/calculator"); onClose(); }}
           style={{
             display: "block", padding: "10px 12px", borderRadius: 12,
             background: "rgba(255,255,255,.04)", textDecoration: "none",
-            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center",
+            color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)", textAlign: "center", cursor: "pointer",
           }}
         >
           حاسبة الأثر
-        </Link>
+        </span>
       </div>
 
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6, paddingRight: 4 }}>المساعدة</div>
@@ -684,19 +680,18 @@ function MobileMoreDropdown({ onClose }: { onClose: () => void }) {
             );
           }
           return (
-            <Link
+            <span
               key={item.label}
-              href={item.href}
-              onClick={onClose}
+              onClick={() => { navigateTo(item.href); onClose(); }}
               style={{
                 display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
                 borderRadius: 12, background: "rgba(255,255,255,.04)",
-                textDecoration: "none",
+                textDecoration: "none", cursor: "pointer",
               }}
             >
               <div style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</div>
               <div style={{ fontSize: 13, fontWeight: 500, color: "#fff" }}>{item.label}</div>
-            </Link>
+            </span>
           );
         })}
       </div>
@@ -782,18 +777,18 @@ export default function Nav() {
           <ul className="nav-links-inline" style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
             {/* الرئيسة */}
             <li>
-              <Link href="/" style={{
+              <span onClick={() => navigateTo("/")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
               >
                 الرئيسة
-              </Link>
+              </span>
             </li>
 
             {/* حالات الاستخدام */}
@@ -808,18 +803,18 @@ export default function Nav() {
 
             {/* قصص النجاح */}
             <li>
-              <Link href="/success-stories" style={{
+              <span onClick={() => navigateTo("/success-stories")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/success-stories") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
               >
                 قصص النجاح
-              </Link>
+              </span>
             </li>
 
             {/* المنصات */}
@@ -849,18 +844,18 @@ export default function Nav() {
 
             {/* حاسبة الأثر */}
             <li>
-              <Link href="/calculator" style={{
+              <span onClick={() => navigateTo("/calculator")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => { if (location !== "/calculator") e.currentTarget.style.color = "rgba(255,255,255,.55)"; }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "#fff"}
+                onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.55)"; }}
               >
                 حاسبة الأثر
-              </Link>
+              </span>
             </li>
 
             {/* المساعدة */}
@@ -886,15 +881,15 @@ export default function Nav() {
         <div className="nav-links-row2" style={{ display: "none" }}>
           <ul style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 4, listStyle: "none", margin: 0, padding: "4px 0 8px", position: "relative" }}>
             <li>
-              <Link href="/" style={{
+              <span onClick={() => navigateTo("/")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}>
                 الرئيسة
-              </Link>
+              </span>
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
@@ -905,15 +900,15 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
             <li>
-              <Link href="/success-stories" style={{
+              <span onClick={() => navigateTo("/success-stories")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}>
                 قصص النجاح
-              </Link>
+              </span>
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
@@ -934,26 +929,26 @@ export default function Nav() {
               </a>
             </li>
             <li>
-              <Link href="/calculator" style={{
+              <span onClick={() => navigateTo("/calculator")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}>
                 حاسبة الأثر
-              </Link>
+              </span>
             </li>
             <li>
-              <Link href="/blog" style={{
+              <span onClick={() => navigateTo("/blog")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/blog" || location.startsWith("/blog/") ? "#fff" : "rgba(255,255,255,.55)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/blog" || location.startsWith("/blog/") ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s",
+                transition: "all .2s", cursor: "pointer",
               }}>
                 المدونة
-              </Link>
+              </span>
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
@@ -972,20 +967,20 @@ export default function Nav() {
         {mobileNavItems.map((item) => {
           const isActive = location === item.href || (item.href === "/" && location === "/");
           return (
-            <Link
+            <span
               key={item.label}
-              href={item.href}
+              onClick={() => navigateTo(item.href)}
               style={{
                 display: "flex", flexDirection: "column", alignItems: "center",
                 gap: 3, flex: 1, textDecoration: "none",
                 color: isActive ? "var(--p)" : "rgba(255,255,255,.45)",
                 fontSize: 10, fontWeight: 600, fontFamily: "var(--font)",
-                padding: "6px 0", transition: "color .2s",
+                padding: "6px 0", transition: "color .2s", cursor: "pointer",
               }}
             >
               {item.icon}
               <span>{item.label}</span>
-            </Link>
+            </span>
           );
         })}
         <button

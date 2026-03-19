@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import { useParams, Link } from "wouter";
+import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { getArticleById, getCategoryById } from "../data/support-data";
+import { navigateTo } from "@/components/PageTransition";
 
 export default function SupportArticle() {
   const { id } = useParams<{ id: string }>();
@@ -26,9 +27,12 @@ export default function SupportArticle() {
           <div style={{ fontSize: 64, marginBottom: 16 }}>🔍</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>المقال غير موجود</h1>
           <p style={{ color: "var(--td)", marginBottom: 28 }}>لم نعثر على هذا المقال، ربما تم نقله أو حذفه.</p>
-          <Link href="/support" style={{ padding: "12px 28px", borderRadius: 50, background: "var(--p)", color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: 14 }}>
+          <span
+            onClick={() => navigateTo("/support")}
+            style={{ padding: "12px 28px", borderRadius: 50, background: "var(--p)", color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+          >
             العودة لمركز المساعدة
-          </Link>
+          </span>
         </div>
       </div>
     );
@@ -49,21 +53,25 @@ export default function SupportArticle() {
 
           {/* Breadcrumb */}
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32, fontSize: 13, color: "var(--td)" }}>
-            <Link href="/support" style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={e => (e.currentTarget.style.color = "var(--td)")}
+            <span
+              onClick={() => navigateTo("/support")}
+              style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
             >
               مركز المساعدة
-            </Link>
+            </span>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: "rotate(180deg)", flexShrink: 0 }}>
               <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <Link href="/support" style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={e => (e.currentTarget.style.color = "var(--td)")}
+            <span
+              onClick={() => navigateTo("/support")}
+              style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
+              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
             >
               {category.label}
-            </Link>
+            </span>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: "rotate(180deg)", flexShrink: 0 }}>
               <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -175,15 +183,17 @@ export default function SupportArticle() {
           {/* Footer Actions */}
           <div style={{ marginTop: 56, paddingTop: 32, borderTop: "1px solid var(--b1)" }}>
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-              <Link href="/support" style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--tm)", textDecoration: "none", fontSize: 14, fontWeight: 600, transition: "color .2s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--tm)")}
+              <span
+                onClick={() => navigateTo("/support")}
+                style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--tm)", textDecoration: "none", fontSize: 14, fontWeight: 600, transition: "color .2s", cursor: "pointer" }}
+                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#fff")}
+                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--tm)")}
               >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M11 5l4 4-4 4M3 9h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 العودة لمركز المساعدة
-              </Link>
+              </span>
               <div style={{ display: "flex", gap: 10 }}>
                 <a href="https://api.whatsapp.com/send/?phone=966510131856" target="_blank" rel="noreferrer"
                   style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 20px", background: "rgba(37,211,102,.1)", border: "1px solid rgba(37,211,102,.2)", borderRadius: 50, color: "#25d366", textDecoration: "none", fontSize: 13, fontWeight: 700, transition: "all .2s" }}
@@ -206,10 +216,11 @@ export default function SupportArticle() {
                 <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 16, color: "var(--tm)" }}>مقالات ذات صلة</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {siblings.map(s => (
-                    <Link key={s.id} href={`/support/article/${s.id}`}
-                      style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "16px 20px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14, textDecoration: "none", transition: "all .2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor = `${category.color}40`; e.currentTarget.style.background = `${category.color}06`; }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.background = "var(--s1)"; }}
+                    <span key={s.id}
+                      onClick={() => navigateTo(`/support/article/${s.id}`)}
+                      style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "16px 20px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14, textDecoration: "none", transition: "all .2s", cursor: "pointer" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${category.color}40`; (e.currentTarget as HTMLElement).style.background = `${category.color}06`; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--b1)"; (e.currentTarget as HTMLElement).style.background = "var(--s1)"; }}
                     >
                       <div>
                         <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{s.title}</div>
@@ -218,7 +229,7 @@ export default function SupportArticle() {
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: "rotate(180deg)", flexShrink: 0 }}>
                         <path d="M10 4L6 8l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </Link>
+                    </span>
                   ))}
                 </div>
               </div>

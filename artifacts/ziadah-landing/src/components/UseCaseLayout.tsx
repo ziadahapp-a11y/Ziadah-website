@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Nav from "./Nav";
 import ParticleBackground from "./ParticleBackground";
-import { Link } from "wouter";
+import { navigateTo } from "@/components/PageTransition";
 
 export interface UseCaseHero {
   tag: string;
@@ -213,19 +213,19 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             </div>
             <div className="ft-col">
               <h4>المنتج</h4>
-              <Link href="/features" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الخصائص</Link>
-              <Link href="/#pricing" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الأسعار</Link>
-              <Link href="/success-stories" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>قصص نجاح</Link>
+              <span onClick={() => navigateTo("/features")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>الخصائص</span>
+              <a href="/#pricing" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الأسعار</a>
+              <span onClick={() => navigateTo("/success-stories")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>قصص نجاح</span>
             </div>
             <div className="ft-col">
               <h4>حالات الاستخدام</h4>
-              <Link href="/use-cases/product-page" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة المنتج</Link>
-              <Link href="/use-cases/cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة السلة</Link>
-              <Link href="/use-cases/cross-sell" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>البيع المتقاطع</Link>
+              <span onClick={() => navigateTo("/use-cases/product-page")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة المنتج</span>
+              <span onClick={() => navigateTo("/use-cases/cart")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>صفحة السلة</span>
+              <span onClick={() => navigateTo("/use-cases/cross-sell")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>البيع المتقاطع</span>
             </div>
             <div className="ft-col">
               <h4>الدعم</h4>
-              <Link href="/support" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>مركز الدعم</Link>
+              <span onClick={() => navigateTo("/support")} style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9, cursor: "pointer" }}>مركز الدعم</span>
             </div>
           </div>
           <div className="ft-bot">

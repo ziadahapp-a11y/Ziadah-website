@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Link } from "wouter";
+import { navigateTo } from "@/components/PageTransition";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -142,9 +142,13 @@ export default function HomeCalculator() {
                 </div>
                 <div className="hc-result-note">بناءً على 20% قبول توصيات Cross-sell / Upsell ورفع AOV بـ30%</div>
                 <div className="hc-result-ctas">
-                  <Link href="/calculator" className="hc-btn-primary">
+                  <span
+                    onClick={() => navigateTo("/calculator")}
+                    className="hc-btn-primary"
+                    style={{ cursor: "pointer" }}
+                  >
                     حاسبة تفصيلية ←
-                  </Link>
+                  </span>
                   <a
                     href="https://apps.zid.sa/app/ziadah"
                     target="_blank"

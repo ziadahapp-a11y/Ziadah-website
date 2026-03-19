@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
+import { navigateTo } from "@/components/PageTransition";
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -228,10 +228,10 @@ export default function Blog() {
               }}
             >
               {filtered.map((post, i) => (
-                <Link
+                <div
                   key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  style={{ textDecoration: "none" }}
+                  onClick={() => navigateTo(`/blog/${post.slug}`)}
+                  style={{ textDecoration: "none", cursor: "pointer" }}
                 >
                   <article
                     className="gc gc-lift rv"
@@ -372,7 +372,7 @@ export default function Blog() {
                       </div>
                     </div>
                   </article>
-                </Link>
+                </div>
               ))}
             </div>
           )}

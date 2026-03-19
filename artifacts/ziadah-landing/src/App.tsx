@@ -27,6 +27,7 @@ import BuyTogether from "@/pages/use-cases/BuyTogether";
 import BundleDeals from "@/pages/use-cases/BundleDeals";
 import BuyMoreSaveMore from "@/pages/use-cases/BuyMoreSaveMore";
 import CheckoutPage from "@/pages/use-cases/CheckoutPage";
+import PageTransition from "@/components/PageTransition";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -77,7 +78,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
         <ScrollToTop />
-        <Router />
+        <PageTransition>
+          <Router />
+        </PageTransition>
       </WouterRouter>
     </QueryClientProvider>
   );

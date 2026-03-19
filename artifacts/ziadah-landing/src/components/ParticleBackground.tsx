@@ -18,6 +18,9 @@ const COLORS = [
   "99,102,241",   // indigo
 ];
 
+// Exposed so the transition system can read particle positions
+export const particlePositions: { x: number; y: number; color: string }[] = [];
+
 export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: -9999, y: -9999 });
@@ -42,17 +45,17 @@ export default function ParticleBackground() {
         particles.current.push({
           x: Math.random() * canvas!.width,
           y: Math.random() * canvas!.height,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          size: Math.random() * 1.8 + 0.4,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          size: Math.random() * 1.4 + 0.4,
           color,
-          alpha: Math.random() * 0.5 + 0.15,
+          alpha: Math.random() * 0.3 + 0.08,
           pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: Math.random() * 0.018 + 0.008,
+          pulseSpeed: Math.random() * 0.014 + 0.006,
         });
       }
     }
-    spawn(130);
+    spawn(65);
 
     function draw() {
       const W = canvas!.width;
@@ -62,25 +65,28 @@ export default function ParticleBackground() {
       const mx = mouse.current.x;
       const my = mouse.current.y;
 
+      // Sync exposed positions array
+      particlePositions.length = 0;
+
       particles.current.forEach((p, i) => {
-        // Mouse repulsion / attraction
+        // Mouse repulsion
         const dx = mx - p.x;
         const dy = my - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 160 && dist > 0) {
-          const force = (160 - dist) / 160;
-          p.vx -= (dx / dist) * force * 0.022;
-          p.vy -= (dy / dist) * force * 0.022;
+        if (dist < 130 && dist > 0) {
+          const force = (130 - dist) / 130;
+          p.vx -= (dx / dist) * force * 0.016;
+          p.vy -= (dy / dist) * force * 0.016;
         }
 
         // Velocity cap + damping
         const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (spd > 1.2) { p.vx *= 0.96; p.vy *= 0.96; }
+        if (spd > 1.0) { p.vx *= 0.96; p.vy *= 0.96; }
         p.vx *= 0.998; p.vy *= 0.998;
 
         // Natural drift restore
-        if (Math.abs(p.vx) < 0.05) p.vx += (Math.random() - 0.5) * 0.01;
-        if (Math.abs(p.vy) < 0.05) p.vy += (Math.random() - 0.5) * 0.01;
+        if (Math.abs(p.vx) < 0.04) p.vx += (Math.random() - 0.5) * 0.008;
+        if (Math.abs(p.vy) < 0.04) p.vy += (Math.random() - 0.5) * 0.008;
 
         p.x += p.vx; p.y += p.vy;
         p.pulse += p.pulseSpeed;
@@ -92,53 +98,44 @@ export default function ParticleBackground() {
         if (p.y > H + 10) p.y = -10;
 
         // Pulse alpha
-        const a = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
-        const s = p.size * (0.85 + 0.15 * Math.sin(p.pulse * 1.3));
+        const a = p.alpha * (0.75 + 0.25 * Math.sin(p.pulse));
+        const s = p.size * (0.9 + 0.1 * Math.sin(p.pulse * 1.3));
 
-        // Glow
-        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, s * 5);
-        grd.addColorStop(0, `rgba(${p.color},${a})`);
+        // Subtle glow only - no heavy radial gradient
+        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, s * 3);
+        grd.addColorStop(0, `rgba(${p.color},${a * 0.5})`);
         grd.addColorStop(1, `rgba(${p.color},0)`);
         ctx.beginPath();
-        ctx.arc(p.x, p.y, s * 5, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, s * 3, 0, Math.PI * 2);
         ctx.fillStyle = grd;
         ctx.fill();
 
         // Core dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, s, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color},${Math.min(a * 1.8, 0.95)})`;
+        ctx.fillStyle = `rgba(${p.color},${Math.min(a * 1.5, 0.75)})`;
         ctx.fill();
 
-        // Connect nearby particles
+        // Connect nearby particles - tighter range, lighter lines
         for (let j = i + 1; j < particles.current.length; j++) {
           const q = particles.current[j];
           const ddx = p.x - q.x;
           const ddy = p.y - q.y;
           const d = Math.sqrt(ddx * ddx + ddy * ddy);
-          if (d < 115) {
-            const lineAlpha = (1 - d / 115) * 0.14;
+          if (d < 90) {
+            const lineAlpha = (1 - d / 90) * 0.07;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = `rgba(${p.color},${lineAlpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 0.5;
             ctx.stroke();
           }
         }
-      });
 
-      // Mouse aura
-      if (mx > 0 && mx < W && my > 0 && my < H) {
-        const aura = ctx.createRadialGradient(mx, my, 0, mx, my, 200);
-        aura.addColorStop(0, "rgba(124,58,237,0.06)");
-        aura.addColorStop(0.5, "rgba(6,182,212,0.03)");
-        aura.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.beginPath();
-        ctx.arc(mx, my, 200, 0, Math.PI * 2);
-        ctx.fillStyle = aura;
-        ctx.fill();
-      }
+        // Expose position for transition system
+        particlePositions.push({ x: p.x, y: p.y, color: p.color });
+      });
 
       frameRef.current = requestAnimationFrame(draw);
     }

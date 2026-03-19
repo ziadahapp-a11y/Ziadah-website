@@ -40,7 +40,7 @@ body{background:var(--bg);color:var(--t);font-family:var(--font);overflow-x:hidd
 .gc:hover .shine{opacity:1;}
 
 /* ── LAYOUT ── */
-section{position:relative;z-index:2;padding:110px 5%;}
+section{position:relative;z-index:2;padding:110px 5%;overflow-x:hidden;}
 .wrap{max-width:1200px;margin:0 auto;}
 .tc{text-align:center;}.tc .ssub{margin:0 auto;}
 
