@@ -3,6 +3,13 @@ import ParticleBackground from "../components/ParticleBackground";
 import Nav from "../components/Nav";
 import HomeCalculator from "../components/HomeCalculator";
 import TeamSection from "../components/TeamSection";
+import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
+import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
+import AddonsWidget from "../components/widgets/AddonsWidget";
+import RelatedProductsWidget from "../components/widgets/RelatedProductsWidget";
+import CouponWidget from "../components/widgets/CouponWidget";
+import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThresholdWidget";
+import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
 
 const storeLogos = [
   { name: "BestClean", src: "/logos/bestclean.png" },
@@ -582,6 +589,104 @@ export default function Landing() {
                   <div className="hiw-chip">✓ {c.chip}</div>
                 </div>
               </GlassCard>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* LIVE WIDGETS SHOWCASE */}
+      <section id="widgets-showcase" style={{ position: "relative", zIndex: 2, padding: "80px 5%" }}>
+        <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+          <div className="tc" style={{ marginBottom: 56 }}>
+            <div className="stag rv">
+              <span className="stag-dot" />
+              أمثلة حية
+            </div>
+            <h2 className="st rv d1">
+              شاهد كيف يعمل زيادة
+              <br />
+              في متجرك
+            </h2>
+            <p className="ssub rv d2">
+              هكذا تبدو الويدجتات التي يراها عملاؤك فعلياً داخل المتجر
+            </p>
+          </div>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: 32,
+          }}>
+            {[
+              {
+                icon: "📦",
+                label: "عروض الكميات",
+                desc: "تحفيز العميل على شراء كميات أكبر بعروض تدريجية واضحة",
+                widget: <BuyMoreSaveMoreWidget />,
+                color: "#a855f7",
+              },
+              {
+                icon: "🤝",
+                label: "الشراء معاً",
+                desc: "اجمع منتجات مكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً",
+                widget: <BuyTogetherWidget />,
+                color: "#06b6d4",
+              },
+              {
+                icon: "➕",
+                label: "إضافات مكملة",
+                desc: "اعرض إضافات وظيفية تكمّل منتجك الأساسي بنظام اختيار متعدد",
+                widget: <AddonsWidget />,
+                color: "#10b981",
+              },
+              {
+                icon: "🔎",
+                label: "منتجات ذات صلة",
+                desc: "اقترح لكل عميل المنتجات الأقرب لاهتمامه بزر إضافة مباشر",
+                widget: <RelatedProductsWidget />,
+                color: "#f59e0b",
+              },
+              {
+                icon: "🏷️",
+                label: "قسيمة خصم",
+                desc: "كود خصم تلقائي للعملاء المترددين يدفعهم للشراء الآن",
+                widget: <CouponWidget />,
+                color: "#ec4899",
+              },
+              {
+                icon: "🚚",
+                label: "الوصول للشحن المجاني",
+                desc: "اقترح منتجات تسد الفجوة للشحن المجاني لرفع قيمة الطلب",
+                widget: <FreeShippingThresholdWidget />,
+                color: "#7c3aed",
+              },
+              {
+                icon: "⬆️",
+                label: "استبدال المنتج (Upsell)",
+                desc: "اقترح نسخة أفضل من المنتج بطريقة تُبرز القيمة لا مجرد السعر",
+                widget: <ProductSwapWidget />,
+                color: "#4f46e5",
+              },
+            ].map((item, i) => (
+              <div key={i} className={`rv d${(i % 4) + 1}`} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 12,
+                    background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : item.color === "#10b981" ? "16,185,129" : item.color === "#f59e0b" ? "245,158,11" : item.color === "#ec4899" ? "236,72,153" : item.color === "#7c3aed" ? "124,58,237" : "79,70,229"},.1)`,
+                    border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : item.color === "#10b981" ? "16,185,129" : item.color === "#f59e0b" ? "245,158,11" : item.color === "#ec4899" ? "236,72,153" : item.color === "#7c3aed" ? "124,58,237" : "79,70,229"},.22)`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 20,
+                    flexShrink: 0,
+                  }}>{item.icon}</div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "var(--t)" }}>{item.label}</div>
+                    <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.5, marginTop: 2 }}>{item.desc}</div>
+                  </div>
+                </div>
+                {item.widget}
+              </div>
             ))}
           </div>
         </div>

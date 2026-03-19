@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import BuyMoreSaveMoreWidget from "../../components/widgets/BuyMoreSaveMoreWidget";
 
 const data: UseCasePageData = {
   hero: {
@@ -55,28 +56,41 @@ const data: UseCasePageData = {
     result: "عرض شريط التقدم 'أضف قطعة واحدة ووفّر X ريال' يرفع معدل اختيار الكميات الأكبر بنسبة ٤٢٪ مقارنة بجدول الشرائح الثابت — الرسالة الشخصية المباشرة تُحفّز أكثر.",
   },
   extraSections: (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>أي المنتجات تستفيد أكثر من عروض الكميات؟</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-            {[
-              { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
-              { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
-              { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
-              { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
-            ].map((item, i) => (
-              <div key={i} style={{ padding: "20px 24px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.12)", borderRadius: 14 }}>
-                <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
-                <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
-              </div>
-            ))}
+    <>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
+            <div className="shine"/>
+            <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>أي المنتجات تستفيد أكثر من عروض الكميات؟</h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+              {[
+                { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
+                { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
+                { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
+                { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: "20px 24px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.12)", borderRadius: 14 }}>
+                  <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
+                  <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
+                  <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
+            مثال حي
+          </div>
+          <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
+          <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة ويدجت عروض الكميات كما يراها عميلك فعلياً</p>
+          <BuyMoreSaveMoreWidget />
+        </div>
+      </section>
+    </>
   ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عروض الكميات وحفّز الشراء الأكبر",

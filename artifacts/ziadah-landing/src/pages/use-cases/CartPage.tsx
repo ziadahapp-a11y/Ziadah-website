@@ -1,5 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
-import CartDemoMockup from "../../components/CartDemoMockup";
+import CouponWidget from "../../components/widgets/CouponWidget";
+import FreeShippingThresholdWidget from "../../components/widgets/FreeShippingThresholdWidget";
 
 const data: UseCasePageData = {
   hero: {
@@ -55,10 +56,31 @@ const data: UseCasePageData = {
     ],
     result: "الطلب ارتفع من 170 إلى 202 ريال والعميل شعر أنه هو من استفاد من الصفقة.",
   },
+  extraSections: (
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
+          مثال حي
+        </div>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>واجهات صفحة السلة — قسيمة الخصم وشريط الشحن المجاني</p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "center" }}>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>قسيمة خصم تلقائية</div>
+            <CouponWidget />
+          </div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>الوصول للشحن المجاني</div>
+            <FreeShippingThresholdWidget />
+          </div>
+        </div>
+      </div>
+    </section>
+  ),
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل سلة النيّة إلى سلة مكتملة",
   ctaDesc: "قلّل التخلي وارفع قيمة الطلب في نفس الوقت مع زيادة.",
-  extraSections: <CartDemoMockup />,
 };
 
 export default function CartPage() {

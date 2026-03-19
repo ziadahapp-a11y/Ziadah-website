@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import BuyTogetherWidget from "../../components/widgets/BuyTogetherWidget";
 
 const data: UseCasePageData = {
   hero: {
@@ -55,6 +56,18 @@ const data: UseCasePageData = {
     result: "عرض 'الشراء معاً' بخيار إضافة الكل دفعة واحدة يرفع نسبة تبنّي الطقم الكامل من ٩٪ إلى ٣٣٪ — كل ثلاثة أفراد من كل عشرة يختارون الطقم بدلاً من قطعة واحدة.",
   },
   extraSections: (
+    <>
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
+          مثال حي
+        </div>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة ويدجت الشراء معاً كما يراها عميلك فعلياً</p>
+        <BuyTogetherWidget />
+      </div>
+    </section>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
@@ -85,6 +98,7 @@ const data: UseCasePageData = {
         </div>
       </div>
     </section>
+    </>
   ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض 'الشراء معاً' في متجرك",
