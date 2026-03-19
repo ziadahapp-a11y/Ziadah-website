@@ -465,7 +465,7 @@ const stories = [
   {
     store: "كابزون",
     sector: "الأزياء الرجالية",
-    logo: "ب",
+    logo: "ك",
     color: "linear-gradient(135deg,#06b6d4,#4f46e5)",
     tagline: "إنقاذ الطلبات في مرحلة الدفع النهائية",
     founded: "2021",
@@ -587,15 +587,16 @@ const SECTOR_ICONS: Record<string, string> = {
 };
 
 const sectors = [
-  { name: "مستلزمات التنظيف", icon: "🧴", stores: "+٤٥ متجر", avg: "+٣٢٪ مبيعات" },
-  { name: "العناية بالبشرة", icon: "💄", stores: "+١٢٠ متجر", avg: "+٣٨٪ مبيعات" },
-  { name: "العطور والبخور", icon: "🕌", stores: "+٨٠ متجر", avg: "+٣٤٪ مبيعات" },
-  { name: "الأزياء الرجالية", icon: "👔", stores: "+١٥٠ متجر", avg: "+٣٥٪ مبيعات" },
-  { name: "الغذاء والعسل", icon: "🍯", stores: "+٦٠ متجر", avg: "+٢٨٪ مبيعات" },
-  { name: "اللياقة البدنية", icon: "💪", stores: "+٤٠ متجر", avg: "+٣٠٪ مبيعات" },
-  { name: "التبرعات", icon: "🤲", stores: "+٣٠ متجر", avg: "+٥٠٪ تبرعات" },
-  { name: "الأجهزة المنزلية", icon: "🏠", stores: "+٥٥ متجر", avg: "+٢٦٪ مبيعات" },
-  { name: "العبايات", icon: "🌙", stores: "+٣٥ متجر", avg: "+٣٢٪ مبيعات" },
+  { name: "مستلزمات التنظيف", icon: "🧴", stores: "+45 متجر", avg: "+32% مبيعات" },
+  { name: "العناية بالبشرة", icon: "💄", stores: "+120 متجر", avg: "+38% مبيعات" },
+  { name: "العطور والبخور", icon: "🕌", stores: "+80 متجر", avg: "+34% مبيعات" },
+  { name: "الأزياء الرجالية", icon: "👔", stores: "+150 متجر", avg: "+35% مبيعات" },
+  { name: "الغذاء والعسل", icon: "🍯", stores: "+60 متجر", avg: "+28% مبيعات" },
+  { name: "اللياقة البدنية", icon: "💪", stores: "+40 متجر", avg: "+30% مبيعات" },
+  { name: "التبرعات", icon: "🤲", stores: "+30 متجر", avg: "+50% تبرعات" },
+  { name: "الأجهزة المنزلية", icon: "🏠", stores: "+55 متجر", avg: "+26% مبيعات" },
+  { name: "العبايات", icon: "🌙", stores: "+35 متجر", avg: "+32% مبيعات" },
+  { name: "تسوق متنوع", icon: "🛍️", stores: "+25 متجر", avg: "+29% مبيعات" },
 ];
 
 const allSectors = Array.from(new Set(stories.map(s => s.sector)));
@@ -746,23 +747,23 @@ export default function SuccessStories() {
       <Nav />
 
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 80, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 140, paddingBottom: 40, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>قصص نجاح حقيقية</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(40px,5vw,72px)", marginTop: 8, marginBottom: 16 }}>
           أرقام لا تكذب<br />
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-            من تجار أثقوا فيها
+            من تجار وثقوا فيها
           </span>
         </h1>
-        <p className="ssub rv d2" style={{ margin: "0 auto 52px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>
+        <p className="ssub rv d2" style={{ margin: "0 auto 32px", maxWidth: 600, fontSize: "clamp(15px,2vw,18px)", lineHeight: 1.8 }}>
           +٧٠٠ متجر يستخدم زيادة يومياً. هنا نشارك قصص حقيقية بأرقام موثقة من تجار حققوا نتائج استثنائية.
         </p>
         <div className="rv d3" style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap" }}>
           {[
-            ["٧٠٠+", "متجر نشط", "#a855f7"],
-            ["١٠M+", "ريال مبيعات إضافية", "#06b6d4"],
-            ["٣٥٪", "متوسط زيادة الطلب", "#10b981"],
-            ["٩٠٪", "رضا التجار", "#f59e0b"],
+            ["700+", "متجر نشط", "#a855f7"],
+            ["10M+", "ريال مبيعات إضافية", "#06b6d4"],
+            ["35%", "متوسط زيادة الطلب", "#10b981"],
+            ["90%", "رضا التجار", "#f59e0b"],
           ].map(([v, l, c]) => (
             <div key={l} className="hero-stat">
               <div style={{ fontSize: "clamp(28px,3vw,40px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
@@ -773,7 +774,7 @@ export default function SuccessStories() {
       </section>
 
       {/* FILTER BAR */}
-      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 48 }}>
+      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", marginBottom: 32 }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
@@ -985,7 +986,7 @@ export default function SuccessStories() {
       </section>
 
       <footer style={{ padding: "32px 5%", borderTop: "1px solid var(--b1)", position: "relative", zIndex: 2, textAlign: "center" }}>
-        <p style={{ fontSize: 13, color: "var(--td)" }}>© 2025 Ziadah. جميع الحقوق محفوظة.</p>
+        <p style={{ fontSize: 13, color: "var(--td)" }}>© 2026 Ziadah. جميع الحقوق محفوظة.</p>
       </footer>
     </div>
   );
