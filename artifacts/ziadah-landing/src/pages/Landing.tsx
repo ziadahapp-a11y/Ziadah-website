@@ -281,7 +281,7 @@ export default function Landing() {
               ذكاء اصطناعي + تعلم آلي يعمل الآن
             </span>
           </div>
-          <h1 className="ht text-[72px]">
+          <h1 className="ht text-[72px] pt-[0px] pb-[0px]">
             مسوّق داخل متجرك
             <em>بالذكاء الاصطناعي</em>
             <span className="grad pt-[10px] pb-[10px] mt-[10px] mb-[10px]">
@@ -1405,78 +1405,6 @@ export default function Landing() {
                   ما تحتاج تختار الهدف أو الطريقة يدوياً. زيادة بيحلل كل عميل
                   ويختار الهدف المناسب + طريقة العرض الأنسب، بدون أي
                   تدخل منك، ويتحسن مع الوقت تلقائياً.
-                </div>
-              </div>
-            </GlassCard>
-            <GlassCard
-              className="gp-banner rv d2"
-              style={{ gridColumn: "span 2" }}
-            >
-              <div className="gp-banner-ico">
-                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-                  <rect
-                    x="5"
-                    y="5"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    fill="rgba(6,182,212,.1)"
-                    stroke="rgba(6,182,212,.4)"
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="10"
-                    y1="15"
-                    x2="20"
-                    y2="15"
-                    stroke="rgba(6,182,212,.7)"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1="10"
-                    y1="11"
-                    x2="20"
-                    y2="11"
-                    stroke="rgba(6,182,212,.4)"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1="10"
-                    y1="19"
-                    x2="16"
-                    y2="19"
-                    stroke="rgba(6,182,212,.4)"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                  />
-                  <circle
-                    cx="22"
-                    cy="19"
-                    r="3"
-                    fill="rgba(6,182,212,.15)"
-                    stroke="rgba(6,182,212,.6)"
-                    strokeWidth="1.3"
-                  />
-                  <line
-                    x1="22"
-                    y1="17.5"
-                    x2="22"
-                    y2="19"
-                    stroke="rgba(6,182,212,.8)"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="22" cy="19.8" r=".5" fill="rgba(6,182,212,.9)" />
-                </svg>
-              </div>
-              <div>
-                <div className="gp-banner-t">
-                  أو تحكّم يدوياً متى تريد
-                </div>
-                <div className="gp-banner-d">
-                  زيادة يشتغل تلقائياً بالكامل، لكن لو حبيت تتدخل فالتحكم بيدك. تقدر تحدد الاقتراحات يدوياً، تختار المنتجات، وتضبط طريقة العرض لكل حالة — التلقائي والتحكم اليدوي يعملان جنباً إلى جنب.
                 </div>
               </div>
             </GlassCard>
