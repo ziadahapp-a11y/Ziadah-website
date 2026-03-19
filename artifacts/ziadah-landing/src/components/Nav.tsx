@@ -37,6 +37,8 @@ const useCasesDropdown: { sections: UseCaseSection[] } = {
       items: [
         { label: "البيع المتقاطع", href: "/use-cases/cross-sell", subtitle: "اقترح منتجات مكملة لزيادة السلة" },
         { label: "البيع البديل", href: "/use-cases/upsell", subtitle: "اعرض بديل أغلى بقيمة أعلى" },
+        { label: "إضافة للسلة", href: "/use-cases/add-to-cart", subtitle: "توصية ذكية لحظة الإضافة" },
+        { label: "الحذف من السلة", href: "/use-cases/remove-from-cart", subtitle: "عروض احتجاز تمنع خسارة البيع" },
       ],
     },
     {

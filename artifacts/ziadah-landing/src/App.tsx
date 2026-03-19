@@ -27,6 +27,8 @@ import BuyTogether from "@/pages/use-cases/BuyTogether";
 import BundleDeals from "@/pages/use-cases/BundleDeals";
 import BuyMoreSaveMore from "@/pages/use-cases/BuyMoreSaveMore";
 import CheckoutPage from "@/pages/use-cases/CheckoutPage";
+import AddToCartPage from "@/pages/use-cases/AddToCartPage";
+import RemoveFromCartPage from "@/pages/use-cases/RemoveFromCartPage";
 import "./index.css";
 
 const queryClient = new QueryClient();
@@ -67,6 +69,8 @@ function Router() {
       <Route path="/use-cases/bundle-deals" component={BundleDeals} />
       <Route path="/use-cases/buy-more-save-more" component={BuyMoreSaveMore} />
       <Route path="/use-cases/checkout" component={CheckoutPage} />
+      <Route path="/use-cases/add-to-cart" component={AddToCartPage} />
+      <Route path="/use-cases/remove-from-cart" component={RemoveFromCartPage} />
       <Route component={NotFound} />
     </Switch>
   );

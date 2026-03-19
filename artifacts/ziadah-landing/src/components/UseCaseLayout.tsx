@@ -215,6 +215,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <Link href="/use-cases/product-page" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة المنتج</Link>
               <Link href="/use-cases/cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>صفحة السلة</Link>
               <Link href="/use-cases/cross-sell" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>البيع المتقاطع</Link>
+              <Link href="/use-cases/add-to-cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>إضافة للسلة</Link>
+              <Link href="/use-cases/remove-from-cart" style={{ display: "block", fontSize: 13, color: "var(--td)", textDecoration: "none", marginBottom: 9 }}>الحذف من السلة</Link>
             </div>
             <div className="ft-col">
               <h4>الدعم</h4>
