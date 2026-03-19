@@ -49,7 +49,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
           WebkitBackdropFilter: "blur(12px)",
           borderTop: "1px solid rgba(255,255,255,0.2)",
         }}
-        className="ml-[10px] mr-[10px] border-t-[0px] mt-[9px] mb-[9px] bg-[#ffffff00] pt-[16px] pb-[16px]">
+        className="ml-[10px] mr-[10px] border-t-[0px] mt-[9px] mb-[9px] pt-[16px] pb-[16px] bg-[#09021ae8]">
         {children}
       </div>
     </div>
