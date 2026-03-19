@@ -606,9 +606,7 @@ export default function Landing() {
               <br />
               في متجرك
             </h2>
-            <p className="ssub rv d2">
-              هكذا تبدو الويدجتات التي يراها عملاؤك فعلياً داخل المتجر
-            </p>
+            <p className="ssub rv d2">هذا الي يطلع لعملاؤك فعلياً داخل المتجر</p>
           </div>
         </div>
         {(() => {
