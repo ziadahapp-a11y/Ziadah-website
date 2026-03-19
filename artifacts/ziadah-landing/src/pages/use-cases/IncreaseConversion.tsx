@@ -97,6 +97,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ضاعف إيراداتك بنفس عدد الزوار",
   ctaDesc: "رفع CVR بنسبة صغيرة يساوي آلاف ⃁ شهرياً — فعّل زيادة الآن.",
+  seo: {
+    title: "رفع معدل التحويل (CVR) — زيادة",
+    description: "حوّل زوار متجرك إلى مشترين بمعدلات أعلى مع زيادة. تخصيص ذكي يجعل قرار الشراء أسرع وأسهل لكل عميل.",
+    canonical: "/use-cases/increase-conversion",
+  },
 };
 
 export default function IncreaseConversion() {

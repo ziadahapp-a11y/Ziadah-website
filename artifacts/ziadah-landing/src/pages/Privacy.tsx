@@ -1,10 +1,18 @@
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 export default function Privacy() {
   return (
     <>
+      <SEO
+        title="سياسة الخصوصية — زيادة"
+        description="تعرّف على سياسة الخصوصية لمنصة زيادة، كيف نجمع البيانات ونحميها، وحقوقك كمستخدم. نلتزم بأعلى معايير حماية البيانات."
+        canonical="/privacy"
+      />
+      <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "سياسة الخصوصية", url: "/privacy" }]} />
       <div style={{ position: "relative", minHeight: "100vh" }}>
         <ParticleBackground />
         <Nav />

@@ -5,6 +5,8 @@ import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import Footer from "../components/Footer";
 import TeamSection from "../components/TeamSection";
+import SEO from "../components/SEO";
+import { OrganizationSchema, FAQSchema } from "../components/JsonLd";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
 import AddonsWidget from "../components/widgets/AddonsWidget";
@@ -257,6 +259,13 @@ export default function Landing() {
 
   return (
     <>
+    <SEO
+      title="تسويق منتجاتك بالذكاء الاصطناعي داخل متجرك"
+      description="زيادة — منصة الذكاء الاصطناعي لمتاجر زد وسلة. فعّل التطبيق بضغطة زر وابدأ في زيادة مبيعاتك وتحسين تجربة عملائك تلقائياً."
+      canonical="/"
+    />
+    <OrganizationSchema />
+    <FAQSchema faqs={faqs} />
       <div
         style={{
           background: "var(--bg)",

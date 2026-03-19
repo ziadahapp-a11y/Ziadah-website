@@ -2,6 +2,8 @@ import { useState, useCallback, useEffect } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -244,6 +246,12 @@ export default function Calculator() {
 
   return (
     <>
+      <SEO
+        title="حاسبة أثر زيادة — احسب مكاسبك المتوقعة"
+        description="استخدم حاسبة زيادة التفاعلية لمعرفة كم ستزيد مبيعاتك عند استخدام توصيات الذكاء الاصطناعي. أدخل بيانات متجرك واحصل على توقعات دقيقة."
+        canonical="/calculator"
+      />
+      <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "الحاسبة", url: "/calculator" }]} />
       <div
         style={{
           background: "var(--bg)",

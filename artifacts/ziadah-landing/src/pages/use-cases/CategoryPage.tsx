@@ -71,6 +71,11 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
   ctaDesc: "توجيه ذكي في اللحظة المناسبة = عميل يشتري بدلاً من أن يغادر.",
+  seo: {
+    title: "تحسين صفحة التصنيف — زيادة",
+    description: "وجّه العميل نحو المنتجات الأعلى قيمة في صفحة التصنيف. زيادة يُرتّب عرض المنتجات ذكياً بناءً على سلوك العميل.",
+    canonical: "/use-cases/category",
+  },
 };
 
 export default function CategoryPage() {

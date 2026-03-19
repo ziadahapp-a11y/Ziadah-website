@@ -99,6 +99,11 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "وقّف النزيف وحوّل المترددين إلى مشترين",
   ctaDesc: "أدوات منع التخلي جاهزة في زيادة — فعّلها بضغطة زر.",
+  seo: {
+    title: "تقليل التخلي عن السلة — زيادة",
+    description: "استعِد 70٪ من العملاء المترددين مع زيادة. كوبونات إنقاذ مؤقتة وعروض ذكية تُحوّل التخلي عن السلة إلى إتمام للشراء.",
+    canonical: "/use-cases/reduce-abandon",
+  },
 };
 
 export default function ReduceAbandon() {

@@ -4,6 +4,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 export default function Support() {
   const [activeCategory, setActiveCategory] = useState("start");
@@ -33,6 +35,13 @@ export default function Support() {
   ];
 
   return (
+    <>
+    <SEO
+      title="مركز الدعم والمساعدة — كل ما تحتاجه عن زيادة"
+      description="مقالات شاملة ومفصلة لمساعدتك في كل خطوة مع زيادة. من التثبيت والإعداد إلى تحليل النتائج وتحسين الحملات. فريق الدعم متاح للرد خلال ساعة."
+      canonical="/support"
+    />
+    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "الدعم", url: "/support" }]} />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
@@ -313,5 +322,6 @@ export default function Support() {
 
       <Footer />
     </div>
+    </>
   );
 }

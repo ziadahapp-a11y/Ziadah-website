@@ -103,6 +103,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض 'الشراء معاً' في متجرك",
   ctaDesc: "بيانات عملاؤك تعرف ما يُشترى معاً — دع زيادة يعرضه تلقائياً لكل زائر.",
+  seo: {
+    title: "الشراء معاً (Buy Together) — زيادة",
+    description: "اجمع المنتجات المُكمّلة في عرض واحد مقنع. زيادة يحلل الطلبات الفعلية ليقترح التوليفات الأنسب ويرفع قيمة السلة.",
+    canonical: "/use-cases/buy-together",
+  },
 };
 
 export default function BuyTogether() {

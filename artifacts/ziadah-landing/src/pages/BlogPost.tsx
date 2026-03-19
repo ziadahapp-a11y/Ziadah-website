@@ -5,6 +5,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
 import { blogPosts, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
+import SEO from "../components/SEO";
+import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -350,6 +352,25 @@ export default function BlogPost() {
   const relatedPosts = blogPosts.filter((p) => post.related.includes(p.slug));
 
   return (
+    <>
+    <SEO
+      title={post.title}
+      description={post.summary}
+      canonical={`/blog/${post.slug}`}
+      type="article"
+      publishDate={post.publishDateIso}
+    />
+    <ArticleSchema
+      title={post.title}
+      description={post.summary}
+      publishDate={post.publishDateIso}
+      slug={post.slug}
+    />
+    <BreadcrumbSchema items={[
+      { name: "الرئيسية", url: "/" },
+      { name: "المدونة", url: "/blog" },
+      { name: post.title, url: `/blog/${post.slug}` }
+    ]} />
     <div
       style={{
         background: "var(--bg)",
@@ -749,5 +770,6 @@ export default function BlogPost() {
       {/* FOOTER */}
       <Footer />
     </div>
+    </>
   );
 }

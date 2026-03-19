@@ -4,6 +4,8 @@ import ParticleBackground from "./ParticleBackground";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
 import Footer from "./Footer";
+import SEO from "./SEO";
+import { BreadcrumbSchema } from "./JsonLd";
 
 export interface UseCaseHero {
   tag: string;
@@ -44,6 +46,12 @@ export interface UseCasePageData {
   ctaTitle: string;
   ctaDesc: string;
   extraSections?: React.ReactNode;
+  seo?: {
+    title: string;
+    description: string;
+    canonical: string;
+    breadcrumbs?: Array<{ name: string; url: string }>;
+  };
 }
 
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
@@ -60,6 +68,16 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
   return (
     <>
+    {data.seo && (
+      <>
+        <SEO
+          title={data.seo.title}
+          description={data.seo.description}
+          canonical={data.seo.canonical}
+        />
+        <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: "الرئيسية", url: "/" }, { name: data.hero.title, url: data.seo.canonical }]} />
+      </>
+    )}
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>

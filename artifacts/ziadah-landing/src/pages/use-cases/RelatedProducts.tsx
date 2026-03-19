@@ -94,6 +94,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض المنتجات ذات الصلة اليوم",
   ctaDesc: "كل زيارة فرصة — دع زيادة يقترح المنتج المناسب بزر الإضافة المباشر.",
+  seo: {
+    title: "المنتجات ذات الصلة — زيادة",
+    description: "اعرض لكل عميل المنتجات الأقرب لاهتمامه مع زر الإضافة الجاهز. زيادة يُخصّص التوصيات لكل زائر بناءً على سلوكه الفعلي.",
+    canonical: "/use-cases/related-products",
+  },
 };
 
 export default function RelatedProducts() {

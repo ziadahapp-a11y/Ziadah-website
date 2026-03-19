@@ -103,6 +103,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع قيمة كل طلب بالترقية الذكية",
   ctaDesc: "عميل واحد يختار النسخة الأفضل يساوي طلبين — فعّل Upsell مع زيادة اليوم.",
+  seo: {
+    title: "البيع البديل (Upsell) — زيادة",
+    description: "أقنع عميلك بالترقية للنسخة الأعلى قيمة مع زيادة. عروض Upsell ذكية تُبرز الفارق الحقيقي وترفع قيمة الطلب بشكل مقنع.",
+    canonical: "/use-cases/upsell",
+  },
 };
 
 export default function Upsell() {

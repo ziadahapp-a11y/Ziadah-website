@@ -5,6 +5,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
 import { getArticleById, getCategoryById } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 export default function SupportArticle() {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +42,17 @@ export default function SupportArticle() {
   }
 
   return (
+    <>
+    <SEO
+      title={`${article.title} — مركز مساعدة زيادة`}
+      description={article.desc}
+      canonical={`/support/article/${article.id}`}
+    />
+    <BreadcrumbSchema items={[
+      { name: "الرئيسية", url: "/" },
+      { name: "الدعم", url: "/support" },
+      { name: article.title, url: `/support/article/${article.id}` }
+    ]} />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
@@ -241,5 +254,6 @@ export default function SupportArticle() {
 
       <Footer />
     </div>
+    </>
   );
 }

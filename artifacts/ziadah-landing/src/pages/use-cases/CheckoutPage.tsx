@@ -350,6 +350,11 @@ const data: UseCasePageData = {
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",
   extraSections: <CheckoutMockup />,
+  seo: {
+    title: "عروض صفحة الدفع — زيادة",
+    description: "استثمر اللحظة الأخيرة قبل إتمام الطلب. زيادة يعرض عروضاً ذكية في صفحة الدفع ترفع قيمة الطلب وتشجع العميل على الإضافة.",
+    canonical: "/use-cases/checkout",
+  },
 };
 
 export default function CheckoutPage() {

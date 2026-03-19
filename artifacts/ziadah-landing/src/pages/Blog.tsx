@@ -4,6 +4,8 @@ import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 function getInitialFilters() {
   const params = new URLSearchParams(window.location.search);
@@ -63,6 +65,13 @@ export default function Blog() {
   });
 
   return (
+    <>
+    <SEO
+      title="مدونة زيادة — مركز المعرفة للتجارة الإلكترونية"
+      description="مقالات تعليمية احترافية حول التجارة الإلكترونية، الذكاء الاصطناعي، واستراتيجيات النمو. دليلك الشامل لتحسين مبيعات متجرك."
+      canonical="/blog"
+    />
+    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "المدونة", url: "/blog" }]} />
     <div
       style={{
         background: "var(--bg)",
@@ -411,5 +420,6 @@ export default function Blog() {
       {/* FOOTER */}
       <Footer />
     </div>
+    </>
   );
 }

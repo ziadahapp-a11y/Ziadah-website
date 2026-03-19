@@ -59,6 +59,11 @@ const data: UseCasePageData = {
   ctaTitle: "حوّل صفحة الشكر إلى مصدر دخل إضافي",
   ctaDesc: "ابنِ ولاء حقيقي وحفّز الطلبات المتكررة من أولى خطوات العلاقة مع العميل.",
   extraSections: <ThankYouMockup />,
+  seo: {
+    title: "عروض صفحة الشكر — زيادة",
+    description: "اللحظة بعد الشراء هي الأكثر انفتاحاً. زيادة يستثمر صفحة الشكر لاقتراح منتج تكميلي وتعزيز الولاء وزيادة معدل التكرار.",
+    canonical: "/use-cases/thank-you",
+  },
 };
 
 export default function ThankYouPage() {

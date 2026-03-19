@@ -3,6 +3,8 @@ import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
+import { SoftwareAppSchema, BreadcrumbSchema } from "../components/JsonLd";
 
 const goals = [
   { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", subtitle: "زيادة عدد المنتجات في كل طلب", color: "#a855f7", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", boost: "+28٪ متوسط المنتجات في السلة" },
@@ -57,6 +59,13 @@ export default function Features() {
 
   return (
     <>
+    <SEO
+      title="الخصائص التفصيلية — الأهداف والأنشطة وطرق العرض"
+      description="اكتشف كل خصائص زيادة بالتفصيل: 5 أهداف، 5 طرق عرض، 9 أنشطة، وحالات استخدام لكل قطاع تجاري. ذكاء اصطناعي يرفع مبيعاتك تلقائياً."
+      canonical="/features"
+    />
+    <SoftwareAppSchema />
+    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "الخصائص", url: "/features" }]} />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>

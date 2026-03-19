@@ -73,6 +73,11 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "أوقف خسارة المبيعات قبل أن تحدث",
   ctaDesc: "كل محاولة حذف هي فرصة مخفية — زيادة يحوّلها إلى بيع ناجح.",
+  seo: {
+    title: "استعادة العميل عند الحذف من السلة — زيادة",
+    description: "لا تدع العميل يحذف المنتج دون عرض بديل. زيادة يتدخل بذكاء بخصم مؤقت أو بديل أوفر يُبقي العميل في رحلة الشراء.",
+    canonical: "/use-cases/remove-from-cart",
+  },
 };
 
 export default function RemoveFromCartPage() {

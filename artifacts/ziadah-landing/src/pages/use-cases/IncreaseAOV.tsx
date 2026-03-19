@@ -77,6 +77,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع متوسط سلتك بـ 20٪ في الشهر الأول",
   ctaDesc: "أدوات Upsell وCombo وعتبة الشحن جاهزة — فعّلها الآن.",
+  seo: {
+    title: "زيادة متوسط قيمة الطلب (AOV) — زيادة",
+    description: "اكسب أكثر من نفس عدد الزوار برفع AOV. زيادة يُطبّق استراتيجيات حزم التكامل والعروض التدريجية لرفع إيراداتك.",
+    canonical: "/use-cases/increase-aov",
+  },
 };
 
 export default function IncreaseAOV() {

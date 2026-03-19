@@ -1,10 +1,18 @@
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 export default function Terms() {
   return (
     <>
+      <SEO
+        title="الشروط والأحكام — زيادة"
+        description="اقرأ الشروط والأحكام الخاصة باستخدام منصة زيادة. التزاماتنا تجاهك كمشترك، وما يُحدد علاقتنا التعاقدية."
+        canonical="/terms"
+      />
+      <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "الشروط والأحكام", url: "/terms" }]} />
       <div style={{ position: "relative", minHeight: "100vh" }}>
         <ParticleBackground />
         <Nav />

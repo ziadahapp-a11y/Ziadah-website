@@ -59,6 +59,11 @@ const data: UseCasePageData = {
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
   extraSections: <ProductPageMockups />,
+  seo: {
+    title: "تحسين صفحة المنتج — زيادة",
+    description: "اجعل صفحة منتجك أقوى أداةً بيعية مع زيادة. توصيات ذكية تكمّل تجربة العميل وترفع قيمة الطلب في أعلى نقاط التأثير.",
+    canonical: "/use-cases/product-page",
+  },
 };
 
 export default function ProductPage() {

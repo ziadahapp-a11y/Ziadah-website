@@ -3,6 +3,8 @@ import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import Footer from "../components/Footer";
+import SEO from "../components/SEO";
+import { BreadcrumbSchema } from "../components/JsonLd";
 
 const stories = [
   {
@@ -802,6 +804,12 @@ export default function SuccessStories() {
 
   return (
     <>
+    <SEO
+      title="قصص النجاح — متاجر زادت مبيعاتها مع زيادة"
+      description="اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة."
+      canonical="/success-stories"
+    />
+    <BreadcrumbSchema items={[{ name: "الرئيسية", url: "/" }, { name: "قصص النجاح", url: "/success-stories" }]} />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: "rtl", color: "var(--t)" }}>
       <style>{`
         .story-accent-line {
