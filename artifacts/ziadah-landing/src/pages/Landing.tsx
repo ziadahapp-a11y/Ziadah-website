@@ -312,11 +312,11 @@ export default function Landing() {
               <div className="sbi-l">متجر </div>
             </div>
             <div className="sbi">
-              <div className="sbi-n">+١٠M</div>
+              <div className="sbi-n">+20 مليون</div>
               <div className="sbi-l">ريال مبيعات إضافية</div>
             </div>
             <div className="sbi">
-              <div className="sbi-n">+٢٠٠K</div>
+              <div className="sbi-n">+200 ألف</div>
               <div className="sbi-l">منتج تم شراؤه</div>
             </div>
             <div className="sbi">
