@@ -289,9 +289,7 @@ export default function Calculator() {
               <p
                 className="ssub rv d2"
                 style={{ margin: "0 auto", maxWidth: 520 }}
-              >
-                عدّل الأرقام وشوف الفرق
-              </p>
+              >بناءً على متوسط أداء المتاجر</p>
             </div>
 
             <div
