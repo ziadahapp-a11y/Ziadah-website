@@ -595,6 +595,9 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
 
+  const [openSection, setOpenSection] = useState<string | null>(null);
+  const toggleSection = (section: string) => setOpenSection(prev => prev === section ? null : section);
+
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -692,89 +695,146 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
           </button>
         </div>
 
-        <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase", padding: "0 4px" }}>{tr.nav.useCases}</div>
-          {useCasesDropdown.sections.map((section) => (
-            <div key={section.title} style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                {section.items.map((item) => (
-                  <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
-                    {item.label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase", padding: "0 4px" }}>{tr.nav.platforms}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {platformItems.map((item) =>
-              item.enabled ? (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={onClose}
-                  style={{ ...subLinkStyle, display: "flex", alignItems: "center", gap: 8 }}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <div
-                  key={item.label}
-                  style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    padding: "9px 12px", borderRadius: 10,
-                    background: "var(--s1)", color: "var(--td)",
-                    fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-                  }}
-                >
-                  <span>{item.label}</span>
-                  {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+        <div style={{ marginBottom: 6 }}>
+          <button
+            onClick={() => toggleSection("useCases")}
+            aria-expanded={openSection === "useCases"}
+            style={{
+              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
+              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              textTransform: "uppercase", fontFamily: "var(--font)",
+            }}
+          >
+            <span>{tr.nav.useCases}</span>
+            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "useCases" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+          </button>
+          <div style={{
+            overflow: "hidden",
+            maxHeight: openSection === "useCases" ? "2000px" : "0px",
+            opacity: openSection === "useCases" ? 1 : 0,
+            transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
+          }}>
+            {useCasesDropdown.sections.map((section) => (
+              <div key={section.title} style={{ marginBottom: 10 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                  {section.items.map((item) => (
+                    <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
+                      {item.label}
+                    </span>
+                  ))}
                 </div>
-              )
-            )}
+              </div>
+            ))}
           </div>
         </div>
 
-        <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 8, letterSpacing: 0.5, textTransform: "uppercase", padding: "0 4px" }}>{tr.nav.help}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {mobileHelpItems.map((item) => {
-              const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
-              const isFeatureRequest = item.href === "#" && item.label === tr.nav.featureRequest;
-              const itemStyle: React.CSSProperties = {
-                display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-                borderRadius: 10, background: "var(--s1)",
-                textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-              };
-              if (isFeatureRequest && onFeatureRequest) {
+        <div style={{ marginBottom: 6 }}>
+          <button
+            onClick={() => toggleSection("platforms")}
+            aria-expanded={openSection === "platforms"}
+            style={{
+              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
+              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              textTransform: "uppercase", fontFamily: "var(--font)",
+            }}
+          >
+            <span>{tr.nav.platforms}</span>
+            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "platforms" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+          </button>
+          <div style={{
+            overflow: "hidden",
+            maxHeight: openSection === "platforms" ? "2000px" : "0px",
+            opacity: openSection === "platforms" ? 1 : 0,
+            transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 8 }}>
+              {platformItems.map((item) =>
+                item.enabled ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={onClose}
+                    style={{ ...subLinkStyle, display: "flex", alignItems: "center", gap: 8 }}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "9px 12px", borderRadius: 10,
+                      background: "var(--s1)", color: "var(--td)",
+                      fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 6 }}>
+          <button
+            onClick={() => toggleSection("help")}
+            aria-expanded={openSection === "help"}
+            style={{
+              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
+              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              textTransform: "uppercase", fontFamily: "var(--font)",
+            }}
+          >
+            <span>{tr.nav.help}</span>
+            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "help" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+          </button>
+          <div style={{
+            overflow: "hidden",
+            maxHeight: openSection === "help" ? "2000px" : "0px",
+            opacity: openSection === "help" ? 1 : 0,
+            transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
+          }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 8 }}>
+              {mobileHelpItems.map((item) => {
+                const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
+                const isFeatureRequest = item.href === "#" && item.label === tr.nav.featureRequest;
+                const itemStyle: React.CSSProperties = {
+                  display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+                  borderRadius: 10, background: "var(--s1)",
+                  textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                };
+                if (isFeatureRequest && onFeatureRequest) {
+                  return (
+                    <span key={item.label} onClick={() => { onClose(); onFeatureRequest(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+                      <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                      {item.label}
+                    </span>
+                  );
+                }
+                if (isExternal) {
+                  return (
+                    <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
+                      <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                      {item.label}
+                    </a>
+                  );
+                }
                 return (
-                  <span key={item.label} onClick={() => { onClose(); onFeatureRequest(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+                  <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
                     <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
                     {item.label}
                   </span>
                 );
-              }
-              if (isExternal) {
-                return (
-                  <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
-                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                    {item.label}
-                  </a>
-                );
-              }
-              return (
-                <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                  <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                  {item.label}
-                </span>
-              );
-            })}
+              })}
+            </div>
           </div>
         </div>
 
