@@ -28,8 +28,8 @@ const PhoneTopBar = () => (
     display: "flex", justifyContent: "space-between", alignItems: "center",
     padding: "8px 0 12px", borderBottom: "1px solid rgba(255,255,255,.08)", marginBottom: 12,
   }}>
-    <span style={{ fontSize: 14, color: "rgba(255,255,255,.7)", fontWeight: 700 }}>ملخص الطلب</span>
-    <span style={{ fontSize: 14, color: "rgba(255,255,255,.9)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
+    <span style={{ fontSize: 13, color: "rgba(255,255,255,.7)", fontWeight: 700 }}>ملخص الطلب</span>
+    <span style={{ fontSize: 13, color: "rgba(255,255,255,.9)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
   </div>
 );
 
@@ -40,10 +40,10 @@ const ShippingRow = ({ method, time, price, highlighted }: { method: string; tim
     borderBottom: highlighted ? "none" : "1px solid rgba(255,255,255,.06)",
   }}>
     <div>
-      <div style={{ fontSize: 14, fontWeight: 700, color: highlighted ? "#10b981" : "rgba(255,255,255,.85)" }}>{method}</div>
-      <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{time}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: highlighted ? "#10b981" : "rgba(255,255,255,.85)" }}>{method}</div>
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{time}</div>
     </div>
-    {price && <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.6)" }}>{price}</div>}
+    {price && <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.6)" }}>{price}</div>}
   </div>
 );
 
@@ -57,20 +57,20 @@ const ProductCard = ({
     padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,.06)",
   }}>
     <div style={{ flex: 1, paddingLeft: 8 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 3 }}>{name}</div>
-      <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 3 }}>{name}</div>
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 14, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
-          <span style={{ fontSize: 14, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 14, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
       )}
       {discount && (
         <span style={{
-          fontSize: 14, fontWeight: 700, background: "rgba(16,185,129,.15)",
+          fontSize: 9, fontWeight: 700, background: "rgba(16,185,129,.15)",
           color: "#10b981", padding: "1px 6px", borderRadius: 99, marginTop: 2, display: "inline-block",
         }}>
           {discount}
@@ -84,7 +84,7 @@ const ProductCard = ({
         border: `1px solid ${checked ? "#7c3aed" : "rgba(255,255,255,.2)"}`,
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
-        {checked && <span style={{ color: "#fff", fontSize: 14 }}>✓</span>}
+        {checked && <span style={{ color: "#fff", fontSize: 11 }}>✓</span>}
       </div>
     )}
   </div>
@@ -106,16 +106,16 @@ const AddToCartRow = ({
       {image}
     </div>
     <div style={{ flex: 1 }}>
-      <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 2 }}>{name}</div>
-      <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,.9)", marginBottom: 2 }}>{name}</div>
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,.4)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-        <span style={{ fontSize: 14, fontWeight: 800, color: "rgba(255,255,255,.85)" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,.85)" }}>{price} ⃁</span>
         {originalPrice && (
-          <span style={{ fontSize: 14, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "rgba(255,255,255,.35)" }}>{originalPrice} ⃁</span>
         )}
         {discount && (
           <span style={{
-            fontSize: 14, fontWeight: 700, background: "rgba(16,185,129,.15)",
+            fontSize: 9, fontWeight: 700, background: "rgba(16,185,129,.15)",
             color: "#10b981", padding: "1px 5px", borderRadius: 99,
           }}>
             {discount}
@@ -125,7 +125,7 @@ const AddToCartRow = ({
     </div>
     <button style={{
       background: "#7c3aed", border: "none", color: "#fff",
-      fontSize: 14, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
+      fontSize: 10, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
       cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
     }}>
       اضف للسلة
@@ -150,7 +150,7 @@ function CheckoutMockup() {
           {/* LEFT PHONE: Free shipping progress + cross-sell checkboxes */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
             <div style={{
-              fontSize: 14, fontWeight: 700, color: "var(--p4)", textAlign: "center",
+              fontSize: 12, fontWeight: 700, color: "var(--p4)", textAlign: "center",
               background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)",
               padding: "5px 16px", borderRadius: 99,
             }}>
@@ -160,7 +160,7 @@ function CheckoutMockup() {
               <PhoneTopBar />
 
               {/* Shipping method */}
-              <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
                 طريقة الشحن
               </div>
               <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
@@ -170,8 +170,8 @@ function CheckoutMockup() {
                 background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
                 borderRadius: 14, padding: "12px 14px", margin: "12px 0",
               }}>
-                <div style={{ fontSize: 14, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
-                <div style={{ fontSize: 14, color: "rgba(255,255,255,.8)", marginBottom: 8 }}>
+                <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,.8)", marginBottom: 8 }}>
                   باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
                 </div>
                 <div style={{
@@ -182,7 +182,7 @@ function CheckoutMockup() {
               </div>
 
               {/* Cross-sell product checkboxes */}
-              <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 4 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 4 }}>
                 منتجات مقترحة
               </div>
               <ProductCard name="سلسلال ذهب بحجر ياقوت" reviews="4681" price="45" checked={true} />
@@ -193,8 +193,8 @@ function CheckoutMockup() {
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 paddingTop: 10, paddingBottom: 4,
               }}>
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>الدفع</span>
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>تعديل</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>الدفع</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>تعديل</span>
               </div>
 
               {/* Pay button */}
@@ -211,7 +211,7 @@ function CheckoutMockup() {
           {/* RIGHT PHONE: Upsell rows with add-to-cart */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
             <div style={{
-              fontSize: 14, fontWeight: 700, color: "#10b981", textAlign: "center",
+              fontSize: 12, fontWeight: 700, color: "#10b981", textAlign: "center",
               background: "rgba(16,185,129,.1)", border: "1px solid rgba(16,185,129,.25)",
               padding: "5px 16px", borderRadius: 99,
             }}>
@@ -221,7 +221,7 @@ function CheckoutMockup() {
               <PhoneTopBar />
 
               {/* Shipping options */}
-              <div style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.4)", marginBottom: 6 }}>
                 طريقة الشحن
               </div>
               <ShippingRow method="مجاني" time="" highlighted />
@@ -229,7 +229,7 @@ function CheckoutMockup() {
 
               {/* Upsell headline */}
               <div style={{
-                textAlign: "center", color: "#7c3aed", fontSize: 14, fontWeight: 900,
+                textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900,
                 margin: "12px 0 8px",
               }}>
                 لاتنسى تضيفها بعرض خاص لك الآن
@@ -242,7 +242,7 @@ function CheckoutMockup() {
                 borderRadius: 12, padding: "10px 14px", marginBottom: 12,
               }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: "#10b981" }}>30</span>
-                <span style={{ fontSize: 14, color: "#10b981", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
+                <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
               </div>
 
               {/* Upsell product rows */}
@@ -272,8 +272,8 @@ function CheckoutMockup() {
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 paddingTop: 10, paddingBottom: 4,
               }}>
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>الدفع</span>
-                <span style={{ fontSize: 14, color: "rgba(255,255,255,.4)" }}>تعديل</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>الدفع</span>
+                <span style={{ fontSize: 11, color: "rgba(255,255,255,.4)" }}>تعديل</span>
               </div>
 
               {/* Pay button */}

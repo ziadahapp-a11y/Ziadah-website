@@ -111,28 +111,28 @@ export default function Features() {
                       <div style={{ flex: 1 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
                           <h3 style={{ fontSize: 20, fontWeight: 900 }}>{g.title}</h3>
-                          <span style={{ padding: "2px 10px", borderRadius: 50, background: `rgba(168,85,247,.1)`, border: `1px solid rgba(168,85,247,.2)`, fontSize: 14, color: g.color, fontWeight: 700 }}>هدف #{g.id}</span>
+                          <span style={{ padding: "2px 10px", borderRadius: 50, background: `rgba(168,85,247,.1)`, border: `1px solid rgba(168,85,247,.2)`, fontSize: 11, color: g.color, fontWeight: 700 }}>هدف #{g.id}</span>
                         </div>
-                        <div style={{ fontSize: 14, color: "var(--td)" }}>{g.subtitle}</div>
+                        <div style={{ fontSize: 13, color: "var(--td)" }}>{g.subtitle}</div>
                       </div>
                     </div>
                     <div className="feat-goals-inner" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
                       <div>
-                        <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>الوصف</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>الوصف</div>
                         <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{g.desc}</p>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>متى تستخدمه؟</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>متى تستخدمه؟</div>
                         <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{g.when}</p>
-                        <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(0,0,0,.25)", borderRadius: 10, fontSize: 14, color: "var(--tm)", lineHeight: 1.6 }}>
+                        <div style={{ marginTop: 12, padding: "10px 14px", background: "rgba(0,0,0,.25)", borderRadius: 10, fontSize: 13, color: "var(--tm)", lineHeight: 1.6 }}>
                           <span style={{ color: g.color, fontWeight: 700 }}>مثال: </span>{g.example}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>النتيجة المتوقعة</div>
+                        <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>النتيجة المتوقعة</div>
                         <div style={{ padding: "16px 20px", background: `rgba(168,85,247,.08)`, border: `1px solid rgba(168,85,247,.2)`, borderRadius: 12, textAlign: "center" }}>
                           <div style={{ fontSize: 28, fontWeight: 900, color: g.color }}>{g.boost.split(" ")[0]}</div>
-                          <div style={{ fontSize: 14, color: "var(--td)", marginTop: 4 }}>{g.boost.substring(g.boost.indexOf(" ") + 1)}</div>
+                          <div style={{ fontSize: 12, color: "var(--td)", marginTop: 4 }}>{g.boost.substring(g.boost.indexOf(" ") + 1)}</div>
                         </div>
                       </div>
                     </div>
@@ -155,16 +155,16 @@ export default function Features() {
                   <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(168,85,247,.1)`, border: "1px solid rgba(168,85,247,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>{p.icon}</div>
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 800 }}>{p.title}</div>
-                    <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>طريقة عرض #{i + 1}</div>
+                    <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>طريقة عرض #{i + 1}</div>
                   </div>
                 </div>
                 <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, marginBottom: 20 }}>{p.desc}</p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
                   {p.positions.map(pos => (
-                    <span key={pos} style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(0,0,0,.3)", border: "1px solid var(--b1)", fontSize: 14, color: "var(--td)" }}>{pos}</span>
+                    <span key={pos} style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(0,0,0,.3)", border: "1px solid var(--b1)", fontSize: 12, color: "var(--td)" }}>{pos}</span>
                   ))}
                 </div>
-                <div style={{ fontSize: 14, color: p.color, fontWeight: 700 }}>الأنسب لـ: {p.best}</div>
+                <div style={{ fontSize: 12, color: p.color, fontWeight: 700 }}>الأنسب لـ: {p.best}</div>
               </div>
             ))}
           </div>
@@ -183,23 +183,23 @@ export default function Features() {
                     <div style={{ width: 42, height: 42, borderRadius: 13, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{a.icon}</div>
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 800 }}>{a.title}</div>
-                      <div style={{ fontSize: 14, color: "var(--p3)", fontWeight: 700 }}>النشاط {a.num}</div>
+                      <div style={{ fontSize: 11, color: "var(--p3)", fontWeight: 700 }}>النشاط {a.num}</div>
                     </div>
                   </div>
-                  <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, marginBottom: 14 }}>{a.desc}</p>
+                  <p style={{ fontSize: 13, color: "var(--tm)", lineHeight: 1.7, marginBottom: 14 }}>{a.desc}</p>
                   <div style={{ marginBottom: 12 }}>
-                    <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, marginBottom: 6 }}>الأساليب المتاحة:</div>
+                    <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, marginBottom: 6 }}>الأساليب المتاحة:</div>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {a.tactics.map(t => (
-                        <span key={t} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.18)", fontSize: 14, color: "#06b6d4" }}>{t}</span>
+                        <span key={t} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.18)", fontSize: 11, color: "#06b6d4" }}>{t}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, marginBottom: 6 }}>متاح في الباقات:</div>
+                    <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, marginBottom: 6 }}>متاح في الباقات:</div>
                     <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                       {a.avail.map(pkg => (
-                        <span key={pkg} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", fontSize: 14, color: "var(--p3)" }}>{pkg}</span>
+                        <span key={pkg} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", fontSize: 11, color: "var(--p3)" }}>{pkg}</span>
                       ))}
                     </div>
                   </div>
@@ -211,14 +211,14 @@ export default function Features() {
               <div className="shine"/>
               <div style={{ textAlign: "center", marginBottom: 32 }}>
                 <div style={{ fontSize: 18, fontWeight: 800 }}>خريطة رحلة العميل</div>
-                <div style={{ fontSize: 14, color: "var(--td)", marginTop: 6 }}>كيف يتفاعل زيادة مع العميل في كل مرحلة</div>
+                <div style={{ fontSize: 13, color: "var(--td)", marginTop: 6 }}>كيف يتفاعل زيادة مع العميل في كل مرحلة</div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 0, overflowX: "auto", paddingBottom: 8 }}>
                 {activities.map((a, i) => (
                   <div key={a.num} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
                     <div style={{ textAlign: "center", padding: "0 8px" }}>
                       <div style={{ width: 44, height: 44, borderRadius: 13, background: "rgba(124,58,237,.14)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, margin: "0 auto 8px" }}>{a.icon}</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, whiteSpace: "nowrap", maxWidth: 70, textAlign: "center", margin: "0 auto" }}>{a.title}</div>
+                      <div style={{ fontSize: 11, fontWeight: 700, whiteSpace: "nowrap", maxWidth: 70, textAlign: "center", margin: "0 auto" }}>{a.title}</div>
                     </div>
                     {i < activities.length - 1 && <div style={{ width: 30, height: 1, background: "linear-gradient(90deg,rgba(124,58,237,.5),rgba(6,182,212,.5))", flexShrink: 0 }}/>}
                   </div>
@@ -241,19 +241,19 @@ export default function Features() {
                     <div style={{ fontSize: 36 }}>{u.icon}</div>
                     <div>
                       <div style={{ fontSize: 18, fontWeight: 800 }}>{u.sector}</div>
-                      <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>{u.stores}</div>
+                      <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{u.stores}</div>
                     </div>
                   </div>
                   <div style={{ textAlign: "center", padding: "10px 16px", background: `rgba(168,85,247,.08)`, border: "1px solid rgba(168,85,247,.2)", borderRadius: 12, flexShrink: 0 }}>
                     <div style={{ fontSize: 22, fontWeight: 900, color: u.color }}>{u.result.split(" ")[0]}</div>
-                    <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2, whiteSpace: "nowrap" }}>{u.result.substring(u.result.indexOf(" ") + 1)}</div>
+                    <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2, whiteSpace: "nowrap" }}>{u.result.substring(u.result.indexOf(" ") + 1)}</div>
                   </div>
                 </div>
                 <div>
-                  <div style={{ fontSize: 14, color: "var(--td)", fontWeight: 700, marginBottom: 10 }}>أفضل الاستراتيجيات:</div>
+                  <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 700, marginBottom: 10 }}>أفضل الاستراتيجيات:</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
                     {u.strategies.map(s => (
-                      <div key={s} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                      <div key={s} style={{ display: "flex", gap: 8, fontSize: 13, color: "var(--tm)", alignItems: "center" }}>
                         <div style={{ width: 6, height: 6, borderRadius: "50%", background: u.color, flexShrink: 0 }}/>
                         {s}
                       </div>

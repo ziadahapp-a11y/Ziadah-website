@@ -57,7 +57,7 @@ export default function CartDemoMockup() {
               background: lightPurple,
               border: `1px solid ${borderPurple}`,
               color: purple,
-              fontSize: 14,
+              fontSize: 11,
               fontWeight: 700,
               letterSpacing: 1,
               textTransform: "uppercase",
@@ -196,7 +196,7 @@ export default function CartDemoMockup() {
                   <div style={{ flex: 1 }}>
                     <div
                       style={{
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: 800,
                         color: "#111",
                         marginBottom: 4,
@@ -213,7 +213,7 @@ export default function CartDemoMockup() {
                       }}
                     >
                       200{" "}
-                      <span style={{ fontSize: 14, fontWeight: 700 }}>⃁</span>
+                      <span style={{ fontSize: 11, fontWeight: 700 }}>⃁</span>
                     </div>
                   </div>
                 </div>
@@ -300,7 +300,7 @@ export default function CartDemoMockup() {
                 >
                   <span
                     style={{
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: 900,
                       color: "#111",
                     }}
@@ -310,7 +310,7 @@ export default function CartDemoMockup() {
                 </div>
                 <div
                   style={{
-                    fontSize: 14,
+                    fontSize: 11,
                     color: purple,
                     fontWeight: 700,
                     marginBottom: 10,
@@ -331,12 +331,12 @@ export default function CartDemoMockup() {
                     marginBottom: 12,
                   }}
                 >
-                  <span style={{ fontSize: 14, fontWeight: 800, color: "#10b981" }}>✓</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#10b981" }}>شحن مجاني</span>
-                  <span style={{ fontSize: 14, fontWeight: 800, color: "#10b981", marginRight: 6 }}>✓</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#10b981" }}>دفع عند الاستلام مجاني</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981" }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>شحن مجاني</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginRight: 6 }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>دفع عند الاستلام مجاني</span>
                   <span style={{ flex: 1 }} />
-                  <span style={{ fontSize: 14, fontWeight: 900, color: "#10b981" }}>30 ⃁ وفر</span>
+                  <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>30 ⃁ وفر</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -372,7 +372,7 @@ export default function CartDemoMockup() {
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div
                           style={{
-                            fontSize: 14,
+                            fontSize: 11,
                             fontWeight: 800,
                             color: "#111",
                             marginBottom: 2,
@@ -389,17 +389,17 @@ export default function CartDemoMockup() {
                             marginBottom: 2,
                           }}
                         >
-                          <span style={{ fontSize: 14, color: "#f59e0b" }}>★</span>
+                          <span style={{ fontSize: 9, color: "#f59e0b" }}>★</span>
                           <span
                             style={{
-                              fontSize: 14,
+                              fontSize: 9,
                               fontWeight: 700,
                               color: "#444",
                             }}
                           >
                             {p.rating}
                           </span>
-                          <span style={{ fontSize: 14, color: "#888" }}>
+                          <span style={{ fontSize: 9, color: "#888" }}>
                             {p.reviews} مراجعة
                           </span>
                         </div>
@@ -412,18 +412,18 @@ export default function CartDemoMockup() {
                         >
                           <span
                             style={{
-                              fontSize: 14,
+                              fontSize: 11,
                               fontWeight: 900,
                               color: "#111",
                             }}
                           >
                             {p.price}{" "}
-                            <span style={{ fontSize: 14 }}>⃁</span>
+                            <span style={{ fontSize: 9 }}>⃁</span>
                           </span>
                           {p.originalPrice && (
                             <span
                               style={{
-                                fontSize: 14,
+                                fontSize: 9,
                                 color: "#aaa",
                                 textDecoration: "line-through",
                               }}
@@ -434,7 +434,7 @@ export default function CartDemoMockup() {
                           {p.discount && (
                             <span
                               style={{
-                                fontSize: 14,
+                                fontSize: 8,
                                 fontWeight: 700,
                                 color: "#7c3aed",
                                 background: "rgba(124,58,237,0.1)",
@@ -454,7 +454,7 @@ export default function CartDemoMockup() {
                           border: "none",
                           borderRadius: 8,
                           padding: "6px 8px",
-                          fontSize: 14,
+                          fontSize: 9,
                           fontWeight: 800,
                           cursor: "default",
                           whiteSpace: "nowrap",
@@ -494,11 +494,11 @@ export default function CartDemoMockup() {
                     }}
                   >
                     1165.00{" "}
-                    <span style={{ fontSize: 14 }}>⃁</span>
+                    <span style={{ fontSize: 12 }}>⃁</span>
                   </span>
                   <span
                     style={{
-                      fontSize: 14,
+                      fontSize: 13,
                       fontWeight: 700,
                       color: purple,
                     }}
@@ -514,7 +514,7 @@ export default function CartDemoMockup() {
                     border: "none",
                     borderRadius: 10,
                     padding: "12px 0",
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: 800,
                     cursor: "default",
                     display: "flex",

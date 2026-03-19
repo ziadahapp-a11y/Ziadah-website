@@ -146,7 +146,7 @@ function SliderCard({
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: 14,
+            fontSize: 11,
             color: "rgba(255,255,255,.3)",
             marginTop: 4,
           }}
@@ -334,7 +334,7 @@ export default function Calculator() {
                   >
                     <div
                       style={{
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: 700,
                         color: "rgba(255,255,255,.45)",
                         marginBottom: 18,
@@ -345,19 +345,19 @@ export default function Calculator() {
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmtCurrency(aov)}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "rgba(255,255,255,.85)" }}>
                           {fmtCurrency(r.baseRevenue)}
                         </div>
@@ -387,7 +387,7 @@ export default function Calculator() {
                     />
                     <div
                       style={{
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: 700,
                         color: "#22c55e",
                         marginBottom: 18,
@@ -408,20 +408,20 @@ export default function Calculator() {
                       }}
                     >
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الطلبات الشهرية</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmt(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>متوسط الطلب الفعلي</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                           <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                             {fmtCurrency(r.effectiveAov)}
                           </span>
                           <span
                             style={{
-                              fontSize: 14,
+                              fontSize: 11,
                               fontWeight: 800,
                               color: "#22c55e",
                               background: "rgba(34,197,94,.15)",
@@ -435,7 +435,7 @@ export default function Calculator() {
                         </div>
                       </div>
                       <div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,.35)", marginBottom: 3 }}>الإيراد الشهري</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
                           {fmtCurrency(r.newRevenue)}
                         </div>
@@ -508,7 +508,7 @@ export default function Calculator() {
                     >
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.4)",
                           marginBottom: 8,
                           fontWeight: 600,
@@ -528,7 +528,7 @@ export default function Calculator() {
                       </div>
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.3)",
                           marginTop: 4,
                         }}
@@ -547,7 +547,7 @@ export default function Calculator() {
                     >
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.4)",
                           marginBottom: 8,
                           fontWeight: 600,
@@ -567,7 +567,7 @@ export default function Calculator() {
                       </div>
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.3)",
                           marginTop: 4,
                         }}
@@ -586,7 +586,7 @@ export default function Calculator() {
                     >
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.4)",
                           marginBottom: 8,
                           fontWeight: 600,
@@ -606,7 +606,7 @@ export default function Calculator() {
                       </div>
                       <div
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           color: "rgba(255,255,255,.3)",
                           marginTop: 4,
                         }}
@@ -623,7 +623,7 @@ export default function Calculator() {
                     border: "1px solid rgba(255,255,255,.07)",
                     borderRadius: 12,
                     padding: "16px 20px",
-                    fontSize: 14,
+                    fontSize: 12,
                     color: "rgba(255,255,255,.3)",
                     lineHeight: 1.7,
                   }}

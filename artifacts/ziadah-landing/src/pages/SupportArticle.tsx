@@ -66,7 +66,7 @@ export default function SupportArticle() {
         <div style={{ maxWidth: 820, margin: "0 auto" }}>
 
           {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32, fontSize: 14, color: "var(--td)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32, fontSize: 13, color: "var(--td)" }}>
             <span
               onClick={() => navigateTo("/support")}
               style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
@@ -98,10 +98,10 @@ export default function SupportArticle() {
               <div style={{ width: 36, height: 36, borderRadius: 10, background: `${category.color}18`, border: `1px solid ${category.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>
                 {category.icon}
               </div>
-              <span style={{ fontSize: 14, color: category.color, fontWeight: 700, background: `${category.color}12`, padding: "3px 12px", borderRadius: 50, border: `1px solid ${category.color}25` }}>
+              <span style={{ fontSize: 13, color: category.color, fontWeight: 700, background: `${category.color}12`, padding: "3px 12px", borderRadius: 50, border: `1px solid ${category.color}25` }}>
                 {category.label}
               </span>
-              <span style={{ fontSize: 14, color: "var(--td)", display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ fontSize: 12, color: "var(--td)", display: "flex", alignItems: "center", gap: 5 }}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/><path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>
                 {article.time} قراءة
               </span>
@@ -139,7 +139,7 @@ export default function SupportArticle() {
                   <div key={i} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                     {section.items.map((item, j) => (
                       <div key={j} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                        <div style={{ width: 28, height: 28, borderRadius: 8, background: `${category.color}15`, border: `1px solid ${category.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 14, fontWeight: 800, color: category.color }}>
+                        <div style={{ width: 28, height: 28, borderRadius: 8, background: `${category.color}15`, border: `1px solid ${category.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 13, fontWeight: 800, color: category.color }}>
                           {j + 1}
                         </div>
                         <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.75, margin: 0, paddingTop: 3 }}>{item}</p>
@@ -169,7 +169,7 @@ export default function SupportArticle() {
                       💡
                     </div>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 800, color: "#10b981", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>نصيحة</div>
+                      <div style={{ fontSize: 11, fontWeight: 800, color: "#10b981", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>نصيحة</div>
                       <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
                     </div>
                   </div>
@@ -183,7 +183,7 @@ export default function SupportArticle() {
                       ⚠️
                     </div>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 800, color: "#f59e0b", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>تنبيه</div>
+                      <div style={{ fontSize: 11, fontWeight: 800, color: "#f59e0b", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>تنبيه</div>
                       <p style={{ fontSize: 14, color: "rgba(255,255,255,.75)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
                     </div>
                   </div>
@@ -210,7 +210,7 @@ export default function SupportArticle() {
               </span>
               <div style={{ display: "flex", gap: 10 }}>
                 <a href="https://api.whatsapp.com/send/?phone=966510131856" target="_blank" rel="noreferrer"
-                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 20px", background: "rgba(37,211,102,.1)", border: "1px solid rgba(37,211,102,.2)", borderRadius: 50, color: "#25d366", textDecoration: "none", fontSize: 14, fontWeight: 700, transition: "all .2s" }}
+                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 20px", background: "rgba(37,211,102,.1)", border: "1px solid rgba(37,211,102,.2)", borderRadius: 50, color: "#25d366", textDecoration: "none", fontSize: 13, fontWeight: 700, transition: "all .2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(37,211,102,.18)"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(37,211,102,.1)"; }}
                 >
@@ -238,7 +238,7 @@ export default function SupportArticle() {
                     >
                       <div>
                         <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{s.title}</div>
-                        <div style={{ fontSize: 14, color: "var(--td)", marginTop: 3 }}>{s.time} قراءة</div>
+                        <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{s.time} قراءة</div>
                       </div>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: "rotate(180deg)", flexShrink: 0 }}>
                         <path d="M10 4L6 8l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

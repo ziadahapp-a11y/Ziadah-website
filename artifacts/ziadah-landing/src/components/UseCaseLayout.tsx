@@ -126,7 +126,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
                 <div className="shine"/>
                 <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>{s.value}</div>
-                <div style={{ fontSize: 14, color: "var(--td)" }}>{s.label}</div>
+                <div style={{ fontSize: 13, color: "var(--td)" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -160,7 +160,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <div className="gc rv" style={{ padding: "40px 48px" }}>
               <div className="shine"/>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.2)", color: "#06b6d4", fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 20 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.2)", color: "#06b6d4", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 20 }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 7px #06b6d4" }}/>
                 مثال تطبيقي
               </div>
@@ -168,7 +168,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 {data.exampleScenario.steps.map((step, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
+                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
                     <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>{step}</p>
                   </div>
                 ))}
@@ -210,7 +210,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="gc rv" style={{ padding: "36px 40px", background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
             <div className="shine"/>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 7px #a855f7" }}/>
                 التقارير المفصلة
               </div>
@@ -235,8 +235,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                       {item.icon}
                     </div>
                     <div>
-                      <div style={{ fontSize: 14, fontWeight: 800 }}>{item.label}</div>
-                      <div style={{ fontSize: 14, color: "var(--td)", marginTop: 2 }}>{item.sub}</div>
+                      <div style={{ fontSize: 13, fontWeight: 800 }}>{item.label}</div>
+                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{item.sub}</div>
                     </div>
                   </div>
                 ))}

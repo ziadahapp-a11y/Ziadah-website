@@ -117,7 +117,7 @@ export default function TeamSection() {
                 </h3>
                 <p
                   style={{
-                    fontSize: 14,
+                    fontSize: 13,
                     color: "rgba(196,132,252,0.8)",
                     margin: 0,
                     lineHeight: 1.5,

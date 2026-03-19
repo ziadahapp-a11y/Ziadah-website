@@ -83,7 +83,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         </button>
 
         {/* Title */}
-        <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 14, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
+        <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
           اختر منصتك
         </p>
         <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "#fff", marginBottom: 8, lineHeight: 1.2 }}>
@@ -175,7 +175,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           </a>
         </div>
 
-        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 14, marginTop: 20 }}>تجربة مجانية 7 أيام · بدون بطاقة</p>
+        <p style={{ color: "rgba(255,255,255,0.35)", fontSize: 12, marginTop: 20 }}>تجربة مجانية 7 أيام · بدون بطاقة</p>
       </div>
     </div>
   );

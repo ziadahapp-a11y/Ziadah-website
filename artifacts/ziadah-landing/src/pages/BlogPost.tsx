@@ -149,7 +149,7 @@ function renderContent(content: string) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: 700,
                   color: "#a855f7",
                   flexShrink: 0,
@@ -445,7 +445,7 @@ export default function BlogPost() {
               display: "flex",
               alignItems: "center",
               gap: 8,
-              fontSize: 14,
+              fontSize: 13,
               color: "var(--td)",
               padding: "24px 0 20px",
             }}
@@ -492,7 +492,7 @@ export default function BlogPost() {
                 background: `${categoryColors[post.category]}22`,
                 border: `1px solid ${categoryColors[post.category]}55`,
                 color: categoryColors[post.category],
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: 700,
                 marginBottom: 16,
               }}
@@ -517,7 +517,7 @@ export default function BlogPost() {
                 display: "flex",
                 alignItems: "center",
                 gap: 20,
-                fontSize: 14,
+                fontSize: 13,
                 color: "var(--td)",
                 flexWrap: "wrap",
               }}
@@ -707,7 +707,7 @@ export default function BlogPost() {
                     <div style={{ padding: "16px 20px 20px" }}>
                       <span
                         style={{
-                          fontSize: 14,
+                          fontSize: 11,
                           fontWeight: 700,
                           color: categoryColors[rel.category],
                           display: "block",
@@ -729,7 +729,7 @@ export default function BlogPost() {
                       </h3>
                       <span
                         style={{
-                          fontSize: 14,
+                          fontSize: 12,
                           color: "var(--td)",
                           display: "flex",
                           alignItems: "center",

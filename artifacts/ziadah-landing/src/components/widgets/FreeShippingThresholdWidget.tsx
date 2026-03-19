@@ -19,8 +19,8 @@ export default function FreeShippingThresholdWidget() {
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>🚚 خل الشحن مجاني</span>
-            <span style={{ fontSize: 14, color: "#c084fc", fontWeight: 700 }}>باقي ١٤٥ ريال</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "#fff" }}>🚚 خل الشحن مجاني</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>باقي ١٤٥ ريال</span>
           </div>
           <div style={{
             height: 7,
@@ -37,11 +37,11 @@ export default function FreeShippingThresholdWidget() {
               transition: "width .5s ease",
             }} />
           </div>
-          <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)", textAlign: "center" }}>
+          <div style={{ fontSize: 9, color: "rgba(255,255,255,.45)", textAlign: "center" }}>
             باقي ١٤٥ ريال للشحن، ضيف المنتجات
           </div>
         </div>
-        <div style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة:</div>
+        <div style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 7 }}>منتجات مقترحة:</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {products.map((p, i) => (
             <div key={i} style={{
@@ -65,8 +65,8 @@ export default function FreeShippingThresholdWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{p.name}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: "#fff" }}>{p.name}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>﷼{p.price}</div>
               </div>
               <div style={{
                 width: 20,
@@ -78,7 +78,7 @@ export default function FreeShippingThresholdWidget() {
                 justifyContent: "center",
                 flexShrink: 0,
               }}>
-                <span style={{ color: "rgba(255,255,255,.4)", fontSize: 14, fontWeight: 900 }}>✓</span>
+                <span style={{ color: "rgba(255,255,255,.4)", fontSize: 10, fontWeight: 900 }}>✓</span>
               </div>
             </div>
           ))}

@@ -92,7 +92,7 @@ function UseCasesMegaMenu() {
     }}>
       {useCasesDropdown.sections.map((section) => (
         <div key={section.title}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: "var(--p4)", marginBottom: 10, paddingRight: 8, textTransform: "uppercase", letterSpacing: 1 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 10, paddingRight: 8, textTransform: "uppercase", letterSpacing: 1 }}>
             {section.title}
           </div>
           {section.items.map((item) => (
@@ -101,7 +101,7 @@ function UseCasesMegaMenu() {
               onClick={() => navigateTo(item.href)}
               style={{
                 display: "block", padding: "8px 8px", borderRadius: 10,
-                textDecoration: "none", transition: "background .2s", fontSize: 14,
+                textDecoration: "none", transition: "background .2s", fontSize: 13,
                 fontWeight: 500, color: "#fff", cursor: "pointer",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
@@ -109,7 +109,7 @@ function UseCasesMegaMenu() {
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 14, color: "rgba(255,255,255,.4)", marginTop: 2 }}>
+                <span style={{ display: "block", fontSize: 11, color: "rgba(255,255,255,.4)", marginTop: 2 }}>
                   {item.subtitle}
                 </span>
               )}
@@ -142,7 +142,7 @@ function PlatformsDropdown() {
             >
               <span>{item.label}</span>
               <span style={{
-                fontSize: 14, fontWeight: 700, background: "rgba(255,255,255,.08)",
+                fontSize: 10, fontWeight: 700, background: "rgba(255,255,255,.08)",
                 color: "rgba(255,255,255,.35)", padding: "2px 8px", borderRadius: 20,
               }}>
                 {item.badge}
@@ -272,7 +272,7 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
                   الاسم
                 </label>
                 <input
@@ -293,7 +293,7 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
               </div>
 
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
                   البريد الإلكتروني
                 </label>
                 <input
@@ -314,7 +314,7 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
               </div>
 
               <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 14, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
+                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,.7)", display: "block", marginBottom: 8 }}>
                   وصف الميزة المطلوبة
                 </label>
                 <textarea
@@ -338,7 +338,7 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
                 <div style={{
                   padding: "10px 14px", borderRadius: 10,
                   background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)",
-                  color: "#f87171", fontFamily: "var(--font)", fontSize: 14,
+                  color: "#f87171", fontFamily: "var(--font)", fontSize: 13,
                 }}>
                   {error}
                 </div>
@@ -432,7 +432,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
               <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
               </div>
             </button>
           );
@@ -452,7 +452,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
               <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-                <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
               </div>
             </a>
           );
@@ -471,7 +471,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
             <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
             <div>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{item.label}</div>
-              <div style={{ fontSize: 14, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
+              <div style={{ fontSize: 12, color: "rgba(255,255,255,.4)", marginTop: 2 }}>{item.subtitle}</div>
             </div>
           </span>
         );
@@ -594,7 +594,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
   const subLinkStyle: React.CSSProperties = {
     display: "block", padding: "9px 12px", borderRadius: 10,
     background: "rgba(255,255,255,.04)", textDecoration: "none",
-    color: "#fff", fontSize: 14, fontWeight: 500, fontFamily: "var(--font)",
+    color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
   return (
@@ -627,7 +627,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,.35)", letterSpacing: 1, textTransform: "uppercase" }}>القائمة</span>
           <button
             onClick={onClose}
             style={{
@@ -653,7 +653,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
         >
           {useCasesDropdown.sections.map((section) => (
             <div key={section.title} style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {section.items.map((item) => (
                   <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
@@ -711,11 +711,11 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "9px 12px", borderRadius: 10,
                     background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
-                    fontSize: 14, fontWeight: 500, fontFamily: "var(--font)",
+                    fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                   }}
                 >
                   <span>{item.label}</span>
-                  {item.badge && <span style={{ fontSize: 14, color: "rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                  {item.badge && <span style={{ fontSize: 10, color: "rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                 </div>
               )
             )}
@@ -735,7 +735,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { o
               const itemStyle: React.CSSProperties = {
                 display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
                 borderRadius: 10, background: "rgba(255,255,255,.04)",
-                textDecoration: "none", color: "#fff", fontSize: 14, fontWeight: 500, fontFamily: "var(--font)",
+                textDecoration: "none", color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
               };
               if (isFeatureRequest && onFeatureRequest) {
                 return (
@@ -1057,7 +1057,7 @@ export default function Nav() {
                 display: "flex", flexDirection: "column", alignItems: "center",
                 gap: 3, flex: 1, textDecoration: "none",
                 color: (isActive || (item.type === "dropdown" && moreOpen)) ? "var(--p)" : "rgba(255,255,255,.45)",
-                fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
+                fontSize: 10, fontWeight: 600, fontFamily: "var(--font)",
                 padding: "6px 0", transition: "color .2s", cursor: "pointer",
               }}
             >
@@ -1072,7 +1072,7 @@ export default function Nav() {
             display: "flex", flexDirection: "column", alignItems: "center",
             gap: 3, flex: 1, background: "none", border: "none",
             color: moreOpen ? "var(--p)" : "rgba(255,255,255,.45)",
-            fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
+            fontSize: 10, fontWeight: 600, fontFamily: "var(--font)",
             padding: "6px 0", cursor: "pointer", transition: "color .2s",
           }}
         >

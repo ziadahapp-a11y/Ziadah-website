@@ -20,7 +20,7 @@ export default function RelatedProductsWidget() {
     <UseCaseWidgetPreview title="اقتراح منتجات ذات علاقة" subtitle="منتجات يفضلها العملاء">
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 14, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
+          style={{ fontSize: 10, color: "rgba(255,255,255,.45)", marginBottom: 8 }}
           className="mt-[5px] text-[10px]">منتجات يفضلها العملاء</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {products.map((p, i) => (
@@ -45,16 +45,16 @@ export default function RelatedProductsWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>{p.name}</div>
-                <div style={{ fontSize: 14, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>﷼{p.price}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", lineHeight: 1.3 }}>{p.name}</div>
+                <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>﷼{p.price}</div>
               </div>
               <button style={{
                 padding: "6px 12px",
                 borderRadius: 20,
                 background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
                 color: "#fff",
-                fontSize: 14,
+                fontSize: 9,
                 fontWeight: 800,
                 border: "none",
                 cursor: "pointer",
