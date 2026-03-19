@@ -61,7 +61,7 @@ const useCasesDropdown: { sections: UseCaseSection[] } = {
 };
 
 const platformItems = [
-  { label: "سلة", href: "https://apps.salla.sa", enabled: true },
+  { label: "سلة", href: "https://apps.salla.sa/ar/app/1099604538", enabled: true },
   { label: "زد", href: "https://apps.zid.sa/application/1826", enabled: true },
   { label: "شوبيفاي", href: "#", enabled: false, badge: "قريباً" },
 ];

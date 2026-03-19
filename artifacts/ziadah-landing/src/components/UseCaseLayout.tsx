@@ -192,7 +192,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="cta-btn cb-zid">
               <span>🚀</span> فعّل على زد
             </a>
-            <a href="https://apps.salla.sa/ar/app/2143538752" target="_blank" rel="noreferrer" className="cta-btn cb-salla">
+            <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" className="cta-btn cb-salla">
               <span>⚡</span> فعّل على سلة
             </a>
           </div>
