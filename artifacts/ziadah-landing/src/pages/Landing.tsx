@@ -1393,7 +1393,7 @@ export default function Landing() {
                 <div className="demo-info">
                   <div className="demo-top">
                     <div>
-                      <div className="demo-name">نورة العتيبي</div>
+                      <div className="demo-name">نوره</div>
                       <div className="demo-meta">جدة · سامسونج · ٢٤ سنة</div>
                     </div>
                     <div
