@@ -480,6 +480,52 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
   );
 }
 
+function MobileAccordionItem({
+  label,
+  icon,
+  isOpen,
+  onToggle,
+  children,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div style={{ marginBottom: 6 }}>
+      <button
+        onClick={onToggle}
+        style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          width: "100%", padding: "12px 14px", borderRadius: 14,
+          background: isOpen ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.05)",
+          border: "none", color: isOpen ? "#fff" : "rgba(255,255,255,.75)",
+          fontSize: 14, fontWeight: 600, fontFamily: "var(--font)", cursor: "pointer",
+          textAlign: "right",
+        }}
+      >
+        <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ color: isOpen ? "var(--p4)" : "currentColor", flexShrink: 0 }}>{icon}</span>
+          {label}
+        </span>
+        <svg
+          width="14" height="14" viewBox="0 0 12 12" fill="none"
+          style={{ transform: isOpen ? "rotate(180deg)" : "none", transition: "transform .25s", flexShrink: 0 }}
+        >
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+      {isOpen && (
+        <div style={{ padding: "8px 0 4px" }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
 type MobileLinkItem = { label: string; href: string; icon: React.ReactNode; type: "link" };
 type MobileDropdownItem = { label: string; href: string; icon: React.ReactNode; type: "dropdown"; dropdownKey: string };
 type MobileNavItem = MobileLinkItem | MobileDropdownItem;
@@ -515,8 +561,13 @@ const mobileHelpItems = [
 ];
 
 
-function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void; onFeatureRequest?: () => void }) {
+function MobileMoreDropdown({ onClose, onFeatureRequest, initialAccordion }: { onClose: () => void; onFeatureRequest?: () => void; initialAccordion?: string | null }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(initialAccordion ?? null);
+
+  const toggleAccordion = (key: string) => {
+    setOpenAccordion(prev => prev === key ? null : key);
+  };
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -594,15 +645,16 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
           الرئيسة
         </span>
 
-        <div style={{ marginBottom: 6 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 14px 6px", color: "rgba(255,255,255,.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5 }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-            حالات الاستخدام
-          </div>
+        <MobileAccordionItem
+          label="حالات الاستخدام"
+          icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>}
+          isOpen={openAccordion === "usecases"}
+          onToggle={() => toggleAccordion("usecases")}
+        >
           {useCasesDropdown.sections.map((section) => (
-            <div key={section.title} style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5 }}>{section.title}</div>
-              <div style={{ display: "grid", gridTemplateColumns: section.items.length > 3 ? "1fr 1fr" : "1fr", gap: 4 }}>
+            <div key={section.title} style={{ marginBottom: 12 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--p4)", marginBottom: 5, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {section.items.map((item) => (
                   <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
                     {item.label}
@@ -611,7 +663,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
               </div>
             </div>
           ))}
-        </div>
+        </MobileAccordionItem>
 
         <span onClick={() => { navigateTo("/success-stories"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer" }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -633,12 +685,13 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
           المدونة
         </span>
 
-        <div style={{ marginBottom: 6 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 14px 6px", color: "rgba(255,255,255,.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5 }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            المنصات
-          </div>
-          <div style={{ display: "flex", gap: 6 }}>
+        <MobileAccordionItem
+          label="المنصات"
+          icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
+          isOpen={openAccordion === "platforms"}
+          onToggle={() => toggleAccordion("platforms")}
+        >
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {platformItems.map((item) =>
               item.enabled ? (
                 <a
@@ -647,7 +700,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
                   target="_blank"
                   rel="noreferrer"
                   onClick={onClose}
-                  style={{ flex: 1, ...subLinkStyle, textAlign: "center" }}
+                  style={{ ...subLinkStyle, display: "flex", alignItems: "center", gap: 8 }}
                 >
                   {item.label}
                 </a>
@@ -655,58 +708,20 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
                 <div
                   key={item.label}
                   style={{
-                    flex: 1, padding: "9px 12px", borderRadius: 10, textAlign: "center",
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    padding: "9px 12px", borderRadius: 10,
                     background: "rgba(255,255,255,.04)", color: "rgba(255,255,255,.3)",
                     fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                   }}
                 >
-                  {item.label}
-                  <span style={{ display: "block", fontSize: 10, color: "rgba(255,255,255,.25)" }}>{item.badge}</span>
+                  <span>{item.label}</span>
+                  {item.badge && <span style={{ fontSize: 10, color: "rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                 </div>
               )
             )}
           </div>
-        </div>
+        </MobileAccordionItem>
 
-        <div style={{ marginBottom: 6 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 14px 6px", color: "rgba(255,255,255,.35)", fontSize: 11, fontWeight: 700, letterSpacing: 0.5 }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            المساعدة
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            {mobileHelpItems.map((item) => {
-              const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
-              const isFeatureRequest = item.href === "#" && item.label === "طلب ميزة جديدة";
-              const itemStyle: React.CSSProperties = {
-                display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-                borderRadius: 10, background: "rgba(255,255,255,.04)",
-                textDecoration: "none", color: "#fff", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
-              };
-              if (isFeatureRequest && onFeatureRequest) {
-                return (
-                  <span key={item.label} onClick={() => { onClose(); onFeatureRequest(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                    {item.label}
-                  </span>
-                );
-              }
-              if (isExternal) {
-                return (
-                  <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
-                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                    {item.label}
-                  </a>
-                );
-              }
-              return (
-                <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                  <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                  {item.label}
-                </span>
-              );
-            })}
-          </div>
-        </div>
         <MobileAccordionItem
           label="المساعدة"
           icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>}
@@ -773,6 +788,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [moreInitialAccordion, setMoreInitialAccordion] = useState<string | null>(null);
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1068,7 +1084,7 @@ export default function Nav() {
       </nav>
 
       {/* MOBILE MORE DROPDOWN */}
-      {moreOpen && <MobileMoreDropdown onClose={() => setMoreOpen(false)} onFeatureRequest={() => setFeatureModalOpen(true)} />}
+      {moreOpen && <MobileMoreDropdown onClose={() => { setMoreOpen(false); setMoreInitialAccordion(null); }} onFeatureRequest={() => setFeatureModalOpen(true)} initialAccordion={moreInitialAccordion} />}
     </>
   );
 }
