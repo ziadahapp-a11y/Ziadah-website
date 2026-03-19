@@ -1,21 +1,20 @@
 import { useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
-
-const allOptions = [
-  { qty: "Buy 1", label: "No discount", price: "49 SAR", origPrice: null as string | null, badge: null as string | null },
-  { qty: "Buy 2", label: "20% off", price: "79 SAR", origPrice: "98 SAR", badge: "-20%" },
-  { qty: "Buy 3", label: "30% off + Free Shipping", price: "103 SAR", origPrice: "147 SAR", badge: "-30%" },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function BuyMoreSaveMoreWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.buyMoreSaveMore;
+
   const [selected, setSelected] = useState(1);
 
   return (
-    <UseCaseWidgetPreview title="Quantity Offers" subtitle="Buy More, Save More">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 8 }}>Buy more and save more</div>
+        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 8 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {allOptions.map((opt, i) => {
+          {tr.options.map((opt, i) => {
             const isSelected = i === selected;
             return (
               <div key={i} onClick={() => setSelected(i)} style={{
@@ -78,7 +77,7 @@ export default function BuyMoreSaveMoreWidget() {
         textAlign: "center",
         fontWeight: 700,
       }}>
-        🚚 Best value for customers — Free Shipping
+        {tr.freeShippingNote}
       </div>
     </UseCaseWidgetPreview>
   );

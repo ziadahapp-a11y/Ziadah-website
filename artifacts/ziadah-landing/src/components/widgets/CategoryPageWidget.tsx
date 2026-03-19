@@ -1,14 +1,13 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function CategoryPageWidget() {
-  const products = [
-    { emoji: "🎧", name: "ANC Wireless Headphones", price: "389", origPrice: "499", badge: "⭐ Best Seller", hot: true },
-    { emoji: "🔊", name: "Portable Bluetooth Speaker", price: "189", origPrice: null, badge: "New", hot: false },
-    { emoji: "🎵", name: "MP3 Music Player", price: "129", origPrice: "169", badge: null, hot: false },
-  ];
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.categoryPage;
 
   return (
-    <UseCaseWidgetPreview title="Audio Devices" subtitle="Sorted especially for you">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 8 }}>
         <div style={{
           display: "flex",
@@ -21,11 +20,11 @@ export default function CategoryPageWidget() {
           border: "1px solid rgba(124,58,237,.2)",
         }}>
           <span style={{ fontSize: 12 }}>🎯</span>
-          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>Sorted based on your past interests</span>
+          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>{tr.sortedLabel}</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {products.map((p, i) => (
+          {tr.products.map((p, i) => (
             <div key={i} style={{
               display: "flex",
               alignItems: "center",
@@ -61,8 +60,8 @@ export default function CategoryPageWidget() {
                   }}>{p.badge}</div>
                 )}
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "var(--t)" }}>SAR {p.price}</span>
-                  {p.origPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {p.origPrice}</span>}
+                  <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "var(--t)" }}>{tr.currency}{p.price}</span>
+                  {p.origPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>}
                 </div>
               </div>
               <button style={{
@@ -75,7 +74,7 @@ export default function CategoryPageWidget() {
                 border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "1px solid var(--b1)",
                 cursor: "pointer",
                 flexShrink: 0,
-              }} className="widget-btn-sm">Cart</button>
+              }} className="widget-btn-sm">{tr.btnCart}</button>
             </div>
           ))}
         </div>

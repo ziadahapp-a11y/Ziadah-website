@@ -1,10 +1,15 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function CouponWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.coupon;
+
   return (
-    <UseCaseWidgetPreview title="Discount Coupon" subtitle="Special offer just for you">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ textAlign: "center", marginBottom: 14 }}>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 12 }}>Special offer just for you</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 12 }}>{tr.descLabel}</div>
         <div style={{
           display: "inline-flex",
           alignItems: "center",
@@ -16,13 +21,13 @@ export default function CouponWidget() {
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>30 SAR</div>
-            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>Discount on your order now</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>{tr.discountAmount}</div>
+            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(168,85,247,.3)" }} />
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: "1px" }}>SAVE30</div>
-            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>🚚 Free Shipping</div>
+            <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: "1px" }}>{tr.couponCode}</div>
+            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.freeShipping}</div>
           </div>
         </div>
         <div style={{
@@ -36,7 +41,7 @@ export default function CouponWidget() {
           fontWeight: 600,
         }}>
           <span>⏱️</span>
-          <span>Expires in: 14:58</span>
+          <span>{tr.expiresLabel}</span>
         </div>
       </div>
       <button style={{
@@ -56,7 +61,7 @@ export default function CouponWidget() {
         justifyContent: "center",
         gap: 6,
       }} className="widget-btn">
-        <span>📋</span> Copy Code
+        {tr.btnCopy}
       </button>
     </UseCaseWidgetPreview>
   );

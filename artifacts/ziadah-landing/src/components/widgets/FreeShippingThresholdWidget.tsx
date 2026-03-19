@@ -1,15 +1,15 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function FreeShippingThresholdWidget() {
-  const products = [
-    { emoji: "💍", name: "Gold Chain with Ruby Stone", price: "45" },
-    { emoji: "💎", name: "Gold Earrings with Ruby Stone", price: "100" },
-  ];
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.freeShipping;
 
   const progress = 69;
 
   return (
-    <UseCaseWidgetPreview title="Reach Free Shipping" subtitle="Complete your order for free shipping">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 12 }}>
         <div style={{
           padding: "10px 12px",
@@ -19,8 +19,8 @@ export default function FreeShippingThresholdWidget() {
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>🚚 Get free shipping</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>145 SAR remaining</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
+            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{
             height: 7,
@@ -38,12 +38,12 @@ export default function FreeShippingThresholdWidget() {
             }} />
           </div>
           <div style={{ fontSize: 9, color: "var(--td)", textAlign: "center" }}>
-            Add 145 SAR more for free shipping
+            {tr.progressNote}
           </div>
         </div>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 7 }}>Suggested products:</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {products.map((p, i) => (
+          {tr.products.map((p, i) => (
             <div key={i} style={{
               display: "flex",
               alignItems: "center",
@@ -66,7 +66,7 @@ export default function FreeShippingThresholdWidget() {
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
               </div>
               <div style={{
                 width: 20,

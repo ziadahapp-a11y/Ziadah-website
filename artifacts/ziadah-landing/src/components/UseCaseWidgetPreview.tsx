@@ -1,4 +1,5 @@
 import React from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface UseCaseWidgetPreviewProps {
   title: string;
@@ -7,6 +8,10 @@ interface UseCaseWidgetPreviewProps {
 }
 
 export default function UseCaseWidgetPreview({ title, subtitle, children }: UseCaseWidgetPreviewProps) {
+  const { isAr } = useLanguage();
+  const direction = isAr ? "rtl" : "ltr";
+  const textAlign = isAr ? ("right" as const) : ("left" as const);
+
   return (
     <div
       style={{
@@ -15,14 +20,14 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         borderRadius: 16,
         boxShadow: "0 8px 32px rgba(124,58,237,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04)",
         overflow: "hidden",
-        direction: "ltr",
+        direction,
         width: "100%",
         maxWidth: 320,
         margin: "0 auto",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
       }}
-      className="widget-preview text-left mt-[0px] mb-[0px]">
+      className="widget-preview mt-[0px] mb-[0px]">
       <div style={{
         background: "linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(91,33,182,0.05) 100%)",
         backdropFilter: "blur(16px)",
@@ -48,7 +53,8 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
         style={{
           padding: "12px",
           fontFamily: "var(--font, 'Rubik', sans-serif)",
-          direction: "ltr",
+          direction,
+          textAlign,
           background: "transparent",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",

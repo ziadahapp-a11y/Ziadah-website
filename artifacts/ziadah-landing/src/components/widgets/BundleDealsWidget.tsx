@@ -1,18 +1,17 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function BundleDealsWidget() {
-  const bundle = [
-    { emoji: "💄", name: "Face Wash", origPrice: "79", price: "—" },
-    { emoji: "✨", name: "Vitamin C Serum", origPrice: "99", price: "—" },
-    { emoji: "🧴", name: "SPF Moisturizer", origPrice: "71", price: "—" },
-  ];
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.bundleDeals;
 
   return (
-    <UseCaseWidgetPreview title="Morning Routine Bundle" subtitle="Save 50 SAR on the complete set">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>Bundle contents:</div>
+        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>{tr.contentsLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          {bundle.map((item, i) => (
+          {tr.items.map((item, i) => (
             <div key={i} style={{
               display: "flex",
               alignItems: "center",
@@ -36,7 +35,7 @@ export default function BundleDealsWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{item.name}</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR {item.origPrice}</span>
+                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{item.origPrice}</span>
                 </div>
               </div>
               <div style={{
@@ -67,8 +66,8 @@ export default function BundleDealsWidget() {
         alignItems: "center",
       }}>
         <div>
-          <div style={{ fontSize: 9, color: "var(--tm)" }}>Original total</div>
-          <div style={{ fontSize: 11, color: "var(--td)", textDecoration: "line-through", fontWeight: 700 }}>SAR 249</div>
+          <div style={{ fontSize: 9, color: "var(--tm)" }}>{tr.origTotalLabel}</div>
+          <div style={{ fontSize: 11, color: "var(--td)", textDecoration: "line-through", fontWeight: 700 }}>{tr.origTotal}</div>
         </div>
         <div style={{ textAlign: "center" }}>
           <div style={{
@@ -78,11 +77,11 @@ export default function BundleDealsWidget() {
             borderRadius: 20,
             background: "rgba(124,58,237,0.3)",
             color: "#c084fc",
-          }}>Save 50 SAR</div>
+          }}>{tr.saveBadge}</div>
         </div>
         <div style={{ textAlign: "left" }}>
-          <div style={{ fontSize: 9, color: "var(--tm)" }}>Bundle price</div>
-          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>SAR 199</div>
+          <div style={{ fontSize: 9, color: "var(--tm)" }}>{tr.bundlePriceLabel}</div>
+          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>{tr.bundlePrice}</div>
         </div>
       </div>
 
@@ -99,7 +98,7 @@ export default function BundleDealsWidget() {
         border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        🎁 Add Bundle to Cart
+        {tr.btnAdd}
       </button>
     </UseCaseWidgetPreview>
   );

@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "@/components/PlatformModal";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -57,6 +59,9 @@ function HomeSlider({ label, value, min, max, step, onChange, display, color, co
 }
 
 export default function HomeCalculator() {
+  const { lang } = useLanguage();
+  const tr = t[lang].homeCalculator;
+
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
@@ -81,7 +86,7 @@ export default function HomeCalculator() {
 
   const sliders: SliderProps[] = [
     {
-      label: "Monthly Visitors",
+      label: tr.labelVisitors,
       value: visitors,
       min: 1000,
       max: 500000,
@@ -92,7 +97,7 @@ export default function HomeCalculator() {
       colorRgb: "59,130,246",
     },
     {
-      label: "Conversion Rate",
+      label: tr.labelConvRate,
       value: convRate,
       min: 0.5,
       max: 15,
@@ -103,13 +108,13 @@ export default function HomeCalculator() {
       colorRgb: "34,197,94",
     },
     {
-      label: "Average Order Value",
+      label: tr.labelAOV,
       value: aov,
       min: 50,
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " SAR",
+      display: fmt(aov) + tr.resultCurrency,
       color: "#a855f7",
       colorRgb: "168,85,247",
     },
@@ -122,10 +127,10 @@ export default function HomeCalculator() {
         <div className="tc" style={{ marginBottom: 48 }}>
           <div className="stag rv" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />
-            Try It Now
+            {tr.tag}
           </div>
-          <h2 className="st rv d1 font-semibold">Calculate Your Additional Revenue</h2>
-          <p className="ssub rv d2">Move the sliders and see how much extra you can earn each month with Ziadah</p>
+          <h2 className="st rv d1 font-semibold">{tr.title}</h2>
+          <p className="ssub rv d2">{tr.subtitle}</p>
         </div>
 
         <div className="hc-card rv d2">
@@ -138,26 +143,26 @@ export default function HomeCalculator() {
 
             <div className="hc-result">
               <div className="hc-result-inner">
-                <div className="hc-result-label">Monthly Additional Revenue</div>
+                <div className="hc-result-label">{tr.resultLabel}</div>
                 <div className="hc-result-amount">
                   {fmt(Math.round(addRevenue))}
-                  <span className="hc-result-currency"> SAR</span>
+                  <span className="hc-result-currency">{tr.resultCurrency}</span>
                 </div>
-                <div className="hc-result-note">Based on 20% Cross-sell / Upsell acceptance rate and 30% AOV increase</div>
+                <div className="hc-result-note">{tr.resultNote}</div>
                 <div className="hc-result-ctas">
                   <span
                     onClick={() => navigateTo("/calculator")}
                     className="hc-btn-primary"
                     style={{ cursor: "pointer" }}
                   >
-                    Detailed Calculator →
+                    {tr.btnDetailed}
                   </span>
                   <button
                     type="button"
                     onClick={() => setModalOpen(true)}
                     className="hc-btn-secondary"
                   >
-                    Start for Free
+                    {tr.btnStart}
                   </button>
                 </div>
               </div>

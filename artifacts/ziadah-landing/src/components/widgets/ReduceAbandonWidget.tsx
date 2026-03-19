@@ -1,10 +1,15 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function ReduceAbandonWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.reduceAbandon;
+
   return (
-    <UseCaseWidgetPreview title="Special Offer Just for You" subtitle="Don't miss this deal!">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>We noticed your cart is still here 🛒</div>
+        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>{tr.noticeLabel}</div>
 
         <div style={{
           padding: "14px 16px",
@@ -13,9 +18,9 @@ export default function ReduceAbandonWidget() {
           border: "1.5px dashed rgba(236,72,153,.5)",
           marginBottom: 12,
         }}>
-          <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>10% Off</div>
-          <div style={{ fontSize: 9, color: "var(--tm)", marginTop: 3 }}>On your current order — now only</div>
-          <div style={{ fontSize: 13, fontWeight: 900, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>SAVE10</div>
+          <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>{tr.discountTitle}</div>
+          <div style={{ fontSize: 9, color: "var(--tm)", marginTop: 3 }}>{tr.discountSub}</div>
+          <div style={{ fontSize: 13, fontWeight: 900, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
 
         <div style={{
@@ -33,7 +38,7 @@ export default function ReduceAbandonWidget() {
           border: "1px solid rgba(239,68,68,.2)",
         }}>
           <span>⏱️</span>
-          <span>Expires in: 12:47</span>
+          <span>{tr.expiresLabel}</span>
         </div>
 
         <div style={{
@@ -48,7 +53,7 @@ export default function ReduceAbandonWidget() {
         }}>
           <span style={{ fontSize: 14 }}>🚚</span>
           <div style={{ textAlign: "left", flex: 1 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#34d399" }}>20 SAR away from free shipping</div>
+            <div style={{ fontSize: 9, fontWeight: 700, color: "#34d399" }}>{tr.shippingLabel}</div>
             <div style={{ height: 4, borderRadius: 10, background: "var(--s2)", marginTop: 4, overflow: "hidden" }}>
               <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#34d399" }} />
             </div>
@@ -70,11 +75,11 @@ export default function ReduceAbandonWidget() {
         cursor: "pointer",
         marginBottom: 6,
       }} className="widget-btn">
-        Complete Purchase with 10% Off
+        {tr.btnComplete}
       </button>
 
       <div style={{ textAlign: "center", fontSize: 9, color: "var(--td)" }}>
-        Code will be applied automatically at checkout
+        {tr.autoApplyNote}
       </div>
     </UseCaseWidgetPreview>
   );

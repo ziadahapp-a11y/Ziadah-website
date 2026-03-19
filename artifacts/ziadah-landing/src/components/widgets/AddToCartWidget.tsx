@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function AddToCartWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.addToCart;
+
   const [step, setStep] = useState<"adding" | "added" | "recommend">("adding");
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -23,16 +28,16 @@ export default function AddToCartWidget() {
   }, [runSequence]);
 
   return (
-    <UseCaseWidgetPreview title="Add to Cart" subtitle="Smart recommendation at add moment">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ minHeight: 220 }}>
         {step === "adding" && (
           <div style={{ textAlign: "center", padding: "28px 0" }}>
             <div style={{ fontSize: 36, marginBottom: 10 }}>🛍️</div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--t)", marginBottom: 6 }}>
-              SPF 50 Moisturizing Cream
+              {tr.productName}
             </div>
             <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 16 }}>
-              Qty: 1 × 89 SAR
+              {tr.qty}
             </div>
             <div style={{
               display: "inline-flex",
@@ -46,7 +51,7 @@ export default function AddToCartWidget() {
               color: "var(--p4, #a855f7)",
             }}>
               <span style={{ display: "inline-block" }}>⏳</span>
-              Adding to cart...
+              {tr.adding}
             </div>
           </div>
         )}
@@ -61,10 +66,10 @@ export default function AddToCartWidget() {
               margin: "0 auto 12px", fontSize: 22,
             }}>✓</div>
             <div style={{ fontSize: 13, fontWeight: 800, color: "#10b981", marginBottom: 4 }}>
-              Added to cart!
+              {tr.added}
             </div>
             <div style={{ fontSize: 11, color: "var(--td)" }}>
-              SPF 50 Moisturizing Cream
+              {tr.productName}
             </div>
           </div>
         )}
@@ -77,7 +82,7 @@ export default function AddToCartWidget() {
               background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.2)",
             }}>
               <span style={{ fontSize: 14 }}>✅</span>
-              <span style={{ fontSize: 10, color: "#10b981", fontWeight: 700 }}>Added to cart</span>
+              <span style={{ fontSize: 10, color: "#10b981", fontWeight: 700 }}>{tr.addedTag}</span>
             </div>
             <div style={{
               padding: "12px",
@@ -87,7 +92,7 @@ export default function AddToCartWidget() {
               backdropFilter: "blur(12px)",
             }}>
               <div style={{ fontSize: 10, color: "#a855f7", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
-                ✨ Customers who bought this also bought
+                {tr.alsoLabel}
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
                 <div style={{
@@ -98,10 +103,10 @@ export default function AddToCartWidget() {
                 }}>🧴</div>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>
-                    Brightening Vitamin C Serum
+                    {tr.suggestedName}
                   </div>
-                  <div style={{ fontSize: 10, color: "var(--td)" }}>Perfectly complements the cream</div>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>65 SAR</div>
+                  <div style={{ fontSize: 10, color: "var(--td)" }}>{tr.suggestedSub}</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>{tr.suggestedPrice}</div>
                 </div>
               </div>
               <button style={{
@@ -113,7 +118,7 @@ export default function AddToCartWidget() {
                 color: "#c084fc", fontSize: 14, fontWeight: 800,
                 border: "1px solid rgba(124,58,237,0.2)", cursor: "pointer",
               }}>
-                + Add Serum to Cart
+                {tr.btnAdd}
               </button>
             </div>
             <button
@@ -126,7 +131,7 @@ export default function AddToCartWidget() {
                 cursor: "pointer",
               }}
             >
-              ↩ Replay simulation
+              {tr.btnReplay}
             </button>
           </div>
         )}

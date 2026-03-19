@@ -1,10 +1,15 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function ProductSwapWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.productSwap;
+
   return (
-    <UseCaseWidgetPreview title="Product Upgrade" subtitle="This product is better for you">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>This product is better for you</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{
           padding: "12px",
           borderRadius: 14,
@@ -25,7 +30,7 @@ export default function ProductSwapWidget() {
             color: "#34d399",
             marginBottom: 10,
           }}>
-            ⭐ Special Offer
+            {tr.specialOfferBadge}
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <div style={{
@@ -40,11 +45,11 @@ export default function ProductSwapWidget() {
               flexShrink: 0,
             }}>🎧</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>iPhone Charger Head & Cable</div>
-              <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>4.95 ⭐ · 4,681 reviews</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{tr.productName}</div>
+              <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>{tr.reviews}</div>
               <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 4 }}>
-                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR 280</span>
-                <span style={{ fontSize: 14, fontWeight: 900, color: "var(--t)" }}>SAR 240</span>
+                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.origPrice}</span>
+                <span style={{ fontSize: 14, fontWeight: 900, color: "var(--t)" }}>{tr.newPrice}</span>
                 <span style={{
                   fontSize: 9,
                   padding: "2px 7px",
@@ -52,7 +57,7 @@ export default function ProductSwapWidget() {
                   background: "rgba(16,185,129,.15)",
                   color: "#34d399",
                   fontWeight: 700,
-                }}>Save 40 SAR</span>
+                }}>{tr.saveBadge}</span>
               </div>
             </div>
           </div>
@@ -68,7 +73,7 @@ export default function ProductSwapWidget() {
           border: "1px solid rgba(16,185,129,.2)",
         }}>
           <span style={{ color: "#34d399", fontSize: 10 }}>✓</span>
-          <span style={{ fontSize: 9, color: "var(--tm)" }}>Includes 1-year warranty + free shipping</span>
+          <span style={{ fontSize: 9, color: "var(--tm)" }}>{tr.warrantyNote}</span>
         </div>
         <button style={{
           width: "100%",
@@ -83,7 +88,7 @@ export default function ProductSwapWidget() {
           border: "1px solid rgba(124,58,237,0.2)",
           cursor: "pointer",
         }} className="widget-btn">
-          Upgrade to this product
+          {tr.btnUpgrade}
         </button>
       </div>
     </UseCaseWidgetPreview>

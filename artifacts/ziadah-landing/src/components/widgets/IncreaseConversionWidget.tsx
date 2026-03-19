@@ -1,8 +1,13 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function IncreaseConversionWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.increaseConversion;
+
   return (
-    <UseCaseWidgetPreview title="Special Offer for New Customers" subtitle="Buy with confidence">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 12 }}>
         <div style={{
           padding: "12px 14px",
@@ -12,10 +17,10 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
           textAlign: "center",
         }}>
-          <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 4 }}>🎉 Your gift as a new customer</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>50 SAR Discount</div>
-          <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>On first order over 200 SAR</div>
-          <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>WELCOME50</div>
+          <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 4 }}>{tr.giftLabel}</div>
+          <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>{tr.discountAmount}</div>
+          <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.discountNote}</div>
+          <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
 
         <div style={{
@@ -24,11 +29,7 @@ export default function IncreaseConversionWidget() {
           gap: 6,
           marginBottom: 10,
         }}>
-          {[
-            { icon: "⭐", text: "4.9/5 — 23,000+ reviews" },
-            { icon: "🔄", text: "Free returns within 14 days" },
-            { icon: "🚚", text: "Fast delivery in 2-3 days" },
-          ].map((item, i) => (
+          {tr.trustItems.map((item, i) => (
             <div key={i} style={{
               display: "flex",
               gap: 8,
@@ -55,7 +56,7 @@ export default function IncreaseConversionWidget() {
           alignItems: "center",
         }}>
           <span style={{ fontSize: 14 }}>👥</span>
-          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>3 people bought this product in the last hour</span>
+          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>{tr.socialProof}</span>
         </div>
       </div>
 
@@ -72,7 +73,7 @@ export default function IncreaseConversionWidget() {
         border: "1px solid rgba(16,185,129,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        Buy Now & Get the Discount
+        {tr.btnBuy}
       </button>
     </UseCaseWidgetPreview>
   );

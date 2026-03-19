@@ -1,29 +1,19 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function RelatedProductsWidget() {
-  const products = [
-    {
-      emoji: "🎧",
-      name: "iPhone Charger Head & Cable",
-      reviews: "4.95 ⭐ · 4,681 reviews",
-      price: "240",
-    },
-    {
-      emoji: "🔌",
-      name: "Apple EarPods",
-      reviews: "4.95 ⭐ · 4,681 reviews",
-      price: "240",
-    },
-  ];
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.relatedProducts;
 
   return (
-    <UseCaseWidgetPreview title="Related Products" subtitle="Products customers love">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 10 }}>
         <div
           style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[5px] text-[10px]">Products customers love</div>
+          className="mt-[5px] text-[10px]">{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {products.map((p, i) => (
+          {tr.products.map((p, i) => (
             <div key={i} style={{
               display: "flex",
               gap: 10,
@@ -47,7 +37,7 @@ export default function RelatedProductsWidget() {
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
                 <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>SAR {p.price}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>{tr.currency}{p.price}</div>
               </div>
               <button style={{
                 padding: "6px 12px",
@@ -62,7 +52,7 @@ export default function RelatedProductsWidget() {
                 cursor: "pointer",
                 flexShrink: 0,
               }} className="widget-btn-sm">
-                Add to Cart
+                {tr.btnAdd}
               </button>
             </div>
           ))}

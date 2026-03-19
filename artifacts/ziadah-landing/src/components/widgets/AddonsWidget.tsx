@@ -1,38 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
-
-const initialAddons = [
-  { emoji: "📱", name: "Phone Protective Case", price: 39, checked: true },
-  { emoji: "🔋", name: "Fast Wireless Charger", price: 65, checked: false },
-  { emoji: "🎧", name: "Wireless Earbuds", price: 89, checked: true },
-  { emoji: "🛡️", name: "Glass Screen Protector", price: 15, checked: false },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function AddonsWidget() {
-  const [addons, setAddons] = useState(initialAddons);
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.addons;
+
+  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
+
+  useEffect(() => {
+    setChecked(tr.items.map(item => item.checked));
+  }, [lang]);
 
   const toggle = (idx: number) => {
-    setAddons(prev => prev.map((a, i) => i === idx ? { ...a, checked: !a.checked } : a));
+    setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
   };
 
-  const total = addons.filter(a => a.checked).reduce((s, a) => s + a.price, 0);
+  const total = tr.items.reduce((s, a, i) => checked[i] ? s + a.price : s, 0);
 
   return (
-    <UseCaseWidgetPreview title="Complementary Add-ons" subtitle="Don't forget to complete your set">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 10 }}>
         <div
           style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[8px] text-[9px]">Complementary add-ons for your product</div>
+          className="mt-[8px] text-[9px]">{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {addons.map((a, i) => (
+          {tr.items.map((a, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
               display: "flex",
               alignItems: "center",
               gap: 9,
               padding: "8px 10px",
               borderRadius: 10,
-              background: a.checked ? "rgba(124,58,237,.15)" : "var(--s1)",
-              border: a.checked ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid var(--b1)",
+              background: checked[i] ? "rgba(124,58,237,.15)" : "var(--s1)",
+              border: checked[i] ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid var(--b1)",
               cursor: "pointer",
               transition: "all .2s ease",
             }}>
@@ -40,20 +42,20 @@ export default function AddonsWidget() {
                 width: 17,
                 height: 17,
                 borderRadius: 5,
-                background: a.checked ? "rgba(124,58,237,0.5)" : "var(--b1)",
+                background: checked[i] ? "rgba(124,58,237,0.5)" : "var(--b1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
                 transition: "all .2s ease",
               }}>
-                {a.checked && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
+                {checked[i] && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: a.checked ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
+                <div style={{ fontSize: 10, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: a.checked ? "#c084fc" : "var(--td)" }}>+{a.price} SAR</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
             </div>
           ))}
         </div>
@@ -68,8 +70,8 @@ export default function AddonsWidget() {
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "var(--tm)" }}>Total with add-ons</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total} SAR</span>
+        <span style={{ fontSize: 10, color: "var(--tm)" }}>{tr.totalLabel}</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total}{tr.currency}</span>
       </div>
       <button style={{
         width: "100%",
@@ -84,7 +86,7 @@ export default function AddonsWidget() {
         border: "1px solid rgba(124,58,237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
-        Add selected add-ons to cart
+        {tr.btnAdd}
       </button>
     </UseCaseWidgetPreview>
   );

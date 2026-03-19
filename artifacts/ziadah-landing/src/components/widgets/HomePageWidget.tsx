@@ -1,8 +1,13 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
 export default function HomePageWidget() {
+  const { lang } = useLanguage();
+  const tr = t[lang].widgets.homePage;
+
   return (
-    <UseCaseWidgetPreview title="Welcome back 👋" subtitle="A store personalized for you">
+    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 10 }}>
         <div style={{
           padding: "10px 12px",
@@ -11,7 +16,7 @@ export default function HomePageWidget() {
           border: "1.5px solid rgba(124,58,237,.3)",
           marginBottom: 10,
         }}>
-          <div style={{ fontSize: 9, color: "var(--tm)", marginBottom: 5 }}>Left in your last visit:</div>
+          <div style={{ fontSize: 9, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <div style={{
               width: 36,
@@ -25,10 +30,10 @@ export default function HomePageWidget() {
               flexShrink: 0,
             }}>👟</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>Ultraboost Running Shoes</div>
+              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
               <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>SAR 499</span>
-                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>SAR 649</span>
+                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
+                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
               </div>
             </div>
             <button style={{
@@ -43,7 +48,7 @@ export default function HomePageWidget() {
               border: "1px solid rgba(124,58,237,0.2)",
               cursor: "pointer",
               flexShrink: 0,
-            }} className="widget-btn-sm">Add</button>
+            }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
         </div>
 
@@ -59,17 +64,14 @@ export default function HomePageWidget() {
         }}>
           <span style={{ fontSize: 12 }}>⏱️</span>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>This offer expires in</div>
+            <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>{tr.offerExpires}</div>
             <div style={{ fontSize: 11, fontWeight: 900, color: "var(--t)" }}>02:47:13</div>
           </div>
         </div>
 
-        <div style={{ fontSize: 9, color: "var(--td)", marginBottom: 7 }}>Top sellers in your categories:</div>
+        <div style={{ fontSize: 9, color: "var(--td)", marginBottom: 7 }}>{tr.topSellersLabel}</div>
         <div style={{ display: "flex", gap: 7 }}>
-          {[
-            { emoji: "🧢", name: "Sports Cap", price: "89" },
-            { emoji: "🎽", name: "Sports T-Shirt", price: "129" },
-          ].map((p, i) => (
+          {tr.miniProducts.map((p, i) => (
             <div key={i} style={{
               flex: 1,
               padding: "8px",
@@ -80,7 +82,7 @@ export default function HomePageWidget() {
             }}>
               <div style={{ fontSize: 20, marginBottom: 3 }}>{p.emoji}</div>
               <div style={{ fontSize: 9, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 10, fontWeight: 800, color: "#c084fc" }}>SAR {p.price}</div>
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
             </div>
           ))}
         </div>
