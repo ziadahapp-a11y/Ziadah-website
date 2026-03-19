@@ -125,12 +125,8 @@ export default function Landing() {
     y: { s: 290, g: 2990, p: 7990 },
   };
 
-  const testimonials = [
+  const testimonialsRow1 = [
     {
-      stat1: "+٣٢٪",
-      l1: "زيادة مبيعات",
-      stat2: "+١٨٪",
-      l2: "متوسط الطلب",
       text: "تطبيق جبار ساعدني على استهداف العميل داخل المتجر. السعر مو شئ أمام النتيجة. لم أجد أي تطبيق شامل كأداة تسويقية مع تحليلات مفصلة.",
       name: "عسل رشوف",
       role: "متجر عسل طبيعي",
@@ -138,10 +134,6 @@ export default function Landing() {
       col: "linear-gradient(135deg,#7c3aed,#5b21b6)",
     },
     {
-      stat1: "+٤١٪",
-      l1: "قيمة الطلب",
-      stat2: "10x",
-      l2: "عائد الاشتراك",
       text: "فنانين، متعاونين، عبااقرة! حجم المردود لا يقارن بقيمة الاشتراك. اشتركوا وتوكلوا على الله.",
       name: "سكندز",
       role: "متجر أزياء",
@@ -149,10 +141,6 @@ export default function Landing() {
       col: "linear-gradient(135deg,#059669,#047857)",
     },
     {
-      stat1: "+٢٨٪",
-      l1: "زيادة مبيعات",
-      stat2: "٢٤h",
-      l2: "وقت التفعيل",
       text: "تطبيق أكثر من رائع - النتائج مدهشة! خسارة اني ما عرفت التطبيق قبل كذا. خدمة العملاء مميزة يساعدونك حتى تحقق مبيعات.",
       name: "الجباره",
       role: "متجر متعدد الأصناف",
@@ -160,10 +148,29 @@ export default function Landing() {
       col: "linear-gradient(135deg,#06b6d4,#0891b2)",
     },
     {
-      stat1: "+٣٥٪",
-      l1: "معدل التحويل",
-      stat2: "+٢٢٪",
-      l2: "إعادة الطلب",
+      text: "تطبيق زيادة بعد تجربة أكثر من شهر جدا ممتاز يزيد المبيعات فعلا، يظهر موقعك بشكل احترافي اكثر وتنوع الأساليب والطرق فيه بحيث لكل منتج اجراء معين فيه بقوة.",
+      name: "Miss Designs | مس ديزاين",
+      role: "متجر أزياء",
+      av: "م",
+      col: "linear-gradient(135deg,#ec4899,#9333ea)",
+    },
+    {
+      text: "أنصح التجار اللي عندهم ملاحقات كثيرة إن ما يترددوا و يشتركوا معهم، برنامج سهل و مفيد كثير و جاب لي نتايج شهيرة خلال يوم بس!!",
+      name: "Jawan",
+      role: "متجر",
+      av: "J",
+      col: "linear-gradient(135deg,#f59e0b,#d97706)",
+    },
+    {
+      text: "تطبيق ممتاز ودعم فني نشيط وبعد تعديل باقاتهم لتكون حسب البيع المحقق عن طريقهم صار تطبيق مثالي.",
+      name: "ناتشورال تاتش",
+      role: "متجر عناية طبيعية",
+      av: "ن",
+      col: "linear-gradient(135deg,#10b981,#059669)",
+    },
+  ];
+  const testimonialsRow2 = [
+    {
       text: "التطبيق من أكثر التطبيقات فعالية في زيادة السلة. فريق يهتم لتفاصيل التفاصيل ويأخذ باراء العملاء.",
       name: "Nahla Oil",
       role: "متجر زيوت طبيعية",
@@ -171,10 +178,6 @@ export default function Landing() {
       col: "linear-gradient(135deg,#ec4899,#be185d)",
     },
     {
-      stat1: "+٢٥٪",
-      l1: "زيادة مبيعات",
-      stat2: "⭐⭐⭐⭐⭐",
-      l2: "تقييم المنصة",
       text: "رائع وسهل انصح فيه لرفع مبيعات السلة. كل الشكر لخدمة العملاء والفريق كل التوفيق.",
       name: "FABIAN",
       role: "متجر أزياء رجالية",
@@ -182,19 +185,35 @@ export default function Landing() {
       col: "linear-gradient(135deg,#f59e0b,#d97706)",
     },
     {
-      stat1: "+٥٠٪",
-      l1: "سلة التبرعات",
-      stat2: "+٣٠٪",
-      l2: "المتبرعين",
       text: "تطبيق متميز سهّل عملية التبرعات وأتاح فرص إضافية للمساهمة. فريق العمل متعاون جداً ومتفاعل.",
       name: "جمعية القرآن",
       role: "منصة تبرعات",
       av: "ق",
       col: "linear-gradient(135deg,#4f46e5,#4338ca)",
     },
+    {
+      text: "ممتاز جدا و زينب من الدعم متفاعلة جدا في الدعم وسرعة حل اي مشكلة.",
+      name: "KHOBRAA ALMOJTAMA",
+      role: "متجر",
+      av: "K",
+      col: "linear-gradient(135deg,#06b6d4,#0891b2)",
+    },
+    {
+      text: "ممتاز وخدمة رائعة.",
+      name: "Diva202511",
+      role: "متجر",
+      av: "D",
+      col: "linear-gradient(135deg,#a855f7,#7c3aed)",
+    },
+    {
+      text: "تطبيق ممتاز وسهل وخدمة العملاء عندهم تجاوب بشكل سريع وفوري.",
+      name: "كهرمان",
+      role: "متجر",
+      av: "ك",
+      col: "linear-gradient(135deg,#f97316,#ea580c)",
+    },
   ];
-
-  const faqs = [
+    const faqs = [
     {
       q: "هل يتطلب مني خبرة تقنية؟",
       a: "لا، بمجرد تفعيل التطبيق الذكاء الاصطناعي يبدأ يعمل لوحده. ما تحتاج تحدد أي حملات أو إعدادات تقنية.",
@@ -208,8 +227,8 @@ export default function Landing() {
       a: "معظم التجار يلاحظون فرقاً في أول أسبوع. النتائج تتحسن تدريجياً مع تراكم البيانات.",
     },
     {
-      q: "ما الفرق بين زيادة والعروض المخصصة في سلة؟",
-      a: "العروض المخصصة في سلة تعمل في حدث واحد فقط. زيادة يعمل في ١٠ أحداث، يدعم ٥ أهداف و٥ طرق عرض، ولديه ذكاء اصطناعي يختار الأنسب تلقائياً مع تقارير تفصيلية.",
+      q: "ما الفرق بين زيادة والتطبيقات الأخرى؟",
+      a: "العروض المخصصة في سلة تعمل في حدث واحد فقط. زيادة شامل جميع أنواع الاقتراحات, يستخدم الذكاء الاصطناعي, قاعدة بيانات ضخمة تستفيد منها مباشرة عند تفعيلك التطبيق .",
     },
     {
       q: "هل هناك ضمان على النتائج؟",
@@ -1516,44 +1535,51 @@ export default function Landing() {
         </div>
       </section>
       {/* TESTIMONIALS */}
-      <section id="testimonials">
+      <section id="testimonials" style={{ overflow: "hidden" }}>
         <div className="wrap">
           <div className="tc" style={{ marginBottom: 56 }}>
             <SecTag>آراء تجارنا</SecTag>
             <h2 className="st rv d1">
-              أرقام حقيقية
+              آراء حقيقية
               <br />
               من تجار حقيقيين
             </h2>
             <p className="ssub rv d2">
-              نتائج موثقة من متاجر تستخدم زيادة يومياً
+              تقييمات موثقة من متاجر تستخدم زيادة يومياً
             </p>
           </div>
-          <div className="test-grid">
-            {testimonials.map((t, i) => (
-              <GlassCard key={i} lift className={`tc-card rv d${(i % 3) + 1}`}>
+        </div>
+        <div className="marquee-row" style={{ marginBottom: 20 }}>
+          <div className="marquee-track marquee-rtl">
+            {[...testimonialsRow1, ...testimonialsRow1].map((t, i) => (
+              <div key={i} className="gc tc-card-slim">
                 <div className="tc-stars">★★★★★</div>
-                <div className="tc-stats">
-                  <div>
-                    <div className="ts-n">{t.stat1}</div>
-                    <div className="ts-l">{t.l1}</div>
-                  </div>
-                  <div>
-                    <div className="ts-n">{t.stat2}</div>
-                    <div className="ts-l">{t.l2}</div>
-                  </div>
-                </div>
                 <div className="tc-text">{t.text}</div>
                 <div className="tc-author">
-                  <div className="tc-av" style={{ background: t.col }}>
-                    {t.av}
-                  </div>
+                  <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
                   <div>
                     <div className="tc-name">{t.name}</div>
                     <div className="tc-role">{t.role}</div>
                   </div>
                 </div>
-              </GlassCard>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="marquee-row">
+          <div className="marquee-track marquee-ltr">
+            {[...testimonialsRow2, ...testimonialsRow2].map((t, i) => (
+              <div key={i} className="gc tc-card-slim">
+                <div className="tc-stars">★★★★★</div>
+                <div className="tc-text">{t.text}</div>
+                <div className="tc-author">
+                  <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
+                  <div>
+                    <div className="tc-name">{t.name}</div>
+                    <div className="tc-role">{t.role}</div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
