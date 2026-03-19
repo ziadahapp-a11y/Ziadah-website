@@ -2111,7 +2111,7 @@ export default function Landing() {
                       <div className="hcb-sub">جلسة 30 دقيقة مجانية</div>
                     </div>
                   </a>
-                  <a href="#" className="hcb hcb-doc">
+                  <a href="/support" className="hcb hcb-doc">
                     <div className="hcb-ico hcb-doc">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path
@@ -2139,7 +2139,7 @@ export default function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <div>مركز التوثيق</div>
+                      <div>مركز المساعدة</div>
                       <div className="hcb-sub">دليل خطوة بخطوة</div>
                     </div>
                   </a>
