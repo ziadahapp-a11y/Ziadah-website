@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import CartDemoMockup from "../../components/CartDemoMockup";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,6 +58,7 @@ const data: UseCasePageData = {
   plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل سلة النيّة إلى سلة مكتملة",
   ctaDesc: "قلّل التخلي وارفع قيمة الطلب في نفس الوقت مع زيادة.",
+  extraSections: <CartDemoMockup />,
 };
 
 export default function CartPage() {
