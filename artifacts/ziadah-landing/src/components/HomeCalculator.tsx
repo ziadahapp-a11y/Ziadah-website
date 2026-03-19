@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { navigateTo } from "@/components/PageTransition";
+import PlatformModal from "@/components/PlatformModal";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -59,6 +60,7 @@ export default function HomeCalculator() {
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const aovUplift = 30;
   const acceptRate = 20;
@@ -114,6 +116,7 @@ export default function HomeCalculator() {
   ];
 
   return (
+    <>
     <section className="hc-sec">
       <div className="wrap">
         <div className="tc" style={{ marginBottom: 48 }}>
@@ -149,14 +152,13 @@ export default function HomeCalculator() {
                   >
                     حاسبة تفصيلية ←
                   </span>
-                  <a
-                    href="https://apps.zid.sa/app/ziadah"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(true)}
                     className="hc-btn-secondary"
                   >
                     ابدأ مجاناً
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -164,5 +166,7 @@ export default function HomeCalculator() {
         </div>
       </div>
     </section>
+    <PlatformModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }
