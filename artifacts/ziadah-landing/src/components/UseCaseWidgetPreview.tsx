@@ -8,17 +8,19 @@ interface UseCaseWidgetPreviewProps {
 
 export default function UseCaseWidgetPreview({ title, subtitle, children }: UseCaseWidgetPreviewProps) {
   return (
-    <div style={{
-      background: "rgba(255,255,255,0.08)",
-      border: "2px solid #7c3aed",
-      borderRadius: 20,
-      boxShadow: "0 8px 40px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08)",
-      overflow: "hidden",
-      direction: "rtl",
-      minWidth: 280,
-      maxWidth: 360,
-      margin: "0 auto",
-    }}>
+    <div
+      style={{
+        background: "rgba(255,255,255,0.08)",
+        border: "2px solid #7c3aed",
+        borderRadius: 20,
+        boxShadow: "0 8px 40px rgba(124,58,237,.18), 0 2px 8px rgba(124,58,237,.08)",
+        overflow: "hidden",
+        direction: "rtl",
+        minWidth: 280,
+        maxWidth: 360,
+        margin: "0 auto",
+      }}
+      className="bg-[#00000014] text-right mt-[0px] mb-[0px]">
       <div style={{
         background: "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
         padding: "12px 18px",
