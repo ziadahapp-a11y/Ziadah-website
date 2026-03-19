@@ -607,7 +607,7 @@ export default function Landing() {
                 <br />
                 في متجرك
               </h2>
-              <p className="ssub rv d2">هكذا الي بيظهر لعملاءك داخل المتجر</p>
+              <p className="ssub rv d2">ما سيظهر لعملائك داخل المتجر</p>
             </div>
           </div>
           {(() => {
