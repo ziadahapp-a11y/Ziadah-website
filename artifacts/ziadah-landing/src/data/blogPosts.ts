@@ -65,17 +65,9 @@ export const blogPosts: BlogPost[] = [
 
 ## العميل الحقيقي: ناصر ونورة
 
-تخيّل عميلَين يدخلان نفس المتجر في نفس اللحظة:
+تخيّل عميلَين يدخلان نفس المتجر في نفس اللحظة. ناصر، رجل في الثلاثين يزور متجرك للمرة الخامسة هذا الشهر، ونورة، تزوره لأول مرة قادمةً من إعلان رمضان. هل يجب أن يريا نفس التوصيات؟ بالطبع لا. ومحرك زيادة يعرف ذلك تماماً — جرب التبديل بينهما:
 
-![ناصر — عميل متكرر](avatar-male.png)
-
-**ناصر** — رجل في الثلاثين، يزور متجرك للمرة الخامسة هذا الشهر. اشترى سابقاً أحذية رياضية وملابس رياضية. يتصفح الآن قسم الإكسسوارات.
-
-![نورة — عميلة جديدة](avatar-female.png)
-
-**نورة** — تزور المتجر لأول مرة. جاءت من إعلان عن عروض رمضان. تتصفح قسم العطور.
-
-هل يجب أن يرى ناصر ونورة نفس التوصيات؟ بالطبع لا. ومحرك زيادة يعرف ذلك تماماً.
+:::interactive-demo
 
 :::callout
 ✨ **المبدأ الأساسي:** كل عميل هو عالَم مستقل. التوصية الذكية ليست "ما يشتريه الجميع" — بل "ما يحتاجه هذا الشخص تحديداً، في هذه اللحظة تحديداً."
@@ -170,17 +162,9 @@ The answer isn't magic. It's precise science, big data, and algorithms working a
 
 ## The Real Customer: Nasser and Noura
 
-Imagine two customers entering the same store at the same moment:
+Imagine two customers entering the same store at the same moment. Nasser, a man in his thirties visiting your store for the fifth time this month, and Noura, a first-time visitor who arrived from a Ramadan sale ad. Should they see the same recommendations? Of course not. And Ziyada's engine knows this perfectly — try switching between them:
 
-![Nasser — Returning Customer](avatar-male.png)
-
-**Nasser** — a man in his thirties, visiting your store for the fifth time this month. He previously bought athletic shoes and sportswear. He's now browsing the accessories section.
-
-![Noura — New Customer](avatar-female.png)
-
-**Noura** — visiting the store for the first time. She arrived from a Ramadan sale ad. She's browsing the fragrances section.
-
-Should Nasser and Noura see the same recommendations? Of course not. And Ziyada's engine knows this perfectly.
+:::interactive-demo
 
 :::callout
 ✨ **The Core Principle:** Every customer is an independent world. A smart recommendation isn't "what everyone buys" — it's "what this specific person needs, at this specific moment."

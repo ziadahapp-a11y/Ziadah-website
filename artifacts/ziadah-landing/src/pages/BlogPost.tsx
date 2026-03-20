@@ -9,6 +9,7 @@ import SEO from "../components/SEO";
 import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
+import CustomerProfileDemo from "../components/CustomerProfileDemo";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -19,6 +20,12 @@ function renderContent(content: string) {
     const line = lines[i].trim();
 
     if (!line) {
+      i++;
+      continue;
+    }
+
+    if (line === ":::interactive-demo") {
+      elements.push(<CustomerProfileDemo key={`demo-${i}`} />);
       i++;
       continue;
     }
