@@ -23,6 +23,94 @@ function renderContent(content: string) {
       continue;
     }
 
+    if (line === ":::callout") {
+      const calloutLines: string[] = [];
+      i++;
+      while (i < lines.length && lines[i].trim() !== ":::") {
+        calloutLines.push(lines[i].trim());
+        i++;
+      }
+      i++;
+      elements.push(
+        <div
+          key={`callout-${i}`}
+          style={{
+            margin: "28px 0",
+            padding: "20px 24px",
+            background: "linear-gradient(135deg, rgba(249,115,22,0.12) 0%, rgba(234,88,12,0.06) 100%)",
+            border: "1px solid rgba(249,115,22,0.35)",
+            borderRadius: 16,
+            borderInlineStart: "4px solid #f97316",
+            display: "flex",
+            flexDirection: "column",
+            gap: 6,
+          }}
+        >
+          {calloutLines.map((cl, ci) => (
+            <p
+              key={ci}
+              style={{
+                fontSize: 15,
+                color: "var(--t)",
+                lineHeight: 1.8,
+                margin: 0,
+              }}
+            >
+              {formatInline(cl)}
+            </p>
+          ))}
+        </div>
+      );
+      continue;
+    }
+
+    const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imgMatch) {
+      const alt = imgMatch[1];
+      const src = imgMatch[2];
+      const isAbsolute = src.startsWith("http") || src.startsWith("/");
+      const resolvedSrc = isAbsolute ? src : `/${src}`;
+      elements.push(
+        <figure
+          key={`img-${i}`}
+          style={{
+            margin: "32px auto",
+            textAlign: "center",
+            maxWidth: 320,
+          }}
+        >
+          <img
+            src={resolvedSrc}
+            alt={alt}
+            style={{
+              width: "100%",
+              maxWidth: 220,
+              height: "auto",
+              borderRadius: 20,
+              boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06)",
+              display: "block",
+              margin: "0 auto",
+              border: "1px solid rgba(255,255,255,0.08)",
+            }}
+          />
+          {alt && (
+            <figcaption
+              style={{
+                marginTop: 12,
+                fontSize: 13,
+                color: "var(--td)",
+                fontStyle: "italic",
+              }}
+            >
+              {alt}
+            </figcaption>
+          )}
+        </figure>
+      );
+      i++;
+      continue;
+    }
+
     if (line.startsWith("## ")) {
       elements.push(
         <h2

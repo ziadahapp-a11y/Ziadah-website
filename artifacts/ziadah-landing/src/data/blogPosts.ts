@@ -20,6 +20,7 @@ export interface BlogPost {
 
 export const categories = [
   { id: "all", label: "جميع المقالات", labelEn: "All Articles" },
+  { id: "updates", label: "التحديثات", labelEn: "Updates" },
   { id: "sales-strategies", label: "استراتيجيات البيع", labelEn: "Sales Strategies" },
   { id: "platform-tutorials", label: "شروحات المنصة", labelEn: "Platform Tutorials" },
   { id: "artificial-intelligence", label: "الذكاء الاصطناعي", labelEn: "Artificial Intelligence" },
@@ -29,6 +30,7 @@ export const categories = [
 ];
 
 export const categoryColors: Record<string, string> = {
+  "updates": "#f97316",
   "sales-strategies": "#a855f7",
   "platform-tutorials": "#06b6d4",
   "artificial-intelligence": "#10b981",
@@ -38,6 +40,233 @@ export const categoryColors: Record<string, string> = {
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "ziyada-ai-smart-recommendations",
+    title: "محرك التوصيات الذكي في زيادة: كيف يعرف كل عميل ما يريد قبل أن يطلبه؟",
+    titleEn: "Ziyada AI Smart Recommendations Engine: How It Knows What Every Customer Wants Before They Ask",
+    category: "updates",
+    categoryColor: "#f97316",
+    readTime: "12 دقيقة",
+    readTimeEn: "12 min",
+    publishDate: "20 مارس 2026",
+    publishDateEn: "March 20, 2026",
+    publishDateIso: "2026-03-20",
+    summary: "اليوم نكشف لك الستار عن المحرك الأكثر تطوراً في منصة زيادة — نظام التوصيات بالذكاء الاصطناعي الذي يحلل كل نقرة وكل ثانية قضاها العميل في متجرك ليقترح المنتج المثالي في اللحظة المثالية.",
+    summaryEn: "Today we lift the curtain on the most advanced engine in the Ziyada platform — the AI recommendations system that analyzes every click and every second a customer spends in your store to suggest the perfect product at the perfect moment.",
+    coverGradient: "linear-gradient(135deg, rgba(249,115,22,0.5) 0%, rgba(234,88,12,0.3) 100%)",
+    coverIcon: "🧠",
+    related: ["ai-recommendations-guide", "how-ai-learns-customer-behavior", "personalization-ecommerce"],
+    content: `
+## اليوم، نكشف الستار
+
+منذ أن أطلقنا زيادة، كان السؤال الأكثر تكراراً من التجار هو: **"كيف يعرف النظام ما يريده عميلي؟"**
+
+الجواب ليس سحراً. هو علم دقيق، وبيانات ضخمة، وخوارزميات تعمل على مدار الساعة. وفي هذا المقال، سنشرح لك كيف يعمل محرك التوصيات الذكي في زيادة — بالتفاصيل التي لم نشاركها من قبل.
+
+## العميل الحقيقي: ناصر ونورة
+
+تخيّل عميلَين يدخلان نفس المتجر في نفس اللحظة:
+
+![ناصر — عميل متكرر](avatar-male.png)
+
+**ناصر** — رجل في الثلاثين، يزور متجرك للمرة الخامسة هذا الشهر. اشترى سابقاً أحذية رياضية وملابس رياضية. يتصفح الآن قسم الإكسسوارات.
+
+![نورة — عميلة جديدة](avatar-female.png)
+
+**نورة** — تزور المتجر لأول مرة. جاءت من إعلان عن عروض رمضان. تتصفح قسم العطور.
+
+هل يجب أن يرى ناصر ونورة نفس التوصيات؟ بالطبع لا. ومحرك زيادة يعرف ذلك تماماً.
+
+:::callout
+✨ **المبدأ الأساسي:** كل عميل هو عالَم مستقل. التوصية الذكية ليست "ما يشتريه الجميع" — بل "ما يحتاجه هذا الشخص تحديداً، في هذه اللحظة تحديداً."
+:::
+
+## كيف يعمل المحرك: 5 مستويات من الذكاء
+
+### المستوى الأول: فهم الهوية
+
+قبل أي شيء، يبني النظام ملفاً شاملاً لكل زائر:
+
+- **العمر التقريبي وطريقة التصفح:** جيل Z يتصفح بسرعة ويقرر بسرعة. الجيل الأكبر يقرأ التفاصيل أكثر.
+- **المنطقة الجغرافية:** الرياض والجبيل يختلفان في الأذواق.
+- **الجهاز المستخدم:** مستخدم الجوال يحتاج توصيات أقل وأوضح.
+- **مصدر الزيارة:** من جاء من إعلان عرض خاص يختلف عمن جاء من بحث عضوي.
+
+### المستوى الثاني: قراءة النية الآنية
+
+كل حركة تحمل رسالة. النظام يقرأ:
+
+- **وقت التوقف على كل منتج:** 8 ثوانٍ أو أقل = مجرد تصفح. 30 ثانية أو أكثر = اهتمام حقيقي.
+- **التكبير على الصور:** من يكبّر الصورة هو على وشك الشراء.
+- **قراءة المراجعات:** إشارة قوية جداً للنية الجادة.
+- **إضافة وحذف من السلة:** التردد يفتح باب عروض الإقناع.
+
+### المستوى الثالث: الذاكرة التراكمية
+
+النظام لا ينسى:
+
+- ما اشتراه العميل قبل 6 أشهر
+- ما نظر إليه لكن لم يشترِه
+- ما أعاد زيارته أكثر من مرة
+- أوقات نشاطه المفضلة
+
+### المستوى الرابع: ذكاء المجتمع
+
+يتعلم من آلاف العملاء المشابهين:
+
+- "العملاء الذين اشتروا ما اشتراه ناصر، اشتروا أيضاً..."
+- "العميلات اللواتي يشبهن نورة في نمط التصفح، يُكملن بـ..."
+- الأنماط الموسمية لكل فئة منتجات
+
+### المستوى الخامس: السياق الزمني
+
+الوقت يغيّر كل شيء:
+
+| الوقت / المناسبة | التوصية الذكية |
+|-----------------|----------------|
+| رمضان الكريم | منتجات الضيافة، العطور، الهدايا |
+| قبل العيد بأسبوع | الملابس، الأكسسوارات، الهدايا |
+| الجمعة السوداء | أعلى المنتجات مبيعاً بخصومات واضحة |
+| منتصف الشهر | المنتجات الأساسية والاستهلاكية |
+| منتصف الليل | منتجات أقل سعراً، قرارات شراء أسرع |
+
+## مقارنة: الأدوات التقليدية مقابل زيادة AI
+
+| المعيار | الأدوات التقليدية | زيادة AI |
+|---------|------------------|---------|
+| أساس التوصية | الأكثر مبيعاً عاماً | ملف شخصي فردي |
+| وقت التعلم | لا يتعلم | يتحسن مع كل طلب |
+| تخصيص المناسبات | يدوي من التاجر | تلقائي 100% |
+| عدد الإشارات المحللة | 3 - 5 | أكثر من 40 إشارة |
+| معدل التحويل المتوقع | 1% - 2% | 4% - 8% |
+| الوقت المطلوب من التاجر | ساعات أسبوعياً | صفر |
+
+## مميزات المحرك بالتفصيل
+
+- **التوصيات في الوقت الحقيقي:** كل صفحة تُحدّث التوصيات لحظياً بناءً على ما فعله العميل للتو.
+- **نماذج متعددة في آنٍ واحد:** Cross-sell و Upsell وإكمال المجموعات — كلها تعمل معاً وتتنافس على أفضل نتيجة.
+- **حماية من الإزعاج:** النظام يعرف متى يتوقف. إذا رفض العميل توصية، لا يعيد اقتراحها.
+- **لوحة تحكم شفافة:** ترى بالضبط ما يقترحه النظام ولماذا، مع إمكانية التدخل اليدوي.
+- **اختبار A/B تلقائي:** النظام يختبر صياغات ومواضع مختلفة للتوصيات ويختار الأفضل.
+
+:::callout
+✨ **في الأسابيع الستة الأولى من التشغيل:** يرتفع متوسط قيمة الطلب بين 18% و 34%، ويزيد معدل التحويل بنسبة تصل إلى 3 أضعاف مقارنة بالتوصيات الثابتة.
+:::
+
+## الخلاصة: التجربة الشخصية ليست رفاهية
+
+في عالم حيث كل متجر يبيع نفس المنتجات بنفس الأسعار تقريباً، التمييز الحقيقي هو **التجربة**. العميل الذي يشعر أن المتجر "يفهمه" يعود. والعميل الذي يشعر أنه رقم في قائمة لا يعود.
+
+محرك زيادة AI موجود لتحويل كل زيارة إلى تجربة شخصية، وكل تجربة شخصية إلى عملية شراء، وكل عملية شراء إلى علاقة طويلة الأمد.
+
+**هل أنت مستعد لتجربة الفرق؟ ابدأ اليوم مجاناً.**
+    `,
+    contentEn: `
+## Today, We Lift the Curtain
+
+Since we launched Ziyada, the most frequently asked question from merchants has been: **"How does the system know what my customer wants?"**
+
+The answer isn't magic. It's precise science, big data, and algorithms working around the clock. In this article, we'll explain how Ziyada's AI recommendations engine works — with details we've never shared before.
+
+## The Real Customer: Nasser and Noura
+
+Imagine two customers entering the same store at the same moment:
+
+![Nasser — Returning Customer](avatar-male.png)
+
+**Nasser** — a man in his thirties, visiting your store for the fifth time this month. He previously bought athletic shoes and sportswear. He's now browsing the accessories section.
+
+![Noura — New Customer](avatar-female.png)
+
+**Noura** — visiting the store for the first time. She arrived from a Ramadan sale ad. She's browsing the fragrances section.
+
+Should Nasser and Noura see the same recommendations? Of course not. And Ziyada's engine knows this perfectly.
+
+:::callout
+✨ **The Core Principle:** Every customer is an independent world. A smart recommendation isn't "what everyone buys" — it's "what this specific person needs, at this specific moment."
+:::
+
+## How the Engine Works: 5 Levels of Intelligence
+
+### Level 1: Understanding Identity
+
+Before anything else, the system builds a comprehensive profile for every visitor:
+
+- **Approximate age and browsing style:** Gen Z browses fast and decides fast. Older generations read more details.
+- **Geographic region:** Riyadh and Jeddah differ in tastes.
+- **Device used:** Mobile users need fewer, clearer recommendations.
+- **Traffic source:** Someone who came from a special offer ad differs from someone who came from organic search.
+
+### Level 2: Reading Real-Time Intent
+
+Every movement carries a message. The system reads:
+
+- **Time spent on each product:** 8 seconds or less = casual browsing. 30 seconds or more = genuine interest.
+- **Image zoom:** A customer who zooms in is close to buying.
+- **Reading reviews:** A very strong signal of serious intent.
+- **Adding and removing from cart:** Hesitation opens the door for persuasion offers.
+
+### Level 3: Cumulative Memory
+
+The system never forgets:
+
+- What the customer bought 6 months ago
+- What they viewed but didn't buy
+- What they revisited more than once
+- Their favorite activity times
+
+### Level 4: Community Intelligence
+
+It learns from thousands of similar customers:
+
+- "Customers who bought what Nasser bought, also bought..."
+- "Female customers who browse like Noura, continue with..."
+- Seasonal patterns for each product category
+
+### Level 5: Temporal Context
+
+Time changes everything:
+
+| Time / Occasion | Smart Recommendation |
+|----------------|---------------------|
+| Holy Ramadan | Hospitality products, fragrances, gifts |
+| One week before Eid | Clothing, accessories, gifts |
+| Black Friday | Best-selling products with clear discounts |
+| Mid-month | Essential and consumable products |
+| Late night | Lower-priced products, faster purchase decisions |
+
+## Comparison: Traditional Tools vs. Ziyada AI
+
+| Criterion | Traditional Tools | Ziyada AI |
+|-----------|------------------|----------|
+| Recommendation basis | General best sellers | Individual personal profile |
+| Learning time | Does not learn | Improves with every order |
+| Occasion personalization | Manual by merchant | 100% automatic |
+| Number of analyzed signals | 3 - 5 | More than 40 signals |
+| Expected conversion rate | 1% - 2% | 4% - 8% |
+| Time required from merchant | Hours per week | Zero |
+
+## Engine Features in Detail
+
+- **Real-time recommendations:** Every page updates recommendations instantly based on what the customer just did.
+- **Multiple models simultaneously:** Cross-sell, Upsell, and set completion — all working together and competing for the best result.
+- **Protection from annoyance:** The system knows when to stop. If a customer rejects a recommendation, it won't suggest it again.
+- **Transparent dashboard:** See exactly what the system is suggesting and why, with the ability to intervene manually.
+- **Automatic A/B testing:** The system tests different recommendation phrasing and placements and selects the best performer.
+
+:::callout
+✨ **In the first six weeks of operation:** Average order value rises between 18% and 34%, and conversion rate increases up to 3x compared to static recommendations.
+:::
+
+## Conclusion: Personalized Experience Is Not a Luxury
+
+In a world where every store sells the same products at roughly the same prices, the real differentiator is **experience**. The customer who feels the store "understands them" comes back. The customer who feels like a number on a list doesn't.
+
+Ziyada AI's engine exists to turn every visit into a personal experience, every personal experience into a purchase, and every purchase into a long-term relationship.
+
+**Are you ready to experience the difference? Start free today.**
+    `,
+  },
   {
     slug: "how-to-increase-average-order-value",
     title: "10 طرق مجربة لرفع متوسط قيمة الطلب في متجرك",
