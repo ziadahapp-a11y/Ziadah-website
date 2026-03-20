@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useTheme } from "../ThemeContext";
+import { useLanguage } from "../i18n/LanguageContext";
 
 interface PlatformModalProps {
   open: boolean;
@@ -8,7 +9,9 @@ interface PlatformModalProps {
 
 export default function PlatformModal({ open, onClose }: PlatformModalProps) {
   const { theme } = useTheme();
+  const { isAr, dir } = useLanguage();
   const lt = theme === "light";
+
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -50,6 +53,8 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           position: "relative",
           boxShadow: lt ? "0 24px 80px rgba(0,0,0,.12)" : "0 24px 80px rgba(124,58,237,0.35), 0 0 0 1px rgba(168,85,247,0.1)",
           textAlign: "center",
+          direction: dir,
+          fontFamily: "var(--font)",
         }}
       >
         {/* Close button */}
@@ -59,7 +64,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           style={{
             position: "absolute",
             top: 14,
-            left: 14,
+            [isAr ? "right" : "left"]: 14,
             background: "var(--s2)",
             border: "1px solid var(--b2)",
             borderRadius: 8,
@@ -87,13 +92,15 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
         {/* Title */}
         <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
-          Choose Your Platform
+          {isAr ? "اختر منصتك" : "Choose Your Platform"}
         </p>
         <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "var(--t)", marginBottom: 8, lineHeight: 1.2 }}>
-          Which platform is your store on?
+          {isAr ? "متجرك على أي منصة؟" : "Which platform is your store on?"}
         </h3>
         <p style={{ color: "var(--td)", fontSize: 14, marginBottom: 32 }}>
-          Activate Ziadah in 2 minutes and start making more sales instantly
+          {isAr
+            ? "فعّل زيادة في دقيقتين وابدأ رحلتك نحو مبيعات أعلى"
+            : "Activate Ziadah in 2 minutes and start making more sales instantly"}
         </p>
 
         {/* Platform buttons */}
@@ -134,7 +141,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
               <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
             </svg>
-            Zid Platform
+            {isAr ? "منصة زد" : "Zid Platform"}
           </a>
 
           {/* Salla */}
@@ -174,11 +181,13 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
               <rect x="3" y="3" width="12" height="12" rx="3" fill="rgba(255,255,255,0.3)" />
               <path d="M6 9h6M9 6v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            Salla Platform
+            {isAr ? "منصة سلة" : "Salla Platform"}
           </a>
         </div>
 
-        <p style={{ color: "var(--td)", fontSize: 12, marginTop: 20 }}>7-day free trial · No credit card required</p>
+        <p style={{ color: "var(--td)", fontSize: 12, marginTop: 20 }}>
+          {isAr ? "تجربة مجانية 7 أيام · بدون بطاقة ائتمانية" : "7-day free trial · No credit card required"}
+        </p>
       </div>
     </div>
   );

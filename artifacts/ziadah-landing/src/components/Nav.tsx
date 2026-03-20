@@ -4,6 +4,7 @@ import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
+import PlatformModal from "./PlatformModal";
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -587,7 +588,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
   );
 }
 
-function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void; onFeatureRequest?: () => void }) {
+function MobileMoreDropdown({ onClose, onFeatureRequest, onStartNow }: { onClose: () => void; onFeatureRequest?: () => void; onStartNow?: () => void }) {
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -858,20 +859,20 @@ function MobileMoreDropdown({ onClose, onFeatureRequest }: { onClose: () => void
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 4 }}>
-          <a href="#" onClick={onClose} style={{
+          <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" onClick={onClose} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             border: "1px solid var(--b2)", background: "transparent",
             color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
           }}>
             {tr.nav.bookMeeting}
           </a>
-          <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" style={{
+          <button onClick={() => { onClose(); onStartNow?.(); }} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
-            textDecoration: "none", fontFamily: "var(--font)", border: "none",
+            fontFamily: "var(--font)", border: "none", cursor: "pointer",
           }}>
             {tr.nav.startNow}
-          </a>
+          </button>
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", gap: 8, paddingBottom: 4 }}>
@@ -892,6 +893,7 @@ export default function Nav() {
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -929,6 +931,7 @@ export default function Nav() {
   return (
     <>
       {featureModalOpen && <FeatureRequestModal onClose={() => setFeatureModalOpen(false)} />}
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
@@ -1044,8 +1047,8 @@ export default function Nav() {
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <ThemeToggle />
             <LanguageSwitcher />
-            <a href="#" className="nb nav-cta-outline">{tr.nav.bookMeeting}</a>
-            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" className="nb nav-cta-fill">{tr.nav.startNow}</a>
+            <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">{tr.nav.bookMeeting}</a>
+            <button onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>{tr.nav.startNow}</button>
           </div>
         </div>
 
@@ -1197,6 +1200,7 @@ export default function Nav() {
         <MobileMoreDropdown
           onClose={() => setMoreOpen(false)}
           onFeatureRequest={() => { setMoreOpen(false); setFeatureModalOpen(true); }}
+          onStartNow={() => { setMoreOpen(false); setPlatformModalOpen(true); }}
         />
       )}
     </>
