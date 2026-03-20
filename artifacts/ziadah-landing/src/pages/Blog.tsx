@@ -54,18 +54,26 @@ export default function Blog() {
   }
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const obs = new IntersectionObserver(
-      (es) => {
-        es.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("on");
-        });
-      },
-      { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
-    );
-    document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
+    if (activeCategory === "all" && !search) {
+      window.scrollTo(0, 0);
+    }
+    let obs: IntersectionObserver | null = null;
+    const timer = setTimeout(() => {
+      obs = new IntersectionObserver(
+        (es) => {
+          es.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("on");
+          });
+        },
+        { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
+      );
+      document.querySelectorAll(".rv").forEach((el) => obs!.observe(el));
+    }, 50);
+    return () => {
+      clearTimeout(timer);
+      obs?.disconnect();
+    };
+  }, [activeCategory, search]);
 
   const getCategoryLabel = (catId: string) => {
     const catObj = categories.find(c => c.id === catId);
