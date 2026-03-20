@@ -4,17 +4,15 @@ import nawaf from "@assets/Frame_1321314905_1773891999653.png";
 import ayat from "@assets/Frame_1321314908_1773891999654.png";
 import zainab from "@assets/Frame_1321314906_1773891999654.png";
 import tahseen from "@assets/Frame_1321314907_1773891999654.png";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
 
-const team = [
-  { name: "Ali Al-Dahneen", role: "Co-founder — Head of Product Development", img: ali },
-  { name: "Mahmoud Ahmed", role: "Co-founder — Chief Technology Officer", img: mahmoud },
-  { name: "Nawaf Al-Darray", role: "Co-founder — Business Advisor", img: nawaf },
-  { name: "Ayat", role: "Merchant Success Manager", img: ayat },
-  { name: "Zainab Al-Saffar", role: "Product Marketing & Partnerships Manager", img: zainab },
-  { name: "Tahsinullah", role: "Frontend Developer", img: tahseen },
-];
+const imgs = [ali, mahmoud, nawaf, ayat, zainab, tahseen];
 
 export default function TeamSection() {
+  const { lang } = useLanguage();
+  const tr = t[lang].team;
+
   return (
     <section
       id="team"
@@ -27,12 +25,12 @@ export default function TeamSection() {
         <div className="tc" style={{ marginBottom: 56 }}>
           <div className="stag rv">
             <span className="stag-dot" />
-            Our Team
+            {tr.tag}
           </div>
           <h2 className="st rv d1 font-semibold" style={{ fontSize: 48 }}>
-            The <span className="grad">Ziadah</span> Team
+            {tr.title} <span className="grad">{tr.titleGrad}</span>
           </h2>
-          <p className="ssub rv d2">Over 10 years of combined experience in e-commerce and digital marketing.</p>
+          <p className="ssub rv d2">{tr.subtitle}</p>
         </div>
 
         <div
@@ -43,9 +41,9 @@ export default function TeamSection() {
           }}
           className="team-grid"
         >
-          {team.map((member, i) => (
+          {tr.members.map((member, i) => (
             <div
-              key={member.name}
+              key={i}
               className={`rv d${(i % 3) + 1}`}
               style={{
                 background: "var(--s1)",
@@ -76,7 +74,7 @@ export default function TeamSection() {
                 }}
               >
                 <img
-                  src={member.img}
+                  src={imgs[i]}
                   alt={member.name}
                   style={{
                     position: "absolute",

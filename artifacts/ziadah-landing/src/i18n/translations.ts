@@ -719,6 +719,20 @@ export const t = {
         btnAdd: "أضف للسلة",
       },
     },
+    team: {
+      tag: "فريقنا",
+      title: "فريق",
+      titleGrad: "زيادة",
+      subtitle: "أكثر من 10 سنوات من الخبرة المشتركة في التجارة الإلكترونية والتسويق الرقمي.",
+      members: [
+        { name: "علي الدحنين", role: "مؤسس مشارك — رئيس تطوير المنتج" },
+        { name: "محمود أحمد", role: "مؤسس مشارك — المدير التقني" },
+        { name: "نواف الضرعي", role: "مؤسس مشارك — مستشار الأعمال" },
+        { name: "آيات", role: "مديرة نجاح التجار" },
+        { name: "زينب الصفار", role: "مديرة تسويق المنتج والشراكات" },
+        { name: "Tahsinullah", role: "مطور واجهة أمامية" },
+      ] as { name: string; role: string }[],
+    },
   },
   en: {
     nav: {
@@ -1439,6 +1453,20 @@ export const t = {
       relatedArticles: "Related Articles",
       tipLabel: "Tip",
       warningLabel: "Warning",
+    },
+    team: {
+      tag: "Our Team",
+      title: "The",
+      titleGrad: "Ziadah",
+      subtitle: "Over 10 years of combined experience in e-commerce and digital marketing.",
+      members: [
+        { name: "Ali Al-Dahneen", role: "Co-founder — Head of Product Development" },
+        { name: "Mahmoud Ahmed", role: "Co-founder — Chief Technology Officer" },
+        { name: "Nawaf Al-Darray", role: "Co-founder — Business Advisor" },
+        { name: "Ayat", role: "Merchant Success Manager" },
+        { name: "Zainab Al-Saffar", role: "Product Marketing & Partnerships Manager" },
+        { name: "Tahsinullah", role: "Frontend Developer" },
+      ] as { name: string; role: string }[],
     },
   },
 };
