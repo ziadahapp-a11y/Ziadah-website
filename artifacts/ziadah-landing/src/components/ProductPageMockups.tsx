@@ -177,7 +177,7 @@ function MockupCard({
         />
         <div
           style={{
-            background: "linear-gradient(160deg,#1a1033 0%,#0f0a20 100%)",
+            background: "var(--bg)",
             borderRadius: 34,
             overflow: "hidden",
             minHeight: 500,

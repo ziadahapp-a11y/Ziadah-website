@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "مضاعفة الإيراد بدون إنفاق ⃁ واحد إضافي على الإعلانات — فقط بتحسين معدل التحويل.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يُحوّل زيادة الزائر إلى مشترٍ؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو اقتراح رفع التحويل كما يراه عميلك الجديد</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يُحوّل زيادة الزائر إلى مشترٍ؟" : "How does Ziadah convert visitors into buyers?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يبدو اقتراح رفع التحويل كما يراه عميلك الجديد" : "This is how the conversion boost looks to your new customer"}</p>
         <IncreaseConversionWidget />
       </div>
     </section>
@@ -72,17 +72,24 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>العوامل التي ترفع معدل التحويل</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-            {[
+            {(isAr ? [
               { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#a855f7" },
               { icon: "🤝", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
               { icon: "⚡", title: "الإلحاح", desc: "عروض محدودة الوقت وعدادات توقيت تحفّز الشراء الآن", color: "#f59e0b" },
               { icon: "💎", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#10b981" },
               { icon: "🔄", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
               { icon: "📱", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
-            ].map((item, i) => (
-              <div key={i} style={{ padding: "20px 20px", background: "rgba(0,0,0,.25)", border: "1px solid var(--b1)", borderRadius: 14 }}>
+            ] : [
+              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#a855f7" },
+              { icon: "🤝", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
+              { icon: "⚡", title: "Urgency", desc: "Time-limited offers and countdown timers motivate buying now", color: "#f59e0b" },
+              { icon: "💎", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#10b981" },
+              { icon: "🔄", title: "Simplicity", desc: "Smooth buying path without obstacles reduces friction", color: "#ec4899" },
+              { icon: "📱", title: "Mobile Compatibility", desc: "Seamless experience across all devices and screens", color: "#4f46e5" },
+            ]).map((item, i) => (
+              <div key={i} style={{ padding: "20px 20px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14 }}>
                 <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
                 <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 6, color: item.color }}>{item.title}</div>
                 <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{item.desc}</div>

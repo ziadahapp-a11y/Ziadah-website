@@ -57,7 +57,7 @@ export interface UseCasePageData {
   ctaTitleEn?: string;
   ctaDesc: string;
   ctaDescEn?: string;
-  extraSections?: React.ReactNode;
+  extraSections?: React.ReactNode | ((isAr: boolean) => React.ReactNode);
   seo?: {
     title: string;
     titleEn?: string;
@@ -232,7 +232,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       )}
 
       {/* EXTRA SECTIONS */}
-      {data.extraSections}
+      {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
 
       {/* REPORTS HIGHLIGHT */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>

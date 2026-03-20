@@ -25,7 +25,7 @@ export default function ThankYouMockup() {
           <div className="phone-mockup-wrap" style={{
             width: 340,
             maxWidth: "100%",
-            background: "linear-gradient(160deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%)",
+            background: "var(--bg)",
             borderRadius: 44,
             padding: "14px 12px",
             boxShadow: "0 40px 100px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.12)",

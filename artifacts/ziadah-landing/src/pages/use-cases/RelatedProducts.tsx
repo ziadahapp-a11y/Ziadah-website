@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "متوسط قبول اقتراح 'منتجات ذات صلة' يبلغ 38٪ عند استخدام زر الإضافة المباشر مقابل 16٪ عند الاكتفاء بالرابط — الفارق في التصميم يصنع الفارق في الإيراد.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة اقتراح المنتجات ذات الصلة كما يراها عميلك فعلياً</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح المنتجات ذات الصلة كما يراها عميلك فعلياً" : "This is how the related products suggestion looks to your customer"}</p>
         <RelatedProductsWidget />
       </div>
     </section>
@@ -72,14 +72,19 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>أين تظهر 'منتجات ذات صلة'؟</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "أين تظهر 'منتجات ذات صلة'؟" : "Where do 'Related Products' appear?"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-            {[
+            {(isAr ? [
               { place: "📄 صفحة المنتج", note: "أسفل الوصف أو في الشريط الجانبي" },
               { place: "🛒 صفحة السلة", note: "قبل الدفع لزيادة قيمة الطلب" },
               { place: "🏠 الصفحة الرئيسية", note: "بناءً على آخر تصفح للعميل" },
               { place: "🏷️ صفحة التصنيف", note: "بين المنتجات أو في الشريط الجانبي" },
-            ].map((item, i) => (
+            ] : [
+              { place: "📄 Product Page", note: "Below the description or in the sidebar" },
+              { place: "🛒 Cart Page", note: "Before checkout to increase order value" },
+              { place: "🏠 Home Page", note: "Based on the customer's recent browsing" },
+              { place: "🏷️ Category Page", note: "Between products or in the sidebar" },
+            ]).map((item, i) => (
               <div key={i} style={{ padding: "20px 24px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 14, textAlign: "center" }}>
                 <div style={{ fontSize: 22, marginBottom: 8 }}>{item.place}</div>
                 <div style={{ fontSize: 13, color: "var(--tm)" }}>{item.note}</div>

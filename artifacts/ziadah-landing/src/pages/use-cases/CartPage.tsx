@@ -56,22 +56,22 @@ const data: UseCasePageData = {
     ],
     result: "الطلب ارتفع من 170 إلى 202 ⃁ والعميل شعر أنه هو من استفاد من الصفقة.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>واجهات صفحة السلة — قسيمة الخصم وشريط الشحن المجاني</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "واجهات صفحة السلة — قسيمة الخصم وشريط الشحن المجاني" : "Cart page widgets — auto-applied coupon and free-shipping progress bar"}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "center" }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>قسيمة خصم تلقائية</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "قسيمة خصم تلقائية" : "Automatic discount coupon"}</div>
             <CouponWidget />
           </div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>الوصول للشحن المجاني</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "الوصول للشحن المجاني" : "Free shipping progress"}</div>
             <FreeShippingThresholdWidget />
           </div>
         </div>

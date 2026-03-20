@@ -55,15 +55,15 @@ const data: UseCasePageData = {
     ],
     result: "العميل انتقل مباشرة للمنتج وأتم الشراء مع الكومبو — وقت الشراء انخفض من 12 دقيقة إلى 3 دقائق.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف تظهر الصفحة الرئيسية المُخصَّصة؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يستقبل عميلك العائد الصفحة الرئيسية المُصمَّمة خصيصاً له</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر الصفحة الرئيسية المُخصَّصة؟" : "How does the personalized home page look?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يستقبل عميلك العائد الصفحة الرئيسية المُصمَّمة خصيصاً له" : "This is how your returning customer is greeted by a home page designed just for them"}</p>
         <HomePageWidget />
       </div>
     </section>

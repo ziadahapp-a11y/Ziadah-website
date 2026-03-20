@@ -26,10 +26,10 @@ const nasserProfile = {
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [
-    { label: "متوسط مشترياته", labelEn: "Avg. Order", value: "261 ⃁" },
-    { label: "سلته الحالية", labelEn: "Current Cart", value: "24 ⃁" },
-    { label: "وقت الشراء", labelEn: "Shopping Time", value: "7:20م" },
-    { label: "يوم الشراء", labelEn: "Shopping Day", value: "الأحد" },
+    { label: "متوسط مشترياته", labelEn: "Avg. Order", value: "261 ⃁", valueEn: "261 SAR" },
+    { label: "سلته الحالية", labelEn: "Current Cart", value: "24 ⃁", valueEn: "24 SAR" },
+    { label: "وقت الشراء", labelEn: "Shopping Time", value: "7:20م", valueEn: "7:20 PM" },
+    { label: "يوم الشراء", labelEn: "Shopping Day", value: "الأحد", valueEn: "Sunday" },
   ],
   payment: "يستخدم تابي",
   paymentEn: "Uses Tabby (BNPL)",
@@ -50,10 +50,10 @@ const nouraProfile = {
     { text: "عطور وجمال", textEn: "Fragrance & Beauty", color: "#14b8a6" },
   ],
   stats: [
-    { label: "مصدر الزيارة", labelEn: "Traffic Source", value: "إعلان رمضان" },
-    { label: "القسم الحالي", labelEn: "Current Section", value: "العطور" },
-    { label: "وقت الزيارة", labelEn: "Visit Time", value: "3:45م" },
-    { label: "المناسبة", labelEn: "Occasion", value: "رمضان" },
+    { label: "مصدر الزيارة", labelEn: "Traffic Source", value: "إعلان رمضان", valueEn: "Ramadan Ad" },
+    { label: "القسم الحالي", labelEn: "Current Section", value: "العطور", valueEn: "Fragrances" },
+    { label: "وقت الزيارة", labelEn: "Visit Time", value: "3:45م", valueEn: "3:45 PM" },
+    { label: "المناسبة", labelEn: "Occasion", value: "رمضان", valueEn: "Ramadan" },
   ],
   payment: "زيارة أولى — بدون بيانات سابقة",
   paymentEn: "First-time visitor — no prior data",
@@ -77,20 +77,22 @@ export default function CustomerProfileDemo() {
         borderRadius: 24,
         overflow: "hidden",
         border: "1px solid rgba(124,58,237,0.2)",
-        background: "linear-gradient(160deg, rgba(15,10,30,0.95) 0%, rgba(8,5,20,0.98) 100%)",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
+        background: "var(--s1)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
         fontFamily: "var(--font)",
+        backdropFilter: "blur(24px)",
+        transition: "var(--theme-transition)",
       }}
     >
-      {/* Header Tabs */}
       <div
         style={{
           display: "flex",
-          borderBottom: "1px solid rgba(124,58,237,0.15)",
-          background: "rgba(10,5,20,0.6)",
+          borderBottom: "1px solid var(--b1)",
+          background: "var(--s1)",
           padding: "0 24px",
           gap: 4,
           alignItems: "center",
+          transition: "var(--theme-transition)",
         }}
       >
         <span
@@ -133,7 +135,7 @@ export default function CustomerProfileDemo() {
                   width: 28,
                   height: 28,
                   borderRadius: "50%",
-                  background: isActive ? p.color : "rgba(255,255,255,0.06)",
+                  background: isActive ? p.color : "var(--s2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -147,11 +149,11 @@ export default function CustomerProfileDemo() {
               <span
                 style={{
                   fontSize: 10,
-                  background: isActive ? `${p.color}22` : "rgba(255,255,255,0.04)",
+                  background: isActive ? `${p.color}22` : "var(--s1)",
                   color: isActive ? p.color : "var(--td)",
                   padding: "2px 8px",
                   borderRadius: 20,
-                  border: `1px solid ${isActive ? `${p.color}44` : "rgba(255,255,255,0.06)"}`,
+                  border: `1px solid ${isActive ? `${p.color}44` : "var(--b1)"}`,
                   transition: "all 0.2s",
                 }}
               >
@@ -162,7 +164,6 @@ export default function CustomerProfileDemo() {
         })}
       </div>
 
-      {/* Body */}
       <div
         style={{
           display: "grid",
@@ -171,14 +172,12 @@ export default function CustomerProfileDemo() {
         }}
         className="cpd-grid"
       >
-        {/* Left: Profile Card */}
         <div
           style={{
             padding: "28px 24px",
-            borderInlineEnd: "1px solid rgba(124,58,237,0.1)",
+            borderInlineEnd: "1px solid var(--b1)",
           }}
         >
-          {/* Profile header */}
           <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
             <div
               style={{
@@ -205,7 +204,6 @@ export default function CustomerProfileDemo() {
             </div>
           </div>
 
-          {/* Tags */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
             {profile.tags.map((tag, i) => (
               <span
@@ -225,7 +223,6 @@ export default function CustomerProfileDemo() {
             ))}
           </div>
 
-          {/* Stats Grid */}
           <div
             style={{
               display: "grid",
@@ -238,23 +235,23 @@ export default function CustomerProfileDemo() {
               <div
                 key={i}
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: "var(--s1)",
+                  border: "1px solid var(--b1)",
                   borderRadius: 12,
                   padding: "12px 14px",
+                  transition: "var(--theme-transition)",
                 }}
               >
                 <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 4, lineHeight: 1.3 }}>
                   {isAr ? stat.label : stat.labelEn}
                 </div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>
-                  {stat.value}
+                  {isAr ? stat.value : stat.valueEn}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Payment method */}
           <div
             style={{
               padding: "10px 14px",
@@ -270,7 +267,6 @@ export default function CustomerProfileDemo() {
             💳 {isAr ? profile.payment : profile.paymentEn}
           </div>
 
-          {/* Past purchases */}
           <div>
             <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 10, letterSpacing: 0.5, textTransform: "uppercase" }}>
               {isAr ? "مشترياته السابقة" : "Past Purchases"}
@@ -288,9 +284,10 @@ export default function CustomerProfileDemo() {
                       fontSize: 11,
                       padding: "3px 10px",
                       borderRadius: 20,
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.08)",
+                      background: "var(--s1)",
+                      border: "1px solid var(--b1)",
                       color: "var(--td)",
+                      transition: "var(--theme-transition)",
                     }}
                   >
                     {item}
@@ -301,9 +298,7 @@ export default function CustomerProfileDemo() {
           </div>
         </div>
 
-        {/* Right: AI Recommendations */}
         <div style={{ padding: "28px 24px" }}>
-          {/* Header */}
           <div style={{ marginBottom: 20 }}>
             <div
               style={{
@@ -330,7 +325,6 @@ export default function CustomerProfileDemo() {
             </div>
           </div>
 
-          {/* Product Cards */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {profile.products.map((prod, i) => (
               <div
@@ -345,14 +339,13 @@ export default function CustomerProfileDemo() {
                   background:
                     hoveredProduct === i
                       ? `${profile.color}10`
-                      : "rgba(255,255,255,0.025)",
-                  border: `1px solid ${hoveredProduct === i ? `${profile.color}40` : "rgba(255,255,255,0.06)"}`,
+                      : "var(--s1)",
+                  border: `1px solid ${hoveredProduct === i ? `${profile.color}40` : "var(--b1)"}`,
                   borderRadius: 14,
                   cursor: "default",
                   transition: "all 0.2s",
                 }}
               >
-                {/* Rank */}
                 <div
                   style={{
                     width: 22,
@@ -371,9 +364,7 @@ export default function CustomerProfileDemo() {
                 >
                   {i + 1}
                 </div>
-                {/* Emoji */}
                 <div style={{ fontSize: 22, flexShrink: 0 }}>{prod.emoji}</div>
-                {/* Info */}
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div
                     style={{
@@ -392,7 +383,6 @@ export default function CustomerProfileDemo() {
                     💡 {isAr ? prod.reason : prod.reasonEn}
                   </div>
                 </div>
-                {/* Price */}
                 <div
                   style={{
                     fontSize: 14,
@@ -407,7 +397,6 @@ export default function CustomerProfileDemo() {
             ))}
           </div>
 
-          {/* AI reasoning note */}
           <div
             style={{
               marginTop: 16,
@@ -437,7 +426,7 @@ export default function CustomerProfileDemo() {
           }
           .cpd-grid > div:first-child {
             border-inline-end: none !important;
-            border-bottom: 1px solid rgba(124,58,237,0.1);
+            border-bottom: 1px solid var(--b1);
           }
         }
       `}</style>

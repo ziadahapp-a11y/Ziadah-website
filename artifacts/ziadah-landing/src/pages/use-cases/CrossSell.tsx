@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "في جميع هذه الأمثلة، معدل قبول الاقتراح المتقاطع بين 25 و45٪ — كل قبول واحد يساوي طلباً إضافياً بدون تكلفة تسويق.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر البيع المتقاطع للعميل؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة اقتراح البيع المتقاطع كما يراها عميلك فعلياً</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر البيع المتقاطع للعميل؟" : "How does cross-selling appear to customers?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح البيع المتقاطع كما يراها عميلك فعلياً" : "This is how the cross-sell suggestion looks to your customer"}</p>
         <CrossSellWidget />
       </div>
     </section>
@@ -72,12 +72,12 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>الفرق بين البيع المتقاطع والبيع البديل</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "الفرق بين البيع المتقاطع والبيع البديل" : "Cross-selling vs. Upselling"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
             <div style={{ padding: "24px 28px", background: "rgba(6,182,212,.05)", border: "1px solid rgba(6,182,212,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>🔗 البيع المتقاطع (Cross-sell)</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>{isAr ? "🔗 البيع المتقاطع (Cross-sell)" : "🔗 Cross-Selling"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"].map((item, i) => (
+                {(isAr ? ["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"] : ["Suggests complementary products", "Increases number of products in cart", "Works on product page and cart", "Example: phone + case + screen protector"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
                   </li>
@@ -85,9 +85,9 @@ const data: UseCasePageData = {
               </ul>
             </div>
             <div style={{ padding: "24px 28px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>⬆️ البيع البديل (Upsell)</div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "⬆️ البيع البديل (Upsell)" : "⬆️ Upselling"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"].map((item, i) => (
+                {(isAr ? ["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"] : ["Suggests a better version of the same product", "Increases the main product price", "Primarily works on the product page", "Example: basic phone → higher-spec phone"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
                   </li>

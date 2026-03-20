@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "عرض 'الشراء معاً' بخيار إضافة الكل دفعة واحدة يرفع نسبة تبنّي الطقم الكامل من 9٪ إلى 33٪ — كل ثلاثة أفراد من كل عشرة يختارون الطقم بدلاً من قطعة واحدة.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف يظهر للعميل داخل المتجر؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة اقتراح الشراء معاً كما يراها عميلك فعلياً</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الشراء معاً كما يراها عميلك فعلياً" : "This is how the 'Bought Together' suggestion looks to your customer"}</p>
         <BuyTogetherWidget />
       </div>
     </section>
@@ -72,12 +72,12 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>الفرق بين 'الشراء معاً' و'عروض الحزم'</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "الفرق بين 'الشراء معاً' و'عروض الحزم'" : "'Bought Together' vs. Bundle Deals"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
             <div style={{ padding: "24px 28px", background: "rgba(6,182,212,.05)", border: "1px solid rgba(6,182,212,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>🤝 الشراء معاً</div>
+              <div style={{ fontSize: 17, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>{isAr ? "🤝 الشراء معاً" : "🤝 Bought Together"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {["مبني على بيانات الارتباط الفعلي", "كل منتج يحتفظ بسعره المستقل", "يُظهر الإجمالي بدون خصم إلزامي", "مناسب لأي نوع من المنتجات"].map((item, i) => (
+                {(isAr ? ["مبني على بيانات الارتباط الفعلي", "كل منتج يحتفظ بسعره المستقل", "يُظهر الإجمالي بدون خصم إلزامي", "مناسب لأي نوع من المنتجات"] : ["Based on real association data", "Each product keeps its independent price", "Shows total without mandatory discount", "Suitable for any product type"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
                   </li>
@@ -85,9 +85,9 @@ const data: UseCasePageData = {
               </ul>
             </div>
             <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#10b981", marginBottom: 12 }}>🎁 عروض الحزم (Bundle)</div>
+              <div style={{ fontSize: 17, fontWeight: 800, color: "#10b981", marginBottom: 12 }}>{isAr ? "🎁 عروض الحزم (Bundle)" : "🎁 Bundle Deals"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {["سعر خاص للمجموعة كوحدة واحدة", "يُبرز التوفير كحافز رئيسي", "يُباع الطقم بسعر أقل من المجموع", "يحفّز على شراء كميات أو مجموعات"].map((item, i) => (
+                {(isAr ? ["سعر خاص للمجموعة كوحدة واحدة", "يُبرز التوفير كحافز رئيسي", "يُباع الطقم بسعر أقل من المجموع", "يحفّز على شراء كميات أو مجموعات"] : ["Special price for the group as one unit", "Highlights savings as the main incentive", "Set sold at less than individual total", "Encourages buying quantities or sets"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#10b981", fontWeight: 700 }}>✓</span> {item}
                   </li>

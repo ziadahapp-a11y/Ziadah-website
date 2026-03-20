@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "أتمّت الشراء بقيمة 440 ⃁ بدلاً من التخلي عن 380 ⃁ — استرداد قيمة الطلب وزيادته في نفس الوقت.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف تظهر رسالة الإنقاذ للعميل؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر رسالة الإنقاذ للعميل؟" : "How does the rescue message appear to the customer?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً" : "See the abandonment prevention prompt exactly as your customer would"}</p>
         <ReduceAbandonWidget />
       </div>
     </section>
@@ -72,14 +72,19 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>أسباب التخلي — وحل زيادة لكل سبب</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[
-              { cause: "التردد وعدم الحسم", solution: "كوبون مؤقت يخلق سبباً للشراء الآن", causeColor: "#e11d48", solutionColor: "#10b981" },
-              { cause: "تكلفة الشحن مرتفعة", solution: "مؤشر الشحن المجاني + اقتراح منتج صغير للوصول للعتبة", causeColor: "#e11d48", solutionColor: "#10b981" },
-              { cause: "العميل أُشتُّت انتباهه", solution: "Exit Intent يسترجعه في اللحظة الأخيرة", causeColor: "#e11d48", solutionColor: "#10b981" },
-              { cause: "السلة مكلفة أكثر من المتوقع", solution: "كوبون خصم يجعل السعر في نطاق توقعاته", causeColor: "#e11d48", solutionColor: "#10b981" },
-            ].map((row, i) => (
+            {(isAr ? [
+              { cause: "التردد وعدم الحسم", solution: "كوبون مؤقت يخلق سبباً للشراء الآن" },
+              { cause: "تكلفة الشحن مرتفعة", solution: "مؤشر الشحن المجاني + اقتراح منتج صغير للوصول للعتبة" },
+              { cause: "العميل أُشتُّت انتباهه", solution: "Exit Intent يسترجعه في اللحظة الأخيرة" },
+              { cause: "السلة مكلفة أكثر من المتوقع", solution: "كوبون خصم يجعل السعر في نطاق توقعاته" },
+            ] : [
+              { cause: "Hesitation and indecision", solution: "Timed coupon creates a reason to buy now" },
+              { cause: "High shipping cost", solution: "Free shipping indicator + small product suggestion to reach threshold" },
+              { cause: "Customer got distracted", solution: "Exit Intent recovers them at the last moment" },
+              { cause: "Cart more expensive than expected", solution: "Discount coupon brings price within expectations" },
+            ]).map((row, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
                 <div style={{ padding: "12px 16px", background: "rgba(225,29,72,.06)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
                   ✗ {row.cause}

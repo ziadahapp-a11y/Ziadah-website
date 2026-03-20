@@ -55,16 +55,16 @@ const data: UseCasePageData = {
     ],
     result: "العميل الذي يرى التوفير بوضوح (المبلغ وليس النسبة فقط) يتحول إلى المشتري بنسبة 52٪ — الشفافية في الخصم هي المحرك الأقوى لقرار الشراء.",
   },
-  extraSections: (
+  extraSections: (isAr) => (
     <>
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          مثال حي
+          {isAr ? "مثال حي" : "Live Example"}
         </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>كيف تظهر الحزمة للعميل داخل المتجر؟</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>هكذا تبدو واجهة اقتراح الحزمة كما يراها عميلك فعلياً</p>
+        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر الحزمة للعميل داخل المتجر؟" : "How does the bundle appear to customers in-store?"}</h3>
+        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الحزمة كما يراها عميلك فعلياً" : "This is how the bundle suggestion looks to your customer"}</p>
         <BundleDealsWidget />
       </div>
     </section>
@@ -72,13 +72,17 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
           <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>كيف يحسب زيادة نسبة خصم الحزمة المثلى؟</h3>
+          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "كيف يحسب زيادة نسبة خصم الحزمة المثلى؟" : "How does Ziadah calculate the optimal bundle discount?"}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {[
+            {(isAr ? [
               { step: "1", title: "تحليل هامش كل منتج", desc: "يحسب زيادة هامش الربح لكل منتج في الحزمة المقترحة قبل تحديد نسبة الخصم." },
               { step: "2", title: "استهداف نسبة تحفيز", desc: "يُطبّق خصماً يتراوح بين 10-25٪ من الإجمالي — كافٍ ليُحفّز القرار دون إضرار بالهامش." },
               { step: "3", title: "اختبار تلقائي A/B", desc: "يجرب زيادة نسب خصم مختلفة على شرائح صغيرة ويُثبّت النسبة التي تُحقق أعلى إيراد فعلي." },
-            ].map((item, i) => (
+            ] : [
+              { step: "1", title: "Analyze each product's margin", desc: "Ziadah calculates the profit margin for each product in the proposed bundle before setting the discount." },
+              { step: "2", title: "Target an incentive rate", desc: "Applies a discount between 10-25% of the total — enough to motivate the decision without hurting the margin." },
+              { step: "3", title: "Automatic A/B testing", desc: "Ziadah tests different discount rates on small segments and locks in the rate that achieves the highest actual revenue." },
+            ]).map((item, i) => (
               <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(124,58,237,.04)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 14 }}>
                 <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(168,85,247,.15)", border: "1px solid rgba(168,85,247,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#a855f7", flexShrink: 0 }}>{item.step}</div>
                 <div>

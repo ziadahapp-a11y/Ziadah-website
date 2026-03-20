@@ -94,10 +94,10 @@ function renderContent(content: string) {
               maxWidth: 220,
               height: "auto",
               borderRadius: 20,
-              boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px var(--b1)",
               display: "block",
               margin: "0 auto",
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: "1px solid var(--b1)",
             }}
           />
           {alt && (

@@ -4,7 +4,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import Footer from "../components/Footer";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
-import SEO from "../components/SEO";
+import StandardPage from "../components/StandardPage";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
@@ -103,21 +103,18 @@ export default function Blog() {
   const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
 
   return (
-    <>
-    <SEO
-      title={tx.seoTitle}
-      description={tx.seoDesc}
+    <StandardPage
+      titleAr={t.ar.blog.seoTitle}
+      titleEn={t.en.blog.seoTitle}
+      descriptionAr={t.ar.blog.seoDesc}
+      descriptionEn={t.en.blog.seoDesc}
       canonical="/blog"
-    />
+    >
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: isAr ? p.title : (p.titleEn || p.title), summary: isAr ? p.summary : (p.summaryEn || p.summary), publishDateIso: p.publishDateIso }))} />
     <div
       style={{
-        background: "var(--bg)",
         minHeight: "100vh",
-        fontFamily: "var(--font)",
-        direction: dir,
-        color: "var(--t)",
       }}
     >
       <div className="bg-wrap">
@@ -464,6 +461,6 @@ export default function Blog() {
       {/* FOOTER */}
       <Footer />
     </div>
-    </>
+    </StandardPage>
   );
 }
