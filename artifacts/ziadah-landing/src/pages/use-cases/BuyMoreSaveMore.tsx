@@ -3,10 +3,10 @@ import BuyMoreSaveMoreWidget from "../../components/widgets/BuyMoreSaveMoreWidge
 
 const data: UseCasePageData = {
   hero: {
-    tag: "حسب طريقة العرض",
-    title: "اشترِ أكثر ووفّر أكثر",
+    tag: "حسب الأهداف",
+    title: "عروض الكميات",
     subtitle: "حفّز العميل على شراء كميات أكبر من نفس المنتج بعروض تدريجية واضحة — كلما زادت الكمية زاد التوفير.",
-    tagline: "عميل يرى التوفير يشتري أكثر — دائماً",
+    tagline: "نفس المنتج، كميات أكثر، ربح أعلى",
     icon: "📦",
   },
   whatWeDoTitle: "ما هو عرض 'اشترِ أكثر ووفّر أكثر' وكيف يعمل في زيادة؟",
@@ -40,9 +40,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+61٪", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#a855f7" },
-    { value: "+45٪", label: "متوسط إيراد الطلب الواحد مع عروض الكميات", color: "#06b6d4" },
-    { value: "+34٪", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#10b981" },
+    { value: "+61%", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#a855f7" },
+    { value: "+45%", label: "متوسط إيراد الطلب الواحد مع عروض الكميات", color: "#06b6d4" },
+    { value: "+34%", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#10b981" },
     { value: "2.8x", label: "متوسط الكمية المشتراة مقارنة بدون عرض الكميات", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -53,7 +53,7 @@ const data: UseCasePageData = {
       "💊 مكملات غذائية: علبة بروتين = 149 ⃁ / علبتان = 139 ⃁ لكل علبة / 3 علب = 125 ⃁ لكل علبة — مع توضيح 'كفاية 3 أشهر بسعر أشهر إضافية'.",
       "🖊️ قرطاسية: قلم = 8 ⃁ / عبوة 6 أقلام = 42 ⃁ (توفير 6 ⃁) / علبة 12 قلم = 72 ⃁ (توفير 24 ⃁) — خيارات الكمية بأزرار واضحة.",
     ],
-    result: "عرض شريط التقدم 'أضف قطعة واحدة ووفّر X ⃁' يرفع معدل اختيار الكميات الأكبر بنسبة 42٪ مقارنة بجدول الشرائح الثابت — الرسالة الشخصية المباشرة تُحفّز أكثر.",
+    result: "عرض شريط التقدم 'أضف قطعة واحدة ووفّر X ⃁' يرفع معدل اختيار الكميات الأكبر بنسبة 42% مقارنة بجدول الشرائح الثابت — الرسالة الشخصية المباشرة تُحفّز أكثر.",
   },
   extraSections: (isAr) => (
     <>
@@ -98,13 +98,13 @@ const data: UseCasePageData = {
     </>
   ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
-  ctaTitle: "فعّل عروض الكميات وحفّز الشراء الأكبر",
-  ctaDesc: "كل وحدة إضافية تبيعها هي إيراد بلا تكلفة تسويق إضافية — دع زيادة يُدير العروض تلقائياً.",
+  ctaTitle: "فعّل عروض الكميات",
+  ctaDesc: "زيادة يُنشئ عروض الكميات تلقائياً ويُحفّز العميل لشراء أكثر بنفس منتجك.",
   heroEn: {
-    tag: "By Display Method",
-    title: "Buy More, Save More",
+    tag: "By Goals",
+    title: "Quantity Offers",
     subtitle: "Motivate customers to buy larger quantities of the same product with clear tiered offers — the more they buy, the more they save.",
-    tagline: "A customer who sees the savings always buys more",
+    tagline: "Same product, bigger quantities, higher profit",
     icon: "📦",
   },
   whatWeDoTitleEn: "What is 'Buy More, Save More' and how does it work in Ziadah?",
@@ -154,12 +154,12 @@ const data: UseCasePageData = {
     result: "Showing a progress bar 'Add one more unit and save X SAR' increases the rate of choosing larger quantities by 42% compared to a static tier table — a direct, personal message motivates more.",
   },
   plansEn: ["Starter", "Growth", "Professional", "Business"],
-  ctaTitleEn: "Activate volume offers and drive bigger purchases",
-  ctaDescEn: "Every extra unit you sell is revenue without additional marketing cost — let Ziadah manage offers automatically.",
+  ctaTitleEn: "Activate quantity offers",
+  ctaDescEn: "Ziadah automatically generates quantity offers and motivates customers to buy more of your products.",
   seo: {
-    title: "اشترِ أكثر ووفّر أكثر — زيادة",
-    titleEn: "Buy More, Save More — Ziadah",
-    description: "حفّز عملاءك على شراء كميات أكبر بعروض تدريجية ذكية. زيادة يُنشئ جداول الشرائح التحفيزية لمتجرك على زد وسلة تلقائياً.",
+    title: "عروض الكميات — زيادة",
+    titleEn: "Quantity Offers — Ziadah",
+    description: "زيادة يُحفّز عملاءك لشراء كميات أكبر بنفس المنتج عبر عروض تدريجية واضحة. النتائج: وحدات أكثر في كل طلب وإيرادات أعلى.",
     descriptionEn: "Motivate your customers to buy larger quantities with smart tiered offers. Ziadah automatically creates incentive tier tables for your Zid and Salla store.",
     canonical: "/use-cases/buy-more-save-more",
   },

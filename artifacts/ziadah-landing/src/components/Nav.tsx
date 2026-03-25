@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
+import { useBlurTransition } from "@/components/BlurTransitionProvider";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
@@ -8,10 +9,11 @@ import PlatformModal from "./PlatformModal";
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const runBlur = useBlurTransition();
   const isLight = theme === "light";
   return (
     <button
-      onClick={toggleTheme}
+      onClick={() => runBlur(() => toggleTheme())}
       title={isLight ? "تفعيل المود الليلي" : "تفعيل المود النهاري"}
       style={{
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -47,7 +49,15 @@ function ThemeToggle() {
 
 export const Logo = () => {
   const { theme } = useTheme();
-  const logoSrc = theme === "light" ? "/logo-light.png" : "/logo.png";
+  const { lang } = useLanguage();
+  const logoSrc =
+    theme === "light"
+      ? lang === "ar"
+        ? "/logo-light-ar.png"
+        : "/logo-light.png"
+      : lang === "ar"
+        ? "/logo-ar.png"
+        : "/logo-en.png";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
       <img src={logoSrc} alt="Ziadah" style={{ height: 40, width: "auto" }} />
@@ -57,11 +67,12 @@ export const Logo = () => {
 
 function LanguageSwitcher() {
   const { lang, setLang } = useLanguage();
+  const runBlur = useBlurTransition();
   const { theme } = useTheme();
   const isLt = theme === "light";
   return (
     <button
-      onClick={() => setLang(lang === "ar" ? "en" : "ar")}
+      onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
       style={{
         display: "flex", alignItems: "center", gap: 5,
         padding: "6px 12px", borderRadius: 8,
@@ -133,9 +144,21 @@ function getUseCasesDropdown(tr: typeof t.ar): { sections: UseCaseSection[] } {
       {
         title: tr.nav.useCaseByGoal,
         items: [
-          { label: tr.nav.increaseAOV, href: "/use-cases/increase-aov" },
-          { label: tr.nav.reduceAbandon, href: "/use-cases/reduce-abandon" },
-          { label: tr.nav.increaseConversion, href: "/use-cases/increase-conversion" },
+          { label: tr.nav.goalMoreCartItems, href: "/use-cases/more-cart-items" },
+          { label: tr.nav.goalProductSwap, href: "/use-cases/upsell" },
+          { label: tr.nav.goalQuantityOffers, href: "/use-cases/buy-more-save-more" },
+          { label: tr.nav.goalFreeShippingDisplay, href: "/use-cases/free-shipping" },
+          { label: tr.nav.goalDiscountCoupon, href: "/use-cases/discount-coupon" },
+        ],
+      },
+      {
+        title: tr.nav.useCaseByExperience,
+        items: [
+          {
+            label: tr.nav.customerExperience,
+            href: "/use-cases/customer-experience",
+            subtitle: tr.nav.customerExperienceSub,
+          },
         ],
       },
     ],
@@ -143,11 +166,27 @@ function getUseCasesDropdown(tr: typeof t.ar): { sections: UseCaseSection[] } {
 }
 
 function getPlatformItems(tr: typeof t.ar) {
+  type PlatformKey = "salla" | "zid" | "shopify";
   return [
-    { label: tr.nav.salla, href: "https://apps.salla.sa/ar/app/1099604538", enabled: true },
-    { label: tr.nav.zid, href: "https://apps.zid.sa/application/1826", enabled: true },
-    { label: tr.nav.shopify, href: "#", enabled: false, badge: tr.nav.comingSoon },
-  ];
+    { key: "salla" as PlatformKey, label: tr.nav.salla, href: "https://apps.salla.sa/ar/app/1099604538", enabled: true },
+    { key: "zid" as PlatformKey, label: tr.nav.zid, href: "https://apps.zid.sa/application/1826", enabled: true },
+    { key: "shopify" as PlatformKey, label: tr.nav.shopify, href: "#", enabled: false, badge: tr.nav.comingSoon },
+  ] as Array<{
+    key: PlatformKey;
+    label: string;
+    href: string;
+    enabled: boolean;
+    badge?: string;
+  }>;
+}
+
+function getPlatformLogoSrc(platformKey: "salla" | "zid", lang: "ar" | "en", theme: "dark" | "light") {
+  if (platformKey === "zid") {
+    if (lang === "ar") return theme === "light" ? "/zid-ar-light.png" : "/zid-ar-dark.png";
+    return theme === "light" ? "/zid-en-light.png" : "/zid-en-dark.png";
+  }
+  // Salla: we only have one Arabic+English mark, swap by theme for better contrast.
+  return theme === "light" ? "/salla-light.webp" : "/salla-dark.png";
 }
 
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
@@ -166,12 +205,12 @@ function UseCasesMegaMenu() {
   const useCasesDropdown = getUseCasesDropdown(tr);
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 760,
+      position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 900,
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 20, backdropFilter: "blur(32px)",
       boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
-      display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
+      display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14, overflowX: "auto",
     }}>
       {useCasesDropdown.sections.map((section) => (
         <div key={section.title}>
@@ -246,14 +285,26 @@ function PlatformsDropdown() {
             target="_blank"
             rel="noreferrer"
             style={{
-              display: "block", padding: "10px 14px", borderRadius: 12,
-              textDecoration: "none", color: "var(--t)", fontSize: 14, fontWeight: 500,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              gap: 10,
+              padding: "10px 14px",
+              borderRadius: 12,
+              textDecoration: "none",
+              color: "var(--t)",
+              fontSize: 14,
+              fontWeight: 500,
               transition: "background .2s",
             }}
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
-            {item.label}
+            <img
+              src={getPlatformLogoSrc(item.key, lang, theme)}
+              alt={item.label}
+              style={{ height: 18, width: "auto", display: "block" }}
+            />
           </a>
         );
       })}
@@ -760,9 +811,13 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, onStartNow }: { onClose
                     target="_blank"
                     rel="noreferrer"
                     onClick={onClose}
-                    style={{ ...subLinkStyle, display: "flex", alignItems: "center", gap: 8 }}
+                    style={{ ...subLinkStyle, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8 }}
                   >
-                    {item.label}
+                    <img
+                      src={getPlatformLogoSrc(item.key, lang, theme)}
+                      alt={item.label}
+                      style={{ height: 18, width: "auto", display: "block" }}
+                    />
                   </a>
                 ) : (
                   <div
@@ -938,7 +993,7 @@ export default function Nav() {
         position: "fixed", top: 16, right: "4%", left: "4%", zIndex: 900,
         background: isLight
           ? (scrolled ? "rgba(241,245,249,.97)" : "rgba(241,245,249,.88)")
-          : (scrolled ? "rgba(3,3,11,.97)" : "rgba(3,3,11,.82)"),
+          : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.82)"),
         border: `1px solid ${isLight
           ? (scrolled ? "rgba(0,0,0,.14)" : "rgba(0,0,0,.08)")
           : (scrolled ? "rgba(255,255,255,.13)" : "rgba(255,255,255,.07)")}`,

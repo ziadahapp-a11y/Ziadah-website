@@ -251,7 +251,7 @@ function CheckoutMockup() {
                 reviews="6984"
                 price="241"
                 originalPrice="345"
-                discount="وفر 20٪"
+                discount="وفر 20%"
                 image="🧣"
               />
               <AddToCartRow
@@ -331,10 +331,10 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27٪", label: "متوسط قيمة الطلب", color: "#a855f7" },
-    { value: "+19٪", label: "معدل إتمام الشراء", color: "#10b981" },
-    { value: "-34٪", label: "معدل التخلي عند الدفع", color: "#ec4899" },
-    { value: "+41٪", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
+    { value: "+27%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+19%", label: "معدل إتمام الشراء", color: "#10b981" },
+    { value: "-34%", label: "معدل التخلي عند الدفع", color: "#ec4899" },
+    { value: "+41%", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
   ],
   exampleScenario: {
     title: "عميل عند الدفع بطلب قيمته 55 ⃁",

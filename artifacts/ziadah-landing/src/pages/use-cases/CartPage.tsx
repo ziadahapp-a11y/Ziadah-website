@@ -41,10 +41,10 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "-38٪", label: "معدل التخلي عن السلة", color: "#ec4899" },
-    { value: "+22٪", label: "متوسط قيمة الطلب", color: "#a855f7" },
-    { value: "+31٪", label: "الطلبات تتجاوز عتبة الشحن", color: "#10b981" },
-    { value: "+18٪", label: "معدل إتمام الشراء", color: "#06b6d4" },
+    { value: "-38%", label: "معدل التخلي عن السلة", color: "#ec4899" },
+    { value: "+22%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+31%", label: "الطلبات تتجاوز عتبة الشحن", color: "#10b981" },
+    { value: "+18%", label: "معدل إتمام الشراء", color: "#06b6d4" },
   ],
   exampleScenario: {
     title: "عميل في سلة بقيمة 170 ⃁",

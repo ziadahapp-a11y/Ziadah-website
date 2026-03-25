@@ -4,7 +4,6 @@ import Nav, { Logo } from "../components/Nav";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import Footer from "../components/Footer";
-import TeamSection from "../components/TeamSection";
 import SEO from "../components/SEO";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
 import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
@@ -18,6 +17,7 @@ import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
+import { scrollToHashElement } from "@/utils/anchorScroll";
 
 const storeLogos = [
   { name: "BestClean", src: "/logos/bestclean.png" },
@@ -108,6 +108,29 @@ export default function Landing() {
     );
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
     return () => obs.disconnect();
+  }, []);
+
+  /** فتح رابط فيه #pricing أو #faq (مشاركة) — تمرير للقسم مع تعويض شريط التنقل الثابت */
+  useEffect(() => {
+    const scrollIfHash = () => {
+      const id = window.location.hash.replace(/^#/, "").split("?")[0];
+      if (!id || (id !== "pricing" && id !== "faq")) return;
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const behavior: ScrollBehavior = reduced ? "auto" : "smooth";
+      const run = () => {
+        scrollToHashElement(id, behavior);
+      };
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(run);
+      });
+    };
+
+    const t = window.setTimeout(scrollIfHash, 200);
+    window.addEventListener("hashchange", scrollIfHash);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("hashchange", scrollIfHash);
+    };
   }, []);
 
   // Custom cursor
@@ -634,7 +657,7 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 60% 35%, #1e1245 0%, #0d0a22 55%, #060412 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-male.png" alt="Nasser" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img src="/avatar-male.webp" alt="Nasser" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">
@@ -914,7 +937,7 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-female.png" alt="Noura" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img src="/avatar-female.webp" alt="Noura" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">
@@ -1746,8 +1769,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* TEAM */}
-        <TeamSection />
         {/* PRICING */}
         <section id="pricing">
           <div className="wrap">

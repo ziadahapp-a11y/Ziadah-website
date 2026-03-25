@@ -40,10 +40,10 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+44٪", label: "معدل قبول قائمة الإضافات", color: "#a855f7" },
-    { value: "+31٪", label: "متوسط قيمة الطلب مع إضافة واحدة على الأقل", color: "#06b6d4" },
+    { value: "+44%", label: "معدل قبول قائمة الإضافات", color: "#a855f7" },
+    { value: "+31%", label: "متوسط قيمة الطلب مع إضافة واحدة على الأقل", color: "#06b6d4" },
     { value: "2.3", label: "متوسط عدد الإضافات المختارة في كل طلب", color: "#10b981" },
-    { value: "+22٪", label: "تكرار الشراء من العملاء الذين اختاروا إضافات", color: "#f59e0b" },
+    { value: "+22%", label: "تكرار الشراء من العملاء الذين اختاروا إضافات", color: "#f59e0b" },
   ],
   exampleScenario: {
     title: "أمثلة من قطاعات متنوعة",
@@ -77,7 +77,7 @@ const data: UseCasePageData = {
             <div style={{ padding: "24px 28px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.15)", borderRadius: 14 }}>
               <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44٪"] : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]).map((item, i) => (
+                {(isAr ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"] : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
                   </li>
@@ -87,7 +87,7 @@ const data: UseCasePageData = {
             <div style={{ padding: "24px 28px", background: "rgba(107,114,128,.05)", border: "1px solid rgba(107,114,128,.15)", borderRadius: 14 }}>
               <div style={{ fontSize: 18, fontWeight: 800, color: "var(--td)", marginBottom: 12 }}>{isAr ? "➡️ اقتراح مفرد (التقليدي)" : "➡️ Single suggestion (Traditional)"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18٪"] : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]).map((item, i) => (
+                {(isAr ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18%"] : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
                     <span style={{ color: "var(--td)", fontWeight: 700 }}>•</span> {item}
                   </li>

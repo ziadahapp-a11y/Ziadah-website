@@ -10,6 +10,7 @@ import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
 import CustomerProfileDemo from "../components/CustomerProfileDemo";
+import { toWesternDigits } from "@/utils/westernDigits";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -453,11 +454,12 @@ export default function BlogPost() {
     );
   }
 
-  const getTitle = (p: typeof blogPosts[0]) => isAr ? p.title : (p.titleEn || p.title);
-  const getSummary = (p: typeof blogPosts[0]) => isAr ? p.summary : (p.summaryEn || p.summary);
-  const getReadTime = (p: typeof blogPosts[0]) => isAr ? p.readTime : (p.readTimeEn || p.readTime);
-  const getPublishDate = (p: typeof blogPosts[0]) => isAr ? p.publishDate : (p.publishDateEn || p.publishDate);
-  const getContent = (p: typeof blogPosts[0]) => isAr ? p.content : (p.contentEn || p.content);
+  const arNums = (s: string) => (isAr ? toWesternDigits(s) : s);
+  const getTitle = (p: typeof blogPosts[0]) => arNums(isAr ? p.title : (p.titleEn || p.title));
+  const getSummary = (p: typeof blogPosts[0]) => arNums(isAr ? p.summary : (p.summaryEn || p.summary));
+  const getReadTime = (p: typeof blogPosts[0]) => arNums(isAr ? p.readTime : (p.readTimeEn || p.readTime));
+  const getPublishDate = (p: typeof blogPosts[0]) => arNums(isAr ? p.publishDate : (p.publishDateEn || p.publishDate));
+  const getContent = (p: typeof blogPosts[0]) => arNums(isAr ? p.content : (p.contentEn || p.content));
 
   const relatedPosts = blogPosts.filter((p) => post.related.includes(p.slug));
 
@@ -517,14 +519,17 @@ export default function BlogPost() {
             justifyContent: "center",
             position: "relative",
             overflow: "hidden",
+            borderRadius: 40,
+            border: "none",
           }}
         >
           <div
             style={{
               position: "absolute",
               inset: 0,
+              borderRadius: 40,
               background:
-                "linear-gradient(to bottom, rgba(3,3,11,0.3) 0%, rgba(3,3,11,0.85) 100%)",
+                "linear-gradient(135deg, rgba(52, 1, 193, 0.5) 0%, rgba(136, 93, 254, 0.3) 100%)",
             }}
           />
           <span

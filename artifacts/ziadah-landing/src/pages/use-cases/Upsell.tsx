@@ -3,15 +3,15 @@ import ProductSwapWidget from "../../components/widgets/ProductSwapWidget";
 
 const data: UseCasePageData = {
   hero: {
-    tag: "حسب الأنشطة",
-    title: "البيع البديل",
+    tag: "حسب الأهداف",
+    title: "استبدال المنتجات",
     subtitle: "عرض نسخة أفضل وأعلى قيمة من المنتج — زيادة يقنع العميل بالترقية حين يرى الفارق الحقيقي في القيمة لا مجرد السعر.",
     tagline: "ليس كل عميل يعرف أن هناك ما هو أفضل",
     icon: "⬆️",
   },
   whatWeDoTitle: "ما هو البيع البديل وكيف ينفّذه زيادة؟",
   whatWeDoDesc:
-    "البيع البديل (Upsell) هو إقناع العميل بالتحوّل من المنتج الذي ينظر إليه إلى نسخة أعلى جودة أو موديل أحدث — لكن بطريقة ذكية تُظهر القيمة لا مجرد الفارق في السعر. زيادة يحسب أولاً هل هذا العميل مرشّح للترقية (بناءً على مشترياته السابقة وميزانيته المعتادة)، ثم يعرض عليه البديل مع إبراز الفروقات الملموسة التي تبرر الفارق في التكلفة. النتيجة: عميل يشعر أنه وجد صفقة أفضل، ومتجر يربح 20-45٪ أكثر من كل طلب.",
+    "البيع البديل (Upsell) هو إقناع العميل بالتحوّل من المنتج الذي ينظر إليه إلى نسخة أعلى جودة أو موديل أحدث — لكن بطريقة ذكية تُظهر القيمة لا مجرد الفارق في السعر. زيادة يحسب أولاً هل هذا العميل مرشّح للترقية (بناءً على مشترياته السابقة وميزانيته المعتادة)، ثم يعرض عليه البديل مع إبراز الفروقات الملموسة التي تبرر الفارق في التكلفة. النتيجة: عميل يشعر أنه وجد صفقة أفضل، ومتجر يربح 20-45% أكثر من كل طلب.",
   strategyTitle: "أساليب البيع البديل في زيادة",
   strategies: [
     {
@@ -40,20 +40,20 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+41٪", label: "متوسط قيمة الطلب", color: "#a855f7" },
-    { value:"+28٪", label: "معدل قبول اقتراح الترقية", color: "#06b6d4" },
-    { value: "+35٪", label: "رضا العملاء على المدى البعيد", color: "#10b981" },
-    { value: "+22٪", label: "معدل تكرار الشراء", color: "#f59e0b" },
+    { value: "+41%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value:"+28%", label: "معدل قبول اقتراح الترقية", color: "#06b6d4" },
+    { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#10b981" },
+    { value: "+22%", label: "معدل تكرار الشراء", color: "#f59e0b" },
   ],
   exampleScenario: {
     title: "أمثلة تطبيقية حقيقية عبر قطاعات",
     steps: [
       "🎧 إلكترونيات: عميل ينظر لسماعة بـ 120 ⃁ → يرى عرض 'سماعة بـ 190 ⃁ — عزل صوت فعّال + 20 ساعة بطارية + ضمان سنتان' مع مقارنة مباشرة.",
-      "💐 عطور: عميلة تنظر لعطر 30 مل → تجد 'النسخة 100 مل بـ 310 ⃁ (توفر 35٪ في سعر الـ مل)'.",
+      "💐 عطور: عميلة تنظر لعطر 30 مل → تجد 'النسخة 100 مل بـ 310 ⃁ (توفر 35% في سعر الـ مل)'.",
       "🌿 عناية: عميل اختار كريم أساسي → يظهر كريم بريميوم بنفس الوزن وبـ 30 ⃁ إضافية مع قائمة مكونات نشطة أكثر.",
       "📚 كورسات: مشترك في باقة أساسية → يرى ترقية للباقة المتقدمة بفارق 80 ⃁ مع 3 كورسات إضافية وشهادة.",
     ],
-    result: "معدل قبول عرض الترقية يتراوح بين 22 و35٪ عند تقديمه بالطريقة الصحيحة مع إبراز القيمة — وكل قبول يرفع الإيراد مباشرة.",
+    result: "معدل قبول عرض الترقية يتراوح بين 22 و35% عند تقديمه بالطريقة الصحيحة مع إبراز القيمة — وكل قبول يرفع الإيراد مباشرة.",
   },
   extraSections: (isAr) => (
     <>
@@ -77,7 +77,7 @@ const data: UseCasePageData = {
             <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
               <div style={{ fontSize: 17, fontWeight: 800, color: "#10b981", marginBottom: 12 }}>{isAr ? "✅ يعمل بشكل ممتاز عندما" : "✅ Works great when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["الفارق في السعر 20-50٪ وليس أكثر", "الفوائد الإضافية واضحة وملموسة", "العميل له تاريخ شراء في الفئة المتميزة", "يُعرض قبل إضافة المنتج للسلة"] : ["Price difference is 20-50%, not more", "Additional benefits are clear and tangible", "Customer has a purchase history in premium category", "Shown before adding the product to cart"]).map((item, i) => (
+                {(isAr ? ["الفارق في السعر 20-50% وليس أكثر", "الفوائد الإضافية واضحة وملموسة", "العميل له تاريخ شراء في الفئة المتميزة", "يُعرض قبل إضافة المنتج للسلة"] : ["Price difference is 20-50%, not more", "Additional benefits are clear and tangible", "Customer has a purchase history in premium category", "Shown before adding the product to cart"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "flex-start" }}>
                     <span style={{ color: "#10b981", fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
                   </li>
@@ -87,7 +87,7 @@ const data: UseCasePageData = {
             <div style={{ padding: "24px 28px", background: "rgba(225,29,72,.05)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 14 }}>
               <div style={{ fontSize: 17, fontWeight: 800, color: "#e11d48", marginBottom: 12 }}>{isAr ? "⚠️ لا يعمل بشكل جيد عندما" : "⚠️ Doesn't work well when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["الفارق أكبر من 50٪ بدون مبرر واضح", "النسخة المُقترحة في فئة مختلفة كلياً", "العميل في مرحلة متقدمة من عملية الدفع", "يُعرض بشكل مكثف أكثر من مرة"] : ["Difference exceeds 50% without clear justification", "Suggested version is in a completely different category", "Customer is in an advanced stage of checkout", "Shown too aggressively or repeatedly"]).map((item, i) => (
+                {(isAr ? ["الفارق أكبر من 50% بدون مبرر واضح", "النسخة المُقترحة في فئة مختلفة كلياً", "العميل في مرحلة متقدمة من عملية الدفع", "يُعرض بشكل مكثف أكثر من مرة"] : ["Difference exceeds 50% without clear justification", "Suggested version is in a completely different category", "Customer is in an advanced stage of checkout", "Shown too aggressively or repeatedly"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "flex-start" }}>
                     <span style={{ color: "#e11d48", fontWeight: 700, flexShrink: 0 }}>✗</span> {item}
                   </li>
@@ -104,8 +104,8 @@ const data: UseCasePageData = {
   ctaTitle: "ارفع قيمة كل طلب بالترقية الذكية",
   ctaDesc: "عميل واحد يختار النسخة الأفضل يساوي طلبين — فعّل Upsell مع زيادة اليوم.",
   heroEn: {
-    tag: "By Activity",
-    title: "Upselling",
+    tag: "By Goals",
+    title: "Product Swap",
     subtitle: "Show a better, higher-value version of the product — Ziadah convinces the customer to upgrade when they see the real difference in value, not just price.",
     tagline: "Not every customer knows there's something better",
     icon: "⬆️",
@@ -160,8 +160,8 @@ const data: UseCasePageData = {
   ctaTitleEn: "Increase every order value with smart upgrades",
   ctaDescEn: "One customer choosing the better version equals two orders — activate Upsell with Ziadah today.",
   seo: {
-    title: "البيع البديل (Upsell) — زيادة",
-    titleEn: "Upselling — Ziadah",
+    title: "استبدال المنتجات (Upsell) — زيادة",
+    titleEn: "Product Swap (Upsell) — Ziadah",
     description: "أقنع عميلك بالترقية للنسخة الأعلى قيمة مع زيادة. عروض Upsell ذكية تُبرز الفارق الحقيقي وترفع قيمة الطلب بشكل مقنع.",
     descriptionEn: "Convince your customers to upgrade to the higher-value version with Ziadah. Smart upsell offers highlight the real difference and convincingly increase order value.",
     canonical: "/use-cases/upsell",

@@ -7,13 +7,36 @@ export default function Footer() {
   const { lang } = useLanguage();
   const { theme } = useTheme();
   const tr = t[lang];
+
+  const zidLogoSrc =
+    lang === "ar"
+      ? theme === "light"
+        ? "/zid-ar-light.png"
+        : "/zid-ar-dark.png"
+      : theme === "light"
+        ? "/zid-en-light.png"
+        : "/zid-en-dark.png";
+  const sallaLogoSrc = theme === "light" ? "/salla-light.webp" : "/salla-dark.png";
+
   return (
     <footer>
       <div className="wrap">
         <div className="ft-top">
           <div className="ft-brand">
             <div className="ft-logo">
-              <img src={theme === "light" ? "/logo-light.png" : "/logo.png"} alt="Ziadah" style={{ height: 40, width: "auto" }} />
+              <img
+                src={
+                  theme === "light"
+                    ? lang === "ar"
+                      ? "/logo-light-ar.png"
+                      : "/logo-light.png"
+                    : lang === "ar"
+                      ? "/logo-ar.png"
+                      : "/logo-en.png"
+                }
+                alt="Ziadah"
+                style={{ height: 40, width: "auto" }}
+              />
             </div>
             <p className="ft-desc">
               {tr.footer.tagline}
@@ -34,8 +57,12 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <h4>{tr.footer.platforms}</h4>
-            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer">{tr.footer.zidPlatform}</a>
-            <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer">{tr.footer.sallaPlatform}</a>
+            <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" aria-label={tr.footer.zidPlatform}>
+              <img src={zidLogoSrc} alt={tr.footer.zidPlatform} style={{ height: 18, width: "auto", display: "block" }} />
+            </a>
+            <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" aria-label={tr.footer.sallaPlatform}>
+              <img src={sallaLogoSrc} alt={tr.footer.sallaPlatform} style={{ height: 18, width: "auto", display: "block" }} />
+            </a>
             <a href="https://web.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardZid}</a>
             <a href="https://dashboard.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardSalla}</a>
           </div>

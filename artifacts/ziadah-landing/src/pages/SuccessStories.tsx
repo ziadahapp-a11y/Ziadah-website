@@ -17,12 +17,12 @@ const stories = [
     tagline: "نوافذ ذكية تحوّل كل زيارة إلى فرصة بيع مضاعفة",
     founded: "2020",
     platform: "سلة",
-    before: { aov: "90", conv: "1.4٪", monthly: "18,000" },
-    after: { aov: "120", conv: "2.2٪", monthly: "38,000" },
+    before: { aov: "90", conv: "1.4%", monthly: "18,000" },
+    after: { aov: "120", conv: "2.2%", monthly: "38,000" },
     metrics: [
-      { label: "زيادة في متوسط قيمة السلة", value: "+33٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+57٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات الشهرية", value: "+111٪", color: "#10b981" },
+      { label: "زيادة في متوسط قيمة السلة", value: "+33%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+57%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات الشهرية", value: "+111%", color: "#10b981" },
       { label: "وقت التفعيل", value: "24 ساعة", color: "#f59e0b" },
     ],
     quote: "زيادة غيّر طريقة تعاملنا مع العملاء. صار العميل يكتشف منتجاتنا الثانية بشكل تلقائي والسلة تكبر بدون ما نزيد إعلانات. سهل الإعداد والنتائج جاءت سريعة.",
@@ -45,12 +45,12 @@ const stories = [
     tagline: "151,507 تحويل — الوصول للعميل في اللحظة الصح",
     founded: "2019",
     platform: "سلة",
-    before: { aov: "110", conv: "2.3٪", monthly: "65,000" },
-    after: { aov: "145", conv: "7.68٪", monthly: "1,024,379" },
+    before: { aov: "110", conv: "2.3%", monthly: "65,000" },
+    after: { aov: "145", conv: "7.68%", monthly: "1,024,379" },
     metrics: [
       { label: "إجمالي التحويلات", value: "151,507", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "1.02M ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "7.68٪", color: "#10b981" },
+      { label: "معدل التحويل", value: "7.68%", color: "#10b981" },
       { label: "عائد على الاستثمار", value: "15x+", color: "#f59e0b" },
     ],
     quote: "زيادة ساعدنا نوصل للعميل في اللحظة الصح بعرض بسيط وفعّال جداً. الأثر على المبيعات والتحويلات كان واضحاً ومقاساً. كمان زيادة خلّتنا نرفع متوسط قيمة الطلب عبر استراتيجية مدروسة لكل عرض ومنتج.",
@@ -60,7 +60,7 @@ const stories = [
     results: [
       "151,507 تحويل موثق عبر المنصة",
       "1,024,379 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل استثنائي 7.68٪",
+      "معدل تحويل استثنائي 7.68%",
       "رفع متوسط قيمة الطلب عبر استراتيجية مخصصة لكل منتج",
     ],
   },
@@ -73,13 +73,13 @@ const stories = [
     tagline: "تجربة عميل راقية بهدايا مجانية ذكية تزيد الولاء",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "160", conv: "1.8٪", monthly: "28,000" },
-    after: { aov: "210", conv: "2.9٪", monthly: "62,000" },
+    before: { aov: "160", conv: "1.8%", monthly: "28,000" },
+    after: { aov: "210", conv: "2.9%", monthly: "62,000" },
     metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+31٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+61٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات الشهرية", value: "+121٪", color: "#10b981" },
-      { label: "رضا العملاء", value: "96٪", color: "#f59e0b" },
+      { label: "زيادة في متوسط الطلب", value: "+31%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+61%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات الشهرية", value: "+121%", color: "#10b981" },
+      { label: "رضا العملاء", value: "96%", color: "#f59e0b" },
     ],
     quote: "تجربة المنتج المجاني غيّرت نظرة عملائنا للمتجر. صاروا يشعرون بالتقدير وكأن المتجر يهتم فيهم شخصياً. زيادة سهّل علينا تقديم هذه التجربة بشكل تلقائي وذكي.",
     person: "فريق زونا",
@@ -89,7 +89,7 @@ const stories = [
       "ارتفع متوسط الطلب من 160 إلى 210 ⃁",
       "تحسين تجربة العميل بعرض هدايا مجانية بذكاء",
       "رفع رضا العميل وتشجيع تكرار الشراء",
-      "زيادة معدل التحويل من 1.8 إلى 2.9٪",
+      "زيادة معدل التحويل من 1.8 إلى 2.9%",
     ],
   },
   {
@@ -101,12 +101,12 @@ const stories = [
     tagline: "خصم الكمية الذكي يحوّل المشتري الواحد إلى متعدد",
     founded: "2022",
     platform: "زد",
-    before: { aov: "120", conv: "2.0٪", monthly: "22,000" },
-    after: { aov: "170", conv: "3.2٪", monthly: "55,000" },
+    before: { aov: "120", conv: "2.0%", monthly: "22,000" },
+    after: { aov: "170", conv: "3.2%", monthly: "55,000" },
     metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+42٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+60٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+150٪", color: "#10b981" },
+      { label: "زيادة في متوسط الطلب", value: "+42%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+60%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات", value: "+150%", color: "#10b981" },
       { label: "عائد الاشتراك", value: "12x", color: "#f59e0b" },
     ],
     quote: "النوافذ الذكية غيّرت سلوك العملاء. بدل ما يشتري واحد صار يضيف ثانية للسلة بفضل الخصم الظاهر أمامه مباشرة. النتيجة كانت فورية وواضحة في الأرقام.",
@@ -129,12 +129,12 @@ const stories = [
     tagline: "كروس سيل ذكي يرفع قيمة الطلب في أقمشة الرجال",
     founded: "2020",
     platform: "سلة",
-    before: { aov: "220", conv: "1.6٪", monthly: "35,000" },
-    after: { aov: "295", conv: "2.4٪", monthly: "82,000" },
+    before: { aov: "220", conv: "1.6%", monthly: "35,000" },
+    after: { aov: "295", conv: "2.4%", monthly: "82,000" },
     metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+34٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+50٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+134٪", color: "#10b981" },
+      { label: "زيادة في متوسط الطلب", value: "+34%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+50%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات", value: "+134%", color: "#10b981" },
       { label: "عروض مخصصة لكل منتج", value: "✓", color: "#f59e0b" },
     ],
     quote: "كثير من عملائنا ما كانوا يعرفون أن عندنا منتجات مكملة. الآن زيادة يعرضها لهم في اللحظة المناسبة ويشترونها مباشرة. النتيجة ظهرت في متوسط الطلب بشكل واضح.",
@@ -157,12 +157,12 @@ const stories = [
     tagline: "نوافذ موسمية تعزز اكتشاف العود والبخور الفاخر",
     founded: "2019",
     platform: "سلة",
-    before: { aov: "350", conv: "1.5٪", monthly: "42,000" },
-    after: { aov: "450", conv: "2.3٪", monthly: "95,000" },
+    before: { aov: "350", conv: "1.5%", monthly: "42,000" },
+    after: { aov: "450", conv: "2.3%", monthly: "95,000" },
     metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+29٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+53٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+126٪", color: "#10b981" },
+      { label: "زيادة في متوسط الطلب", value: "+29%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+53%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات", value: "+126%", color: "#10b981" },
       { label: "نوافذ موسمية ذكية", value: "✓", color: "#f59e0b" },
     ],
     quote: "منتجات العود والبخور لها طبيعة خاصة — العميل يريد يكتشف المزيد. زيادة فهم هذا وصار يعرض المنتجات المكملة بأسلوب يناسب تجربة التسوق الفاخرة لدينا.",
@@ -185,12 +185,12 @@ const stories = [
     tagline: "تقليل السلات المتروكة وتحويل التردد إلى قرار شراء",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "190", conv: "1.4٪", monthly: "25,000" },
-    after: { aov: "240", conv: "2.3٪", monthly: "58,000" },
+    before: { aov: "190", conv: "1.4%", monthly: "25,000" },
+    after: { aov: "240", conv: "2.3%", monthly: "58,000" },
     metrics: [
-      { label: "زيادة في معدل التحويل", value: "+64٪", color: "#a855f7" },
-      { label: "تقليل السلات المتروكة", value: "-42٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+132٪", color: "#10b981" },
+      { label: "زيادة في معدل التحويل", value: "+64%", color: "#a855f7" },
+      { label: "تقليل السلات المتروكة", value: "-42%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات", value: "+132%", color: "#10b981" },
       { label: "أثر فوري بعد التفعيل", value: "✓", color: "#f59e0b" },
     ],
     quote: "كان عندنا مشكلة كبيرة في السلات المتروكة. زيادة حلها ببساطة — نافذة ذكية في اللحظة المناسبة تحفز العميل على الإتمام. التطبيق سهل وفرق واضح من اليوم الأول.",
@@ -213,12 +213,12 @@ const stories = [
     tagline: "عرض 2+1 يضاعف حجم السلة ورضا العميل",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "80", conv: "1.9٪", monthly: "15,000" },
-    after: { aov: "125", conv: "2.8٪", monthly: "40,000" },
+    before: { aov: "80", conv: "1.9%", monthly: "15,000" },
+    after: { aov: "125", conv: "2.8%", monthly: "40,000" },
     metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+56٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+47٪", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+167٪", color: "#10b981" },
+      { label: "زيادة في متوسط الطلب", value: "+56%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+47%", color: "#06b6d4" },
+      { label: "زيادة في المبيعات", value: "+167%", color: "#10b981" },
       { label: "عرض 2+1 مجاناً", value: "✓", color: "#f59e0b" },
     ],
     quote: "العرض 2+1 كان عندنا لكن العملاء ما كانوا يعرفون عنه. زيادة صار يعرضه بشكل واضح وجذاب في اللحظة الصح فارتفعت مبيعاتنا بشكل كبير وصار العملاء يشترون كميات أكبر.",
@@ -241,11 +241,11 @@ const stories = [
     tagline: "تحويل الزوار الجدد إلى مشترين من أول زيارة",
     founded: "2020",
     platform: "سلة",
-    before: { aov: "130", conv: "1.7٪", monthly: "20,000" },
-    after: { aov: "170", conv: "2.9٪", monthly: "52,000" },
+    before: { aov: "130", conv: "1.7%", monthly: "20,000" },
+    after: { aov: "170", conv: "2.9%", monthly: "52,000" },
     metrics: [
-      { label: "زيادة في معدل التحويل", value: "+71٪", color: "#a855f7" },
-      { label: "زيادة في المبيعات", value: "+160٪", color: "#06b6d4" },
+      { label: "زيادة في معدل التحويل", value: "+71%", color: "#a855f7" },
+      { label: "زيادة في المبيعات", value: "+160%", color: "#06b6d4" },
       { label: "تحويل الزوار الجدد", value: "✓", color: "#10b981" },
       { label: "الشحن المجاني كحافز", value: "✓", color: "#f59e0b" },
     ],
@@ -269,12 +269,12 @@ const stories = [
     tagline: "رسائل مؤثرة تحوّل الزوار إلى متبرعين فاعلين",
     founded: "2018",
     platform: "سلة",
-    before: { aov: "50", conv: "2.0٪", monthly: "8,000" },
-    after: { aov: "70", conv: "3.6٪", monthly: "28,000" },
+    before: { aov: "50", conv: "2.0%", monthly: "8,000" },
+    after: { aov: "70", conv: "3.6%", monthly: "28,000" },
     metrics: [
-      { label: "زيادة في متوسط التبرع", value: "+40٪", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+80٪", color: "#06b6d4" },
-      { label: "زيادة في إجمالي التبرعات", value: "+250٪", color: "#10b981" },
+      { label: "زيادة في متوسط التبرع", value: "+40%", color: "#a855f7" },
+      { label: "زيادة في معدل التحويل", value: "+80%", color: "#06b6d4" },
+      { label: "زيادة في إجمالي التبرعات", value: "+250%", color: "#10b981" },
       { label: "مناسب للمواقع غير الربحية", value: "✓", color: "#f59e0b" },
     ],
     quote: "زيادة أثبت أنه مناسب حتى للمنظمات غير الربحية. الرسائل المؤثرة التي تظهر أثناء التصفح شجّعت المتبرعين على المبادرة فوراً وزاد متوسط التبرع بشكل ملحوظ.",
@@ -294,18 +294,18 @@ const stories = [
     logo: "ك",
     color: "linear-gradient(135deg,#06b6d4,#0891b2)",
     accent: "#06b6d4",
-    tagline: "كود خصم 5٪ يُنقذ السلات المتروكة ويضاعف الإيرادات",
+    tagline: "كود خصم 5% يُنقذ السلات المتروكة ويضاعف الإيرادات",
     founded: "2021",
     platform: "زد",
-    before: { aov: "160", conv: "2.1٪", monthly: "75,000" },
-    after: { aov: "200", conv: "3.8٪", monthly: "200,000" },
+    before: { aov: "160", conv: "2.1%", monthly: "75,000" },
+    after: { aov: "200", conv: "3.8%", monthly: "200,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "716", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "543,000 ⃁", color: "#06b6d4" },
       { label: "توقيت ذكي للنافذة", value: "✓", color: "#10b981" },
       { label: "كود خصم فعّال", value: "✓", color: "#f59e0b" },
     ],
-    quote: "كود الخصم 5٪ كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. النتيجة 716 تحويل و543 ألف ⃁ مبيعات إضافية.",
+    quote: "كود الخصم 5% كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. النتيجة 716 تحويل و543 ألف ⃁ مبيعات إضافية.",
     person: "فريق كلوز باي",
     role: "متجر تسوق متنوع",
     strategy: "تم تفعيل حملة 'لا تفوت كود خصم 5%' من خلال تطبيق زيادة، عبر نافذة ذكية تظهر للعملاء في الوقت المناسب لتحفيزهم على إتمام الشراء.",
@@ -325,8 +325,8 @@ const stories = [
     tagline: "استرداد الطلبات في لحظة الحذف من السلة",
     founded: "2020",
     platform: "سلة",
-    before: { aov: "180", conv: "1.8٪", monthly: "35,000" },
-    after: { aov: "220", conv: "3.2٪", monthly: "110,000" },
+    before: { aov: "180", conv: "1.8%", monthly: "35,000" },
+    after: { aov: "220", conv: "3.2%", monthly: "110,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "1,122", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "248,816 ⃁", color: "#06b6d4" },
@@ -353,12 +353,12 @@ const stories = [
     tagline: "3,774 تحويل — الترويج الموسمي الذكي يحقق أرقاماً قياسية",
     founded: "2018",
     platform: "زد",
-    before: { aov: "280", conv: "1.5٪", monthly: "110,000" },
-    after: { aov: "350", conv: "3.05٪", monthly: "450,000" },
+    before: { aov: "280", conv: "1.5%", monthly: "110,000" },
+    after: { aov: "350", conv: "3.05%", monthly: "450,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "3,774", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "932,517 ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "3.05٪", color: "#10b981" },
+      { label: "معدل التحويل", value: "3.05%", color: "#10b981" },
       { label: "اقتراحات ذكية موسمية", value: "✓", color: "#f59e0b" },
     ],
     quote: "زيادة ساعدنا نرفع قيمة الطلب دون التأثير على تجربة العميل. العروض تظهر في الوقت الصح وتشجع العميل على إضافة قطع أكثر بدون تردد.",
@@ -368,7 +368,7 @@ const stories = [
     results: [
       "3,774 تحويل موثق خلال الموسم",
       "932,517 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل 3.05٪ أعلى من المتوسط",
+      "معدل تحويل 3.05% أعلى من المتوسط",
       "اقتراحات ذكية مبنية على اختيار العميل",
     ],
   },
@@ -381,12 +381,12 @@ const stories = [
     tagline: "1,005 تحويل في موسم الجمعة البيضاء — الذكاء في التوقيت",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "220", conv: "2.5٪", monthly: "120,000" },
-    after: { aov: "320", conv: "6.10٪", monthly: "430,000" },
+    before: { aov: "220", conv: "2.5%", monthly: "120,000" },
+    after: { aov: "320", conv: "6.10%", monthly: "430,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "1,005", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "704,676 ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "6.10٪", color: "#10b981" },
+      { label: "معدل التحويل", value: "6.10%", color: "#10b981" },
       { label: "استغلال ذكي للمواسم", value: "✓", color: "#f59e0b" },
     ],
     quote: "زيادة ساعدتنا نشتغل مع العملاء في اللحظة الصح دون ما نقاطع تجربة التسوق. العروض الذكية شجّعت العملاء يضيفون منتجات أكثر ويكملون طلباتهم أسرع.",
@@ -396,7 +396,7 @@ const stories = [
     results: [
       "1,005 تحويل موثق في موسم الجمعة البيضاء",
       "704,676 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل استثنائي 6.10٪",
+      "معدل تحويل استثنائي 6.10%",
       "رفع قيمة الطلب عبر عروض cross-sell وupsell",
     ],
   },
@@ -409,8 +409,8 @@ const stories = [
     tagline: "باقات المعطرات الذكية ترفع قيمة كل طلب",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "140", conv: "1.6٪", monthly: "22,000" },
-    after: { aov: "190", conv: "2.9٪", monthly: "58,000" },
+    before: { aov: "140", conv: "1.6%", monthly: "22,000" },
+    after: { aov: "190", conv: "2.9%", monthly: "58,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "957", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "77,000 ⃁", color: "#06b6d4" },
@@ -437,8 +437,8 @@ const stories = [
     tagline: "تحويل لحظة الحذف من السلة إلى فرصة بيع ذكية",
     founded: "2020",
     platform: "زد",
-    before: { aov: "220", conv: "1.9٪", monthly: "28,000" },
-    after: { aov: "280", conv: "3.2٪", monthly: "68,000" },
+    before: { aov: "220", conv: "1.9%", monthly: "28,000" },
+    after: { aov: "280", conv: "3.2%", monthly: "68,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "207", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "75,722 ⃁", color: "#06b6d4" },
@@ -465,8 +465,8 @@ const stories = [
     tagline: "ترويج المنتجات الجديدة بأعلى معدل إضافة للسلة",
     founded: "2022",
     platform: "سلة",
-    before: { aov: "180", conv: "1.7٪", monthly: "30,000" },
-    after: { aov: "230", conv: "2.8٪", monthly: "95,000" },
+    before: { aov: "180", conv: "1.7%", monthly: "30,000" },
+    after: { aov: "230", conv: "2.8%", monthly: "95,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "655", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "247,438 ⃁", color: "#06b6d4" },
@@ -493,8 +493,8 @@ const stories = [
     tagline: "إنقاذ الطلبات في مرحلة الدفع النهائية",
     founded: "2021",
     platform: "زد",
-    before: { aov: "150", conv: "1.4٪", monthly: "15,000" },
-    after: { aov: "190", conv: "2.2٪", monthly: "38,000" },
+    before: { aov: "150", conv: "1.4%", monthly: "15,000" },
+    after: { aov: "190", conv: "2.2%", monthly: "38,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "155", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "41,000 ⃁", color: "#06b6d4" },
@@ -521,8 +521,8 @@ const stories = [
     tagline: "حملات المناسبات الوطنية تحقق ذروة المبيعات",
     founded: "2020",
     platform: "سلة",
-    before: { aov: "160", conv: "1.8٪", monthly: "30,000" },
-    after: { aov: "210", conv: "3.1٪", monthly: "80,000" },
+    before: { aov: "160", conv: "1.8%", monthly: "30,000" },
+    after: { aov: "210", conv: "3.1%", monthly: "80,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "689", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "119,903 ⃁", color: "#06b6d4" },
@@ -549,8 +549,8 @@ const stories = [
     tagline: "أعلى ظهور للمنتجات الجديدة من أول لحظة دخول",
     founded: "2021",
     platform: "سلة",
-    before: { aov: "140", conv: "1.6٪", monthly: "28,000" },
-    after: { aov: "190", conv: "2.8٪", monthly: "70,000" },
+    before: { aov: "140", conv: "1.6%", monthly: "28,000" },
+    after: { aov: "190", conv: "2.8%", monthly: "70,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "650", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "135,382 ⃁", color: "#06b6d4" },
@@ -574,18 +574,18 @@ const stories = [
     logo: "ي",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
     accent: "#f59e0b",
-    tagline: "خصم 50٪ على الوحدة الثانية يضاعف حجم الطلب فوراً",
+    tagline: "خصم 50% على الوحدة الثانية يضاعف حجم الطلب فوراً",
     founded: "2021",
     platform: "زد",
-    before: { aov: "180", conv: "1.5٪", monthly: "20,000" },
-    after: { aov: "280", conv: "2.6٪", monthly: "58,000" },
+    before: { aov: "180", conv: "1.5%", monthly: "20,000" },
+    after: { aov: "280", conv: "2.6%", monthly: "58,000" },
     metrics: [
       { label: "إجمالي التحويلات", value: "322", color: "#a855f7" },
       { label: "إجمالي المبيعات", value: "76,257 ⃁", color: "#06b6d4" },
-      { label: "خصم 50٪ على الوحدة الثانية", value: "✓", color: "#10b981" },
+      { label: "خصم 50% على الوحدة الثانية", value: "✓", color: "#10b981" },
       { label: "نتائج سريعة وواضحة", value: "✓", color: "#f59e0b" },
     ],
-    quote: "الفكرة بسيطة — 50٪ على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. العميل يشوف العرض لما يضيف الأولى فيضيف الثانية مباشرة. نتائج سريعة ومقنعة.",
+    quote: "الفكرة بسيطة — 50% على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. العميل يشوف العرض لما يضيف الأولى فيضيف الثانية مباشرة. نتائج سريعة ومقنعة.",
     person: "فريق كايزون",
     role: "متجر أجهزة مطبخ ومنزلية",
     strategy: "تفعيل حملة عبر زيادة تعرض للعميل خصم 50% على المفرمة الثانية بمجرد إضافة الأولى للسلة، من خلال نافذة تسويقية جذابة داخل المتجر.",
@@ -1441,6 +1441,47 @@ export default function SuccessStories() {
         }
         .sector-card-v2:hover::after {
           opacity: 1;
+        }
+
+        /* ── LIGHT MODE: SuccessStories (override fixed dark rgba) ── */
+        [data-theme="light"] .story-card-v2 {
+          backdrop-filter: blur(22px);
+        }
+        [data-theme="light"] .story-card-v2:hover {
+          box-shadow: 0 24px 64px rgba(0,0,0,.12), 0 0 0 1px rgba(168,85,247,.12);
+          border-color: rgba(168,85,247,.18);
+        }
+        [data-theme="light"] .story-logo-v2 {
+          box-shadow: 0 6px 24px rgba(0,0,0,.16);
+        }
+        [data-theme="light"] .metric-card-v2 {
+          background: rgba(0,0,0,.04);
+        }
+        [data-theme="light"] .metric-card-v2:hover {
+          background: rgba(0,0,0,.06);
+          border-color: rgba(168,85,247,.25);
+        }
+        [data-theme="light"] .before-box {
+          background: rgba(0,0,0,.03);
+        }
+        [data-theme="light"] .after-box {
+          background: rgba(124,58,237,.05);
+          border-color: rgba(124,58,237,.14);
+        }
+        [data-theme="light"] .hero-stat-v2:hover {
+          box-shadow: 0 12px 40px rgba(0,0,0,.10);
+        }
+        [data-theme="light"] .sector-card-v2:hover {
+          box-shadow: 0 16px 48px rgba(0,0,0,.10);
+        }
+        [data-theme="light"] .expand-btn-v2 {
+          background: rgba(124,58,237,.06);
+          border-color: rgba(124,58,237,.24);
+          color: var(--p4);
+        }
+        [data-theme="light"] .expand-btn-v2:hover {
+          background: rgba(124,58,237,.12);
+          border-color: rgba(124,58,237,.40);
         }
 
         @media (max-width: 1024px) {

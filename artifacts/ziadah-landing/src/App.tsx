@@ -1,42 +1,79 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { useBrowserLocation } from "wouter/use-browser-location";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { LanguageProvider } from "@/i18n/LanguageContext";
+import { lazy, Suspense, useEffect } from "react";
+import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Landing from "@/pages/Landing";
-import SuccessStories from "@/pages/SuccessStories";
-import Support from "@/pages/Support";
-import SupportArticle from "@/pages/SupportArticle";
-import Features from "@/pages/Features";
-import Calculator from "@/pages/Calculator";
-import Blog from "@/pages/Blog";
-import BlogPost from "@/pages/BlogPost";
-import NotFound from "@/pages/not-found";
-import Privacy from "@/pages/Privacy";
-import Terms from "@/pages/Terms";
-import ProductPage from "@/pages/use-cases/ProductPage";
-import CartPage from "@/pages/use-cases/CartPage";
-import ThankYouPage from "@/pages/use-cases/ThankYouPage";
-import HomePage from "@/pages/use-cases/HomePage";
-import CategoryPage from "@/pages/use-cases/CategoryPage";
-import AllPages from "@/pages/use-cases/AllPages";
-import CrossSell from "@/pages/use-cases/CrossSell";
-import Upsell from "@/pages/use-cases/Upsell";
-import IncreaseAOV from "@/pages/use-cases/IncreaseAOV";
-import ReduceAbandon from "@/pages/use-cases/ReduceAbandon";
-import IncreaseConversion from "@/pages/use-cases/IncreaseConversion";
-import RelatedProducts from "@/pages/use-cases/RelatedProducts";
-import Addons from "@/pages/use-cases/Addons";
-import BuyTogether from "@/pages/use-cases/BuyTogether";
-import BundleDeals from "@/pages/use-cases/BundleDeals";
-import BuyMoreSaveMore from "@/pages/use-cases/BuyMoreSaveMore";
-import CheckoutPage from "@/pages/use-cases/CheckoutPage";
-import AddToCartPage from "@/pages/use-cases/AddToCartPage";
-import RemoveFromCartPage from "@/pages/use-cases/RemoveFromCartPage";
 import PageTransition from "@/components/PageTransition";
+import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import "./index.css";
 
+const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
+const Support = lazy(() => import("@/pages/Support"));
+const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
+const Features = lazy(() => import("@/pages/Features"));
+const Calculator = lazy(() => import("@/pages/Calculator"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogPost = lazy(() => import("@/pages/BlogPost"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const Terms = lazy(() => import("@/pages/Terms"));
+const ProductPage = lazy(() => import("@/pages/use-cases/ProductPage"));
+const CartPage = lazy(() => import("@/pages/use-cases/CartPage"));
+const ThankYouPage = lazy(() => import("@/pages/use-cases/ThankYouPage"));
+const HomePage = lazy(() => import("@/pages/use-cases/HomePage"));
+const CategoryPage = lazy(() => import("@/pages/use-cases/CategoryPage"));
+const AllPages = lazy(() => import("@/pages/use-cases/AllPages"));
+const CrossSell = lazy(() => import("@/pages/use-cases/CrossSell"));
+const Upsell = lazy(() => import("@/pages/use-cases/Upsell"));
+const IncreaseAOV = lazy(() => import("@/pages/use-cases/IncreaseAOV"));
+const ReduceAbandon = lazy(() => import("@/pages/use-cases/ReduceAbandon"));
+const IncreaseConversion = lazy(() => import("@/pages/use-cases/IncreaseConversion"));
+const RelatedProducts = lazy(() => import("@/pages/use-cases/RelatedProducts"));
+const Addons = lazy(() => import("@/pages/use-cases/Addons"));
+const BuyTogether = lazy(() => import("@/pages/use-cases/BuyTogether"));
+const BundleDeals = lazy(() => import("@/pages/use-cases/BundleDeals"));
+const BuyMoreSaveMore = lazy(() => import("@/pages/use-cases/BuyMoreSaveMore"));
+const CheckoutPage = lazy(() => import("@/pages/use-cases/CheckoutPage"));
+const AddToCartPage = lazy(() => import("@/pages/use-cases/AddToCartPage"));
+const RemoveFromCartPage = lazy(() => import("@/pages/use-cases/RemoveFromCartPage"));
+const CustomerExperience = lazy(() => import("@/pages/use-cases/CustomerExperience"));
+const MoreCartItems = lazy(() => import("@/pages/use-cases/MoreCartItems"));
+const FreeShippingDisplay = lazy(() => import("@/pages/use-cases/FreeShippingDisplay"));
+const DiscountCoupon = lazy(() => import("@/pages/use-cases/DiscountCoupon"));
+
 const queryClient = new QueryClient();
+
+function stripEnPrefix(path: string) {
+  const qIndex = path.indexOf("?");
+  const hIndex = path.indexOf("#");
+  const cutIndex = [qIndex, hIndex].filter((v) => v >= 0).sort((a, b) => a - b)[0] ?? path.length;
+  const pathname = path.slice(0, cutIndex);
+  const suffix = path.slice(cutIndex);
+
+  if (pathname === "/en") return `/${suffix}`;
+  if (pathname.startsWith("/en/")) return `${pathname.slice(3)}${suffix}`;
+  return path;
+}
+
+function useLangAwareLocation() {
+  const [location, navigate] = useBrowserLocation();
+  const { lang } = useLanguage();
+  // لغة الواجهة من السياق تتقدّم أحياناً على pathname بعد pushState — لا نعتمد pathname وحده
+  const isEn = lang === "en";
+  const normalizedLocation = stripEnPrefix(location);
+
+  const langAwareNavigate = (to: string, options?: { replace?: boolean }) => {
+    const plainTarget = stripEnPrefix(to);
+    const nextPath = isEn
+      ? (plainTarget === "/" ? "/en" : `/en${plainTarget}`)
+      : plainTarget;
+    navigate(nextPath, options);
+  };
+
+  return [normalizedLocation, langAwareNavigate] as const;
+}
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -44,6 +81,19 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [location]);
   return null;
+}
+
+/** خلفية بسيطة أثناء تحميل أجزاء الصفحات (تقليل حجم الحزمة الأولى) */
+function LazyRouteFallback() {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg)",
+      }}
+      aria-hidden
+    />
+  );
 }
 
 function Router() {
@@ -76,6 +126,10 @@ function Router() {
       <Route path="/use-cases/checkout" component={CheckoutPage} />
       <Route path="/use-cases/add-to-cart" component={AddToCartPage} />
       <Route path="/use-cases/remove-from-cart" component={RemoveFromCartPage} />
+      <Route path="/use-cases/customer-experience" component={CustomerExperience} />
+      <Route path="/use-cases/more-cart-items" component={MoreCartItems} />
+      <Route path="/use-cases/free-shipping" component={FreeShippingDisplay} />
+      <Route path="/use-cases/discount-coupon" component={DiscountCoupon} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
@@ -87,14 +141,18 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <QueryClientProvider client={queryClient}>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <ScrollToTop />
-            <PageTransition>
-              <Router />
-            </PageTransition>
-          </WouterRouter>
-        </QueryClientProvider>
+        <BlurTransitionProvider>
+          <QueryClientProvider client={queryClient}>
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")} hook={useLangAwareLocation}>
+              <ScrollToTop />
+              <PageTransition>
+                <Suspense fallback={<LazyRouteFallback />}>
+                  <Router />
+                </Suspense>
+              </PageTransition>
+            </WouterRouter>
+          </QueryClientProvider>
+        </BlurTransitionProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

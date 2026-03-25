@@ -12,6 +12,16 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
   const { isAr, dir } = useLanguage();
   const lt = theme === "light";
 
+  const zidLogoSrc =
+    isAr
+      ? lt
+        ? "/zid-ar-light.png"
+        : "/zid-ar-dark.png"
+      : lt
+        ? "/zid-en-light.png"
+        : "/zid-en-dark.png";
+  const sallaLogoSrc = lt ? "/salla-light.webp" : "/salla-dark.png";
+
   useEffect(() => {
     if (!open) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -23,6 +33,22 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
   if (!open) return null;
 
+  /* ألوان أزرار المنصات من نظام التصميم — الوضع الفاتح أوضح وأقل إشعاعاً */
+  const zidBtn = {
+    background: "var(--btn-primary-grad)",
+    border: lt ? "1px solid rgba(67, 24, 255, 0.35)" : "1px solid rgba(124, 58, 237, 0.45)",
+    boxShadow: "var(--btn-primary-shadow)",
+  } as const;
+  const sallaBtn = {
+    background: lt
+      ? "linear-gradient(135deg, rgba(8, 145, 178, 0.88) 0%, rgba(6, 182, 212, 0.82) 100%)"
+      : "linear-gradient(135deg, rgba(21, 249, 245, 0.75) 0%, rgba(0, 235, 231, 0.75) 100%)",
+    border: lt ? "1px solid rgba(6, 182, 212, 0.45)" : "1px solid rgba(199, 248, 255, 0.5)",
+    boxShadow: lt
+      ? "0 4px 20px rgba(8, 145, 178, 0.22)"
+      : "0px 4px 20px 0px rgba(21, 222, 249, 0.25)",
+  } as const;
+
   return (
     <div
       onClick={onClose}
@@ -33,7 +59,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(0,0,0,0.65)",
+        background: lt ? "rgba(26, 31, 60, 0.45)" : "rgba(0,0,0,0.65)",
         backdropFilter: "blur(6px)",
         WebkitBackdropFilter: "blur(6px)",
         padding: "20px",
@@ -42,16 +68,17 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: lt ? "rgba(255,255,255,.95)" : "rgba(15,10,30,0.85)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: `1px solid ${lt ? "rgba(168,85,247,0.2)" : "rgba(168,85,247,0.3)"}`,
+          /* light: لوحة أوضح مثل باقي البطاقات في النظام؛ dark: زجاج من الرموز */
+          background: lt ? "rgba(255, 255, 255, 0.92)" : "var(--glass-bg-2)",
+          backdropFilter: "var(--glass-blur)",
+          WebkitBackdropFilter: "var(--glass-blur)",
+          border: "var(--glass-border)",
           borderRadius: 20,
           padding: "40px 32px 32px",
           maxWidth: 480,
           width: "100%",
           position: "relative",
-          boxShadow: lt ? "0 24px 80px rgba(0,0,0,.12)" : "0 24px 80px rgba(124,58,237,0.35), 0 0 0 1px rgba(168,85,247,0.1)",
+          boxShadow: "var(--glass-shadow)",
           textAlign: "center",
           direction: dir,
           fontFamily: "var(--font)",
@@ -91,7 +118,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         </button>
 
         {/* Title */}
-        <p style={{ color: "rgba(168,85,247,0.9)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
+        <p style={{ color: "var(--p)", fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 10 }}>
           {isAr ? "اختر منصتك" : "Choose Your Platform"}
         </p>
         <h3 style={{ fontSize: "clamp(20px,4vw,26px)", fontWeight: 900, color: "var(--t)", marginBottom: 8, lineHeight: 1.2 }}>
@@ -117,31 +144,32 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
               justifyContent: "center",
               gap: 10,
               padding: "18px 24px",
-              background: "linear-gradient(135deg, rgba(99,59,195,0.8), rgba(79,45,155,0.8))",
-              border: "1px solid rgba(168,85,247,0.5)",
               borderRadius: 14,
               color: "#fff",
               fontSize: 16,
               fontWeight: 800,
               textDecoration: "none",
-              transition: "all .25s",
-              boxShadow: "0 4px 20px rgba(124,58,237,0.3)",
+              transition: "var(--ds-t)",
+              ...zidBtn,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-3px)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(124,58,237,0.5)";
-              e.currentTarget.style.borderColor = "rgba(168,85,247,0.8)";
+              e.currentTarget.style.boxShadow = lt
+                ? "0 8px 32px rgba(67, 24, 255, 0.38)"
+                : "0 8px 32px rgba(124, 58, 237, 0.5)";
+              e.currentTarget.style.borderColor = lt ? "rgba(67, 24, 255, 0.55)" : "rgba(124, 58, 237, 0.8)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow = "0 4px 20px rgba(124,58,237,0.3)";
-              e.currentTarget.style.borderColor = "rgba(168,85,247,0.5)";
+              e.currentTarget.style.boxShadow = zidBtn.boxShadow;
+              e.currentTarget.style.border = zidBtn.border;
             }}
           >
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-              <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
-            </svg>
-            {isAr ? "منصة زد" : "Zid Platform"}
+            <img
+              src={zidLogoSrc}
+              alt={isAr ? "منصة زد" : "Zid Platform"}
+              style={{ height: 22, width: "auto", display: "block" }}
+            />
           </a>
 
           {/* Salla */}
@@ -156,32 +184,32 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
               justifyContent: "center",
               gap: 10,
               padding: "18px 24px",
-              background: "linear-gradient(135deg, rgba(249,115,22,0.75), rgba(234,88,12,0.75))",
-              border: "1px solid rgba(251,146,60,0.5)",
               borderRadius: 14,
               color: "#fff",
               fontSize: 16,
               fontWeight: 800,
               textDecoration: "none",
-              transition: "all .25s",
-              boxShadow: "0 4px 20px rgba(249,115,22,0.25)",
+              transition: "var(--ds-t)",
+              ...sallaBtn,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-3px)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(249,115,22,0.45)";
-              e.currentTarget.style.borderColor = "rgba(251,146,60,0.8)";
+              e.currentTarget.style.boxShadow = lt
+                ? "0 8px 32px rgba(8, 145, 178, 0.4)"
+                : "0 8px 32px rgba(21, 222, 249, 0.45)";
+              e.currentTarget.style.borderColor = lt ? "rgba(6, 182, 212, 0.75)" : "rgba(199, 248, 255, 0.8)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "none";
-              e.currentTarget.style.boxShadow = "0 4px 20px rgba(249,115,22,0.25)";
-              e.currentTarget.style.borderColor = "rgba(251,146,60,0.5)";
+              e.currentTarget.style.boxShadow = sallaBtn.boxShadow;
+              e.currentTarget.style.border = sallaBtn.border;
             }}
           >
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-              <rect x="3" y="3" width="12" height="12" rx="3" fill="rgba(255,255,255,0.3)" />
-              <path d="M6 9h6M9 6v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            {isAr ? "منصة سلة" : "Salla Platform"}
+            <img
+              src={sallaLogoSrc}
+              alt={isAr ? "منصة سلة" : "Salla Platform"}
+              style={{ height: 22, width: "auto", display: "block" }}
+            />
           </a>
         </div>
 

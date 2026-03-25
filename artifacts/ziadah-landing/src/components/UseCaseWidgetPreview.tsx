@@ -52,7 +52,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
       <div
         style={{
           padding: "12px",
-          fontFamily: "var(--font, 'Rubik', sans-serif)",
+          fontFamily: "var(--font)",
           direction,
           textAlign,
           background: "transparent",

@@ -111,7 +111,7 @@ export default function CartDemoMockup() {
                 "0 32px 80px rgba(0,0,0,0.22), 0 0 0 10px var(--s2), 0 0 0 12px var(--s3)",
               overflow: "hidden",
               position: "relative",
-              fontFamily: "var(--font, 'Rubik', sans-serif)",
+              fontFamily: "var(--font)",
             }}
           >
             <div
