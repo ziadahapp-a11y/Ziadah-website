@@ -133,8 +133,9 @@ export default function Landing() {
     };
   }, []);
 
-  // Custom cursor
+  // Custom cursor — فقط على الديسكتوب (لا يوجد ماوس على الجوال)
   useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return; // جوال/لمس → تخطي
     const cur = document.getElementById("zd-cur");
     const curR = document.getElementById("zd-curR");
     if (!cur || !curR) return;
@@ -142,6 +143,7 @@ export default function Landing() {
       my = 0,
       rx = 0,
       ry = 0;
+    let rafId: number;
     const onMove = (e: MouseEvent) => {
       mx = e.clientX;
       my = e.clientY;
@@ -151,13 +153,16 @@ export default function Landing() {
     function loop() {
       rx += (mx - rx - 18) * 0.11;
       ry += (my - ry - 18) * 0.11;
-      curR.style.left = rx + "px";
-      curR.style.top = ry + "px";
-      requestAnimationFrame(loop);
+      curR!.style.left = rx + "px";
+      curR!.style.top = ry + "px";
+      rafId = requestAnimationFrame(loop);
     }
     document.addEventListener("mousemove", onMove);
-    loop();
-    return () => document.removeEventListener("mousemove", onMove);
+    rafId = requestAnimationFrame(loop);
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -235,38 +240,9 @@ export default function Landing() {
           color: "var(--t)",
         }}
       >
-        {/* CURSOR */}
-        <div
-          id="zd-cur"
-          style={{
-            width: 10,
-            height: 10,
-            background: "var(--p3)",
-            borderRadius: "50%",
-            position: "fixed",
-            pointerEvents: "none",
-            zIndex: 9999,
-            mixBlendMode: isLight ? "multiply" : "screen",
-            transition: "width .18s,height .18s,background .18s",
-            top: -999,
-            left: -999,
-          }}
-        />
-        <div
-          id="zd-curR"
-          style={{
-            width: 36,
-            height: 36,
-            border: "1px solid rgba(168,85,247,.4)",
-            borderRadius: "50%",
-            position: "fixed",
-            pointerEvents: "none",
-            zIndex: 9998,
-            transition: "all .3s",
-            top: -999,
-            left: -999,
-          }}
-        />
+        {/* CURSOR — ديسكتوب فقط */}
+        <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: isLight ? "multiply" : "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
+        <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(168,85,247,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
         {/* BG */}
         <div className="bg-wrap">
           <div className="orb o1" />

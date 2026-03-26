@@ -973,3 +973,8 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
     opacity:.92;
   }
 }
+
+/* عناصر ديسكتوب فقط — تُخفى على أجهزة اللمس */
+@media (pointer: coarse) {
+  .desktop-only { display: none !important; }
+}

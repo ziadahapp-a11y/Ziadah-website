@@ -31,7 +31,6 @@ const SPEED_CAP = 1.62 * SPEED_SCALE;
 const JITTER = 0.024 * SPEED_SCALE;
 const INIT_VEL = 0.52 * SPEED_SCALE;
 
-export const particlePositions: { x: number; y: number; color: string }[] = [];
 
 function isMobile(w: number) { return w < 768; }
 function isTablet(w: number) { return w < 1024; }
@@ -157,8 +156,6 @@ export default function ParticleBackground() {
         ctx.fill();
       }
 
-      particlePositions.length = 0;
-
       const pts = particles.current;
       const n = pts.length;
       const LINK_DIST = linkDistForScreen(W);
@@ -266,8 +263,6 @@ export default function ParticleBackground() {
             ctx.stroke();
           }
         }
-
-        particlePositions.push({ x: p.x, y: p.y, color: p.color });
       }
 
       frameRef.current = requestAnimationFrame(draw);
