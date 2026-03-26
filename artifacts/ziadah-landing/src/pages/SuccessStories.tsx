@@ -5,6 +5,8 @@ import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
+import { t } from "../i18n/translations";
+import { getPageKeywords } from "@/seo/page-keywords";
 
 type StoryData = {
   store: string;
@@ -433,7 +435,9 @@ function StoryCard({ s, index, total, isAr }: { s: StoryData; index: number; tot
 }
 
 export default function SuccessStories() {
-  const { isAr, dir } = useLanguage();
+  const { lang, isAr, dir } = useLanguage();
+  const sx = t[lang].successStoriesPage;
+  const pk = getPageKeywords("/success-stories");
   const [activeSector, setActiveSector] = useState("الكل");
   const [visible, setVisible] = useState(true);
   const filterRef = useRef<HTMLDivElement>(null);
@@ -483,14 +487,18 @@ export default function SuccessStories() {
   return (
     <>
     <SEO
-      title={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
-      description={isAr ? "ثلاث عشرة قصة نجاح بأرقام موثقة: تحويلات ومبيعات بالريال، مع التحدي والاستراتيجية ونوع النافذة التسويقية." : "Thirteen success stories with verified numbers: conversions and sales in SAR, plus challenge, strategy, and popup type."}
+      titleAr={t.ar.successStoriesPage.seoTitle}
+      titleEn={t.en.successStoriesPage.seoTitle}
+      descriptionAr={t.ar.successStoriesPage.seoDesc}
+      descriptionEn={t.en.successStoriesPage.seoDesc}
       canonical="/success-stories"
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: isAr ? "الرئيسية" : "Home", url: "/" }, { name: isAr ? "قصص النجاح" : "Success Stories", url: "/success-stories" }]} />
     <WebPageSchema
-      name={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
-      description={isAr ? "ثلاث عشرة قصة نجاح بأرقام موثقة: تحويلات ومبيعات بالريال، مع التحدي والاستراتيجية ونوع النافذة التسويقية." : "Thirteen success stories with verified numbers: conversions and sales in SAR, plus challenge, strategy, and popup type."}
+      name={sx.seoTitle}
+      description={sx.seoDesc}
       url="/success-stories"
     />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
@@ -1180,7 +1188,7 @@ export default function SuccessStories() {
           z-index: 1;
         }
         .sector-card-v2 {
-          padding: 22px 22px;
+          padding: var(--card-pad-md);
           border-radius: 18px;
           border: 1px solid var(--b1);
           background: linear-gradient(165deg, rgba(255,255,255,.04) 0%, rgba(0,0,0,.08) 100%);
@@ -1268,9 +1276,6 @@ export default function SuccessStories() {
           box-shadow: 0 16px 48px rgba(0,0,0,.08);
           background: linear-gradient(165deg, rgba(168,85,247,.06) 0%, rgba(255,255,255,.85) 100%);
         }
-        @media (max-width: 1024px) {
-          .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
-        }
         @media (max-width: 768px) {
           .story-head-v3 { padding: 22px 20px 16px !important; }
           .story-two-cards-v3 { grid-template-columns: 1fr !important; padding: 0 20px 0 !important; gap: 14px !important; }
@@ -1292,12 +1297,10 @@ export default function SuccessStories() {
           .story-quote-v3 { margin: 18px 20px 0 !important; padding: 16px !important; padding-inline-start: 48px !important; }
           .story-footer-v3 { padding: 18px 20px 20px !important; flex-wrap: wrap; }
           .details-grid-v3 { grid-template-columns: 1fr !important; padding: 0 20px 22px !important; }
-          .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
           .hero-stat-v2 { padding: 16px 20px; }
         }
         @media (max-width: 480px) {
           .story-chip-v3 { font-size: 11px; padding: 6px 10px; }
-          .sectors-grid-v2 { grid-template-columns: 1fr !important; }
           .filter-btn-v2 { padding: 8px 12px; font-size: 12px; gap: 4px; }
           .hero-stat-v2 { padding: 14px 16px; }
           .story-footer-v3 { flex-direction: column; align-items: stretch !important; }
@@ -1313,14 +1316,14 @@ export default function SuccessStories() {
       <Nav />
 
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
-        <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "قصص نجاح حقيقية" : "Real Success Stories"}</div>
+        <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{sx.heroTag}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
-          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{isAr ? "أثر مستدام" : "Lasting Impact"}</span>
+          <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{sx.heroH1Gradient}</span>
           <br />
-          <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>{isAr ? "بأرقام موثقة من تجار حقيقيين" : "With verified numbers from real merchants"}</span>
+          <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>{sx.heroH1Sub}</span>
         </h1>
         <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "var(--td)" }}>
-          {isAr ? "+700 متجر استخدم زيادة لتحقيق نتائج استثنائية. نشاركك قصصهم الحقيقية بأرقام واضحة ونتائج ملموسة." : "+700 stores used Ziadah to achieve exceptional results. We share their real stories with clear numbers and tangible outcomes."}
+          {sx.heroLead}
         </p>
         <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
           {(isAr ? [
@@ -1399,7 +1402,7 @@ export default function SuccessStories() {
             <h2 className="st rv d1 font-semibold" style={{ marginBottom: 12 }}>{isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}</h2>
             <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>{isAr ? "زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك" : "Ziadah works with all types of stores — discover the results in your industry"}</p>
           </div>
-          <div className="sectors-grid-v2 rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
+          <div className="sectors-grid-v2 rv d2">
             {(isAr ? sectors : sectorsEn).map(s => {
               const sectorArName = s.nameAr;
               const count = stories.filter(st => st.sector === sectorArName).length;

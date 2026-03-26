@@ -3,6 +3,7 @@ import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
@@ -51,6 +52,7 @@ export default function Features() {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const { lang, dir, isAr } = useLanguage();
   const ft = t[lang].features;
+  const pk = getPageKeywords("/features");
 
   useEffect(() => {
     const obs = new IntersectionObserver(es => {
@@ -63,13 +65,21 @@ export default function Features() {
   return (
     <>
     <SEO
-      title={ft.seoTitle}
-      description={ft.seoDesc}
+      titleAr={t.ar.features.seoTitle}
+      titleEn={t.en.features.seoTitle}
+      descriptionAr={t.ar.features.seoDesc}
+      descriptionEn={t.en.features.seoDesc}
       canonical="/features"
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
     />
     <SoftwareAppSchema />
     <BreadcrumbSchema items={[{ name: ft.breadcrumbHome, url: "/" }, { name: ft.breadcrumbFeatures, url: "/features" }]} />
-    <WebPageSchema name={ft.seoTitle} description={ft.seoDesc} url="/features" />
+    <WebPageSchema
+      name={lang === "ar" ? t.ar.features.seoTitle : t.en.features.seoTitle}
+      description={lang === "ar" ? t.ar.features.seoDesc : t.en.features.seoDesc}
+      url="/features"
+    />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <div className="bg-wrap">
         <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
@@ -102,14 +112,14 @@ export default function Features() {
 
       {/* GOALS */}
       {activeTab === "goals" && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", flexDirection: "column", gap: "var(--card-gap)" }}>
             {goals.map((g, i) => (
               <div key={g.id} className={`gc rv d${(i%2)+1}`} style={{ padding: 0, overflow: "hidden" }}>
                 <div className="shine"/>
-                <div className="feat-goals-outer" style={{ display: "grid", gridTemplateColumns: "auto 1fr auto" }}>
-                  <div style={{ width: 8, background: g.color, opacity: 0.7 }}/>
-                  <div style={{ padding: "32px 36px" }}>
+                <div className="feat-goals-outer">
+                  <div style={{ background: g.color, opacity: 0.7 }}/>
+                  <div style={{ padding: "var(--card-pad-md)" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 16, marginBottom: 16 }}>
                       <div style={{ fontSize: 36, lineHeight: 1 }}>{g.icon}</div>
                       <div style={{ flex: 1 }}>
@@ -149,10 +159,10 @@ export default function Features() {
 
       {/* PRESENTATIONS */}
       {activeTab === "presentations" && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div className="feat-presentations-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
+          <div className="feat-presentations-grid">
             {presentations.map((p, i) => (
-              <div key={isAr ? p.title : p.titleEn} className={`gc rv d${(i%2)+1}`} style={{ padding: "36px 32px" }}>
+              <div key={isAr ? p.title : p.titleEn} className={`gc rv d${(i%2)+1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div className="shine"/>
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
                   <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(168,85,247,.1)`, border: "1px solid rgba(168,85,247,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>{p.icon}</div>
@@ -176,11 +186,11 @@ export default function Features() {
 
       {/* ACTIVITIES */}
       {activeTab === "activities" && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <div className="feat-activities-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 48 }}>
+            <div className="feat-activities-grid">
               {activities.map((a, i) => (
-                <div key={a.num} className={`gc rv d${(i%3)+1}`} style={{ padding: "28px 24px" }}>
+                <div key={a.num} className={`gc rv d${(i%3)+1}`} style={{ padding: "var(--card-pad-md)", minHeight: "100%" }}>
                   <div className="shine"/>
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
                     <div style={{ width: 42, height: 42, borderRadius: 13, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{a.icon}</div>
@@ -210,7 +220,7 @@ export default function Features() {
               ))}
             </div>
             {/* Journey map */}
-            <div className="gc rv" style={{ padding: "36px 40px" }}>
+            <div className="gc rv" style={{ padding: "var(--card-pad-lg)" }}>
               <div className="shine"/>
               <div style={{ textAlign: "center", marginBottom: 32 }}>
                 <div style={{ fontSize: 18, fontWeight: 800 }}>{ft.journeyMapTitle}</div>
@@ -234,10 +244,10 @@ export default function Features() {
 
       {/* USE CASES */}
       {activeTab === "usecases" && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div className="feat-usecases-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 18 }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
+          <div className="feat-usecases-grid">
             {usecases.map((u, i) => (
-              <div key={isAr ? u.sector : u.sectorEn} className={`gc rv d${(i%2)+1}`} style={{ padding: "32px 28px" }}>
+              <div key={isAr ? u.sector : u.sectorEn} className={`gc rv d${(i%2)+1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div className="shine"/>
                 <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 18 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -269,9 +279,9 @@ export default function Features() {
       )}
 
       {/* CTA */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>
+          <div className="gc cta-box rv" style={{ padding: "clamp(40px,8vw,72px) clamp(22px,6vw,56px)" }}>
             <div className="shine"/><div className="cta-glow"/>
             <h2 style={{ fontSize: "clamp(30px,4vw,50px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{ft.ctaTitle}</h2>
             <p style={{ color: "var(--tm)", marginBottom: 36, position: "relative", zIndex: 1 }}>{ft.ctaSub}</p>

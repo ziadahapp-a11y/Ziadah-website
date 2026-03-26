@@ -4,6 +4,7 @@ import ParticleBackground from "./ParticleBackground";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
 import SEO from "./SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
@@ -83,8 +84,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const plans = (isEn && data.plansEn) ? data.plansEn : data.plans;
   const ctaTitle = (isEn && data.ctaTitleEn) ? data.ctaTitleEn : data.ctaTitle;
   const ctaDesc = (isEn && data.ctaDescEn) ? data.ctaDescEn : data.ctaDesc;
-  const seoTitle = (isEn && data.seo?.titleEn) ? data.seo.titleEn : data.seo?.title;
-  const seoDesc = (isEn && data.seo?.descriptionEn) ? data.seo.descriptionEn : data.seo?.description;
+  const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -100,9 +100,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     {data.seo && (
       <>
         <SEO
-          title={seoTitle || ""}
-          description={seoDesc || ""}
+          titleAr={data.seo.title}
+          titleEn={data.seo.titleEn || data.seo.title}
+          descriptionAr={data.seo.description}
+          descriptionEn={data.seo.descriptionEn || data.seo.description}
           canonical={data.seo.canonical}
+          keywordsAr={pageKw?.keywordsAr}
+          keywordsEn={pageKw?.keywordsEn}
         />
         <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: tr.useCaseLayout.breadcrumbHome, url: "/" }, { name: hero.title, url: data.seo.canonical }]} />
       </>
@@ -152,7 +156,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="uc-stats-grid rv">
             {stats.map((s, i) => (
-              <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "32px 24px", textAlign: "center" }}>
+              <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-md)", textAlign: "center", minHeight: "100%" }}>
                 <div className="shine"/>
                 <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>{s.value}</div>
                 <div style={{ fontSize: 13, color: "var(--td)" }}>{s.label}</div>
@@ -166,9 +170,9 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>{strategyTitle}</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18 }}>
+          <div className="uc-strategies-grid">
             {strategies.map((s, i) => (
-              <div key={i} className={`gc gc-lift rv d${(i % 4) + 1}`} style={{ padding: "32px 28px" }}>
+              <div key={i} className={`gc gc-lift rv d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div className="shine"/>
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
                   <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(${hexToRgb(s.color)},.1)`, border: `1px solid rgba(${hexToRgb(s.color)},.22)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>

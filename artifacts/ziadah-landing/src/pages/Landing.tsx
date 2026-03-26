@@ -4,6 +4,7 @@ import Nav, { Logo } from "../components/Nav";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import SEO from "../components/SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
 import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
 import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
@@ -207,13 +208,18 @@ export default function Landing() {
     col: row2Colors[i % row2Colors.length],
   }));
   const faqs = tr.landing.faqList as { q: string; a: string }[];
+  const pk = getPageKeywords("/");
 
   return (
     <>
       <SEO
-        title={tr.landing.seoTitle}
-        description={tr.landing.seoDesc}
+        titleAr={t.ar.landing.seoTitle}
+        titleEn={t.en.landing.seoTitle}
+        descriptionAr={t.ar.landing.seoDesc}
+        descriptionEn={t.en.landing.seoDesc}
         canonical="/"
+        keywordsAr={pk?.keywordsAr}
+        keywordsEn={pk?.keywordsEn}
       />
       <OrganizationSchema />
       <SoftwareAppSchema />
@@ -339,7 +345,15 @@ export default function Landing() {
             >
               {[...storeLogos, ...storeLogos, ...storeLogos].map((l, i) => (
                 <div key={i} className="lc">
-                  <img src={l.src} alt={l.name} className="logo-img" />
+                  <img
+                    src={l.src}
+                    alt={
+                      lang === "ar"
+                        ? `شعار ${l.name} — متجر يستخدم منصة زيادة للذكاء الاصطناعي`
+                        : `${l.name} logo — Ziadah AI ecommerce merchant`
+                    }
+                    className="logo-img"
+                  />
                 </div>
               ))}
             </div>
@@ -664,7 +678,15 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 60% 35%, #1e1245 0%, #0d0a22 55%, #060412 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-male.webp" alt="Nasser" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img
+                        src="/avatar-male.webp"
+                        alt={
+                          lang === "ar"
+                            ? "ناصر — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
+                            : "Nasser — sample profile for Ziadah AI recommendations demo"
+                        }
+                        style={{ height: "100%", width: "auto", objectFit: "contain" }}
+                      />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">
@@ -944,7 +966,15 @@ export default function Landing() {
                 <div className="demo-card">
                   <div className="demo-illo">
                     <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img src="/avatar-female.webp" alt="Noura" style={{ height: "100%", width: "auto", objectFit: "contain" }} />
+                      <img
+                        src="/avatar-female.webp"
+                        alt={
+                          lang === "ar"
+                            ? "نوره — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
+                            : "Noura — sample profile for Ziadah AI recommendations demo"
+                        }
+                        style={{ height: "100%", width: "auto", objectFit: "contain" }}
+                      />
                     </div>
                     <div className="demo-fade" />
                     <div className="demo-pill">
@@ -1596,9 +1626,9 @@ export default function Landing() {
               </p>
             </div>
 
-            <div className="reports-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            <div className="reports-grid">
               {/* Campaign-level report card */}
-              <GlassCard className="rv d1" style={{ padding: "32px 28px" }}>
+              <GlassCard className="rv d1" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -1649,7 +1679,7 @@ export default function Landing() {
               </GlassCard>
 
               {/* Product-level report card */}
-              <GlassCard className="rv d2" style={{ padding: "32px 28px" }}>
+              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">

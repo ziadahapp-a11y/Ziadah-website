@@ -28,7 +28,7 @@ export default function Footer() {
                       ? "/logo-ar.png"
                       : "/logo-en.png"
                 }
-                alt="Ziadah"
+                alt={tr.seo.brandLogoAlt}
                 style={{ height: 40, width: "auto" }}
               />
             </div>
@@ -52,10 +52,10 @@ export default function Footer() {
           <div className="ft-col">
             <h4>{tr.footer.platforms}</h4>
             <a href="https://apps.zid.sa/application/1826" target="_blank" rel="noreferrer" aria-label={tr.footer.zidPlatform}>
-              <img src={zidLogoSrc} alt={tr.footer.zidPlatform} style={{ height: 18, width: "auto", display: "block" }} />
+              <img src={zidLogoSrc} alt={tr.seo.platformLogoAltZid} style={{ height: 18, width: "auto", display: "block" }} />
             </a>
             <a href="https://apps.salla.sa/ar/app/1099604538" target="_blank" rel="noreferrer" aria-label={tr.footer.sallaPlatform}>
-              <img src={sallaLogoSrc} alt={tr.footer.sallaPlatform} style={{ height: 18, width: "auto", display: "block" }} />
+              <img src={sallaLogoSrc} alt={tr.seo.platformLogoAltSalla} style={{ height: 18, width: "auto", display: "block" }} />
             </a>
             <a href="https://web.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardZid}</a>
             <a href="https://dashboard.ziadah.app/" target="_blank" rel="noreferrer">{tr.footer.dashboardSalla}</a>

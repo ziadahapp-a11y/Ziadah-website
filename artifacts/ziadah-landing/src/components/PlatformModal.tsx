@@ -80,7 +80,11 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             <div className="platform-tile-logo-wrap platform-tile-logo-wrap--zid">
               <img
                 src={zidLogoSrc}
-                alt={isAr ? "منصة زد" : "Zid Platform"}
+                alt={
+                  isAr
+                    ? "منصة زد — تفعيل تطبيق زيادة للتوصيات الذكية"
+                    : "Zid platform — install Ziadah AI ecommerce app"
+                }
                 className="platform-tile-logo platform-tile-logo--zid"
                 width={280}
                 height={80}
@@ -100,7 +104,11 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           >
             <img
               src={sallaLogoSrc}
-              alt={isAr ? "منصة سلة" : "Salla Platform"}
+              alt={
+                isAr
+                  ? "منصة سلة — تفعيل تطبيق زيادة للتوصيات الذكية"
+                  : "Salla platform — install Ziadah AI ecommerce app"
+              }
               className="platform-tile-logo platform-tile-logo--salla"
               width={200}
               height={48}

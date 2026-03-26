@@ -14,6 +14,7 @@ function ThemeToggle() {
   const isLight = theme === "light";
   return (
     <button
+      type="button"
       onClick={() => runBlur(() => toggleTheme())}
       title={isLight ? "تفعيل المود الليلي" : "تفعيل المود النهاري"}
       style={{
@@ -51,6 +52,7 @@ function ThemeToggle() {
 export const Logo = () => {
   const { theme } = useTheme();
   const { lang } = useLanguage();
+  const tr = t[lang];
   const logoSrc =
     theme === "light"
       ? lang === "ar"
@@ -61,7 +63,7 @@ export const Logo = () => {
         : "/logo-en.png";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-      <img src={logoSrc} alt="Ziadah" style={{ height: 30, width: "auto" }} />
+      <img src={logoSrc} alt={tr.seo.brandLogoAlt} style={{ height: 30, width: "auto" }} />
     </span>
   );
 };
@@ -73,6 +75,7 @@ function LanguageSwitcher() {
   const isLt = theme === "light";
   return (
     <button
+      type="button"
       onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
       style={{
         display: "flex", alignItems: "center", gap: 5,
@@ -303,7 +306,7 @@ function PlatformsDropdown() {
           >
             <img
               src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)}
-              alt={item.label}
+              alt={item.key === "zid" ? tr.seo.platformLogoAltZid : tr.seo.platformLogoAltSalla}
               style={{ height: 18, width: "auto", display: "block" }}
             />
           </a>
@@ -367,6 +370,7 @@ function FeatureRequestModal({ onClose }: { onClose: () => void }) {
         boxShadow: lt ? "0 40px 100px rgba(0,0,0,.12), 0 0 60px rgba(124,58,237,.08)" : "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
       }}>
         <button
+          type="button"
           onClick={onClose}
           style={{
             position: "absolute", top: 16, left: 16,
@@ -579,6 +583,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
           return (
             <button
               key={item.label}
+              type="button"
               onClick={onFeatureRequest}
               style={{
                 display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
@@ -747,6 +752,7 @@ function MobileMoreDropdown({
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 1, textTransform: "uppercase" }}>{tr.nav.menu}</span>
           <button
+            type="button"
             onClick={onClose}
             style={{
               background: "var(--s2)", border: "none", color: "var(--tm)",
@@ -760,6 +766,7 @@ function MobileMoreDropdown({
 
         <div style={{ marginBottom: 6 }}>
           <button
+            type="button"
             onClick={() => toggleSection("useCases")}
             aria-expanded={openSection === "useCases"}
             style={{
@@ -795,6 +802,7 @@ function MobileMoreDropdown({
 
         <div style={{ marginBottom: 6 }}>
           <button
+            type="button"
             onClick={() => toggleSection("platforms")}
             aria-expanded={openSection === "platforms"}
             style={{
@@ -851,6 +859,7 @@ function MobileMoreDropdown({
 
         <div style={{ marginBottom: 6 }}>
           <button
+            type="button"
             onClick={() => toggleSection("help")}
             aria-expanded={openSection === "help"}
             style={{
@@ -932,7 +941,7 @@ function MobileMoreDropdown({
           }}>
             {tr.nav.bookMeeting}
           </a>
-          <button onClick={() => { onClose(); onStartNow?.(); }} style={{
+          <button type="button" onClick={() => { onClose(); onStartNow?.(); }} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
             fontFamily: "var(--font)", border: "none", cursor: "pointer",
@@ -1042,7 +1051,7 @@ export default function Nav() {
 
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "usecases")}>
+                <button type="button" style={navBtnStyle(openDrop === "usecases")}>
                   {tr.nav.useCases} {chevron(openDrop === "usecases")}
                 </button>
                 {openDrop === "usecases" && <UseCasesMegaMenu />}
@@ -1066,7 +1075,7 @@ export default function Nav() {
 
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "platforms")}>
+                <button type="button" style={navBtnStyle(openDrop === "platforms")}>
                   {tr.nav.platforms} {chevron(openDrop === "platforms")}
                 </button>
                 {openDrop === "platforms" && <PlatformsDropdown />}
@@ -1104,7 +1113,7 @@ export default function Nav() {
 
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "help")}>
+                <button type="button" style={navBtnStyle(openDrop === "help")}>
                   {tr.nav.help} {chevron(openDrop === "help")}
                 </button>
                 {openDrop === "help" && (
@@ -1119,7 +1128,7 @@ export default function Nav() {
             <ThemeToggle />
             <LanguageSwitcher />
             <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">{tr.nav.bookMeeting}</a>
-            <button onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>{tr.nav.startNow}</button>
+            <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>{tr.nav.startNow}</button>
           </div>
         </div>
 
@@ -1139,7 +1148,7 @@ export default function Nav() {
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "usecases2")}>
+                <button type="button" style={navBtnStyle(openDrop === "usecases2")}>
                   {tr.nav.useCases} {chevron(openDrop === "usecases2")}
                 </button>
                 {openDrop === "usecases2" && <UseCasesMegaMenu />}
@@ -1158,7 +1167,7 @@ export default function Nav() {
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "platforms2")}>
+                <button type="button" style={navBtnStyle(openDrop === "platforms2")}>
                   {tr.nav.platforms} {chevron(openDrop === "platforms2")}
                 </button>
                 {openDrop === "platforms2" && <PlatformsDropdown />}
@@ -1187,7 +1196,7 @@ export default function Nav() {
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
-                <button style={navBtnStyle(openDrop === "help2")}>
+                <button type="button" style={navBtnStyle(openDrop === "help2")}>
                   {tr.nav.help} {chevron(openDrop === "help2")}
                 </button>
                 {openDrop === "help2" && (
@@ -1288,6 +1297,7 @@ export default function Nav() {
                       : false;
             return (
               <button
+                type="button"
                 key={item.key}
                 onClick={item.action}
                 style={{

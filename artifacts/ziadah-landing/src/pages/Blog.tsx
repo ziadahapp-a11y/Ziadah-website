@@ -4,6 +4,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
@@ -100,6 +101,7 @@ export default function Blog() {
   });
 
   const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
+  const pk = getPageKeywords("/blog");
 
   return (
     <StandardPage
@@ -108,6 +110,8 @@ export default function Blog() {
       descriptionAr={t.ar.blog.seoDesc}
       descriptionEn={t.en.blog.seoDesc}
       canonical="/blog"
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
     >
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: isAr ? p.title : (p.titleEn || p.title), summary: isAr ? p.summary : (p.summaryEn || p.summary), publishDateIso: p.publishDateIso }))} />
@@ -275,7 +279,7 @@ export default function Blog() {
         style={{
           position: "relative",
           zIndex: 2,
-          padding: "0 5% 100px",
+          padding: "0 var(--page-inline-pad) 100px",
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -291,14 +295,7 @@ export default function Blog() {
               {tx.noResults}
             </div>
           ) : (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fill, minmax(340px, 1fr))",
-                gap: 24,
-              }}
-            >
+            <div className="blog-cards-grid">
               {filtered.map((post, i) => {
                 const catObj = categories.find(c => c.id === post.category);
                 const catDisplay = catObj ? getCatLabel(catObj) : post.category;
@@ -316,7 +313,7 @@ export default function Blog() {
                       overflow: "hidden",
                       display: "flex",
                       flexDirection: "column",
-                      height: "100%",
+                      minHeight: "100%",
                     }}
                   >
                     <div className="shine" />
@@ -324,7 +321,7 @@ export default function Blog() {
                     <div
                       style={{
                         background: post.coverGradient,
-                        height: 200,
+                        height: "clamp(160px, 28vw, 200px)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",

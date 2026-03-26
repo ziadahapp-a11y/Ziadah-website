@@ -4,6 +4,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
@@ -11,6 +12,7 @@ import { t } from "../i18n/translations";
 export default function Support() {
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].support;
+  const pk = getPageKeywords("/support");
   const [activeCategory, setActiveCategory] = useState("start");
   const [search, setSearch] = useState("");
 
@@ -54,9 +56,13 @@ export default function Support() {
   return (
     <>
     <SEO
-      title={tx.seoTitle}
-      description={tx.seoDesc}
+      titleAr={t.ar.support.seoTitle}
+      titleEn={t.en.support.seoTitle}
+      descriptionAr={t.ar.support.seoDesc}
+      descriptionEn={t.en.support.seoDesc}
       canonical="/support"
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
@@ -136,13 +142,13 @@ export default function Support() {
       </section>
 
       {/* ─── QUICK LINKS ─── */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 64px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 64px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }} className="rv">
+          <div className="rv support-cards-grid">
             {quickLinks.map(l => (
               <a key={l.label} href={l.href} target={l.ext ? "_blank" : undefined} rel="noreferrer"
                 className="gc"
-                style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", textDecoration: "none", color: "var(--t)", transition: "all .25s" }}
+                style={{ display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)", textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
               >
@@ -159,7 +165,7 @@ export default function Support() {
       </section>
 
       {/* ─── CATEGORIES + ARTICLES ─── */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 80px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
           {/* Category Pills */}
@@ -207,12 +213,12 @@ export default function Support() {
                 </span>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+              <div className="support-articles-grid">
                 {activeCat.articles.map((a, i) => (
                   <div key={a.id}
                     onClick={() => navigateTo(`/support/article/${a.id}`)}
                     className="gc gc-lift"
-                    style={{ display: "block", padding: "22px 24px", cursor: "pointer", transition: "all .28s cubic-bezier(.23,1,.32,1)" }}
+                    style={{ display: "block", padding: "var(--card-pad-md)", cursor: "pointer", transition: "all .28s cubic-bezier(.23,1,.32,1)", minHeight: "100%" }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = `${activeCat.color}35`; }}
                     onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--b1)"; }}
                   >
@@ -245,7 +251,7 @@ export default function Support() {
       </section>
 
       {/* ─── VIDEO LIBRARY ─── */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
             <div>
@@ -260,14 +266,14 @@ export default function Support() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 16 }} className="rv d1">
+          <div className="rv d1 support-videos-grid">
             {videoLibrary.map(v => {
               const vEn = videoTitlesEn[v.id];
               const vTitle = isAr ? v.title : (vEn?.title || v.title);
               const vDesc = isAr ? v.description : (vEn?.description || v.description);
               const vCat = isAr ? v.category : (vEn?.category || v.category);
               return (
-              <div key={v.id} className="gc" style={{ overflow: "hidden" }}>
+              <div key={v.id} className="gc" style={{ overflow: "hidden", minHeight: "100%", display: "flex", flexDirection: "column" }}>
                 <div className="shine"/>
                 <div style={{ position: "relative", width: "100%", paddingTop: "56.25%", background: "rgba(0,0,0,.4)", overflow: "hidden" }}>
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(124,58,237,.15) 0%, rgba(6,182,212,.1) 100%)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
@@ -286,7 +292,7 @@ export default function Support() {
                     {vCat}
                   </div>
                 </div>
-                <div style={{ padding: "16px 18px 18px" }}>
+                <div style={{ padding: "var(--card-pad-sm)", flex: 1, display: "flex", flexDirection: "column" }}>
                   <div style={{ fontSize: 15, fontWeight: 700, color: "var(--t)", lineHeight: 1.4, marginBottom: 6 }}>{vTitle}</div>
                   <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{vDesc}</div>
                 </div>
@@ -298,9 +304,9 @@ export default function Support() {
       </section>
 
       {/* ─── CONTACT CTA ─── */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
         <div style={{ maxWidth: 840, margin: "0 auto" }}>
-          <div className="gc rv" style={{ padding: "48px 40px", textAlign: "center", position: "relative" }}>
+          <div className="gc rv" style={{ padding: "var(--card-pad-lg)", textAlign: "center", position: "relative" }}>
             <div className="shine"/>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%,rgba(124,58,237,.12),transparent 70%)", pointerEvents: "none", borderRadius: "var(--r)" }}/>
             <div style={{ position: "relative", zIndex: 1 }}>

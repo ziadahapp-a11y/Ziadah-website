@@ -1,13 +1,17 @@
+import { Helmet } from "react-helmet-async";
+
 interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export default function JsonLd({ data }: JsonLdProps) {
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
+    <Helmet>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      />
+    </Helmet>
   );
 }
 
@@ -31,10 +35,14 @@ export function OrganizationSchema() {
       contactType: "customer service",
       availableLanguage: ["English", "Arabic"]
     },
-    areaServed: {
-      "@type": "Country",
-      name: "Saudi Arabia"
-    }
+    areaServed: [
+      { "@type": "Country", name: "Saudi Arabia" },
+      { "@type": "Country", name: "United Arab Emirates" },
+      { "@type": "Country", name: "Kuwait" },
+      { "@type": "Country", name: "Bahrain" },
+      { "@type": "Country", name: "Oman" },
+      { "@type": "Country", name: "Qatar" },
+    ]
   };
   return <JsonLd data={data} />;
 }
@@ -48,8 +56,8 @@ export function SoftwareAppSchema() {
     url: "https://www.ziadah.app",
     description: "تطبيق ذكاء اصطناعي لمتاجر زد وسلة يرفع متوسط قيمة الطلب ومعدل التحويل عبر توصيات مخصصة",
     applicationCategory: "BusinessApplication",
-    operatingSystem: "Web, iOS, Android",
-    inLanguage: "ar",
+    operatingSystem: "Web",
+    inLanguage: ["ar", "en"],
     offers: [
       {
         "@type": "Offer",
@@ -166,7 +174,7 @@ export function WebSiteSchema() {
     name: "زيادة",
     alternateName: "Ziadah",
     url: "https://www.ziadah.app",
-    inLanguage: "ar",
+    inLanguage: ["ar", "en"],
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -185,7 +193,7 @@ export function HowToSchema() {
     "@type": "HowTo",
     name: "كيف تعمل زيادة — 3 خطوات لرفع مبيعات متجرك",
     description: "زيادة تعمل بثلاث خطوات بسيطة: فعّل التطبيق، دع الذكاء الاصطناعي يتعلم، واستقبل النتائج تلقائياً",
-    inLanguage: "ar",
+    inLanguage: ["ar", "en"],
     totalTime: "PT30S",
     step: [
       {
@@ -249,7 +257,7 @@ export function ArticleSchema({
     headline: title,
     description,
     datePublished: publishDate,
-    inLanguage: "ar",
+    inLanguage: ["ar", "en"],
     author: {
       "@type": "Organization",
       name: authorName,
@@ -295,7 +303,7 @@ export function ItemListSchema({ posts }: {
     name: "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
     description: "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
     url: "https://www.ziadah.app/blog",
-    inLanguage: "ar",
+    inLanguage: ["ar", "en"],
     itemListElement: posts.map((post, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -329,7 +337,7 @@ export function WebPageSchema({
     name,
     description,
     url: `https://www.ziadah.app${url}`,
-    inLanguage: "ar",
+    inLanguage: ["ar", "en"],
     isPartOf: {
       "@type": "WebSite",
       name: "زيادة",

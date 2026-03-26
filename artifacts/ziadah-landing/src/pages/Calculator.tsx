@@ -3,6 +3,7 @@ import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
@@ -198,6 +199,7 @@ function SliderCard({
 export default function Calculator() {
   const { lang, dir } = useLanguage();
   const tr = t[lang].calculator;
+  const pk = getPageKeywords("/calculator");
   const numLocale = lang === "ar" ? "ar-SA-u-nu-latn" : "en-US";
   const currencySuffix = lang === "ar" ? " ⃁" : " SAR";
   const fmtN = (n: number, decimals = 0) => fmtLocale(n, numLocale, decimals);
@@ -295,12 +297,20 @@ export default function Calculator() {
   return (
     <>
       <SEO
-        title={tr.seoTitle}
-        description={tr.seoDesc}
+        titleAr={t.ar.calculator.seoTitle}
+        titleEn={t.en.calculator.seoTitle}
+        descriptionAr={t.ar.calculator.seoDesc}
+        descriptionEn={t.en.calculator.seoDesc}
         canonical="/calculator"
+        keywordsAr={pk?.keywordsAr}
+        keywordsEn={pk?.keywordsEn}
       />
       <BreadcrumbSchema items={[{ name: tr.breadcrumbHome, url: "/" }, { name: tr.breadcrumbCalc, url: "/calculator" }]} />
-      <WebPageSchema name={tr.seoTitle} description={tr.seoDesc} url="/calculator" />
+      <WebPageSchema
+        name={lang === "ar" ? t.ar.calculator.seoTitle : t.en.calculator.seoTitle}
+        description={lang === "ar" ? t.ar.calculator.seoDesc : t.en.calculator.seoDesc}
+        url="/calculator"
+      />
       <div
         style={{
           background: "var(--bg)",

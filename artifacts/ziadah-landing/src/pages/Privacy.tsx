@@ -4,6 +4,7 @@ import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
+import { getPageKeywords } from "@/seo/page-keywords";
 
 const sections = {
   ar: [
@@ -31,13 +32,18 @@ export default function Privacy() {
   const tr = t[lang];
   const isEn = lang === "en";
   const content = isEn ? sections.en : sections.ar;
+  const pk = getPageKeywords("/privacy");
 
   return (
     <>
       <SEO
-        title={isEn ? "Privacy Policy — Ziadah" : "سياسة الخصوصية — زيادة"}
-        description={isEn ? "Learn about Ziadah's privacy policy, how we collect and protect data, and your rights as a user. We adhere to the highest data protection standards." : "تعرّف على سياسة الخصوصية لمنصة زيادة، كيف نجمع البيانات ونحميها، وحقوقك كمستخدم. نلتزم بأعلى معايير حماية البيانات."}
+        titleAr={t.ar.legalPages.privacyTitle}
+        titleEn={t.en.legalPages.privacyTitle}
+        descriptionAr={t.ar.legalPages.privacyDesc}
+        descriptionEn={t.en.legalPages.privacyDesc}
         canonical="/privacy"
+        keywordsAr={pk?.keywordsAr}
+        keywordsEn={pk?.keywordsEn}
       />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Privacy Policy" : "سياسة الخصوصية", url: "/privacy" }]} />
       <div style={{ position: "relative", minHeight: "100vh", direction: dir }}>
@@ -46,7 +52,7 @@ export default function Privacy() {
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
           <div className="wrap" style={{ maxWidth: 800 }}>
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
-              {isEn ? "Privacy Policy" : "سياسة الخصوصية"}
+              {tr.legalPages.privacyH1}
             </h1>
             <p style={{ fontSize: 14, color: "var(--td)", marginBottom: 48 }}>
               {isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}

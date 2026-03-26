@@ -4,6 +4,7 @@ import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
+import { getPageKeywords } from "@/seo/page-keywords";
 
 const sections = {
   ar: [
@@ -32,16 +33,22 @@ const sections = {
 
 export default function Terms() {
   const { lang, dir } = useLanguage();
+  const tr = t[lang];
   const isEn = lang === "en";
   const content = isEn ? sections.en : sections.ar;
+  const pk = getPageKeywords("/terms");
 
   return (
     <>
-      <SEO
-        title={isEn ? "Terms & Conditions — Ziadah" : "الشروط والأحكام — زيادة"}
-        description={isEn ? "Read the terms and conditions for using the Ziadah platform. Our commitments to you as a subscriber, and what defines our contractual relationship." : "اقرأ الشروط والأحكام الخاصة باستخدام منصة زيادة. التزاماتنا تجاهك كمشترك، وما يُحدد علاقتنا التعاقدية."}
-        canonical="/terms"
-      />
+    <SEO
+      titleAr={t.ar.legalPages.termsTitle}
+      titleEn={t.en.legalPages.termsTitle}
+      descriptionAr={t.ar.legalPages.termsDesc}
+      descriptionEn={t.en.legalPages.termsDesc}
+      canonical="/terms"
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
+    />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Terms & Conditions" : "الشروط والأحكام", url: "/terms" }]} />
       <div style={{ position: "relative", minHeight: "100vh", direction: dir }}>
         <ParticleBackground />
@@ -49,7 +56,7 @@ export default function Terms() {
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
           <div className="wrap" style={{ maxWidth: 800 }}>
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
-              {isEn ? "Terms & Conditions" : "الشروط والأحكام"}
+              {tr.legalPages.termsH1}
             </h1>
             <p style={{ fontSize: 14, color: "var(--td)", marginBottom: 48 }}>
               {isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}

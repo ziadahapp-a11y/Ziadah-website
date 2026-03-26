@@ -465,11 +465,15 @@ export default function BlogPost() {
   return (
     <>
     <SEO
-      title={getTitle(post)}
-      description={getSummary(post)}
+      titleAr={post.title}
+      titleEn={post.titleEn || post.title}
+      descriptionAr={post.summary}
+      descriptionEn={post.summaryEn || post.summary}
       canonical={`/blog/${post.slug}`}
       type="article"
       publishDate={post.publishDateIso}
+      keywordsAr={`زيادة، مدونة، ذكاء اصطناعي، تجارة إلكترونية، ${categories.find((c) => c.id === post.category)?.label ?? ""}`}
+      keywordsEn={`Ziadah, blog, AI ecommerce, online store, ${categories.find((c) => c.id === post.category)?.labelEn ?? post.category}`}
     />
     <ArticleSchema
       title={getTitle(post)}
@@ -772,14 +776,7 @@ export default function BlogPost() {
               />
               {tx.relatedArticles}
             </h2>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(auto-fill, minmax(300px, 1fr))",
-                gap: 20,
-              }}
-            >
+            <div className="blog-cards-grid">
               {relatedPosts.map((rel, i) => (
                 <div
                   key={rel.slug}
@@ -794,13 +791,14 @@ export default function BlogPost() {
                       overflow: "hidden",
                       display: "flex",
                       flexDirection: "column",
+                      minHeight: "100%",
                     }}
                   >
                     <div className="shine" />
                     <div
                       style={{
                         background: rel.coverGradient,
-                        height: 130,
+                        height: "clamp(110px, 22vw, 130px)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",

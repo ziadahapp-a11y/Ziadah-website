@@ -329,7 +329,8 @@ export default function PageTransition({ children }: { children: React.ReactNode
             inset: 0,
             zIndex: 9990,
             background: "var(--bg)",
-            pointerEvents: "all",
+            /* أثناء zoom-in الشاشة شفافة — لا تمنع النقرات على الشريط السفلي/التنقل */
+            pointerEvents: phase === "zoom-out" ? "auto" : "none",
             opacity: phase === "zoom-out" ? 1 : 0,
             transition:
               phase === "zoom-out"

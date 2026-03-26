@@ -128,22 +128,20 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
             })}
           </div>
 
-          <div
-            className="gc"
-            style={{
-              padding: "28px 24px 24px",
-              borderRadius: 20,
-              textAlign: "start",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div className="shine" />
             <div
+              className="gc"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                gap: 14,
+                padding: "var(--card-pad-md)",
+                borderRadius: 20,
+                textAlign: "start",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div className="shine" />
+            <div
+              className="uc-demo-product-grid"
+              style={{
                 transition: "opacity 0.35s ease, transform 0.35s ease",
                 opacity: 1,
                 transform: "translateY(0)",
@@ -154,7 +152,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                 <div
                   key={p.name}
                   style={{
-                    padding: "18px 16px",
+                    padding: "var(--card-pad-sm)",
                     borderRadius: 14,
                     background: theme === "light" ? "var(--s2)" : "rgba(255, 255, 255, 0.05)",
                     border: "1px solid var(--b1)",
@@ -198,12 +196,12 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
         </div>
       </section>
 
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div
             className="gc"
             style={{
-              padding: "36px 40px",
+              padding: "var(--card-pad-lg)",
               borderRadius: 20,
               position: "relative",
               overflow: "hidden",

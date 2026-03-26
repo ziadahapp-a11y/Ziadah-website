@@ -53,8 +53,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // أرقام لاتينية (0–9) مع واجهة عربية — بدل أرقام هندية شرقية في العرض
-    document.documentElement.lang = lang === "ar" ? "ar-SA-u-nu-latn" : "en";
+    document.documentElement.lang = lang === "ar" ? "ar" : "en";
     document.documentElement.dir = dir;
     document.body.dir = dir;
   }, [lang, dir]);

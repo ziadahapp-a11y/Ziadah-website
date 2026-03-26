@@ -8,6 +8,8 @@ interface StandardPageProps {
   descriptionAr: string;
   descriptionEn: string;
   canonical?: string;
+  keywordsAr?: string;
+  keywordsEn?: string;
   ogImage?: string;
   type?: "website" | "article";
   publishDate?: string;
@@ -24,6 +26,8 @@ export default function StandardPage({
   descriptionAr,
   descriptionEn,
   canonical,
+  keywordsAr,
+  keywordsEn,
   ogImage,
   type,
   publishDate,
@@ -42,7 +46,9 @@ export default function StandardPage({
         titleEn={titleEn}
         descriptionAr={descriptionAr}
         descriptionEn={descriptionEn}
-        canonical={canonical}
+        canonical={canonical ?? "/"}
+        keywordsAr={keywordsAr}
+        keywordsEn={keywordsEn}
         ogImage={ogImage}
         type={type}
         publishDate={publishDate}

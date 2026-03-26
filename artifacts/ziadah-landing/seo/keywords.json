@@ -1,0 +1,74 @@
+{
+  "keywordResearch": {
+    "primaryHighIntent": [
+      { "en": "AI ecommerce platform", "ar": "منصة تجارة إلكترونية بالذكاء الاصطناعي" },
+      { "en": "SaaS for online stores", "ar": "برمجية كخدمة للمتاجر الإلكترونية" },
+      { "en": "Zid Salla AI app", "ar": "تطبيق ذكاء اصطناعي لزد وسلة" },
+      { "en": "personalized product recommendations", "ar": "توصيات منتجات مخصصة" },
+      { "en": "increase average order value", "ar": "زيادة متوسط قيمة الطلب" }
+    ],
+    "secondaryFeature": [
+      { "en": "cross-sell automation", "ar": "أتمتة البيع المتقاطع" },
+      { "en": "upsell widgets", "ar": "عناصر واجهة البيع الإضافي" },
+      { "en": "cart abandonment recovery", "ar": "استعادة السلات المتروكة" },
+      { "en": "smart bundles for ecommerce", "ar": "حزم ذكية للتجارة الإلكترونية" },
+      { "en": "checkout recommendations", "ar": "توصيات في صفحة الدفع" }
+    ],
+    "secondaryProblem": [
+      { "en": "low conversion rate online store", "ar": "انخفاض معدل التحويل في المتجر الإلكتروني" },
+      { "en": "reduce cart abandonment Saudi Arabia", "ar": "تقليل التخلي عن السلة في السعودية" },
+      { "en": "grow ecommerce revenue without ads", "ar": "نمو مبيعات التجارة الإلكترونية دون إعلانات إضافية" }
+    ],
+    "longTail": [
+      { "en": "how to build an online store with AI recommendations", "ar": "كيف أبني متجراً إلكترونياً مع توصيات بالذكاء الاصطناعي" },
+      { "en": "best AI upsell app for Zid store", "ar": "أفضل تطبيق بيع إضافي بالذكاء الاصطناعي لمتجر زد" },
+      { "en": "Salla merchant tools to increase AOV", "ar": "أدوات لتجار سلة لزيادة متوسط قيمة السلة" },
+      { "en": "automate related products on product page", "ar": "أتمتة المنتجات ذات الصلة في صفحة المنتج" }
+    ],
+    "localSaudiGcc": [
+      { "en": "ecommerce AI Saudi Arabia", "ar": "ذكاء اصطناعي للتجارة الإلكترونية في السعودية" },
+      { "en": "Riyadh ecommerce growth tools", "ar": "أدوات نمو متاجر إلكترونية الرياض" },
+      { "en": "GCC online retail personalization", "ar": "تخصيص تجزئة التجزئة الإلكترونية الخليج" },
+      { "en": "MENA Shopify alternative Zid Salla", "ar": "بدائل منصات عربية زد سلة الشرق الأوسط" },
+      { "en": "VAT inclusive pricing Saudi ecommerce SaaS", "ar": "تسعير شامل الضريبة لبرمجيات التجارة السعودية" }
+    ]
+  },
+  "pages": {
+    "/": {
+      "keywordsAr": "منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، زيادة مبيعات، متجر إلكتروني السعودية",
+      "keywordsEn": "AI ecommerce platform, Zid, Salla, personalized recommendations, AOV, Saudi Arabia, SaaS, online store growth"
+    },
+    "/features": {
+      "keywordsAr": "خصائص زيادة، أهداف التوصية، البيع المتقاطع، ويدجات المتجر، تخصيص العرض، ذكاء اصطناعي تجارة",
+      "keywordsEn": "Ziadah features, cross-sell, upsell, cart widgets, AI merchandising, conversion tactics"
+    },
+    "/calculator": {
+      "keywordsAr": "حاسبة عائد التوصيات، تقدير مبيعات إضافية، متجر زد، متجر سلة، ذكاء اصطناعي",
+      "keywordsEn": "ROI calculator, revenue uplift estimate, AI recommendations impact, ecommerce forecasting"
+    },
+    "/success-stories": {
+      "keywordsAr": "قصص نجاح متاجر، نتائج زيادة، تحويلات، مبيعات بالريال، تجار سعوديون",
+      "keywordsEn": "merchant case studies, Ziadah results, SAR revenue, ecommerce success Saudi"
+    },
+    "/blog": {
+      "keywordsAr": "مدونة تجارة إلكترونية، ذكاء اصطناعي للتجار، زد، سلة، نمو المبيعات",
+      "keywordsEn": "ecommerce blog, AI for merchants, growth strategies, Zid Salla tutorials"
+    },
+    "/support": {
+      "keywordsAr": "دعم زيادة، مركز المساعدة، تثبيت التطبيق، لوحة التحليلات، زد، سلة",
+      "keywordsEn": "Ziadah help center, setup guide, dashboards, Zid Salla integration support"
+    },
+    "/privacy": {
+      "keywordsAr": "سياسة الخصوصية، حماية البيانات، زيادة، SaaS، التجار",
+      "keywordsEn": "privacy policy, merchant data protection, Ziadah SaaS compliance"
+    },
+    "/terms": {
+      "keywordsAr": "شروط الاستخدام، اشتراك زيادة، الخدمة السحابية، التجارة الإلكترونية",
+      "keywordsEn": "terms of service, Ziadah subscription, SaaS agreement"
+    },
+    "/use-cases": {
+      "keywordsAr": "حالات استخدام، صفحة منتج، سلة، شكر، تخصيص تجربة العميل، ذكاء اصطناعي",
+      "keywordsEn": "use cases, product page, cart, thank you page, CX personalization, AI widgets"
+    }
+  }
+}

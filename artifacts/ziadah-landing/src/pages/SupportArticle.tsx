@@ -5,6 +5,7 @@ import ParticleBackground from "../components/ParticleBackground";
 import { getArticleById, getCategoryById } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
+import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { t } from "../i18n/translations";
@@ -53,13 +54,20 @@ export default function SupportArticle() {
   const articleDesc = getArticleDesc(article);
   const articleTime = getArticleTime(article);
   const catLabel = getCatLabel(category);
+  const pk = getPageKeywords("/support");
+  const titleSuffixAr = "مركز مساعدة زيادة";
+  const titleSuffixEn = "Ziadah Help Center";
 
   return (
     <>
     <SEO
-      title={`${articleTitle} — ${isAr ? "مركز مساعدة زيادة" : "Ziadah Help Center"}`}
-      description={articleDesc}
+      titleAr={`${article.title} — ${titleSuffixAr}`}
+      titleEn={`${article.titleEn || article.title} — ${titleSuffixEn}`}
+      descriptionAr={article.desc}
+      descriptionEn={article.descEn || article.desc}
       canonical={`/support/article/${article.id}`}
+      keywordsAr={pk?.keywordsAr}
+      keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[
       { name: tx.breadcrumbHome, url: "/" },
