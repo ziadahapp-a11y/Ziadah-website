@@ -13,21 +13,17 @@ interface Particle {
 }
 
 const COLORS = [
-  "168,85,247", // purple
-  "6,182,212", // cyan
-  "236,72,153", // pink
-  "124,58,237", // deep purple
-  "99,102,241", // indigo
+  "168,85,247",
+  "6,182,212",
+  "236,72,153",
+  "124,58,237",
+  "99,102,241",
 ];
 
-/** تفاعل أقوى مع الماوس */
 const MOUSE_RADIUS = 240;
-/** أبطأ بنسبة ~60% عن الإعداد السابق (السرعة ≈ 40%) */
 const SPEED_SCALE = 0.4;
 const MOUSE_REPULSE = 0.052 * SPEED_SCALE;
 const MOUSE_FLOW_STRENGTH = 0.085 * SPEED_SCALE;
-const LINK_DIST = 108;
-const LINK_ALPHA_BASE = 0.088;
 const VELOCITY_DECAY = 0.988;
 const FLOAT_STRENGTH = 0.017 * SPEED_SCALE;
 const DRIFT_TIME = 0.00009 * SPEED_SCALE;
@@ -37,13 +33,23 @@ const INIT_VEL = 0.52 * SPEED_SCALE;
 
 export const particlePositions: { x: number; y: number; color: string }[] = [];
 
+function isMobile(w: number) { return w < 768; }
+function isTablet(w: number) { return w < 1024; }
+
 function particleCountForScreen(w: number, h: number): number {
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return 105;
+    return isMobile(w) ? 30 : 60;
   }
+  if (isMobile(w)) return 45;
+  if (isTablet(w)) return 90;
   const area = w * h;
-  // أكثر نقاط على الشاشات الكبيرة، مع سقف للأداء (حلقة الروابط ~ n²/2)
-  return Math.min(360, Math.max(175, Math.floor(area / 4000)));
+  return Math.min(360, Math.max(130, Math.floor(area / 4000)));
+}
+
+function linkDistForScreen(w: number): number {
+  if (isMobile(w)) return 70;
+  if (isTablet(w)) return 90;
+  return 108;
 }
 
 export default function ParticleBackground() {
@@ -54,8 +60,8 @@ export default function ParticleBackground() {
   const frameRef = useRef(0);
   const particles = useRef<Particle[]>([]);
   const cursorGlow = useRef(0);
-  /** أبعاد منطقية (CSS px) تطابق resize + setTransform(dpr) — لا نعتمد innerWidth في كل إطار */
   const logicalSize = useRef({ w: 1, h: 1 });
+  const frameCount = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -113,6 +119,17 @@ export default function ParticleBackground() {
 
     function draw() {
       const { w: W, h: H } = logicalSize.current;
+      const mobile = isMobile(W);
+      const tablet = isTablet(W);
+
+      frameCount.current++;
+
+      // على الجوال: 30fps بدلاً من 60fps (تخطي إطار من كل اثنين)
+      if (mobile && frameCount.current % 2 !== 0) {
+        frameRef.current = requestAnimationFrame(draw);
+        return;
+      }
+
       ctx.clearRect(0, 0, W, H);
 
       const mx = mouse.current.x;
@@ -126,8 +143,8 @@ export default function ParticleBackground() {
       const speed = Math.hypot(mvx, mvy);
       const flowMag = Math.min(speed / 14, 1.2);
 
-      // هالة خفيفة تتبع الماوس وتقوى مع الحركة
-      if (mx > -1000 && cursorGlow.current > 0.04) {
+      // هالة الماوس — فقط على الديسكتوب
+      if (!mobile && mx > -1000 && cursorGlow.current > 0.04) {
         const r = 55 + flowMag * 45 + cursorGlow.current * 35;
         const g = ctx.createRadialGradient(mx, my, 0, mx, my, r);
         g.addColorStop(0, `rgba(168,85,247,${0.12 * cursorGlow.current})`);
@@ -144,6 +161,8 @@ export default function ParticleBackground() {
 
       const pts = particles.current;
       const n = pts.length;
+      const LINK_DIST = linkDistForScreen(W);
+      const LINK_ALPHA_BASE = mobile ? 0.06 : 0.088;
 
       for (let i = 0; i < n; i++) {
         const p = pts[i];
@@ -163,7 +182,6 @@ export default function ParticleBackground() {
           }
         }
 
-        // تيار عائم بطيء — حركة موجية مستمرة
         const driftT = performance.now() * DRIFT_TIME;
         const ph = i * 0.17;
         p.vx +=
@@ -196,41 +214,55 @@ export default function ParticleBackground() {
 
         const a = p.alpha * (0.72 + 0.28 * Math.sin(p.pulse));
         const s = p.size * (0.88 + 0.12 * Math.sin(p.pulse * 1.35));
-
         const nearMouse = dist < MOUSE_RADIUS ? (MOUSE_RADIUS - dist) / MOUSE_RADIUS : 0;
-        const glowR = s * (3 + nearMouse * 1.8);
 
-        const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
-        const glowA = a * (0.45 + nearMouse * 0.35);
-        grd.addColorStop(0, `rgba(${p.color},${glowA})`);
-        grd.addColorStop(1, `rgba(${p.color},0)`);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
-        ctx.fillStyle = grd;
-        ctx.fill();
+        if (mobile) {
+          // على الجوال: نقطة بسيطة بدون gradient لتوفير الذاكرة
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, s * 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.color},${Math.min(a * 1.2, 0.7)})`;
+          ctx.fill();
+        } else {
+          // على الديسكتوب: تأثيرات كاملة
+          const glowR = s * (3 + nearMouse * 1.8);
+          const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
+          const glowA = a * (0.45 + nearMouse * 0.35);
+          grd.addColorStop(0, `rgba(${p.color},${glowA})`);
+          grd.addColorStop(1, `rgba(${p.color},0)`);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
+          ctx.fillStyle = grd;
+          ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, s * (1 + nearMouse * 0.25), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color},${Math.min(a * (1.35 + nearMouse * 0.5), 0.88)})`;
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, s * (1 + nearMouse * 0.25), 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.color},${Math.min(a * (1.35 + nearMouse * 0.5), 0.88)})`;
+          ctx.fill();
+        }
 
+        // رسم الروابط بين الجسيمات
         for (let j = i + 1; j < n; j++) {
           const q = pts[j];
           const ddx = p.x - q.x;
           const ddy = p.y - q.y;
           const d = Math.sqrt(ddx * ddx + ddy * ddy);
           if (d < LINK_DIST) {
-            const midX = (p.x + q.x) * 0.5;
-            const midY = (p.y + q.y) * 0.5;
-            const md = Math.hypot(mx - midX, my - midY);
-            const mouseBoost = md < MOUSE_RADIUS ? (1 - md / MOUSE_RADIUS) * 0.55 : 0;
-            let lineAlpha = (1 - d / LINK_DIST) * LINK_ALPHA_BASE * (1 + mouseBoost);
-            lineAlpha = Math.min(lineAlpha, 0.22);
+            let lineAlpha = (1 - d / LINK_DIST) * LINK_ALPHA_BASE;
+            if (!mobile) {
+              const midX = (p.x + q.x) * 0.5;
+              const midY = (p.y + q.y) * 0.5;
+              const md = Math.hypot(mx - midX, my - midY);
+              const mouseBoost = md < MOUSE_RADIUS ? (1 - md / MOUSE_RADIUS) * 0.55 : 0;
+              lineAlpha = Math.min(lineAlpha * (1 + mouseBoost), 0.22);
+              ctx.lineWidth = 0.55 + mouseBoost * 0.45;
+            } else {
+              lineAlpha = Math.min(lineAlpha, 0.15);
+              ctx.lineWidth = 0.4;
+            }
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
             ctx.strokeStyle = `rgba(${p.color},${lineAlpha})`;
-            ctx.lineWidth = 0.55 + mouseBoost * 0.45;
             ctx.stroke();
           }
         }
@@ -242,9 +274,7 @@ export default function ParticleBackground() {
     }
     draw();
 
-    const onMove = (e: MouseEvent) => {
-      setPointer(e.clientX, e.clientY);
-    };
+    const onMove = (e: MouseEvent) => { setPointer(e.clientX, e.clientY); };
     const onTouch = (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       setPointer(e.touches[0].clientX, e.touches[0].clientY);
