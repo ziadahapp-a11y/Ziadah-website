@@ -3,6 +3,12 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 import "./index.css";
 
+/** نطاق زيادة الأساسي بدون www — إعادة توجيه مباشرة للـ canonical (www) */
+if (typeof window !== "undefined" && window.location.hostname === "ziadah.app") {
+  const { pathname, search, hash } = window.location;
+  window.location.replace(`https://www.ziadah.app${pathname}${search}${hash}`);
+}
+
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
     <App />

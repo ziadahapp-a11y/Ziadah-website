@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
-import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -81,7 +80,7 @@ export default function Features() {
       <Nav />
 
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
+      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{ft.heroTag}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(38px,5vw,64px)", marginTop: 8 }} dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />
         <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>{ft.heroSub}</p>
@@ -282,8 +281,6 @@ export default function Features() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

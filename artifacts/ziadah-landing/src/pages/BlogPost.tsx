@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import Footer from "../components/Footer";
 import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -505,7 +504,8 @@ export default function BlogPost() {
       {/* HERO / COVER */}
       <section
         style={{
-          paddingTop: 100,
+          paddingTop: "var(--page-article-pt)",
+          paddingInline: "var(--page-inline-pad)",
           position: "relative",
           zIndex: 2,
         }}
@@ -513,13 +513,13 @@ export default function BlogPost() {
         <div
           style={{
             background: post.coverGradient,
-            minHeight: 320,
+            minHeight: "clamp(220px, 52vw, 320px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             position: "relative",
             overflow: "hidden",
-            borderRadius: 40,
+            borderRadius: "clamp(16px, 4vw, 40px)",
             border: "none",
           }}
         >
@@ -882,9 +882,6 @@ export default function BlogPost() {
           </div>
         </section>
       )}
-
-      {/* FOOTER */}
-      <Footer />
     </div>
     </>
   );

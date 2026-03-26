@@ -640,7 +640,17 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
   );
 }
 
-function MobileMoreDropdown({ onClose, onFeatureRequest, onStartNow }: { onClose: () => void; onFeatureRequest?: () => void; onStartNow?: () => void }) {
+function MobileMoreDropdown({
+  onClose,
+  onFeatureRequest,
+  onStartNow,
+  initialOpenSection,
+}: {
+  onClose: () => void;
+  onFeatureRequest?: () => void;
+  onStartNow?: () => void;
+  initialOpenSection?: string | null;
+}) {
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -648,7 +658,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, onStartNow }: { onClose
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
 
-  const [openSection, setOpenSection] = useState<string | null>(null);
+  const [openSection, setOpenSection] = useState<string | null>(initialOpenSection ?? null);
   const toggleSection = (section: string) => setOpenSection(prev => prev === section ? null : section);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -948,6 +958,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [moreInitialSection, setMoreInitialSection] = useState<string | null>(null);
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
@@ -959,7 +970,7 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  useEffect(() => { setOpenDrop(null); setMoreOpen(false); }, [location]);
+  useEffect(() => { setOpenDrop(null); setMoreOpen(false); setMoreInitialSection(null); }, [location]);
 
   const handleHoverStart = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -1221,21 +1232,60 @@ export default function Nav() {
               ), action: () => navigateTo("/"),
             },
             {
-              key: "stories", label: tr.nav.successStories.split(" ")[0], icon: (
+              key: "solutions", label: tr.nav.useCases, icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2l3 6 6 1-4.5 4.5 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/>
+                </svg>
+              ), action: () => {
+                const nextOpen = !(moreOpen && moreInitialSection === "useCases");
+                if (!nextOpen) return setMoreOpen(false);
+                setMoreInitialSection("useCases");
+                setMoreOpen(true);
+              },
+            },
+            {
+              key: "calculator", label: tr.nav.calculator, icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="2" width="16" height="20" rx="2"/>
+                  <line x1="8" y1="6" x2="16" y2="6"/>
+                  <line x1="8" y1="10" x2="16" y2="10"/>
+                  <line x1="8" y1="14" x2="12" y2="14"/>
+                </svg>
+              ), action: () => navigateTo("/calculator"),
+            },
+            {
+              key: "platforms", label: tr.nav.platforms, icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M8 6h13v6H8z"/>
+                  <path d="M3 10h5v10H3z"/>
+                  <path d="M8 16h13v4H8z"/>
+                  <path d="M3 6h5v4H3z"/>
+                </svg>
+              ), action: () => {
+                const nextOpen = !(moreOpen && moreInitialSection === "platforms");
+                if (!nextOpen) return setMoreOpen(false);
+                setMoreInitialSection("platforms");
+                setMoreOpen(true);
+              },
+            },
+            {
+              key: "stories", label: tr.nav.successStories, icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                 </svg>
               ), action: () => navigateTo("/success-stories"),
             },
-            {
-              key: "more", label: lang === "ar" ? "المزيد" : "More", icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
-                </svg>
-              ), action: () => { setMoreOpen(true); },
-            },
           ].map((item) => {
-            const isActive = item.key === "home" ? location === "/" : item.key === "stories" ? location === "/success-stories" : false;
+            const isActive =
+              item.key === "home"
+                ? location === "/"
+                : item.key === "stories"
+                  ? location === "/success-stories"
+                  : item.key === "calculator"
+                    ? location === "/calculator"
+                    : item.key === "solutions"
+                      ? location.startsWith("/use-cases/")
+                      : false;
             return (
               <button
                 key={item.key}
@@ -1249,7 +1299,9 @@ export default function Nav() {
                 }}
               >
                 {item.icon}
-                {item.label}
+                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
+                  {item.label}
+                </span>
               </button>
             );
           })}
@@ -1258,9 +1310,21 @@ export default function Nav() {
 
       {moreOpen && (
         <MobileMoreDropdown
-          onClose={() => setMoreOpen(false)}
-          onFeatureRequest={() => { setMoreOpen(false); setFeatureModalOpen(true); }}
-          onStartNow={() => { setMoreOpen(false); setPlatformModalOpen(true); }}
+          initialOpenSection={moreInitialSection}
+          onClose={() => {
+            setMoreOpen(false);
+            setMoreInitialSection(null);
+          }}
+          onFeatureRequest={() => {
+            setMoreOpen(false);
+            setMoreInitialSection(null);
+            setFeatureModalOpen(true);
+          }}
+          onStartNow={() => {
+            setMoreOpen(false);
+            setMoreInitialSection(null);
+            setPlatformModalOpen(true);
+          }}
         />
       )}
     </>

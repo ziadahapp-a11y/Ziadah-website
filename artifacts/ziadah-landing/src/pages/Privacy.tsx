@@ -1,6 +1,5 @@
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -44,7 +43,7 @@ export default function Privacy() {
       <div style={{ position: "relative", minHeight: "100vh", direction: dir }}>
         <ParticleBackground />
         <Nav />
-        <section style={{ paddingTop: 140, paddingBottom: 80, paddingInline: "5%", position: "relative", zIndex: 2 }}>
+        <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
           <div className="wrap" style={{ maxWidth: 800 }}>
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
               {isEn ? "Privacy Policy" : "سياسة الخصوصية"}
@@ -65,7 +64,6 @@ export default function Privacy() {
             </div>
           </div>
         </section>
-        <Footer />
       </div>
     </>
   );

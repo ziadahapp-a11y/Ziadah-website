@@ -3,7 +3,6 @@ import Nav from "./Nav";
 import ParticleBackground from "./ParticleBackground";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
-import Footer from "./Footer";
 import SEO from "./SEO";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -118,12 +117,12 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <Nav />
 
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
+      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot"/>
           {hero.tag}
         </div>
-        <div style={{ fontSize: 72, marginTop: 12, marginBottom: 12 }}>{hero.icon}</div>
+        <div style={{ fontSize: "clamp(40px, 11vw, 72px)", marginTop: 12, marginBottom: 12, lineHeight: 1 }}>{hero.icon}</div>
         <h1 className="rv d1" style={{ fontSize: "clamp(36px,5vw,64px)", fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.05, marginBottom: 16 }}>
           {hero.title}
         </h1>
@@ -136,7 +135,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* WHAT WE DO */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div className="gc rv uc-what-card" style={{ padding: "48px 52px" }}>
             <div className="shine"/>
@@ -149,7 +148,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* STATS */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="uc-stats-grid rv">
             {stats.map((s, i) => (
@@ -164,7 +163,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* STRATEGIES */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>{strategyTitle}</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18 }}>
@@ -186,7 +185,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
       {/* EXAMPLE SCENARIO */}
       {exampleScenario && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <div className="gc rv" style={{ padding: "40px 48px" }}>
               <div className="shine"/>
@@ -214,7 +213,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
       {/* PLANS */}
       {plans && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
           <div style={{ maxWidth: 900, margin: "0 auto" }}>
             <div className="gc rv" style={{ padding: "36px 48px" }}>
               <div className="shine"/>
@@ -235,7 +234,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
 
       {/* REPORTS HIGHLIGHT */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div className="gc rv" style={{ padding: "36px 40px", background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
             <div className="shine"/>
@@ -295,9 +294,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <p className="cta-note">{tr.useCaseLayout.ctaNote}</p>
         </div>
       </section>
-
-      {/* FOOTER */}
-      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

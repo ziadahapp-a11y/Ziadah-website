@@ -2,7 +2,6 @@ import { useEffect, useState, useRef, type CSSProperties } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
-import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -1313,7 +1312,7 @@ export default function SuccessStories() {
       <ParticleBackground />
       <Nav />
 
-      <section style={{ paddingTop: 140, paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
+      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "قصص نجاح حقيقية" : "Real Success Stories"}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{isAr ? "أثر مستدام" : "Lasting Impact"}</span>
@@ -1446,7 +1445,6 @@ export default function SuccessStories() {
           </div>
         </div>
       </section>
-      <Footer />
     </div>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

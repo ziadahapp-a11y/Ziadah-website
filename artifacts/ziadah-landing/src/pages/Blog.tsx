@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import Footer from "../components/Footer";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
@@ -130,12 +129,12 @@ export default function Blog() {
       {/* HERO */}
       <section
         style={{
-          paddingTop: 140,
+          paddingTop: "var(--page-hero-pt)",
           paddingBottom: 56,
           textAlign: "center",
           position: "relative",
           zIndex: 2,
-          paddingInline: "5%",
+          paddingInline: "var(--page-inline-pad)",
         }}
       >
         <div className="stag rv" style={{ display: "inline-flex" }}>
@@ -456,9 +455,6 @@ export default function Blog() {
           )}
         </div>
       </section>
-
-      {/* FOOTER */}
-      <Footer />
     </div>
     </StandardPage>
   );

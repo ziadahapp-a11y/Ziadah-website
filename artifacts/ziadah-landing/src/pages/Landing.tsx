@@ -3,7 +3,6 @@ import ParticleBackground from "../components/ParticleBackground";
 import Nav, { Logo } from "../components/Nav";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
-import Footer from "../components/Footer";
 import SEO from "../components/SEO";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
 import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
@@ -2114,8 +2113,6 @@ export default function Landing() {
             </GlassCard>
           </div>
         </section>
-        {/* FOOTER */}
-        <Footer />
       </div>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import Footer from "../components/Footer";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -70,7 +69,7 @@ export default function Support() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%", overflow: "hidden" }}>
+      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", overflow: "hidden" }}>
         <div style={{ position: "absolute", width: 900, height: 600, background: "radial-gradient(ellipse,rgba(124,58,237,.18) 0%,rgba(124,58,237,.05) 45%,transparent 70%)", top: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
 
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{tx.tag}</div>
@@ -336,8 +335,6 @@ export default function Support() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
     </>
   );

@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Landing from "@/pages/Landing";
+import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import "./index.css";
@@ -152,6 +153,7 @@ function App() {
                   <Router />
                 </Suspense>
               </PageTransition>
+              <Footer />
             </WouterRouter>
           </QueryClientProvider>
         </BlurTransitionProvider>

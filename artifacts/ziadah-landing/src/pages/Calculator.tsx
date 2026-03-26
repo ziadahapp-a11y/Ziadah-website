@@ -322,11 +322,9 @@ export default function Calculator() {
 
         <section
           style={{
-            paddingTop: 130,
-            paddingBottom: 80,
             position: "relative",
             zIndex: 2,
-            padding: "130px 5% 80px",
+            padding: "var(--page-hero-pt) var(--page-inline-pad) 80px",
           }}
         >
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>

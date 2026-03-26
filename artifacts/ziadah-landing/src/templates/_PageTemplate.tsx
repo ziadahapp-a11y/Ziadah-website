@@ -10,7 +10,6 @@
  */
 
 import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import StandardPage from "../components/StandardPage";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useTheme } from "../ThemeContext";
@@ -44,7 +43,7 @@ export default function MyPage() {
       <Nav />
 
       {/* ── HERO / محتوى رئيسي ── */}
-      <section style={{ paddingTop: 140, paddingBottom: 80, textAlign: "center", position: "relative", zIndex: 2 }}>
+      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="wrap">
           {/* TODO: أضف محتوى الصفحة هنا */}
           {/* استخدم CSS variables للألوان لضمان دعم الموود: var(--bg), var(--t), var(--tm), var(--s1) */}
@@ -57,9 +56,6 @@ export default function MyPage() {
           </p>
         </div>
       </section>
-
-      {/* ── FOOTER ── */}
-      <Footer />
     </StandardPage>
   );
 }

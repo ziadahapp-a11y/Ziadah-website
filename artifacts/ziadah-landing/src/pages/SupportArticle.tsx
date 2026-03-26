@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import Footer from "../components/Footer";
 import { getArticleById, getCategoryById } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -76,7 +75,7 @@ export default function SupportArticle() {
       <ParticleBackground />
       <Nav />
 
-      <div style={{ paddingTop: 100, paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "5%" }}>
+      <div style={{ paddingTop: "var(--page-article-pt)", paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div style={{ maxWidth: 820, margin: "0 auto" }}>
 
           {/* Breadcrumb */}
@@ -265,8 +264,6 @@ export default function SupportArticle() {
           })()}
         </div>
       </div>
-
-      <Footer />
     </div>
     </>
   );
