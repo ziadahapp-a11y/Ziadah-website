@@ -85,11 +85,13 @@ function ScrollToTop() {
 
 /** خلفية بسيطة أثناء تحميل أجزاء الصفحات (تقليل حجم الحزمة الأولى) */
 function LazyRouteFallback() {
+  const { dir } = useLanguage();
   return (
     <div
       style={{
         minHeight: "100vh",
         background: "var(--bg)",
+        direction: dir,
       }}
       aria-hidden
     />

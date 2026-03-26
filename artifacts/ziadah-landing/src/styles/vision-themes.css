@@ -1,0 +1,17 @@
+/**
+ * Legacy / bridge aliases — consumed by older selectors & components.
+ * Authoritative values: dashboard-glass-system.css
+ */
+
+:root {
+  --accent-2: var(--brand-2);
+  --accent-subtle: var(--accent-light);
+  --v-accent: var(--brand);
+  --v-accent-2: var(--brand-2);
+  --text-primary: var(--text-1);
+  --text-secondary: var(--text-2);
+  --text-muted: var(--text-3);
+  --text-faint: var(--text-4);
+  --card-74: var(--glass-bg);
+  --card-94: var(--glass-bg-2);
+}

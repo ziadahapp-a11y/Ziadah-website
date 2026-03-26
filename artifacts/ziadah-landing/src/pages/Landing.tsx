@@ -197,8 +197,16 @@ export default function Landing() {
   ];
   const trRow1 = tr.landing.testimonialsRow1 as { text: string; name: string; role: string }[];
   const trRow2 = tr.landing.testimonialsRow2 as { text: string; name: string; role: string }[];
-  const testimonialsRow1 = trRow1.map((t, i) => ({ ...t, av: row1Avatars[i], col: row1Colors[i] }));
-  const testimonialsRow2 = trRow2.map((t, i) => ({ ...t, av: row2Avatars[i], col: row2Colors[i] }));
+  const testimonialsRow1 = trRow1.map((t, i) => ({
+    ...t,
+    av: row1Avatars[i % row1Avatars.length],
+    col: row1Colors[i % row1Colors.length],
+  }));
+  const testimonialsRow2 = trRow2.map((t, i) => ({
+    ...t,
+    av: row2Avatars[i % row2Avatars.length],
+    col: row2Colors[i % row2Colors.length],
+  }));
   const faqs = tr.landing.faqList as { q: string; a: string }[];
 
   return (
@@ -1722,7 +1730,7 @@ export default function Landing() {
           </div>
         </section>
         {/* TESTIMONIALS */}
-        <section id="testimonials" style={{ overflowX: "hidden", paddingLeft: 0, paddingRight: 0 }}>
+        <section id="testimonials" style={{ overflowX: "hidden", paddingInline: 0 }}>
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.testimonialsTag}</SecTag>

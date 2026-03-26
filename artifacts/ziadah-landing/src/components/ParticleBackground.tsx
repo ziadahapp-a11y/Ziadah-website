@@ -22,21 +22,28 @@ const COLORS = [
 
 /** تفاعل أقوى مع الماوس */
 const MOUSE_RADIUS = 240;
-const MOUSE_REPULSE = 0.052;
-const MOUSE_FLOW_STRENGTH = 0.085;
+/** أبطأ بنسبة ~60% عن الإعداد السابق (السرعة ≈ 40%) */
+const SPEED_SCALE = 0.4;
+const MOUSE_REPULSE = 0.052 * SPEED_SCALE;
+const MOUSE_FLOW_STRENGTH = 0.085 * SPEED_SCALE;
 const LINK_DIST = 108;
-const LINK_ALPHA_BASE = 0.095;
-const VELOCITY_DECAY = 0.985;
+const LINK_ALPHA_BASE = 0.088;
+const VELOCITY_DECAY = 0.988;
+const FLOAT_STRENGTH = 0.017 * SPEED_SCALE;
+const DRIFT_TIME = 0.00009 * SPEED_SCALE;
+const SPEED_CAP = 1.62 * SPEED_SCALE;
+const JITTER = 0.024 * SPEED_SCALE;
+const INIT_VEL = 0.52 * SPEED_SCALE;
 
 export const particlePositions: { x: number; y: number; color: string }[] = [];
 
 function particleCountForScreen(w: number, h: number): number {
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return 48;
+    return 105;
   }
   const area = w * h;
   // أكثر نقاط على الشاشات الكبيرة، مع سقف للأداء (حلقة الروابط ~ n²/2)
-  return Math.min(165, Math.max(95, Math.floor(area / 9500)));
+  return Math.min(360, Math.max(175, Math.floor(area / 4000)));
 }
 
 export default function ParticleBackground() {
@@ -64,13 +71,13 @@ export default function ParticleBackground() {
         particles.current.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
+          vx: (Math.random() - 0.5) * INIT_VEL,
+          vy: (Math.random() - 0.5) * INIT_VEL,
           size: Math.random() * 1.55 + 0.35,
           color,
           alpha: Math.random() * 0.34 + 0.1,
           pulse: Math.random() * Math.PI * 2,
-          pulseSpeed: Math.random() * 0.016 + 0.007,
+          pulseSpeed: (Math.random() * 0.022 + 0.009) * SPEED_SCALE,
         });
       }
     }
@@ -156,16 +163,27 @@ export default function ParticleBackground() {
           }
         }
 
+        // تيار عائم بطيء — حركة موجية مستمرة
+        const driftT = performance.now() * DRIFT_TIME;
+        const ph = i * 0.17;
+        p.vx +=
+          Math.sin(p.y * 0.0068 + driftT + ph) * FLOAT_STRENGTH +
+          Math.cos(p.x * 0.0048 + driftT * 0.62 + ph * 0.7) * (FLOAT_STRENGTH * 0.72);
+        p.vy +=
+          Math.cos(p.x * 0.0068 + driftT * 0.9 + ph) * FLOAT_STRENGTH +
+          Math.sin(p.y * 0.0048 + driftT * 0.55 + ph * 0.8) * (FLOAT_STRENGTH * 0.72);
+
         const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (spd > 1.35) {
-          p.vx *= 0.94;
-          p.vy *= 0.94;
+        if (spd > SPEED_CAP) {
+          const invS = SPEED_CAP / spd;
+          p.vx *= invS;
+          p.vy *= invS;
         }
         p.vx *= VELOCITY_DECAY;
         p.vy *= VELOCITY_DECAY;
 
-        if (Math.abs(p.vx) < 0.045) p.vx += (Math.random() - 0.5) * 0.012;
-        if (Math.abs(p.vy) < 0.045) p.vy += (Math.random() - 0.5) * 0.012;
+        if (Math.abs(p.vx) < 0.09 * SPEED_SCALE) p.vx += (Math.random() - 0.5) * JITTER;
+        if (Math.abs(p.vy) < 0.09 * SPEED_SCALE) p.vy += (Math.random() - 0.5) * JITTER;
 
         p.x += p.vx;
         p.y += p.vy;

@@ -118,7 +118,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <Nav />
 
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot"/>
           {hero.tag}

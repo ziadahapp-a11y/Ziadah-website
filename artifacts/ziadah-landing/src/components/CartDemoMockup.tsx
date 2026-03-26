@@ -147,7 +147,7 @@ export default function CartDemoMockup() {
                   borderBottom: "1px solid #f0f0f5",
                 }}
               >
-                <div style={{ textAlign: "left" }}>
+                <div style={{ textAlign: "start" }}>
                   <span
                     style={{
                       fontSize: 26,
@@ -333,7 +333,7 @@ export default function CartDemoMockup() {
                 >
                   <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981" }}>✓</span>
                   <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>Free shipping</span>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginLeft: 6 }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#10b981", marginInlineStart: 6 }}>✓</span>
                   <span style={{ fontSize: 10, fontWeight: 700, color: "#10b981" }}>Free COD</span>
                   <span style={{ flex: 1 }} />
                   <span style={{ fontSize: 10, fontWeight: 900, color: "#10b981" }}>Save 30 SAR</span>

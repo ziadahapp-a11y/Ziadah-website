@@ -186,7 +186,7 @@ function renderContent(content: string) {
         <ul
           key={`ul-${i}`}
           style={{
-            paddingRight: 20,
+            paddingInlineEnd: 20,
             marginBottom: 16,
             listStyle: "none",
           }}
@@ -222,7 +222,7 @@ function renderContent(content: string) {
       elements.push(
         <ol
           key={`ol-${i}`}
-          style={{ paddingRight: 0, marginBottom: 16, listStyle: "none" }}
+          style={{ paddingInlineEnd: 0, marginBottom: 16, listStyle: "none" }}
         >
           {listItems.map((item, idx) => (
             <li
@@ -290,7 +290,7 @@ function renderContent(content: string) {
               width: "100%",
               borderCollapse: "collapse",
               fontSize: 14,
-              textAlign: "left",
+              textAlign: "start",
             }}
           >
             <thead>

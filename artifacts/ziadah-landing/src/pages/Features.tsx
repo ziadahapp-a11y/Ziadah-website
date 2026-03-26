@@ -81,7 +81,7 @@ export default function Features() {
       <Nav />
 
       {/* HERO */}
-      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 140, paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{ft.heroTag}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(38px,5vw,64px)", marginTop: 8 }} dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />
         <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>{ft.heroSub}</p>

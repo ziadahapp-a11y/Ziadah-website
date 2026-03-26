@@ -56,7 +56,7 @@ const ProductCard = ({
     display: "flex", justifyContent: "space-between", alignItems: "center",
     padding: "10px 0", borderBottom: "1px solid var(--b1)",
   }}>
-    <div style={{ flex: 1, paddingLeft: 8 }}>
+    <div style={{ flex: 1, paddingInlineStart: 8 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 3 }}>{name}</div>
       <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (

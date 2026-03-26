@@ -135,8 +135,7 @@ export default function Blog() {
           textAlign: "center",
           position: "relative",
           zIndex: 2,
-          paddingLeft: "5%",
-          paddingRight: "5%",
+          paddingInline: "5%",
         }}
       >
         <div className="stag rv" style={{ display: "inline-flex" }}>

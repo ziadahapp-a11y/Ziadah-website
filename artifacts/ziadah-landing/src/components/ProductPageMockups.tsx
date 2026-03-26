@@ -1,4 +1,13 @@
+import { useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { t } from "@/i18n/translations";
+
+type ProductPageMockupsCopy = (typeof t)["ar"]["productPageMockups"];
+
 export default function ProductPageMockups() {
+  const { lang } = useLanguage();
+  const copy = t[lang].productPageMockups;
+
   return (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -29,7 +38,7 @@ export default function ProductPageMockups() {
                 boxShadow: "0 0 7px #a855f7",
               }}
             />
-            Live Examples
+            {copy.badge}
           </div>
           <h2
             className="rv"
@@ -40,7 +49,7 @@ export default function ProductPageMockups() {
               marginBottom: 14,
             }}
           >
-            See how Ziadah looks on your product page
+            {copy.title}
           </h2>
           <p
             style={{
@@ -51,45 +60,52 @@ export default function ProductPageMockups() {
               lineHeight: 1.8,
             }}
           >
-            Three scenarios showing how Ziadah's recommendations appear inside
-            your product page — each scenario increases average order value in a
-            different way.
+            {copy.subtitle}
           </p>
         </div>
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+            display: "flex",
+            flexWrap: "wrap",
             gap: 32,
-            justifyItems: "center",
+            justifyContent: "center",
           }}
         >
           <MockupCard
-            label="Cross-sell"
-            labelColor="#06b6d4"
-            title="Buy the Complete Set"
+            label={copy.labelCrossSell}
+            title={copy.cardTitleCrossSell}
             accentColor="#06b6d4"
+            productName={copy.productName}
           >
-            <CrossSellContent />
+            <CrossSellContent copy={copy} />
           </MockupCard>
 
           <MockupCard
-            label="Bundle"
-            labelColor="#a855f7"
-            title="This Product + Add-on"
+            label={copy.labelBuyTogether}
+            title={copy.cardTitleBuyTogether}
+            accentColor="#7c3aed"
+            productName={copy.productName}
+          >
+            <BuyTogetherContent copy={copy} />
+          </MockupCard>
+
+          <MockupCard
+            label={copy.labelBundle}
+            title={copy.cardTitleBundle}
             accentColor="#a855f7"
+            productName={copy.productName}
           >
-            <BundleContent />
+            <BundleContent copy={copy} />
           </MockupCard>
 
           <MockupCard
-            label="Volume Discount"
-            labelColor="#10b981"
-            title="Buy More & Save More"
+            label={copy.labelVolume}
+            title={copy.cardTitleVolume}
             accentColor="#10b981"
+            productName={copy.productName}
           >
-            <VolumeContent />
+            <VolumeContent copy={copy} />
           </MockupCard>
         </div>
       </div>
@@ -99,15 +115,15 @@ export default function ProductPageMockups() {
 
 function MockupCard({
   label,
-  labelColor,
   title,
   accentColor,
+  productName,
   children,
 }: {
   label: string;
-  labelColor: string;
   title: string;
   accentColor: string;
+  productName: string;
   children: React.ReactNode;
 }) {
   return (
@@ -180,13 +196,13 @@ function MockupCard({
             background: "var(--bg)",
             borderRadius: 34,
             overflow: "hidden",
-            minHeight: 500,
+            minHeight: 528,
             position: "relative",
             paddingTop: 20,
           }}
         >
           <StatusBar accentColor={accentColor} />
-          <ProductHeader accentColor={accentColor} />
+          <ProductHeader accentColor={accentColor} productName={productName} />
           <div style={{ padding: "0 12px 16px" }}>{children}</div>
         </div>
         <div
@@ -276,7 +292,13 @@ function StatusBar({ accentColor }: { accentColor: string }) {
   );
 }
 
-function ProductHeader({ accentColor }: { accentColor: string }) {
+function ProductHeader({
+  accentColor,
+  productName,
+}: {
+  accentColor: string;
+  productName: string;
+}) {
   return (
     <div style={{ padding: "0 12px 10px" }}>
       <div
@@ -308,10 +330,10 @@ function ProductHeader({ accentColor }: { accentColor: string }) {
             fontWeight: 700,
             color: "var(--t)",
             marginBottom: 3,
-            textAlign: "left",
+            textAlign: "start",
           }}
         >
-          Red Bakelite Prayer Beads
+          {productName}
         </p>
         <div
           style={{
@@ -390,11 +412,11 @@ function SectionDivider({
 
 function AddToCartBtn({
   color,
-  label = "Add to Cart",
+  label,
   full = false,
 }: {
   color: string;
-  label?: string;
+  label: string;
   full?: boolean;
 }) {
   return (
@@ -420,16 +442,199 @@ function AddToCartBtn({
   );
 }
 
-function CrossSellContent() {
+function BuyTogetherContent({ copy }: { copy: ProductPageMockupsCopy }) {
+  const accent = "#7c3aed";
+  const rgb = colorToRgb(accent);
+  const prices = [200, 95];
+  const originalPrices: (number | null)[] = [null, 120];
+  const [checked, setChecked] = useState([true, true]);
+  const total = prices.reduce((s, p, i) => (checked[i] ? s + p : s), 0);
+  const items = [
+    {
+      emoji: "📿",
+      name: copy.productName,
+      reviews: copy.buyTogetherReviews1,
+      price: prices[0],
+      orig: originalPrices[0],
+      tag: copy.buyTogetherTagThis,
+    },
+    {
+      emoji: "🪔",
+      name: copy.buyTogetherItem2Name,
+      reviews: copy.buyTogetherReviews2,
+      price: prices[1],
+      orig: originalPrices[1],
+      tag: null as string | null,
+    },
+  ];
+
+  const toggle = (idx: number) => {
+    setChecked((prev) => prev.map((c, i) => (i === idx ? !c : c)));
+  };
+
+  return (
+    <>
+      <SectionDivider label={copy.dividerBuyTogether} color={accent} />
+      <div
+        style={{
+          fontSize: 8,
+          color: "var(--td)",
+          marginBottom: 8,
+          lineHeight: 1.35,
+        }}
+      >
+        {copy.buyTogetherDesc}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {items.map((p, i) => (
+          <div
+            key={i}
+            onClick={() => toggle(i)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggle(i);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            style={{
+              display: "flex",
+              gap: 6,
+              padding: "6px 7px",
+              borderRadius: 10,
+              background: checked[i]
+                ? `rgba(${rgb},.12)`
+                : "var(--s1)",
+              border: checked[i]
+                ? `1px solid rgba(${rgb},.35)`
+                : "1px solid var(--b1)",
+              alignItems: "center",
+              cursor: "pointer",
+              transition: "background .15s ease, border-color .15s ease",
+            }}
+          >
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: 4,
+                background: checked[i] ? `rgba(${rgb},.55)` : "var(--b1)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              {checked[i] && (
+                <span style={{ color: "#fff", fontSize: 8, fontWeight: 900 }}>
+                  ✓
+                </span>
+              )}
+            </div>
+            <div
+              style={{
+                width: 28,
+                height: 28,
+                borderRadius: 7,
+                background: `rgba(${rgb},.15)`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 14,
+                flexShrink: 0,
+              }}
+            >
+              {p.emoji}
+            </div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 4,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 8,
+                    fontWeight: 700,
+                    color: "var(--t)",
+                    lineHeight: 1.25,
+                  }}
+                >
+                  {p.name}
+                </span>
+                {p.tag && (
+                  <span
+                    style={{
+                      fontSize: 6,
+                      padding: "1px 5px",
+                      borderRadius: 20,
+                      background: `rgba(${rgb},.2)`,
+                      color: "#c4b5fd",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {p.tag}
+                  </span>
+                )}
+              </div>
+              <div style={{ fontSize: 7, color: "#f59e0b", marginTop: 1 }}>
+                {p.reviews}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: 4,
+                  alignItems: "center",
+                  marginTop: 2,
+                }}
+              >
+                <span
+                  style={{ fontSize: 10, fontWeight: 800, color: "var(--t)" }}
+                >
+                  {p.price} SAR
+                </span>
+                {p.orig != null && (
+                  <span
+                    style={{
+                      fontSize: 7,
+                      color: "var(--td)",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {p.orig} SAR
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 8 }}>
+        <AddToCartBtn
+          color={accent}
+          label={`${copy.buyTogetherBtn} — ${total} SAR`}
+          full
+        />
+      </div>
+    </>
+  );
+}
+
+function CrossSellContent({ copy }: { copy: ProductPageMockupsCopy }) {
   const relatedProducts = [
-    { name: "925 Silver Prayer Beads", price: "150 SAR", emoji: "🪬" },
-    { name: "Velvet Gift Box", price: "35 SAR", emoji: "🎁" },
-    { name: "Natural Oud Prayer Beads", price: "180 SAR", emoji: "🌿" },
+    { name: copy.related1, price: "150 SAR", emoji: "🪬" },
+    { name: copy.related2, price: "35 SAR", emoji: "🎁" },
+    { name: copy.related3, price: "180 SAR", emoji: "🌿" },
   ];
 
   return (
     <>
-      <SectionDivider label="Buy the Complete Set 🔗" color="#06b6d4" />
+      <SectionDivider label={copy.dividerCrossSell} color="#06b6d4" />
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         {relatedProducts.map((p, i) => (
           <div
@@ -477,7 +682,7 @@ function CrossSellContent() {
                 {p.price}
               </span>
             </div>
-            <AddToCartBtn color="#06b6d4" />
+            <AddToCartBtn color="#06b6d4" label={copy.addToCart} />
           </div>
         ))}
       </div>
@@ -485,10 +690,10 @@ function CrossSellContent() {
   );
 }
 
-function BundleContent() {
+function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
   return (
     <>
-      <SectionDivider label="This Product + Add-on 🎁" color="#a855f7" />
+      <SectionDivider label={copy.dividerBundle} color="#a855f7" />
       <div
         style={{
           background: "rgba(168,85,247,.06)",
@@ -552,7 +757,7 @@ function BundleContent() {
               marginBottom: 4,
             }}
           >
-            Red Bakelite Beads + 925 Silver Beads
+            {copy.bundleCombo}
           </p>
           <div
             style={{
@@ -600,43 +805,43 @@ function BundleContent() {
             justifyContent: "center",
           }}
         >
-          <span style={{ fontSize: 9 }}>💰</span> Save 20% when bought together
+          <span style={{ fontSize: 9 }}>💰</span> {copy.bundleSave}
         </div>
 
-        <AddToCartBtn color="#a855f7" label="Add Bundle to Cart" full />
+        <AddToCartBtn color="#a855f7" label={copy.addBundleToCart} full />
       </div>
     </>
   );
 }
 
-function VolumeContent() {
+function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
   const options = [
     {
-      qty: "1 piece",
+      qty: copy.qty1,
       price: "200 SAR",
-      discount: null,
-      shipping: null,
+      discount: null as string | null,
+      shipping: null as string | null,
       highlight: false,
     },
     {
-      qty: "2 pieces",
+      qty: copy.qty2,
       price: "320 SAR",
-      discount: "20% off",
-      shipping: null,
+      discount: copy.discount20,
+      shipping: null as string | null,
       highlight: false,
     },
     {
-      qty: "3 pieces",
+      qty: copy.qty3,
       price: "420 SAR",
-      discount: "30% off",
-      shipping: "Free shipping",
+      discount: copy.discount30,
+      shipping: copy.freeShipping,
       highlight: true,
     },
   ];
 
   return (
     <>
-      <SectionDivider label="Buy More & Save More 📦" color="#10b981" />
+      <SectionDivider label={copy.dividerVolume} color="#10b981" />
       <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
         {options.map((opt, i) => (
           <div
@@ -668,7 +873,7 @@ function VolumeContent() {
                   color: "var(--t)",
                 }}
               >
-                ⭐ Best Value
+                ⭐ {copy.bestValue}
               </div>
             )}
             <div
@@ -757,7 +962,7 @@ function VolumeContent() {
             </div>
           </div>
         ))}
-        <AddToCartBtn color="#10b981" label="Add to Cart" full />
+        <AddToCartBtn color="#10b981" label={copy.addToCart} full />
       </div>
     </>
   );

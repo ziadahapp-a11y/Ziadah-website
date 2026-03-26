@@ -76,7 +76,7 @@ export default function SupportArticle() {
       <ParticleBackground />
       <Nav />
 
-      <div style={{ paddingTop: 100, paddingBottom: 80, position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <div style={{ paddingTop: 100, paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "5%" }}>
         <div style={{ maxWidth: 820, margin: "0 auto" }}>
 
           {/* Breadcrumb */}

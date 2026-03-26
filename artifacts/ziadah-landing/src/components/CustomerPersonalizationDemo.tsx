@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTheme } from "@/ThemeContext";
 
 type Profile = "noura" | "nasser";
 
@@ -17,6 +18,7 @@ const nasserItems = [
 ];
 
 export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean }) {
+  const { theme } = useTheme();
   const [profile, setProfile] = useState<Profile>("nasser");
 
   const labels = isAr
@@ -28,16 +30,16 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
         nasser: "ناصر",
         statsSignals: "تم تحليل +40 إشارة",
         statsLatency: "وقت التوليد: أقل من 80ms",
-        soonTitle: "المنصة جاهزة — المعاينة تتوسّع",
+        soonTitle: "تخصيص تجربة المتجر بالكامل",
         soonSub:
-          "جميع الخصائص موجودة في زيادة: تخصيص البانر والرئيسية، السلة الحية، تابي، تاريخ المشتريات، والمؤشرات الآنية. الفرق في هذا العرض أننا نُظهر حالياً التوصيات فقط. القادم: ظهور منتجات المتجر كاملة في واجهة المتجر عبر التخصيص — وليس اقتصار المعاينة على بطاقات التوصية.",
+          " تجربة متجرك بالكامل تتغير حسب العميل, كل عميل له تجربة مخصصة حسب احتياجه وسلوكه وبياناته المحفوظة, عميلك بيحس انك فاهمه 100%",
         soonBullets: [
-          "الخصائص أعلاه تعمل فعلياً في متجرك مع تفعيل زيادة",
-          "هنا نركّز على لقطة التوصيات لإظهار منطق المحرك بوضوح",
-          "التوسعة القادمة للمعاينة: كتالوج كامل يتغيّر حسب الزائر (نورة / ناصر)",
+          "أقسام مخصصة",
+          "تصفح منتجات مخصصة",
+          "تصميم مخصص)",
         ],
-        soonVisual: "معاينة المتجر الكامل",
-        lockHint: "معاينة موسّعة قيد الإعداد",
+        soonVisual: "قريباً",
+        lockHint: "",
       }
     : {
         badge: "Live preview",
@@ -154,7 +156,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                   style={{
                     padding: "18px 16px",
                     borderRadius: 14,
-                    background: "var(--s2)",
+                    background: theme === "light" ? "var(--s2)" : "rgba(255, 255, 255, 0.05)",
                     border: "1px solid var(--b1)",
                     display: "flex",
                     flexDirection: "column",

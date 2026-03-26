@@ -79,7 +79,7 @@ export default function BundleDealsWidget() {
             color: "#c084fc",
           }}>{tr.saveBadge}</div>
         </div>
-        <div style={{ textAlign: "left" }}>
+        <div style={{ textAlign: "start" }}>
           <div style={{ fontSize: 9, color: "var(--tm)" }}>{tr.bundlePriceLabel}</div>
           <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>{tr.bundlePrice}</div>
         </div>

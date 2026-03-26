@@ -1,0 +1,110 @@
+/**
+ * Design tokens — backgrounds, text, glass, borders (dark + light).
+ * Consumed by vision-ui-appearance.css and index.css.
+ */
+
+:root {
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-t: color 0.25s var(--ease), background-color 0.25s var(--ease),
+    border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.2s var(--ease);
+}
+
+/* Default to dark if attribute missing (SSR / first paint) */
+:root,
+[data-theme="dark"] {
+  --bg: #03030b;
+  --t: #f8fafc;
+  --tm: rgba(248, 250, 252, 0.78);
+  --td: rgba(226, 232, 240, 0.45);
+
+  --text-1: #f8fafc;
+  --text-2: rgba(248, 250, 252, 0.82);
+  --text-3: rgba(226, 232, 240, 0.62);
+  --text-4: rgba(203, 213, 225, 0.42);
+
+  --b1: rgba(255, 255, 255, 0.08);
+  --b2: rgba(255, 255, 255, 0.14);
+  --b3: rgba(255, 255, 255, 0.24);
+
+  --s1: rgba(255, 255, 255, 0.04);
+  --s2: rgba(255, 255, 255, 0.07);
+  --s3: rgba(255, 255, 255, 0.11);
+
+  --p: #7c3aed;
+  --p2: #6d28d9;
+  --p3: #a855f7;
+  --p4: #c084fc;
+
+  --c: #06b6d4;
+  --pk: #ec4899;
+  --gr: #22c55e;
+  --go: #fbbf24;
+
+  --brand: #7c3aed;
+  --brand-2: #a855f7;
+  --accent-light: rgba(124, 58, 237, 0.18);
+
+  --glass-bg: rgba(12, 10, 28, 0.55);
+  --glass-bg-2: rgba(18, 14, 40, 0.62);
+  --glass-border: 1px solid rgba(124, 58, 237, 0.22);
+  --glass-blur: blur(22px);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.38);
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.48);
+
+  --r2: 24px;
+  --r12: 12px;
+  --r20: 20px;
+
+  --btn-primary-grad: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  --btn-primary-shadow: 0 4px 22px rgba(124, 58, 237, 0.42);
+
+  --scrollbar-thumb: rgba(124, 58, 237, 0.38);
+  --scrollbar-thumb-hover: rgba(167, 139, 250, 0.55);
+}
+
+[data-theme="light"] {
+  --bg: #f1f5f9;
+  --t: #0f172a;
+  --tm: #475569;
+  --td: #64748b;
+
+  --text-1: #0f172a;
+  --text-2: #334155;
+  --text-3: #475569;
+  --text-4: #64748b;
+
+  --b1: rgba(15, 23, 42, 0.08);
+  --b2: rgba(15, 23, 42, 0.14);
+  --b3: rgba(15, 23, 42, 0.22);
+
+  --s1: rgba(255, 255, 255, 0.72);
+  --s2: rgba(255, 255, 255, 0.88);
+  --s3: #e2e8f0;
+
+  --p: #6d28d9;
+  --p2: #5b21b6;
+  --p3: #7c3aed;
+  --p4: #6d28d9;
+
+  --c: #0891b2;
+  --pk: #db2777;
+  --gr: #16a34a;
+  --go: #d97706;
+
+  --brand: #6d28d9;
+  --brand-2: #7c3aed;
+  --accent-light: rgba(124, 58, 237, 0.1);
+
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-2: rgba(255, 255, 255, 0.88);
+  --glass-border: 1px solid rgba(124, 58, 237, 0.14);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --glass-shadow-hover: 0 16px 48px rgba(15, 23, 42, 0.12);
+
+  --btn-primary-grad: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  --btn-primary-shadow: 0 4px 20px rgba(124, 58, 237, 0.28);
+
+  --scrollbar-thumb: rgba(100, 116, 139, 0.45);
+  --scrollbar-thumb-hover: rgba(71, 85, 105, 0.6);
+}

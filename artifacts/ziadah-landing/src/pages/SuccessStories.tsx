@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, type CSSProperties } from "react";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
@@ -7,1000 +7,429 @@ import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 
-const stories = [
+type StoryData = {
+  store: string;
+  sector: string;
+  logo: string;
+  color: string;
+  accent: string;
+  challenge: string;
+  strategy: string;
+  popupType: string;
+  conversions: string;
+  sales: string;
+};
+
+const stories: StoryData[] = [
   {
-    store: "بست كلين",
-    sector: "مستلزمات التنظيف",
-    logo: "ب",
-    color: "linear-gradient(135deg,#06b6d4,#0891b2)",
-    accent: "#06b6d4",
-    tagline: "نوافذ ذكية تحوّل كل زيارة إلى فرصة بيع مضاعفة",
-    founded: "2020",
-    platform: "سلة",
-    before: { aov: "90", conv: "1.4%", monthly: "18,000" },
-    after: { aov: "120", conv: "2.2%", monthly: "38,000" },
-    metrics: [
-      { label: "زيادة في متوسط قيمة السلة", value: "+33%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+57%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات الشهرية", value: "+111%", color: "#10b981" },
-      { label: "وقت التفعيل", value: "24 ساعة", color: "#f59e0b" },
-    ],
-    quote: "زيادة غيّر طريقة تعاملنا مع العملاء. صار العميل يكتشف منتجاتنا الثانية بشكل تلقائي والسلة تكبر بدون ما نزيد إعلانات. سهل الإعداد والنتائج جاءت سريعة.",
-    person: "فريق بست كلين",
-    role: "متجر مستلزمات التنظيف",
-    strategy: "تفعيل نوافذ تسويقية ذكية تحفز العميل على الشراء وتعرض منتجات إضافية عند إضافة أي منتج للسلة.",
-    results: [
-      "ارتفع متوسط قيمة السلة من 90 إلى 120 ⃁",
-      "زيادة ملحوظة في تصفح الكتالوج الكامل للمنتجات",
-      "تضاعفت المبيعات الشهرية خلال شهرين",
-      "رفع متوسط قيمة السلة دون تغيير في الإعلانات",
-    ],
-  },
-  {
-    store: "ريبال",
+    store: "متجر ريبال",
     sector: "مستلزمات التنظيف",
     logo: "ر",
     color: "linear-gradient(135deg,#7c3aed,#5b21b6)",
     accent: "#7c3aed",
-    tagline: "151,507 تحويل — الوصول للعميل في اللحظة الصح",
-    founded: "2019",
-    platform: "سلة",
-    before: { aov: "110", conv: "2.3%", monthly: "65,000" },
-    after: { aov: "145", conv: "7.68%", monthly: "1,024,379" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "151,507", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "1.02M ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "7.68%", color: "#10b981" },
-      { label: "عائد على الاستثمار", value: "15x+", color: "#f59e0b" },
-    ],
-    quote: "زيادة ساعدنا نوصل للعميل في اللحظة الصح بعرض بسيط وفعّال جداً. الأثر على المبيعات والتحويلات كان واضحاً ومقاساً. كمان زيادة خلّتنا نرفع متوسط قيمة الطلب عبر استراتيجية مدروسة لكل عرض ومنتج.",
-    person: "فريق ريبال",
-    role: "متجر مستلزمات التنظيف — ribalpower.sa",
-    strategy: "تفعيل نوافذ تسويقية تحفز العميل على الطلب عند إضافة منتج للسلة أو بدء الطلب، لتقليل السلات المتروكة.",
-    results: [
-      "151,507 تحويل موثق عبر المنصة",
-      "1,024,379 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل استثنائي 7.68%",
-      "رفع متوسط قيمة الطلب عبر استراتيجية مخصصة لكل منتج",
-    ],
+    challenge: "استهداف العميل لإتمام طلبه بعرض محفز وبسيط لتقليل السلات المتروكة",
+    strategy: "تفعيل نوافذ تسويقية تحفز العميل للطلب عند إضافة منتج للسلة أو بدء الطلب",
+    popupType: "Cart Incentive Coupon",
+    conversions: "151,507",
+    sales: "1,024,379",
   },
   {
-    store: "زونا",
-    sector: "العناية بالبشرة",
+    store: "متجر زونا",
+    sector: "منتجات البشرة",
     logo: "ز",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
     accent: "#ec4899",
-    tagline: "تجربة عميل راقية بهدايا مجانية ذكية تزيد الولاء",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "160", conv: "1.8%", monthly: "28,000" },
-    after: { aov: "210", conv: "2.9%", monthly: "62,000" },
-    metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+31%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+61%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات الشهرية", value: "+121%", color: "#10b981" },
-      { label: "رضا العملاء", value: "96%", color: "#f59e0b" },
-    ],
-    quote: "تجربة المنتج المجاني غيّرت نظرة عملائنا للمتجر. صاروا يشعرون بالتقدير وكأن المتجر يهتم فيهم شخصياً. زيادة سهّل علينا تقديم هذه التجربة بشكل تلقائي وذكي.",
-    person: "فريق زونا",
-    role: "متجر منتجات العناية بالبشرة",
-    strategy: "تفعيل نوافذ تسويقية تحفز العميل لاختيار المنتج الإضافي مجاناً عند إضافة منتج للسلة.",
-    results: [
-      "ارتفع متوسط الطلب من 160 إلى 210 ⃁",
-      "تحسين تجربة العميل بعرض هدايا مجانية بذكاء",
-      "رفع رضا العميل وتشجيع تكرار الشراء",
-      "زيادة معدل التحويل من 1.8 إلى 2.9%",
-    ],
+    challenge: "تحسين تجربة العميل باختيار منتج مجاني عند الشراء",
+    strategy: "تفعيل نوافذ تسويقية تحفز العميل لاختيار المنتج الإضافي مجانًا عند إضافة منتج للسلة",
+    popupType: "Gift with Purchase",
+    conversions: "1,693",
+    sales: "224,310",
   },
   {
-    store: "مكنة",
-    sector: "العناية بالبشرة",
-    logo: "م",
-    color: "linear-gradient(135deg,#10b981,#059669)",
-    accent: "#10b981",
-    tagline: "خصم الكمية الذكي يحوّل المشتري الواحد إلى متعدد",
-    founded: "2022",
-    platform: "زد",
-    before: { aov: "120", conv: "2.0%", monthly: "22,000" },
-    after: { aov: "170", conv: "3.2%", monthly: "55,000" },
-    metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+42%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+60%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+150%", color: "#10b981" },
-      { label: "عائد الاشتراك", value: "12x", color: "#f59e0b" },
-    ],
-    quote: "النوافذ الذكية غيّرت سلوك العملاء. بدل ما يشتري واحد صار يضيف ثانية للسلة بفضل الخصم الظاهر أمامه مباشرة. النتيجة كانت فورية وواضحة في الأرقام.",
-    person: "فريق مكنة",
-    role: "متجر منتجات العناية بالبشرة",
-    strategy: "تفعيل نوافذ تسويقية بهدف زيادة عبوة أخرى من المنتج نفسه عند إضافة المنتج للسلة، مع خصم تحفيزي واضح.",
-    results: [
-      "ارتفع متوسط الطلب من 120 إلى 170 ⃁",
-      "زيادة متوسط قيمة الطلب عبر خصومات الكمية",
-      "تحفيز العميل لشراء أكثر دون زيادة الإعلانات",
-      "نوافذ مستهدفة في اللحظة المناسبة",
-    ],
+    store: "متجر التميمي",
+    sector: "الأقمشة الرجالية",
+    logo: "ت",
+    color: "linear-gradient(135deg,#0d9488,#134e4a)",
+    accent: "#14b8a6",
+    challenge: "رفع معدل المبيعات للمنتجات الشتوية الجديدة وزيادة حجم السلة الشرائية لكل عميل",
+    strategy: "تفعيل حدث إضافة منتج للسلة مع الترويج لمنتجات الموسم عبر نوافذ ذكية تقترح قطعًا إضافية",
+    popupType: "Seasonal Upsell",
+    conversions: "3,774",
+    sales: "932,517",
   },
   {
-    store: "سيار",
-    sector: "الأزياء الرجالية",
-    logo: "س",
-    color: "linear-gradient(135deg,#f59e0b,#d97706)",
-    accent: "#f59e0b",
-    tagline: "كروس سيل ذكي يرفع قيمة الطلب في أقمشة الرجال",
-    founded: "2020",
-    platform: "سلة",
-    before: { aov: "220", conv: "1.6%", monthly: "35,000" },
-    after: { aov: "295", conv: "2.4%", monthly: "82,000" },
-    metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+34%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+50%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+134%", color: "#10b981" },
-      { label: "عروض مخصصة لكل منتج", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "كثير من عملائنا ما كانوا يعرفون أن عندنا منتجات مكملة. الآن زيادة يعرضها لهم في اللحظة المناسبة ويشترونها مباشرة. النتيجة ظهرت في متوسط الطلب بشكل واضح.",
-    person: "فريق سيار",
-    role: "متجر أشمغة وأقمشة رجالية",
-    strategy: "تفعيل نوافذ تسويقية بهدف إضافة المنتجات المقترحة بخصم إضافي عند إضافة منتج للسلة.",
-    results: [
-      "ارتفع متوسط الطلب من 220 إلى 295 ⃁",
-      "زيادة اكتشاف المنتجات التكميلية بشكل ملحوظ",
-      "رفع متوسط الطلب عبر cross-sell ذكي",
-      "عروض مخصصة لكل منتج بحسب اختيار العميل",
-    ],
+    store: "متجر بست كلين",
+    sector: "مستلزمات التنظيف",
+    logo: "ب",
+    color: "linear-gradient(135deg,#06b6d4,#0891b2)",
+    accent: "#06b6d4",
+    challenge: "كثرة الطلبات على منتج واحد دون تصفح بقية المنتجات بالمتجر",
+    strategy: "تفعيل نوافذ تسويقية تحفز العميل بالشراء عند إضافة منتج للسلة وعرض منتجات مكملة",
+    popupType: "Bundle Offer",
+    conversions: "6,409",
+    sales: "703,601",
   },
   {
-    store: "دخون الإماراتية",
-    sector: "العطور والبخور",
+    store: "متجر دثار للعبايات",
+    sector: "عبايات الحج واللباس المحتشم",
     logo: "د",
-    color: "linear-gradient(135deg,#4f46e5,#4338ca)",
-    accent: "#4f46e5",
-    tagline: "نوافذ موسمية تعزز اكتشاف العود والبخور الفاخر",
-    founded: "2019",
-    platform: "سلة",
-    before: { aov: "350", conv: "1.5%", monthly: "42,000" },
-    after: { aov: "450", conv: "2.3%", monthly: "95,000" },
-    metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+29%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+53%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+126%", color: "#10b981" },
-      { label: "نوافذ موسمية ذكية", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "منتجات العود والبخور لها طبيعة خاصة — العميل يريد يكتشف المزيد. زيادة فهم هذا وصار يعرض المنتجات المكملة بأسلوب يناسب تجربة التسوق الفاخرة لدينا.",
-    person: "فريق دخون الإماراتية",
-    role: "متجر عود وبخور فاخر",
-    strategy: "تفعيل نوافذ تسويقية بهدف إضافة المنتجات المقترحة بخصم إضافي عند إضافة منتج للسلة.",
-    results: [
-      "ارتفع متوسط الطلب من 350 إلى 450 ⃁",
-      "تعزيز اكتشاف المنتجات المقترحة بشكل ملحوظ",
-      "رفع متوسط الطلب بعروض موسمية مناسبة",
-      "نوافذ ذكية تناسب طبيعة منتجات العود",
-    ],
-  },
-  {
-    store: "فيبان",
-    sector: "العطور والبخور",
-    logo: "ف",
-    color: "linear-gradient(135deg,#ec4899,#9333ea)",
-    accent: "#ec4899",
-    tagline: "تقليل السلات المتروكة وتحويل التردد إلى قرار شراء",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "190", conv: "1.4%", monthly: "25,000" },
-    after: { aov: "240", conv: "2.3%", monthly: "58,000" },
-    metrics: [
-      { label: "زيادة في معدل التحويل", value: "+64%", color: "#a855f7" },
-      { label: "تقليل السلات المتروكة", value: "-42%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+132%", color: "#10b981" },
-      { label: "أثر فوري بعد التفعيل", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "كان عندنا مشكلة كبيرة في السلات المتروكة. زيادة حلها ببساطة — نافذة ذكية في اللحظة المناسبة تحفز العميل على الإتمام. التطبيق سهل وفرق واضح من اليوم الأول.",
-    person: "فريق فيبان",
-    role: "متجر عطور",
-    strategy: "تفعيل نوافذ تسويقية بهدف تحفيز العميل على إكمال الشراء عند إضافة منتج للسلة.",
-    results: [
-      "تقليل السلات المتروكة بشكل ملحوظ",
-      "تحفيز إتمام الشراء في اللحظة الحاسمة",
-      "ارتفع متوسط الطلب من 190 إلى 240 ⃁",
-      "سهل التطبيق ويُحدث فرقاً فورياً",
-    ],
-  },
-  {
-    store: "هني دوز",
-    sector: "الغذاء والعسل",
-    logo: "ه",
-    color: "linear-gradient(135deg,#f59e0b,#92400e)",
-    accent: "#f59e0b",
-    tagline: "عرض 2+1 يضاعف حجم السلة ورضا العميل",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "80", conv: "1.9%", monthly: "15,000" },
-    after: { aov: "125", conv: "2.8%", monthly: "40,000" },
-    metrics: [
-      { label: "زيادة في متوسط الطلب", value: "+56%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+47%", color: "#06b6d4" },
-      { label: "زيادة في المبيعات", value: "+167%", color: "#10b981" },
-      { label: "عرض 2+1 مجاناً", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "العرض 2+1 كان عندنا لكن العملاء ما كانوا يعرفون عنه. زيادة صار يعرضه بشكل واضح وجذاب في اللحظة الصح فارتفعت مبيعاتنا بشكل كبير وصار العملاء يشترون كميات أكبر.",
-    person: "فريق هني دوز",
-    role: "متجر عسل طبيعي",
-    strategy: "تفعيل نافذة تسويقية تقدم عرض 2+1 مجاناً مع إبراز قيمة العرض وتشجيع العميل على الاستفادة.",
-    results: [
-      "ارتفع متوسط الطلب من 80 إلى 125 ⃁",
-      "زيادة حجم السلة عبر عروض 2+1 ذكية",
-      "إبراز قيمة العرض بوضوح للعميل",
-      "تحسين ملحوظ في متوسط قيمة الطلب",
-    ],
-  },
-  {
-    store: "دثار",
-    sector: "العبايات",
-    logo: "ث",
     color: "linear-gradient(135deg,#059669,#064e3b)",
     accent: "#059669",
-    tagline: "تحويل الزوار الجدد إلى مشترين من أول زيارة",
-    founded: "2020",
-    platform: "سلة",
-    before: { aov: "130", conv: "1.7%", monthly: "20,000" },
-    after: { aov: "170", conv: "2.9%", monthly: "52,000" },
-    metrics: [
-      { label: "زيادة في معدل التحويل", value: "+71%", color: "#a855f7" },
-      { label: "زيادة في المبيعات", value: "+160%", color: "#06b6d4" },
-      { label: "تحويل الزوار الجدد", value: "✓", color: "#10b981" },
-      { label: "الشحن المجاني كحافز", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "زيادة ساعدنا نوصل للزائر الجديد من أول ثانية. النافذة الذكية بأفضل المنتجات والشحن المجاني حوّلت الزيارات إلى مشتريات فعلية وكان الفرق ملموساً في أرقام المبيعات.",
-    person: "فريق دثار",
-    role: "متجر عبايات الحج واللباس المحتشم",
-    strategy: "تفعيل نافذة تسويقية تظهر مباشرة على الصفحة الرئيسية تُبرز أفضل المنتجات مبيعاً مع توضيح نسبة الخصم وميزة الشحن المجاني.",
-    results: [
-      "تحويل الزوار الجدد إلى مشترين من أول زيارة",
-      "إبراز المنتجات الأكثر مبيعاً فور الدخول",
-      "الشحن المجاني كحافز فعّال زاد الإتمام",
-      "ارتفع متوسط الطلب من 130 إلى 170 ⃁",
-    ],
+    challenge: "العديد من الزوار يدخلون الصفحة الرئيسية دون إتمام عملية الشراء",
+    strategy: "تفعيل نافذة تسويقية تظهر مباشرة على الصفحة الرئيسية تبرز الخصم وميزة الشحن المجاني",
+    popupType: "Homepage Popup",
+    conversions: "388",
+    sales: "73,763",
   },
   {
-    store: "جمعية تحفيظ القرآن — خميس مشيط",
-    sector: "التبرعات",
-    logo: "ق",
-    color: "linear-gradient(135deg,#4f46e5,#4338ca)",
-    accent: "#4f46e5",
-    tagline: "رسائل مؤثرة تحوّل الزوار إلى متبرعين فاعلين",
-    founded: "2018",
-    platform: "سلة",
-    before: { aov: "50", conv: "2.0%", monthly: "8,000" },
-    after: { aov: "70", conv: "3.6%", monthly: "28,000" },
-    metrics: [
-      { label: "زيادة في متوسط التبرع", value: "+40%", color: "#a855f7" },
-      { label: "زيادة في معدل التحويل", value: "+80%", color: "#06b6d4" },
-      { label: "زيادة في إجمالي التبرعات", value: "+250%", color: "#10b981" },
-      { label: "مناسب للمواقع غير الربحية", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "زيادة أثبت أنه مناسب حتى للمنظمات غير الربحية. الرسائل المؤثرة التي تظهر أثناء التصفح شجّعت المتبرعين على المبادرة فوراً وزاد متوسط التبرع بشكل ملحوظ.",
-    person: "إدارة الجمعية",
-    role: "جمعية تحفيظ القرآن — خميس مشيط",
-    strategy: "استخدام تطبيق زيادة لتفعيل نوافذ تسويقية تظهر برسائل مؤثرة أثناء التصفح، وتشجع المتبرع على المبادرة فوراً.",
-    results: [
-      "رفع معدل التبرع عبر رسائل مؤثرة",
-      "تحفيز المبادرة الفورية لدى الزوار",
-      "ارتفع متوسط التبرع من 50 إلى 70 ⃁",
-      "تضاعفت إجمالي التبرعات الشهرية بشكل ملحوظ",
-    ],
-  },
-  {
-    store: "كلوز باي",
-    sector: "تسوق متنوع",
+    store: "متجر كلوس باي",
+    sector: "متجر إلكتروني متنوع",
     logo: "ك",
     color: "linear-gradient(135deg,#06b6d4,#0891b2)",
     accent: "#06b6d4",
-    tagline: "كود خصم 5% يُنقذ السلات المتروكة ويضاعف الإيرادات",
-    founded: "2021",
-    platform: "زد",
-    before: { aov: "160", conv: "2.1%", monthly: "75,000" },
-    after: { aov: "200", conv: "3.8%", monthly: "200,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "716", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "543,000 ⃁", color: "#06b6d4" },
-      { label: "توقيت ذكي للنافذة", value: "✓", color: "#10b981" },
-      { label: "كود خصم فعّال", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "كود الخصم 5% كان بسيطاً لكن فعله كان كبيراً. العملاء الذين كانوا يترددون صاروا يكملون الطلب مباشرة. النتيجة 716 تحويل و543 ألف ⃁ مبيعات إضافية.",
-    person: "فريق كلوز باي",
-    role: "متجر تسوق متنوع",
-    strategy: "تم تفعيل حملة 'لا تفوت كود خصم 5%' من خلال تطبيق زيادة، عبر نافذة ذكية تظهر للعملاء في الوقت المناسب لتحفيزهم على إتمام الشراء.",
-    results: [
-      "716 تحويل موثق عبر المنصة",
-      "543,000 ⃁ إجمالي مبيعات محققة",
-      "تحويل السلات المتروكة إلى مبيعات فعلية",
-      "توقيت ذكي للنافذة زاد معدل الإتمام",
-    ],
+    challenge: "إقناع العملاء بإتمام الطلب وكثير منهم كانوا يتركون السلة بدون شراء",
+    strategy: "تفعيل حملة لاتفوت كود خصم 5% عبر نافذة ذكية تظهر في الوقت المناسب",
+    popupType: "Discount Popup",
+    conversions: "716",
+    sales: "543,000",
   },
   {
-    store: "عبق الغيم",
-    sector: "العطور والبخور",
-    logo: "ع",
-    color: "linear-gradient(135deg,#a855f7,#7c3aed)",
-    accent: "#a855f7",
-    tagline: "استرداد الطلبات في لحظة الحذف من السلة",
-    founded: "2020",
-    platform: "سلة",
-    before: { aov: "180", conv: "1.8%", monthly: "35,000" },
-    after: { aov: "220", conv: "3.2%", monthly: "110,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "1,122", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "248,816 ⃁", color: "#06b6d4" },
-      { label: "استرداد لحظة الحذف", value: "✓", color: "#10b981" },
-      { label: "حملة ذكية موجهة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "الفكرة كانت ذكية — تقدم للعميل خصماً بالضبط لما يحاول يحذف المنتج من السلة. هذا التوقيت غيّر كل شيء. 1,122 تحويل و248 ألف ⃁ ما كانت لتحصل بدون زيادة.",
-    person: "فريق عبق الغيم",
-    role: "متجر عطور ومعطرات",
-    strategy: "تفعيل حدث 'حذف منتج من السلة' عبر تطبيق زيادة، وإطلاق حملة ذكية بكود خصم بسيط يظهر للعملاء لحظة محاولة حذف المنتج.",
-    results: [
-      "1,122 تحويل موثق عبر المنصة",
-      "248,816 ⃁ إجمالي مبيعات محققة",
-      "استرداد الطلبات في لحظة الحذف من السلة",
-      "كود خصم يحوّل قرار الإلغاء إلى شراء",
-    ],
+    store: "متجر دخون الإماراتية",
+    sector: "العود والبخور",
+    logo: "خ",
+    color: "linear-gradient(135deg,#4f46e5,#4338ca)",
+    accent: "#4f46e5",
+    challenge: "زيادة حجم الطلب بخصم تحفيزي على منتجات تكميلية لرفع قيمة السلة",
+    strategy: "تفعيل نوافذ تسويقية بهدف إضافة المنتجات المقترحة بخصم إضافي عند إضافة منتج للسلة",
+    popupType: "Upsell / Cross-sell",
+    conversions: "110",
+    sales: "14,139",
   },
   {
-    store: "التميمي",
-    sector: "الأزياء الرجالية",
-    logo: "ت",
-    color: "linear-gradient(135deg,#059669,#047857)",
-    accent: "#059669",
-    tagline: "3,774 تحويل — الترويج الموسمي الذكي يحقق أرقاماً قياسية",
-    founded: "2018",
-    platform: "زد",
-    before: { aov: "280", conv: "1.5%", monthly: "110,000" },
-    after: { aov: "350", conv: "3.05%", monthly: "450,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "3,774", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "932,517 ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "3.05%", color: "#10b981" },
-      { label: "اقتراحات ذكية موسمية", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "زيادة ساعدنا نرفع قيمة الطلب دون التأثير على تجربة العميل. العروض تظهر في الوقت الصح وتشجع العميل على إضافة قطع أكثر بدون تردد.",
-    person: "فريق التميمي",
-    role: "متجر أقمشة ونسيج رجالي — altamimitex.net",
-    strategy: "تفعيل حدث 'إضافة منتج للسلة' من خلال تطبيق زيادة، مع الترويج لمنتجات الموسم عبر نوافذ تسويقية ذكية تقترح قطعاً إضافية تناسب اختيارات العميل.",
-    results: [
-      "3,774 تحويل موثق خلال الموسم",
-      "932,517 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل 3.05% أعلى من المتوسط",
-      "اقتراحات ذكية مبنية على اختيار العميل",
-    ],
-  },
-  {
-    store: "Skinly",
-    sector: "العناية بالبشرة",
-    logo: "S",
+    store: "متجر مُكنة",
+    sector: "منتجات البشرة",
+    logo: "م",
     color: "linear-gradient(135deg,#ec4899,#be185d)",
     accent: "#ec4899",
-    tagline: "1,005 تحويل في موسم الجمعة البيضاء — الذكاء في التوقيت",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "220", conv: "2.5%", monthly: "120,000" },
-    after: { aov: "320", conv: "6.10%", monthly: "430,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "1,005", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "704,676 ⃁", color: "#06b6d4" },
-      { label: "معدل التحويل", value: "6.10%", color: "#10b981" },
-      { label: "استغلال ذكي للمواسم", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "زيادة ساعدتنا نشتغل مع العملاء في اللحظة الصح دون ما نقاطع تجربة التسوق. العروض الذكية شجّعت العملاء يضيفون منتجات أكثر ويكملون طلباتهم أسرع.",
-    person: "فريق Skinly",
-    role: "متجر عناية بالبشرة والجمال — skin-ly.com",
-    strategy: "تفعيل حدث الإضافة للسلة من خلال تطبيق زيادة، وإطلاق حملة بخصومات وعروض على منتجات متكاملة تدفع العميل لإكمال الطلب.",
-    results: [
-      "1,005 تحويل موثق في موسم الجمعة البيضاء",
-      "704,676 ⃁ إجمالي مبيعات محققة",
-      "معدل تحويل استثنائي 6.10%",
-      "رفع قيمة الطلب عبر عروض cross-sell وupsell",
-    ],
+    challenge: "زيادة حجم الطلب بإضافة الحبة الثانية بخصم تحفيزي لرفع متوسط قيمة السلة",
+    strategy: "تفعيل نوافذ تسويقية بهدف زيادة عبوة أخرى من المنتج نفسه عند إضافة منتج للسلة",
+    popupType: "Buy More Save More",
+    conversions: "982",
+    sales: "238,676",
   },
   {
-    store: "فيرزاسكا",
-    sector: "العطور والبخور",
+    store: "متجر skinly",
+    sector: "مستحضرات العناية بالبشرة",
+    logo: "s",
+    color: "linear-gradient(135deg,#f472b6,#db2777)",
+    accent: "#ec4899",
+    challenge: "استغلال موسم الجمعة البيضاء وزيادة المبيعات بأكبر شكل ممكن خلال الفترة",
+    strategy: "تفعيل حدث الإضافة للسلة وإطلاق حملة خصومات وعروض على منتجات متكاملة",
+    popupType: "Seasonal Discount Campaign",
+    conversions: "86",
+    sales: "50,641",
+  },
+  {
+    store: "متجر فابيان",
+    sector: "عطور",
     logo: "ف",
-    color: "linear-gradient(135deg,#7c3aed,#4f46e5)",
-    accent: "#7c3aed",
-    tagline: "باقات المعطرات الذكية ترفع قيمة كل طلب",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "140", conv: "1.6%", monthly: "22,000" },
-    after: { aov: "190", conv: "2.9%", monthly: "58,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "957", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "77,000 ⃁", color: "#06b6d4" },
-      { label: "ترويج فعّال للباقات", value: "✓", color: "#10b981" },
-      { label: "زيادة اكتشاف المنتجات", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "الباقات المجمعة كانت متاحة لكن العملاء نادراً ما يكتشفونها. زيادة حل هذه المشكلة بنافذة موجهة تظهر في الوقت الصح وترفع متوسط قيمة الطلب بشكل واضح.",
-    person: "فريق فيرزاسكا",
-    role: "متجر عطور ومعطرات",
-    strategy: "تفعيل حدث إضافة منتج للسلة مع ظهور نافذة بخصم على باقة المعطرات.",
-    results: [
-      "957 تحويل موثق عبر المنصة",
-      "77,000 ⃁ إجمالي مبيعات محققة",
-      "ترويج فعّال للباقات المجمعة",
-      "نوافذ موجهة تزيد اكتشاف المنتجات",
-    ],
+    color: "linear-gradient(135deg,#a855f7,#7c3aed)",
+    accent: "#a855f7",
+    challenge: "العميل يضيف المنتج للسلة لكنه لا يكمل الشراء مما يتسبب في ضياع فرص البيع",
+    strategy: "تفعيل نوافذ تسويقية بهدف إضافة منتج للسلة لحفز العميل على إكمال الشراء",
+    popupType: "Add to Cart Incentive",
+    conversions: "1,086",
+    sales: "136,871",
   },
   {
-    store: "فيتنيس نيد",
-    sector: "اللياقة البدنية",
-    logo: "ن",
-    color: "linear-gradient(135deg,#10b981,#059669)",
-    accent: "#10b981",
-    tagline: "تحويل لحظة الحذف من السلة إلى فرصة بيع ذكية",
-    founded: "2020",
-    platform: "زد",
-    before: { aov: "220", conv: "1.9%", monthly: "28,000" },
-    after: { aov: "280", conv: "3.2%", monthly: "68,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "207", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "75,722 ⃁", color: "#06b6d4" },
-      { label: "استرداد لحظة الحذف", value: "✓", color: "#10b981" },
-      { label: "تقليل الطلبات الضائعة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "كنا نخسر طلبات كثيرة في لحظة الحذف من السلة. زيادة حل هذه المشكلة بدقة — خصم ذكي يظهر في اللحظة الحاسمة ويحوّل قرار الإلغاء إلى شراء فعلي.",
-    person: "فريق فيتنيس نيد",
-    role: "متجر مستلزمات لياقة بدنية",
-    strategy: "تفعيل حدث 'حذف المنتج من السلة' داخل زيادة، بحيث يشاهد أي عميل يحذف منتجاً نافذة عرض ذكية تقدم له خصماً أو عرضاً خاصاً على نفس المنتج.",
-    results: [
-      "207 تحويل موثق عبر المنصة",
-      "75,722 ⃁ إجمالي مبيعات محققة",
-      "تحويل لحظة الحذف من السلة إلى فرصة بيع",
-      "خصومات ذكية تُغلق الصفقة في آخر لحظة",
-    ],
-  },
-  {
-    store: "كلارا",
-    sector: "العناية بالبشرة",
-    logo: "ك",
+    store: "متجر عبق الغيم",
+    sector: "عطور",
+    logo: "ع",
     color: "linear-gradient(135deg,#f59e0b,#d97706)",
     accent: "#f59e0b",
-    tagline: "ترويج المنتجات الجديدة بأعلى معدل إضافة للسلة",
-    founded: "2022",
-    platform: "سلة",
-    before: { aov: "180", conv: "1.7%", monthly: "30,000" },
-    after: { aov: "230", conv: "2.8%", monthly: "95,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "655", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "247,438 ⃁", color: "#06b6d4" },
-      { label: "ترويج فعّال للمنتجات الجديدة", value: "✓", color: "#10b981" },
-      { label: "خصومات مستهدفة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "إطلاق منتجات جديدة كان تحدياً دائماً. زيادة حل المشكلة بنافذة ذكية تعرض المنتج الجديد بخصم في اللحظة المناسبة وتحفز العميل على الإتمام. النتيجة 655 تحويل و247 ألف ⃁.",
-    person: "فريق كلارا",
-    role: "متجر منتجات تجميل ومستحضرات",
-    strategy: "تفعيل حدث الإضافة للسلة عبر زيادة مع إظهار نافذة تسويقية تتضمن تخفيضاً خاصاً على المنتج لتحفيز العملاء على إكمال الشراء.",
-    results: [
-      "655 تحويل موثق عبر المنصة",
-      "247,438 ⃁ إجمالي مبيعات محققة",
-      "ترويج فعّال للمنتجات الجديدة",
-      "خصومات مستهدفة تحفز الإتمام",
-    ],
+    challenge: "حذف الكثير من المنتجات من السلة قبل إتمام الشراء مما يسبب فقدان عدد كبير من الطلبات المحتملة",
+    strategy: "تفعيل حدث حذف منتج من السلة وإطلاق حملة ذكية بكود خصم يذكّر العميل ويحفزه على الرجوع وإكمال الطلب",
+    popupType: "Cart Abandonment Recovery",
+    conversions: "1,122",
+    sales: "248,816",
   },
   {
-    store: "كابزون",
-    sector: "الأزياء الرجالية",
-    logo: "ك",
-    color: "linear-gradient(135deg,#06b6d4,#4f46e5)",
-    accent: "#06b6d4",
-    tagline: "إنقاذ الطلبات في مرحلة الدفع النهائية",
-    founded: "2021",
-    platform: "زد",
-    before: { aov: "150", conv: "1.4%", monthly: "15,000" },
-    after: { aov: "190", conv: "2.2%", monthly: "38,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "155", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "41,000 ⃁", color: "#06b6d4" },
-      { label: "إنقاذ الطلبات عند الدفع", value: "✓", color: "#10b981" },
-      { label: "خصم يشجع على العودة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "كانت المشكلة أن العملاء يصلون لمرحلة الدفع ثم يتركون. زيادة حل هذا بنافذة ذكية تظهر في آخر لحظة بعرض مقنع. التحسن في معدل الإتمام كان واضحاً.",
-    person: "فريق كابزون",
-    role: "متجر أزياء وإكسسوارات",
-    strategy: "إطلاق حملة عبر حدث 'إتمام الطلب' في زيادة تظهر نافذة تسويقية محفزة في المرحلة الأخيرة من الشراء تقدم خصماً على الطلب القادم أو تخفيضاً على الطلب الحالي.",
-    results: [
-      "155 تحويل موثق عبر المنصة",
-      "41,000 ⃁ إجمالي مبيعات محققة",
-      "إنقاذ الطلبات في مرحلة الدفع النهائية",
-      "خصم على الطلب التالي يشجع على العودة",
-    ],
-  },
-  {
-    store: "ركن الجمال",
-    sector: "العناية بالبشرة",
-    logo: "ر",
-    color: "linear-gradient(135deg,#ec4899,#9333ea)",
-    accent: "#ec4899",
-    tagline: "حملات المناسبات الوطنية تحقق ذروة المبيعات",
-    founded: "2020",
-    platform: "سلة",
-    before: { aov: "160", conv: "1.8%", monthly: "30,000" },
-    after: { aov: "210", conv: "3.1%", monthly: "80,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "689", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "119,903 ⃁", color: "#06b6d4" },
-      { label: "حملات المناسبات الوطنية", value: "✓", color: "#10b981" },
-      { label: "نوافذ موجهة ترفع الإتمام", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "اليوم الوطني كان دائماً فرصة لكننا ما كنا نعرف كيف نستغلها صح. زيادة ساعدنا نطلق حملة مخصصة للمناسبة وصلنا لأرقام ما حققناها من قبل خلال أيام معدودة.",
-    person: "فريق ركن الجمال",
-    role: "متجر منتجات التجميل",
-    strategy: "إطلاق حملة خاصة باليوم الوطني عبر زيادة مبنية على حدث الإضافة للسلة مع نافذة تسويقية مخصصة وعرض محفّز لإتمام الطلب.",
-    results: [
-      "689 تحويل موثق خلال اليوم الوطني",
-      "119,903 ⃁ إجمالي مبيعات محققة",
-      "استغلال ذكي لمواسم الذروة والمناسبات",
-      "حملات مخصصة للمناسبات الوطنية",
-    ],
-  },
-  {
-    store: "فور هير",
-    sector: "العناية بالبشرة",
+    store: "متجر هني دوز",
+    sector: "عسل طبيعي",
     logo: "ه",
-    color: "linear-gradient(135deg,#f43f5e,#be123c)",
-    accent: "#f43f5e",
-    tagline: "أعلى ظهور للمنتجات الجديدة من أول لحظة دخول",
-    founded: "2021",
-    platform: "سلة",
-    before: { aov: "140", conv: "1.6%", monthly: "28,000" },
-    after: { aov: "190", conv: "2.8%", monthly: "70,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "650", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "135,382 ⃁", color: "#06b6d4" },
-      { label: "ظهور فوري للمنتج الجديد", value: "✓", color: "#10b981" },
-      { label: "استهداف كل زائر من أول لحظة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "أطلقنا منتج الموس الوبري الجديد وأردنا أن يعرفه الجميع. زيادة ساعدنا نعرضه لكل زائر من أول ثانية يدخل فيها المتجر. الوعي ارتفع والمبيعات جاءت بسرعة ما توقعناها.",
-    person: "فريق فور هير",
-    role: "متجر منتجات تجميل نسائية",
-    strategy: "تفعيل حدث الصفحة الرئيسية عبر زيادة، بحيث يظهر المنتج الجديد في نافذة تسويقية بارزة فور دخول العميل للمتجر لضمان أعلى نسبة ظهور.",
-    results: [
-      "650 تحويل موثق عبر المنصة",
-      "135,382 ⃁ إجمالي مبيعات محققة",
-      "ترويج المنتجات الجديدة بأعلى ظهور ممكن",
-      "استهداف كل زائر من أول لحظة دخول",
-    ],
-  },
-  {
-    store: "كايزون",
-    sector: "الأجهزة المنزلية",
-    logo: "ي",
     color: "linear-gradient(135deg,#f59e0b,#92400e)",
     accent: "#f59e0b",
-    tagline: "خصم 50% على الوحدة الثانية يضاعف حجم الطلب فوراً",
-    founded: "2021",
-    platform: "زد",
-    before: { aov: "180", conv: "1.5%", monthly: "20,000" },
-    after: { aov: "280", conv: "2.6%", monthly: "58,000" },
-    metrics: [
-      { label: "إجمالي التحويلات", value: "322", color: "#a855f7" },
-      { label: "إجمالي المبيعات", value: "76,257 ⃁", color: "#06b6d4" },
-      { label: "خصم 50% على الوحدة الثانية", value: "✓", color: "#10b981" },
-      { label: "نتائج سريعة وواضحة", value: "✓", color: "#f59e0b" },
-    ],
-    quote: "الفكرة بسيطة — 50% على المفرمة الثانية. لكن تنفيذها بشكل ذكي عبر زيادة غيّر الأرقام. العميل يشوف العرض لما يضيف الأولى فيضيف الثانية مباشرة. نتائج سريعة ومقنعة.",
-    person: "فريق كايزون",
-    role: "متجر أجهزة مطبخ ومنزلية",
-    strategy: "تفعيل حملة عبر زيادة تعرض للعميل خصم 50% على المفرمة الثانية بمجرد إضافة الأولى للسلة، من خلال نافذة تسويقية جذابة داخل المتجر.",
-    results: [
-      "322 تحويل موثق عبر المنصة",
-      "76,257 ⃁ إجمالي مبيعات محققة",
-      "زيادة فعّالة لحجم الطلب بخصومات الوحدة الثانية",
-      "رفع قيمة السلة دون زيادة الإنفاق الإعلاني",
-    ],
+    challenge: "انخفاض معدل إتمام الطلب عند اختيار عبوة واحدة فقط مما يقلل من حجم السلة الشرائية",
+    strategy: "تفعيل نافذة تسويقية تقدم عرض 2+1 مجانًا مع إبراز قيمة العرض وتشجيع العميل على الاستفادة",
+    popupType: "Buy 2 Get 1 Free",
+    conversions: "2,458",
+    sales: "165,650",
+  },
+  {
+    store: "جمعية تحفيظ القرآن - خميس مشيط",
+    sector: "موقع التبرعات الإلكترونية",
+    logo: "ق",
+    color: "linear-gradient(135deg,#6366f1,#4f46e5)",
+    accent: "#6366f1",
+    challenge: "ضعف التفاعل مع حملات التبرع الإلكتروني وقلة التبرعات المكتملة عبر الموقع",
+    strategy: "تفعيل نوافذ تسويقية تظهر برسائل مؤثرة أثناء التصفح وتشجع المتبرع على التبرع فورًا",
+    popupType: "Donation Nudge Popup",
+    conversions: "16,831",
+    sales: "33,229",
   },
 ];
 
 const storyEn: Record<string, {
-  store: string; tagline: string; metricsLabels: string[];
-  quote: string; person: string; role: string; strategy: string; results: string[];
+  store: string;
+  sector: string;
+  challenge: string;
+  strategy: string;
+  popupType: string;
 }> = {
-  "بست كلين": {
-    store: "BestClean",
-    tagline: "Smart popups turn every visit into a doubled sales opportunity",
-    metricsLabels: ["Increase in avg. cart value", "Increase in conversion rate", "Increase in monthly sales", "Activation time"],
-    quote: "Ziadah changed how we deal with customers. Now customers discover our other products automatically and the cart grows without increasing ad spend. Easy setup and quick results.",
-    person: "BestClean Team",
-    role: "Cleaning Supplies Store",
-    strategy: "Activating smart marketing popups that motivate customers to buy and display additional products when any item is added to cart.",
-    results: ["Average cart value rose from 90 to 120 SAR", "Notable increase in full product catalog browsing", "Monthly sales doubled within two months", "Raised average cart value without changing ad spend"],
+  "متجر ريبال": {
+    store: "Ribal Store",
+    sector: "Cleaning supplies",
+    challenge: "Nudge customers to complete orders with a simple motivating offer and fewer abandoned carts",
+    strategy: "Marketing popups that trigger when a product is added to cart or checkout starts",
+    popupType: "Cart Incentive Coupon",
   },
-  "ريبال": {
-    store: "Ribal",
-    tagline: "151,507 conversions — reaching the customer at the right moment",
-    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Return on investment"],
-    quote: "Ziadah helped us reach the customer at the right moment with a simple yet effective offer. The impact on sales and conversions was clear and measurable. It also helped us raise average order value through a thoughtful strategy for every offer and product.",
-    person: "Ribal Team",
-    role: "Cleaning Supplies Store — ribalpower.sa",
-    strategy: "Activating marketing popups that motivate customers to order when adding to cart or starting checkout, reducing abandoned carts.",
-    results: ["151,507 verified conversions via the platform", "SAR 1,024,379 in total sales achieved", "Exceptional 7.68% conversion rate", "Raised average order value with a custom strategy per product"],
+  "متجر زونا": {
+    store: "Zona Store",
+    sector: "Skincare products",
+    challenge: "Improve the experience by letting customers choose a free product with purchase",
+    strategy: "Popups that prompt a free additional product when adding an item to cart",
+    popupType: "Gift with Purchase",
   },
-  "زونا": {
-    store: "Zona",
-    tagline: "A premium customer experience with smart free gifts that boost loyalty",
-    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in monthly sales", "Customer satisfaction"],
-    quote: "The free product experience changed how our customers see the store. They feel valued and personally cared for. Ziadah made it easy to deliver this experience automatically and intelligently.",
-    person: "Zona Team",
-    role: "Skincare Products Store",
-    strategy: "Activating marketing popups that motivate the customer to choose an additional product for free when adding an item to cart.",
-    results: ["Average order rose from 160 to 210 SAR", "Improved customer experience with smart free gift offers", "Boosted customer satisfaction and repeat purchases", "Conversion rate increased from 1.8% to 2.9%"],
+  "متجر التميمي": {
+    store: "Al-Tamimi Store",
+    sector: "Men's fabrics",
+    challenge: "Grow winter collection sales and increase average basket size per customer",
+    strategy: "Add-to-cart event with seasonal smart popups suggesting complementary pieces",
+    popupType: "Seasonal Upsell",
   },
-  "مكنة": {
-    store: "Makana",
-    tagline: "Smart quantity discounts turn single buyers into multi-buyers",
-    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Subscription ROI"],
-    quote: "Smart popups changed customer behavior. Instead of buying one, they add a second to the cart thanks to the discount shown right in front of them. The results were immediate and clear in the numbers.",
-    person: "Makana Team",
-    role: "Skincare Products Store",
-    strategy: "Activating marketing popups to encourage adding another unit of the same product when added to cart, with a clear incentive discount.",
-    results: ["Average order rose from 120 to 170 SAR", "Increased average order value via quantity discounts", "Motivated customers to buy more without increasing ads", "Targeted popups at the right moment"],
+  "متجر بست كلين": {
+    store: "Best Clean Store",
+    sector: "Cleaning supplies",
+    challenge: "Many orders for one product without browsing the rest of the catalog",
+    strategy: "Popups on add-to-cart that motivate purchase and show complementary products",
+    popupType: "Bundle Offer",
   },
-  "سيار": {
-    store: "Sayyar",
-    tagline: "Smart cross-sell raises order value in men's fabrics",
-    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Custom offers per product"],
-    quote: "Many of our customers didn't know we had complementary products. Now Ziadah shows them at the right moment and they buy immediately. The impact on average order was clearly visible.",
-    person: "Sayyar Team",
-    role: "Men's Shmagh & Fabrics Store",
-    strategy: "Activating marketing popups to add suggested products with an extra discount when adding an item to cart.",
-    results: ["Average order rose from 220 to 295 SAR", "Notable increase in complementary product discovery", "Raised average order via smart cross-sell", "Custom offers per product based on customer selection"],
+  "متجر دثار للعبايات": {
+    store: "Dethar Abayas",
+    sector: "Hajj abayas & modest wear",
+    challenge: "Many homepage visitors leave without completing a purchase",
+    strategy: "Homepage popup highlighting discount and free shipping",
+    popupType: "Homepage Popup",
   },
-  "دخون الإماراتية": {
+  "متجر كلوس باي": {
+    store: "Close Buy Store",
+    sector: "General e-commerce",
+    challenge: "Customers abandoning carts instead of completing checkout",
+    strategy: "“Don't miss the 5% code” campaign via a smart well-timed popup",
+    popupType: "Discount Popup",
+  },
+  "متجر دخون الإماراتية": {
     store: "Dukhoon Al-Emaratia",
-    tagline: "Seasonal smart popups boost discovery of premium oud & incense",
-    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Smart seasonal popups"],
-    quote: "Oud and incense products have a special nature — the customer wants to discover more. Ziadah understood this and now shows complementary products in a way that suits our luxury shopping experience.",
-    person: "Dukhoon Al-Emaratia Team",
-    role: "Premium Oud & Incense Store",
-    strategy: "Activating marketing popups to add suggested products with an extra discount when adding an item to cart.",
-    results: ["Average order rose from 350 to 450 SAR", "Enhanced discovery of suggested products significantly", "Raised average order with suitable seasonal offers", "Smart popups tailored to oud products"],
+    sector: "Oud & incense",
+    challenge: "Grow order size with motivating discounts on complementary items",
+    strategy: "Popups suggesting add-ons with an extra discount on add-to-cart",
+    popupType: "Upsell / Cross-sell",
   },
-  "فيبان": {
-    store: "Fiban",
-    tagline: "Reducing abandoned carts and turning hesitation into purchase decisions",
-    metricsLabels: ["Increase in conversion rate", "Reduction in abandoned carts", "Increase in sales", "Immediate impact after activation"],
-    quote: "We had a major abandoned cart problem. Ziadah solved it simply — a smart popup at the right moment motivates the customer to complete the purchase. Easy to set up and a clear difference from day one.",
-    person: "Fiban Team",
-    role: "Perfume Store",
-    strategy: "Activating marketing popups to motivate the customer to complete the purchase when adding an item to cart.",
-    results: ["Notable reduction in abandoned carts", "Motivated purchase completion at the critical moment", "Average order rose from 190 to 240 SAR", "Easy to implement with immediate impact"],
+  "متجر مُكنة": {
+    store: "Moknah Store",
+    sector: "Skincare products",
+    challenge: "Increase order size with a motivating discount on a second unit",
+    strategy: "Popups encouraging another unit of the same product on add-to-cart",
+    popupType: "Buy More Save More",
   },
-  "هني دوز": {
-    store: "Honey Does",
-    tagline: "Buy 2+1 offer doubles cart size and customer satisfaction",
-    metricsLabels: ["Increase in avg. order", "Increase in conversion rate", "Increase in sales", "Buy 2+1 free offer"],
-    quote: "We had the 2+1 offer but customers didn't know about it. Ziadah now shows it clearly and attractively at the right moment, so our sales rose significantly and customers buy larger quantities.",
-    person: "Honey Does Team",
-    role: "Natural Honey Store",
-    strategy: "Activating a marketing popup offering buy 2+1 free with clear value display to encourage the customer to take advantage.",
-    results: ["Average order rose from 80 to 125 SAR", "Increased cart size via smart 2+1 offers", "Clear value proposition displayed to the customer", "Notable improvement in average order value"],
+  "متجر skinly": {
+    store: "Skinly Store",
+    sector: "Advanced skincare",
+    challenge: "Maximize White Friday / peak season sales",
+    strategy: "Add-to-cart event with bundled discounts and complementary offers",
+    popupType: "Seasonal Discount Campaign",
   },
-  "دثار": {
-    store: "Dithar",
-    tagline: "Converting new visitors into buyers from their first visit",
-    metricsLabels: ["Increase in conversion rate", "Increase in sales", "New visitor conversion", "Free shipping as incentive"],
-    quote: "Ziadah helped us reach new visitors from the first second. The smart popup with best-selling products and free shipping turned visits into actual purchases and the difference was tangible in sales numbers.",
-    person: "Dithar Team",
-    role: "Hajj Abayas & Modest Clothing Store",
-    strategy: "Activating a marketing popup that appears immediately on the homepage showcasing best-selling products with discount percentages and free shipping.",
-    results: ["Converted new visitors into buyers from first visit", "Highlighted best-selling products immediately upon entry", "Free shipping as an effective incentive increased completion", "Average order rose from 130 to 170 SAR"],
+  "متجر فابيان": {
+    store: "Fabian Store",
+    sector: "Perfumes",
+    challenge: "Add-to-cart without checkout — lost sales",
+    strategy: "Popups tied to add-to-cart to nudge checkout completion",
+    popupType: "Add to Cart Incentive",
   },
-  "جمعية تحفيظ القرآن — خميس مشيط": {
+  "متجر عبق الغيم": {
+    store: "Abaq Al-Ghaym",
+    sector: "Perfumes",
+    challenge: "Heavy cart removals before checkout and lost potential orders",
+    strategy: "Cart-remove event with a smart discount code to return and complete",
+    popupType: "Cart Abandonment Recovery",
+  },
+  "متجر هني دوز": {
+    store: "Honey Duz Store",
+    sector: "Natural honey",
+    challenge: "Low completion when only one unit is selected — smaller baskets",
+    strategy: "Popup with a clear 2+1 free offer and highlighted value",
+    popupType: "Buy 2 Get 1 Free",
+  },
+  "جمعية تحفيظ القرآن - خميس مشيط": {
     store: "Quran Memorization Society — Khamis Mushait",
-    tagline: "Impactful messages turn visitors into active donors",
-    metricsLabels: ["Increase in avg. donation", "Increase in conversion rate", "Increase in total donations", "Suitable for non-profit sites"],
-    quote: "Ziadah proved it works even for non-profit organizations. The impactful messages that appear during browsing encouraged donors to act immediately and the average donation increased significantly.",
-    person: "Society Management",
-    role: "Quran Memorization Society — Khamis Mushait",
-    strategy: "Using Ziadah to activate marketing popups with impactful messages during browsing, encouraging donors to act immediately.",
-    results: ["Raised donation rate through impactful messages", "Motivated immediate action from visitors", "Average donation rose from 50 to 70 SAR", "Monthly total donations doubled significantly"],
-  },
-  "كلوز باي": {
-    store: "CloseBy",
-    tagline: "5% discount code rescues abandoned carts and doubles revenue",
-    metricsLabels: ["Total conversions", "Total sales", "Smart popup timing", "Effective discount code"],
-    quote: "The 5% discount code was simple but its impact was massive. Hesitant customers started completing orders immediately. Result: 716 conversions and SAR 543K in additional sales.",
-    person: "CloseBy Team",
-    role: "General Shopping Store",
-    strategy: "Launching a 'Don't miss 5% discount code' campaign via Ziadah, with a smart popup appearing at the right time to motivate purchase completion.",
-    results: ["716 verified conversions via the platform", "SAR 543,000 in total sales achieved", "Converted abandoned carts into actual sales", "Smart popup timing increased completion rate"],
-  },
-  "عبق الغيم": {
-    store: "Abaq Alghim",
-    tagline: "Recovering orders at the moment of cart removal",
-    metricsLabels: ["Total conversions", "Total sales", "Recovery at removal moment", "Targeted smart campaign"],
-    quote: "The idea was clever — offer the customer a discount exactly when they try to remove a product from the cart. This timing changed everything. 1,122 conversions and SAR 248K wouldn't have happened without Ziadah.",
-    person: "Abaq Alghim Team",
-    role: "Perfume & Fragrances Store",
-    strategy: "Activating the 'remove product from cart' event via Ziadah, launching a smart campaign with a discount code shown at the moment of removal.",
-    results: ["1,122 verified conversions via the platform", "SAR 248,816 in total sales achieved", "Recovered orders at the moment of cart removal", "Discount code turns cancellation into purchase"],
-  },
-  "التميمي": {
-    store: "Altamimi",
-    tagline: "3,774 conversions — smart seasonal promotion achieves record numbers",
-    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Smart seasonal suggestions"],
-    quote: "Ziadah helped us raise order value without affecting the customer experience. Offers appear at the right time and encourage customers to add more items effortlessly.",
-    person: "Altamimi Team",
-    role: "Men's Fabrics & Textiles Store — altamimitex.net",
-    strategy: "Activating the 'add to cart' event via Ziadah, promoting seasonal products with smart marketing popups suggesting additional items matching the customer's selections.",
-    results: ["3,774 verified conversions during the season", "SAR 932,517 in total sales achieved", "3.05% conversion rate above average", "Smart suggestions based on customer selections"],
-  },
-  "Skinly": {
-    store: "Skinly",
-    tagline: "1,005 conversions in Black Friday season — intelligence in timing",
-    metricsLabels: ["Total conversions", "Total sales", "Conversion rate", "Smart seasonal leverage"],
-    quote: "Ziadah helped us engage customers at the right moment without interrupting their shopping experience. Smart offers encouraged customers to add more products and complete orders faster.",
-    person: "Skinly Team",
-    role: "Skincare & Beauty Store — skin-ly.com",
-    strategy: "Activating the add-to-cart event via Ziadah, launching a campaign with discounts on complementary products to drive order completion.",
-    results: ["1,005 verified conversions in Black Friday season", "SAR 704,676 in total sales achieved", "Exceptional 6.10% conversion rate", "Raised order value via cross-sell and upsell offers"],
-  },
-  "فيرزاسكا": {
-    store: "Verzasca",
-    tagline: "Smart fragrance bundles raise the value of every order",
-    metricsLabels: ["Total conversions", "Total sales", "Effective bundle promotion", "Increased product discovery"],
-    quote: "Bundle deals were available but customers rarely discovered them. Ziadah solved this with a targeted popup that appears at the right time and clearly raises average order value.",
-    person: "Verzasca Team",
-    role: "Perfume & Fragrances Store",
-    strategy: "Activating the add-to-cart event with a popup offering a discount on fragrance bundles.",
-    results: ["957 verified conversions via the platform", "SAR 77,000 in total sales achieved", "Effective promotion of bundle deals", "Targeted popups increased product discovery"],
-  },
-  "فيتنيس نيد": {
-    store: "Fitness Need",
-    tagline: "Turning the cart removal moment into a smart sales opportunity",
-    metricsLabels: ["Total conversions", "Total sales", "Recovery at removal moment", "Reduced lost orders"],
-    quote: "We were losing many orders at the moment of cart removal. Ziadah solved this precisely — a smart discount at the critical moment turns a cancellation into an actual purchase.",
-    person: "Fitness Need Team",
-    role: "Fitness Equipment Store",
-    strategy: "Activating the 'remove product from cart' event in Ziadah, showing any customer removing a product a smart offer with a special discount on the same product.",
-    results: ["207 verified conversions via the platform", "SAR 75,722 in total sales achieved", "Turned cart removal moment into a sales opportunity", "Smart discounts close the deal at the last moment"],
-  },
-  "كلارا": {
-    store: "Clara",
-    tagline: "Promoting new products with the highest add-to-cart rate",
-    metricsLabels: ["Total conversions", "Total sales", "Effective new product promotion", "Targeted discounts"],
-    quote: "Launching new products was always a challenge. Ziadah solved it with a smart popup showing the new product with a discount at the right moment. Result: 655 conversions and SAR 247K.",
-    person: "Clara Team",
-    role: "Beauty & Cosmetics Store",
-    strategy: "Activating the add-to-cart event via Ziadah with a marketing popup featuring a special discount to motivate purchase completion.",
-    results: ["655 verified conversions via the platform", "SAR 247,438 in total sales achieved", "Effective promotion of new products", "Targeted discounts motivated purchase completion"],
-  },
-  "كابزون": {
-    store: "Capzone",
-    tagline: "Rescuing orders at the final payment stage",
-    metricsLabels: ["Total conversions", "Total sales", "Rescue orders at checkout", "Discount encouraging return"],
-    quote: "The problem was customers reaching checkout then leaving. Ziadah solved this with a smart popup at the last moment with a convincing offer. The improvement in completion rate was clear.",
-    person: "Capzone Team",
-    role: "Fashion & Accessories Store",
-    strategy: "Launching a campaign via the 'complete order' event in Ziadah, showing a motivating popup at the final purchase stage offering a discount on the next or current order.",
-    results: ["155 verified conversions via the platform", "SAR 41,000 in total sales achieved", "Rescued orders at the final payment stage", "Next-order discount encourages return visits"],
-  },
-  "ركن الجمال": {
-    store: "Beauty Corner",
-    tagline: "National holiday campaigns achieve peak sales",
-    metricsLabels: ["Total conversions", "Total sales", "National holiday campaigns", "Targeted popups boost completion"],
-    quote: "National Day was always an opportunity but we never knew how to leverage it properly. Ziadah helped us launch a custom campaign and we hit numbers we'd never achieved before.",
-    person: "Beauty Corner Team",
-    role: "Beauty Products Store",
-    strategy: "Launching a special National Day campaign via Ziadah built on the add-to-cart event with a custom marketing popup and motivating offer.",
-    results: ["689 verified conversions during National Day", "SAR 119,903 in total sales achieved", "Smart leverage of peak seasons and occasions", "Custom campaigns for national holidays"],
-  },
-  "فور هير": {
-    store: "For Her",
-    tagline: "Maximum visibility for new products from the first moment of entry",
-    metricsLabels: ["Total conversions", "Total sales", "Instant new product visibility", "Targeting every visitor instantly"],
-    quote: "We launched a new product and wanted everyone to know about it. Ziadah helped us show it to every visitor from the first second they enter the store. Awareness rose and sales came faster than expected.",
-    person: "For Her Team",
-    role: "Women's Beauty Products Store",
-    strategy: "Activating the homepage event via Ziadah, showing the new product in a prominent marketing popup as soon as the customer enters the store.",
-    results: ["650 verified conversions via the platform", "SAR 135,382 in total sales achieved", "Promoted new products with maximum visibility", "Targeted every visitor from the first moment of entry"],
-  },
-  "كايزون": {
-    store: "Kaizon",
-    tagline: "50% off the second unit doubles order size instantly",
-    metricsLabels: ["Total conversions", "Total sales", "50% off second unit", "Quick and clear results"],
-    quote: "The idea was simple — 50% off the second grinder. But executing it smartly through Ziadah changed the numbers. The customer sees the offer when adding the first, then adds the second immediately. Quick, convincing results.",
-    person: "Kaizon Team",
-    role: "Kitchen & Home Appliances Store",
-    strategy: "Launching a campaign via Ziadah offering 50% off the second unit once the first is added to cart, through an attractive in-store marketing popup.",
-    results: ["322 verified conversions via the platform", "SAR 76,257 in total sales achieved", "Effective order size increase via second-unit discounts", "Raised cart value without increasing ad spend"],
+    sector: "Online donations",
+    challenge: "Low engagement with online donation campaigns and few completed donations",
+    strategy: "Impactful browsing popups that encourage immediate donation",
+    popupType: "Donation Nudge Popup",
   },
 };
 
 const SECTOR_NAME_EN: Record<string, string> = {
   "الكل": "All",
   "مستلزمات التنظيف": "Cleaning Supplies",
-  "العناية بالبشرة": "Skincare",
-  "العطور والبخور": "Perfumes & Incense",
-  "الأزياء الرجالية": "Men's Fashion",
-  "الغذاء والعسل": "Food & Honey",
-  "اللياقة البدنية": "Fitness",
-  "التبرعات": "Donations",
-  "الأجهزة المنزلية": "Home Appliances",
-  "العبايات": "Abayas",
-  "تسوق متنوع": "General Shopping",
+  "منتجات البشرة": "Skincare Products",
+  "الأقمشة الرجالية": "Men's Fabrics",
+  "عبايات الحج واللباس المحتشم": "Hajj Abayas & Modest Wear",
+  "متجر إلكتروني متنوع": "General E-commerce",
+  "العود والبخور": "Oud & Incense",
+  "مستحضرات العناية بالبشرة": "Skincare & Cosmetics",
+  "عطور": "Perfumes",
+  "عسل طبيعي": "Natural Honey",
+  "موقع التبرعات الإلكترونية": "Online Donations",
 };
-
-const PLATFORM_EN: Record<string, string> = {
-  "سلة": "Salla",
-  "زد": "Zid",
-};
-
-const sectorsEn = [
-  { nameAr: "مستلزمات التنظيف", name: "Cleaning Supplies", icon: "🧴", stores: "+45 stores", avg: "+32% sales" },
-  { nameAr: "العناية بالبشرة", name: "Skincare", icon: "💄", stores: "+120 stores", avg: "+38% sales" },
-  { nameAr: "العطور والبخور", name: "Perfumes & Incense", icon: "🕌", stores: "+80 stores", avg: "+34% sales" },
-  { nameAr: "الأزياء الرجالية", name: "Men's Fashion", icon: "👔", stores: "+150 stores", avg: "+35% sales" },
-  { nameAr: "الغذاء والعسل", name: "Food & Honey", icon: "🍯", stores: "+60 stores", avg: "+28% sales" },
-  { nameAr: "اللياقة البدنية", name: "Fitness", icon: "💪", stores: "+40 stores", avg: "+30% sales" },
-  { nameAr: "التبرعات", name: "Donations", icon: "🤲", stores: "+30 stores", avg: "+50% donations" },
-  { nameAr: "الأجهزة المنزلية", name: "Home Appliances", icon: "🏠", stores: "+55 stores", avg: "+26% sales" },
-  { nameAr: "العبايات", name: "Abayas", icon: "🌙", stores: "+35 stores", avg: "+32% sales" },
-  { nameAr: "تسوق متنوع", name: "General Shopping", icon: "🛍️", stores: "+25 stores", avg: "+29% sales" },
-];
 
 const SECTOR_ICONS: Record<string, string> = {
   "الكل": "✦",
   "مستلزمات التنظيف": "🧴",
-  "العناية بالبشرة": "💄",
-  "العطور والبخور": "🕌",
-  "الأزياء الرجالية": "👔",
-  "الغذاء والعسل": "🍯",
-  "اللياقة البدنية": "💪",
-  "التبرعات": "🤲",
-  "الأجهزة المنزلية": "🏠",
-  "العبايات": "🌙",
-  "تسوق متنوع": "🛍️",
+  "منتجات البشرة": "💄",
+  "الأقمشة الرجالية": "👔",
+  "عبايات الحج واللباس المحتشم": "🌙",
+  "متجر إلكتروني متنوع": "🛍️",
+  "العود والبخور": "🕌",
+  "مستحضرات العناية بالبشرة": "✨",
+  "عطور": "🌸",
+  "عسل طبيعي": "🍯",
+  "موقع التبرعات الإلكترونية": "🤲",
 };
 
-const sectors = [
-  { name: "مستلزمات التنظيف", icon: "🧴", stores: "+45 متجر", avg: "+32% مبيعات" },
-  { name: "العناية بالبشرة", icon: "💄", stores: "+120 متجر", avg: "+38% مبيعات" },
-  { name: "العطور والبخور", icon: "🕌", stores: "+80 متجر", avg: "+34% مبيعات" },
-  { name: "الأزياء الرجالية", icon: "👔", stores: "+150 متجر", avg: "+35% مبيعات" },
-  { name: "الغذاء والعسل", icon: "🍯", stores: "+60 متجر", avg: "+28% مبيعات" },
-  { name: "اللياقة البدنية", icon: "💪", stores: "+40 متجر", avg: "+30% مبيعات" },
-  { name: "التبرعات", icon: "🤲", stores: "+30 متجر", avg: "+50% تبرعات" },
-  { name: "الأجهزة المنزلية", icon: "🏠", stores: "+55 متجر", avg: "+26% مبيعات" },
-  { name: "العبايات", icon: "🌙", stores: "+35 متجر", avg: "+32% مبيعات" },
-  { name: "تسوق متنوع", icon: "🛍️", stores: "+25 متجر", avg: "+29% مبيعات" },
+type SectorRow = { nameAr: string; name: string; icon: string; stores: string; avg: string };
+
+const sectorsEn: SectorRow[] = [
+  { nameAr: "مستلزمات التنظيف", name: "Cleaning Supplies", icon: "🧴", stores: "2 stories", avg: "Featured" },
+  { nameAr: "منتجات البشرة", name: "Skincare Products", icon: "💄", stores: "2 stories", avg: "Featured" },
+  { nameAr: "الأقمشة الرجالية", name: "Men's Fabrics", icon: "👔", stores: "1 story", avg: "Featured" },
+  { nameAr: "عبايات الحج واللباس المحتشم", name: "Hajj Abayas & Modest Wear", icon: "🌙", stores: "1 story", avg: "Featured" },
+  { nameAr: "متجر إلكتروني متنوع", name: "General E-commerce", icon: "🛍️", stores: "1 story", avg: "Featured" },
+  { nameAr: "العود والبخور", name: "Oud & Incense", icon: "🕌", stores: "1 story", avg: "Featured" },
+  { nameAr: "مستحضرات العناية بالبشرة", name: "Skincare & Cosmetics", icon: "✨", stores: "1 story", avg: "Featured" },
+  { nameAr: "عطور", name: "Perfumes", icon: "🌸", stores: "2 stories", avg: "Featured" },
+  { nameAr: "عسل طبيعي", name: "Natural Honey", icon: "🍯", stores: "1 story", avg: "Featured" },
+  { nameAr: "موقع التبرعات الإلكترونية", name: "Online Donations", icon: "🤲", stores: "1 story", avg: "Featured" },
+];
+
+const sectors: SectorRow[] = [
+  { nameAr: "مستلزمات التنظيف", name: "Cleaning Supplies", icon: "🧴", stores: "قصتان", avg: "في الصفحة" },
+  { nameAr: "منتجات البشرة", name: "Skincare Products", icon: "💄", stores: "قصتان", avg: "في الصفحة" },
+  { nameAr: "الأقمشة الرجالية", name: "Men's Fabrics", icon: "👔", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "عبايات الحج واللباس المحتشم", name: "Hajj Abayas & Modest Wear", icon: "🌙", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "متجر إلكتروني متنوع", name: "General E-commerce", icon: "🛍️", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "العود والبخور", name: "Oud & Incense", icon: "🕌", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "مستحضرات العناية بالبشرة", name: "Skincare & Cosmetics", icon: "✨", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "عطور", name: "Perfumes", icon: "🌸", stores: "قصتان", avg: "في الصفحة" },
+  { nameAr: "عسل طبيعي", name: "Natural Honey", icon: "🍯", stores: "قصة", avg: "في الصفحة" },
+  { nameAr: "موقع التبرعات الإلكترونية", name: "Online Donations", icon: "🤲", stores: "قصة", avg: "في الصفحة" },
 ];
 
 const allSectors = Array.from(new Set(stories.map(s => s.sector)));
 
-function StoryCard({ s, index, isAr }: { s: typeof stories[0]; index: number; isAr: boolean }) {
-  const [expanded, setExpanded] = useState(false);
+function StoryCard({ s, index, total, isAr }: { s: StoryData; index: number; total: number; isAr: boolean }) {
   const en = storyEn[s.store];
 
   return (
-    <div
-      className={`story-card-v2 rv d${(index % 3) + 1}`}
-      style={{ position: "relative", overflow: "hidden" }}
+    <section
+      className={`story-full-section rv d${(index % 3) + 1}`}
+      style={
+        {
+          width: "100%",
+          height: "fit-content",
+          padding: 0,
+          boxSizing: "border-box",
+        } as CSSProperties
+      }
     >
-      <div className="story-accent-line" style={{ background: s.color }} />
+      <div
+        className="story-card-v3 story-card-v3-full"
+        style={
+          {
+            width: "100%",
+            maxWidth: 920,
+            ["--story-accent" as string]: s.accent,
+            ["--story-gradient" as string]: s.color,
+          } as CSSProperties
+        }
+      >
+        <div className="story-card-v3-glow" aria-hidden />
+        <div className="story-card-v3-glow story-card-v3-glow-2" aria-hidden />
+        <div className="story-card-v3-topbar" style={{ background: s.color }} />
 
-      <div className="story-header-v2">
-        <div style={{ display: "flex", alignItems: "center", gap: 16, flex: 1 }}>
-          <div className="story-logo-v2" style={{ background: s.color }}>
-            {s.logo}
-          </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-              <h3 style={{ fontSize: 22, fontWeight: 900, margin: 0, color: "var(--t)" }}>{isAr ? s.store : (en?.store || s.store)}</h3>
-              <span className="platform-tag-v2">{isAr ? s.platform : (PLATFORM_EN[s.platform] || s.platform)}</span>
+        <div className="story-head-v3">
+          <div className="story-logo-wrap-v3">
+            <div className="story-logo-v3" style={{ background: s.color }}>
+              {s.logo}
             </div>
-            <div style={{ fontSize: 13, color: "var(--td)", marginTop: 4 }}>
-              <span className="sector-badge-v2">
-                {SECTOR_ICONS[s.sector] || "◆"} {isAr ? s.sector : (SECTOR_NAME_EN[s.sector] || s.sector)}
+          </div>
+          <div className="story-head-text-v3">
+            <div className="story-title-row-v3">
+              <span className="story-meta-pill-v3">
+                {isAr ? `القصة ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}` : `Story ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
+              </span>
+            </div>
+            <h3 className="story-title-v3">{isAr ? s.store : (en?.store || s.store)}</h3>
+            <div className="story-sector-v3">
+              <span className="story-sector-chip-v3">
+                <span className="story-sector-ico">{SECTOR_ICONS[s.sector] || "◆"}</span>
+                {isAr ? s.sector : (en?.sector || SECTOR_NAME_EN[s.sector] || s.sector)}
               </span>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="story-tagline-v2">{isAr ? s.tagline : (en?.tagline || s.tagline)}</div>
+        <div className="story-body-v3">
+          <div className="story-two-cards-v3">
+            <div className="detail-panel-v3 detail-challenge-v3">
+              <div className="detail-panel-h-v3">{isAr ? "التحدي" : "Challenge"}</div>
+              <p className="detail-panel-p-v3">{isAr ? s.challenge : (en?.challenge || s.challenge)}</p>
+            </div>
+            <div className="detail-panel-v3 detail-strategy-v3">
+              <div className="detail-panel-h-v3">{isAr ? "الاستراتيجية" : "Strategy"}</div>
+              <p className="detail-panel-p-v3">{isAr ? s.strategy : (en?.strategy || s.strategy)}</p>
+            </div>
+          </div>
 
-      <div className="story-metrics-v2">
-        {s.metrics.map((m, mi) => (
-          <div key={m.label} className="metric-card-v2">
-            <div className="metric-value-v2" style={{ color: m.color }}>{m.value}</div>
-            <div className="metric-label-v2">{isAr ? m.label : (en?.metricsLabels[mi] || m.label)}</div>
+          <div className="story-popup-strip-v3">
+            <div className="story-popup-strip-inner-v3">
+              <span className="story-popup-type-v3">{isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}</span>
+              <span className="platform-tag-v3 story-popup-badge-v3">{isAr ? s.popupType : (en?.popupType || s.popupType)}</span>
+            </div>
           </div>
-        ))}
-      </div>
 
-      <div className="story-comparison-v2">
-        <div className="comparison-box-v2 before-box">
-          <div className="comparison-label-v2">{isAr ? "قبل زيادة" : "Before Ziadah"}</div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "متوسط الطلب" : "Avg. Order"}</span>
-            <span className="comparison-val">{s.before.aov} {isAr ? "⃁" : "SAR"}</span>
-          </div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "التحويل" : "Conversion"}</span>
-            <span className="comparison-val">{s.before.conv}</span>
-          </div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "المبيعات الشهرية" : "Monthly Sales"}</span>
-            <span className="comparison-val">{s.before.monthly} {isAr ? "⃁" : "SAR"}</span>
-          </div>
-        </div>
-        <div className="comparison-arrow-v2">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <circle cx="14" cy="14" r="14" fill="rgba(168,85,247,.15)" />
-            <path d="M8 14H20M14 8L20 14L14 20" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </div>
-        <div className="comparison-box-v2 after-box">
-          <div className="comparison-label-v2 after-label">{isAr ? "بعد زيادة" : "After Ziadah"}</div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "متوسط الطلب" : "Avg. Order"}</span>
-            <span className="comparison-val highlight">{s.after.aov} {isAr ? "⃁" : "SAR"}</span>
-          </div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "التحويل" : "Conversion"}</span>
-            <span className="comparison-val highlight">{s.after.conv}</span>
-          </div>
-          <div className="comparison-row">
-            <span className="comparison-key">{isAr ? "المبيعات الشهرية" : "Monthly Sales"}</span>
-            <span className="comparison-val highlight">{s.after.monthly} {isAr ? "⃁" : "SAR"}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="story-quote-v2">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(168,85,247,.3)" style={{ flexShrink: 0, marginTop: 2 }}>
-          <path d="M11 7.5V11H7.5C7.5 12.3807 8.61929 13.5 10 13.5V15.5C7.51472 15.5 5.5 13.4853 5.5 11V7.5H11ZM18.5 7.5V11H15C15 12.3807 16.1193 13.5 17.5 13.5V15.5C15.0147 15.5 13 13.4853 13 11V7.5H18.5Z"/>
-        </svg>
-        <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.9, fontStyle: "italic" }}>{isAr ? s.quote : (en?.quote || s.quote)}</p>
-      </div>
-
-      <div className="story-footer-v2">
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div className="story-person-avatar" style={{ background: s.color }}>{s.logo}</div>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{isAr ? s.person : (en?.person || s.person)}</div>
-            <div style={{ fontSize: 12, color: "var(--td)" }}>{isAr ? s.role : (en?.role || s.role)}</div>
-          </div>
-        </div>
-        <button
-          className="expand-btn-v2"
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? (isAr ? "إخفاء التفاصيل" : "Hide Details") : (isAr ? "عرض التفاصيل" : "Show Details")}
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}>
-            <path d="M3 5L7 9L11 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-      </div>
-
-      <div className={`story-details-v2 ${expanded ? "expanded" : ""}`}>
-        <div className="details-inner-v2">
-          <div className="strategy-box-v2">
-            <div className="strategy-title-v2">{isAr ? "الاستراتيجية" : "Strategy"}</div>
-            <p style={{ margin: 0, fontSize: 14, color: "var(--tm)", lineHeight: 1.8 }}>{isAr ? s.strategy : (en?.strategy || s.strategy)}</p>
-          </div>
-          <div className="results-box-v2">
-            <div className="results-title-v2">{isAr ? "النتائج الموثقة" : "Verified Results"}</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {(isAr ? s.results : (en?.results || s.results)).map(r => (
-                <div key={r} className="result-item-v2">
-                  <span className="result-check-v2">✓</span>
-                  <span>{r}</span>
+          <div className="story-impact-v3 story-results-kpi-v3">
+            <div className="story-results-head-v3">
+              <span className="story-results-ico" aria-hidden>◈</span>
+              {isAr ? "النتائج الموثقة" : "Verified results"}
+            </div>
+            <div className="story-kpi-grid-v3 kpi-count-2">
+              <div className="story-kpi-v3 story-kpi-conv-v3">
+                <div className="story-kpi-value-v3">{s.conversions}</div>
+                <div className="story-kpi-label-v3">{isAr ? "التحويلات" : "Conversions"}</div>
+              </div>
+              <div className="story-kpi-v3 story-kpi-sales-v3">
+                <div className="story-kpi-value-v3">
+                  {s.sales}
+                  <span className="story-kpi-currency-v3">{isAr ? "ر.س" : "SAR"}</span>
                 </div>
-              ))}
+                <div className="story-kpi-label-v3">{isAr ? "إجمالي المبيعات" : "Total sales"}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -1011,18 +440,24 @@ export default function SuccessStories() {
   const filterRef = useRef<HTMLDivElement>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const sectorDisplay = (arName: string) => isAr ? arName : (SECTOR_NAME_EN[arName] || arName);
+  const prevSectorRef = useRef<string | null>(null);
 
   useEffect(() => {
+    if (!visible) return;
     const obs = new IntersectionObserver(es => {
       es.forEach(e => { if (e.isIntersecting) e.target.classList.add("on"); });
     }, { threshold: 0.06, rootMargin: "0px 0px -24px 0px" });
     document.querySelectorAll(".rv").forEach(el => obs.observe(el));
     return () => obs.disconnect();
-  }, []);
+  }, [activeSector, visible]);
 
   useEffect(() => {
     if (!visible) return;
-    document.querySelectorAll(".story-card-v2.rv").forEach(el => el.classList.add("on"));
+    const prev = prevSectorRef.current;
+    if (prev !== null && prev !== activeSector) {
+      document.querySelectorAll(".stories-fade-v2 .story-full-section.rv").forEach(el => el.classList.add("on"));
+    }
+    prevSectorRef.current = activeSector;
   }, [activeSector, visible]);
 
 
@@ -1050,264 +485,579 @@ export default function SuccessStories() {
     <>
     <SEO
       title={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
-      description={isAr ? "اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة." : "Discover how leading Saudi stores achieved exceptional results with Ziadah: from Ribal with 151,507 conversions to Altamimi with SAR 932,517 in sales. Real success stories with verified numbers."}
+      description={isAr ? "ثلاث عشرة قصة نجاح بأرقام موثقة: تحويلات ومبيعات بالريال، مع التحدي والاستراتيجية ونوع النافذة التسويقية." : "Thirteen success stories with verified numbers: conversions and sales in SAR, plus challenge, strategy, and popup type."}
       canonical="/success-stories"
     />
     <BreadcrumbSchema items={[{ name: isAr ? "الرئيسية" : "Home", url: "/" }, { name: isAr ? "قصص النجاح" : "Success Stories", url: "/success-stories" }]} />
     <WebPageSchema
       name={isAr ? "قصص النجاح — متاجر زادت مبيعاتها مع زيادة" : "Success Stories — Stores That Grew Sales with Ziadah"}
-      description={isAr ? "اكتشف كيف حققت متاجر سعودية رائدة نتائج استثنائية مع زيادة: من ريبال بـ 151,507 تحويل إلى التميمي بـ 932,517 ريال مبيعات. قصص نجاح حقيقية وأرقام موثقة." : "Discover how leading Saudi stores achieved exceptional results with Ziadah: from Ribal with 151,507 conversions to Altamimi with SAR 932,517 in sales. Real success stories with verified numbers."}
+      description={isAr ? "ثلاث عشرة قصة نجاح بأرقام موثقة: تحويلات ومبيعات بالريال، مع التحدي والاستراتيجية ونوع النافذة التسويقية." : "Thirteen success stories with verified numbers: conversions and sales in SAR, plus challenge, strategy, and popup type."}
       url="/success-stories"
     />
     <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
       <style>{`
-        .story-accent-line {
-          position: absolute;
-          top: 0;
-          right: 0;
-          left: 0;
-          height: 3px;
-          border-radius: 16px 16px 0 0;
-        }
-        .story-card-v2 {
-          background: var(--s1);
-          border: 1px solid var(--b1);
-          border-radius: 20px;
-          overflow: hidden;
-          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        .story-full-section {
           position: relative;
-          backdrop-filter: blur(20px);
+          isolation: isolate;
+          min-height: 0;
+          height: fit-content;
         }
-        .story-card-v2:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 24px 64px rgba(0,0,0,.4), 0 0 0 1px rgba(168,85,247,.15);
-          border-color: rgba(168,85,247,.2);
+        .story-full-section:not(:last-child)::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(480px, 72%);
+          height: 1px;
+          background: linear-gradient(90deg, transparent, color-mix(in srgb, #a855f7 35%, transparent), transparent);
+          opacity: 0.5;
+          pointer-events: none;
         }
-        .story-header-v2 {
-          padding: 28px 32px 0;
+        .story-card-v3 {
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          border-radius: 24px;
+          border: 1px solid var(--b1);
+          background:
+            linear-gradient(155deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.03) 42%, rgba(0,0,0,.14) 100%);
+          backdrop-filter: blur(24px) saturate(1.15);
+          box-shadow:
+            0 4px 24px rgba(0,0,0,.22),
+            inset 0 1px 0 rgba(255,255,255,.07);
+          transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+        }
+        .story-card-v3::after {
+          content: '';
+          pointer-events: none;
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--story-accent) 12%, transparent);
+          opacity: 0.65;
+        }
+        .story-card-v3-glow {
+          pointer-events: none;
+          position: absolute;
+          inset: -38% -18% auto auto;
+          width: 58%;
+          height: 52%;
+          border-radius: 50%;
+          background: radial-gradient(circle at center, color-mix(in srgb, var(--story-accent) 28%, transparent) 0%, transparent 72%);
+          opacity: 0.5;
+        }
+        .story-card-v3-glow-2 {
+          inset: auto auto -42% -22%;
+          width: 50%;
+          height: 48%;
+          background: radial-gradient(circle at center, color-mix(in srgb, var(--story-accent) 14%, transparent) 0%, transparent 70%);
+          opacity: 0.4;
+        }
+        .story-card-v3-topbar {
+          height: 5px;
+          width: 100%;
+          opacity: 1;
+          box-shadow: 0 1px 0 rgba(255,255,255,.12) inset;
+        }
+        .story-card-v3:hover {
+          transform: translateY(-6px);
+          box-shadow:
+            0 32px 80px rgba(0,0,0,.42),
+            0 0 0 1px color-mix(in srgb, var(--story-accent) 32%, transparent),
+            inset 0 1px 0 rgba(255,255,255,.09);
+          border-color: color-mix(in srgb, var(--story-accent) 42%, var(--b1));
+        }
+        .story-body-v3 {
+          position: relative;
+          z-index: 1;
+          padding-bottom: 4px;
+        }
+        .story-head-v3 {
           display: flex;
           align-items: flex-start;
-          gap: 16;
+          gap: 18px;
+          padding: 26px 28px 20px;
+          position: relative;
+          z-index: 1;
         }
-        .story-logo-v2 {
-          width: 52px;
-          height: 52px;
-          border-radius: 14px;
+        .story-logo-wrap-v3 {
+          flex-shrink: 0;
+          padding: 3px;
+          border-radius: 20px;
+          background: linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.04));
+          box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 12px 36px rgba(0,0,0,.35);
+        }
+        .story-logo-v3 {
+          width: 56px;
+          height: 56px;
+          border-radius: 15px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 22px;
+          font-size: 23px;
           font-weight: 900;
           color: #fff;
-          flex-shrink: 0;
-          box-shadow: 0 6px 24px rgba(0,0,0,.3);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
         }
-        .platform-tag-v2 {
+        .story-head-text-v3 { flex: 1; min-width: 0; }
+        .story-meta-pill-v3 {
           display: inline-flex;
           align-items: center;
-          padding: 3px 10px;
-          border-radius: 6px;
+          padding: 6px 14px;
+          border-radius: 999px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--td);
+          background: rgba(0,0,0,.2);
+          border: 1px solid var(--b1);
+          backdrop-filter: blur(8px);
+        }
+        .story-title-row-v3 {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 8px 12px;
+          margin-bottom: 10px;
+        }
+        .story-title-v3 {
+          margin: 0;
+          font-size: clamp(1.2rem, 3vw, 1.55rem);
+          font-weight: 900;
+          color: var(--t);
+          letter-spacing: -0.025em;
+          line-height: 1.22;
+        }
+        .story-sector-v3 {
+          margin-top: 0;
+        }
+        .story-sector-chip-v3 {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 10px;
+          padding: 8px 14px;
+          border-radius: 12px;
+          font-size: 13px;
+          font-weight: 650;
+          color: var(--tm);
+          background: color-mix(in srgb, var(--story-accent) 9%, rgba(0,0,0,.2));
+          border: 1px solid color-mix(in srgb, var(--story-accent) 22%, var(--b1));
+        }
+        .platform-tag-v3 {
+          display: inline-flex;
+          align-items: center;
+          padding: 4px 11px;
+          border-radius: 999px;
           font-size: 11px;
-          font-weight: 700;
+          font-weight: 800;
           background: var(--s1);
           border: 1px solid var(--b1);
           color: var(--td);
         }
-        .sector-badge-v2 {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          font-size: 12px;
-          color: var(--td);
-          font-weight: 500;
+        .story-sector-ico { font-size: 1.05em; opacity: 0.95; line-height: 1; }
+        .story-lede-v3 {
+          margin: 0;
+          padding: 18px 28px 0;
+          font-size: 15px;
+          font-weight: 650;
+          color: var(--tm);
+          line-height: 1.75;
         }
-        .story-tagline-v2 {
-          padding: 16px 32px 0;
-          font-size: 17px;
-          font-weight: 700;
-          color: var(--t);
-          line-height: 1.6;
-        }
-        .story-metrics-v2 {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          padding: 20px 32px;
-        }
-        .metric-card-v2 {
-          padding: 16px 14px;
-          background: rgba(0,0,0,.2);
+        .story-impact-v3 {
+          margin: 22px 28px 0;
+          padding: 20px 20px 18px;
+          border-radius: 18px;
+          background: linear-gradient(165deg, rgba(0,0,0,.24) 0%, rgba(0,0,0,.14) 100%);
           border: 1px solid var(--b1);
-          border-radius: 14px;
-          text-align: center;
-          transition: border-color 0.2s ease, background 0.2s ease;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
         }
-        .metric-card-v2:hover {
-          border-color: rgba(168,85,247,.25);
-          background: rgba(0,0,0,.3);
-        }
-        .metric-value-v2 {
-          font-size: 24px;
-          font-weight: 900;
-          line-height: 1.1;
-          margin-bottom: 6px;
-        }
-        .metric-label-v2 {
-          font-size: 11px;
-          color: var(--td);
-          font-weight: 500;
-          line-height: 1.4;
-        }
-        .story-comparison-v2 {
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          gap: 12px;
-          align-items: center;
-          padding: 0 32px 20px;
-        }
-        .comparison-box-v2 {
-          padding: 16px 18px;
-          border-radius: 14px;
+        .story-impact-head-v3 {
           display: flex;
-          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--td);
+          margin-bottom: 14px;
+        }
+        .story-impact-icon {
+          color: var(--story-accent);
+          font-size: 12px;
+          opacity: 0.9;
+        }
+        .story-kpi-grid-v3 {
+          display: grid;
+          gap: 10px;
+          margin-bottom: 12px;
+        }
+        .story-kpi-grid-v3.kpi-count-1 {
+          grid-template-columns: 1fr;
+          max-width: 280px;
+        }
+        .story-kpi-grid-v3.kpi-count-2,
+        .story-kpi-grid-v3.kpi-count-3,
+        .story-kpi-grid-v3.kpi-count-4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .story-kpi-v3 {
+          position: relative;
+          padding: 20px 16px 18px;
+          border-radius: 16px;
+          text-align: center;
+          overflow: hidden;
+          background: rgba(0,0,0,.28);
+          border: 1px solid rgba(255,255,255,.07);
+          transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .story-kpi-v3::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 12px;
+          right: 12px;
+          height: 3px;
+          border-radius: 0 0 6px 6px;
+          opacity: 0.95;
+        }
+        .story-kpi-conv-v3::before {
+          background: linear-gradient(90deg, #7c3aed, #a855f7);
+        }
+        .story-kpi-sales-v3::before {
+          background: linear-gradient(90deg, #0891b2, #22d3ee);
+        }
+        .story-card-v3:hover .story-kpi-conv-v3 {
+          border-color: color-mix(in srgb, #a855f7 35%, var(--b1));
+          box-shadow: 0 8px 28px rgba(124,58,237,.12);
+        }
+        .story-card-v3:hover .story-kpi-sales-v3 {
+          border-color: color-mix(in srgb, #06b6d4 35%, var(--b1));
+          box-shadow: 0 8px 28px rgba(6,182,212,.1);
+        }
+        .story-kpi-value-v3 {
+          font-size: clamp(1.45rem, 4.2vw, 2rem);
+          font-weight: 900;
+          font-variant-numeric: tabular-nums;
+          line-height: 1.12;
+          letter-spacing: -0.035em;
+        }
+        .story-kpi-conv-v3 .story-kpi-value-v3 {
+          background: linear-gradient(135deg, #c4b5fd 0%, #a855f7 45%, #7c3aed 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .story-kpi-sales-v3 .story-kpi-value-v3 {
+          background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 50%, #0891b2 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .story-kpi-currency-v3 {
+          display: inline-block;
+          font-size: 0.48em;
+          font-weight: 800;
+          margin-inline-start: 6px;
+          vertical-align: 0.12em;
+          -webkit-text-fill-color: var(--tm);
+          color: var(--tm);
+          opacity: 0.92;
+          letter-spacing: 0.02em;
+        }
+        .story-kpi-label-v3 {
+          margin-top: 12px;
+          font-size: 11px;
+          font-weight: 700;
+          color: var(--td);
+          line-height: 1.45;
+          letter-spacing: 0.04em;
+        }
+        .story-chips-v3 {
+          display: flex;
+          flex-wrap: wrap;
           gap: 8px;
         }
-        .before-box {
-          background: rgba(0,0,0,.15);
-          border: 1px solid var(--b1);
-        }
-        .after-box {
-          background: rgba(124,58,237,.08);
-          border: 1px solid rgba(124,58,237,.2);
-        }
-        .comparison-label-v2 {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: var(--td);
-          margin-bottom: 4px;
-        }
-        .comparison-label-v2.after-label {
-          color: #c084fc;
-        }
-        .comparison-row {
-          display: flex;
-          justify-content: space-between;
+        .story-chip-v3 {
+          display: inline-flex;
           align-items: center;
-        }
-        .comparison-key {
+          gap: 8px;
+          padding: 7px 12px 7px 10px;
+          border-radius: 999px;
           font-size: 12px;
-          color: var(--td);
+          font-weight: 600;
+          color: var(--tm);
+          background: rgba(0,0,0,.15);
+          border: 1px solid color-mix(in srgb, var(--story-accent) 22%, var(--b1));
         }
-        .comparison-val {
+        .story-chip-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          box-shadow: 0 0 0 2px rgba(255,255,255,.08);
+        }
+        .story-quote-v3 {
+          position: relative;
+          margin: 22px 28px 0;
+          padding: 18px 20px;
+          padding-inline-start: 52px;
+          border-radius: 14px;
+          background: rgba(0,0,0,.12);
+          border: 1px solid var(--b1);
+          border-inline-start: 3px solid var(--story-accent);
+        }
+        .story-quote-mark {
+          position: absolute;
+          inset-inline-start: 14px;
+          top: 8px;
+          font-size: 42px;
+          font-weight: 900;
+          line-height: 1;
+          color: color-mix(in srgb, var(--story-accent) 45%, transparent);
+          opacity: 0.55;
+          font-family: var(--font);
+        }
+        .story-quote-v3 p {
+          margin: 0;
           font-size: 14px;
-          font-weight: 800;
-          color: var(--t);
+          color: var(--tm);
+          line-height: 1.85;
+          font-style: italic;
         }
-        .comparison-val.highlight {
-          color: #a855f7;
-        }
-        .comparison-arrow-v2 {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .story-quote-v2 {
-          display: flex;
-          gap: 12px;
-          padding: 0 32px 20px;
-          align-items: flex-start;
-        }
-        .story-footer-v2 {
+        .story-footer-v3 {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 16px 32px;
-          border-top: 1px solid var(--b1);
+          gap: 14px;
+          padding: 22px 28px 24px;
+          margin-top: 4px;
         }
-        .story-person-avatar {
-          width: 34px;
-          height: 34px;
+        .story-attrib-v3 {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          min-width: 0;
+        }
+        .story-avatar-v3 {
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 13px;
+          font-size: 14px;
+          font-weight: 900;
+          color: #fff;
+          flex-shrink: 0;
+          box-shadow: 0 4px 16px rgba(0,0,0,.25);
+        }
+        .story-person-v3 {
+          font-size: 14px;
           font-weight: 800;
           color: var(--t);
-          flex-shrink: 0;
         }
-        .expand-btn-v2 {
+        .story-role-v3 {
+          font-size: 12px;
+          color: var(--td);
+          margin-top: 2px;
+        }
+        .expand-btn-v3 {
           display: inline-flex;
           align-items: center;
-          gap: 6px;
-          padding: 8px 16px;
-          border-radius: 10px;
-          border: 1px solid rgba(168,85,247,.25);
-          background: rgba(168,85,247,.08);
-          color: #c084fc;
+          gap: 7px;
+          padding: 10px 18px;
+          border-radius: 12px;
+          border: 1px solid color-mix(in srgb, var(--story-accent) 35%, var(--b1));
+          background: color-mix(in srgb, var(--story-accent) 12%, transparent);
+          color: var(--story-accent);
           font-size: 13px;
-          font-weight: 600;
+          font-weight: 700;
           cursor: pointer;
           font-family: var(--font);
-          transition: all 0.2s ease;
+          transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+          flex-shrink: 0;
         }
-        .expand-btn-v2:hover {
-          background: rgba(168,85,247,.15);
-          border-color: rgba(168,85,247,.4);
+        .expand-btn-v3:hover {
+          background: color-mix(in srgb, var(--story-accent) 22%, transparent);
+          border-color: color-mix(in srgb, var(--story-accent) 55%, var(--b1));
         }
-        .story-details-v2 {
+        .story-details-v3 {
           max-height: 0;
           overflow: hidden;
-          transition: max-height 0.4s ease;
+          transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .story-details-v2.expanded {
-          max-height: 500px;
+        .story-details-v3.expanded {
+          max-height: 2200px;
         }
-        .details-inner-v2 {
-          padding: 0 32px 28px;
+        .details-grid-v3 {
+          padding: 0 28px 28px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+        .detail-panel-v3 {
+          position: relative;
+          padding: 20px 20px 18px;
+          border-radius: 18px;
+          border: 1px solid var(--b1);
+          overflow: hidden;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        .detail-panel-v3::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          opacity: 0.9;
+        }
+        .detail-strategy-v3 {
+          background: linear-gradient(165deg, color-mix(in srgb, var(--story-accent) 12%, rgba(0,0,0,.22)) 0%, color-mix(in srgb, var(--story-accent) 5%, rgba(0,0,0,.18)) 100%);
+        }
+        .detail-strategy-v3::before {
+          background: linear-gradient(90deg, var(--story-accent), color-mix(in srgb, var(--story-accent) 60%, #fff));
+        }
+        .detail-results-v3 {
+          background: rgba(16,185,129,.07);
+          border-color: rgba(16,185,129,.2);
+        }
+        .detail-panel-h-v3 {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+          color: var(--story-accent);
+        }
+        .detail-challenge-v3 .detail-panel-h-v3::before {
+          content: '◆';
+          font-size: 9px;
+          opacity: 0.75;
+          color: #f59e0b;
+        }
+        .detail-strategy-v3 .detail-panel-h-v3::before {
+          content: '◇';
+          font-size: 10px;
+          opacity: 0.85;
+          color: var(--story-accent);
+        }
+        .detail-results-v3 .detail-panel-h-v3 {
+          color: #34d399;
+        }
+        .detail-panel-p-v3 {
+          margin: 0;
+          font-size: 14px;
+          color: var(--tm);
+          line-height: 1.82;
+        }
+        .detail-results-list-v3 {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .detail-results-list-v3 li {
+          display: flex;
+          gap: 10px;
+          font-size: 13px;
+          color: var(--tm);
+          line-height: 1.65;
+          align-items: flex-start;
+        }
+        .detail-results-tick {
+          color: #34d399;
+          font-weight: 900;
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+
+        .story-two-cards-v3 {
+          padding: 0 28px 0;
+          margin-top: 2px;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 16px;
+          align-items: stretch;
         }
-        .strategy-box-v2 {
-          padding: 20px;
-          background: rgba(124,58,237,.06);
-          border: 1px solid rgba(124,58,237,.15);
-          border-radius: 14px;
+        .detail-challenge-v3 {
+          background: linear-gradient(165deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.04) 100%);
+          border-color: rgba(245, 158, 11, 0.28);
         }
-        .strategy-title-v2 {
-          font-size: 13px;
-          font-weight: 800;
-          color: #c084fc;
-          margin-bottom: 10px;
+        .detail-challenge-v3::before {
+          background: linear-gradient(90deg, #f59e0b, #fbbf24);
         }
-        .results-box-v2 {
-          padding: 20px;
-          background: rgba(16,185,129,.06);
-          border: 1px solid rgba(16,185,129,.15);
-          border-radius: 14px;
+        .detail-challenge-v3 .detail-panel-h-v3 {
+          color: #fbbf24;
         }
-        .results-title-v2 {
-          font-size: 13px;
-          font-weight: 800;
-          color: #10b981;
-          margin-bottom: 10px;
+        .story-popup-strip-v3 {
+          padding: 22px 28px 0;
         }
-        .result-item-v2 {
+        .story-popup-strip-inner-v3 {
           display: flex;
-          gap: 8px;
-          font-size: 13px;
-          color: var(--tm);
-          line-height: 1.6;
-          align-items: flex-start;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px 18px;
+          padding: 16px 20px;
+          border-radius: 16px;
+          background: linear-gradient(125deg, rgba(0,0,0,.2) 0%, color-mix(in srgb, var(--story-accent) 8%, rgba(0,0,0,.16)) 100%);
+          border: 1px solid color-mix(in srgb, var(--story-accent) 18%, var(--b1));
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
         }
-        .result-check-v2 {
-          color: #10b981;
+        .story-popup-type-v3 {
+          font-size: 10px;
           font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--td);
           flex-shrink: 0;
-          margin-top: 2px;
+        }
+        .story-popup-badge-v3.platform-tag-v3 {
+          font-size: 12px;
+          font-weight: 800;
+          padding: 10px 18px;
+          border-radius: 12px;
+          border: 1px solid color-mix(in srgb, var(--story-accent) 40%, var(--b1));
+          background: linear-gradient(135deg, color-mix(in srgb, var(--story-accent) 22%, transparent), color-mix(in srgb, var(--story-accent) 8%, rgba(0,0,0,.15)));
+          color: var(--story-accent);
+          font-family: inherit;
+          max-width: 100%;
+          white-space: normal;
+          text-align: center;
+          line-height: 1.4;
+          box-shadow: 0 4px 16px color-mix(in srgb, var(--story-accent) 15%, transparent);
+        }
+        .story-results-kpi-v3 {
+          margin: 16px 28px 28px;
+        }
+        .story-results-head-v3 {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--td);
+          margin-bottom: 16px;
+        }
+        .story-results-ico {
+          color: var(--story-accent);
+          font-size: 13px;
+          opacity: 0.95;
+        }
+        .story-results-kpi-v3 .story-kpi-grid-v3 {
+          margin-bottom: 0;
         }
 
         .filter-btn-v2 {
@@ -1389,20 +1139,32 @@ export default function SuccessStories() {
           transform: translateY(0);
         }
         .hero-stat-v2 {
-          padding: 20px 32px;
-          background: var(--s1);
+          padding: 22px 34px;
+          min-width: 140px;
+          background: linear-gradient(165deg, color-mix(in srgb, var(--accent, #a855f7) 8%, var(--s1)) 0%, var(--s1) 100%);
           border: 1px solid var(--b1);
-          border-radius: 16px;
+          border-radius: 18px;
           backdrop-filter: blur(20px);
-          transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+          transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
           text-align: center;
           position: relative;
           overflow: hidden;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        }
+        .hero-stat-v2::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          border-radius: inherit;
+          background: radial-gradient(ellipse 90% 55% at 50% -20%, color-mix(in srgb, var(--accent, #a855f7) 22%, transparent), transparent 65%);
+          opacity: 0.45;
         }
         .hero-stat-v2:hover {
-          transform: translateY(-4px);
-          border-color: rgba(168,85,247,.3);
-          box-shadow: 0 12px 40px rgba(0,0,0,.3);
+          transform: translateY(-5px);
+          border-color: color-mix(in srgb, var(--accent, #a855f7) 45%, var(--b1));
+          box-shadow: 0 16px 48px rgba(0,0,0,.32), 0 0 0 1px color-mix(in srgb, var(--accent, #a855f7) 15%, transparent);
         }
         .hero-stat-v2::before {
           content: '';
@@ -1410,23 +1172,33 @@ export default function SuccessStories() {
           top: 0;
           right: 0;
           left: 0;
-          height: 2px;
-          border-radius: 16px 16px 0 0;
+          height: 3px;
+          border-radius: 18px 18px 0 0;
+          z-index: 2;
+        }
+        .hero-stat-v2 > div {
+          position: relative;
+          z-index: 1;
         }
         .sector-card-v2 {
-          padding: 24px 22px;
+          padding: 22px 22px;
+          border-radius: 18px;
+          border: 1px solid var(--b1);
+          background: linear-gradient(165deg, rgba(255,255,255,.04) 0%, rgba(0,0,0,.08) 100%);
           display: flex;
           align-items: center;
           gap: 16px;
           cursor: pointer;
-          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+          transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
           position: relative;
           overflow: hidden;
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
         }
         .sector-card-v2:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 16px 48px rgba(0,0,0,.3);
-          border-color: rgba(168,85,247,.25);
+          transform: translateY(-4px);
+          box-shadow: 0 20px 56px rgba(0,0,0,.34);
+          border-color: rgba(168,85,247,.32);
+          background: linear-gradient(165deg, rgba(168,85,247,.07) 0%, rgba(0,0,0,.1) 100%);
         }
         .sector-card-v2::after {
           content: '';
@@ -1443,72 +1215,94 @@ export default function SuccessStories() {
           opacity: 1;
         }
 
-        /* ── LIGHT MODE: SuccessStories (override fixed dark rgba) ── */
-        [data-theme="light"] .story-card-v2 {
-          backdrop-filter: blur(22px);
+        /* ── LIGHT MODE: SuccessStories ── */
+        [data-theme="light"] .story-card-v3 {
+          background: linear-gradient(165deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.62) 100%);
+          box-shadow: 0 4px 28px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
         }
-        [data-theme="light"] .story-card-v2:hover {
-          box-shadow: 0 24px 64px rgba(0,0,0,.12), 0 0 0 1px rgba(168,85,247,.12);
-          border-color: rgba(168,85,247,.18);
+        [data-theme="light"] .story-card-v3:hover {
+          box-shadow: 0 28px 72px rgba(0,0,0,.08), 0 0 0 1px rgba(124,58,237,.12);
         }
-        [data-theme="light"] .story-logo-v2 {
-          box-shadow: 0 6px 24px rgba(0,0,0,.16);
+        [data-theme="light"] .story-card-v3::after {
+          opacity: 0.4;
         }
-        [data-theme="light"] .metric-card-v2 {
-          background: rgba(0,0,0,.04);
+        [data-theme="light"] .story-logo-wrap-v3 {
+          box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 10px 28px rgba(0,0,0,.1);
         }
-        [data-theme="light"] .metric-card-v2:hover {
-          background: rgba(0,0,0,.06);
-          border-color: rgba(168,85,247,.25);
+        [data-theme="light"] .story-logo-v3 {
+          box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
         }
-        [data-theme="light"] .before-box {
+        [data-theme="light"] .story-meta-pill-v3 {
+          background: rgba(255,255,255,.75);
+          border-color: rgba(0,0,0,.08);
+        }
+        [data-theme="light"] .story-sector-chip-v3 {
+          background: color-mix(in srgb, var(--story-accent) 10%, rgba(255,255,255,.9));
+        }
+        [data-theme="light"] .story-popup-strip-inner-v3 {
+          background: linear-gradient(125deg, rgba(255,255,255,.55) 0%, color-mix(in srgb, var(--story-accent) 6%, rgba(255,255,255,.75)) 100%);
+          border-color: color-mix(in srgb, var(--story-accent) 20%, rgba(0,0,0,.08));
+        }
+        [data-theme="light"] .story-impact-v3 {
+          background: linear-gradient(165deg, rgba(0,0,0,.04) 0%, rgba(255,255,255,.5) 100%);
+        }
+        [data-theme="light"] .story-kpi-v3 {
+          background: rgba(255,255,255,.72);
+          border-color: rgba(0,0,0,.06);
+        }
+        [data-theme="light"] .story-quote-v3 {
           background: rgba(0,0,0,.03);
         }
-        [data-theme="light"] .after-box {
-          background: rgba(124,58,237,.05);
-          border-color: rgba(124,58,237,.14);
+        [data-theme="light"] .hero-stat-v2 {
+          box-shadow: 0 2px 16px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.85);
         }
         [data-theme="light"] .hero-stat-v2:hover {
-          box-shadow: 0 12px 40px rgba(0,0,0,.10);
+          box-shadow: 0 14px 40px rgba(0,0,0,.08);
+        }
+        [data-theme="light"] .hero-stat-v2::after {
+          opacity: 0.35;
+        }
+        [data-theme="light"] .sector-card-v2 {
+          background: linear-gradient(165deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.72) 100%);
         }
         [data-theme="light"] .sector-card-v2:hover {
-          box-shadow: 0 16px 48px rgba(0,0,0,.10);
+          box-shadow: 0 16px 48px rgba(0,0,0,.08);
+          background: linear-gradient(165deg, rgba(168,85,247,.06) 0%, rgba(255,255,255,.85) 100%);
         }
-        [data-theme="light"] .expand-btn-v2 {
-          background: rgba(124,58,237,.06);
-          border-color: rgba(124,58,237,.24);
-          color: var(--p4);
-        }
-        [data-theme="light"] .expand-btn-v2:hover {
-          background: rgba(124,58,237,.12);
-          border-color: rgba(124,58,237,.40);
-        }
-
         @media (max-width: 1024px) {
           .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 768px) {
-          .story-metrics-v2 { grid-template-columns: 1fr 1fr !important; }
-          .story-comparison-v2 { grid-template-columns: 1fr !important; gap: 8px !important; }
-          .comparison-arrow-v2 { transform: rotate(90deg); justify-self: center; }
-          .story-header-v2 { padding: 24px 20px 0 !important; }
-          .story-tagline-v2 { padding: 12px 20px 0 !important; font-size: 15px !important; }
-          .story-metrics-v2 { padding: 16px 20px !important; }
-          .story-comparison-v2 { padding: 0 20px 16px !important; }
-          .story-quote-v2 { padding: 0 20px 16px !important; }
-          .story-footer-v2 { padding: 14px 20px !important; }
-          .details-inner-v2 { grid-template-columns: 1fr !important; padding: 0 20px 20px !important; }
+          .story-head-v3 { padding: 22px 20px 16px !important; }
+          .story-two-cards-v3 { grid-template-columns: 1fr !important; padding: 0 20px 0 !important; gap: 14px !important; }
+          .story-popup-strip-v3 { padding: 16px 20px 0 !important; }
+          .story-popup-strip-inner-v3 {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            text-align: center !important;
+            padding: 16px 18px !important;
+          }
+          .story-popup-type-v3 { width: 100%; text-align: center; }
+          .story-results-kpi-v3 { margin: 14px 20px 22px !important; }
+          .story-lede-v3 { padding: 14px 20px 0 !important; font-size: 14px !important; }
+          .story-impact-v3 { margin: 18px 20px 0 !important; padding: 14px !important; }
+          .story-kpi-grid-v3.kpi-count-2,
+          .story-kpi-grid-v3.kpi-count-3,
+          .story-kpi-grid-v3.kpi-count-4 { grid-template-columns: 1fr !important; }
+          .story-kpi-grid-v3.kpi-count-1 { max-width: none !important; }
+          .story-quote-v3 { margin: 18px 20px 0 !important; padding: 16px !important; padding-inline-start: 48px !important; }
+          .story-footer-v3 { padding: 18px 20px 20px !important; flex-wrap: wrap; }
+          .details-grid-v3 { grid-template-columns: 1fr !important; padding: 0 20px 22px !important; }
           .sectors-grid-v2 { grid-template-columns: 1fr 1fr !important; }
           .hero-stat-v2 { padding: 16px 20px; }
         }
         @media (max-width: 480px) {
-          .story-metrics-v2 { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
-          .metric-value-v2 { font-size: 20px !important; }
-          .metric-card-v2 { padding: 12px 10px !important; }
+          .story-chip-v3 { font-size: 11px; padding: 6px 10px; }
           .sectors-grid-v2 { grid-template-columns: 1fr !important; }
           .filter-btn-v2 { padding: 8px 12px; font-size: 12px; gap: 4px; }
           .hero-stat-v2 { padding: 14px 16px; }
-          .story-footer-v2 { flex-direction: column; gap: 12px; align-items: flex-start !important; }
+          .story-footer-v3 { flex-direction: column; align-items: stretch !important; }
+          .expand-btn-v3 { width: 100%; justify-content: center; }
         }
       `}</style>
       <div className="bg-wrap">
@@ -1519,7 +1313,7 @@ export default function SuccessStories() {
       <ParticleBackground />
       <Nav />
 
-      <section style={{ paddingTop: 140, paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%" }}>
+      <section style={{ paddingTop: 140, paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "قصص نجاح حقيقية" : "Real Success Stories"}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
           <span style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{isAr ? "أثر مستدام" : "Lasting Impact"}</span>
@@ -1531,17 +1325,15 @@ export default function SuccessStories() {
         </p>
         <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
           {(isAr ? [
-            ["700+", "متجر نشط", "#a855f7"],
-            ["10M+", "⃁ مبيعات إضافية", "#06b6d4"],
-            ["35%", "متوسط زيادة الطلب", "#10b981"],
-            ["90%", "رضا التجار", "#f59e0b"],
+            ["13", "قصة نجاح", "#a855f7"],
+            ["192K+", "تحويل", "#06b6d4"],
+            ["4.6M+", "ريال مبيعات", "#10b981"],
           ] : [
-            ["700+", "Active Stores", "#a855f7"],
-            ["$2.5M+", "Additional Sales", "#06b6d4"],
-            ["35%", "Avg. Order Increase", "#10b981"],
-            ["90%", "Merchant Satisfaction", "#f59e0b"],
+            ["13", "Success Stories", "#a855f7"],
+            ["192K+", "Conversions", "#06b6d4"],
+            ["4.6M+", "SAR in Sales", "#10b981"],
           ]).map(([v, l, c]) => (
-            <div key={l} className="hero-stat-v2" style={{ "--accent": c } as React.CSSProperties}>
+            <div key={l} className="hero-stat-v2" style={{ "--accent": c } as CSSProperties}>
               <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
               <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
               <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
@@ -1550,7 +1342,7 @@ export default function SuccessStories() {
         </div>
       </section>
 
-      <section style={{ position: "sticky", top: 80, zIndex: 800, paddingLeft: "5%", paddingRight: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "var(--bg)", backdropFilter: "blur(20px)", borderBottom: "1px solid var(--b1)" }}>
+      <section style={{ position: "sticky", top: 80, zIndex: 800, paddingInline: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "var(--bg)", backdropFilter: "blur(20px)", borderBottom: "1px solid var(--b1)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div
             ref={filterRef}
@@ -1571,7 +1363,7 @@ export default function SuccessStories() {
         </div>
       </section>
 
-      <section style={{ position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", paddingBottom: 80 }}>
+      <section style={{ position: "relative", zIndex: 2, paddingInline: "5%", paddingBottom: 80 }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           {activeSector !== "الكل" && (
             <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
@@ -1592,10 +1384,10 @@ export default function SuccessStories() {
           )}
           <div
             className={`stories-fade-v2 ${visible ? "shown" : "hidden"}`}
-            style={{ display: "flex", flexDirection: "column", gap: 24 }}
+            style={{ display: "flex", flexDirection: "column", gap: 40 }}
           >
             {filteredStories.map((s, i) => (
-              <StoryCard key={s.store + s.sector} s={s} index={i} isAr={isAr} />
+              <StoryCard key={`${s.store}-${i}`} s={s} index={i} total={filteredStories.length} isAr={isAr} />
             ))}
           </div>
         </div>
@@ -1610,11 +1402,11 @@ export default function SuccessStories() {
           </div>
           <div className="sectors-grid-v2 rv d2" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
             {(isAr ? sectors : sectorsEn).map(s => {
-              const sectorArName = isAr ? s.name : (s as typeof sectorsEn[0]).nameAr;
+              const sectorArName = s.nameAr;
               const count = stories.filter(st => st.sector === sectorArName).length;
               return (
                 <div
-                  key={s.name}
+                  key={sectorArName}
                   className="gc sector-card-v2"
                   onClick={() => {
                     handleSectorChange(sectorArName);
@@ -1624,7 +1416,7 @@ export default function SuccessStories() {
                   <div className="shine"/>
                   <div style={{ fontSize: 38, lineHeight: 1, flexShrink: 0 }}>{s.icon}</div>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4, color: "var(--t)" }}>{s.name}</div>
+                    <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4, color: "var(--t)" }}>{isAr ? s.nameAr : s.name}</div>
                     <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
                     {count > 0 && (
                       <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>

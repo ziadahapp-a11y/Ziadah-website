@@ -7,19 +7,21 @@ import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 
-function fmt(n: number, decimals = 0): string {
-  return n.toLocaleString("en-US", {
+function fmtLocale(
+  n: number,
+  locale: string,
+  decimals = 0,
+): string {
+  return n.toLocaleString(locale, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
 }
 
-function fmtCurrency(n: number): string {
-  return fmt(Math.round(n)) + " ⃁";
-}
-
-function fmtPct(n: number, decimals = 1): string {
-  return "+" + fmt(n, decimals) + "%";
+function snapToStep(v: number, min: number, step: number): number {
+  if (step <= 0) return v;
+  const snapped = min + Math.round((v - min) / step) * step;
+  return Number(snapped.toPrecision(12));
 }
 
 interface SliderCardProps {
@@ -29,7 +31,8 @@ interface SliderCardProps {
   max: number;
   step: number;
   onChange: (v: number) => void;
-  display: string;
+  formatDisplay: (n: number) => string;
+  formatTick: (n: number) => string;
   color: string;
   colorRgb: string;
 }
@@ -41,11 +44,20 @@ function SliderCard({
   max,
   step,
   onChange,
-  display,
+  formatDisplay,
+  formatTick,
   color,
   colorRgb,
 }: SliderCardProps) {
   const pct = ((value - min) / (max - min)) * 100;
+
+  const apply = useCallback(
+    (raw: number) => {
+      onChange(snapToStep(raw, min, step));
+    },
+    [onChange, min, step],
+  );
+
   return (
     <div
       style={{
@@ -53,17 +65,20 @@ function SliderCard({
         border: "1px solid var(--b1)",
         borderRadius: 16,
         padding: "24px 28px",
-        borderRight: `4px solid ${color}`,
+        borderInlineEnd: `4px solid ${color}`,
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
       }}
     >
       <div
         style={{
           position: "absolute",
           inset: 0,
+          borderRadius: 16,
+          overflow: "hidden",
           background: `radial-gradient(ellipse at 0% 50%, rgba(${colorRgb},.06) 0%, transparent 70%)`,
           pointerEvents: "none",
+          zIndex: 0,
         }}
       />
       <div
@@ -74,6 +89,7 @@ function SliderCard({
           marginBottom: 18,
           position: "relative",
           zIndex: 1,
+          gap: 12,
         }}
       >
         <span
@@ -99,49 +115,66 @@ function SliderCard({
             display: "inline-block",
           }}
         >
-          {display}
+          {formatDisplay(value)}
         </span>
       </div>
-      <div style={{ position: "relative", zIndex: 1 }}>
+      {/* عزل LTR: سلوك المنزلق واتجاه التعبئة ثابتان في كل اللغات */}
+      <div
+        dir="ltr"
+        lang="en"
+        style={{
+          direction: "ltr",
+          unicodeBidi: "isolate",
+          position: "relative",
+          zIndex: 1,
+          minHeight: 52,
+          paddingTop: 4,
+          paddingBottom: 2,
+        }}
+      >
         <div
           style={{
             position: "relative",
-            height: 8,
-            borderRadius: 4,
+            height: 10,
+            borderRadius: 5,
             background: "var(--b1)",
-            marginBottom: 6,
           }}
         >
           <div
             style={{
               position: "absolute",
-              right: 0,
+              left: 0,
               top: 0,
               height: "100%",
               width: pct + "%",
-              background: `linear-gradient(90deg, rgba(${colorRgb},.4), ${color})`,
-              borderRadius: 4,
-              transition: "width .1s",
+              background: `linear-gradient(90deg, rgba(${colorRgb},.45), ${color})`,
+              borderRadius: 5,
+              pointerEvents: "none",
             }}
           />
         </div>
         <input
+          className="calc-range-input"
           type="range"
           min={min}
           max={max}
           step={step}
           value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
+          aria-label={label}
+          onChange={(e) => apply(Number(e.currentTarget.value))}
+          onInput={(e) => apply(Number(e.currentTarget.value))}
           style={{
             position: "absolute",
-            top: -10,
-            right: 0,
             left: 0,
+            right: 0,
+            top: -6,
             width: "100%",
-            height: 28,
-            opacity: 0,
+            height: 40,
+            margin: 0,
+            padding: 0,
             cursor: "pointer",
-            direction: "ltr" as const,
+            zIndex: 2,
+            boxSizing: "border-box",
           }}
         />
         <div
@@ -150,11 +183,12 @@ function SliderCard({
             justifyContent: "space-between",
             fontSize: 11,
             color: "var(--td)",
-            marginTop: 4,
+            marginTop: 12,
+            pointerEvents: "none",
           }}
         >
-          <span>{max.toLocaleString("en-US")}</span>
-          <span>{min.toLocaleString("en-US")}</span>
+          <span>{formatTick(min)}</span>
+          <span>{formatTick(max)}</span>
         </div>
       </div>
     </div>
@@ -164,6 +198,13 @@ function SliderCard({
 export default function Calculator() {
   const { lang, dir } = useLanguage();
   const tr = t[lang].calculator;
+  const numLocale = lang === "ar" ? "ar-SA-u-nu-latn" : "en-US";
+  const currencySuffix = lang === "ar" ? " ⃁" : " SAR";
+  const fmtN = (n: number, decimals = 0) => fmtLocale(n, numLocale, decimals);
+  const fmtCur = (n: number) => fmtLocale(Math.round(n), numLocale) + currencySuffix;
+  const fmtP = (n: number, decimals = 1) =>
+    "+" + fmtLocale(n, numLocale, decimals) + "%";
+
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
@@ -220,7 +261,8 @@ export default function Calculator() {
       max: 500000,
       step: 1000,
       onChange: setVisitors,
-      display: fmt(visitors),
+      formatDisplay: (n) => fmtN(n),
+      formatTick: (n) => fmtN(n),
       color: "#3b82f6",
       colorRgb: "59,130,246",
     },
@@ -231,7 +273,8 @@ export default function Calculator() {
       max: 15,
       step: 0.1,
       onChange: setConvRate,
-      display: fmt(convRate, 1) + "%",
+      formatDisplay: (n) => fmtN(n, 1) + "%",
+      formatTick: (n) => fmtN(n, 1),
       color: "#22c55e",
       colorRgb: "34,197,94",
     },
@@ -242,7 +285,8 @@ export default function Calculator() {
       max: 5000,
       step: 10,
       onChange: setAov,
-      display: fmt(aov) + " ⃁",
+      formatDisplay: (n) => fmtN(n) + currencySuffix,
+      formatTick: (n) => fmtN(n) + currencySuffix,
       color: "#a855f7",
       colorRgb: "168,85,247",
     },
@@ -310,22 +354,40 @@ export default function Calculator() {
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
                 gap: 32,
+                direction: dir,
               }}
               className="calc-grid"
             >
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 14,
+                  direction: dir,
+                  unicodeBidi: "isolate",
+                }}
+              >
                 {sliders.map((s) => (
                   <SliderCard key={s.label} {...s} />
                 ))}
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 16,
+                  direction: dir,
+                  unicodeBidi: "isolate",
+                }}
+              >
                 <div
                   className="calc-result-cols"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gap: 14,
+                    direction: dir,
                   }}
                 >
                   <div
@@ -335,6 +397,8 @@ export default function Calculator() {
                       borderRadius: 16,
                       padding: "24px 22px",
                       borderTop: "3px solid var(--b2)",
+                      direction: dir,
+                      unicodeBidi: "isolate",
                     }}
                   >
                     <div
@@ -352,19 +416,19 @@ export default function Calculator() {
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmt(Math.round(r.orders))}
+                          {fmtN(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.avgOrder}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmtCurrency(aov)}
+                          {fmtCur(aov)}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmtCurrency(r.baseRevenue)}
+                          {fmtCur(r.baseRevenue)}
                         </div>
                       </div>
                     </div>
@@ -379,6 +443,8 @@ export default function Calculator() {
                       borderTop: "3px solid #22c55e",
                       position: "relative",
                       overflow: "hidden",
+                      direction: dir,
+                      unicodeBidi: "isolate",
                     }}
                   >
                     <div
@@ -415,14 +481,14 @@ export default function Calculator() {
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                          {fmt(Math.round(r.orders))}
+                          {fmtN(Math.round(r.orders))}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.effectiveAvgOrder}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                           <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                            {fmtCurrency(r.effectiveAov)}
+                            {fmtCur(r.effectiveAov)}
                           </span>
                           <span
                             style={{
@@ -435,14 +501,14 @@ export default function Calculator() {
                               padding: "2px 7px",
                             }}
                           >
-                            +{fmtCurrency(r.aovIncrease)}
+                            +{fmtCur(r.aovIncrease)}
                           </span>
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
                         <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>
-                          {fmtCurrency(r.newRevenue)}
+                          {fmtCur(r.newRevenue)}
                         </div>
                       </div>
                     </div>
@@ -499,6 +565,7 @@ export default function Calculator() {
                       gap: 12,
                       position: "relative",
                       zIndex: 1,
+                      direction: dir,
                     }}
                     className="impact-grid"
                   >
@@ -509,6 +576,8 @@ export default function Calculator() {
                         padding: "18px 16px",
                         textAlign: "center",
                         border: "1px solid rgba(251,146,60,.12)",
+                        direction: dir,
+                        unicodeBidi: "isolate",
                       }}
                     >
                       <div
@@ -529,7 +598,7 @@ export default function Calculator() {
                           lineHeight: 1.1,
                         }}
                       >
-                        +{fmtCurrency(r.addRevenue)}
+                        +{fmtCur(r.addRevenue)}
                       </div>
                       <div
                         style={{
@@ -548,6 +617,8 @@ export default function Calculator() {
                         padding: "18px 16px",
                         textAlign: "center",
                         border: "1px solid rgba(251,146,60,.12)",
+                        direction: dir,
+                        unicodeBidi: "isolate",
                       }}
                     >
                       <div
@@ -568,7 +639,7 @@ export default function Calculator() {
                           lineHeight: 1.1,
                         }}
                       >
-                        {fmtPct(r.revGrowth)}
+                        {fmtP(r.revGrowth)}
                       </div>
                       <div
                         style={{
@@ -587,6 +658,8 @@ export default function Calculator() {
                         padding: "18px 16px",
                         textAlign: "center",
                         border: "1px solid rgba(251,146,60,.12)",
+                        direction: dir,
+                        unicodeBidi: "isolate",
                       }}
                     >
                       <div
@@ -607,7 +680,7 @@ export default function Calculator() {
                           lineHeight: 1.1,
                         }}
                       >
-                        +{fmtCurrency(r.aovIncrease)}
+                        +{fmtCur(r.aovIncrease)}
                       </div>
                       <div
                         style={{
@@ -673,6 +746,47 @@ export default function Calculator() {
         </section>
 
         <style>{`
+          /* منزلق شفاف فوق الشريط المرسوم: يبقى تفاعل الماوس موثوقاً */
+          input.calc-range-input {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+          }
+          input.calc-range-input:focus {
+            outline: none;
+          }
+          input.calc-range-input::-webkit-slider-runnable-track {
+            height: 10px;
+            background: transparent;
+            border: none;
+          }
+          input.calc-range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            margin-top: -5px;
+            box-shadow: none;
+            cursor: pointer;
+          }
+          input.calc-range-input::-moz-range-track {
+            height: 10px;
+            background: transparent;
+            border: none;
+          }
+          input.calc-range-input::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            border-width: 0;
+            cursor: pointer;
+          }
+
           @media (max-width: 1024px) {
             .calc-grid {
               grid-template-columns: 1fr !important;

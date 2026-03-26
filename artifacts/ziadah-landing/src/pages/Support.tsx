@@ -70,7 +70,7 @@ export default function Support() {
       <Nav />
 
       {/* ─── HERO ─── */}
-      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingLeft: "5%", paddingRight: "5%", overflow: "hidden" }}>
+      <section style={{ paddingTop: 130, paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "5%", overflow: "hidden" }}>
         <div style={{ position: "absolute", width: 900, height: 600, background: "radial-gradient(ellipse,rgba(124,58,237,.18) 0%,rgba(124,58,237,.05) 45%,transparent 70%)", top: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
 
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{tx.tag}</div>
@@ -203,7 +203,7 @@ export default function Support() {
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 28 }}>{activeCat.icon}</span>
                 <h2 style={{ fontSize: 24, fontWeight: 900 }}>{getCatLabel(activeCat)}</h2>
-                <span style={{ marginRight: isAr ? "auto" : undefined, marginLeft: isAr ? undefined : "auto", fontSize: 12, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>
+                <span style={{ marginInlineEnd: isAr ? "auto" : undefined, marginInlineStart: isAr ? undefined : "auto", fontSize: 12, color: "var(--td)", background: "var(--s1)", padding: "4px 12px", borderRadius: 50, border: "1px solid var(--b1)" }}>
                   {activeCat.articles.length} {tx.articleCount}
                 </span>
               </div>
@@ -231,7 +231,7 @@ export default function Support() {
                             <path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
                           </svg>
                           {getArticleTime(a)} {tx.readSuffix}
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginRight: isAr ? "auto" : undefined, marginLeft: isAr ? undefined : "auto", transform: isAr ? "rotate(180deg)" : "none", opacity: 0.4 }}>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ marginInlineEnd: isAr ? "auto" : undefined, marginInlineStart: isAr ? undefined : "auto", transform: isAr ? "rotate(180deg)" : "none", opacity: 0.4 }}>
                             <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </div>

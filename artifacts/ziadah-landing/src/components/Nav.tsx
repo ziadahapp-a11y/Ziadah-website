@@ -6,6 +6,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
+import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -17,7 +18,7 @@ function ThemeToggle() {
       title={isLight ? "تفعيل المود الليلي" : "تفعيل المود النهاري"}
       style={{
         display: "flex", alignItems: "center", justifyContent: "center",
-        width: 36, height: 36, borderRadius: 10,
+        width: 30, height: 30, borderRadius: 10,
         background: isLight ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.07)",
         border: `1px solid ${isLight ? "rgba(124,58,237,.25)" : "rgba(255,255,255,.12)"}`,
         color: isLight ? "#7c3aed" : "rgba(255,255,255,.7)",
@@ -60,7 +61,7 @@ export const Logo = () => {
         : "/logo-en.png";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-      <img src={logoSrc} alt="Ziadah" style={{ height: 40, width: "auto" }} />
+      <img src={logoSrc} alt="Ziadah" style={{ height: 30, width: "auto" }} />
     </span>
   );
 };
@@ -180,13 +181,8 @@ function getPlatformItems(tr: typeof t.ar) {
   }>;
 }
 
-function getPlatformLogoSrc(platformKey: "salla" | "zid", lang: "ar" | "en", theme: "dark" | "light") {
-  if (platformKey === "zid") {
-    if (lang === "ar") return theme === "light" ? "/zid-ar-light.png" : "/zid-ar-dark.png";
-    return theme === "light" ? "/zid-en-light.png" : "/zid-en-dark.png";
-  }
-  // Salla: we only have one Arabic+English mark, swap by theme for better contrast.
-  return theme === "light" ? "/salla-light.webp" : "/salla-dark.png";
+function getPlatformLogoSrc(platformKey: "salla" | "zid", _lang: "ar" | "en", theme: "dark" | "light") {
+  return platformKey === "zid" ? platformZidLogoSrc(theme) : platformSallaLogoSrc(theme);
 }
 
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
@@ -206,15 +202,20 @@ function UseCasesMegaMenu() {
   return (
     <div style={{
       position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 900,
-      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.9)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
-      borderRadius: 16, padding: 20, backdropFilter: "blur(32px)",
+      borderRadius: 16, padding: 4,
+      backdropFilter: "blur(100px)", WebkitBackdropFilter: "blur(100px)",
       boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
-      display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 14, overflowX: "auto",
+      display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, overflowX: "auto",
     }}>
       {useCasesDropdown.sections.map((section) => (
-        <div key={section.title}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 10, paddingRight: lang === "ar" ? 8 : 0, paddingLeft: lang === "en" ? 8 : 0, textTransform: "uppercase", letterSpacing: 1 }}>
+        <div key={section.title} style={{ padding: "4px 6px" }}>
+          <div style={{
+            fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6,
+            paddingRight: lang === "ar" ? 6 : 0, paddingLeft: lang === "en" ? 6 : 0,
+            textTransform: "uppercase", letterSpacing: 1, fontFamily: "var(--font)",
+          }}>
             {section.title}
           </div>
           {section.items.map((item) => (
@@ -222,16 +223,16 @@ function UseCasesMegaMenu() {
               key={item.href + item.label}
               onClick={() => navigateTo(item.href)}
               style={{
-                display: "block", padding: "8px 8px", borderRadius: 10,
-                textDecoration: "none", transition: "background .2s", fontSize: 13,
-                fontWeight: 500, color: "var(--t)", cursor: "pointer",
+                display: "block", padding: "10px 8px", borderRadius: 12,
+                textDecoration: "none", transition: "background .2s", fontSize: 14,
+                fontWeight: 700, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 11, color: "var(--td)", marginTop: 2 }}>
+                <span style={{ display: "block", fontSize: 12, color: "var(--td)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
                   {item.subtitle}
                 </span>
               )}
@@ -301,7 +302,7 @@ function PlatformsDropdown() {
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
             <img
-              src={getPlatformLogoSrc(item.key, lang, theme)}
+              src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)}
               alt={item.label}
               style={{ height: 18, width: "auto", display: "block" }}
             />
@@ -814,7 +815,7 @@ function MobileMoreDropdown({ onClose, onFeatureRequest, onStartNow }: { onClose
                     style={{ ...subLinkStyle, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8 }}
                   >
                     <img
-                      src={getPlatformLogoSrc(item.key, lang, theme)}
+                      src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)}
                       alt={item.label}
                       style={{ height: 18, width: "auto", display: "block" }}
                     />
@@ -992,12 +993,16 @@ export default function Nav() {
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, right: "4%", left: "4%", zIndex: 900,
         background: isLight
-          ? (scrolled ? "rgba(241,245,249,.97)" : "rgba(241,245,249,.88)")
-          : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.82)"),
-        border: `1px solid ${isLight
-          ? (scrolled ? "rgba(0,0,0,.14)" : "rgba(0,0,0,.08)")
-          : (scrolled ? "rgba(255,255,255,.13)" : "rgba(255,255,255,.07)")}`,
-        boxShadow: scrolled ? (isLight ? "0 8px 40px rgba(0,0,0,.12)" : "0 8px 40px rgba(0,0,0,.5)") : "none",
+          ? (scrolled ? "rgba(241,245,249,.1)" : "rgba(241,245,249,.88)")
+          : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)"),
+        border: "none",
+        borderColor: "rgba(0, 0, 0, 0)",
+        borderImage: "none",
+        boxShadow: scrolled
+          ? (isLight
+            ? "0 8px 40px rgba(0,0,0,.12)"
+            : "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)")
+          : "inset 1px 1px 2px 0px rgba(255, 255, 255, 0.2)",
         borderRadius: 18, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
       }}>

@@ -2,21 +2,15 @@ import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
+import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 
 export default function Footer() {
   const { lang } = useLanguage();
   const { theme } = useTheme();
   const tr = t[lang];
 
-  const zidLogoSrc =
-    lang === "ar"
-      ? theme === "light"
-        ? "/zid-ar-light.png"
-        : "/zid-ar-dark.png"
-      : theme === "light"
-        ? "/zid-en-light.png"
-        : "/zid-en-dark.png";
-  const sallaLogoSrc = theme === "light" ? "/salla-light.webp" : "/salla-dark.png";
+  const zidLogoSrc = platformZidLogoSrc(theme);
+  const sallaLogoSrc = platformSallaLogoSrc(theme);
 
   return (
     <footer>
