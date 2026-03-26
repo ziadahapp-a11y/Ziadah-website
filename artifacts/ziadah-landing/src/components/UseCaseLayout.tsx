@@ -276,7 +276,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       </section>
 
       {/* CTA */}
-      <section className="cta-sec" style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+      <section className="cta-sec" style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
         <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
           <div className="shine"/>
           <div className="cta-glow"/>
