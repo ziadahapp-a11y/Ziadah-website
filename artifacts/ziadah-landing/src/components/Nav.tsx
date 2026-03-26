@@ -666,6 +666,11 @@ function MobileMoreDropdown({
   const [openSection, setOpenSection] = useState<string | null>(initialOpenSection ?? null);
   const toggleSection = (section: string) => setOpenSection(prev => prev === section ? null : section);
 
+  // Sync with parent prop when bottom-nav opens "More" or switches sections.
+  useEffect(() => {
+    setOpenSection(initialOpenSection ?? null);
+  }, [initialOpenSection]);
+
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -1283,6 +1288,23 @@ export default function Nav() {
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                 </svg>
               ), action: () => navigateTo("/success-stories"),
+            },
+            {
+              key: "more", label: tr.nav.more, icon: (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="5" r="1.5" fill="currentColor"/>
+                  <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                  <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+                </svg>
+              ), action: () => {
+                if (moreOpen && moreInitialSection === null) {
+                  setMoreOpen(false);
+                  setMoreInitialSection(null);
+                  return;
+                }
+                setMoreInitialSection(null);
+                setMoreOpen(true);
+              },
             },
           ].map((item) => {
             const isActive =
