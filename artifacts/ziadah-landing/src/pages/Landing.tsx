@@ -7,13 +7,7 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
 import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
-import BuyMoreSaveMoreWidget from "../components/widgets/BuyMoreSaveMoreWidget";
-import BuyTogetherWidget from "../components/widgets/BuyTogetherWidget";
-import AddonsWidget from "../components/widgets/AddonsWidget";
-import RelatedProductsWidget from "../components/widgets/RelatedProductsWidget";
-import CouponWidget from "../components/widgets/CouponWidget";
-import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThresholdWidget";
-import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
+import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
@@ -22,8 +16,10 @@ import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 
-/** عيّنة مختصرة للصفحة الرئيسية — التنويع يمثّل أشهر المجالات */
+/** عيّنة مختصرة للصفحة الرئيسية — التوصيل والمنصات أولاً ثم أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
+  "delivery-apps",
+  "ecommerce-platforms",
   "abayas-fashion",
   "electronics",
   "beauty-care",
@@ -97,70 +93,6 @@ function SecTag({ children }: { children: React.ReactNode }) {
     <div className="stag rv">
       <span className="stag-dot" />
       {children}
-    </div>
-  );
-}
-
-function DraggableMarqueeRow({
-  directionClass,
-  duration,
-  children,
-}: {
-  directionClass: "marquee-rtl" | "marquee-ltr";
-  duration: string;
-  children: React.ReactNode;
-}) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const dragLayerRef = useRef<HTMLDivElement>(null);
-  const pointerIdRef = useRef<number | null>(null);
-  const startXRef = useRef(0);
-  const startDragXRef = useRef(0);
-  const dragXRef = useRef(0);
-
-  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    pointerIdRef.current = e.pointerId;
-    startXRef.current = e.clientX;
-    startDragXRef.current = dragXRef.current;
-    rowRef.current?.classList.add("is-paused", "is-dragging");
-    e.currentTarget.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (pointerIdRef.current !== e.pointerId) return;
-    const dx = e.clientX - startXRef.current;
-    const nextX = startDragXRef.current + dx;
-    dragXRef.current = nextX;
-    if (dragLayerRef.current) {
-      dragLayerRef.current.style.transform = `translate3d(${nextX}px,0,0)`;
-    }
-  };
-
-  const stopDrag = () => {
-    rowRef.current?.classList.remove("is-dragging", "is-paused");
-    pointerIdRef.current = null;
-  };
-
-  return (
-    <div
-      ref={rowRef}
-      className="marquee-row interactive-marquee"
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={stopDrag}
-      onPointerCancel={stopDrag}
-    >
-      <div ref={dragLayerRef} className="interactive-drag-layer">
-        <div
-          className={`marquee-track ${directionClass} interactive-track`}
-          style={{
-            animationDuration: duration,
-            gap: 24,
-            paddingInline: 12,
-          }}
-        >
-          {children}
-        </div>
-      </div>
     </div>
   );
 }
@@ -615,182 +547,53 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* SECTORS — مختصر بعد «كيف تعمل؟»: يجيب «هل يناسب مجالي؟» قبل أمثلة الويدجت */}
-        <section
-          id="sectors"
-          style={{
-            position: "relative",
-            zIndex: 4,
-            padding: "52px 0 64px",
-            pointerEvents: "auto",
-          }}
-        >
+        {/* SECTORS — قطاعات عامة + عيّنة مختصرة */}
+        <section id="sectors" className="landing-sectors-section">
           <div className="wrap">
-            <div className="tc" style={{ marginBottom: 28 }}>
-              <SecTag>{tr.landing.sectorsTag}</SecTag>
-              <h2 className="st rv d1 text-[clamp(26px,3.5vw,40px)] font-semibold">{tr.landing.sectorsTitle}</h2>
-              <p className="ssub rv d2" style={{ maxWidth: 560, marginInline: "auto", fontSize: "clamp(15px,1.8vw,17px)" }}>
-                {tr.landing.sectorsBriefSub}
-              </p>
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-                gap: 12,
-                maxWidth: 720,
-                margin: "0 auto 24px",
-                position: "relative",
-                zIndex: 1,
-              }}
-            >
-              {SECTOR_TEASER_SLUGS.map((slug) => sectors.find((s) => s.slug === slug))
-                .filter(Boolean)
-                .map((sec, i) => {
-                  const stitle = lang === "ar" ? sec!.titleAr : sec!.titleEn;
-                  return (
-                    <button
-                      key={sec!.slug}
-                      type="button"
-                      onClick={() => goRoute(`/sectors/${sec!.slug}`)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        padding: "12px 14px",
-                        borderRadius: 14,
-                        border: "1px solid var(--b2)",
-                        background: "var(--s1)",
-                        cursor: "pointer",
-                        fontFamily: "var(--font)",
-                        color: "var(--t)",
-                        textAlign: dir === "rtl" ? "right" : "left",
-                        transition: "background .2s, border-color .2s",
-                        pointerEvents: "auto",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(124,58,237,.08)";
-                        e.currentTarget.style.borderColor = "rgba(124,58,237,.25)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "var(--s1)";
-                        e.currentTarget.style.borderColor = "";
-                      }}
-                    >
-                      <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>{sec!.icon}</span>
-                      <span style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.35 }}>{stitle}</span>
-                    </button>
-                  );
-                })}
-            </div>
-            <div className="tc" style={{ position: "relative", zIndex: 1 }}>
-              <button
-                type="button"
-                onClick={() => goRoute("/sectors")}
-                className="btn-p"
-                style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none", pointerEvents: "auto" }}
-              >
-                {tr.landing.sectorsCta}
-              </button>
-            </div>
-          </div>
-        </section>
-        {/* LIVE WIDGETS SHOWCASE */}
-        <section id="widgets-showcase" style={{ position: "relative", zIndex: 2, padding: "80px 0", background: "transparent" }}>
-          <div style={{ maxWidth: 1300, margin: "0 auto", paddingInline: "5%" }}>
-            <div className="tc" style={{ marginBottom: 56 }}>
-              <div className="stag rv">
-                <span className="stag-dot" />
-                {tr.landing.widgetsTag}
-              </div>
-              <h2 className="st rv d1 font-semibold">
-                {tr.landing.widgetsTitle}
-              </h2>
-              <p className="ssub rv d2">
-                {tr.landing.widgetsSubtitle}
-              </p>
-            </div>
-          </div>
-          {(() => {
-            const widgetIcons = ["📦", "🤝", "➕", "🔎", "🏷️", "🚚", "⬆️"];
-            const widgetRgbs = ["168,85,247", "6,182,212", "16,185,129", "245,158,11", "236,72,153", "124,58,237", "79,70,229"];
-            const widgetComponents = [<BuyMoreSaveMoreWidget />, <BuyTogetherWidget />, <AddonsWidget />, <RelatedProductsWidget />, <CouponWidget />, <FreeShippingThresholdWidget />, <ProductSwapWidget />];
-            const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
-            const allWidgets = wLabels.map((wl, idx) => ({
-              icon: widgetIcons[idx],
-              label: wl.label,
-              desc: wl.desc,
-              widget: widgetComponents[idx],
-              rgb: widgetRgbs[idx],
-            }));
-            const row1 = allWidgets.slice(0, 4);
-            const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
-
-            const renderCard = (item: typeof allWidgets[0], key: number) => (
-              <div key={key} style={{
-                width: 280,
-                flexShrink: 0,
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                padding: "16px",
-                borderRadius: 18,
-                background: `linear-gradient(160deg, rgba(${item.rgb},0.14) 0%, rgba(${item.rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                border: `1px solid rgba(${item.rgb},0.3)`,
-                boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${item.rgb},0.1)`,
-              }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    direction: dir,
-                    flexDirection: "row",
-                    padding: "4px 0",
-                  }}>
-                  <div style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 14,
-                    background: `rgba(${item.rgb},.12)`,
-                    border: `1px solid rgba(${item.rgb},.28)`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 22,
-                    flexShrink: 0,
-                    boxShadow: `0 0 12px rgba(${item.rgb},.15)`,
-                  }}>{item.icon}</div>
-                  <div style={{ flex: 1, textAlign: lang === "ar" ? "right" : "left" }}>
-                    <div style={{
-                      fontSize: 15,
-                      fontWeight: 900,
-                      color: `rgba(${item.rgb},1)`,
-                      letterSpacing: "-0.3px",
-                      lineHeight: 1.2,
-                      textShadow: `0 0 20px rgba(${item.rgb},.35)`,
-                    }}>{item.label}</div>
-                    <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.55, marginTop: 4 }}>{item.desc}</div>
-                  </div>
+            <div className="landing-sectors-panel rv d1">
+              <div className="landing-sectors-panel__glow" aria-hidden />
+              <div className="landing-sectors-panel__inner">
+                <div className="tc landing-sectors-head">
+                  <SecTag>{tr.landing.sectorsTag}</SecTag>
+                  <h2 className="st rv d1 landing-sectors-title">{tr.landing.sectorsTitle}</h2>
+                  <p className="ssub rv d2 landing-sectors-sub">{tr.landing.sectorsBriefSub}</p>
                 </div>
-                {item.widget}
+                <div className="landing-sectors-grid">
+                  {SECTOR_TEASER_SLUGS.map((slug) => sectors.find((s) => s.slug === slug))
+                    .filter(Boolean)
+                    .map((sec) => {
+                      const stitle = lang === "ar" ? sec!.titleAr : sec!.titleEn;
+                      return (
+                        <button
+                          key={sec!.slug}
+                          type="button"
+                          className="landing-sectors-chip"
+                          dir={dir}
+                          onClick={() => goRoute(`/sectors/${sec!.slug}`)}
+                        >
+                          <span className="landing-sectors-chip__ico" aria-hidden>
+                            {sec!.icon}
+                          </span>
+                          <span className="landing-sectors-chip__label">{stitle}</span>
+                        </button>
+                      );
+                    })}
+                </div>
+                <div className="tc landing-sectors-cta">
+                  <button
+                    type="button"
+                    onClick={() => goRoute("/sectors")}
+                    className="btn-p"
+                    style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none" }}
+                  >
+                    {tr.landing.sectorsCta}
+                  </button>
+                </div>
               </div>
-            );
-
-            return (
-              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
-                  {[...row1, ...row1, ...row1].map((item, i) => renderCard(item, i))}
-                </DraggableMarqueeRow>
-                <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
-                  {[...row2, ...row2, ...row2].map((item, i) => renderCard(item, i))}
-                </DraggableMarqueeRow>
-              </div>
-            );
-          })()}
+            </div>
+          </div>
         </section>
+        <WidgetsShowcaseSection />
         {/* PERSONALIZATION DEMO */}
         <section id="demo">
           <div className="wrap">

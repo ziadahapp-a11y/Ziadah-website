@@ -6,6 +6,7 @@ import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiTiktok } from "react-icons/si";
 import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
 
 export default function Footer() {
   const t = useSiteT();
@@ -13,22 +14,10 @@ export default function Footer() {
   const { theme } = useTheme();
   const tr = t[lang];
   const footerSectorLinks = [
-    {
-      href: "/sectors/ecommerce-stores",
-      labelAr: "المتاجر الإلكترونية",
-      labelEn: "Ecommerce Stores",
-    },
-    {
-      href: "/sectors/delivery-apps",
-      labelAr: "تطبيقات التوصيل",
-      labelEn: "Delivery Apps",
-    },
-    {
-      href: "/sectors/ecommerce-platforms",
-      labelAr: "منصات التسوق الإلكترونية",
-      labelEn: "Ecommerce Platforms",
-    },
-  ] as const;
+    { href: "/sectors/ecommerce-stores", labelKey: "sectorLinkEcommerceStores" as const },
+    { href: "/sectors/delivery-apps", labelKey: "sectorLinkDeliveryApps" as const },
+    { href: "/sectors/ecommerce-platforms", labelKey: "sectorLinkEcommercePlatforms" as const },
+  ];
 
   return (
     <footer>
@@ -51,7 +40,7 @@ export default function Footer() {
               />
             </div>
             <p className="ft-desc">
-              <Editable contentKey={`footer.tagline.${lang}`} label="Footer Tagline">
+              <Editable contentKey={cmsKey(lang, "footer", "tagline")} label="Footer Tagline">
                 {tr.footer.tagline}
               </Editable>
             </p>
@@ -72,53 +61,90 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={`footer.useCasesHeading.${lang}`} label="Footer Use Cases Heading">
+              <Editable contentKey={cmsKey(lang, "nav", "useCases")} label="Footer Use Cases Heading">
                 {tr.nav.useCases}
               </Editable>
             </h4>
-            <a href="/use-cases/by-pages">{tr.nav.useCaseByPage}</a>
-            <a href="/use-cases/by-activity">{tr.nav.useCaseByActivity}</a>
-            <a href="/use-cases/by-presentation">{tr.nav.useCaseByPresentation}</a>
-            <a href="/use-cases/by-goal">{tr.nav.useCaseByGoal}</a>
-            <a href="/use-cases/by-experience">{tr.nav.useCaseByExperience}</a>
+            <a href="/use-cases/by-pages">
+              <Editable contentKey={cmsKey(lang, "nav", "useCaseByPage")} label="Footer Nav Use Case By Page">
+                {tr.nav.useCaseByPage}
+              </Editable>
+            </a>
+            <a href="/use-cases/by-activity">
+              <Editable contentKey={cmsKey(lang, "nav", "useCaseByActivity")} label="Footer Nav Use Case By Activity">
+                {tr.nav.useCaseByActivity}
+              </Editable>
+            </a>
+            <a href="/use-cases/by-presentation">
+              <Editable contentKey={cmsKey(lang, "nav", "useCaseByPresentation")} label="Footer Nav Use Case By Presentation">
+                {tr.nav.useCaseByPresentation}
+              </Editable>
+            </a>
+            <a href="/use-cases/by-goal">
+              <Editable contentKey={cmsKey(lang, "nav", "useCaseByGoal")} label="Footer Nav Use Case By Goal">
+                {tr.nav.useCaseByGoal}
+              </Editable>
+            </a>
+            <a href="/use-cases/by-experience">
+              <Editable contentKey={cmsKey(lang, "nav", "useCaseByExperience")} label="Footer Nav Use Case By Experience">
+                {tr.nav.useCaseByExperience}
+              </Editable>
+            </a>
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={`footer.sectorsHeading.${lang}`} label="Footer Sectors Heading">
+              <Editable contentKey={cmsKey(lang, "nav", "sectors")} label="Footer Sectors Heading">
                 {tr.nav.sectors}
               </Editable>
             </h4>
             {footerSectorLinks.map((sector) => (
               <a key={sector.href} href={sector.href}>
-                {lang === "ar" ? sector.labelAr : sector.labelEn}
+                <Editable
+                  contentKey={cmsKey(lang, "footer", sector.labelKey)}
+                  label={tr.footer[sector.labelKey]}
+                >
+                  {tr.footer[sector.labelKey]}
+                </Editable>
               </a>
             ))}
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={`footer.helpHeading.${lang}`} label="Footer Help Heading">
+              <Editable contentKey={cmsKey(lang, "nav", "help")} label="Footer Help Heading">
                 {tr.nav.help}
               </Editable>
             </h4>
-            <a href="/#faq">{tr.nav.faq}</a>
-            <a href="/support">{lang === "ar" ? "مركز المساعدة" : "Help Center"}</a>
-            <a href="/blog">{tr.nav.blog}</a>
+            <a href="/#faq">
+              <Editable contentKey={cmsKey(lang, "nav", "faq")} label="Footer FAQ">
+                {tr.nav.faq}
+              </Editable>
+            </a>
+            <a href="/support">
+              <Editable contentKey={cmsKey(lang, "footer", "helpCenterLink")} label="Footer Help Center">
+                {tr.footer.helpCenterLink}
+              </Editable>
+            </a>
+            <a href="/blog">
+              <Editable contentKey={cmsKey(lang, "nav", "blog")} label="Footer Blog">
+                {tr.nav.blog}
+              </Editable>
+            </a>
           </div>
         </div>
         <div className="ft-bot">
           <div className="ft-copy">
-            <Editable contentKey={`footer.copyright.${lang}`} label="Footer Copyright">
+            <Editable contentKey={cmsKey(lang, "footer", "copyright")} label="Footer Copyright">
               {tr.footer.copyright}
             </Editable>
           </div>
           <div className="ft-links">
             <span onClick={() => navigateTo("/privacy")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={`footer.privacy.${lang}`} label="Footer Privacy">
+              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy">
                 {tr.footer.privacy}
               </Editable>
             </span>
             <span onClick={() => navigateTo("/terms")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={`footer.terms.${lang}`} label="Footer Terms">
+              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms">
                 {tr.footer.terms}
               </Editable>
             </span>

@@ -219,13 +219,15 @@ export default function Blog() {
               right: isAr ? undefined : 18,
               top: "50%",
               transform: "translateY(-50%)",
+              color: "var(--td)",
+              opacity: 0.75,
             }}
           >
             <circle
               cx="8"
               cy="8"
               r="5.5"
-              stroke="rgba(255,255,255,.3)"
+              stroke="currentColor"
               strokeWidth="1.4"
             />
             <line
@@ -233,7 +235,7 @@ export default function Blog() {
               y1="12"
               x2="16"
               y2="16"
-              stroke="rgba(255,255,255,.3)"
+              stroke="currentColor"
               strokeWidth="1.4"
               strokeLinecap="round"
             />
@@ -345,14 +347,7 @@ export default function Blog() {
                         flexShrink: 0,
                       }}
                     >
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          background:
-                            "linear-gradient(to bottom, transparent 40%, rgba(3,3,11,0.9) 100%)",
-                        }}
-                      />
+                      <div className="blog-cover-overlay" aria-hidden />
                       <span style={{ position: "relative", zIndex: 1 }}>
                         {post.coverIcon}
                       </span>

@@ -12,11 +12,9 @@ import {
 } from "@/components/ui/dialog";
 import { useCmsAuth } from "@/cms/CmsAuthContext";
 import { CmsApiError } from "@/cms/api";
-import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 
 export function CmsQuickLoginModal() {
   const { login } = useCmsAuth();
-  const [, navigate] = useLangAwareLocation();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +36,6 @@ export function CmsQuickLoginModal() {
       await login(email.trim(), password);
       setOpen(false);
       resetForm();
-      navigate("/cms/dashboard");
     } catch (err) {
       setError(
         err instanceof CmsApiError

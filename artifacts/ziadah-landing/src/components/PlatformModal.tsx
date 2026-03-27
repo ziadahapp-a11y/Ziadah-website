@@ -42,7 +42,9 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
   return (
     <div
       className="vision-platform-overlay"
-      onClick={onClose}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
       role="presentation"
     >
       <div

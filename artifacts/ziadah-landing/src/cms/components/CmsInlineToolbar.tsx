@@ -24,7 +24,7 @@ function getPageName(pathname: string): string {
 
 export function CmsInlineToolbar() {
   const { user, logout } = useCmsAuth();
-  const { editMode, setEditMode } = useCmsEditor();
+  const { editMode, toggleEditMode } = useCmsEditor();
   const [loc, navigate] = useLangAwareLocation();
 
   if (!user || (user.role !== "editor" && user.role !== "super_admin")) {
@@ -35,22 +35,31 @@ export function CmsInlineToolbar() {
   const isSuperAdmin = user.role === "super_admin";
 
   return (
-    <div className="fixed inset-x-0 top-0 z-[9999] h-12 border-b border-violet-200/70 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 dark:border-violet-900/60 dark:bg-neutral-950/90">
-      <div className="mx-auto flex h-full max-w-[1600px] items-center justify-between gap-3 px-3 md:px-4">
-        <div className="min-w-0 text-sm font-medium text-neutral-800 dark:text-neutral-100">
+    <div className="pointer-events-auto fixed inset-x-0 top-0 z-[100060] h-12 border-b border-violet-200/70 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85 dark:border-violet-900/60 dark:bg-neutral-950/90">
+      <div className="mx-auto flex h-full max-w-[1600px] items-center gap-3 px-3 md:px-4">
+        <div className="min-w-0 flex-1 text-sm font-medium text-neutral-800 dark:text-neutral-100">
           <span className="font-semibold text-violet-700 dark:text-violet-400">Ziadah CMS</span>
           <span className="mx-2 text-neutral-400">•</span>
           <span className="truncate text-neutral-600 dark:text-neutral-300">{pageName}</span>
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <span className="text-xs font-medium text-neutral-500 dark:text-neutral-400">
+        <div className="hidden shrink-0 items-center gap-2 md:flex">
+          <button
+            type="button"
+            className="flex cursor-pointer items-center gap-2 rounded-md border border-transparent bg-transparent text-left text-xs font-medium text-neutral-500 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-100"
+            onClick={() => toggleEditMode()}
+          >
             Edit Mode {editMode ? "ON" : "OFF"}
-          </span>
-          <Switch checked={editMode} onCheckedChange={setEditMode} />
+          </button>
+          <Switch
+            checked={editMode}
+            onCheckedChange={(next) => {
+              if (next !== editMode) toggleEditMode();
+            }}
+          />
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           <Button asChild variant="ghost" size="sm" className="h-8 px-2 text-xs">
             <Link href="/cms/media">Media Library</Link>
           </Button>

@@ -15,11 +15,38 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [descError, setDescError] = useState("");
+
+  const emailLooksValid = (v: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
     setError("");
+    setNameError("");
+    setEmailError("");
+    setDescError("");
+    let ok = true;
+    if (!name.trim()) {
+      setNameError(tr.featureModal.validationName);
+      ok = false;
+    }
+    if (!email.trim()) {
+      setEmailError(tr.featureModal.validationEmailRequired);
+      ok = false;
+    } else if (!emailLooksValid(email)) {
+      setEmailError(tr.featureModal.validationEmailInvalid);
+      ok = false;
+    }
+    if (!description.trim()) {
+      setDescError(tr.featureModal.validationDesc);
+      ok = false;
+    }
+    if (!ok) return;
+
+    setSending(true);
     try {
       const baseUrl = import.meta.env.BASE_URL || "/";
       const res = await fetch(`${baseUrl}api/feature-request`, {
@@ -108,17 +135,17 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <form noValidate onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               <div>
                 <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
                   {tr.featureModal.name}
                 </label>
                 <input
                   type="text"
-                  required
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={e => { setName(e.target.value); if (nameError) setNameError(""); }}
                   placeholder={tr.featureModal.namePlaceholder}
+                  aria-invalid={!!nameError}
                   style={{
                     width: "100%", padding: "12px 16px",
                     background: "var(--s1)", border: "1px solid var(--b2)",
@@ -128,6 +155,11 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
+                {nameError && (
+                  <p style={{ margin: "6px 0 0", fontSize: 12, color: "#f87171", fontFamily: "var(--font)" }} role="alert">
+                    {nameError}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -135,11 +167,13 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                   {tr.featureModal.email}
                 </label>
                 <input
-                  type="email"
-                  required
+                  type="text"
+                  inputMode="email"
+                  autoComplete="email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => { setEmail(e.target.value); if (emailError) setEmailError(""); }}
                   placeholder="example@email.com"
+                  aria-invalid={!!emailError}
                   style={{
                     width: "100%", padding: "12px 16px",
                     background: "var(--s1)", border: "1px solid var(--b2)",
@@ -149,6 +183,11 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
+                {emailError && (
+                  <p style={{ margin: "6px 0 0", fontSize: 12, color: "#f87171", fontFamily: "var(--font)" }} role="alert">
+                    {emailError}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -156,10 +195,10 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                   {tr.featureModal.descLabel}
                 </label>
                 <textarea
-                  required
                   value={description}
-                  onChange={e => setDescription(e.target.value)}
+                  onChange={e => { setDescription(e.target.value); if (descError) setDescError(""); }}
                   placeholder={tr.featureModal.descPlaceholder}
+                  aria-invalid={!!descError}
                   rows={4}
                   style={{
                     width: "100%", padding: "12px 16px",
@@ -170,6 +209,11 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                   onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
+                {descError && (
+                  <p style={{ margin: "6px 0 0", fontSize: 12, color: "#f87171", fontFamily: "var(--font)" }} role="alert">
+                    {descError}
+                  </p>
+                )}
               </div>
 
               {error && (

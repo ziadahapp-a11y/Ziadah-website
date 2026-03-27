@@ -12,18 +12,26 @@ import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { navigateTo } from "@/components/PageTransition";
+import LandingSolutionsMatrix from "@/components/LandingSolutionsMatrix";
+import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
+import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
+import SectorHubPlaybook from "@/components/SectorHubPlaybook";
+
+const SECTOR_SLUGS_WITH_PLATFORM_HUB = new Set(["delivery-apps", "ecommerce-platforms"]);
 
 function SectionBlock({
   title,
   children,
   delayClass,
+  sectionId,
 }: {
   title: string;
   children: React.ReactNode;
   delayClass: string;
+  sectionId?: string;
 }) {
   return (
-    <div className={`gc rv ${delayClass}`} style={{ padding: 0, marginBottom: 20 }}>
+    <div id={sectionId} className={`gc rv ${delayClass}`} style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
       <div className="shine" />
       <div style={{ padding: "22px 24px 26px" }}>
         <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 14, marginTop: 0 }}>{title}</h2>
@@ -115,6 +123,26 @@ export default function SectorDetail() {
   const experience = lang === "ar" ? sector.experienceAr : sector.experienceEn;
   const visualBundle = getSectorVisuals(sector.slug);
   const best = lang === "ar" ? sector.bestPracticesAr : sector.bestPracticesEn;
+  const showPlatformHub = SECTOR_SLUGS_WITH_PLATFORM_HUB.has(sector.slug);
+  const hubQuick = showPlatformHub
+    ? [
+        { id: "sector-ai-ml", labelAr: t.ar.sectorsPage.sectorHubAiNav, labelEn: t.en.sectorsPage.sectorHubAiNav },
+        { id: "sector-store-playbook", labelAr: t.ar.sectorsPage.sectorHubPlaybookNav, labelEn: t.en.sectorsPage.sectorHubPlaybookNav },
+      ]
+    : [];
+  const quickSections = [
+    ...hubQuick,
+    { id: "section-how-to", labelAr: "التطبيق", labelEn: "Setup" },
+    { id: "section-how-help", labelAr: "الحلول", labelEn: "Solutions" },
+    { id: "section-examples", labelAr: "الأمثلة", labelEn: "Examples" },
+    { id: "section-experience", labelAr: "التجربة", labelEn: "Experience" },
+    { id: "section-best", labelAr: "أفضل الممارسات", labelEn: "Best Practices" },
+  ] as const;
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <>
@@ -156,18 +184,20 @@ export default function SectorDetail() {
         <Nav />
 
         <section
+          className="sector-page-hero"
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "center",
             paddingTop: "var(--page-hero-pt)",
-            paddingBottom: 28,
+            paddingBottom: 36,
             position: "relative",
             zIndex: 2,
             paddingInline: "var(--page-inline-pad)",
             maxWidth: 1200,
             margin: "0 auto",
+            borderBottom: "1px solid var(--b1)",
           }}
         >
           <div className="stag rv" style={{ display: "inline-flex" }}>
@@ -180,34 +210,154 @@ export default function SectorDetail() {
           <h1 className="st rv d1" style={{ fontSize: "clamp(28px,3.5vw,40px)", marginTop: 0, marginBottom: 10 }}>
             {title}
           </h1>
-          <p className="ssub rv d2" style={{ margin: 0, fontSize: 17, fontWeight: 600, color: "var(--tm)" }}>
+          <p className="ssub rv d2" style={{ margin: 0, fontSize: 17, fontWeight: 600, color: "var(--tm)", maxWidth: 560, textAlign: "center", lineHeight: 1.55 }}>
             {tagline}
           </p>
+          <div
+            className="rv d2 sector-page-quicknav"
+            style={{ marginTop: 18, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", maxWidth: 720 }}
+          >
+            {quickSections.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => scrollToSection(item.id)}
+                style={{
+                  borderRadius: 999,
+                  border: "1px solid var(--b2)",
+                  background: "linear-gradient(180deg, var(--s1), rgba(124,58,237,.04))",
+                  color: "var(--t)",
+                  fontSize: 12,
+                  fontWeight: 700,
+                  padding: "9px 14px",
+                  fontFamily: "var(--font)",
+                  cursor: "pointer",
+                  boxShadow: "0 2px 8px rgba(0,0,0,.06)",
+                  transition: "border-color .2s, transform .15s",
+                }}
+              >
+                {lang === "ar" ? item.labelAr : item.labelEn}
+              </button>
+            ))}
+          </div>
         </section>
 
-        <article style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px", maxWidth: 1200, margin: "0 auto" }}>
-          <SectionBlock title={tr.sectionHowToApply} delayClass="d1">
-            <ol style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
-              {howTo.map((line, i) => (
-                <li key={i} style={{ marginBottom: 10 }}>
-                  {line}
-                </li>
-              ))}
-            </ol>
+        <article
+          style={{
+            position: "relative",
+            zIndex: 2,
+            padding: "28px var(--page-inline-pad) 100px",
+            maxWidth: 1200,
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: 0,
+          }}
+        >
+          {showPlatformHub ? <SectorAiMlHighlights /> : null}
+          <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
+            {sector.useCardLayout && sector.howToPhaseCards?.length ? (
+              <div
+                style={{
+                  display: "grid",
+                  gap: 14,
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
+                }}
+              >
+                {sector.howToPhaseCards.map((card, i) => (
+                  <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
+                    <div className="shine" />
+                    <div style={{ padding: "18px 18px 20px" }}>
+                      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
+                        <span style={{ fontSize: 22, lineHeight: 1 }} aria-hidden>
+                          {card.emoji}
+                        </span>
+                        <h3
+                          style={{
+                            margin: 0,
+                            fontSize: 16,
+                            fontWeight: 800,
+                            color: "var(--p)",
+                            lineHeight: 1.35,
+                          }}
+                        >
+                          {lang === "ar" ? card.titleAr : card.titleEn}
+                        </h3>
+                      </div>
+                      <ul
+                        style={{
+                          margin: 0,
+                          paddingInlineStart: 20,
+                          color: "var(--td)",
+                          lineHeight: 1.7,
+                          fontSize: 14,
+                        }}
+                      >
+                        {(lang === "ar" ? card.bulletsAr : card.bulletsEn).map((b, j) => (
+                          <li key={j} style={{ marginBottom: 8 }}>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ol style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+                {howTo.map((line, i) => (
+                  <li key={i} style={{ marginBottom: 10 }}>
+                    {line}
+                  </li>
+                ))}
+              </ol>
+            )}
           </SectionBlock>
 
-          <SectionBlock title={tr.sectionHowZiadah} delayClass="d2">
-            <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
-              {helps.map((line, i) => (
-                <li key={i} style={{ marginBottom: 10 }}>
-                  {line}
-                </li>
-              ))}
-            </ul>
+          <SectionBlock title={tr.sectionHowZiadah} delayClass="d2" sectionId="section-how-help">
+            {sector.useCardLayout && sector.helpCards?.length ? (
+              <div
+                style={{
+                  display: "grid",
+                  gap: 12,
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
+                }}
+              >
+                {sector.helpCards.map((hc, i) => (
+                  <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
+                    <div className="shine" />
+                    <div style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "16px 18px 18px" }}>
+                      <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>
+                        {hc.emoji}
+                      </span>
+                      <p style={{ margin: 0, fontSize: 14, color: "var(--td)", lineHeight: 1.65 }}>
+                        {lang === "ar" ? hc.bodyAr : hc.bodyEn}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+                {helps.map((line, i) => (
+                  <li key={i} style={{ marginBottom: 10 }}>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            )}
           </SectionBlock>
 
-          {visualBundle ? (
-            <div className={`gc rv d3`} style={{ padding: 0, marginBottom: 20 }}>
+          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
+          {showPlatformHub && !visualBundle ? (
+            <>
+              <LandingSolutionsMatrix variant="sector" />
+              <WidgetsShowcaseSection variant="sector" />
+            </>
+          ) : null}
+
+          {!showPlatformHub && visualBundle ? (
+            <div id="section-examples" className={`gc rv d3`} style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
               <div className="shine" />
               <div style={{ padding: "22px 24px 8px" }}>
                 <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 4, marginTop: 0 }}>{tr.sectionExamples}</h2>
@@ -216,8 +366,9 @@ export default function SectorDetail() {
                 <SectorVisualExamples bundle={visualBundle} />
               </div>
             </div>
-          ) : (
-            <SectionBlock title={tr.sectionExamples} delayClass="d3">
+          ) : null}
+          {!showPlatformHub && !visualBundle ? (
+            <SectionBlock title={tr.sectionExamples} delayClass="d3" sectionId="section-examples">
               <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
                 {(lang === "ar" ? sector.examplesAr : sector.examplesEn).map((line, i) => (
                   <li key={i} style={{ marginBottom: 10 }}>
@@ -226,22 +377,71 @@ export default function SectorDetail() {
                 ))}
               </ul>
             </SectionBlock>
-          )}
+          ) : null}
 
-          <SectionBlock title={tr.sectionExperience} delayClass="d1">
-            <p style={{ margin: 0, fontSize: 15, color: "var(--tm)", lineHeight: 1.8 }}>
-              {experience}
-            </p>
+          <SectionBlock title={tr.sectionExperience} delayClass="d1" sectionId="section-experience">
+            {sector.useCardLayout ? (
+              <div
+                className="gc rv"
+                style={{
+                  padding: 0,
+                  marginBottom: 0,
+                  borderInlineStart: "4px solid rgba(124, 58, 237, 0.55)",
+                }}
+              >
+                <div className="shine" />
+                <div style={{ padding: "22px 24px 24px" }}>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: 15,
+                      color: "var(--tm)",
+                      lineHeight: 1.85,
+                    }}
+                  >
+                    {experience}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p style={{ margin: 0, fontSize: 15, color: "var(--tm)", lineHeight: 1.8 }}>
+                {experience}
+              </p>
+            )}
           </SectionBlock>
 
-          <SectionBlock title={tr.sectionBestPractices} delayClass="d1">
-            <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
-              {best.map((line, i) => (
-                <li key={i} style={{ marginBottom: 10 }}>
-                  {line}
-                </li>
-              ))}
-            </ul>
+          <SectionBlock title={tr.sectionBestPractices} delayClass="d1" sectionId="section-best">
+            {sector.useCardLayout && sector.bestCards?.length ? (
+              <div
+                style={{
+                  display: "grid",
+                  gap: 12,
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
+                }}
+              >
+                {sector.bestCards.map((bc, i) => (
+                  <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
+                    <div className="shine" />
+                    <div style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "14px 16px 16px" }}>
+                      <span style={{ fontSize: 18, lineHeight: 1.25, flexShrink: 0 }} aria-hidden>
+                        {bc.emoji}
+                      </span>
+                      <p style={{ margin: 0, fontSize: 14, color: "var(--td)", lineHeight: 1.65 }}>
+                        {lang === "ar" ? bc.textAr : bc.textEn}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+                {best.map((line, i) => (
+                  <li key={i} style={{ marginBottom: 10 }}>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            )}
           </SectionBlock>
 
           <div className="rv d2" style={{ textAlign: "center", marginTop: 32 }}>

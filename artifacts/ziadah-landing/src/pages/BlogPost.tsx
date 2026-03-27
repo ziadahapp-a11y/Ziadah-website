@@ -820,14 +820,7 @@ export default function BlogPost() {
                         position: "relative",
                       }}
                     >
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          background:
-                            "linear-gradient(to bottom, transparent 30%, rgba(3,3,11,0.8) 100%)",
-                        }}
-                      />
+                      <div className="blog-cover-overlay" aria-hidden />
                       <span style={{ position: "relative", zIndex: 1 }}>
                         {rel.coverIcon}
                       </span>

@@ -1,5 +1,25 @@
 /** قطاعات زيادة — محتوى عربي/إنجليزي لصفحات القطاعات */
 
+export type SectorPhaseCard = {
+  emoji: string;
+  titleAr: string;
+  titleEn: string;
+  bulletsAr: string[];
+  bulletsEn: string[];
+};
+
+export type SectorHelpCard = {
+  emoji: string;
+  bodyAr: string;
+  bodyEn: string;
+};
+
+export type SectorBestCard = {
+  emoji: string;
+  textAr: string;
+  textEn: string;
+};
+
 export type SectorContent = {
   slug: string;
   icon: string;
@@ -19,6 +39,11 @@ export type SectorContent = {
   experienceEn: string;
   bestPracticesAr: string[];
   bestPracticesEn: string[];
+  /** عرض أقسام كبطاقات بدل القوائم الطويلة */
+  useCardLayout?: boolean;
+  howToPhaseCards?: SectorPhaseCard[];
+  helpCards?: SectorHelpCard[];
+  bestCards?: SectorBestCard[];
 };
 
 export const sectors: SectorContent[] = [
@@ -27,53 +52,248 @@ export const sectors: SectorContent[] = [
     icon: "🛵",
     titleAr: "تطبيقات التوصيل",
     titleEn: "Delivery Apps",
-    taglineAr: "زد قيمة الطلبات في لحظة اتخاذ القرار",
-    taglineEn: "Lift basket value at the decision moment",
+    taglineAr: "دليل شامل لتطبيق كل حلول زيادة في تطبيقات التوصيل",
+    taglineEn: "A complete playbook for all Ziadah solutions in delivery apps",
     seoDescAr:
-      "كيف تستخدم زيادة في تطبيقات التوصيل: إضافات الوجبة، عروض الحد الأدنى، وتجارب طلب أسرع مع أمثلة عملية.",
+      "صفحة شاملة لتطبيقات التوصيل: جميع حالات الاستخدام والخصائص، خطة تفعيل خطوة بخطوة، أمثلة عملية، وتشغيل يومي قابل للتطبيق والمشاركة مع فريق المنتج والتسويق.",
     seoDescEn:
-      "How Ziadah works for delivery apps: meal add-ons, threshold nudges, and faster ordering journeys with practical examples.",
+      "Comprehensive delivery-app guide: all use cases and features, step-by-step activation, practical examples, and an execution-ready operating model for product and growth teams.",
     howToApplyAr: [
-      "قسّم القائمة حسب المناسبات (فطور، غداء، عشاء) لتكون التوصيات أكثر دقة.",
-      "فعّل الودجت في صفحة السلة وقبل الدفع لرفع قيمة السلة بسرعة.",
-      "اربط كل طبق بإضافات واضحة مثل المشروب أو المقبلات أو الصوص.",
+      "المرحلة 1 (تهيئة البيانات): نظّف الكتالوج وموحّد أسماء الأصناف، وحدد الفئات الرئيسية (مطاعم، بقالة، صيدلية، حلويات) ثم الفئات الدقيقة داخل كل مسار.",
+      "المرحلة 1: أضف وسوم تشغيلية على المنتجات (وقت الاستهلاك، حالة الطقس، وقت الذروة، هامش الربح، سرعة التحضير) حتى يتخذ المحرك قرارات توصية أدق.",
+      "المرحلة 2 (خرائط التوافق): ابنِ مصفوفة علاقات واضحة (طبق رئيسي -> مشروب/مقبل/حلى) و(سلة ناقصة الحد -> إضافات سريعة) و(عميل متكرر -> عروض ترقية).",
+      "المرحلة 2: جهّز مسارات الشرائح (عميل جديد، عميل عائد، عميل عالي التكرار، عميل منخفض السلة) لأن كل شريحة تحتاج نوع عرض مختلف.",
+      "المرحلة 3 (أماكن الظهور): فعّل حالات الاستخدام عبر الرحلة كاملة: صفحة المنتج، إضافة للسلة، السلة، صفحة الدفع، وما قبل الحذف من السلة.",
+      "فعّل خصائص العرض بالتدرج: منتجات ذات صلة -> إضافات (Add-ons) -> الشراء معاً -> عروض الحزم -> اشتر أكثر ووفر أكثر.",
+      "فعّل خصائص الهدف بالتدرج: زيادة عدد المنتجات -> استبدال المنتج (Upsell) -> عروض الكمية -> الوصول للشحن المجاني -> قسيمة الخصم.",
+      "المرحلة 4 (الحوكمة): حدّد قواعد لمنع الإزعاج (حد أقصى 1-2 توصية بكل نقطة، وتجميد التوصية بعد الرفض المتكرر).",
+      "المرحلة 5 (القياس): راقب CTR، معدل إضافة التوصية، AOV uplift، conversion uplift، وتأثير كل use case بشكل منفصل.",
+      "المرحلة 6 (التحسين الأسبوعي): ارفع وزن العروض الفائزة، أوقف العروض منخفضة العائد، وأعد توزيع الظهور بين الذروة وخارج الذروة.",
     ],
     howToApplyEn: [
-      "Structure your menu by moments (breakfast, lunch, dinner) for cleaner recommendations.",
-      "Enable widgets on cart and pre-checkout steps to quickly raise basket size.",
-      "Map each main item to clear add-ons like drinks, sides, and sauces.",
+      "Phase 1 (data readiness): normalize catalog naming, define primary verticals (restaurants, grocery, pharmacy, desserts), then granular subcategories.",
+      "Phase 1: add operational tags (consumption time, weather, peak period, margin band, prep speed) so the engine can rank recommendations with context.",
+      "Phase 2 (compatibility maps): build explicit mappings (main meal -> drink/side/dessert), (near-threshold cart -> quick add-ons), and (repeat buyer -> premium swap).",
+      "Phase 2: define user cohorts (new, returning, high-frequency, low-basket) because each cohort needs a different recommendation strategy.",
+      "Phase 3 (placement rollout): activate use cases across the full journey: product page, add-to-cart moment, cart, checkout, and pre-remove flows.",
+      "Roll out presentation features progressively: Related Products -> Add-ons -> Buy Together -> Bundle Deals -> Buy More Save More.",
+      "Roll out goal features progressively: More Cart Items -> Product Swap (Upsell) -> Quantity Offers -> Free Shipping Threshold -> Discount Coupon.",
+      "Phase 4 (governance): enforce anti-fatigue rules (max 1-2 recommendations per touchpoint, cooldown after repeated rejection).",
+      "Phase 5 (measurement): track CTR, recommendation add rate, AOV uplift, conversion uplift, and per-use-case contribution.",
+      "Phase 6 (weekly optimization): scale winners, pause low-yield offers, and rebalance placements across peak/off-peak windows.",
     ],
     howZiadahHelpsAr: [
-      "يقترح إضافات صغيرة ذات قبول عالٍ ترفع قيمة الطلب بدون تعقيد.",
-      "يدفع العميل للوصول لحد الشحن المجاني بعرض منتجات مناسبة.",
-      "يعرض بدائل أعلى قيمة عند توفر مؤشرات اهتمام واضحة.",
+      "يغطي كل use cases المتاحة في المنصة لتطبيقات التوصيل: Cross-sell، Upsell، Add-ons، Related Products، Buy Together، Bundle Deals، Buy More Save More، Discount Coupon، Free Shipping Display، Remove-from-cart retention.",
+      "يفعّل جميع نقاط الرحلة: صفحة المنتج، السلة، الدفع، الإضافة للسلة، الحذف من السلة، وصفحات التصنيف/الرئيسية عند الحاجة.",
+      "يرفع متوسط السلة AOV من خلال اقتراح إضافات ذات احتكاك منخفض (مشروبات، صوصات، حلويات سريعة) في اللحظة الأعلى قابلية للقبول.",
+      "يرفع التحويل عبر عروض احتفاظ ذكية قبل الهجر: قسيمة مخصصة، إغلاق فجوة الشحن المجاني، أو بديل منتج أعلى قيمة مبرر سياقيًا.",
+      "يرفع عدد المنتجات في الطلب عبر Bundles وBuy Together بشكل متوافق مع نوع الطلب ووقت اليوم.",
+      "يحسّن تجربة العميل عبر تقليل العروض العشوائية وتقديم توصيات مفهومة (لماذا هذا العرض؟) بدل الإلحاح البيعي.",
+      "يدعم فرق النمو بتقارير تفصيلية على مستوى الحملة والمنتج والنقطة داخل الرحلة، مما يسهّل مضاعفة ما ينجح فعليًا.",
+      "يمكّن التشغيل التلقائي مع إمكانية التحكم اليدوي عند الحملات الموسمية (رمضان، نهاية الأسبوع، مباريات، العروض اللحظية).",
     ],
     howZiadahHelpsEn: [
-      "Suggests high-acceptance micro add-ons that increase ticket size with low friction.",
-      "Nudges customers toward free-delivery thresholds with relevant items.",
-      "Surfaces higher-value alternatives when intent signals are strong.",
+      "Covers the full use-case stack for delivery apps: Cross-sell, Upsell, Add-ons, Related Products, Buy Together, Bundle Deals, Buy More Save More, Discount Coupon, Free Shipping Display, and remove-from-cart retention.",
+      "Activates recommendations across all relevant touchpoints: product page, cart, checkout, add-to-cart moment, remove-from-cart, and category/home where relevant.",
+      "Increases AOV with low-friction micro add-ons (drinks, sauces, quick desserts) at the highest-intent moments.",
+      "Improves conversion using smart retention logic before abandonment: personalized coupons, free-shipping gap closure, or context-aware premium swaps.",
+      "Grows item count per order using bundles and buy-together constructs tuned to order type and time of day.",
+      "Improves UX by reducing noisy suggestions and exposing understandable recommendation intent instead of aggressive selling.",
+      "Enables growth teams with campaign-level, SKU-level, and touchpoint-level reporting to scale what truly performs.",
+      "Supports autonomous optimization plus manual overrides for seasonal pushes (Ramadan, weekends, match nights, flash campaigns).",
     ],
     examplesAr: [
-      "طلب برجر في السلة → بطاطس + مشروب بعرض شراء معاً.",
-      "سلة قريبة من الحد الأدنى للتوصيل المجاني → اقتراح حلى سريع.",
+      "Use case: Product page cross-sell -> عميل يشاهد بيتزا عائلية، تظهر توصية مباشرة بمشروب 1 لتر + بطاطس ودجز بنسبة قبول أعلى.",
+      "Use case: Add-ons -> عند الضغط على إضافة البرجر، يظهر اختيار إضافات سريعة (جبن إضافي، صوص، بطاطس) دون مغادرة السياق.",
+      "Use case: Buy together -> سلة تحتوي وجبة فردية، يقترح النظام ترقية إلى وجبة ثنائية بسعر أفضل للوحدة.",
+      "Use case: Bundle deals -> حزمة غداء مكتب (ساندويتش + مشروب + حلى) بسعر مخفّض من عناصر منفصلة.",
+      "Use case: Buy more save more -> 1 مشروب = سعر عادي، 2 = خصم 10%، 3 = خصم 15% + أولوية تحضير.",
+      "Use case: Upsell -> العميل يختار وجبة صغيرة، يظهر بديل متوسط مع قيمة غذائية أعلى وفارق سعري واضح.",
+      "Use case: Free shipping threshold -> يتبقى 9 ريال للشحن المجاني، يقترح النظام عنصرًا سريعًا يملأ الفجوة.",
+      "Use case: Discount coupon retention -> قبل مغادرة السلة يظهر كود شخصي صالح دقائق لإنهاء الطلب الآن.",
+      "Use case: Remove-from-cart rescue -> عند حذف طبق رئيسي، يقترح النظام بديلًا أقل سعرًا بدل خسارة الطلب كاملًا.",
+      "Use case: Category/home personalization -> في وقت الإفطار، تبرز أصناف خفيفة وسريعة التوصيل حسب تاريخ العميل.",
     ],
     examplesEn: [
-      "Burger in cart → fries + drink via a buy-together offer.",
-      "Cart close to free-delivery threshold → quick dessert recommendation.",
+      "Use case: Product-page cross-sell -> family pizza view triggers a drink + wedges recommendation with high acceptance probability.",
+      "Use case: Add-ons -> on burger add-to-cart, quick extras appear (extra cheese, sauce, fries) without context switching.",
+      "Use case: Buy-together -> single-meal cart prompts a two-person combo with better unit economics.",
+      "Use case: Bundle deals -> office lunch bundle (sandwich + drink + dessert) at a package discount.",
+      "Use case: Buy-more-save-more -> 1 drink = base price, 2 = 10% off, 3 = 15% off + prep priority.",
+      "Use case: Upsell -> small meal selection prompts a medium upgrade with clear value framing.",
+      "Use case: Free-shipping threshold -> cart is 9 SAR short; engine suggests a fast-moving filler item.",
+      "Use case: Discount coupon retention -> pre-exit personalized coupon appears with short expiry to close now.",
+      "Use case: Remove-from-cart rescue -> removing a core item triggers a lower-price alternative to save the order.",
+      "Use case: Category/home personalization -> at breakfast peaks, quick-serve items are ranked by user history.",
     ],
     experienceAr:
-      "في تطبيقات التوصيل، السرعة تحكم القرار. التوصية الناجحة تكون قصيرة وواضحة وفي المكان المناسب قبل الدفع.",
+      "هذه الصفحة مصممة كوثيقة تشغيل ومشاركة: تغطي البنية، الخصائص، كل حالات الاستخدام، مسارات التفعيل، وآلية القياس. في تطبيقات التوصيل، عامل الوقت حاسم؛ لذلك النجاح يأتي من توصيات عالية الصلة، قصيرة، وتظهر في نقطة قرار صحيحة، مع دورة تحسين أسبوعية مبنية على البيانات.",
     experienceEn:
-      "Speed drives decisions in delivery apps. Winning recommendations are short, clear, and placed right before checkout.",
+      "This page is built as a shareable operating document: architecture, features, full use-case coverage, rollout paths, and measurement model. In delivery apps, time pressure dominates behavior, so wins come from concise, high-relevance recommendations shown at the right decision moments with weekly data-led optimization.",
     bestPracticesAr: [
-      "قلّل عدد الاقتراحات إلى 1-2 فقط في كل خطوة لتفادي التشتت.",
-      "اعرض السعر النهائي للإضافة بوضوح قبل التأكيد.",
-      "راجع أداء الاقتراحات حسب أوقات الذروة يومياً.",
+      "استخدم إطار 70/20/10: 70% توصيات مجربة الأداء، 20% تحسينات تدريجية، 10% تجارب جديدة.",
+      "افصل القياس حسب نوع الطلب (فردي/عائلي/مكتبي) وحسب الوقت (ذروة/غير ذروة) لتجنّب قرارات مضللة.",
+      "لا تعرض أكثر من توصيتين متزامنتين في نفس الشاشة لتقليل الحمل المعرفي.",
+      "اربط كل توصية بسبب واضح للمستخدم (يكمل الطلب، يوفر قيمة، يسرع الوصول للشحن المجاني).",
+      "تأكد من توفر المخزون الفعلي قبل عرض التوصية حتى لا تتدهور الثقة.",
+      "استخدم إيقاف تلقائي للعروض الضعيفة (مثلاً CTR منخفض لـ 3 أيام متتالية).",
+      "راجع أثر كل use case على هامش الربح وليس المبيعات فقط.",
+      "حوّل الحملات الناجحة إلى قوالب تشغيلية يمكن نسخها عبر المدن والفروع.",
     ],
     bestPracticesEn: [
-      "Keep recommendations to 1-2 options per step to avoid overload.",
-      "Show final add-on price clearly before confirmation.",
-      "Review recommendation performance by peak hours daily.",
+      "Use a 70/20/10 model: 70% proven recommendations, 20% iterative improvements, 10% exploratory tests.",
+      "Segment reporting by order type (single/family/office) and by time window (peak/off-peak) to avoid false conclusions.",
+      "Do not show more than two simultaneous recommendations per screen.",
+      "Attach clear shopper-facing rationale for each recommendation (completion, value, free-shipping progress).",
+      "Guarantee real stock availability before surfacing recommendations.",
+      "Auto-pause weak creatives/rules (e.g., persistently low CTR for 3 consecutive days).",
+      "Evaluate each use case on margin contribution, not only topline sales.",
+      "Turn winning campaigns into reusable operating templates across cities and branches.",
+    ],
+    useCardLayout: true,
+    howToPhaseCards: [
+      {
+        emoji: "📦",
+        titleAr: "المرحلة 1 — تهيئة البيانات",
+        titleEn: "Phase 1 — Data readiness",
+        bulletsAr: [
+          "نظّف الكتالوج وموحّد أسماء الأصناف، وحدد الفئات الرئيسية (مطاعم، بقالة، صيدلية، حلويات) ثم الفئات الدقيقة داخل كل مسار.",
+          "أضف وسومًا تشغيلية على المنتجات (وقت الاستهلاك، حالة الطقس، وقت الذروة، هامش الربح، سرعة التحضير) حتى يتخذ المحرك قرارات توصية أدق.",
+        ],
+        bulletsEn: [
+          "Normalize catalog naming, define primary verticals (restaurants, grocery, pharmacy, desserts), then granular subcategories.",
+          "Add operational tags (consumption time, weather, peak period, margin band, prep speed) so the engine can rank recommendations with context.",
+        ],
+      },
+      {
+        emoji: "🗺️",
+        titleAr: "المرحلة 2 — خرائط التوافق والشرائح",
+        titleEn: "Phase 2 — Compatibility maps & cohorts",
+        bulletsAr: [
+          "ابنِ مصفوفة علاقات واضحة (طبق رئيسي → مشروب/مقبل/حلى)، و(سلة ناقصة الحد → إضافات سريعة)، و(عميل متكرر → عروض ترقية).",
+          "جهّز مسارات الشرائح (عميل جديد، عميل عائد، عميل عالي التكرار، عميل منخفض السلة) لأن كل شريحة تحتاج نوع عرض مختلف.",
+        ],
+        bulletsEn: [
+          "Build explicit mappings (main meal → drink/side/dessert), (near-threshold cart → quick add-ons), and (repeat buyer → premium swap).",
+          "Define user cohorts (new, returning, high-frequency, low-basket) because each cohort needs a different recommendation strategy.",
+        ],
+      },
+      {
+        emoji: "📍",
+        titleAr: "المرحلة 3 — أماكن الظهور والتفعيل التدريجي",
+        titleEn: "Phase 3 — Placements & progressive rollout",
+        bulletsAr: [
+          "فعّل حالات الاستخدام عبر الرحلة كاملة: صفحة المنتج، إضافة للسلة، السلة، صفحة الدفع، وما قبل الحذف من السلة.",
+          "فعّل خصائص العرض بالتدرج: منتجات ذات صلة → إضافات (Add-ons) → الشراء معاً → عروض الحزم → اشتر أكثر ووفر أكثر.",
+          "فعّل خصائص الهدف بالتدرج: زيادة عدد المنتجات → استبدال المنتج (Upsell) → عروض الكمية → الوصول للشحن المجاني → قسيمة الخصم.",
+        ],
+        bulletsEn: [
+          "Activate use cases across the full journey: product page, add-to-cart moment, cart, checkout, and pre-remove flows.",
+          "Roll out presentation features progressively: Related Products → Add-ons → Buy Together → Bundle Deals → Buy More Save More.",
+          "Roll out goal features progressively: More Cart Items → Product Swap (Upsell) → Quantity Offers → Free Shipping Threshold → Discount Coupon.",
+        ],
+      },
+      {
+        emoji: "🛡️",
+        titleAr: "المرحلة 4 — الحوكمة",
+        titleEn: "Phase 4 — Governance",
+        bulletsAr: [
+          "حدّد قواعد لمنع الإزعاج (حد أقصى 1–2 توصية بكل نقطة، وتجميد التوصية بعد الرفض المتكرر).",
+        ],
+        bulletsEn: [
+          "Enforce anti-fatigue rules (max 1–2 recommendations per touchpoint, cooldown after repeated rejection).",
+        ],
+      },
+      {
+        emoji: "📊",
+        titleAr: "المرحلة 5 — القياس",
+        titleEn: "Phase 5 — Measurement",
+        bulletsAr: [
+          "راقب CTR، معدل إضافة التوصية، AOV uplift، conversion uplift، وتأثير كل use case بشكل منفصل.",
+        ],
+        bulletsEn: [
+          "Track CTR, recommendation add rate, AOV uplift, conversion uplift, and per-use-case contribution.",
+        ],
+      },
+      {
+        emoji: "⚡",
+        titleAr: "المرحلة 6 — التحسين الأسبوعي",
+        titleEn: "Phase 6 — Weekly optimization",
+        bulletsAr: [
+          "ارفع وزن العروض الفائزة، أوقف العروض منخفضة العائد، وأعد توزيع الظهور بين الذروة وخارج الذروة.",
+        ],
+        bulletsEn: [
+          "Scale winners, pause low-yield offers, and rebalance placements across peak/off-peak windows.",
+        ],
+      },
+    ],
+    helpCards: [
+      {
+        emoji: "🧩",
+        bodyAr:
+          "يغطي كل use cases المتاحة في المنصة لتطبيقات التوصيل: Cross-sell، Upsell، Add-ons، Related Products، Buy Together، Bundle Deals، Buy More Save More، Discount Coupon، Free Shipping Display، Remove-from-cart retention.",
+        bodyEn:
+          "Covers the full use-case stack for delivery apps: Cross-sell, Upsell, Add-ons, Related Products, Buy Together, Bundle Deals, Buy More Save More, Discount Coupon, Free Shipping Display, and remove-from-cart retention.",
+      },
+      {
+        emoji: "🛤️",
+        bodyAr:
+          "يفعّل جميع نقاط الرحلة: صفحة المنتج، السلة، الدفع، الإضافة للسلة، الحذف من السلة، وصفحات التصنيف/الرئيسية عند الحاجة.",
+        bodyEn:
+          "Activates recommendations across all relevant touchpoints: product page, cart, checkout, add-to-cart moment, remove-from-cart, and category/home where relevant.",
+      },
+      {
+        emoji: "🛒",
+        bodyAr:
+          "يرفع متوسط السلة AOV من خلال اقتراح إضافات ذات احتكاك منخفض (مشروبات، صوصات، حلويات سريعة) في اللحظة الأعلى قابلية للقبول.",
+        bodyEn:
+          "Increases AOV with low-friction micro add-ons (drinks, sauces, quick desserts) at the highest-intent moments.",
+      },
+      {
+        emoji: "🎯",
+        bodyAr:
+          "يرفع التحويل عبر عروض احتفاظ ذكية قبل الهجر: قسيمة مخصصة، إغلاق فجوة الشحن المجاني، أو بديل منتج أعلى قيمة مبرر سياقيًا.",
+        bodyEn:
+          "Improves conversion using smart retention logic before abandonment: personalized coupons, free-shipping gap closure, or context-aware premium swaps.",
+      },
+      {
+        emoji: "📦",
+        bodyAr:
+          "يرفع عدد المنتجات في الطلب عبر Bundles وBuy Together بشكل متوافق مع نوع الطلب ووقت اليوم.",
+        bodyEn:
+          "Grows item count per order using bundles and buy-together constructs tuned to order type and time of day.",
+      },
+      {
+        emoji: "✨",
+        bodyAr:
+          "يحسّن تجربة العميل عبر تقليل العروض العشوائية وتقديم توصيات مفهومة (لماذا هذا العرض؟) بدل الإلحاح البيعي.",
+        bodyEn:
+          "Improves UX by reducing noisy suggestions and exposing understandable recommendation intent instead of aggressive selling.",
+      },
+      {
+        emoji: "📈",
+        bodyAr:
+          "يدعم فرق النمو بتقارير تفصيلية على مستوى الحملة والمنتج والنقطة داخل الرحلة، مما يسهّل مضاعفة ما ينجح فعليًا.",
+        bodyEn:
+          "Enables growth teams with campaign-level, SKU-level, and touchpoint-level reporting to scale what truly performs.",
+      },
+      {
+        emoji: "🎛️",
+        bodyAr:
+          "يمكّن التشغيل التلقائي مع إمكانية التحكم اليدوي عند الحملات الموسمية (رمضان، نهاية الأسبوع، مباريات، العروض اللحظية).",
+        bodyEn:
+          "Supports autonomous optimization plus manual overrides for seasonal pushes (Ramadan, weekends, match nights, flash campaigns).",
+      },
+    ],
+    bestCards: [
+      { emoji: "7️⃣", textAr: "استخدم إطار 70/20/10: 70% توصيات مجربة الأداء، 20% تحسينات تدريجية، 10% تجارب جديدة.", textEn: "Use a 70/20/10 model: 70% proven recommendations, 20% iterative improvements, 10% exploratory tests." },
+      { emoji: "📐", textAr: "افصل القياس حسب نوع الطلب (فردي/عائلي/مكتبي) وحسب الوقت (ذروة/غير ذروة) لتجنّب قرارات مضللة.", textEn: "Segment reporting by order type (single/family/office) and by time window (peak/off-peak) to avoid false conclusions." },
+      { emoji: "2️⃣", textAr: "لا تعرض أكثر من توصيتين متزامنتين في نفس الشاشة لتقليل الحمل المعرفي.", textEn: "Do not show more than two simultaneous recommendations per screen." },
+      { emoji: "💬", textAr: "اربط كل توصية بسبب واضح للمستخدم (يكمل الطلب، يوفر قيمة، يسرع الوصول للشحن المجاني).", textEn: "Attach clear shopper-facing rationale for each recommendation (completion, value, free-shipping progress)." },
+      { emoji: "📦", textAr: "تأكد من توفر المخزون الفعلي قبل عرض التوصية حتى لا تتدهور الثقة.", textEn: "Guarantee real stock availability before surfacing recommendations." },
+      { emoji: "⏸️", textAr: "استخدم إيقاف تلقائي للعروض الضعيفة (مثلاً CTR منخفض لـ 3 أيام متتالية).", textEn: "Auto-pause weak creatives/rules (e.g., persistently low CTR for 3 consecutive days)." },
+      { emoji: "💰", textAr: "راجع أثر كل use case على هامش الربح وليس المبيعات فقط.", textEn: "Evaluate each use case on margin contribution, not only topline sales." },
+      { emoji: "📋", textAr: "حوّل الحملات الناجحة إلى قوالب تشغيلية يمكن نسخها عبر المدن والفروع.", textEn: "Turn winning campaigns into reusable operating templates across cities and branches." },
     ],
   },
   {
@@ -81,53 +301,101 @@ export const sectors: SectorContent[] = [
     icon: "🧩",
     titleAr: "منصات التسوق الإلكترونية",
     titleEn: "Ecommerce Platforms",
-    taglineAr: "توصيات ذكية لتجربة اكتشاف أوسع داخل المنصة",
-    taglineEn: "Smart recommendations for broader discovery journeys",
+    taglineAr: "مرجع شامل لمنصات التسوق: كل الخصائص واليوز كيسس بالتفصيل",
+    taglineEn: "Complete marketplace reference: all features and use cases in detail",
     seoDescAr:
-      "زيادة لمنصات التسوق الإلكترونية: توصيات عبر البائعين، تحسين الاكتشاف، ورفع متوسط الطلبات في بيئات متعددة الموردين.",
+      "دليل تفصيلي شامل لمنصات التسوق الإلكترونية متعددة البائعين: التطبيق الكامل لحلول زيادة، جميع حالات الاستخدام، الحوكمة، القياس، وتحسين التحويل والـAOV على مستوى المنصة والبائع.",
     seoDescEn:
-      "Ziadah for ecommerce platforms: cross-seller recommendations, stronger discovery, and higher AOV in multi-vendor environments.",
+      "A full implementation guide for multi-vendor ecommerce platforms: complete Ziadah feature coverage, all use cases, governance, measurement, and AOV/conversion optimization at platform and seller levels.",
     howToApplyAr: [
-      "وحّد تصنيفات المنتجات بين البائعين لتقليل التشابه الخاطئ في التوصيات.",
-      "فعّل الودجت في صفحات البحث والتصنيف والسلة لزيادة فرص الاكتشاف.",
-      "حدّد قواعد جودة للبائعين الجدد قبل إدخال منتجاتهم إلى محرك التوصية.",
+      "المرحلة 1 (بنية المنصة): وحّد taxonomy والسمات الأساسية عبر كل البائعين (العلامة، الفئة، النطاق السعري، الجودة، التوفر، زمن الشحن).",
+      "المرحلة 1: أنشئ درجات جودة بيانات للبائعين (Data Quality Score) ولا تُدخل الموردين الأقل من الحد الأدنى إلى التوصيات الحساسة.",
+      "المرحلة 2 (حوكمة العرض): عرّف قواعد موازنة بين الصلة، الأداء، وتنوع البائعين حتى لا تهيمن متاجر محددة على كل الظهور.",
+      "المرحلة 2: ابنِ سياسات عدالة للبائعين الجدد (Cold-start boost مضبوط) دون الإضرار بمعدل التحويل العام.",
+      "المرحلة 3 (تفعيل كامل اليوز كيسس): فعّل Related Products، Add-ons، Buy Together، Bundle Deals، Buy More Save More، Cross-sell، Upsell، Free Shipping، Discount Coupon، Remove-from-cart rescue.",
+      "المرحلة 3: فعّل نقاط الرحلة داخل المنصة: صفحة المنتج، البحث، التصنيف، السلة، الدفع، الإضافة للسلة، الحذف من السلة.",
+      "المرحلة 4 (استراتيجية الشحن): أدمج تكلفة/سرعة الشحن في قرار التوصية لأن المنصات متعددة الموردين تتأثر لوجستيًا أكثر من المتاجر الفردية.",
+      "المرحلة 5 (التقارير): أنشئ لوحات مزدوجة: لوحة إدارة المنصة + لوحة أداء لكل بائع (CTR، Conversion، AOV uplift، Margin uplift).",
+      "المرحلة 6 (التشغيل): اعمل بمراجعة أسبوعية للسياسات العامة ومراجعة يومية للعروض ذات التأثير الكبير في المواسم.",
     ],
     howToApplyEn: [
-      "Standardize product taxonomy across sellers to reduce noisy recommendations.",
-      "Enable widgets on search, category, and cart pages to expand discovery.",
-      "Define quality rules for new sellers before feeding products to the recommendation engine.",
+      "Phase 1 (platform foundation): standardize taxonomy and core attributes across sellers (brand, category, price band, quality tier, stock, shipping SLA).",
+      "Phase 1: enforce seller data-quality scoring and gate low-quality feeds from sensitive recommendation surfaces.",
+      "Phase 2 (exposure governance): define balancing rules between relevance, performance, and seller diversity to prevent over-concentration.",
+      "Phase 2: implement calibrated cold-start boosts for new sellers without harming overall conversion.",
+      "Phase 3 (full use-case rollout): enable Related Products, Add-ons, Buy Together, Bundle Deals, Buy More Save More, Cross-sell, Upsell, Free Shipping, Discount Coupon, and remove-from-cart rescue.",
+      "Phase 3: activate touchpoints across product, search, category, cart, checkout, add-to-cart, and remove-from-cart.",
+      "Phase 4 (shipping-aware ranking): incorporate shipping cost/speed into recommendation ranking for multi-vendor logistics reality.",
+      "Phase 5 (reporting): run dual dashboards: platform-operator view + per-seller performance view (CTR, conversion, AOV uplift, margin uplift).",
+      "Phase 6 (operations): weekly policy reviews plus daily tuning for high-impact campaigns during seasonal peaks.",
     ],
     howZiadahHelpsAr: [
-      "يربط العميل بمنتجات مكملة حتى لو كانت من بائع آخر داخل المنصة.",
-      "يرفع معدل الاستكشاف بتخصيص النتائج حسب السلوك الفعلي للمتصفح.",
-      "يحسّن فرص التحويل عبر ترتيب عروض أعلى صلة في كل جلسة.",
+      "يغطي كل خصائص التوصية في بيئة المنصات وليس فقط متجرًا واحدًا: يوصي داخل البائع نفسه أو عبر بائعين مختلفين وفق قواعد المنصة.",
+      "يرفع عمق الاكتشاف (Discovery Depth) عبر ترتيب ديناميكي للمنتجات حسب نية العميل الفعلية وليس مجرد الشعبية العامة.",
+      "يحسّن التحويل بتجربة شخصية على مستوى الجلسة (صفحات شوهدت، زمن التصفح، حساسية السعر، سلوك الإضافة/الحذف).",
+      "يرفع AOV عبر تجميع منتجات مكملة من بائع واحد أو عدة بائعين عندما تكون تجربة الدفع/الشحن مناسبة.",
+      "يدعم احتفاظ العميل داخل المنصة عبر تقليل نهايات الطريق المسدودة (Dead-end pages) بتوصيات خروج ذكية.",
+      "يمكّن إدارة المنصة من تحقيق توازن عملي بين عدالة الظهور للبائعين والأداء التجاري القابل للنمو.",
+      "يوفر تحليلات عميقة تُظهر أي use case أنجح لكل فئة ولكل بائع، مما يجعل قرارات التوسّع دقيقة.",
+      "يدعم فرق المبيعات في إقناع البائعين بالانضمام إلى برامج توصية مشتركة مبنية على بيانات حقيقية.",
     ],
     howZiadahHelpsEn: [
-      "Connects shoppers with complementary products even across different sellers.",
-      "Improves discovery rate by personalizing results from real browsing behavior.",
-      "Boosts conversion odds by ranking higher-relevance offers per session.",
+      "Supports the full recommendation stack in marketplace environments, not just single-store logic: intra-seller and cross-seller recommendations under platform policy.",
+      "Improves discovery depth with intent-driven ranking instead of generic popularity bias.",
+      "Improves conversion with session-level personalization (view sequence, dwell time, price sensitivity, add/remove behavior).",
+      "Increases AOV by building complementary sets across one or multiple sellers when checkout/shipping logic supports it.",
+      "Improves retention by reducing dead-end browsing paths through smart exit recommendations.",
+      "Helps operators balance seller fairness and commercial performance with measurable controls.",
+      "Delivers granular analytics showing which use case wins by category and by seller, enabling precise scaling decisions.",
+      "Arms commercial teams with performance evidence to onboard sellers into recommendation-led growth programs.",
     ],
     examplesAr: [
-      "عميل يشاهد سماعات من بائع A → اقتراح حامل جوال من بائع B.",
-      "بحث عن مستلزمات المكتب → ترتيب حزمة منتجات متكاملة من عدة متاجر.",
+      "Use case: Search results personalization -> عميل يبحث عن \"كرسي مكتب\"، ترتّب النتائج حسب راحته السعرية وسلوكاته السابقة بدل الترتيب العام.",
+      "Use case: Cross-seller related products -> مشاهدة لابتوب من بائع A تتبعها توصية ماوس ولوحة مفاتيح من بائع B بتوافق أعلى.",
+      "Use case: Add-ons -> عند إضافة كاميرا، تظهر بطاقة بطارية وذاكرة من نفس البائع أو بائع أسرع شحنًا.",
+      "Use case: Buy together -> منصة الأدوات المنزلية تعرض مجموعة جاهزة (مثقاب + رؤوس + نظارة حماية).",
+      "Use case: Bundle deals -> حزمة تجهيز مكتب منزلي من عدة بائعين مع توفير موحّد.",
+      "Use case: Buy more save more -> اشتري قطعتين من مستلزمات المدرسة لتحصل على خصم تدريجي في موسم العودة.",
+      "Use case: Upsell -> عميل يشاهد سماعة اقتصادية، يظهر بديل أعلى تقييمًا مع فارق سعر منطقي.",
+      "Use case: Free shipping display -> السلة أقل من الحد، تقترح المنصة منتجًا سريع الشحن لسد الفجوة.",
+      "Use case: Discount coupon -> عميل متردد في الدفع يحصل على عرض قصير المدة مرتبط بفئته المهتم بها.",
+      "Use case: Remove-from-cart rescue -> حذف منتج مرتفع السعر يؤدي لاقتراح بديل قريب وظيفيًا بسعر أقل.",
     ],
     examplesEn: [
-      "Customer views headphones from seller A → phone stand suggestion from seller B.",
-      "Office-supplies search → curated multi-seller bundle recommendations.",
+      "Use case: Search personalization -> a 'desk chair' query is ranked by inferred price comfort and intent, not default popularity.",
+      "Use case: Cross-seller related products -> laptop view from seller A triggers compatible mouse/keyboard from seller B.",
+      "Use case: Add-ons -> camera add-to-cart surfaces memory and battery options from same seller or faster-shipping alternatives.",
+      "Use case: Buy-together -> DIY marketplace suggests a ready set (drill + bits + safety glasses).",
+      "Use case: Bundle deals -> home-office setup bundle combines multi-seller items with a unified value proposition.",
+      "Use case: Buy-more-save-more -> school-supplies season applies progressive discounts for higher quantities.",
+      "Use case: Upsell -> budget headset view triggers a top-rated premium alternative with clear value delta.",
+      "Use case: Free-shipping threshold -> cart gap is closed with a fast-shipping, relevant add-on.",
+      "Use case: Discount coupon -> hesitant checkout user receives a short-lived, category-aligned incentive.",
+      "Use case: Remove-from-cart rescue -> removing a high-priced item prompts a functionally similar lower-price substitute.",
     ],
     experienceAr:
-      "منصات التسوق تحتاج توازنًا بين تنوع الموردين وجودة الترتيب. زيادة تعطي الأولوية للصلة لضمان تجربة اكتشاف مفيدة.",
+      "هذه الصفحة تم إعدادها كمرجع شامل قابل للمشاركة مع فرق المنصات والبائعين: من الحوكمة والبيانات إلى التطبيق العملي لكل use case. نجاح المنصات يعتمد على موازنة دقيقة بين الصلة، عدالة الظهور، وتجربة شحن متماسكة؛ وزيادة يوفّر إطارًا تشغيليًا يحقق ذلك مع قياس واضح.",
     experienceEn:
-      "Marketplace platforms need a balance between seller diversity and ranking quality. Ziadah prioritizes relevance for meaningful discovery.",
+      "This page is structured as a shareable marketplace handbook for operator and seller teams: from data governance to practical execution of every use case. Marketplace success depends on balancing relevance, fair exposure, and coherent shipping UX; Ziadah provides an operational framework with transparent measurement.",
     bestPracticesAr: [
-      "راقب جودة بيانات البائعين لأن دقة التوصية تعتمد عليها مباشرة.",
-      "فعّل حدود تكرار للمنتج نفسه حتى لا تتكرر النتائج للمستخدم.",
-      "استخدم تقارير الأداء حسب البائع لتطوير الكتالوج بشكل مستمر.",
+      "اعتمد KPI ثلاثي: جودة التجربة (CTR/Engagement)، جودة التجارة (Conversion/AOV)، وعدالة السوق (Share of exposure by seller tier).",
+      "طبّق ceiling للظهور على مستوى البائع/المنتج لتفادي الاحتكار غير المقصود.",
+      "استخدم قواعد استبعاد قوية (مخزون منخفض، شحن بطيء، تقييمات ضعيفة) قبل أي توصية.",
+      "صمّم تجارب منفصلة لفئات المنصة الكبرى بدل سياسة واحدة للجميع.",
+      "حدّث أوزان الترتيب أسبوعيًا بناءً على نتائج فعلية وليس افتراضات فريق العمل.",
+      "افتح برنامج توصيات مشترك للبائعين مع متطلبات جودة واضحة وعائد متوقع.",
+      "راقب الأداء في المواسم الثقيلة بشكل يومي (العروض الكبرى) مع خطط تدخل سريعة.",
+      "وثّق كل تجربة A/B ونتيجتها لتكوين playbook داخلي يمكن نسخه عبر الفئات.",
     ],
     bestPracticesEn: [
-      "Audit seller data quality regularly; recommendation quality depends on it.",
-      "Set repetition caps so users do not see the same item too often.",
-      "Use seller-level performance reports to improve catalog health continuously.",
+      "Track a three-axis KPI system: experience quality (CTR/engagement), commerce quality (conversion/AOV), and marketplace fairness (exposure share by seller tier).",
+      "Apply exposure ceilings at seller/SKU levels to prevent unintentional concentration.",
+      "Use strict exclusion rules (low stock, slow shipping, weak ratings) before recommendation serving.",
+      "Design category-specific policies instead of one generic marketplace policy.",
+      "Refresh ranking weights weekly from observed performance, not static assumptions.",
+      "Run a seller recommendation program with clear quality requirements and expected ROI.",
+      "Monitor high-traffic seasons daily with rapid intervention playbooks.",
+      "Document every A/B test and outcome to build an internal reusable playbook.",
     ],
   },
   {
