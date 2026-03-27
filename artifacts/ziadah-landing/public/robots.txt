@@ -1,7 +1,3 @@
-# Ziadah — AI ecommerce platform (https://www.ziadah.app)
 User-agent: *
 Allow: /
-
-# CSR: primary content is hydrated client-side; allow full crawl for static assets and routes.
-
 Sitemap: https://www.ziadah.app/sitemap.xml

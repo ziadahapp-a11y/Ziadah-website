@@ -94,6 +94,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
                     ? "منصة زد — تفعيل تطبيق زيادة للتوصيات الذكية"
                     : "Zid platform — install Ziadah AI ecommerce app"
                 }
+                loading="lazy"
                 className="platform-tile-logo platform-tile-logo--zid"
                 width={280}
                 height={80}
@@ -118,6 +119,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
                   ? "منصة سلة — تفعيل تطبيق زيادة للتوصيات الذكية"
                   : "Salla platform — install Ziadah AI ecommerce app"
               }
+              loading="lazy"
               className="platform-tile-logo platform-tile-logo--salla"
               width={200}
               height={48}

@@ -23,7 +23,7 @@ export const sectorAiMlBullets: SectorAiMlBullet[] = [
     titleAr: "أنماط الشراء والتصفية التعاونية",
     titleEn: "Purchase patterns & collaborative signals",
     textAr:
-      "يكتشف النظام أنماطاً مثل «من اشترى A غالباً اشترى B» (Collaborative Filtering) وتزداد دقة الأنماط مع حجم الطلبات — نفس المبدأ المذكور في المدونة ومركز المساعدة.",
+      "يكتشف النظام أنماطاً مثل «من اشترى منتجاً معيناً غالباً اشترى مكملاً له» (التصفية التعاونية) وتزداد دقة الأنماط مع حجم الطلبات — نفس المبدأ المذكور في المدونة ومركز المساعدة.",
     textEn:
       "The system discovers patterns like “customers who bought A often bought B” (collaborative filtering); pattern accuracy grows with order volume — the same principle covered in our blog and help center.",
   },

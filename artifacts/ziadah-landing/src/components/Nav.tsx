@@ -67,7 +67,14 @@ export const Logo = () => {
         : "/logo-en.png";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
-      <img src={logoSrc} alt={tr.seo.brandLogoAlt} style={{ height: 30, width: "auto" }} />
+      <img
+        src={logoSrc}
+        alt={tr.seo.brandLogoAlt}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        style={{ height: 30, width: "auto" }}
+      />
     </span>
   );
 };
@@ -313,6 +320,7 @@ function PlatformsDropdown() {
             <img
               src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)}
               alt={item.key === "zid" ? tr.seo.platformLogoAltZid : tr.seo.platformLogoAltSalla}
+              loading="lazy"
               style={{ height: 18, width: "auto", display: "block" }}
             />
           </a>
@@ -659,6 +667,7 @@ function MobileMoreDropdown({
                     <img
                       src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)}
                       alt={item.label}
+                      loading="lazy"
                       style={{ height: 18, width: "auto", display: "block" }}
                     />
                   </a>
@@ -831,6 +840,10 @@ export default function Nav() {
     transition: "all .2s", whiteSpace: "nowrap",
   });
 
+  const navLinkLiStyle: React.CSSProperties = {
+    display: "flex", justifyContent: "center", alignItems: "center",
+  };
+
   const chevron = (isOpen: boolean) => (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: isOpen ? "rotate(180deg)" : "none", transition: "transform .25s" }}>
       <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -843,7 +856,8 @@ export default function Nav() {
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
-        position: "fixed", top: 16, right: "4%", left: "4%", zIndex: 900,
+        position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
+        transform: "translateX(-50%)", width: "min(92%, 1200px)", maxWidth: 1200,
         background: isLight
           ? (scrolled ? "rgba(241,245,249,.1)" : "rgba(241,245,249,.88)")
           : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)"),
@@ -865,10 +879,10 @@ export default function Nav() {
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Logo />
-          <ul className="nav-links-inline" style={{ display: "flex", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
-            <li>
+          <ul className="nav-links-inline" style={{ display: "flex", alignItems: "center", gap: 4, listStyle: "none", margin: 0, position: "relative" }}>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateTo("/")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
@@ -883,7 +897,7 @@ export default function Nav() {
               </span>
             </li>
 
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
@@ -895,9 +909,9 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
 
-            <li style={{ width: "fit-content" }}>
+            <li style={{ ...navLinkLiStyle, width: "fit-content" }}>
               <span onClick={() => navigateTo("/success-stories")} style={{
-                display: "block", padding: "8px 0px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
@@ -912,7 +926,7 @@ export default function Nav() {
               </span>
             </li>
 
-            <li>
+            <li style={{ ...navLinkLiStyle, justifyContent: "flex-start" }}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors" || location === "/sectors" || location.startsWith("/sectors/"))}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
@@ -924,7 +938,7 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
 
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
@@ -936,9 +950,9 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
 
-            <li>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateToHash("/#pricing")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
@@ -952,9 +966,9 @@ export default function Nav() {
               </span>
             </li>
 
-            <li style={{ width: "fit-content" }}>
+            <li style={{ ...navLinkLiStyle, width: "fit-content" }}>
               <span onClick={() => navigateTo("/calculator")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
@@ -969,7 +983,7 @@ export default function Nav() {
               </span>
             </li>
 
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
@@ -1003,10 +1017,10 @@ export default function Nav() {
 
         {/* Second row: nav links (tablet breakpoint only, injected via CSS) */}
         <div className="nav-links-row2" style={{ display: "none" }}>
-          <ul style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 4, listStyle: "none", margin: 0, padding: "4px 0 8px", position: "relative" }}>
-            <li>
+          <ul style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 4, listStyle: "none", margin: 0, padding: "4px 0 8px", position: "relative" }}>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateTo("/")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
@@ -1017,7 +1031,7 @@ export default function Nav() {
                 </Editable>
               </span>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases2")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
@@ -1028,9 +1042,9 @@ export default function Nav() {
                 {openDrop === "usecases2" && <UseCasesMegaMenu />}
               </DropdownWrapper>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateTo("/success-stories")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
@@ -1041,7 +1055,7 @@ export default function Nav() {
                 </Editable>
               </span>
             </li>
-            <li>
+            <li style={{ ...navLinkLiStyle, justifyContent: "flex-start" }}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors2" || location === "/sectors" || location.startsWith("/sectors/"))}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
@@ -1052,7 +1066,7 @@ export default function Nav() {
                 {openDrop === "sectors2" && <SectorsDropdown />}
               </DropdownWrapper>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms2")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
@@ -1063,9 +1077,9 @@ export default function Nav() {
                 {openDrop === "platforms2" && <PlatformsDropdown />}
               </DropdownWrapper>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateToHash("/#pricing")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
@@ -1075,9 +1089,9 @@ export default function Nav() {
                 </Editable>
               </span>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <span onClick={() => navigateTo("/calculator")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
@@ -1088,7 +1102,7 @@ export default function Nav() {
                 </Editable>
               </span>
             </li>
-            <li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help2")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">

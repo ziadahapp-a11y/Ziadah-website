@@ -9,10 +9,15 @@ const STATIC_ONLY_I18N_KEYS = new Set([
   "en.landing.heroTitleEm",
   "ar.landing.heroTitleGrad",
   "en.landing.heroTitleGrad",
+  "ar.landing.heroSub",
+  "en.landing.heroSub",
   "ar.landing.ctaPrimary",
   "en.landing.ctaPrimary",
   "ar.landing.ctaSecondary",
   "en.landing.ctaSecondary",
+  /** Year bumps ship in repo; DB overrides were leaving stale © lines in the footer. */
+  "ar.footer.copyright",
+  "en.footer.copyright",
 ]);
 
 /** Flat keys like `ar.nav.home` or `blog.post-slug.title` overlay nested static translations. */

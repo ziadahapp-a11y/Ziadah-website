@@ -339,6 +339,7 @@ export default function Landing() {
                         ? `شعار ${l.name} — متجر يستخدم منصة زيادة للذكاء الاصطناعي`
                         : `${l.name} logo — Ziadah AI ecommerce merchant`
                     }
+                    loading="lazy"
                     className="logo-img"
                   />
                 </div>
@@ -619,6 +620,7 @@ export default function Landing() {
                             ? "ناصر — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
                             : "Nasser — sample profile for Ziadah AI recommendations demo"
                         }
+                        loading="lazy"
                         style={{ height: "100%", width: "auto", objectFit: "contain" }}
                       />
                     </div>
@@ -907,6 +909,7 @@ export default function Landing() {
                             ? "نوره — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
                             : "Noura — sample profile for Ziadah AI recommendations demo"
                         }
+                        loading="lazy"
                         style={{ height: "100%", width: "auto", objectFit: "contain" }}
                       />
                     </div>

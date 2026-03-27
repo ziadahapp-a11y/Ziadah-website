@@ -1,4 +1,5 @@
 import type { SectorPageRich } from "../sectorPageTypes";
+import { sectorQuickTipsBySlug } from "../sectorQuickTips";
 import { deliveryAppsRich } from "./deliveryApps";
 import { ecommercePlatformsRich } from "./ecommercePlatforms";
 import { abayasFashionRich } from "./abayasFashion";
@@ -36,5 +37,12 @@ export const sectorPageRichBySlug: Record<string, SectorPageRich> = {
 };
 
 export function getSectorPageRich(slug: string): SectorPageRich | undefined {
-  return sectorPageRichBySlug[slug];
+  const r = sectorPageRichBySlug[slug];
+  if (!r) return undefined;
+  const tips = sectorQuickTipsBySlug[slug];
+  return {
+    ...r,
+    quickTips: r.quickTips ?? tips,
+    slimSectorPage: r.slimSectorPage ?? true,
+  };
 }

@@ -74,6 +74,19 @@ const CmsSettings = lazy(() => import("@/cms/pages/Settings"));
 
 const queryClient = new QueryClient();
 
+/** CMS quick-login FAB: dev/preview hosts only — not on production (e.g. ziadah.app). */
+function shouldShowCmsQuickLogin(): boolean {
+  if (import.meta.env.DEV) return true;
+  if (typeof window === "undefined") return false;
+  const h = window.location.hostname;
+  return (
+    h === "localhost" ||
+    h === "127.0.0.1" ||
+    h.endsWith(".replit.dev") ||
+    h.endsWith(".repl.co")
+  );
+}
+
 function ScrollToTop() {
   const [location] = useLocation();
   useEffect(() => {
@@ -235,7 +248,8 @@ function AppShell() {
   const { user, loading } = useCmsAuth();
   const showInlineToolbar =
     !!user && (user.role === "editor" || user.role === "super_admin");
-  const showQuickLogin = !loading && !user && !isCms;
+  const showQuickLogin =
+    !loading && !user && !isCms && shouldShowCmsQuickLogin();
 
   return (
     <>

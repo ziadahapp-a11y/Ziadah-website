@@ -838,6 +838,9 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 .mobile-bottom-nav{display:none;}
 .mobile-nav{display:none;}
+/* Desktop nav: cap width; inline list items flex-centered (matches design preview) */
+.desktop-nav{max-width:1200px;}
+.nav-links-inline>li{display:flex;justify-content:center;align-items:center;}
 
 @keyframes slideUpDropdown{
   from{opacity:0;transform:translateY(16px);}
@@ -846,7 +849,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 
 /* ── MEDIUM DESKTOP NAV (1025-1280px): compact single-row ── */
 @media(min-width:1025px) and (max-width:1280px){
-  .desktop-nav{padding:0 14px!important;right:2%!important;left:2%!important;}
+  .desktop-nav{padding:0 14px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:min(96%,1200px)!important;max-width:1200px!important;}
   .nav-links-inline li button,.nav-links-inline li span{font-size:12.5px!important;padding:6px 10px!important;}
   .nav-ctas a{font-size:12px!important;padding:7px 13px!important;}
   .nav-top-row{height:52px!important;}
