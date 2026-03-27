@@ -27,6 +27,20 @@ export function sanitizeInputs(
   next: NextFunction,
 ): void {
   req.body = sanitizeValue(req.body);
-  req.query = sanitizeValue(req.query) as Request["query"];
+
+  // Express 5 on Node.js 24+ defines req.query as a read-only getter,
+  // so direct assignment throws. Redefine it as a writable value instead.
+  try {
+    const sanitizedQuery = sanitizeValue(req.query) as Request["query"];
+    Object.defineProperty(req, "query", {
+      value: sanitizedQuery,
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    });
+  } catch {
+    // If redefinition fails, skip query sanitization gracefully
+  }
+
   next();
 }
