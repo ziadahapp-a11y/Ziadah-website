@@ -1,5 +1,8 @@
 /** قطاعات زيادة — محتوى عربي/إنجليزي لصفحات القطاعات */
 
+import { sectorPageRichBySlug } from "./sectorPageRich";
+import { sectorLearningOverrides } from "./sectorLearningOverrides";
+
 export type SectorPhaseCard = {
   emoji: string;
   titleAr: string;
@@ -1053,7 +1056,20 @@ export const sectors: SectorContent[] = [
 ];
 
 export function getSectorBySlug(slug: string): SectorContent | undefined {
-  return sectors.find((s) => s.slug === slug);
+  const base = sectors.find((s) => s.slug === slug);
+  if (!base) return undefined;
+  const ov = sectorLearningOverrides[slug];
+  const merged: SectorContent = { ...base, ...(ov ?? {}) };
+  const rich = sectorPageRichBySlug[slug];
+  if (rich) {
+    merged.taglineAr = rich.heroSubAr;
+    merged.taglineEn = rich.heroSubEn;
+    if (!ov?.seoDescAr) {
+      merged.seoDescAr = rich.heroSubAr;
+      merged.seoDescEn = rich.heroSubEn;
+    }
+  }
+  return merged;
 }
 
 export function getSectorSeoTitle(sector: SectorContent, lang: "ar" | "en"): string {

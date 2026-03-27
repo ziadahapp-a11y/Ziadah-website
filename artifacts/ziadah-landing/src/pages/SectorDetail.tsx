@@ -16,6 +16,8 @@ import LandingSolutionsMatrix from "@/components/LandingSolutionsMatrix";
 import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorHubPlaybook from "@/components/SectorHubPlaybook";
+import SectorPageRichSections from "@/components/SectorPageRichSections";
+import { getSectorPageRich } from "@/data/sectorPageRich";
 
 const SECTOR_SLUGS_WITH_PLATFORM_HUB = new Set(["delivery-apps", "ecommerce-platforms"]);
 
@@ -116,6 +118,7 @@ export default function SectorDetail() {
 
   const title = lang === "ar" ? sector.titleAr : sector.titleEn;
   const tagline = lang === "ar" ? sector.taglineAr : sector.taglineEn;
+  const pageRich = getSectorPageRich(sector.slug);
   const pageTitle = getSectorSeoTitle(sector, lang);
   const seoDesc = lang === "ar" ? sector.seoDescAr : sector.seoDescEn;
   const howTo = lang === "ar" ? sector.howToApplyAr : sector.howToApplyEn;
@@ -130,13 +133,30 @@ export default function SectorDetail() {
         { id: "sector-store-playbook", labelAr: t.ar.sectorsPage.sectorHubPlaybookNav, labelEn: t.en.sectorsPage.sectorHubPlaybookNav },
       ]
     : [];
+  const richQuick = pageRich
+    ? [
+        { id: "section-audience", labelAr: tr.sectorNavAudience, labelEn: t.en.sectorsPage.sectorNavAudience },
+        { id: "section-why", labelAr: tr.sectorNavWhy, labelEn: t.en.sectorsPage.sectorNavWhy },
+        { id: "sector-ai-context", labelAr: tr.sectorNavAi, labelEn: t.en.sectorsPage.sectorNavAi },
+      ]
+    : [];
+  const bottomRichQuick = pageRich
+    ? [
+        { id: "section-tracking", labelAr: tr.sectorNavTrack, labelEn: t.en.sectorsPage.sectorNavTrack },
+        { id: "section-analytics", labelAr: tr.sectorNavAnalytics, labelEn: t.en.sectorsPage.sectorNavAnalytics },
+        { id: "section-features", labelAr: tr.sectorNavFeatures, labelEn: t.en.sectorsPage.sectorNavFeatures },
+        { id: "section-sector-cta", labelAr: tr.sectorNavCta, labelEn: t.en.sectorsPage.sectorNavCta },
+      ]
+    : [];
   const quickSections = [
+    ...richQuick,
     ...hubQuick,
     { id: "section-how-to", labelAr: "التطبيق", labelEn: "Setup" },
     { id: "section-how-help", labelAr: "الحلول", labelEn: "Solutions" },
     { id: "section-examples", labelAr: "الأمثلة", labelEn: "Examples" },
     { id: "section-experience", labelAr: "التجربة", labelEn: "Experience" },
     { id: "section-best", labelAr: "أفضل الممارسات", labelEn: "Best Practices" },
+    ...bottomRichQuick,
   ] as const;
 
   const scrollToSection = (id: string) => {
@@ -207,12 +227,67 @@ export default function SectorDetail() {
           <div className="rv d1" style={{ fontSize: 52, marginTop: 12, marginBottom: 8 }}>
             {sector.icon}
           </div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(28px,3.5vw,40px)", marginTop: 0, marginBottom: 10 }}>
-            {title}
-          </h1>
-          <p className="ssub rv d2" style={{ margin: 0, fontSize: 17, fontWeight: 600, color: "var(--tm)", maxWidth: 560, textAlign: "center", lineHeight: 1.55 }}>
-            {tagline}
-          </p>
+          {pageRich ? (
+            <>
+              <div className="stag rv d1" style={{ display: "inline-flex", marginBottom: 6 }}>
+                <span className="stag-dot" />
+                {tr.sectorHeroSectorLabel}: {title}
+              </div>
+              <h1 className="st rv d1" style={{ fontSize: "clamp(28px,3.5vw,40px)", marginTop: 0, marginBottom: 10 }}>
+                {lang === "ar" ? pageRich.heroHeadlineAr : pageRich.heroHeadlineEn}
+              </h1>
+              <p className="ssub rv d2" style={{ margin: 0, fontSize: 17, fontWeight: 600, color: "var(--tm)", maxWidth: 620, textAlign: "center", lineHeight: 1.55 }}>
+                {lang === "ar" ? pageRich.heroSubAr : pageRich.heroSubEn}
+              </p>
+              <div
+                className="rv d2"
+                style={{
+                  marginTop: 22,
+                  width: "100%",
+                  maxWidth: 440,
+                  borderRadius: 20,
+                  border: "1px solid var(--b2)",
+                  background: "linear-gradient(165deg, rgba(124,58,237,.12), rgba(124,58,237,.03))",
+                  boxShadow: "0 12px 40px rgba(0,0,0,.08)",
+                  padding: "14px 16px 16px",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 12,
+                  direction: dir,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: "var(--p)", marginBottom: 8 }}>{tr.sectorPhoneOrders}</div>
+                  <div style={{ fontSize: 13, color: "var(--t)", lineHeight: 1.55, fontWeight: 600 }}>
+                    {pageRich.phoneOrders.map((line, i) => (
+                      <div key={i} style={{ marginBottom: 6 }}>
+                        {lang === "ar" ? line.ar : line.en}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: "var(--p)", marginBottom: 8 }}>{tr.sectorPhoneRecs}</div>
+                  <div style={{ fontSize: 13, color: "var(--t)", lineHeight: 1.55, fontWeight: 600 }}>
+                    {pageRich.phoneRecs.map((line, i) => (
+                      <div key={i} style={{ marginBottom: 6 }}>
+                        {lang === "ar" ? line.ar : line.en}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 className="st rv d1" style={{ fontSize: "clamp(28px,3.5vw,40px)", marginTop: 0, marginBottom: 10 }}>
+                {title}
+              </h1>
+              <p className="ssub rv d2" style={{ margin: 0, fontSize: 17, fontWeight: 600, color: "var(--tm)", maxWidth: 560, textAlign: "center", lineHeight: 1.55 }}>
+                {tagline}
+              </p>
+            </>
+          )}
           <div
             className="rv d2 sector-page-quicknav"
             style={{ marginTop: 18, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", maxWidth: 720 }}
@@ -254,6 +329,8 @@ export default function SectorDetail() {
             gap: 0,
           }}
         >
+          {pageRich ? <SectorPageRichSections rich={pageRich} part="top" /> : null}
+          {pageRich ? <SectorPageRichSections rich={pageRich} part="ai" /> : null}
           {showPlatformHub ? <SectorAiMlHighlights /> : null}
           <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
             {sector.useCardLayout && sector.howToPhaseCards?.length ? (
