@@ -348,11 +348,11 @@ export default function SectorDetail() {
             )}
           </SectionBlock>
 
-          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
+          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} sectorSlug={sector.slug} /> : null}
           {showPlatformHub && !visualBundle ? (
             <>
               <LandingSolutionsMatrix variant="sector" />
-              <WidgetsShowcaseSection variant="sector" />
+              <WidgetsShowcaseSection variant="sector" sectorSlug={sector.slug} />
             </>
           ) : null}
 
@@ -363,7 +363,7 @@ export default function SectorDetail() {
                 <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 4, marginTop: 0 }}>{tr.sectionExamples}</h2>
               </div>
               <div style={{ padding: "0 24px 26px" }}>
-                <SectorVisualExamples bundle={visualBundle} />
+                <SectorVisualExamples bundle={visualBundle} sectorSlug={sector.slug} />
               </div>
             </div>
           ) : null}

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 interface UseCaseWidgetPreviewProps {
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
   children: React.ReactNode;
 }
 

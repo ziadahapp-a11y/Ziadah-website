@@ -3,6 +3,8 @@ import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "@/components/PlatformModal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -13,6 +15,8 @@ function fmt(n: number, decimals = 0): string {
 
 interface SliderProps {
   label: string;
+  labelKey: "labelVisitors" | "labelConvRate" | "labelAOV";
+  lang: "ar" | "en";
   value: number;
   min: number;
   max: number;
@@ -23,12 +27,16 @@ interface SliderProps {
   colorRgb: string;
 }
 
-function HomeSlider({ label, value, min, max, step, onChange, display, color, colorRgb }: SliderProps) {
+function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, display, color, colorRgb }: SliderProps) {
   const pct = ((value - min) / (max - min)) * 100;
   return (
     <div className="hc-slider-row">
       <div className="hc-slider-header">
-        <span className="hc-slider-label">{label}</span>
+        <span className="hc-slider-label">
+          <Editable contentKey={cmsKey(lang, "homeCalculator", labelKey)} label={label} type="text">
+            {label}
+          </Editable>
+        </span>
         <span className="hc-slider-value" style={{ color, background: `rgba(${colorRgb},.12)`, border: `1px solid rgba(${colorRgb},.25)` }}>
           {display}
         </span>
@@ -88,6 +96,8 @@ export default function HomeCalculator() {
   const sliders: SliderProps[] = [
     {
       label: tr.labelVisitors,
+      labelKey: "labelVisitors",
+      lang,
       value: visitors,
       min: 1000,
       max: 500000,
@@ -99,6 +109,8 @@ export default function HomeCalculator() {
     },
     {
       label: tr.labelConvRate,
+      labelKey: "labelConvRate",
+      lang,
       value: convRate,
       min: 0.5,
       max: 15,
@@ -110,6 +122,8 @@ export default function HomeCalculator() {
     },
     {
       label: tr.labelAOV,
+      labelKey: "labelAOV",
+      lang,
       value: aov,
       min: 50,
       max: 5000,
@@ -128,42 +142,68 @@ export default function HomeCalculator() {
         <div className="tc" style={{ marginBottom: 48 }}>
           <div className="stag rv" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />
-            {tr.tag}
+            <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
+              {tr.tag}
+            </Editable>
           </div>
-          <h2 className="st rv d1 font-semibold">{tr.title}</h2>
-          <p className="ssub rv d2">{tr.subtitle}</p>
+          <h2 className="st rv d1 font-semibold">
+            <Editable contentKey={cmsKey(lang, "homeCalculator", "title")} label="Home calculator title" type="text">
+              {tr.title}
+            </Editable>
+          </h2>
+          <p className="ssub rv d2">
+            <Editable contentKey={cmsKey(lang, "homeCalculator", "subtitle")} label="Home calculator subtitle" type="text">
+              {tr.subtitle}
+            </Editable>
+          </p>
         </div>
 
         <div className="hc-card rv d2">
           <div className="hc-grid">
             <div className="hc-sliders">
               {sliders.map((s) => (
-                <HomeSlider key={s.label} {...s} />
+                <HomeSlider key={s.labelKey} {...s} />
               ))}
             </div>
 
             <div className="hc-result">
               <div className="hc-result-inner">
-                <div className="hc-result-label">{tr.resultLabel}</div>
+                <div className="hc-result-label">
+                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultLabel")} label="Result label" type="text">
+                    {tr.resultLabel}
+                  </Editable>
+                </div>
                 <div className="hc-result-amount">
                   {fmt(Math.round(addRevenue))}
-                  <span className="hc-result-currency">{tr.resultCurrency}</span>
+                  <span className="hc-result-currency">
+                    <Editable contentKey={cmsKey(lang, "homeCalculator", "resultCurrency")} label="Currency suffix" type="text">
+                      {tr.resultCurrency}
+                    </Editable>
+                  </span>
                 </div>
-                <div className="hc-result-note">{tr.resultNote}</div>
+                <div className="hc-result-note">
+                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultNote")} label="Result note" type="text">
+                    {tr.resultNote}
+                  </Editable>
+                </div>
                 <div className="hc-result-ctas">
                   <span
                     onClick={() => navigateTo("/calculator")}
                     className="hc-btn-primary"
                     style={{ cursor: "pointer" }}
                   >
-                    {tr.btnDetailed}
+                    <Editable contentKey={cmsKey(lang, "homeCalculator", "btnDetailed")} label="Detailed calculator CTA" type="text">
+                      {tr.btnDetailed}
+                    </Editable>
                   </span>
                   <button
                     type="button"
                     onClick={() => setModalOpen(true)}
                     className="hc-btn-secondary"
                   >
-                    {tr.btnStart}
+                    <Editable contentKey={cmsKey(lang, "homeCalculator", "btnStart")} label="Start CTA" type="text">
+                      {tr.btnStart}
+                    </Editable>
                   </button>
                 </div>
               </div>

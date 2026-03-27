@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useCmsAuth } from "@/cms/CmsAuthContext";
 import { useCmsEditor } from "@/cms/CmsEditorContext";
 
 type ToolbarPosition = {
@@ -12,8 +13,14 @@ const TOOLBAR_ESTIMATED_WIDTH = 320;
 const VIEWPORT_PADDING = 12;
 
 export function CmsFloatingEditableToolbar() {
+  const { user, loading } = useCmsAuth();
   const { editMode, activeEditable, panelOpen, openEditorFor, closeEditor } = useCmsEditor();
   const [position, setPosition] = useState<ToolbarPosition | null>(null);
+
+  const canEdit =
+    !loading &&
+    !!user &&
+    (user.role === "editor" || user.role === "super_admin");
 
   const targetElement = useMemo(() => {
     if (!activeEditable) return null;
@@ -52,7 +59,7 @@ export function CmsFloatingEditableToolbar() {
     };
   }, [editMode, activeEditable, targetElement]);
 
-  if (!editMode || !activeEditable || !position) {
+  if (!canEdit || !editMode || !activeEditable || !position) {
     return null;
   }
 

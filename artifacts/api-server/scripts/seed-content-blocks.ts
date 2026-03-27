@@ -12,6 +12,7 @@ import {
   categories as supportCategories,
   type FullArticle,
 } from "../../ziadah-landing/src/data/support-data.ts";
+import { sectorVisualsBySlug } from "../../ziadah-landing/src/data/sectorVisuals.ts";
 
 type BlockRow = {
   key: string;
@@ -137,6 +138,49 @@ function buildRows(): BlockRow[] {
         });
       }
     }
+  }
+
+  for (const [slug, bundle] of Object.entries(sectorVisualsBySlug)) {
+    bundle.scenarios.forEach((sc, i) => {
+      const entries: [string, string][] = [
+        [`ar.sectorVisual.${slug}.scenarios.${i}.title`, sc.titleAr],
+        [`en.sectorVisual.${slug}.scenarios.${i}.title`, sc.titleEn],
+        [`ar.sectorVisual.${slug}.scenarios.${i}.context`, sc.contextAr],
+        [`en.sectorVisual.${slug}.scenarios.${i}.context`, sc.contextEn],
+        [`ar.sectorVisual.${slug}.scenarios.${i}.widget`, sc.widgetAr],
+        [`en.sectorVisual.${slug}.scenarios.${i}.widget`, sc.widgetEn],
+        [`ar.sectorVisual.${slug}.scenarios.${i}.placement`, sc.placementAr],
+        [`en.sectorVisual.${slug}.scenarios.${i}.placement`, sc.placementEn],
+      ];
+      for (const [key, value] of entries) {
+        rows.push({
+          key,
+          value,
+          type: blockTypeForKey(key, value),
+          page: "sectorVisual",
+          section: slug.substring(0, 128),
+          label: key.substring(0, 512),
+        });
+      }
+    });
+    bundle.flow.forEach((step, i) => {
+      const entries: [string, string][] = [
+        [`ar.sectorVisual.${slug}.flow.${i}.title`, step.titleAr],
+        [`en.sectorVisual.${slug}.flow.${i}.title`, step.titleEn],
+        [`ar.sectorVisual.${slug}.flow.${i}.desc`, step.descAr],
+        [`en.sectorVisual.${slug}.flow.${i}.desc`, step.descEn],
+      ];
+      for (const [key, value] of entries) {
+        rows.push({
+          key,
+          value,
+          type: blockTypeForKey(key, value),
+          page: "sectorVisual",
+          section: slug.substring(0, 128),
+          label: key.substring(0, 512),
+        });
+      }
+    });
   }
 
   return rows;

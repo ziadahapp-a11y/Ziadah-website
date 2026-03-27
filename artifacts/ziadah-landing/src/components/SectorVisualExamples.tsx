@@ -1,6 +1,8 @@
 import { Fragment, useMemo, useState, type CSSProperties } from "react";
-import { useSiteT } from "@/cms/siteContent";
+import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
 import type { Translations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
@@ -289,13 +291,23 @@ function SectorScenarioWidgetShowcaseCard({
 export default function SectorVisualExamples({
   bundle,
   introVariant = "default",
+  sectorSlug = "",
 }: {
   bundle: SectorVisualBundle;
   introVariant?: "default" | "sector";
+  /** Sector id for `ar.sectorVisual.<slug>.*` content keys (from route). */
+  sectorSlug?: string;
 }) {
   const t = useSiteT();
+  const map = useSiteContentMap();
   const { lang, isAr, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
+  const svText = (parts: string[], fallback: string) => {
+    if (!sectorSlug) return fallback;
+    const k = cmsKey(lang, "sectorVisual", sectorSlug, ...parts);
+    const v = map[k];
+    return v !== undefined && v !== "" ? v : fallback;
+  };
   const [activeIndex, setActiveIndex] = useState(0);
   const safeIndex = Math.min(activeIndex, bundle.scenarios.length - 1);
   const activeScenario = bundle.scenarios[safeIndex];
@@ -317,7 +329,13 @@ export default function SectorVisualExamples({
     return (
       <div className="sector-viz-root sector-viz-root--widget-style">
         <p className="sector-viz-lead rv d1" style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
-          {tr.sectorHubExamplesEmbedSub}
+          <Editable contentKey={cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub")} label="Sector examples intro" type="text">
+            {(() => {
+              const k = cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub");
+              const v = map[k];
+              return v !== undefined && v !== "" ? v : tr.sectorHubExamplesEmbedSub;
+            })()}
+          </Editable>
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 28 }}>
           <DraggableMarqueeRow directionClass="marquee-rtl" duration="36s">
@@ -335,9 +353,33 @@ export default function SectorVisualExamples({
           <div className="shine" />
           <div style={{ padding: "var(--card-pad-lg)" }}>
             <div style={{ textAlign: "center", marginBottom: 28 }}>
-              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>{tr.sectionFlowTag}</div>
-              <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>{tr.sectionFlowTitle}</h3>
-              <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>{tr.sectionFlowSub}</p>
+              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>
+                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
+                  {(() => {
+                    const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
+                    const v = map[k];
+                    return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
+                  })()}
+                </Editable>
+              </div>
+              <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>
+                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
+                  {(() => {
+                    const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
+                    const v = map[k];
+                    return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
+                  })()}
+                </Editable>
+              </h3>
+              <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>
+                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
+                  {(() => {
+                    const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
+                    const v = map[k];
+                    return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
+                  })()}
+                </Editable>
+              </p>
             </div>
             <div className="sector-viz-flow-steps">
               {bundle.flow.map((step, i) => (
@@ -359,8 +401,24 @@ export default function SectorVisualExamples({
                     >
                       {step.icon}
                     </div>
-                    <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>{isAr ? step.titleAr : step.titleEn}</div>
-                    <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>{isAr ? step.descAr : step.descEn}</p>
+                    <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
+                      <Editable
+                        contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
+                        label={`Flow step ${i + 1} title`}
+                        type="text"
+                      >
+                        {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
+                      </Editable>
+                    </div>
+                    <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>
+                      <Editable
+                        contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
+                        label={`Flow step ${i + 1} description`}
+                        type="text"
+                      >
+                        {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
+                      </Editable>
+                    </p>
                   </div>
                   {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
                 </Fragment>
@@ -375,7 +433,13 @@ export default function SectorVisualExamples({
   return (
     <div className="sector-viz-root">
       <p className="sector-viz-lead rv d1" style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
-        {tr.sectionExamplesSub}
+        <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionExamplesSub")} label="Sector examples section lead" type="text">
+          {(() => {
+            const k = cmsKey(lang, "sectorsPage", "sectionExamplesSub");
+            const v = map[k];
+            return v !== undefined && v !== "" ? v : tr.sectionExamplesSub;
+          })()}
+        </Editable>
       </p>
 
       <div className="rv d1" style={{ marginBottom: 14, display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -398,7 +462,13 @@ export default function SectorVisualExamples({
                 cursor: "pointer",
               }}
             >
-              {isAr ? s.titleAr : s.titleEn}
+              <Editable
+                contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "scenarios", String(i), "title")}
+                label={`Scenario ${i + 1} title`}
+                type="text"
+              >
+                {svText(["scenarios", String(i), "title"], isAr ? s.titleAr : s.titleEn)}
+              </Editable>
             </button>
           );
         })}
@@ -484,7 +554,13 @@ export default function SectorVisualExamples({
                 <span style={{ fontSize: 20 }}>{s.suggested[0]?.emoji ?? "✨"}</span>
               </div>
               <div style={{ padding: "9px 10px", fontSize: 12, fontWeight: 700, color: isActive ? "var(--p3)" : "var(--tm)" }}>
-                {isAr ? s.widgetAr : s.widgetEn}
+                <Editable
+                  contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "scenarios", String(i), "widget")}
+                  label={`Scenario ${i + 1} widget label`}
+                  type="text"
+                >
+                  {svText(["scenarios", String(i), "widget"], isAr ? s.widgetAr : s.widgetEn)}
+                </Editable>
               </div>
             </button>
           );
@@ -495,9 +571,33 @@ export default function SectorVisualExamples({
         <div className="shine" />
         <div style={{ padding: "var(--card-pad-lg)" }}>
           <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>{tr.sectionFlowTag}</div>
-            <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>{tr.sectionFlowTitle}</h3>
-            <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>{tr.sectionFlowSub}</p>
+            <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
+                })()}
+              </Editable>
+            </div>
+            <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
+                })()}
+              </Editable>
+            </h3>
+            <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
+                })()}
+              </Editable>
+            </p>
           </div>
           <div className="sector-viz-flow-steps">
             {bundle.flow.map((step, i) => (
@@ -519,8 +619,24 @@ export default function SectorVisualExamples({
                   >
                     {step.icon}
                   </div>
-                  <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>{isAr ? step.titleAr : step.titleEn}</div>
-                  <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>{isAr ? step.descAr : step.descEn}</p>
+                  <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
+                    <Editable
+                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
+                      label={`Flow step ${i + 1} title`}
+                      type="text"
+                    >
+                      {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
+                    </Editable>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>
+                    <Editable
+                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
+                      label={`Flow step ${i + 1} description`}
+                      type="text"
+                    >
+                      {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
+                    </Editable>
+                  </p>
                 </div>
                 {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
               </Fragment>

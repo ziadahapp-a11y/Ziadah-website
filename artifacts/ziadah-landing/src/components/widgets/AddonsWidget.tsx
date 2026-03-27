@@ -1,18 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { AddonsDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function AddonsWidget() {
+export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.addons;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.addons, demo),
+    [t, lang, demo],
+  );
 
   const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
 
   useEffect(() => {
     setChecked(tr.items.map(item => item.checked));
-  }, [lang]);
+  }, [tr.items]);
 
   const toggle = (idx: number) => {
     setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
@@ -21,7 +28,18 @@ export default function AddonsWidget() {
   const total = tr.items.reduce((s, a, i) => checked[i] ? s + a.price : s, 0);
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "addons", "title")} label="Add-ons title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "addons", "subtitle")} label="Add-ons subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div style={{ marginBottom: 10 }}>
         <div
           style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}

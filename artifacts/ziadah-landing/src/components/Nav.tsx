@@ -877,7 +877,7 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
                   {tr.nav.home}
                 </Editable>
               </span>
@@ -886,7 +886,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
                     {tr.nav.useCases}
                   </Editable>{" "}
                   {chevron(openDrop === "usecases")}
@@ -906,7 +906,7 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
                   {tr.nav.successStories}
                 </Editable>
               </span>
@@ -915,7 +915,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors" || location === "/sectors" || location.startsWith("/sectors/"))}>
-                  <Editable contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
                     {tr.nav.sectors}
                   </Editable>{" "}
                   {chevron(openDrop === "sectors")}
@@ -927,7 +927,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
                     {tr.nav.platforms}
                   </Editable>{" "}
                   {chevron(openDrop === "platforms")}
@@ -946,7 +946,7 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--tm)"}
               >
-                <Editable contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
                   {tr.nav.pricing}
                 </Editable>
               </span>
@@ -963,7 +963,7 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
                   {lang === "en" ? "ROI" : tr.nav.calculator}
                 </Editable>
               </span>
@@ -972,7 +972,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
                     {tr.nav.help}
                   </Editable>{" "}
                   {chevron(openDrop === "help")}
@@ -989,12 +989,12 @@ export default function Nav() {
             <ThemeToggle />
             <LanguageSwitcher />
             <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
-              <Editable contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
+              <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
                 {tr.nav.bookMeeting}
               </Editable>
             </a>
             <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
-              <Editable contentKey={cmsKey(lang, "nav", "startNow")} label="Nav Start Now">
+              <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "startNow")} label="Nav Start Now">
                 {tr.nav.startNow}
               </Editable>
             </button>
@@ -1012,7 +1012,7 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
                   {tr.nav.home}
                 </Editable>
               </span>
@@ -1020,7 +1020,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases2")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
                     {tr.nav.useCases}
                   </Editable>{" "}
                   {chevron(openDrop === "usecases2")}
@@ -1036,7 +1036,7 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
                   {tr.nav.successStories}
                 </Editable>
               </span>
@@ -1044,7 +1044,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors2" || location === "/sectors" || location.startsWith("/sectors/"))}>
-                  <Editable contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
                     {tr.nav.sectors}
                   </Editable>{" "}
                   {chevron(openDrop === "sectors2")}
@@ -1055,7 +1055,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms2")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
                     {tr.nav.platforms}
                   </Editable>{" "}
                   {chevron(openDrop === "platforms2")}
@@ -1070,7 +1070,7 @@ export default function Nav() {
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
                   {tr.nav.pricing}
                 </Editable>
               </span>
@@ -1083,7 +1083,7 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
                   {tr.nav.calculator}
                 </Editable>
               </span>
@@ -1091,7 +1091,7 @@ export default function Nav() {
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help2")}>
-                  <Editable contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
                     {tr.nav.help}
                   </Editable>{" "}
                   {chevron(openDrop === "help2")}
@@ -1224,7 +1224,7 @@ export default function Nav() {
               >
                 {item.icon}
                 <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
-                  <Editable contentKey={item.cmsKey} label={item.label}>
+                  <Editable allowClickThrough contentKey={item.cmsKey} label={item.label}>
                     {item.label}
                   </Editable>
                 </span>

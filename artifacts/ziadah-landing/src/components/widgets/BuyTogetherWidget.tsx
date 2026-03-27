@@ -1,18 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { BuyTogetherDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function BuyTogetherWidget() {
+export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.buyTogether;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.buyTogether, demo),
+    [t, lang, demo],
+  );
 
   const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
 
   useEffect(() => {
     setChecked(tr.items.map(item => item.checked));
-  }, [lang]);
+  }, [tr.items]);
 
   const toggle = (idx: number) => {
     setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
@@ -21,7 +28,18 @@ export default function BuyTogetherWidget() {
   const total = tr.items.reduce((s, p, i) => checked[i] ? s + p.price : s, 0);
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "buyTogether", "title")} label="Buy together title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "buyTogether", "subtitle")} label="Buy together subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div style={{ marginBottom: 10 }}>
         <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import { useCmsAuth } from "@/cms/CmsAuthContext";
 import { useCmsEditor } from "@/cms/CmsEditorContext";
 import { useSiteContentMap, useSiteContentMutations } from "@/cms/siteContent";
 import { CmsApiError, cmsApi } from "@/cms/api";
@@ -28,6 +29,7 @@ function normalizeForType(value: string | boolean, type: string): string {
 }
 
 export function CmsInlineEditorPanel() {
+  const { user, loading } = useCmsAuth();
   const { panelOpen, activeEditable, closeEditor } = useCmsEditor();
   const contentMap = useSiteContentMap();
   const { patchSiteContent } = useSiteContentMutations();
@@ -56,7 +58,12 @@ export function CmsInlineEditorPanel() {
     }
   }, [activeEditable, contentKey, syncType, contentMap]);
 
-  if (!activeEditable) {
+  const canEdit =
+    !loading &&
+    !!user &&
+    (user.role === "editor" || user.role === "super_admin");
+
+  if (!canEdit || !activeEditable) {
     return null;
   }
 

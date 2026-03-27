@@ -68,6 +68,11 @@ export function navigateTo(path: string) {
   } else if (_directNavigate) {
     _directNavigate(path);
     window.scrollTo(0, 0);
+  } else if (typeof window !== "undefined") {
+    const rawBase = import.meta.env.BASE_URL || "/";
+    const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    window.location.assign(`${base}${normalized}`);
   }
 }
 

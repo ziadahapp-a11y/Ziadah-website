@@ -23,11 +23,15 @@ function getPageName(pathname: string): string {
 }
 
 export function CmsInlineToolbar() {
-  const { user, logout } = useCmsAuth();
+  const { user, logout, loading } = useCmsAuth();
   const { editMode, toggleEditMode } = useCmsEditor();
   const [loc, navigate] = useLangAwareLocation();
 
-  if (!user || (user.role !== "editor" && user.role !== "super_admin")) {
+  if (
+    loading ||
+    !user ||
+    (user.role !== "editor" && user.role !== "super_admin")
+  ) {
     return null;
   }
 

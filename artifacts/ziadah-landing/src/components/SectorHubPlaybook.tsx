@@ -1,12 +1,17 @@
 import type { CSSProperties } from "react";
 import LandingSolutionsMatrix from "@/components/LandingSolutionsMatrix";
-import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import type { SectorVisualBundle } from "@/data/sectorVisuals";
 
-export default function SectorHubPlaybook({ bundle }: { bundle: SectorVisualBundle }) {
+export default function SectorHubPlaybook({
+  bundle,
+  sectorSlug,
+}: {
+  bundle: SectorVisualBundle;
+  sectorSlug: string;
+}) {
   const { lang, dir } = useLanguage();
   const t = useSiteT();
   const tr = t[lang].sectorsPage;
@@ -60,9 +65,6 @@ export default function SectorHubPlaybook({ bundle }: { bundle: SectorVisualBund
           <button type="button" onClick={() => scrollTo("solutions-matrix")} style={chipStyle()}>
             {tr.sectorHubSubNavMatrix}
           </button>
-          <button type="button" onClick={() => scrollTo("widgets-showcase")} style={chipStyle()}>
-            {tr.sectorHubSubNavWidgets}
-          </button>
           <button type="button" onClick={() => scrollTo("section-examples")} style={chipStyle()}>
             {tr.sectorHubSubNavExamples}
           </button>
@@ -73,11 +75,9 @@ export default function SectorHubPlaybook({ bundle }: { bundle: SectorVisualBund
         <LandingSolutionsMatrix variant="sector" />
       </div>
 
-      <WidgetsShowcaseSection variant="sector" />
-
       <div id="section-examples" style={{ scrollMarginTop: 120, padding: "8px 24px 24px" }}>
         <h3 style={{ margin: "0 0 14px", fontSize: 17, fontWeight: 900, color: "var(--p)" }}>{tr.sectorHubExamplesEmbedTitle}</h3>
-        <SectorVisualExamples bundle={bundle} introVariant="sector" />
+        <SectorVisualExamples bundle={bundle} introVariant="sector" sectorSlug={sectorSlug} />
       </div>
     </section>
   );

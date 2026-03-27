@@ -6,6 +6,8 @@ type EditableProps = {
   contentKey: string;
   type?: EditableValueType;
   label?: string;
+  /** عند true: النقر العادي يصل للعنصر الأب (روابط/أزرار الناف). Shift+نقر يفتح المحرر. */
+  allowClickThrough?: boolean;
   children: ReactNode;
   className?: string;
 };
@@ -14,13 +16,17 @@ export function Editable({
   contentKey,
   type = "text",
   label,
+  allowClickThrough = false,
   children,
   className,
 }: EditableProps) {
-  const { user } = useCmsAuth();
+  const { user, loading } = useCmsAuth();
   const { editMode, activeEditable, openEditorFor } = useCmsEditor();
 
-  const canEdit = !!user && (user.role === "editor" || user.role === "super_admin");
+  const canEdit =
+    !loading &&
+    !!user &&
+    (user.role === "editor" || user.role === "super_admin");
   const active = canEdit && editMode;
   const isSelected = activeEditable?.contentKey === contentKey;
   const editableLabel = label ?? contentKey;
@@ -37,17 +43,28 @@ export function Editable({
     return <>{children}</>;
   }
 
+  const editHint = allowClickThrough ? "Shift+click to edit" : `Edit ${editableLabel}`;
+
   return (
     <span
       role="button"
       tabIndex={0}
-      aria-label={`Edit ${editableLabel}`}
+      aria-label={editHint}
+      title={allowClickThrough ? editHint : undefined}
       aria-pressed={isSelected}
       className={`cms-editable ${isSelected ? "is-active" : ""} ${className ?? ""}`.trim()}
       data-cms-key={contentKey}
       data-cms-label={editableLabel}
       data-cms-active={isSelected ? "true" : "false"}
       onClick={(e) => {
+        if (allowClickThrough) {
+          if (e.shiftKey) {
+            e.preventDefault();
+            e.stopPropagation();
+            openCurrentEditor();
+          }
+          return;
+        }
         e.preventDefault();
         e.stopPropagation();
         openCurrentEditor();

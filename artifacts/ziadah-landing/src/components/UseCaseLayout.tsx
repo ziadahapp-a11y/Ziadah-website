@@ -7,7 +7,9 @@ import SEO from "./SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
+import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
 
 export interface UseCaseHero {
   tag: string;
@@ -87,6 +89,16 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const ctaDesc = (isEn && data.ctaDescEn) ? data.ctaDescEn : data.ctaDesc;
   const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
 
+  const map = useSiteContentMap();
+  const slug =
+    data.seo?.canonical?.match(/\/use-cases\/([^/?#]+)/)?.[1] ?? "page";
+  const ucKey = (...parts: string[]) => cmsKey(lang, "useCasePage", slug, ...parts);
+  const cv = (parts: string[], fallback: string) => {
+    const key = ucKey(...parts);
+    const v = map[key];
+    return v !== undefined && v !== "" ? v : fallback;
+  };
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       (es) => { es.forEach((e) => { if (e.isIntersecting) e.target.classList.add("on"); }); },
@@ -125,17 +137,25 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot"/>
-          {hero.tag}
+          <Editable contentKey={ucKey("hero", "tag")} label="Use case hero tag" type="text">
+            {cv(["hero", "tag"], hero.tag)}
+          </Editable>
         </div>
         <div style={{ fontSize: "clamp(40px, 11vw, 72px)", marginTop: 12, marginBottom: 12, lineHeight: 1 }}>{hero.icon}</div>
         <h1 className="rv d1" style={{ fontSize: "clamp(36px,5vw,64px)", fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.05, marginBottom: 16 }}>
-          {hero.title}
+          <Editable contentKey={ucKey("hero", "title")} label="Use case title" type="text">
+            {cv(["hero", "title"], hero.title)}
+          </Editable>
         </h1>
         <p className="rv d2" style={{ fontSize: 18, color: "var(--tm)", maxWidth: 600, margin: "0 auto 20px", lineHeight: 1.8 }}>
-          {hero.subtitle}
+          <Editable contentKey={ucKey("hero", "subtitle")} label="Use case subtitle" type="text">
+            {cv(["hero", "subtitle"], hero.subtitle)}
+          </Editable>
         </p>
         <div className="rv d3" style={{ display: "inline-block", padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", color: "var(--p4)", fontSize: 15, fontWeight: 700, marginBottom: 48 }}>
-          {hero.tagline}
+          <Editable contentKey={ucKey("hero", "tagline")} label="Use case tagline" type="text">
+            {cv(["hero", "tagline"], hero.tagline)}
+          </Editable>
         </div>
       </section>
 
@@ -145,8 +165,16 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="gc rv uc-what-card" style={{ padding: "48px 52px" }}>
             <div className="shine"/>
             <div style={{ textAlign: "center", marginBottom: 0 }}>
-              <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>{whatWeDoTitle}</h2>
-              <p style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.85, maxWidth: 720, margin: "0 auto" }}>{whatWeDoDesc}</p>
+              <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>
+                <Editable contentKey={ucKey("whatWeDoTitle")} label="What we do title" type="text">
+                  {cv(["whatWeDoTitle"], whatWeDoTitle)}
+                </Editable>
+              </h2>
+              <p style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.85, maxWidth: 720, margin: "0 auto" }}>
+                <Editable contentKey={ucKey("whatWeDoDesc")} label="What we do description" type="text">
+                  {cv(["whatWeDoDesc"], whatWeDoDesc)}
+                </Editable>
+              </p>
             </div>
           </div>
         </div>
@@ -159,8 +187,16 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             {stats.map((s, i) => (
               <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-md)", textAlign: "center", minHeight: "100%" }}>
                 <div className="shine"/>
-                <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>{s.value}</div>
-                <div style={{ fontSize: 13, color: "var(--td)" }}>{s.label}</div>
+                <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>
+                  <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1} value`} type="text">
+                    {cv(["stats", String(i), "value"], s.value)}
+                  </Editable>
+                </div>
+                <div style={{ fontSize: 13, color: "var(--td)" }}>
+                  <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
+                    {cv(["stats", String(i), "label"], s.label)}
+                  </Editable>
+                </div>
               </div>
             ))}
           </div>
@@ -170,7 +206,11 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       {/* STRATEGIES */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>{strategyTitle}</h2>
+          <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>
+            <Editable contentKey={ucKey("strategyTitle")} label="Strategy section title" type="text">
+              {cv(["strategyTitle"], strategyTitle)}
+            </Editable>
+          </h2>
           <div className="uc-strategies-grid">
             {strategies.map((s, i) => (
               <div key={i} className={`gc gc-lift rv d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
@@ -179,9 +219,17 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                   <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(${hexToRgb(s.color)},.1)`, border: `1px solid rgba(${hexToRgb(s.color)},.22)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>
                     {s.icon}
                   </div>
-                  <h3 style={{ fontSize: 17, fontWeight: 800 }}>{s.title}</h3>
+                  <h3 style={{ fontSize: 17, fontWeight: 800 }}>
+                    <Editable contentKey={ucKey("strategies", String(i), "title")} label={`Strategy ${i + 1} title`} type="text">
+                      {cv(["strategies", String(i), "title"], s.title)}
+                    </Editable>
+                  </h3>
                 </div>
-                <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>{s.desc}</p>
+                <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
+                  <Editable contentKey={ucKey("strategies", String(i), "desc")} label={`Strategy ${i + 1} description`} type="text">
+                    {cv(["strategies", String(i), "desc"], s.desc)}
+                  </Editable>
+                </p>
               </div>
             ))}
           </div>
@@ -196,20 +244,38 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div className="shine"/>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.2)", color: "#06b6d4", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 20 }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 7px #06b6d4" }}/>
-                {tr.useCaseLayout.exampleLabel}
+                <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
+                  {(() => {
+                    const k = cmsKey(lang, "useCaseLayout", "exampleLabel");
+                    const v = map[k];
+                    return v !== undefined && v !== "" ? v : tr.useCaseLayout.exampleLabel;
+                  })()}
+                </Editable>
               </div>
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 28 }}>{exampleScenario.title}</h3>
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 28 }}>
+                <Editable contentKey={ucKey("exampleScenario", "title")} label="Example scenario title" type="text">
+                  {cv(["exampleScenario", "title"], exampleScenario.title)}
+                </Editable>
+              </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 {exampleScenario.steps.map((step, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                     <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
-                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>{step}</p>
+                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>
+                      <Editable contentKey={ucKey("exampleScenario", "steps", String(i))} label={`Example step ${i + 1}`} type="text">
+                        {cv(["exampleScenario", "steps", String(i)], step)}
+                      </Editable>
+                    </p>
                   </div>
                 ))}
               </div>
               <div style={{ marginTop: 28, padding: "18px 22px", background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.2)", borderRadius: 14, display: "flex", gap: 12, alignItems: "center" }}>
                 <span style={{ fontSize: 22 }}>✅</span>
-                <p style={{ fontSize: 15, color: "#10b981", fontWeight: 700 }}>{exampleScenario.result}</p>
+                <p style={{ fontSize: 15, color: "#10b981", fontWeight: 700 }}>
+                  <Editable contentKey={ucKey("exampleScenario", "result")} label="Example result" type="text">
+                    {cv(["exampleScenario", "result"], exampleScenario.result)}
+                  </Editable>
+                </p>
               </div>
             </div>
           </div>
@@ -223,11 +289,23 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <div className="gc rv" style={{ padding: "36px 48px" }}>
               <div className="shine"/>
               <div style={{ textAlign: "center", marginBottom: 24 }}>
-                <h3 style={{ fontSize: 20, fontWeight: 800 }}>{tr.useCaseLayout.availableIn}</h3>
+                <h3 style={{ fontSize: 20, fontWeight: 800 }}>
+                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "availableIn")} label="Available in plans" type="text">
+                    {(() => {
+                      const k = cmsKey(lang, "useCaseLayout", "availableIn");
+                      const v = map[k];
+                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.availableIn;
+                    })()}
+                  </Editable>
+                </h3>
               </div>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
                 {plans.map((plan, i) => (
-                  <div key={i} style={{ padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", fontSize: 14, fontWeight: 700, color: "var(--p4)" }}>{plan}</div>
+                  <div key={i} style={{ padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", fontSize: 14, fontWeight: 700, color: "var(--p4)" }}>
+                    <Editable contentKey={ucKey("plans", String(i))} label={`Plan ${i + 1}`} type="text">
+                      {cv(["plans", String(i)], plan)}
+                    </Editable>
+                  </div>
                 ))}
               </div>
             </div>
@@ -246,31 +324,65 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
                 <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 7px #a855f7" }}/>
-                {tr.useCaseLayout.reportsTag}
+                <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTag")} label="Reports tag" type="text">
+                  {(() => {
+                    const k = cmsKey(lang, "useCaseLayout", "reportsTag");
+                    const v = map[k];
+                    return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsTag;
+                  })()}
+                </Editable>
               </div>
             </div>
             <div className="uc-reports-inner" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 32, alignItems: "center" }}>
               <div>
                 <h3 style={{ fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 900, marginBottom: 12 }}>
-                  {tr.useCaseLayout.reportsTitle}
+                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTitle")} label="Reports title" type="text">
+                    {(() => {
+                      const k = cmsKey(lang, "useCaseLayout", "reportsTitle");
+                      const v = map[k];
+                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsTitle;
+                    })()}
+                  </Editable>
                 </h3>
                 <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.8, maxWidth: 600 }}>
-                  {tr.useCaseLayout.reportsDesc}
+                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsDesc")} label="Reports description" type="richtext">
+                    {(() => {
+                      const k = cmsKey(lang, "useCaseLayout", "reportsDesc");
+                      const v = map[k];
+                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsDesc;
+                    })()}
+                  </Editable>
                 </p>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
                 {[
-                  { icon: "📊", label: tr.useCaseLayout.campaignReports, sub: tr.useCaseLayout.campaignReportsSub, color: "#a855f7" },
-                  { icon: "📦", label: tr.useCaseLayout.productReports, sub: tr.useCaseLayout.productReportsSub, color: "#06b6d4" },
-                  { icon: "⚡", label: tr.useCaseLayout.liveData, sub: tr.useCaseLayout.liveDataSub, color: "#10b981" },
+                  { icon: "📊", label: tr.useCaseLayout.campaignReports, sub: tr.useCaseLayout.campaignReportsSub, color: "#a855f7", labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const },
+                  { icon: "📦", label: tr.useCaseLayout.productReports, sub: tr.useCaseLayout.productReportsSub, color: "#06b6d4", labelKey: "productReports" as const, subKey: "productReportsSub" as const },
+                  { icon: "⚡", label: tr.useCaseLayout.liveData, sub: tr.useCaseLayout.liveDataSub, color: "#10b981", labelKey: "liveData" as const, subKey: "liveDataSub" as const },
                 ].map((item, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, minWidth: 240 }}>
                     <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.2)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
                       {item.icon}
                     </div>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 800 }}>{item.label}</div>
-                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{item.sub}</div>
+                      <div style={{ fontSize: 13, fontWeight: 800 }}>
+                        <Editable contentKey={cmsKey(lang, "useCaseLayout", item.labelKey)} label={item.labelKey} type="text">
+                          {(() => {
+                            const k = cmsKey(lang, "useCaseLayout", item.labelKey);
+                            const v = map[k];
+                            return v !== undefined && v !== "" ? v : item.label;
+                          })()}
+                        </Editable>
+                      </div>
+                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>
+                        <Editable contentKey={cmsKey(lang, "useCaseLayout", item.subKey)} label={item.subKey} type="text">
+                          {(() => {
+                            const k = cmsKey(lang, "useCaseLayout", item.subKey);
+                            const v = map[k];
+                            return v !== undefined && v !== "" ? v : item.sub;
+                          })()}
+                        </Editable>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -285,18 +397,41 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
           <div className="shine"/>
           <div className="cta-glow"/>
-          <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>{ctaTitle}</h2>
-          <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{ctaDesc}</p>
+          <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>
+            <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
+              {cv(["ctaTitle"], ctaTitle)}
+            </Editable>
+          </h2>
+          <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>
+            <Editable contentKey={ucKey("ctaDesc")} label="CTA description" type="text">
+              {cv(["ctaDesc"], ctaDesc)}
+            </Editable>
+          </p>
           <div className="cta-btns">
             <button
               onClick={() => setPlatformModalOpen(true)}
               className="cta-btn cb-zid"
               style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
             >
-              <span>🚀</span> {tr.useCaseLayout.activateNow}
+              <span>🚀</span>{" "}
+              <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "useCaseLayout", "activateNow");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.useCaseLayout.activateNow;
+                })()}
+              </Editable>
             </button>
           </div>
-          <p className="cta-note">{tr.useCaseLayout.ctaNote}</p>
+          <p className="cta-note">
+            <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
+              {(() => {
+                const k = cmsKey(lang, "useCaseLayout", "ctaNote");
+                const v = map[k];
+                return v !== undefined && v !== "" ? v : tr.useCaseLayout.ctaNote;
+              })()}
+            </Editable>
+          </p>
         </div>
       </section>
     </div>

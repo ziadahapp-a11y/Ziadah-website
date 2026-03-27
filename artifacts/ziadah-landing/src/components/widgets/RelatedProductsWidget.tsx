@@ -1,14 +1,33 @@
+import { useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { RelatedProductsDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function RelatedProductsWidget() {
+export default function RelatedProductsWidget({ demo }: { demo?: RelatedProductsDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.relatedProducts;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.relatedProducts, demo),
+    [t, lang, demo],
+  );
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "relatedProducts", "title")} label="Related products title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "relatedProducts", "subtitle")} label="Related products subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div style={{ marginBottom: 10 }}>
         <div
           style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}

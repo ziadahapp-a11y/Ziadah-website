@@ -2,10 +2,12 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
+import { useCmsAuth } from "./CmsAuthContext";
 
 export type EditableValueType =
   | "text"
@@ -33,13 +35,38 @@ type CmsEditorState = {
 
 const CmsEditorContext = createContext<CmsEditorState | null>(null);
 
+function CmsEditorSessionGuard({ children }: { children: ReactNode }) {
+  const { user, loading } = useCmsAuth();
+  const { editMode, setEditMode, closeEditor } = useCmsEditor();
+
+  useEffect(() => {
+    if (loading) return;
+    const canEdit =
+      !!user && (user.role === "editor" || user.role === "super_admin");
+    if (!canEdit && editMode) {
+      closeEditor();
+      setEditMode(false);
+    }
+  }, [loading, user, editMode, setEditMode, closeEditor]);
+
+  return <>{children}</>;
+}
+
 export function CmsEditorProvider({ children }: { children: ReactNode }) {
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditModeState] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [activeEditable, setActiveEditable] = useState<ActiveEditable | null>(null);
 
+  const setEditMode = useCallback((next: boolean) => {
+    setEditModeState(next);
+    if (!next) {
+      setPanelOpen(false);
+      setActiveEditable(null);
+    }
+  }, []);
+
   const toggleEditMode = useCallback(() => {
-    setEditMode((prev) => {
+    setEditModeState((prev) => {
       const next = !prev;
       if (!next) {
         setPanelOpen(false);
@@ -69,11 +96,13 @@ export function CmsEditorProvider({ children }: { children: ReactNode }) {
       openEditorFor,
       closeEditor,
     }),
-    [editMode, panelOpen, activeEditable, toggleEditMode, openEditorFor, closeEditor],
+    [editMode, panelOpen, activeEditable, setEditMode, toggleEditMode, openEditorFor, closeEditor],
   );
 
   return (
-    <CmsEditorContext.Provider value={value}>{children}</CmsEditorContext.Provider>
+    <CmsEditorContext.Provider value={value}>
+      <CmsEditorSessionGuard>{children}</CmsEditorSessionGuard>
+    </CmsEditorContext.Provider>
   );
 }
 

@@ -32,6 +32,7 @@ export function CmsAuthProvider({ children }: { children: ReactNode }) {
     if (!t) {
       setUser(null);
       setToken(null);
+      setError(null);
       return;
     }
     setToken(t);
@@ -41,10 +42,17 @@ export function CmsAuthProvider({ children }: { children: ReactNode }) {
       setError(null);
     } catch (e) {
       setUser(null);
-      setStoredToken(null);
-      setToken(null);
       if (e instanceof CmsApiError && e.status === 401) {
+        setStoredToken(null);
+        setToken(null);
         setError(null);
+      } else {
+        setToken(t);
+        setError(
+          e instanceof CmsApiError
+            ? e.message
+            : "Could not verify your session. Check your connection and try again.",
+        );
       }
     }
   }, []);
@@ -52,7 +60,8 @@ export function CmsAuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      if (!getStoredToken()) {
+      const stored = getStoredToken();
+      if (!stored) {
         if (!cancelled) {
           setLoading(false);
         }
@@ -62,12 +71,24 @@ export function CmsAuthProvider({ children }: { children: ReactNode }) {
         const me = await cmsApi.me();
         if (!cancelled) {
           setUser(me);
+          setToken(stored);
+          setError(null);
         }
-      } catch {
-        if (!cancelled) {
+      } catch (e) {
+        if (cancelled) return;
+        if (e instanceof CmsApiError && e.status === 401) {
           setStoredToken(null);
           setUser(null);
           setToken(null);
+          setError(null);
+        } else {
+          setUser(null);
+          setToken(stored);
+          setError(
+            e instanceof CmsApiError
+              ? e.message
+              : "Could not verify your session. Check your connection and try again.",
+          );
         }
       } finally {
         if (!cancelled) setLoading(false);

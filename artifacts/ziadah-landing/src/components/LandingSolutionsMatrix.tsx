@@ -15,6 +15,8 @@ function MatrixGroupPanel({
   lang,
   dir,
   hubCtaLabel,
+  /** `true` للصفحة الرئيسية فقط (`.rv`). وضع القطاع بدون `rv` لأن تبديل التبويب يعيد تركيب اللوحة ولا يُعاد تسجيلها في مراقب SectorDetail */
+  animateReveal,
 }: {
   group: SolutionMatrixGroup;
   showBlurbs: boolean;
@@ -22,9 +24,10 @@ function MatrixGroupPanel({
   lang: "ar" | "en";
   dir: "rtl" | "ltr";
   hubCtaLabel: string;
+  animateReveal?: boolean;
 }) {
   return (
-    <div className="gc rv" style={{ padding: 0, overflow: "hidden" }}>
+    <div className={animateReveal ? "gc rv" : "gc"} style={{ padding: 0, overflow: "hidden" }}>
       <div className="shine" />
       <div
         style={{
@@ -278,6 +281,7 @@ export default function LandingSolutionsMatrix({ variant = "landing" }: { varian
                 lang={langKey}
                 dir={dir}
                 hubCtaLabel={lr.solutionsMatrixHubCta}
+                animateReveal
               />
             ))}
           </div>

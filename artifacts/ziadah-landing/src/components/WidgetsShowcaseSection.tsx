@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
 import BuyMoreSaveMoreWidget from "@/components/widgets/BuyMoreSaveMoreWidget";
 import BuyTogetherWidget from "@/components/widgets/BuyTogetherWidget";
@@ -8,28 +9,41 @@ import FreeShippingThresholdWidget from "@/components/widgets/FreeShippingThresh
 import ProductSwapWidget from "@/components/widgets/ProductSwapWidget";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
 
 /**
  * نفس قسم الصفحة الرئيسية (#widgets-showcase) — معاينات الويدجت المتحركة.
  * `variant="sector"`: ترويسة أقصر ومسافات مناسبة داخل صفحة القطاع.
  */
-export default function WidgetsShowcaseSection({ variant = "landing" }: { variant?: "landing" | "sector" }) {
+export default function WidgetsShowcaseSection({
+  variant = "landing",
+  sectorSlug,
+}: {
+  variant?: "landing" | "sector";
+  /** When set with `variant="sector"`, widget previews use sector-themed demo products. */
+  sectorSlug?: string;
+}) {
   const { lang, dir } = useLanguage();
   const t = useSiteT();
   const tr = t[lang];
   const sectorTr = tr.sectorsPage;
   const showSectorEmbed = variant === "sector";
 
+  const sectorDemos = useMemo(
+    () => (showSectorEmbed ? getSectorWidgetShowcaseDemos(sectorSlug, lang) : undefined),
+    [showSectorEmbed, sectorSlug, lang],
+  );
+
   const widgetIcons = ["📦", "🤝", "➕", "🔎", "🏷️", "🚚", "⬆️"];
   const widgetRgbs = ["168,85,247", "6,182,212", "16,185,129", "245,158,11", "236,72,153", "124,58,237", "79,70,229"];
   const widgetComponents = [
-    <BuyMoreSaveMoreWidget />,
-    <BuyTogetherWidget />,
-    <AddonsWidget />,
-    <RelatedProductsWidget />,
-    <CouponWidget />,
-    <FreeShippingThresholdWidget />,
-    <ProductSwapWidget />,
+    <BuyMoreSaveMoreWidget key="bmsm" demo={sectorDemos?.buyMoreSaveMore} />,
+    <BuyTogetherWidget key="bt" demo={sectorDemos?.buyTogether} />,
+    <AddonsWidget key="ad" demo={sectorDemos?.addons} />,
+    <RelatedProductsWidget key="rp" demo={sectorDemos?.relatedProducts} />,
+    <CouponWidget key="cp" demo={sectorDemos?.coupon} />,
+    <FreeShippingThresholdWidget key="fs" demo={sectorDemos?.freeShipping} />,
+    <ProductSwapWidget key="ps" demo={sectorDemos?.productSwap} />,
   ];
   const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
   const allWidgets = wLabels.map((wl, idx) => ({

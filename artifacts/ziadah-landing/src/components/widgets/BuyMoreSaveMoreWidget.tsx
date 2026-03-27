@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { BuyMoreSaveMoreDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function BuyMoreSaveMoreWidget() {
+export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMoreDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.buyMoreSaveMore;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.buyMoreSaveMore, demo),
+    [t, lang, demo],
+  );
 
   const [selected, setSelected] = useState(1);
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "buyMoreSaveMore", "title")} label="Buy more save more title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "buyMoreSaveMore", "subtitle")} label="Buy more save more subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div style={{ marginBottom: 12 }}>
         <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 8 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>

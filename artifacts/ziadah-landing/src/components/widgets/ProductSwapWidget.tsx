@@ -1,14 +1,34 @@
+import { useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { ProductSwapDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function ProductSwapWidget() {
+export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.productSwap;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.productSwap, demo),
+    [t, lang, demo],
+  );
+  const productEmoji = (tr as { productEmoji?: string }).productEmoji ?? "🎧";
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "title")} label="Product swap title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "subtitle")} label="Product swap subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div>
         <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{
@@ -44,7 +64,7 @@ export default function ProductSwapWidget() {
               justifyContent: "center",
               fontSize: 28,
               flexShrink: 0,
-            }}>🎧</div>
+            }}>{productEmoji}</div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{tr.productName}</div>
               <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>{tr.reviews}</div>

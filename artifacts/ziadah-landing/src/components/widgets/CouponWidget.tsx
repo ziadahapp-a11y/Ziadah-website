@@ -1,14 +1,33 @@
+import { useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Editable } from "@/cms/components/Editable";
+import { cmsKey } from "@/cms/cmsKeys";
+import type { CouponDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 
-export default function CouponWidget() {
+export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const tr = t[lang].widgets.coupon;
+  const tr = useMemo(
+    () => mergeShowcaseDemo(t[lang].widgets.coupon, demo),
+    [t, lang, demo],
+  );
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
+    <UseCaseWidgetPreview
+      title={
+        <Editable contentKey={cmsKey(lang, "widgets", "coupon", "title")} label="Coupon title" type="text">
+          {tr.title}
+        </Editable>
+      }
+      subtitle={
+        <Editable contentKey={cmsKey(lang, "widgets", "coupon", "subtitle")} label="Coupon subtitle" type="text">
+          {tr.subtitle}
+        </Editable>
+      }
+    >
       <div style={{ textAlign: "center", marginBottom: 14 }}>
         <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 12 }}>{tr.descLabel}</div>
         <div style={{

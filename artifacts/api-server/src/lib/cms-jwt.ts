@@ -6,7 +6,8 @@ export type CmsJwtPayload = {
   role: "super_admin" | "editor" | "viewer";
 };
 
-const JWT_EXPIRES = "8h" as const;
+/** Long-lived session for CMS editors (e.g. Replit / SPA use without hourly re-login). */
+const JWT_EXPIRES = "30d" as const;
 
 export function getJwtSecret(): string {
   const secret = process.env["JWT_SECRET"];
