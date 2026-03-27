@@ -18,6 +18,8 @@ interface ClickOrigin {
 }
 
 let _triggerTransition: ((path: string) => void) | null = null;
+/** تنقّل مباشر من الراوتر — يُستخدم عندما لا يكون انتقال الصفحة جاهزاً أو أثناء انتقال عالق */
+let _directNavigate: ((path: string) => void) | null = null;
 let _lastClickX = 0;
 let _lastClickY = 0;
 
@@ -64,6 +66,7 @@ const ROUTE_PRELOADS: Record<string, () => Promise<unknown>> = {
   "/use-cases/more-cart-items": () => import("@/pages/use-cases/MoreCartItems"),
   "/use-cases/free-shipping": () => import("@/pages/use-cases/FreeShippingDisplay"),
   "/use-cases/discount-coupon": () => import("@/pages/use-cases/DiscountCoupon"),
+  "/sectors": () => import("@/pages/Sectors"),
 };
 
 function preloadRoute(path: string) {
@@ -76,11 +79,15 @@ function preloadRoute(path: string) {
   }
   if (raw.startsWith("/blog/") && raw !== "/blog") void import("@/pages/BlogPost");
   else if (raw.startsWith("/support/article/")) void import("@/pages/SupportArticle");
+  else if (raw.startsWith("/sectors/") && raw !== "/sectors") void import("@/pages/SectorDetail");
 }
 
 export function navigateTo(path: string) {
   if (_triggerTransition) {
     _triggerTransition(path);
+  } else if (_directNavigate) {
+    _directNavigate(path);
+    window.scrollTo(0, 0);
   }
 }
 
@@ -182,7 +189,12 @@ export default function PageTransition({ children }: { children: React.ReactNode
 
   const triggerTransition = useCallback(
     (path: string) => {
-      if (isTransitioning.current) return;
+      /** إن كان انتقالاً قيد التنفيذ، نُكمِل بالتنقّل المباشر وإلا يُلغى النقر بلا أثر */
+      if (isTransitioning.current) {
+        navigate(path);
+        window.scrollTo(0, 0);
+        return;
+      }
 
       if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         navigate(path);
@@ -231,10 +243,12 @@ export default function PageTransition({ children }: { children: React.ReactNode
 
   useEffect(() => {
     _triggerTransition = triggerTransition;
+    _directNavigate = navigate;
     return () => {
       _triggerTransition = null;
+      _directNavigate = null;
     };
-  }, [triggerTransition]);
+  }, [triggerTransition, navigate]);
 
   useEffect(() => {
     if (phase === "idle" || phase === "zoom-in") {

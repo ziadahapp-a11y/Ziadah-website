@@ -6,6 +6,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
+import { sectors } from "@/data/sectors";
 import PlatformModal from "./PlatformModal";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 
@@ -386,6 +387,76 @@ function HelpDropdown() {
             <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
             <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
           </div>
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function SectorsDropdown() {
+  const { lang } = useLanguage();
+  const { theme } = useTheme();
+  const lt = theme === "light";
+  const allSectorsLabel = lang === "ar" ? "كل القطاعات" : "All Sectors";
+
+  return (
+    <div style={{
+      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 280,
+      maxHeight: 420, overflowY: "auto",
+      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
+      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+    }}>
+      <span
+        role="button"
+        tabIndex={0}
+        onClick={() => navigateTo("/sectors")}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            navigateTo("/sectors");
+          }
+        }}
+        style={{
+          display: "block",
+          padding: "10px 14px",
+          borderRadius: 12,
+          color: "var(--p)",
+          fontSize: 14,
+          fontWeight: 700,
+          cursor: "pointer",
+          transition: "background .2s",
+        }}
+        onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+        onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+      >
+        {allSectorsLabel}
+      </span>
+      <div style={{ height: 1, background: "var(--b2)", margin: "6px 8px" }} />
+      {sectors.map((sector) => (
+        <span
+          key={sector.slug}
+          role="button"
+          tabIndex={0}
+          onClick={() => navigateTo(`/sectors/${sector.slug}`)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              navigateTo(`/sectors/${sector.slug}`);
+            }
+          }}
+          style={{
+            display: "flex", alignItems: "center", gap: 10,
+            padding: "10px 14px", borderRadius: 12,
+            color: "var(--t)", fontSize: 14, fontWeight: 500,
+            cursor: "pointer", transition: "background .2s",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+        >
+          <span style={{ fontSize: 17, lineHeight: 1 }}>{sector.icon}</span>
+          <span>{lang === "ar" ? sector.titleAr : sector.titleEn}</span>
         </span>
       ))}
     </div>
@@ -801,18 +872,12 @@ export default function Nav() {
             </li>
 
             <li>
-              <span onClick={() => navigateTo("/sectors")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/sectors" || location.startsWith("/sectors/") ? "var(--t)" : "var(--tm)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/sectors" || location.startsWith("/sectors/") ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer",
-              }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
-                onMouseLeave={e => { if (location !== "/sectors" && !location.startsWith("/sectors/")) (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
-              >
-                {tr.nav.sectors}
-              </span>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("sectors")} onHoverEnd={handleHoverEnd}>
+                <button type="button" style={navBtnStyle(openDrop === "sectors" || location === "/sectors" || location.startsWith("/sectors/"))}>
+                  {tr.nav.sectors} {chevron(openDrop === "sectors")}
+                </button>
+                {openDrop === "sectors" && <SectorsDropdown />}
+              </DropdownWrapper>
             </li>
 
             <li>
@@ -908,15 +973,12 @@ export default function Nav() {
               </span>
             </li>
             <li>
-              <span onClick={() => navigateTo("/sectors")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
-                color: location === "/sectors" || location.startsWith("/sectors/") ? "var(--t)" : "var(--tm)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/sectors" || location.startsWith("/sectors/") ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer",
-              }}>
-                {tr.nav.sectors}
-              </span>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("sectors2")} onHoverEnd={handleHoverEnd}>
+                <button type="button" style={navBtnStyle(openDrop === "sectors2" || location === "/sectors" || location.startsWith("/sectors/"))}>
+                  {tr.nav.sectors} {chevron(openDrop === "sectors2")}
+                </button>
+                {openDrop === "sectors2" && <SectorsDropdown />}
+              </DropdownWrapper>
             </li>
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>

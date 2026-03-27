@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
@@ -144,55 +143,55 @@ export default function Support() {
             )}
           </div>
         )}
-
-        <div className="rv d4" style={{ maxWidth: 640, margin: "32px auto 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12, textAlign: isAr ? "right" : "left" }}>
-          <a
-            href="mailto:support@ziadah.app"
-            className="gc"
-            style={{
-              display: "flex", alignItems: "flex-start", gap: 14, padding: "var(--card-pad-sm)",
-              textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
-          >
-            <div className="shine"/>
-            <span style={{ color: "var(--p4)", flexShrink: 0, marginTop: 2 }}>
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
-            </span>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.email}</div>
-              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 4, lineHeight: 1.5 }}>{navTr.emailSub}</div>
-            </div>
-          </a>
-          <button
-            type="button"
-            onClick={() => setFeatureModalOpen(true)}
-            className="gc"
-            style={{
-              display: "flex", alignItems: "flex-start", gap: 14, padding: "var(--card-pad-sm)",
-              color: "var(--t)", transition: "all .25s", minHeight: "100%",
-              cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", background: "var(--s1)", borderRadius: "var(--r)", textAlign: "inherit",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
-          >
-            <div className="shine"/>
-            <span style={{ color: "var(--p4)", flexShrink: 0, marginTop: 2 }}>
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
-            </span>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.featureRequest}</div>
-              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 4, lineHeight: 1.5 }}>{navTr.featureRequestSub}</div>
-            </div>
-          </button>
-        </div>
       </section>
 
       {/* ─── QUICK LINKS ─── */}
       <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 64px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <h2 className="rv" style={{ fontSize: "clamp(17px, 2vw, 20px)", fontWeight: 800, margin: "0 0 18px", color: "var(--t)", letterSpacing: "-0.3px", textAlign: isAr ? "right" : "left", lineHeight: 1.35 }}>
+            {tx.contactSupport}
+          </h2>
           <div className="rv support-cards-grid">
+            <a
+              href="mailto:support@ziadah.app"
+              className="gc support-card-priority"
+              style={{
+                display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)",
+                textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.12)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.32)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+            >
+              <div className="shine"/>
+              <span className="support-card-icon-wrap" aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
+              </span>
+              <div style={{ flex: 1, minWidth: 0, textAlign: isAr ? "right" : "left" }}>
+                <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.email}</div>
+                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3, lineHeight: 1.55 }}>{navTr.emailSub}</div>
+              </div>
+            </a>
+            <button
+              type="button"
+              onClick={() => setFeatureModalOpen(true)}
+              className="gc support-card-priority"
+              style={{
+                display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)",
+                color: "var(--t)", transition: "all .25s", minHeight: "100%",
+                cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", borderRadius: "var(--r)", textAlign: "inherit",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.12)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.32)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+            >
+              <div className="shine"/>
+              <span className="support-card-icon-wrap" aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
+              </span>
+              <div style={{ flex: 1, minWidth: 0, textAlign: isAr ? "right" : "left" }}>
+                <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.featureRequest}</div>
+                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3, lineHeight: 1.55 }}>{navTr.featureRequestSub}</div>
+              </div>
+            </button>
             {quickLinks.map(l => (
               <a key={l.label} href={l.href} target={l.ext ? "_blank" : undefined} rel="noreferrer"
                 className="gc"
@@ -201,8 +200,8 @@ export default function Support() {
                 onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
               >
                 <div className="shine"/>
-                <span style={{ fontSize: 24, lineHeight: 1 }}>{l.icon}</span>
-                <div>
+                <span style={{ fontSize: 24, lineHeight: 1, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{l.icon}</span>
+                <div style={{ flex: 1, minWidth: 0, textAlign: isAr ? "right" : "left" }}>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>{l.label}</div>
                   <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{l.desc}</div>
                 </div>

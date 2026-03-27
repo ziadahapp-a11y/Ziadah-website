@@ -19,7 +19,7 @@ import { useSiteT } from "@/cms/siteContent";
 import { useTheme } from "@/ThemeContext";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
-import { navigateTo } from "@/components/PageTransition";
+import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 
 /** عيّنة مختصرة للصفحة الرئيسية — التنويع يمثّل أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
@@ -104,6 +104,7 @@ export default function Landing() {
   const { lang, dir } = useLanguage();
   const t = useSiteT();
   const tr = t[lang];
+  const [, goRoute] = useLangAwareLocation();
   const { theme } = useTheme();
   const isLight = theme === "light";
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
@@ -550,7 +551,15 @@ export default function Landing() {
           </div>
         </section>
         {/* SECTORS — مختصر بعد «كيف تعمل؟»: يجيب «هل يناسب مجالي؟» قبل أمثلة الويدجت */}
-        <section id="sectors" style={{ position: "relative", zIndex: 2, padding: "52px 0 64px" }}>
+        <section
+          id="sectors"
+          style={{
+            position: "relative",
+            zIndex: 4,
+            padding: "52px 0 64px",
+            pointerEvents: "auto",
+          }}
+        >
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 28 }}>
               <SecTag>{tr.landing.sectorsTag}</SecTag>
@@ -560,13 +569,14 @@ export default function Landing() {
               </p>
             </div>
             <div
-              className="rv d2"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
                 gap: 12,
                 maxWidth: 720,
                 margin: "0 auto 24px",
+                position: "relative",
+                zIndex: 1,
               }}
             >
               {SECTOR_TEASER_SLUGS.map((slug) => sectors.find((s) => s.slug === slug))
@@ -577,8 +587,7 @@ export default function Landing() {
                     <button
                       key={sec!.slug}
                       type="button"
-                      onClick={() => navigateTo(`/sectors/${sec!.slug}`)}
-                      className={`rv d${(i % 3) + 1}`}
+                      onClick={() => goRoute(`/sectors/${sec!.slug}`)}
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -592,6 +601,7 @@ export default function Landing() {
                         color: "var(--t)",
                         textAlign: dir === "rtl" ? "right" : "left",
                         transition: "background .2s, border-color .2s",
+                        pointerEvents: "auto",
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.background = "rgba(124,58,237,.08)";
@@ -608,12 +618,12 @@ export default function Landing() {
                   );
                 })}
             </div>
-            <div className="tc rv d3">
+            <div className="tc" style={{ position: "relative", zIndex: 1 }}>
               <button
                 type="button"
-                onClick={() => navigateTo("/sectors")}
+                onClick={() => goRoute("/sectors")}
                 className="btn-p"
-                style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none" }}
+                style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none", pointerEvents: "auto" }}
               >
                 {tr.landing.sectorsCta}
               </button>
