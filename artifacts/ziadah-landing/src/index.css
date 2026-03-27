@@ -332,7 +332,8 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
 .demo-sp{font-size:13px;font-weight:800;color:var(--p3);white-space:nowrap;flex-shrink:0;}
 
 /* ── GOALS + PRESENTATIONS ── */
-.gp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));gap:var(--card-gap);align-items:stretch;}
+.gp-grid{display:grid;grid-template-columns:repeat(2,1fr);flex-wrap:wrap;gap:var(--card-gap);align-items:stretch;}
+.gp-grid .gc{width:100%;}
 .gp-card{padding:var(--card-pad-lg);}
 .gp-hd{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
 .gp-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
