@@ -300,7 +300,7 @@ export default function Landing() {
                 className="btn-p"
                 style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
               >
-                {tr.landing.ctaPrimary}
+                Actiacte now
               </button>
               <a href="#hiw" className="btn-g">
                 {lang === "ar" ? staticT.ar.landing.ctaSecondary : tr.landing.ctaSecondary}
