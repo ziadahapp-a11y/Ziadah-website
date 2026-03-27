@@ -132,7 +132,7 @@ export const sectors: SectorContent[] = [
     seoDescAr: "زيادة للكتب الإلكترونية، الدورات، والتراخيص: تسليم فوري وتوصيات ذكية.",
     seoDescEn: "Ziadah for ebooks, courses, and licenses: instant delivery and smart bundles.",
     howToApplyAr: [
-      "صنّف المنتجات الرقمية بمستوى (مبتئئ، متوسط، احترافي) لربط المسار التعليمي.",
+      "صنّف المنتجات الرقمية بمستوى (مبتدئ، متوسط، احترافي) لربط المسار التعليمي.",
       "استخدم صفحة الشكر لعرض منتج رقمي تكميلي بعد الشراء.",
     ],
     howToApplyEn: [
