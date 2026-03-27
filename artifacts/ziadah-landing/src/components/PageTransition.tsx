@@ -1,41 +1,17 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useLocation } from "wouter";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 
-/** أنيميشن خفيف (translate + scale بسيط) + مدة أوطى = أقل ضغط على GPU من zoom كبير */
-const EXIT_MS = 260;
-const ENTER_MS = 300;
-const EXIT_EASE = "cubic-bezier(0.4, 0, 0.68, 0.38)";
-const ENTER_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-
+const NAV_GUARD_MS = 180;
 const HASH_POLL_BUFFER_MS = 120;
-
-type TransitionPhase = "idle" | "zoom-out" | "zoom-in";
-
-interface ClickOrigin {
-  xPct: string;
-  yPx: number;
-}
 
 let _triggerTransition: ((path: string) => void) | null = null;
 /** تنقّل مباشر من الراوتر — يُستخدم عندما لا يكون انتقال الصفحة جاهزاً أو أثناء انتقال عالق */
 let _directNavigate: ((path: string) => void) | null = null;
-let _lastClickX = 0;
-let _lastClickY = 0;
-
-if (typeof window !== "undefined") {
-  window.addEventListener(
-    "click",
-    (e) => {
-      _lastClickX = e.clientX;
-      _lastClickY = e.clientY;
-    },
-    true
-  );
-}
 
 /** يبدأ تحميل شُرَح الصفحة مبكراً أثناء خروج الصفحة الحالية (يقلّل وميض Suspense) */
 const ROUTE_PRELOADS: Record<string, () => Promise<unknown>> = {
+  "/": () => import("@/pages/Landing"),
   "/success-stories": () => import("@/pages/SuccessStories"),
   "/support": () => import("@/pages/Support"),
   "/features": () => import("@/pages/Features"),
@@ -66,12 +42,16 @@ const ROUTE_PRELOADS: Record<string, () => Promise<unknown>> = {
   "/use-cases/more-cart-items": () => import("@/pages/use-cases/MoreCartItems"),
   "/use-cases/free-shipping": () => import("@/pages/use-cases/FreeShippingDisplay"),
   "/use-cases/discount-coupon": () => import("@/pages/use-cases/DiscountCoupon"),
+  "/use-cases/by-pages": () => import("@/pages/use-cases/UseCasesByPages"),
+  "/use-cases/by-activity": () => import("@/pages/use-cases/UseCasesByActivity"),
+  "/use-cases/by-presentation": () => import("@/pages/use-cases/UseCasesByPresentation"),
+  "/use-cases/by-goal": () => import("@/pages/use-cases/UseCasesByGoal"),
+  "/use-cases/by-experience": () => import("@/pages/use-cases/UseCasesByExperience"),
   "/sectors": () => import("@/pages/Sectors"),
 };
 
 function preloadRoute(path: string) {
   const raw = path.split("?")[0].split("#")[0].replace(/\/$/, "") || "/";
-  if (raw === "/") return;
   const load = ROUTE_PRELOADS[raw];
   if (load) {
     void load();
@@ -167,76 +147,42 @@ export function navigateToHash(href: string) {
       setTimeout(poll, 50);
     }
   };
-  setTimeout(poll, EXIT_MS + ENTER_MS + HASH_POLL_BUFFER_MS);
+  setTimeout(poll, NAV_GUARD_MS + HASH_POLL_BUFFER_MS);
 }
-
-const EXIT_Y = 10;
-const ENTER_Y = 14;
-const EXIT_SCALE = 0.985;
-const ENTER_SCALE_FROM = 1.012;
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const [, navigate] = useLocation();
-  const [phase, setPhase] = useState<TransitionPhase>("idle");
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [origin, setOrigin] = useState<ClickOrigin | null>(null);
-  const isTransitioning = useRef(false);
-  const phaseRef = useRef<TransitionPhase>("idle");
-  phaseRef.current = phase;
-  const pendingPathRef = useRef<string | null>(null);
-  const scrollYRef = useRef(0);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const triggerTransition = useCallback(
     (path: string) => {
-      /** إن كان انتقالاً قيد التنفيذ، نُكمِل بالتنقّل المباشر وإلا يُلغى النقر بلا أثر */
-      if (isTransitioning.current) {
+      preloadRoute(path);
+      const commitNavigate = () => {
         navigate(path);
         window.scrollTo(0, 0);
-        return;
-      }
+      };
 
       if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        navigate(path);
-        window.scrollTo(0, 0);
+        commitNavigate();
         return;
       }
 
-      isTransitioning.current = true;
-      preloadRoute(path);
-      scrollYRef.current = window.scrollY;
-      pendingPathRef.current = path;
+      const maybeDoc = document as Document & {
+        startViewTransition?: (updateCallback: () => void) => { finished: Promise<void> };
+      };
 
-      const xPct = (((_lastClickX || window.innerWidth / 2) / window.innerWidth) * 100).toFixed(2) + "%";
-      const yPx = _lastClickY || window.innerHeight / 2;
-      setOrigin({ xPct, yPx });
-      setPhase("zoom-out");
-    },
-    [navigate]
-  );
-
-  const onWrapperAnimationEnd = useCallback(
-    (e: React.AnimationEvent<HTMLDivElement>) => {
-      if (e.target !== e.currentTarget) return;
-      const p = phaseRef.current;
-      if (p === "zoom-out") {
-        const target = pendingPathRef.current;
-        if (target) {
-          requestAnimationFrame(() => {
-            navigate(target);
-            window.scrollTo(0, 0);
-            requestAnimationFrame(() => setPhase("zoom-in"));
+      if (typeof maybeDoc.startViewTransition === "function") {
+        try {
+          maybeDoc.startViewTransition(() => {
+            commitNavigate();
           });
+          return;
+        } catch {
+          commitNavigate();
+          return;
         }
-        return;
       }
-      if (p === "zoom-in") {
-        setPhase("idle");
-        setOrigin(null);
-        pendingPathRef.current = null;
-        isTransitioning.current = false;
-        wrapperRef.current?.style.removeProperty("will-change");
-      }
+
+      commitNavigate();
     },
     [navigate]
   );
@@ -249,118 +195,5 @@ export default function PageTransition({ children }: { children: React.ReactNode
       _directNavigate = null;
     };
   }, [triggerTransition, navigate]);
-
-  useEffect(() => {
-    if (phase === "idle" || phase === "zoom-in") {
-      setDisplayChildren(children);
-    }
-  }, [children, phase]);
-
-  const transformOrigin = origin ? `${origin.xPct} ${origin.yPx}px` : "50% 42vh";
-
-  const getWrapperStyle = (): React.CSSProperties => {
-    if (phase === "zoom-out") {
-      return {
-        position: "fixed",
-        inset: 0,
-        top: -scrollYRef.current,
-        width: "100%",
-        height: `calc(100vh + ${scrollYRef.current}px)`,
-        transformOrigin,
-        willChange: "transform, opacity",
-        animation: `ptExit ${EXIT_MS}ms ${EXIT_EASE} both`,
-        pointerEvents: "none",
-        userSelect: "none",
-        zIndex: 10000,
-        backfaceVisibility: "hidden",
-        WebkitBackfaceVisibility: "hidden",
-        WebkitFontSmoothing: "antialiased",
-      };
-    }
-
-    if (phase === "zoom-in") {
-      return {
-        position: "relative",
-        width: "100%",
-        minHeight: "100vh",
-        transformOrigin,
-        willChange: "transform, opacity",
-        animation: `ptEnter ${ENTER_MS}ms ${ENTER_EASE} both`,
-        pointerEvents: "none",
-        userSelect: "none",
-        backfaceVisibility: "hidden",
-        WebkitBackfaceVisibility: "hidden",
-        WebkitFontSmoothing: "antialiased",
-      };
-    }
-
-    return {
-      position: "relative",
-      width: "100%",
-      minHeight: "100vh",
-    };
-  };
-
-  return (
-    <>
-      <style>{`
-        @keyframes ptExit {
-          from {
-            transform: translate3d(0, 0, 0) scale(1);
-            opacity: 1;
-          }
-          to {
-            transform: translate3d(0, -${EXIT_Y}px, 0) scale(${EXIT_SCALE});
-            opacity: 0;
-          }
-        }
-        @keyframes ptEnter {
-          from {
-            transform: translate3d(0, ${ENTER_Y}px, 0) scale(${ENTER_SCALE_FROM});
-            opacity: 0;
-          }
-          to {
-            transform: translate3d(0, 0, 0) scale(1);
-            opacity: 1;
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          @keyframes ptExit {
-            from { opacity: 1; }
-            to { opacity: 0; }
-          }
-          @keyframes ptEnter {
-            from { opacity: 0; }
-            to { opacity: 1; }
-          }
-        }
-      `}</style>
-      {phase !== "idle" && (
-        <div
-          aria-hidden
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9990,
-            background: "var(--bg)",
-            /* أثناء zoom-in الشاشة شفافة — لا تمنع النقرات على الشريط السفلي/التنقل */
-            pointerEvents: phase === "zoom-out" ? "auto" : "none",
-            opacity: phase === "zoom-out" ? 1 : 0,
-            transition:
-              phase === "zoom-out"
-                ? `opacity ${Math.round(EXIT_MS * 0.45)}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                : `opacity ${ENTER_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-            willChange: phase === "zoom-out" ? "opacity" : "auto",
-          }}
-        />
-      )}
-      <div
-        ref={wrapperRef}
-        style={getWrapperStyle()}
-        onAnimationEnd={onWrapperAnimationEnd}
-      >
-        {displayChildren}
-      </div>
-    </>
-  );
+  return <>{children}</>;
 }

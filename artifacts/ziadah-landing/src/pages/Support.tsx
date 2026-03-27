@@ -178,7 +178,7 @@ export default function Support() {
               style={{
                 display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)",
                 color: "var(--t)", transition: "all .25s", minHeight: "100%",
-                cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", borderRadius: "var(--r)", textAlign: "inherit",
+                cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", borderRadius: "20px", textAlign: "inherit",
               }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.12)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.32)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
               onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}

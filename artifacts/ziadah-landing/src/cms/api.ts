@@ -38,6 +38,24 @@ async function parseJson(res: Response): Promise<unknown> {
   }
 }
 
+function getApiErrorMessage(body: unknown, status: number): string {
+  if (
+    body &&
+    typeof body === "object" &&
+    "success" in body &&
+    (body as { success?: boolean }).success === false &&
+    "error" in body &&
+    typeof (body as { error?: unknown }).error === "string"
+  ) {
+    return (body as { error: string }).error;
+  }
+  const code = status || 500;
+  if (code === 502 || code === 503 || code === 504) {
+    return "Service is temporarily unavailable. Please try again in a moment.";
+  }
+  return `API request failed (${code})`;
+}
+
 export async function cmsFetchJson<T>(
   path: string,
   init?: RequestInit & { token?: string | null },
@@ -55,14 +73,18 @@ export async function cmsFetchJson<T>(
     headers.set("Content-Type", "application/json");
   }
   const res = await fetch(url, { ...init, headers });
-  const body = (await parseJson(res)) as ApiEnvelope<T> | null;
+  const body = await parseJson(res);
+  if (!res.ok) {
+    throw new CmsApiError(getApiErrorMessage(body, res.status), res.status || 500);
+  }
   if (!body || typeof body !== "object" || !("success" in body)) {
-    throw new CmsApiError("Invalid API response", res.status || 500);
+    throw new CmsApiError(`Invalid API response (${res.status || 500})`, res.status || 500);
   }
-  if (!body.success) {
-    throw new CmsApiError(body.error, res.status);
+  const envelope = body as ApiEnvelope<T>;
+  if (!envelope.success) {
+    throw new CmsApiError(envelope.error, res.status || 500);
   }
-  return body.data;
+  return envelope.data;
 }
 
 export async function cmsUploadFile(
@@ -78,14 +100,18 @@ export async function cmsUploadFile(
   const t = token !== undefined ? token : getStoredToken();
   if (t) headers.set("Authorization", `Bearer ${t}`);
   const res = await fetch(url, { method: "POST", body: fd, headers });
-  const body = (await parseJson(res)) as ApiEnvelope<unknown> | null;
+  const body = await parseJson(res);
+  if (!res.ok) {
+    throw new CmsApiError(getApiErrorMessage(body, res.status), res.status || 500);
+  }
   if (!body || typeof body !== "object" || !("success" in body)) {
-    throw new CmsApiError("Invalid API response", res.status || 500);
+    throw new CmsApiError(`Invalid API response (${res.status || 500})`, res.status || 500);
   }
-  if (!body.success) {
-    throw new CmsApiError(body.error, res.status);
+  const envelope = body as ApiEnvelope<unknown>;
+  if (!envelope.success) {
+    throw new CmsApiError(envelope.error, res.status || 500);
   }
-  return body.data;
+  return envelope.data;
 }
 
 export type CmsRole = "super_admin" | "editor" | "viewer";

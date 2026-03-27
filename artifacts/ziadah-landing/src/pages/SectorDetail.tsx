@@ -157,6 +157,10 @@ export default function SectorDetail() {
 
         <section
           style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center",
             paddingTop: "var(--page-hero-pt)",
             paddingBottom: 28,
             position: "relative",

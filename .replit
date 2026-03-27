@@ -1,3 +1,4 @@
+run = "bash scripts/replit-run.sh"
 modules = ["nodejs-24"]
 
 [[artifacts]]
@@ -16,6 +17,12 @@ env = { "CI" = "true" }
 
 [workflows]
 runButton = "Project"
+
+[env]
+JWT_SECRET = "YkFwcTU9aqruIFWZn0WO6zotqTvohjer"
+CMS_ADMIN_EMAIL = "admin@ziadah.app"
+CMS_ADMIN_PASSWORD = "Admin@ziadah2024"
+BASE_PATH = "/"
 
 [agent]
 stack = "PNPM_WORKSPACE"

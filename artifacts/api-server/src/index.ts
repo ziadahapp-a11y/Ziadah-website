@@ -14,6 +14,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+console.log(`[startup] api-server pid=${process.pid} port=${port}`);
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

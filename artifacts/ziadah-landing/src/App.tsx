@@ -2,10 +2,8 @@ import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useEffect } from "react";
-import { Toaster } from "sonner";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
-import Landing from "@/pages/Landing";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
@@ -16,6 +14,7 @@ import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
+const Landing = lazy(() => import("@/pages/Landing"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
@@ -23,6 +22,7 @@ const Calculator = lazy(() => import("@/pages/Calculator"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
 const Sectors = lazy(() => import("@/pages/Sectors"));
@@ -50,6 +50,11 @@ const CustomerExperience = lazy(() => import("@/pages/use-cases/CustomerExperien
 const MoreCartItems = lazy(() => import("@/pages/use-cases/MoreCartItems"));
 const FreeShippingDisplay = lazy(() => import("@/pages/use-cases/FreeShippingDisplay"));
 const DiscountCoupon = lazy(() => import("@/pages/use-cases/DiscountCoupon"));
+const UseCasesByPages = lazy(() => import("@/pages/use-cases/UseCasesByPages"));
+const UseCasesByActivity = lazy(() => import("@/pages/use-cases/UseCasesByActivity"));
+const UseCasesByPresentation = lazy(() => import("@/pages/use-cases/UseCasesByPresentation"));
+const UseCasesByGoal = lazy(() => import("@/pages/use-cases/UseCasesByGoal"));
+const UseCasesByExperience = lazy(() => import("@/pages/use-cases/UseCasesByExperience"));
 
 const CmsLogin = lazy(() => import("@/cms/pages/Login"));
 const CmsDashboard = lazy(() => import("@/cms/pages/Dashboard"));
@@ -89,6 +94,20 @@ function PublicRoutes() {
   return (
     <Switch>
       <Route path="/" component={Landing} />
+      <Route path="/404" component={NotFound} />
+      <Route path="/500">
+        <ErrorStatus code={500} />
+      </Route>
+      <Route path="/501">
+        <ErrorStatus code={501} />
+      </Route>
+      <Route path="/502">
+        <ErrorStatus code={502} />
+      </Route>
+      <Route path="/503">
+        <ErrorStatus code={503} />
+      </Route>
+      <Route path="/error/:code" component={ErrorStatus} />
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
@@ -121,6 +140,11 @@ function PublicRoutes() {
       <Route path="/use-cases/more-cart-items" component={MoreCartItems} />
       <Route path="/use-cases/free-shipping" component={FreeShippingDisplay} />
       <Route path="/use-cases/discount-coupon" component={DiscountCoupon} />
+      <Route path="/use-cases/by-pages" component={UseCasesByPages} />
+      <Route path="/use-cases/by-activity" component={UseCasesByActivity} />
+      <Route path="/use-cases/by-presentation" component={UseCasesByPresentation} />
+      <Route path="/use-cases/by-goal" component={UseCasesByGoal} />
+      <Route path="/use-cases/by-experience" component={UseCasesByExperience} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
@@ -169,6 +193,9 @@ function CmsRoutes() {
       </Route>
       <Route path="/cms">
         <Redirect to="/cms/dashboard" />
+      </Route>
+      <Route>
+        <Redirect to="/" />
       </Route>
     </Switch>
   );
@@ -221,7 +248,6 @@ function App() {
                   <AppShell />
                 </WouterRouter>
               </CmsAuthProvider>
-              <Toaster position="top-right" richColors />
             </QueryClientProvider>
           </BlurTransitionProvider>
         </SiteContentProvider>

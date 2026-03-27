@@ -39,16 +39,16 @@ function particleCountForScreen(w: number, h: number): number {
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return isMobile(w) ? 30 : 60;
   }
-  if (isMobile(w)) return 45;
-  if (isTablet(w)) return 90;
+  if (isMobile(w)) return 28;
+  if (isTablet(w)) return 56;
   const area = w * h;
-  return Math.min(360, Math.max(130, Math.floor(area / 4000)));
+  return Math.min(180, Math.max(72, Math.floor(area / 7000)));
 }
 
 function linkDistForScreen(w: number): number {
-  if (isMobile(w)) return 70;
-  if (isTablet(w)) return 90;
-  return 108;
+  if (isMobile(w)) return 58;
+  if (isTablet(w)) return 72;
+  return 88;
 }
 
 export default function ParticleBackground() {

@@ -2,10 +2,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import SEO from "@/components/SEO";
+import { useLocation } from "wouter";
+import { useEffect } from "react";
 
 export default function NotFound() {
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setLocation("/");
+    }, 2500);
+
+    return () => window.clearTimeout(timer);
+  }, [setLocation]);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50" style={{ direction: dir }}>
@@ -32,6 +43,11 @@ export default function NotFound() {
             {isAr
               ? "الصفحة غير موجودة في منصة زيادة. تحقق من الرابط أو ارجع للصفحة الرئيسية."
               : "This page is not part of the Ziadah site. Check the URL or go back home."}
+          </p>
+          <p className="mt-2 text-xs text-gray-500">
+            {isAr
+              ? "سيتم تحويلك تلقائياً إلى الصفحة الرئيسية..."
+              : "You will be redirected to the home page automatically..."}
           </p>
         </CardContent>
       </Card>

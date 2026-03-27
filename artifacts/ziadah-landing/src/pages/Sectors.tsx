@@ -107,10 +107,13 @@ export default function Sectors() {
               const title = lang === "ar" ? s.titleAr : s.titleEn;
               const tag = lang === "ar" ? s.taglineAr : s.taglineEn;
               return (
-                <button
+                <a
                   key={s.slug}
-                  type="button"
-                  onClick={() => navigateTo(`/sectors/${s.slug}`)}
+                  href={`/sectors/${s.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(`/sectors/${s.slug}`);
+                  }}
                   className={`gc rv d${(i % 3) + 1}`}
                   style={{
                     padding: 0,
@@ -120,6 +123,11 @@ export default function Sectors() {
                     background: "transparent",
                     fontFamily: "var(--font)",
                     color: "inherit",
+                    textDecoration: "none",
+                    position: "relative",
+                    zIndex: 3,
+                    pointerEvents: "auto",
+                    display: "block",
                   }}
                 >
                   <div className="shine" />
@@ -137,7 +145,7 @@ export default function Sectors() {
                       {tr.cardCta} →
                     </span>
                   </div>
-                </button>
+                </a>
               );
             })}
           </div>
