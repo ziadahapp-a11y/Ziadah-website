@@ -1,10 +1,11 @@
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 import { useTheme } from "@/ThemeContext";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 
 export default function Footer() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const { theme } = useTheme();
   const tr = t[lang];

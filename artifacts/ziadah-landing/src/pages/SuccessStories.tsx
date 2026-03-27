@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef, type CSSProperties } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteT } from "../cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 
 type StoryData = {
@@ -435,6 +436,7 @@ function StoryCard({ s, index, total, isAr }: { s: StoryData; index: number; tot
 }
 
 export default function SuccessStories() {
+  const t = useSiteT();
   const { lang, isAr, dir } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const pk = getPageKeywords("/success-stories");

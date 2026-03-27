@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
@@ -7,7 +8,7 @@ import StandardPage from "../components/StandardPage";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
@@ -28,6 +29,8 @@ function getInitialFilters() {
 }
 
 export default function Blog() {
+  const t = useSiteT();
+  const cmsMap = useSiteContentMap();
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].blog;
   const initial = getInitialFilters();
@@ -81,10 +84,22 @@ export default function Blog() {
     return isAr ? catObj.label : catObj.labelEn;
   };
 
-  const getTitle = (p: typeof blogPosts[0]) => isAr ? p.title : (p.titleEn || p.title);
-  const getSummary = (p: typeof blogPosts[0]) => isAr ? p.summary : (p.summaryEn || p.summary);
-  const getReadTime = (p: typeof blogPosts[0]) => isAr ? p.readTime : (p.readTimeEn || p.readTime);
-  const getPublishDate = (p: typeof blogPosts[0]) => isAr ? p.publishDate : (p.publishDateEn || p.publishDate);
+  const getTitle = (p: typeof blogPosts[0]) =>
+    isAr
+      ? cmsMap[`blog.${p.slug}.title`] ?? p.title
+      : cmsMap[`blog.${p.slug}.titleEn`] ?? p.titleEn ?? p.title;
+  const getSummary = (p: typeof blogPosts[0]) =>
+    isAr
+      ? cmsMap[`blog.${p.slug}.summary`] ?? p.summary
+      : cmsMap[`blog.${p.slug}.summaryEn`] ?? p.summaryEn ?? p.summary;
+  const getReadTime = (p: typeof blogPosts[0]) =>
+    isAr
+      ? cmsMap[`blog.${p.slug}.readTime`] ?? p.readTime
+      : cmsMap[`blog.${p.slug}.readTimeEn`] ?? p.readTimeEn ?? p.readTime;
+  const getPublishDate = (p: typeof blogPosts[0]) =>
+    isAr
+      ? cmsMap[`blog.${p.slug}.publishDate`] ?? p.publishDate
+      : cmsMap[`blog.${p.slug}.publishDateEn`] ?? p.publishDateEn ?? p.publishDate;
 
   const filtered = blogPosts.filter((post) => {
     const matchCat =
@@ -114,7 +129,7 @@ export default function Blog() {
       keywordsEn={pk?.keywordsEn}
     >
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
-    <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: isAr ? p.title : (p.titleEn || p.title), summary: isAr ? p.summary : (p.summaryEn || p.summary), publishDateIso: p.publishDateIso }))} />
+    <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
     <div
       style={{
         minHeight: "100vh",

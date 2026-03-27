@@ -1,9 +1,10 @@
 import Nav from "../components/Nav";
+import { t } from "@/i18n/translations";
 import ParticleBackground from "../components/ParticleBackground";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 
 const sections = {
@@ -32,6 +33,7 @@ const sections = {
 };
 
 export default function Terms() {
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";

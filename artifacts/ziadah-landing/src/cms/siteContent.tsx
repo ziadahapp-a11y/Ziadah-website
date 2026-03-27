@@ -89,7 +89,8 @@ export function useSiteContentMap(): Record<string, string> {
  * Falls back silently when the API is down or the key is missing.
  */
 export function useCMSContent(key: string, fallback: string): string {
-  const { map } = useContext(SiteContentContext) ?? { map: {} };
+  const ctx = useContext(SiteContentContext);
+  const map = (ctx?.map ?? {}) as Record<string, string>;
   const v = map[key];
   return v !== undefined && v !== "" ? v : fallback;
 }

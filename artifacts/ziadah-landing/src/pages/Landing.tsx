@@ -15,11 +15,21 @@ import CouponWidget from "../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 import { useTheme } from "@/ThemeContext";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
+
+/** عيّنة مختصرة للصفحة الرئيسية — التنويع يمثّل أشهر المجالات */
+const SECTOR_TEASER_SLUGS = [
+  "abayas-fashion",
+  "electronics",
+  "beauty-care",
+  "restaurants-cafes",
+  "health-fitness",
+  "jewelry",
+] as const;
 
 const storeLogos = [
   { name: "BestClean", src: "/logos/bestclean.png" },
@@ -92,6 +102,7 @@ function SecTag({ children }: { children: React.ReactNode }) {
 
 export default function Landing() {
   const { lang, dir } = useLanguage();
+  const t = useSiteT();
   const tr = t[lang];
   const { theme } = useTheme();
   const isLight = theme === "light";
@@ -339,61 +350,6 @@ export default function Landing() {
         </div>
         {/* HOME CALCULATOR */}
         <HomeCalculator />
-        {/* SECTORS */}
-        <section id="sectors" style={{ position: "relative", zIndex: 2, padding: "72px 0 88px" }}>
-          <div className="wrap">
-            <div className="tc" style={{ marginBottom: 44 }}>
-              <SecTag>{tr.landing.sectorsTag}</SecTag>
-              <h2 className="st rv d1 text-[clamp(28px,4vw,44px)] font-semibold">{tr.landing.sectorsTitle}</h2>
-              <p className="ssub rv d2" style={{ maxWidth: 720, marginInline: "auto" }}>
-                {tr.landing.sectorsSub}
-              </p>
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-                gap: 18,
-                marginBottom: 28,
-              }}
-            >
-              {sectors.map((sec, i) => {
-                const stitle = lang === "ar" ? sec.titleAr : sec.titleEn;
-                const stag = lang === "ar" ? sec.taglineAr : sec.taglineEn;
-                return (
-                  <GlassCard key={sec.slug} lift className={`rv d${(i % 3) + 1}`} style={{ cursor: "pointer" }}>
-                    <div
-                      role="button"
-                      tabIndex={0}
-                      onClick={() => navigateTo(`/sectors/${sec.slug}`)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          navigateTo(`/sectors/${sec.slug}`);
-                        }
-                      }}
-                      style={{ padding: "22px 20px 24px", textAlign: dir === "rtl" ? "right" : "left" }}
-                    >
-                      <div style={{ fontSize: 32, marginBottom: 8 }}>{sec.icon}</div>
-                      <div style={{ fontSize: 17, fontWeight: 800, color: "var(--t)", marginBottom: 6 }}>{stitle}</div>
-                      <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.5 }}>{stag}</div>
-                    </div>
-                  </GlassCard>
-                );
-              })}
-            </div>
-            <div className="tc rv d3">
-              <button
-                type="button"
-                onClick={() => navigateTo("/sectors")}
-                className="btn-g"
-                style={{ cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b2)", background: "var(--s1)" }}
-              >
-                {tr.landing.sectorsCta}
-              </button>
-            </div>
-          </div>
-        </section>
         {/* HOW IT WORKS */}
         <section id="hiw">
           <div className="wrap">
@@ -590,6 +546,77 @@ export default function Landing() {
                   </div>
                 </GlassCard>
               ))}
+            </div>
+          </div>
+        </section>
+        {/* SECTORS — مختصر بعد «كيف تعمل؟»: يجيب «هل يناسب مجالي؟» قبل أمثلة الويدجت */}
+        <section id="sectors" style={{ position: "relative", zIndex: 2, padding: "52px 0 64px" }}>
+          <div className="wrap">
+            <div className="tc" style={{ marginBottom: 28 }}>
+              <SecTag>{tr.landing.sectorsTag}</SecTag>
+              <h2 className="st rv d1 text-[clamp(26px,3.5vw,40px)] font-semibold">{tr.landing.sectorsTitle}</h2>
+              <p className="ssub rv d2" style={{ maxWidth: 560, marginInline: "auto", fontSize: "clamp(15px,1.8vw,17px)" }}>
+                {tr.landing.sectorsBriefSub}
+              </p>
+            </div>
+            <div
+              className="rv d2"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+                gap: 12,
+                maxWidth: 720,
+                margin: "0 auto 24px",
+              }}
+            >
+              {SECTOR_TEASER_SLUGS.map((slug) => sectors.find((s) => s.slug === slug))
+                .filter(Boolean)
+                .map((sec, i) => {
+                  const stitle = lang === "ar" ? sec!.titleAr : sec!.titleEn;
+                  return (
+                    <button
+                      key={sec!.slug}
+                      type="button"
+                      onClick={() => navigateTo(`/sectors/${sec!.slug}`)}
+                      className={`rv d${(i % 3) + 1}`}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "12px 14px",
+                        borderRadius: 14,
+                        border: "1px solid var(--b2)",
+                        background: "var(--s1)",
+                        cursor: "pointer",
+                        fontFamily: "var(--font)",
+                        color: "var(--t)",
+                        textAlign: dir === "rtl" ? "right" : "left",
+                        transition: "background .2s, border-color .2s",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(124,58,237,.08)";
+                        e.currentTarget.style.borderColor = "rgba(124,58,237,.25)";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "var(--s1)";
+                        e.currentTarget.style.borderColor = "";
+                      }}
+                    >
+                      <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>{sec!.icon}</span>
+                      <span style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.35 }}>{stitle}</span>
+                    </button>
+                  );
+                })}
+            </div>
+            <div className="tc rv d3">
+              <button
+                type="button"
+                onClick={() => navigateTo("/sectors")}
+                className="btn-p"
+                style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none" }}
+              >
+                {tr.landing.sectorsCta}
+              </button>
             </div>
           </div>
         </section>

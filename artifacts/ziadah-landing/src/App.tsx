@@ -12,6 +12,7 @@ import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { CmsAuthProvider } from "@/cms/CmsAuthContext";
 import { CmsProtected } from "@/cms/components/CmsProtected";
+import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
@@ -209,19 +210,21 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <BlurTransitionProvider>
-          <QueryClientProvider client={queryClient}>
-            <CmsAuthProvider>
-              <WouterRouter
-                base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                hook={useLangAwareLocation}
-              >
-                <AppShell />
-              </WouterRouter>
-            </CmsAuthProvider>
-            <Toaster position="top-right" richColors />
-          </QueryClientProvider>
-        </BlurTransitionProvider>
+        <SiteContentProvider>
+          <BlurTransitionProvider>
+            <QueryClientProvider client={queryClient}>
+              <CmsAuthProvider>
+                <WouterRouter
+                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                  hook={useLangAwareLocation}
+                >
+                  <AppShell />
+                </WouterRouter>
+              </CmsAuthProvider>
+              <Toaster position="top-right" richColors />
+            </QueryClientProvider>
+          </BlurTransitionProvider>
+        </SiteContentProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

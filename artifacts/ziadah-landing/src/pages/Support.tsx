@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
@@ -7,14 +8,18 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteT } from "../cms/siteContent";
+import FeatureRequestModal from "../components/FeatureRequestModal";
 
 export default function Support() {
   const { lang, dir, isAr } = useLanguage();
+  const t = useSiteT();
   const tx = t[lang].support;
+  const navTr = t[lang].nav;
   const pk = getPageKeywords("/support");
   const [activeCategory, setActiveCategory] = useState("start");
   const [search, setSearch] = useState("");
+  const [featureModalOpen, setFeatureModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -139,6 +144,49 @@ export default function Support() {
             )}
           </div>
         )}
+
+        <div className="rv d4" style={{ maxWidth: 640, margin: "32px auto 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12, textAlign: isAr ? "right" : "left" }}>
+          <a
+            href="mailto:support@ziadah.app"
+            className="gc"
+            style={{
+              display: "flex", alignItems: "flex-start", gap: 14, padding: "var(--card-pad-sm)",
+              textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+          >
+            <div className="shine"/>
+            <span style={{ color: "var(--p4)", flexShrink: 0, marginTop: 2 }}>
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.email}</div>
+              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 4, lineHeight: 1.5 }}>{navTr.emailSub}</div>
+            </div>
+          </a>
+          <button
+            type="button"
+            onClick={() => setFeatureModalOpen(true)}
+            className="gc"
+            style={{
+              display: "flex", alignItems: "flex-start", gap: 14, padding: "var(--card-pad-sm)",
+              color: "var(--t)", transition: "all .25s", minHeight: "100%",
+              cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", background: "var(--s1)", borderRadius: "var(--r)", textAlign: "inherit",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+          >
+            <div className="shine"/>
+            <span style={{ color: "var(--p4)", flexShrink: 0, marginTop: 2 }}>
+              <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <div style={{ fontWeight: 700, fontSize: 14 }}>{navTr.featureRequest}</div>
+              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 4, lineHeight: 1.5 }}>{navTr.featureRequestSub}</div>
+            </div>
+          </button>
+        </div>
       </section>
 
       {/* ─── QUICK LINKS ─── */}
@@ -341,6 +389,7 @@ export default function Support() {
           </div>
         </div>
       </section>
+      {featureModalOpen && <FeatureRequestModal onClose={() => setFeatureModalOpen(false)} />}
     </div>
     </>
   );

@@ -1,15 +1,17 @@
 import { useEffect } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "@/components/Nav";
 import ParticleBackground from "@/components/ParticleBackground";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 import { sectors } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
 
 export default function Sectors() {
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
   const pk = getPageKeywords("/sectors");

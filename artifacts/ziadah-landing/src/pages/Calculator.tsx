@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
@@ -6,7 +7,7 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 
 function fmtLocale(
   n: number,
@@ -197,6 +198,7 @@ function SliderCard({
 }
 
 export default function Calculator() {
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang].calculator;
   const pk = getPageKeywords("/calculator");

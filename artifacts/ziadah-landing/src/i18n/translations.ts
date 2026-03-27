@@ -170,9 +170,9 @@ export const t = {
       trustLabel: "فخورين بثقتهم",
       sectorsTag: "القطاعات",
       sectorsTitle: "حلول مخصّصة لمجال تجارتك",
-      sectorsSub:
-        "اختر قطاعك واطّلع على طريقة تطبيق زيادة، وكيف نخدم مجالك بأمثلة وأفضل الممارسات — دليل كامل لكل قطاع.",
       sectorsCta: "عرض كل القطاعات",
+      sectorsBriefSub:
+        "دلائل جاهزة لأكثر من أربعة عشر قطاعاً — تفعيل، أمثلة، وأفضل الممارسات.",
       hiwTag: "كيف تعمل؟",
       hiwTitle: "فعّل زيادة — والباقي تلقائي بالذكاء الاصطناعي",
       hiwSubtitle: "التعلم الآلي يدرس عملاء متجرك الإلكتروني من أول زيارة ويتحسّن يوماً بعد يوم",
@@ -1020,9 +1020,9 @@ export const t = {
       trustLabel: "Proud of Their Trust",
       sectorsTag: "Industries",
       sectorsTitle: "Tailored guidance for your vertical",
-      sectorsSub:
-        "Pick your industry to see how to activate Ziadah, how we serve your field, with examples and best practices — a full guide per sector.",
       sectorsCta: "View all industries",
+      sectorsBriefSub:
+        "Ready-made guides for 14+ industries — setup, examples, and best practices.",
       hiwTag: "How It Works",
       hiwTitle: "Activate Ziadah — AI automation handles the rest",
       hiwSubtitle: "Machine learning studies your ecommerce shoppers from visit one and improves every day",

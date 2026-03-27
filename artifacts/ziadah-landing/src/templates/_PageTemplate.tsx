@@ -13,7 +13,6 @@ import Nav from "../components/Nav";
 import StandardPage from "../components/StandardPage";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useTheme } from "../ThemeContext";
-import { t } from "../i18n/translations";
 
 export default function MyPage() {
   const { lang, isAr } = useLanguage();

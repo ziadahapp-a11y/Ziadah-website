@@ -7,7 +7,7 @@ import SEO from "./SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 
 export interface UseCaseHero {
   tag: string;
@@ -70,6 +70,7 @@ export interface UseCasePageData {
 
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";

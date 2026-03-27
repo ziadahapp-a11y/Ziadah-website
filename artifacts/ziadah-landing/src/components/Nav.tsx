@@ -3,7 +3,8 @@ import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import { useBlurTransition } from "@/components/BlurTransitionProvider";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
+import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
@@ -50,6 +51,7 @@ function ThemeToggle() {
 }
 
 export const Logo = () => {
+  const t = useSiteT();
   const { theme } = useTheme();
   const { lang } = useLanguage();
   const tr = t[lang];
@@ -111,7 +113,7 @@ interface UseCaseSection {
   items: UseCaseItem[];
 }
 
-function getUseCasesDropdown(tr: typeof t.ar): { sections: UseCaseSection[] } {
+function getUseCasesDropdown(tr: Translations): { sections: UseCaseSection[] } {
   return {
     sections: [
       {
@@ -169,7 +171,7 @@ function getUseCasesDropdown(tr: typeof t.ar): { sections: UseCaseSection[] } {
   };
 }
 
-function getPlatformItems(tr: typeof t.ar) {
+function getPlatformItems(tr: Translations) {
   type PlatformKey = "salla" | "zid" | "shopify";
   return [
     { key: "salla" as PlatformKey, label: tr.nav.salla, href: "https://apps.salla.sa/ar/app/1099604538", enabled: true },
@@ -197,6 +199,7 @@ function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: Rea
 }
 
 function UseCasesMegaMenu() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -248,6 +251,7 @@ function UseCasesMegaMenu() {
 }
 
 function PlatformsDropdown() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -316,208 +320,8 @@ function PlatformsDropdown() {
   );
 }
 
-function FeatureRequestModal({ onClose }: { onClose: () => void }) {
-  const { lang, dir } = useLanguage();
-  const tr = t[lang];
-  const { theme } = useTheme();
-  const lt = theme === "light";
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [description, setDescription] = useState("");
-  const [sending, setSending] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    setError("");
-    try {
-      const baseUrl = import.meta.env.BASE_URL || "/";
-      const res = await fetch(`${baseUrl}api/feature-request`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, description }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || tr.featureModal.errorText);
-      }
-      setSuccess(true);
-      setTimeout(() => onClose(), 2500);
-    } catch {
-      setError(tr.featureModal.errorText);
-    } finally {
-      setSending(false);
-    }
-  };
-
-  return (
-    <div
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-      style={{
-        position: "fixed", inset: 0, zIndex: 9000,
-        background: "rgba(0,0,0,.7)", backdropFilter: "blur(8px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: 20,
-      }}
-    >
-      <div style={{
-        background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
-        border: `1px solid ${lt ? "rgba(124,58,237,.2)" : "rgba(124,58,237,.3)"}`,
-        borderRadius: 24, padding: 40, width: "100%", maxWidth: 500,
-        position: "relative", direction: dir,
-        boxShadow: lt ? "0 40px 100px rgba(0,0,0,.12), 0 0 60px rgba(124,58,237,.08)" : "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
-      }}>
-        <button
-          type="button"
-          onClick={onClose}
-          style={{
-            position: "absolute", top: 16, left: 16,
-            background: "var(--s2)", border: "none", color: "var(--t)",
-            width: 36, height: 36, borderRadius: 10, fontSize: 18,
-            cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-          }}
-        >
-          ✕
-        </button>
-
-        {success ? (
-          <div style={{ textAlign: "center", padding: "20px 0" }}>
-            <div style={{
-              width: 64, height: 64, borderRadius: "50%",
-              background: "rgba(16,185,129,.15)", border: "1px solid rgba(16,185,129,.4)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              margin: "0 auto 20px", fontSize: 28,
-            }}>
-              ✓
-            </div>
-            <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "var(--t)", marginBottom: 10 }}>
-              {tr.featureModal.successTitle}
-            </h3>
-            <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "var(--td)", lineHeight: 1.7 }}>
-              {tr.featureModal.successText}
-            </p>
-          </div>
-        ) : (
-          <>
-            <div style={{ marginBottom: 28 }}>
-              <div style={{
-                width: 48, height: 48, borderRadius: 14,
-                background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                marginBottom: 16,
-              }}>
-                <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="rgba(168,85,247,.8)"/>
-                </svg>
-              </div>
-              <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "var(--t)", marginBottom: 8 }}>
-                {tr.featureModal.title}
-              </h3>
-              <p style={{ fontFamily: "var(--font)", fontSize: 14, color: "var(--td)", lineHeight: 1.7 }}>
-                {tr.featureModal.subtitle}
-              </p>
-            </div>
-
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
-                  {tr.featureModal.name}
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={e => setName(e.target.value)}
-                  placeholder={tr.featureModal.namePlaceholder}
-                  style={{
-                    width: "100%", padding: "12px 16px",
-                    background: "var(--s1)", border: "1px solid var(--b2)",
-                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
-                    outline: "none", direction: dir, boxSizing: "border-box",
-                  }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = ""}
-                />
-              </div>
-
-              <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
-                  {tr.featureModal.email}
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="example@email.com"
-                  style={{
-                    width: "100%", padding: "12px 16px",
-                    background: "var(--s1)", border: "1px solid var(--b2)",
-                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
-                    outline: "none", direction: "ltr", textAlign: dir === "rtl" ? "right" : "left", boxSizing: "border-box",
-                  }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = ""}
-                />
-              </div>
-
-              <div>
-                <label style={{ fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, color: "var(--tm)", display: "block", marginBottom: 8 }}>
-                  {tr.featureModal.descLabel}
-                </label>
-                <textarea
-                  required
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                  placeholder={tr.featureModal.descPlaceholder}
-                  rows={4}
-                  style={{
-                    width: "100%", padding: "12px 16px",
-                    background: "var(--s1)", border: "1px solid var(--b2)",
-                    borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
-                    outline: "none", direction: dir, resize: "vertical", boxSizing: "border-box",
-                  }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124,58,237,.6)"}
-                  onBlur={e => e.currentTarget.style.borderColor = ""}
-                />
-              </div>
-
-              {error && (
-                <div style={{
-                  padding: "10px 14px", borderRadius: 10,
-                  background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.3)",
-                  color: "#f87171", fontFamily: "var(--font)", fontSize: 13,
-                }}>
-                  {error}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={sending}
-                style={{
-                  width: "100%", padding: "14px",
-                  background: sending ? "rgba(124,58,237,.4)" : "linear-gradient(135deg,#7c3aed,#5b21b6)",
-                  border: "none", borderRadius: 50, color: "#fff",
-                  fontFamily: "var(--font)", fontSize: 15, fontWeight: 700,
-                  cursor: sending ? "not-allowed" : "pointer",
-                  transition: "all .25s", marginTop: 4,
-                  boxShadow: sending ? "none" : "0 0 30px rgba(124,58,237,.4)",
-                }}
-              >
-                {sending ? tr.featureModal.sending : tr.featureModal.submit}
-              </button>
-            </form>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
+function HelpDropdown() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -530,7 +334,6 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       label: tr.nav.faq,
       subtitle: tr.nav.faqSub,
       href: "/#faq",
-      isModal: false,
     },
     {
       icon: (
@@ -539,16 +342,6 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       label: tr.nav.contact,
       subtitle: tr.nav.contactSub,
       href: "/support",
-      isModal: false,
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>
-      ),
-      label: tr.nav.email,
-      subtitle: tr.nav.emailSub,
-      href: "mailto:support@ziadah.app",
-      isModal: false,
     },
     {
       icon: (
@@ -557,16 +350,6 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       label: tr.nav.blog,
       subtitle: tr.nav.blogSub,
       href: "/blog",
-      isModal: false,
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>
-      ),
-      label: tr.nav.featureRequest,
-      subtitle: tr.nav.featureRequestSub,
-      href: "#",
-      isModal: true,
     },
   ];
 
@@ -578,94 +361,47 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
       boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
-      {helpItems.map((item) => {
-        if (item.isModal) {
-          return (
-            <button
-              key={item.label}
-              type="button"
-              onClick={onFeatureRequest}
-              style={{
-                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-                borderRadius: 12, background: "transparent", border: "none",
-                cursor: "pointer", width: "100%", transition: "background .2s",
-                textAlign: lang === "ar" ? "right" : "left",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-            >
-              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
-              </div>
-            </button>
-          );
-        }
-        if (item.href.startsWith("mailto:") || item.href.startsWith("http")) {
-          return (
-            <a
-              key={item.label}
-              href={item.href}
-              style={{
-                display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-                borderRadius: 12, textDecoration: "none", transition: "background .2s",
-                width: "100%", textAlign: lang === "ar" ? "right" : "left",
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-            >
-              <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
-                <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
-              </div>
-            </a>
-          );
-        }
-        return (
-          <span
-            key={item.label}
-            role="button"
-            tabIndex={0}
-            onClick={() => item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
-              }
-            }}
-            style={{
-              display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
-              borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
-              width: "100%", textAlign: lang === "ar" ? "right" : "left",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-          >
-            <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
-            <div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
-              <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
-            </div>
-          </span>
-        );
-      })}
+      {helpItems.map((item) => (
+        <span
+          key={item.label}
+          role="button"
+          tabIndex={0}
+          onClick={() => item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
+            }
+          }}
+          style={{
+            display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
+            borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
+            width: "100%", textAlign: lang === "ar" ? "right" : "left",
+          }}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+          onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+        >
+          <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
+            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
+          </div>
+        </span>
+      ))}
     </div>
   );
 }
 
 function MobileMoreDropdown({
   onClose,
-  onFeatureRequest,
   onStartNow,
   initialOpenSection,
 }: {
   onClose: () => void;
-  onFeatureRequest?: () => void;
   onStartNow?: () => void;
   initialOpenSection?: string | null;
 }) {
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -723,14 +459,9 @@ function MobileMoreDropdown({
       href: "/support",
     },
     {
-      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor"/></svg>,
-      label: tr.nav.email,
-      href: "mailto:support@ziadah.app",
-    },
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor"/></svg>,
-      label: tr.nav.featureRequest,
-      href: "#",
+      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor"/></svg>,
+      label: tr.nav.blog,
+      href: "/blog",
     },
   ];
 
@@ -895,29 +626,11 @@ function MobileMoreDropdown({
           }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 8 }}>
               {mobileHelpItems.map((item) => {
-                const isExternal = item.href.startsWith("mailto:") || item.href.startsWith("http");
-                const isFeatureRequest = item.href === "#" && item.label === tr.nav.featureRequest;
                 const itemStyle: React.CSSProperties = {
                   display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
                   borderRadius: 10, background: "var(--s1)",
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
-                if (isFeatureRequest && onFeatureRequest) {
-                  return (
-                    <span key={item.label} onClick={() => { onClose(); onFeatureRequest(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                      <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                      {item.label}
-                    </span>
-                  );
-                }
-                if (isExternal) {
-                  return (
-                    <a key={item.label} href={item.href} onClick={onClose} style={itemStyle}>
-                      <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
-                      {item.label}
-                    </a>
-                  );
-                }
                 return (
                   <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
                     <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
@@ -941,10 +654,6 @@ function MobileMoreDropdown({
           <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             {tr.nav.pricing}
-          </span>
-          <span onClick={() => { navigateTo("/blog"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-            {tr.nav.blog}
           </span>
           <span onClick={() => { navigateTo("/sectors"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0, gridColumn: "1 / -1", justifyContent: "center" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l12-7 9 5v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
@@ -979,6 +688,7 @@ function MobileMoreDropdown({
 }
 
 export default function Nav() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -987,7 +697,6 @@ export default function Nav() {
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreInitialSection, setMoreInitialSection] = useState<string | null>(null);
-  const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1025,7 +734,6 @@ export default function Nav() {
 
   return (
     <>
-      {featureModalOpen && <FeatureRequestModal onClose={() => setFeatureModalOpen(false)} />}
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
 
       {/* DESKTOP NAV */}
@@ -1151,7 +859,7 @@ export default function Nav() {
                   {tr.nav.help} {chevron(openDrop === "help")}
                 </button>
                 {openDrop === "help" && (
-                  <HelpDropdown onFeatureRequest={() => { setOpenDrop(null); setFeatureModalOpen(true); }} />
+                  <HelpDropdown />
                 )}
               </DropdownWrapper>
             </li>
@@ -1245,7 +953,7 @@ export default function Nav() {
                   {tr.nav.help} {chevron(openDrop === "help2")}
                 </button>
                 {openDrop === "help2" && (
-                  <HelpDropdown onFeatureRequest={() => { setOpenDrop(null); setFeatureModalOpen(true); }} />
+                  <HelpDropdown />
                 )}
               </DropdownWrapper>
             </li>
@@ -1386,11 +1094,6 @@ export default function Nav() {
           onClose={() => {
             setMoreOpen(false);
             setMoreInitialSection(null);
-          }}
-          onFeatureRequest={() => {
-            setMoreOpen(false);
-            setMoreInitialSection(null);
-            setFeatureModalOpen(true);
           }}
           onStartNow={() => {
             setMoreOpen(false);

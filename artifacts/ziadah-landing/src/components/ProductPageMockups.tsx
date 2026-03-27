@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
+import type { Translations } from "@/i18n/translations";
 
-type ProductPageMockupsCopy = (typeof t)["ar"]["productPageMockups"];
+type ProductPageMockupsCopy = Translations["productPageMockups"];
 
 export default function ProductPageMockups() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const copy = t[lang].productPageMockups;
 

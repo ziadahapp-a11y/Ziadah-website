@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "@/components/PlatformModal";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -59,6 +59,7 @@ function HomeSlider({ label, value, min, max, step, onChange, display, color, co
 }
 
 export default function HomeCalculator() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang].homeCalculator;
 

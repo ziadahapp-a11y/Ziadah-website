@@ -10,7 +10,6 @@
 
 import { useLanguage } from "../i18n/LanguageContext";
 import { useTheme } from "../ThemeContext";
-import { t } from "../i18n/translations";
 
 interface MySectionProps {
   // TODO: أضف الخصائص التي يحتاجها القسم

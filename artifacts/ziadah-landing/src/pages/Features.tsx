@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
 import PlatformModal from "../components/PlatformModal";
@@ -6,7 +7,7 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteT } from "../cms/siteContent";
 
 const goals = [
   { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", titleEn: "Add More Products", subtitle: "زيادة عدد المنتجات في كل طلب", subtitleEn: "Increase the number of products per order", color: "#a855f7", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", descEn: "AI suggests additional products related to what's in the customer's cart or what they're browsing. The goal is to increase product count, not just value.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", whenEn: "Best when your store sells small complementary products at low prices.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", exampleEn: "Customer bought shampoo → suggested conditioner + hair mask.", boost: "+28% متوسط المنتجات في السلة", boostEn: "+28% average products in cart" },
@@ -50,6 +51,7 @@ const usecases = [
 export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const t = useSiteT();
   const { lang, dir, isAr } = useLanguage();
   const ft = t[lang].features;
   const pk = getPageKeywords("/features");

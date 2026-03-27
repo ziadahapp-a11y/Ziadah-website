@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "@/components/Nav";
 import ParticleBackground from "@/components/ParticleBackground";
@@ -6,7 +7,7 @@ import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
 
@@ -31,6 +32,7 @@ function SectionBlock({
 }
 
 export default function SectorDetail() {
+  const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
   const params = useParams<{ slug: string }>();

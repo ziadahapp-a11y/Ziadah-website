@@ -1,8 +1,9 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { t } from "@/i18n/translations";
+import { useSiteT } from "@/cms/siteContent";
 
 export default function CrossSellWidget() {
+  const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang].widgets.crossSell;
 

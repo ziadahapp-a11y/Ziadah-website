@@ -1,4 +1,5 @@
 import { useEffect, type ReactElement, type ReactNode } from "react";
+import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
@@ -7,7 +8,8 @@ import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
 import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteContentMap, useSiteT } from "../cms/siteContent";
+import { useBlogPostFields } from "@/cms/useBlogPostFields";
 import CustomerProfileDemo from "../components/CustomerProfileDemo";
 import { toWesternDigits } from "@/utils/westernDigits";
 
@@ -389,10 +391,13 @@ function formatInline(text: string): React.ReactNode {
 }
 
 export default function BlogPost() {
+  const t = useSiteT();
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].blog;
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
+  const fields = useBlogPostFields(post ?? blogPosts[0]);
+  const cmsMap = useSiteContentMap();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -456,21 +461,28 @@ export default function BlogPost() {
   }
 
   const arNums = (s: string) => (isAr ? toWesternDigits(s) : s);
-  const getTitle = (p: typeof blogPosts[0]) => arNums(isAr ? p.title : (p.titleEn || p.title));
-  const getSummary = (p: typeof blogPosts[0]) => arNums(isAr ? p.summary : (p.summaryEn || p.summary));
-  const getReadTime = (p: typeof blogPosts[0]) => arNums(isAr ? p.readTime : (p.readTimeEn || p.readTime));
-  const getPublishDate = (p: typeof blogPosts[0]) => arNums(isAr ? p.publishDate : (p.publishDateEn || p.publishDate));
-  const getContent = (p: typeof blogPosts[0]) => arNums(isAr ? p.content : (p.contentEn || p.content));
+  const getRelatedTitle = (p: typeof blogPosts[0]) => {
+    const raw = isAr
+      ? cmsMap[`blog.${p.slug}.title`] ?? p.title
+      : cmsMap[`blog.${p.slug}.titleEn`] ?? p.titleEn ?? p.title;
+    return arNums(raw);
+  };
+  const getRelatedReadTime = (p: typeof blogPosts[0]) => {
+    const raw = isAr
+      ? cmsMap[`blog.${p.slug}.readTime`] ?? p.readTime
+      : cmsMap[`blog.${p.slug}.readTimeEn`] ?? p.readTimeEn ?? p.readTime;
+    return arNums(raw);
+  };
 
   const relatedPosts = blogPosts.filter((p) => post.related.includes(p.slug));
 
   return (
     <>
     <SEO
-      titleAr={post.title}
-      titleEn={post.titleEn || post.title}
-      descriptionAr={post.summary}
-      descriptionEn={post.summaryEn || post.summary}
+      titleAr={cmsMap[`blog.${post.slug}.title`] ?? post.title}
+      titleEn={cmsMap[`blog.${post.slug}.titleEn`] ?? post.titleEn ?? post.title}
+      descriptionAr={cmsMap[`blog.${post.slug}.summary`] ?? post.summary}
+      descriptionEn={cmsMap[`blog.${post.slug}.summaryEn`] ?? post.summaryEn ?? post.summary}
       canonical={`/blog/${post.slug}`}
       type="article"
       publishDate={post.publishDateIso}
@@ -478,15 +490,15 @@ export default function BlogPost() {
       keywordsEn={`Ziadah, blog, AI ecommerce, online store, ${categories.find((c) => c.id === post.category)?.labelEn ?? post.category}`}
     />
     <ArticleSchema
-      title={getTitle(post)}
-      description={getSummary(post)}
+      title={fields.title}
+      description={fields.summary}
       publishDate={post.publishDateIso}
       slug={post.slug}
     />
     <BreadcrumbSchema items={[
       { name: tx.breadcrumbHome, url: "/" },
       { name: tx.breadcrumbBlog, url: "/blog" },
-      { name: getTitle(post), url: `/blog/${post.slug}` }
+      { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
     <div
       style={{
@@ -630,7 +642,7 @@ export default function BlogPost() {
                 letterSpacing: "-0.5px",
               }}
             >
-              {getTitle(post)}
+              {fields.title}
             </h1>
 
             <div
@@ -665,7 +677,7 @@ export default function BlogPost() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {getReadTime(post)} {tx.readSuffix}
+                {fields.readTime} {tx.readSuffix}
               </span>
               <span
                 style={{
@@ -691,7 +703,7 @@ export default function BlogPost() {
                     strokeLinecap="round"
                   />
                 </svg>
-                {getPublishDate(post)}
+                {fields.publishDate}
               </span>
             </div>
           </div>
@@ -715,12 +727,12 @@ export default function BlogPost() {
                 margin: 0,
               }}
             >
-              {getSummary(post)}
+              {fields.summary}
             </p>
           </div>
 
           {/* Content */}
-          <div className="rv d2">{renderContent(getContent(post))}</div>
+          <div className="rv d2">{renderContent(fields.content)}</div>
 
           {/* Back link */}
           <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--b1)" }}>
@@ -841,7 +853,7 @@ export default function BlogPost() {
                           marginBottom: 8,
                         }}
                       >
-                        {getTitle(rel)}
+                        {getRelatedTitle(rel)}
                       </h3>
                       <span
                         style={{
@@ -872,7 +884,7 @@ export default function BlogPost() {
                             strokeLinecap="round"
                           />
                         </svg>
-                        {getReadTime(rel)} {tx.readSuffix}
+                        {getRelatedReadTime(rel)} {tx.readSuffix}
                       </span>
                     </div>
                   </article>

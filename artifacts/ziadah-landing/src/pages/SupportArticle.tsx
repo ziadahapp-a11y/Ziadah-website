@@ -1,30 +1,48 @@
 import { useEffect } from "react";
+import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
-import { getArticleById, getCategoryById } from "../data/support-data";
+import {
+  categories as supportCategories,
+  getArticleById,
+  getCategoryById,
+  type FullArticle,
+} from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { t } from "../i18n/translations";
+import { useSiteContentMap, useSiteT } from "../cms/siteContent";
+import { useSupportArticleFields } from "../cms/useSupportArticleFields";
+
+const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
 
 export default function SupportArticle() {
+  const t = useSiteT();
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].support;
   const { id } = useParams<{ id: string }>();
   const article = id ? getArticleById(id) : undefined;
   const category = article ? getCategoryById(article.categoryId) : undefined;
+  const cmsFields = useSupportArticleFields(article ?? FALLBACK_SUPPORT_ARTICLE);
+  const cmsMap = useSiteContentMap();
+
+  const siblingTitle = (a: FullArticle) =>
+    isAr
+      ? cmsMap[`support.${a.id}.title`] ?? a.title
+      : cmsMap[`support.${a.id}.titleEn`] ?? a.titleEn ?? a.title;
+  const siblingTime = (a: FullArticle) =>
+    isAr
+      ? cmsMap[`support.${a.id}.time`] ?? a.time
+      : cmsMap[`support.${a.id}.timeEn`] ?? a.timeEn ?? a.time;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
   const getCatLabel = (cat: { label: string; labelEn?: string }) => isAr ? cat.label : (cat.labelEn || cat.label);
-  const getArticleTitle = (a: { title: string; titleEn?: string }) => isAr ? a.title : (a.titleEn || a.title);
-  const getArticleDesc = (a: { desc: string; descEn?: string }) => isAr ? a.desc : (a.descEn || a.desc);
-  const getArticleTime = (a: { time: string; timeEn?: string }) => isAr ? a.time : (a.timeEn || a.time);
 
   if (!article || !category) {
     return (
@@ -50,21 +68,22 @@ export default function SupportArticle() {
     );
   }
 
-  const articleTitle = getArticleTitle(article);
-  const articleDesc = getArticleDesc(article);
-  const articleTime = getArticleTime(article);
+  const articleTitle = cmsFields.title;
+  const articleDesc = cmsFields.desc;
+  const articleTime = cmsFields.time;
   const catLabel = getCatLabel(category);
   const pk = getPageKeywords("/support");
   const titleSuffixAr = "مركز مساعدة زيادة";
   const titleSuffixEn = "Ziadah Help Center";
+  const baseKey = `support.${article.id}`;
 
   return (
     <>
     <SEO
-      titleAr={`${article.title} — ${titleSuffixAr}`}
-      titleEn={`${article.titleEn || article.title} — ${titleSuffixEn}`}
-      descriptionAr={article.desc}
-      descriptionEn={article.descEn || article.desc}
+      titleAr={`${cmsMap[`${baseKey}.title`] ?? article.title} — ${titleSuffixAr}`}
+      titleEn={`${cmsMap[`${baseKey}.titleEn`] ?? article.titleEn ?? article.title} — ${titleSuffixEn}`}
+      descriptionAr={cmsMap[`${baseKey}.desc`] ?? article.desc}
+      descriptionEn={cmsMap[`${baseKey}.descEn`] ?? article.descEn ?? article.desc}
       canonical={`/support/article/${article.id}`}
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
@@ -138,7 +157,7 @@ export default function SupportArticle() {
 
           {/* Article Content */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {(isAr ? article.sections : (article.sectionsEn || article.sections)).map((section, i) => {
+            {cmsFields.sections.map((section, i) => {
               if (section.type === "heading") {
                 return (
                   <h2 key={i} style={{ fontSize: 21, fontWeight: 800, color: "var(--t)", marginTop: 12, paddingBottom: 10, borderBottom: `1px solid ${category.color}20` }}>
@@ -258,8 +277,8 @@ export default function SupportArticle() {
                       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--b1)"; (e.currentTarget as HTMLElement).style.background = "var(--s1)"; }}
                     >
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{getArticleTitle(s)}</div>
-                        <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{getArticleTime(s)} {tx.readSuffix}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{siblingTitle(s)}</div>
+                        <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{siblingTime(s)} {tx.readSuffix}</div>
                       </div>
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isAr ? "rotate(180deg)" : "none", flexShrink: 0 }}>
                         <path d="M10 4L6 8l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
