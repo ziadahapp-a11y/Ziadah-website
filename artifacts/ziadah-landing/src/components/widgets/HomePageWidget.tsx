@@ -18,37 +18,39 @@ export default function HomePageWidget() {
           marginBottom: 10,
         }}>
           <div style={{ fontSize: 9, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <div style={{
-              width: 36,
-              height: 36,
-              borderRadius: 8,
-              background: "rgba(168,85,247,.2)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 18,
-              flexShrink: 0,
-            }}>👟</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
-              <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
-                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+              <div style={{
+                width: 36,
+                height: 36,
+                borderRadius: 8,
+                background: "rgba(168,85,247,.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 18,
+                flexShrink: 0,
+              }}>👟</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
+                <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
+                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
+                </div>
               </div>
             </div>
             <button style={{
-              padding: "5px 10px",
-              borderRadius: 20,
+              width: "100%",
+              padding: "7px 10px",
+              borderRadius: 10,
               background: "rgba(124,58,237,0.12)",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
               color: "#c084fc",
-              fontSize: 14,
+              fontSize: 11,
               fontWeight: 800,
               border: "1px solid rgba(124,58,237,0.2)",
               cursor: "pointer",
-              flexShrink: 0,
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
         </div>

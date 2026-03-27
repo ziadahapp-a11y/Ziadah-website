@@ -164,7 +164,7 @@ export const t = {
     landing: {
       aiBadge: "AI مفعّل",
       aiBadgeText: "ذكاء اصطناعي + تعلم آلي يعمل الآن",
-      heroTitle1: "زيادة مبيعات متجرك",
+      heroTitle1: "زيادة متوسط قيمة طلباتك",
       heroTitleEm: "",
       heroTitleGrad: "باقتراح منتجات بالذكاء الاصطناعي\nمخصصّة لكل عميل",
       heroSub: "فعّل منصة زيادة <strong>بضغطة زر واحدة</strong> على زد أو سلة؛ يتعلّم من عملائك تلقائياً ويمنح كل عميل <strong>تجربة مخصصة 100%</strong> حسب منطقته وجهازه ومشترياته السابقة.",
@@ -1029,8 +1029,8 @@ export const t = {
       heroTitleGrad: "with AI product recommendations\ntailored to every shopper",
       heroSub:
         "Activate Ziadah <strong>in one click</strong> on Zid or Salla. It learns your customers automatically and gives everyone a <strong>100% personalized experience</strong> by region, device, and purchase history.",
-      ctaPrimary: "Activate the Ziadah AI ecommerce platform now",
-      ctaSecondary: "See how to lift conversion in your store",
+      ctaPrimary: "Activate now",
+      ctaSecondary: "Explore solutions",
       stat1Value: "+700",
       stat1Label: "Stores",
       stat2Value: "+$5M",

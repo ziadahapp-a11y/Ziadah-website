@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { CmsApiError, cmsApi, getApiOrigin, type ContentBlockRow } from "../api";
+import { useSiteContentMutations } from "../siteContent";
 import { useCmsAuth } from "../CmsAuthContext";
 import { cn } from "@/lib/utils";
 import { CmsPageHeader } from "../components/CmsPageHeader";
@@ -26,6 +27,7 @@ function groupBySection(blocks: ContentBlockRow[]) {
 function BlockEditor({ block }: { block: ContentBlockRow }) {
   const { user } = useCmsAuth();
   const qc = useQueryClient();
+  const { patchSiteContent, removeSiteContentKeys } = useSiteContentMutations();
   const canEdit = user?.role === "editor" || user?.role === "super_admin";
   const canDelete = user?.role === "super_admin";
 
@@ -37,7 +39,13 @@ function BlockEditor({ block }: { block: ContentBlockRow }) {
   const saveMut = useMutation({
     mutationFn: (next: string) =>
       cmsApi.updateContent(block.key, { value: next }),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      patchSiteContent({ [block.key]: String(data.block.value) });
+      setValue(String(data.block.value));
+      qc.setQueryData<ContentBlockRow[]>(["cms", "content"], (prev) => {
+        if (!prev) return prev;
+        return prev.map((b) => (b.id === block.id ? { ...b, ...data.block } : b));
+      });
       void qc.invalidateQueries({ queryKey: ["cms", "content"] });
       toast.success("Saved");
     },
@@ -49,6 +57,10 @@ function BlockEditor({ block }: { block: ContentBlockRow }) {
   const deleteMut = useMutation({
     mutationFn: () => cmsApi.deleteContent(block.key),
     onSuccess: () => {
+      removeSiteContentKeys([block.key]);
+      qc.setQueryData<ContentBlockRow[]>(["cms", "content"], (prev) =>
+        prev ? prev.filter((b) => b.id !== block.id) : prev,
+      );
       void qc.invalidateQueries({ queryKey: ["cms", "content"] });
       toast.success("Block deleted");
     },

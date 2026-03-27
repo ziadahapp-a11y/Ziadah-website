@@ -6,9 +6,9 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
-import { sectors } from "@/data/sectors";
 import PlatformModal from "./PlatformModal";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
+import { Editable } from "@/cms/components/Editable";
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -393,6 +393,12 @@ function HelpDropdown() {
   );
 }
 
+const MAIN_SECTOR_NAV = [
+  { href: "/sectors/ecommerce-stores", icon: "🛍️", titleAr: "المتاجر الإلكترونية", titleEn: "Ecommerce Stores" },
+  { href: "/sectors/delivery-apps", icon: "🛵", titleAr: "تطبيقات التوصيل", titleEn: "Delivery Apps" },
+  { href: "/sectors/ecommerce-platforms", icon: "🧩", titleAr: "منصات التسوق الإلكترونية", titleEn: "Ecommerce Platforms" },
+] as const;
+
 function SectorsDropdown() {
   const { lang } = useLanguage();
   const { theme } = useTheme();
@@ -434,16 +440,16 @@ function SectorsDropdown() {
         {allSectorsLabel}
       </span>
       <div style={{ height: 1, background: "var(--b2)", margin: "6px 8px" }} />
-      {sectors.map((sector) => (
+      {MAIN_SECTOR_NAV.map((item) => (
         <span
-          key={sector.slug}
+          key={item.href}
           role="button"
           tabIndex={0}
-          onClick={() => navigateTo(`/sectors/${sector.slug}`)}
+          onClick={() => navigateTo(item.href)}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              navigateTo(`/sectors/${sector.slug}`);
+              navigateTo(item.href);
             }
           }}
           style={{
@@ -455,8 +461,8 @@ function SectorsDropdown() {
           onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
-          <span style={{ fontSize: 17, lineHeight: 1 }}>{sector.icon}</span>
-          <span>{lang === "ar" ? sector.titleAr : sector.titleEn}</span>
+          <span style={{ fontSize: 17, lineHeight: 1 }}>{item.icon}</span>
+          <span>{lang === "ar" ? item.titleAr : item.titleEn}</span>
         </span>
       ))}
     </div>
@@ -726,10 +732,37 @@ function MobileMoreDropdown({
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             {tr.nav.pricing}
           </span>
-          <span onClick={() => { navigateTo("/sectors"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0, gridColumn: "1 / -1", justifyContent: "center" }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l12-7 9 5v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
-            {tr.nav.sectors}
-          </span>
+          <div style={{ gridColumn: "1 / -1", display: "flex", flexDirection: "column", gap: 4, marginBottom: 2 }}>
+            <span onClick={() => { navigateTo("/sectors"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0, justifyContent: "center" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l12-7 9 5v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+              {tr.nav.sectors}
+            </span>
+            {MAIN_SECTOR_NAV.map((item) => (
+              <span
+                key={item.href}
+                role="button"
+                tabIndex={0}
+                onClick={() => { navigateTo(item.href); onClose(); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    navigateTo(item.href);
+                    onClose();
+                  }
+                }}
+                style={{
+                  ...subLinkStyle,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 10,
+                  cursor: "pointer",
+                }}
+              >
+                <span style={{ fontSize: 16, lineHeight: 1 }}>{item.icon}</span>
+                {lang === "ar" ? item.titleAr : item.titleEn}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 4 }}>
@@ -843,26 +876,31 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                {tr.nav.home}
+                <Editable contentKey={`nav.home.${lang}`} label="Nav Home">
+                  {tr.nav.home}
+                </Editable>
               </span>
             </li>
 
             <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases")}>
-                  {tr.nav.useCases} {chevron(openDrop === "usecases")}
+                  <Editable contentKey={`nav.useCases.${lang}`} label="Nav Use Cases">
+                    {tr.nav.useCases}
+                  </Editable>{" "}
+                  {chevron(openDrop === "usecases")}
                 </button>
                 {openDrop === "usecases" && <UseCasesMegaMenu />}
               </DropdownWrapper>
             </li>
 
-            <li>
+            <li style={{ width: "fit-content" }}>
               <span onClick={() => navigateTo("/success-stories")} style={{
-                display: "block", padding: "8px 14px", borderRadius: 10,
+                display: "block", padding: "8px 0px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer",
+                transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
@@ -899,22 +937,24 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--tm)"}
               >
-                {tr.nav.pricing}
+                <Editable contentKey={`nav.pricing.${lang}`} label="Nav Pricing">
+                  {tr.nav.pricing}
+                </Editable>
               </span>
             </li>
 
-            <li>
+            <li style={{ width: "fit-content" }}>
               <span onClick={() => navigateTo("/calculator")} style={{
                 display: "block", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer",
+                transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                {tr.nav.calculator}
+                {lang === "en" ? "ROI" : tr.nav.calculator}
               </span>
             </li>
 
@@ -934,8 +974,16 @@ export default function Nav() {
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <ThemeToggle />
             <LanguageSwitcher />
-            <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">{tr.nav.bookMeeting}</a>
-            <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>{tr.nav.startNow}</button>
+            <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
+              <Editable contentKey={`nav.bookMeeting.${lang}`} label="Nav Book Meeting">
+                {tr.nav.bookMeeting}
+              </Editable>
+            </a>
+            <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
+              <Editable contentKey={`nav.startNow.${lang}`} label="Nav Start Now">
+                {tr.nav.startNow}
+              </Editable>
+            </button>
           </div>
         </div>
 

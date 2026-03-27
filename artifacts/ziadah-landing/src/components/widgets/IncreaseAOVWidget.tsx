@@ -35,42 +35,44 @@ export default function IncreaseAOVWidget() {
         {tr.products.map((p, i) => (
           <div key={i} style={{
             display: "flex",
-            alignItems: "center",
-            gap: 9,
+            flexDirection: "column",
+            gap: 8,
             padding: "8px 10px",
             borderRadius: 10,
             background: "var(--s1)",
             border: "1.5px solid var(--b1)",
             marginBottom: 6,
           }}>
-            <div style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              background: "rgba(168,85,247,.12)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 16,
-              flexShrink: 0,
-            }}>{p.emoji}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-              <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</span>
-                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+              <div style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                background: "rgba(168,85,247,.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 16,
+                flexShrink: 0,
+              }}>{p.emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
+                <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</span>
+                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>
+                </div>
               </div>
             </div>
             <button style={{
-              padding: "5px 10px",
-              borderRadius: 20,
+              width: "100%",
+              padding: "6px 10px",
+              borderRadius: 10,
               background: "rgba(124,58,237,.25)",
               color: "#c084fc",
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: 800,
               border: "1px solid rgba(168,85,247,.3)",
               cursor: "pointer",
-              flexShrink: 0,
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
         ))}

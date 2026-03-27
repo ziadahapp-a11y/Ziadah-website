@@ -101,6 +101,70 @@ function SecTag({ children }: { children: React.ReactNode }) {
   );
 }
 
+function DraggableMarqueeRow({
+  directionClass,
+  duration,
+  children,
+}: {
+  directionClass: "marquee-rtl" | "marquee-ltr";
+  duration: string;
+  children: React.ReactNode;
+}) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const dragLayerRef = useRef<HTMLDivElement>(null);
+  const pointerIdRef = useRef<number | null>(null);
+  const startXRef = useRef(0);
+  const startDragXRef = useRef(0);
+  const dragXRef = useRef(0);
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    pointerIdRef.current = e.pointerId;
+    startXRef.current = e.clientX;
+    startDragXRef.current = dragXRef.current;
+    rowRef.current?.classList.add("is-paused", "is-dragging");
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerIdRef.current !== e.pointerId) return;
+    const dx = e.clientX - startXRef.current;
+    const nextX = startDragXRef.current + dx;
+    dragXRef.current = nextX;
+    if (dragLayerRef.current) {
+      dragLayerRef.current.style.transform = `translate3d(${nextX}px,0,0)`;
+    }
+  };
+
+  const stopDrag = () => {
+    rowRef.current?.classList.remove("is-dragging", "is-paused");
+    pointerIdRef.current = null;
+  };
+
+  return (
+    <div
+      ref={rowRef}
+      className="marquee-row interactive-marquee"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={stopDrag}
+      onPointerCancel={stopDrag}
+    >
+      <div ref={dragLayerRef} className="interactive-drag-layer">
+        <div
+          className={`marquee-track ${directionClass} interactive-track`}
+          style={{
+            animationDuration: duration,
+            gap: 24,
+            paddingInline: 12,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Landing() {
   const { lang, dir } = useLanguage();
   const t = useSiteT();
@@ -300,10 +364,10 @@ export default function Landing() {
                 className="btn-p"
                 style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
               >
-                Actiacte now
+                {tr.landing.ctaPrimary}
               </button>
               <a href="#hiw" className="btn-g">
-                {lang === "ar" ? staticT.ar.landing.ctaSecondary : tr.landing.ctaSecondary}
+                {tr.landing.ctaSecondary}
               </a>
             </div>
             <div className="sbar">
@@ -670,12 +734,12 @@ export default function Landing() {
                 flexDirection: "column",
                 gap: 12,
                 padding: "16px",
-                borderRadius: 16,
-                background: "var(--s1)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "1px solid var(--b1)",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                borderRadius: 18,
+                background: `linear-gradient(160deg, rgba(${item.rgb},0.14) 0%, rgba(${item.rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: `1px solid rgba(${item.rgb},0.3)`,
+                boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${item.rgb},0.1)`,
               }}>
                 <div
                   style={{
@@ -717,16 +781,12 @@ export default function Landing() {
 
             return (
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                <div className="marquee-row">
-                  <div className="marquee-track marquee-rtl" style={{ animationDuration: "32s", gap: 24, paddingInline: 12 }}>
-                    {[...row1, ...row1, ...row1].map((item, i) => renderCard(item, i))}
-                  </div>
-                </div>
-                <div className="marquee-row">
-                  <div className="marquee-track marquee-ltr" style={{ animationDuration: "30s", gap: 24, paddingInline: 12 }}>
-                    {[...row2, ...row2, ...row2].map((item, i) => renderCard(item, i))}
-                  </div>
-                </div>
+                <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
+                  {[...row1, ...row1, ...row1].map((item, i) => renderCard(item, i))}
+                </DraggableMarqueeRow>
+                <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
+                  {[...row2, ...row2, ...row2].map((item, i) => renderCard(item, i))}
+                </DraggableMarqueeRow>
               </div>
             );
           })()}
@@ -1639,7 +1699,7 @@ export default function Landing() {
             </div>
             <div className="ba-grid">
               <GlassCard className="ba-card rv d1">
-                <div className="ba-lbl ba-lbl-b text-[16px]">{tr.landing.beforeLabel}</div>
+                <div className="ba-lbl ba-lbl-b text-[18px]">{tr.landing.beforeLabel}</div>
                 <div className="ba-list">
                   {(tr.landing.beforeList as string[]).map((item) => (
                     <div key={item} className="ba-row ba-row-b">

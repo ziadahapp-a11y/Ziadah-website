@@ -9,7 +9,13 @@ import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { CmsAuthProvider } from "@/cms/CmsAuthContext";
+import { useCmsAuth } from "@/cms/CmsAuthContext";
+import { CmsEditorProvider } from "@/cms/CmsEditorContext";
 import { CmsProtected } from "@/cms/components/CmsProtected";
+import { CmsInlineToolbar } from "@/cms/components/CmsInlineToolbar";
+import { CmsInlineEditorPanel } from "@/cms/components/CmsInlineEditorPanel";
+import { CmsFloatingEditableToolbar } from "@/cms/components/CmsFloatingEditableToolbar";
+import { CmsQuickLoginModal } from "@/cms/components/CmsQuickLoginModal";
 import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 
@@ -26,6 +32,7 @@ const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
 const Sectors = lazy(() => import("@/pages/Sectors"));
+const EcommerceStoreSectors = lazy(() => import("@/pages/EcommerceStoreSectors"));
 const SectorDetail = lazy(() => import("@/pages/SectorDetail"));
 const ProductPage = lazy(() => import("@/pages/use-cases/ProductPage"));
 const CartPage = lazy(() => import("@/pages/use-cases/CartPage"));
@@ -112,6 +119,7 @@ function PublicRoutes() {
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/features" component={Features} />
+      <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
@@ -224,11 +232,22 @@ function Router() {
 function AppShell() {
   const [loc] = useLangAwareLocation();
   const isCms = loc.startsWith("/cms");
+  const { user, loading } = useCmsAuth();
+  const showInlineToolbar =
+    !!user && (user.role === "editor" || user.role === "super_admin");
+  const showQuickLogin = !loading && !user && !isCms;
+
   return (
     <>
       <ScrollToTop />
-      <Router />
-      {!isCms && <Footer />}
+      <CmsInlineToolbar />
+      <CmsInlineEditorPanel />
+      <CmsFloatingEditableToolbar />
+      {showQuickLogin && <CmsQuickLoginModal />}
+      <div style={{ paddingTop: showInlineToolbar ? 48 : 0 }}>
+        <Router />
+        {!isCms && <Footer />}
+      </div>
     </>
   );
 }
@@ -241,12 +260,14 @@ function App() {
           <BlurTransitionProvider>
             <QueryClientProvider client={queryClient}>
               <CmsAuthProvider>
-                <WouterRouter
-                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                  hook={useLangAwareLocation}
-                >
-                  <AppShell />
-                </WouterRouter>
+                <CmsEditorProvider>
+                  <WouterRouter
+                    base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                    hook={useLangAwareLocation}
+                  >
+                    <AppShell />
+                  </WouterRouter>
+                </CmsEditorProvider>
               </CmsAuthProvider>
             </QueryClientProvider>
           </BlurTransitionProvider>

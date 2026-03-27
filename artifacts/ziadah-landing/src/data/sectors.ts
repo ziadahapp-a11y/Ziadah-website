@@ -23,6 +23,114 @@ export type SectorContent = {
 
 export const sectors: SectorContent[] = [
   {
+    slug: "delivery-apps",
+    icon: "🛵",
+    titleAr: "تطبيقات التوصيل",
+    titleEn: "Delivery Apps",
+    taglineAr: "زد قيمة الطلبات في لحظة اتخاذ القرار",
+    taglineEn: "Lift basket value at the decision moment",
+    seoDescAr:
+      "كيف تستخدم زيادة في تطبيقات التوصيل: إضافات الوجبة، عروض الحد الأدنى، وتجارب طلب أسرع مع أمثلة عملية.",
+    seoDescEn:
+      "How Ziadah works for delivery apps: meal add-ons, threshold nudges, and faster ordering journeys with practical examples.",
+    howToApplyAr: [
+      "قسّم القائمة حسب المناسبات (فطور، غداء، عشاء) لتكون التوصيات أكثر دقة.",
+      "فعّل الودجت في صفحة السلة وقبل الدفع لرفع قيمة السلة بسرعة.",
+      "اربط كل طبق بإضافات واضحة مثل المشروب أو المقبلات أو الصوص.",
+    ],
+    howToApplyEn: [
+      "Structure your menu by moments (breakfast, lunch, dinner) for cleaner recommendations.",
+      "Enable widgets on cart and pre-checkout steps to quickly raise basket size.",
+      "Map each main item to clear add-ons like drinks, sides, and sauces.",
+    ],
+    howZiadahHelpsAr: [
+      "يقترح إضافات صغيرة ذات قبول عالٍ ترفع قيمة الطلب بدون تعقيد.",
+      "يدفع العميل للوصول لحد الشحن المجاني بعرض منتجات مناسبة.",
+      "يعرض بدائل أعلى قيمة عند توفر مؤشرات اهتمام واضحة.",
+    ],
+    howZiadahHelpsEn: [
+      "Suggests high-acceptance micro add-ons that increase ticket size with low friction.",
+      "Nudges customers toward free-delivery thresholds with relevant items.",
+      "Surfaces higher-value alternatives when intent signals are strong.",
+    ],
+    examplesAr: [
+      "طلب برجر في السلة → بطاطس + مشروب بعرض شراء معاً.",
+      "سلة قريبة من الحد الأدنى للتوصيل المجاني → اقتراح حلى سريع.",
+    ],
+    examplesEn: [
+      "Burger in cart → fries + drink via a buy-together offer.",
+      "Cart close to free-delivery threshold → quick dessert recommendation.",
+    ],
+    experienceAr:
+      "في تطبيقات التوصيل، السرعة تحكم القرار. التوصية الناجحة تكون قصيرة وواضحة وفي المكان المناسب قبل الدفع.",
+    experienceEn:
+      "Speed drives decisions in delivery apps. Winning recommendations are short, clear, and placed right before checkout.",
+    bestPracticesAr: [
+      "قلّل عدد الاقتراحات إلى 1-2 فقط في كل خطوة لتفادي التشتت.",
+      "اعرض السعر النهائي للإضافة بوضوح قبل التأكيد.",
+      "راجع أداء الاقتراحات حسب أوقات الذروة يومياً.",
+    ],
+    bestPracticesEn: [
+      "Keep recommendations to 1-2 options per step to avoid overload.",
+      "Show final add-on price clearly before confirmation.",
+      "Review recommendation performance by peak hours daily.",
+    ],
+  },
+  {
+    slug: "ecommerce-platforms",
+    icon: "🧩",
+    titleAr: "منصات التسوق الإلكترونية",
+    titleEn: "Ecommerce Platforms",
+    taglineAr: "توصيات ذكية لتجربة اكتشاف أوسع داخل المنصة",
+    taglineEn: "Smart recommendations for broader discovery journeys",
+    seoDescAr:
+      "زيادة لمنصات التسوق الإلكترونية: توصيات عبر البائعين، تحسين الاكتشاف، ورفع متوسط الطلبات في بيئات متعددة الموردين.",
+    seoDescEn:
+      "Ziadah for ecommerce platforms: cross-seller recommendations, stronger discovery, and higher AOV in multi-vendor environments.",
+    howToApplyAr: [
+      "وحّد تصنيفات المنتجات بين البائعين لتقليل التشابه الخاطئ في التوصيات.",
+      "فعّل الودجت في صفحات البحث والتصنيف والسلة لزيادة فرص الاكتشاف.",
+      "حدّد قواعد جودة للبائعين الجدد قبل إدخال منتجاتهم إلى محرك التوصية.",
+    ],
+    howToApplyEn: [
+      "Standardize product taxonomy across sellers to reduce noisy recommendations.",
+      "Enable widgets on search, category, and cart pages to expand discovery.",
+      "Define quality rules for new sellers before feeding products to the recommendation engine.",
+    ],
+    howZiadahHelpsAr: [
+      "يربط العميل بمنتجات مكملة حتى لو كانت من بائع آخر داخل المنصة.",
+      "يرفع معدل الاستكشاف بتخصيص النتائج حسب السلوك الفعلي للمتصفح.",
+      "يحسّن فرص التحويل عبر ترتيب عروض أعلى صلة في كل جلسة.",
+    ],
+    howZiadahHelpsEn: [
+      "Connects shoppers with complementary products even across different sellers.",
+      "Improves discovery rate by personalizing results from real browsing behavior.",
+      "Boosts conversion odds by ranking higher-relevance offers per session.",
+    ],
+    examplesAr: [
+      "عميل يشاهد سماعات من بائع A → اقتراح حامل جوال من بائع B.",
+      "بحث عن مستلزمات المكتب → ترتيب حزمة منتجات متكاملة من عدة متاجر.",
+    ],
+    examplesEn: [
+      "Customer views headphones from seller A → phone stand suggestion from seller B.",
+      "Office-supplies search → curated multi-seller bundle recommendations.",
+    ],
+    experienceAr:
+      "منصات التسوق تحتاج توازنًا بين تنوع الموردين وجودة الترتيب. زيادة تعطي الأولوية للصلة لضمان تجربة اكتشاف مفيدة.",
+    experienceEn:
+      "Marketplace platforms need a balance between seller diversity and ranking quality. Ziadah prioritizes relevance for meaningful discovery.",
+    bestPracticesAr: [
+      "راقب جودة بيانات البائعين لأن دقة التوصية تعتمد عليها مباشرة.",
+      "فعّل حدود تكرار للمنتج نفسه حتى لا تتكرر النتائج للمستخدم.",
+      "استخدم تقارير الأداء حسب البائع لتطوير الكتالوج بشكل مستمر.",
+    ],
+    bestPracticesEn: [
+      "Audit seller data quality regularly; recommendation quality depends on it.",
+      "Set repetition caps so users do not see the same item too often.",
+      "Use seller-level performance reports to improve catalog health continuously.",
+    ],
+  },
+  {
     slug: "abayas-fashion",
     icon: "🧕",
     titleAr: "عبايات وأزياء",

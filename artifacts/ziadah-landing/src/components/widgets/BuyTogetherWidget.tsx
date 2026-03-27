@@ -23,7 +23,7 @@ export default function BuyTogetherWidget() {
   return (
     <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "rgba(242, 242, 242, 1)", marginBottom: 10 }}>{tr.descLabel}</div>
+        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {tr.items.map((p, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -31,11 +31,13 @@ export default function BuyTogetherWidget() {
               gap: 10,
               padding: "10px",
               borderRadius: 12,
-              background: checked[i] ? "rgba(124,58,237,.12)" : "var(--s1)",
-              border: checked[i] ? "1.5px solid rgba(168,85,247,.4)" : "1.5px solid var(--b2)",
+              background: checked[i] ? "linear-gradient(135deg, rgba(124,58,237,.2), rgba(124,58,237,.08))" : "rgba(255,255,255,0.04)",
+              border: checked[i] ? "1.5px solid rgba(168,85,247,.48)" : "1.5px solid rgba(255,255,255,0.09)",
               alignItems: "center",
               cursor: "pointer",
-              transition: "all .2s ease",
+              transition: "all .22s ease",
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
             }}>
               <div style={{
                 width: 18,
@@ -54,12 +56,13 @@ export default function BuyTogetherWidget() {
                 width: 36,
                 height: 36,
                 borderRadius: 8,
-                background: "rgba(124,58,237,.15)",
+                background: "linear-gradient(135deg, rgba(124,58,237,.24), rgba(124,58,237,.08))",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: 18,
                 flexShrink: 0,
+                border: "1px solid rgba(168,85,247,.26)",
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
@@ -69,7 +72,6 @@ export default function BuyTogetherWidget() {
                   {p.originalPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.originalPrice}</span>}
                 </div>
               </div>
-              {p.tag && <div style={{ fontSize: 8, padding: "2px 7px", borderRadius: 20, background: "rgba(124,58,237,.2)", color: "#c084fc", fontWeight: 700, flexShrink: 0 }}>{p.tag}</div>}
             </div>
           ))}
         </div>

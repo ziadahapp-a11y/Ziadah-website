@@ -150,6 +150,12 @@ export type CmsPageRow = {
   slug: string;
   title: string;
   metaDescription: string;
+  /** Present after DB migration `0001_sections_config`; absent treats as []. */
+  sectionsConfig?: Array<{
+    id: string;
+    label: string;
+    hidden: boolean;
+  }>;
   isPublished: boolean;
   createdAt: string;
   updatedAt: string;
@@ -240,6 +246,7 @@ export const cmsApi = {
     slug: string;
     title: string;
     metaDescription?: string;
+    sectionsConfig?: CmsPageRow["sectionsConfig"];
     isPublished?: boolean;
   }) =>
     cmsFetchJson<{ page: CmsPageRow }>("/cms/pages", {
@@ -253,6 +260,7 @@ export const cmsApi = {
       slug: string;
       title: string;
       metaDescription: string;
+      sectionsConfig: CmsPageRow["sectionsConfig"];
       isPublished: boolean;
     }>,
   ) =>

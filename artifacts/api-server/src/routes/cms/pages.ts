@@ -18,10 +18,17 @@ const router = Router();
 router.use(requireCmsAuth);
 router.use(blockViewerWrites);
 
+const sectionConfigSchema = z.object({
+  id: z.string().min(1).max(128),
+  label: z.string().min(1).max(256),
+  hidden: z.boolean().default(false),
+});
+
 const createPageSchema = z.object({
   slug: z.string().min(1).max(320),
   title: z.string().min(1).max(512),
   metaDescription: z.string().max(100_000).optional().default(""),
+  sectionsConfig: z.array(sectionConfigSchema).optional().default([]),
   isPublished: z.boolean().optional().default(false),
 });
 
@@ -29,6 +36,7 @@ const updatePageSchema = z.object({
   slug: z.string().min(1).max(320).optional(),
   title: z.string().min(1).max(512).optional(),
   metaDescription: z.string().max(100_000).optional(),
+  sectionsConfig: z.array(sectionConfigSchema).optional(),
   isPublished: z.boolean().optional(),
 });
 
@@ -64,6 +72,7 @@ router.post("/", requireSuperAdmin, async (req, res) => {
         slug: body.slug,
         title: body.title,
         metaDescription: body.metaDescription ?? "",
+        sectionsConfig: body.sectionsConfig ?? [],
         isPublished: body.isPublished ?? false,
         createdBy: user.id,
         createdAt: new Date(),
@@ -133,6 +142,9 @@ router.put("/:id", requireEditor, async (req, res) => {
         ...(patch.title !== undefined ? { title: patch.title } : {}),
         ...(patch.metaDescription !== undefined
           ? { metaDescription: patch.metaDescription }
+          : {}),
+        ...(patch.sectionsConfig !== undefined
+          ? { sectionsConfig: patch.sectionsConfig }
           : {}),
         ...(patch.isPublished !== undefined
           ? { isPublished: patch.isPublished }

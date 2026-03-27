@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -22,12 +23,34 @@ type SiteContentContextValue = {
   /** Merged translations (static + CMS overrides for `ar.*` / `en.*` keys only). */
   mergedT: typeof staticSiteTranslations;
   ready: boolean;
+  /** Merge keys into the in-memory map (e.g. after a successful CMS save) — updates `useSiteT` / site copy without reload. */
+  patchSiteContent: (updates: Record<string, string>) => void;
+  /** Remove keys so the site falls back to static defaults for those paths. */
+  removeSiteContentKeys: (keys: string[]) => void;
 };
+
+function noopPatch(_updates: Record<string, string>) {}
+
+function noopRemove(_keys: string[]) {}
 
 const SiteContentContext = createContext<SiteContentContextValue | null>(null);
 
 export function SiteContentProvider({ children }: { children: ReactNode }) {
   const [map, setMap] = useState<Record<string, string> | null>(null);
+
+  const patchSiteContent = useCallback((updates: Record<string, string>) => {
+    if (Object.keys(updates).length === 0) return;
+    setMap((prev) => ({ ...(prev ?? {}), ...updates }));
+  }, []);
+
+  const removeSiteContentKeys = useCallback((keys: string[]) => {
+    if (keys.length === 0) return;
+    setMap((prev) => {
+      const base = { ...(prev ?? {}) };
+      for (const k of keys) delete base[k];
+      return base;
+    });
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -62,8 +85,10 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
       map: map ?? {},
       mergedT,
       ready: map !== null,
+      patchSiteContent,
+      removeSiteContentKeys,
     }),
-    [map, mergedT],
+    [map, mergedT, patchSiteContent, removeSiteContentKeys],
   );
 
   return (
@@ -93,4 +118,16 @@ export function useCMSContent(key: string, fallback: string): string {
   const map = (ctx?.map ?? {}) as Record<string, string>;
   const v = map[key];
   return v !== undefined && v !== "" ? v : fallback;
+}
+
+/** Apply successful CMS API saves to the public-site content map (instant React updates). */
+export function useSiteContentMutations(): {
+  patchSiteContent: (updates: Record<string, string>) => void;
+  removeSiteContentKeys: (keys: string[]) => void;
+} {
+  const ctx = useContext(SiteContentContext);
+  return {
+    patchSiteContent: ctx?.patchSiteContent ?? noopPatch,
+    removeSiteContentKeys: ctx?.removeSiteContentKeys ?? noopRemove,
+  };
 }

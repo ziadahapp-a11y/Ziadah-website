@@ -1,7 +1,8 @@
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 import { useTheme } from "../ThemeContext";
 import { useLanguage } from "../i18n/LanguageContext";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
+import FeatureRequestModal from "./FeatureRequestModal";
 
 interface PlatformModalProps {
   open: boolean;
@@ -12,6 +13,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
   const { theme } = useTheme();
   const { isAr, dir } = useLanguage();
   const titleId = useId();
+  const [featureModalOpen, setFeatureModalOpen] = useState(false);
 
   const zidLogoSrc = platformZidLogoSrc(theme);
   const sallaLogoSrc = platformSallaLogoSrc(theme);
@@ -29,6 +31,11 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
       document.body.style.overflow = prevOverflow;
     };
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (open) return;
+    setFeatureModalOpen(false);
+  }, [open]);
 
   if (!open) return null;
 
@@ -118,6 +125,22 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
               {isAr ? "تثبيت من متجر تطبيقات سلة" : "Install from Salla app store"}
             </span>
           </a>
+
+          <button
+            type="button"
+            className="platform-tile platform-tile--other"
+            onClick={() => setFeatureModalOpen(true)}
+          >
+            <div className="platform-tile-other-icon" aria-hidden="true">
+              +
+            </div>
+            <span className="platform-tile-other-title">
+              {isAr ? "أخرى" : "Other"}
+            </span>
+            <span className="platform-tile-hint">
+              {isAr ? "اقترح منصتك وسنتواصل معك" : "Suggest your platform and we will reach out"}
+            </span>
+          </button>
         </div>
 
         <p className="vision-platform-footnote">
@@ -126,6 +149,14 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             : "7-day free trial · No credit card required"}
         </p>
       </div>
+      {featureModalOpen && (
+        <FeatureRequestModal
+          onClose={() => {
+            setFeatureModalOpen(false);
+            onClose();
+          }}
+        />
+      )}
     </div>
   );
 }

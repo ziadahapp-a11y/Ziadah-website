@@ -115,8 +115,8 @@ export function CmsLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="cms-shell flex min-h-screen flex-col text-neutral-900 md:flex-row dark:bg-neutral-950 dark:text-neutral-100">
-      <aside className="cms-sidebar hidden w-[var(--cms-sidebar-w)] shrink-0 flex-col md:flex">
+    <div className="cms-shell cms-layout dark:bg-neutral-950">
+      <aside className="cms-sidebar">
         <div className="border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
           <BrandBlock />
         </div>
@@ -151,8 +151,8 @@ export function CmsLayout({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-        <header className="flex items-center justify-between gap-3 border-b border-neutral-200 bg-white/90 px-4 py-3 backdrop-blur-sm md:hidden dark:border-neutral-800 dark:bg-neutral-900/90">
+      <div className="cms-content-wrap">
+        <header className="cms-mobile-header items-center justify-between gap-3 border-b border-neutral-200 bg-white/90 px-4 py-3 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/90">
           <BrandBlock compact />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>

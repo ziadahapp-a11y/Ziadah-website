@@ -61,6 +61,10 @@ export const cmsPagesTable = pgTable("cms_pages", {
   slug: varchar("slug", { length: 320 }).notNull().unique(),
   title: varchar("title", { length: 512 }).notNull(),
   metaDescription: text("meta_description").notNull().default(""),
+  sectionsConfig: jsonb("sections_config")
+    .$type<Array<{ id: string; label: string; hidden: boolean }>>()
+    .notNull()
+    .default([]),
   isPublished: boolean("is_published").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()

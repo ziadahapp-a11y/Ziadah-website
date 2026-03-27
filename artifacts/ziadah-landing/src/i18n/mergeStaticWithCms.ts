@@ -1,3 +1,20 @@
+/**
+ * Keys that must always follow static `translations.ts` (not CMS DB), so deploys that
+ * change copy in the repo are visible without re-seeding `content_blocks`.
+ */
+const STATIC_ONLY_I18N_KEYS = new Set([
+  "ar.landing.heroTitle1",
+  "en.landing.heroTitle1",
+  "ar.landing.heroTitleEm",
+  "en.landing.heroTitleEm",
+  "ar.landing.heroTitleGrad",
+  "en.landing.heroTitleGrad",
+  "ar.landing.ctaPrimary",
+  "en.landing.ctaPrimary",
+  "ar.landing.ctaSecondary",
+  "en.landing.ctaSecondary",
+]);
+
 /** Flat keys like `ar.nav.home` or `blog.post-slug.title` overlay nested static translations. */
 export function applyFlatOverridesToTree<T extends Record<string, unknown>>(
   base: T,
@@ -9,6 +26,9 @@ export function applyFlatOverridesToTree<T extends Record<string, unknown>>(
   const clone = structuredClone(base) as T;
   const root = clone as Record<string, unknown>;
   for (const [flatKey, value] of Object.entries(overrides)) {
+    if (STATIC_ONLY_I18N_KEYS.has(flatKey)) {
+      continue;
+    }
     if (!flatKey.startsWith("ar.") && !flatKey.startsWith("en.")) {
       continue;
     }
