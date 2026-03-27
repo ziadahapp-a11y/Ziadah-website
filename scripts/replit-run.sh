@@ -17,9 +17,20 @@ WEB_PORT="${PORT}"
 BASE_PATH="${BASE_PATH:-/}"
 
 # Replit secrets can override these values automatically.
-export JWT_SECRET="${JWT_SECRET:-YkFwcTU9aqruIFWZn0WO6zotqTvohjer}"
-export CMS_ADMIN_EMAIL="${CMS_ADMIN_EMAIL:-admin@ziadah.app}"
-export CMS_ADMIN_PASSWORD="${CMS_ADMIN_PASSWORD:-Admin@ziadah2024}"
+if [[ -z "${JWT_SECRET:-}" ]]; then
+  log "JWT_SECRET is required. Set it in Replit Secrets."
+  exit 1
+fi
+
+if [[ -z "${CMS_ADMIN_EMAIL:-}" ]]; then
+  log "CMS_ADMIN_EMAIL is required. Set it in Replit Secrets."
+  exit 1
+fi
+
+if [[ -z "${CMS_ADMIN_PASSWORD:-}" ]]; then
+  log "CMS_ADMIN_PASSWORD is required. Set it in Replit Secrets."
+  exit 1
+fi
 
 if [[ -z "${DATABASE_URL:-}" ]]; then
   log "DATABASE_URL is required. Set it in Replit Secrets."

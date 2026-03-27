@@ -12,12 +12,17 @@ function extractBearerToken(req: Request): string | null {
   return header.slice("Bearer ".length).trim() || null;
 }
 
+function extractCookieToken(req: Request): string | null {
+  const token = req.cookies?.["ziadah_cms_access"];
+  return typeof token === "string" && token.trim().length > 0 ? token : null;
+}
+
 export async function requireCmsAuth(
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> {
-  const token = extractBearerToken(req);
+  const token = extractBearerToken(req) ?? extractCookieToken(req);
   if (!token) {
     jsonError(res, "Authentication required", 401);
     return;

@@ -4,10 +4,51 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { cmsUsersTable, db } from "@workspace/db";
 import { jsonError, jsonSuccess } from "../../lib/api-response";
-import { signCmsToken } from "../../lib/cms-jwt";
+import {
+  signCmsAccessToken,
+  signCmsRefreshToken,
+  verifyCmsRefreshToken,
+} from "../../lib/cms-jwt";
 import { requireCmsAuth } from "../../middleware/cms-auth";
 
 const router = Router();
+const ACCESS_COOKIE_NAME = "ziadah_cms_access";
+const REFRESH_COOKIE_NAME = "ziadah_cms_refresh";
+
+function isProduction(): boolean {
+  return process.env["NODE_ENV"] === "production";
+}
+
+function setAuthCookies(res: Parameters<typeof jsonSuccess>[0], tokenPayload: {
+  accessToken: string;
+  refreshToken: string;
+}): void {
+  res.cookie(ACCESS_COOKIE_NAME, tokenPayload.accessToken, {
+    httpOnly: true,
+    secure: isProduction(),
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000,
+    path: "/",
+  });
+  res.cookie(REFRESH_COOKIE_NAME, tokenPayload.refreshToken, {
+    httpOnly: true,
+    secure: isProduction(),
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: "/",
+  });
+}
+
+function clearAuthCookies(res: Parameters<typeof jsonSuccess>[0]): void {
+  const options = {
+    httpOnly: true as const,
+    secure: isProduction(),
+    sameSite: "strict" as const,
+    path: "/",
+  };
+  res.clearCookie(ACCESS_COOKIE_NAME, options);
+  res.clearCookie(REFRESH_COOKIE_NAME, options);
+}
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -41,14 +82,16 @@ router.post("/login", async (req, res) => {
       .set({ lastLogin: new Date() })
       .where(eq(cmsUsersTable.id, user.id));
 
-    const token = signCmsToken({
+    const jwtPayload = {
       sub: user.id,
       email: user.email,
       role: user.role,
-    });
+    } as const;
+    const accessToken = signCmsAccessToken(jwtPayload);
+    const refreshToken = signCmsRefreshToken(jwtPayload);
+    setAuthCookies(res, { accessToken, refreshToken });
 
     jsonSuccess(res, {
-      token,
       user: {
         id: user.id,
         name: user.name,
@@ -64,7 +107,50 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (_req, res) => {
+  clearAuthCookies(res);
   jsonSuccess(res, { ok: true });
+});
+
+router.post("/refresh", async (req, res) => {
+  const refreshToken = req.cookies?.[REFRESH_COOKIE_NAME];
+  if (!refreshToken || typeof refreshToken !== "string") {
+    clearAuthCookies(res);
+    jsonError(res, "Authentication required", 401);
+    return;
+  }
+  try {
+    const payload = verifyCmsRefreshToken(refreshToken);
+    const [user] = await db
+      .select()
+      .from(cmsUsersTable)
+      .where(eq(cmsUsersTable.id, payload.sub))
+      .limit(1);
+    if (!user || !user.isActive) {
+      clearAuthCookies(res);
+      jsonError(res, "Invalid or inactive user", 401);
+      return;
+    }
+    const jwtPayload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    } as const;
+    const accessToken = signCmsAccessToken(jwtPayload);
+    const newRefreshToken = signCmsRefreshToken(jwtPayload);
+    setAuthCookies(res, { accessToken, refreshToken: newRefreshToken });
+    jsonSuccess(res, {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+      },
+    });
+  } catch {
+    clearAuthCookies(res);
+    jsonError(res, "Invalid or expired token", 401);
+  }
 });
 
 router.get("/me", requireCmsAuth, (req, res) => {

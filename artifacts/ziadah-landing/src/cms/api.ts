@@ -1,17 +1,6 @@
-const TOKEN_KEY = "ziadah_cms_jwt";
-
 export function getApiOrigin(): string {
   const raw = import.meta.env.VITE_API_BASE_URL;
   return typeof raw === "string" ? raw.replace(/\/$/, "") : "";
-}
-
-export function getStoredToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
-}
-
-export function setStoredToken(token: string | null): void {
-  if (token) localStorage.setItem(TOKEN_KEY, token);
-  else localStorage.removeItem(TOKEN_KEY);
 }
 
 type ApiOk<T> = { success: true; data: T };
@@ -58,13 +47,11 @@ function getApiErrorMessage(body: unknown, status: number): string {
 
 export async function cmsFetchJson<T>(
   path: string,
-  init?: RequestInit & { token?: string | null },
+  init?: RequestInit,
 ): Promise<T> {
   const origin = getApiOrigin();
   const url = `${origin}/api${path.startsWith("/") ? path : `/${path}`}`;
   const headers = new Headers(init?.headers);
-  const token = init?.token !== undefined ? init.token : getStoredToken();
-  if (token) headers.set("Authorization", `Bearer ${token}`);
   if (
     init?.body !== undefined &&
     !(init.body instanceof FormData) &&
@@ -72,7 +59,7 @@ export async function cmsFetchJson<T>(
   ) {
     headers.set("Content-Type", "application/json");
   }
-  const res = await fetch(url, { ...init, headers });
+  const res = await fetch(url, { ...init, headers, credentials: "include" });
   const body = await parseJson(res);
   if (!res.ok) {
     throw new CmsApiError(getApiErrorMessage(body, res.status), res.status || 500);
@@ -90,16 +77,16 @@ export async function cmsFetchJson<T>(
 export async function cmsUploadFile(
   path: string,
   file: File,
-  token?: string | null,
 ): Promise<unknown> {
   const origin = getApiOrigin();
   const url = `${origin}/api${path.startsWith("/") ? path : `/${path}`}`;
   const fd = new FormData();
   fd.append("file", file);
-  const headers = new Headers();
-  const t = token !== undefined ? token : getStoredToken();
-  if (t) headers.set("Authorization", `Bearer ${t}`);
-  const res = await fetch(url, { method: "POST", body: fd, headers });
+  const res = await fetch(url, {
+    method: "POST",
+    body: fd,
+    credentials: "include",
+  });
   const body = await parseJson(res);
   if (!res.ok) {
     throw new CmsApiError(getApiErrorMessage(body, res.status), res.status || 500);
@@ -187,11 +174,14 @@ export type AuditItem = {
 
 export const cmsApi = {
   login: (email: string, password: string) =>
-    cmsFetchJson<{ token: string; user: CmsUser }>("/cms/auth/login", {
+    cmsFetchJson<{ user: CmsUser }>("/cms/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
-      token: null,
     }),
+
+  logout: () => cmsFetchJson<{ ok: boolean }>("/cms/auth/logout", { method: "POST" }),
+
+  refresh: () => cmsFetchJson<{ user: CmsUser }>("/cms/auth/refresh", { method: "POST" }),
 
   me: () => cmsFetchJson<CmsUser>("/cms/auth/me"),
 

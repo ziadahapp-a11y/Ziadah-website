@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit } from "@/data/sectorPageTypes";
@@ -15,6 +15,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   const tr = t[lang].sectorsPage;
   const isAr = lang === "ar";
   const html = Boolean(rich.htmlLayout);
+  const [openMetricInfo, setOpenMetricInfo] = useState<string | null>(null);
 
   const triggers = tr.sectorTrackingTriggers;
   const barsRef = useRef<HTMLDivElement>(null);
@@ -291,12 +292,74 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   if (part === "bottom") {
     const linesAr = rich.analyticLinesAr;
     const linesEn = rich.analyticLinesEn;
-    const metricGlossary = [
-      tr.sectorMetricGlossaryAov,
-      tr.sectorMetricGlossaryCtr,
-      tr.sectorMetricGlossaryCvr,
-      tr.sectorMetricGlossaryMargin,
-    ];
+    const detectMetricType = (txt: string): "aov" | "basketAov" | "attachment" | "ctr" | "cvr" | "margin" => {
+      const s = txt.toLowerCase();
+      if (s.includes("combo") || s.includes("bundle") || s.includes("ecosystem") || s.includes("سلة")) return "basketAov";
+      if (s.includes("attachment") || s.includes("attach") || s.includes("الإرفاق")) return "attachment";
+      if (s.includes("ctr") || s.includes("النقر")) return "ctr";
+      if (s.includes("cvr") || s.includes("التحويل")) return "cvr";
+      if (s.includes("margin") || s.includes("الهامش")) return "margin";
+      return "aov";
+    };
+    const metricMetaByType = {
+      aov: { label: tr.sectorAnalyticsBarAov, glossary: tr.sectorMetricGlossaryAov },
+      basketAov: { label: tr.sectorAnalyticsBarBasketAov, glossary: tr.sectorMetricGlossaryBasketAov },
+      attachment: { label: tr.sectorAnalyticsBarAttachment, glossary: tr.sectorMetricGlossaryAttachment },
+      ctr: { label: tr.sectorAnalyticsBarCtr, glossary: tr.sectorMetricGlossaryCtr },
+      cvr: { label: tr.sectorAnalyticsBarCvr, glossary: tr.sectorMetricGlossaryCvr },
+      margin: { label: tr.sectorAnalyticsBarMargin, glossary: tr.sectorMetricGlossaryMargin },
+    } as const;
+    const metricMeta = rich.analyticKpis.map((k) => {
+      const source = isAr ? k.ar : k.en;
+      const type = detectMetricType(source);
+      return metricMetaByType[type];
+    });
+    const metricInfoButton = (key: string, i: number, label: string) => (
+      <span style={{ position: "relative", display: "inline-flex", alignItems: "center" }}>
+        <button
+          type="button"
+          onClick={() => setOpenMetricInfo((v) => (v === key ? null : key))}
+          aria-label={`${tr.sectorMetricGlossaryTitle}: ${label}`}
+          style={{
+            width: 14,
+            height: 14,
+            borderRadius: "50%",
+            border: "1px solid var(--b2)",
+            background: "var(--s1)",
+            color: "var(--p)",
+            fontSize: 9,
+            fontWeight: 800,
+            lineHeight: "12px",
+            textAlign: "center",
+            cursor: "pointer",
+            padding: 0,
+          }}
+        >
+          i
+        </button>
+        {openMetricInfo === key ? (
+          <span
+            style={{
+              position: "absolute",
+              top: "calc(100% + 6px)",
+              insetInlineStart: 0,
+              zIndex: 30,
+              width: "min(280px, 70vw)",
+              padding: "8px 10px",
+              borderRadius: 10,
+              border: "1px solid var(--b2)",
+              background: "var(--bg)",
+              color: "var(--td)",
+              fontSize: 11,
+              lineHeight: 1.6,
+              boxShadow: "0 12px 28px rgba(0,0,0,.24)",
+            }}
+          >
+            {metricMeta[i]?.glossary ?? ""}
+          </span>
+        ) : null}
+      </span>
+    );
 
     const trackingBlockHtml = (
       <div className="sector-html-trigger-pills" role="list">
@@ -349,28 +412,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                 </div>
                 <div className="sector-html-kpil" style={{ fontSize: 10 }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                    <span>{[tr.sectorAnalyticsBarAov, tr.sectorAnalyticsBarCtr, tr.sectorAnalyticsBarCvr, tr.sectorAnalyticsBarMargin][i] ?? ""}</span>
-                    <button
-                      type="button"
-                      aria-label={tr.sectorMetricGlossaryTitle}
-                      title={metricGlossary[i] ?? ""}
-                      style={{
-                        width: 14,
-                        height: 14,
-                        borderRadius: "50%",
-                        border: "1px solid var(--b2)",
-                        background: "var(--s1)",
-                        color: "var(--p)",
-                        fontSize: 9,
-                        fontWeight: 800,
-                        lineHeight: "12px",
-                        textAlign: "center",
-                        cursor: "help",
-                        padding: 0,
-                      }}
-                    >
-                      i
-                    </button>
+                    <span>{metricMeta[i]?.label ?? ""}</span>
+                    {metricInfoButton(`kpi-${i}`, i, metricMeta[i]?.label ?? "")}
                   </span>
                 </div>
               </div>
@@ -398,35 +441,15 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
             </div>
             <div className="sector-html-bars">
               {[
-                { cls: "sector-html-bf1", lbl: tr.sectorAnalyticsBarAov, pct: rich.analyticBarPcts[0] },
-                { cls: "sector-html-bf2", lbl: tr.sectorAnalyticsBarCtr, pct: rich.analyticBarPcts[1] },
-                { cls: "sector-html-bf3", lbl: tr.sectorAnalyticsBarCvr, pct: rich.analyticBarPcts[2] },
-                { cls: "sector-html-bf4", lbl: tr.sectorAnalyticsBarMargin, pct: rich.analyticBarPcts[3] },
+                { cls: "sector-html-bf1", pct: rich.analyticBarPcts[0] },
+                { cls: "sector-html-bf2", pct: rich.analyticBarPcts[1] },
+                { cls: "sector-html-bf3", pct: rich.analyticBarPcts[2] },
+                { cls: "sector-html-bf4", pct: rich.analyticBarPcts[3] },
               ].map((row, i) => (
                 <div key={i} className="sector-html-b-row">
-                  <div className="sector-html-b-lbl sh-en" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                    <span>{row.lbl}</span>
-                    <button
-                      type="button"
-                      aria-label={tr.sectorMetricGlossaryTitle}
-                      title={metricGlossary[i] ?? ""}
-                      style={{
-                        width: 14,
-                        height: 14,
-                        borderRadius: "50%",
-                        border: "1px solid var(--b2)",
-                        background: "var(--s1)",
-                        color: "var(--p)",
-                        fontSize: 9,
-                        fontWeight: 800,
-                        lineHeight: "12px",
-                        textAlign: "center",
-                        cursor: "help",
-                        padding: 0,
-                      }}
-                    >
-                      i
-                    </button>
+                  <div className="sector-html-b-lbl sh-en" style={{ width: 78, display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <span>{metricMeta[i]?.label ?? ""}</span>
+                    {metricInfoButton(`bar-${i}`, i, metricMeta[i]?.label ?? "")}
                   </div>
                   <div className="sector-html-b-track">
                     <div className={`sector-html-b-fill ${row.cls}`} data-w={String(row.pct)} />

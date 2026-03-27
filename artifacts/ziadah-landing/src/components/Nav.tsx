@@ -522,14 +522,16 @@ function MobileMoreDropdown({
 
   const directLinkStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
-    borderRadius: 14, background: "var(--s1)", textDecoration: "none",
+    borderRadius: 14, background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", textDecoration: "none",
+    border: `1px solid ${lt ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
     color: "var(--tm)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
     marginBottom: 6,
   };
 
   const subLinkStyle: React.CSSProperties = {
-    display: "block", padding: "9px 12px", borderRadius: 10,
-    background: "var(--s1)", textDecoration: "none",
+    display: "block", padding: "10px 12px", borderRadius: 10,
+    background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", textDecoration: "none",
+    border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
     color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
@@ -565,14 +567,16 @@ function MobileMoreDropdown({
         style={{
           position: "fixed",
           bottom: "calc(64px + env(safe-area-inset-bottom))",
-          left: 0,
-          right: 0,
+          left: 12,
+          right: 12,
+          maxWidth: 540,
+          marginInline: "auto",
           zIndex: 950,
           background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
           border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
           borderBottom: "none",
-          borderRadius: "20px 20px 0 0",
-          padding: "16px 16px 8px",
+          borderRadius: "22px 22px 0 0",
+          padding: "10px 14px 8px",
           backdropFilter: "blur(32px)",
           boxShadow: lt ? "0 -8px 40px rgba(0,0,0,.1)" : "0 -8px 40px rgba(0,0,0,.6)",
           maxHeight: "80vh",
@@ -581,13 +585,20 @@ function MobileMoreDropdown({
           direction: dir,
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 1, textTransform: "uppercase" }}>{tr.nav.menu}</span>
+        <div style={{
+          width: 44,
+          height: 4,
+          borderRadius: 999,
+          background: lt ? "rgba(0,0,0,.14)" : "rgba(255,255,255,.2)",
+          margin: "2px auto 10px",
+        }} />
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 0.8, textTransform: "uppercase" }}>{tr.nav.menu}</span>
           <button
             type="button"
             onClick={onClose}
             style={{
-              background: "var(--s2)", border: "none", color: "var(--tm)",
+              background: lt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)", border: "none", color: "var(--tm)",
               width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -596,7 +607,7 @@ function MobileMoreDropdown({
           </button>
         </div>
 
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("useCases")}
@@ -618,8 +629,8 @@ function MobileMoreDropdown({
             transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
           }}>
             {useCasesDropdown.sections.map((section) => (
-              <div key={section.title} style={{ marginBottom: 10 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+              <div key={section.title} style={{ marginBottom: 10, paddingBottom: 8 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {section.items.map((item) => (
                     <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
@@ -632,7 +643,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("platforms")}
@@ -653,7 +664,7 @@ function MobileMoreDropdown({
             opacity: openSection === "platforms" ? 1 : 0,
             transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
           }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4, paddingBottom: 8 }}>
               {platformItems.map((item) =>
                 item.enabled ? (
                   <a
@@ -677,7 +688,8 @@ function MobileMoreDropdown({
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "9px 12px", borderRadius: 10,
-                      background: "var(--s1)", color: "var(--td)",
+                      background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", color: "var(--td)",
+                      border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
                       fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                     }}
                   >
@@ -690,7 +702,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 6 }}>
+        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("help")}
@@ -711,11 +723,12 @@ function MobileMoreDropdown({
             opacity: openSection === "help" ? 1 : 0,
             transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
           }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3, paddingBottom: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4, paddingBottom: 8 }}>
               {mobileHelpItems.map((item) => {
                 const itemStyle: React.CSSProperties = {
-                  display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-                  borderRadius: 10, background: "var(--s1)",
+                  display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+                  borderRadius: 10, background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                  border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
@@ -729,7 +742,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 6, marginTop: 6 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 8, marginTop: 6 }}>
           <span onClick={() => { navigateTo("/success-stories"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             {tr.nav.successStories}
@@ -775,10 +788,10 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 4 }}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 10, marginTop: 4 }}>
           <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" onClick={onClose} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-            border: "1px solid var(--b2)", background: "transparent",
+            border: `1px solid ${lt ? "rgba(0,0,0,.15)" : "rgba(255,255,255,.16)"}`, background: "transparent",
             color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
           }}>
             {tr.nav.bookMeeting}
@@ -803,14 +816,16 @@ function MobileMoreDropdown({
 
 export default function Nav() {
   const t = useSiteT();
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const tr = t[lang];
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
+  const runBlur = useBlurTransition();
   const isLight = theme === "light";
+  const isRtl = lang === "ar";
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
-  const [moreOpen, setMoreOpen] = useState(false);
-  const [moreInitialSection, setMoreInitialSection] = useState<string | null>(null);
+  const [mobileMenu, setMobileMenu] = useState<"menu1" | "menu2">("menu1");
+  const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -821,7 +836,10 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  useEffect(() => { setOpenDrop(null); setMoreOpen(false); setMoreInitialSection(null); }, [location]);
+  useEffect(() => {
+    setOpenDrop(null);
+    setMobileOpenDrop(null);
+  }, [location]);
 
   const handleHoverStart = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -849,6 +867,14 @@ export default function Nav() {
       <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
+
+  const useCasesDropdown = getUseCasesDropdown(tr);
+  const platformItems = getPlatformItems(tr);
+  const mobileHelpItems = [
+    { label: tr.nav.faq, href: "/#faq" },
+    { label: tr.nav.contact, href: "/support" },
+    { label: tr.nav.blog, href: "/blog" },
+  ];
 
   return (
     <>
@@ -1141,127 +1167,271 @@ export default function Nav() {
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
         transition: "background .3s, border-color .3s",
       }}>
-        <div style={{ display: "flex", height: 64 }}>
-          {[
-            {
-              key: "home", label: tr.nav.home, cmsKey: cmsKey(lang, "nav", "home"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              ), action: () => navigateTo("/"),
-            },
-            {
-              key: "solutions", label: tr.nav.useCases, cmsKey: cmsKey(lang, "nav", "useCases"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2l3 6 6 1-4.5 4.5 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/>
-                </svg>
-              ), action: () => {
-                const nextOpen = !(moreOpen && moreInitialSection === "useCases");
-                if (!nextOpen) return setMoreOpen(false);
-                setMoreInitialSection("useCases");
-                setMoreOpen(true);
-              },
-            },
-            {
-              key: "calculator", label: tr.nav.calculator, cmsKey: cmsKey(lang, "nav", "calculator"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="4" y="2" width="16" height="20" rx="2"/>
-                  <line x1="8" y1="6" x2="16" y2="6"/>
-                  <line x1="8" y1="10" x2="16" y2="10"/>
-                  <line x1="8" y1="14" x2="12" y2="14"/>
-                </svg>
-              ), action: () => navigateTo("/calculator"),
-            },
-            {
-              key: "platforms", label: tr.nav.platforms, cmsKey: cmsKey(lang, "nav", "platforms"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 6h13v6H8z"/>
-                  <path d="M3 10h5v10H3z"/>
-                  <path d="M8 16h13v4H8z"/>
-                  <path d="M3 6h5v4H3z"/>
-                </svg>
-              ), action: () => {
-                const nextOpen = !(moreOpen && moreInitialSection === "platforms");
-                if (!nextOpen) return setMoreOpen(false);
-                setMoreInitialSection("platforms");
-                setMoreOpen(true);
-              },
-            },
-            {
-              key: "stories", label: tr.nav.successStories, cmsKey: cmsKey(lang, "nav", "successStories"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
-              ), action: () => navigateTo("/success-stories"),
-            },
-            {
-              key: "more", label: tr.nav.more, cmsKey: cmsKey(lang, "nav", "more"), icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="5" r="1.5" fill="currentColor"/>
-                  <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
-                  <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
-                </svg>
-              ), action: () => {
-                if (moreOpen && moreInitialSection === null) {
-                  setMoreOpen(false);
-                  setMoreInitialSection(null);
-                  return;
-                }
-                setMoreInitialSection(null);
-                setMoreOpen(true);
-              },
-            },
-          ].map((item) => {
-            const isActive =
-              item.key === "home"
-                ? location === "/"
-                : item.key === "stories"
-                  ? location === "/success-stories"
-                  : item.key === "calculator"
-                    ? location === "/calculator"
-                    : item.key === "solutions"
-                      ? location.startsWith("/use-cases/")
-                      : false;
-            return (
+        {mobileOpenDrop && (
+          <div style={{
+            position: "fixed",
+            left: 12,
+            right: 12,
+            bottom: "calc(64px + env(safe-area-inset-bottom) + 8px)",
+            zIndex: 920,
+            borderRadius: 16,
+            padding: 8,
+            maxHeight: "48vh",
+            overflowY: "auto",
+            background: isLight ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
+            border: `1px solid ${isLight ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+            backdropFilter: "blur(32px)",
+            boxShadow: isLight ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)",
+            animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
+          }}>
+            {mobileOpenDrop === "useCases" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {useCasesDropdown.sections.map((section) => (
+                  <div key={section.title}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingInline: 4, textTransform: "uppercase" }}>
+                      {section.title}
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                      {section.items.map((item) => (
+                        <span
+                          key={item.href + item.label}
+                          onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
+                          style={{
+                            display: "block", padding: "10px 12px", borderRadius: 10,
+                            background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                            border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                            color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
+                          }}
+                        >
+                          {item.label}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {mobileOpenDrop === "platforms" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {platformItems.map((item) => item.enabled ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setMobileOpenDrop(null)}
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8,
+                      padding: "10px 12px", borderRadius: 10, textDecoration: "none",
+                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    }}
+                  >
+                    <img src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)} alt={item.label} loading="lazy" style={{ height: 18, width: "auto", display: "block" }} />
+                  </a>
+                ) : (
+                  <div
+                    key={item.label}
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      padding: "10px 12px", borderRadius: 10,
+                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      color: "var(--td)", fontSize: 13, fontWeight: 500,
+                    }}
+                  >
+                    <span>{item.label}</span>
+                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+            {mobileOpenDrop === "sectors" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <span
+                  onClick={() => { navigateTo("/sectors"); setMobileOpenDrop(null); }}
+                  style={{
+                    display: "block", padding: "10px 12px", borderRadius: 10,
+                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    color: "var(--p)", fontSize: 13, fontWeight: 700, cursor: "pointer",
+                  }}
+                >
+                  {lang === "ar" ? "كل القطاعات" : "All Sectors"}
+                </span>
+                {MAIN_SECTOR_NAV.map((item) => (
+                  <span
+                    key={item.href}
+                    onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 8,
+                      padding: "10px 12px", borderRadius: 10,
+                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
+                    }}
+                  >
+                    <span style={{ fontSize: 16, lineHeight: 1 }}>{item.icon}</span>
+                    {lang === "ar" ? item.titleAr : item.titleEn}
+                  </span>
+                ))}
+              </div>
+            )}
+            {mobileOpenDrop === "help" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {mobileHelpItems.map((item) => (
+                  <span
+                    key={item.label}
+                    onClick={() => {
+                      item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
+                      setMobileOpenDrop(null);
+                    }}
+                    style={{
+                      display: "block", padding: "10px 12px", borderRadius: 10,
+                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                ))}
+              </div>
+            )}
+            {mobileOpenDrop === "langTheme" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    runBlur(() => setLang(lang === "ar" ? "en" : "ar"));
+                    setMobileOpenDrop(null);
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 12px",
+                    borderRadius: 10,
+                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    color: "var(--t)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    fontFamily: "var(--font)",
+                  }}
+                >
+                  <span>{lang === "ar" ? "اللغة" : "Language"}</span>
+                  <span>{lang === "ar" ? "EN" : "عربي"}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    runBlur(() => toggleTheme());
+                    setMobileOpenDrop(null);
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 12px",
+                    borderRadius: 10,
+                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
+                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    color: "var(--t)",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    fontFamily: "var(--font)",
+                  }}
+                >
+                  <span>{lang === "ar" ? "الوضع" : "Mode"}</span>
+                  <span>{theme === "light" ? (lang === "ar" ? "نهاري" : "Light") : (lang === "ar" ? "ليلي" : "Dark")}</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div style={{ position: "relative", overflow: "hidden", height: 64 }}>
+          <div style={{
+            position: "absolute", inset: 0, display: "flex",
+            opacity: mobileMenu === "menu1" ? 1 : 0,
+            transform: mobileMenu === "menu1" ? "translateX(0)" : (isRtl ? "translateX(18px)" : "translateX(-18px)"),
+            pointerEvents: mobileMenu === "menu1" ? "auto" : "none",
+            transition: "opacity .22s ease, transform .22s ease",
+          }}>
+            {[
+              { key: "home", label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
+              { key: "solutions", label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
+              { key: "calculator", label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
+              { key: "platforms", label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
+              { key: "sectors", label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
+              { key: "pricing", label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },
+              { key: "more", label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
+            ].map((item) => (
               <button
                 type="button"
                 key={item.key}
                 onClick={item.action}
                 style={{
-                  flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
-                  justifyContent: "center", gap: 4, background: "none", border: "none",
-                  color: isActive ? "#a855f7" : "var(--tm)",
+                  flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
+                  justifyContent: "center", gap: 3, background: "none", border: "none",
+                  color: item.active || (item.hasDrop && mobileOpenDrop === item.key) ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                 }}
               >
-                {item.icon}
+                <span style={{ display: "flex", alignItems: "center", gap: 2 }}>
+                  {item.hasDrop ? chevron(mobileOpenDrop === item.key) : null}
+                </span>
                 <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
-                  <Editable allowClickThrough contentKey={item.cmsKey} label={item.label}>
+                  <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
                     {item.label}
                   </Editable>
                 </span>
               </button>
-            );
-          })}
+            ))}
+          </div>
+
+          <div style={{
+            position: "absolute", inset: 0, display: "flex",
+            opacity: mobileMenu === "menu2" ? 1 : 0,
+            transform: mobileMenu === "menu2" ? "translateX(0)" : (isRtl ? "translateX(-18px)" : "translateX(18px)"),
+            pointerEvents: mobileMenu === "menu2" ? "auto" : "none",
+            transition: "opacity .22s ease, transform .22s ease",
+          }}>
+            {[
+              { key: "stories", label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
+              { key: "help", label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
+              { key: "meeting", label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); window.open("https://calendar.app.google/a3b18uRcuhHijZ8y5", "_blank", "noopener,noreferrer"); }, active: false },
+              { key: "startNow", label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
+              { key: "langTheme", label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
+              { key: "back", label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
+            ].map((item) => (
+              <button
+                type="button"
+                key={item.key}
+                onClick={item.action}
+                style={{
+                  flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
+                  justifyContent: "center", gap: 3, background: "none", border: "none",
+                  color: item.active || (item.hasDrop && mobileOpenDrop === item.key) ? "#a855f7" : "var(--tm)",
+                  fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
+                  transition: "color .2s",
+                }}
+              >
+                <span style={{ lineHeight: 1 }}>{item.key === "back" ? (isRtl ? "›" : "‹") : item.hasDrop ? (mobileOpenDrop === item.key ? "▲" : "▼") : ""}</span>
+                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
+                  <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
+                    {item.label}
+                  </Editable>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-
-      {moreOpen && (
-        <MobileMoreDropdown
-          initialOpenSection={moreInitialSection}
-          onClose={() => {
-            setMoreOpen(false);
-            setMoreInitialSection(null);
-          }}
-          onStartNow={() => {
-            setMoreOpen(false);
-            setMoreInitialSection(null);
-            setPlatformModalOpen(true);
-          }}
-        />
-      )}
     </>
   );
 }

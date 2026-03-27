@@ -7,15 +7,14 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { CmsApiError, cmsApi, getStoredToken, setStoredToken, type CmsUser } from "./api";
+import { CmsApiError, cmsApi, type CmsUser } from "./api";
 
 type CmsAuthState = {
   user: CmsUser | null;
-  token: string | null;
   loading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 };
 
@@ -23,67 +22,62 @@ const CmsAuthContext = createContext<CmsAuthState | null>(null);
 
 export function CmsAuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<CmsUser | null>(null);
-  const [token, setToken] = useState<string | null>(() => getStoredToken());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const refreshUser = useCallback(async () => {
-    const t = getStoredToken();
-    if (!t) {
-      setUser(null);
-      setToken(null);
-      setError(null);
-      return;
-    }
-    setToken(t);
     try {
       const me = await cmsApi.me();
       setUser(me);
       setError(null);
     } catch (e) {
-      setUser(null);
       if (e instanceof CmsApiError && e.status === 401) {
-        setStoredToken(null);
-        setToken(null);
-        setError(null);
-      } else {
-        setToken(t);
-        setError(
-          e instanceof CmsApiError
-            ? e.message
-            : "Could not verify your session. Check your connection and try again.",
-        );
+        try {
+          const refreshed = await cmsApi.refresh();
+          setUser(refreshed.user);
+          setError(null);
+          return;
+        } catch {
+          setUser(null);
+          setError(null);
+          return;
+        }
       }
+      setUser(null);
+      setError(
+        e instanceof CmsApiError
+          ? e.message
+          : "Could not verify your session. Check your connection and try again.",
+      );
     }
   }, []);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const stored = getStoredToken();
-      if (!stored) {
-        if (!cancelled) {
-          setLoading(false);
-        }
-        return;
-      }
       try {
         const me = await cmsApi.me();
         if (!cancelled) {
           setUser(me);
-          setToken(stored);
           setError(null);
         }
       } catch (e) {
         if (cancelled) return;
         if (e instanceof CmsApiError && e.status === 401) {
-          setStoredToken(null);
-          setUser(null);
-          setToken(null);
-          setError(null);
+          try {
+            const refreshed = await cmsApi.refresh();
+            if (!cancelled) {
+              setUser(refreshed.user);
+              setError(null);
+            }
+          } catch {
+            if (!cancelled) {
+              setUser(null);
+              setError(null);
+            }
+          }
         } else {
           setUser(null);
-          setToken(stored);
           setError(
             e instanceof CmsApiError
               ? e.message
@@ -101,29 +95,31 @@ export function CmsAuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     setError(null);
-    const { token: jwt, user: u } = await cmsApi.login(email, password);
-    setStoredToken(jwt);
-    setToken(jwt);
+    const { user: u } = await cmsApi.login(email, password);
     setUser(u);
   }, []);
 
-  const logout = useCallback(() => {
-    setStoredToken(null);
-    setToken(null);
-    setUser(null);
+  const logout = useCallback(async () => {
+    try {
+      await cmsApi.logout();
+    } catch {
+      // Best effort: always clear local auth state.
+    } finally {
+      setUser(null);
+      setError(null);
+    }
   }, []);
 
   const value = useMemo(
     () => ({
       user,
-      token,
       loading,
       error,
       login,
       logout,
       refreshUser,
     }),
-    [user, token, loading, error, login, logout, refreshUser],
+    [user, loading, error, login, logout, refreshUser],
   );
 
   return (

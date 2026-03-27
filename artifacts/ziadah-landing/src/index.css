@@ -574,8 +574,8 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
 }
 .vision-platform-panel{
   position:relative;
-  width:fit-content;
-  max-width:fit-content;
+  width:min(920px,96vw);
+  max-width:96vw;
   margin:auto;
   padding:36px 28px 30px;
   border-radius:var(--r20);
@@ -585,6 +585,8 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   backdrop-filter:var(--glass-blur);
   -webkit-backdrop-filter:var(--glass-blur);
   animation:vp-panel-in .28s cubic-bezier(0.22,1,0.36,1);
+  max-height:calc(100vh - 40px);
+  overflow:auto;
 }
 @keyframes vp-panel-in{
   from{opacity:0;transform:translateY(16px) scale(.98);}
@@ -648,12 +650,15 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   margin-inline:auto;
 }
 .vision-platform-grid{
-  display:flex;
-  width:fit-content;
-  grid-template-columns:1fr 1fr;
+  display:grid;
+  width:100%;
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:12px;
 }
-@media(max-width:520px){
+@media(max-width:860px){
+  .vision-platform-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:560px){
   .vision-platform-grid{grid-template-columns:1fr;}
 }
 .platform-tile{
@@ -687,7 +692,7 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
 /* بلاطة زد: خلفية بيضاء صلبة */
 .platform-tile.platform-tile--zid,
 [data-theme="light"] .platform-tile.platform-tile--zid{
-  width:200px;
+  width:100%;
   background:rgba(255,255,255,1);
 }
 [data-theme="light"] .platform-tile.platform-tile--zid:hover{
@@ -742,7 +747,7 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   max-height:none;
 }
 .platform-tile--other{
-  width:200px;
+  width:100%;
   cursor:pointer;
   font-family:var(--font);
 }
@@ -777,6 +782,46 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   font-size:12px;
   margin-top:22px;
   line-height:1.5;
+}
+@media(max-width:640px){
+  .vision-platform-overlay{
+    padding:12px;
+    align-items:flex-end;
+  }
+  .vision-platform-panel{
+    width:100%;
+    max-width:100%;
+    max-height:calc(100vh - 16px);
+    padding:20px 14px 16px;
+    border-radius:18px 18px 0 0;
+  }
+  .vision-platform-head{
+    margin-bottom:16px;
+    padding-inline:2px;
+  }
+  .vision-platform-kicker{
+    font-size:11px;
+    margin-bottom:8px;
+  }
+  .vision-platform-lead{
+    font-size:13px;
+    line-height:1.55;
+  }
+  .platform-tile{
+    gap:12px;
+    padding:14px 12px;
+    border-radius:14px;
+  }
+  .platform-tile-other-title{
+    font-size:17px;
+  }
+  .platform-tile-hint{
+    font-size:11px;
+  }
+  .vision-platform-footnote{
+    margin-top:14px;
+    font-size:11px;
+  }
 }
 @media (prefers-reduced-motion:reduce){
   .vision-platform-overlay,

@@ -227,19 +227,24 @@ export const t = {
       sectorNavUseCases: "أمثلة حية",
       sectorDashboardLive: "مباشر",
       sectorAnalyticsBarAov: "متوسط قيمة الطلب",
+      sectorAnalyticsBarBasketAov: "متوسط قيمة السلة",
       sectorAnalyticsBarCtr: "معدل النقر",
+      sectorAnalyticsBarAttachment: "معدل الإرفاق",
       sectorAnalyticsBarCvr: "نسبة التحويل",
       sectorAnalyticsBarMargin: "هامش الربح",
       sectorMetricGlossaryTitle: "شرح المصطلحات",
-      sectorMetricGlossaryCtr: "CTR (Click-Through Rate): معدل النقر. نسبة من نقروا على الإعلان/الرابط من إجمالي من شاهدوه. مثال: 50 نقرة من 1000 مشاهدة = 5%.",
+      sectorMetricGlossaryCtr:
+        "CTR (Click-Through Rate) — معدل النقر أو نسبة النقر: نسبة الناس الذين نقروا على إعلانك أو رابطك من بين الذين شاهدوه. مثال: إذا شاهد 1000 شخص الإعلان ونقر 50 شخصًا، فـ CTR = 5%. هذا المؤشر يقيس مدى جاذبية الإعلان.",
       sectorMetricGlossaryAov:
-        "AOV (Average Order Value): متوسط قيمة الطلب. متوسط ما ينفقه العميل في الطلب الواحد، ويحسب بقسمة إجمالي المبيعات على عدد الطلبات.",
+        "AOV (Average Order Value) — متوسط قيمة الطلب: كم ينفق العميل في المتوسط في كل طلب (شراء). يُحسب بقسمة إجمالي المبيعات على عدد الطلبات، وهو مهم جدًا لزيادة الأرباح.",
+      sectorMetricGlossaryBasketAov:
+        "Basket AOV (Average Basket Value) — متوسط قيمة السلة: متوسط قيمة السلة الكاملة بعد إضافة منتجات إضافية أو باقات داخل نفس الجلسة الشرائية، ويقيس أثر التوصيات على رفع قيمة السلة النهائية.",
       sectorMetricGlossaryAttachment:
-        "Attachment Rate: معدل الإرفاق. نسبة الطلبات التي تضيف منتجاً إضافياً مع المنتج الأساسي (مثل سماعات مع جوال أو حافظة مع لابتوب).",
+        "Attachment Rate — معدل الإرفاق أو نسبة الإرفاق: النسبة التي يشتري فيها العملاء منتجًا إضافيًا (Add-on) مع المنتج الرئيسي (مثل: سماعات مع الجوال أو حافظة مع اللابتوب).",
       sectorMetricGlossaryCvr:
-        "CVR (Conversion Rate): معدل التحويل. نسبة الزوار أو النقرات التي انتهت بإتمام الإجراء المطلوب مثل الشراء أو تعبئة نموذج.",
+        "CVR (Conversion Rate) — معدل التحويل: نسبة الزوار أو النقرات التي انتهت بشراء أو إكمال الإجراء المطلوب (مثل: تعبئة نموذج أو إتمام شراء).",
       sectorMetricGlossaryMargin:
-        "Profit Margin: هامش الربح. النسبة المئوية للربح المتبقي بعد خصم التكاليف من المبيعات.",
+        "Profit Margin — هامش الربح: النسبة المئوية من الربح بعد خصم التكاليف من المبيعات.",
       sectorSectionCta: "الخطوة التالية",
       sectorTrackingTriggers: [
         { ar: "🏠 الرئيسية", en: "🏠 Home" },
@@ -1205,7 +1210,9 @@ export const t = {
       sectorNavUseCases: "Live examples",
       sectorDashboardLive: "Live",
       sectorAnalyticsBarAov: "AOV",
+      sectorAnalyticsBarBasketAov: "Basket AOV",
       sectorAnalyticsBarCtr: "CTR",
+      sectorAnalyticsBarAttachment: "Attachment",
       sectorAnalyticsBarCvr: "CVR",
       sectorAnalyticsBarMargin: "Margin",
       sectorMetricGlossaryTitle: "Metric glossary",
@@ -1213,6 +1220,8 @@ export const t = {
         "CTR (Click-Through Rate): the percentage of people who clicked your link/ad out of all who saw it (for example, 50 clicks out of 1000 views = 5%).",
       sectorMetricGlossaryAov:
         "AOV (Average Order Value): average amount spent per order, calculated as total sales divided by number of orders.",
+      sectorMetricGlossaryBasketAov:
+        "Basket AOV (Average Basket Value): average value of the full basket after add-ons/bundles are added in the same session; this reflects recommendation impact on final basket value.",
       sectorMetricGlossaryAttachment:
         "Attachment Rate: the percentage of orders that include an add-on item with the main product.",
       sectorMetricGlossaryCvr:
