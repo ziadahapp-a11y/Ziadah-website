@@ -9,6 +9,8 @@ import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
+import { getSectorVisuals } from "@/data/sectorVisuals";
+import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { navigateTo } from "@/components/PageTransition";
 
 function SectionBlock({
@@ -110,8 +112,8 @@ export default function SectorDetail() {
   const seoDesc = lang === "ar" ? sector.seoDescAr : sector.seoDescEn;
   const howTo = lang === "ar" ? sector.howToApplyAr : sector.howToApplyEn;
   const helps = lang === "ar" ? sector.howZiadahHelpsAr : sector.howZiadahHelpsEn;
-  const examples = lang === "ar" ? sector.examplesAr : sector.examplesEn;
   const experience = lang === "ar" ? sector.experienceAr : sector.experienceEn;
+  const visualBundle = getSectorVisuals(sector.slug);
   const best = lang === "ar" ? sector.bestPracticesAr : sector.bestPracticesEn;
 
   return (
@@ -160,7 +162,7 @@ export default function SectorDetail() {
             position: "relative",
             zIndex: 2,
             paddingInline: "var(--page-inline-pad)",
-            maxWidth: 800,
+            maxWidth: 1200,
             margin: "0 auto",
           }}
         >
@@ -179,7 +181,7 @@ export default function SectorDetail() {
           </p>
         </section>
 
-        <article style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px", maxWidth: 800, margin: "0 auto" }}>
+        <article style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px", maxWidth: 1200, margin: "0 auto" }}>
           <SectionBlock title={tr.sectionHowToApply} delayClass="d1">
             <ol style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
               {howTo.map((line, i) => (
@@ -200,15 +202,27 @@ export default function SectorDetail() {
             </ul>
           </SectionBlock>
 
-          <SectionBlock title={tr.sectionExamples} delayClass="d3">
-            <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
-              {examples.map((line, i) => (
-                <li key={i} style={{ marginBottom: 10 }}>
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </SectionBlock>
+          {visualBundle ? (
+            <div className={`gc rv d3`} style={{ padding: 0, marginBottom: 20 }}>
+              <div className="shine" />
+              <div style={{ padding: "22px 24px 8px" }}>
+                <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 4, marginTop: 0 }}>{tr.sectionExamples}</h2>
+              </div>
+              <div style={{ padding: "0 24px 26px" }}>
+                <SectorVisualExamples bundle={visualBundle} />
+              </div>
+            </div>
+          ) : (
+            <SectionBlock title={tr.sectionExamples} delayClass="d3">
+              <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+                {(lang === "ar" ? sector.examplesAr : sector.examplesEn).map((line, i) => (
+                  <li key={i} style={{ marginBottom: 10 }}>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </SectionBlock>
+          )}
 
           <SectionBlock title={tr.sectionExperience} delayClass="d1">
             <p style={{ margin: 0, fontSize: 15, color: "var(--tm)", lineHeight: 1.8 }}>

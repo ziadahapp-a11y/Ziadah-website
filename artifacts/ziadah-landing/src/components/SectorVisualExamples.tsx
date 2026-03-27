@@ -71,7 +71,7 @@ function ScenarioCard({
   delayClass,
 }: {
   scenario: SectorVisualScenario;
-  tr: (typeof import("@/i18n/translations"))["t"]["ar"]["sectorsPage"];
+  tr: SectorPageT;
   isAr: boolean;
   delayClass: string;
 }) {
