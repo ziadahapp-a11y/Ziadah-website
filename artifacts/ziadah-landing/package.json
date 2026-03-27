@@ -75,6 +75,7 @@
     "zod": "catalog:"
   },
   "dependencies": {
+    "@emran-alhaddad/saudi-riyal-font": "^1.1.0",
     "react-helmet-async": "^3.0.0"
   }
 }

@@ -17,8 +17,16 @@ import { cn } from "@/lib/utils";
 import { useCmsAuth } from "../CmsAuthContext";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { RoleBadge } from "./RoleBadge";
+import type { CmsRole } from "../api";
 
-const nav = [
+type NavItem = {
+  href: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  roles: CmsRole[] | null;
+};
+
+const nav: NavItem[] = [
   { href: "/cms/dashboard", label: "Dashboard", icon: LayoutDashboard, roles: null },
   { href: "/cms/content", label: "Content", icon: FileText, roles: null },
   { href: "/cms/pages", label: "Pages", icon: Files, roles: null },
@@ -27,13 +35,13 @@ const nav = [
     href: "/cms/users",
     label: "Users",
     icon: Users,
-    roles: ["super_admin"] as const,
+    roles: ["super_admin"],
   },
   {
     href: "/cms/audit",
     label: "Audit",
     icon: ScrollText,
-    roles: ["super_admin"] as const,
+    roles: ["super_admin"],
   },
   { href: "/cms/settings", label: "Settings", icon: Settings, roles: null },
 ];

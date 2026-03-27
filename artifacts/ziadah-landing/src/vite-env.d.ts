@@ -1,7 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_API_BASE_URL: string;
+  /** API origin (e.g. http://localhost:3000). Empty = same origin. */
+  readonly VITE_API_BASE_URL?: string;
 }
 
 interface ImportMeta {

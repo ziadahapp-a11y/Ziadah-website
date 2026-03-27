@@ -1,0 +1,56 @@
+/** Flat keys like `ar.nav.home` or `blog.post-slug.title` overlay nested static translations. */
+export function applyFlatOverridesToTree<T extends Record<string, unknown>>(
+  base: T,
+  overrides: Record<string, string> | null | undefined,
+): T {
+  if (!overrides || Object.keys(overrides).length === 0) {
+    return base;
+  }
+  const clone = structuredClone(base) as T;
+  const root = clone as Record<string, unknown>;
+  for (const [flatKey, value] of Object.entries(overrides)) {
+    if (!flatKey.startsWith("ar.") && !flatKey.startsWith("en.")) {
+      continue;
+    }
+    const parts = flatKey.split(".");
+    setDeepString(root, parts, value);
+  }
+  return clone;
+}
+
+function setDeepString(
+  obj: Record<string, unknown>,
+  parts: string[],
+  value: string,
+): void {
+  if (parts.length === 0) return;
+  let cur: Record<string, unknown> = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    const next = cur[k];
+    if (next === undefined || typeof next !== "object" || next === null) {
+      cur[k] = {};
+    }
+    cur = cur[k] as Record<string, unknown>;
+  }
+  const last = parts[parts.length - 1];
+  cur[last] = value;
+}
+
+/** Flatten nested object with only string leaves (for seeding). */
+export function flattenStringLeaves(
+  obj: unknown,
+  prefix = "",
+): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (obj === null || typeof obj !== "object") return out;
+  for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+    const p = prefix ? `${prefix}.${k}` : k;
+    if (typeof v === "string") {
+      out[p] = v;
+    } else if (typeof v === "object" && v !== null) {
+      Object.assign(out, flattenStringLeaves(v, p));
+    }
+  }
+  return out;
+}

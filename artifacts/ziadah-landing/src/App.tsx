@@ -1,13 +1,17 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { useBrowserLocation } from "wouter/use-browser-location";
+import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useEffect } from "react";
+import { Toaster } from "sonner";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Landing from "@/pages/Landing";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
+import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
+import { CmsAuthProvider } from "@/cms/CmsAuthContext";
+import { CmsProtected } from "@/cms/components/CmsProtected";
 import "./index.css";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
@@ -20,6 +24,8 @@ const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
+const Sectors = lazy(() => import("@/pages/Sectors"));
+const SectorDetail = lazy(() => import("@/pages/SectorDetail"));
 const ProductPage = lazy(() => import("@/pages/use-cases/ProductPage"));
 const CartPage = lazy(() => import("@/pages/use-cases/CartPage"));
 const ThankYouPage = lazy(() => import("@/pages/use-cases/ThankYouPage"));
@@ -44,37 +50,16 @@ const MoreCartItems = lazy(() => import("@/pages/use-cases/MoreCartItems"));
 const FreeShippingDisplay = lazy(() => import("@/pages/use-cases/FreeShippingDisplay"));
 const DiscountCoupon = lazy(() => import("@/pages/use-cases/DiscountCoupon"));
 
+const CmsLogin = lazy(() => import("@/cms/pages/Login"));
+const CmsDashboard = lazy(() => import("@/cms/pages/Dashboard"));
+const CmsContent = lazy(() => import("@/cms/pages/Content"));
+const CmsPages = lazy(() => import("@/cms/pages/Pages"));
+const CmsMedia = lazy(() => import("@/cms/pages/Media"));
+const CmsUsers = lazy(() => import("@/cms/pages/Users"));
+const CmsAudit = lazy(() => import("@/cms/pages/Audit"));
+const CmsSettings = lazy(() => import("@/cms/pages/Settings"));
+
 const queryClient = new QueryClient();
-
-function stripEnPrefix(path: string) {
-  const qIndex = path.indexOf("?");
-  const hIndex = path.indexOf("#");
-  const cutIndex = [qIndex, hIndex].filter((v) => v >= 0).sort((a, b) => a - b)[0] ?? path.length;
-  const pathname = path.slice(0, cutIndex);
-  const suffix = path.slice(cutIndex);
-
-  if (pathname === "/en") return `/${suffix}`;
-  if (pathname.startsWith("/en/")) return `${pathname.slice(3)}${suffix}`;
-  return path;
-}
-
-function useLangAwareLocation() {
-  const [location, navigate] = useBrowserLocation();
-  const { lang } = useLanguage();
-  // لغة الواجهة من السياق تتقدّم أحياناً على pathname بعد pushState — لا نعتمد pathname وحده
-  const isEn = lang === "en";
-  const normalizedLocation = stripEnPrefix(location);
-
-  const langAwareNavigate = (to: string, options?: { replace?: boolean }) => {
-    const plainTarget = stripEnPrefix(to);
-    const nextPath = isEn
-      ? (plainTarget === "/" ? "/en" : `/en${plainTarget}`)
-      : plainTarget;
-    navigate(nextPath, options);
-  };
-
-  return [normalizedLocation, langAwareNavigate] as const;
-}
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -99,7 +84,7 @@ function LazyRouteFallback() {
   );
 }
 
-function Router() {
+function PublicRoutes() {
   return (
     <Switch>
       <Route path="/" component={Landing} />
@@ -107,6 +92,8 @@ function Router() {
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/features" component={Features} />
+      <Route path="/sectors/:slug" component={SectorDetail} />
+      <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
@@ -140,21 +127,99 @@ function Router() {
   );
 }
 
+function CmsRoutes() {
+  return (
+    <Switch>
+      <Route path="/cms/login" component={CmsLogin} />
+      <Route path="/cms/dashboard">
+        <CmsProtected>
+          <CmsDashboard />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/content">
+        <CmsProtected>
+          <CmsContent />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/pages">
+        <CmsProtected>
+          <CmsPages />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/media">
+        <CmsProtected>
+          <CmsMedia />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/users">
+        <CmsProtected>
+          <CmsUsers />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/audit">
+        <CmsProtected>
+          <CmsAudit />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms/settings">
+        <CmsProtected>
+          <CmsSettings />
+        </CmsProtected>
+      </Route>
+      <Route path="/cms">
+        <Redirect to="/cms/dashboard" />
+      </Route>
+    </Switch>
+  );
+}
+
+function Router() {
+  const [loc] = useLangAwareLocation();
+  const isCms = loc.startsWith("/cms");
+  return (
+    <>
+      {isCms ? (
+        <Suspense fallback={<LazyRouteFallback />}>
+          <CmsRoutes />
+        </Suspense>
+      ) : (
+        <PageTransition>
+          <Suspense fallback={<LazyRouteFallback />}>
+            <PublicRoutes />
+          </Suspense>
+        </PageTransition>
+      )}
+    </>
+  );
+}
+
+function AppShell() {
+  const [loc] = useLangAwareLocation();
+  const isCms = loc.startsWith("/cms");
+  return (
+    <>
+      <ScrollToTop />
+      <Router />
+      {!isCms && <Footer />}
+    </>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
         <BlurTransitionProvider>
           <QueryClientProvider client={queryClient}>
-            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")} hook={useLangAwareLocation}>
-              <ScrollToTop />
-              <PageTransition>
-                <Suspense fallback={<LazyRouteFallback />}>
-                  <Router />
-                </Suspense>
-              </PageTransition>
-              <Footer />
-            </WouterRouter>
+            <CmsAuthProvider>
+              <WouterRouter
+                base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                hook={useLangAwareLocation}
+              >
+                <AppShell />
+              </WouterRouter>
+            </CmsAuthProvider>
+            <Toaster position="top-right" richColors />
           </QueryClientProvider>
         </BlurTransitionProvider>
       </LanguageProvider>

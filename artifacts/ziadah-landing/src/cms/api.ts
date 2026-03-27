@@ -97,6 +97,7 @@ export type CmsUser = {
   role: CmsRole;
   mustChangePassword: boolean;
   lastLogin?: string | null;
+  /** Omitted on login response; present on user list. */
   isActive?: boolean;
 };
 

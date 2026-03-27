@@ -69,6 +69,10 @@
     "/use-cases": {
       "keywordsAr": "حالات استخدام، صفحة منتج، سلة، شكر، تخصيص تجربة العميل، ذكاء اصطناعي",
       "keywordsEn": "use cases, product page, cart, thank you page, CX personalization, AI widgets"
+    },
+    "/sectors": {
+      "keywordsAr": "قطاعات التجارة، زد، سلة، ذكاء اصطناعي، مجال المتجر، أفضل ممارسات",
+      "keywordsEn": "ecommerce verticals, Zid, Salla, AI merchandising, industry guide, best practices"
     }
   }
 }

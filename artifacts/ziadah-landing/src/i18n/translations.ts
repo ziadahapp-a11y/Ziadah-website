@@ -63,6 +63,7 @@ export const t = {
       zid: "زد",
       shopify: "شوبيفاي",
       comingSoon: "قريباً",
+      sectors: "القطاعات",
     },
     featureModal: {
       title: "طلب ميزة جديدة",
@@ -129,6 +130,26 @@ export const t = {
       heroLead:
         "أكثر من 700 متجر إلكتروني اختار زيادة لزيادة المبيعات بالذكاء الاصطناعي. إليك قصصهم بأرقام واضحة.",
     },
+    sectorsPage: {
+      seoTitle: "القطاعات — زيادة للمتاجر حسب مجالك",
+      seoDesc:
+        "دليل تطبيق زيادة لكل قطاع: كيف تفعّل الحلول، كيف تخدم زيادة قطاعك، أمثلة وتجارب وأفضل الممارسات لمتاجر زد وسلة.",
+      heroTag: "قطاعات",
+      heroTitle: "القطاعات",
+      heroSub:
+        "كل قطاع له طريقة تطبيق حلول زيادة، وكيف تخدم زيادة مجالك — بأمثلة عملية وتجربة وأفضل الممارسات.",
+      cardCta: "اقرأ الدليل",
+      sectionHowToApply: "طريقة تطبيق حلول زيادة",
+      sectionHowZiadah: "كيف تخدم زيادة هذا القطاع",
+      sectionExamples: "أمثلة وتجربة",
+      sectionExperience: "تجربة ميدانية",
+      sectionBestPractices: "أفضل الممارسات",
+      breadcrumbHome: "الرئيسة",
+      breadcrumbSectors: "القطاعات",
+      notFoundTitle: "القطاع غير موجود",
+      notFoundDesc: "الرابط غير صحيح أو القطاع غير متوفر. ارجع لقائمة القطاعات.",
+      notFoundBtn: "العودة للقطاعات",
+    },
     landing: {
       aiBadge: "AI مفعّل",
       aiBadgeText: "ذكاء اصطناعي + تعلم آلي يعمل الآن",
@@ -147,6 +168,11 @@ export const t = {
       stat4Value: "+40 مليون",
       stat4Label: "ظهور ناجح",
       trustLabel: "فخورين بثقتهم",
+      sectorsTag: "القطاعات",
+      sectorsTitle: "حلول مخصّصة لمجال تجارتك",
+      sectorsSub:
+        "اختر قطاعك واطّلع على طريقة تطبيق زيادة، وكيف نخدم مجالك بأمثلة وأفضل الممارسات — دليل كامل لكل قطاع.",
+      sectorsCta: "عرض كل القطاعات",
       hiwTag: "كيف تعمل؟",
       hiwTitle: "فعّل زيادة — والباقي تلقائي بالذكاء الاصطناعي",
       hiwSubtitle: "التعلم الآلي يدرس عملاء متجرك الإلكتروني من أول زيارة ويتحسّن يوماً بعد يوم",
@@ -886,6 +912,7 @@ export const t = {
       zid: "Zid",
       shopify: "Shopify",
       comingSoon: "Coming Soon",
+      sectors: "Industries",
     },
     featureModal: {
       title: "Request a Feature",
@@ -952,6 +979,26 @@ export const t = {
       heroLead:
         "700+ ecommerce stores chose Ziadah to grow sales with AI. Here are their stories with clear, measurable outcomes.",
     },
+    sectorsPage: {
+      seoTitle: "Industries — Ziadah for your vertical",
+      seoDesc:
+        "How to apply Ziadah by industry: activation, how Ziadah serves your sector, examples, experience notes, and best practices for Zid and Salla stores.",
+      heroTag: "Industries",
+      heroTitle: "Industries",
+      heroSub:
+        "Each vertical has a practical activation path and sector-specific guidance — with examples, experience notes, and best practices.",
+      cardCta: "Read the guide",
+      sectionHowToApply: "How to apply Ziadah",
+      sectionHowZiadah: "How Ziadah serves this sector",
+      sectionExamples: "Examples & experience",
+      sectionExperience: "Field notes",
+      sectionBestPractices: "Best practices",
+      breadcrumbHome: "Home",
+      breadcrumbSectors: "Industries",
+      notFoundTitle: "Industry not found",
+      notFoundDesc: "This link is invalid or the page is unavailable. Return to the industry list.",
+      notFoundBtn: "Back to industries",
+    },
     landing: {
       aiBadge: "AI Active",
       aiBadgeText: "AI + Machine Learning running now",
@@ -971,6 +1018,11 @@ export const t = {
       stat4Value: "+40M",
       stat4Label: "Successful Impressions",
       trustLabel: "Proud of Their Trust",
+      sectorsTag: "Industries",
+      sectorsTitle: "Tailored guidance for your vertical",
+      sectorsSub:
+        "Pick your industry to see how to activate Ziadah, how we serve your field, with examples and best practices — a full guide per sector.",
+      sectorsCta: "View all industries",
       hiwTag: "How It Works",
       hiwTitle: "Activate Ziadah — AI automation handles the rest",
       hiwSubtitle: "Machine learning studies your ecommerce shoppers from visit one and improves every day",

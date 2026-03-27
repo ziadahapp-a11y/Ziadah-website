@@ -83,7 +83,11 @@ export default function CmsDashboard() {
           href="/cms/content"
         />
         <StatCard title="Pages" value={pagesQ.data ?? "…"} href="/cms/pages" />
-        <StatCard title="Users" value={usersCount} href="/cms/users" />
+        <StatCard
+          title="Users"
+          value={usersCount}
+          href={isAdmin ? "/cms/users" : undefined}
+        />
         <StatCard
           title="Recent changes"
           value={isAdmin ? (auditQ.data?.length ?? "…") : "—"}

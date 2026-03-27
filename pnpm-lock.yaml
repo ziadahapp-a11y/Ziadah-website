@@ -416,6 +416,9 @@ importers:
 
   artifacts/ziadah-landing:
     dependencies:
+      '@emran-alhaddad/saudi-riyal-font':
+        specifier: ^1.1.0
+        version: 1.1.0
       react-helmet-async:
         specifier: ^3.0.0
         version: 3.0.0(react@19.1.0)
@@ -761,6 +764,9 @@ packages:
 
   '@drizzle-team/brocli@0.10.2':
     resolution: {integrity: sha512-z33Il7l5dKjUgGULTqBsQBQwckHh5AbIuxhdsIxDDiZAzBOrZO6q9ogcWC65kU382AfynTfgNumVcNIjuIua6w==}
+
+  '@emran-alhaddad/saudi-riyal-font@1.1.0':
+    resolution: {integrity: sha512-5VSAwAM6pM7dA3MllTEhtqa/fGeYuRbcjj6+VwD7afza89iXHv0iwVSWS1UbLMSj6zpBhkmQbebFjZ+jmEneAw==}
 
   '@esbuild/linux-x64@0.27.3':
     resolution: {integrity: sha512-Czi8yzXUWIQYAtL/2y6vogER8pvcsOsk5cpwL4Gk5nJqH5UZiVByIY8Eorm5R13gq+DQKYg0+JyQoytLQas4dA==}
@@ -3344,6 +3350,8 @@ snapshots:
   '@date-fns/tz@1.4.1': {}
 
   '@drizzle-team/brocli@0.10.2': {}
+
+  '@emran-alhaddad/saudi-riyal-font@1.1.0': {}
 
   '@esbuild/linux-x64@0.27.3':
     optional: true

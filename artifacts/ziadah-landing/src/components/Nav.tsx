@@ -207,7 +207,7 @@ function UseCasesMegaMenu() {
       position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 900,
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.9)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
-      borderRadius: 16, padding: 4,
+      borderRadius: 16, padding: "20px 4px",
       backdropFilter: "blur(100px)", WebkitBackdropFilter: "blur(100px)",
       boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
       display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, overflowX: "auto",
@@ -610,6 +610,7 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
               style={{
                 display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
                 borderRadius: 12, textDecoration: "none", transition: "background .2s",
+                width: "100%", textAlign: lang === "ar" ? "right" : "left",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -625,10 +626,19 @@ function HelpDropdown({ onFeatureRequest }: { onFeatureRequest: () => void }) {
         return (
           <span
             key={item.label}
+            role="button"
+            tabIndex={0}
             onClick={() => item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
+              }
+            }}
             style={{
               display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px",
               borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
+              width: "100%", textAlign: lang === "ar" ? "right" : "left",
             }}
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
@@ -936,6 +946,10 @@ function MobileMoreDropdown({
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
             {tr.nav.blog}
           </span>
+          <span onClick={() => { navigateTo("/sectors"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0, gridColumn: "1 / -1", justifyContent: "center" }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l12-7 9 5v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+            {tr.nav.sectors}
+          </span>
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 8, marginTop: 4 }}>
@@ -1079,6 +1093,21 @@ export default function Nav() {
             </li>
 
             <li>
+              <span onClick={() => navigateTo("/sectors")} style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/sectors" || location.startsWith("/sectors/") ? "var(--t)" : "var(--tm)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/sectors" || location.startsWith("/sectors/") ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s", cursor: "pointer",
+              }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => { if (location !== "/sectors" && !location.startsWith("/sectors/")) (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
+              >
+                {tr.nav.sectors}
+              </span>
+            </li>
+
+            <li>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms")}>
                   {tr.nav.platforms} {chevron(openDrop === "platforms")}
@@ -1168,6 +1197,17 @@ export default function Nav() {
                 transition: "all .2s", cursor: "pointer",
               }}>
                 {tr.nav.successStories}
+              </span>
+            </li>
+            <li>
+              <span onClick={() => navigateTo("/sectors")} style={{
+                display: "block", padding: "8px 14px", borderRadius: 10,
+                color: location === "/sectors" || location.startsWith("/sectors/") ? "var(--t)" : "var(--tm)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/sectors" || location.startsWith("/sectors/") ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s", cursor: "pointer",
+              }}>
+                {tr.nav.sectors}
               </span>
             </li>
             <li>

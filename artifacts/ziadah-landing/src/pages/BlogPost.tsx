@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, type ReactElement, type ReactNode } from "react";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
 import ParticleBackground from "../components/ParticleBackground";
@@ -13,7 +13,7 @@ import { toWesternDigits } from "@/utils/westernDigits";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
-  const elements: JSX.Element[] = [];
+  const elements: ReactElement[] = [];
   let i = 0;
 
   while (i < lines.length) {
@@ -164,7 +164,7 @@ function renderContent(content: string) {
         </p>
       );
     } else if (line.startsWith("- ")) {
-      const listItems: JSX.Element[] = [];
+      const listItems: ReactElement[] = [];
       while (i < lines.length && lines[i].trim().startsWith("- ")) {
         listItems.push(
           <li
@@ -206,7 +206,9 @@ function renderContent(content: string) {
               <span style={{ color: "#a855f7", flexShrink: 0, marginTop: 2 }}>
                 ●
               </span>
-              <span>{item.props.children}</span>
+              <span>
+                {(item as ReactElement<{ children?: ReactNode }>).props.children}
+              </span>
             </li>
           ))}
         </ul>

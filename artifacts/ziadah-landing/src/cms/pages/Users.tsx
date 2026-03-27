@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -126,12 +126,15 @@ export default function CmsUsersPage() {
         onOpenChange={setCreateOpen}
         onDone={() => void qc.invalidateQueries({ queryKey: ["cms", "users"] })}
       />
-      <EditUserDialog
-        user={editUser}
-        currentUserId={user?.id}
-        onOpenChange={(o) => !o && setEditUser(null)}
-        onDone={() => void qc.invalidateQueries({ queryKey: ["cms", "users"] })}
-      />
+      {editUser && (
+        <EditUserDialog
+          key={editUser.id}
+          user={editUser}
+          currentUserId={user?.id}
+          onClose={() => setEditUser(null)}
+          onDone={() => void qc.invalidateQueries({ queryKey: ["cms", "users"] })}
+        />
+      )}
     </div>
   );
 }
@@ -230,55 +233,54 @@ function CreateUserDialog({
 function EditUserDialog({
   user,
   currentUserId,
-  onOpenChange,
+  onClose,
   onDone,
 }: {
-  user: CmsUser | null;
+  user: CmsUser;
   currentUserId: string | undefined;
-  onOpenChange: (o: boolean) => void;
+  onClose: () => void;
   onDone: () => void;
 }) {
-  const [name, setName] = useState(user?.name ?? "");
-  const [role, setRole] = useState<CmsRole>(user?.role ?? "viewer");
-  const [isActive, setIsActive] = useState(user?.isActive !== false);
+  const [name, setName] = useState(user.name);
+  const [role, setRole] = useState<CmsRole>(user.role);
+  const [isActive, setIsActive] = useState(user.isActive !== false);
 
-  const open = user !== null;
+  useEffect(() => {
+    setName(user.name);
+    setRole(user.role);
+    setIsActive(user.isActive !== false);
+  }, [user]);
 
   const mut = useMutation({
     mutationFn: () =>
-      user
-        ? cmsApi.updateUser(user.id, { name, role, isActive })
-        : Promise.reject(),
+      cmsApi.updateUser(user.id, { name, role, isActive }),
     onSuccess: () => {
       toast.success("User updated");
       onDone();
-      onOpenChange(false);
+      onClose();
     },
     onError: (e: unknown) =>
       toast.error(e instanceof CmsApiError ? e.message : "Failed"),
   });
 
   const deleteMut = useMutation({
-    mutationFn: () =>
-      user ? cmsApi.deleteUser(user.id) : Promise.reject(),
+    mutationFn: () => cmsApi.deleteUser(user.id),
     onSuccess: () => {
       toast.success("User deactivated");
       onDone();
-      onOpenChange(false);
+      onClose();
     },
     onError: (e: unknown) =>
       toast.error(e instanceof CmsApiError ? e.message : "Failed"),
   });
 
-  if (!user) return null;
-
   const isSelf = user.id === currentUserId;
 
   return (
     <Dialog
-      open={open}
+      open
       onOpenChange={(o) => {
-        if (!o) onOpenChange(false);
+        if (!o) onClose();
       }}
     >
       <DialogContent>
@@ -291,11 +293,6 @@ function EditUserDialog({
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onFocus={() => {
-                setName(user.name);
-                setRole(user.role);
-                setIsActive(user.isActive !== false);
-              }}
             />
           </div>
           <div className="space-y-2">
@@ -336,7 +333,7 @@ function EditUserDialog({
               Deactivate
             </Button>
           )}
-          <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
           <Button

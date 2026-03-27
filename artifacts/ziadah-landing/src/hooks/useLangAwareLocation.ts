@@ -15,7 +15,10 @@ export function stripEnPrefix(path: string) {
   return path;
 }
 
-export function useLangAwareLocation() {
+export function useLangAwareLocation(): [
+  string,
+  (to: string, options?: { replace?: boolean }) => void,
+] {
   const [location, navigate] = useBrowserLocation();
   const { lang } = useLanguage();
   const isEn = lang === "en";
@@ -31,5 +34,5 @@ export function useLangAwareLocation() {
     navigate(nextPath, options);
   };
 
-  return [normalizedLocation, langAwareNavigate] as const;
+  return [normalizedLocation, langAwareNavigate];
 }
