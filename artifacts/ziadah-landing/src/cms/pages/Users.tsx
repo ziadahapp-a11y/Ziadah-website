@@ -30,6 +30,8 @@ import {
 import { CmsApiError, cmsApi, type CmsRole, type CmsUser } from "../api";
 import { useCmsAuth } from "../CmsAuthContext";
 import { RoleBadge } from "../components/RoleBadge";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
 export default function CmsUsersPage() {
   const { user } = useCmsAuth();
@@ -48,37 +50,37 @@ export default function CmsUsersPage() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-lg" dir="ltr">
-        <h1 className="text-2xl font-semibold">Users</h1>
-        <p className="mt-2 text-sm text-neutral-500">
-          Only super administrators can manage users.
-        </p>
+        <CmsPageHeader
+          title="Users"
+          description="Only super administrators can manage users."
+        />
       </div>
     );
   }
 
   return (
     <div className="mx-auto max-w-5xl space-y-6" dir="ltr">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold">Users</h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Invite and manage CMS accounts.
-          </p>
-        </div>
-        <Button type="button" onClick={() => setCreateOpen(true)}>
-          New user
-        </Button>
-      </div>
+      <CmsPageHeader
+        title="Users"
+        description="Invite and manage CMS accounts."
+        actions={
+          <Button type="button" onClick={() => setCreateOpen(true)}>
+            New user
+          </Button>
+        }
+      />
 
-      {q.isPending && <p className="text-sm text-neutral-500">Loading…</p>}
+      {q.isPending && <CmsLoadingLine />}
       {q.isError && (
-        <p className="text-sm text-red-600">
-          {q.error instanceof CmsApiError ? q.error.message : "Failed to load"}
-        </p>
+        <CmsInlineError
+          message={
+            q.error instanceof CmsApiError ? q.error.message : "Failed to load"
+          }
+        />
       )}
 
       {q.isSuccess && (
-        <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
           <Table>
             <TableHeader>
               <TableRow>

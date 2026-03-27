@@ -3,6 +3,8 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CmsApiError, cmsApi, getApiOrigin, type CmsMediaRow } from "../api";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
 function mediaSrc(url: string) {
   if (url.startsWith("http")) return url;
@@ -48,18 +50,16 @@ export default function CmsMediaPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6" dir="ltr">
-      <div>
-        <h1 className="text-2xl font-semibold">Media</h1>
-        <p className="mt-1 text-sm text-neutral-500">
-          Upload images; files are stored on the API server.
-        </p>
-      </div>
+      <CmsPageHeader
+        title="Media"
+        description="Upload images; files are stored on the API server."
+      />
 
       <div
         className={`rounded-xl border-2 border-dashed p-8 text-center transition-colors ${
           dragOver
-            ? "border-blue-500 bg-blue-50 dark:bg-blue-950/30"
-            : "border-neutral-300 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900/50"
+            ? "border-violet-500 bg-violet-50/80 dark:border-violet-400 dark:bg-violet-950/40"
+            : "border-neutral-300 bg-white/60 dark:border-neutral-700 dark:bg-neutral-900/50"
         }`}
         onDragOver={(e) => {
           e.preventDefault();
@@ -83,7 +83,7 @@ export default function CmsMediaPage() {
           Drag and drop an image here, or{" "}
           <button
             type="button"
-            className="font-medium text-blue-600 underline dark:text-blue-400"
+            className="font-medium text-violet-700 underline decoration-violet-300 underline-offset-2 hover:text-violet-800 dark:text-violet-400"
             onClick={() => inputRef.current?.click()}
           >
             browse
@@ -91,11 +91,13 @@ export default function CmsMediaPage() {
         </p>
       </div>
 
-      {q.isPending && <p className="text-sm text-neutral-500">Loading…</p>}
+      {q.isPending && <CmsLoadingLine />}
       {q.isError && (
-        <p className="text-sm text-red-600">
-          {q.error instanceof CmsApiError ? q.error.message : "Failed to load"}
-        </p>
+        <CmsInlineError
+          message={
+            q.error instanceof CmsApiError ? q.error.message : "Failed to load"
+          }
+        />
       )}
 
       {q.isSuccess && (
@@ -103,7 +105,7 @@ export default function CmsMediaPage() {
           {q.data.map((m: CmsMediaRow) => (
             <div
               key={m.id}
-              className="group overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900"
+              className="group overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900"
             >
               <button
                 type="button"

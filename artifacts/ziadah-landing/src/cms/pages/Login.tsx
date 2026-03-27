@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCmsAuth } from "../CmsAuthContext";
 import { CmsApiError } from "../api";
+import "../cms.css";
 
 export default function CmsLogin() {
   const { login, user, loading } = useCmsAuth();
@@ -40,7 +41,7 @@ export default function CmsLogin() {
 
   if (loading || user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-neutral-100 dark:bg-neutral-950">
+      <div className="cms-shell flex min-h-screen items-center justify-center bg-neutral-100 dark:bg-neutral-950">
         <p className="text-sm text-neutral-500">Loading…</p>
       </div>
     );
@@ -48,16 +49,23 @@ export default function CmsLogin() {
 
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-center bg-neutral-100 px-4 dark:bg-neutral-950"
+      className="cms-shell flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-neutral-100 to-neutral-200/80 px-4 dark:from-neutral-950 dark:to-neutral-900"
       dir="ltr"
     >
-      <div className="w-full max-w-sm rounded-xl border border-neutral-200 bg-white p-8 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
-        <h1 className="text-center text-xl font-semibold tracking-tight">
-          CMS sign in
-        </h1>
-        <p className="mt-1 text-center text-sm text-neutral-500">
-          Ziadah content management
-        </p>
+      <div className="w-full max-w-sm rounded-2xl border border-neutral-200/80 bg-white/95 p-8 shadow-lg shadow-violet-500/5 backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/95">
+        <div className="flex flex-col items-center gap-3">
+          <span className="cms-brand-mark" aria-hidden>
+            Z
+          </span>
+          <div className="text-center">
+            <h1 className="text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+              CMS sign in
+            </h1>
+            <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+              Ziadah content management
+            </p>
+          </div>
+        </div>
         <form onSubmit={onSubmit} className="mt-8 space-y-4">
           <div className="space-y-2">
             <Label htmlFor="cms-email">Email</Label>
@@ -68,6 +76,7 @@ export default function CmsLogin() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="h-11"
             />
           </div>
           <div className="space-y-2">
@@ -79,14 +88,18 @@ export default function CmsLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="h-11"
             />
           </div>
           {error && (
-            <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+            <p
+              className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900/80 dark:bg-red-950/40 dark:text-red-200"
+              role="alert"
+            >
               {error}
             </p>
           )}
-          <Button type="submit" className="w-full" disabled={submitting}>
+          <Button type="submit" className="h-11 w-full" disabled={submitting}>
             {submitting ? "Signing in…" : "Sign in"}
           </Button>
         </form>

@@ -23,6 +23,9 @@ import {
 } from "@/components/ui/table";
 import { CmsApiError, cmsApi, type CmsPageRow } from "../api";
 import { useCmsAuth } from "../CmsAuthContext";
+import { Badge } from "@/components/ui/badge";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
 function PageForm({
   initial,
@@ -198,35 +201,35 @@ export default function CmsPagesPage() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-6" dir="ltr">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold">Pages</h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Manage dynamic CMS pages.
-          </p>
-        </div>
-        {isAdmin && (
-          <Button
-            type="button"
-            onClick={() => {
-              setEditing(null);
-              setOpen(true);
-            }}
-          >
-            New page
-          </Button>
-        )}
-      </div>
+      <CmsPageHeader
+        title="Pages"
+        description="Manage dynamic CMS pages."
+        actions={
+          isAdmin ? (
+            <Button
+              type="button"
+              onClick={() => {
+                setEditing(null);
+                setOpen(true);
+              }}
+            >
+              New page
+            </Button>
+          ) : undefined
+        }
+      />
 
-      {q.isPending && <p className="text-sm text-neutral-500">Loading…</p>}
+      {q.isPending && <CmsLoadingLine />}
       {q.isError && (
-        <p className="text-sm text-red-600">
-          {q.error instanceof CmsApiError ? q.error.message : "Failed to load"}
-        </p>
+        <CmsInlineError
+          message={
+            q.error instanceof CmsApiError ? q.error.message : "Failed to load"
+          }
+        />
       )}
 
       {q.isSuccess && (
-        <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+        <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
           <Table>
             <TableHeader>
               <TableRow>
@@ -242,15 +245,17 @@ export default function CmsPagesPage() {
                 <TableRow key={p.id}>
                   <TableCell className="font-medium">{p.title}</TableCell>
                   <TableCell>
-                    <code className="text-xs">{p.slug}</code>
+                    <code className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs dark:bg-neutral-800">
+                      {p.slug}
+                    </code>
                   </TableCell>
                   <TableCell>
                     {p.isPublished ? (
-                      <span className="text-green-600 dark:text-green-400">
+                      <Badge className="border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-50 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-200">
                         Published
-                      </span>
+                      </Badge>
                     ) : (
-                      <span className="text-neutral-500">Draft</span>
+                      <Badge variant="secondary">Draft</Badge>
                     )}
                   </TableCell>
                   <TableCell className="text-neutral-500">

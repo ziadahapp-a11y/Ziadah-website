@@ -1024,7 +1024,7 @@ export const t = {
     landing: {
       aiBadge: "AI Active",
       aiBadgeText: "AI + Machine Learning running now",
-      heroTitle1: "Grow your ecommerce store revenue",
+      heroTitle1: "Grow your AOV",
       heroTitleEm: "",
       heroTitleGrad: "with AI product recommendations\ntailored to every shopper",
       heroSub:

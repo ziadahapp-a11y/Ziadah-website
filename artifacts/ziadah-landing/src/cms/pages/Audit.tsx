@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/table";
 import { CmsApiError, cmsApi } from "../api";
 import { useCmsAuth } from "../CmsAuthContext";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
 export default function CmsAuditPage() {
   const { user } = useCmsAuth();
@@ -41,10 +43,10 @@ export default function CmsAuditPage() {
   if (!isAdmin) {
     return (
       <div className="mx-auto max-w-lg" dir="ltr">
-        <h1 className="text-2xl font-semibold">Audit log</h1>
-        <p className="mt-2 text-sm text-neutral-500">
-          Only super administrators can view the audit log.
-        </p>
+        <CmsPageHeader
+          title="Audit log"
+          description="Only super administrators can view the audit log."
+        />
       </div>
     );
   }
@@ -55,14 +57,12 @@ export default function CmsAuditPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-6" dir="ltr">
-      <div>
-        <h1 className="text-2xl font-semibold">Audit log</h1>
-        <p className="mt-1 text-sm text-neutral-500">
-          Record of CMS changes.
-        </p>
-      </div>
+      <CmsPageHeader
+        title="Audit log"
+        description="Record of CMS changes."
+      />
 
-      <div className="grid gap-4 rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-2">
           <Label>User ID</Label>
           <Input
@@ -109,16 +109,18 @@ export default function CmsAuditPage() {
         </div>
       </div>
 
-      {q.isPending && <p className="text-sm text-neutral-500">Loading…</p>}
+      {q.isPending && <CmsLoadingLine />}
       {q.isError && (
-        <p className="text-sm text-red-600">
-          {q.error instanceof CmsApiError ? q.error.message : "Failed to load"}
-        </p>
+        <CmsInlineError
+          message={
+            q.error instanceof CmsApiError ? q.error.message : "Failed to load"
+          }
+        />
       )}
 
       {q.isSuccess && (
         <>
-          <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
             <Table>
               <TableHeader>
                 <TableRow>

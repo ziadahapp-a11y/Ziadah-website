@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { CmsApiError, cmsApi, getApiOrigin, type ContentBlockRow } from "../api";
 import { useCmsAuth } from "../CmsAuthContext";
 import { cn } from "@/lib/utils";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsEmptyHint, CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
 function groupBySection(blocks: ContentBlockRow[]) {
   const map = new Map<string, ContentBlockRow[]>();
@@ -243,20 +245,36 @@ export default function CmsContentPage() {
   const grouped = useMemo(() => groupBySection(filtered), [filtered]);
 
   if (q.isPending) {
-    return <p className="text-sm text-neutral-500">Loading content…</p>;
+    return (
+      <div className="mx-auto max-w-6xl space-y-6" dir="ltr">
+        <CmsPageHeader
+          title="Content"
+          description="Edit text and media keys for the public site."
+        />
+        <CmsLoadingLine />
+      </div>
+    );
   }
   if (q.isError) {
     return (
-      <p className="text-sm text-red-600">
-        {q.error instanceof CmsApiError ? q.error.message : "Failed to load"}
-      </p>
+      <div className="mx-auto max-w-6xl space-y-4" dir="ltr">
+        <CmsPageHeader
+          title="Content"
+          description="Edit text and media keys for the public site."
+        />
+        <CmsInlineError
+          message={
+            q.error instanceof CmsApiError ? q.error.message : "Failed to load"
+          }
+        />
+      </div>
     );
   }
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 lg:flex-row" dir="ltr">
-      <aside className="w-full shrink-0 lg:w-52">
-        <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-neutral-500">
+    <div className="mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row lg:items-start" dir="ltr">
+      <aside className="w-full shrink-0 lg:sticky lg:top-4 lg:w-52 lg:self-start">
+        <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-500">
           Page
         </h2>
         <ul className="space-y-1">
@@ -266,10 +284,10 @@ export default function CmsContentPage() {
                 type="button"
                 onClick={() => setSelectedPage(p)}
                 className={cn(
-                  "w-full rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors",
+                  "w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40",
                   selectedPage === p
-                    ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
-                    : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800",
+                    ? "bg-violet-100/95 text-violet-950 shadow-[inset_3px_0_0_0_rgb(124,58,237)] dark:bg-violet-950/45 dark:text-violet-50"
+                    : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800/90",
                 )}
               >
                 {p}
@@ -279,16 +297,16 @@ export default function CmsContentPage() {
         </ul>
       </aside>
       <div className="min-w-0 flex-1 space-y-8">
-        <div>
-          <h1 className="text-2xl font-semibold">Content</h1>
-          <p className="mt-1 text-sm text-neutral-500">
-            Edit text and media keys for the public site.
-          </p>
-        </div>
+        <CmsPageHeader
+          title="Content"
+          description="Edit text and media keys for the public site."
+        />
         {selectedPage &&
           [...grouped.entries()].map(([section, blocks]) => (
             <section key={section}>
-              <h3 className="mb-3 text-lg font-medium capitalize">{section}</h3>
+              <h3 className="mb-3 text-lg font-medium capitalize text-neutral-900 dark:text-neutral-100">
+                {section}
+              </h3>
               <div className="space-y-4">
                 {blocks.map((b) => (
                   <BlockEditor key={b.id} block={b} />
@@ -297,9 +315,9 @@ export default function CmsContentPage() {
             </section>
           ))}
         {pages.length === 0 && (
-          <p className="text-sm text-neutral-500">
+          <CmsEmptyHint>
             No content blocks yet. Add some via the API or seed script.
-          </p>
+          </CmsEmptyHint>
         )}
       </div>
     </div>

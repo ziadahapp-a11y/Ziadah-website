@@ -16,6 +16,7 @@ export default function UseCaseWidgetPreview({ title, subtitle, children }: UseC
     <div
       style={{
         background: "var(--s1)",
+        backgroundColor: "rgba(255, 255, 255, 0)",
         border: "1px solid rgba(124,58,237,0.15)",
         borderRadius: 16,
         boxShadow: "0 8px 32px rgba(124,58,237,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04)",

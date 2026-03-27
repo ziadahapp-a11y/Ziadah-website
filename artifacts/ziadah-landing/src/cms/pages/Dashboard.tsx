@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { CmsApiError, cmsApi } from "../api";
 import { useCmsAuth } from "../CmsAuthContext";
+import { CmsPageHeader } from "../components/CmsPageHeader";
+import { CmsInlineError, CmsStatCardSkeleton } from "../components/CmsStates";
 
 function StatCard({
   title,
@@ -13,14 +15,16 @@ function StatCard({
   href?: string;
 }) {
   const inner = (
-    <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
-      <div className="text-sm font-medium text-neutral-500">{title}</div>
-      <div className="mt-2 text-3xl font-semibold tabular-nums">{value}</div>
+    <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900">
+      <div className="text-sm font-medium text-neutral-500 dark:text-neutral-400">{title}</div>
+      <div className="mt-2 text-3xl font-semibold tabular-nums text-neutral-900 dark:text-neutral-50">
+        {value}
+      </div>
     </div>
   );
   if (href) {
     return (
-      <Link href={href} className="block transition-opacity hover:opacity-90">
+      <Link href={href} className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50">
         {inner}
       </Link>
     );
@@ -67,43 +71,64 @@ export default function CmsDashboard() {
         ? "…"
         : "—";
 
+  const statsLoading =
+    blocksQ.isPending ||
+    pagesQ.isPending ||
+    (isAdmin && usersQ.isPending);
+
   return (
     <div className="mx-auto max-w-5xl space-y-8" dir="ltr">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="mt-1 text-sm text-neutral-500">
-          Overview of your site content and activity.
-        </p>
-      </div>
+      <CmsPageHeader
+        title="Dashboard"
+        description="Overview of your site content and activity."
+      />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Content blocks"
-          value={blocksQ.data ?? "…"}
-          href="/cms/content"
-        />
-        <StatCard title="Pages" value={pagesQ.data ?? "…"} href="/cms/pages" />
-        <StatCard
-          title="Users"
-          value={usersCount}
-          href={isAdmin ? "/cms/users" : undefined}
-        />
-        <StatCard
-          title="Recent changes"
-          value={isAdmin ? (auditQ.data?.length ?? "…") : "—"}
-        />
-      </div>
+      {statsLoading ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <CmsStatCardSkeleton />
+          <CmsStatCardSkeleton />
+          <CmsStatCardSkeleton />
+          <CmsStatCardSkeleton />
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            title="Content blocks"
+            value={blocksQ.data ?? "—"}
+            href="/cms/content"
+          />
+          <StatCard title="Pages" value={pagesQ.data ?? "—"} href="/cms/pages" />
+          <StatCard
+            title="Users"
+            value={usersCount}
+            href={isAdmin ? "/cms/users" : undefined}
+          />
+          <StatCard
+            title="Recent changes"
+            value={isAdmin ? (auditQ.data?.length ?? "—") : "—"}
+          />
+        </div>
+      )}
 
       {isAdmin && (
         <div>
-          <h2 className="mb-3 text-lg font-medium">Recent activity</h2>
-          <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
+          <h2 className="mb-3 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+            Recent activity
+          </h2>
+          <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+            {auditQ.isPending && (
+              <p className="p-4 text-sm text-neutral-500">Loading activity…</p>
+            )}
             {auditQ.isError && (
-              <p className="p-4 text-sm text-red-600">
-                {auditQ.error instanceof CmsApiError
-                  ? auditQ.error.message
-                  : "Could not load audit log."}
-              </p>
+              <div className="p-4">
+                <CmsInlineError
+                  message={
+                    auditQ.error instanceof CmsApiError
+                      ? auditQ.error.message
+                      : "Could not load audit log."
+                  }
+                />
+              </div>
             )}
             {auditQ.isSuccess && auditQ.data.length === 0 && (
               <p className="p-4 text-sm text-neutral-500">No activity yet.</p>
@@ -129,7 +154,7 @@ export default function CmsDashboard() {
           </div>
           <Link
             href="/cms/audit"
-            className="mt-2 inline-block text-sm text-blue-600 hover:underline dark:text-blue-400"
+            className="mt-3 inline-block text-sm font-medium text-violet-700 hover:underline dark:text-violet-400"
           >
             View full audit log
           </Link>

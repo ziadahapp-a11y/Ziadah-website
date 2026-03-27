@@ -15,6 +15,7 @@ import CouponWidget from "../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../components/widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "../components/widgets/ProductSwapWidget";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
 import { useTheme } from "@/ThemeContext";
 import { scrollToHashElement } from "@/utils/anchorScroll";
@@ -302,7 +303,7 @@ export default function Landing() {
                 {tr.landing.ctaPrimary}
               </button>
               <a href="#hiw" className="btn-g">
-                {tr.landing.ctaSecondary}
+                {lang === "ar" ? staticT.ar.landing.ctaSecondary : tr.landing.ctaSecondary}
               </a>
             </div>
             <div className="sbar">

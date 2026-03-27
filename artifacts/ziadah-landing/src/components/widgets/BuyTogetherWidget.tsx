@@ -23,7 +23,7 @@ export default function BuyTogetherWidget() {
   return (
     <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
+        <div style={{ fontSize: 10, color: "rgba(242, 242, 242, 1)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {tr.items.map((p, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
