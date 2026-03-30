@@ -81,7 +81,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
         <div className="vision-platform-grid">
           <a
-            className="platform-tile platform-tile--zid bg-[#ffffff0d]"
+            className="platform-tile platform-tile--zid bg-[rgba(255,255,255,0.04)]"
             href="https://apps.zid.sa/application/1826"
             target="_blank"
             rel="noreferrer"
