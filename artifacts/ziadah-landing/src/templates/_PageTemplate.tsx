@@ -29,14 +29,7 @@ export default function MyPage() {
       descriptionEn="Page description in English for search engines — shown in Google results."
       canonical="/my-page"
     >
-      {/* ── BACKGROUND (اختياري — انسخه من صفحة أخرى إذا أردت نفس الخلفية) ── */}
-      <div className="bg-wrap">
-        <div className="orb o1" />
-        <div className="orb o2" />
-        <div className="orb o3" />
-        <div className="bg-grid" />
-      </div>
-      <div className="noise" />
+      {/* الخلفية تُطبَّق تلقائياً عبر StandardPage (نفس الصفحة الرئيسية). */}
 
       {/* ── NAVIGATION ── */}
       <Nav />

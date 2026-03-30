@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { useLanguage } from "../i18n/LanguageContext";
 import BilingualSEO from "./BilingualSEO";
+import PageShell from "./PageShell";
 
 interface StandardPageProps {
   titleAr: string;
@@ -37,8 +37,6 @@ export default function StandardPage({
   className,
   style,
 }: StandardPageProps) {
-  const { dir } = useLanguage();
-
   return (
     <>
       <BilingualSEO
@@ -55,20 +53,9 @@ export default function StandardPage({
         author={author}
         noIndex={noIndex}
       />
-      <div
-        className={className}
-        style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
-          transition: "var(--theme-transition)",
-          ...style,
-        }}
-      >
+      <PageShell className={className} style={style}>
         {children}
-      </div>
+      </PageShell>
     </>
   );
 }

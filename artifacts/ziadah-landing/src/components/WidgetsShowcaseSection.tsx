@@ -1,12 +1,6 @@
 import { useMemo } from "react";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
-import BuyMoreSaveMoreWidget from "@/components/widgets/BuyMoreSaveMoreWidget";
-import BuyTogetherWidget from "@/components/widgets/BuyTogetherWidget";
-import AddonsWidget from "@/components/widgets/AddonsWidget";
-import RelatedProductsWidget from "@/components/widgets/RelatedProductsWidget";
-import CouponWidget from "@/components/widgets/CouponWidget";
-import FreeShippingThresholdWidget from "@/components/widgets/FreeShippingThresholdWidget";
-import ProductSwapWidget from "@/components/widgets/ProductSwapWidget";
+import WidgetShowcaseCard, { buildWidgetShowcaseItems } from "@/components/WidgetShowcaseCard";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
@@ -34,91 +28,16 @@ export default function WidgetsShowcaseSection({
     [showSectorEmbed, sectorSlug, lang],
   );
 
-  const widgetIcons = ["📦", "🤝", "➕", "🔎", "🏷️", "🚚", "⬆️"];
-  const widgetRgbs = ["168,85,247", "6,182,212", "16,185,129", "245,158,11", "236,72,153", "124,58,237", "79,70,229"];
-  const widgetComponents = [
-    <BuyMoreSaveMoreWidget key="bmsm" demo={sectorDemos?.buyMoreSaveMore} />,
-    <BuyTogetherWidget key="bt" demo={sectorDemos?.buyTogether} />,
-    <AddonsWidget key="ad" demo={sectorDemos?.addons} />,
-    <RelatedProductsWidget key="rp" demo={sectorDemos?.relatedProducts} />,
-    <CouponWidget key="cp" demo={sectorDemos?.coupon} />,
-    <FreeShippingThresholdWidget key="fs" demo={sectorDemos?.freeShipping} />,
-    <ProductSwapWidget key="ps" demo={sectorDemos?.productSwap} />,
-  ];
   const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
-  const allWidgets = wLabels.map((wl, idx) => ({
-    icon: widgetIcons[idx],
-    label: wl.label,
-    desc: wl.desc,
-    widget: widgetComponents[idx],
-    rgb: widgetRgbs[idx],
-  }));
+  const allWidgets = useMemo(
+    () => buildWidgetShowcaseItems(wLabels, sectorDemos),
+    [wLabels, sectorDemos],
+  );
   const row1 = allWidgets.slice(0, 4);
   const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
 
   const renderCard = (item: (typeof allWidgets)[0], key: number) => (
-    <div
-      key={key}
-      style={{
-        width: 280,
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        padding: "16px",
-        borderRadius: 18,
-        background: `linear-gradient(160deg, rgba(${item.rgb},0.14) 0%, rgba(${item.rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: `1px solid rgba(${item.rgb},0.3)`,
-        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${item.rgb},0.1)`,
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          direction: dir,
-          flexDirection: "row",
-          padding: "4px 0",
-        }}
-      >
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 14,
-            background: `rgba(${item.rgb},.12)`,
-            border: `1px solid rgba(${item.rgb},.28)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 22,
-            flexShrink: 0,
-            boxShadow: `0 0 12px rgba(${item.rgb},.15)`,
-          }}
-        >
-          {item.icon}
-        </div>
-        <div style={{ flex: 1, textAlign: lang === "ar" ? "right" : "left" }}>
-          <div
-            style={{
-              fontSize: 15,
-              fontWeight: 900,
-              color: `rgba(${item.rgb},1)`,
-              letterSpacing: "-0.3px",
-              lineHeight: 1.2,
-              textShadow: `0 0 20px rgba(${item.rgb},.35)`,
-            }}
-          >
-            {item.label}
-          </div>
-          <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.55, marginTop: 4 }}>{item.desc}</div>
-        </div>
-      </div>
-      {item.widget}
-    </div>
+    <WidgetShowcaseCard key={key} item={item} dir={dir} lang={lang} />
   );
 
   return (
@@ -148,10 +67,18 @@ export default function WidgetsShowcaseSection({
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
-          {[...row1, ...row1, ...row1].map((item, i) => renderCard(item, i))}
+          {[0, 1, 2].map((seg) => (
+            <div key={seg} className="marquee-segment">
+              {row1.map((item, i) => renderCard(item, seg * 100 + i))}
+            </div>
+          ))}
         </DraggableMarqueeRow>
         <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
-          {[...row2, ...row2, ...row2].map((item, i) => renderCard(item, i))}
+          {[0, 1, 2].map((seg) => (
+            <div key={seg} className="marquee-segment">
+              {row2.map((item, i) => renderCard(item, seg * 100 + i))}
+            </div>
+          ))}
         </DraggableMarqueeRow>
       </div>
     </section>

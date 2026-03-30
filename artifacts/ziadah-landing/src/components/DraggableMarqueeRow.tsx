@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 
 export default function DraggableMarqueeRow({
   directionClass,
@@ -11,6 +12,7 @@ export default function DraggableMarqueeRow({
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const dragLayerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const pointerIdRef = useRef<number | null>(null);
   const startXRef = useRef(0);
   const startDragXRef = useRef(0);
@@ -39,6 +41,8 @@ export default function DraggableMarqueeRow({
     pointerIdRef.current = null;
   };
 
+  useMarqueeShiftSync(trackRef);
+
   return (
     <div
       ref={rowRef}
@@ -50,11 +54,10 @@ export default function DraggableMarqueeRow({
     >
       <div ref={dragLayerRef} className="interactive-drag-layer">
         <div
+          ref={trackRef}
           className={`marquee-track ${directionClass} interactive-track`}
           style={{
             animationDuration: duration,
-            gap: 24,
-            paddingInline: 12,
           }}
         >
           {children}

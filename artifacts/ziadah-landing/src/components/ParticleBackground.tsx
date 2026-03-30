@@ -12,13 +12,12 @@ interface Particle {
   pulseSpeed: number;
 }
 
-const COLORS = [
-  "168,85,247",
-  "6,182,212",
-  "236,72,153",
-  "124,58,237",
-  "99,102,241",
-];
+/** نقاط وروابط محايدة (بدون ألوان مميزة) */
+const NEUTRAL_RGB = "200,200,200";
+
+function particleZoneHeight(fullViewportH: number): number {
+  return Math.max(220, Math.min(Math.round(fullViewportH * 0.44), 720));
+}
 
 const MOUSE_RADIUS = 240;
 const SPEED_SCALE = 0.4;
@@ -35,14 +34,14 @@ const INIT_VEL = 0.52 * SPEED_SCALE;
 function isMobile(w: number) { return w < 768; }
 function isTablet(w: number) { return w < 1024; }
 
-function particleCountForScreen(w: number, h: number): number {
+function particleCountForScreen(w: number, zoneH: number): number {
   if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return isMobile(w) ? 30 : 60;
   }
   if (isMobile(w)) return 28;
   if (isTablet(w)) return 56;
-  const area = w * h;
-  return Math.min(180, Math.max(72, Math.floor(area / 7000)));
+  const area = w * zoneH;
+  return Math.min(180, Math.max(72, Math.floor(area / 4800)));
 }
 
 function linkDistForScreen(w: number): number {
@@ -58,7 +57,6 @@ export default function ParticleBackground() {
   const mouseVel = useRef({ x: 0, y: 0 });
   const frameRef = useRef(0);
   const particles = useRef<Particle[]>([]);
-  const cursorGlow = useRef(0);
   const logicalSize = useRef({ w: 1, h: 1 });
   const frameCount = useRef(0);
 
@@ -68,18 +66,17 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext("2d")!;
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    function rebuildParticles(w: number, h: number) {
-      const count = particleCountForScreen(w, h);
+    function rebuildParticles(w: number, zoneH: number) {
+      const count = particleCountForScreen(w, zoneH);
       particles.current = [];
       for (let i = 0; i < count; i++) {
-        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
         particles.current.push({
           x: Math.random() * w,
-          y: Math.random() * h,
+          y: Math.random() * zoneH,
           vx: (Math.random() - 0.5) * INIT_VEL,
           vy: (Math.random() - 0.5) * INIT_VEL,
           size: Math.random() * 1.55 + 0.35,
-          color,
+          color: NEUTRAL_RGB,
           alpha: Math.random() * 0.34 + 0.1,
           pulse: Math.random() * Math.PI * 2,
           pulseSpeed: (Math.random() * 0.022 + 0.009) * SPEED_SCALE,
@@ -90,14 +87,15 @@ export default function ParticleBackground() {
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = Math.max(1, window.innerWidth);
-      const h = Math.max(1, window.innerHeight);
-      logicalSize.current = { w, h };
+      const fullH = Math.max(1, window.innerHeight);
+      const zoneH = particleZoneHeight(fullH);
+      logicalSize.current = { w, h: zoneH };
       canvas!.width = Math.floor(w * dpr);
-      canvas!.height = Math.floor(h * dpr);
+      canvas!.height = Math.floor(zoneH * dpr);
       canvas!.style.width = `${w}px`;
-      canvas!.style.height = `${h}px`;
+      canvas!.style.height = `${zoneH}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      rebuildParticles(w, h);
+      rebuildParticles(w, zoneH);
     }
 
     resize();
@@ -113,13 +111,11 @@ export default function ParticleBackground() {
       prevMouse.current = { x: clientX, y: clientY };
       mouse.current.x = clientX;
       mouse.current.y = clientY;
-      cursorGlow.current = Math.min(1, cursorGlow.current + 0.22);
     }
 
     function draw() {
       const { w: W, h: H } = logicalSize.current;
       const mobile = isMobile(W);
-      const tablet = isTablet(W);
 
       frameCount.current++;
 
@@ -131,30 +127,18 @@ export default function ParticleBackground() {
 
       ctx.clearRect(0, 0, W, H);
 
-      const mx = mouse.current.x;
-      const my = mouse.current.y;
-      const mvx = mouseVel.current.x;
-      const mvy = mouseVel.current.y;
+      // تحويل الماوس إلى مساحة منطقة النقاط (للفيزياء فقط، بدون توهج لوني)
+      const vw = Math.max(1, window.innerWidth);
+      const vh = Math.max(1, window.innerHeight);
+      const mx = (mouse.current.x / vw) * W;
+      const my = (mouse.current.y / vh) * H;
+      const mvx = (mouseVel.current.x / vw) * W;
+      const mvy = (mouseVel.current.y / vh) * H;
       mouseVel.current.x *= 0.88;
       mouseVel.current.y *= 0.88;
-      cursorGlow.current *= 0.94;
 
       const speed = Math.hypot(mvx, mvy);
       const flowMag = Math.min(speed / 14, 1.2);
-
-      // هالة الماوس — فقط على الديسكتوب
-      if (!mobile && mx > -1000 && cursorGlow.current > 0.04) {
-        const r = 55 + flowMag * 45 + cursorGlow.current * 35;
-        const g = ctx.createRadialGradient(mx, my, 0, mx, my, r);
-        g.addColorStop(0, `rgba(168,85,247,${0.12 * cursorGlow.current})`);
-        g.addColorStop(0.35, `rgba(124,58,237,${0.06 * cursorGlow.current})`);
-        g.addColorStop(0.7, `rgba(6,182,212,${0.04 * cursorGlow.current})`);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.beginPath();
-        ctx.arc(mx, my, r, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-      }
 
       const pts = particles.current;
       const n = pts.length;
@@ -211,7 +195,6 @@ export default function ParticleBackground() {
 
         const a = p.alpha * (0.72 + 0.28 * Math.sin(p.pulse));
         const s = p.size * (0.88 + 0.12 * Math.sin(p.pulse * 1.35));
-        const nearMouse = dist < MOUSE_RADIUS ? (MOUSE_RADIUS - dist) / MOUSE_RADIUS : 0;
 
         if (mobile) {
           // على الجوال: نقطة بسيطة بدون gradient لتوفير الذاكرة
@@ -220,10 +203,9 @@ export default function ParticleBackground() {
           ctx.fillStyle = `rgba(${p.color},${Math.min(a * 1.2, 0.7)})`;
           ctx.fill();
         } else {
-          // على الديسكتوب: تأثيرات كاملة
-          const glowR = s * (3 + nearMouse * 1.8);
+          const glowR = s * 3;
           const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowR);
-          const glowA = a * (0.45 + nearMouse * 0.35);
+          const glowA = a * 0.45;
           grd.addColorStop(0, `rgba(${p.color},${glowA})`);
           grd.addColorStop(1, `rgba(${p.color},0)`);
           ctx.beginPath();
@@ -232,8 +214,8 @@ export default function ParticleBackground() {
           ctx.fill();
 
           ctx.beginPath();
-          ctx.arc(p.x, p.y, s * (1 + nearMouse * 0.25), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${p.color},${Math.min(a * (1.35 + nearMouse * 0.5), 0.88)})`;
+          ctx.arc(p.x, p.y, s, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${p.color},${Math.min(a * 1.35, 0.88)})`;
           ctx.fill();
         }
 
@@ -246,12 +228,7 @@ export default function ParticleBackground() {
           if (d < LINK_DIST) {
             let lineAlpha = (1 - d / LINK_DIST) * LINK_ALPHA_BASE;
             if (!mobile) {
-              const midX = (p.x + q.x) * 0.5;
-              const midY = (p.y + q.y) * 0.5;
-              const md = Math.hypot(mx - midX, my - midY);
-              const mouseBoost = md < MOUSE_RADIUS ? (1 - md / MOUSE_RADIUS) * 0.55 : 0;
-              lineAlpha = Math.min(lineAlpha * (1 + mouseBoost), 0.22);
-              ctx.lineWidth = 0.55 + mouseBoost * 0.45;
+              ctx.lineWidth = 0.55;
             } else {
               lineAlpha = Math.min(lineAlpha, 0.15);
               ctx.lineWidth = 0.4;
@@ -302,7 +279,9 @@ export default function ParticleBackground() {
       ref={canvasRef}
       style={{
         position: "fixed",
-        inset: 0,
+        top: 0,
+        left: 0,
+        width: "100%",
         zIndex: 1,
         pointerEvents: "none",
         display: "block",

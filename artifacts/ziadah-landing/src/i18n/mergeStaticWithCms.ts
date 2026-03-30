@@ -15,6 +15,14 @@ const STATIC_ONLY_I18N_KEYS = new Set([
   "en.landing.ctaPrimary",
   "ar.landing.ctaSecondary",
   "en.landing.ctaSecondary",
+  "ar.landing.sectorsBriefSub",
+  "en.landing.sectorsBriefSub",
+  /** Home calculator H2: repo copy ships without re-seeding `content_blocks`. */
+  "ar.homeCalculator.title",
+  "en.homeCalculator.title",
+  /** Testimonials H2: avoid stale CMS `content_blocks` hiding repo copy updates. */
+  "ar.landing.testimonialsTitle",
+  "en.landing.testimonialsTitle",
   /** Year bumps ship in repo; DB overrides were leaving stale © lines in the footer. */
   "ar.footer.copyright",
   "en.footer.copyright",

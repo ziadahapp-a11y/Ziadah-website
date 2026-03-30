@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
@@ -130,20 +129,7 @@ export default function Blog() {
     >
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
-    <div
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <div className="bg-wrap">
-        <div className="orb o1" />
-        <div className="orb o2" />
-        <div className="orb o3" />
-        <div className="bg-grid" />
-      </div>
-      <div className="noise" />
-      <ParticleBackground />
-      <Nav />
+    <Nav />
 
       {/* HERO */}
       <section
@@ -462,7 +448,6 @@ export default function Blog() {
           )}
         </div>
       </section>
-    </div>
     </StandardPage>
   );
 }

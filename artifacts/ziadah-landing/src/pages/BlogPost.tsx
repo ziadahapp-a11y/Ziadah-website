@@ -2,7 +2,7 @@ import { useEffect, type ReactElement, type ReactNode } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -420,13 +420,8 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div
+      <PageShell
         style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -434,12 +429,6 @@ export default function BlogPost() {
           gap: 16,
         }}
       >
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
         <Nav />
         <h1 style={{ fontSize: 32, fontWeight: 900, position: "relative", zIndex: 2 }}>
           {tx.notFound}
@@ -456,7 +445,7 @@ export default function BlogPost() {
         >
           {tx.backToBlog}
         </span>
-      </div>
+      </PageShell>
     );
   }
 
@@ -500,23 +489,7 @@ export default function BlogPost() {
       { name: tx.breadcrumbBlog, url: "/blog" },
       { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
-    <div
-      style={{
-        background: "var(--bg)",
-        minHeight: "100vh",
-        fontFamily: "var(--font)",
-        direction: dir,
-        color: "var(--t)",
-      }}
-    >
-      <div className="bg-wrap">
-        <div className="orb o1" />
-        <div className="orb o2" />
-        <div className="orb o3" />
-        <div className="bg-grid" />
-      </div>
-      <div className="noise" />
-      <ParticleBackground />
+    <PageShell>
       <Nav />
 
       {/* HERO / COVER */}
@@ -887,7 +860,7 @@ export default function BlogPost() {
           </div>
         </section>
       )}
-    </div>
+    </PageShell>
     </>
   );
 }

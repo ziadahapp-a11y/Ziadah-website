@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "@/components/Nav";
-import ParticleBackground from "@/components/ParticleBackground";
+import PageShell from "@/components/PageShell";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -88,25 +88,7 @@ export default function SectorDetail() {
 
   if (!sector) {
     return (
-      <div
-        style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="orb o3" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
+      <PageShell style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Nav />
         <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <div style={{ fontSize: 56, marginBottom: 12 }}>📂</div>
@@ -130,7 +112,7 @@ export default function SectorDetail() {
             {tr.notFoundBtn}
           </button>
         </div>
-      </div>
+      </PageShell>
     );
   }
 
@@ -210,23 +192,7 @@ export default function SectorDetail() {
         ]}
       />
       <WebPageSchema name={pageTitle} description={seoDesc} url={`/sectors/${sector.slug}`} />
-      <div
-        style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
-        }}
-      >
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="orb o3" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
-        <ParticleBackground />
+      <PageShell>
         <Nav />
 
         {htmlPlaybook && pageRich ? (
@@ -626,7 +592,7 @@ export default function SectorDetail() {
             </button>
           </div>
         </article>
-      </div>
+      </PageShell>
     </>
   );
 }

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import {
   categories as supportCategories,
   getArticleById,
@@ -46,12 +46,7 @@ export default function SupportArticle() {
 
   if (!article || !category) {
     return (
-      <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="bg-wrap">
-          <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
-          <div className="bg-grid"/>
-        </div>
-        <div className="noise"/>
+      <PageShell style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Nav />
         <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <div style={{ fontSize: 64, marginBottom: 16 }}>🔍</div>
@@ -64,7 +59,7 @@ export default function SupportArticle() {
             {tx.notFoundBtn}
           </span>
         </div>
-      </div>
+      </PageShell>
     );
   }
 
@@ -93,13 +88,7 @@ export default function SupportArticle() {
       { name: tx.breadcrumbSupport, url: "/support" },
       { name: articleTitle, url: `/support/article/${article.id}` }
     ]} />
-    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
-      <div className="bg-wrap">
-        <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
-        <div className="bg-grid"/>
-      </div>
-      <div className="noise"/>
-      <ParticleBackground />
+    <PageShell>
       <Nav />
 
       <div style={{ paddingTop: "var(--page-article-pt)", paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
@@ -291,7 +280,7 @@ export default function SupportArticle() {
           })()}
         </div>
       </div>
-    </div>
+    </PageShell>
     </>
   );
 }

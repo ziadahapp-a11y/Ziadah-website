@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, type CSSProperties } from "react";
 import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
@@ -503,7 +503,7 @@ export default function SuccessStories() {
         description={sx.seoDesc}
         url="/success-stories"
       />
-      <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
+      <PageShell>
         <style>{`
           .story-full-section {
             position: relative;
@@ -1309,12 +1309,6 @@ export default function SuccessStories() {
             .expand-btn-v3 { width: 100%; justify-content: center; }
           }
         `}</style>
-        <div className="bg-wrap">
-          <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
-          <div className="bg-grid"/>
-        </div>
-        <div className="noise"/>
-        <ParticleBackground />
         <Nav />
 
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
@@ -1452,7 +1446,7 @@ export default function SuccessStories() {
             </div>
           </div>
         </section>
-      </div>
+      </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

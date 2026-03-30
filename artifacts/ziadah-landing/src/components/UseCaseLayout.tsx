@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Nav from "./Nav";
-import ParticleBackground from "./ParticleBackground";
+import PageShell from "./PageShell";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
 import SEO from "./SEO";
@@ -73,7 +73,7 @@ export interface UseCasePageData {
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const t = useSiteT();
-  const { lang, dir } = useLanguage();
+  const { lang } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";
 
@@ -124,13 +124,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: tr.useCaseLayout.breadcrumbHome, url: "/" }, { name: hero.title, url: data.seo.canonical }]} />
       </>
     )}
-    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
-      <div className="bg-wrap">
-        <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
-        <div className="bg-grid"/>
-      </div>
-      <div className="noise"/>
-      <ParticleBackground />
+    <PageShell>
       <Nav />
 
       {/* HERO */}
@@ -434,7 +428,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </p>
         </div>
       </section>
-    </div>
+    </PageShell>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

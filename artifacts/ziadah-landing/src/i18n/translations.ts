@@ -301,8 +301,7 @@ export const t = {
       sectorsTag: "القطاعات",
       sectorsTitle: "حلول مخصّصة لمجال تجارتك",
       sectorsCta: "عرض كل القطاعات",
-      sectorsBriefSub:
-        "دلائل قطاعية شاملة: تفعيل، أمثلة، وأفضل الممارسات — دون تعقيد.",
+      sectorsBriefSub: "مهما كان قطاعك، بتلقى الحل موجود",
       hiwTag: "كيف تعمل؟",
       hiwTitle: "فعّل زيادة — والباقي تلقائي بالذكاء الاصطناعي",
       hiwSubtitle: "التعلم الآلي يدرس عملاء متجرك الإلكتروني من أول زيارة ويتحسّن يوماً بعد يوم",
@@ -457,7 +456,7 @@ export const t = {
         { label: "إجمالي المبيعات", value: "93,600 ⃁", icon: "💰" },
       ] as { label: string; value: string; sub?: string; icon: string }[],
       testimonialsTag: "آراء تجارنا",
-      testimonialsTitle: "آراء حقيقية من تجار حقيقيين",
+      testimonialsTitle: "آراء التجار",
       testimonialsSub: "تقييمات موثقة من متاجر تستخدم زيادة يومياً",
       testimonialsRow1: [
         { text: "يستحق اعلى تقييم", name: "Your world عالمكـ", role: "متجر إلكتروني" },
@@ -749,8 +748,9 @@ export const t = {
     },
     homeCalculator: {
       tag: "جرّبها الآن",
-      title: "احسب إيرادك الإضافي",
-      subtitle: "حرّك الأشرطة وشاهد كم يمكنك كسبه إضافياً كل شهر مع زيادة",
+      title: "كم يفرق معاك لو فعلت؟",
+      subtitle:
+        "حرّك الأشرطة وشاهد كم يمكنك كسبه إضافياً كل شهر مع زيادة. جرّب بأرقام متجرك، فيظهر لك الأثر التقريبي.",
       labelVisitors: "الزوار الشهريون",
       labelConvRate: "معدل التحويل",
       labelAOV: "متوسط قيمة الطلب",
@@ -1286,7 +1286,7 @@ export const t = {
       sectorsTitle: "Tailored guidance for your vertical",
       sectorsCta: "View all industries",
       sectorsBriefSub:
-        "Sector guides covering setup, examples, and best practices — kept straightforward.",
+        "Whatever your sector, you'll find the right solution here.",
       hiwTag: "How It Works",
       hiwTitle: "Activate Ziadah — AI automation handles the rest",
       hiwSubtitle: "Machine learning studies your ecommerce shoppers from visit one and improves every day",
@@ -1441,7 +1441,7 @@ export const t = {
         { label: "Total Sales", value: "SAR 93,600", icon: "💰" },
       ] as { label: string; value: string; sub?: string; icon: string }[],
       testimonialsTag: "Our Merchants' Reviews",
-      testimonialsTitle: "Real Reviews From Real Merchants",
+      testimonialsTitle: "Merchant Reviews",
       testimonialsSub: "Verified ratings from stores using Ziadah daily",
       testimonialsRow1: [
         { text: "Deserves the highest rating.", name: "Your world عالمكـ", role: "Online store" },
@@ -1675,7 +1675,8 @@ export const t = {
     homeCalculator: {
       tag: "Try It Now",
       title: "Calculate Your Additional Revenue",
-      subtitle: "Move the sliders and see how much extra you can earn each month with Ziadah",
+      subtitle:
+        "Move the sliders to see how much extra you could earn each month with Ziadah. Enter your store’s numbers to see the approximate impact.",
       labelVisitors: "Monthly Visitors",
       labelConvRate: "Conversion Rate",
       labelAOV: "Average Order Value",

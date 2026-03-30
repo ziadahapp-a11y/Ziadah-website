@@ -102,7 +102,7 @@ function LazyRouteFallback() {
     <div
       style={{
         minHeight: "100vh",
-        background: "var(--bg)",
+        background: "var(--page-background)",
         direction: dir,
       }}
       aria-hidden

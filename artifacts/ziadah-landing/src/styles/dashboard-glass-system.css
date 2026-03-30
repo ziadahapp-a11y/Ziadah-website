@@ -12,7 +12,9 @@
 /* Default to dark if attribute missing (SSR / first paint) */
 :root,
 [data-theme="dark"] {
-  --bg: #03030b;
+  --bg: #000000;
+  /* أسود خالص؛ التوهج البنفسجي المزدوج يُرسم في .bg-wrap (::before/::after) */
+  --page-background: #000000;
   --t: #f8fafc;
   --tm: rgba(248, 250, 252, 0.78);
   --td: rgba(226, 232, 240, 0.45);
@@ -64,6 +66,7 @@
 
 [data-theme="light"] {
   --bg: #f1f5f9;
+  --page-background: #f1f5f9;
   --t: #0f172a;
   --tm: #475569;
   --td: #64748b;

@@ -324,8 +324,6 @@ export default function SectorVisualExamples({
   const rowBEffective = rowB.length > 0 ? rowB : scenarios;
 
   if (introVariant === "sector") {
-    const tripleA = [...rowA, ...rowA, ...rowA];
-    const tripleB = [...rowBEffective, ...rowBEffective, ...rowBEffective];
     return (
       <div className="sector-viz-root sector-viz-root--widget-style">
         <p className="sector-viz-lead rv d1" style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
@@ -339,13 +337,21 @@ export default function SectorVisualExamples({
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 28 }}>
           <DraggableMarqueeRow directionClass="marquee-rtl" duration="36s">
-            {tripleA.map((s, i) => (
-              <SectorScenarioWidgetShowcaseCard key={`a-${i}-${s.titleEn}`} s={s} tr={tr} isAr={isAr} lang={lang} dir={dir} />
+            {[0, 1, 2].map((seg) => (
+              <div key={seg} className="marquee-segment">
+                {rowA.map((s, i) => (
+                  <SectorScenarioWidgetShowcaseCard key={`a-${seg}-${i}-${s.titleEn}`} s={s} tr={tr} isAr={isAr} lang={lang} dir={dir} />
+                ))}
+              </div>
             ))}
           </DraggableMarqueeRow>
           <DraggableMarqueeRow directionClass="marquee-ltr" duration="34s">
-            {tripleB.map((s, i) => (
-              <SectorScenarioWidgetShowcaseCard key={`b-${i}-${s.titleEn}`} s={s} tr={tr} isAr={isAr} lang={lang} dir={dir} />
+            {[0, 1, 2].map((seg) => (
+              <div key={seg} className="marquee-segment">
+                {rowBEffective.map((s, i) => (
+                  <SectorScenarioWidgetShowcaseCard key={`b-${seg}-${i}-${s.titleEn}`} s={s} tr={tr} isAr={isAr} lang={lang} dir={dir} />
+                ))}
+              </div>
             ))}
           </DraggableMarqueeRow>
         </div>

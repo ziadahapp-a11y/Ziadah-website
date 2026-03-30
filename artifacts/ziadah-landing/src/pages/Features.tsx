@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -52,7 +52,7 @@ export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const t = useSiteT();
-  const { lang, dir, isAr } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const ft = t[lang].features;
   const pk = getPageKeywords("/features");
 
@@ -82,13 +82,7 @@ export default function Features() {
       description={lang === "ar" ? t.ar.features.seoDesc : t.en.features.seoDesc}
       url="/features"
     />
-    <div style={{ background: "var(--bg)", minHeight: "100vh", fontFamily: "var(--font)", direction: dir, color: "var(--t)" }}>
-      <div className="bg-wrap">
-        <div className="orb o1"/><div className="orb o2"/><div className="orb o3"/>
-        <div className="bg-grid"/>
-      </div>
-      <div className="noise"/>
-      <ParticleBackground />
+    <PageShell>
       <Nav />
 
       {/* HERO */}
@@ -293,7 +287,7 @@ export default function Features() {
           </div>
         </div>
       </section>
-    </div>
+    </PageShell>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

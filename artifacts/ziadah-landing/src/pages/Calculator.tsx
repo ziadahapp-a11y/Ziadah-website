@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { t } from "@/i18n/translations";
 import Nav from "../components/Nav";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -313,23 +313,7 @@ export default function Calculator() {
         description={lang === "ar" ? t.ar.calculator.seoDesc : t.en.calculator.seoDesc}
         url="/calculator"
       />
-      <div
-        style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
-        }}
-      >
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="orb o3" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
-        <ParticleBackground />
+      <PageShell>
         <Nav />
 
         <section
@@ -819,7 +803,7 @@ export default function Calculator() {
             }
           }
         `}</style>
-      </div>
+      </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

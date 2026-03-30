@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import ParticleBackground from "../components/ParticleBackground";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Nav, { Logo } from "../components/Nav";
+import PageShell from "../components/PageShell";
+import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQSchema } from "../components/JsonLd";
-import FloatingUseCaseCards from "../components/FloatingUseCaseCards";
 import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
@@ -15,6 +15,7 @@ import { useTheme } from "@/ThemeContext";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
+import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 
 /** عيّنة مختصرة للصفحة الرئيسية — التوصيل والمنصات أولاً ثم أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
@@ -107,6 +108,13 @@ export default function Landing() {
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+
+  const logosMarqueeTrackRef = useRef<HTMLDivElement>(null);
+  const testimonialsMarquee1Ref = useRef<HTMLDivElement>(null);
+  const testimonialsMarquee2Ref = useRef<HTMLDivElement>(null);
+  useMarqueeShiftSync(logosMarqueeTrackRef);
+  useMarqueeShiftSync(testimonialsMarquee1Ref);
+  useMarqueeShiftSync(testimonialsMarquee2Ref);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -226,6 +234,18 @@ export default function Landing() {
   const faqs = tr.landing.faqList as { q: string; a: string }[];
   const pk = getPageKeywords("/");
 
+  const landingStars = useMemo(
+    () =>
+      Array.from({ length: 160 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        size: 0.5 + Math.random() * 2,
+        opacity: 0.1 + Math.random() * 0.7,
+      })),
+    [],
+  );
+
   return (
     <>
       <SEO
@@ -242,113 +262,107 @@ export default function Landing() {
       <WebSiteSchema />
       <HowToSchema />
       <FAQSchema faqs={faqs} />
-      <div
-        style={{
-          background: "var(--bg)",
-          minHeight: "100vh",
-          fontFamily: "var(--font)",
-          direction: dir,
-          color: "var(--t)",
-        }}
-      >
+      <PageShell>
         {/* CURSOR — ديسكتوب فقط */}
         <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: isLight ? "multiply" : "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
         <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(168,85,247,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
-        {/* BG */}
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="orb o3" />
-          <div className="orb o4" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
-        <ParticleBackground />
         {/* NAV */}
         <Nav />
         {/* HERO */}
-        <section className="hero">
-          <div className="hero-glow" />
-          <FloatingUseCaseCards />
-          <div className="hero-in">
-            <div className="hero-mobile-logo">
-              <Logo />
+        <section className="hero hero-v2" dir={dir}>
+          <div className="hero-grid">
+            <div className="hero-copy-col">
+              <div className="hero-in hero-copy-inner">
+                <div className="hero-mobile-logo">
+                  <Logo />
+                </div>
+                <div className="hbadge">
+                  <span className="hbadge-pill">{tr.landing.aiBadge}</span>
+                  <span className="hbadge-txt">
+                    {tr.landing.aiBadgeText}
+                  </span>
+                </div>
+                <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
+                  <span className="ht-line1 font-thin">
+                    {tr.landing.heroTitle1}
+                  </span>
+                  {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
+                  <span className="grad font-black" style={{ whiteSpace: "pre-line" }}>
+                    {tr.landing.heroTitleGrad}
+                  </span>
+                </h1>
+                <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
+                <div className="hero-ctas">
+                  <button
+                    onClick={() => setPlatformModalOpen(true)}
+                    className="btn-p btn-p-hero"
+                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
+                  >
+                    {tr.landing.ctaPrimary}
+                  </button>
+                  <a href="#hiw" className="btn-g btn-g-hero">
+                    {tr.landing.ctaSecondary}
+                  </a>
+                </div>
+                <div className="landing-sbar-after-hero">
+                  <div className="sbar sbar-hero">
+                    <div className="sbi">
+                      <div className="sbi-n">{tr.landing.stat1Value}</div>
+                      <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
+                    </div>
+                    <div className="sbi">
+                      <div className="sbi-n">{tr.landing.stat2Value}</div>
+                      <div className="sbi-l">{tr.landing.stat2Label}</div>
+                    </div>
+                    <div className="sbi">
+                      <div className="sbi-n">{tr.landing.stat3Value}</div>
+                      <div className="sbi-l">{tr.landing.stat3Label}</div>
+                    </div>
+                    <div className="sbi">
+                      <div className="sbi-n">{tr.landing.stat4Value}</div>
+                      <div className="sbi-l">{tr.landing.stat4Label}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="hbadge">
-              <span className="hbadge-pill">{tr.landing.aiBadge}</span>
-              <span className="hbadge-txt">
-                {tr.landing.aiBadgeText}
-              </span>
-            </div>
-            <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
-              <span className="ht-line1">
-                {tr.landing.heroTitle1}
-              </span>
-              {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-              <span className="grad font-semibold" style={{ whiteSpace: "pre-line" }}>
-                {tr.landing.heroTitleGrad}
-              </span>
-            </h1>
-            <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
-            <div className="hero-ctas">
-              <button
-                onClick={() => setPlatformModalOpen(true)}
-                className="btn-p"
-                style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-              >
-                {tr.landing.ctaPrimary}
-              </button>
-              <a href="#hiw" className="btn-g">
-                {tr.landing.ctaSecondary}
-              </a>
-            </div>
-            <div className="sbar">
-              <div className="sbi">
-                <div className="sbi-n">{tr.landing.stat1Value}</div>
-                <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
-              </div>
-              <div className="sbi">
-                <div className="sbi-n">{tr.landing.stat2Value}</div>
-                <div className="sbi-l">{tr.landing.stat2Label}</div>
-              </div>
-              <div className="sbi">
-                <div className="sbi-n">{tr.landing.stat3Value}</div>
-                <div className="sbi-l">{tr.landing.stat3Label}</div>
-              </div>
-              <div className="sbi">
-                <div className="sbi-n">{tr.landing.stat4Value}</div>
-                <div className="sbi-l">{tr.landing.stat4Label}</div>
-              </div>
+            <div className="hero-carousel-col">
+              <HeroUseCaseCarousel />
             </div>
           </div>
         </section>
+        {/* HOME CALCULATOR */}
+        <HomeCalculator />
         {/* LOGOS */}
         <div className="logos-sec">
           <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
           <div className="logos-mask marquee-row">
             <div
+              ref={logosMarqueeTrackRef}
               className="marquee-track marquee-rtl"
               style={{ animationDuration: `${storeLogos.length * 1.75}s` }}
             >
-              {[...storeLogos, ...storeLogos, ...storeLogos].map((l, i) => (
-                <div key={i} className="lc">
-                  <img
-                    src={l.src}
-                    alt={
-                      lang === "ar"
-                        ? `شعار ${l.name} — متجر يستخدم منصة زيادة للذكاء الاصطناعي`
-                        : `${l.name} logo — Ziadah AI ecommerce merchant`
-                    }
-                    loading="lazy"
-                    className="logo-img"
-                  />
+              {[0, 1, 2].map((seg) => (
+                <div key={seg} className="marquee-segment">
+                  {storeLogos.map((l, i) => (
+                    <div key={`${seg}-${i}`} className="lc">
+                      <img
+                        src={l.src}
+                        alt={
+                          lang === "ar"
+                            ? `شعار ${l.name} — متجر يستخدم منصة زيادة للذكاء الاصطناعي`
+                            : `${l.name} logo — Ziadah AI ecommerce merchant`
+                        }
+                        loading="lazy"
+                        className="logo-img"
+                      />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
           </div>
         </div>
-        {/* HOME CALCULATOR */}
-        <HomeCalculator />
         {/* HOW IT WORKS */}
         <section id="hiw">
           <div className="wrap">
@@ -1709,35 +1723,51 @@ export default function Landing() {
             </div>
           </div>
           <div className="marquee-row" style={{ marginBottom: 20 }}>
-            <div className="marquee-track marquee-rtl" style={{ animationDuration: `${testimonialsRow1.length * 4}s` }}>
-              {[...testimonialsRow1, ...testimonialsRow1, ...testimonialsRow1].map((t, i) => (
-                <div key={i} className="gc tc-card-slim">
-                  <div className="tc-stars">★★★★★</div>
-                  <div className="tc-text">{t.text}</div>
-                  <div className="tc-author">
-                    <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
-                    <div>
-                      <div className="tc-name">{t.name}</div>
-                      <div className="tc-role">{t.role}</div>
+            <div
+              ref={testimonialsMarquee1Ref}
+              className="marquee-track marquee-rtl"
+              style={{ animationDuration: `${testimonialsRow1.length * 4}s` }}
+            >
+              {[0, 1, 2].map((seg) => (
+                <div key={seg} className="marquee-segment">
+                  {testimonialsRow1.map((t, i) => (
+                    <div key={`${seg}-${i}`} className="gc tc-card-slim">
+                      <div className="tc-stars">★★★★★</div>
+                      <div className="tc-text">{t.text}</div>
+                      <div className="tc-author">
+                        <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
+                        <div>
+                          <div className="tc-name">{t.name}</div>
+                          <div className="tc-role">{t.role}</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               ))}
             </div>
           </div>
           <div className="marquee-row">
-            <div className="marquee-track marquee-ltr" style={{ animationDuration: `${testimonialsRow2.length * 4}s` }}>
-              {[...testimonialsRow2, ...testimonialsRow2, ...testimonialsRow2].map((t, i) => (
-                <div key={i} className="gc tc-card-slim">
-                  <div className="tc-stars">★★★★★</div>
-                  <div className="tc-text">{t.text}</div>
-                  <div className="tc-author">
-                    <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
-                    <div>
-                      <div className="tc-name">{t.name}</div>
-                      <div className="tc-role">{t.role}</div>
+            <div
+              ref={testimonialsMarquee2Ref}
+              className="marquee-track marquee-ltr"
+              style={{ animationDuration: `${testimonialsRow2.length * 4}s` }}
+            >
+              {[0, 1, 2].map((seg) => (
+                <div key={seg} className="marquee-segment">
+                  {testimonialsRow2.map((t, i) => (
+                    <div key={`${seg}-${i}`} className="gc tc-card-slim">
+                      <div className="tc-stars">★★★★★</div>
+                      <div className="tc-text">{t.text}</div>
+                      <div className="tc-author">
+                        <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
+                        <div>
+                          <div className="tc-name">{t.name}</div>
+                          <div className="tc-role">{t.role}</div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               ))}
             </div>
@@ -1999,7 +2029,7 @@ export default function Landing() {
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
                       style={{
                         background:
-                          openFaq === i ? "rgba(124,58,237,.06)" : "var(--s1)",
+                          openFaq === i ? "rgba(124,58,237,.06)" : "rgba(37, 0, 107, 0.1)",
                         border: `1px solid ${openFaq === i ? "rgba(124,58,237,.3)" : "var(--b1)"}`,
                         borderRadius: openFaq === i ? "14px 14px 0 0" : "14px",
                       }}
@@ -2080,7 +2110,7 @@ export default function Landing() {
             </GlassCard>
           </div>
         </section>
-      </div>
+      </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

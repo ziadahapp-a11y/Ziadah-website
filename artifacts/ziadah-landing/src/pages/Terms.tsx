@@ -1,6 +1,6 @@
 import Nav from "../components/Nav";
 import { t } from "@/i18n/translations";
-import ParticleBackground from "../components/ParticleBackground";
+import PageShell from "../components/PageShell";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -52,8 +52,7 @@ export default function Terms() {
       keywordsEn={pk?.keywordsEn}
     />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Terms & Conditions" : "الشروط والأحكام", url: "/terms" }]} />
-      <div style={{ position: "relative", minHeight: "100vh", direction: dir }}>
-        <ParticleBackground />
+      <PageShell>
         <Nav />
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
           <div className="wrap" style={{ maxWidth: 800 }}>
@@ -76,7 +75,7 @@ export default function Terms() {
             </div>
           </div>
         </section>
-      </div>
+      </PageShell>
     </>
   );
 }
