@@ -35,8 +35,8 @@
   },
   "pages": {
     "/": {
-      "keywordsAr": "منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، زيادة مبيعات، متجر إلكتروني السعودية",
-      "keywordsEn": "AI ecommerce platform, Zid, Salla, personalized recommendations, AOV, Saudi Arabia, SaaS, online store growth"
+      "keywordsAr": "منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، اقتراح منتجات، تسويق منتجات، زيادة مبيعات، متجر إلكتروني السعودية، الخليج",
+      "keywordsEn": "AI ecommerce platform, Zid, Salla, personalized product recommendations, ecommerce marketing, AOV, Saudi Arabia, GCC, SaaS, online store growth"
     },
     "/features": {
       "keywordsAr": "خصائص زيادة، أهداف التوصية، البيع المتقاطع، ويدجات المتجر، تخصيص العرض، ذكاء اصطناعي تجارة",
@@ -51,8 +51,8 @@
       "keywordsEn": "merchant case studies, Ziadah results, SAR revenue, ecommerce success Saudi"
     },
     "/blog": {
-      "keywordsAr": "مدونة تجارة إلكترونية، ذكاء اصطناعي للتجار، زد، سلة، نمو المبيعات",
-      "keywordsEn": "ecommerce blog, AI for merchants, growth strategies, Zid Salla tutorials"
+      "keywordsAr": "مدونة تجارة إلكترونية، ذكاء اصطناعي للتجار، اقتراح منتجات، تسويق منتجات، زد، سلة، نمو المبيعات، تحسين التحويل",
+      "keywordsEn": "ecommerce blog, AI for merchants, product recommendation marketing, growth strategies, Zid Salla tutorials, conversion optimization"
     },
     "/support": {
       "keywordsAr": "دعم زيادة، مركز المساعدة، تثبيت التطبيق، لوحة التحليلات، زد، سلة",

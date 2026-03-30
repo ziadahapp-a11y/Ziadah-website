@@ -23,6 +23,7 @@ const OUT_MS = 280;
 export function BlurTransitionProvider({ children }: { children: ReactNode }) {
   const [active, setActive] = useState(false);
   const busyRef = useRef(false);
+  const pendingRef = useRef<(() => void) | null>(null);
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const clearAllTimers = () => {
@@ -33,7 +34,10 @@ export function BlurTransitionProvider({ children }: { children: ReactNode }) {
   useEffect(() => () => clearAllTimers(), []);
 
   const run: RunBlur = useCallback((inner: () => void) => {
-    if (busyRef.current) return;
+    if (busyRef.current) {
+      pendingRef.current = inner;
+      return;
+    }
     busyRef.current = true;
     clearAllTimers();
 
@@ -47,6 +51,9 @@ export function BlurTransitionProvider({ children }: { children: ReactNode }) {
           setActive(false);
           const t3 = setTimeout(() => {
             busyRef.current = false;
+            const next = pendingRef.current;
+            pendingRef.current = null;
+            if (next) run(next);
           }, OUT_MS + 40);
           timersRef.current.push(t3);
         }, HOLD_MS);

@@ -67,7 +67,6 @@ export function navigateTo(path: string) {
     _triggerTransition(path);
   } else if (_directNavigate) {
     _directNavigate(path);
-    window.scrollTo(0, 0);
   } else if (typeof window !== "undefined") {
     const rawBase = import.meta.env.BASE_URL || "/";
     const base = rawBase.endsWith("/") ? rawBase.slice(0, -1) : rawBase;
@@ -161,33 +160,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const triggerTransition = useCallback(
     (path: string) => {
       preloadRoute(path);
-      const commitNavigate = () => {
-        navigate(path);
-        window.scrollTo(0, 0);
-      };
-
-      if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        commitNavigate();
-        return;
-      }
-
-      const maybeDoc = document as Document & {
-        startViewTransition?: (updateCallback: () => void) => { finished: Promise<void> };
-      };
-
-      if (typeof maybeDoc.startViewTransition === "function") {
-        try {
-          maybeDoc.startViewTransition(() => {
-            commitNavigate();
-          });
-          return;
-        } catch {
-          commitNavigate();
-          return;
-        }
-      }
-
-      commitNavigate();
+      navigate(path);
     },
     [navigate]
   );

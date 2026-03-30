@@ -7,6 +7,7 @@ import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
 import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
+import { absolutePageUrl } from "@/seo/meta";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { useBlogPostFields } from "@/cms/useBlogPostFields";
@@ -464,6 +465,7 @@ export default function BlogPost() {
   };
 
   const relatedPosts = blogPosts.filter((p) => post.related.includes(p.slug));
+  const postCat = categories.find((c) => c.id === post.category);
 
   return (
     <>
@@ -475,14 +477,28 @@ export default function BlogPost() {
       canonical={`/blog/${post.slug}`}
       type="article"
       publishDate={post.publishDateIso}
-      keywordsAr={`زيادة، مدونة، ذكاء اصطناعي، تجارة إلكترونية، ${categories.find((c) => c.id === post.category)?.label ?? ""}`}
-      keywordsEn={`Ziadah, blog, AI ecommerce, online store, ${categories.find((c) => c.id === post.category)?.labelEn ?? post.category}`}
+      keywordsAr={`زيادة، مدونة، ذكاء اصطناعي، تجارة إلكترونية، اقتراح منتجات، تسويق منتجات، ${postCat?.label ?? ""}`}
+      keywordsEn={`Ziadah, blog, AI ecommerce, online store, product recommendations, ecommerce marketing, ${postCat?.labelEn ?? post.category}`}
     />
     <ArticleSchema
       title={fields.title}
       description={fields.summary}
       publishDate={post.publishDateIso}
       slug={post.slug}
+      articleSection={postCat ? (isAr ? postCat.label : postCat.labelEn) : undefined}
+      schemaKeywords={[
+        "Ziadah",
+        "زيادة",
+        postCat?.label,
+        postCat?.labelEn,
+        "product recommendations",
+        "اقتراح منتجات",
+        "ecommerce marketing",
+        "تسويق المنتجات",
+      ]
+        .filter(Boolean)
+        .join(", ")}
+      pageUrl={absolutePageUrl(`/blog/${post.slug}`, lang)}
     />
     <BreadcrumbSchema items={[
       { name: tx.breadcrumbHome, url: "/" },

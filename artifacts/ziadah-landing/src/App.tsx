@@ -1,7 +1,7 @@
 import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useLayoutEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
@@ -18,6 +18,7 @@ import { CmsFloatingEditableToolbar } from "@/cms/components/CmsFloatingEditable
 import { CmsQuickLoginModal } from "@/cms/components/CmsQuickLoginModal";
 import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
+import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const Landing = lazy(() => import("@/pages/Landing"));
@@ -89,8 +90,8 @@ function shouldShowCmsQuickLogin(): boolean {
 
 function ScrollToTop() {
   const [location] = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  useLayoutEffect(() => {
+    scrollWindowToTopAfterPaint();
   }, [location]);
   return null;
 }

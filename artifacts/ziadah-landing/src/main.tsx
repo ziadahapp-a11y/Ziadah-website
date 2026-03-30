@@ -10,6 +10,10 @@ if (typeof window !== "undefined" && window.location.hostname === "ziadah.app") 
   window.location.replace(`https://www.ziadah.app${pathname}${search}${hash}`);
 }
 
+if (typeof window !== "undefined" && "scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
     <App />

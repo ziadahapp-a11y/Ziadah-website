@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { absolutePageUrl } from "@/seo/meta";
 
 interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -42,7 +44,14 @@ export function OrganizationSchema() {
       { "@type": "Country", name: "Bahrain" },
       { "@type": "Country", name: "Oman" },
       { "@type": "Country", name: "Qatar" },
-    ]
+    ],
+    knowsAbout: [
+      "AI product recommendations",
+      "اقتراح المنتجات بالذكاء الاصطناعي",
+      "ecommerce personalization",
+      "Zid Salla integrations",
+      "cross-sell and upsell automation",
+    ],
   };
   return <JsonLd data={data} />;
 }
@@ -174,6 +183,8 @@ export function WebSiteSchema() {
     name: "زيادة",
     alternateName: "Ziadah",
     url: "https://www.ziadah.app",
+    description:
+      "Ziadah — AI product recommendations and ecommerce growth for Zid & Salla merchants in Saudi Arabia and the GCC. | زيادة: اقتراح منتجات ذكي ونمو مبيعات لمتاجر زد وسلة.",
     inLanguage: ["ar", "en"],
     potentialAction: {
       "@type": "SearchAction",
@@ -243,21 +254,37 @@ export function ArticleSchema({
   description,
   publishDate,
   slug,
-  authorName = "Ziadah Team"
+  authorName = "Ziadah Team",
+  articleSection,
+  schemaKeywords,
+  dateModified,
+  pageUrl,
 }: {
   title: string;
   description: string;
   publishDate: string;
   slug: string;
   authorName?: string;
+  /** Blog category label(s) for Article structured data */
+  articleSection?: string;
+  /** Extra comma-separated or short phrases for schema `keywords` */
+  schemaKeywords?: string;
+  dateModified?: string;
+  /** Full canonical URL for this language version */
+  pageUrl?: string;
 }) {
+  const resolvedUrl = pageUrl ?? `https://www.ziadah.app/blog/${slug}`;
   const data = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: title,
     description,
     datePublished: publishDate,
+    dateModified: dateModified ?? publishDate,
     inLanguage: ["ar", "en"],
+    ...(articleSection ? { articleSection } : {}),
+    ...(schemaKeywords ? { keywords: schemaKeywords } : {}),
+    url: resolvedUrl,
     author: {
       "@type": "Organization",
       name: authorName,
@@ -268,19 +295,27 @@ export function ArticleSchema({
       name: "Ziadah",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.ziadah.app/logo.png"
+        url: "https://www.ziadah.app/logo.png",
+        width: 512,
+        height: 512,
       }
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://www.ziadah.app/blog/${slug}`
+      "@id": resolvedUrl
     },
-    image: "https://www.ziadah.app/opengraph.jpg"
+    image: {
+      "@type": "ImageObject",
+      url: "https://www.ziadah.app/opengraph.jpg",
+      width: 1200,
+      height: 630,
+    },
   };
   return <JsonLd data={data} />;
 }
 
 export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: string }> }) {
+  const { lang } = useLanguage();
   const data = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -288,8 +323,8 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `https://www.ziadah.app${item.url}`
-    }))
+      item: absolutePageUrl(item.url, lang),
+    })),
   };
   return <JsonLd data={data} />;
 }
