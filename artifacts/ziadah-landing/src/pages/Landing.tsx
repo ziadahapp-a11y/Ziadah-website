@@ -331,8 +331,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* HOME CALCULATOR */}
-        <HomeCalculator />
         {/* LOGOS */}
         <div className="logos-sec">
           <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
@@ -363,12 +361,14 @@ export default function Landing() {
             </div>
           </div>
         </div>
+        {/* HOME CALCULATOR */}
+        <HomeCalculator />
         {/* HOW IT WORKS */}
         <section id="hiw">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.hiwTag}</SecTag>
-              <h2 className="st rv d1 text-[48px] font-semibold">
+              <h2 className="st rv d1 font-semibold">
                 {tr.landing.hiwTitle}
               </h2>
               <p className="ssub rv d2">
@@ -1840,7 +1840,12 @@ export default function Landing() {
                   price: prices[pricingMode].b,
                   feat: false,
                   badge: null,
-                  list: tr.landing.planBusinessList as string[],
+                  list: [
+                    ...(tr.landing.planBusinessList as string[]),
+                    ...(pricingMode === "y"
+                      ? [tr.landing.planBusinessGuaranteeAnnual]
+                      : []),
+                  ],
                   cta: tr.landing.subscribeNow,
                   fill: false,
                 },

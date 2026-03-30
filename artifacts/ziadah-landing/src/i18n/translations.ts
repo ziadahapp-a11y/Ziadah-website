@@ -518,7 +518,6 @@ export const t = {
       planStarter: "الانطلاقة",
       planStarterDesc: "للمبتدئين والراغبين بالتجربة",
       planStarterList: [
-        "ذكاء اصطناعي أساسي",
         "اقتراحات لامحدودة",
         "مبيعات لامحدودة",
         "مزامنة تلقائية للمنتجات",
@@ -529,7 +528,6 @@ export const t = {
       planGrowthDesc: "للتجار الأفراد",
       planGrowthBadge: "الأكثر طلباً",
       planGrowthList: [
-        "ذكاء اصطناعي متقدم",
         "كل مزايا الانطلاقة",
         "عروض الكوبونات",
         "اقتراح في 6 نقاط من الرحلة",
@@ -539,7 +537,6 @@ export const t = {
       planPro: "الاحترافية",
       planProDesc: "للشركات والمؤسسات",
       planProList: [
-        "ذكاء اصطناعي كامل",
         "كل مزايا النمو",
         "اقتراح في 10 نقاط من الرحلة",
         "اقتراح في صفحة الدفع وبعده",
@@ -553,8 +550,9 @@ export const t = {
         "مدير نجاح يدير حسابك",
         "مراجعة شهرية استراتيجية",
         "دعم تقني مخصص 24/7",
-        "ضمان ذهبي 10x عائد الاستثمار",
       ],
+      planBusinessGuaranteeAnnual:
+        "الضمان فقط على الأعمال السنوية",
       faqTag: "مركز المساعدة",
       faqTitle: "كيف نقدر نساعدك؟",
       faqWeAreHere: "نحن هنا لك",
@@ -1503,7 +1501,6 @@ export const t = {
       planStarter: "Starter",
       planStarterDesc: "For beginners and those wanting to try",
       planStarterList: [
-        "Basic AI",
         "Unlimited suggestions",
         "Unlimited sales",
         "Automatic product sync",
@@ -1514,7 +1511,6 @@ export const t = {
       planGrowthDesc: "For individual merchants",
       planGrowthBadge: "Most Popular",
       planGrowthList: [
-        "Advanced AI",
         "All Starter features",
         "Coupon offers",
         "Suggestions at 6 journey points",
@@ -1524,7 +1520,6 @@ export const t = {
       planPro: "Professional",
       planProDesc: "For companies and enterprises",
       planProList: [
-        "Full AI",
         "All Growth features",
         "Suggestions at 10 journey points",
         "Checkout and post-checkout suggestions",
@@ -1538,8 +1533,9 @@ export const t = {
         "Dedicated success manager",
         "Monthly strategic review",
         "Dedicated 24/7 technical support",
-        "Gold guarantee 10x ROI",
       ],
+      planBusinessGuaranteeAnnual:
+        "Guarantee applies to annual Business plans only",
       faqTag: "Help Center",
       faqTitle: "How can we help you?",
       faqWeAreHere: "We're Here for You",
