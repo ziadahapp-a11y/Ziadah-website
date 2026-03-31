@@ -216,13 +216,24 @@ function UseCasesMegaMenu() {
   const useCasesDropdown = getUseCasesDropdown(tr);
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", ...(lang === "ar" ? { right: 0 } : { left: 0, maxWidth: "calc(100vw - 32px)" }), minWidth: 900,
+      position: "absolute",
+      top: "calc(100% + 10px)",
+      ...(lang === "ar" ? { right: 0, left: "auto" } : { left: 0, right: "auto" }),
+      width: "min(900px, calc(100vw - 24px))",
+      maxWidth: "calc(100vw - 16px)",
+      minWidth: 0,
+      boxSizing: "border-box",
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.9)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
-      borderRadius: 16, padding: "20px 4px",
+      borderRadius: 16, padding: "16px 10px",
       backdropFilter: "blur(100px)", WebkitBackdropFilter: "blur(100px)",
       boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
-      display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 4, overflowX: "auto",
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
+      gap: 8,
+      overflowX: "hidden",
+      overflowY: "auto",
+      maxHeight: "min(70vh, 520px)",
     }}>
       {useCasesDropdown.sections.map((section) => (
         <div key={section.title} style={{ padding: "4px 6px" }}>
@@ -268,7 +279,10 @@ function PlatformsDropdown() {
   const platformItems = getPlatformItems(tr);
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 200,
+      position: "absolute", top: "calc(100% + 10px)", right: 0, left: "auto",
+      minWidth: "min(200px, calc(100vw - 24px))",
+      maxWidth: "calc(100vw - 16px)",
+      boxSizing: "border-box",
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
@@ -365,7 +379,10 @@ function HelpDropdown() {
 
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 300,
+      position: "absolute", top: "calc(100% + 10px)", right: 0, left: "auto",
+      minWidth: "min(300px, calc(100vw - 24px))",
+      maxWidth: "calc(100vw - 16px)",
+      boxSizing: "border-box",
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
@@ -408,6 +425,150 @@ const MAIN_SECTOR_NAV = [
   { href: "/sectors/ecommerce-platforms", icon: "🧩", titleAr: "منصات التسوق الإلكترونية", titleEn: "Ecommerce Platforms" },
 ] as const;
 
+/** Stroke icons for mobile bottom nav — uses currentColor from parent */
+function MobileNavIcon({ name, size = 20 }: { name: string; size?: number }) {
+  const s = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none" as const,
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  switch (name) {
+    case "home":
+      return (
+        <svg {...s} aria-hidden>
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      );
+    case "useCases":
+      return (
+        <svg {...s} aria-hidden>
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="14" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+        </svg>
+      );
+    case "calculator":
+      return (
+        <svg {...s} aria-hidden>
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="10" x2="16" y2="10" />
+          <line x1="8" y1="14" x2="12" y2="14" />
+          <line x1="8" y1="18" x2="16" y2="18" />
+        </svg>
+      );
+    case "platforms":
+      return (
+        <svg {...s} aria-hidden>
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <line x1="12" y1="18" x2="12.01" y2="18" />
+        </svg>
+      );
+    case "sectors":
+      return (
+        <svg {...s} aria-hidden>
+          <path d="M3 9l12-7 9 5v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+          <path d="M9 22V12h6v10" />
+        </svg>
+      );
+    case "pricing": {
+      /* U+20C1 — saudi_riyal glyph reads smaller than stroke icons at equal px; scale to match ~24×24 visual weight in a size box */
+      const riyalFont = Math.round(size * 1.52);
+      return (
+        <span
+          aria-hidden
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: size,
+            height: size,
+            fontFamily: "var(--font)",
+            fontSize: riyalFont,
+            fontWeight: 700,
+            lineHeight: 1,
+            color: "currentColor",
+          }}
+        >
+          {"\u20C1"}
+        </span>
+      );
+    }
+    case "more":
+      return (
+        <svg {...s} aria-hidden>
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="19" cy="12" r="1" />
+          <circle cx="5" cy="12" r="1" />
+        </svg>
+      );
+    case "successStories":
+      return (
+        <svg {...s} aria-hidden>
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      );
+    case "help":
+      return (
+        <svg {...s} aria-hidden>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      );
+    case "meeting":
+      return (
+        <svg {...s} aria-hidden>
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+        </svg>
+      );
+    case "startNow":
+      return (
+        <svg {...s} aria-hidden>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      );
+    case "langTheme":
+      return (
+        <svg {...s} aria-hidden>
+          <circle cx="12" cy="12" r="10" />
+          <line x1="2" y1="12" x2="22" y2="12" />
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+        </svg>
+      );
+    case "back":
+      return (
+        <svg {...s} aria-hidden>
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      );
+    case "backRtl":
+      return (
+        <svg {...s} aria-hidden>
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...s} aria-hidden>
+          <circle cx="12" cy="12" r="10" />
+        </svg>
+      );
+  }
+}
+
 function SectorsDropdown() {
   const { lang } = useLanguage();
   const { theme } = useTheme();
@@ -416,8 +577,11 @@ function SectorsDropdown() {
 
   return (
     <div style={{
-      position: "absolute", top: "calc(100% + 10px)", right: 0, minWidth: 280,
+      position: "absolute", top: "calc(100% + 10px)", right: 0, left: "auto",
+      minWidth: "min(280px, calc(100vw - 24px))",
+      maxWidth: "calc(100vw - 16px)",
       maxHeight: 420, overflowY: "auto",
+      boxSizing: "border-box",
       background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
       border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
@@ -871,9 +1035,33 @@ export default function Nav() {
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
   const mobileHelpItems = [
-    { label: tr.nav.faq, href: "/#faq" },
-    { label: tr.nav.contact, href: "/support" },
-    { label: tr.nav.blog, href: "/blog" },
+    {
+      label: tr.nav.faq,
+      href: "/#faq",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
+          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      label: tr.nav.contact,
+      href: "/support",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
+          <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor" />
+        </svg>
+      ),
+    },
+    {
+      label: tr.nav.blog,
+      href: "/blog",
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
+          <path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor" />
+        </svg>
+      ),
+    },
   ];
 
   return (
@@ -1287,12 +1475,14 @@ export default function Nav() {
                       setMobileOpenDrop(null);
                     }}
                     style={{
-                      display: "block", padding: "10px 12px", borderRadius: 10,
+                      display: "flex", alignItems: "center", gap: 10,
+                      padding: "10px 12px", borderRadius: 10,
                       background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
                       border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
+                    <span style={{ color: "var(--p4)", flexShrink: 0, display: "flex" }}>{item.icon}</span>
                     {item.label}
                   </span>
                 ))}
@@ -1362,14 +1552,17 @@ export default function Nav() {
             transition: "opacity .22s ease, transform .22s ease",
           }}>
             {[
-              { key: "home", label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
-              { key: "solutions", label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
-              { key: "calculator", label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
-              { key: "platforms", label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
-              { key: "sectors", label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
-              { key: "pricing", label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },
-              { key: "more", label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
-            ].map((item) => (
+              { key: "home", iconKey: "home" as const, label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
+              { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
+              { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
+              { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
+              { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
+              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },
+              { key: "more", iconKey: "more" as const, label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
+            ].map((item) => {
+              const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
+              const accent = item.active || dropOpen;
+              return (
               <button
                 type="button"
                 key={item.key}
@@ -1377,21 +1570,22 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: item.active || (item.hasDrop && mobileOpenDrop === item.key) ? "#a855f7" : "var(--tm)",
+                  color: accent ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
+                  WebkitTapHighlightColor: "transparent",
                 }}
               >
-                <span style={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  {item.hasDrop ? chevron(mobileOpenDrop === item.key) : null}
+                <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, minHeight: 26 }}>
+                  <MobileNavIcon name={item.iconKey} size={20} />
                 </span>
-                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
+                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, width: "fit-content" }}>
                   <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
                     {item.label}
                   </Editable>
                 </span>
               </button>
-            ))}
+            );})}
           </div>
 
           <div style={{
@@ -1402,13 +1596,17 @@ export default function Nav() {
             transition: "opacity .22s ease, transform .22s ease",
           }}>
             {[
-              { key: "stories", label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
-              { key: "help", label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
-              { key: "meeting", label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); window.open("https://calendar.app.google/a3b18uRcuhHijZ8y5", "_blank", "noopener,noreferrer"); }, active: false },
-              { key: "startNow", label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
-              { key: "langTheme", label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
-              { key: "back", label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
-            ].map((item) => (
+              { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
+              { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
+              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); window.open("https://calendar.app.google/a3b18uRcuhHijZ8y5", "_blank", "noopener,noreferrer"); }, active: false },
+              { key: "startNow", iconKey: "startNow" as const, label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
+              { key: "langTheme", iconKey: "langTheme" as const, dropKey: "langTheme" as const, label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
+              { key: "back", iconKey: "back" as const, label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
+            ].map((item) => {
+              const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
+              const accent = item.active || dropOpen;
+              const iconName = item.key === "back" ? (isRtl ? "backRtl" : "back") : item.iconKey;
+              return (
               <button
                 type="button"
                 key={item.key}
@@ -1416,19 +1614,22 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: item.active || (item.hasDrop && mobileOpenDrop === item.key) ? "#a855f7" : "var(--tm)",
+                  color: accent ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
+                  WebkitTapHighlightColor: "transparent",
                 }}
               >
-                <span style={{ lineHeight: 1 }}>{item.key === "back" ? (isRtl ? "›" : "‹") : item.hasDrop ? (mobileOpenDrop === item.key ? "▲" : "▼") : ""}</span>
-                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, maxWidth: 64 }}>
+                <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, minHeight: 26 }}>
+                  <MobileNavIcon name={iconName} size={20} />
+                </span>
+                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, width: "fit-content" }}>
                   <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
                     {item.label}
                   </Editable>
                 </span>
               </button>
-            ))}
+            );})}
           </div>
         </div>
       </div>
