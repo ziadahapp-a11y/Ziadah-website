@@ -829,7 +829,7 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
 }
 .dfs-av-badge-p{background:rgba(124,58,237,.2);border:1px solid rgba(168,85,247,.4);color:var(--p4);}
 .dfs-av-badge-pk{background:rgba(236,72,153,.2);border:1px solid rgba(236,72,153,.4);color:#f9a8d4;}
-.dfs-pbody{display:flex;flex-direction:column;align-items:center;gap:0;width:100%;}
+.dfs-pbody{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:1px;width:100%;}
 .dfs-pname{font-size:15px;font-weight:800;margin-top:12px;color:var(--t);}
 .dfs-pmeta{font-size:11px;color:var(--td);text-align:center;}
 .dfs-sigs{display:flex;flex-direction:column;gap:6px;width:100%;margin-top:8px;}
@@ -993,7 +993,7 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
 
   /* Profile cards → horizontal layout */
   .dfs-profile{
-    flex-direction:row;align-items:flex-start;
+    flex-direction:column;align-items:flex-start;
     padding:14px 12px;gap:10px;border-radius:16px;
   }
   .dfs-av-wrap{width:56px;height:56px;flex-shrink:0;}
