@@ -1,17 +1,17 @@
 kind = "design"
-previewPath = "/"
+previewPath = "/__mockup"
 title = "Canvas"
 version = "1.0.0"
 id = "XegfDyZt7HqfW2Bb8Ghoy"
 
 [[services]]
-localPort = 8081
+localPort = 8083
 name = "Component Preview Server"
-paths = ["/"]
+paths = ["/__mockup"]
 
 [services.env]
-PORT = "8081"
-BASE_PATH = "/"
+PORT = "8083"
+BASE_PATH = "/__mockup"
 
 [services.development]
 run = "pnpm --filter @workspace/mockup-sandbox run dev"
@@ -22,14 +22,14 @@ run = "pnpm --filter @workspace/mockup-sandbox run dev"
 args = ["pnpm", "--filter", "@workspace/mockup-sandbox", "run", "build"]
 
 [services.production.build.env]
-PORT = "8081"
-BASE_PATH = "/"
+PORT = "8083"
+BASE_PATH = "/__mockup"
 NODE_ENV = "production"
 
 [services.production.run]
 args = ["pnpm", "--filter", "@workspace/mockup-sandbox", "run", "preview"]
 
 [services.production.run.env]
-PORT = "8081"
-BASE_PATH = "/"
+PORT = "8083"
+BASE_PATH = "/__mockup"
 NODE_ENV = "production"
