@@ -51,8 +51,8 @@ export function CmsFloatingEditableToolbar() {
     };
 
     updatePosition();
-    window.addEventListener("scroll", updatePosition, true);
-    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, { passive: true, capture: true });
+    window.addEventListener("resize", updatePosition, { passive: true });
     return () => {
       window.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);

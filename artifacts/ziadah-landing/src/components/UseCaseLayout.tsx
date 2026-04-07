@@ -385,7 +385,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         {exampleScenario && (
           <section id="uc-example" className="sector-html"
             style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
-            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
               <div className="rv" style={{
                 position: "relative",
                 background: "color-mix(in srgb, var(--p) 5%, transparent)",
@@ -451,7 +451,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         {plans && (
           <section className="sector-html"
             style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
-            <div style={{ maxWidth: 900, margin: "0 auto" }}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
               <div className="rv" style={{
                 background: "color-mix(in srgb, var(--p) 4%, transparent)",
                 border: "1px solid color-mix(in srgb, var(--p) 16%, transparent)",
@@ -502,8 +502,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             REPORTS HIGHLIGHT
         ══════════════════════════════════════════════════ */}
         <section className="sector-html"
-          style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          style={{ position: "relative", zIndex: 2, padding: "0 0 56px" }}>
+          <div style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
             <div className="rv" style={{
               position: "relative",
               background: "color-mix(in srgb, var(--p) 5%, transparent)",
@@ -511,6 +511,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               borderRadius: 20,
               padding: "36px 44px",
               overflow: "hidden",
+              width: "100%",
+              maxWidth: 1200,
             }}>
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), transparent)" }} />
               <div className="sector-html-ai-layout" style={{ gap: 44 }}>
@@ -570,7 +572,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         ══════════════════════════════════════════════════ */}
         <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
           <div className="sector-html rv" style={{
-            maxWidth: 860,
+            width: "100%",
+            maxWidth: 1200,
             margin: "0 auto",
             position: "relative",
             background: "color-mix(in srgb, var(--p) 8%, transparent)",
@@ -600,10 +603,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
                   {activateNow}
                 </Editable>
-              </button>
-              <button type="button" className="sector-html-btn sector-html-btn--ghost"
-                onClick={() => navigateTo("/")}>
-                {isEn ? "Back to home" : "← الرئيسية"}
               </button>
             </div>
             <p className="cta-note" style={{ position: "relative", zIndex: 1, marginTop: 20 }}>

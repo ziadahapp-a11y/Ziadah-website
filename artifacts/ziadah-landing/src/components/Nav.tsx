@@ -936,7 +936,7 @@ export default function Nav() {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", fn); fn();
+    window.addEventListener("scroll", fn, { passive: true }); fn();
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
