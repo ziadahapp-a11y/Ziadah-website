@@ -4,18 +4,52 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "whitespace-nowrap inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2" +
-  " hover-elevate ",
+  [
+    "inline-flex items-center gap-1 rounded-md",
+    "px-2 py-0.5",
+    "text-xs font-medium leading-none",
+    "tracking-[-0.006em]",
+    "transition-colors duration-150",
+    "border",
+    "select-none whitespace-nowrap",
+  ].join(" "),
   {
     variants: {
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground shadow-xs",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow-xs",
-        outline: "text-foreground border [border-color:var(--badge-outline)]",
+        default: [
+          "bg-primary text-primary-foreground border-transparent",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.1)]",
+        ].join(" "),
+
+        secondary: [
+          "bg-secondary text-secondary-foreground",
+          "border-[rgba(127,127,127,0.12)]",
+        ].join(" "),
+
+        destructive: [
+          "bg-destructive text-destructive-foreground border-transparent",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.1)]",
+        ].join(" "),
+
+        outline: [
+          "bg-transparent text-foreground",
+          "border-[var(--badge-outline)]",
+        ].join(" "),
+
+        // Pill — full-radius, filter-chip style
+        pill: [
+          "rounded-full px-2.5 py-1",
+          "bg-transparent text-muted-foreground",
+          "border-[rgba(127,127,127,0.18)]",
+          "hover:bg-muted hover:text-foreground",
+          "cursor-pointer transition-all duration-150",
+        ].join(" "),
+
+        // Success
+        success: [
+          "bg-[hsl(142_60%_52%)] text-white border-transparent",
+          "shadow-[0_1px_2px_rgba(0,0,0,0.1)]",
+        ].join(" "),
       },
     },
     defaultVariants: {

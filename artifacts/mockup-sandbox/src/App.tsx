@@ -98,20 +98,131 @@ function getPreviewExamplePath(): string {
 
 function Gallery() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
-      <div className="text-center max-w-md">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-3">
+    <div className="relative min-h-screen bg-background flex items-center justify-center overflow-hidden">
+      {/* Dot-grid background texture */}
+      <div className="absolute inset-0 dot-grid opacity-60 pointer-events-none" />
+
+      {/* Radial glow — accent atmosphere at top */}
+      <div
+        className="absolute inset-x-0 top-0 h-72 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at 50% -10%, hsl(var(--primary) / 0.12) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-lg animate-in-up">
+        {/* Icon lockup */}
+        <div
+          className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl border"
+          style={{
+            background: "hsl(var(--card))",
+            borderColor: "rgba(127,127,127,0.14)",
+            boxShadow:
+              "0 0 0 1px rgba(127,127,127,0.06), 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.06)",
+          }}
+        >
+          <svg
+            width="26"
+            height="26"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.5"
+            stroke="hsl(var(--primary))"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Z" />
+            <path d="M14 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5Z" />
+            <path d="M4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4Z" />
+            <path d="M14 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4Z" />
+          </svg>
+        </div>
+
+        {/* Eyebrow — monospace label */}
+        <p
+          className="mb-3 text-xs font-medium uppercase tracking-widest"
+          style={{
+            fontFamily: "var(--font-mono)",
+            color: "hsl(var(--primary))",
+            letterSpacing: "0.12em",
+          }}
+        >
+          Mockup Canvas
+        </p>
+
+        {/* Headline */}
+        <h1
+          className="mb-4 text-3xl font-semibold text-balance"
+          style={{
+            color: "hsl(var(--foreground))",
+            letterSpacing: "-0.028em",
+            lineHeight: "1.12",
+          }}
+        >
           Component Preview Server
         </h1>
-        <p className="text-gray-500 mb-4">
-          This server renders individual components for the workspace canvas.
+
+        {/* Description */}
+        <p
+          className="mb-8 text-base leading-relaxed"
+          style={{
+            color: "hsl(var(--muted-foreground))",
+            letterSpacing: "-0.008em",
+          }}
+        >
+          This server renders individual React components for the workspace
+          canvas. Access any component by its preview URL below.
         </p>
-        <p className="text-sm text-gray-400">
-          Access component previews at{" "}
-          <code className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">
+
+        {/* Code path card */}
+        <div
+          className="w-full rounded-xl px-5 py-4"
+          style={{
+            background: "hsl(var(--card))",
+            border: "1px solid rgba(127,127,127,0.12)",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+          }}
+        >
+          <p
+            className="mb-2 text-left text-xs font-medium uppercase"
+            style={{
+              fontFamily: "var(--font-mono)",
+              color: "hsl(var(--muted-foreground))",
+              letterSpacing: "0.08em",
+            }}
+          >
+            Preview route
+          </p>
+          <code
+            className="block w-full rounded-lg px-4 py-2.5 text-sm text-left break-all"
+            style={{
+              fontFamily: "var(--font-mono)",
+              background: "hsl(var(--muted))",
+              color: "hsl(var(--foreground))",
+              border: "1px solid rgba(127,127,127,0.10)",
+              letterSpacing: "0.01em",
+            }}
+          >
             {getPreviewExamplePath()}
           </code>
-        </p>
+        </div>
+
+        {/* Bottom status indicator */}
+        <div className="mt-10 flex items-center gap-2">
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ background: "hsl(142 60% 52%)" }}
+          />
+          <span
+            className="text-xs"
+            style={{ color: "hsl(var(--muted-foreground))", fontFamily: "var(--font-mono)", letterSpacing: "0.02em" }}
+          >
+            server running
+          </span>
+        </div>
       </div>
     </div>
   );
