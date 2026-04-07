@@ -12,7 +12,9 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
+      "inline-flex h-9 items-center justify-center rounded-lg p-1 gap-0.5",
+      "bg-muted/60 border border-[rgba(127,127,127,0.10)]",
+      "text-muted-foreground",
       className
     )}
     {...props}
@@ -27,7 +29,18 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+      "inline-flex items-center justify-center whitespace-nowrap",
+      "rounded-md px-3 py-1",
+      "text-sm font-medium tracking-[-0.008em]",
+      "transition-all duration-150 ease-out",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+      "disabled:pointer-events-none disabled:opacity-40",
+      // Inactive state
+      "text-muted-foreground hover:text-foreground hover:bg-background/50",
+      // Active state — card surface with subtle lift
+      "data-[state=active]:bg-background data-[state=active]:text-foreground",
+      "data-[state=active]:shadow-[0_1px_3px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.06)]",
+      "data-[state=active]:border data-[state=active]:border-[rgba(127,127,127,0.12)]",
       className
     )}
     {...props}

@@ -4,13 +4,36 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border px-4 py-3 text-sm [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+  [
+    "relative w-full rounded-xl border px-4 py-3.5 text-sm",
+    "tracking-[-0.006em]",
+    "[&>svg+div]:translate-y-[-2px]",
+    "[&>svg]:absolute [&>svg]:left-4 [&>svg]:top-[14px] [&>svg]:text-foreground",
+    "[&>svg~*]:pl-7",
+  ].join(" "),
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        default: [
+          "bg-card text-foreground",
+          "border-[rgba(127,127,127,0.14)]",
+          "shadow-[0_1px_3px_rgba(0,0,0,0.05)]",
+        ].join(" "),
+        destructive: [
+          "bg-destructive/8 text-destructive",
+          "border-destructive/25",
+          "[&>svg]:text-destructive",
+        ].join(" "),
+        success: [
+          "bg-[hsl(142_60%_52%/0.08)] text-[hsl(142_50%_35%)]",
+          "border-[hsl(142_60%_52%/0.25)]",
+          "[&>svg]:text-[hsl(142_60%_40%)]",
+        ].join(" "),
+        warning: [
+          "bg-[hsl(38_95%_55%/0.08)] text-[hsl(32_90%_35%)]",
+          "border-[hsl(38_95%_55%/0.25)]",
+          "[&>svg]:text-[hsl(38_90%_42%)]",
+        ].join(" "),
       },
     },
     defaultVariants: {
@@ -38,7 +61,7 @@ const AlertTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h5
     ref={ref}
-    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    className={cn("mb-1 font-semibold leading-none tracking-[-0.012em]", className)}
     {...props}
   />
 ))
