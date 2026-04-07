@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 export type Theme = "dark" | "light";
 
-const THEME_ORDER: Theme[] = ["dark", "light"];
+const THEME_ORDER: Theme[] = ["light", "dark"];
 
 interface ThemeContextValue {
   theme: Theme;
@@ -11,7 +11,7 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "dark",
+  theme: "light",
   toggleTheme: () => {},
   setTheme: () => {},
 });
@@ -48,10 +48,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (fromUrl) return fromUrl;
     try {
       const saved = localStorage.getItem("zd-theme");
-      if (saved === "red") return "dark";
+      if (saved === "red") return "light";
       if (isTheme(saved)) return saved;
     } catch {}
-    return "dark";
+    return "light";
   });
 
   const setTheme = useMemo(
