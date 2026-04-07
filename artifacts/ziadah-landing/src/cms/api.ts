@@ -211,6 +211,17 @@ export const cmsApi = {
       body: JSON.stringify(body),
     }),
 
+  bulkUpdateContent: (
+    updates: Array<{
+      key: string;
+      patch: Partial<Pick<ContentBlockRow, "value" | "type" | "page" | "section" | "label">>;
+    }>,
+  ) =>
+    cmsFetchJson<{ blocks: ContentBlockRow[] }>(`/cms/content/bulk`, {
+      method: "PUT",
+      body: JSON.stringify({ updates }),
+    }),
+
   createContent: (body: {
     key: string;
     value: string;

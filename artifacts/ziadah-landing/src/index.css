@@ -10,6 +10,19 @@ html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--page-background);color:var(--t);overflow-x:hidden;transition:background .35s ease,color .35s ease;}
 #root{overflow-x:hidden;direction:inherit;}
 
+/* Browser-preview tweak: keep Tailwind button borders consistent */
+button.inline-flex{
+  border-color: rgba(113,50,219,0.1);
+  border-width: 1px;
+}
+
+/* Browser-preview tweak: table header cell spacing/width */
+th.h-12{
+  padding-left: 0px;
+  padding-right: 0px;
+  width: fit-content;
+}
+
 /* Mobile-first spacing: small viewports are the default; scale up from min-width breakpoints */
 :root{
   --page-hero-pt: clamp(88px, 22vw, 140px);

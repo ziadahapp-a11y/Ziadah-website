@@ -37,7 +37,10 @@ export default function Blog() {
   const [search, setSearch] = useState(initial.search);
 
   function updateUrl(cat: string, searchVal: string) {
-    const params = new URLSearchParams();
+    // Preserve unrelated params (e.g. `mode=dark|light`) while updating blog filters.
+    const params = new URLSearchParams(window.location.search);
+    params.delete("cat");
+    params.delete("search");
     if (cat !== "all") params.set("cat", cat);
     if (searchVal.trim()) params.set("search", searchVal);
     const query = params.toString();
