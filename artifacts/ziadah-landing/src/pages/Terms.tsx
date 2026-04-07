@@ -1,4 +1,3 @@
-import Nav from "../components/Nav";
 import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
 import SEO from "../components/SEO";
@@ -10,7 +9,7 @@ import { getPageKeywords } from "@/seo/page-keywords";
 const sections = {
   ar: [
     { title: "القبول بالشروط", body: "[أضف هنا نص القبول بالشروط وكيفية سريانها على المستخدمين.]" },
-    { title: "وصف الخدمة", body: "[أضف هنا وصفاً تفصيلياً للخدمات التي تقدمها منصة زيادة.]" },
+    { title: "وصف الخدمة", body: "[أضف هنا وصفاً تفصيلياً للخدمات التي تقدمها تطبيق زيادة.]" },
     { title: "شروط الاشتراك والدفع", body: "[أضف هنا تفاصيل خطط الاشتراك وسياسة الدفع والفواتير.]" },
     { title: "سياسة الاسترداد", body: "[أضف هنا سياسة استرداد المدفوعات والشروط المتعلقة بها.]" },
     { title: "التزامات المستخدم", body: "[أضف هنا الالتزامات والمسؤوليات المترتبة على استخدام المنصة.]" },
@@ -53,7 +52,7 @@ export default function Terms() {
     />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Terms & Conditions" : "الشروط والأحكام", url: "/terms" }]} />
       <PageShell>
-        <Nav />
+        
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
           <div className="wrap" style={{ maxWidth: 800 }}>
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>

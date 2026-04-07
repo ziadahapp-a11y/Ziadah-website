@@ -1,37 +1,18 @@
 import { useMemo, type CSSProperties } from "react";
-import { useTheme } from "@/ThemeContext";
 
-/** نفس طبقات الخلفية المستخدمة في الصفحة الرئيسية (فاتح: شبكة وأورب + ضوضاء؛ داكن: كواكب ونجوم). */
+/** طبقة خلفية داكنة: كواكب ونجوم. */
 export default function SitePageBackground() {
-  const { theme } = useTheme();
-  const isLight = theme === "light";
-
   const landingStars = useMemo(
     () =>
-      Array.from({ length: 160 }, (_, i) => ({
+      Array.from({ length: 350 }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
-        size: 0.5 + Math.random() * 2,
-        opacity: 0.1 + Math.random() * 0.7,
+        size: 0.5 + Math.random() * 2.5,
+        opacity: 0.2 + Math.random() * 0.8,
       })),
     [],
   );
-
-  if (isLight) {
-    return (
-      <>
-        <div className="bg-wrap">
-          <div className="orb o1" />
-          <div className="orb o2" />
-          <div className="orb o3" />
-          <div className="orb o4" />
-          <div className="bg-grid" />
-        </div>
-        <div className="noise" />
-      </>
-    );
-  }
 
   return (
     <div className="landing-page-bg" aria-hidden>

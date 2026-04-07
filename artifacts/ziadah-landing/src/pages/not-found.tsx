@@ -24,7 +24,7 @@ export default function NotFound() {
       <SEO
         titleAr="الصفحة غير موجودة — زيادة"
         titleEn="Page Not Found — Ziadah"
-        descriptionAr="عذراً، الرابط غير صحيح أو الصفحة نُقلت. ارجع للصفحة الرئيسية لمواصلة استكشاف منصة زيادة للتجارة الذكية."
+        descriptionAr="عذراً، الرابط غير صحيح أو الصفحة نُقلت. ارجع للصفحة الرئيسية لمواصلة استكشاف تطبيق زيادة للتجارة الذكية."
         descriptionEn="This URL may be wrong or the page moved. Return home to continue exploring Ziadah’s AI ecommerce platform."
         canonical="/"
         noIndex
@@ -42,7 +42,7 @@ export default function NotFound() {
 
           <p className="mt-4 text-sm text-[var(--tm)]">
             {isAr
-              ? "الصفحة غير موجودة في منصة زيادة. تحقق من الرابط أو ارجع للصفحة الرئيسية."
+              ? "الصفحة غير موجودة في تطبيق زيادة. تحقق من الرابط أو ارجع للصفحة الرئيسية."
               : "This page is not part of the Ziadah site. Check the URL or go back home."}
           </p>
           <p className="mt-2 text-xs text-[var(--td)]">

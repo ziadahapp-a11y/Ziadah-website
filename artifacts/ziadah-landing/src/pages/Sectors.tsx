@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Nav from "@/components/Nav";
 import PageShell from "@/components/PageShell";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -84,7 +83,7 @@ export default function Sectors() {
         url="/sectors"
       />
       <PageShell>
-        <Nav />
+        
 
         <section
           style={{

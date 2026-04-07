@@ -1,7 +1,6 @@
 import { useEffect, type ReactElement, type ReactNode } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
 import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
@@ -430,7 +429,7 @@ export default function BlogPost() {
           gap: 16,
         }}
       >
-        <Nav />
+        
         <h1 style={{ fontSize: 32, fontWeight: 900, position: "relative", zIndex: 2 }}>
           {tx.notFound}
         </h1>
@@ -506,7 +505,7 @@ export default function BlogPost() {
       { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
     <PageShell>
-      <Nav />
+      
 
       {/* HERO / COVER */}
       <section

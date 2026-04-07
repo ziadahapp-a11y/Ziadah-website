@@ -4,14 +4,10 @@ export function platformAsset(path: string) {
   return `${base}${path.replace(/^\//, "")}`;
 }
 
-export function platformZidLogoSrc(theme: "dark" | "light") {
-  return theme === "light"
-    ? platformAsset("platform/zid-logo-light.png")
-    : platformAsset("platform/zid-logo-dark.png");
+export function platformZidLogoSrc(_theme?: "dark" | "light") {
+  return platformAsset("platform/zid-logo-dark.png");
 }
 
-export function platformSallaLogoSrc(theme: "dark" | "light") {
-  return theme === "light"
-    ? platformAsset("platform/salla-logo-light.png")
-    : platformAsset("platform/salla-logo-dark.png");
+export function platformSallaLogoSrc(_theme?: "dark" | "light") {
+  return platformAsset("platform/salla-logo-dark.png");
 }

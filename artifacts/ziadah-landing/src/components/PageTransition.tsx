@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { useLocation } from "wouter";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 
@@ -155,7 +155,9 @@ export function navigateToHash(href: string) {
 }
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
-  const [, navigate] = useLocation();
+  const [loc, navigate] = useLocation();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const prevLoc = useRef(loc);
 
   const triggerTransition = useCallback(
     (path: string) => {
@@ -173,5 +175,20 @@ export default function PageTransition({ children }: { children: React.ReactNode
       _directNavigate = null;
     };
   }, [triggerTransition, navigate]);
-  return <>{children}</>;
+
+  useEffect(() => {
+    if (loc === prevLoc.current) return;
+    prevLoc.current = loc;
+    const el = wrapRef.current;
+    if (!el) return;
+    el.classList.remove("page-transition-in");
+    void el.offsetWidth;
+    el.classList.add("page-transition-in");
+  }, [loc]);
+
+  return (
+    <div ref={wrapRef} className="page-transition-wrap page-transition-in">
+      {children}
+    </div>
+  );
 }

@@ -2,6 +2,57 @@ import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import CouponWidget from "../../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../../components/widgets/FreeShippingThresholdWidget";
 import RelatedProductsWidget from "../../components/widgets/RelatedProductsWidget";
+import { PageHeroPhone } from "../../components/UseCasePagesShowcase";
+
+function CartHeroContent() {
+  return (
+    <div dir="rtl" style={{ fontFamily: "var(--font, system-ui)", padding: "0 2px" }}>
+      {/* status bar */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, fontWeight: 700, marginBottom: 10, color: "var(--td)" }}>
+        <span>9:41</span>
+        <span>📶 🔋</span>
+      </div>
+      {/* cart header */}
+      <div style={{ fontWeight: 900, fontSize: 13, marginBottom: 10, color: "var(--t)" }}>🛒 سلة الشراء (3 منتجات)</div>
+      {/* progress */}
+      <div style={{ background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.25)", borderRadius: 10, padding: "8px 10px", marginBottom: 10 }}>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#10b981", marginBottom: 5 }}>أضف 30 ⃁ للشحن المجاني 🚚</div>
+        <div style={{ height: 5, background: "rgba(16,185,129,.15)", borderRadius: 99 }}>
+          <div style={{ height: "100%", width: "82%", background: "linear-gradient(90deg, #10b981, #34d399)", borderRadius: 99 }} />
+        </div>
+        <div style={{ fontSize: 9, color: "var(--td)", marginTop: 4 }}>170 ⃁ / 200 ⃁</div>
+      </div>
+      {/* items */}
+      {[
+        { name: "كريم مرطب", price: "85 ⃁", img: "🧴" },
+        { name: "بخاخ شعر", price: "60 ⃁", img: "💆" },
+        { name: "غسول وجه",  price: "25 ⃁", img: "✨" },
+      ].map((item, i) => (
+        <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 0", borderBottom: "1px solid var(--b1)" }}>
+          <div style={{ width: 30, height: 30, borderRadius: 8, background: "var(--s2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>{item.img}</div>
+          <div style={{ flex: 1, fontSize: 11, fontWeight: 700 }}>{item.name}</div>
+          <div style={{ fontSize: 11, fontWeight: 900, color: "#10b981" }}>{item.price}</div>
+        </div>
+      ))}
+      {/* suggestion */}
+      <div style={{ background: "rgba(245,158,11,.07)", border: "1px solid rgba(245,158,11,.25)", borderRadius: 10, padding: "8px 10px", marginTop: 10 }}>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#f59e0b", marginBottom: 4 }}>💡 اشتروا معاً</div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontSize: 11, fontWeight: 700 }}>بلسم شعر 💇</span>
+          <button type="button" style={{ fontSize: 9, fontWeight: 900, background: "#f59e0b", color: "#fff", border: "none", borderRadius: 6, padding: "3px 8px", cursor: "pointer" }}>+32 ⃁</button>
+        </div>
+      </div>
+      {/* total */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, padding: "8px 0", borderTop: "1px solid var(--b1)" }}>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>الإجمالي</span>
+        <span style={{ fontSize: 13, fontWeight: 900, color: "#a855f7" }}>170 ⃁</span>
+      </div>
+      <button type="button" style={{ width: "100%", marginTop: 8, background: "linear-gradient(135deg, #a855f7, #7c3aed)", color: "#fff", border: "none", borderRadius: 10, padding: "9px 0", fontSize: 12, fontWeight: 900, cursor: "pointer" }}>
+        إتمام الشراء →
+      </button>
+    </div>
+  );
+}
 
 const data: UseCasePageData = {
   hero: {
@@ -57,6 +108,11 @@ const data: UseCasePageData = {
     ],
     result: "الطلب ارتفع من 170 إلى 202 ⃁ والعميل شعر أنه هو من استفاد من الصفقة.",
   },
+  heroVisual: (
+    <PageHeroPhone float1="-38% تخلي عن السلة" float2="🚚 أكمل للشحن المجاني">
+      <CartHeroContent />
+    </PageHeroPhone>
+  ),
   extraSections: (isAr) => (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>

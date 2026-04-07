@@ -11,33 +11,6 @@ import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset"
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
 
-function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  return (
-    <button
-      type="button"
-      onClick={toggleTheme}
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      style={{
-        background: "var(--s2)",
-        border: "1px solid var(--b1)",
-        borderRadius: 8,
-        width: 36,
-        height: 36,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        cursor: "pointer",
-        color: "var(--tm)",
-        fontSize: 16,
-        flexShrink: 0,
-      }}
-    >
-      {theme === "dark" ? "☀️" : "🌙"}
-    </button>
-  );
-}
-
 
 export const Logo = () => {
   const t = useSiteT();
@@ -198,11 +171,11 @@ function UseCasesMegaMenu() {
       maxWidth: "calc(100vw - 16px)",
       minWidth: 0,
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.9)",
+      background: "rgba(11,0,25,1)",
       border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: "16px 10px",
-      backdropFilter: "blur(100px)", WebkitBackdropFilter: "blur(100px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)",
+      boxShadow: "none", zIndex: 100,
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
       gap: 8,
@@ -233,7 +206,7 @@ function UseCasesMegaMenu() {
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 12, color: "var(--td)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
+                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
                   {item.subtitle}
                 </span>
               )}
@@ -1348,8 +1321,8 @@ export default function Nav() {
                           onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
                           style={{
                             display: "block", padding: "10px 12px", borderRadius: 10,
-                            background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                            border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                            background: "rgba(255,255,255,.04)",
+                            border: "1px solid rgba(255,255,255,.07)",
                             color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                           }}
                         >
@@ -1373,8 +1346,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8,
                       padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                     }}
                   >
                     <img src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)} alt={item.label} loading="lazy" style={{ height: 18, width: "auto", display: "block" }} />
@@ -1385,8 +1358,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--td)", fontSize: 13, fontWeight: 500,
                     }}
                   >
@@ -1402,8 +1375,8 @@ export default function Nav() {
                   onClick={() => { navigateTo("/sectors"); setMobileOpenDrop(null); }}
                   style={{
                     display: "block", padding: "10px 12px", borderRadius: 10,
-                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    background: "rgba(255,255,255,.04)",
+                    border: "1px solid rgba(255,255,255,.07)",
                     color: "var(--p)", fontSize: 13, fontWeight: 700, cursor: "pointer",
                   }}
                 >
@@ -1416,8 +1389,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
@@ -1439,8 +1412,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >

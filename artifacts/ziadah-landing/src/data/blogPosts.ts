@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: "20 مارس 2026",
     publishDateEn: "March 20, 2026",
     publishDateIso: "2026-03-20",
-    summary: "اليوم نكشف لك الستار عن المحرك الأكثر تطوراً في منصة زيادة — نظام التوصيات بالذكاء الاصطناعي الذي يحلل كل نقرة وكل ثانية قضاها العميل في متجرك ليقترح المنتج المثالي في اللحظة المثالية.",
+    summary: "اليوم نكشف لك الستار عن المحرك الأكثر تطوراً في تطبيق زيادة — نظام التوصيات بالذكاء الاصطناعي الذي يحلل كل نقرة وكل ثانية قضاها العميل في متجرك ليقترح المنتج المثالي في اللحظة المثالية.",
     summaryEn: "Today we lift the curtain on the most advanced engine in the Ziadah platform — the AI recommendations system that analyzes every click and every second a customer spends in your store to suggest the perfect product at the perfect moment.",
     coverGradient: "linear-gradient(135deg, rgba(249,115,22,0.5) 0%, rgba(234,88,12,0.3) 100%)",
     coverIcon: "🧠",

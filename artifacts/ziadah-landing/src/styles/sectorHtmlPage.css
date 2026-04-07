@@ -1077,3 +1077,132 @@
     border-bottom: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE: ≤ 920px — single-column, text always first
+───────────────────────────────────────────────────────────── */
+@media (max-width: 920px) {
+  /* Force text column before phone on every row */
+  .sector-html-hero-grid > div:first-child {
+    order: 1 !important;
+  }
+  .sector-html-hero-grid > div:last-child {
+    order: 2 !important;
+  }
+
+  /* Centre the phone mockup under the text */
+  .sector-html-phone-wrap {
+    margin: 0 auto;
+  }
+
+  .sector-html-hero-h {
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+  }
+
+  .sector-html-hero-sub {
+    max-width: 100%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE: ≤ 640px — small tablets / large phones
+───────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .sector-html-hero-h {
+    font-size: clamp(1.45rem, 6vw, 2rem);
+  }
+
+  /* Phone wrap: add vertical room for floating tags & limit width */
+  .sector-html-phone-wrap {
+    max-width: 300px;
+    padding-top: 28px;
+    padding-bottom: 32px;
+  }
+
+  /* Floating tags: smaller, no negative side overflow */
+  .sector-html-ftag {
+    font-size: 0.62rem;
+    padding: 5px 10px;
+    gap: 5px;
+  }
+
+  .sector-html-ftag--1 {
+    inset-inline-start: 0;
+    top: 0;
+  }
+
+  .sector-html-ftag--2 {
+    inset-inline-end: 0;
+    bottom: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE: ≤ 480px — mobile phones
+───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .sector-html-hero-h {
+    font-size: clamp(1.3rem, 7vw, 1.75rem);
+    line-height: 1.15;
+  }
+
+  .sector-html-hero-sub {
+    font-size: 0.92rem;
+  }
+
+  .sector-html-badge {
+    font-size: 0.7rem;
+    padding: 6px 14px;
+  }
+
+  /* Phone wrap: compact on narrow screens */
+  .sector-html-phone-wrap {
+    max-width: 260px;
+    padding-top: 24px;
+    padding-bottom: 28px;
+  }
+
+  /* Floating tags: even more compact, anchor to phone corners */
+  .sector-html-ftag {
+    font-size: 0.56rem;
+    padding: 4px 8px;
+    gap: 4px;
+    max-width: calc(50vw - 20px);
+  }
+
+  .sector-html-ftag--1 {
+    inset-inline-start: 2px;
+    top: 2px;
+  }
+
+  .sector-html-ftag--2 {
+    inset-inline-end: 2px;
+    bottom: 2px;
+  }
+
+  /* Dot slightly smaller */
+  .sector-html-fdot {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Buttons full-width on mobile */
+  .sector-html-cta-row {
+    flex-direction: column;
+  }
+
+  .sector-html-btn {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 0.84rem;
+  }
+
+  /* Audience cards stacked */
+  .sector-html-aud-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sector-html-aud {
+    padding: 20px;
+  }
+}

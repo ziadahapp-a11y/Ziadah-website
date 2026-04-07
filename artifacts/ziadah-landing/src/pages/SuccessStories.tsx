@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, type CSSProperties } from "react";
 import { t } from "@/i18n/translations";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
@@ -1309,11 +1308,11 @@ export default function SuccessStories() {
             .expand-btn-v3 { width: 100%; justify-content: center; }
           }
         `}</style>
-        <Nav />
+        
 
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
           <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{sx.heroTag}</div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(42px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
+          <h1 className="st rv d1" style={{ fontSize: "clamp(24px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
             <span
               style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
               className="mt-[1px] mb-[1px]">{sx.heroH1Gradient}</span>
@@ -1438,7 +1437,7 @@ export default function SuccessStories() {
           <div style={{ maxWidth: 800, margin: "0 auto" }}>
             <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>
               <div className="shine"/><div className="cta-glow"/>
-              <h2 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{isAr ? "متجرك القادم في قائمة النجاح" : "Your Store Is Next on the Success List"}</h2>
+              <h2 style={{ fontSize: "clamp(22px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{isAr ? "متجرك القادم في قائمة النجاح" : "Your Store Is Next on the Success List"}</h2>
               <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{isAr ? "انضم لـ +700 متجر وابدأ رحلتك اليوم" : "Join +700 stores and start your journey today"}</p>
               <div className="cta-btns">
                 <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>{isAr ? "فعّل الآن" : "Activate Now"}</button>

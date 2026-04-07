@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTheme } from "../ThemeContext";
 import { useLanguage } from "../i18n/LanguageContext";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
@@ -39,7 +40,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div
       className="vision-platform-overlay"
       onClick={(e) => {
@@ -161,6 +162,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           }}
         />
       )}
-    </div>
+    </div>,
+    document.body
   );
 }

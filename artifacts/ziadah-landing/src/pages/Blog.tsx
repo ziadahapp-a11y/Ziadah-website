@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { t } from "@/i18n/translations";
-import Nav from "../components/Nav";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
@@ -132,7 +131,7 @@ export default function Blog() {
     >
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
-    <Nav />
+    
 
       {/* HERO */}
       <section
@@ -152,7 +151,7 @@ export default function Blog() {
         <h1
           className="rv d1"
           style={{
-            fontSize: "clamp(38px,5vw,64px)",
+            fontSize: "clamp(22px,5vw,64px)",
             fontWeight: 900,
             marginTop: 8,
             marginBottom: 16,

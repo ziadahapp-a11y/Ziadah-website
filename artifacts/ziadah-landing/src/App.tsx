@@ -5,6 +5,7 @@ import { lazy, Suspense, useLayoutEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
+import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
@@ -260,6 +261,7 @@ function AppShell() {
       <CmsFloatingEditableToolbar />
       {showQuickLogin && <CmsQuickLoginModal />}
       <div style={{ paddingTop: showInlineToolbar ? 48 : 0 }}>
+        {!isCms && <Nav />}
         <Router />
         {!isCms && <Footer />}
       </div>

@@ -137,82 +137,71 @@ export default function HomeCalculator() {
 
   return (
     <>
-    <section className="hc-sec">
-      <div className="wrap">
-        <div className="tc" style={{ marginBottom: 48 }}>
-          <div className="stag rv" style={{ display: "inline-flex" }}>
-            <span className="stag-dot" />
-            <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
-              {tr.tag}
-            </Editable>
-          </div>
-          <h2 className="st rv d1 font-semibold">
-            <Editable contentKey={cmsKey(lang, "homeCalculator", "title")} label="Home calculator title" type="text">
-              {tr.title}
-            </Editable>
-          </h2>
-          <p className="ssub rv d2">
-            <Editable contentKey={cmsKey(lang, "homeCalculator", "subtitle")} label="Home calculator subtitle" type="text">
-              {tr.subtitle}
-            </Editable>
-          </p>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%" }}>
+        <div className="stag rv" style={{ display: "inline-flex", width: "fit-content" }}>
+          <span className="stag-dot" />
+          <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
+            {tr.tag}
+          </Editable>
         </div>
-
-        <div className="hc-card rv d2">
-          <div className="hc-grid">
-            <div className="hc-sliders">
-              {sliders.map((s) => (
-                <HomeSlider key={s.labelKey} {...s} />
-              ))}
-            </div>
-
-            <div className="hc-result">
-              <div className="hc-result-inner">
-                <div className="hc-result-label">
-                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultLabel")} label="Result label" type="text">
-                    {tr.resultLabel}
+        <p className="ssub rv d2" style={{ margin: 0 }}>
+          <Editable contentKey={cmsKey(lang, "homeCalculator", "subtitle")} label="Home calculator subtitle" type="text">
+            {tr.subtitle}
+          </Editable>
+        </p>
+      </div>
+      <div className="hc-card rv d2" style={{ width: "100%" }}>
+        <div className="hc-grid">
+          <div className="hc-sliders">
+            {sliders.map((s) => (
+              <HomeSlider key={s.labelKey} {...s} />
+            ))}
+          </div>
+          <div className="hc-result">
+            <div className="hc-result-inner">
+              <div className="hc-result-label">
+                <Editable contentKey={cmsKey(lang, "homeCalculator", "resultLabel")} label="Result label" type="text">
+                  {tr.resultLabel}
+                </Editable>
+              </div>
+              <div className="hc-result-amount">
+                {fmt(Math.round(addRevenue))}
+                <span className="hc-result-currency">
+                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultCurrency")} label="Currency suffix" type="text">
+                    {tr.resultCurrency}
                   </Editable>
-                </div>
-                <div className="hc-result-amount">
-                  {fmt(Math.round(addRevenue))}
-                  <span className="hc-result-currency">
-                    <Editable contentKey={cmsKey(lang, "homeCalculator", "resultCurrency")} label="Currency suffix" type="text">
-                      {tr.resultCurrency}
-                    </Editable>
-                  </span>
-                </div>
-                <div className="hc-result-note">
-                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultNote")} label="Result note" type="text">
-                    {tr.resultNote}
+                </span>
+              </div>
+              <div className="hc-result-note">
+                <Editable contentKey={cmsKey(lang, "homeCalculator", "resultNote")} label="Result note" type="text">
+                  {tr.resultNote}
+                </Editable>
+              </div>
+              <div className="hc-result-ctas">
+                <span
+                  onClick={() => navigateTo("/calculator")}
+                  className="hc-btn-primary"
+                  style={{ cursor: "pointer" }}
+                >
+                  <Editable contentKey={cmsKey(lang, "homeCalculator", "btnDetailed")} label="Detailed calculator CTA" type="text">
+                    {tr.btnDetailed}
                   </Editable>
-                </div>
-                <div className="hc-result-ctas">
-                  <span
-                    onClick={() => navigateTo("/calculator")}
-                    className="hc-btn-primary"
-                    style={{ cursor: "pointer" }}
-                  >
-                    <Editable contentKey={cmsKey(lang, "homeCalculator", "btnDetailed")} label="Detailed calculator CTA" type="text">
-                      {tr.btnDetailed}
-                    </Editable>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setModalOpen(true)}
-                    className="hc-btn-secondary"
-                  >
-                    <Editable contentKey={cmsKey(lang, "homeCalculator", "btnStart")} label="Start CTA" type="text">
-                      {tr.btnStart}
-                    </Editable>
-                  </button>
-                </div>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="hc-btn-secondary"
+                >
+                  <Editable contentKey={cmsKey(lang, "homeCalculator", "btnStart")} label="Start CTA" type="text">
+                    {tr.btnStart}
+                  </Editable>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <PlatformModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <PlatformModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
