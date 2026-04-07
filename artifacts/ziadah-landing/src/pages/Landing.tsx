@@ -27,6 +27,10 @@ const SECTOR_TEASER_SLUGS = [
   "restaurants-cafes",
   "health-fitness",
   "jewelry",
+  "home-supplies",
+  "digital-products",
+  "clinics",
+  "gold",
 ] as const;
 
 const storeLogos = [
@@ -269,7 +273,7 @@ export default function Landing() {
         {/* NAV */}
         <Nav />
         {/* HERO */}
-        <section className="hero hero-v2" dir={dir}>
+        <section className="hero hero-v2" dir={dir} style={{ alignItems: "center", justifyContent: "center" }}>
           <div className="hero-grid">
             <div className="hero-copy-col">
               <div className="hero-in hero-copy-inner">
@@ -287,7 +291,7 @@ export default function Landing() {
                     {tr.landing.heroTitle1}
                   </span>
                   {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-                  <span className="grad font-black" style={{ whiteSpace: "pre-line" }}>
+                  <span className="grad font-extrabold" style={{ whiteSpace: "pre-line", width: "800px", fontSize: "52px", fontWeight: 800, display: "block" }}>
                     {tr.landing.heroTitleGrad}
                   </span>
                 </h1>
@@ -304,26 +308,6 @@ export default function Landing() {
                     {tr.landing.ctaSecondary}
                   </a>
                 </div>
-                <div className="landing-sbar-after-hero">
-                  <div className="sbar sbar-hero">
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat1Value}</div>
-                      <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat2Value}</div>
-                      <div className="sbi-l">{tr.landing.stat2Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat3Value}</div>
-                      <div className="sbi-l">{tr.landing.stat3Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat4Value}</div>
-                      <div className="sbi-l">{tr.landing.stat4Label}</div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="hero-carousel-col">
@@ -334,6 +318,26 @@ export default function Landing() {
         {/* LOGOS */}
         <div className="logos-sec">
           <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
+          <div className="landing-sbar-after-hero">
+            <div className="sbar sbar-hero">
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat1Value}</div>
+                <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat2Value}</div>
+                <div className="sbi-l">{tr.landing.stat2Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat3Value}</div>
+                <div className="sbi-l">{tr.landing.stat3Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat4Value}</div>
+                <div className="sbi-l">{tr.landing.stat4Label}</div>
+              </div>
+            </div>
+          </div>
           <div className="logos-mask marquee-row">
             <div
               ref={logosMarqueeTrackRef}
@@ -564,9 +568,7 @@ export default function Landing() {
         </section>
         {/* SECTORS — قطاعات عامة + عيّنة مختصرة */}
         <section id="sectors" className="landing-sectors-section">
-          <div className="wrap">
             <div className="landing-sectors-panel rv d1">
-              <div className="landing-sectors-panel__glow" aria-hidden />
               <div className="landing-sectors-panel__inner">
                 <div className="tc landing-sectors-head">
                   <SecTag>{tr.landing.sectorsTag}</SecTag>
@@ -606,7 +608,6 @@ export default function Landing() {
                 </div>
               </div>
             </div>
-          </div>
         </section>
         <WidgetsShowcaseSection />
         {/* PERSONALIZATION DEMO */}
@@ -915,7 +916,7 @@ export default function Landing() {
               <div className="rv d2">
                 <div className="demo-card">
                   <div className="demo-illo">
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, rgba(31, 10, 50, 0.2) 0%, rgba(15, 8, 24, 0.2) 55%, rgba(6, 4, 16, 0.2) 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
                       <img
                         src="/avatar-female.webp"
                         alt={

@@ -37,7 +37,7 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
             {label}
           </Editable>
         </span>
-        <span className="hc-slider-value" style={{ color, background: `rgba(${colorRgb},.12)`, border: `1px solid rgba(${colorRgb},.25)` }}>
+        <span className="hc-slider-value" style={{ color, background: `transparent`, border: `1px solid rgba(${colorRgb},.25)` }}>
           {display}
         </span>
       </div>
