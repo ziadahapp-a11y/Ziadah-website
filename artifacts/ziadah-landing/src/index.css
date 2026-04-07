@@ -592,12 +592,13 @@ html[dir="rtl"] .hero-uc-carousel{
   .hero-carousel-col{
     display:none;
   }
-  .hero-in.hero-copy-inner{width:100%;max-width:100%;}
+  .hero-in.hero-copy-inner{width:100%;max-width:100%;align-items:center;}
   .hero-v2 .hero-ctas{justify-content:center;}
-  .hero-v2 h1.ht{text-align:center;}
+  .hero-v2 h1.ht{text-align:center;align-items:center;}
   .hero-copy-col{text-align:center;}
   .hero-v2 .hero-sub{text-align:center;margin-inline:auto;}
   .hero-v2 .hbadge{margin-inline:auto;}
+  .hero-v2 .ht .ht-line1,.hero-v2 .ht em,.hero-title-grad{text-align:center;}
   /* Fix hardcoded 800px widths on tablet/mobile */
   .hero-v2 .ht .ht-line1,.hero-v2 .ht .grad,.hero-title-grad{max-width:100%;}
 
