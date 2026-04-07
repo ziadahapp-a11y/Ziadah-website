@@ -138,6 +138,29 @@ th.h-12{
   border-color:var(--cursor-b2)!important;
   color:var(--cursor-crimson)!important;
 }
+[data-theme="light"] .btn-p-hero,
+[data-theme="light"] .hero.hero-v2 .btn-p-hero{
+  background:var(--cursor-crimson)!important;
+  border-color:transparent!important;
+  color:#fff!important;
+  box-shadow:0 4px 20px rgba(207,45,86,.28)!important;
+  border-radius:8px!important;
+}
+[data-theme="light"] .btn-p-hero:hover,
+[data-theme="light"] .hero.hero-v2 .btn-p-hero:hover{
+  background:#b02247!important;
+  box-shadow:0 8px 28px rgba(207,45,86,.38)!important;
+  transform:translateY(-2px)!important;
+}
+/* Light mode: disable fade-in animations so all hero elements show immediately */
+[data-theme="light"] .hero-ctas,
+[data-theme="light"] .hbadge,
+[data-theme="light"] h1.ht,
+[data-theme="light"] .hero-sub{
+  animation:none!important;
+  opacity:1!important;
+  transform:none!important;
+}
 [data-theme="light"] .demo-fade{background:linear-gradient(to top,var(--cursor-s200),transparent);}
 /* Cursor hero gradient text: warm amber → purple */
 [data-theme="light"] .hero-v2 .ht .grad{
