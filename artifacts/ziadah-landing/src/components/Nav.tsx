@@ -950,9 +950,8 @@ export default function Nav() {
   const t = useSiteT();
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const runBlur = useBlurTransition();
-  const isLight = theme === "light";
   const isRtl = lang === "ar";
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
@@ -1040,16 +1039,12 @@ export default function Nav() {
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
         transform: "translateX(-50%)", width: "min(92%, 1200px)", maxWidth: 1200,
-        background: isLight
-          ? (scrolled ? "rgba(241,245,249,.1)" : "rgba(241,245,249,.88)")
-          : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)"),
+        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)",
         border: "none",
         borderColor: "rgba(0, 0, 0, 0)",
         borderImage: "none",
         boxShadow: scrolled
-          ? (isLight
-            ? "0 8px 40px rgba(0,0,0,.12)"
-            : "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)")
+          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)"
           : "inset 1px 1px 2px 0px rgba(255, 255, 255, 0.2)",
         borderRadius: 18, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
@@ -1182,7 +1177,6 @@ export default function Nav() {
           </div>
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <ThemeToggle />
             <LanguageSwitcher />
             <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
@@ -1304,8 +1298,8 @@ export default function Nav() {
       {/* MOBILE TOP BAR */}
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
-        background: isLight ? "rgba(241,245,249,.92)" : "rgba(3,3,11,.88)",
-        borderBottom: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
+        background: "rgba(3,3,11,.88)",
+        borderBottom: "1px solid rgba(255,255,255,.08)",
         backdropFilter: "blur(32px)",
         alignItems: "center", justifyContent: "center",
         height: 52,
@@ -1318,8 +1312,8 @@ export default function Nav() {
       {/* MOBILE NAV */}
       <div className="mobile-nav" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: isLight ? "rgba(241,245,249,.97)" : "rgba(6,4,18,.97)",
-        borderTop: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
+        background: "rgba(6,4,18,.97)",
+        borderTop: "1px solid rgba(255,255,255,.08)",
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
         transition: "background .3s, border-color .3s",
       }}>
@@ -1334,10 +1328,10 @@ export default function Nav() {
             padding: 8,
             maxHeight: "48vh",
             overflowY: "auto",
-            background: isLight ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
-            border: `1px solid ${isLight ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+            background: "rgba(8,6,20,.97)",
+            border: "1px solid rgba(255,255,255,.1)",
             backdropFilter: "blur(32px)",
-            boxShadow: isLight ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)",
+            boxShadow: "0 24px 60px rgba(0,0,0,.6)",
             animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
           }}>
             {mobileOpenDrop === "useCases" && (
