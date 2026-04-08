@@ -18,8 +18,8 @@ body{
   color:var(--t);
   overflow-x:hidden;
   transition:background .35s ease,color .35s ease;
-  /* Prevent overscroll bounce that can cause perceived lag */
-  overscroll-behavior-y:none;
+  /* contain: prevents chain-scroll to parent, but still allows native page scroll */
+  overscroll-behavior-y:contain;
 }
 #root{overflow-x:hidden;direction:inherit;}
 
@@ -2029,7 +2029,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 
 .blur-t-overlay--active{
   opacity:1;
-  pointer-events:auto;
+  pointer-events:none;
   backdrop-filter:blur(20px) saturate(1.15);
   -webkit-backdrop-filter:blur(20px) saturate(1.15);
   transition:
