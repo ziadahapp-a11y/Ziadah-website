@@ -226,7 +226,7 @@ function HomePageContent() {
         <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
         <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>مقترح لك بناءً على مشترياتك</span>
       </div>
-      <div style={{ display: "flex", gap: 6, overflowX: "hidden" }}>
+      <div style={{ display: "flex", gap: 6, overflowX: "clip" }}>
         {[{ emoji: "🌿", name: "زيت بخور", price: "75 SAR" }, { emoji: "🎁", name: "طقم هدايا", price: "150 SAR" }, { emoji: "🪬", name: "حرز فضة", price: "90 SAR" }].map((p, i) => (
           <div key={i} style={{ minWidth: 68, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(139,92,246,.14)", borderRadius: 9, padding: "6px 5px", textAlign: "center", flexShrink: 0 }}>
             <div style={{ height: 38, borderRadius: 6, background: "rgba(139,92,246,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>

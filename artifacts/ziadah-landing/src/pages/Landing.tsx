@@ -1384,7 +1384,7 @@ export default function Landing() {
           </div>
         </section>
         {/* TESTIMONIALS */}
-        <section id="testimonials" style={{ overflowX: "hidden", paddingInline: 0 }}>
+        <section id="testimonials" style={{ overflowX: "clip", paddingInline: 0 }}>
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.testimonialsTag}</SecTag>
