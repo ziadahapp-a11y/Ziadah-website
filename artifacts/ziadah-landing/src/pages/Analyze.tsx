@@ -15,6 +15,8 @@ import {
   Calendar,
   Sparkles,
   LayoutGrid,
+  ChevronRight,
+  ChevronDown,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -375,6 +377,58 @@ function AnchorGroupCard({
   );
 }
 
+function AnalyzeBreadcrumb({ home, current }: { home: string; current: string }) {
+  return (
+    <nav className="analyze-breadcrumb" aria-label={current}>
+      <Link href="/" className="analyze-breadcrumb__a">
+        {home}
+      </Link>
+      <ChevronRight className="analyze-breadcrumb__sep" aria-hidden />
+      <span className="analyze-breadcrumb__current">{current}</span>
+    </nav>
+  );
+}
+
+function AnalyzeJumpNav({
+  tr,
+  showSummary,
+  showAnchors,
+}: {
+  tr: {
+    resultNavLabel: string;
+    resultNavSummary: string;
+    resultNavValue: string;
+    resultNavAnchors: string;
+    resultNavShare: string;
+  };
+  showSummary: boolean;
+  showAnchors: boolean;
+}) {
+  return (
+    <nav className="analyze-jump-nav" aria-label={tr.resultNavLabel}>
+      <span className="analyze-jump-nav__label">{tr.resultNavLabel}</span>
+      <div className="analyze-jump-nav__track">
+        {showSummary ? (
+          <a href="#analyze-summary" className="analyze-jump-nav__a">
+            {tr.resultNavSummary}
+          </a>
+        ) : null}
+        <a href="#analyze-value" className="analyze-jump-nav__a">
+          {tr.resultNavValue}
+        </a>
+        {showAnchors ? (
+          <a href="#analyze-anchors" className="analyze-jump-nav__a">
+            {tr.resultNavAnchors}
+          </a>
+        ) : null}
+        <a href="#analyze-share" className="analyze-jump-nav__a">
+          {tr.resultNavShare}
+        </a>
+      </div>
+    </nav>
+  );
+}
+
 function ProgressStep({
   label,
   sublabel,
@@ -530,6 +584,7 @@ export default function Analyze() {
   const [step, setStep] = useState<Step>("idle");
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [platformOpen, setPlatformOpen] = useState(false);
+  const [retryBusy, setRetryBusy] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -567,6 +622,37 @@ export default function Analyze() {
       }
     } catch {
       /* keep polling */
+    }
+  }
+
+  async function handleRetryPipeline() {
+    if (storeId == null) return;
+    setRetryBusy(true);
+    setFormError(null);
+    try {
+      const res = await fetch(`${apiBase}/api/submit/${storeId}/retry`, { method: "POST" });
+      const text = await res.text();
+      let data: { ok?: boolean; error?: string } = {};
+      try {
+        data = text ? (JSON.parse(text) as { ok?: boolean; error?: string }) : {};
+      } catch {
+        setFormError(tr.formErrorNetwork);
+        return;
+      }
+      if (!res.ok) {
+        setFormError(typeof data.error === "string" ? data.error : tr.errGeneric);
+        return;
+      }
+      setStep("syncing");
+      if (pollRef.current) clearInterval(pollRef.current);
+      pollRef.current = setInterval(() => {
+        if (storeId != null) pollStatus(storeId);
+      }, 2500);
+      void pollStatus(storeId);
+    } catch {
+      setFormError(tr.formErrorNetwork);
+    } finally {
+      setRetryBusy(false);
     }
   }
 
@@ -671,6 +757,8 @@ export default function Analyze() {
         <DsPageBackdrop />
 
         <main className="analyze-page-main analyze-page">
+          <AnalyzeBreadcrumb home={tr.breadcrumbHome} current={tr.breadcrumbAnalyze} />
+
           {step === "idle" && (
             <>
               <header className="analyze-hero text-center">
@@ -696,9 +784,35 @@ export default function Analyze() {
                 </p>
               </header>
 
+              <div className="stag rv on mx-auto mb-3 max-w-xl justify-center">
+                <span className="stag-dot" aria-hidden />
+                <span className="uppercase tracking-[0.1em] text-[11px] font-bold">{tr.howItWorksTag}</span>
+              </div>
+              <ol className="analyze-how-steps" aria-label={tr.howItWorksTag}>
+                <li>
+                  <span className="analyze-how-num" aria-hidden>
+                    1
+                  </span>
+                  <p>{tr.howStep1}</p>
+                </li>
+                <li>
+                  <span className="analyze-how-num" aria-hidden>
+                    2
+                  </span>
+                  <p>{tr.howStep2}</p>
+                </li>
+                <li>
+                  <span className="analyze-how-num" aria-hidden>
+                    3
+                  </span>
+                  <p>{tr.howStep3}</p>
+                </li>
+              </ol>
+
               <div className="max-w-xl mx-auto">
                 <div className="gc gc-lift analyze-form-card">
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    <p className="analyze-form-section-title">{tr.formSectionPrimaryTitle}</p>
                     <div>
                       <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
                         {tr.storeUrlLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
@@ -709,7 +823,7 @@ export default function Analyze() {
                         placeholder={tr.phStoreUrl}
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        className="h-11 border-[var(--b2)] bg-[var(--s1)]"
+                        className="h-11 border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
                         required
                         autoComplete="url"
                         inputMode="url"
@@ -721,7 +835,10 @@ export default function Analyze() {
                         {tr.industryLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
                       </Label>
                       <Select value={industry || undefined} onValueChange={setIndustry}>
-                        <SelectTrigger id="industry-select" className="h-11 w-full border-[var(--b2)] bg-[var(--s1)]">
+                        <SelectTrigger
+                          id="industry-select"
+                          className="h-11 w-full border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                        >
                           <SelectValue placeholder={tr.industryPlaceholder} />
                         </SelectTrigger>
                         <SelectContent>
@@ -734,57 +851,63 @@ export default function Analyze() {
                       </Select>
                     </div>
 
-                    <div className="border-t border-dashed pt-5" style={{ borderColor: "var(--b2)" }}>
-                      <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--tm)" }}>
-                        {tr.optionalSectionTitle}
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                          <Label htmlFor="monthlyUsers" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
-                            {tr.monthlyVisitors}
-                          </Label>
-                          <Input
-                            id="monthlyUsers"
-                            type="number"
-                            min={0}
-                            placeholder={tr.phMonthlyUsers}
-                            value={monthlyUsers}
-                            onChange={(e) => setMonthlyUsers(e.target.value)}
-                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="conversionRate" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
-                            {tr.convRate}
-                          </Label>
-                          <Input
-                            id="conversionRate"
-                            type="number"
-                            min={0}
-                            max={100}
-                            step="0.1"
-                            placeholder={tr.phConv}
-                            value={conversionRate}
-                            onChange={(e) => setConversionRate(e.target.value)}
-                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="avgOrderValue" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
-                            {tr.avgOrderSar}
-                          </Label>
-                          <Input
-                            id="avgOrderValue"
-                            type="number"
-                            min={0}
-                            placeholder={tr.phAov}
-                            value={avgOrderValue}
-                            onChange={(e) => setAvgOrderValue(e.target.value)}
-                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
-                          />
+                    <details className="analyze-optional-details">
+                      <summary>
+                        <span>{tr.optionalDetailsSummary}</span>
+                        <ChevronDown className="analyze-opt-chevron h-4 w-4" aria-hidden />
+                      </summary>
+                      <div className="analyze-opt-body">
+                        <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--tm)" }}>
+                          {tr.optionalSectionTitle}
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          <div>
+                            <Label htmlFor="monthlyUsers" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                              {tr.monthlyVisitors}
+                            </Label>
+                            <Input
+                              id="monthlyUsers"
+                              type="number"
+                              min={0}
+                              placeholder={tr.phMonthlyUsers}
+                              value={monthlyUsers}
+                              onChange={(e) => setMonthlyUsers(e.target.value)}
+                              className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="conversionRate" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                              {tr.convRate}
+                            </Label>
+                            <Input
+                              id="conversionRate"
+                              type="number"
+                              min={0}
+                              max={100}
+                              step="0.1"
+                              placeholder={tr.phConv}
+                              value={conversionRate}
+                              onChange={(e) => setConversionRate(e.target.value)}
+                              className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="avgOrderValue" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                              {tr.avgOrderSar}
+                            </Label>
+                            <Input
+                              id="avgOrderValue"
+                              type="number"
+                              min={0}
+                              placeholder={tr.phAov}
+                              value={avgOrderValue}
+                              onChange={(e) => setAvgOrderValue(e.target.value)}
+                              className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </details>
 
                     {formError && (
                       <div
@@ -843,6 +966,9 @@ export default function Analyze() {
                     ? tpl(tr.platformLine, { platform: platformName })
                     : tr.detectingPlatform}
                 </p>
+                <p className="text-xs tc mt-3 max-w-md mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
+                  {tr.progressEtaNote}
+                </p>
               </div>
               <div className="gc analyze-progress-card space-y-6">
                 <ProgressStep label={tr.step1Title} sublabel={step1Sub} state={s1} />
@@ -889,18 +1015,41 @@ export default function Analyze() {
                     </p>
                   </div>
                 ) : null}
+                {formError ? (
+                  <p className="text-sm mt-3 text-left" style={{ color: "var(--t)" }} role="alert">
+                    {formError}
+                  </p>
+                ) : null}
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setStep("idle");
-                  setStatus(null);
-                  setStoreId(null);
-                }}
-                className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
-              >
-                {tr.tryAgain}
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-stretch">
+                <button
+                  type="button"
+                  onClick={() => void handleRetryPipeline()}
+                  disabled={retryBusy || storeId == null}
+                  className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
+                >
+                  {retryBusy ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin shrink-0" aria-hidden />
+                      {tr.submitting}
+                    </>
+                  ) : (
+                    tr.retryAnalysisServer
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormError(null);
+                    setStep("idle");
+                    setStatus(null);
+                    setStoreId(null);
+                  }}
+                  className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
+                >
+                  {tr.backToForm}
+                </button>
+              </div>
             </div>
           )}
 
@@ -960,6 +1109,12 @@ export default function Analyze() {
                     </p>
                   </header>
 
+                  <AnalyzeJumpNav
+                    tr={tr}
+                    showSummary={Boolean(status.summary)}
+                    showAnchors={groups.length > 0}
+                  />
+
                   <div className="analyze-sbar" role="presentation">
                     <div className="analyze-sbi">
                       <p className="analyze-stat-num">{status.productCount}</p>
@@ -979,7 +1134,26 @@ export default function Analyze() {
                     </div>
                   </div>
 
-                  <section className="gc analyze-form-card space-y-4" aria-labelledby="value-est-heading">
+                  {status.summary ? (
+                    <div id="analyze-summary" className="analyze-summary-box">
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--p3)" }}>
+                        {tr.aiSummaryLabel}
+                      </p>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--t)" }}
+                        dir={isAr(status.summary) ? "rtl" : "ltr"}
+                      >
+                        {status.summary}
+                      </p>
+                    </div>
+                  ) : null}
+
+                  <section
+                    id="analyze-value"
+                    className="gc analyze-form-card space-y-4"
+                    aria-labelledby="value-est-heading"
+                  >
                     <div>
                       <h3 id="value-est-heading" className="text-lg font-bold flex items-center gap-2" style={{ color: "var(--t)" }}>
                         <Sparkles className="h-5 w-5 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
@@ -1028,6 +1202,34 @@ export default function Analyze() {
                     </p>
                   </section>
 
+                  {groups.length > 0 && (
+                    <section id="analyze-anchors" className="space-y-4" aria-labelledby="anchors-heading">
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                          <h3 id="anchors-heading" className="text-xl font-bold" style={{ color: "var(--t)" }}>
+                            {tr.sectionAnchorsTitle}
+                          </h3>
+                          <p className="text-sm mt-0.5" style={{ color: "var(--tm)" }}>
+                            {tpl(tr.sectionAnchorsSubtitle, { anchors: groups.length, recs: totalRecs })}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        {groups.map((group, i) => (
+                          <AnchorGroupCard
+                            key={i}
+                            group={group}
+                            currencySymbol={status.currencySymbol}
+                            index={i}
+                            anchorLabel={tpl(tr.anchorBadge, { n: i + 1 })}
+                            connectorLabel={tr.connectorSuggested}
+                            tr={tr}
+                          />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
                   {pickedStories.length > 0 && (
                     <section className="space-y-3" aria-labelledby="succ-stories-heading">
                       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
@@ -1074,50 +1276,7 @@ export default function Analyze() {
                     </div>
                   </div>
 
-                  {status.summary && (
-                    <div className="analyze-summary-box">
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--p3)" }}>
-                        {tr.aiSummaryLabel}
-                      </p>
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "var(--t)" }}
-                        dir={isAr(status.summary) ? "rtl" : "ltr"}
-                      >
-                        {status.summary}
-                      </p>
-                    </div>
-                  )}
-
-                  {groups.length > 0 && (
-                    <section className="space-y-4" aria-labelledby="anchors-heading">
-                      <div className="flex items-center justify-between gap-3 flex-wrap">
-                        <div>
-                          <h3 id="anchors-heading" className="text-xl font-bold" style={{ color: "var(--t)" }}>
-                            {tr.sectionAnchorsTitle}
-                          </h3>
-                          <p className="text-sm mt-0.5" style={{ color: "var(--tm)" }}>
-                            {tpl(tr.sectionAnchorsSubtitle, { anchors: groups.length, recs: totalRecs })}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        {groups.map((group, i) => (
-                          <AnchorGroupCard
-                            key={i}
-                            group={group}
-                            currencySymbol={status.currencySymbol}
-                            index={i}
-                            anchorLabel={tpl(tr.anchorBadge, { n: i + 1 })}
-                            connectorLabel={tr.connectorSuggested}
-                            tr={tr}
-                          />
-                        ))}
-                      </div>
-                    </section>
-                  )}
-
-                  <section className="gc gc-lift analyze-form-card text-center space-y-5">
+                  <section id="analyze-cta" className="gc gc-lift analyze-form-card text-center space-y-5">
                     <div>
                       <h3 className="text-lg font-bold tc mb-1" style={{ color: "var(--t)" }}>
                         {tr.ctaLaunch}
@@ -1154,7 +1313,7 @@ export default function Analyze() {
                     </div>
                   </section>
 
-                  <div className="analyze-share-panel gc">
+                  <div id="analyze-share" className="analyze-share-panel gc">
                     <h3 className="text-lg font-bold mb-1.5" style={{ color: "var(--t)" }}>
                       {tr.shareTitle}
                     </h3>

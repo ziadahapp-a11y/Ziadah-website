@@ -190,6 +190,41 @@ router.post("/submit", async (req, res): Promise<void> => {
   res.status(201).json({ storeId: store.id });
 });
 
+/** Re-run scrape + analysis for an existing store (same URL). Fixes UX where "Try again" only reset the form. */
+router.post("/submit/:id/retry", async (req, res): Promise<void> => {
+  const rawId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+  const id = parseInt(rawId ?? "", 10);
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid id" });
+    return;
+  }
+
+  const [store] = await db.select().from(storesTable).where(eq(storesTable.id, id));
+  if (!store) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
+
+  try {
+    await db
+      .update(storesTable)
+      .set({
+        status: "syncing",
+        lastError: null,
+      })
+      .where(eq(storesTable.id, id));
+  } catch (e) {
+    logger.warn({ id, err: safeErrText(e) }, "retry: could not clear last_error; continuing");
+    await db.update(storesTable).set({ status: "syncing" }).where(eq(storesTable.id, id));
+  }
+
+  runPipeline(id, store.url).catch((e) => {
+    logger.error({ storeId: id, err: safeErrText(e) }, "runPipeline retry rejected");
+  });
+
+  res.json({ ok: true, storeId: id });
+});
+
 router.get("/submit/:id/status", async (req, res): Promise<void> => {
   const id = parseInt(req.params.id, 10);
   if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
@@ -207,8 +242,14 @@ router.get("/submit/:id/status", async (req, res): Promise<void> => {
     currencySymbol: store.currencySymbol ?? "ر.س",
     storeName: store.name,
     storeUrl: store.url,
-    /** Cleared when analysis succeeded so stale DB text does not confuse the UI */
-    errorMessage: store.status === "analyzed" ? null : (store.lastError ?? null),
+    /** Cleared when analysis succeeded. If status is error but last_error is empty (legacy updates), show a hint. */
+    errorMessage:
+      store.status === "analyzed"
+        ? null
+        : store.status === "error"
+          ? (store.lastError?.trim() ||
+              "Server error (no stored detail). Redeploy the latest API, check logs, and ensure DB migrations are applied (stores.last_error, analyses.anchors_json).")
+          : (store.lastError ?? null),
     monthlyUsers: store.monthlyUsers,
     conversionRate: store.conversionRate,
     avgOrderValue: store.avgOrderValue,
