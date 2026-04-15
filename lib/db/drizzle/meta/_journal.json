@@ -15,6 +15,13 @@
       "when": 1743100800000,
       "tag": "0001_sections_config",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776291992464,
+      "tag": "0002_stores_last_error",
+      "breakpoints": true
     }
   ]
 }

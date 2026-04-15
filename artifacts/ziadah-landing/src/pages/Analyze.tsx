@@ -1,0 +1,1174 @@
+import { useState, useEffect, useRef } from "react";
+import {
+  Zap,
+  CheckCircle2,
+  Circle,
+  Loader2,
+  ArrowRight,
+  TrendingUp,
+  ShoppingCart,
+  Package,
+  Star,
+  Copy,
+  Check,
+  ExternalLink,
+  Calendar,
+  Sparkles,
+  LayoutGrid,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Link } from "wouter";
+import SEO from "@/components/SEO";
+import PageShell from "@/components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
+import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { useSiteT } from "@/cms/siteContent";
+import { getPageKeywords } from "@/seo/page-keywords";
+import { getApiSubmitOrigin } from "@/lib/apiSubmitOrigin";
+import PlatformModal from "@/components/PlatformModal";
+import {
+  pickSuccessStoriesForIndustry,
+  storyEn,
+  type StoryData,
+} from "@/data/successStoriesData";
+import { estimateAnalyzeOpportunity } from "@/lib/analyzeValueEstimate";
+
+const INDUSTRIES = [
+  { value: "fashion", label: "Fashion & Apparel — موضة وملابس" },
+  { value: "electronics", label: "Electronics — إلكترونيات" },
+  { value: "beauty", label: "Beauty & Personal Care — جمال وعناية" },
+  { value: "home", label: "Home & Garden — منزل وحديقة" },
+  { value: "food", label: "Food & Beverage — طعام ومشروبات" },
+  { value: "sports", label: "Sports & Outdoors — رياضة" },
+  { value: "health", label: "Health & Wellness — صحة ولياقة" },
+  { value: "toys", label: "Toys & Games — ألعاب" },
+  { value: "jewelry", label: "Jewelry & Accessories — مجوهرات" },
+  { value: "automotive", label: "Automotive — سيارات" },
+  { value: "other", label: "Other — أخرى" },
+];
+
+type Step = "idle" | "syncing" | "analyzing" | "analyzed" | "error";
+
+interface ProductRef {
+  productId: number;
+  title: string;
+  imageUrl: string | null;
+  price: number | null;
+  productUrl: string | null;
+}
+
+interface RecProduct extends ProductRef {
+  role: string;
+  reason: string;
+  ziadahGoal?: string;
+  presentationWidget?: string;
+  addonsHint?: string;
+  quantityHint?: string;
+}
+
+interface AnchorGroup {
+  anchor: ProductRef & {
+    reason: string;
+    anchorGoal?: string;
+    anchorPresentation?: string;
+  };
+  recommendations: RecProduct[];
+}
+
+interface StatusResponse {
+  storeId: number;
+  status: string;
+  platform: string | null;
+  productCount: number;
+  industry: string | null;
+  currency: string;
+  currencySymbol: string;
+  /** Present when status is "error"; explains scrape or AI failure */
+  errorMessage?: string | null;
+  monthlyUsers?: number | null;
+  conversionRate?: number | null;
+  avgOrderValue?: number | null;
+  analyzedAt?: string;
+  summary?: string;
+  crossSellCount?: number;
+  upsellCount?: number;
+  anchorGroups?: AnchorGroup[];
+}
+
+function tpl(s: string, vars: Record<string, string | number>): string {
+  return s.replace(/\{\{(\w+)\}\}/g, (_, k: string) =>
+    vars[k] !== undefined && vars[k] !== null ? String(vars[k]) : "",
+  );
+}
+
+const isAr = (s?: string | null) => (s ? /[\u0600-\u06FF]/.test(s) : false);
+
+function formatPrice(price: number | null | undefined, symbol: string): string {
+  if (price == null) return "";
+  return `${price.toLocaleString("en-SA", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${symbol}`;
+}
+
+function RolePill({ role }: { role: string }) {
+  const { lang } = useLanguage();
+  const siteT = useSiteT();
+  const tr = siteT[lang].analyze;
+  if (role === "cross_sell")
+    return (
+      <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[11px] font-bold">
+        <ShoppingCart className="h-3 w-3 shrink-0" aria-hidden />
+        {tr.roleCrossSell}
+      </span>
+    );
+  return (
+    <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[11px] font-bold">
+      <TrendingUp className="h-3 w-3 shrink-0" aria-hidden />
+      {tr.roleUpsell}
+    </span>
+  );
+}
+
+type AnalyzeCopy = {
+  widgetPreviewBadge: string;
+  recGoalLabel: string;
+  recAddonsLabel: string;
+  recQuantityLabel: string;
+  anchorGoalLabel: string;
+  anchorPresentationLabel: string;
+};
+
+function WidgetRecCard({
+  rec,
+  currencySymbol,
+  tr,
+}: {
+  rec: RecProduct;
+  currencySymbol: string;
+  tr: AnalyzeCopy;
+}) {
+  const inner = (
+    <div className="group analyze-widget-use-case flex flex-col h-full min-h-0 rounded-[var(--r12)] overflow-hidden border border-[var(--b2)] bg-[var(--s1)] shadow-sm">
+      <div
+        className="flex items-center justify-between gap-2 px-2 py-1.5 border-b text-[10px]"
+        style={{ borderColor: "var(--b2)", background: "var(--s2)" }}
+      >
+        <span className="inline-flex items-center gap-1 font-semibold" style={{ color: "var(--p3)" }}>
+          <LayoutGrid className="h-3 w-3 shrink-0" aria-hidden />
+          {tr.widgetPreviewBadge}
+        </span>
+        {rec.presentationWidget ? (
+          <span className="line-clamp-1 font-medium" style={{ color: "var(--tm)" }} dir={isAr(rec.presentationWidget) ? "rtl" : "ltr"}>
+            {rec.presentationWidget}
+          </span>
+        ) : null}
+      </div>
+      <div className="group analyze-product-card flex flex-col flex-1 min-h-0 cursor-pointer">
+        <div className="relative h-24 overflow-hidden bg-[var(--s2)] flex-shrink-0">
+          {rec.imageUrl ? (
+            <img
+              src={rec.imageUrl}
+              alt=""
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <Package className="h-6 w-6 text-[var(--text-4)]" aria-hidden />
+            </div>
+          )}
+          <div className="absolute top-1.5 start-1.5">
+            <RolePill role={rec.role} />
+          </div>
+        </div>
+        <div className="p-2 flex flex-col gap-1 flex-1 min-h-0">
+          <p
+            className="text-[11px] font-semibold leading-snug line-clamp-2"
+            style={{ color: "var(--t)" }}
+            dir={isAr(rec.title) ? "rtl" : "ltr"}
+          >
+            {rec.title}
+          </p>
+          {rec.price != null && (
+            <p className="font-bold text-xs" style={{ color: "var(--p3)" }}>
+              {formatPrice(rec.price, currencySymbol)}
+            </p>
+          )}
+          {rec.reason && (
+            <p
+              className="text-[9px] leading-snug line-clamp-2"
+              style={{ color: "var(--tm)" }}
+              dir={isAr(rec.reason) ? "rtl" : "ltr"}
+            >
+              {rec.reason}
+            </p>
+          )}
+          {(rec.ziadahGoal || rec.addonsHint || rec.quantityHint) && (
+            <div className="mt-auto pt-1.5 space-y-1 border-t border-[var(--b2)]">
+              {rec.ziadahGoal ? (
+                <p className="text-[9px] leading-snug" style={{ color: "var(--tm)" }} dir={isAr(rec.ziadahGoal) ? "rtl" : "ltr"}>
+                  <span className="font-bold text-[var(--p3)]">{tr.recGoalLabel}: </span>
+                  {rec.ziadahGoal}
+                </p>
+              ) : null}
+              {rec.addonsHint ? (
+                <p className="text-[9px] leading-snug line-clamp-2" style={{ color: "var(--tm)" }} dir={isAr(rec.addonsHint) ? "rtl" : "ltr"}>
+                  <span className="font-bold">{tr.recAddonsLabel}: </span>
+                  {rec.addonsHint}
+                </p>
+              ) : null}
+              {rec.quantityHint ? (
+                <p className="text-[9px] leading-snug line-clamp-2" style={{ color: "var(--tm)" }} dir={isAr(rec.quantityHint) ? "rtl" : "ltr"}>
+                  <span className="font-bold">{tr.recQuantityLabel}: </span>
+                  {rec.quantityHint}
+                </p>
+              ) : null}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+  return rec.productUrl ? (
+    <a
+      href={rec.productUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex flex-col h-full min-h-0 rounded-[var(--r12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+    >
+      {inner}
+    </a>
+  ) : (
+    inner
+  );
+}
+
+function AnchorGroupCard({
+  group,
+  currencySymbol,
+  index,
+  anchorLabel,
+  connectorLabel,
+  tr,
+}: {
+  group: AnchorGroup;
+  currencySymbol: string;
+  index: number;
+  anchorLabel: string;
+  connectorLabel: string;
+  tr: AnalyzeCopy;
+}) {
+  const anchor = group.anchor;
+  const anchorCard = (
+    <div className="group analyze-anchor-card flex flex-col h-full cursor-pointer">
+      <div className="relative overflow-hidden flex-shrink-0" style={{ height: "160px" }}>
+        {anchor.imageUrl ? (
+          <img
+            src={anchor.imageUrl}
+            alt=""
+            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-[var(--s2)]">
+            <Package className="h-10 w-10 text-[var(--text-4)]" aria-hidden />
+          </div>
+        )}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,.45), transparent 55%)",
+          }}
+        />
+        <div className="absolute top-2 start-2">
+          <span
+            className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full shadow-md"
+            style={{
+              background: "var(--go)",
+              color: "var(--cursor-dark)",
+            }}
+          >
+            <Star className="h-2.5 w-2.5 shrink-0" aria-hidden />
+            {anchorLabel}
+          </span>
+        </div>
+      </div>
+      <div className="p-3 flex flex-col gap-1 flex-1 min-h-0">
+        <p
+          className="font-bold text-sm leading-snug line-clamp-2"
+          style={{ color: "var(--t)" }}
+          dir={isAr(anchor.title) ? "rtl" : "ltr"}
+        >
+          {anchor.title}
+        </p>
+        {anchor.price != null && (
+          <p className="font-extrabold text-base" style={{ color: "var(--go)" }}>
+            {formatPrice(anchor.price, currencySymbol)}
+          </p>
+        )}
+        {anchor.reason && (
+          <p
+            className="text-[10px] leading-snug line-clamp-3 mt-1"
+            style={{ color: "var(--tm)" }}
+            dir={isAr(anchor.reason) ? "rtl" : "ltr"}
+          >
+            {anchor.reason}
+          </p>
+        )}
+        {(anchor.anchorGoal || anchor.anchorPresentation) && (
+          <div className="mt-2 space-y-1 rounded-lg border px-2 py-1.5" style={{ borderColor: "var(--b2)", background: "rgba(124,58,237,.06)" }}>
+            {anchor.anchorGoal ? (
+              <p className="text-[9px] leading-snug" style={{ color: "var(--t)" }} dir={isAr(anchor.anchorGoal) ? "rtl" : "ltr"}>
+                <span className="font-bold" style={{ color: "var(--p3)" }}>{tr.anchorGoalLabel}: </span>
+                {anchor.anchorGoal}
+              </p>
+            ) : null}
+            {anchor.anchorPresentation ? (
+              <p className="text-[9px] leading-snug" style={{ color: "var(--tm)" }} dir={isAr(anchor.anchorPresentation) ? "rtl" : "ltr"}>
+                <span className="font-bold">{tr.anchorPresentationLabel}: </span>
+                {anchor.anchorPresentation}
+              </p>
+            ) : null}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="gc analyze-form-card">
+      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_2fr] gap-3 items-start">
+        <div className="min-w-0">
+          {anchor.productUrl ? (
+            <a
+              href={anchor.productUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full rounded-[var(--r12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            >
+              {anchorCard}
+            </a>
+          ) : (
+            anchorCard
+          )}
+        </div>
+
+        <div className="hidden sm:flex flex-col items-center justify-center pt-16 gap-1">
+          <ArrowRight className="h-5 w-5 shrink-0" style={{ color: "var(--p)" }} aria-hidden />
+          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--tm)" }}>
+            {connectorLabel}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 content-start min-w-0">
+          {group.recommendations.slice(0, 4).map((rec, i) => (
+            <WidgetRecCard key={i} rec={rec} currencySymbol={currencySymbol} tr={tr} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProgressStep({
+  label,
+  sublabel,
+  state,
+}: {
+  label: string;
+  sublabel?: string;
+  state: "waiting" | "active" | "done";
+}) {
+  return (
+    <div
+      className={`flex items-start gap-4 transition-all duration-500 ${
+        state === "waiting" ? "opacity-45" : "opacity-100"
+      }`}
+    >
+      <div
+        className="mt-0.5 flex-shrink-0 h-9 w-9 rounded-full flex items-center justify-center transition-all"
+        style={{
+          background:
+            state === "done"
+              ? "rgba(34,197,94,.14)"
+              : state === "active"
+                ? "rgba(124,58,237,.16)"
+                : "var(--s2)",
+          color:
+            state === "done"
+              ? "var(--gr)"
+              : state === "active"
+                ? "var(--p3)"
+                : "var(--tm)",
+        }}
+        aria-hidden
+      >
+        {state === "done" ? (
+          <CheckCircle2 className="h-4 w-4" />
+        ) : state === "active" ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <Circle className="h-4 w-4" />
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p
+          className="text-sm font-semibold leading-tight"
+          style={{ color: state === "active" ? "var(--t)" : "var(--tm)" }}
+        >
+          {label}
+        </p>
+        {sublabel && (
+          <p className="text-xs mt-0.5" style={{ color: "var(--tm)" }}>
+            {sublabel}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const MEETING_CALENDAR_URL = "https://calendar.app.google/a3b18uRcuhHijZ8y5";
+
+function AnalyzeSuccessStoryCard({
+  story,
+  isArLocale,
+}: {
+  story: StoryData;
+  isArLocale: boolean;
+}) {
+  const en = storyEn[story.store];
+  return (
+    <article
+      className="rounded-xl border overflow-hidden flex flex-col h-full min-h-[140px]"
+      style={{ borderColor: "var(--b2)", background: "var(--s1)" }}
+    >
+      <div className="h-1.5 shrink-0" style={{ background: story.color }} aria-hidden />
+      <div className="p-3 flex flex-col gap-2 flex-1 min-h-0">
+        <p className="text-xs font-bold line-clamp-1" style={{ color: "var(--t)" }}>
+          {isArLocale ? story.store : en?.store ?? story.store}
+        </p>
+        <p
+          className="text-[10px] leading-snug line-clamp-3"
+          style={{ color: "var(--tm)" }}
+          dir={isArLocale ? "rtl" : "ltr"}
+        >
+          {isArLocale ? story.strategy : en?.strategy ?? story.strategy}
+        </p>
+        <div className="mt-auto flex justify-between gap-2 text-[10px] font-semibold pt-1" style={{ color: "var(--p3)" }}>
+          <span>{story.conversions}</span>
+          <span>
+            {story.sales} {isArLocale ? "ر.س" : "SAR"}
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function CopyReportButton({ storeId }: { storeId: number }) {
+  const [copied, setCopied] = useState(false);
+  const { lang } = useLanguage();
+  const siteT = useSiteT();
+  const tr = siteT[lang].analyze;
+  const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+  const url = `${base}/report/${storeId}`;
+  function copy() {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+  return (
+    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center">
+      <Link
+        href={`/report/${storeId}`}
+        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
+      >
+        <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
+        {tr.viewFullReport}
+      </Link>
+      <button
+        type="button"
+        onClick={copy}
+        className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
+      >
+        {copied ? <Check className="h-4 w-4 text-[var(--gr)]" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
+        {copied ? tr.copied : tr.copyReportLink}
+      </button>
+      <button
+        type="button"
+        onClick={() => window.location.reload()}
+        className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
+      >
+        {tr.analyzeAnother}
+      </button>
+    </div>
+  );
+}
+
+export default function Analyze() {
+  const siteT = useSiteT();
+  const { lang } = useLanguage();
+  const tr = siteT[lang].analyze;
+  const pk = getPageKeywords("/analyze");
+  const apiBase = getApiSubmitOrigin();
+
+  const [url, setUrl] = useState("");
+  const [industry, setIndustry] = useState("");
+  const [monthlyUsers, setMonthlyUsers] = useState("");
+  const [conversionRate, setConversionRate] = useState("");
+  const [avgOrderValue, setAvgOrderValue] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
+  const [storeId, setStoreId] = useState<number | null>(null);
+  const [step, setStep] = useState<Step>("idle");
+  const [status, setStatus] = useState<StatusResponse | null>(null);
+  const [platformOpen, setPlatformOpen] = useState(false);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    const previewId = new URLSearchParams(window.location.search).get("preview");
+    if (previewId) {
+      const id = parseInt(previewId, 10);
+      setStoreId(id);
+      fetch(`${apiBase}/api/submit/${id}/status`)
+        .then((r) => r.json())
+        .then((data: StatusResponse) => {
+          setStatus(data);
+          setStep("analyzed");
+        })
+        .catch(() => {});
+    }
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+  }, [apiBase]);
+
+  async function pollStatus(id: number) {
+    try {
+      const res = await fetch(`${apiBase}/api/submit/${id}/status`);
+      if (!res.ok) return;
+      const data: StatusResponse = await res.json();
+      setStatus(data);
+      if (data.status === "syncing" || data.status === "pending") setStep("syncing");
+      else if (data.status === "analyzing") setStep("analyzing");
+      else if (data.status === "analyzed") {
+        setStep("analyzed");
+        if (pollRef.current) clearInterval(pollRef.current);
+      } else if (data.status === "error") {
+        setStep("error");
+        if (pollRef.current) clearInterval(pollRef.current);
+      }
+    } catch {
+      /* keep polling */
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setFormError(null);
+    if (!url.trim()) {
+      setFormError(tr.errUrlRequired);
+      return;
+    }
+    if (!industry) {
+      setFormError(tr.errIndustryRequired);
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch(`${apiBase}/api/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: url.trim(),
+          industry,
+          monthlyUsers: monthlyUsers ? parseInt(monthlyUsers, 10) : null,
+          conversionRate: conversionRate ? parseFloat(conversionRate) : null,
+          avgOrderValue: avgOrderValue ? parseFloat(avgOrderValue) : null,
+        }),
+      });
+      const text = await res.text();
+      let data: { error?: string; storeId?: number } = {};
+      try {
+        data = text ? (JSON.parse(text) as { error?: string; storeId?: number }) : {};
+      } catch {
+        setFormError(tr.formErrorNetwork);
+        setSubmitting(false);
+        return;
+      }
+      if (!res.ok) {
+        setFormError(typeof data.error === "string" ? data.error : tr.errGeneric);
+        setSubmitting(false);
+        return;
+      }
+      if (typeof data.storeId !== "number") {
+        setFormError(tr.formErrorNetwork);
+        setSubmitting(false);
+        return;
+      }
+
+      const newStoreId = data.storeId;
+      setStoreId(newStoreId);
+      setStep("syncing");
+      setSubmitting(false);
+      pollRef.current = setInterval(() => pollStatus(newStoreId), 3000);
+      pollStatus(newStoreId);
+    } catch {
+      setFormError(tr.formErrorNetwork);
+      setSubmitting(false);
+    }
+  }
+
+  const s1 =
+    step === "syncing"
+      ? "active"
+      : ["analyzing", "analyzed"].includes(step)
+        ? "done"
+        : "waiting";
+  const s2 = step === "analyzing" ? "active" : step === "analyzed" ? "done" : "waiting";
+  const s3 = step === "analyzed" ? "done" : "waiting";
+
+  const platformName = status?.platform
+    ? status.platform.charAt(0).toUpperCase() + status.platform.slice(1)
+    : "";
+
+  const step1Sub =
+    status?.productCount && status.productCount > 0
+      ? tpl(tr.step1SubCount, { count: status.productCount })
+      : tr.step1SubSync;
+
+  return (
+    <>
+      <SEO
+        titleAr={siteT.ar.analyze.seoTitle}
+        titleEn={siteT.en.analyze.seoTitle}
+        descriptionAr={siteT.ar.analyze.seoDesc}
+        descriptionEn={siteT.en.analyze.seoDesc}
+        canonical="/analyze"
+        keywordsAr={pk?.keywordsAr}
+        keywordsEn={pk?.keywordsEn}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: tr.breadcrumbHome, url: "/" },
+          { name: tr.breadcrumbAnalyze, url: "/analyze" },
+        ]}
+      />
+      <WebPageSchema
+        name={lang === "ar" ? siteT.ar.analyze.seoTitle : siteT.en.analyze.seoTitle}
+        description={lang === "ar" ? siteT.ar.analyze.seoDesc : siteT.en.analyze.seoDesc}
+        url="/analyze"
+      />
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
+
+        <main className="analyze-page-main analyze-page">
+          {step === "idle" && (
+            <>
+              <header className="analyze-hero text-center">
+                <div className="hbadge">
+                  <span className="hbadge-pill">{tr.heroBadgePill}</span>
+                  <span className="hbadge-txt">{tr.heroBadgeText}</span>
+                </div>
+                <h1 className="ht tc font-semibold">
+                  {tr.heroTitleMain ? (
+                    <span className="ht-line1 font-thin block">{tr.heroTitleMain}</span>
+                  ) : null}
+                  <span className="grad font-extrabold hero-title-grad analyze-hero-accent block">
+                    {tr.heroAccent}
+                  </span>
+                  {tr.heroTitleRest ? (
+                    <span className="block font-semibold mt-1" style={{ color: "var(--t)" }}>
+                      {tr.heroTitleRest}
+                    </span>
+                  ) : null}
+                </h1>
+                <p className="ssub tc max-w-xl" style={{ marginInline: "auto" }}>
+                  {tr.heroSubtitle}
+                </p>
+              </header>
+
+              <div className="max-w-xl mx-auto">
+                <div className="gc gc-lift analyze-form-card">
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                      <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
+                        {tr.storeUrlLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
+                      </Label>
+                      <Input
+                        id="url"
+                        type="url"
+                        placeholder={tr.phStoreUrl}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                        className="h-11 border-[var(--b2)] bg-[var(--s1)]"
+                        required
+                        autoComplete="url"
+                        inputMode="url"
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="industry-select" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
+                        {tr.industryLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
+                      </Label>
+                      <Select value={industry || undefined} onValueChange={setIndustry}>
+                        <SelectTrigger id="industry-select" className="h-11 w-full border-[var(--b2)] bg-[var(--s1)]">
+                          <SelectValue placeholder={tr.industryPlaceholder} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {INDUSTRIES.map((ind) => (
+                            <SelectItem key={ind.value} value={ind.value}>
+                              {ind.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="border-t border-dashed pt-5" style={{ borderColor: "var(--b2)" }}>
+                      <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "var(--tm)" }}>
+                        {tr.optionalSectionTitle}
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                          <Label htmlFor="monthlyUsers" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                            {tr.monthlyVisitors}
+                          </Label>
+                          <Input
+                            id="monthlyUsers"
+                            type="number"
+                            min={0}
+                            placeholder={tr.phMonthlyUsers}
+                            value={monthlyUsers}
+                            onChange={(e) => setMonthlyUsers(e.target.value)}
+                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="conversionRate" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                            {tr.convRate}
+                          </Label>
+                          <Input
+                            id="conversionRate"
+                            type="number"
+                            min={0}
+                            max={100}
+                            step="0.1"
+                            placeholder={tr.phConv}
+                            value={conversionRate}
+                            onChange={(e) => setConversionRate(e.target.value)}
+                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="avgOrderValue" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
+                            {tr.avgOrderSar}
+                          </Label>
+                          <Input
+                            id="avgOrderValue"
+                            type="number"
+                            min={0}
+                            placeholder={tr.phAov}
+                            value={avgOrderValue}
+                            onChange={(e) => setAvgOrderValue(e.target.value)}
+                            className="h-10 text-sm border-[var(--b2)] bg-[var(--s1)]"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {formError && (
+                      <div
+                        className="text-sm px-4 py-3 rounded-[var(--r12)] border"
+                        style={{
+                          background: "rgba(239,68,68,.08)",
+                          borderColor: "rgba(239,68,68,.25)",
+                          color: "var(--t)",
+                        }}
+                        role="alert"
+                      >
+                        {formError}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      className="btn-p btn-p-hero w-full !justify-center inline-flex items-center gap-2 text-sm min-h-[48px]"
+                      disabled={submitting}
+                    >
+                      {submitting ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin shrink-0" aria-hidden />
+                          {tr.submitting}
+                        </>
+                      ) : (
+                        <>
+                          {tr.submitAnalyze}
+                          <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </div>
+                <p className="text-center text-xs mt-5 leading-relaxed" style={{ color: "var(--tm)" }}>
+                  {tr.formFooterNote}
+                </p>
+              </div>
+            </>
+          )}
+
+          {(step === "syncing" || step === "analyzing") && (
+            <div className="max-w-md mx-auto" role="status" aria-live="polite" aria-busy="true">
+              <div className="text-center mb-10">
+                <div
+                  className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(124,58,237,.2)]"
+                  style={{ background: "rgba(124,58,237,.12)" }}
+                >
+                  <Loader2 className="h-7 w-7 animate-spin" style={{ color: "var(--p3)" }} aria-hidden />
+                </div>
+                <h2 className="st tc mb-1" style={{ color: "var(--t)" }}>
+                  {tr.progressTitle}
+                </h2>
+                <p className="ssub tc" style={{ marginInline: "auto", marginTop: "6px" }}>
+                  {status?.platform
+                    ? tpl(tr.platformLine, { platform: platformName })
+                    : tr.detectingPlatform}
+                </p>
+              </div>
+              <div className="gc analyze-progress-card space-y-6">
+                <ProgressStep label={tr.step1Title} sublabel={step1Sub} state={s1} />
+                <div className="analyze-progress-rule" aria-hidden />
+                <ProgressStep label={tr.step2Title} sublabel={tr.step2Sub} state={s2} />
+                <div className="analyze-progress-rule" aria-hidden />
+                <ProgressStep label={tr.step3Title} sublabel={tr.step3Sub} state={s3} />
+              </div>
+            </div>
+          )}
+
+          {step === "error" && (
+            <div className="max-w-md mx-auto text-center">
+              <div
+                className="rounded-2xl p-8 mb-6 border"
+                style={{
+                  background: "rgba(239,68,68,.07)",
+                  borderColor: "rgba(239,68,68,.22)",
+                }}
+                role="alert"
+              >
+                <p className="text-lg font-semibold mb-2" style={{ color: "var(--t)" }}>
+                  {tr.errorTitle}
+                </p>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--tm)" }}>
+                  {(status?.productCount ?? 0) > 0 ? tr.errorBodyAnalyze : tr.errorBody}
+                </p>
+                {status?.errorMessage ? (
+                  <div
+                    className="mt-4 rounded-lg border px-3 py-2.5 text-left"
+                    style={{ background: "var(--s1)", borderColor: "var(--b2)" }}
+                  >
+                    <p
+                      className="text-[10px] font-semibold uppercase tracking-wide mb-1"
+                      style={{ color: "var(--tm)" }}
+                    >
+                      {tr.errorDetails}
+                    </p>
+                    <p
+                      className="text-xs break-words whitespace-pre-wrap font-mono leading-relaxed"
+                      style={{ color: "var(--t)" }}
+                    >
+                      {status.errorMessage}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setStep("idle");
+                  setStatus(null);
+                  setStoreId(null);
+                }}
+                className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
+              >
+                {tr.tryAgain}
+              </button>
+            </div>
+          )}
+
+          {step === "analyzed" &&
+            status &&
+            (() => {
+              const groups = status.anchorGroups ?? [];
+              const totalRecs = groups.reduce((n, g) => n + g.recommendations.length, 0);
+              const crossSells = groups.reduce(
+                (n, g) => n + g.recommendations.filter((r) => r.role === "cross_sell").length,
+                0,
+              );
+              const upsells = groups.reduce(
+                (n, g) => n + g.recommendations.filter((r) => r.role === "upsell").length,
+                0,
+              );
+
+              const platformSuffix = status.platform
+                ? tpl(tr.resultsSubtitlePlatform, {
+                    platform: platformName,
+                  })
+                : "";
+
+              const resultsSub = tpl(tr.resultsSubtitle, {
+                count: status.productCount,
+                platform: platformSuffix,
+              });
+
+              const pickedStories = pickSuccessStoriesForIndustry(status.industry, 3);
+              const isArLocale = lang === "ar";
+              const estimate = estimateAnalyzeOpportunity(
+                groups.map((g) => ({
+                  anchor: { price: g.anchor.price },
+                  recommendations: g.recommendations.map((r) => ({ price: r.price, role: r.role })),
+                })),
+                status.monthlyUsers ?? null,
+                status.conversionRate ?? null,
+                status.avgOrderValue ?? null,
+              );
+
+              return (
+                <div className="space-y-8 sm:space-y-10">
+                  <header className="text-center analyze-section-head">
+                    <div className="flex justify-center mb-5">
+                      <div className="hbadge hbadge--success mb-0">
+                        <span className="hbadge-pill inline-flex items-center gap-1.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                          {tr.completeBadge}
+                        </span>
+                      </div>
+                    </div>
+                    <h2 className="st tc" style={{ color: "var(--t)" }}>
+                      {tr.resultsTitle}
+                    </h2>
+                    <p className="ssub tc max-w-lg" style={{ marginInline: "auto", marginTop: "8px" }}>
+                      {resultsSub}
+                    </p>
+                  </header>
+
+                  <div className="analyze-sbar" role="presentation">
+                    <div className="analyze-sbi">
+                      <p className="analyze-stat-num">{status.productCount}</p>
+                      <p className="analyze-stat-label">{tr.statProducts}</p>
+                    </div>
+                    <div className="analyze-sbi">
+                      <p className="analyze-stat-num analyze-stat-num--go">{groups.length}</p>
+                      <p className="analyze-stat-label">{tr.statAnchors}</p>
+                    </div>
+                    <div className="analyze-sbi">
+                      <p className="analyze-stat-num analyze-stat-num--c">{crossSells}</p>
+                      <p className="analyze-stat-label">{tr.statCross}</p>
+                    </div>
+                    <div className="analyze-sbi">
+                      <p className="analyze-stat-num analyze-stat-num--p">{upsells}</p>
+                      <p className="analyze-stat-label">{tr.statUpsell}</p>
+                    </div>
+                  </div>
+
+                  <section className="gc analyze-form-card space-y-4" aria-labelledby="value-est-heading">
+                    <div>
+                      <h3 id="value-est-heading" className="text-lg font-bold flex items-center gap-2" style={{ color: "var(--t)" }}>
+                        <Sparkles className="h-5 w-5 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
+                        {tr.valueEstimateTitle}
+                      </h3>
+                      {estimate.assumptionsNote === "partial_defaults" ? (
+                        <p className="text-xs mt-1" style={{ color: "var(--tm)" }}>
+                          {tr.valueAssumptionsPartial}
+                        </p>
+                      ) : null}
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="rounded-xl border px-4 py-3" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--tm)" }}>
+                          {tr.valueEstimateOrders}
+                        </p>
+                        <p className="text-xl font-extrabold mt-0.5" style={{ color: "var(--t)" }}>
+                          {estimate.monthlyOrders.toLocaleString()}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border px-4 py-3" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                        <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--tm)" }}>
+                          {tr.valueEstimateBaseline}
+                        </p>
+                        <p className="text-xl font-extrabold mt-0.5" style={{ color: "var(--t)" }}>
+                          {Math.round(estimate.baselineMonthlyRevenue).toLocaleString()} {status.currencySymbol}
+                        </p>
+                      </div>
+                      <div
+                        className="rounded-xl border px-4 py-3 sm:col-span-2"
+                        style={{ borderColor: "rgba(124,58,237,.28)", background: "rgba(124,58,237,.06)" }}
+                      >
+                        <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--p3)" }}>
+                          {tr.valueEstimateIncremental}
+                        </p>
+                        <p className="text-2xl font-extrabold mt-0.5" style={{ color: "var(--p3)" }}>
+                          {Math.round(estimate.estimatedIncrementalMonthly).toLocaleString()} {status.currencySymbol}
+                        </p>
+                        <p className="text-xs mt-1" style={{ color: "var(--tm)" }}>
+                          +{estimate.upliftVsBaselinePercent.toFixed(1)}% {tr.valueEstimateUplift}
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-[11px] leading-relaxed" style={{ color: "var(--tm)" }}>
+                      {tr.valueEstimateDisclaimer}
+                    </p>
+                  </section>
+
+                  {pickedStories.length > 0 && (
+                    <section className="space-y-3" aria-labelledby="succ-stories-heading">
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                        <div>
+                          <h3 id="succ-stories-heading" className="text-lg font-bold" style={{ color: "var(--t)" }}>
+                            {tr.successStoriesTitle}
+                          </h3>
+                          <p className="text-sm" style={{ color: "var(--tm)" }}>
+                            {tr.successStoriesSubtitle}
+                          </p>
+                        </div>
+                        <Link
+                          href="/success-stories"
+                          className="text-sm font-semibold shrink-0 hover:underline"
+                          style={{ color: "var(--p3)" }}
+                        >
+                          {tr.successStoriesAll} →
+                        </Link>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {pickedStories.map((s) => (
+                          <AnalyzeSuccessStoryCard key={s.store} story={s} isArLocale={isArLocale} />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="rounded-xl border p-4" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                      <p className="text-sm font-bold mb-2" style={{ color: "var(--t)" }}>
+                        {tr.agentDisclaimerTitle}
+                      </p>
+                      <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
+                        {tr.agentDisclaimerBody}
+                      </p>
+                    </div>
+                    <div className="rounded-xl border p-4" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                      <p className="text-sm font-bold mb-2" style={{ color: "var(--t)" }}>
+                        {tr.agentHowTitle}
+                      </p>
+                      <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
+                        {tr.agentHowBody}
+                      </p>
+                    </div>
+                  </div>
+
+                  {status.summary && (
+                    <div className="analyze-summary-box">
+                      <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--p3)" }}>
+                        {tr.aiSummaryLabel}
+                      </p>
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "var(--t)" }}
+                        dir={isAr(status.summary) ? "rtl" : "ltr"}
+                      >
+                        {status.summary}
+                      </p>
+                    </div>
+                  )}
+
+                  {groups.length > 0 && (
+                    <section className="space-y-4" aria-labelledby="anchors-heading">
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                          <h3 id="anchors-heading" className="text-xl font-bold" style={{ color: "var(--t)" }}>
+                            {tr.sectionAnchorsTitle}
+                          </h3>
+                          <p className="text-sm mt-0.5" style={{ color: "var(--tm)" }}>
+                            {tpl(tr.sectionAnchorsSubtitle, { anchors: groups.length, recs: totalRecs })}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        {groups.map((group, i) => (
+                          <AnchorGroupCard
+                            key={i}
+                            group={group}
+                            currencySymbol={status.currencySymbol}
+                            index={i}
+                            anchorLabel={tpl(tr.anchorBadge, { n: i + 1 })}
+                            connectorLabel={tr.connectorSuggested}
+                            tr={tr}
+                          />
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
+                  <section className="gc gc-lift analyze-form-card text-center space-y-5">
+                    <div>
+                      <h3 className="text-lg font-bold tc mb-1" style={{ color: "var(--t)" }}>
+                        {tr.ctaLaunch}
+                      </h3>
+                      <p className="ssub tc max-w-lg mx-auto" style={{ marginTop: 0 }}>
+                        {tr.ctaLaunchSub}
+                      </p>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center">
+                      <button
+                        type="button"
+                        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        onClick={() => setPlatformOpen(true)}
+                      >
+                        <Zap className="h-4 w-4 shrink-0" aria-hidden />
+                        {tr.ctaLaunch}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        onClick={() => setPlatformOpen(true)}
+                      >
+                        <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
+                        {tr.ctaActivate}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        onClick={() => window.open(MEETING_CALENDAR_URL, "_blank", "noopener,noreferrer")}
+                      >
+                        <Calendar className="h-4 w-4 shrink-0" aria-hidden />
+                        {tr.ctaBookMeeting}
+                      </button>
+                    </div>
+                  </section>
+
+                  <div className="analyze-share-panel gc">
+                    <h3 className="text-lg font-bold mb-1.5" style={{ color: "var(--t)" }}>
+                      {tr.shareTitle}
+                    </h3>
+                    <p className="text-sm mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
+                      {tr.shareSubtitle}
+                    </p>
+                    {storeId && <CopyReportButton storeId={storeId} />}
+                  </div>
+                </div>
+              );
+            })()}
+        </main>
+        <PlatformModal open={platformOpen} onClose={() => setPlatformOpen(false)} />
+      </PageShell>
+    </>
+  );
+}

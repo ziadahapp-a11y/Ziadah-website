@@ -2,6 +2,7 @@ import { useEffect, type ReactElement, type ReactNode } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -504,8 +505,8 @@ export default function BlogPost() {
       { name: tx.breadcrumbBlog, url: "/blog" },
       { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
-    <PageShell>
-      
+    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+      <DsPageBackdrop />
 
       {/* HERO / COVER */}
       <section

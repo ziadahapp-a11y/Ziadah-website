@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import PageShell from "@/components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -82,8 +83,8 @@ export default function Sectors() {
         }
         url="/sectors"
       />
-      <PageShell>
-        
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         <section
           style={{

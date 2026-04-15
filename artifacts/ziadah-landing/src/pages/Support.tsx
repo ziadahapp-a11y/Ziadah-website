@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -68,8 +69,8 @@ export default function Support() {
       keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
-    <PageShell>
-      
+    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+      <DsPageBackdrop />
 
       {/* ─── HERO ─── */}
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", overflow: "hidden" }}>

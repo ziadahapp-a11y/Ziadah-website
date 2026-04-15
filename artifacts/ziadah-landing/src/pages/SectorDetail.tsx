@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "@/components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -191,8 +192,8 @@ export default function SectorDetail() {
         ]}
       />
       <WebPageSchema name={pageTitle} description={seoDesc} url={`/sectors/${sector.slug}`} />
-      <PageShell>
-        
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         {htmlPlaybook && pageRich ? (
           <>

@@ -29,11 +29,12 @@ import { Badge } from "@/components/ui/badge";
 import { CmsPageHeader } from "../components/CmsPageHeader";
 import { CmsInlineError, CmsLoadingLine } from "../components/CmsStates";
 
-type SectionConfig = CmsPageRow["sectionsConfig"][number];
+type SectionsConfig = NonNullable<CmsPageRow["sectionsConfig"]>;
+type SectionConfig = SectionsConfig[number];
 
 function normalizeSections(
   sections: CmsPageRow["sectionsConfig"] | null | undefined,
-): CmsPageRow["sectionsConfig"] {
+): SectionsConfig {
   if (!Array.isArray(sections)) return [];
   return sections
     .filter((s): s is SectionConfig => !!s && typeof s.id === "string")
@@ -126,11 +127,12 @@ function allocateUniqueSectionId(baseId: string, occupied: Set<string>): string 
 }
 
 function mergeSectionsInto(
-  prev: CmsPageRow["sectionsConfig"],
+  prev: CmsPageRow["sectionsConfig"] | null | undefined,
   toAdd: SectionConfig[],
-): CmsPageRow["sectionsConfig"] {
-  const occupied = new Set(prev.map((s) => s.id.trim()));
-  const next = [...prev];
+): SectionsConfig {
+  const base = normalizeSections(prev);
+  const occupied = new Set(base.map((s) => s.id.trim()));
+  const next = [...base];
   for (const s of toAdd) {
     const id = allocateUniqueSectionId(s.id, occupied);
     occupied.add(id);
@@ -162,7 +164,7 @@ function PageForm({
   const [metaDescription, setMetaDescription] = useState(
     initial?.metaDescription ?? "",
   );
-  const [sectionsConfig, setSectionsConfig] = useState<CmsPageRow["sectionsConfig"]>(
+  const [sectionsConfig, setSectionsConfig] = useState<SectionsConfig>(
     normalizeSections(initial?.sectionsConfig),
   );
   const [addSectionOpen, setAddSectionOpen] = useState(false);
@@ -250,16 +252,17 @@ function PageForm({
     fn: (section: SectionConfig) => SectionConfig,
   ) => {
     setSectionsConfig((prev) =>
-      prev.map((s, i) => (i === index ? fn(s) : s)),
+      (prev ?? []).map((s, i) => (i === index ? fn(s) : s)),
     );
   };
 
   const moveSection = (from: number, to: number) => {
     setSectionsConfig((prev) => {
-      if (to < 0 || to >= prev.length) return prev;
-      const next = [...prev];
+      const cur = prev ?? [];
+      if (to < 0 || to >= cur.length) return cur;
+      const next = [...cur];
       const [item] = next.splice(from, 1);
-      if (!item) return prev;
+      if (!item) return cur;
       next.splice(to, 0, item);
       return next;
     });
@@ -267,12 +270,13 @@ function PageForm({
 
   const duplicateSection = (index: number) => {
     setSectionsConfig((prev) => {
-      const source = prev[index];
-      if (!source) return prev;
+      const cur = prev ?? [];
+      const source = cur[index];
+      if (!source) return cur;
       const baseId = `${source.id}-copy`;
       let candidate = baseId;
       let suffix = 2;
-      const ids = new Set(prev.map((s) => s.id));
+      const ids = new Set(cur.map((s) => s.id));
       while (ids.has(candidate)) {
         candidate = `${baseId}-${suffix}`;
         suffix += 1;
@@ -282,7 +286,7 @@ function PageForm({
         label: `${source.label} (copy)`,
         hidden: source.hidden,
       };
-      const next = [...prev];
+      const next = [...cur];
       next.splice(index + 1, 0, clone);
       return next;
     });
@@ -516,7 +520,9 @@ function PageForm({
                     size="sm"
                     variant="destructive"
                     onClick={() =>
-                      setSectionsConfig((prev) => prev.filter((_, i) => i !== index))
+                      setSectionsConfig((prev) =>
+                        (prev ?? []).filter((_, i) => i !== index),
+                      )
                     }
                     disabled={!canEdit && !isCreate}
                   >

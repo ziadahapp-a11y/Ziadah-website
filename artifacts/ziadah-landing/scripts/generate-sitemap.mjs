@@ -112,6 +112,7 @@ const STATIC_MAIN = [
   { path: "/", priority: "1.0", freq: "weekly" },
   { path: "/features", priority: "0.9", freq: "monthly" },
   { path: "/calculator", priority: "0.85", freq: "monthly" },
+  { path: "/analyze", priority: "0.88", freq: "weekly" },
   { path: "/success-stories", priority: "0.85", freq: "monthly" },
   { path: "/blog", priority: "0.9", freq: "weekly" },
   { path: "/support", priority: "0.75", freq: "monthly" },

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -81,8 +82,8 @@ export default function Features() {
       description={lang === "ar" ? t.ar.features.seoDesc : t.en.features.seoDesc}
       url="/features"
     />
-    <PageShell>
-      
+    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+      <DsPageBackdrop />
 
       {/* HERO */}
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>

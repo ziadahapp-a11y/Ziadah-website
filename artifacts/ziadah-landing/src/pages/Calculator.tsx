@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -312,8 +313,8 @@ export default function Calculator() {
         description={lang === "ar" ? t.ar.calculator.seoDesc : t.en.calculator.seoDesc}
         url="/calculator"
       />
-      <PageShell>
-        
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         <section
           style={{

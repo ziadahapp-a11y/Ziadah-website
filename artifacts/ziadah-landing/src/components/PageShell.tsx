@@ -1,6 +1,5 @@
 import { ReactNode, CSSProperties } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import SitePageBackground from "./SitePageBackground";
 
 /** غلاف الصفحة: خلفية الصفحة الرئيسية + `landing-shell` للتكديس مع المحتوى. */
 export default function PageShell({
@@ -18,7 +17,7 @@ export default function PageShell({
     <div
       className={`landing-shell${className ? ` ${className}` : ""}`}
       style={{
-        background: "#05000f",
+        background: "var(--page-background)",
         minHeight: "100vh",
         fontFamily: "var(--font)",
         direction: dir,
@@ -28,7 +27,6 @@ export default function PageShell({
         ...style,
       }}
     >
-      <SitePageBackground />
       {children}
     </div>
   );
