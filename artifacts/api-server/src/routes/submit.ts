@@ -35,6 +35,12 @@ function cloneForJson<T>(v: T): T {
   return JSON.parse(JSON.stringify(v)) as T;
 }
 
+/** Postgres text columns reject NUL bytes; some SDK errors include them. */
+function safeErrText(err: unknown): string {
+  const raw = err instanceof Error ? err.message : String(err);
+  return raw.replace(/\0/g, "").slice(0, 8000);
+}
+
 async function updateStoreAnalyzed(storeId: number): Promise<void> {
   try {
     await db
@@ -58,10 +64,11 @@ async function updateStoreAnalyzed(storeId: number): Promise<void> {
 }
 
 async function updateStoreError(storeId: number, message: string): Promise<void> {
+  const text = safeErrText(message);
   try {
     await db
       .update(storesTable)
-      .set({ status: "error", lastError: message })
+      .set({ status: "error", lastError: text })
       .where(eq(storesTable.id, storeId));
   } catch (e) {
     logger.warn({ storeId, err: e instanceof Error ? e.message : String(e) }, "error update without last_error");
@@ -70,26 +77,28 @@ async function updateStoreError(storeId: number, message: string): Promise<void>
 }
 
 async function persistAnalysisAndFinish(storeId: number, analysis: Awaited<ReturnType<typeof analyzeProducts>>): Promise<void> {
-  await db.insert(analysesTable).values({
-    storeId,
-    mainProductId: analysis.mainProductId,
-    mainProductReason: analysis.mainProductReason,
-    crossSellIds: analysis.crossSellIds,
-    crossSellReasons: jsonReasons(analysis.crossSellReasons),
-    upsellIds: analysis.upsellIds,
-    upsellReasons: jsonReasons(analysis.upsellReasons),
-    summary: analysis.summary,
-    anchorsJson: cloneForJson(analysis.anchors),
-  });
+  await db.transaction(async (tx) => {
+    await tx.insert(analysesTable).values({
+      storeId,
+      mainProductId: analysis.mainProductId,
+      mainProductReason: analysis.mainProductReason,
+      crossSellIds: analysis.crossSellIds,
+      crossSellReasons: jsonReasons(analysis.crossSellReasons),
+      upsellIds: analysis.upsellIds,
+      upsellReasons: jsonReasons(analysis.upsellReasons),
+      summary: analysis.summary,
+      anchorsJson: cloneForJson(analysis.anchors),
+    });
 
-  await db.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
-  await db.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, analysis.mainProductId));
-  for (const id of analysis.crossSellIds) {
-    await db.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
-  }
-  for (const id of analysis.upsellIds) {
-    await db.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
-  }
+    await tx.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
+    await tx.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, analysis.mainProductId));
+    for (const id of analysis.crossSellIds) {
+      await tx.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
+    }
+    for (const id of analysis.upsellIds) {
+      await tx.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
+    }
+  });
 
   await updateStoreAnalyzed(storeId);
 }
@@ -117,30 +126,39 @@ async function runPipeline(storeId: number, url: string): Promise<void> {
 
     logger.info({ storeId }, "Pipeline complete");
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
+    const message = safeErrText(err);
     logger.error({ storeId, err: message }, "Pipeline failed");
 
-    const rows = await db.select().from(productsTable).where(eq(productsTable.storeId, storeId));
+    try {
+      const rows = await db.select().from(productsTable).where(eq(productsTable.storeId, storeId));
 
-    if (rows.length > 0) {
+      if (rows.length > 0) {
+        try {
+          await db.delete(analysesTable).where(eq(analysesTable.storeId, storeId));
+          const fallback = buildHeuristicAnalysis(rows);
+          await persistAnalysisAndFinish(storeId, fallback);
+          logger.warn(
+            { storeId, originalErr: message },
+            "Pipeline recovered with heuristic analysis after primary path failed",
+          );
+          return;
+        } catch (recoveryErr) {
+          logger.error(
+            { storeId, err: safeErrText(recoveryErr) },
+            "Heuristic recovery failed",
+          );
+        }
+      }
+
+      await updateStoreError(storeId, message);
+    } catch (inner) {
+      logger.error({ storeId, err: safeErrText(inner) }, "Pipeline error handler failed");
       try {
-        await db.delete(analysesTable).where(eq(analysesTable.storeId, storeId));
-        const fallback = buildHeuristicAnalysis(rows);
-        await persistAnalysisAndFinish(storeId, fallback);
-        logger.warn(
-          { storeId, originalErr: message },
-          "Pipeline recovered with heuristic analysis after primary path failed",
-        );
-        return;
-      } catch (recoveryErr) {
-        logger.error(
-          { storeId, err: recoveryErr instanceof Error ? recoveryErr.message : String(recoveryErr) },
-          "Heuristic recovery failed",
-        );
+        await updateStoreError(storeId, `Pipeline error: ${message}. Follow-up: ${safeErrText(inner)}`);
+      } catch {
+        /* ignore */
       }
     }
-
-    await updateStoreError(storeId, message);
   }
 }
 
@@ -166,7 +184,9 @@ router.post("/submit", async (req, res): Promise<void> => {
     status: "syncing",
   }).returning();
 
-  runPipeline(store.id, url).catch(() => {});
+  runPipeline(store.id, url).catch((e) => {
+    logger.error({ storeId: store.id, err: safeErrText(e) }, "runPipeline rejected");
+  });
   res.status(201).json({ storeId: store.id });
 });
 
