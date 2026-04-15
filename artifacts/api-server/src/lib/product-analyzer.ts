@@ -64,7 +64,7 @@ function toLegacyFields(anchors: AnchorGroup[], products: Product[], summary: st
 }
 
 /** Rule-based fallback when OpenAI is missing or fails — keeps the pipeline usable for demos and Zid/Salla/Shopify scrapes. */
-function buildHeuristicAnalysis(products: Product[]): ProductAnalysis {
+export function buildHeuristicAnalysis(products: Product[]): ProductAnalysis {
   const pool = products.filter((p) => p.inStock !== false);
   const list = pool.length > 0 ? pool : products;
   const n = list.length;
@@ -135,6 +135,91 @@ function validateAnchorProductIds(analysis: ProductAnalysis, products: Product[]
   return analysis.anchors.length > 0;
 }
 
+/** LLMs often emit string IDs or wrong numbers — coerce to DB product id */
+function parseProductId(v: unknown): number | null {
+  if (typeof v === "number" && Number.isFinite(v) && v > 0) return Math.floor(v);
+  if (typeof v === "string" && /^\d+$/.test(v.trim())) return parseInt(v.trim(), 10);
+  return null;
+}
+
+/**
+ * Repair LLM output: coerce IDs, drop invalid rows, pad to 4 recs per anchor from catalog.
+ */
+function sanitizeLlmAnchors(
+  raw: { summary?: unknown; anchors?: unknown },
+  products: Product[],
+): { summary: string; anchors: AnchorGroup[] } {
+  const idSet = new Set(products.map((p) => p.id));
+  const sortedIds = [...idSet].sort((a, b) => a - b);
+  const summary = typeof raw.summary === "string" ? raw.summary : "";
+
+  const rawAnchors = Array.isArray(raw.anchors) ? raw.anchors : [];
+  const anchors: AnchorGroup[] = [];
+
+  for (const item of rawAnchors.slice(0, 4)) {
+    if (!item || typeof item !== "object") continue;
+    const o = item as Record<string, unknown>;
+    const anchorId = parseProductId(o.productId);
+    if (!anchorId || !idSet.has(anchorId)) continue;
+
+    const recIn = Array.isArray(o.recommendations) ? o.recommendations : [];
+    const used = new Set<number>([anchorId]);
+    const recommendations: AnchorGroup["recommendations"] = [];
+
+    for (const r of recIn) {
+      if (recommendations.length >= 4) break;
+      if (!r || typeof r !== "object") continue;
+      const rr = r as Record<string, unknown>;
+      let pid = parseProductId(rr.productId);
+      if (!pid || !idSet.has(pid) || used.has(pid)) continue;
+      used.add(pid);
+      recommendations.push({
+        productId: pid,
+        role: rr.role === "upsell" ? "upsell" : "cross_sell",
+        reason: typeof rr.reason === "string" ? rr.reason : "",
+        ziadahGoal: typeof rr.ziadahGoal === "string" ? rr.ziadahGoal : undefined,
+        presentationWidget: typeof rr.presentationWidget === "string" ? rr.presentationWidget : undefined,
+        addonsHint: typeof rr.addonsHint === "string" ? rr.addonsHint : undefined,
+        quantityHint: typeof rr.quantityHint === "string" ? rr.quantityHint : undefined,
+      });
+    }
+
+    let pad = 0;
+    for (const pid of sortedIds) {
+      if (recommendations.length >= 4) break;
+      if (used.has(pid)) continue;
+      used.add(pid);
+      const idx = recommendations.length;
+      recommendations.push({
+        productId: pid,
+        role: idx < 2 ? "cross_sell" : "upsell",
+        reason:
+          idx < 2
+            ? "منتج مكمّل مناسب لزيادة قيمة السلة."
+            : "ترقية أو خيار أعلى قيمة ضمن نفس المتجر.",
+        ziadahGoal: idx < 2 ? "cross_sell" : "upsell",
+        presentationWidget: "صفحة المنتج والسلة",
+        addonsHint: "يمكن ربطه بعروض الإضافات أو الحزم.",
+        quantityHint: "عروض كمية حسب سياسة المتجر.",
+      });
+      pad++;
+      if (pad > 50) break;
+    }
+
+    if (recommendations.length === 0) continue;
+
+    anchors.push({
+      productId: anchorId,
+      reason: typeof o.reason === "string" ? o.reason : "",
+      anchorGoal: typeof o.anchorGoal === "string" ? o.anchorGoal : undefined,
+      anchorPresentation: typeof o.anchorPresentation === "string" ? o.anchorPresentation : undefined,
+      recommendations: recommendations.slice(0, 4),
+    });
+  }
+
+  return { summary, anchors };
+}
+
 async function analyzeProductsWithLLM(
   products: Product[],
   client: OpenAI,
@@ -153,6 +238,8 @@ async function analyzeProductsWithLLM(
   const prompt = `You are an expert e-commerce strategist specializing in cross-selling and upselling for Saudi e-commerce (Zid, Salla, Shopify).
 
 Analyze this product catalog and identify 4 distinct "anchor" products — these are key products a customer might buy. For each anchor, identify exactly 4 recommended products (mix of cross-sells and upsells).
+
+CRITICAL: Each product in the input has an "id" field — these are the ONLY valid product IDs. You MUST copy those numeric ids exactly in "productId" fields. Do not invent ids or use SKU strings.
 
 Products:
 ${JSON.stringify(productList, null, 2)}
@@ -194,54 +281,60 @@ Rules:
 - Write ALL reasons and descriptive fields in Arabic
 - Respond ONLY with valid JSON, no markdown`;
 
-  const response = await client.chat.completions.create({
+  const useJsonMode = process.env.OPENAI_ANALYSIS_JSON_MODE !== "false";
+
+  const createParams = (withJsonMode: boolean) => ({
     model: ANALYSIS_MODEL,
-    max_completion_tokens: 3000,
-    messages: [{ role: "user", content: prompt }],
+    max_completion_tokens: 4096,
+    temperature: 0.25,
+    messages: [{ role: "user" as const, content: prompt }],
+    ...(withJsonMode ? { response_format: { type: "json_object" as const } } : {}),
   });
 
+  let response;
+  try {
+    response = await client.chat.completions.create(createParams(useJsonMode));
+  } catch (firstErr) {
+    if (useJsonMode) {
+      logger.warn(
+        { err: firstErr instanceof Error ? firstErr.message : String(firstErr) },
+        "Chat completion with json_object failed; retrying without response_format",
+      );
+      response = await client.chat.completions.create(createParams(false));
+    } else {
+      throw firstErr;
+    }
+  }
+
   const content = response.choices[0]?.message?.content ?? "";
-  logger.info({ contentLength: content.length }, "Got AI analysis response");
+  logger.info(
+    { contentLength: content.length, finishReason: response.choices[0]?.finish_reason },
+    "Got AI analysis response",
+  );
+
+  if (!content.trim()) {
+    throw new Error("Empty model response");
+  }
 
   const cleaned = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
-  const raw = JSON.parse(cleaned) as {
-    summary: string;
-    anchors: Array<{
-      productId: number;
-      reason: string;
-      anchorGoal?: string;
-      anchorPresentation?: string;
-      recommendations: Array<{
-        productId: number;
-        role: string;
-        reason: string;
-        ziadahGoal?: string;
-        presentationWidget?: string;
-        addonsHint?: string;
-        quantityHint?: string;
-      }>;
-    }>;
-  };
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(cleaned);
+  } catch (parseErr) {
+    logger.error({ preview: cleaned.slice(0, 400) }, "Invalid JSON from model");
+    throw parseErr instanceof Error ? parseErr : new Error("JSON parse failed");
+  }
 
-  const anchors: AnchorGroup[] = (raw.anchors ?? []).slice(0, 4).map((a) => ({
-    productId: a.productId,
-    reason: a.reason ?? "",
-    anchorGoal: a.anchorGoal,
-    anchorPresentation: a.anchorPresentation,
-    recommendations: (a.recommendations ?? []).slice(0, 4).map((r) => ({
-      productId: r.productId,
-      role: (r.role === "upsell" ? "upsell" : "cross_sell") as "cross_sell" | "upsell",
-      reason: r.reason ?? "",
-      ziadahGoal: r.ziadahGoal,
-      presentationWidget: r.presentationWidget,
-      addonsHint: r.addonsHint,
-      quantityHint: r.quantityHint,
-    })),
-  }));
+  const raw = parsed as { summary?: unknown; anchors?: unknown };
+  const { summary, anchors } = sanitizeLlmAnchors(raw, products);
 
-  const legacy = toLegacyFields(anchors, products, raw.summary ?? "");
+  if (anchors.length === 0) {
+    throw new Error("Model returned no usable anchors after sanitization");
+  }
+
+  const legacy = toLegacyFields(anchors, products, summary);
   if (!validateAnchorProductIds(legacy, products)) {
-    throw new Error("LLM returned invalid or empty product IDs");
+    throw new Error("Sanitized analysis still has invalid product IDs");
   }
   return legacy;
 }

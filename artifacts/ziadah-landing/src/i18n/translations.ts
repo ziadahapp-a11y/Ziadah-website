@@ -796,7 +796,7 @@ export const t = {
       errorBody:
         "تعذّر قراءة المنتجات من متجرك. قد لا تكون المنصة مدعومة، أو الرابط غير صحيح.",
       errorBodyAnalyze:
-        "تمت قراءة المنتجات، لكن تعذّر إكمال تحليل الذكاء الاصطناعي. تحقّق من إعدادات الخادم (مفتاح OpenAI) أو أعد المحاولة لاحقًا.",
+        "تمت مزامنة المنتجات، لكن تعذّر إكمال التحليل أو حفظ النتائج. جرّب «إعادة المحاولة»، وراجع التفاصيل أدناه. للتحليل بذكاء اصطناعي كامل، تأكد من ضبط مفتاح OpenAI أو تكامل Replit على الخادم.",
       errorDetails: "تفاصيل من الخادم",
       successStoriesTitle: "قصص نجاح من نفس المجال",
       successStoriesSubtitle: "متاجر استخدمت زيادة في قطاعات مشابهة — نتائج موثقة",
@@ -1843,7 +1843,7 @@ export const t = {
       errorBody:
         "We couldn't read products from your store. The platform may not be supported, or the URL may be incorrect.",
       errorBodyAnalyze:
-        "Products were loaded, but AI analysis could not finish. Check server configuration (OpenAI API key) or try again later.",
+        "Products were synced, but the analysis could not finish or save. Try again and check server details below. For full AI analysis, set OPENAI_API_KEY or Replit AI integration env on the API server.",
       errorDetails: "Server details",
       successStoriesTitle: "Success stories in your category",
       successStoriesSubtitle: "Real Ziadah merchants in similar industries — verified outcomes",

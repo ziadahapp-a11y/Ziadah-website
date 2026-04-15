@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 import { eq, desc } from "drizzle-orm";
 import { db, storesTable, productsTable, analysesTable } from "@workspace/db";
 import { scrapeStore } from "../lib/store-scraper";
-import { analyzeProducts } from "../lib/product-analyzer";
+import { analyzeProducts, buildHeuristicAnalysis } from "../lib/product-analyzer";
 import type { AnchorGroup } from "@workspace/db";
 import { logger } from "../lib/logger";
 
@@ -69,6 +69,31 @@ async function updateStoreError(storeId: number, message: string): Promise<void>
   }
 }
 
+async function persistAnalysisAndFinish(storeId: number, analysis: Awaited<ReturnType<typeof analyzeProducts>>): Promise<void> {
+  await db.insert(analysesTable).values({
+    storeId,
+    mainProductId: analysis.mainProductId,
+    mainProductReason: analysis.mainProductReason,
+    crossSellIds: analysis.crossSellIds,
+    crossSellReasons: jsonReasons(analysis.crossSellReasons),
+    upsellIds: analysis.upsellIds,
+    upsellReasons: jsonReasons(analysis.upsellReasons),
+    summary: analysis.summary,
+    anchorsJson: cloneForJson(analysis.anchors),
+  });
+
+  await db.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
+  await db.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, analysis.mainProductId));
+  for (const id of analysis.crossSellIds) {
+    await db.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
+  }
+  for (const id of analysis.upsellIds) {
+    await db.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
+  }
+
+  await updateStoreAnalyzed(storeId);
+}
+
 async function runPipeline(storeId: number, url: string): Promise<void> {
   try {
     const { products, platform, currency, currencySymbol } = await scrapeStore(url);
@@ -88,34 +113,33 @@ async function runPipeline(storeId: number, url: string): Promise<void> {
     const dbProducts = await db.select().from(productsTable).where(eq(productsTable.storeId, storeId));
     const analysis = await analyzeProducts(dbProducts);
 
-    await db.insert(analysesTable).values({
-      storeId,
-      mainProductId: analysis.mainProductId,
-      mainProductReason: analysis.mainProductReason,
-      crossSellIds: analysis.crossSellIds,
-      crossSellReasons: jsonReasons(analysis.crossSellReasons),
-      upsellIds: analysis.upsellIds,
-      upsellReasons: jsonReasons(analysis.upsellReasons),
-      summary: analysis.summary,
-      anchorsJson: cloneForJson(analysis.anchors),
-    });
-
-    // Update product roles from first anchor
-    await db.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
-    await db.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, analysis.mainProductId));
-    for (const id of analysis.crossSellIds) {
-      await db.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
-    }
-    for (const id of analysis.upsellIds) {
-      await db.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
-    }
-
-    await updateStoreAnalyzed(storeId);
+    await persistAnalysisAndFinish(storeId, analysis);
 
     logger.info({ storeId }, "Pipeline complete");
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     logger.error({ storeId, err: message }, "Pipeline failed");
+
+    const rows = await db.select().from(productsTable).where(eq(productsTable.storeId, storeId));
+
+    if (rows.length > 0) {
+      try {
+        await db.delete(analysesTable).where(eq(analysesTable.storeId, storeId));
+        const fallback = buildHeuristicAnalysis(rows);
+        await persistAnalysisAndFinish(storeId, fallback);
+        logger.warn(
+          { storeId, originalErr: message },
+          "Pipeline recovered with heuristic analysis after primary path failed",
+        );
+        return;
+      } catch (recoveryErr) {
+        logger.error(
+          { storeId, err: recoveryErr instanceof Error ? recoveryErr.message : String(recoveryErr) },
+          "Heuristic recovery failed",
+        );
+      }
+    }
+
     await updateStoreError(storeId, message);
   }
 }
