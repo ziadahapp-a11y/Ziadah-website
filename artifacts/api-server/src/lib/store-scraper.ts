@@ -301,22 +301,28 @@ async function fetchZidProducts(baseUrl: string): Promise<{ products: ScrapedPro
   const PAGE_SIZE = 100;
   let currency = "SAR";
   let currencySymbol = "ر.س";
-  let pageNum = 0;
 
-  /** Zid returns absolute `next` URLs (often api.zid.sa) — must follow them; constructing ?page=2 on the storefront domain can 404. */
-  let nextUrl: string | null = `${cleanUrl}/api/v1/products?page=1&page_size=${PAGE_SIZE}`;
+  // Always build page URLs from the storefront domain — never follow `next` from the
+  // Zid API response because it points to api.zid.sa which requires merchant auth (401).
+  for (let pageNum = 1; pageNum <= 10; pageNum++) {
+    const pageUrl = `${cleanUrl}/api/v1/products?page=${pageNum}&page_size=${PAGE_SIZE}`;
 
-  while (nextUrl) {
-    pageNum++;
-    const res = await fetch(nextUrl, {
+    const res = await fetch(pageUrl, {
       headers: { ...HEADERS, Accept: "application/json" },
       signal: AbortSignal.timeout(FETCH_TIMEOUT),
     });
 
-    if (!res.ok) throw new Error(`Zid API returned ${res.status} at ${nextUrl}`);
+    if (!res.ok) {
+      // If page > 1 returns 401/403/404, we've likely exhausted all pages — stop gracefully.
+      if (pageNum > 1 && (res.status === 401 || res.status === 403 || res.status === 404)) {
+        logger.info({ page: pageNum, status: res.status, baseUrl }, "Zid: pagination ended");
+        break;
+      }
+      throw new Error(`Zid API returned ${res.status} at ${pageUrl}`);
+    }
 
     const raw = (await res.json()) as Record<string, unknown>;
-    const { items, total } = extractZidPage(raw);
+    const { items, total, hasMore } = extractZidPage(raw);
 
     if (items.length === 0) break;
 
@@ -331,16 +337,7 @@ async function fetchZidProducts(baseUrl: string): Promise<{ products: ScrapedPro
 
     logger.info({ page: pageNum, fetched: items.length, total, baseUrl }, "Zid: fetched page");
 
-    if (products.length >= total || products.length >= 500) break;
-
-    const fromApi = zidNextPageUrl(raw);
-    if (fromApi) {
-      nextUrl = fromApi;
-    } else if (products.length < total) {
-      nextUrl = `${cleanUrl}/api/v1/products?page=${pageNum + 1}&page_size=${PAGE_SIZE}`;
-    } else {
-      nextUrl = null;
-    }
+    if (!hasMore || products.length >= total || products.length >= 500) break;
   }
 
   if (products.length === 0) {
