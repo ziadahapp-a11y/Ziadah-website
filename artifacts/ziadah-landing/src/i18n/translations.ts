@@ -758,7 +758,7 @@ export const t = {
       formErrorNetwork:
         "لا يمكن الاتصال بخادم الـ API. من جهازك شغّل في طرفية ثانية: pnpm dev:api (المنفذ الافتراضي 8787 ليتوافق مع وكيل Vite)، وتأكد من ضبط DATABASE_URL. أو عرّف VITE_API_BASE_URL على رابط الـ API الكامل.",
       heroTitleMain: "",
-      heroAccent: "حلّل متجرك واكتشف أفضل فرص البيع المتقاطع والترقيعي",
+      heroAccent: "حلّل متجرك واكتشف فرصة زيادة حجم الطلبات",
       heroTitleRest: "",
       heroBadgePill: "ذكاء اصطناعي",
       heroBadgeText: "يعمل مع شوبيفاي وزد وسلة",
