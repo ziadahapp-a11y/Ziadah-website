@@ -2876,4 +2876,210 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   font-weight:700;
 }
 
+/* ════════════════════════════════════════════════════════
+   ANALYZE — RESULTS PAGE AUDIT COMPONENTS
+   ════════════════════════════════════════════════════════ */
+
+/* ─── Done Badge (results header celebration element) ─── */
+.analyze-done-badge{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 18px 8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(34,197,94,.3);
+  background:rgba(34,197,94,.08);
+  font-size:13px;
+  font-weight:700;
+  color:rgba(34,197,94,.9);
+  cursor:default;
+  overflow:hidden;
+}
+.analyze-done-badge__glow{
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(34,197,94,.18),transparent);
+  pointer-events:none;
+}
+.analyze-done-badge__icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:rgba(34,197,94,.15);
+  color:rgba(34,197,94,.9);
+  flex-shrink:0;
+}
+
+/* ─── AI Summary label row ─── */
+.analyze-summary-label-row{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+}
+.analyze-summary-label-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:24px;
+  height:24px;
+  border-radius:8px;
+  background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(6,182,212,.15));
+  color:var(--p3);
+  flex-shrink:0;
+}
+.analyze-summary-label-text{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--p3);
+}
+
+/* ─── Success Story Card ─── */
+.analyze-story-card{
+  border-radius:var(--r16);
+  border:1px solid var(--b1);
+  background:var(--s1);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:160px;
+  transition:var(--ds-t);
+}
+.analyze-story-card:hover{
+  border-color:var(--b2);
+  box-shadow:0 10px 32px rgba(0,0,0,.14);
+  transform:translateY(-2px);
+}
+.analyze-story-card__bar{
+  height:4px;
+  flex-shrink:0;
+  background:var(--story-color,var(--p3));
+}
+.analyze-story-card__body{
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex:1;
+}
+.analyze-story-card__header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.analyze-story-card__avatar{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:800;
+  flex-shrink:0;
+}
+.analyze-story-card__name{
+  font-size:12px;
+  font-weight:700;
+  color:var(--t);
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+.analyze-story-card__text{
+  font-size:10px;
+  line-height:1.55;
+  color:var(--tm);
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  flex:1;
+}
+.analyze-story-card__metrics{
+  margin-top:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  padding-top:8px;
+  border-top:1px solid var(--b1);
+}
+.analyze-story-card__metric-val{
+  font-size:11px;
+  font-weight:700;
+  color:var(--p3);
+}
+
+/* ─── Info/Disclaimer cards ─── */
+.analyze-info-card{
+  border-radius:var(--r16);
+  border:1px solid var(--b1);
+  background:var(--s1);
+  padding:clamp(14px,2.5vw,20px);
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  transition:var(--ds-t);
+}
+.analyze-info-card:hover{
+  border-color:var(--b2);
+}
+.analyze-info-card__icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+/* ─── CTA badge + title ─── */
+.analyze-cta-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:4px 12px;
+  border-radius:999px;
+  border:1px solid rgba(124,58,237,.3);
+  background:rgba(124,58,237,.1);
+  font-size:11px;
+  font-weight:700;
+  color:var(--p3);
+  margin-bottom:14px;
+  letter-spacing:.04em;
+}
+.analyze-cta-title{
+  font-size:clamp(20px,4vw,30px);
+  font-weight:900;
+  letter-spacing:-.03em;
+  line-height:1.15;
+}
+
+/* ─── Share section header ─── */
+.analyze-share-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.analyze-share-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:rgba(124,58,237,.12);
+  border:1px solid rgba(124,58,237,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--p3);
+  flex-shrink:0;
+}
+
 

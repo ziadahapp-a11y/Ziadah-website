@@ -22,6 +22,9 @@ import {
   Users,
   Target,
   Lock,
+  ShieldCheck,
+  Cpu,
+  Share2,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -652,27 +655,30 @@ function AnalyzeSuccessStoryCard({
   isArLocale: boolean;
 }) {
   const en = storyEn[story.store];
+  const storeName = isArLocale ? story.store : en?.store ?? story.store;
+  const initials = storeName.slice(0, 2);
   return (
-    <article
-      className="rounded-xl border overflow-hidden flex flex-col h-full min-h-[140px]"
-      style={{ borderColor: "var(--b2)", background: "var(--s1)" }}
-    >
-      <div className="h-1.5 shrink-0" style={{ background: story.color }} aria-hidden />
-      <div className="p-3 flex flex-col gap-2 flex-1 min-h-0">
-        <p className="text-xs font-bold line-clamp-1" style={{ color: "var(--t)" }}>
-          {isArLocale ? story.store : en?.store ?? story.store}
-        </p>
+    <article className="analyze-story-card" style={{ "--story-color": story.color } as React.CSSProperties}>
+      <div className="analyze-story-card__bar" aria-hidden />
+      <div className="analyze-story-card__body">
+        <div className="analyze-story-card__header">
+          <div className="analyze-story-card__avatar" style={{ background: `${story.color}22`, color: story.color }}>
+            {initials}
+          </div>
+          <p className="analyze-story-card__name">{storeName}</p>
+        </div>
         <p
-          className="text-[10px] leading-snug line-clamp-3"
-          style={{ color: "var(--tm)" }}
+          className="analyze-story-card__text"
           dir={isArLocale ? "rtl" : "ltr"}
         >
           {isArLocale ? story.strategy : en?.strategy ?? story.strategy}
         </p>
-        <div className="mt-auto flex justify-between gap-2 text-[10px] font-semibold pt-1" style={{ color: "var(--p3)" }}>
-          <span>{story.conversions}</span>
-          <span>
-            {story.sales} {isArLocale ? "ر.س" : "SAR"}
+        <div className="analyze-story-card__metrics">
+          <span className="analyze-story-card__metric">
+            <span className="analyze-story-card__metric-val">{story.conversions}</span>
+          </span>
+          <span className="analyze-story-card__metric">
+            <span className="analyze-story-card__metric-val">{story.sales} {isArLocale ? "ر.س" : "SAR"}</span>
           </span>
         </div>
       </div>
@@ -1317,17 +1323,18 @@ export default function Analyze() {
                 <div className="space-y-8 sm:space-y-10">
                   <header className="text-center analyze-section-head">
                     <div className="flex justify-center mb-5">
-                      <div className="hbadge hbadge--success mb-0">
-                        <span className="hbadge-pill inline-flex items-center gap-1.5">
-                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                          {tr.completeBadge}
-                        </span>
+                      <div className="analyze-done-badge">
+                        <div className="analyze-done-badge__glow" aria-hidden />
+                        <div className="analyze-done-badge__icon" aria-hidden>
+                          <CheckCircle2 className="h-5 w-5 shrink-0" />
+                        </div>
+                        <span>{tr.completeBadge}</span>
                       </div>
                     </div>
                     <h2 className="st tc" style={{ color: "var(--t)" }}>
                       {tr.resultsTitle}
                     </h2>
-                    <p className="ssub tc max-w-lg" style={{ marginInline: "auto", marginTop: "8px" }}>
+                    <p className="ssub tc max-w-lg" style={{ marginInline: "auto", marginTop: "10px" }}>
                       {resultsSub}
                     </p>
                   </header>
@@ -1371,12 +1378,14 @@ export default function Analyze() {
 
                   {status.summary ? (
                     <div id="analyze-summary" className="analyze-summary-box">
-                      <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "var(--p3)" }}>
-                        <Sparkles className="h-3 w-3 shrink-0" aria-hidden />
-                        {tr.aiSummaryLabel}
-                      </p>
+                      <div className="analyze-summary-label-row">
+                        <div className="analyze-summary-label-icon" aria-hidden>
+                          <Sparkles className="h-3.5 w-3.5" />
+                        </div>
+                        <span className="analyze-summary-label-text">{tr.aiSummaryLabel}</span>
+                      </div>
                       <p
-                        className="text-sm leading-relaxed"
+                        className="text-sm leading-relaxed mt-3"
                         style={{ color: "var(--t)" }}
                         dir={isAr(status.summary) ? "rtl" : "ltr"}
                       >
@@ -1491,45 +1500,57 @@ export default function Analyze() {
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div className="rounded-xl border p-4" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
-                      <p className="text-sm font-bold mb-2" style={{ color: "var(--t)" }}>
-                        {tr.agentDisclaimerTitle}
-                      </p>
-                      <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
-                        {tr.agentDisclaimerBody}
-                      </p>
+                    <div className="analyze-info-card">
+                      <div className="analyze-info-card__icon" style={{ background: "rgba(239,68,68,.1)", color: "rgba(239,68,68,.8)" }}>
+                        <ShieldCheck className="h-4 w-4" aria-hidden />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold mb-1.5" style={{ color: "var(--t)" }}>
+                          {tr.agentDisclaimerTitle}
+                        </p>
+                        <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
+                          {tr.agentDisclaimerBody}
+                        </p>
+                      </div>
                     </div>
-                    <div className="rounded-xl border p-4" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
-                      <p className="text-sm font-bold mb-2" style={{ color: "var(--t)" }}>
-                        {tr.agentHowTitle}
-                      </p>
-                      <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
-                        {tr.agentHowBody}
-                      </p>
+                    <div className="analyze-info-card">
+                      <div className="analyze-info-card__icon" style={{ background: "rgba(124,58,237,.1)", color: "var(--p3)" }}>
+                        <Cpu className="h-4 w-4" aria-hidden />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold mb-1.5" style={{ color: "var(--t)" }}>
+                          {tr.agentHowTitle}
+                        </p>
+                        <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArLocale ? "rtl" : "ltr"}>
+                          {tr.agentHowBody}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <section id="analyze-cta" className="analyze-results-cta space-y-5">
-                    <div>
-                      <h3 className="text-lg font-bold tc mb-1" style={{ color: "var(--t)" }}>
-                        {tr.ctaLaunch}
-                      </h3>
-                      <p className="ssub tc max-w-lg mx-auto" style={{ marginTop: 0 }}>
-                        {tr.ctaLaunchSub}
-                      </p>
+                  <section id="analyze-cta" className="analyze-results-cta">
+                    <div className="analyze-cta-badge" aria-hidden>
+                      <Zap className="h-3 w-3 shrink-0" aria-hidden />
+                      <span>{lang === "ar" ? "استثمر النتائج الآن" : "Take Action Now"}</span>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center">
+                    <h3 className="analyze-cta-title" style={{ color: "var(--t)" }}>
+                      {tr.ctaLaunch}
+                    </h3>
+                    <p className="ssub tc max-w-lg mx-auto mt-2 mb-0">
+                      {tr.ctaLaunchSub}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center mt-5">
                       <button
                         type="button"
-                        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
                         onClick={() => setPlatformOpen(true)}
                       >
-                        <Zap className="h-4 w-4 shrink-0" aria-hidden />
+                        <Zap className="h-4.5 w-4.5 shrink-0" aria-hidden />
                         {tr.ctaLaunch}
                       </button>
                       <button
                         type="button"
-                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
                         onClick={() => setPlatformOpen(true)}
                       >
                         <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
@@ -1537,7 +1558,7 @@ export default function Analyze() {
                       </button>
                       <button
                         type="button"
-                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[48px] px-6"
+                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
                         onClick={() => window.open(MEETING_CALENDAR_URL, "_blank", "noopener,noreferrer")}
                       >
                         <Calendar className="h-4 w-4 shrink-0" aria-hidden />
@@ -1547,10 +1568,15 @@ export default function Analyze() {
                   </section>
 
                   <div id="analyze-share" className="analyze-share-panel gc">
-                    <h3 className="text-lg font-bold mb-1.5" style={{ color: "var(--t)" }}>
-                      {tr.shareTitle}
-                    </h3>
-                    <p className="text-sm mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
+                    <div className="analyze-share-header">
+                      <div className="analyze-share-icon" aria-hidden>
+                        <Share2 className="h-4 w-4" />
+                      </div>
+                      <h3 className="text-lg font-bold" style={{ color: "var(--t)" }}>
+                        {tr.shareTitle}
+                      </h3>
+                    </div>
+                    <p className="text-sm mt-2 mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
                       {tr.shareSubtitle}
                     </p>
                     {storeId && <CopyReportButton storeId={storeId} />}
