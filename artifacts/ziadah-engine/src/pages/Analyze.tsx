@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import {
-  Zap, CheckCircle2, Circle, Loader2, ArrowRight,
+  Zap, CheckCircle2, Loader2, ArrowRight,
   TrendingUp, ShoppingCart, Package, Star, Copy, Check, ExternalLink,
+  Globe, BarChart3, Users, Target, Sparkles, ChevronDown,
+  ArrowUpRight, Store, AlertCircle, RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,17 +13,17 @@ import { Link } from "wouter";
 const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
 const INDUSTRIES = [
-  { value: "fashion",     label: "Fashion & Apparel — موضة وملابس" },
-  { value: "electronics", label: "Electronics — إلكترونيات" },
-  { value: "beauty",      label: "Beauty & Personal Care — جمال وعناية" },
-  { value: "home",        label: "Home & Garden — منزل وحديقة" },
-  { value: "food",        label: "Food & Beverage — طعام ومشروبات" },
-  { value: "sports",      label: "Sports & Outdoors — رياضة" },
-  { value: "health",      label: "Health & Wellness — صحة ولياقة" },
-  { value: "toys",        label: "Toys & Games — ألعاب" },
-  { value: "jewelry",     label: "Jewelry & Accessories — مجوهرات" },
-  { value: "automotive",  label: "Automotive — سيارات" },
-  { value: "other",       label: "Other — أخرى" },
+  { value: "fashion",     label: "Fashion & Apparel",    labelAr: "موضة وملابس",    icon: "👗" },
+  { value: "electronics", label: "Electronics",           labelAr: "إلكترونيات",      icon: "💻" },
+  { value: "beauty",      label: "Beauty & Personal Care",labelAr: "جمال وعناية",    icon: "✨" },
+  { value: "home",        label: "Home & Garden",         labelAr: "منزل وحديقة",    icon: "🏡" },
+  { value: "food",        label: "Food & Beverage",       labelAr: "طعام ومشروبات",  icon: "🍽️" },
+  { value: "sports",      label: "Sports & Outdoors",     labelAr: "رياضة",           icon: "⚽" },
+  { value: "health",      label: "Health & Wellness",     labelAr: "صحة ولياقة",     icon: "💪" },
+  { value: "toys",        label: "Toys & Games",          labelAr: "ألعاب",           icon: "🎮" },
+  { value: "jewelry",     label: "Jewelry & Accessories", labelAr: "مجوهرات",         icon: "💎" },
+  { value: "automotive",  label: "Automotive",            labelAr: "سيارات",          icon: "🚗" },
+  { value: "other",       label: "Other",                 labelAr: "أخرى",            icon: "📦" },
 ];
 
 type Step = "idle" | "syncing" | "analyzing" | "analyzed" | "error";
@@ -59,8 +61,6 @@ interface StatusResponse {
   anchorGroups?: AnchorGroup[];
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
 const isAr = (s?: string | null) => s ? /[\u0600-\u06FF]/.test(s) : false;
 
 function formatPrice(price: number | null | undefined, symbol: string): string {
@@ -70,35 +70,36 @@ function formatPrice(price: number | null | undefined, symbol: string): string {
 
 function RolePill({ role }: { role: string }) {
   if (role === "cross_sell") return (
-    <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-blue-500/15 text-blue-400 px-2 py-0.5 rounded-full">
-      <ShoppingCart className="h-3 w-3" />Cross-Sell
+    <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full border border-sky-500/20">
+      <ShoppingCart className="h-2.5 w-2.5" />Cross-Sell
     </span>
   );
   return (
-    <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-violet-500/15 text-violet-400 px-2 py-0.5 rounded-full">
-      <TrendingUp className="h-3 w-3" />Upsell
+    <span className="inline-flex items-center gap-1 text-[10px] font-bold bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded-full border border-violet-500/20">
+      <TrendingUp className="h-2.5 w-2.5" />Upsell
     </span>
   );
 }
 
 function RecCard({ rec, currencySymbol }: { rec: RecProduct; currencySymbol: string }) {
   const inner = (
-    <div className="group bg-card border border-border rounded-xl overflow-hidden flex flex-col h-full hover:shadow-md hover:border-primary/30 transition-all duration-200 cursor-pointer">
-      <div className="relative h-28 overflow-hidden bg-muted flex-shrink-0">
+    <div className="group relative bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden flex flex-col h-full hover:bg-white/[0.06] hover:border-white/20 transition-all duration-300 cursor-pointer">
+      <div className="relative overflow-hidden flex-shrink-0" style={{ height: "110px" }}>
         {rec.imageUrl ? (
           <img src={rec.imageUrl} alt={rec.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-90" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <Package className="h-6 w-6 text-muted-foreground/25" />
+          <div className="w-full h-full bg-white/[0.03] flex items-center justify-center">
+            <Package className="h-8 w-8 text-white/10" />
           </div>
         )}
-        <div className="absolute top-1.5 left-1.5">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute bottom-2 left-2">
           <RolePill role={rec.role} />
         </div>
       </div>
-      <div className="p-2.5 flex flex-col gap-1 flex-1">
-        <p className="text-xs font-semibold leading-snug line-clamp-2 text-foreground"
+      <div className="p-3 flex flex-col gap-1.5 flex-1">
+        <p className="text-xs font-semibold leading-snug line-clamp-2 text-white/90"
           dir={isAr(rec.title) ? "rtl" : "ltr"}>
           {rec.title}
         </p>
@@ -106,12 +107,19 @@ function RecCard({ rec, currencySymbol }: { rec: RecProduct; currencySymbol: str
           <p className="text-primary font-bold text-sm">{formatPrice(rec.price, currencySymbol)}</p>
         )}
         {rec.reason && (
-          <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2 mt-auto pt-1"
+          <p className="text-[10px] text-white/40 leading-snug line-clamp-2 mt-auto"
             dir={isAr(rec.reason) ? "rtl" : "ltr"}>
             {rec.reason}
           </p>
         )}
       </div>
+      {rec.productUrl && (
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="h-6 w-6 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+            <ExternalLink className="h-3 w-3 text-white" />
+          </div>
+        </div>
+      )}
     </div>
   );
   return rec.productUrl
@@ -125,36 +133,58 @@ function AnchorGroupCard({ group, currencySymbol, index }: {
   index: number;
 }) {
   const anchor = group.anchor;
+  const crossSells = group.recommendations.filter(r => r.role === "cross_sell").length;
+  const upsells = group.recommendations.filter(r => r.role === "upsell").length;
+
   const anchorCard = (
-    <div className="group bg-gradient-to-br from-amber-500/5 to-amber-500/10 border-2 border-amber-400/40 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-200 cursor-pointer h-full flex flex-col">
-      <div className="relative overflow-hidden flex-shrink-0" style={{ height: "160px" }}>
+    <div className="group relative bg-gradient-to-br from-amber-500/10 via-amber-400/5 to-transparent border border-amber-400/25 rounded-2xl overflow-hidden hover:border-amber-400/50 transition-all duration-300 cursor-pointer h-full flex flex-col">
+      <div className="relative overflow-hidden flex-shrink-0" style={{ height: "180px" }}>
         {anchor.imageUrl ? (
           <img src={anchor.imageUrl} alt={anchor.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
         ) : (
-          <div className="w-full h-full bg-muted/50 flex items-center justify-center">
-            <Package className="h-10 w-10 text-muted-foreground/20" />
+          <div className="w-full h-full bg-amber-500/5 flex items-center justify-center">
+            <Package className="h-12 w-12 text-amber-400/20" />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        <div className="absolute top-2 left-2">
-          <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full shadow">
-            <Star className="h-2.5 w-2.5" />Anchor {index + 1}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent" />
+        <div className="absolute top-3 left-3">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold bg-amber-500 text-white px-2.5 py-1 rounded-full shadow-lg">
+            <Star className="h-3 w-3 fill-white" />Anchor #{index + 1}
           </span>
         </div>
+        {anchor.productUrl && (
+          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="h-7 w-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+              <ExternalLink className="h-3.5 w-3.5 text-white" />
+            </div>
+          </div>
+        )}
       </div>
-      <div className="p-3 flex flex-col gap-1 flex-1">
-        <p className="font-bold text-sm text-foreground leading-snug line-clamp-2"
+      <div className="p-4 flex flex-col gap-2 flex-1">
+        <p className="font-bold text-sm text-white leading-snug line-clamp-2"
           dir={isAr(anchor.title) ? "rtl" : "ltr"}>
           {anchor.title}
         </p>
         {anchor.price != null && (
-          <p className="text-amber-500 font-extrabold text-base">
+          <p className="text-amber-400 font-extrabold text-lg leading-none">
             {formatPrice(anchor.price, currencySymbol)}
           </p>
         )}
+        <div className="flex gap-2 mt-1">
+          {crossSells > 0 && (
+            <span className="text-[10px] font-semibold text-sky-300/70 bg-sky-500/10 px-2 py-0.5 rounded-full">
+              {crossSells} cross-sells
+            </span>
+          )}
+          {upsells > 0 && (
+            <span className="text-[10px] font-semibold text-violet-300/70 bg-violet-500/10 px-2 py-0.5 rounded-full">
+              {upsells} upsells
+            </span>
+          )}
+        </div>
         {anchor.reason && (
-          <p className="text-[10px] text-muted-foreground leading-snug line-clamp-3 mt-1"
+          <p className="text-[10px] text-white/40 leading-snug line-clamp-2 mt-auto pt-1"
             dir={isAr(anchor.reason) ? "rtl" : "ltr"}>
             {anchor.reason}
           </p>
@@ -164,23 +194,21 @@ function AnchorGroupCard({ group, currencySymbol, index }: {
   );
 
   return (
-    <div className="bg-card border border-border rounded-2xl p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_2fr] gap-3 items-start">
-        {/* Anchor product */}
-        <div>
+    <div className="bg-white/[0.02] border border-white/8 rounded-3xl p-5 space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-[220px_auto_1fr] gap-4 items-start">
+        <div className="h-full">
           {anchor.productUrl
             ? <a href={anchor.productUrl} target="_blank" rel="noopener noreferrer" className="block h-full">{anchorCard}</a>
             : anchorCard}
         </div>
 
-        {/* Arrow connector */}
-        <div className="hidden sm:flex flex-col items-center justify-center pt-16 gap-1">
-          <ArrowRight className="h-5 w-5 text-primary/50" />
-          <span className="text-[9px] text-muted-foreground font-semibold uppercase tracking-wider">يُقترح</span>
+        <div className="hidden sm:flex flex-col items-center justify-center pt-20 gap-2 px-1">
+          <div className="h-px w-8 bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+          <ArrowRight className="h-5 w-5 text-primary/40" />
+          <span className="text-[9px] text-white/25 font-semibold uppercase tracking-widest rotate-0">يُقترح</span>
         </div>
 
-        {/* 4 recommendation cards — 2×2 grid */}
-        <div className="grid grid-cols-2 gap-2 content-start">
+        <div className="grid grid-cols-2 gap-2.5 content-start">
           {group.recommendations.slice(0, 4).map((rec, i) => (
             <RecCard key={i} rec={rec} currencySymbol={currencySymbol} />
           ))}
@@ -190,58 +218,38 @@ function AnchorGroupCard({ group, currencySymbol, index }: {
   );
 }
 
-function ProgressStep({ label, sublabel, state }: {
+function StatCard({ value, label, color, icon }: {
+  value: string | number;
   label: string;
-  sublabel?: string;
-  state: "waiting" | "active" | "done";
+  color: string;
+  icon: React.ReactNode;
 }) {
   return (
-    <div className={`flex items-start gap-4 transition-all duration-500 ${state === "waiting" ? "opacity-40" : "opacity-100"}`}>
-      <div className={`mt-0.5 flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center transition-all ${
-        state === "done" ? "bg-emerald-500/15 text-emerald-500"
-          : state === "active" ? "bg-primary/15 text-primary"
-            : "bg-muted text-muted-foreground"
-      }`}>
-        {state === "done" ? <CheckCircle2 className="h-4 w-4" />
-          : state === "active" ? <Loader2 className="h-4 w-4 animate-spin" />
-            : <Circle className="h-4 w-4" />}
+    <div className="relative bg-white/[0.03] border border-white/8 rounded-2xl p-5 overflow-hidden group hover:bg-white/[0.05] transition-all duration-300">
+      <div className="flex items-start justify-between mb-3">
+        <div className={`h-9 w-9 rounded-xl flex items-center justify-center ${color}`}>
+          {icon}
+        </div>
       </div>
-      <div className="flex-1 min-w-0">
-        <p className={`text-sm font-semibold leading-tight ${state === "active" ? "text-foreground" : "text-muted-foreground"}`}>
-          {label}
-        </p>
-        {sublabel && <p className="text-xs text-muted-foreground mt-0.5">{sublabel}</p>}
-      </div>
+      <p className="text-3xl font-black text-white tracking-tight">{value}</p>
+      <p className="text-xs text-white/40 mt-1 font-medium">{label}</p>
     </div>
   );
 }
 
-function CopyReportButton({ storeId }: { storeId: number }) {
-  const [copied, setCopied] = useState(false);
-  const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
-  const url = `${base}/report/${storeId}`;
-  function copy() {
-    navigator.clipboard.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
-  }
+function PlatformBadge({ platform }: { platform: string }) {
+  const badges: Record<string, { color: string; label: string }> = {
+    shopify: { color: "bg-green-500/20 text-green-300 border-green-500/20", label: "Shopify" },
+    zid: { color: "bg-blue-500/20 text-blue-300 border-blue-500/20", label: "Zid · زد" },
+    salla: { color: "bg-orange-500/20 text-orange-300 border-orange-500/20", label: "Salla · سلة" },
+  };
+  const b = badges[platform.toLowerCase()] ?? { color: "bg-white/10 text-white/60 border-white/10", label: platform };
   return (
-    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
-      <Link href={`/report/${storeId}`}>
-        <Button className="font-semibold gap-2">
-          <ExternalLink className="h-4 w-4" />View Full Report
-        </Button>
-      </Link>
-      <Button variant="outline" onClick={copy} className="gap-2">
-        {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
-        {copied ? "Copied!" : "Copy Report Link"}
-      </Button>
-      <Button variant="outline" onClick={() => window.location.reload()}>
-        Analyze Another Store
-      </Button>
-    </div>
+    <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full border ${b.color}`}>
+      <Store className="h-3 w-3" />{b.label}
+    </span>
   );
 }
-
-// ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function Analyze() {
   const [url, setUrl] = useState("");
@@ -254,7 +262,9 @@ export default function Analyze() {
   const [storeId, setStoreId] = useState<number | null>(null);
   const [step, setStep] = useState<Step>("idle");
   const [status, setStatus] = useState<StatusResponse | null>(null);
+  const [selectOpen, setSelectOpen] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const previewId = new URLSearchParams(window.location.search).get("preview");
@@ -268,6 +278,16 @@ export default function Analyze() {
     }
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
   }, []);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+        setSelectOpen(false);
+      }
+    }
+    if (selectOpen) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [selectOpen]);
 
   async function pollStatus(id: number) {
     try {
@@ -291,7 +311,7 @@ export default function Analyze() {
     e.preventDefault();
     setFormError(null);
     if (!url.trim()) { setFormError("Store URL is required"); return; }
-    if (!industry) { setFormError("Industry is required"); return; }
+    if (!industry) { setFormError("Please select your industry"); return; }
 
     setSubmitting(true);
     try {
@@ -319,156 +339,306 @@ export default function Analyze() {
     }
   }
 
-  const s1 = step === "syncing" ? "active" : ["analyzing", "analyzed"].includes(step) ? "done" : "waiting";
-  const s2 = step === "analyzing" ? "active" : step === "analyzed" ? "done" : "waiting";
-  const s3 = step === "analyzed" ? "done" : "waiting";
+  const selectedIndustry = INDUSTRIES.find(i => i.value === industry);
+  const isLoading = step === "syncing" || step === "analyzing";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#080b12] text-white">
+      {/* Ambient background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-violet-600/8 blur-[100px]" />
+        <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] rounded-full bg-indigo-600/6 blur-[100px]" />
+        <div className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full bg-sky-600/5 blur-[100px]" />
+      </div>
+
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center gap-3">
-          <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center">
-            <Zap className="h-3.5 w-3.5 text-primary-foreground" />
+      <header className="relative border-b border-white/[0.06] backdrop-blur-sm sticky top-0 z-10 bg-black/20">
+        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
+              <Zap className="h-3.5 w-3.5 text-white" />
+            </div>
+            <span className="font-bold text-sm text-white">Ziadah</span>
+            <span className="hidden sm:block text-xs text-white/30 font-medium">— Product Intelligence Engine</span>
           </div>
-          <span className="font-bold text-sm text-foreground">Ziadah</span>
-          <span className="text-muted-foreground text-sm hidden sm:block">— Product Intelligence Engine</span>
+          {step === "analyzed" && (
+            <button
+              onClick={() => { setStep("idle"); setStatus(null); setStoreId(null); setUrl(""); setIndustry(""); }}
+              className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
+            >
+              <RefreshCw className="h-3.5 w-3.5" />
+              New Analysis
+            </button>
+          )}
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
+      <main className="relative max-w-6xl mx-auto px-6">
 
         {/* ── FORM ── */}
         {step === "idle" && (
-          <>
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
-                <Zap className="h-3 w-3" />
+          <div className="pt-16 pb-20">
+            {/* Hero */}
+            <div className="text-center mb-14 max-w-3xl mx-auto">
+              <div className="inline-flex items-center gap-2 bg-primary/15 text-primary text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-6 border border-primary/20 backdrop-blur-sm">
+                <Sparkles className="h-3 w-3" />
                 AI-Powered · Works with Shopify, Zid & Salla
               </div>
-              <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight mb-4 leading-tight">
-                Unlock Your Store's<br />
-                <span className="text-primary">Cross-Sell & Upsell</span> Potential
+              <h1 className="text-5xl sm:text-6xl font-black tracking-tight mb-5 leading-[1.05]">
+                <span className="text-white">Unlock Your Store's</span>
+                <br />
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                  Revenue Potential
+                </span>
               </h1>
-              <p className="text-muted-foreground text-lg max-w-xl mx-auto leading-relaxed">
-                Enter your store URL and let our AI read your products, identify your hero products, and map the best recommendations — in seconds.
+              <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
+                Enter your store URL — our AI reads your catalog, identifies hero products, and maps the best cross-sell &amp; upsell opportunities.
               </p>
+
+              {/* Social proof */}
+              <div className="flex items-center justify-center gap-6 mt-8">
+                {[
+                  { icon: <BarChart3 className="h-3.5 w-3.5" />, label: "AI Analysis" },
+                  { icon: <Target className="h-3.5 w-3.5" />, label: "Smart Recommendations" },
+                  { icon: <Users className="h-3.5 w-3.5" />, label: "No Login Required" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-1.5 text-xs text-white/35 font-medium">
+                    <span className="text-white/25">{item.icon}</span>
+                    {item.label}
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="max-w-xl mx-auto">
-              <div className="bg-card border border-border rounded-2xl p-8 shadow-sm">
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block">
-                      Store URL <span className="text-destructive">*</span>
-                    </Label>
-                    <Input id="url" type="url" placeholder="https://yourstore.com"
-                      value={url} onChange={(e) => setUrl(e.target.value)} className="h-11" required />
-                  </div>
+            {/* Form card */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                {/* Glow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent rounded-3xl blur-xl" />
+                <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 backdrop-blur-sm shadow-2xl shadow-black/50">
+                  <form onSubmit={handleSubmit} className="space-y-6">
 
-                  <div>
-                    <Label htmlFor="industry" className="text-sm font-semibold mb-1.5 block">
-                      Industry <span className="text-destructive">*</span>
-                    </Label>
-                    <select id="industry" value={industry} onChange={(e) => setIndustry(e.target.value)}
-                      className="w-full h-11 px-3 rounded-md border border-input bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2" required>
-                      <option value="">Select your industry…</option>
-                      {INDUSTRIES.map((ind) => (
-                        <option key={ind.value} value={ind.value}>{ind.label}</option>
-                      ))}
-                    </select>
-                  </div>
+                    {/* URL Field */}
+                    <div>
+                      <Label htmlFor="url" className="text-sm font-semibold mb-2 block text-white/80">
+                        Store URL <span className="text-red-400">*</span>
+                      </Label>
+                      <div className="relative">
+                        <Globe className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25 pointer-events-none" />
+                        <Input
+                          id="url"
+                          type="url"
+                          placeholder="https://yourstore.com"
+                          value={url}
+                          onChange={(e) => setUrl(e.target.value)}
+                          className="h-12 pl-10 bg-white/[0.04] border-white/10 text-white placeholder:text-white/25 focus:border-primary/50 focus:bg-white/[0.06] rounded-xl text-sm transition-all"
+                          required
+                        />
+                      </div>
+                      <p className="text-[11px] text-white/25 mt-1.5 ml-1">Works with custom domains on Shopify, Zid, or Salla</p>
+                    </div>
 
-                  <div className="border-t border-dashed border-border pt-5">
-                    <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
-                      Optional — helps personalize recommendations
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div>
-                        <Label htmlFor="monthlyUsers" className="text-xs font-medium mb-1.5 block text-muted-foreground">Monthly Visitors</Label>
-                        <Input id="monthlyUsers" type="number" min="0" placeholder="e.g. 5000"
-                          value={monthlyUsers} onChange={(e) => setMonthlyUsers(e.target.value)} className="h-10 text-sm" />
+                    {/* Industry custom select */}
+                    <div>
+                      <Label htmlFor="industry" className="text-sm font-semibold mb-2 block text-white/80">
+                        Industry <span className="text-red-400">*</span>
+                      </Label>
+                      <div ref={selectRef} className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setSelectOpen(!selectOpen)}
+                          className={`w-full h-12 px-4 rounded-xl border text-sm text-left flex items-center justify-between transition-all ${
+                            selectOpen
+                              ? "border-primary/50 bg-white/[0.06]"
+                              : "border-white/10 bg-white/[0.04] hover:bg-white/[0.06] hover:border-white/20"
+                          }`}
+                        >
+                          {selectedIndustry ? (
+                            <span className="flex items-center gap-2 text-white">
+                              <span className="text-base">{selectedIndustry.icon}</span>
+                              <span className="font-medium">{selectedIndustry.label}</span>
+                              <span className="text-white/35 text-xs">· {selectedIndustry.labelAr}</span>
+                            </span>
+                          ) : (
+                            <span className="text-white/25">Select your industry…</span>
+                          )}
+                          <ChevronDown className={`h-4 w-4 text-white/30 transition-transform ${selectOpen ? "rotate-180" : ""}`} />
+                        </button>
+
+                        {selectOpen && (
+                          <div className="absolute z-20 top-full mt-1.5 w-full bg-[#111827] border border-white/10 rounded-2xl shadow-2xl shadow-black/60 overflow-hidden">
+                            <div className="max-h-64 overflow-y-auto py-1.5">
+                              {INDUSTRIES.map((ind) => (
+                                <button
+                                  key={ind.value}
+                                  type="button"
+                                  onClick={() => { setIndustry(ind.value); setSelectOpen(false); }}
+                                  className={`w-full px-4 py-2.5 text-left flex items-center gap-3 hover:bg-white/[0.05] transition-colors text-sm ${
+                                    industry === ind.value ? "bg-primary/10 text-primary" : "text-white/70"
+                                  }`}
+                                >
+                                  <span className="text-base w-6 text-center">{ind.icon}</span>
+                                  <span className="font-medium">{ind.label}</span>
+                                  <span className="text-white/25 text-xs ml-auto">{ind.labelAr}</span>
+                                  {industry === ind.value && <CheckCircle2 className="h-3.5 w-3.5 text-primary flex-shrink-0" />}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Optional fields */}
+                    <div className="border-t border-white/[0.06] pt-6">
+                      <p className="text-[11px] font-bold text-white/25 uppercase tracking-widest mb-4 flex items-center gap-2">
+                        <span className="h-px flex-1 bg-white/[0.06]" />
+                        Optional — improves recommendation quality
+                        <span className="h-px flex-1 bg-white/[0.06]" />
+                      </p>
+                      <div className="grid grid-cols-3 gap-3">
+                        {[
+                          { id: "monthlyUsers", label: "Monthly Visitors", placeholder: "e.g. 5,000", value: monthlyUsers, set: setMonthlyUsers, icon: <Users className="h-3.5 w-3.5" /> },
+                          { id: "conversionRate", label: "Conv. Rate (%)", placeholder: "e.g. 2.5", value: conversionRate, set: setConversionRate, icon: <Target className="h-3.5 w-3.5" /> },
+                          { id: "avgOrderValue", label: "Avg Order (SAR)", placeholder: "e.g. 250", value: avgOrderValue, set: setAvgOrderValue, icon: <BarChart3 className="h-3.5 w-3.5" /> },
+                        ].map((field) => (
+                          <div key={field.id}>
+                            <Label htmlFor={field.id} className="text-[11px] font-medium mb-1.5 flex items-center gap-1 text-white/35">
+                              {field.icon}{field.label}
+                            </Label>
+                            <Input
+                              id={field.id}
+                              type="number"
+                              min="0"
+                              placeholder={field.placeholder}
+                              value={field.value}
+                              onChange={(e) => field.set(e.target.value)}
+                              className="h-10 bg-white/[0.03] border-white/[0.07] text-white placeholder:text-white/20 focus:border-primary/40 rounded-xl text-xs"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {formError && (
+                      <div className="flex items-center gap-2.5 bg-red-500/10 border border-red-500/20 text-red-300 text-sm px-4 py-3 rounded-xl">
+                        <AlertCircle className="h-4 w-4 flex-shrink-0" />{formError}
+                      </div>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full h-12 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200 shadow-lg shadow-primary/25 text-white"
+                    >
+                      {submitting ? (
+                        <><Loader2 className="h-4 w-4 animate-spin" />Submitting…</>
+                      ) : (
+                        <>Analyze My Store<ArrowRight className="h-4 w-4" /></>
+                      )}
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <p className="text-center text-[11px] text-white/20 mt-5">
+                No account needed · Results in ~30 seconds · Data never stored permanently
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── LOADING ── */}
+        {isLoading && (
+          <div className="min-h-[calc(100vh-56px)] flex items-center justify-center py-20">
+            <div className="w-full max-w-lg text-center">
+              {/* Animated icon */}
+              <div className="relative mx-auto mb-10 w-20 h-20">
+                <div className="absolute inset-0 rounded-2xl bg-primary/20 animate-ping" style={{ animationDuration: "2s" }} />
+                <div className="relative h-20 w-20 rounded-2xl bg-primary/15 border border-primary/25 flex items-center justify-center backdrop-blur-sm">
+                  <Loader2 className="h-9 w-9 text-primary animate-spin" />
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-black text-white mb-2">
+                {step === "syncing" ? "Reading your store…" : "AI is analyzing…"}
+              </h2>
+              <p className="text-white/40 text-sm mb-3">
+                {status?.platform ? (
+                  <><PlatformBadge platform={status.platform} /></>
+                ) : "Detecting platform…"}
+              </p>
+              {status?.productCount ? (
+                <p className="text-white/30 text-sm">
+                  {status.productCount} products found so far
+                </p>
+              ) : null}
+
+              {/* Progress steps */}
+              <div className="mt-10 bg-white/[0.03] border border-white/8 rounded-2xl p-6 text-left space-y-0">
+                {[
+                  {
+                    label: "Reading products",
+                    sublabel: status?.productCount ? `${status.productCount} products found` : "Connecting to your store…",
+                    state: step === "syncing" ? "active" : "done",
+                  },
+                  {
+                    label: "AI Analysis",
+                    sublabel: "Identifying anchors, cross-sells & upsells",
+                    state: step === "analyzing" ? "active" : step === "analyzed" ? "done" : "waiting",
+                  },
+                  {
+                    label: "Results ready",
+                    sublabel: "Your personalized recommendations",
+                    state: "waiting" as const,
+                  },
+                ].map((s, i) => (
+                  <div key={i}>
+                    {i > 0 && (
+                      <div className="ml-5 w-px h-6 bg-white/[0.06]" />
+                    )}
+                    <div className={`flex items-center gap-4 transition-all duration-500 ${s.state === "waiting" ? "opacity-30" : "opacity-100"}`}>
+                      <div className={`flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-all ${
+                        s.state === "done" ? "bg-emerald-500/15 border border-emerald-500/25"
+                          : s.state === "active" ? "bg-primary/15 border border-primary/25"
+                            : "bg-white/[0.03] border border-white/8"
+                      }`}>
+                        {s.state === "done" ? <CheckCircle2 className="h-4.5 w-4.5 text-emerald-400" />
+                          : s.state === "active" ? <Loader2 className="h-4.5 w-4.5 text-primary animate-spin" />
+                            : <div className="h-2 w-2 rounded-full bg-white/20" />}
                       </div>
                       <div>
-                        <Label htmlFor="conversionRate" className="text-xs font-medium mb-1.5 block text-muted-foreground">Conv. Rate (%)</Label>
-                        <Input id="conversionRate" type="number" min="0" max="100" step="0.1" placeholder="e.g. 2.5"
-                          value={conversionRate} onChange={(e) => setConversionRate(e.target.value)} className="h-10 text-sm" />
-                      </div>
-                      <div>
-                        <Label htmlFor="avgOrderValue" className="text-xs font-medium mb-1.5 block text-muted-foreground">Avg Order (SAR)</Label>
-                        <Input id="avgOrderValue" type="number" min="0" placeholder="e.g. 250"
-                          value={avgOrderValue} onChange={(e) => setAvgOrderValue(e.target.value)} className="h-10 text-sm" />
+                        <p className={`text-sm font-semibold ${s.state === "active" ? "text-white" : "text-white/60"}`}>{s.label}</p>
+                        <p className="text-xs text-white/30 mt-0.5">{s.sublabel}</p>
                       </div>
                     </div>
                   </div>
-
-                  {formError && (
-                    <div className="bg-destructive/10 text-destructive text-sm px-4 py-3 rounded-lg">{formError}</div>
-                  )}
-
-                  <Button type="submit" className="w-full h-11 font-semibold text-sm" disabled={submitting}>
-                    {submitting ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Submitting…</>
-                      : <>Analyze My Store <ArrowRight className="h-4 w-4 ml-2" /></>}
-                  </Button>
-                </form>
+                ))}
               </div>
-              <p className="text-center text-xs text-muted-foreground mt-5">
-                Works with any custom domain on Shopify, Zid, or Salla · No login required · Results in ~30 seconds
-              </p>
-            </div>
-          </>
-        )}
 
-        {/* ── PROGRESS ── */}
-        {(step === "syncing" || step === "analyzing") && (
-          <div className="max-w-md mx-auto">
-            <div className="text-center mb-10">
-              <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Loader2 className="h-7 w-7 text-primary animate-spin" />
-              </div>
-              <h2 className="text-2xl font-bold text-foreground">Analyzing your store…</h2>
-              <p className="text-muted-foreground text-sm mt-1.5">
-                {status?.platform
-                  ? `Detected: ${status.platform.charAt(0).toUpperCase() + status.platform.slice(1)} platform`
-                  : "Detecting platform…"}
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-7 space-y-6">
-              <ProgressStep
-                label="Reading products"
-                sublabel={status?.productCount && status.productCount > 0
-                  ? `${status.productCount} products found`
-                  : "Connecting to your store…"}
-                state={s1}
-              />
-              <div className="border-l-2 border-dashed border-border ml-4 h-4" />
-              <ProgressStep
-                label="AI Analysis"
-                sublabel="Identifying anchor products, cross-sells & upsells"
-                state={s2}
-              />
-              <div className="border-l-2 border-dashed border-border ml-4 h-4" />
-              <ProgressStep
-                label="Results ready"
-                sublabel="Your recommendations are prepared"
-                state={s3}
-              />
+              <p className="text-xs text-white/20 mt-6">This usually takes 20–45 seconds</p>
             </div>
           </div>
         )}
 
         {/* ── ERROR ── */}
         {step === "error" && (
-          <div className="max-w-md mx-auto text-center">
-            <div className="bg-destructive/10 border border-destructive/20 rounded-2xl p-8 mb-6">
-              <p className="text-lg font-semibold text-destructive mb-2">Analysis Failed</p>
-              <p className="text-sm text-muted-foreground">
-                We couldn't read products from your store. The platform may not be supported, or the URL may be incorrect.
+          <div className="min-h-[calc(100vh-56px)] flex items-center justify-center py-20">
+            <div className="max-w-md w-full text-center">
+              <div className="h-16 w-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
+                <AlertCircle className="h-7 w-7 text-red-400" />
+              </div>
+              <h2 className="text-xl font-bold text-white mb-2">Analysis Failed</h2>
+              <p className="text-white/40 text-sm mb-8 max-w-sm mx-auto leading-relaxed">
+                We couldn't read products from your store. The platform may not be supported, or the URL may be incorrect. Try again with a direct store URL.
               </p>
+              <button
+                onClick={() => { setStep("idle"); setStatus(null); setStoreId(null); }}
+                className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.09] transition-all"
+              >
+                <RefreshCw className="h-4 w-4" />Try Again
+              </button>
             </div>
-            <Button variant="outline" onClick={() => { setStep("idle"); setStatus(null); setStoreId(null); }}>
-              Try Again
-            </Button>
           </div>
         )}
 
@@ -480,59 +650,77 @@ export default function Analyze() {
           const upsells = groups.reduce((n, g) => n + g.recommendations.filter((r) => r.role === "upsell").length, 0);
 
           return (
-            <div className="space-y-8">
-              {/* Header */}
+            <div className="py-12 space-y-10">
+
+              {/* Result header */}
               <div className="text-center">
-                <div className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-600 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+                <div className="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 text-xs font-bold px-4 py-1.5 rounded-full mb-5 border border-emerald-500/20">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   Analysis Complete
                 </div>
-                <h2 className="text-3xl font-extrabold text-foreground mb-2">Your Recommendations Are Ready</h2>
-                <p className="text-muted-foreground text-sm max-w-lg mx-auto">
-                  Based on {status.productCount} products from your{status.platform ? ` ${status.platform}` : ""} store
-                </p>
+                <h2 className="text-4xl font-black text-white mb-3 tracking-tight">Your Recommendations</h2>
+                <div className="flex items-center justify-center gap-3 flex-wrap">
+                  <span className="text-white/40 text-sm">
+                    Based on <span className="text-white/70 font-semibold">{status.productCount} products</span>
+                  </span>
+                  {status.platform && (
+                    <>
+                      <span className="text-white/20">·</span>
+                      <PlatformBadge platform={status.platform} />
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="bg-card border border-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-extrabold text-foreground">{status.productCount}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Products</p>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-extrabold text-amber-500">{groups.length}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Anchor Products</p>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-extrabold text-blue-400">{crossSells}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Cross-Sell Opps</p>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-4 text-center">
-                  <p className="text-2xl font-extrabold text-violet-400">{upsells}</p>
-                  <p className="text-[11px] text-muted-foreground mt-0.5 font-medium">Upsell Opps</p>
-                </div>
+                <StatCard
+                  value={status.productCount}
+                  label="Products Scanned"
+                  color="bg-white/[0.05]"
+                  icon={<Package className="h-4 w-4 text-white/40" />}
+                />
+                <StatCard
+                  value={groups.length}
+                  label="Anchor Products"
+                  color="bg-amber-500/10"
+                  icon={<Star className="h-4 w-4 text-amber-400 fill-amber-400/50" />}
+                />
+                <StatCard
+                  value={crossSells}
+                  label="Cross-Sell Opportunities"
+                  color="bg-sky-500/10"
+                  icon={<ShoppingCart className="h-4 w-4 text-sky-400" />}
+                />
+                <StatCard
+                  value={upsells}
+                  label="Upsell Opportunities"
+                  color="bg-violet-500/10"
+                  icon={<TrendingUp className="h-4 w-4 text-violet-400" />}
+                />
               </div>
 
               {/* AI Summary */}
               {status.summary && (
-                <div className="bg-primary/5 border border-primary/15 rounded-xl px-5 py-4">
-                  <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1.5">AI Summary</p>
-                  <p className="text-sm text-foreground leading-relaxed" dir={isAr(status.summary) ? "rtl" : "ltr"}>
+                <div className="relative bg-gradient-to-br from-primary/8 via-primary/5 to-transparent border border-primary/15 rounded-2xl px-6 py-5 overflow-hidden">
+                  <div className="absolute top-4 right-4">
+                    <Sparkles className="h-4 w-4 text-primary/30" />
+                  </div>
+                  <p className="text-[11px] font-bold text-primary/70 uppercase tracking-widest mb-2">AI Summary</p>
+                  <p className="text-sm text-white/70 leading-relaxed" dir={isAr(status.summary) ? "rtl" : "ltr"}>
                     {status.summary}
                   </p>
                 </div>
               )}
 
-              {/* 4 Anchor Groups */}
+              {/* Anchor groups */}
               {groups.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-foreground">Anchor Products & Recommendations</h3>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        {groups.length} anchor products · {totalRecs} total recommendations
-                      </p>
-                    </div>
+                <div className="space-y-5">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Anchor Products &amp; Recommendations</h3>
+                    <p className="text-sm text-white/35 mt-1">
+                      {groups.length} anchors · {totalRecs} recommendations total
+                    </p>
                   </div>
                   <div className="space-y-4">
                     {groups.map((group, i) => (
@@ -543,17 +731,52 @@ export default function Analyze() {
               )}
 
               {/* Share CTA */}
-              <div className="bg-gradient-to-br from-primary/10 to-violet-500/10 border border-primary/20 rounded-2xl p-7 text-center">
-                <h3 className="text-lg font-bold text-foreground mb-1.5">Share this report</h3>
-                <p className="text-muted-foreground text-sm mb-5 max-w-sm mx-auto">
-                  This report has a unique URL you can share with your team or clients.
-                </p>
-                {storeId && <CopyReportButton storeId={storeId} />}
+              <div className="relative bg-gradient-to-br from-primary/10 via-violet-500/8 to-indigo-500/5 border border-primary/15 rounded-3xl p-8 text-center overflow-hidden">
+                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/5 blur-2xl" />
+                <div className="relative">
+                  <ArrowUpRight className="h-6 w-6 text-primary/50 mx-auto mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-1.5">Share this report</h3>
+                  <p className="text-white/40 text-sm mb-6 max-w-xs mx-auto">
+                    This analysis has a unique link — share it with your team or clients.
+                  </p>
+                  {storeId && <CopyReportButton storeId={storeId} />}
+                </div>
               </div>
             </div>
           );
         })()}
       </main>
+    </div>
+  );
+}
+
+function CopyReportButton({ storeId }: { storeId: number }) {
+  const [copied, setCopied] = useState(false);
+  const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+  const url = `${base}/report/${storeId}`;
+  function copy() {
+    navigator.clipboard.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+  }
+  return (
+    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
+      <Link href={`/report/${storeId}`}>
+        <button className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-primary hover:bg-primary/90 text-sm font-semibold text-white transition-all shadow-lg shadow-primary/25">
+          <ExternalLink className="h-4 w-4" />View Full Report
+        </button>
+      </Link>
+      <button
+        onClick={copy}
+        className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white hover:bg-white/[0.09] transition-all"
+      >
+        {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+        {copied ? "Copied!" : "Copy Report Link"}
+      </button>
+      <button
+        onClick={() => window.location.reload()}
+        className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-white/[0.06] border border-white/10 text-sm font-semibold text-white/60 hover:text-white hover:bg-white/[0.09] transition-all"
+      >
+        <RefreshCw className="h-4 w-4" />New Analysis
+      </button>
     </div>
   );
 }
