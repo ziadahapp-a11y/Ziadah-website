@@ -76,31 +76,133 @@ async function updateStoreError(storeId: number, message: string): Promise<void>
   }
 }
 
+/**
+ * Validate and coerce analysis product IDs against the actual DB rows for this store.
+ * Filters out any IDs that don't exist in the database so the insert/update never references
+ * a non-existent product row (avoids silent FK-less orphan issues and aids debugging).
+ */
+function reconcileAnalysisIds(
+  analysis: Awaited<ReturnType<typeof analyzeProducts>>,
+  storeProductIds: Set<number>,
+): Awaited<ReturnType<typeof analyzeProducts>> {
+  const mainProductId = storeProductIds.has(analysis.mainProductId)
+    ? analysis.mainProductId
+    : ([...storeProductIds][0] ?? analysis.mainProductId);
+
+  const crossSellIds = analysis.crossSellIds.filter((id) => storeProductIds.has(id));
+  const upsellIds = analysis.upsellIds.filter((id) => storeProductIds.has(id));
+
+  const crossSellReasons: Record<number, string> = {};
+  for (const id of crossSellIds) {
+    if (analysis.crossSellReasons[id]) crossSellReasons[id] = analysis.crossSellReasons[id]!;
+  }
+  const upsellReasons: Record<number, string> = {};
+  for (const id of upsellIds) {
+    if (analysis.upsellReasons[id]) upsellReasons[id] = analysis.upsellReasons[id]!;
+  }
+
+  const anchors = analysis.anchors
+    .filter((a) => storeProductIds.has(a.productId))
+    .map((a) => ({
+      ...a,
+      recommendations: a.recommendations.filter((r) => storeProductIds.has(r.productId)),
+    }));
+
+  return {
+    ...analysis,
+    mainProductId,
+    crossSellIds,
+    crossSellReasons,
+    upsellIds,
+    upsellReasons,
+    anchors,
+  };
+}
+
 async function persistAnalysisAndFinish(storeId: number, analysis: Awaited<ReturnType<typeof analyzeProducts>>): Promise<void> {
-  await db.transaction(async (tx) => {
-    await tx.insert(analysesTable).values({
+  logger.info(
+    {
       storeId,
       mainProductId: analysis.mainProductId,
-      mainProductReason: analysis.mainProductReason,
-      crossSellIds: analysis.crossSellIds,
-      crossSellReasons: jsonReasons(analysis.crossSellReasons),
-      upsellIds: analysis.upsellIds,
-      upsellReasons: jsonReasons(analysis.upsellReasons),
-      summary: analysis.summary,
-      anchorsJson: cloneForJson(analysis.anchors),
-    });
+      anchorCount: analysis.anchors.length,
+      crossSellCount: analysis.crossSellIds.length,
+      upsellCount: analysis.upsellIds.length,
+      summaryLength: analysis.summary?.length ?? 0,
+    },
+    "persistAnalysisAndFinish: starting DB save",
+  );
 
-    await tx.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
-    await tx.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, analysis.mainProductId));
-    for (const id of analysis.crossSellIds) {
-      await tx.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
-    }
-    for (const id of analysis.upsellIds) {
-      await tx.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
-    }
-  });
+  // Validate product IDs against what actually exists in the DB for this store.
+  // This prevents transaction failures caused by referencing product IDs that were
+  // inserted in this same pipeline run but may have been re-assigned new serial IDs.
+  const dbProductRows = await db.select({ id: productsTable.id }).from(productsTable).where(eq(productsTable.storeId, storeId));
+  const storeProductIds = new Set(dbProductRows.map((r) => r.id));
+
+  if (storeProductIds.size === 0) {
+    throw new Error(`persistAnalysisAndFinish: no products found in DB for store ${storeId} — cannot persist analysis`);
+  }
+
+  const reconciledAnalysis = reconcileAnalysisIds(analysis, storeProductIds);
+
+  const discardedCrossSell = analysis.crossSellIds.filter((id) => !storeProductIds.has(id));
+  const discardedUpsell = analysis.upsellIds.filter((id) => !storeProductIds.has(id));
+  if (discardedCrossSell.length > 0 || discardedUpsell.length > 0) {
+    logger.warn(
+      { storeId, discardedCrossSell, discardedUpsell },
+      "persistAnalysisAndFinish: discarded product IDs not found in DB",
+    );
+  }
+
+  const insertPayload = {
+    storeId,
+    mainProductId: reconciledAnalysis.mainProductId,
+    mainProductReason: reconciledAnalysis.mainProductReason ?? "",
+    crossSellIds: reconciledAnalysis.crossSellIds,
+    crossSellReasons: jsonReasons(reconciledAnalysis.crossSellReasons),
+    upsellIds: reconciledAnalysis.upsellIds,
+    upsellReasons: jsonReasons(reconciledAnalysis.upsellReasons),
+    summary: reconciledAnalysis.summary ?? "",
+    anchorsJson: cloneForJson(reconciledAnalysis.anchors),
+  };
+
+  try {
+    await db.transaction(async (tx) => {
+      logger.debug({ storeId }, "persistAnalysisAndFinish: inserting analysis row");
+      await tx.insert(analysesTable).values(insertPayload);
+
+      logger.debug({ storeId }, "persistAnalysisAndFinish: resetting product roles");
+      await tx.update(productsTable).set({ role: null }).where(eq(productsTable.storeId, storeId));
+
+      logger.debug({ storeId, mainProductId: reconciledAnalysis.mainProductId }, "persistAnalysisAndFinish: setting main role");
+      await tx.update(productsTable).set({ role: "main" }).where(eq(productsTable.id, reconciledAnalysis.mainProductId));
+
+      for (const id of reconciledAnalysis.crossSellIds) {
+        await tx.update(productsTable).set({ role: "cross_sell" }).where(eq(productsTable.id, id));
+      }
+      for (const id of reconciledAnalysis.upsellIds) {
+        await tx.update(productsTable).set({ role: "upsell" }).where(eq(productsTable.id, id));
+      }
+    });
+  } catch (txErr) {
+    logger.error(
+      {
+        storeId,
+        err: safeErrText(txErr),
+        insertPayloadSummary: {
+          mainProductId: insertPayload.mainProductId,
+          crossSellCount: insertPayload.crossSellIds.length,
+          upsellCount: insertPayload.upsellIds.length,
+          anchorCount: insertPayload.anchorsJson.length,
+          storeProductIdCount: storeProductIds.size,
+        },
+      },
+      "persistAnalysisAndFinish: transaction failed",
+    );
+    throw txErr;
+  }
 
   await updateStoreAnalyzed(storeId);
+  logger.info({ storeId }, "persistAnalysisAndFinish: complete");
 }
 
 async function runPipeline(storeId: number, url: string): Promise<void> {

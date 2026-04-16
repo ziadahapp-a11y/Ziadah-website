@@ -5,7 +5,12 @@ import type { AnchorGroup } from "@workspace/db";
 
 /**
  * Returns a client only when credentials are complete.
- * Replit integrations require BOTH base URL and API key; OPENAI_API_KEY alone uses the public API.
+ * Priority:
+ *   1. Replit AI integration (AI_INTEGRATIONS_OPENAI_BASE_URL + AI_INTEGRATIONS_OPENAI_API_KEY)
+ *      — provisioned automatically via setupReplitAIIntegrations; no user key required.
+ *   2. Direct API key (OPENAI_API_KEY) — user-supplied key, uses public OpenAI API or custom base URL.
+ *   3. null → heuristic fallback is used instead.
+ *
  * Avoid treating "half-configured" integration env as success — that caused 401s and confusing failures.
  */
 function createOpenAIForAnalysis(): OpenAI | null {
@@ -14,14 +19,25 @@ function createOpenAIForAnalysis(): OpenAI | null {
   const directKey = process.env.OPENAI_API_KEY?.trim();
 
   if (integrationsUrl && integrationsKey) {
+    logger.info(
+      { baseURL: integrationsUrl, mode: "replit-ai-integration" },
+      "OpenAI client: using Replit AI integration (AI_INTEGRATIONS_OPENAI_BASE_URL + AI_INTEGRATIONS_OPENAI_API_KEY)",
+    );
     return new OpenAI({ baseURL: integrationsUrl, apiKey: integrationsKey });
   }
   if (directKey) {
-    return new OpenAI({
-      baseURL: process.env.OPENAI_BASE_URL?.trim() ?? "https://api.openai.com/v1",
-      apiKey: directKey,
-    });
+    const baseURL = process.env.OPENAI_BASE_URL?.trim() ?? "https://api.openai.com/v1";
+    logger.info({ baseURL, mode: "direct-api-key" }, "OpenAI client: using direct OPENAI_API_KEY");
+    return new OpenAI({ baseURL, apiKey: directKey });
   }
+  logger.warn(
+    {
+      hasIntegrationsUrl: Boolean(integrationsUrl),
+      hasIntegrationsKey: Boolean(integrationsKey),
+      hasDirectKey: Boolean(directKey),
+    },
+    "OpenAI client: no valid credentials found — will use heuristic analysis. Set AI_INTEGRATIONS_OPENAI_BASE_URL + AI_INTEGRATIONS_OPENAI_API_KEY (Replit integration) or OPENAI_API_KEY.",
+  );
   return null;
 }
 
