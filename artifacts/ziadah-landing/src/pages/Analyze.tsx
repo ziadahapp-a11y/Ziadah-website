@@ -17,6 +17,11 @@ import {
   LayoutGrid,
   ChevronRight,
   ChevronDown,
+  Globe,
+  BarChart3,
+  Users,
+  Target,
+  Lock,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -782,6 +787,24 @@ export default function Analyze() {
                 <p className="ssub tc max-w-xl" style={{ marginInline: "auto" }}>
                   {tr.heroSubtitle}
                 </p>
+                <div className="analyze-hero-trust">
+                  <span className="analyze-hero-trust-item">
+                    <BarChart3 style={{ width: 13, height: 13 }} aria-hidden />
+                    {lang === "ar" ? "تحليل بالذكاء الاصطناعي" : "AI Analysis"}
+                  </span>
+                  <span className="analyze-hero-trust-item">
+                    <Target style={{ width: 13, height: 13 }} aria-hidden />
+                    {lang === "ar" ? "توصيات ذكية" : "Smart Recommendations"}
+                  </span>
+                  <span className="analyze-hero-trust-item">
+                    <Lock style={{ width: 13, height: 13 }} aria-hidden />
+                    {lang === "ar" ? "بدون تسجيل دخول" : "No Login Required"}
+                  </span>
+                  <span className="analyze-hero-trust-item">
+                    <Zap style={{ width: 13, height: 13 }} aria-hidden />
+                    {lang === "ar" ? "نتائج خلال 30 ثانية" : "Results in ~30s"}
+                  </span>
+                </div>
               </header>
 
               <div className="stag rv on mx-auto mb-3 max-w-xl justify-center">
@@ -817,17 +840,25 @@ export default function Analyze() {
                       <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
                         {tr.storeUrlLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
                       </Label>
-                      <Input
-                        id="url"
-                        type="url"
-                        placeholder={tr.phStoreUrl}
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        className="h-11 border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
-                        required
-                        autoComplete="url"
-                        inputMode="url"
-                      />
+                      <div className="relative">
+                        <Globe
+                          className="pointer-events-none absolute top-1/2 -translate-y-1/2 h-4 w-4"
+                          style={{ color: "var(--tm)", insetInlineStart: "12px" }}
+                          aria-hidden
+                        />
+                        <Input
+                          id="url"
+                          type="url"
+                          placeholder={tr.phStoreUrl}
+                          value={url}
+                          onChange={(e) => setUrl(e.target.value)}
+                          className="h-11 border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                          style={{ paddingInlineStart: "36px" }}
+                          required
+                          autoComplete="url"
+                          inputMode="url"
+                        />
+                      </div>
                     </div>
 
                     <div>
@@ -1117,18 +1148,30 @@ export default function Analyze() {
 
                   <div className="analyze-sbar" role="presentation">
                     <div className="analyze-sbi">
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(124,58,237,.1)" }}>
+                        <Package className="h-4 w-4" style={{ color: "var(--p3)" }} aria-hidden />
+                      </div>
                       <p className="analyze-stat-num">{status.productCount}</p>
                       <p className="analyze-stat-label">{tr.statProducts}</p>
                     </div>
                     <div className="analyze-sbi">
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(251,191,36,.12)" }}>
+                        <Star className="h-4 w-4" style={{ color: "var(--go)" }} aria-hidden />
+                      </div>
                       <p className="analyze-stat-num analyze-stat-num--go">{groups.length}</p>
                       <p className="analyze-stat-label">{tr.statAnchors}</p>
                     </div>
                     <div className="analyze-sbi">
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(6,182,212,.1)" }}>
+                        <ShoppingCart className="h-4 w-4" style={{ color: "var(--c)" }} aria-hidden />
+                      </div>
                       <p className="analyze-stat-num analyze-stat-num--c">{crossSells}</p>
                       <p className="analyze-stat-label">{tr.statCross}</p>
                     </div>
                     <div className="analyze-sbi">
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(168,85,247,.1)" }}>
+                        <TrendingUp className="h-4 w-4" style={{ color: "var(--p4)" }} aria-hidden />
+                      </div>
                       <p className="analyze-stat-num analyze-stat-num--p">{upsells}</p>
                       <p className="analyze-stat-label">{tr.statUpsell}</p>
                     </div>
@@ -1136,7 +1179,8 @@ export default function Analyze() {
 
                   {status.summary ? (
                     <div id="analyze-summary" className="analyze-summary-box">
-                      <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: "var(--p3)" }}>
+                      <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "var(--p3)" }}>
+                        <Sparkles className="h-3 w-3 shrink-0" aria-hidden />
                         {tr.aiSummaryLabel}
                       </p>
                       <p
