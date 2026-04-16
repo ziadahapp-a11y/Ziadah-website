@@ -12,6 +12,8 @@ import {
   Check,
   Globe,
   Loader2,
+  Clock,
+  Calendar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -32,9 +34,16 @@ interface ProductRef {
   productUrl: string | null;
 }
 
-interface Pair {
-  anchor: ProductRef | null;
-  recommendation: ProductRef & { role: string; reason: string };
+interface AnchorRec extends ProductRef {
+  role: string;
+  reason: string;
+  ziadahGoal?: string;
+  presentationWidget?: string;
+}
+
+interface AnchorGroup {
+  anchor: ProductRef & { reason: string; anchorGoal?: string; anchorPresentation?: string };
+  recommendations: AnchorRec[];
 }
 
 interface ReportData {
@@ -49,15 +58,38 @@ interface ReportData {
   storeUrl: string;
   analyzedAt?: string;
   summary?: string;
-  mainProduct?: (ProductRef & { reason: string }) | null;
   crossSellCount?: number;
   upsellCount?: number;
-  pairs?: Pair[];
+  anchorGroups?: AnchorGroup[];
+}
+
+function isAr(s: string): boolean {
+  return /[\u0600-\u06FF]/.test(s);
 }
 
 function formatPrice(price: number | null | undefined, symbol: string): string {
   if (price == null) return "";
   return `${price.toLocaleString("en-SA", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${symbol}`;
+}
+
+function formatAnalyzedAt(iso: string, lang: string): { date: string; time: string } {
+  const d = new Date(iso);
+  const locale = lang === "ar" ? "ar-SA" : "en-US";
+  const date = d.toLocaleDateString(locale, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "Asia/Riyadh",
+  });
+  const time = d.toLocaleTimeString(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Riyadh",
+  });
+  return { date, time };
 }
 
 function RolePill({ role }: { role: string }) {
@@ -88,10 +120,9 @@ function ProductThumb({
   product: ProductRef;
   currencySymbol: string;
   isHero?: boolean;
-  /** Shown on hero / anchor tile only */
   heroLabel?: string;
 }) {
-  const isArabic = /[\u0600-\u06FF]/.test(product.title);
+  const arabic = isAr(product.title);
   return (
     <a
       href={product.productUrl ?? "#"}
@@ -129,7 +160,7 @@ function ProductThumb({
         <p
           className="text-xs font-semibold leading-snug line-clamp-2"
           style={{ color: "var(--t)" }}
-          dir={isArabic ? "rtl" : "ltr"}
+          dir={arabic ? "rtl" : "ltr"}
         >
           {product.title}
         </p>
@@ -143,62 +174,112 @@ function ProductThumb({
   );
 }
 
-function PairCard({
-  pair,
+function AnchorGroupSection({
+  group,
+  index,
   currencySymbol,
-  exampleLabel,
-  alsoLabel,
-  upgradeLabel,
-  heroLabel,
+  lang,
+  tr,
 }: {
-  pair: Pair;
+  group: AnchorGroup;
+  index: number;
   currencySymbol: string;
-  exampleLabel: string;
-  alsoLabel: string;
-  upgradeLabel: string;
-  heroLabel: string;
+  lang: string;
+  tr: ReturnType<typeof useSiteT>[string]["analyze"];
 }) {
-  const isArabic = /[\u0600-\u06FF]/.test(pair.recommendation.reason);
-  const recLabel = pair.recommendation.role === "cross_sell" ? alsoLabel : upgradeLabel;
+  const crossCount = group.recommendations.filter((r) => r.role === "cross_sell").length;
+  const upCount = group.recommendations.filter((r) => r.role === "upsell").length;
+  const anchorLabel = lang === "ar" ? `مرساة ${index + 1}` : `Anchor ${index + 1}`;
 
   return (
-    <div className="gc analyze-form-card flex flex-col gap-4">
-      <div className="flex items-center gap-2 flex-wrap">
-        <span
-          className="text-xs font-bold px-2 py-0.5 rounded-full border"
-          style={{ color: "var(--tm)", borderColor: "var(--b2)", background: "var(--s1)" }}
-        >
-          {exampleLabel}
+    <div className="analyze-anchor-group-card">
+      <div className="analyze-anchor-group-header">
+        <span className="analyze-anchor-group-index" aria-label={anchorLabel}>
+          {index + 1}
         </span>
-        <RolePill role={pair.recommendation.role} />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-start">
-        {pair.anchor ? (
-          <ProductThumb
-            product={pair.anchor}
-            currencySymbol={currencySymbol}
-            isHero
-            heroLabel={heroLabel}
-          />
-        ) : null}
-
-        <div className="flex flex-col gap-2 min-w-0">
-          <div className="flex items-center gap-1.5 text-xs font-medium ps-1" style={{ color: "var(--tm)" }}>
-            <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
-            {recLabel}
+        <div className="min-w-0 flex-1">
+          <p
+            className="text-sm font-bold leading-snug line-clamp-2"
+            style={{ color: "var(--t)" }}
+            dir={isAr(group.anchor.title) ? "rtl" : "ltr"}
+          >
+            {group.anchor.title}
+          </p>
+          <div className="flex items-center gap-2 mt-1 flex-wrap">
+            {group.anchor.price != null && (
+              <span className="text-xs font-extrabold" style={{ color: "var(--go)" }}>
+                {formatPrice(group.anchor.price, currencySymbol)}
+              </span>
+            )}
+            {crossCount > 0 && (
+              <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]">
+                <ShoppingCart className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                {crossCount} {lang === "ar" ? "متقاطع" : "cross-sell"}
+              </span>
+            )}
+            {upCount > 0 && (
+              <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]">
+                <TrendingUp className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                {upCount} {lang === "ar" ? "ترقيعي" : "upsell"}
+              </span>
+            )}
           </div>
-          <ProductThumb product={pair.recommendation} currencySymbol={currencySymbol} />
         </div>
+        {group.anchor.productUrl && (
+          <a
+            href={group.anchor.productUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
+            style={{ color: "var(--p3)", borderColor: "rgba(124,58,237,.25)", background: "rgba(124,58,237,.06)" }}
+          >
+            <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
+          </a>
+        )}
       </div>
 
-      {pair.recommendation.reason ? (
-        <div className="rounded-[var(--r12)] px-3 py-2.5 border" style={{ background: "var(--s1)", borderColor: "var(--b1)" }}>
-          <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }} dir={isArabic ? "rtl" : "ltr"}>
-            {pair.recommendation.reason}
+      {group.anchor.reason && (
+        <div
+          className="rounded-[var(--r12)] px-3 py-2.5 border mb-4"
+          style={{ background: "rgba(251,191,36,.05)", borderColor: "rgba(251,191,36,.2)" }}
+        >
+          <p
+            className="text-xs leading-relaxed"
+            style={{ color: "var(--t)" }}
+            dir={isAr(group.anchor.reason) ? "rtl" : "ltr"}
+          >
+            {group.anchor.reason}
           </p>
         </div>
-      ) : null}
+      )}
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        {group.anchor.productUrl || group.anchor.imageUrl ? (
+          <div className="analyze-report-anchor-hero">
+            <ProductThumb
+              product={group.anchor}
+              currencySymbol={currencySymbol}
+              isHero
+              heroLabel={anchorLabel}
+            />
+          </div>
+        ) : null}
+        {group.recommendations.map((rec, ri) => (
+          <div key={ri} className="flex flex-col gap-1.5 min-w-0">
+            <RolePill role={rec.role} />
+            <ProductThumb product={rec} currencySymbol={currencySymbol} />
+            {rec.reason && (
+              <p
+                className="text-[10px] leading-relaxed px-1"
+                style={{ color: "var(--tm)" }}
+                dir={isAr(rec.reason) ? "rtl" : "ltr"}
+              >
+                {rec.reason}
+              </p>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -330,144 +411,183 @@ export default function AnalyzeReport({ id }: { id: number }) {
             </div>
           )}
 
-          {data && (
-            <div className="space-y-10">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div />
-                <div className="flex flex-wrap items-center justify-end gap-2">
-                  <CopyLinkButton />
-                  <Link
-                    href="/analyze"
-                    className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[40px] px-4 text-sm no-underline"
-                  >
-                    <Zap className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    {tr.ctaAnalyzeStore}
-                  </Link>
-                </div>
-              </div>
+          {data && (() => {
+            const groups = data.anchorGroups ?? [];
+            const totalRecs = groups.reduce((n, g) => n + g.recommendations.length, 0);
+            const ts = data.analyzedAt ? formatAnalyzedAt(data.analyzedAt, lang) : null;
 
-              <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <div className="hbadge mb-3 w-fit max-w-full">
-                    <span className="hbadge-pill inline-flex items-center gap-1">
-                      <CheckCircle2 className="h-3 w-3 shrink-0" aria-hidden />
-                      {tr.analyzedBadge}
-                    </span>
-                    {data.platform ? (
-                      <span className="hbadge-txt capitalize font-semibold">{data.platform}</span>
-                    ) : null}
+            return (
+              <div className="space-y-8 sm:space-y-10">
+                {/* Top action bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div />
+                  <div className="flex flex-wrap items-center justify-end gap-2">
+                    <CopyLinkButton />
+                    <Link
+                      href="/analyze"
+                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[40px] px-4 text-sm no-underline"
+                    >
+                      <Zap className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                      {tr.ctaAnalyzeStore}
+                    </Link>
                   </div>
-                  <h1
-                    className="text-2xl sm:text-[1.65rem] font-extrabold tracking-tight leading-snug mb-1"
-                    style={{ color: "var(--t)" }}
-                  >
-                    {data.storeName} {tr.reportTitleSuffix}
-                  </h1>
-                  <a
-                    href={data.storeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm flex items-center gap-1 mt-2 break-all hover:opacity-90 transition-opacity"
-                    style={{ color: "var(--tm)" }}
-                  >
-                    <Globe className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    {data.storeUrl}
-                    <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
-                  </a>
                 </div>
-              </header>
 
-              <div className="analyze-sbar analyze-sbar--3" role="presentation">
-                <div className="analyze-sbi">
-                  <div
-                    className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-1"
-                    style={{ background: "rgba(124,58,237,.12)" }}
-                  >
-                    <Package className="h-5 w-5" style={{ color: "var(--p3)" }} aria-hidden />
-                  </div>
-                  <p className="analyze-stat-num">{data.productCount}</p>
-                  <p className="analyze-stat-label">{tr.statProductsAnalyzed}</p>
-                </div>
-                <div className="analyze-sbi">
-                  <div
-                    className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-1"
-                    style={{ background: "rgba(6,182,212,.1)" }}
-                  >
-                    <ShoppingCart className="h-5 w-5" style={{ color: "var(--c)" }} aria-hidden />
-                  </div>
-                  <p className="analyze-stat-num analyze-stat-num--c">{data.crossSellCount ?? 0}</p>
-                  <p className="analyze-stat-label">{tr.statCrossOpps}</p>
-                </div>
-                <div className="analyze-sbi">
-                  <div
-                    className="h-10 w-10 rounded-xl flex items-center justify-center mx-auto mb-1"
-                    style={{ background: "rgba(168,85,247,.12)" }}
-                  >
-                    <TrendingUp className="h-5 w-5" style={{ color: "var(--p4)" }} aria-hidden />
-                  </div>
-                  <p className="analyze-stat-num analyze-stat-num--p">{data.upsellCount ?? 0}</p>
-                  <p className="analyze-stat-label">{tr.statUpsellOpps}</p>
-                </div>
-              </div>
+                {/* Header */}
+                <header className="analyze-report-header">
+                  <div className="analyze-report-meta">
+                    <div className="analyze-done-badge">
+                      <div className="analyze-done-badge__glow" aria-hidden />
+                      <div className="analyze-done-badge__icon" aria-hidden>
+                        <CheckCircle2 className="h-4 w-4 shrink-0" />
+                      </div>
+                      <span>{tr.analyzedBadge}</span>
+                      {data.platform ? (
+                        <span
+                          className="text-[11px] font-semibold capitalize px-2 py-0.5 rounded-full ms-1"
+                          style={{ background: "rgba(34,197,94,.12)", color: "rgba(34,197,94,.75)" }}
+                        >
+                          {data.platform}
+                        </span>
+                      ) : null}
+                    </div>
 
-              {data.summary && (
-                <div className="analyze-summary-box">
-                  <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--p3)" }}>
-                    {tr.aiSummaryLabel}
-                  </p>
-                  <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: "var(--t)" }}
-                    dir={/[\u0600-\u06FF]/.test(data.summary) ? "rtl" : "ltr"}
-                  >
-                    {data.summary}
-                  </p>
-                </div>
-              )}
+                    <h1
+                      className="text-2xl sm:text-[1.75rem] font-black tracking-tight leading-snug mt-4"
+                      style={{ color: "var(--t)" }}
+                    >
+                      {data.storeName} — {tr.reportTitleSuffix}
+                    </h1>
 
-              {data.pairs && data.pairs.length > 0 && (
-                <section aria-labelledby="reco-examples-heading">
-                  <div className="mb-6 analyze-section-head">
-                    <h2 id="reco-examples-heading" className="st" style={{ color: "var(--t)" }}>
-                      {tr.recoExamplesTitle}
-                    </h2>
-                    <p className="ssub mt-2" style={{ maxWidth: "42rem" }}>
-                      {tr.recoExamplesSub}
+                    {/* Store URL */}
+                    <a
+                      href={data.storeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="analyze-report-store-url"
+                    >
+                      <Globe className="h-3.5 w-3.5 shrink-0 flex-shrink-0" aria-hidden />
+                      <span className="break-all">{data.storeUrl}</span>
+                      <ExternalLink className="h-3 w-3 shrink-0 flex-shrink-0 opacity-60" aria-hidden />
+                    </a>
+
+                    {/* Analysis timestamp */}
+                    {ts && (
+                      <div className="analyze-report-timestamp">
+                        <div className="analyze-report-timestamp__icon" aria-hidden>
+                          <Calendar className="h-3.5 w-3.5" />
+                        </div>
+                        <div className="analyze-report-timestamp__body">
+                          <span className="analyze-report-timestamp__date">{ts.date}</span>
+                          <span className="analyze-report-timestamp__sep" aria-hidden>—</span>
+                          <span className="analyze-report-timestamp__time">
+                            <Clock className="h-3 w-3 shrink-0 inline-block align-[-1px] me-1 opacity-60" aria-hidden />
+                            {ts.time}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </header>
+
+                {/* Stats */}
+                <div className="analyze-sbar analyze-sbar--3" role="presentation">
+                  <div className="analyze-sbi">
+                    <div className="analyze-sbi-icon" style={{ background: "rgba(124,58,237,.1)" }}>
+                      <Package className="h-5 w-5" style={{ color: "var(--p3)" }} aria-hidden />
+                    </div>
+                    <p className="analyze-stat-num">{data.productCount}</p>
+                    <p className="analyze-stat-label">{tr.statProductsAnalyzed}</p>
+                  </div>
+                  <div className="analyze-sbi">
+                    <div className="analyze-sbi-icon" style={{ background: "rgba(6,182,212,.1)" }}>
+                      <ShoppingCart className="h-5 w-5" style={{ color: "var(--c)" }} aria-hidden />
+                    </div>
+                    <p className="analyze-stat-num analyze-stat-num--c">{data.crossSellCount ?? 0}</p>
+                    <p className="analyze-stat-label">{tr.statCrossOpps}</p>
+                  </div>
+                  <div className="analyze-sbi">
+                    <div className="analyze-sbi-icon" style={{ background: "rgba(168,85,247,.12)" }}>
+                      <TrendingUp className="h-5 w-5" style={{ color: "var(--p4)" }} aria-hidden />
+                    </div>
+                    <p className="analyze-stat-num analyze-stat-num--p">{data.upsellCount ?? 0}</p>
+                    <p className="analyze-stat-label">{tr.statUpsellOpps}</p>
+                  </div>
+                </div>
+
+                {/* AI Summary */}
+                {data.summary && (
+                  <div className="analyze-summary-box">
+                    <div className="analyze-summary-label-row">
+                      <div className="analyze-summary-label-icon" aria-hidden>
+                        <Star className="h-3.5 w-3.5" />
+                      </div>
+                      <span className="analyze-summary-label-text">{tr.aiSummaryLabel}</span>
+                    </div>
+                    <p
+                      className="text-sm leading-relaxed mt-3"
+                      style={{ color: "var(--t)" }}
+                      dir={isAr(data.summary) ? "rtl" : "ltr"}
+                    >
+                      {data.summary}
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    {data.pairs.map((pair, i) => (
-                      <PairCard
-                        key={i}
-                        pair={pair}
-                        currencySymbol={data.currencySymbol}
-                        exampleLabel={tpl(tr.exampleN, { n: i + 1 })}
-                        alsoLabel={tr.alsoRecommend}
-                        upgradeLabel={tr.upgradeTo}
-                        heroLabel={tr.productHeroBadge}
-                      />
-                    ))}
-                  </div>
-                </section>
-              )}
+                )}
 
-              <div className="analyze-share-panel gc">
-                <h3 className="text-xl font-bold mb-2" style={{ color: "var(--t)" }}>
-                  {tr.ctaFooterTitle}
-                </h3>
-                <p className="text-sm mb-5 max-w-md mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
-                  {tr.ctaFooterSub}
-                </p>
-                <Link
-                  href="/analyze"
-                  className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[48px] px-6 no-underline"
-                >
-                  {tr.ctaAnalyzeStore}
-                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                </Link>
+                {/* Anchor Groups — full results */}
+                {groups.length > 0 && (
+                  <section aria-labelledby="reco-groups-heading">
+                    <div className="mb-6 analyze-section-head">
+                      <h2 id="reco-groups-heading" className="st" style={{ color: "var(--t)" }}>
+                        {tr.recoExamplesTitle}
+                      </h2>
+                      <p className="ssub mt-2" style={{ maxWidth: "42rem" }}>
+                        {tpl(tr.sectionAnchorsSubtitle ?? "{{anchors}} anchor groups · {{recs}} recommendations", {
+                          anchors: groups.length,
+                          recs: totalRecs,
+                        })}
+                      </p>
+                    </div>
+                    <div className="space-y-4">
+                      {groups.map((group, i) => (
+                        <AnchorGroupSection
+                          key={i}
+                          group={group}
+                          index={i}
+                          currencySymbol={data.currencySymbol}
+                          lang={lang}
+                          tr={tr}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+
+                {/* CTA footer */}
+                <div className="analyze-results-cta">
+                  <div className="analyze-cta-badge">
+                    <Zap className="h-3 w-3 shrink-0" aria-hidden />
+                    <span>{lang === "ar" ? "ابدأ الآن مجاناً" : "Start Free Today"}</span>
+                  </div>
+                  <h3 className="analyze-cta-title mt-3" style={{ color: "var(--t)" }}>
+                    {tr.ctaFooterTitle}
+                  </h3>
+                  <p className="ssub tc max-w-lg mx-auto mt-2 mb-0">
+                    {tr.ctaFooterSub}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-center mt-5">
+                    <Link
+                      href="/analyze"
+                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base no-underline"
+                    >
+                      {tr.ctaAnalyzeStore}
+                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </main>
       </PageShell>
     </>
