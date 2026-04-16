@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import Nav from "@/components/Nav";
 import PageShell from "@/components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -55,8 +55,8 @@ export default function EcommerceStoreSectors() {
         description={lang === "ar" ? t.ar.sectorsPage.seoDesc : t.en.sectorsPage.seoDesc}
         url="/sectors/ecommerce-stores"
       />
-      <PageShell>
-        <Nav />
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         <section
           style={{

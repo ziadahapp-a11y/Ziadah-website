@@ -1,11 +1,4 @@
-run = "bash scripts/replit-run.sh"
 modules = ["nodejs-24", "postgresql-16"]
-
-[[artifacts]]
-id = "artifacts/api-server"
-
-[[artifacts]]
-id = "artifacts/mockup-sandbox"
 
 [deployment]
 router = "application"
@@ -18,9 +11,6 @@ env = { "CI" = "true" }
 [workflows]
 runButton = "Project"
 
-[env]
-BASE_PATH = "/"
-
 [agent]
 stack = "PNPM_WORKSPACE"
 expertMode = true
@@ -28,6 +18,49 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 8081
+
+[[ports]]
+localPort = 8082
+externalPort = 5173
+
+[[ports]]
+localPort = 8083
+
+[[ports]]
+localPort = 8787
+externalPort = 3000
+
+[[ports]]
+localPort = 8799
+externalPort = 4200
+
+[[ports]]
+localPort = 8802
+externalPort = 3003
+
+[[ports]]
+localPort = 24215
+externalPort = 80
+
+[[ports]]
+localPort = 24216
+externalPort = 3001
+
+[[ports]]
+localPort = 24794
+externalPort = 3002
+
+[[ports]]
+localPort = 24795
+externalPort = 5000
 
 [nix]
 channel = "stable-25_05"

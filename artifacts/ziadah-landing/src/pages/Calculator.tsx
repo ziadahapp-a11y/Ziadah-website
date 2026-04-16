@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { t } from "@/i18n/translations";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -63,7 +63,7 @@ function SliderCard({
   return (
     <div
       style={{
-        background: "var(--s1)",
+        backgroundColor: "rgba(115, 0, 230, 0.02)",
         border: "1px solid var(--b1)",
         borderRadius: 16,
         padding: "24px 28px",
@@ -78,7 +78,7 @@ function SliderCard({
           inset: 0,
           borderRadius: 16,
           overflow: "hidden",
-          background: `radial-gradient(ellipse at 0% 50%, rgba(${colorRgb},.06) 0%, transparent 70%)`,
+          backdropFilter: "blur(4px)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -313,8 +313,8 @@ export default function Calculator() {
         description={lang === "ar" ? t.ar.calculator.seoDesc : t.en.calculator.seoDesc}
         url="/calculator"
       />
-      <PageShell>
-        <Nav />
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         <section
           style={{
@@ -332,7 +332,7 @@ export default function Calculator() {
               <h1
                 className="st rv d1"
                 style={{
-                  fontSize: "clamp(32px,4.5vw,60px)",
+                  fontSize: "clamp(22px,4.5vw,60px)",
                   marginTop: 12,
                   marginBottom: 8,
                 }}

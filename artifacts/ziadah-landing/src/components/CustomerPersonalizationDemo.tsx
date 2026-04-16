@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTheme } from "@/ThemeContext";
 
 type Profile = "noura" | "nasser";
 
@@ -18,7 +17,6 @@ const nasserItems = [
 ];
 
 export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean }) {
-  const { theme } = useTheme();
   const [profile, setProfile] = useState<Profile>("nasser");
 
   const labels = isAr
@@ -154,7 +152,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                   style={{
                     padding: "var(--card-pad-sm)",
                     borderRadius: 14,
-                    background: theme === "light" ? "var(--s2)" : "rgba(255, 255, 255, 0.05)",
+                    background: "rgba(255, 255, 255, 0.05)",
                     border: "1px solid var(--b1)",
                     display: "flex",
                     flexDirection: "column",

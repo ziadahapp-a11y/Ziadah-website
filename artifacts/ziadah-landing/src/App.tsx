@@ -5,6 +5,7 @@ import { lazy, Suspense, useLayoutEffect } from "react";
 import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
+import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
@@ -26,6 +27,8 @@ const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
+const Analyze = lazy(() => import("@/pages/Analyze"));
+const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -128,7 +131,11 @@ function PublicRoutes() {
       <Route path="/503">
         <ErrorStatus code={503} />
       </Route>
-      <Route path="/error/:code" component={ErrorStatus} />
+      <Route path="/error/:code">
+        <Suspense fallback={<LazyRouteFallback />}>
+          <ErrorStatus />
+        </Suspense>
+      </Route>
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
@@ -137,6 +144,12 @@ function PublicRoutes() {
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
+      <Route path="/analyze" component={Analyze} />
+      <Route path="/report/:id">
+        {(params) => (
+          <AnalyzeReport id={parseInt(params.id ?? "", 10)} />
+        )}
+      </Route>
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
       <Route path="/use-cases/thank-you" component={ThankYouPage} />
@@ -260,6 +273,7 @@ function AppShell() {
       <CmsFloatingEditableToolbar />
       {showQuickLogin && <CmsQuickLoginModal />}
       <div style={{ paddingTop: showInlineToolbar ? 48 : 0 }}>
+        {!isCms && <Nav />}
         <Router />
         {!isCms && <Footer />}
       </div>

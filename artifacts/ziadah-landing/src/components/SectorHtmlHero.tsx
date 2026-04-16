@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich } from "@/data/sectorPageTypes";
+import PlatformModal from "@/components/PlatformModal";
 
 type Props = {
   rich: SectorPageRich;
@@ -11,6 +13,7 @@ type Props = {
 export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, onScrollTo }: Props) {
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   const useSplit = Boolean(
     (rich.heroHeadlineLine1Ar && rich.heroHeadlineLine2Ar) || (rich.heroHeadlineLine1En && rich.heroHeadlineLine2En),
@@ -24,6 +27,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
   const primaryCta = rich.heroPrimaryCtaTargetId ?? "section-why";
 
   return (
+    <>
     <section
       dir={dir}
       style={{
@@ -64,11 +68,11 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
           <p className="sector-html-hero-sub">{sub}</p>
 
           <div className="sector-html-cta-row">
-            <button type="button" className="sector-html-btn sector-html-btn--fire sh-en" onClick={() => onScrollTo(primaryCta)}>
-              {isAr ? "شوف كيف تشتغل" : "See how it works"}
+            <button type="button" className="sector-html-btn sector-html-btn--fire sh-en" onClick={() => setPlatformModalOpen(true)}>
+              🚀 {isAr ? "فعّل الآن" : "Activate Now"}
             </button>
-            <button type="button" className="sector-html-btn sector-html-btn--ghost sh-en" onClick={() => onScrollTo("section-how-to")}>
-              {isAr ? "خطة التفعيل" : "Rollout plan"}
+            <button type="button" className="sector-html-btn sector-html-btn--ghost sh-en" onClick={() => onScrollTo(primaryCta)}>
+              {isAr ? "شوف كيف تشتغل" : "See how it works"}
             </button>
           </div>
 
@@ -130,5 +134,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
         </div>
       </div>
     </section>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }

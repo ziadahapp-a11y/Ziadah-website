@@ -1,6 +1,6 @@
-import Nav from "../components/Nav";
 import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -48,10 +48,10 @@ export default function Privacy() {
         keywordsEn={pk?.keywordsEn}
       />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Privacy Policy" : "سياسة الخصوصية", url: "/privacy" }]} />
-      <PageShell>
-        <Nav />
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
         <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
-          <div className="wrap" style={{ maxWidth: 800 }}>
+          <div className="wrap gc ds-legal-doc">
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
               {tr.legalPages.privacyH1}
             </h1>

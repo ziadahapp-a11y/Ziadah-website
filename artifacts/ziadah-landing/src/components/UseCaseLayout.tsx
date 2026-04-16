@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Nav from "./Nav";
 import PageShell from "./PageShell";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
@@ -10,7 +9,9 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
+import "@/styles/sectorHtmlPage.css";
 
+/* ───────────────────────── interfaces ─────────────────────────── */
 export interface UseCaseHero {
   tag: string;
   title: string;
@@ -18,26 +19,22 @@ export interface UseCaseHero {
   tagline: string;
   icon: string;
 }
-
 export interface StatItem {
   value: string;
   label: string;
   color?: string;
 }
-
 export interface StrategyCard {
   icon: string;
   title: string;
   desc: string;
   color: string;
 }
-
 export interface ExampleScenario {
   title: string;
   steps: string[];
   result: string;
 }
-
 export interface UseCasePageData {
   hero: UseCaseHero;
   heroEn?: UseCaseHero;
@@ -59,6 +56,7 @@ export interface UseCasePageData {
   ctaTitleEn?: string;
   ctaDesc: string;
   ctaDescEn?: string;
+  heroVisual?: React.ReactNode;
   extraSections?: React.ReactNode | ((isAr: boolean) => React.ReactNode);
   seo?: {
     title: string;
@@ -70,35 +68,41 @@ export interface UseCasePageData {
   };
 }
 
+/* ───────────────────────── component ──────────────────────────── */
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const [scrollProg, setScrollProg] = useState(0);
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";
 
-  const hero = (isEn && data.heroEn) ? data.heroEn : data.hero;
-  const whatWeDoTitle = (isEn && data.whatWeDoTitleEn) ? data.whatWeDoTitleEn : data.whatWeDoTitle;
-  const whatWeDoDesc = (isEn && data.whatWeDoDescEn) ? data.whatWeDoDescEn : data.whatWeDoDesc;
-  const strategyTitle = (isEn && data.strategyTitleEn) ? data.strategyTitleEn : data.strategyTitle;
-  const strategies = (isEn && data.strategiesEn) ? data.strategiesEn : data.strategies;
-  const stats = (isEn && data.statsEn) ? data.statsEn : data.stats;
-  const exampleScenario = (isEn && data.exampleScenarioEn) ? data.exampleScenarioEn : data.exampleScenario;
-  const plans = (isEn && data.plansEn) ? data.plansEn : data.plans;
-  const ctaTitle = (isEn && data.ctaTitleEn) ? data.ctaTitleEn : data.ctaTitle;
-  const ctaDesc = (isEn && data.ctaDescEn) ? data.ctaDescEn : data.ctaDesc;
+  const hero = isEn && data.heroEn ? data.heroEn : data.hero;
+  const whatWeDoTitle = isEn && data.whatWeDoTitleEn ? data.whatWeDoTitleEn : data.whatWeDoTitle;
+  const whatWeDoDesc = isEn && data.whatWeDoDescEn ? data.whatWeDoDescEn : data.whatWeDoDesc;
+  const strategyTitle = isEn && data.strategyTitleEn ? data.strategyTitleEn : data.strategyTitle;
+  const strategies = isEn && data.strategiesEn ? data.strategiesEn : data.strategies;
+  const stats = isEn && data.statsEn ? data.statsEn : data.stats;
+  const exampleScenario = isEn && data.exampleScenarioEn ? data.exampleScenarioEn : data.exampleScenario;
+  const plans = isEn && data.plansEn ? data.plansEn : data.plans;
+  const ctaTitle = isEn && data.ctaTitleEn ? data.ctaTitleEn : data.ctaTitle;
+  const ctaDesc = isEn && data.ctaDescEn ? data.ctaDescEn : data.ctaDesc;
   const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
 
   const map = useSiteContentMap();
-  const slug =
-    data.seo?.canonical?.match(/\/use-cases\/([^/?#]+)/)?.[1] ?? "page";
+  const slug = data.seo?.canonical?.match(/\/use-cases\/([^/?#]+)/)?.[1] ?? "page";
   const ucKey = (...parts: string[]) => cmsKey(lang, "useCasePage", slug, ...parts);
   const cv = (parts: string[], fallback: string) => {
     const key = ucKey(...parts);
     const v = map[key];
     return v !== undefined && v !== "" ? v : fallback;
   };
+  const gv = (key: string, fallback: string) => {
+    const v = map[key];
+    return v !== undefined && v !== "" ? v : fallback;
+  };
 
+  /* scroll-reveal observer */
   useEffect(() => {
     const obs = new IntersectionObserver(
       (es) => { es.forEach((e) => { if (e.isIntersecting) e.target.classList.add("on"); }); },
@@ -108,343 +112,509 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     return () => obs.disconnect();
   }, []);
 
+  /* scroll progress — always active */
+  useEffect(() => {
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProg(h > 0 ? Math.min(100, (window.scrollY / h) * 100) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  /* quick-nav items */
+  const quickNav = [
+    { id: "uc-what",       ar: "كيف يعمل",       en: "How it works" },
+    { id: "uc-stats",      ar: "النتائج",          en: "Results" },
+    { id: "uc-strategies", ar: "الاستراتيجيات",   en: "Strategies" },
+    ...(exampleScenario ? [{ id: "uc-example", ar: "مثال حي", en: "Example" }] : []),
+    ...(data.extraSections ? [{ id: "uc-showcase", ar: "الأدوات", en: "Tools" }] : []),
+  ];
+
+  /* ─── CMS helpers ─── */
+  const activateNow = gv(cmsKey(lang, "useCaseLayout", "activateNow"), tr.useCaseLayout.activateNow);
+  const ctaNote     = gv(cmsKey(lang, "useCaseLayout", "ctaNote"),     tr.useCaseLayout.ctaNote);
+  const reportsTag  = gv(cmsKey(lang, "useCaseLayout", "reportsTag"),  tr.useCaseLayout.reportsTag);
+  const reportsTitle= gv(cmsKey(lang, "useCaseLayout", "reportsTitle"),tr.useCaseLayout.reportsTitle);
+  const reportsDesc = gv(cmsKey(lang, "useCaseLayout", "reportsDesc"), tr.useCaseLayout.reportsDesc);
+  const exampleLabel= gv(cmsKey(lang, "useCaseLayout", "exampleLabel"),tr.useCaseLayout.exampleLabel);
+  const availableIn = gv(cmsKey(lang, "useCaseLayout", "availableIn"), tr.useCaseLayout.availableIn);
+
+  /* shared quick-nav row */
+  const QuickNavRow = () => (
+    <div className="rv d2 sector-page-quicknav"
+      style={{ marginTop: 28, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+      {quickNav.map((item) => (
+        <button key={item.id} type="button" onClick={() => scrollTo(item.id)}
+          style={{ borderRadius: 999, border: "1px solid var(--b2)", background: "linear-gradient(180deg,var(--s1),rgba(124,58,237,.04))", color: "var(--t)", fontSize: 12, fontWeight: 700, padding: "9px 14px", fontFamily: "var(--font)", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,.06)", transition: "border-color .2s" }}>
+          {isEn ? item.en : item.ar}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <>
-    {data.seo && (
-      <>
-        <SEO
-          titleAr={data.seo.title}
-          titleEn={data.seo.titleEn || data.seo.title}
-          descriptionAr={data.seo.description}
-          descriptionEn={data.seo.descriptionEn || data.seo.description}
-          canonical={data.seo.canonical}
-          keywordsAr={pageKw?.keywordsAr}
-          keywordsEn={pageKw?.keywordsEn}
-        />
-        <BreadcrumbSchema items={data.seo.breadcrumbs || [{ name: tr.useCaseLayout.breadcrumbHome, url: "/" }, { name: hero.title, url: data.seo.canonical }]} />
-      </>
-    )}
-    <PageShell>
-      <Nav />
+      {data.seo && (
+        <>
+          <SEO
+            titleAr={data.seo.title}
+            titleEn={data.seo.titleEn || data.seo.title}
+            descriptionAr={data.seo.description}
+            descriptionEn={data.seo.descriptionEn || data.seo.description}
+            canonical={data.seo.canonical}
+            keywordsAr={pageKw?.keywordsAr}
+            keywordsEn={pageKw?.keywordsEn}
+          />
+          <BreadcrumbSchema items={data.seo.breadcrumbs || [
+            { name: tr.useCaseLayout.breadcrumbHome, url: "/" },
+            { name: hero.title, url: data.seo.canonical },
+          ]} />
+        </>
+      )}
 
-      {/* HERO */}
-      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
-        <div className="stag rv" style={{ display: "inline-flex" }}>
-          <span className="stag-dot"/>
-          <Editable contentKey={ucKey("hero", "tag")} label="Use case hero tag" type="text">
-            {cv(["hero", "tag"], hero.tag)}
-          </Editable>
-        </div>
-        <div style={{ fontSize: "clamp(40px, 11vw, 72px)", marginTop: 12, marginBottom: 12, lineHeight: 1 }}>{hero.icon}</div>
-        <h1 className="rv d1" style={{ fontSize: "clamp(36px,5vw,64px)", fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.05, marginBottom: 16 }}>
-          <Editable contentKey={ucKey("hero", "title")} label="Use case title" type="text">
-            {cv(["hero", "title"], hero.title)}
-          </Editable>
-        </h1>
-        <p className="rv d2" style={{ fontSize: 18, color: "var(--tm)", maxWidth: 600, margin: "0 auto 20px", lineHeight: 1.8 }}>
-          <Editable contentKey={ucKey("hero", "subtitle")} label="Use case subtitle" type="text">
-            {cv(["hero", "subtitle"], hero.subtitle)}
-          </Editable>
-        </p>
-        <div className="rv d3" style={{ display: "inline-block", padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", color: "var(--p4)", fontSize: 15, fontWeight: 700, marginBottom: 48 }}>
-          <Editable contentKey={ucKey("hero", "tagline")} label="Use case tagline" type="text">
-            {cv(["hero", "tagline"], hero.tagline)}
-          </Editable>
-        </div>
-      </section>
+      <PageShell>
+        {/* ── fixed scroll progress bar ── */}
+        <div className="sector-html-prog" style={{ width: `${scrollProg}%` }} aria-hidden />
 
-      {/* WHAT WE DO */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <div className="gc rv uc-what-card" style={{ padding: "48px 52px" }}>
-            <div className="shine"/>
-            <div style={{ textAlign: "center", marginBottom: 0 }}>
-              <h2 style={{ fontSize: "clamp(26px,3.5vw,40px)", fontWeight: 900, marginBottom: 20 }}>
+        {/* ══════════════════════════════════════════════════
+            HERO
+        ══════════════════════════════════════════════════ */}
+        {data.heroVisual ? (
+          /* two-column hero */
+          <section className="sector-html"
+            style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 48, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", borderBottom: "1px solid var(--b1)" }}>
+            <div style={{ textAlign: "center", marginBottom: 20 }}>
+              <div className="stag rv" style={{ display: "inline-flex" }}>
+                <span className="stag-dot" />
+                <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
+                  {cv(["hero", "tag"], hero.tag)}
+                </Editable>
+              </div>
+            </div>
+            <div className="sector-html-hero-grid rv d1" style={{ maxWidth: 1160, margin: "0 auto" }}>
+              {/* text */}
+              <div>
+                <div className="sector-html-badge">
+                  {hero.icon}{" "}
+                  <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
+                    {cv(["hero", "tagline"], hero.tagline)}
+                  </Editable>
+                </div>
+                <h1 className="sector-html-hero-h">
+                  <Editable contentKey={ucKey("hero", "title")} label="Title" type="text">
+                    {cv(["hero", "title"], hero.title)}
+                  </Editable>
+                </h1>
+                <p className="sector-html-hero-sub">
+                  <Editable contentKey={ucKey("hero", "subtitle")} label="Subtitle" type="text">
+                    {cv(["hero", "subtitle"], hero.subtitle)}
+                  </Editable>
+                </p>
+                <div className="sector-html-cta-row">
+                  <button type="button" className="sector-html-btn sector-html-btn--fire"
+                    onClick={() => setPlatformModalOpen(true)}>
+                    🚀{" "}
+                    <Editable contentKey={ucKey("activateNow")} label="Activate CTA" type="text">
+                      {activateNow}
+                    </Editable>
+                  </button>
+                  <button type="button" className="sector-html-btn sector-html-btn--ghost"
+                    onClick={() => scrollTo("uc-showcase")}>
+                    {isEn ? "See it live ↓" : "شوف الأداة ↓"}
+                  </button>
+                </div>
+              </div>
+              {/* visual */}
+              <div>{data.heroVisual}</div>
+            </div>
+            <QuickNavRow />
+          </section>
+        ) : (
+          /* centered hero */
+          <section className="sector-html"
+            style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", borderBottom: "1px solid var(--b1)" }}>
+            <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
+              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 16 }}>
+                <span className="stag-dot" />
+                <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
+                  {cv(["hero", "tag"], hero.tag)}
+                </Editable>
+              </div>
+              <div className="sector-html-badge rv" style={{ margin: "0 auto 20px", display: "inline-flex" }}>
+                {hero.icon}{" "}
+                <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
+                  {cv(["hero", "tagline"], hero.tagline)}
+                </Editable>
+              </div>
+              <h1 className="sector-html-hero-h rv d1" style={{ textAlign: "center" }}>
+                <Editable contentKey={ucKey("hero", "title")} label="Title" type="text">
+                  {cv(["hero", "title"], hero.title)}
+                </Editable>
+              </h1>
+              <p className="sector-html-hero-sub rv d2" style={{ textAlign: "center", margin: "0 auto 28px" }}>
+                <Editable contentKey={ucKey("hero", "subtitle")} label="Subtitle" type="text">
+                  {cv(["hero", "subtitle"], hero.subtitle)}
+                </Editable>
+              </p>
+              <div className="sector-html-cta-row rv d3" style={{ justifyContent: "center" }}>
+                <button type="button" className="sector-html-btn sector-html-btn--fire"
+                  onClick={() => setPlatformModalOpen(true)}>
+                  🚀{" "}
+                  <Editable contentKey={ucKey("activateNow")} label="Activate CTA" type="text">
+                    {activateNow}
+                  </Editable>
+                </button>
+                <button type="button" className="sector-html-btn sector-html-btn--ghost"
+                  onClick={() => scrollTo("uc-strategies")}>
+                  {isEn ? "How it works ↓" : "كيف يعمل ↓"}
+                </button>
+              </div>
+              <QuickNavRow />
+            </div>
+          </section>
+        )}
+
+        {/* ══════════════════════════════════════════════════
+            WHAT WE DO
+        ══════════════════════════════════════════════════ */}
+        <section id="uc-what" className="sector-html"
+          style={{ position: "relative", zIndex: 2, padding: "56px var(--page-inline-pad) 56px" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div className="rv" style={{
+              position: "relative",
+              background: "color-mix(in srgb, var(--p) 5%, transparent)",
+              border: "1px solid color-mix(in srgb, var(--p) 18%, transparent)",
+              borderRadius: 20,
+              padding: "44px 52px",
+              overflow: "hidden",
+            }}>
+              {/* gradient top bar */}
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), var(--sh-gold))" }} />
+              <div className="sector-html-badge" style={{ marginBottom: 16 }}>
+                {isEn ? "How it works" : "كيف يعمل"}
+              </div>
+              <h2 style={{ fontSize: "clamp(20px,2.5vw,32px)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.5px", marginBottom: 18, color: "var(--t)" }}>
                 <Editable contentKey={ucKey("whatWeDoTitle")} label="What we do title" type="text">
                   {cv(["whatWeDoTitle"], whatWeDoTitle)}
                 </Editable>
               </h2>
-              <p style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.85, maxWidth: 720, margin: "0 auto" }}>
-                <Editable contentKey={ucKey("whatWeDoDesc")} label="What we do description" type="text">
+              <p style={{ fontSize: 15.5, color: "var(--td)", lineHeight: 1.88, maxWidth: 840 }}>
+                <Editable contentKey={ucKey("whatWeDoDesc")} label="What we do desc" type="text">
                   {cv(["whatWeDoDesc"], whatWeDoDesc)}
                 </Editable>
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* STATS */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div className="uc-stats-grid rv">
-            {stats.map((s, i) => (
-              <div key={i} className={`gc d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-md)", textAlign: "center", minHeight: "100%" }}>
-                <div className="shine"/>
-                <div style={{ fontSize: "clamp(28px,3.5vw,44px)", fontWeight: 900, color: s.color || "var(--p3)", marginBottom: 8 }}>
-                  <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1} value`} type="text">
-                    {cv(["stats", String(i), "value"], s.value)}
-                  </Editable>
+        {/* ══════════════════════════════════════════════════
+            STATS — KPI boxes
+        ══════════════════════════════════════════════════ */}
+        <section id="uc-stats" className="sector-html"
+          style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12 }}>
+              {stats.map((s, i) => (
+                <div key={i} className={`sector-html-kpi-box rv d${i + 1}`}>
+                  <div className="sector-html-kpiv"
+                    style={{
+                      background: `linear-gradient(135deg, ${s.color || "var(--p)"}, var(--sh-gold))`,
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}>
+                    <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1}`} type="text">
+                      {cv(["stats", String(i), "value"], s.value)}
+                    </Editable>
+                  </div>
+                  <div className="sector-html-kpil">
+                    <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
+                      {cv(["stats", String(i), "label"], s.label)}
+                    </Editable>
+                  </div>
                 </div>
-                <div style={{ fontSize: 13, color: "var(--td)" }}>
-                  <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
-                    {cv(["stats", String(i), "label"], s.label)}
-                  </Editable>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* STRATEGIES */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <h2 className="rv" style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 32, textAlign: "center" }}>
-            <Editable contentKey={ucKey("strategyTitle")} label="Strategy section title" type="text">
-              {cv(["strategyTitle"], strategyTitle)}
-            </Editable>
-          </h2>
-          <div className="uc-strategies-grid">
-            {strategies.map((s, i) => (
-              <div key={i} className={`gc gc-lift rv d${(i % 4) + 1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
-                <div className="shine"/>
-                <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
-                  <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(${hexToRgb(s.color)},.1)`, border: `1px solid rgba(${hexToRgb(s.color)},.22)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>
+        {/* ══════════════════════════════════════════════════
+            STRATEGIES — sector-html-why-grid
+        ══════════════════════════════════════════════════ */}
+        <section id="uc-strategies" className="sector-html"
+          style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <h2 style={{ fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 900, letterSpacing: "-0.5px", color: "var(--t)" }}>
+                <Editable contentKey={ucKey("strategyTitle")} label="Strategy title" type="text">
+                  {cv(["strategyTitle"], strategyTitle)}
+                </Editable>
+              </h2>
+            </div>
+            <div className="sector-html-why-grid">
+              {strategies.map((s, i) => (
+                <div key={i} className={`sector-html-wcard rv d${(i % 3) + 1}`}
+                  style={{ borderTop: `2px solid ${s.color}` }}>
+                  <div className="sector-html-wc-icon" style={{ fontSize: "1.6rem" }}>
                     {s.icon}
                   </div>
-                  <h3 style={{ fontSize: 17, fontWeight: 800 }}>
-                    <Editable contentKey={ucKey("strategies", String(i), "title")} label={`Strategy ${i + 1} title`} type="text">
+                  <p className="sector-html-wc-title" style={{ fontSize: "1rem" }}>
+                    <Editable contentKey={ucKey("strategies", String(i), "title")} label={`Strategy ${i + 1}`} type="text">
                       {cv(["strategies", String(i), "title"], s.title)}
                     </Editable>
-                  </h3>
+                  </p>
+                  <p className="sector-html-wc-line">
+                    <Editable contentKey={ucKey("strategies", String(i), "desc")} label={`Strategy ${i + 1} desc`} type="text">
+                      {cv(["strategies", String(i), "desc"], s.desc)}
+                    </Editable>
+                  </p>
                 </div>
-                <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
-                  <Editable contentKey={ucKey("strategies", String(i), "desc")} label={`Strategy ${i + 1} description`} type="text">
-                    {cv(["strategies", String(i), "desc"], s.desc)}
-                  </Editable>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* EXAMPLE SCENARIO */}
-      {exampleScenario && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
-            <div className="gc rv" style={{ padding: "40px 48px" }}>
-              <div className="shine"/>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.2)", color: "#06b6d4", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 20 }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#06b6d4", boxShadow: "0 0 7px #06b6d4" }}/>
-                <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
-                  {(() => {
-                    const k = cmsKey(lang, "useCaseLayout", "exampleLabel");
-                    const v = map[k];
-                    return v !== undefined && v !== "" ? v : tr.useCaseLayout.exampleLabel;
-                  })()}
-                </Editable>
-              </div>
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 28 }}>
-                <Editable contentKey={ucKey("exampleScenario", "title")} label="Example scenario title" type="text">
-                  {cv(["exampleScenario", "title"], exampleScenario.title)}
-                </Editable>
-              </h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                {exampleScenario.steps.map((step, i) => (
-                  <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 900, color: "var(--p4)", flexShrink: 0 }}>{i + 1}</div>
-                    <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, paddingTop: 4 }}>
-                      <Editable contentKey={ucKey("exampleScenario", "steps", String(i))} label={`Example step ${i + 1}`} type="text">
-                        {cv(["exampleScenario", "steps", String(i)], step)}
-                      </Editable>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: 28, padding: "18px 22px", background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.2)", borderRadius: 14, display: "flex", gap: 12, alignItems: "center" }}>
-                <span style={{ fontSize: 22 }}>✅</span>
-                <p style={{ fontSize: 15, color: "#10b981", fontWeight: 700 }}>
-                  <Editable contentKey={ucKey("exampleScenario", "result")} label="Example result" type="text">
-                    {cv(["exampleScenario", "result"], exampleScenario.result)}
-                  </Editable>
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </section>
-      )}
 
-      {/* PLANS */}
-      {plans && (
-        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
-            <div className="gc rv" style={{ padding: "36px 48px" }}>
-              <div className="shine"/>
-              <div style={{ textAlign: "center", marginBottom: 24 }}>
-                <h3 style={{ fontSize: 20, fontWeight: 800 }}>
-                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "availableIn")} label="Available in plans" type="text">
-                    {(() => {
-                      const k = cmsKey(lang, "useCaseLayout", "availableIn");
-                      const v = map[k];
-                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.availableIn;
-                    })()}
-                  </Editable>
-                </h3>
-              </div>
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-                {plans.map((plan, i) => (
-                  <div key={i} style={{ padding: "10px 24px", borderRadius: 50, background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)", fontSize: 14, fontWeight: 700, color: "var(--p4)" }}>
-                    <Editable contentKey={ucKey("plans", String(i))} label={`Plan ${i + 1}`} type="text">
-                      {cv(["plans", String(i)], plan)}
+        {/* ══════════════════════════════════════════════════
+            EXAMPLE SCENARIO — two-column timeline + result
+        ══════════════════════════════════════════════════ */}
+        {exampleScenario && (
+          <section id="uc-example" className="sector-html"
+            style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
+            <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
+              <div className="rv" style={{
+                position: "relative",
+                background: "color-mix(in srgb, var(--p) 5%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--p) 18%, transparent)",
+                borderRadius: 20,
+                overflow: "hidden",
+              }}>
+                {/* coloured top bar */}
+                <div style={{ height: 3, background: "linear-gradient(90deg, var(--sh-accent2), var(--p), var(--sh-green))" }} />
+                <div style={{ padding: "36px 44px" }}>
+                  <div className="sector-html-badge" style={{ marginBottom: 20 }}>
+                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
+                      {exampleLabel}
                     </Editable>
                   </div>
-                ))}
+                  <h3 style={{ fontSize: "clamp(18px,2vw,24px)", fontWeight: 900, marginBottom: 28, color: "var(--t)" }}>
+                    <Editable contentKey={ucKey("exampleScenario", "title")} label="Example title" type="text">
+                      {cv(["exampleScenario", "title"], exampleScenario.title)}
+                    </Editable>
+                  </h3>
+                  <div className="sector-html-ai-layout" style={{ gap: 36, alignItems: "start" }}>
+                    {/* steps */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                      {exampleScenario.steps.map((step, i) => (
+                        <div key={i} className="sector-html-ai-layer">
+                          <div className="sector-html-al-num">{i + 1}</div>
+                          <div>
+                            <p style={{ margin: 0, fontSize: 14, color: "var(--td)", lineHeight: 1.7 }}>
+                              <Editable contentKey={ucKey("exampleScenario", "steps", String(i))} label={`Step ${i + 1}`} type="text">
+                                {cv(["exampleScenario", "steps", String(i)], step)}
+                              </Editable>
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    {/* result card */}
+                    <div style={{ position: "sticky", top: 100 }}>
+                      <div style={{
+                        background: "color-mix(in srgb, var(--sh-green) 9%, transparent)",
+                        border: "1px solid color-mix(in srgb, var(--sh-green) 32%, transparent)",
+                        borderRadius: 16,
+                        padding: "28px 28px",
+                      }}>
+                        <div style={{ fontSize: 32, marginBottom: 14 }}>✅</div>
+                        <p style={{ margin: 0, fontSize: 15, fontWeight: 700, color: "var(--sh-green)", lineHeight: 1.65 }}>
+                          <Editable contentKey={ucKey("exampleScenario", "result")} label="Result" type="text">
+                            {cv(["exampleScenario", "result"], exampleScenario.result)}
+                          </Editable>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ══════════════════════════════════════════════════
+            PLANS
+        ══════════════════════════════════════════════════ */}
+        {plans && (
+          <section className="sector-html"
+            style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+              <div className="rv" style={{
+                background: "color-mix(in srgb, var(--p) 4%, transparent)",
+                border: "1px solid color-mix(in srgb, var(--p) 16%, transparent)",
+                borderRadius: 18,
+                padding: "28px 36px",
+              }}>
+                <div style={{ textAlign: "center", marginBottom: 20 }}>
+                  <div className="sector-html-badge" style={{ margin: "0 auto" }}>
+                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "availableIn")} label="Available in" type="text">
+                      {availableIn}
+                    </Editable>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+                  {plans.map((plan, i) => (
+                    <div key={i} style={{
+                      padding: "10px 24px",
+                      borderRadius: 999,
+                      background: "color-mix(in srgb, var(--p) 10%, transparent)",
+                      border: "1px solid color-mix(in srgb, var(--p) 26%, transparent)",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "var(--sh-accent)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 7,
+                    }}>
+                      <span style={{ color: "var(--sh-green)", fontWeight: 900 }}>✓</span>
+                      <Editable contentKey={ucKey("plans", String(i))} label={`Plan ${i + 1}`} type="text">
+                        {cv(["plans", String(i)], plan)}
+                      </Editable>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ══════════════════════════════════════════════════
+            EXTRA SECTIONS (widgets / showcases)
+        ══════════════════════════════════════════════════ */}
+        <div id="uc-showcase">
+          {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
+        </div>
+
+        {/* ══════════════════════════════════════════════════
+            REPORTS HIGHLIGHT
+        ══════════════════════════════════════════════════ */}
+        <section className="sector-html"
+          style={{ position: "relative", zIndex: 2, padding: "0 0 56px" }}>
+          <div style={{ width: "100%", maxWidth: 1200, margin: "0 auto" }}>
+            <div className="rv" style={{
+              position: "relative",
+              background: "color-mix(in srgb, var(--p) 5%, transparent)",
+              border: "1px solid color-mix(in srgb, var(--p) 18%, transparent)",
+              borderRadius: 20,
+              padding: "36px 44px",
+              overflow: "hidden",
+              width: "100%",
+              maxWidth: 1200,
+            }}>
+              <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), transparent)" }} />
+              <div className="sector-html-ai-layout" style={{ gap: 44 }}>
+                {/* text */}
+                <div>
+                  <div className="sector-html-badge" style={{ marginBottom: 16 }}>
+                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTag")} label="Reports tag" type="text">
+                      {reportsTag}
+                    </Editable>
+                  </div>
+                  <h3 style={{ fontSize: "clamp(18px,2vw,26px)", fontWeight: 900, marginBottom: 12, color: "var(--t)" }}>
+                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTitle")} label="Reports title" type="text">
+                      {reportsTitle}
+                    </Editable>
+                  </h3>
+                  <p style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.78 }}>
+                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsDesc")} label="Reports desc" type="richtext">
+                      {reportsDesc}
+                    </Editable>
+                  </p>
+                </div>
+                {/* 3 report cards */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
+                  {(
+                    [
+                      { icon: "📊", labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const, color: "#a855f7" },
+                      { icon: "📦", labelKey: "productReports" as const, subKey: "productReportsSub" as const, color: "#06b6d4" },
+                      { icon: "⚡", labelKey: "liveData" as const, subKey: "liveDataSub" as const, color: "#10b981" },
+                    ] as const
+                  ).map((item, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "color-mix(in srgb, var(--bg) 60%, transparent)", border: "1px solid color-mix(in srgb, var(--p) 14%, transparent)", borderRadius: 12, minWidth: 240 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.12)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 800, color: "var(--t)" }}>
+                          <Editable contentKey={cmsKey(lang, "useCaseLayout", item.labelKey)} label={item.labelKey} type="text">
+                            {gv(cmsKey(lang, "useCaseLayout", item.labelKey), tr.useCaseLayout[item.labelKey])}
+                          </Editable>
+                        </div>
+                        <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>
+                          <Editable contentKey={cmsKey(lang, "useCaseLayout", item.subKey)} label={item.subKey} type="text">
+                            {gv(cmsKey(lang, "useCaseLayout", item.subKey), tr.useCaseLayout[item.subKey])}
+                          </Editable>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
-      )}
 
-      {/* EXTRA SECTIONS */}
-      {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
-
-      {/* REPORTS HIGHLIGHT */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div className="gc rv" style={{ padding: "36px 40px", background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
-            <div className="shine"/>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", color: "#a855f7", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const }}>
-                <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 7px #a855f7" }}/>
-                <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTag")} label="Reports tag" type="text">
-                  {(() => {
-                    const k = cmsKey(lang, "useCaseLayout", "reportsTag");
-                    const v = map[k];
-                    return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsTag;
-                  })()}
-                </Editable>
-              </div>
-            </div>
-            <div className="uc-reports-inner" style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 32, alignItems: "center" }}>
-              <div>
-                <h3 style={{ fontSize: "clamp(20px,2.5vw,28px)", fontWeight: 900, marginBottom: 12 }}>
-                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTitle")} label="Reports title" type="text">
-                    {(() => {
-                      const k = cmsKey(lang, "useCaseLayout", "reportsTitle");
-                      const v = map[k];
-                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsTitle;
-                    })()}
-                  </Editable>
-                </h3>
-                <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.8, maxWidth: 600 }}>
-                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsDesc")} label="Reports description" type="richtext">
-                    {(() => {
-                      const k = cmsKey(lang, "useCaseLayout", "reportsDesc");
-                      const v = map[k];
-                      return v !== undefined && v !== "" ? v : tr.useCaseLayout.reportsDesc;
-                    })()}
-                  </Editable>
-                </p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
-                {[
-                  { icon: "📊", label: tr.useCaseLayout.campaignReports, sub: tr.useCaseLayout.campaignReportsSub, color: "#a855f7", labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const },
-                  { icon: "📦", label: tr.useCaseLayout.productReports, sub: tr.useCaseLayout.productReportsSub, color: "#06b6d4", labelKey: "productReports" as const, subKey: "productReportsSub" as const },
-                  { icon: "⚡", label: tr.useCaseLayout.liveData, sub: tr.useCaseLayout.liveDataSub, color: "#10b981", labelKey: "liveData" as const, subKey: "liveDataSub" as const },
-                ].map((item, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, minWidth: 240 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, border: `1px solid rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.2)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
-                      {item.icon}
-                    </div>
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 800 }}>
-                        <Editable contentKey={cmsKey(lang, "useCaseLayout", item.labelKey)} label={item.labelKey} type="text">
-                          {(() => {
-                            const k = cmsKey(lang, "useCaseLayout", item.labelKey);
-                            const v = map[k];
-                            return v !== undefined && v !== "" ? v : item.label;
-                          })()}
-                        </Editable>
-                      </div>
-                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>
-                        <Editable contentKey={cmsKey(lang, "useCaseLayout", item.subKey)} label={item.subKey} type="text">
-                          {(() => {
-                            const k = cmsKey(lang, "useCaseLayout", item.subKey);
-                            const v = map[k];
-                            return v !== undefined && v !== "" ? v : item.sub;
-                          })()}
-                        </Editable>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta-sec" style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
-        <div className="cta-box gc rv" style={{ maxWidth: 840, margin: "0 auto", padding: "88px 60px", textAlign: "center" }}>
-          <div className="shine"/>
-          <div className="cta-glow"/>
-          <h2 style={{ fontSize: "clamp(32px,4.5vw,56px)", fontWeight: 900, letterSpacing: "-1.5px", marginBottom: 16, position: "relative", zIndex: 1, lineHeight: 1.05 }}>
-            <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
-              {cv(["ctaTitle"], ctaTitle)}
-            </Editable>
-          </h2>
-          <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>
-            <Editable contentKey={ucKey("ctaDesc")} label="CTA description" type="text">
-              {cv(["ctaDesc"], ctaDesc)}
-            </Editable>
-          </p>
-          <div className="cta-btns">
-            <button
-              onClick={() => setPlatformModalOpen(true)}
-              className="cta-btn cb-zid"
-              style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-            >
-              <span>🚀</span>{" "}
-              <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "useCaseLayout", "activateNow");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.useCaseLayout.activateNow;
-                })()}
+        {/* ══════════════════════════════════════════════════
+            CTA
+        ══════════════════════════════════════════════════ */}
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
+          <div className="sector-html rv" style={{
+            width: "100%",
+            maxWidth: 1200,
+            margin: "0 auto",
+            position: "relative",
+            background: "color-mix(in srgb, var(--p) 8%, transparent)",
+            border: "1px solid color-mix(in srgb, var(--p) 22%, transparent)",
+            borderRadius: 24,
+            padding: "72px 60px",
+            textAlign: "center",
+            overflow: "hidden",
+          }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), var(--sh-gold))" }} />
+            {/* glow */}
+            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 500, height: 300, background: "radial-gradient(ellipse, color-mix(in srgb, var(--p) 18%, transparent) 0%, transparent 70%)", pointerEvents: "none" }} />
+            <h2 className="sector-html-hero-h" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+              <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
+                {cv(["ctaTitle"], ctaTitle)}
               </Editable>
-            </button>
+            </h2>
+            <p className="sector-html-hero-sub" style={{ textAlign: "center", margin: "0 auto 36px", position: "relative", zIndex: 1 }}>
+              <Editable contentKey={ucKey("ctaDesc")} label="CTA desc" type="text">
+                {cv(["ctaDesc"], ctaDesc)}
+              </Editable>
+            </p>
+            <div className="sector-html-cta-row" style={{ justifyContent: "center", position: "relative", zIndex: 1 }}>
+              <button type="button" className="sector-html-btn sector-html-btn--fire"
+                onClick={() => setPlatformModalOpen(true)}>
+                🚀{" "}
+                <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
+                  {activateNow}
+                </Editable>
+              </button>
+            </div>
+            <p className="cta-note" style={{ position: "relative", zIndex: 1, marginTop: 20 }}>
+              <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
+                {ctaNote}
+              </Editable>
+            </p>
           </div>
-          <p className="cta-note">
-            <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
-              {(() => {
-                const k = cmsKey(lang, "useCaseLayout", "ctaNote");
-                const v = map[k];
-                return v !== undefined && v !== "" ? v : tr.useCaseLayout.ctaNote;
-              })()}
-            </Editable>
-          </p>
-        </div>
-      </section>
-    </PageShell>
-    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+        </section>
+      </PageShell>
+
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
-}
-
-function hexToRgb(color: string): string {
-  const map: Record<string, string> = {
-    "#a855f7": "168,85,247",
-    "#06b6d4": "6,182,212",
-    "#10b981": "16,185,129",
-    "#f59e0b": "245,158,11",
-    "#ec4899": "236,72,153",
-    "#4f46e5": "79,70,229",
-    "#7c3aed": "124,58,237",
-    "#e11d48": "225,29,72",
-    "#8b5cf6": "139,92,246",
-  };
-  return map[color] || "168,85,247";
 }

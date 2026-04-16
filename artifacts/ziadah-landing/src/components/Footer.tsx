@@ -1,7 +1,6 @@
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
-import { useTheme } from "@/ThemeContext";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiTiktok } from "react-icons/si";
@@ -11,7 +10,6 @@ import { cmsKey } from "@/cms/cmsKeys";
 export default function Footer() {
   const t = useSiteT();
   const { lang } = useLanguage();
-  const { theme } = useTheme();
   const tr = t[lang];
   const footerSectorLinks = [
     { href: "/sectors/ecommerce-stores", labelKey: "sectorLinkEcommerceStores" as const },
@@ -26,15 +24,7 @@ export default function Footer() {
           <div className="ft-brand">
             <div className="ft-logo">
               <img
-                src={
-                  theme === "light"
-                    ? lang === "ar"
-                      ? "/logo-light-ar.png"
-                      : "/logo-light.png"
-                    : lang === "ar"
-                      ? "/logo-ar.png"
-                      : "/logo-en.png"
-                }
+                src={lang === "ar" ? "/logo-ar.png" : "/logo-en.png"}
                 alt={tr.seo.brandLogoAlt}
                 style={{ height: 40, width: "auto" }}
               />

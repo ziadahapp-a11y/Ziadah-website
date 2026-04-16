@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -82,13 +82,13 @@ export default function Features() {
       description={lang === "ar" ? t.ar.features.seoDesc : t.en.features.seoDesc}
       url="/features"
     />
-    <PageShell>
-      <Nav />
+    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+      <DsPageBackdrop />
 
       {/* HERO */}
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{ft.heroTag}</div>
-        <h1 className="st rv d1" style={{ fontSize: "clamp(38px,5vw,64px)", marginTop: 8 }} dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />
+        <h1 className="st rv d1" style={{ fontSize: "clamp(22px,5vw,64px)", marginTop: 8 }} dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />
         <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>{ft.heroSub}</p>
 
         {/* Tabs */}

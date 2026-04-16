@@ -11,60 +11,12 @@ import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset"
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
 
-function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
-  const runBlur = useBlurTransition();
-  const isLight = theme === "light";
-  return (
-    <button
-      type="button"
-      onClick={() => runBlur(() => toggleTheme())}
-      title={isLight ? "تفعيل المود الليلي" : "تفعيل المود النهاري"}
-      style={{
-        display: "flex", alignItems: "center", justifyContent: "center",
-        width: 30, height: 30, borderRadius: 10,
-        background: isLight ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.07)",
-        border: `1px solid ${isLight ? "rgba(124,58,237,.25)" : "rgba(255,255,255,.12)"}`,
-        color: isLight ? "#7c3aed" : "rgba(255,255,255,.7)",
-        cursor: "pointer", transition: "all .25s", flexShrink: 0,
-      }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(124,58,237,.2)" : "rgba(255,255,255,.13)"; }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = isLight ? "rgba(124,58,237,.12)" : "rgba(255,255,255,.07)"; }}
-    >
-      {isLight ? (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-        </svg>
-      ) : (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      )}
-    </button>
-  );
-}
 
 export const Logo = () => {
   const t = useSiteT();
-  const { theme } = useTheme();
   const { lang } = useLanguage();
   const tr = t[lang];
-  const logoSrc =
-    theme === "light"
-      ? lang === "ar"
-        ? "/logo-light-ar.png"
-        : "/logo-light.png"
-      : lang === "ar"
-        ? "/logo-ar.png"
-        : "/logo-en.png";
+  const logoSrc = lang === "ar" ? "/logo-ar.png" : "/logo-en.png";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
       <img
@@ -82,8 +34,6 @@ export const Logo = () => {
 function LanguageSwitcher() {
   const { lang, setLang } = useLanguage();
   const runBlur = useBlurTransition();
-  const { theme } = useTheme();
-  const isLt = theme === "light";
   return (
     <button
       type="button"
@@ -91,14 +41,14 @@ function LanguageSwitcher() {
       style={{
         display: "flex", alignItems: "center", gap: 5,
         padding: "6px 12px", borderRadius: 8,
-        background: isLt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)",
-        border: `1px solid ${isLt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.12)"}`,
-        color: isLt ? "rgba(15,10,35,.7)" : "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
+        background: "rgba(255,255,255,.07)",
+        border: "1px solid rgba(255,255,255,.12)",
+        color: "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = isLt ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.13)"; }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = isLt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)"; }}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.13)"; }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.07)"; }}
       title={lang === "ar" ? "Switch to English" : "التبديل للعربية"}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -211,8 +161,6 @@ function UseCasesMegaMenu() {
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
-  const { theme } = useTheme();
-  const lt = theme === "light";
   const useCasesDropdown = getUseCasesDropdown(tr);
   return (
     <div style={{
@@ -223,11 +171,11 @@ function UseCasesMegaMenu() {
       maxWidth: "calc(100vw - 16px)",
       minWidth: 0,
       boxSizing: "border-box",
-      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.9)",
-      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+      background: "rgba(11,0,25,1)",
+      border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: "16px 10px",
-      backdropFilter: "blur(100px)", WebkitBackdropFilter: "blur(100px)",
-      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)",
+      boxShadow: "none", zIndex: 100,
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
       gap: 8,
@@ -258,7 +206,7 @@ function UseCasesMegaMenu() {
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 12, color: "var(--td)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
+                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
                   {item.subtitle}
                 </span>
               )}
@@ -275,7 +223,6 @@ function PlatformsDropdown() {
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
-  const lt = theme === "light";
   const platformItems = getPlatformItems(tr);
   return (
     <div style={{
@@ -283,10 +230,10 @@ function PlatformsDropdown() {
       minWidth: "min(200px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
-      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+      background: "rgba(8,6,20,.97)",
+      border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       {platformItems.map((item) => {
         if (!item.enabled) {
@@ -348,8 +295,6 @@ function HelpDropdown() {
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
-  const { theme } = useTheme();
-  const lt = theme === "light";
   const helpItems = [
     {
       icon: (
@@ -383,10 +328,10 @@ function HelpDropdown() {
       minWidth: "min(300px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
-      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+      background: "rgba(8,6,20,.97)",
+      border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       {helpItems.map((item) => (
         <span
@@ -462,6 +407,12 @@ function MobileNavIcon({ name, size = 20 }: { name: string; size?: number }) {
           <line x1="8" y1="10" x2="16" y2="10" />
           <line x1="8" y1="14" x2="12" y2="14" />
           <line x1="8" y1="18" x2="16" y2="18" />
+        </svg>
+      );
+    case "analyze":
+      return (
+        <svg {...s} aria-hidden>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
         </svg>
       );
     case "platforms":
@@ -571,8 +522,6 @@ function MobileNavIcon({ name, size = 20 }: { name: string; size?: number }) {
 
 function SectorsDropdown() {
   const { lang } = useLanguage();
-  const { theme } = useTheme();
-  const lt = theme === "light";
   const allSectorsLabel = lang === "ar" ? "كل القطاعات" : "All Sectors";
 
   return (
@@ -582,10 +531,10 @@ function SectorsDropdown() {
       maxWidth: "calc(100vw - 16px)",
       maxHeight: 420, overflowY: "auto",
       boxSizing: "border-box",
-      background: lt ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
-      border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+      background: "rgba(8,6,20,.97)",
+      border: "1px solid rgba(255,255,255,.1)",
       borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: lt ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
     }}>
       <span
         role="button"
@@ -655,7 +604,6 @@ function MobileMoreDropdown({
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
-  const lt = theme === "light";
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
 
@@ -686,16 +634,16 @@ function MobileMoreDropdown({
 
   const directLinkStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
-    borderRadius: 14, background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", textDecoration: "none",
-    border: `1px solid ${lt ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
+    borderRadius: 14, background: "rgba(255,255,255,.04)", textDecoration: "none",
+    border: "1px solid rgba(255,255,255,.08)",
     color: "var(--tm)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
     marginBottom: 6,
   };
 
   const subLinkStyle: React.CSSProperties = {
     display: "block", padding: "10px 12px", borderRadius: 10,
-    background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", textDecoration: "none",
-    border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+    background: "rgba(255,255,255,.04)", textDecoration: "none",
+    border: "1px solid rgba(255,255,255,.07)",
     color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
@@ -736,13 +684,13 @@ function MobileMoreDropdown({
           maxWidth: 540,
           marginInline: "auto",
           zIndex: 950,
-          background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
-          border: `1px solid ${lt ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+          background: "rgba(8,6,20,.98)",
+          border: "1px solid rgba(255,255,255,.1)",
           borderBottom: "none",
           borderRadius: "22px 22px 0 0",
           padding: "10px 14px 8px",
           backdropFilter: "blur(32px)",
-          boxShadow: lt ? "0 -8px 40px rgba(0,0,0,.1)" : "0 -8px 40px rgba(0,0,0,.6)",
+          boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
           maxHeight: "80vh",
           overflowY: "auto",
           animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
@@ -753,7 +701,7 @@ function MobileMoreDropdown({
           width: 44,
           height: 4,
           borderRadius: 999,
-          background: lt ? "rgba(0,0,0,.14)" : "rgba(255,255,255,.2)",
+          background: "rgba(255,255,255,.2)",
           margin: "2px auto 10px",
         }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
@@ -762,7 +710,7 @@ function MobileMoreDropdown({
             type="button"
             onClick={onClose}
             style={{
-              background: lt ? "rgba(0,0,0,.05)" : "rgba(255,255,255,.07)", border: "none", color: "var(--tm)",
+              background: "rgba(255,255,255,.07)", border: "none", color: "var(--tm)",
               width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -771,7 +719,7 @@ function MobileMoreDropdown({
           </button>
         </div>
 
-        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("useCases")}
@@ -807,7 +755,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("platforms")}
@@ -852,8 +800,8 @@ function MobileMoreDropdown({
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "9px 12px", borderRadius: 10,
-                      background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)", color: "var(--td)",
-                      border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)", color: "var(--td)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                     }}
                   >
@@ -866,7 +814,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`, borderRadius: 14, padding: "4px 8px", background: lt ? "rgba(0,0,0,.015)" : "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
           <button
             type="button"
             onClick={() => toggleSection("help")}
@@ -891,8 +839,8 @@ function MobileMoreDropdown({
               {mobileHelpItems.map((item) => {
                 const itemStyle: React.CSSProperties = {
                   display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                  borderRadius: 10, background: lt ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                  border: `1px solid ${lt ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                  borderRadius: 10, background: "rgba(255,255,255,.04)",
+                  border: "1px solid rgba(255,255,255,.07)",
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
@@ -914,6 +862,10 @@ function MobileMoreDropdown({
           <span onClick={() => { navigateTo("/calculator"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
             {tr.nav.calculator}
+          </span>
+          <span onClick={() => { navigateTo("/analyze"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
+            {tr.nav.analyze}
           </span>
           <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
@@ -955,7 +907,7 @@ function MobileMoreDropdown({
         <div style={{ display: "flex", gap: 8, marginBottom: 10, marginTop: 4 }}>
           <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" onClick={onClose} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-            border: `1px solid ${lt ? "rgba(0,0,0,.15)" : "rgba(255,255,255,.16)"}`, background: "transparent",
+            border: "1px solid rgba(255,255,255,.16)", background: "transparent",
             color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
           }}>
             {tr.nav.bookMeeting}
@@ -970,7 +922,6 @@ function MobileMoreDropdown({
         </div>
 
         <div style={{ display: "flex", justifyContent: "center", gap: 8, paddingBottom: 4 }}>
-          <ThemeToggle />
           <LanguageSwitcher />
         </div>
       </div>
@@ -982,9 +933,8 @@ export default function Nav() {
   const t = useSiteT();
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const runBlur = useBlurTransition();
-  const isLight = theme === "light";
   const isRtl = lang === "ar";
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
@@ -996,7 +946,7 @@ export default function Nav() {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", fn); fn();
+    window.addEventListener("scroll", fn, { passive: true }); fn();
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
@@ -1072,16 +1022,12 @@ export default function Nav() {
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
         transform: "translateX(-50%)", width: "min(92%, 1200px)", maxWidth: 1200,
-        background: isLight
-          ? (scrolled ? "rgba(241,245,249,.1)" : "rgba(241,245,249,.88)")
-          : (scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)"),
+        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)",
         border: "none",
         borderColor: "rgba(0, 0, 0, 0)",
         borderImage: "none",
         boxShadow: scrolled
-          ? (isLight
-            ? "0 8px 40px rgba(0,0,0,.12)"
-            : "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)")
+          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)"
           : "inset 1px 1px 2px 0px rgba(255, 255, 255, 0.2)",
         borderRadius: 18, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
@@ -1197,6 +1143,23 @@ export default function Nav() {
               </span>
             </li>
 
+            <li style={{ ...navLinkLiStyle, width: "fit-content" }}>
+              <span onClick={() => navigateTo("/analyze")} style={{
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
+                color: location === "/analyze" ? "var(--t)" : "var(--tm)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/analyze" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s", cursor: "pointer", width: "fit-content",
+              }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
+                onMouseLeave={e => { if (location !== "/analyze") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
+              >
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
+                  {tr.nav.analyze}
+                </Editable>
+              </span>
+            </li>
+
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help")}>
@@ -1214,7 +1177,6 @@ export default function Nav() {
           </div>
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <ThemeToggle />
             <LanguageSwitcher />
             <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
@@ -1317,6 +1279,19 @@ export default function Nav() {
               </span>
             </li>
             <li style={navLinkLiStyle}>
+              <span onClick={() => navigateTo("/analyze")} style={{
+                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
+                color: location === "/analyze" ? "var(--t)" : "var(--tm)",
+                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
+                textDecoration: "none", background: location === "/analyze" ? "rgba(124,58,237,.1)" : "transparent",
+                transition: "all .2s", cursor: "pointer",
+              }}>
+                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
+                  {tr.nav.analyze}
+                </Editable>
+              </span>
+            </li>
+            <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help2")}>
                   <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
@@ -1336,8 +1311,8 @@ export default function Nav() {
       {/* MOBILE TOP BAR */}
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
-        background: isLight ? "rgba(241,245,249,.92)" : "rgba(3,3,11,.88)",
-        borderBottom: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
+        background: "rgba(3,3,11,.88)",
+        borderBottom: "1px solid rgba(255,255,255,.08)",
         backdropFilter: "blur(32px)",
         alignItems: "center", justifyContent: "center",
         height: 52,
@@ -1350,8 +1325,8 @@ export default function Nav() {
       {/* MOBILE NAV */}
       <div className="mobile-nav" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: isLight ? "rgba(241,245,249,.97)" : "rgba(6,4,18,.97)",
-        borderTop: `1px solid ${isLight ? "rgba(0,0,0,.08)" : "rgba(255,255,255,.08)"}`,
+        background: "rgba(6,4,18,.97)",
+        borderTop: "1px solid rgba(255,255,255,.08)",
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
         transition: "background .3s, border-color .3s",
       }}>
@@ -1366,10 +1341,10 @@ export default function Nav() {
             padding: 8,
             maxHeight: "48vh",
             overflowY: "auto",
-            background: isLight ? "rgba(255,255,255,.97)" : "rgba(8,6,20,.97)",
-            border: `1px solid ${isLight ? "rgba(0,0,0,.1)" : "rgba(255,255,255,.1)"}`,
+            background: "rgba(8,6,20,.97)",
+            border: "1px solid rgba(255,255,255,.1)",
             backdropFilter: "blur(32px)",
-            boxShadow: isLight ? "0 16px 50px rgba(0,0,0,.1)" : "0 24px 60px rgba(0,0,0,.6)",
+            boxShadow: "0 24px 60px rgba(0,0,0,.6)",
             animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
           }}>
             {mobileOpenDrop === "useCases" && (
@@ -1386,8 +1361,8 @@ export default function Nav() {
                           onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
                           style={{
                             display: "block", padding: "10px 12px", borderRadius: 10,
-                            background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                            border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                            background: "rgba(255,255,255,.04)",
+                            border: "1px solid rgba(255,255,255,.07)",
                             color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                           }}
                         >
@@ -1411,8 +1386,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8,
                       padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                     }}
                   >
                     <img src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)} alt={item.label} loading="lazy" style={{ height: 18, width: "auto", display: "block" }} />
@@ -1423,8 +1398,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--td)", fontSize: 13, fontWeight: 500,
                     }}
                   >
@@ -1440,8 +1415,8 @@ export default function Nav() {
                   onClick={() => { navigateTo("/sectors"); setMobileOpenDrop(null); }}
                   style={{
                     display: "block", padding: "10px 12px", borderRadius: 10,
-                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    background: "rgba(255,255,255,.04)",
+                    border: "1px solid rgba(255,255,255,.07)",
                     color: "var(--p)", fontSize: 13, fontWeight: 700, cursor: "pointer",
                   }}
                 >
@@ -1454,8 +1429,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
@@ -1477,8 +1452,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,
-                      background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                      border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid rgba(255,255,255,.07)",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
@@ -1502,8 +1477,8 @@ export default function Nav() {
                     justifyContent: "space-between",
                     padding: "10px 12px",
                     borderRadius: 10,
-                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
+                    background: "rgba(255,255,255,.04)",
+                    border: "1px solid rgba(255,255,255,.07)",
                     color: "var(--t)",
                     fontSize: 13,
                     fontWeight: 500,
@@ -1513,30 +1488,6 @@ export default function Nav() {
                 >
                   <span>{lang === "ar" ? "اللغة" : "Language"}</span>
                   <span>{lang === "ar" ? "EN" : "عربي"}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    runBlur(() => toggleTheme());
-                    setMobileOpenDrop(null);
-                  }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 12px",
-                    borderRadius: 10,
-                    background: isLight ? "rgba(0,0,0,.03)" : "rgba(255,255,255,.04)",
-                    border: `1px solid ${isLight ? "rgba(0,0,0,.07)" : "rgba(255,255,255,.07)"}`,
-                    color: "var(--t)",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    cursor: "pointer",
-                    fontFamily: "var(--font)",
-                  }}
-                >
-                  <span>{lang === "ar" ? "الوضع" : "Mode"}</span>
-                  <span>{theme === "light" ? (lang === "ar" ? "نهاري" : "Light") : (lang === "ar" ? "ليلي" : "Dark")}</span>
                 </button>
               </div>
             )}
@@ -1555,6 +1506,7 @@ export default function Nav() {
               { key: "home", iconKey: "home" as const, label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
               { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
               { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
+              { key: "analyze", iconKey: "analyze" as const, label: tr.nav.analyze, cmsContentKey: cmsKey(lang, "nav", "analyze"), action: () => { setMobileOpenDrop(null); navigateTo("/analyze"); }, active: location === "/analyze" },
               { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
               { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
               { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },

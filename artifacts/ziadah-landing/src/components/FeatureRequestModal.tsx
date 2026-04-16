@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
-import { useTheme } from "@/ThemeContext";
-
 export default function FeatureRequestModal({ onClose }: { onClose: () => void }) {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang];
-  const { theme } = useTheme();
-  const lt = theme === "light";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
@@ -78,11 +74,11 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
       }}
     >
       <div style={{
-        background: lt ? "rgba(255,255,255,.98)" : "rgba(8,6,20,.98)",
-        border: `1px solid ${lt ? "rgba(124,58,237,.2)" : "rgba(124,58,237,.3)"}`,
+        background: "rgba(8,6,20,.98)",
+        border: "1px solid rgba(124,58,237,.3)",
         borderRadius: 24, padding: 40, width: "100%", maxWidth: 500,
         position: "relative", direction: dir,
-        boxShadow: lt ? "0 40px 100px rgba(0,0,0,.12), 0 0 60px rgba(124,58,237,.08)" : "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
+        boxShadow: "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124,58,237,.15)",
       }}>
         <button
           type="button"

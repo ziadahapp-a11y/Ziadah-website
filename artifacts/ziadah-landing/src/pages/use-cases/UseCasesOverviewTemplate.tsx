@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCasePagesShowcase, { ProductPageMockup, PageHeroPhone } from "../../components/UseCasePagesShowcase";
 
 type UseCasesOverviewKind =
   | "by-pages"
@@ -58,6 +59,12 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ctaTitleEn: "Explore solutions by page",
       ctaDescEn: "Pick the best page to start improving your store.",
       seo: { title: "الحلول حسب الصفحات — زيادة", titleEn: "Solutions by Page — Ziadah", description: "صفحة عامة لحلول زيادة حسب صفحات المتجر.", descriptionEn: "General overview of Ziadah solutions by store pages.", canonical: "/use-cases/by-pages" },
+      heroVisual: (
+        <PageHeroPhone float1="📈 +32% متوسط السلة" float2="🛒 اشترِ أكثر ووفّر">
+          <ProductPageMockup />
+        </PageHeroPhone>
+      ),
+      extraSections: (isAr: boolean) => <UseCasePagesShowcase isAr={isAr} />,
       ...common,
     },
     "by-activity": {

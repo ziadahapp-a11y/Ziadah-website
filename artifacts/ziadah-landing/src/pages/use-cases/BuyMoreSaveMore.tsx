@@ -59,7 +59,7 @@ const data: UseCasePageData = {
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
+          <div style={{ border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
             <div className="shine"/>
             <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>

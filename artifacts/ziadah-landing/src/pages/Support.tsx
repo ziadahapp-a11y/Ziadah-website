@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -69,15 +69,14 @@ export default function Support() {
       keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
-    <PageShell>
-      <Nav />
+    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+      <DsPageBackdrop />
 
       {/* ─── HERO ─── */}
       <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 60, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", overflow: "hidden" }}>
-        <div style={{ position: "absolute", width: 900, height: 600, background: "radial-gradient(ellipse,rgba(124,58,237,.18) 0%,rgba(124,58,237,.05) 45%,transparent 70%)", top: 0, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
 
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{tx.tag}</div>
-        <h1 className="rv d1" style={{ fontSize: "clamp(36px,5.5vw,68px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.1, marginTop: 10, marginBottom: 16 }}>
+        <h1 className="rv d1" style={{ fontSize: "clamp(22px,5.5vw,68px)", fontWeight: 900, letterSpacing: "-2px", lineHeight: 1.1, marginTop: 10, marginBottom: 16 }}>
           {tx.heroTitle}
         </h1>
         <p className="rv d2" style={{ fontSize: 17, color: "var(--tm)", maxWidth: 520, margin: "0 auto 40px", lineHeight: 1.8 }}>
@@ -140,7 +139,7 @@ export default function Support() {
       </section>
 
       {/* ─── QUICK LINKS ─── */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 64px" }}>
+      <section style={{ position: "relative", zIndex: 2, padding: "64px var(--page-inline-pad) 64px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <h2 className="rv" style={{ fontSize: "clamp(17px, 2vw, 20px)", fontWeight: 800, margin: "0 0 18px", color: "var(--t)", letterSpacing: "-0.3px", textAlign: isAr ? "right" : "left", lineHeight: 1.35 }}>
             {tx.contactSupport}
@@ -151,10 +150,11 @@ export default function Support() {
               className="gc support-card-priority"
               style={{
                 display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)",
-                textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%",
+                textDecoration: "none", color: "rgba(255, 255, 255, 1)", transition: "all .25s", minHeight: "100%",
+                background: "rgba(9, 0, 25, 1)",
               }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.12)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.32)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(9, 0, 25, 1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
             >
               <div className="shine"/>
               <span className="support-card-icon-wrap" aria-hidden>
@@ -171,11 +171,12 @@ export default function Support() {
               className="gc support-card-priority"
               style={{
                 display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)",
-                color: "var(--t)", transition: "all .25s", minHeight: "100%",
+                color: "rgba(255, 255, 255, 1)", transition: "all .25s", minHeight: "100%",
                 cursor: "pointer", fontFamily: "var(--font)", border: "1px solid var(--b1)", borderRadius: "20px", textAlign: "inherit",
+                background: "rgba(9, 0, 25, 1)",
               }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.12)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.32)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = ""; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(9, 0, 25, 1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
             >
               <div className="shine"/>
               <span className="support-card-icon-wrap" aria-hidden>
@@ -189,14 +190,14 @@ export default function Support() {
             {quickLinks.map(l => (
               <a key={l.label} href={l.href} target={l.ext ? "_blank" : undefined} rel="noreferrer"
                 className="gc"
-                style={{ display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)", textDecoration: "none", color: "var(--t)", transition: "all .25s", minHeight: "100%" }}
+                style={{ display: "flex", alignItems: "center", gap: 14, padding: "var(--card-pad-sm)", textDecoration: "none", color: "rgba(0, 0, 0, 1)", transition: "all .25s", minHeight: "100%", background: "rgba(9, 0, 25, 1)" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,58,237,.09)"; e.currentTarget.style.borderColor = "rgba(124,58,237,.28)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "var(--s1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "rgba(9, 0, 25, 1)"; e.currentTarget.style.borderColor = "var(--b1)"; e.currentTarget.style.transform = "none"; }}
               >
                 <div className="shine"/>
                 <span style={{ fontSize: 24, lineHeight: 1, width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{l.icon}</span>
                 <div style={{ flex: 1, minWidth: 0, textAlign: isAr ? "right" : "left" }}>
-                  <div style={{ fontWeight: 700, fontSize: 14 }}>{l.label}</div>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: "rgba(255, 255, 255, 1)" }}>{l.label}</div>
                   <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{l.desc}</div>
                 </div>
               </a>

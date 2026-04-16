@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/engine/"
+title = "Ziadah Product Intelligence Engine"
+version = "1.0.0"
+id = "artifacts/ziadah-engine"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/engine/" ]
+localPort = 24215
+
+[services.development]
+run = "pnpm --filter @workspace/ziadah-engine run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ziadah-engine", "run", "build" ]
+publicDir = "artifacts/ziadah-engine/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/engine/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24215"
+BASE_PATH = "/engine/"

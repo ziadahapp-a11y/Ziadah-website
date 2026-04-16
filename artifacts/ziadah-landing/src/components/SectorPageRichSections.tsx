@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit } from "@/data/sectorPageTypes";
+import PlatformModal from "@/components/PlatformModal";
 
 type Part = "top" | "ai" | "bottom" | "foot";
 
@@ -16,6 +17,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   const isAr = lang === "ar";
   const html = Boolean(rich.htmlLayout);
   const [openMetricInfo, setOpenMetricInfo] = useState<string | null>(null);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   const triggers = tr.sectorTrackingTriggers;
   const barsRef = useRef<HTMLDivElement>(null);
@@ -540,9 +542,19 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
           <div className="shine" />
           <div style={{ padding: "28px 24px 30px", textAlign: "center" }}>
             <h2 style={{ fontSize: 20, fontWeight: 800, color: "var(--p)", marginBottom: 10, marginTop: 0 }}>{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
-            <p style={{ margin: 0, fontSize: 15, color: "var(--tm)", lineHeight: 1.75, maxWidth: 560, marginInline: "auto" }}>{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
+            <p style={{ margin: "0 0 20px", fontSize: 15, color: "var(--tm)", lineHeight: 1.75, maxWidth: 560, marginInline: "auto" }}>{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
+            <div className="sector-html-cta-row" style={{ justifyContent: "center" }}>
+              <button
+                type="button"
+                className="sector-html-btn sector-html-btn--fire"
+                onClick={() => setPlatformModalOpen(true)}
+              >
+                🚀 {isAr ? "فعّل الآن" : "Activate Now"}
+              </button>
+            </div>
           </div>
         </div>
+        <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
       </>
     );
   }

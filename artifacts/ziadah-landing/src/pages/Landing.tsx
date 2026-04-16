@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import Nav, { Logo } from "../components/Nav";
 import PageShell from "../components/PageShell";
+import { Logo } from "../components/Nav";
 import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
@@ -11,7 +11,6 @@ import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
-import { useTheme } from "@/ThemeContext";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
@@ -27,6 +26,10 @@ const SECTOR_TEASER_SLUGS = [
   "restaurants-cafes",
   "health-fitness",
   "jewelry",
+  "home-supplies",
+  "digital-products",
+  "clinics",
+  "gold",
 ] as const;
 
 const storeLogos = [
@@ -98,13 +101,304 @@ function SecTag({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ── Demo Flow Section ─────────────────────────────────────────
+
+const DEMO_PHASES_AR = [
+  "بيانات العملاء تتدفق للـ Agent",
+  "AI Agent بيحلل السلوك والتفضيلات",
+  "توصيات مخصصة لكل عميل",
+];
+const DEMO_PHASES_EN = [
+  "Customer data flowing to Agent",
+  "AI Agent analyzing behavior",
+  "Personalized recommendations ready",
+];
+
+function DemoPhaseIndicator({ lang }: { lang: string }) {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setPhase((p) => (p + 1) % 3), 2600);
+    return () => clearInterval(id);
+  }, []);
+  const phases = lang === "ar" ? DEMO_PHASES_AR : DEMO_PHASES_EN;
+  return (
+    <div className="demo-phase-bar">
+      {phases.map((label, i) => (
+        <div key={i} className={`demo-phase-item${phase === i ? " demo-phase-active" : ""}`}>
+          <span className="demo-phase-dot" />
+          <span className="demo-phase-text">{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string> }) {
+  const isAr = lang === "ar";
+  const nasserSigs = [
+    { c: "#a855f7", t: tr.demoMaleSig1 },
+    { c: "#06b6d4", t: tr.demoMaleSig2 },
+    { c: "#10b981", t: tr.demoMaleSig3 },
+  ];
+  const nouraSigs = [
+    { c: "#ec4899", t: tr.demoFemaleSig1 },
+    { c: "#a855f7", t: tr.demoFemaleSig2 },
+    { c: "#f59e0b", t: tr.demoFemaleSig3 },
+  ];
+  return (
+    <div className="dfs">
+      <DemoPhaseIndicator lang={lang} />
+
+      <div className="dfs-card gc">
+        <div className="shine" />
+
+        {/* ROW 1: profile | hflow | engine | hflow | profile */}
+        <div className="dfs-top">
+
+          {/* NASSER */}
+          <div className="dfs-profile rv d1">
+            <div className="dfs-av-wrap">
+              <div className="dfs-av-ring" />
+              <div className="dfs-av-ring dfs-av-ring-2" />
+              <img src="/avatar-male.webp" className="dfs-av" alt="" loading="lazy" />
+              <div className="dfs-av-badge dfs-av-badge-p">{tr.demoMaleChip}</div>
+            </div>
+            <div className="dfs-pbody">
+              <div className="dfs-pname">{tr.demoMaleName}</div>
+              <div className="dfs-pmeta">{tr.demoMaleMeta}</div>
+              <div className="dfs-sigs">
+                {nasserSigs.map((s, i) => (
+                  <div key={i} className="dfs-sig">
+                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
+                    {s.t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Horizontal flow: Nasser → engine */}
+          <div className="dfs-hflow" aria-hidden="true">
+            <div className="dfs-hline dfs-hline-p" />
+            {[0,1,2,3].map(i => (
+              <span key={i} className="dfs-hpt dfs-hpt-p" style={{ "--di": i } as React.CSSProperties} />
+            ))}
+          </div>
+
+          {/* AI ENGINE hub */}
+          <div className="dfs-engine">
+            <div className="dfs-engine-ring" />
+            <div className="dfs-engine-ring dfs-engine-ring-2" />
+            <svg width="38" height="38" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="16" cy="16" r="14" fill="rgba(124,58,237,.22)" stroke="rgba(168,85,247,.6)" strokeWidth="1.5" />
+              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(168,85,247,.95)" />
+              <circle cx="16" cy="16" r="2.5" fill="#c084fc" />
+            </svg>
+            <div className="dfs-engine-lbl">{isAr ? "محرك الذكاء الاصطناعي" : "AI Engine"}</div>
+            <div className="dfs-engine-sub">{isAr ? "يحلل · يفهم · يخصص" : "Analyze · Personalize"}</div>
+            <div className="dfs-edots" aria-hidden="true">
+              {[0,1,2].map(i => <span key={i} className="dfs-edot" style={{ "--di": i } as React.CSSProperties} />)}
+            </div>
+          </div>
+
+          {/* Horizontal flow: engine ← Noura */}
+          <div className="dfs-hflow" aria-hidden="true">
+            <div className="dfs-hline dfs-hline-pk" />
+            {[0,1,2,3].map(i => (
+              <span key={i} className="dfs-hpt dfs-hpt-pk" style={{ "--di": i } as React.CSSProperties} />
+            ))}
+          </div>
+
+          {/* NOURA */}
+          <div className="dfs-profile rv d2">
+            <div className="dfs-av-wrap">
+              <div className="dfs-av-ring dfs-av-ring-pk" />
+              <div className="dfs-av-ring dfs-av-ring-2 dfs-av-ring-pk" />
+              <img src="/avatar-female.webp" className="dfs-av" alt="" loading="lazy" />
+              <div className="dfs-av-badge dfs-av-badge-pk">{tr.demoFemaleChip}</div>
+            </div>
+            <div className="dfs-pbody">
+              <div className="dfs-pname">{tr.demoFemaleName}</div>
+              <div className="dfs-pmeta">{tr.demoFemaleMeta}</div>
+              <div className="dfs-sigs">
+                {nouraSigs.map((s, i) => (
+                  <div key={i} className="dfs-sig">
+                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
+                    {s.t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>{/* /dfs-top */}
+
+        {/* ROW 2: upward connector — store data rises into engine */}
+        <div className="dfs-store-up" aria-hidden="true">
+          <div className="dfs-sup-line" />
+          {[0,1,2,3].map(i => (
+            <span key={i} className="dfs-upt" style={{ "--di": i } as React.CSSProperties} />
+          ))}
+        </div>
+
+        {/* ROW 2b: Store data label */}
+        <div className="dfs-store-label">
+          <div className="dfs-store-line" />
+          <span className="dfs-store-tag">{isAr ? "بيانات المتجر" : "Store Data"}</span>
+          <div className="dfs-store-line" />
+        </div>
+        <div className="dfs-store rv d2">
+
+          {/* Product Catalog */}
+          <div className="dfs-store-card gc">
+            <div className="shine" />
+            <div className="dfs-sc-hd">
+              <div className="dfs-sc-ico" style={{ background: "rgba(245,158,11,.1)", border: "1px solid rgba(245,158,11,.22)" }}>🛍️</div>
+              <div>
+                <div className="dfs-sc-title">{isAr ? "كتالوج المنتجات" : "Product Catalog"}</div>
+                <div className="dfs-sc-sub">{isAr ? "4 منتجات · متزامنة" : "4 products · synced"}</div>
+              </div>
+              <div className="dfs-live-dot" style={{ color: "#f59e0b" }}>● {isAr ? "مباشر" : "Live"}</div>
+            </div>
+            <div className="dfs-sc-list">
+              {([
+                { icon: "👟", name: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", cat: isAr ? "رياضة" : "Sports", price: isAr ? "349 ⃁" : "SAR 349", stock: 23 },
+                { icon: "🎧", name: isAr ? "سماعات JBL Reflect" : "JBL Reflect Earbuds", cat: isAr ? "إلكترونيات" : "Electronics", price: isAr ? "219 ⃁" : "SAR 219", stock: 41 },
+                { icon: "🥤", name: isAr ? "بروتين Whey" : "Whey Protein Drink", cat: isAr ? "لياقة" : "Fitness", price: isAr ? "149 ⃁" : "SAR 149", stock: 88 },
+                { icon: "🧴", name: isAr ? "كريم مرطب Nivea" : "Nivea Moisturizer", cat: isAr ? "تجميل" : "Beauty", price: isAr ? "89 ⃁" : "SAR 89", stock: 112 },
+              ] as { icon: string; name: string; cat: string; price: string; stock: number }[]).map((p, i) => (
+                <div key={i} className="dfs-sc-row">
+                  <span className="dfs-sc-emoji">{p.icon}</span>
+                  <div className="dfs-sc-info">
+                    <div className="dfs-sc-name">{p.name}</div>
+                    <div className="dfs-sc-cat">{p.cat}</div>
+                  </div>
+                  <div className="dfs-sc-price">{p.price}</div>
+                  <div className="dfs-sc-stock">{p.stock} {isAr ? "قطعة" : "in stock"}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Order History */}
+          <div className="dfs-store-card gc">
+            <div className="shine" />
+            <div className="dfs-sc-hd">
+              <div className="dfs-sc-ico" style={{ background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)" }}>📦</div>
+              <div>
+                <div className="dfs-sc-title">{isAr ? "سجل الطلبات" : "Order History"}</div>
+                <div className="dfs-sc-sub">{isAr ? "آخر 4 طلبات" : "Last 4 orders"}</div>
+              </div>
+              <div className="dfs-live-dot" style={{ color: "#06b6d4" }}>● {isAr ? "مباشر" : "Live"}</div>
+            </div>
+            <div className="dfs-sc-list">
+              {([
+                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", status: "done" as const, total: isAr ? "349 ⃁" : "SAR 349" },
+                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "عطر + كريم Nivea" : "Perfume + Nivea Cream", status: "done" as const, total: isAr ? "538 ⃁" : "SAR 538" },
+                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "سماعات JBL + بروتين" : "JBL Earbuds + Protein", status: "active" as const, total: isAr ? "368 ⃁" : "SAR 368" },
+                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "باليت مكياج" : "Makeup Palette", status: "done" as const, total: isAr ? "289 ⃁" : "SAR 289" },
+              ] as { av: string; customer: string; items: string; status: "done"|"active"; total: string }[]).map((o, i) => (
+                <div key={i} className="dfs-sc-row">
+                  <span className="dfs-sc-emoji">{o.av}</span>
+                  <div className="dfs-sc-info">
+                    <div className="dfs-sc-name">{o.customer}</div>
+                    <div className="dfs-sc-cat">{o.items}</div>
+                  </div>
+                  <div className={`dfs-sc-status ${o.status === "active" ? "dfs-sc-status-act" : ""}`}>
+                    {o.status === "done" ? (isAr ? "مكتمل" : "Done") : (isAr ? "جاري" : "Active")}
+                  </div>
+                  <div className="dfs-sc-price">{o.total}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>{/* /dfs-store */}
+
+        {/* ROW 3: output divider — engine → personalized recs */}
+        <div className="dfs-divider" aria-hidden="true">
+          <div className="dfs-div-line" />
+          <div className="dfs-div-label">{isAr ? "↓ توصيات مخصصة" : "↓ Personalized output"}</div>
+          <div className="dfs-div-line" />
+          <div className="dfs-vpt-wrap dfs-vpt-wrap-l">
+            {[0,1,2].map(i => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
+          </div>
+          <div className="dfs-vpt-wrap dfs-vpt-wrap-r">
+            {[0,1,2].map(i => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
+          </div>
+        </div>
+
+        {/* ROW 3: recommendations */}
+        <div className="dfs-recs">
+
+          {/* Nasser recs */}
+          <div className="dfs-rec dfs-rec-p rv d3">
+            <div className="dfs-rec-hd">
+              <div>
+                <div className="dfs-pname">{tr.demoMaleName}</div>
+                <div className="dfs-pmeta">{tr.demoMaleMeta}</div>
+              </div>
+              <div className="demo-chip">{tr.demoMaleChip}</div>
+            </div>
+            <div className="demo-sl">{tr.aiSuggestions}</div>
+            <div className="demo-suggs">
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(240,240,248,.06)", border: "1px solid rgba(240,240,248,.12)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="12" rx="5.5" ry="3.5" fill="rgba(240,240,248,.12)" stroke="rgba(240,240,248,.4)" strokeWidth="1" /><path d="M3.5 12 Q5.5 5.5 9 3.5 Q12.5 5.5 14.5 12" fill="rgba(15,10,30,.4)" stroke="rgba(240,240,248,.18)" strokeWidth="1" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{tr.demoMaleSugg1Name}</div><div className="demo-sw">{tr.demoMaleSugg1Sub}</div></div>
+                <div className="demo-sp">{tr.demoMaleSugg1Price}</div>
+              </div>
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(168,85,247,.15)" stroke="rgba(168,85,247,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{tr.demoMaleSugg2Name}</div><div className="demo-sw">{tr.demoMaleSugg2Sub}</div></div>
+                <div className="demo-sp">{tr.demoMaleSugg2Price}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Noura recs */}
+          <div className="dfs-rec dfs-rec-pk rv d4">
+            <div className="dfs-rec-hd">
+              <div>
+                <div className="dfs-pname">{tr.demoFemaleName}</div>
+                <div className="dfs-pmeta">{tr.demoFemaleMeta}</div>
+              </div>
+              <div className="demo-chip" style={{ background: "rgba(236,72,153,.12)", border: "1px solid rgba(236,72,153,.28)", color: "#f9a8d4" }}>{tr.demoFemaleChip}</div>
+            </div>
+            <div className="demo-sl">{tr.aiSuggestions}</div>
+            <div className="demo-suggs">
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(236,72,153,.07)", border: "1px solid rgba(236,72,153,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="9" rx="2" fill="rgba(236,72,153,.12)" stroke="rgba(236,72,153,.45)" strokeWidth="1" /><rect x="4" y="7" width="3" height="2" rx=".6" fill="rgba(255,130,160,.3)" /><rect x="8" y="7" width="3" height="2" rx=".6" fill="rgba(200,70,120,.3)" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{tr.demoFemaleSugg1Name}</div><div className="demo-sw">{tr.demoFemaleSugg1Sub}</div></div>
+                <div className="demo-sp">289 ⃁</div>
+              </div>
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(168,85,247,.12)" stroke="rgba(168,85,247,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(168,85,247,.08)" stroke="rgba(168,85,247,.3)" strokeWidth="1" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{tr.demoFemaleSugg2Name}</div><div className="demo-sw">{tr.demoFemaleSugg2Sub}</div></div>
+                <div className="demo-sp">449 ⃁</div>
+              </div>
+            </div>
+          </div>
+
+        </div>{/* /dfs-recs */}
+
+      </div>{/* /dfs-card */}
+    </div>
+  );
+}
+
 export default function Landing() {
   const { lang, dir } = useLanguage();
   const t = useSiteT();
   const tr = t[lang];
   const [, goRoute] = useLangAwareLocation();
-  const { theme } = useTheme();
-  const isLight = theme === "light";
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
@@ -264,12 +558,12 @@ export default function Landing() {
       <FAQSchema faqs={faqs} />
       <PageShell>
         {/* CURSOR — ديسكتوب فقط */}
-        <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: isLight ? "multiply" : "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
+        <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
         <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(168,85,247,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
         {/* NAV */}
-        <Nav />
+        
         {/* HERO */}
-        <section className="hero hero-v2" dir={dir}>
+        <section className="hero hero-v2" dir={dir} style={{ alignItems: "center", justifyContent: "center" }}>
           <div className="hero-grid">
             <div className="hero-copy-col">
               <div className="hero-in hero-copy-inner">
@@ -287,7 +581,7 @@ export default function Landing() {
                     {tr.landing.heroTitle1}
                   </span>
                   {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-                  <span className="grad font-black" style={{ whiteSpace: "pre-line" }}>
+                  <span className="grad font-extrabold hero-title-grad">
                     {tr.landing.heroTitleGrad}
                   </span>
                 </h1>
@@ -304,26 +598,6 @@ export default function Landing() {
                     {tr.landing.ctaSecondary}
                   </a>
                 </div>
-                <div className="landing-sbar-after-hero">
-                  <div className="sbar sbar-hero">
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat1Value}</div>
-                      <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat2Value}</div>
-                      <div className="sbi-l">{tr.landing.stat2Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat3Value}</div>
-                      <div className="sbi-l">{tr.landing.stat3Label}</div>
-                    </div>
-                    <div className="sbi">
-                      <div className="sbi-n">{tr.landing.stat4Value}</div>
-                      <div className="sbi-l">{tr.landing.stat4Label}</div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="hero-carousel-col">
@@ -334,6 +608,26 @@ export default function Landing() {
         {/* LOGOS */}
         <div className="logos-sec">
           <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
+          <div className="landing-sbar-after-hero">
+            <div className="sbar sbar-hero">
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat1Value}</div>
+                <div className="sbi-l text-[14px]">{tr.landing.stat1Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat2Value}</div>
+                <div className="sbi-l">{tr.landing.stat2Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat3Value}</div>
+                <div className="sbi-l">{tr.landing.stat3Label}</div>
+              </div>
+              <div className="sbi">
+                <div className="sbi-n">{tr.landing.stat4Value}</div>
+                <div className="sbi-l">{tr.landing.stat4Label}</div>
+              </div>
+            </div>
+          </div>
           <div className="logos-mask marquee-row">
             <div
               ref={logosMarqueeTrackRef}
@@ -348,7 +642,7 @@ export default function Landing() {
                         src={l.src}
                         alt={
                           lang === "ar"
-                            ? `شعار ${l.name} — متجر يستخدم منصة زيادة للذكاء الاصطناعي`
+                            ? `شعار ${l.name} — متجر يستخدم تطبيق زيادة للذكاء الاصطناعي`
                             : `${l.name} logo — Ziadah AI ecommerce merchant`
                         }
                         loading="lazy"
@@ -361,8 +655,64 @@ export default function Landing() {
             </div>
           </div>
         </div>
-        {/* HOME CALCULATOR */}
-        <HomeCalculator />
+        {/* BEFORE / AFTER + CALCULATOR */}
+        <section id="why">
+          <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: 40, justifyContent: "flex-start", alignItems: "center" }}>
+            <div className="tc" style={{ marginBottom: 0 }}>
+              <SecTag>{tr.landing.whyTag}</SecTag>
+              <h2 className="st rv d1 font-semibold">
+                {tr.landing.whyTitle}
+              </h2>
+              <p className="ssub rv d2">{tr.landing.whySub}</p>
+            </div>
+            <div className="ba-grid" style={{ width: "100%" }}>
+              <GlassCard className="ba-card rv d1">
+                <div className="ba-lbl ba-lbl-b text-[18px]">{tr.landing.beforeLabel}</div>
+                <div className="ba-list">
+                  {(tr.landing.beforeList as string[]).map((item) => (
+                    <div key={item} className="ba-row ba-row-b">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <div className="ba-foot ba-foot-b">{tr.landing.beforeFoot}</div>
+              </GlassCard>
+              <div className="ba-arrow-wrap rv d2">
+                <div className="ba-arrow-circle">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path
+                      d="M4 11H18M12 5L18 11L12 17"
+                      stroke="#a855f7"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <GlassCard
+                className="ba-card rv d3"
+                style={{
+                  background: "rgba(88,28,220,.07)",
+                  borderColor: "rgba(124,58,237,.2)",
+                }}
+              >
+                <div className="ba-lbl ba-lbl-a text-[16px]">{tr.landing.afterLabel}</div>
+                <div className="ba-list">
+                  {(tr.landing.afterList as string[]).map((item) => (
+                    <div key={item} className="ba-row ba-row-a">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                <div className="ba-foot ba-foot-a">
+                  {tr.landing.afterFoot} <span style={{ fontSize: 24 }}>{tr.landing.afterFootValue}</span>
+                </div>
+              </GlassCard>
+            </div>
+            <HomeCalculator />
+          </div>
+        </section>
         {/* HOW IT WORKS */}
         <section id="hiw">
           <div className="wrap">
@@ -564,9 +914,7 @@ export default function Landing() {
         </section>
         {/* SECTORS — قطاعات عامة + عيّنة مختصرة */}
         <section id="sectors" className="landing-sectors-section">
-          <div className="wrap">
             <div className="landing-sectors-panel rv d1">
-              <div className="landing-sectors-panel__glow" aria-hidden />
               <div className="landing-sectors-panel__inner">
                 <div className="tc landing-sectors-head">
                   <SecTag>{tr.landing.sectorsTag}</SecTag>
@@ -606,13 +954,12 @@ export default function Landing() {
                 </div>
               </div>
             </div>
-          </div>
         </section>
         <WidgetsShowcaseSection />
         {/* PERSONALIZATION DEMO */}
         <section id="demo">
           <div className="wrap">
-            <div className="tc" style={{ marginBottom: 56 }}>
+            <div className="tc" style={{ marginBottom: 40 }}>
               <SecTag>{tr.landing.personTag}</SecTag>
               <h2 className="st rv d1 font-semibold">
                 {tr.landing.personTitle}
@@ -621,624 +968,8 @@ export default function Landing() {
                 {tr.landing.personSub}
               </p>
             </div>
-            <div className="demo-grid">
-              {/* MALE */}
-              <div className="rv d1">
-                <div className="demo-card">
-                  <div className="demo-illo">
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 60% 35%, #1e1245 0%, #0d0a22 55%, #060412 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img
-                        src="/avatar-male.webp"
-                        alt={
-                          lang === "ar"
-                            ? "ناصر — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
-                            : "Nasser — sample profile for Ziadah AI recommendations demo"
-                        }
-                        loading="lazy"
-                        style={{ height: "100%", width: "auto", objectFit: "contain" }}
-                      />
-                    </div>
-                    <div className="demo-fade" />
-                    <div className="demo-pill">
-                      <span className="demo-pill-dot" />
-                      {tr.landing.aiAnalyzes1}
-                    </div>
-                    <div className="demo-shelf">
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(240,240,248,.1)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <ellipse
-                              cx="11"
-                              cy="14"
-                              rx="7"
-                              ry="4"
-                              fill="rgba(240,240,248,.14)"
-                              stroke="rgba(240,240,248,.55)"
-                              strokeWidth="1.2"
-                            />
-                            <path
-                              d="M4 14 Q6 7 11 5 Q16 7 18 14"
-                              fill="rgba(15,10,25,.5)"
-                              stroke="rgba(240,240,248,.2)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoMaleShelf1}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(168,85,247,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <rect
-                              x="4"
-                              y="8"
-                              width="14"
-                              height="7"
-                              rx="2.5"
-                              fill="rgba(168,85,247,.2)"
-                              stroke="rgba(168,85,247,.65)"
-                              strokeWidth="1.2"
-                            />
-                            <circle
-                              cx="8"
-                              cy="11.5"
-                              r="1.5"
-                              fill="rgba(168,85,247,.6)"
-                            />
-                            <circle
-                              cx="14"
-                              cy="11.5"
-                              r="1.5"
-                              fill="rgba(168,85,247,.6)"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoMaleShelf2}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(6,182,212,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <rect
-                              x="8"
-                              y="3"
-                              width="6"
-                              height="14"
-                              rx="2.5"
-                              fill="rgba(6,182,212,.18)"
-                              stroke="rgba(6,182,212,.65)"
-                              strokeWidth="1.2"
-                            />
-                            <ellipse
-                              cx="11"
-                              cy="17"
-                              rx="3.5"
-                              ry="2"
-                              fill="rgba(6,182,212,.12)"
-                              stroke="rgba(6,182,212,.45)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoMaleShelf3}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(16,185,129,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <ellipse
-                              cx="7"
-                              cy="13"
-                              rx="3.5"
-                              ry="3"
-                              fill="rgba(16,185,129,.15)"
-                              stroke="rgba(16,185,129,.55)"
-                              strokeWidth="1.2"
-                              transform="rotate(-12 7 13)"
-                            />
-                            <ellipse
-                              cx="15"
-                              cy="13"
-                              rx="3.5"
-                              ry="3"
-                              fill="rgba(16,185,129,.15)"
-                              stroke="rgba(16,185,129,.55)"
-                              strokeWidth="1.2"
-                              transform="rotate(12 15 13)"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoMaleShelf4}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="demo-info">
-                    <div className="demo-top">
-                      <div>
-                        <div className="demo-name">{tr.landing.demoMaleName}</div>
-                        <div className="demo-meta">{tr.landing.demoMaleMeta}</div>
-                      </div>
-                      <div className="demo-chip">{tr.landing.demoMaleChip}</div>
-                    </div>
-                    <div className="demo-sigs">
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#a855f7",
-                            boxShadow: "0 0 6px #a855f7",
-                          }}
-                        />{" "}
-                        {tr.landing.demoMaleSig1}
-                      </div>
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#06b6d4",
-                            boxShadow: "0 0 6px #06b6d4",
-                          }}
-                        />{" "}
-                        {tr.landing.demoMaleSig2}
-                      </div>
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#10b981",
-                            boxShadow: "0 0 6px #10b981",
-                          }}
-                        />{" "}
-                        {tr.landing.demoMaleSig3}
-                      </div>
-                    </div>
-                    <div className="demo-sl">{tr.landing.aiSuggestions}</div>
-                    <div className="demo-suggs">
-                      <div className="demo-sugg">
-                        <div
-                          className="demo-si"
-                          style={{
-                            background: "rgba(240,240,248,.06)",
-                            border: "1px solid rgba(240,240,248,.12)",
-                          }}
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 18 18"
-                            fill="none"
-                          >
-                            <ellipse
-                              cx="9"
-                              cy="12"
-                              rx="5.5"
-                              ry="3.5"
-                              fill="rgba(240,240,248,.12)"
-                              stroke="rgba(240,240,248,.4)"
-                              strokeWidth="1"
-                            />
-                            <path
-                              d="M3.5 12 Q5.5 5.5 9 3.5 Q12.5 5.5 14.5 12"
-                              fill="rgba(15,10,30,.4)"
-                              stroke="rgba(240,240,248,.18)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <div className="demo-sb">
-                          <div className="demo-sn">{tr.landing.demoMaleSugg1Name}</div>
-                          <div className="demo-sw">
-                            {tr.landing.demoMaleSugg1Sub}
-                          </div>
-                        </div>
-                        <div className="demo-sp">{tr.landing.demoMaleSugg1Price}</div>
-                      </div>
-                      <div className="demo-sugg">
-                        <div
-                          className="demo-si"
-                          style={{
-                            background: "rgba(168,85,247,.07)",
-                            border: "1px solid rgba(168,85,247,.15)",
-                          }}
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 18 18"
-                            fill="none"
-                          >
-                            <rect
-                              x="3"
-                              y="7"
-                              width="12"
-                              height="6"
-                              rx="2"
-                              fill="rgba(168,85,247,.15)"
-                              stroke="rgba(168,85,247,.5)"
-                              strokeWidth="1"
-                            />
-                            <circle
-                              cx="6.5"
-                              cy="10"
-                              r="1.2"
-                              fill="rgba(168,85,247,.5)"
-                            />
-                            <circle
-                              cx="11.5"
-                              cy="10"
-                              r="1.2"
-                              fill="rgba(168,85,247,.5)"
-                            />
-                          </svg>
-                        </div>
-                        <div className="demo-sb">
-                          <div className="demo-sn">{tr.landing.demoMaleSugg2Name}</div>
-                          <div className="demo-sw">
-                            {tr.landing.demoMaleSugg2Sub}
-                          </div>
-                        </div>
-                        <div className="demo-sp">{tr.landing.demoMaleSugg2Price}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* FEMALE */}
-              <div className="rv d2">
-                <div className="demo-card">
-                  <div className="demo-illo">
-                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 40% 35%, #1f0a32 0%, #0f0818 55%, #060410 100%)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                      <img
-                        src="/avatar-female.webp"
-                        alt={
-                          lang === "ar"
-                            ? "نوره — ملف شخصي تجريبي لتوصيات زيادة بالذكاء الاصطناعي"
-                            : "Noura — sample profile for Ziadah AI recommendations demo"
-                        }
-                        loading="lazy"
-                        style={{ height: "100%", width: "auto", objectFit: "contain" }}
-                      />
-                    </div>
-                    <div className="demo-fade" />
-                    <div className="demo-pill">
-                      <span className="demo-pill-dot" />
-                      {tr.landing.aiAnalyzes2}
-                    </div>
-                    <div className="demo-shelf">
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(236,72,153,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <rect
-                              x="3"
-                              y="6"
-                              width="16"
-                              height="11"
-                              rx="2.5"
-                              fill="rgba(236,72,153,.15)"
-                              stroke="rgba(236,72,153,.6)"
-                              strokeWidth="1.2"
-                            />
-                            <rect
-                              x="5"
-                              y="8"
-                              width="4"
-                              height="3"
-                              rx="1"
-                              fill="rgba(255,140,170,.3)"
-                            />
-                            <rect
-                              x="10.5"
-                              y="8"
-                              width="4"
-                              height="3"
-                              rx="1"
-                              fill="rgba(200,70,120,.3)"
-                            />
-                            <rect
-                              x="5"
-                              y="13"
-                              width="9"
-                              height="2"
-                              rx="1"
-                              fill="rgba(236,72,153,.25)"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoFemaleShelf1}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(245,158,11,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <rect
-                              x="9"
-                              y="3"
-                              width="4"
-                              height="13"
-                              rx="2"
-                              fill="rgba(245,158,11,.18)"
-                              stroke="rgba(245,158,11,.65)"
-                              strokeWidth="1.2"
-                            />
-                            <ellipse
-                              cx="11"
-                              cy="16.5"
-                              rx="3.5"
-                              ry="2"
-                              fill="rgba(245,158,11,.12)"
-                              stroke="rgba(245,158,11,.45)"
-                              strokeWidth="1"
-                            />
-                            <rect
-                              x="9.5"
-                              y="1.5"
-                              width="3"
-                              height="2.5"
-                              rx=".8"
-                              fill="rgba(245,158,11,.3)"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoFemaleShelf2}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(168,85,247,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <rect
-                              x="6"
-                              y="4"
-                              width="10"
-                              height="12"
-                              rx="2.5"
-                              fill="rgba(168,85,247,.15)"
-                              stroke="rgba(168,85,247,.6)"
-                              strokeWidth="1.2"
-                            />
-                            <rect
-                              x="8"
-                              y="6"
-                              width="6"
-                              height="2"
-                              rx="1"
-                              fill="rgba(168,85,247,.4)"
-                            />
-                            <ellipse
-                              cx="11"
-                              cy="17"
-                              rx="3.5"
-                              ry="2"
-                              fill="rgba(168,85,247,.1)"
-                              stroke="rgba(168,85,247,.35)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoFemaleShelf3}</span>
-                      </div>
-                      <div className="demo-prod">
-                        <div
-                          className="demo-ico"
-                          style={{ background: "rgba(6,182,212,.16)" }}
-                        >
-                          <svg
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                          >
-                            <path
-                              d="M5 7 Q5 3 11 3 Q17 3 17 7 L16.5 16 Q16.5 18 11 18 Q5.5 18 5.5 16Z"
-                              fill="rgba(6,182,212,.12)"
-                              stroke="rgba(6,182,212,.6)"
-                              strokeWidth="1.2"
-                            />
-                            <line
-                              x1="7"
-                              y1="9"
-                              x2="15"
-                              y2="9"
-                              stroke="rgba(6,182,212,.3)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <span>{tr.landing.demoFemaleShelf4}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="demo-info">
-                    <div className="demo-top">
-                      <div>
-                        <div className="demo-name">{tr.landing.demoFemaleName}</div>
-                        <div className="demo-meta">{tr.landing.demoFemaleMeta}</div>
-                      </div>
-                      <div
-                        className="demo-chip"
-                        style={{
-                          background: "rgba(236,72,153,.12)",
-                          border: "1px solid rgba(236,72,153,.28)",
-                          color: "#f9a8d4",
-                        }}
-                      >
-                        {tr.landing.demoFemaleChip}
-                      </div>
-                    </div>
-                    <div className="demo-sigs">
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#ec4899",
-                            boxShadow: "0 0 6px #ec4899",
-                          }}
-                        />{" "}
-                        {tr.landing.demoFemaleSig1}
-                      </div>
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#a855f7",
-                            boxShadow: "0 0 6px #a855f7",
-                          }}
-                        />{" "}
-                        {tr.landing.demoFemaleSig2}
-                      </div>
-                      <div className="demo-sig">
-                        <i
-                          style={{
-                            background: "#f59e0b",
-                            boxShadow: "0 0 6px #f59e0b",
-                          }}
-                        />{" "}
-                        {tr.landing.demoFemaleSig3}
-                      </div>
-                    </div>
-                    <div className="demo-sl">{tr.landing.aiSuggestions}</div>
-                    <div className="demo-suggs">
-                      <div className="demo-sugg">
-                        <div
-                          className="demo-si"
-                          style={{
-                            background: "rgba(236,72,153,.07)",
-                            border: "1px solid rgba(236,72,153,.15)",
-                          }}
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 18 18"
-                            fill="none"
-                          >
-                            <rect
-                              x="2"
-                              y="5"
-                              width="14"
-                              height="9"
-                              rx="2"
-                              fill="rgba(236,72,153,.12)"
-                              stroke="rgba(236,72,153,.45)"
-                              strokeWidth="1"
-                            />
-                            <rect
-                              x="4"
-                              y="7"
-                              width="3"
-                              height="2"
-                              rx=".6"
-                              fill="rgba(255,130,160,.3)"
-                            />
-                            <rect
-                              x="8"
-                              y="7"
-                              width="3"
-                              height="2"
-                              rx=".6"
-                              fill="rgba(200,70,120,.3)"
-                            />
-                          </svg>
-                        </div>
-                        <div className="demo-sb">
-                          <div className="demo-sn">{tr.landing.demoFemaleSugg1Name}</div>
-                          <div className="demo-sw">{tr.landing.demoFemaleSugg1Sub}</div>
-                        </div>
-                        <div className="demo-sp">289 ⃁</div>
-                      </div>
-                      <div className="demo-sugg">
-                        <div
-                          className="demo-si"
-                          style={{
-                            background: "rgba(168,85,247,.07)",
-                            border: "1px solid rgba(168,85,247,.15)",
-                          }}
-                        >
-                          <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 18 18"
-                            fill="none"
-                          >
-                            <rect
-                              x="5"
-                              y="3"
-                              width="8"
-                              height="11"
-                              rx="2"
-                              fill="rgba(168,85,247,.12)"
-                              stroke="rgba(168,85,247,.4)"
-                              strokeWidth="1"
-                            />
-                            <ellipse
-                              cx="9"
-                              cy="14.5"
-                              rx="3"
-                              ry="1.5"
-                              fill="rgba(168,85,247,.08)"
-                              stroke="rgba(168,85,247,.3)"
-                              strokeWidth="1"
-                            />
-                          </svg>
-                        </div>
-                        <div className="demo-sb">
-                          <div className="demo-sn">{tr.landing.demoFemaleSugg2Name}</div>
-                          <div className="demo-sw">{tr.landing.demoFemaleSugg2Sub}</div>
-                        </div>
-                        <div className="demo-sp">449 ⃁</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DemoFlowSection lang={lang} tr={tr.landing as unknown as Record<string, string>} />
+            
           </div>
         </section>
         {/* GOALS + PRESENTATIONS */}
@@ -1507,63 +1238,6 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* BEFORE / AFTER */}
-        <section id="why">
-          <div className="wrap">
-            <div className="tc" style={{ marginBottom: 56 }}>
-              <SecTag>{tr.landing.whyTag}</SecTag>
-              <h2 className="st rv d1 font-semibold">
-                {tr.landing.whyTitle}
-              </h2>
-              <p className="ssub rv d2">{tr.landing.whySub}</p>
-            </div>
-            <div className="ba-grid">
-              <GlassCard className="ba-card rv d1">
-                <div className="ba-lbl ba-lbl-b text-[18px]">{tr.landing.beforeLabel}</div>
-                <div className="ba-list">
-                  {(tr.landing.beforeList as string[]).map((item) => (
-                    <div key={item} className="ba-row ba-row-b">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-                <div className="ba-foot ba-foot-b">{tr.landing.beforeFoot}</div>
-              </GlassCard>
-              <div className="ba-arrow-wrap rv d2">
-                <div className="ba-arrow-circle">
-                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                    <path
-                      d="M4 11H18M12 5L18 11L12 17"
-                      stroke="#a855f7"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <GlassCard
-                className="ba-card rv d3"
-                style={{
-                  background: "rgba(88,28,220,.07)",
-                  borderColor: "rgba(124,58,237,.2)",
-                }}
-              >
-                <div className="ba-lbl ba-lbl-a text-[16px]">{tr.landing.afterLabel}</div>
-                <div className="ba-list">
-                  {(tr.landing.afterList as string[]).map((item) => (
-                    <div key={item} className="ba-row ba-row-a">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-                <div className="ba-foot ba-foot-a">
-                  {tr.landing.afterFoot} <span style={{ fontSize: 24 }}>{tr.landing.afterFootValue}</span>
-                </div>
-              </GlassCard>
-            </div>
-          </div>
-        </section>
         {/* DETAILED REPORTS */}
         <section id="reports">
           <div className="wrap">
@@ -1630,7 +1304,7 @@ export default function Landing() {
               </GlassCard>
 
               {/* Product-level report card */}
-              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
+              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%", color: "rgba(255, 255, 255, 1)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -1710,7 +1384,7 @@ export default function Landing() {
           </div>
         </section>
         {/* TESTIMONIALS */}
-        <section id="testimonials" style={{ overflowX: "hidden", paddingInline: 0 }}>
+        <section id="testimonials" style={{ overflowX: "clip", paddingInline: 0 }}>
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.testimonialsTag}</SecTag>
@@ -2034,7 +1708,7 @@ export default function Landing() {
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
                       style={{
                         background:
-                          openFaq === i ? "rgba(124,58,237,.06)" : "rgba(37, 0, 107, 0.1)",
+                          openFaq === i ? "rgba(124,58,237,.06)" : "rgba(37, 0, 107, 0.05)",
                         border: `1px solid ${openFaq === i ? "rgba(124,58,237,.3)" : "var(--b1)"}`,
                         borderRadius: openFaq === i ? "14px 14px 0 0" : "14px",
                       }}

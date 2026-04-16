@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
-import Nav from "../components/Nav";
 import PageShell from "../components/PageShell";
 import {
   categories as supportCategories,
@@ -47,7 +46,7 @@ export default function SupportArticle() {
   if (!article || !category) {
     return (
       <PageShell style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Nav />
+        
         <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <div style={{ fontSize: 64, marginBottom: 16 }}>🔍</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>{tx.notFoundTitle}</h1>
@@ -89,7 +88,7 @@ export default function SupportArticle() {
       { name: articleTitle, url: `/support/article/${article.id}` }
     ]} />
     <PageShell>
-      <Nav />
+      
 
       <div style={{ paddingTop: "var(--page-article-pt)", paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
         <div style={{ maxWidth: 820, margin: "0 auto" }}>

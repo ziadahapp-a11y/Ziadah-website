@@ -1,5 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import ProductPageMockups from "../../components/ProductPageMockups";
+import { ProductPageMockup, PageHeroPhone } from "../../components/UseCasePagesShowcase";
 
 const data: UseCasePageData = {
   hero: {
@@ -58,6 +59,11 @@ const data: UseCasePageData = {
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
+  heroVisual: (
+    <PageHeroPhone float1="📈 +42% متوسط الطلب" float2="🛒 توصيات تلقائية">
+      <ProductPageMockup />
+    </PageHeroPhone>
+  ),
   extraSections: <ProductPageMockups />,
   heroEn: {
     tag: "By Pages",

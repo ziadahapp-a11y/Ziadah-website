@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
-import Nav from "@/components/Nav";
 import PageShell from "@/components/PageShell";
+import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -89,7 +89,7 @@ export default function SectorDetail() {
   if (!sector) {
     return (
       <PageShell style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Nav />
+        
         <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
           <div style={{ fontSize: 56, marginBottom: 12 }}>📂</div>
           <h1 style={{ fontSize: 26, fontWeight: 800, marginBottom: 10 }}>{tr.notFoundTitle}</h1>
@@ -192,8 +192,8 @@ export default function SectorDetail() {
         ]}
       />
       <WebPageSchema name={pageTitle} description={seoDesc} url={`/sectors/${sector.slug}`} />
-      <PageShell>
-        <Nav />
+      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+        <DsPageBackdrop />
 
         {htmlPlaybook && pageRich ? (
           <>
