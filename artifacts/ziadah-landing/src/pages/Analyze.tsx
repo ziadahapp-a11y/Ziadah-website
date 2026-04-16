@@ -1401,8 +1401,8 @@ export default function Analyze() {
                         </p>
                       ) : null}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="rounded-xl border px-4 py-3" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="analyze-value-card">
                         <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--tm)" }}>
                           {tr.valueEstimateOrders}
                         </p>
@@ -1410,7 +1410,7 @@ export default function Analyze() {
                           {estimate.monthlyOrders.toLocaleString()}
                         </p>
                       </div>
-                      <div className="rounded-xl border px-4 py-3" style={{ borderColor: "var(--b2)", background: "var(--s1)" }}>
+                      <div className="analyze-value-card">
                         <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--tm)" }}>
                           {tr.valueEstimateBaseline}
                         </p>
@@ -1418,10 +1418,7 @@ export default function Analyze() {
                           {Math.round(estimate.baselineMonthlyRevenue).toLocaleString()} {status.currencySymbol}
                         </p>
                       </div>
-                      <div
-                        className="rounded-xl border px-4 py-3 sm:col-span-2"
-                        style={{ borderColor: "rgba(124,58,237,.28)", background: "rgba(124,58,237,.06)" }}
-                      >
+                      <div className="analyze-value-card analyze-value-card--primary">
                         <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--p3)" }}>
                           {tr.valueEstimateIncremental}
                         </p>
@@ -1512,7 +1509,7 @@ export default function Analyze() {
                     </div>
                   </div>
 
-                  <section id="analyze-cta" className="gc gc-lift analyze-form-card text-center space-y-5">
+                  <section id="analyze-cta" className="analyze-results-cta space-y-5">
                     <div>
                       <h3 className="text-lg font-bold tc mb-1" style={{ color: "var(--t)" }}>
                         {tr.ctaLaunch}
