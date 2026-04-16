@@ -256,127 +256,277 @@ function WidgetRecCard({
   );
 }
 
+function AnalyzeStoreWidget({
+  group,
+  currencySymbol,
+  anchorLabel,
+  lang,
+}: {
+  group: AnchorGroup;
+  currencySymbol: string;
+  anchorLabel: string;
+  lang: string;
+}) {
+  const anchor = group.anchor;
+  const recs = group.recommendations.slice(0, 3);
+  let hostname = "yourstore.com";
+  try {
+    if (anchor.productUrl) hostname = new URL(anchor.productUrl).hostname;
+  } catch {}
+  const isArabic = lang === "ar";
+  return (
+    <div className="analyze-widget-frame">
+      {/* Browser chrome */}
+      <div className="analyze-widget-chrome">
+        <div className="analyze-widget-chrome-dots">
+          <span className="analyze-widget-chrome-dot" />
+          <span className="analyze-widget-chrome-dot" />
+          <span className="analyze-widget-chrome-dot" />
+        </div>
+        <div className="flex-1 text-center text-[9px] truncate font-mono" style={{ color: "var(--tm)" }}>
+          {hostname}
+        </div>
+        <span className="inline-flex items-center gap-1 text-[9px] font-bold shrink-0" style={{ color: "var(--p3)" }}>
+          <LayoutGrid className="h-2.5 w-2.5" aria-hidden />
+          Ziadah
+        </span>
+      </div>
+
+      {/* Current product row (anchor) */}
+      <div className="analyze-widget-product-section">
+        <div className="analyze-widget-product-img">
+          {anchor.imageUrl ? (
+            <img src={anchor.imageUrl} alt="" />
+          ) : (
+            <Package className="h-5 w-5" style={{ color: "var(--tm)" }} aria-hidden />
+          )}
+        </div>
+        <div className="min-w-0">
+          <span
+            className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full mb-1"
+            style={{ background: "var(--go)", color: "#1a0f00" }}
+          >
+            <Star className="h-2 w-2 shrink-0" aria-hidden />
+            {anchorLabel}
+          </span>
+          <p
+            className="text-[10px] font-bold leading-snug line-clamp-2"
+            style={{ color: "var(--t)" }}
+            dir={isAr(anchor.title) ? "rtl" : "ltr"}
+          >
+            {anchor.title}
+          </p>
+          {anchor.price != null && (
+            <p className="text-[11px] font-extrabold mt-0.5" style={{ color: "var(--go)" }}>
+              {formatPrice(anchor.price, currencySymbol)}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* Recommendations widget panel */}
+      <div className="analyze-widget-rec-panel">
+        <div className="analyze-widget-rec-header">
+          <LayoutGrid className="h-2.5 w-2.5 shrink-0" aria-hidden />
+          {isArabic ? "زيادة — توصيات ذكية" : "Ziadah — Smart Recs"}
+        </div>
+        {recs.map((rec, i) => (
+          <div key={i} className="analyze-widget-rec-row">
+            <div className="analyze-widget-rec-img">
+              {rec.imageUrl ? (
+                <img src={rec.imageUrl} alt="" />
+              ) : (
+                <Package className="h-3 w-3" style={{ color: "var(--tm)" }} aria-hidden />
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p
+                className="text-[9px] font-semibold leading-snug line-clamp-1"
+                style={{ color: "var(--t)" }}
+                dir={isAr(rec.title) ? "rtl" : "ltr"}
+              >
+                {rec.title}
+              </p>
+              {rec.price != null && (
+                <p className="text-[10px] font-extrabold" style={{ color: "var(--p3)" }}>
+                  {formatPrice(rec.price, currencySymbol)}
+                </p>
+              )}
+            </div>
+            <RolePill role={rec.role} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function AnchorGroupCard({
   group,
   currencySymbol,
   index,
   anchorLabel,
-  connectorLabel,
   tr,
+  lang,
 }: {
   group: AnchorGroup;
   currencySymbol: string;
   index: number;
   anchorLabel: string;
-  connectorLabel: string;
   tr: AnalyzeCopy;
+  lang: string;
 }) {
   const anchor = group.anchor;
-  const anchorCard = (
-    <div className="group analyze-anchor-card flex flex-col h-full cursor-pointer">
-      <div className="relative overflow-hidden flex-shrink-0" style={{ height: "160px" }}>
-        {anchor.imageUrl ? (
-          <img
-            src={anchor.imageUrl}
-            alt=""
-            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-[var(--s2)]">
-            <Package className="h-10 w-10 text-[var(--text-4)]" aria-hidden />
-          </div>
-        )}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,.45), transparent 55%)",
-          }}
-        />
-        <div className="absolute top-2 start-2">
-          <span
-            className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full shadow-md"
-            style={{
-              background: "var(--go)",
-              color: "var(--cursor-dark)",
-            }}
-          >
-            <Star className="h-2.5 w-2.5 shrink-0" aria-hidden />
-            {anchorLabel}
-          </span>
-        </div>
-      </div>
-      <div className="p-3 flex flex-col gap-1 flex-1 min-h-0">
-        <p
-          className="font-bold text-sm leading-snug line-clamp-2"
-          style={{ color: "var(--t)" }}
-          dir={isAr(anchor.title) ? "rtl" : "ltr"}
-        >
-          {anchor.title}
-        </p>
-        {anchor.price != null && (
-          <p className="font-extrabold text-base" style={{ color: "var(--go)" }}>
-            {formatPrice(anchor.price, currencySymbol)}
-          </p>
-        )}
-        {anchor.reason && (
-          <p
-            className="text-[10px] leading-snug line-clamp-3 mt-1"
-            style={{ color: "var(--tm)" }}
-            dir={isAr(anchor.reason) ? "rtl" : "ltr"}
-          >
-            {anchor.reason}
-          </p>
-        )}
-        {(anchor.anchorGoal || anchor.anchorPresentation) && (
-          <div className="mt-2 space-y-1 rounded-lg border px-2 py-1.5" style={{ borderColor: "var(--b2)", background: "rgba(124,58,237,.06)" }}>
-            {anchor.anchorGoal ? (
-              <p className="text-[9px] leading-snug" style={{ color: "var(--t)" }} dir={isAr(anchor.anchorGoal) ? "rtl" : "ltr"}>
-                <span className="font-bold" style={{ color: "var(--p3)" }}>{tr.anchorGoalLabel}: </span>
-                {anchor.anchorGoal}
-              </p>
-            ) : null}
-            {anchor.anchorPresentation ? (
-              <p className="text-[9px] leading-snug" style={{ color: "var(--tm)" }} dir={isAr(anchor.anchorPresentation) ? "rtl" : "ltr"}>
-                <span className="font-bold">{tr.anchorPresentationLabel}: </span>
-                {anchor.anchorPresentation}
-              </p>
-            ) : null}
-          </div>
-        )}
-      </div>
-    </div>
-  );
+  const crossCount = group.recommendations.filter((r) => r.role === "cross_sell").length;
+  const upCount = group.recommendations.filter((r) => r.role === "upsell").length;
 
   return (
-    <div className="gc analyze-form-card">
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_2fr] gap-3 items-start">
-        <div className="min-w-0">
-          {anchor.productUrl ? (
-            <a
-              href={anchor.productUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block h-full rounded-[var(--r12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-            >
-              {anchorCard}
-            </a>
-          ) : (
-            anchorCard
+    <div className="analyze-anchor-group-card">
+      {/* Header */}
+      <div className="analyze-anchor-group-header">
+        <span className="analyze-anchor-group-index" aria-label={anchorLabel}>
+          {index + 1}
+        </span>
+        <div className="min-w-0 flex-1">
+          <p
+            className="text-sm font-bold leading-snug line-clamp-2"
+            style={{ color: "var(--t)" }}
+            dir={isAr(anchor.title) ? "rtl" : "ltr"}
+          >
+            {anchor.title}
+          </p>
+          <div className="flex items-center gap-2 mt-1 flex-wrap">
+            {anchor.price != null && (
+              <span className="text-xs font-extrabold" style={{ color: "var(--go)" }}>
+                {formatPrice(anchor.price, currencySymbol)}
+              </span>
+            )}
+            {crossCount > 0 && (
+              <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]">
+                <ShoppingCart className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                {crossCount} {lang === "ar" ? "متقاطع" : "cross-sell"}
+              </span>
+            )}
+            {upCount > 0 && (
+              <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]">
+                <TrendingUp className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                {upCount} {lang === "ar" ? "ترقيعي" : "upsell"}
+              </span>
+            )}
+          </div>
+        </div>
+        {anchor.productUrl && (
+          <a
+            href={anchor.productUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
+            style={{ color: "var(--p3)", borderColor: "rgba(124,58,237,.25)", background: "rgba(124,58,237,.06)" }}
+            aria-label="open product"
+          >
+            <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
+          </a>
+        )}
+      </div>
+
+      {/* 2-col: Left = anchor product details / Right = widget frame */}
+      <div className="analyze-anchor-group-inner">
+        {/* Left: Anchor product info */}
+        <div className="analyze-anchor-product-col">
+          <div className="analyze-anchor-product-hero">
+            <div className="analyze-anchor-product-img">
+              {anchor.imageUrl ? (
+                <img src={anchor.imageUrl} alt="" />
+              ) : (
+                <Package className="h-7 w-7" style={{ color: "var(--tm)" }} aria-hidden />
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <span
+                className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1.5"
+                style={{ background: "rgba(251,191,36,.15)", color: "var(--go)", border: "1px solid rgba(251,191,36,.25)" }}
+              >
+                <Star className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                {anchorLabel}
+              </span>
+              {anchor.reason && (
+                <p
+                  className="text-[11px] leading-relaxed"
+                  style={{ color: "var(--tm)" }}
+                  dir={isAr(anchor.reason) ? "rtl" : "ltr"}
+                >
+                  {anchor.reason}
+                </p>
+              )}
+            </div>
+          </div>
+          {(anchor.anchorGoal || anchor.anchorPresentation) && (
+            <div className="analyze-anchor-goals-box space-y-2">
+              {anchor.anchorGoal && (
+                <p className="text-[11px] leading-snug" dir={isAr(anchor.anchorGoal) ? "rtl" : "ltr"}>
+                  <span className="font-bold text-[var(--p3)]">{tr.anchorGoalLabel}: </span>
+                  <span style={{ color: "var(--t)" }}>{anchor.anchorGoal}</span>
+                </p>
+              )}
+              {anchor.anchorPresentation && (
+                <p className="text-[11px] leading-snug" dir={isAr(anchor.anchorPresentation) ? "rtl" : "ltr"}>
+                  <span className="font-bold" style={{ color: "var(--tm)" }}>{tr.anchorPresentationLabel}: </span>
+                  <span style={{ color: "var(--tm)" }}>{anchor.anchorPresentation}</span>
+                </p>
+              )}
+            </div>
+          )}
+          {/* Show remaining recs (beyond the 3 shown in widget) */}
+          {group.recommendations.length > 3 && (
+            <div className="space-y-2">
+              {group.recommendations.slice(3).map((rec, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 rounded-xl border px-3 py-2"
+                  style={{ borderColor: "var(--b1)", background: "var(--s2)" }}
+                >
+                  {rec.imageUrl ? (
+                    <img
+                      src={rec.imageUrl}
+                      alt=""
+                      className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
+                    />
+                  ) : (
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: "var(--s1)" }}
+                    >
+                      <Package className="h-4 w-4" style={{ color: "var(--tm)" }} aria-hidden />
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className="text-[11px] font-semibold line-clamp-1"
+                      style={{ color: "var(--t)" }}
+                      dir={isAr(rec.title) ? "rtl" : "ltr"}
+                    >
+                      {rec.title}
+                    </p>
+                    {rec.price != null && (
+                      <p className="text-[10px] font-bold" style={{ color: "var(--p3)" }}>
+                        {formatPrice(rec.price, currencySymbol)}
+                      </p>
+                    )}
+                  </div>
+                  <RolePill role={rec.role} />
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
-        <div className="hidden sm:flex flex-col items-center justify-center pt-16 gap-1">
-          <ArrowRight className="h-5 w-5 shrink-0" style={{ color: "var(--p)" }} aria-hidden />
-          <span className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--tm)" }}>
-            {connectorLabel}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2 content-start min-w-0">
-          {group.recommendations.slice(0, 4).map((rec, i) => (
-            <WidgetRecCard key={i} rec={rec} currencySymbol={currencySymbol} tr={tr} />
-          ))}
-        </div>
+        {/* Right: Widget frame (store widget preview) */}
+        <AnalyzeStoreWidget
+          group={group}
+          currencySymbol={currencySymbol}
+          anchorLabel={anchorLabel}
+          lang={lang}
+        />
       </div>
     </div>
   );
@@ -813,22 +963,64 @@ export default function Analyze() {
               </div>
               <ol className="analyze-how-steps" aria-label={tr.howItWorksTag}>
                 <li>
-                  <span className="analyze-how-num" aria-hidden>
-                    1
-                  </span>
+                  <span className="analyze-how-num" aria-hidden>1</span>
                   <p>{tr.howStep1}</p>
+                  {/* Visual: URL input mockup */}
+                  <div className="analyze-how-visual">
+                    <div className="analyze-how-visual-url">
+                      <Globe className="h-3 w-3 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
+                      <span style={{ color: "var(--tm)" }}>https://yourstore.com</span>
+                    </div>
+                  </div>
                 </li>
                 <li>
-                  <span className="analyze-how-num" aria-hidden>
-                    2
-                  </span>
+                  <span className="analyze-how-num" aria-hidden>2</span>
                   <p>{tr.howStep2}</p>
+                  {/* Visual: Product scan grid */}
+                  <div className="analyze-how-visual">
+                    <div className="analyze-how-scan-grid">
+                      {(["👗","👟","👜","🧴","⌚","📱"] as const).map((emoji, i) => (
+                        <div
+                          key={i}
+                          className="analyze-how-scan-item"
+                          style={{ animationDelay: `${i * 0.13}s` }}
+                        >
+                          {emoji}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </li>
                 <li>
-                  <span className="analyze-how-num" aria-hidden>
-                    3
-                  </span>
+                  <span className="analyze-how-num" aria-hidden>3</span>
                   <p>{tr.howStep3}</p>
+                  {/* Visual: Mini widget preview */}
+                  <div className="analyze-how-visual">
+                    <div className="analyze-how-widget-mini">
+                      <div className="analyze-how-widget-mini-bar">
+                        <LayoutGrid className="h-2.5 w-2.5 shrink-0" aria-hidden />
+                        {lang === "ar" ? "زيادة — توصيات" : "Ziadah Recs"}
+                      </div>
+                      <div className="analyze-how-widget-mini-row">
+                        <div className="analyze-how-widget-mini-img" style={{ background: "rgba(6,182,212,.15)" }}>🧴</div>
+                        <div>
+                          <div className="analyze-how-widget-mini-name">{lang === "ar" ? "سيروم فيتامين C" : "Vitamin C Serum"}</div>
+                          <div className="analyze-how-widget-mini-price" style={{ color: "var(--c)" }}>
+                            {lang === "ar" ? "↕ بيع متقاطع" : "↕ Cross-sell"}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="analyze-how-widget-mini-row">
+                        <div className="analyze-how-widget-mini-img" style={{ background: "rgba(124,58,237,.15)" }}>⌚</div>
+                        <div>
+                          <div className="analyze-how-widget-mini-name">{lang === "ar" ? "ساعة ذكية برو" : "Smart Watch Pro"}</div>
+                          <div className="analyze-how-widget-mini-price" style={{ color: "var(--p4)" }}>
+                            {lang === "ar" ? "↑ بيع ترقيعي" : "↑ Upsell"}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </li>
               </ol>
 
@@ -1266,8 +1458,8 @@ export default function Analyze() {
                             currencySymbol={status.currencySymbol}
                             index={i}
                             anchorLabel={tpl(tr.anchorBadge, { n: i + 1 })}
-                            connectorLabel={tr.connectorSuggested}
                             tr={tr}
+                            lang={lang}
                           />
                         ))}
                       </div>
