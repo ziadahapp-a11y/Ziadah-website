@@ -27,7 +27,7 @@ export const Logo = () => {
         loading="eager"
         fetchPriority="high"
         decoding="async"
-        style={{ height: 30, width: "auto" }}
+        style={{ height: 70, width: 90 }}
       />
     </span>
   );

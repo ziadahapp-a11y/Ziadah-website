@@ -1083,68 +1083,20 @@ export default function Analyze() {
                 <li>
                   <span className="analyze-how-num" aria-hidden>1</span>
                   <p>{tr.howStep1}</p>
-                  {/* Visual: URL input mockup */}
-                  <div className="analyze-how-visual">
-                    <div className="analyze-how-visual-url">
-                      <Globe className="h-3 w-3 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
-                      <span style={{ color: "var(--tm)" }}>https://yourstore.com</span>
-                    </div>
-                  </div>
                 </li>
                 <li>
                   <span className="analyze-how-num" aria-hidden>2</span>
                   <p>{tr.howStep2}</p>
-                  {/* Visual: Product scan grid */}
-                  <div className="analyze-how-visual">
-                    <div className="analyze-how-scan-grid">
-                      {(["👗","👟","👜","🧴","⌚","📱"] as const).map((emoji, i) => (
-                        <div
-                          key={i}
-                          className="analyze-how-scan-item"
-                          style={{ animationDelay: `${i * 0.13}s` }}
-                        >
-                          {emoji}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </li>
                 <li>
                   <span className="analyze-how-num" aria-hidden>3</span>
                   <p>{tr.howStep3}</p>
-                  {/* Visual: Mini widget preview */}
-                  <div className="analyze-how-visual">
-                    <div className="analyze-how-widget-mini">
-                      <div className="analyze-how-widget-mini-bar">
-                        <LayoutGrid className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                        {lang === "ar" ? "زيادة — توصيات" : "Ziadah Recs"}
-                      </div>
-                      <div className="analyze-how-widget-mini-row">
-                        <div className="analyze-how-widget-mini-img" style={{ background: "rgba(6,182,212,.15)" }}>🧴</div>
-                        <div>
-                          <div className="analyze-how-widget-mini-name">{lang === "ar" ? "سيروم فيتامين C" : "Vitamin C Serum"}</div>
-                          <div className="analyze-how-widget-mini-price" style={{ color: "var(--c)" }}>
-                            {lang === "ar" ? "↕ بيع متقاطع" : "↕ Cross-sell"}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="analyze-how-widget-mini-row">
-                        <div className="analyze-how-widget-mini-img" style={{ background: "rgba(124,58,237,.15)" }}>⌚</div>
-                        <div>
-                          <div className="analyze-how-widget-mini-name">{lang === "ar" ? "ساعة ذكية برو" : "Smart Watch Pro"}</div>
-                          <div className="analyze-how-widget-mini-price" style={{ color: "var(--p4)" }}>
-                            {lang === "ar" ? "↑ بيع أعلى" : "↑ Upsell"}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </li>
               </ol>
 
               <div
-                className="gc gc-lift analyze-form-card flex flex-col w-full max-w-xl mx-auto mb-5 rv"
-                style={{ transitionDelay: "0.44s" }}
+                className="gc gc-lift analyze-form-card flex flex-col w-full max-w-[900px] mx-auto mb-5 rv"
+                style={{ transitionDelay: "0.44s", width: "100%" }}
               >
                 <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 w-full">
                   <p className="analyze-form-section-title">{tr.formSectionPrimaryTitle}</p>
