@@ -48,7 +48,7 @@ export default function AddStore() {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-2xl mx-auto">
       <div className="mb-8">
         <Button asChild variant="ghost" size="sm" className="gap-2 text-muted-foreground mb-4 -ml-2">
           <Link href="/">
@@ -65,7 +65,7 @@ export default function AddStore() {
         <p className="text-muted-foreground text-sm">Connect your online store to start analyzing products</p>
       </div>
 
-      <div className="bg-card border border-card-border rounded-xl p-6 mb-6">
+      <div className="bg-card border border-card-border rounded-xl p-4 sm:p-6 mb-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
@@ -108,7 +108,7 @@ export default function AddStore() {
               )}
             />
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Button
                 type="submit"
                 disabled={createStore.isPending}
@@ -125,9 +125,9 @@ export default function AddStore() {
         </Form>
       </div>
 
-      <div className="bg-card border border-card-border rounded-xl p-5">
+      <div className="bg-card border border-card-border rounded-xl p-4 sm:p-5">
         <h3 className="text-sm font-semibold text-foreground mb-3">Supported Platforms</h3>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {PLATFORMS.map((p) => (
             <div key={p.name} className="flex items-start gap-2">
               <div className="h-1.5 w-1.5 rounded-full bg-primary mt-1.5 shrink-0" />

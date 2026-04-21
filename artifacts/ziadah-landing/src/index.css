@@ -99,6 +99,8 @@ th.h-12{
 section{
   position:relative;
   z-index:2;
+  width:100%;
+  box-sizing:border-box;
   padding-block:56px;
   padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px));
   padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
@@ -205,6 +207,75 @@ section{
 .support-articles-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-md),1fr));align-items:stretch;}
 .support-videos-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-xl),1fr));align-items:stretch;}
 .uc-demo-product-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-sm),1fr));align-items:stretch;}
+img,video,canvas,svg{max-width:100%;height:auto;}
+.gc,.wrap,.landing-shell,main,section{min-width:0;}
+@media(max-width:640px){
+  :root{
+    --page-inline-pad:clamp(14px,4.6vw,18px);
+    --card-gap:14px;
+    --card-pad-sm:16px 14px;
+    --card-pad-md:18px 15px;
+    --card-pad-lg:20px 16px;
+  }
+  section{
+    padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px))!important;
+    padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px))!important;
+  }
+  .gc{
+    width:100%;
+    max-width:100%;
+  }
+  .stag{
+    max-width:100%;
+    white-space:normal;
+    justify-content:center;
+    text-align:center;
+    letter-spacing:.9px;
+  }
+  h1.st,
+  h2.st,
+  .st{
+    max-width:100%;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+    letter-spacing:-.8px!important;
+    line-height:1.12!important;
+  }
+  .ssub{
+    max-width:100%;
+    font-size:15px;
+    line-height:1.7;
+  }
+  .feat-tabs{
+    display:flex!important;
+    flex-wrap:wrap;
+    width:100%;
+    max-width:100%;
+    justify-content:center;
+    gap:6px!important;
+  }
+  .feat-tabs button{
+    flex:1 1 calc(50% - 8px);
+    min-width:0;
+    padding:9px 10px!important;
+    white-space:normal;
+    line-height:1.25;
+  }
+  .feat-goals-inner,
+  .calc-grid,
+  .calc-result-cols,
+  .impact-grid,
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"]{
+    grid-template-columns:1fr!important;
+  }
+  .calc-grid{
+    gap:18px!important;
+  }
+  .landing-sectors-grid{
+    grid-template-columns:1fr!important;
+  }
+}
 
 /* ── SEC TAGS ── */
 .stag{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:50px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);color:var(--p3);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;}

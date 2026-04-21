@@ -330,7 +330,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 }}
               >
                 <div style={{ margin: "0 auto", maxWidth: 1200, width: "100%" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12, width: "100%" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 12, width: "100%" }}>
                   {stats.map((s, i) => (
                     <div key={i} className={`sector-html-kpi-box rv d${i + 1}`}>
                       <div className="sector-html-kpiv"

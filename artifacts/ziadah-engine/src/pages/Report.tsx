@@ -118,7 +118,7 @@ function PairCard({ pair, currencySymbol, index }: { pair: Pair; currencySymbol:
         <RolePill role={pair.recommendation.role} />
       </div>
 
-      <div className="grid grid-cols-2 gap-3 items-start">
+      <div className="grid grid-cols-1 min-[430px]:grid-cols-2 gap-3 items-start">
         {/* Anchor (hero) product */}
         {pair.anchor && (
           <ProductThumb product={pair.anchor} currencySymbol={currencySymbol} isHero />
@@ -229,7 +229,7 @@ export default function Report({ shareToken }: { shareToken: string }) {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 min-h-14 py-2 flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3">
             <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center">
               <Zap className="h-3.5 w-3.5 text-primary-foreground" />
@@ -249,7 +249,7 @@ export default function Report({ shareToken }: { shareToken: string }) {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 py-10">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         {loading && (
           <div className="text-center py-24 text-muted-foreground">Loading report…</div>
         )}
@@ -284,7 +284,7 @@ export default function Report({ shareToken }: { shareToken: string }) {
                   href={data.storeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1 mt-1"
+                  className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1 mt-1 break-all"
                 >
                   <Globe className="h-3.5 w-3.5" />
                   {data.storeUrl}
@@ -355,7 +355,7 @@ export default function Report({ shareToken }: { shareToken: string }) {
             )}
 
             {/* CTA */}
-            <div className="bg-gradient-to-br from-primary/10 to-violet-500/10 border border-primary/20 rounded-2xl p-8 text-center">
+            <div className="bg-gradient-to-br from-primary/10 to-violet-500/10 border border-primary/20 rounded-2xl p-5 sm:p-8 text-center">
               <h3 className="text-xl font-bold text-foreground mb-2">Want this for your own store?</h3>
               <p className="text-muted-foreground text-sm mb-5 max-w-sm mx-auto">
                 Analyze any Shopify, Zid, or Salla store — free, no login required.

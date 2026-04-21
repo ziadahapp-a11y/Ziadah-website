@@ -210,7 +210,7 @@ function AnchorGroupCard({ group, currencySymbol, index }: {
           <span className="text-[9px] text-white/25 font-semibold uppercase tracking-widest rotate-0">يُقترح</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2.5 content-start">
+        <div className="grid grid-cols-1 min-[430px]:grid-cols-2 gap-2.5 content-start">
           {group.recommendations.slice(0, 4).map((rec, i) => (
             <RecCard key={i} rec={rec} currencySymbol={currencySymbol} />
           ))}
@@ -366,7 +366,7 @@ export default function Analyze() {
 
       {/* Header */}
       <header className="relative border-b border-white/[0.06] backdrop-blur-sm sticky top-0 z-10 bg-black/20">
-        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
               <Zap className="h-3.5 w-3.5 text-white" />
@@ -386,30 +386,30 @@ export default function Analyze() {
         </div>
       </header>
 
-      <main className="relative max-w-6xl mx-auto px-6">
+      <main className="relative max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* ── FORM ── */}
         {step === "idle" && (
-          <div className="pt-16 pb-20">
+          <div className="pt-10 sm:pt-16 pb-16 sm:pb-20">
             {/* Hero */}
             <div className="text-center mb-14 max-w-3xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-primary/15 text-primary text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-6 border border-primary/20 backdrop-blur-sm">
                 <Sparkles className="h-3 w-3" />
                 AI-Powered · Works with Shopify, Zid & Salla
               </div>
-              <h1 className="text-5xl sm:text-6xl font-black tracking-tight mb-5 leading-[1.05]">
+              <h1 className="text-[clamp(2.15rem,10vw,3.75rem)] font-black tracking-tight mb-5 leading-[1.05]">
                 <span className="text-white">Unlock Your Store's</span>
                 <br />
                 <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
                   Revenue Potential
                 </span>
               </h1>
-              <p className="text-white/50 text-lg leading-relaxed max-w-xl mx-auto">
+              <p className="text-white/50 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
                 Enter your store URL — our AI reads your catalog, identifies hero products, and maps the best cross-sell &amp; upsell opportunities.
               </p>
 
               {/* Social proof */}
-              <div className="flex items-center justify-center gap-6 mt-8">
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-8">
                 {[
                   { icon: <BarChart3 className="h-3.5 w-3.5" />, label: "AI Analysis" },
                   { icon: <Target className="h-3.5 w-3.5" />, label: "Smart Recommendations" },
@@ -428,7 +428,7 @@ export default function Analyze() {
               <div className="relative">
                 {/* Glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent rounded-3xl blur-xl" />
-                <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-8 backdrop-blur-sm shadow-2xl shadow-black/50">
+                <div className="relative bg-white/[0.03] border border-white/10 rounded-3xl p-5 sm:p-8 backdrop-blur-sm shadow-2xl shadow-black/50">
                   <form onSubmit={handleSubmit} className="space-y-6">
 
                     {/* URL Field */}
@@ -469,8 +469,8 @@ export default function Analyze() {
                           {selectedIndustry ? (
                             <span className="flex items-center gap-2 text-white">
                               <span className="text-base">{selectedIndustry.icon}</span>
-                              <span className="font-medium">{selectedIndustry.label}</span>
-                              <span className="text-white/35 text-xs">· {selectedIndustry.labelAr}</span>
+                              <span className="font-medium truncate">{selectedIndustry.label}</span>
+                              <span className="hidden sm:inline text-white/35 text-xs">· {selectedIndustry.labelAr}</span>
                             </span>
                           ) : (
                             <span className="text-white/25">Select your industry…</span>
@@ -509,7 +509,7 @@ export default function Analyze() {
                         Optional — improves recommendation quality
                         <span className="h-px flex-1 bg-white/[0.06]" />
                       </p>
-                      <div className="grid grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         {[
                           { id: "monthlyUsers", label: "Monthly Visitors", placeholder: "e.g. 5,000", value: monthlyUsers, set: setMonthlyUsers, icon: <Users className="h-3.5 w-3.5" /> },
                           { id: "conversionRate", label: "Conv. Rate (%)", placeholder: "e.g. 2.5", value: conversionRate, set: setConversionRate, icon: <Target className="h-3.5 w-3.5" /> },
@@ -671,7 +671,7 @@ export default function Analyze() {
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   Analysis Complete
                 </div>
-                <h2 className="text-4xl font-black text-white mb-3 tracking-tight">Your Recommendations</h2>
+                <h2 className="text-3xl sm:text-4xl font-black text-white mb-3 tracking-tight">Your Recommendations</h2>
                 <div className="flex items-center justify-center gap-3 flex-wrap">
                   <span className="text-white/40 text-sm">
                     Based on <span className="text-white/70 font-semibold">{status.productCount} products</span>
@@ -686,7 +686,7 @@ export default function Analyze() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 min-[430px]:grid-cols-2 sm:grid-cols-4 gap-3">
                 <StatCard
                   value={status.productCount}
                   label="Products Scanned"
@@ -715,7 +715,7 @@ export default function Analyze() {
 
               {/* AI Summary */}
               {status.summary && (
-                <div className="relative bg-gradient-to-br from-primary/8 via-primary/5 to-transparent border border-primary/15 rounded-2xl px-6 py-5 overflow-hidden">
+                <div className="relative bg-gradient-to-br from-primary/8 via-primary/5 to-transparent border border-primary/15 rounded-2xl px-4 sm:px-6 py-5 overflow-hidden">
                   <div className="absolute top-4 right-4">
                     <Sparkles className="h-4 w-4 text-primary/30" />
                   </div>
@@ -744,7 +744,7 @@ export default function Analyze() {
               )}
 
               {/* Share CTA */}
-              <div className="relative bg-gradient-to-br from-primary/10 via-violet-500/8 to-indigo-500/5 border border-primary/15 rounded-3xl p-8 text-center overflow-hidden">
+              <div className="relative bg-gradient-to-br from-primary/10 via-violet-500/8 to-indigo-500/5 border border-primary/15 rounded-3xl p-5 sm:p-8 text-center overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/5 blur-2xl" />
                 <div className="relative">
                   <ArrowUpRight className="h-6 w-6 text-primary/50 mx-auto mb-3" />

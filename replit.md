@@ -29,6 +29,7 @@ A full-stack SaaS application for Ziadah that lets store owners connect their e-
   - Upsell products — premium alternatives
 - **Dashboard**: View all stores with status, product counts, and quick actions
 - **Store Detail**: Tabs for Overview, Products (grid with role badges), and AI Analysis
+- **Mobile UX**: Landing and engine pages use native page scrolling, mobile-safe single-column grids, and responsive form/report spacing.
 
 ## Artifacts
 

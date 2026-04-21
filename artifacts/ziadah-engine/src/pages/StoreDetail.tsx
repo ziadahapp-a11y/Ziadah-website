@@ -239,7 +239,7 @@ export default function StoreDetail({ id }: Props) {
       {activeTab === "overview" && (
         <div className="space-y-4">
           {recommendations ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-card border border-card-border rounded-xl p-4">
                 <p className="text-xs text-muted-foreground mb-1">Total Products</p>
                 <p className="text-3xl font-bold text-foreground" data-testid="stat-total-products">{recommendations.totalProducts}</p>
@@ -264,7 +264,7 @@ export default function StoreDetail({ id }: Props) {
               )}
             </div>
           ) : (
-            <div className="bg-card border border-dashed border-border rounded-xl p-12 text-center">
+            <div className="bg-card border border-dashed border-border rounded-xl p-8 sm:p-12 text-center">
               <Brain className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">No Analysis Yet</h3>
               <p className="text-muted-foreground text-sm mb-6">
@@ -291,11 +291,11 @@ export default function StoreDetail({ id }: Props) {
       {activeTab === "products" && (
         <div>
           {productsLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 min-[430px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {[...Array(8)].map((_, i) => <Skeleton key={i} className="h-56 rounded-xl" />)}
             </div>
           ) : !products || products.length === 0 ? (
-            <div className="bg-card border border-dashed border-border rounded-xl p-12 text-center">
+            <div className="bg-card border border-dashed border-border rounded-xl p-8 sm:p-12 text-center">
               <Package className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">No Products</h3>
               <p className="text-muted-foreground text-sm mb-6">Sync your store to fetch products</p>
@@ -305,7 +305,7 @@ export default function StoreDetail({ id }: Props) {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 min-[430px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {products.map((product) => (
                 <div
                   key={product.id}
@@ -357,12 +357,12 @@ export default function StoreDetail({ id }: Props) {
           {analysisLoading ? (
             <div className="space-y-4">
               <Skeleton className="h-48 w-full rounded-xl" />
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => <Skeleton key={i} className="h-36 rounded-xl" />)}
               </div>
             </div>
           ) : !analysis ? (
-            <div className="bg-card border border-dashed border-border rounded-xl p-12 text-center">
+            <div className="bg-card border border-dashed border-border rounded-xl p-8 sm:p-12 text-center">
               <Brain className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">No Analysis Yet</h3>
               <p className="text-muted-foreground text-sm mb-6">Run AI analysis to see product strategy insights</p>
@@ -386,7 +386,7 @@ export default function StoreDetail({ id }: Props) {
                   <span className="h-2 w-2 rounded-full bg-amber-400 inline-block" />
                   Main Product
                 </h3>
-                <div className="bg-card border border-amber-500/20 rounded-xl p-5 flex gap-4">
+                <div className="bg-card border border-amber-500/20 rounded-xl p-5 flex flex-col sm:flex-row gap-4">
                   {analysis.mainProduct.imageUrl && (
                     <img
                       src={analysis.mainProduct.imageUrl}

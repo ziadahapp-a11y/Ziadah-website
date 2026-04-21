@@ -63,7 +63,7 @@ export default function EditStore({ id }: Props) {
 
   if (isLoading) {
     return (
-      <div className="p-6 max-w-2xl mx-auto space-y-4">
+      <div className="p-4 sm:p-6 max-w-2xl mx-auto space-y-4">
         <Skeleton className="h-8 w-32" />
         <Skeleton className="h-48 w-full rounded-xl" />
       </div>
@@ -72,7 +72,7 @@ export default function EditStore({ id }: Props) {
 
   if (!store) {
     return (
-      <div className="p-6 text-center">
+      <div className="p-4 sm:p-6 text-center">
         <p className="text-muted-foreground">Store not found</p>
         <Button asChild variant="outline" className="mt-4"><Link href="/">Back</Link></Button>
       </div>
@@ -80,7 +80,7 @@ export default function EditStore({ id }: Props) {
   }
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-2xl mx-auto">
       <div className="mb-8">
         <Button asChild variant="ghost" size="sm" className="gap-2 text-muted-foreground mb-4 -ml-2">
           <Link href={`/stores/${id}`}>
@@ -92,7 +92,7 @@ export default function EditStore({ id }: Props) {
         <p className="text-muted-foreground text-sm mt-1">Update your store details</p>
       </div>
 
-      <div className="bg-card border border-card-border rounded-xl p-6">
+      <div className="bg-card border border-card-border rounded-xl p-4 sm:p-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
@@ -126,7 +126,7 @@ export default function EditStore({ id }: Props) {
               )}
             />
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Button type="submit" disabled={updateStore.isPending} className="flex-1" data-testid="button-save-store">
                 {updateStore.isPending ? "Saving..." : "Save Changes"}
               </Button>
