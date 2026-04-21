@@ -15,7 +15,7 @@ const basePath = process.env.BASE_PATH ?? "/";
 
 const envDir = path.resolve(import.meta.dirname, "../..");
 const apiProxyTarget =
-  process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8787";
+  process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8080";
 
 export default defineConfig({
   base: basePath,

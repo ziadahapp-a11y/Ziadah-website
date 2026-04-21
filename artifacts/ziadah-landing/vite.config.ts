@@ -18,7 +18,7 @@ const envDir = path.resolve(import.meta.dirname, "../..");
 
 /** Phase 5: forward `/api/*` to the API server in dev so `fetch("/api/content")` works with empty VITE_API_BASE_URL. */
 const apiProxyTarget =
-  process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8787";
+  process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8080";
 
 export default defineConfig({
   base: basePath,
