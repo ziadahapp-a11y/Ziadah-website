@@ -533,7 +533,7 @@ export const t = {
       ],
       planGrowth: "النمو",
       planGrowthDesc: "للتجار الأفراد",
-      planGrowthBadge: "الأكثر طلباً",
+      planProBadge: "الأكثر طلباً",
       planGrowthCredits: {
         m: "رصيد 50 نقطة مجانية من الذكاء الاصطناعي",
         y: "رصيد 600 نقطة مجانية من الذكاء الاصطناعي",
@@ -1683,7 +1683,7 @@ export const t = {
       ],
       planGrowth: "Growth",
       planGrowthDesc: "For individual merchants",
-      planGrowthBadge: "Most Popular",
+      planProBadge: "Most Popular",
       planGrowthCredits: {
         m: "50 free AI points included",
         y: "600 free AI points included (annual)",

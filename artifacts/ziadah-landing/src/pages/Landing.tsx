@@ -495,7 +495,29 @@ export default function Landing() {
   const prices = {
     m: { s: 29, g: 290, p: 790, b: "1,990" },
     y: { s: 24, g: 249, p: 665, b: "1,332" },
-  };
+  } as const;
+
+  const pm = pricingMode;
+  const ld = tr.landing;
+
+  const pricingAiSpark = (
+    <svg
+      className="p-ai-spark-svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden={true}
+    >
+      <path
+        d="M12 1.5l1.35 4.85L18.5 8.5l-4.85 1.35L12 15l-1.65-5.15L5.5 8.5l5.15-1.15L12 1.5z"
+        fill="currentColor"
+        opacity="0.92"
+      />
+      <circle cx="19.5" cy="5.5" r="1.15" fill="currentColor" opacity="0.45" />
+      <circle cx="4.5" cy="17" r="0.85" fill="currentColor" opacity="0.38" />
+    </svg>
+  );
 
   const row1Avatars = ["R", "T", "S", "F", "N", "B"];
   const row1Colors = [
@@ -1449,19 +1471,16 @@ export default function Landing() {
           </div>
         </section>
         {/* PRICING */}
-        <section id="pricing">
+        <section id="pricing" className="pricing-sec">
           <div className="wrap">
-            <div className="tc" style={{ marginBottom: 24 }}>
+            <div className="tc pricing-sec__intro">
               <SecTag>{tr.landing.pricingTag}</SecTag>
               <h2 className="st rv d1 font-semibold">{tr.landing.pricingTitle}</h2>
               <p className="ssub rv d2">
                 {tr.landing.pricingSub}
               </p>
             </div>
-            <div
-              style={{ textAlign: "center", marginBottom: 48 }}
-              className="rv d2"
-            >
+            <div className="pricing-sec__toggle rv d2">
               <div className="ptog">
                 <button
                   className={`ptb${pricingMode === "m" ? " on" : ""}`}
@@ -1477,7 +1496,7 @@ export default function Landing() {
                 </button>
               </div>
             </div>
-            <div className="pg">
+            <div className="pg pricing-sec__grid">
               {[
                 {
                   name: tr.landing.planStarter,
@@ -1485,7 +1504,9 @@ export default function Landing() {
                   price: prices[pricingMode].s,
                   feat: false,
                   badge: null,
-                  list: tr.landing.planStarterList as string[],
+                  aiCredit: ld.planStarterCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [...(ld.planStarterFeatures as string[])],
                   cta: tr.landing.subscribeNow,
                   fill: false,
                 },
@@ -1493,21 +1514,28 @@ export default function Landing() {
                   name: tr.landing.planGrowth,
                   desc: tr.landing.planGrowthDesc,
                   price: prices[pricingMode].g,
-                  feat: true,
-                  badge: tr.landing.planGrowthBadge,
-                  list: tr.landing.planGrowthList as string[],
+                  feat: false,
+                  badge: null,
+                  aiCredit: ld.planGrowthCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [
+                    ld.planGrowthIntro,
+                    ...(ld.planGrowthFeatures as string[]),
+                  ],
                   cta: tr.landing.subscribeNow,
-                  fill: true,
+                  fill: false,
                 },
                 {
                   name: tr.landing.planPro,
                   desc: tr.landing.planProDesc,
                   price: prices[pricingMode].p,
-                  feat: false,
-                  badge: null,
-                  list: tr.landing.planProList as string[],
+                  feat: true,
+                  badge: tr.landing.planProBadge,
+                  aiCredit: ld.planProCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [ld.planProIntro, ...(ld.planProFeatures as string[])],
                   cta: tr.landing.subscribeNow,
-                  fill: false,
+                  fill: true,
                 },
                 {
                   name: tr.landing.planBusiness,
@@ -1515,8 +1543,11 @@ export default function Landing() {
                   price: prices[pricingMode].b,
                   feat: false,
                   badge: null,
-                  list: [
-                    ...(tr.landing.planBusinessList as string[]),
+                  aiCredit: ld.planBusinessCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [
+                    ld.planBusinessIntro,
+                    ...(ld.planBusinessFeatures as string[]),
                     ...(pricingMode === "y"
                       ? [tr.landing.planBusinessGuaranteeAnnual]
                       : []),
@@ -1535,11 +1566,11 @@ export default function Landing() {
                   <div className="p-price">
                     {p.price != null ? (
                       <>
-                        <span className="p-num">{p.price}</span>
-                        <span className="p-cur">⃁</span>
-                        <span className="p-per">
-                          {tr.landing.perMonth}
+                        <span className="p-price-main">
+                          <span className="p-num">{p.price}</span>
+                          <span className="p-cur">⃁</span>
                         </span>
+                        <span className="p-per">{tr.landing.perMonth}</span>
                       </>
                     ) : (
                       <span
@@ -1550,9 +1581,18 @@ export default function Landing() {
                     )}
                   </div>
                   <hr className="p-hr" />
+                  <div className="p-ai-box" dir={dir}>
+                    <div className="p-ai-box-inner">
+                      <div className="p-ai-copy">
+                        {pricingAiSpark}
+                        <div className="p-ai-credit">{p.aiCredit}</div>
+                        <div className="p-ai-note">{p.aiNote}</div>
+                      </div>
+                    </div>
+                  </div>
                   <ul className="p-list">
-                    {p.list.map((l) => (
-                      <li key={l}>{l}</li>
+                    {p.features.map((l, j) => (
+                      <li key={`pf-${i}-${j}`}>{l}</li>
                     ))}
                   </ul>
                   <button
