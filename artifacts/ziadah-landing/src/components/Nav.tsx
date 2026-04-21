@@ -642,8 +642,9 @@ function MobileMoreDropdown({
   }, [onClose]);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => { document.body.style.overflow = previousOverflow; };
   }, []);
 
   const directLinkStyle: React.CSSProperties = {
@@ -1354,6 +1355,8 @@ export default function Nav() {
             padding: 8,
             maxHeight: "48vh",
             overflowY: "auto",
+            WebkitOverflowScrolling: "touch",
+            touchAction: "pan-y",
             background: "rgba(8,6,20,.97)",
             border: "1px solid rgba(255,255,255,.1)",
             backdropFilter: "blur(32px)",
