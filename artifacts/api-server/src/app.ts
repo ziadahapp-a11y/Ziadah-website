@@ -46,9 +46,26 @@ function getAllowedOrigins(): string[] {
 
 const allowedOrigins = getAllowedOrigins();
 
+/** Browser → API on another host/port (e.g. VITE_API_BASE_URL=http://127.0.0.1:8787 while Vite is on :5000). */
+function isLocalDevBrowserOrigin(origin: string): boolean {
+  try {
+    const u = new URL(origin);
+    const httpish = u.protocol === "http:" || u.protocol === "https:";
+    return (
+      httpish &&
+      (u.hostname === "localhost" || u.hostname === "127.0.0.1")
+    );
+  } catch {
+    return false;
+  }
+}
+
+const allowLocalhostInDev =
+  process.env.NODE_ENV !== "production" || process.env.ALLOW_LOCALHOST_CORS === "1";
+
 if (allowedOrigins.length === 0) {
   logger.warn(
-    "CORS_ALLOWED_ORIGINS and REPLIT_DEV_DOMAIN are both unset — no cross-origin credentialed requests will be allowed. Set CORS_ALLOWED_ORIGINS or REPLIT_DEV_DOMAIN to enable browser-to-API calls.",
+    "CORS_ALLOWED_ORIGINS and REPLIT_DEV_DOMAIN are both unset — cross-origin browser calls only work for same-origin requests, or localhost in non-production (set ALLOW_LOCALHOST_CORS=1 to allow localhost when NODE_ENV=production).",
   );
 } else {
   logger.info({ allowedOrigins }, "CORS allowed origins");
@@ -63,9 +80,13 @@ app.use(
       }
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
-      } else {
-        callback(new Error(`Not allowed by CORS: ${origin}`));
+        return;
       }
+      if (allowLocalhostInDev && isLocalDevBrowserOrigin(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     credentials: true,
   }),

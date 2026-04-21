@@ -19,6 +19,8 @@ export const storesTable = pgTable("stores", {
   lastAnalyzedAt: timestamp("last_analyzed_at", { withTimezone: true }),
   /** Set when status becomes "error" (scraping or AI failure); cleared on new successful runs */
   lastError: text("last_error"),
+  /** Opaque token for `/report/...` share URLs (unguessable vs sequential store id) */
+  reportShareToken: text("report_share_token"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow().$onUpdate(() => new Date()),
 });

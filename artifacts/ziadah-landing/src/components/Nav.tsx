@@ -7,6 +7,8 @@ import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
+import { useMeetingBooking } from "./MeetingBookingProvider";
+import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
@@ -167,8 +169,8 @@ function UseCasesMegaMenu() {
       position: "absolute",
       top: "calc(100% + 10px)",
       ...(lang === "ar" ? { right: 0, left: "auto" } : { left: 0, right: "auto" }),
-      width: "min(900px, calc(100vw - 24px))",
-      maxWidth: "calc(100vw - 16px)",
+      width: 1200,
+      maxWidth: "min(1200px, calc(100vw - 16px))",
       minWidth: 0,
       boxSizing: "border-box",
       background: "rgba(11,0,25,1)",
@@ -604,6 +606,7 @@ function MobileMoreDropdown({
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
+  const { openMeetingBooking } = useMeetingBooking();
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
 
@@ -905,13 +908,21 @@ function MobileMoreDropdown({
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 10, marginTop: 4 }}>
-          <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" onClick={onClose} style={{
-            flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-            border: "1px solid rgba(255,255,255,.16)", background: "transparent",
-            color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
-          }}>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              openMeetingBooking(MEETING_BOOKING_NAV_URL);
+            }}
+            style={{
+              flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+              border: "1px solid rgba(255,255,255,.16)", background: "transparent",
+              color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
+              cursor: "pointer",
+            }}
+          >
             {tr.nav.bookMeeting}
-          </a>
+          </button>
           <button type="button" onClick={() => { onClose(); onStartNow?.(); }} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
@@ -934,6 +945,7 @@ export default function Nav() {
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
+  const { openMeetingBooking } = useMeetingBooking();
   const runBlur = useBlurTransition();
   const isRtl = lang === "ar";
   const [scrolled, setScrolled] = useState(false);
@@ -1021,21 +1033,23 @@ export default function Nav() {
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
         position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
-        transform: "translateX(-50%)", width: "min(92%, 1200px)", maxWidth: 1200,
-        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)",
-        border: "none",
-        borderColor: "rgba(0, 0, 0, 0)",
-        borderImage: "none",
+        transform: "translateX(-50%)", display: "flex", flexDirection: "column", width: "100%",
+        marginLeft: 0,
+        marginRight: 0,
+        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(255, 255, 255, 0)",
+        border: "1px solid rgb(0, 0, 0)",
         boxShadow: scrolled
-          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)"
-          : "inset 1px 1px 2px 0px rgba(255, 255, 255, 0.2)",
-        borderRadius: 18, padding: "0 24px",
+          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5)"
+          : "none",
+        borderRadius: 0, padding: "0 24px",
         backdropFilter: "blur(32px)", transition: "all .4s",
       }}>
         {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           height: 58,
+          paddingLeft: 40,
+          paddingRight: 40,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Logo />
@@ -1178,11 +1192,16 @@ export default function Nav() {
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <LanguageSwitcher />
-            <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
+            <button
+              type="button"
+              className="nb nav-cta-outline"
+              onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
+              style={{ cursor: "pointer", fontFamily: "var(--font)" }}
+            >
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
                 {tr.nav.bookMeeting}
               </Editable>
-            </a>
+            </button>
             <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "startNow")} label="Nav Start Now">
                 {tr.nav.startNow}
@@ -1550,7 +1569,7 @@ export default function Nav() {
             {[
               { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
               { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
-              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); window.open("https://calendar.app.google/a3b18uRcuhHijZ8y5", "_blank", "noopener,noreferrer"); }, active: false },
+              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
               { key: "startNow", iconKey: "startNow" as const, label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
               { key: "langTheme", iconKey: "langTheme" as const, dropKey: "langTheme" as const, label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
               { key: "back", iconKey: "back" as const, label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },

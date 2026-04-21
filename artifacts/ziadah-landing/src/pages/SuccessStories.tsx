@@ -1094,7 +1094,7 @@ export default function SuccessStories() {
         </section>
 
         <section style={{ position: "relative", zIndex: 2, paddingInline: "5%", paddingBottom: 80 }}>
-          <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
             {activeSector !== "الكل" && (
               <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ fontSize: 15, color: "var(--td)" }}>

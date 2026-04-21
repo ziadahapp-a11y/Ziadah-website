@@ -323,7 +323,7 @@ export default function Calculator() {
             padding: "var(--page-hero-pt) var(--page-inline-pad) 80px",
           }}
         >
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <div className="stag rv" style={{ display: "inline-flex" }}>
                 <span className="stag-dot" />

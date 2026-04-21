@@ -157,7 +157,7 @@ export default function LandingSolutionsMatrix({ variant = "landing" }: { varian
         scrollMarginTop: 120,
       }}
     >
-      <div style={{ maxWidth: 1100, margin: "0 auto", paddingInline: showBlurbs ? "0" : "5%" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingInline: showBlurbs ? "0" : "5%" }}>
         {!showBlurbs ? (
           <div style={{ textAlign: "center", marginBottom: 44 }}>
             <div className="stag rv" style={{ display: "inline-flex" }}>

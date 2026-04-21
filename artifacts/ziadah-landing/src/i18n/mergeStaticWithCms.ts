@@ -26,6 +26,15 @@ const STATIC_ONLY_I18N_KEYS = new Set([
   /** Year bumps ship in repo; DB overrides were leaving stale © lines in the footer. */
   "ar.footer.copyright",
   "en.footer.copyright",
+  /** Hero stats bar (`sbi-n`): CMS `content_blocks` was overriding repo updates (e.g. +700 vs +1500). */
+  "ar.landing.stat1Value",
+  "en.landing.stat1Value",
+  "ar.landing.stat2Value",
+  "en.landing.stat2Value",
+  "ar.landing.stat3Value",
+  "en.landing.stat3Value",
+  "ar.landing.stat4Value",
+  "en.landing.stat4Value",
 ]);
 
 /** Flat keys like `ar.nav.home` or `blog.post-slug.title` overlay nested static translations. */

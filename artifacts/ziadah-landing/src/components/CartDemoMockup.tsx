@@ -45,7 +45,7 @@ export default function CartDemoMockup() {
         direction: "ltr",
       }}
     >
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingTop: 40, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div
             style={{

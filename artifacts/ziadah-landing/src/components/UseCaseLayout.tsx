@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import PageShell from "./PageShell";
+import DsPageBackdrop from "./DsPageBackdrop";
+import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
 import SEO from "./SEO";
@@ -102,6 +104,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     return v !== undefined && v !== "" ? v : fallback;
   };
 
+  useLayoutEffect(() => {
+    scrollWindowToTopAfterPaint();
+  }, []);
+
   /* scroll-reveal observer */
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -177,7 +183,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         </>
       )}
 
-      <PageShell>
+      <PageShell className="relative overflow-x-clip">
+        <DsPageBackdrop />
         {/* ── fixed scroll progress bar ── */}
         <div className="sector-html-prog" style={{ width: `${scrollProg}%` }} aria-hidden />
 
@@ -283,8 +290,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             WHAT WE DO
         ══════════════════════════════════════════════════ */}
         <section id="uc-what" className="sector-html"
-          style={{ position: "relative", zIndex: 2, padding: "56px var(--page-inline-pad) 56px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          style={{ position: "relative", zIndex: 2, padding: "56px 0", width: "100%" }}>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div className="rv" style={{
               position: "relative",
               background: "color-mix(in srgb, var(--p) 5%, transparent)",
@@ -292,10 +299,14 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               borderRadius: 20,
               padding: "44px 52px",
               overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+              width: "100%",
             }}>
               {/* gradient top bar */}
               <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), var(--sh-gold))" }} />
-              <div className="sector-html-badge" style={{ marginBottom: 16 }}>
+              <div className="sector-html-badge" style={{ marginBottom: 16, width: "fit-content" }}>
                 {isEn ? "How it works" : "كيف يعمل"}
               </div>
               <h2 style={{ fontSize: "clamp(20px,2.5vw,32px)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.5px", marginBottom: 18, color: "var(--t)" }}>
@@ -308,37 +319,41 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                   {cv(["whatWeDoDesc"], whatWeDoDesc)}
                 </Editable>
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            STATS — KPI boxes
-        ══════════════════════════════════════════════════ */}
-        <section id="uc-stats" className="sector-html"
-          style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12 }}>
-              {stats.map((s, i) => (
-                <div key={i} className={`sector-html-kpi-box rv d${i + 1}`}>
-                  <div className="sector-html-kpiv"
-                    style={{
-                      background: `linear-gradient(135deg, ${s.color || "var(--p)"}, var(--sh-gold))`,
-                      WebkitBackgroundClip: "text",
-                      backgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}>
-                    <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1}`} type="text">
-                      {cv(["stats", String(i), "value"], s.value)}
-                    </Editable>
-                  </div>
-                  <div className="sector-html-kpil">
-                    <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
-                      {cv(["stats", String(i), "label"], s.label)}
-                    </Editable>
+              <div
+                id="uc-stats"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  paddingTop: 20,
+                  paddingBottom: 20,
+                }}
+              >
+                <div style={{ margin: "0 auto", maxWidth: 1200, width: "100%" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12, width: "100%" }}>
+                  {stats.map((s, i) => (
+                    <div key={i} className={`sector-html-kpi-box rv d${i + 1}`}>
+                      <div className="sector-html-kpiv"
+                        style={{
+                          background: `linear-gradient(135deg, ${s.color || "var(--p)"}, var(--sh-gold))`,
+                          WebkitBackgroundClip: "text",
+                          backgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                        }}>
+                        <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1}`} type="text">
+                          {cv(["stats", String(i), "value"], s.value)}
+                        </Editable>
+                      </div>
+                      <div className="sector-html-kpil">
+                        <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
+                          {cv(["stats", String(i), "label"], s.label)}
+                        </Editable>
+                      </div>
+                    </div>
+                  ))}
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>
@@ -450,9 +465,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         ══════════════════════════════════════════════════ */}
         {plans && (
           <section className="sector-html"
-            style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px" }}>
+            style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 56px", width: "100%" }}>
             <div style={{ maxWidth: 1200, margin: "0 auto" }}>
               <div className="rv" style={{
+                width: "100%",
                 background: "color-mix(in srgb, var(--p) 4%, transparent)",
                 border: "1px solid color-mix(in srgb, var(--p) 16%, transparent)",
                 borderRadius: 18,
@@ -490,13 +506,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             </div>
           </section>
         )}
-
-        {/* ══════════════════════════════════════════════════
-            EXTRA SECTIONS (widgets / showcases)
-        ══════════════════════════════════════════════════ */}
-        <div id="uc-showcase">
-          {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
-        </div>
 
         {/* ══════════════════════════════════════════════════
             REPORTS HIGHLIGHT
@@ -568,9 +577,27 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         </section>
 
         {/* ══════════════════════════════════════════════════
+            EXTRA SECTIONS (widgets / showcases) — after reports, before CTA
+        ══════════════════════════════════════════════════ */}
+        {data.extraSections ? (
+          <section
+            id="uc-showcase"
+            className="sector-html"
+            style={{
+              position: "relative",
+              zIndex: 2,
+              padding: "0 0 56px",
+              width: "100%",
+            }}
+          >
+            {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
+          </section>
+        ) : null}
+
+        {/* ══════════════════════════════════════════════════
             CTA
         ══════════════════════════════════════════════════ */}
-        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px", width: "100%" }}>
           <div className="sector-html rv" style={{
             width: "100%",
             maxWidth: 1200,

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import {
   Zap,
   CheckCircle2,
@@ -15,7 +15,6 @@ import {
   Calendar,
   Sparkles,
   LayoutGrid,
-  ChevronRight,
   ChevronDown,
   Globe,
   BarChart3,
@@ -50,21 +49,29 @@ import {
   storyEn,
   type StoryData,
 } from "@/data/successStoriesData";
-import { estimateAnalyzeOpportunity } from "@/lib/analyzeValueEstimate";
+import {
+  deriveCatalogAovFromGroups,
+  estimateAnalyzeOpportunity,
+} from "@/lib/analyzeValueEstimate";
+import { cn } from "@/lib/utils";
+import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
+import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 
-const INDUSTRIES = [
-  { value: "fashion", label: "Fashion & Apparel — موضة وملابس" },
-  { value: "electronics", label: "Electronics — إلكترونيات" },
-  { value: "beauty", label: "Beauty & Personal Care — جمال وعناية" },
-  { value: "home", label: "Home & Garden — منزل وحديقة" },
-  { value: "food", label: "Food & Beverage — طعام ومشروبات" },
-  { value: "sports", label: "Sports & Outdoors — رياضة" },
-  { value: "health", label: "Health & Wellness — صحة ولياقة" },
-  { value: "toys", label: "Toys & Games — ألعاب" },
-  { value: "jewelry", label: "Jewelry & Accessories — مجوهرات" },
-  { value: "automotive", label: "Automotive — سيارات" },
-  { value: "other", label: "Other — أخرى" },
-];
+/** Stored `value` is English (API); labels are single-locale (no bilingual strings). */
+const INDUSTRY_OPTIONS = [
+  { value: "fashion", labelAr: "موضة وملابس", labelEn: "Fashion & apparel" },
+  { value: "electronics", labelAr: "إلكترونيات", labelEn: "Electronics" },
+  { value: "beauty", labelAr: "جمال وعناية شخصية", labelEn: "Beauty & personal care" },
+  { value: "home", labelAr: "منزل وحديقة", labelEn: "Home & garden" },
+  { value: "food", labelAr: "أطعمة ومشروبات", labelEn: "Food & beverage" },
+  { value: "sports", labelAr: "رياضة وهوايات خارجية", labelEn: "Sports & outdoors" },
+  { value: "health", labelAr: "صحة ولياقة", labelEn: "Health & wellness" },
+  { value: "toys", labelAr: "ألعاب", labelEn: "Toys & games" },
+  { value: "jewelry", labelAr: "مجوهرات وإكسسوارات", labelEn: "Jewelry & accessories" },
+  { value: "automotive", labelAr: "سيارات وقطع غيار", labelEn: "Automotive" },
+  { value: "other", labelAr: "أخرى", labelEn: "Other" },
+] as const;
 
 type Step = "idle" | "syncing" | "analyzing" | "analyzed" | "error";
 
@@ -96,6 +103,8 @@ interface AnchorGroup {
 
 interface StatusResponse {
   storeId: number;
+  /** Opaque public report URL segment; not a sequential id */
+  reportShareToken?: string;
   status: string;
   platform: string | null;
   productCount: number;
@@ -127,19 +136,31 @@ function formatPrice(price: number | null | undefined, symbol: string): string {
   return `${price.toLocaleString("en-SA", { minimumFractionDigits: 0, maximumFractionDigits: 2 })} ${symbol}`;
 }
 
+function parsePositiveIntInput(s: string): number | null {
+  const n = parseInt(s.trim(), 10);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return n;
+}
+
+function parsePositiveFloatInput(s: string): number | null {
+  const n = parseFloat(s.trim());
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return n;
+}
+
 function RolePill({ role }: { role: string }) {
   const { lang } = useLanguage();
   const siteT = useSiteT();
   const tr = siteT[lang].analyze;
   if (role === "cross_sell")
     return (
-      <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[11px] font-bold">
+      <span className="analyze-pill analyze-pill--cross analyze-role-pill inline-flex items-center gap-1 text-[11px] font-bold">
         <ShoppingCart className="h-3 w-3 shrink-0" aria-hidden />
         {tr.roleCrossSell}
       </span>
     );
   return (
-    <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[11px] font-bold">
+    <span className="analyze-pill analyze-pill--up analyze-role-pill inline-flex items-center gap-1 text-[11px] font-bold">
       <TrendingUp className="h-3 w-3 shrink-0" aria-hidden />
       {tr.roleUpsell}
     </span>
@@ -259,6 +280,60 @@ function WidgetRecCard({
   );
 }
 
+/** Matches `MockupCard` / `phone-mockup-wrap` status bar in ProductPageMockups. */
+function AnalyzePhoneStatusBar({ accentColor }: { accentColor: string }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "0 16px 8px",
+        fontSize: 9,
+        color: "var(--tm)",
+        fontWeight: 600,
+      }}
+    >
+      <span>9:41</span>
+      <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+        <div
+          style={{
+            width: 12,
+            height: 6,
+            borderRadius: 2,
+            border: "1px solid var(--b2)",
+            padding: "1px",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              width: "70%",
+              height: "100%",
+              borderRadius: 1,
+              background: accentColor,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              right: -3,
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: 2,
+              height: 4,
+              borderRadius: 1,
+              background: "var(--s3)",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const ANALYZE_WIDGET_PHONE_ACCENT = "#7c3aed";
+
 function AnalyzeStoreWidget({
   group,
   currencySymbol,
@@ -278,87 +353,154 @@ function AnalyzeStoreWidget({
   } catch {}
   const isArabic = lang === "ar";
   return (
-    <div className="analyze-widget-frame">
-      {/* Browser chrome */}
-      <div className="analyze-widget-chrome">
-        <div className="analyze-widget-chrome-dots">
-          <span className="analyze-widget-chrome-dot" />
-          <span className="analyze-widget-chrome-dot" />
-          <span className="analyze-widget-chrome-dot" />
-        </div>
-        <div className="flex-1 text-center text-[9px] truncate font-mono" style={{ color: "var(--tm)" }}>
-          {hostname}
-        </div>
-        <span className="inline-flex items-center gap-1 text-[9px] font-bold shrink-0" style={{ color: "var(--p3)" }}>
-          <LayoutGrid className="h-2.5 w-2.5" aria-hidden />
-          Ziadah
-        </span>
-      </div>
+    <div
+      className="phone-mockup-wrap mx-auto"
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        background: "var(--s1)",
+        borderRadius: 44,
+        border: "2px solid var(--b1)",
+        boxShadow:
+          "0 0 40px rgba(124,58,237,.12), 0 20px 60px rgba(0,0,0,.5)",
+        padding: "14px 10px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 80,
+          height: 24,
+          background: "rgba(0,0,0,.5)",
+          borderRadius: "0 0 16px 16px",
+          zIndex: 10,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          background: "var(--bg)",
+          borderRadius: 34,
+          overflow: "hidden",
+          position: "relative",
+          paddingTop: 20,
+          paddingLeft: 10,
+          paddingRight: 10,
+          paddingBottom: 20,
+        }}
+      >
+        <AnalyzePhoneStatusBar accentColor={ANALYZE_WIDGET_PHONE_ACCENT} />
 
-      {/* Current product row (anchor) */}
-      <div className="analyze-widget-product-section">
-        <div className="analyze-widget-product-img">
-          {anchor.imageUrl ? (
-            <img src={anchor.imageUrl} alt="" />
-          ) : (
-            <Package className="h-5 w-5" style={{ color: "var(--tm)" }} aria-hidden />
-          )}
-        </div>
-        <div className="min-w-0">
-          <span
-            className="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.5 rounded-full mb-1"
-            style={{ background: "var(--go)", color: "#1a0f00" }}
-          >
-            <Star className="h-2 w-2 shrink-0" aria-hidden />
-            {anchorLabel}
-          </span>
-          <p
-            className="text-[10px] font-bold leading-snug line-clamp-2"
-            style={{ color: "var(--t)" }}
-            dir={isAr(anchor.title) ? "rtl" : "ltr"}
-          >
-            {anchor.title}
-          </p>
-          {anchor.price != null && (
-            <p className="text-[11px] font-extrabold mt-0.5" style={{ color: "var(--go)" }}>
-              {formatPrice(anchor.price, currencySymbol)}
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Recommendations widget panel */}
-      <div className="analyze-widget-rec-panel">
-        <div className="analyze-widget-rec-header">
-          <LayoutGrid className="h-2.5 w-2.5 shrink-0" aria-hidden />
-          {isArabic ? "زيادة — توصيات ذكية" : "Ziadah — Smart Recs"}
-        </div>
-        {recs.map((rec, i) => (
-          <div key={i} className="analyze-widget-rec-row">
-            <div className="analyze-widget-rec-img">
-              {rec.imageUrl ? (
-                <img src={rec.imageUrl} alt="" />
-              ) : (
-                <Package className="h-3 w-3" style={{ color: "var(--tm)" }} aria-hidden />
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p
-                className="text-[9px] font-semibold leading-snug line-clamp-1"
-                style={{ color: "var(--t)" }}
-                dir={isAr(rec.title) ? "rtl" : "ltr"}
-              >
-                {rec.title}
-              </p>
-              {rec.price != null && (
-                <p className="text-[10px] font-extrabold" style={{ color: "var(--p3)" }}>
-                  {formatPrice(rec.price, currencySymbol)}
-                </p>
-              )}
-            </div>
-            <RolePill role={rec.role} />
+        {/* Browser chrome */}
+        <div className="analyze-widget-chrome">
+          <div className="analyze-widget-chrome-dots">
+            <span className="analyze-widget-chrome-dot" />
+            <span className="analyze-widget-chrome-dot" />
+            <span className="analyze-widget-chrome-dot" />
           </div>
-        ))}
+          <div className="flex-1 text-center text-[9px] truncate font-mono" style={{ color: "var(--tm)" }}>
+            {hostname}
+          </div>
+          <span className="inline-flex items-center gap-1 text-[9px] font-bold shrink-0" style={{ color: "var(--p3)" }}>
+            <LayoutGrid className="h-2.5 w-2.5" aria-hidden />
+            Ziadah
+          </span>
+        </div>
+
+        {/* Current product row (anchor) */}
+        <div className="analyze-widget-product-section">
+          <div className="analyze-widget-product-img">
+            {anchor.imageUrl ? (
+              <img src={anchor.imageUrl} alt="" />
+            ) : (
+              <Package className="h-5 w-5" style={{ color: "var(--tm)" }} aria-hidden />
+            )}
+          </div>
+          <div className="min-w-0">
+            <span
+              className="inline-flex w-fit items-center gap-1 text-[9px] font-bold py-0.5 rounded-full mb-1"
+              style={{
+                background: "rgba(251,191,36,0.8)",
+                color: "#1a0f00",
+                paddingLeft: 9,
+                paddingRight: 9,
+              }}
+            >
+              <Star className="h-2 w-2 shrink-0" aria-hidden />
+              {anchorLabel}
+            </span>
+            <p
+              className="text-[10px] font-bold leading-snug line-clamp-2"
+              style={{ color: "var(--t)" }}
+              dir={isAr(anchor.title) ? "rtl" : "ltr"}
+            >
+              {anchor.title}
+            </p>
+            {anchor.price != null && (
+              <p className="text-[11px] font-extrabold mt-0.5" style={{ color: "var(--go)" }}>
+                {formatPrice(anchor.price, currencySymbol)}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Recommendations widget panel */}
+        <div className="analyze-widget-rec-panel pb-3">
+          <div className="analyze-widget-rec-header">
+            <LayoutGrid className="h-2.5 w-2.5 shrink-0" aria-hidden />
+            {isArabic ? "زيادة — توصيات ذكية" : "Ziadah — Smart Recs"}
+          </div>
+          {recs.map((rec, i) => (
+            <div key={i} className="analyze-widget-rec-row">
+              <div className="analyze-widget-rec-img">
+                {rec.imageUrl ? (
+                  <img src={rec.imageUrl} alt="" />
+                ) : (
+                  <Package className="h-3 w-3" style={{ color: "var(--tm)" }} aria-hidden />
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p
+                  className="w-fit max-w-full text-[9px] font-semibold leading-snug line-clamp-1"
+                  style={{ color: "var(--t)" }}
+                  dir={isAr(rec.title) ? "rtl" : "ltr"}
+                >
+                  {rec.title}
+                </p>
+                {rec.price != null && (
+                  <p className="text-[10px] font-extrabold" style={{ color: "var(--p3)" }}>
+                    {formatPrice(rec.price, currencySymbol)}
+                  </p>
+                )}
+              </div>
+              <RolePill role={rec.role} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          height: 30,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 6,
+        }}
+      >
+        <div
+          style={{
+            width: 90,
+            height: 5,
+            borderRadius: 3,
+            background: "var(--s3)",
+          }}
+        />
       </div>
     </div>
   );
@@ -384,13 +526,13 @@ function AnchorGroupCard({
   const upCount = group.recommendations.filter((r) => r.role === "upsell").length;
 
   return (
-    <div className="analyze-anchor-group-card">
+    <div className="analyze-anchor-group-card h-fit self-start">
       {/* Header */}
       <div className="analyze-anchor-group-header">
         <span className="analyze-anchor-group-index" aria-label={anchorLabel}>
           {index + 1}
         </span>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 flex flex-col gap-2.5">
           <p
             className="text-sm font-bold leading-snug line-clamp-2"
             style={{ color: "var(--t)" }}
@@ -413,7 +555,7 @@ function AnchorGroupCard({
             {upCount > 0 && (
               <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]">
                 <TrendingUp className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {upCount} {lang === "ar" ? "ترقيعي" : "upsell"}
+                {upCount} {lang === "ar" ? "أعلى" : "upsell"}
               </span>
             )}
           </div>
@@ -436,33 +578,6 @@ function AnchorGroupCard({
       <div className="analyze-anchor-group-inner">
         {/* Left: Anchor product info */}
         <div className="analyze-anchor-product-col">
-          <div className="analyze-anchor-product-hero">
-            <div className="analyze-anchor-product-img">
-              {anchor.imageUrl ? (
-                <img src={anchor.imageUrl} alt="" />
-              ) : (
-                <Package className="h-7 w-7" style={{ color: "var(--tm)" }} aria-hidden />
-              )}
-            </div>
-            <div className="min-w-0 flex-1">
-              <span
-                className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1.5"
-                style={{ background: "rgba(251,191,36,.15)", color: "var(--go)", border: "1px solid rgba(251,191,36,.25)" }}
-              >
-                <Star className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {anchorLabel}
-              </span>
-              {anchor.reason && (
-                <p
-                  className="text-[11px] leading-relaxed"
-                  style={{ color: "var(--tm)" }}
-                  dir={isAr(anchor.reason) ? "rtl" : "ltr"}
-                >
-                  {anchor.reason}
-                </p>
-              )}
-            </div>
-          </div>
           {(anchor.anchorGoal || anchor.anchorPresentation) && (
             <div className="analyze-anchor-goals-box space-y-2">
               {anchor.anchorGoal && (
@@ -479,48 +594,6 @@ function AnchorGroupCard({
               )}
             </div>
           )}
-          {/* Show remaining recs (beyond the 3 shown in widget) */}
-          {group.recommendations.length > 3 && (
-            <div className="space-y-2">
-              {group.recommendations.slice(3).map((rec, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 rounded-xl border px-3 py-2"
-                  style={{ borderColor: "var(--b1)", background: "var(--s2)" }}
-                >
-                  {rec.imageUrl ? (
-                    <img
-                      src={rec.imageUrl}
-                      alt=""
-                      className="w-8 h-8 rounded-lg object-cover flex-shrink-0"
-                    />
-                  ) : (
-                    <div
-                      className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: "var(--s1)" }}
-                    >
-                      <Package className="h-4 w-4" style={{ color: "var(--tm)" }} aria-hidden />
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className="text-[11px] font-semibold line-clamp-1"
-                      style={{ color: "var(--t)" }}
-                      dir={isAr(rec.title) ? "rtl" : "ltr"}
-                    >
-                      {rec.title}
-                    </p>
-                    {rec.price != null && (
-                      <p className="text-[10px] font-bold" style={{ color: "var(--p3)" }}>
-                        {formatPrice(rec.price, currencySymbol)}
-                      </p>
-                    )}
-                  </div>
-                  <RolePill role={rec.role} />
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Right: Widget frame (store widget preview) */}
@@ -532,18 +605,6 @@ function AnchorGroupCard({
         />
       </div>
     </div>
-  );
-}
-
-function AnalyzeBreadcrumb({ home, current }: { home: string; current: string }) {
-  return (
-    <nav className="analyze-breadcrumb" aria-label={current}>
-      <Link href="/" className="analyze-breadcrumb__a">
-        {home}
-      </Link>
-      <ChevronRight className="analyze-breadcrumb__sep" aria-hidden />
-      <span className="analyze-breadcrumb__current">{current}</span>
-    </nav>
   );
 }
 
@@ -645,8 +706,6 @@ function ProgressStep({
   );
 }
 
-const MEETING_CALENDAR_URL = "https://calendar.app.google/a3b18uRcuhHijZ8y5";
-
 function AnalyzeSuccessStoryCard({
   story,
   isArLocale,
@@ -686,13 +745,13 @@ function AnalyzeSuccessStoryCard({
   );
 }
 
-function CopyReportButton({ storeId }: { storeId: number }) {
+function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
   const [copied, setCopied] = useState(false);
   const { lang } = useLanguage();
   const siteT = useSiteT();
   const tr = siteT[lang].analyze;
   const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
-  const url = `${base}/report/${storeId}`;
+  const url = `${base}/report/${encodeURIComponent(reportShareToken)}`;
   function copy() {
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
@@ -702,7 +761,7 @@ function CopyReportButton({ storeId }: { storeId: number }) {
   return (
     <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center">
       <Link
-        href={`/report/${storeId}`}
+        href={`/report/${encodeURIComponent(reportShareToken)}`}
         className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
       >
         <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
@@ -730,6 +789,7 @@ function CopyReportButton({ storeId }: { storeId: number }) {
 export default function Analyze() {
   const siteT = useSiteT();
   const { lang } = useLanguage();
+  const isArabic = lang === "ar";
   const tr = siteT[lang].analyze;
   const pk = getPageKeywords("/analyze");
   const apiBase = getApiSubmitOrigin();
@@ -742,21 +802,34 @@ export default function Analyze() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [storeId, setStoreId] = useState<number | null>(null);
+  const [reportShareToken, setReportShareToken] = useState<string | null>(null);
   const [step, setStep] = useState<Step>("idle");
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [platformOpen, setPlatformOpen] = useState(false);
+  const { openMeetingBooking } = useMeetingBooking();
   const [retryBusy, setRetryBusy] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const valueInputsSeededForStore = useRef<number | null>(null);
+
+  useLayoutEffect(() => {
+    scrollWindowToTopAfterPaint();
+  }, []);
 
   useEffect(() => {
-    const previewId = new URLSearchParams(window.location.search).get("preview");
-    if (previewId) {
-      const id = parseInt(previewId, 10);
-      setStoreId(id);
-      fetch(`${apiBase}/api/submit/${id}/status`)
+    if (step === "syncing" || step === "analyzing" || step === "analyzed" || step === "error") {
+      scrollWindowToTopAfterPaint();
+    }
+  }, [step]);
+
+  useEffect(() => {
+    const previewToken = new URLSearchParams(window.location.search).get("preview");
+    if (previewToken) {
+      setReportShareToken(previewToken);
+      fetch(`${apiBase}/api/submit/share/${encodeURIComponent(previewToken)}/status`)
         .then((r) => r.json())
         .then((data: StatusResponse) => {
           setStatus(data);
+          setStoreId(data.storeId);
           setStep("analyzed");
         })
         .catch(() => {});
@@ -766,9 +839,39 @@ export default function Analyze() {
     };
   }, [apiBase]);
 
-  async function pollStatus(id: number) {
+  useEffect(() => {
+    if (step !== "analyzed" || !status) return;
+    if (valueInputsSeededForStore.current === status.storeId) return;
+    valueInputsSeededForStore.current = status.storeId;
+    setMonthlyUsers(
+      status.monthlyUsers != null && status.monthlyUsers > 0
+        ? String(Math.round(status.monthlyUsers))
+        : "",
+    );
+    setConversionRate(
+      status.conversionRate != null && status.conversionRate > 0 ? String(status.conversionRate) : "",
+    );
+    setAvgOrderValue(
+      status.avgOrderValue != null && status.avgOrderValue > 0 ? String(status.avgOrderValue) : "",
+    );
+  }, [step, status]);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (es) => {
+        es.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("on");
+        });
+      },
+      { threshold: 0.06, rootMargin: "0px 0px -24px 0px" },
+    );
+    document.querySelectorAll(".analyze-page .rv").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [step]);
+
+  async function pollStatus(shareToken: string) {
     try {
-      const res = await fetch(`${apiBase}/api/submit/${id}/status`);
+      const res = await fetch(`${apiBase}/api/submit/share/${encodeURIComponent(shareToken)}/status`);
       if (!res.ok) return;
       const data: StatusResponse = await res.json();
       setStatus(data);
@@ -807,9 +910,9 @@ export default function Analyze() {
       setStep("syncing");
       if (pollRef.current) clearInterval(pollRef.current);
       pollRef.current = setInterval(() => {
-        if (storeId != null) pollStatus(storeId);
+        if (reportShareToken != null) void pollStatus(reportShareToken);
       }, 2500);
-      void pollStatus(storeId);
+      if (reportShareToken != null) void pollStatus(reportShareToken);
     } catch {
       setFormError(tr.formErrorNetwork);
     } finally {
@@ -843,9 +946,9 @@ export default function Analyze() {
         }),
       });
       const text = await res.text();
-      let data: { error?: string; storeId?: number } = {};
+      let data: { error?: string; storeId?: number; reportShareToken?: string } = {};
       try {
-        data = text ? (JSON.parse(text) as { error?: string; storeId?: number }) : {};
+        data = text ? (JSON.parse(text) as { error?: string; storeId?: number; reportShareToken?: string }) : {};
       } catch {
         setFormError(tr.formErrorNetwork);
         setSubmitting(false);
@@ -856,18 +959,23 @@ export default function Analyze() {
         setSubmitting(false);
         return;
       }
-      if (typeof data.storeId !== "number") {
+      if (typeof data.storeId !== "number" || typeof data.reportShareToken !== "string" || !data.reportShareToken) {
         setFormError(tr.formErrorNetwork);
         setSubmitting(false);
         return;
       }
 
       const newStoreId = data.storeId;
+      const token = data.reportShareToken;
       setStoreId(newStoreId);
+      setReportShareToken(token);
+      setMonthlyUsers("");
+      setConversionRate("");
+      setAvgOrderValue("");
       setStep("syncing");
       setSubmitting(false);
-      pollRef.current = setInterval(() => pollStatus(newStoreId), 3000);
-      pollStatus(newStoreId);
+      pollRef.current = setInterval(() => void pollStatus(token), 3000);
+      void pollStatus(token);
     } catch {
       setFormError(tr.formErrorNetwork);
       setSubmitting(false);
@@ -917,17 +1025,14 @@ export default function Analyze() {
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
         <DsPageBackdrop />
 
-        <main className="analyze-page-main analyze-page">
-          <AnalyzeBreadcrumb home={tr.breadcrumbHome} current={tr.breadcrumbAnalyze} />
-
+        <main className="analyze-page-main analyze-page-main--marketing analyze-page flex w-full flex-col items-center justify-start">
           {step === "idle" && (
             <>
               <header className="analyze-hero text-center">
-                <div className="hbadge">
-                  <span className="hbadge-pill">{tr.heroBadgePill}</span>
-                  <span className="hbadge-txt">{tr.heroBadgeText}</span>
-                </div>
-                <h1 className="ht tc font-semibold">
+                <h1
+                  className="ht tc font-semibold rv d1"
+                  style={{ fontSize: "clamp(22px, 4.5vw, 60px)", letterSpacing: "-0.04em", lineHeight: 1.12 }}
+                >
                   {tr.heroTitleMain ? (
                     <span className="ht-line1 font-thin block">{tr.heroTitleMain}</span>
                   ) : null}
@@ -940,10 +1045,10 @@ export default function Analyze() {
                     </span>
                   ) : null}
                 </h1>
-                <p className="ssub tc max-w-xl" style={{ marginInline: "auto" }}>
+                <p className="ssub tc max-w-xl rv d2" style={{ marginInline: "auto" }}>
                   {tr.heroSubtitle}
                 </p>
-                <div className="analyze-hero-trust">
+                <div className="analyze-hero-trust rv d3">
                   <span className="analyze-hero-trust-item">
                     <BarChart3 style={{ width: 13, height: 13 }} aria-hidden />
                     {lang === "ar" ? "تحليل بالذكاء الاصطناعي" : "AI Analysis"}
@@ -963,11 +1068,18 @@ export default function Analyze() {
                 </div>
               </header>
 
-              <div className="stag rv on mx-auto mb-3 max-w-xl justify-center">
+              <div
+                className="stag rv d4 mx-auto mb-3 max-w-xl justify-center"
+                style={{ display: "inline-flex" }}
+              >
                 <span className="stag-dot" aria-hidden />
                 <span className="uppercase tracking-[0.1em] text-[11px] font-bold">{tr.howItWorksTag}</span>
               </div>
-              <ol className="analyze-how-steps" aria-label={tr.howItWorksTag}>
+              <ol
+                className="analyze-how-steps rv"
+                style={{ transitionDelay: "0.36s" }}
+                aria-label={tr.howItWorksTag}
+              >
                 <li>
                   <span className="analyze-how-num" aria-hidden>1</span>
                   <p>{tr.howStep1}</p>
@@ -1021,7 +1133,7 @@ export default function Analyze() {
                         <div>
                           <div className="analyze-how-widget-mini-name">{lang === "ar" ? "ساعة ذكية برو" : "Smart Watch Pro"}</div>
                           <div className="analyze-how-widget-mini-price" style={{ color: "var(--p4)" }}>
-                            {lang === "ar" ? "↑ بيع ترقيعي" : "↑ Upsell"}
+                            {lang === "ar" ? "↑ بيع أعلى" : "↑ Upsell"}
                           </div>
                         </div>
                       </div>
@@ -1030,12 +1142,14 @@ export default function Analyze() {
                 </li>
               </ol>
 
-              <div className="max-w-xl mx-auto">
-                <div className="gc gc-lift analyze-form-card">
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <p className="analyze-form-section-title">{tr.formSectionPrimaryTitle}</p>
-                    <div>
-                      <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
+              <div
+                className="gc gc-lift analyze-form-card flex flex-col w-full max-w-xl mx-auto mb-5 rv"
+                style={{ transitionDelay: "0.44s" }}
+              >
+                <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 w-full">
+                  <p className="analyze-form-section-title">{tr.formSectionPrimaryTitle}</p>
+                  <div className="flex flex-col gap-2.5">
+                    <Label htmlFor="url" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
                         {tr.storeUrlLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
                       </Label>
                       <div className="relative">
@@ -1057,30 +1171,61 @@ export default function Analyze() {
                           inputMode="url"
                         />
                       </div>
-                    </div>
+                  </div>
 
-                    <div>
-                      <Label htmlFor="industry-select" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
+                  <div className="flex flex-col gap-2.5">
+                    <Label htmlFor="industry-select" className="text-sm font-semibold mb-1.5 block" style={{ color: "var(--t)" }}>
                         {tr.industryLabel} <span style={{ color: "var(--pk)" }} aria-hidden>*</span>
                       </Label>
-                      <Select value={industry || undefined} onValueChange={setIndustry}>
+                      <Select
+                        value={industry || undefined}
+                        onValueChange={setIndustry}
+                        dir={isArabic ? "rtl" : "ltr"}
+                      >
                         <SelectTrigger
                           id="industry-select"
-                          className="h-11 w-full border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                          className={cn(
+                            "h-11 w-full border-[var(--b2)] bg-[var(--s1)] analyze-input-focus text-[var(--t)]",
+                            isArabic ? "justify-start gap-2 px-[20px]" : "justify-between",
+                          )}
                         >
-                          <SelectValue placeholder={tr.industryPlaceholder} />
+                          <SelectValue
+                            placeholder={tr.industryPlaceholder}
+                            className={isArabic ? "block w-full text-right" : undefined}
+                          />
                         </SelectTrigger>
-                        <SelectContent>
-                          {INDUSTRIES.map((ind) => (
-                            <SelectItem key={ind.value} value={ind.value}>
-                              {ind.label}
+                        <SelectContent
+                          position="popper"
+                          sideOffset={8}
+                          viewportClassName="px-4 py-3"
+                          className={cn(
+                            "analyze-select-content my-[20px] mx-0 z-[200] max-h-72 min-w-[var(--radix-select-trigger-width)]",
+                            "rounded-[var(--r12)] border border-[var(--b2)] bg-[var(--s1)] text-[var(--t)]",
+                            "shadow-[0_12px_40px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)]",
+                            "backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out",
+                          )}
+                        >
+                          {INDUSTRY_OPTIONS.map((ind) => (
+                            <SelectItem
+                              key={ind.value}
+                              value={ind.value}
+                              className={cn(
+                                "analyze-select-item cursor-pointer rounded-[var(--r10)] py-2.5 text-sm",
+                                "data-[highlighted]:bg-[var(--s2)] data-[highlighted]:text-[var(--t)]",
+                                "focus:bg-[var(--s2)] focus:text-[var(--t)]",
+                                isArabic
+                                  ? "pr-3 pl-8 text-right [&>span]:left-2 [&>span]:right-auto"
+                                  : "pl-3 pr-8",
+                              )}
+                            >
+                              {isArabic ? ind.labelAr : ind.labelEn}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                    </div>
+                  </div>
 
-                    <details className="analyze-optional-details">
+                  <details className="analyze-optional-details">
                       <summary>
                         <span>{tr.optionalDetailsSummary}</span>
                         <ChevronDown className="analyze-opt-chevron h-4 w-4" aria-hidden />
@@ -1090,7 +1235,7 @@ export default function Analyze() {
                           {tr.optionalSectionTitle}
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                          <div>
+                          <div className="flex flex-col gap-[10px]">
                             <Label htmlFor="monthlyUsers" className="text-xs font-medium mb-1.5 block" style={{ color: "var(--tm)" }}>
                               {tr.monthlyVisitors}
                             </Label>
@@ -1136,42 +1281,50 @@ export default function Analyze() {
                           </div>
                         </div>
                       </div>
-                    </details>
+                  </details>
 
-                    {formError && (
-                      <div
-                        className="text-sm px-4 py-3 rounded-[var(--r12)] border"
-                        style={{
-                          background: "rgba(239,68,68,.08)",
-                          borderColor: "rgba(239,68,68,.25)",
-                          color: "var(--t)",
-                        }}
-                        role="alert"
-                      >
-                        {formError}
-                      </div>
-                    )}
-
-                    <button
-                      type="submit"
-                      className="btn-p btn-p-hero w-full !justify-center inline-flex items-center gap-2 text-sm min-h-[48px]"
-                      disabled={submitting}
+                  {formError && (
+                    <div
+                      className="text-sm px-4 py-[10px] rounded-[var(--r12)] border"
+                      style={{
+                        background: "rgba(239,68,68,.08)",
+                        borderColor: "rgba(239,68,68,.25)",
+                        color: "var(--t)",
+                      }}
+                      role="alert"
                     >
-                      {submitting ? (
-                        <>
-                          <Loader2 className="h-4 w-4 animate-spin shrink-0" aria-hidden />
-                          {tr.submitting}
-                        </>
-                      ) : (
-                        <>
-                          {tr.submitAnalyze}
-                          <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </div>
-                <p className="text-center text-xs mt-5 leading-relaxed" style={{ color: "var(--tm)" }}>
+                      {formError}
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    className="btn-p btn-p-hero w-full !justify-center inline-flex items-center gap-2 text-sm min-h-[48px]"
+                    disabled={submitting}
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin shrink-0" aria-hidden />
+                        {tr.submitting}
+                      </>
+                    ) : (
+                      <>
+                        {tr.submitAnalyze}
+                        <ArrowRight
+                          className={cn("h-4 w-4 shrink-0", isArabic && "rotate-180")}
+                          aria-hidden
+                        />
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+
+              <div className="max-w-xl mx-auto w-full flex flex-col gap-5">
+                <p
+                  className="text-center text-xs leading-relaxed rv"
+                  style={{ color: "var(--tm)", transitionDelay: "0.52s" }}
+                >
                   {tr.formFooterNote}
                 </p>
               </div>
@@ -1179,8 +1332,13 @@ export default function Analyze() {
           )}
 
           {(step === "syncing" || step === "analyzing") && (
-            <div className="max-w-md mx-auto" role="status" aria-live="polite" aria-busy="true">
-              <div className="text-center mb-10">
+            <div
+              className="max-w-md mx-auto flex flex-col gap-5 w-full rv"
+              role="status"
+              aria-live="polite"
+              aria-busy="true"
+            >
+              <div className="text-center mb-10 flex flex-col justify-start items-center gap-5">
                 <div
                   className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(124,58,237,.2)]"
                   style={{ background: "rgba(124,58,237,.12)" }}
@@ -1210,7 +1368,7 @@ export default function Analyze() {
           )}
 
           {step === "error" && (
-            <div className="max-w-md mx-auto text-center">
+            <div className="max-w-md mx-auto text-center w-full rv">
               <div
                 className="rounded-2xl p-8 mb-6 border"
                 style={{
@@ -1273,6 +1431,7 @@ export default function Analyze() {
                     setStep("idle");
                     setStatus(null);
                     setStoreId(null);
+                    valueInputsSeededForStore.current = null;
                   }}
                   className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
                 >
@@ -1309,20 +1468,40 @@ export default function Analyze() {
 
               const pickedStories = pickSuccessStoriesForIndustry(status.industry, 3);
               const isArLocale = lang === "ar";
+              const groupsForEstimate = groups.map((g) => ({
+                anchor: { price: g.anchor.price },
+                recommendations: g.recommendations.map((r) => ({ price: r.price, role: r.role })),
+              }));
+              const catalogAov = deriveCatalogAovFromGroups(groupsForEstimate);
+              const userVisitors = parsePositiveIntInput(monthlyUsers);
+              const userConv = parsePositiveFloatInput(conversionRate);
+              const userAov = parsePositiveFloatInput(avgOrderValue);
+              const effectiveVisitors =
+                userVisitors ??
+                (status.monthlyUsers != null && status.monthlyUsers > 0 ? status.monthlyUsers : null);
+              const effectiveConv =
+                userConv ??
+                (status.conversionRate != null && status.conversionRate > 0
+                  ? status.conversionRate
+                  : null);
+              const effectiveAov =
+                userAov ??
+                (status.avgOrderValue != null && status.avgOrderValue > 0 ? status.avgOrderValue : null);
               const estimate = estimateAnalyzeOpportunity(
-                groups.map((g) => ({
-                  anchor: { price: g.anchor.price },
-                  recommendations: g.recommendations.map((r) => ({ price: r.price, role: r.role })),
-                })),
-                status.monthlyUsers ?? null,
-                status.conversionRate ?? null,
-                status.avgOrderValue ?? null,
+                groupsForEstimate,
+                effectiveVisitors,
+                effectiveConv,
+                effectiveAov,
               );
+              const showCatalogAovHint =
+                catalogAov != null &&
+                userAov == null &&
+                (status.avgOrderValue == null || status.avgOrderValue <= 0);
 
               return (
-                <div className="space-y-8 sm:space-y-10">
-                  <header className="text-center analyze-section-head">
-                    <div className="flex justify-center mb-5">
+                <div className="analyze-results-stack flex w-full max-w-[1080px] flex-col gap-10 sm:gap-12 md:gap-14 mx-auto rv">
+                  <header className="text-center analyze-section-head analyze-results-head">
+                    <div className="flex justify-center mb-6">
                       <div className="analyze-done-badge">
                         <div className="analyze-done-badge__glow" aria-hidden />
                         <div className="analyze-done-badge__icon" aria-hidden>
@@ -1331,10 +1510,10 @@ export default function Analyze() {
                         <span>{tr.completeBadge}</span>
                       </div>
                     </div>
-                    <h2 className="st tc" style={{ color: "var(--t)" }}>
+                    <h2 className="st tc text-balance" style={{ color: "var(--t)" }}>
                       {tr.resultsTitle}
                     </h2>
-                    <p className="ssub tc max-w-lg" style={{ marginInline: "auto", marginTop: "10px" }}>
+                    <p className="ssub tc max-w-2xl px-1 sm:px-0 mt-3 leading-relaxed" style={{ marginInline: "auto" }}>
                       {resultsSub}
                     </p>
                   </header>
@@ -1385,7 +1564,7 @@ export default function Analyze() {
                         <span className="analyze-summary-label-text">{tr.aiSummaryLabel}</span>
                       </div>
                       <p
-                        className="text-sm leading-relaxed mt-3"
+                        className="text-[15px] sm:text-base leading-relaxed mt-3.5"
                         style={{ color: "var(--t)" }}
                         dir={isAr(status.summary) ? "rtl" : "ltr"}
                       >
@@ -1396,11 +1575,11 @@ export default function Analyze() {
 
                   <section
                     id="analyze-value"
-                    className="gc analyze-form-card space-y-4"
+                    className="gc analyze-form-card flex flex-col gap-3 sm:gap-4"
                     aria-labelledby="value-est-heading"
                   >
                     <div>
-                      <h3 id="value-est-heading" className="text-lg font-bold flex items-center gap-2" style={{ color: "var(--t)" }}>
+                      <h3 id="value-est-heading" className="text-xl font-bold flex items-center gap-2.5" style={{ color: "var(--t)" }}>
                         <Sparkles className="h-5 w-5 shrink-0" style={{ color: "var(--p3)" }} aria-hidden />
                         {tr.valueEstimateTitle}
                       </h3>
@@ -1410,7 +1589,75 @@ export default function Analyze() {
                         </p>
                       ) : null}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <p className="text-xs leading-relaxed" style={{ color: "var(--tm)" }}>
+                      {tr.valueEstimateInputsHint}
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="flex flex-col gap-[10px]">
+                        <Label
+                          htmlFor="value-est-monthly-users"
+                          className="text-xs font-medium block"
+                          style={{ color: "var(--tm)" }}
+                        >
+                          {tr.monthlyVisitors}
+                        </Label>
+                        <Input
+                          id="value-est-monthly-users"
+                          type="number"
+                          min={0}
+                          placeholder={tr.phMonthlyUsers}
+                          value={monthlyUsers}
+                          onChange={(e) => setMonthlyUsers(e.target.value)}
+                          className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-[10px]">
+                        <Label
+                          htmlFor="value-est-conversion"
+                          className="text-xs font-medium block"
+                          style={{ color: "var(--tm)" }}
+                        >
+                          {tr.convRate}
+                        </Label>
+                        <Input
+                          id="value-est-conversion"
+                          type="number"
+                          min={0}
+                          max={100}
+                          step="0.1"
+                          placeholder={tr.phConv}
+                          value={conversionRate}
+                          onChange={(e) => setConversionRate(e.target.value)}
+                          className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-[10px]">
+                        <Label
+                          htmlFor="value-est-aov"
+                          className="text-xs font-medium block"
+                          style={{ color: "var(--tm)" }}
+                        >
+                          {tr.avgOrderSar}
+                        </Label>
+                        <Input
+                          id="value-est-aov"
+                          type="number"
+                          min={0}
+                          placeholder={tr.phAov}
+                          value={avgOrderValue}
+                          onChange={(e) => setAvgOrderValue(e.target.value)}
+                          className="h-11 text-sm border-[var(--b2)] bg-[var(--s1)] analyze-input-focus"
+                        />
+                      </div>
+                    </div>
+                    {showCatalogAovHint ? (
+                      <p className="text-xs leading-relaxed -mt-1" style={{ color: "var(--tm)" }}>
+                        {tpl(tr.valueCatalogAovHint, {
+                          price: formatPrice(catalogAov, status.currencySymbol),
+                        })}
+                      </p>
+                    ) : null}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="analyze-value-card">
                         <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: "var(--tm)" }}>
                           {tr.valueEstimateOrders}
@@ -1445,18 +1692,22 @@ export default function Analyze() {
                   </section>
 
                   {groups.length > 0 && (
-                    <section id="analyze-anchors" className="space-y-4" aria-labelledby="anchors-heading">
+                    <section
+                      id="analyze-anchors"
+                      className="flex flex-col gap-5"
+                      aria-labelledby="anchors-heading"
+                    >
                       <div className="flex items-center justify-between gap-3 flex-wrap">
                         <div>
-                          <h3 id="anchors-heading" className="text-xl font-bold" style={{ color: "var(--t)" }}>
+                          <h3 id="anchors-heading" className="text-xl sm:text-2xl font-bold tracking-tight" style={{ color: "var(--t)" }}>
                             {tr.sectionAnchorsTitle}
                           </h3>
-                          <p className="text-sm mt-0.5" style={{ color: "var(--tm)" }}>
+                          <p className="text-sm mt-1.5 leading-relaxed" style={{ color: "var(--tm)" }}>
                             {tpl(tr.sectionAnchorsSubtitle, { anchors: groups.length, recs: totalRecs })}
                           </p>
                         </div>
                       </div>
-                      <div className="space-y-4">
+                      <div className="grid grid-cols-2 grid-rows-2 gap-5 sm:gap-6">
                         {groups.map((group, i) => (
                           <AnchorGroupCard
                             key={i}
@@ -1473,13 +1724,16 @@ export default function Analyze() {
                   )}
 
                   {pickedStories.length > 0 && (
-                    <section className="space-y-3" aria-labelledby="succ-stories-heading">
-                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                    <section
+                      className="flex flex-col justify-start items-start gap-4 sm:gap-5 py-5"
+                      aria-labelledby="succ-stories-heading"
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                         <div>
-                          <h3 id="succ-stories-heading" className="text-lg font-bold" style={{ color: "var(--t)" }}>
+                          <h3 id="succ-stories-heading" className="text-xl font-bold tracking-tight" style={{ color: "var(--t)" }}>
                             {tr.successStoriesTitle}
                           </h3>
-                          <p className="text-sm" style={{ color: "var(--tm)" }}>
+                          <p className="text-sm mt-1 leading-relaxed" style={{ color: "var(--tm)" }}>
                             {tr.successStoriesSubtitle}
                           </p>
                         </div>
@@ -1491,7 +1745,7 @@ export default function Analyze() {
                           {tr.successStoriesAll} →
                         </Link>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {pickedStories.map((s) => (
                           <AnalyzeSuccessStoryCard key={s.store} story={s} isArLocale={isArLocale} />
                         ))}
@@ -1499,7 +1753,7 @@ export default function Analyze() {
                     </section>
                   )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                     <div className="analyze-info-card">
                       <div className="analyze-info-card__icon" style={{ background: "rgba(239,68,68,.1)", color: "rgba(239,68,68,.8)" }}>
                         <ShieldCheck className="h-4 w-4" aria-hidden />
@@ -1528,8 +1782,11 @@ export default function Analyze() {
                     </div>
                   </div>
 
-                  <section id="analyze-cta" className="analyze-results-cta">
-                    <div className="analyze-cta-badge" aria-hidden>
+                  <section
+                    id="analyze-cta"
+                    className="analyze-results-cta flex flex-col items-center justify-start gap-2.5"
+                  >
+                    <div className="analyze-cta-badge w-fit" aria-hidden>
                       <Zap className="h-3 w-3 shrink-0" aria-hidden />
                       <span>{lang === "ar" ? "استثمر النتائج الآن" : "Take Action Now"}</span>
                     </div>
@@ -1559,7 +1816,7 @@ export default function Analyze() {
                       <button
                         type="button"
                         className="btn-g inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
-                        onClick={() => window.open(MEETING_CALENDAR_URL, "_blank", "noopener,noreferrer")}
+                        onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
                       >
                         <Calendar className="h-4 w-4 shrink-0" aria-hidden />
                         {tr.ctaBookMeeting}
@@ -1567,19 +1824,22 @@ export default function Analyze() {
                     </div>
                   </section>
 
-                  <div id="analyze-share" className="analyze-share-panel gc">
+                  <div
+                    id="analyze-share"
+                    className="analyze-share-panel gc flex flex-col items-center justify-start gap-2.5"
+                  >
                     <div className="analyze-share-header">
                       <div className="analyze-share-icon" aria-hidden>
                         <Share2 className="h-4 w-4" />
                       </div>
-                      <h3 className="text-lg font-bold" style={{ color: "var(--t)" }}>
+                      <h3 className="text-xl font-bold tracking-tight" style={{ color: "var(--t)" }}>
                         {tr.shareTitle}
                       </h3>
                     </div>
-                    <p className="text-sm mt-2 mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
+                    <p className="text-sm mb-6 max-w-md mx-auto leading-relaxed" style={{ color: "var(--tm)" }}>
                       {tr.shareSubtitle}
                     </p>
-                    {storeId && <CopyReportButton storeId={storeId} />}
+                    {reportShareToken ? <CopyReportButton reportShareToken={reportShareToken} /> : null}
                   </div>
                 </div>
               );

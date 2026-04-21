@@ -14,8 +14,11 @@ if (Number.isNaN(port) || port <= 0) {
 
 const basePath = process.env.BASE_PATH ?? "/";
 
+const envDir = path.resolve(import.meta.dirname, "../..");
+
 export default defineConfig({
   base: basePath,
+  envDir,
   plugins: [
     mockupPreviewPlugin(),
     react(),

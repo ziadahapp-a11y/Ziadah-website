@@ -10,7 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "wouter";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ?? import.meta.env.VITE_API_URL ?? "";
 
 const INDUSTRIES = [
   { value: "fashion",     label: "Fashion & Apparel",    labelAr: "موضة وملابس",    icon: "👗" },
@@ -48,6 +49,7 @@ interface AnchorGroup {
 
 interface StatusResponse {
   storeId: number;
+  reportShareToken?: string;
   status: string;
   platform: string | null;
   productCount: number;
@@ -260,6 +262,7 @@ export default function Analyze() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [storeId, setStoreId] = useState<number | null>(null);
+  const [reportShareToken, setReportShareToken] = useState<string | null>(null);
   const [step, setStep] = useState<Step>("idle");
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [selectOpen, setSelectOpen] = useState(false);
@@ -267,13 +270,16 @@ export default function Analyze() {
   const selectRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const previewId = new URLSearchParams(window.location.search).get("preview");
-    if (previewId) {
-      const id = parseInt(previewId, 10);
-      setStoreId(id);
-      fetch(`${API_BASE}/api/submit/${id}/status`)
+    const previewToken = new URLSearchParams(window.location.search).get("preview");
+    if (previewToken) {
+      setReportShareToken(previewToken);
+      fetch(`${API_BASE}/api/submit/share/${encodeURIComponent(previewToken)}/status`)
         .then((r) => r.json())
-        .then((data: StatusResponse) => { setStatus(data); setStep("analyzed"); })
+        .then((data: StatusResponse) => {
+          setStatus(data);
+          setStoreId(data.storeId);
+          setStep("analyzed");
+        })
         .catch(() => {});
     }
     return () => { if (pollRef.current) clearInterval(pollRef.current); };
@@ -289,9 +295,9 @@ export default function Analyze() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [selectOpen]);
 
-  async function pollStatus(id: number) {
+  async function pollStatus(shareToken: string) {
     try {
-      const res = await fetch(`${API_BASE}/api/submit/${id}/status`);
+      const res = await fetch(`${API_BASE}/api/submit/share/${encodeURIComponent(shareToken)}/status`);
       if (!res.ok) return;
       const data: StatusResponse = await res.json();
       setStatus(data);
@@ -327,12 +333,19 @@ export default function Analyze() {
       });
       const data = await res.json();
       if (!res.ok) { setFormError(data.error ?? "Something went wrong."); setSubmitting(false); return; }
+      if (typeof data.storeId !== "number" || typeof data.reportShareToken !== "string" || !data.reportShareToken) {
+        setFormError("Something went wrong.");
+        setSubmitting(false);
+        return;
+      }
 
+      const token = data.reportShareToken;
       setStoreId(data.storeId);
+      setReportShareToken(token);
       setStep("syncing");
       setSubmitting(false);
-      pollRef.current = setInterval(() => pollStatus(data.storeId), 3000);
-      pollStatus(data.storeId);
+      pollRef.current = setInterval(() => void pollStatus(token), 3000);
+      void pollStatus(token);
     } catch {
       setFormError("Network error. Please check your connection and try again.");
       setSubmitting(false);
@@ -585,7 +598,7 @@ export default function Analyze() {
                   {
                     label: "AI Analysis",
                     sublabel: "Identifying anchors, cross-sells & upsells",
-                    state: step === "analyzing" ? "active" : step === "analyzed" ? "done" : "waiting",
+                    state: step === "analyzing" ? "active" : "waiting",
                   },
                   {
                     label: "Results ready",
@@ -739,7 +752,7 @@ export default function Analyze() {
                   <p className="text-white/40 text-sm mb-6 max-w-xs mx-auto">
                     This analysis has a unique link — share it with your team or clients.
                   </p>
-                  {storeId && <CopyReportButton storeId={storeId} />}
+                  {reportShareToken ? <CopyReportButton reportShareToken={reportShareToken} /> : null}
                 </div>
               </div>
             </div>
@@ -750,16 +763,16 @@ export default function Analyze() {
   );
 }
 
-function CopyReportButton({ storeId }: { storeId: number }) {
+function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
   const [copied, setCopied] = useState(false);
   const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
-  const url = `${base}/report/${storeId}`;
+  const url = `${base}/report/${encodeURIComponent(reportShareToken)}`;
   function copy() {
     navigator.clipboard.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
   }
   return (
     <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
-      <Link href={`/report/${storeId}`}>
+      <Link href={`/report/${encodeURIComponent(reportShareToken)}`}>
         <button className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-primary hover:bg-primary/90 text-sm font-semibold text-white transition-all shadow-lg shadow-primary/25">
           <ExternalLink className="h-4 w-4" />View Full Report
         </button>

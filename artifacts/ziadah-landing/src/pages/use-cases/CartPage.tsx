@@ -115,14 +115,14 @@ const data: UseCasePageData = {
   ),
   extraSections: (isAr) => (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center", paddingTop: 40, paddingBottom: 40 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
           {isAr ? "مثال حي" : "Live Example"}
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
         <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "واجهات صفحة السلة — قسيمة الخصم، شريط الشحن المجاني، ومنتجات ذات صلة" : "Cart page widgets — auto coupon, free-shipping progress, and related products"}</p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 24, justifyContent: "center" }}>
+        <div style={{ display: "flex", flexWrap: "nowrap", gap: 24, justifyContent: "center" }}>
           <div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "قسيمة خصم تلقائية" : "Automatic discount coupon"}</div>
             <CouponWidget />

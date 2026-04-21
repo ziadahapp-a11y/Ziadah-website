@@ -7,7 +7,7 @@ export default function ThankYouMockup() {
 
   return (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingTop: 40, paddingBottom: 40 }}>
         <div className="rv" style={{ textAlign: "center", marginBottom: 40 }}>
           <div className="stag" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />

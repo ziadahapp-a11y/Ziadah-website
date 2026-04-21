@@ -2,5 +2,6 @@
 export function getApiSubmitOrigin(): string {
   const raw =
     import.meta.env.VITE_API_BASE_URL ?? import.meta.env.VITE_API_URL ?? "";
-  return typeof raw === "string" ? raw.replace(/\/$/, "") : "";
+  const s = typeof raw === "string" ? raw.trim() : "";
+  return s.replace(/\/$/, "");
 }

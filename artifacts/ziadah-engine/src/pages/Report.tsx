@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ?? import.meta.env.VITE_API_URL ?? "";
 
 interface ProductRef {
   productId: number;
@@ -21,6 +22,7 @@ interface Pair {
 
 interface ReportData {
   storeId: number;
+  reportShareToken?: string;
   status: string;
   platform: string | null;
   productCount: number;
@@ -166,15 +168,50 @@ function CopyLinkButton() {
   );
 }
 
-export default function Report({ id }: { id: number }) {
+function isPlausibleShareToken(s: string): boolean {
+  const t = s.trim();
+  return t.length >= 32 && t.length <= 128 && /^[A-Za-z0-9_-]+$/.test(t);
+}
+
+function isValidReportParam(s: string): boolean {
+  const t = s.trim();
+  if (!t) return false;
+  if (/^\d+$/.test(t) && t.length >= 1 && t.length <= 12) return true;
+  return isPlausibleShareToken(t);
+}
+
+export default function Report({ shareToken }: { shareToken: string }) {
   const [data, setData] = useState<ReportData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(isValidReportParam(shareToken));
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isValidReportParam(shareToken)) {
+      setError("Invalid report link");
+      setLoading(false);
+      return;
+    }
     async function load() {
       try {
-        const res = await fetch(`${API_BASE}/api/submit/${id}/status`);
+        let token = shareToken.trim();
+        const looksLegacyNumeric = /^\d+$/.test(token);
+        if (looksLegacyNumeric) {
+          const legacyRes = await fetch(`${API_BASE}/api/submit/${token}/status`);
+          if (legacyRes.ok) {
+            const legacyJson = (await legacyRes.json()) as ReportData;
+            if (typeof legacyJson.reportShareToken === "string" && legacyJson.reportShareToken) {
+              token = legacyJson.reportShareToken;
+            }
+          } else if (legacyRes.status === 403) {
+            const body = (await legacyRes.json().catch(() => null)) as { reportShareToken?: string } | null;
+            if (body && typeof body.reportShareToken === "string" && isPlausibleShareToken(body.reportShareToken)) {
+              token = body.reportShareToken;
+              const base = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+              window.history.replaceState(null, "", `${base}/report/${encodeURIComponent(token)}`);
+            }
+          }
+        }
+        const res = await fetch(`${API_BASE}/api/submit/share/${encodeURIComponent(token)}/status`);
         if (!res.ok) throw new Error("Report not found");
         const json: ReportData = await res.json();
         if (json.status !== "analyzed") throw new Error("This report is not ready yet or failed to generate.");
@@ -186,7 +223,7 @@ export default function Report({ id }: { id: number }) {
       }
     }
     load();
-  }, [id]);
+  }, [shareToken]);
 
   return (
     <div className="min-h-screen bg-background">

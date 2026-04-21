@@ -64,7 +64,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
   return (
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
           <div
             style={{
               display: "inline-flex",
@@ -195,7 +195,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
       </section>
 
       <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
           <div
             className="gc"
             style={{

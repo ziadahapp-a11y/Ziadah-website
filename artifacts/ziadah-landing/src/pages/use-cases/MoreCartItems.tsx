@@ -57,7 +57,7 @@ const data: UseCasePageData = {
   },
   extraSections: (isAr) => (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
         <div
           style={{
             display: "inline-flex",

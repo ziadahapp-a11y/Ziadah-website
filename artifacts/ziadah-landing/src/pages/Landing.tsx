@@ -15,6 +15,7 @@ import { scrollToHashElement } from "@/utils/anchorScroll";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
+import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 
 /** عيّنة مختصرة للصفحة الرئيسية — التوصيل والمنصات أولاً ثم أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
@@ -402,6 +403,7 @@ export default function Landing() {
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const { openMeetingBooking } = useMeetingBooking();
 
   const logosMarqueeTrackRef = useRef<HTMLDivElement>(null);
   const testimonialsMarquee1Ref = useRef<HTMLDivElement>(null);
@@ -607,7 +609,6 @@ export default function Landing() {
         </section>
         {/* LOGOS */}
         <div className="logos-sec">
-          <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
           <div className="landing-sbar-after-hero">
             <div className="sbar sbar-hero">
               <div className="sbi">
@@ -1599,10 +1600,9 @@ export default function Landing() {
                       <div className="hcb-sub">{tr.landing.faqWhatsappSub}</div>
                     </div>
                   </a>
-                  <a
-                    href="https://calendar.app.google/pjtPBzs9TUPipUEF6"
-                    target="_blank"
-                    rel="noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => openMeetingBooking()}
                     className="hcb hcb-cal"
                   >
                     <div className="hcb-ico hcb-cal">
@@ -1665,7 +1665,7 @@ export default function Landing() {
                       <div>{tr.landing.faqBookMeeting}</div>
                       <div className="hcb-sub">{tr.landing.faqBookMeetingSub}</div>
                     </div>
-                  </a>
+                  </button>
                   <a href="/support" className="hcb hcb-doc">
                     <div className="hcb-ico hcb-doc">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

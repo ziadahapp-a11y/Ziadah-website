@@ -86,7 +86,7 @@ const data: UseCasePageData = {
   extraSections: (isAr) => (
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
           <div className="gc rv" style={{ padding: "36px 28px", borderRadius: 20, overflow: "hidden" }}>
             <div className="shine" />
             <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 8, textAlign: "center" }}>

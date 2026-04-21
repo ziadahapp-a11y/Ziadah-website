@@ -37,7 +37,7 @@ A full-stack SaaS application for Ziadah that lets store owners connect their e-
 
 ## Database Schema
 
-- `stores` — registered stores with URL, platform, status, sync/analysis timestamps
+- `stores` — registered stores with URL, platform, status, sync/analysis timestamps, and report share tokens
 - `products` — synced products with role (main/cross_sell/upsell)
 - `analyses` — AI analysis results with main product ID, cross-sell/upsell IDs and reasons
 

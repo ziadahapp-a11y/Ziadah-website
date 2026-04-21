@@ -11,7 +11,8 @@ import { t as staticSiteTranslations } from "@/i18n/translations";
 import { applyFlatOverridesToTree } from "@/i18n/mergeStaticWithCms";
 
 function getApiOrigin(): string {
-  const raw = import.meta.env.VITE_API_BASE_URL;
+  const raw =
+    import.meta.env.VITE_API_BASE_URL ?? import.meta.env.VITE_API_URL ?? "";
   return typeof raw === "string" ? raw.replace(/\/$/, "") : "";
 }
 

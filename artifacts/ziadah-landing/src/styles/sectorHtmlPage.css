@@ -471,17 +471,11 @@
   line-height: 1.65;
 }
 
-/* Why grid — 3 columns desktop */
+/* Why grid — 2 columns desktop */
 .sector-html-why-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 14px;
-}
-
-@media (max-width: 920px) {
-  .sector-html-why-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 @media (max-width: 520px) {
@@ -636,6 +630,11 @@
 }
 
 .sector-html-kpi-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
   background: color-mix(in srgb, var(--p) 8%, transparent);
   border: 1px solid var(--sh-border);
   border-radius: 12px;
@@ -848,14 +847,8 @@
 }
 
 .sector-html--compact .sector-html-why-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-}
-
-@media (max-width: 920px) {
-  .sector-html--compact .sector-html-why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 520px) {

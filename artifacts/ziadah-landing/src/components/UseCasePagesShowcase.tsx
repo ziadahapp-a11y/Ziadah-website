@@ -615,7 +615,7 @@ export default function UseCasePagesShowcase({ isAr }: { isAr: boolean }) {
         padding: "0 var(--page-inline-pad) 80px",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
         {/* heading */}
         <div className="rv" style={{ textAlign: "center", marginBottom: 24 }}>
           <div className="sector-html-badge" style={{ margin: "0 auto 16px" }}>

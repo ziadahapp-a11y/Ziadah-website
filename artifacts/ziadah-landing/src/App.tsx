@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useLayoutEffect } from "react";
@@ -20,6 +20,7 @@ import { CmsQuickLoginModal } from "@/cms/components/CmsQuickLoginModal";
 import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
+import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const Landing = lazy(() => import("@/pages/Landing"));
@@ -92,7 +93,7 @@ function shouldShowCmsQuickLogin(): boolean {
 }
 
 function ScrollToTop() {
-  const [location] = useLocation();
+  const [location] = useLangAwareLocation();
   useLayoutEffect(() => {
     scrollWindowToTopAfterPaint();
   }, [location]);
@@ -145,10 +146,8 @@ function PublicRoutes() {
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
       <Route path="/analyze" component={Analyze} />
-      <Route path="/report/:id">
-        {(params) => (
-          <AnalyzeReport id={parseInt(params.id ?? "", 10)} />
-        )}
+      <Route path="/report/:shareToken">
+        {(params) => <AnalyzeReport shareToken={params.shareToken ?? ""} />}
       </Route>
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
@@ -272,7 +271,7 @@ function AppShell() {
       <CmsInlineEditorPanel />
       <CmsFloatingEditableToolbar />
       {showQuickLogin && <CmsQuickLoginModal />}
-      <div style={{ paddingTop: showInlineToolbar ? 48 : 0 }}>
+      <div style={{ paddingTop: showInlineToolbar ? 48 : 0, display: "flex", flexDirection: "column" }}>
         {!isCms && <Nav />}
         <Router />
         {!isCms && <Footer />}
@@ -285,22 +284,24 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <SiteContentProvider>
-          <BlurTransitionProvider>
-            <QueryClientProvider client={queryClient}>
-              <CmsAuthProvider>
-                <CmsEditorProvider>
-                  <WouterRouter
-                    base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                    hook={useLangAwareLocation}
-                  >
-                    <AppShell />
-                  </WouterRouter>
-                </CmsEditorProvider>
-              </CmsAuthProvider>
-            </QueryClientProvider>
-          </BlurTransitionProvider>
-        </SiteContentProvider>
+        <MeetingBookingProvider>
+          <SiteContentProvider>
+            <BlurTransitionProvider>
+              <QueryClientProvider client={queryClient}>
+                <CmsAuthProvider>
+                  <CmsEditorProvider>
+                    <WouterRouter
+                      base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                      hook={useLangAwareLocation}
+                    >
+                      <AppShell />
+                    </WouterRouter>
+                  </CmsEditorProvider>
+                </CmsAuthProvider>
+              </QueryClientProvider>
+            </BlurTransitionProvider>
+          </SiteContentProvider>
+        </MeetingBookingProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

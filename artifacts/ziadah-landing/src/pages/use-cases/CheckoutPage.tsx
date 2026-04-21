@@ -136,7 +136,7 @@ const AddToCartRow = ({
 function CheckoutMockup() {
   return (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
         <h2 style={{
           fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 900, textAlign: "center",
           marginBottom: 40, color: "var(--t)",
@@ -145,7 +145,7 @@ function CheckoutMockup() {
         </h2>
 
         <div style={{
-          display: "flex", justifyContent: "center", gap: 28, flexWrap: "wrap",
+          display: "flex", justifyContent: "center", gap: 28, flexWrap: "nowrap",
         }}>
           {/* LEFT PHONE: Free shipping progress + cross-sell checkboxes */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>

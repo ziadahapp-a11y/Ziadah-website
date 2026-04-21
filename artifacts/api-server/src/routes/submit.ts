@@ -5,6 +5,29 @@ import { scrapeStore } from "../lib/store-scraper";
 import { analyzeProducts, buildHeuristicAnalysis } from "../lib/product-analyzer";
 import type { AnchorGroup } from "@workspace/db";
 import { logger } from "../lib/logger";
+import { generateReportShareToken } from "../lib/reportShareToken";
+
+type StoreRow = typeof storesTable.$inferSelect;
+
+async function ensureReportShareToken(storeId: number): Promise<string> {
+  const [row] = await db
+    .select({ token: storesTable.reportShareToken })
+    .from(storesTable)
+    .where(eq(storesTable.id, storeId))
+    .limit(1);
+  if (row?.token) return row.token;
+  await db
+    .update(storesTable)
+    .set({ reportShareToken: generateReportShareToken() })
+    .where(eq(storesTable.id, storeId));
+  const [again] = await db
+    .select({ token: storesTable.reportShareToken })
+    .from(storesTable)
+    .where(eq(storesTable.id, storeId))
+    .limit(1);
+  if (!again?.token) throw new Error("report share token missing after ensure");
+  return again.token;
+}
 
 const router: IRouter = Router();
 
@@ -60,6 +83,11 @@ async function updateStoreAnalyzed(storeId: number): Promise<void> {
         lastAnalyzedAt: new Date(),
       })
       .where(eq(storesTable.id, storeId));
+  }
+  try {
+    await ensureReportShareToken(storeId);
+  } catch (e) {
+    logger.warn({ storeId, err: e instanceof Error ? e.message : String(e) }, "ensureReportShareToken after analyzed");
   }
 }
 
@@ -264,6 +292,123 @@ async function runPipeline(storeId: number, url: string): Promise<void> {
   }
 }
 
+async function buildSubmitStatusPayloadForStore(store: StoreRow): Promise<Record<string, unknown>> {
+  const id = store.id;
+  const reportShareToken = await ensureReportShareToken(id);
+
+  const base: Record<string, unknown> = {
+    storeId: store.id,
+    status: store.status,
+    platform: store.platform,
+    productCount: store.productCount,
+    industry: store.industry,
+    currency: store.currency ?? "SAR",
+    currencySymbol: store.currencySymbol ?? "ر.س",
+    storeName: store.name,
+    storeUrl: store.url,
+    /** Cleared when analysis succeeded. If status is error but last_error is empty (legacy updates), show a hint. */
+    errorMessage:
+      store.status === "analyzed"
+        ? null
+        : store.status === "error"
+          ? (store.lastError?.trim() ||
+              "Server error (no stored detail). Redeploy the latest API, check logs, and ensure DB migrations are applied (stores.last_error, analyses.anchors_json).")
+          : (store.lastError ?? null),
+    monthlyUsers: store.monthlyUsers,
+    conversionRate: store.conversionRate,
+    avgOrderValue: store.avgOrderValue,
+    reportShareToken,
+  };
+
+  if (store.status !== "analyzed") {
+    return base;
+  }
+
+  const [analysis] = await db
+    .select()
+    .from(analysesTable)
+    .where(eq(analysesTable.storeId, id))
+    .orderBy(desc(analysesTable.createdAt))
+    .limit(1);
+
+  if (!analysis) {
+    return base;
+  }
+
+  const products = await db.select().from(productsTable).where(eq(productsTable.storeId, id));
+
+  const fmt = (p: (typeof products)[0]) => ({
+    productId: p.id,
+    title: p.title,
+    imageUrl: p.imageUrl,
+    price: p.price,
+    productUrl: p.productUrl,
+  });
+
+  const rawAnchors = (analysis.anchorsJson as AnchorGroup[] | null) ?? null;
+
+  let anchorGroups: Array<{
+    anchor: ReturnType<typeof fmt> & { reason: string };
+    recommendations: Array<ReturnType<typeof fmt> & { role: string; reason: string }>;
+  }>;
+
+  if (rawAnchors && rawAnchors.length > 0) {
+    const productMap = new Map(products.map((p) => [p.id, p]));
+    anchorGroups = rawAnchors
+      .filter((a) => productMap.has(a.productId))
+      .map((a) => ({
+        anchor: {
+          ...fmt(productMap.get(a.productId)!),
+          reason: a.reason,
+          anchorGoal: a.anchorGoal,
+          anchorPresentation: a.anchorPresentation,
+        },
+        recommendations: a.recommendations
+          .filter((r) => productMap.has(r.productId))
+          .slice(0, 4)
+          .map((r) => ({
+            ...fmt(productMap.get(r.productId)!),
+            role: r.role,
+            reason: r.reason,
+            ziadahGoal: r.ziadahGoal,
+            presentationWidget: r.presentationWidget,
+            addonsHint: r.addonsHint,
+            quantityHint: r.quantityHint,
+          })),
+      }));
+  } else {
+    const crossSellIds = (analysis.crossSellIds as number[]) ?? [];
+    const upsellIds = (analysis.upsellIds as number[]) ?? [];
+    const crossSellReasons = (analysis.crossSellReasons as Record<string, string>) ?? {};
+    const upsellReasons = (analysis.upsellReasons as Record<string, string>) ?? {};
+    const mainProduct = products.find((p) => p.id === analysis.mainProductId);
+    const crossSells = products.filter((p) => crossSellIds.includes(p.id));
+    const upsells = products.filter((p) => upsellIds.includes(p.id));
+
+    const recs = [
+      ...crossSells.slice(0, 2).map((p) => ({ ...fmt(p), role: "cross_sell", reason: crossSellReasons[String(p.id)] ?? "" })),
+      ...upsells.slice(0, 2).map((p) => ({ ...fmt(p), role: "upsell", reason: upsellReasons[String(p.id)] ?? "" })),
+    ].slice(0, 4);
+
+    anchorGroups = mainProduct
+      ? [{ anchor: { ...fmt(mainProduct), reason: analysis.mainProductReason ?? "" }, recommendations: recs }]
+      : [];
+  }
+
+  const crossSellIds = (analysis.crossSellIds as number[]) ?? [];
+  const upsellIds = (analysis.upsellIds as number[]) ?? [];
+
+  return {
+    ...base,
+    errorMessage: null,
+    analyzedAt: analysis.createdAt.toISOString(),
+    summary: analysis.summary,
+    crossSellCount: crossSellIds.length,
+    upsellCount: upsellIds.length,
+    anchorGroups,
+  };
+}
+
 router.post("/submit", async (req, res): Promise<void> => {
   const validationError = validateSubmit(req.body as Record<string, unknown>);
   if (validationError) {
@@ -284,12 +429,13 @@ router.post("/submit", async (req, res): Promise<void> => {
     conversionRate: conversionRate ?? null,
     avgOrderValue: avgOrderValue ?? null,
     status: "syncing",
+    reportShareToken: generateReportShareToken(),
   }).returning();
 
   runPipeline(store.id, url).catch((e) => {
     logger.error({ storeId: store.id, err: safeErrText(e) }, "runPipeline rejected");
   });
-  res.status(201).json({ storeId: store.id });
+  res.status(201).json({ storeId: store.id, reportShareToken: store.reportShareToken });
 });
 
 /** Re-run scrape + analysis for an existing store (same URL). Fixes UX where "Try again" only reset the form. */
@@ -327,121 +473,51 @@ router.post("/submit/:id/retry", async (req, res): Promise<void> => {
   res.json({ ok: true, storeId: id });
 });
 
+/** Full report payload (including analyzed results) — use opaque token, not sequential store id. */
+router.get("/submit/share/:token/status", async (req, res): Promise<void> => {
+  const token = String(req.params.token ?? "").trim();
+  if (!token || token.length > 128) {
+    res.status(400).json({ error: "Invalid token" });
+    return;
+  }
+  const [store] = await db.select().from(storesTable).where(eq(storesTable.reportShareToken, token)).limit(1);
+  if (!store) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
+  const payload = await buildSubmitStatusPayloadForStore(store);
+  res.json(payload);
+});
+
+/**
+ * Pipeline progress by numeric store id (same session). When status is `analyzed`, full report is not returned —
+ * use `GET /submit/share/:token/status` so public report data is not enumerable by id.
+ */
 router.get("/submit/:id/status", async (req, res): Promise<void> => {
   const id = parseInt(req.params.id, 10);
-  if (isNaN(id)) { res.status(400).json({ error: "Invalid id" }); return; }
-
-  const [store] = await db.select().from(storesTable).where(eq(storesTable.id, id));
-  if (!store) { res.status(404).json({ error: "Not found" }); return; }
-
-  const base = {
-    storeId: store.id,
-    status: store.status,
-    platform: store.platform,
-    productCount: store.productCount,
-    industry: store.industry,
-    currency: store.currency ?? "SAR",
-    currencySymbol: store.currencySymbol ?? "ر.س",
-    storeName: store.name,
-    storeUrl: store.url,
-    /** Cleared when analysis succeeded. If status is error but last_error is empty (legacy updates), show a hint. */
-    errorMessage:
-      store.status === "analyzed"
-        ? null
-        : store.status === "error"
-          ? (store.lastError?.trim() ||
-              "Server error (no stored detail). Redeploy the latest API, check logs, and ensure DB migrations are applied (stores.last_error, analyses.anchors_json).")
-          : (store.lastError ?? null),
-    monthlyUsers: store.monthlyUsers,
-    conversionRate: store.conversionRate,
-    avgOrderValue: store.avgOrderValue,
-  };
-
-  if (store.status !== "analyzed") { res.json(base); return; }
-
-  const [analysis] = await db
-    .select()
-    .from(analysesTable)
-    .where(eq(analysesTable.storeId, id))
-    .orderBy(desc(analysesTable.createdAt))
-    .limit(1);
-
-  if (!analysis) { res.json(base); return; }
-
-  const products = await db.select().from(productsTable).where(eq(productsTable.storeId, id));
-
-  const fmt = (p: typeof products[0]) => ({
-    productId: p.id,
-    title: p.title,
-    imageUrl: p.imageUrl,
-    price: p.price,
-    productUrl: p.productUrl,
-  });
-
-  // Try new anchorsJson first, fall back to legacy pairs
-  const rawAnchors = (analysis.anchorsJson as AnchorGroup[] | null) ?? null;
-
-  let anchorGroups: Array<{
-    anchor: ReturnType<typeof fmt> & { reason: string };
-    recommendations: Array<ReturnType<typeof fmt> & { role: string; reason: string }>;
-  }>;
-
-  if (rawAnchors && rawAnchors.length > 0) {
-    const productMap = new Map(products.map((p) => [p.id, p]));
-    anchorGroups = rawAnchors
-      .filter((a) => productMap.has(a.productId))
-      .map((a) => ({
-        anchor: {
-          ...fmt(productMap.get(a.productId)!),
-          reason: a.reason,
-          anchorGoal: a.anchorGoal,
-          anchorPresentation: a.anchorPresentation,
-        },
-        recommendations: a.recommendations
-          .filter((r) => productMap.has(r.productId))
-          .slice(0, 4)
-          .map((r) => ({
-            ...fmt(productMap.get(r.productId)!),
-            role: r.role,
-            reason: r.reason,
-            ziadahGoal: r.ziadahGoal,
-            presentationWidget: r.presentationWidget,
-            addonsHint: r.addonsHint,
-            quantityHint: r.quantityHint,
-          })),
-      }));
-  } else {
-    // Legacy: build from flat crossSell/upsell arrays
-    const crossSellIds = (analysis.crossSellIds as number[]) ?? [];
-    const upsellIds = (analysis.upsellIds as number[]) ?? [];
-    const crossSellReasons = (analysis.crossSellReasons as Record<string, string>) ?? {};
-    const upsellReasons = (analysis.upsellReasons as Record<string, string>) ?? {};
-    const mainProduct = products.find((p) => p.id === analysis.mainProductId);
-    const crossSells = products.filter((p) => crossSellIds.includes(p.id));
-    const upsells = products.filter((p) => upsellIds.includes(p.id));
-
-    const recs = [
-      ...crossSells.slice(0, 2).map((p) => ({ ...fmt(p), role: "cross_sell", reason: crossSellReasons[String(p.id)] ?? "" })),
-      ...upsells.slice(0, 2).map((p) => ({ ...fmt(p), role: "upsell", reason: upsellReasons[String(p.id)] ?? "" })),
-    ].slice(0, 4);
-
-    anchorGroups = mainProduct
-      ? [{ anchor: { ...fmt(mainProduct), reason: analysis.mainProductReason ?? "" }, recommendations: recs }]
-      : [];
+  if (isNaN(id)) {
+    res.status(400).json({ error: "Invalid id" });
+    return;
   }
 
-  const crossSellIds = (analysis.crossSellIds as number[]) ?? [];
-  const upsellIds = (analysis.upsellIds as number[]) ?? [];
+  const [store] = await db.select().from(storesTable).where(eq(storesTable.id, id));
+  if (!store) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
 
-  res.json({
-    ...base,
-    errorMessage: null,
-    analyzedAt: analysis.createdAt.toISOString(),
-    summary: analysis.summary,
-    crossSellCount: crossSellIds.length,
-    upsellCount: upsellIds.length,
-    anchorGroups,
-  });
+  if (store.status === "analyzed") {
+    const reportShareToken = await ensureReportShareToken(store.id);
+    res.status(403).json({
+      error: "public_report_requires_token",
+      reportShareToken,
+      storeId: store.id,
+    });
+    return;
+  }
+
+  const payload = await buildSubmitStatusPayloadForStore(store);
+  res.json(payload);
 });
 
 export default router;

@@ -13,8 +13,13 @@ if (Number.isNaN(port) || port <= 0) {
 
 const basePath = process.env.BASE_PATH ?? "/";
 
+const envDir = path.resolve(import.meta.dirname, "../..");
+const apiProxyTarget =
+  process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8787";
+
 export default defineConfig({
   base: basePath,
+  envDir,
   plugins: [
     react(),
     tailwindcss(),
@@ -55,7 +60,7 @@ export default defineConfig({
     },
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: apiProxyTarget,
         changeOrigin: true,
       },
     },

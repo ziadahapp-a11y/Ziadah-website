@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ziadah
+      POSTGRES_PASSWORD: ziadah
+      POSTGRES_DB: ziadah
+    ports:
+      - "5432:5432"
+    volumes:
+      - ziadah-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ziadah -d ziadah"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ziadah-pgdata:

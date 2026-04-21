@@ -13,9 +13,19 @@ export default function ProductPageMockups() {
   const copy = t[lang].productPageMockups;
 
   return (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
+    <div
+      className="sector-html"
+      style={{
+        position: "relative",
+        zIndex: 2,
+        width: "100%",
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: "clamp(28px, 4vw, 40px) var(--page-inline-pad) clamp(40px, 7vw, 72px)",
+        boxSizing: "border-box",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div
             style={{
               display: "inline-flex",
@@ -150,8 +160,7 @@ export default function ProductPageMockups() {
             <VolumeContent copy={copy} />
           </MockupCard>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }
 

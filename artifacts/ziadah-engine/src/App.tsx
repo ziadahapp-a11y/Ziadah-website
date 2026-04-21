@@ -99,8 +99,8 @@ function App() {
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Switch>
             <Route path="/analyze" component={Analyze} />
-            <Route path="/report/:id">
-              {(params) => <Report id={parseInt(params.id, 10)} />}
+            <Route path="/report/:shareToken">
+              {(params) => <Report shareToken={params.shareToken ?? ""} />}
             </Route>
             <Route>
               <AdminRouter />

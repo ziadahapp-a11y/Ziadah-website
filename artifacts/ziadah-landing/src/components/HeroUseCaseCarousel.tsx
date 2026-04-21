@@ -13,7 +13,7 @@ export default function HeroUseCaseCarousel() {
   const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
 
   const allWidgets = useMemo(() => buildWidgetShowcaseItems(wLabels), [wLabels]);
-  const durationSec = Math.max(1, allWidgets.length) * 2.5;
+  const durationSec = Math.max(1, allWidgets.length) * 5;
   const rtl = dir === "rtl";
 
   const renderCard = (item: (typeof allWidgets)[0], key: number) => (

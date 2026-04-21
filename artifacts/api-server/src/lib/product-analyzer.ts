@@ -96,17 +96,20 @@ export function buildHeuristicAnalysis(products: Product[]): ProductAnalysis {
     const seen = new Set<number>([anchor.id]);
     for (const p of rest) {
       if (recs.length >= 4) break;
-      if (!seen.has(p.id)) {
-        recs.push(p);
-        seen.add(p.id);
-      }
+      if (seen.has(p.id)) continue;
+      if (titlesTooSimilar(anchor.title, p.title)) continue;
+      if (recs.some((q) => titlesTooSimilar(q.title, p.title))) continue;
+      recs.push(p);
+      seen.add(p.id);
     }
     let i = 0;
     while (recs.length < 4 && rest.length > 0) {
       const p = rest[i % rest.length]!;
       if (!seen.has(p.id)) {
-        recs.push(p);
-        seen.add(p.id);
+        if (!titlesTooSimilar(anchor.title, p.title) && !recs.some((q) => titlesTooSimilar(q.title, p.title))) {
+          recs.push(p);
+          seen.add(p.id);
+        }
       }
       i++;
       if (i > rest.length * 3) break;
@@ -149,6 +152,79 @@ function validateAnchorProductIds(analysis: ProductAnalysis, products: Product[]
     }
   }
   return analysis.anchors.length > 0;
+}
+
+/** Remove Latin + Arabic digits so "خروف 1" / "خروف 2" compare as the same stem. */
+function stripAllDigits(s: string): string {
+  return s
+    .replace(/[\d\u0660-\u0669\u06F0-\u06F9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function tokenizeTitle(s: string): Set<string> {
+  const cleaned = stripAllDigits(s).toLowerCase();
+  return new Set(cleaned.split(/[\s\-–،,.؛:]+/).filter((t) => t.length > 1));
+}
+
+function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
+  if (a.size === 0 || b.size === 0) return 0;
+  let inter = 0;
+  for (const x of a) {
+    if (b.has(x)) inter++;
+  }
+  return inter / (a.size + b.size - inter);
+}
+
+/**
+ * True when two product titles are near-duplicates (same animal/SKU line with different numbers,
+ * or trivial renames). Used to avoid suggesting "خروف 1" next to "خروف 2" etc.
+ */
+function titlesTooSimilar(titleA: string, titleB: string): boolean {
+  const a = titleA.trim();
+  const b = titleB.trim();
+  if (a === b) return true;
+  const coreA = stripAllDigits(a);
+  const coreB = stripAllDigits(b);
+  if (coreA.length >= 3 && coreB.length >= 3 && coreA === coreB) return true;
+
+  const ta = tokenizeTitle(a);
+  const tb = tokenizeTitle(b);
+  const jac = jaccardSimilarity(ta, tb);
+  const small = Math.min(ta.size, tb.size);
+  if (small >= 2 && jac >= 0.72) return true;
+
+  const na = coreA.toLowerCase();
+  const nb = coreB.toLowerCase();
+  if (na.length >= 14 && nb.length >= 14 && (na.includes(nb) || nb.includes(na))) {
+    const ratio = Math.min(na.length, nb.length) / Math.max(na.length, nb.length);
+    if (ratio >= 0.88) return true;
+  }
+  return false;
+}
+
+function filterRecsByTitleDiversity(
+  anchorTitle: string,
+  recs: AnchorGroup["recommendations"],
+  products: Product[],
+): AnchorGroup["recommendations"] {
+  const byId = new Map(products.map((p) => [p.id, p]));
+  const out: AnchorGroup["recommendations"] = [];
+  for (const r of recs) {
+    const p = byId.get(r.productId);
+    if (!p) continue;
+    if (titlesTooSimilar(anchorTitle, p.title)) continue;
+    if (
+      out.some((kept) => {
+        const kp = byId.get(kept.productId);
+        return kp ? titlesTooSimilar(kp.title, p.title) : false;
+      })
+    ) {
+      continue;
+    }
+    out.push(r);
+  }
+  return out;
 }
 
 /** LLMs often emit string IDs or wrong numbers — coerce to DB product id */
@@ -200,10 +276,33 @@ function sanitizeLlmAnchors(
       });
     }
 
+    const anchorProduct = products.find((p) => p.id === anchorId);
+    const anchorTitle = anchorProduct?.title ?? "";
+    const deduped = filterRecsByTitleDiversity(anchorTitle, recommendations, products);
+    recommendations.length = 0;
+    for (const r of deduped) {
+      recommendations.push(r);
+    }
+    used.clear();
+    used.add(anchorId);
+    for (const r of recommendations) {
+      used.add(r.productId);
+    }
+
     let pad = 0;
     for (const pid of sortedIds) {
       if (recommendations.length >= 4) break;
       if (used.has(pid)) continue;
+      const cand = products.find((p) => p.id === pid);
+      if (!cand) continue;
+      if (titlesTooSimilar(anchorTitle, cand.title)) continue;
+      if (
+        recommendations.some((rec) =>
+          titlesTooSimilar(products.find((p) => p.id === rec.productId)!.title, cand.title),
+        )
+      ) {
+        continue;
+      }
       used.add(pid);
       const idx = recommendations.length;
       recommendations.push({
@@ -292,6 +391,7 @@ Rules:
 - No product can appear as both an anchor and one of its own recommendations
 - The same product CAN appear as a recommendation for multiple anchors
 - Prefer in-stock products for anchors
+- CRITICAL — title diversity within each anchor's 4 recommendations: do NOT pick two products that are essentially the same listing with different numbers or trivial name variants (e.g. "خروف 1" vs "خروف 2", or two lamb boxes that only differ by weight digits). Choose products with clearly distinct titles and roles: complementary add-ons, different cuts/categories, bundles, spices/sides, or a true upgrade — not multiple near-duplicate SKUs.
 - IMPORTANT — anchor product selection priority: always prefer products that are widely known and familiar to the general public (everyday items, popular categories like food, clothing, accessories, health & wellness, home goods). If the catalog contains a mix of common products and unusual/niche/obscure products, strongly favor the common ones as anchors. Niche products may appear as recommendations only.
 - Fill anchorGoal, anchorPresentation, ziadahGoal, presentationWidget, addonsHint, quantityHint for every anchor and every recommendation (use concise Arabic; ziadahGoal may include English token as shown)
 - Write ALL reasons and descriptive fields in Arabic
