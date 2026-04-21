@@ -90,8 +90,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Stores</h1>
           <p className="text-muted-foreground text-sm mt-1">Connect and analyze your e-commerce stores</p>
@@ -111,7 +111,7 @@ export default function Dashboard() {
           ))}
         </div>
       ) : !stores || stores.length === 0 ? (
-        <div className="border border-dashed border-border rounded-xl p-16 text-center" data-testid="empty-state-stores">
+        <div className="border border-dashed border-border rounded-xl p-8 sm:p-16 text-center" data-testid="empty-state-stores">
           <div className="flex justify-center mb-4">
             <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
               <Store className="h-8 w-8 text-primary" />
@@ -128,15 +128,15 @@ export default function Dashboard() {
           {stores.map((store) => (
             <div
               key={store.id}
-              className="group bg-card border border-card-border rounded-xl p-5 flex items-center gap-4 hover:border-primary/30 transition-all duration-200"
+              className="group bg-card border border-card-border rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-primary/30 transition-all duration-200"
               data-testid={`card-store-${store.id}`}
             >
               <div className="h-11 w-11 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                 <Store className="h-5 w-5 text-primary" />
               </div>
 
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-1">
+              <div className="flex-1 min-w-0 w-full">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
                   <span className="font-semibold text-foreground truncate" data-testid={`text-store-name-${store.id}`}>
                     {store.name}
                   </span>
@@ -149,8 +149,8 @@ export default function Dashboard() {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <a href={store.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+                  <a href={store.url} target="_blank" rel="noopener noreferrer" className="flex min-w-0 items-center gap-1 hover:text-primary transition-colors">
                     {store.url.replace(/^https?:\/\//, "").substring(0, 40)}
                     <ExternalLink className="h-3 w-3" />
                   </a>
@@ -163,7 +163,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 shrink-0 w-full sm:w-auto">
                 <Button
                   variant="ghost"
                   size="sm"
