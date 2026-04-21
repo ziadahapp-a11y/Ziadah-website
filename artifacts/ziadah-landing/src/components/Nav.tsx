@@ -27,7 +27,7 @@ export const Logo = () => {
         loading="eager"
         fetchPriority="high"
         decoding="async"
-        style={{ height: 70, width: 90 }}
+        style={{ height: 30, width: 39 }}
       />
     </span>
   );
@@ -166,31 +166,37 @@ function UseCasesMegaMenu() {
   const useCasesDropdown = getUseCasesDropdown(tr);
   const panelWidth = "min(1200px, calc(100vw - 32px))";
   return (
-    <div style={{
+    <div
+      className="use-cases-mega-menu"
+      style={{
       position: "absolute",
       top: "calc(100% + 10px)",
-      /* Anchor to trigger center so width:capped-to-viewport stays inside overflow-x:clip on #root */
-      ...(lang === "ar"
-        ? { right: "50%", left: "auto", transform: "translateX(50%)" }
-        : { left: "50%", right: "auto", transform: "translateX(-50%)" }),
+      /* Viewport-centered panel: avoids clipping when the trigger sits away from the viewport center */
+      insetInlineStart: "50%",
+      insetInlineEnd: "auto",
+      transform: "translateX(-50%)",
+      marginInlineStart: "calc(50% - 50vw)",
       width: panelWidth,
       maxWidth: panelWidth,
       minWidth: 0,
       boxSizing: "border-box",
-      background: "rgba(11,0,25,1)",
+      background: "rgba(8,6,20,.97)",
       border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: "16px 10px",
-      backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)",
-      boxShadow: "none", zIndex: 100,
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
-      gap: 8,
-      overflowX: "auto",
+      borderRadius: 16,
+      padding: "16px 12px",
+      backdropFilter: "blur(32px)",
+      WebkitBackdropFilter: "blur(32px)",
+      boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+      zIndex: 100,
+      overflowX: "hidden",
       overflowY: "auto",
-      maxHeight: "min(70vh, 520px)",
-    }}>
+      maxHeight: "min(75dvh, 560px)",
+      overscrollBehavior: "contain",
+      WebkitOverflowScrolling: "touch",
+    }}
+    >
       {useCasesDropdown.sections.map((section) => (
-        <div key={section.title} style={{ padding: "4px 6px" }}>
+        <div key={section.title} className="use-cases-mega-menu__col" style={{ padding: "4px 6px" }}>
           <div style={{
             fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6,
             paddingRight: lang === "ar" ? 6 : 0, paddingLeft: lang === "en" ? 6 : 0,
@@ -206,13 +212,14 @@ function UseCasesMegaMenu() {
                 display: "block", padding: "10px 8px", borderRadius: 12,
                 textDecoration: "none", transition: "background .2s", fontSize: 14,
                 fontWeight: 700, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
+                overflowWrap: "anywhere", wordBreak: "break-word",
               }}
               onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
+                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45, overflowWrap: "anywhere", wordBreak: "break-word" }}>
                   {item.subtitle}
                 </span>
               )}
@@ -1161,23 +1168,6 @@ export default function Nav() {
               </span>
             </li>
 
-            <li style={{ ...navLinkLiStyle, width: "fit-content" }}>
-              <span onClick={() => navigateTo("/analyze")} style={{
-                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
-                color: location === "/analyze" ? "var(--t)" : "var(--tm)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer", width: "fit-content",
-              }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
-                onMouseLeave={e => { if (location !== "/analyze") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
-              >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
-                  {tr.nav.analyze}
-                </Editable>
-              </span>
-            </li>
-
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help")}>
@@ -1529,7 +1519,6 @@ export default function Nav() {
               { key: "home", iconKey: "home" as const, label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
               { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
               { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
-              { key: "analyze", iconKey: "analyze" as const, label: tr.nav.analyze, cmsContentKey: cmsKey(lang, "nav", "analyze"), action: () => { setMobileOpenDrop(null); navigateTo("/analyze"); }, active: location === "/analyze" },
               { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
               { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
               { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },

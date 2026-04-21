@@ -91,6 +91,12 @@ export function SoftwareAppSchema() {
         name: "باقة الاحترافية",
         price: "665",
         priceCurrency: "SAR"
+      },
+      {
+        "@type": "Offer",
+        name: "باقة الأعمال",
+        price: "1332",
+        priceCurrency: "SAR"
       }
     ],
     aggregateRating: {
