@@ -164,13 +164,17 @@ function UseCasesMegaMenu() {
   const { lang } = useLanguage();
   const tr = t[lang];
   const useCasesDropdown = getUseCasesDropdown(tr);
+  const panelWidth = "min(1200px, calc(100vw - 32px))";
   return (
     <div style={{
       position: "absolute",
       top: "calc(100% + 10px)",
-      ...(lang === "ar" ? { right: 0, left: "auto" } : { left: 0, right: "auto" }),
-      width: 1200,
-      maxWidth: "min(1200px, calc(100vw - 16px))",
+      /* Anchor to trigger center so width:capped-to-viewport stays inside overflow-x:clip on #root */
+      ...(lang === "ar"
+        ? { right: "50%", left: "auto", transform: "translateX(50%)" }
+        : { left: "50%", right: "auto", transform: "translateX(-50%)" }),
+      width: panelWidth,
+      maxWidth: panelWidth,
       minWidth: 0,
       boxSizing: "border-box",
       background: "rgba(11,0,25,1)",
@@ -181,7 +185,7 @@ function UseCasesMegaMenu() {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
       gap: 8,
-      overflowX: "hidden",
+      overflowX: "auto",
       overflowY: "auto",
       maxHeight: "min(70vh, 520px)",
     }}>
