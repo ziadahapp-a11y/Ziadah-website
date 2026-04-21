@@ -199,13 +199,21 @@
     overflow-x: hidden;
   }
 
+  html,
+  body {
+    height: auto;
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    overscroll-behavior-y: auto;
+    touch-action: auto;
   }
 }
 
 .mobile-scroll {
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-  touch-action: pan-y;
+  overflow: visible;
+  overscroll-behavior-y: auto;
+  touch-action: auto;
 }

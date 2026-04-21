@@ -65,9 +65,9 @@ function Sidebar() {
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-dvh flex-col md:flex-row bg-background overflow-hidden">
+    <div className="flex min-h-dvh flex-col md:flex-row bg-background">
       <Sidebar />
-      <main className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-x-hidden mobile-scroll">
+      <main className="flex-1 min-w-0 mobile-scroll">
         {children}
       </main>
     </div>
