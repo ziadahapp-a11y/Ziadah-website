@@ -1676,7 +1676,7 @@ export default function Nav() {
               { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
               { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
               { key: "startNow", iconKey: "startNow" as const, label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
-              { key: "langTheme", iconKey: "langTheme" as const, dropKey: "langTheme" as const, label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
+              { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
               { key: "back", iconKey: "back" as const, label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
             ].map((item) => {
               const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
