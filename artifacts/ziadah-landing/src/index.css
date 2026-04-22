@@ -1891,7 +1891,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   to{opacity:1;transform:translateY(0);}
 }
 
-/* Use cases mega menu — responsive columns (desktop nav only ≥1025px) */
+/* Use cases mega menu — always one row of 5 columns */
 .use-cases-mega-menu{
   display:grid;
   gap:10px 12px;
@@ -1899,17 +1899,6 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 .use-cases-mega-menu .use-cases-mega-menu__col{
   min-width:0;
-}
-@media(min-width:1025px) and (max-width:1320px){
-  .use-cases-mega-menu{
-    gap:10px;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-  }
-}
-@media(min-width:1025px) and (max-width:1100px){
-  .use-cases-mega-menu{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
 }
 
 /* ── MEDIUM DESKTOP NAV (1025-1280px): compact single-row ── */
