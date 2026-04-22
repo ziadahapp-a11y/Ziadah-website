@@ -63,6 +63,59 @@ function LanguageSwitcher() {
   );
 }
 
+function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "light" }) {
+  const sallaLogo = getPlatformLogoSrc("salla", lang, theme);
+  const zidLogo = getPlatformLogoSrc("zid", lang, theme);
+  const itemStyle: React.CSSProperties = {
+    display: "flex", alignItems: "center", gap: 10,
+    padding: "10px 16px", borderRadius: 10, textDecoration: "none",
+    background: "rgba(255,255,255,.04)",
+    border: "1px solid rgba(255,255,255,.07)",
+    color: "var(--t)", fontSize: 14, fontWeight: 500,
+    cursor: "pointer", transition: "background .2s",
+    fontFamily: "var(--font)",
+  };
+  return (
+    <div style={{
+      position: "absolute",
+      top: "calc(100% + 8px)",
+      insetInlineEnd: 0,
+      zIndex: 950,
+      minWidth: 160,
+      background: "rgba(8,6,20,.97)",
+      border: "1px solid rgba(255,255,255,.1)",
+      borderRadius: 14,
+      padding: 6,
+      backdropFilter: "blur(32px)",
+      boxShadow: "0 16px 48px rgba(0,0,0,.55)",
+      animation: "slideUpDropdown .18s cubic-bezier(.23,1,.32,1)",
+    }}>
+      <a
+        href="https://dashboard.ziadah.app/login"
+        target="_blank"
+        rel="noreferrer"
+        style={itemStyle}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.09)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.04)"; }}
+      >
+        <img src={sallaLogo} alt="Salla" style={{ height: 18, width: "auto" }} />
+        <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "سلة" : "Salla"}</span>
+      </a>
+      <a
+        href="https://web.ziadah.app/"
+        target="_blank"
+        rel="noreferrer"
+        style={{ ...itemStyle, marginTop: 4 }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.09)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.04)"; }}
+      >
+        <img src={zidLogo} alt="Zid" style={{ height: 18, width: "auto" }} />
+        <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "زد" : "Zid"}</span>
+      </a>
+    </div>
+  );
+}
+
 interface UseCaseItem {
   label: string;
   href: string;
@@ -524,6 +577,14 @@ function MobileNavIcon({ name, size = 20 }: { name: string; size?: number }) {
           <polyline points="12 5 19 12 12 19" />
         </svg>
       );
+    case "login":
+      return (
+        <svg {...s} aria-hidden>
+          <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+          <polyline points="10 17 15 12 10 7" />
+          <line x1="15" y1="12" x2="3" y2="12" />
+        </svg>
+      );
     default:
       return (
         <svg {...s} aria-hidden>
@@ -963,7 +1024,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState<"menu1" | "menu2">("menu1");
-  const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | null>(null);
+  const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | "login" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1187,6 +1248,19 @@ export default function Nav() {
 
           <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <LanguageSwitcher />
+            <div style={{ position: "relative" }}>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("login")} onHoverEnd={handleHoverEnd}>
+                <button
+                  type="button"
+                  className="nb nav-cta-outline"
+                  style={{ cursor: "pointer", fontFamily: "var(--font)", display: "flex", alignItems: "center", gap: 6 }}
+                >
+                  {lang === "ar" ? "دخول" : "Login"}
+                  {chevron(openDrop === "login")}
+                </button>
+                {openDrop === "login" && <LoginDropdown lang={lang} theme={theme} />}
+              </DropdownWrapper>
+            </div>
             <button
               type="button"
               className="nb nav-cta-outline"
@@ -1479,6 +1553,40 @@ export default function Nav() {
                 ))}
               </div>
             )}
+            {mobileOpenDrop === "login" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <a
+                  href="https://dashboard.ziadah.app/login"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpenDrop(null)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    padding: "10px 12px", borderRadius: 10, textDecoration: "none",
+                    background: "rgba(255,255,255,.04)",
+                    border: "1px solid rgba(255,255,255,.07)",
+                  }}
+                >
+                  <img src={getPlatformLogoSrc("salla", lang as "ar" | "en", theme as "dark" | "light")} alt="Salla" loading="lazy" style={{ height: 18, width: "auto" }} />
+                  <span style={{ color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)" }}>{lang === "ar" ? "سلة" : "Salla"}</span>
+                </a>
+                <a
+                  href="https://web.ziadah.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpenDrop(null)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    padding: "10px 12px", borderRadius: 10, textDecoration: "none",
+                    background: "rgba(255,255,255,.04)",
+                    border: "1px solid rgba(255,255,255,.07)",
+                  }}
+                >
+                  <img src={getPlatformLogoSrc("zid", lang as "ar" | "en", theme as "dark" | "light")} alt="Zid" loading="lazy" style={{ height: 18, width: "auto" }} />
+                  <span style={{ color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)" }}>{lang === "ar" ? "زد" : "Zid"}</span>
+                </a>
+              </div>
+            )}
             {mobileOpenDrop === "langTheme" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <button
@@ -1563,6 +1671,7 @@ export default function Nav() {
             transition: "opacity .22s ease, transform .22s ease",
           }}>
             {[
+              { key: "login", iconKey: "login" as const, dropKey: "login" as const, label: lang === "ar" ? "دخول" : "Login", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "login" ? null : "login"), active: false, hasDrop: true },
               { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
               { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
               { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
