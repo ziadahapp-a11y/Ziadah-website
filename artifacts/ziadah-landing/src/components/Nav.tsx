@@ -212,6 +212,19 @@ function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: Rea
   );
 }
 
+const USE_CASE_SECTION_ICONS: Record<string, string> = {
+  "حسب الصفحات": "📄",
+  "حسب النشاط": "⚡",
+  "حسب طريقة العرض": "🎨",
+  "حسب الهدف": "🎯",
+  "حسب التجربة": "✨",
+  "By Page": "📄",
+  "By Activity": "⚡",
+  "By Display Type": "🎨",
+  "By Goal": "🎯",
+  "By Experience": "✨",
+};
+
 function UseCasesMegaMenu() {
   const t = useSiteT();
   const { lang } = useLanguage();
@@ -230,28 +243,43 @@ function UseCasesMegaMenu() {
       maxWidth: panelWidth,
       minWidth: 0,
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
+      background: "rgba(5,3,18,.97)",
       border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16,
-      padding: "16px 12px",
-      backdropFilter: "blur(32px)",
-      WebkitBackdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+      borderRadius: 18,
+      padding: "20px 16px",
+      backdropFilter: "blur(48px)",
+      WebkitBackdropFilter: "blur(48px)",
+      boxShadow: "0 32px 80px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.07) inset",
       zIndex: 1000,
       overflowX: "hidden",
       overflowY: "auto",
       maxHeight: "min(75dvh, 560px)",
       overscrollBehavior: "contain",
       WebkitOverflowScrolling: "touch",
+      animation: "megaMenuIn .2s cubic-bezier(.23,1,.32,1)",
     }}
     >
-      {useCasesDropdown.sections.map((section) => (
-        <div key={section.title} className="use-cases-mega-menu__col" style={{ padding: "4px 6px" }}>
+      {useCasesDropdown.sections.map((section, i) => (
+        <div
+          key={section.title}
+          className="use-cases-mega-menu__col"
+          style={{
+            padding: "4px 10px",
+            borderInlineEnd: i < useCasesDropdown.sections.length - 1
+              ? `1px solid rgba(255,255,255,.07)`
+              : "none",
+          }}
+        >
           <div style={{
-            fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6,
-            paddingRight: lang === "ar" ? 6 : 0, paddingLeft: lang === "en" ? 6 : 0,
-            textTransform: "uppercase", letterSpacing: 1, fontFamily: "var(--font)",
+            display: "flex", alignItems: "center", gap: 6,
+            fontSize: 10, fontWeight: 800, color: "var(--p4)", marginBottom: 10,
+            paddingBottom: 8,
+            borderBottom: "1px solid rgba(255,255,255,.06)",
+            textTransform: "uppercase", letterSpacing: 1.2, fontFamily: "var(--font)",
           }}>
+            <span style={{ fontSize: 14, lineHeight: 1 }}>
+              {USE_CASE_SECTION_ICONS[section.title] ?? "▸"}
+            </span>
             {section.title}
           </div>
           {section.items.map((item) => (
@@ -259,17 +287,23 @@ function UseCasesMegaMenu() {
               key={item.href + item.label}
               onClick={() => navigateTo(item.href)}
               style={{
-                display: "block", padding: "10px 8px", borderRadius: 12,
-                textDecoration: "none", transition: "background .2s", fontSize: 14,
-                fontWeight: 700, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
-                overflowWrap: "anywhere", wordBreak: "break-word",
+                display: "block", padding: "9px 10px", borderRadius: 10,
+                textDecoration: "none", transition: "background .18s, color .18s", fontSize: 13.5,
+                fontWeight: 600, color: "rgba(255,255,255,.82)", cursor: "pointer", fontFamily: "var(--font)",
+                overflowWrap: "anywhere", wordBreak: "break-word", marginBottom: 2,
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,.13)";
+                (e.currentTarget as HTMLElement).style.color = "#fff";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.82)";
+              }}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45, overflowWrap: "anywhere", wordBreak: "break-word" }}>
+                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,.4)", marginTop: 2, fontWeight: 400, lineHeight: 1.4, overflowWrap: "anywhere", wordBreak: "break-word" }}>
                   {item.subtitle}
                 </span>
               )}
@@ -1047,11 +1081,13 @@ export default function Nav() {
   };
 
   const navBtnStyle = (isOpen: boolean): React.CSSProperties => ({
-    display: "flex", alignItems: "center", gap: 5, padding: "8px 14px",
-    borderRadius: 10, background: isOpen ? "rgba(124,58,237,.12)" : "transparent",
-    border: "none", color: isOpen ? "var(--t)" : "var(--tm)",
-    fontFamily: "var(--font)", fontSize: 14, fontWeight: 500, cursor: "pointer",
-    transition: "all .2s", whiteSpace: "nowrap",
+    display: "flex", alignItems: "center", gap: 5, padding: "7px 13px",
+    borderRadius: 10,
+    background: isOpen ? "rgba(124,58,237,.15)" : "transparent",
+    border: isOpen ? "1px solid rgba(124,58,237,.25)" : "1px solid transparent",
+    color: isOpen ? "#fff" : "rgba(255,255,255,.72)",
+    fontFamily: "var(--font)", fontSize: 13.5, fontWeight: 500, cursor: "pointer",
+    transition: "all .18s", whiteSpace: "nowrap",
   });
 
   const navLinkLiStyle: React.CSSProperties = {
@@ -1102,24 +1138,26 @@ export default function Nav() {
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
-        position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
-        transform: "translateX(-50%)", display: "flex", flexDirection: "column", width: "100%",
+        position: "fixed", top: 12, left: "50%", right: "auto", zIndex: 900,
+        transform: "translateX(-50%)", display: "flex", flexDirection: "column",
+        width: "calc(100% - 32px)",
+        maxWidth: 1480,
         marginLeft: 0,
         marginRight: 0,
-        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(255, 255, 255, 0)",
-        border: "1px solid rgb(0, 0, 0)",
+        background: scrolled ? "rgba(5,3,16,.92)" : "rgba(5,3,16,.72)",
+        border: "1px solid rgba(255,255,255,.1)",
         boxShadow: scrolled
-          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5)"
-          : "none",
-        borderRadius: 0, padding: "0 24px",
-        backdropFilter: "blur(32px)", transition: "all .4s",
+          ? "0 8px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.07)"
+          : "0 4px 24px rgba(0,0,0,.2)",
+        borderRadius: 16, padding: "0 20px",
+        backdropFilter: "blur(40px)", transition: "background .4s, box-shadow .4s, border-color .4s",
       }}>
         {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
           height: 58,
-          paddingLeft: 40,
-          paddingRight: 40,
+          paddingLeft: 16,
+          paddingRight: 16,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Logo />

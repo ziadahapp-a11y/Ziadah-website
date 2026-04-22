@@ -1864,10 +1864,10 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .calc-grid{grid-template-columns:1fr!important;}
   .uc-what-card{padding:var(--card-pad-lg)!important;}
 }
-.nav-cta-outline{background:transparent!important;border:1px solid rgba(255,255,255,.2)!important;color:#fff!important;border-radius:8px!important;white-space:nowrap;}
-.nav-cta-outline:hover{border-color:var(--p)!important;background:rgba(124,58,237,.08)!important;color:#fff!important;}
-.nav-cta-fill{background:var(--p)!important;border:none!important;color:#fff!important;border-radius:8px!important;font-weight:700!important;white-space:nowrap;}
-.nav-cta-fill:hover{background:var(--p2)!important;transform:translateY(-1px);}
+.nav-cta-outline{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.14)!important;color:rgba(255,255,255,.88)!important;border-radius:10px!important;white-space:nowrap;transition:all .18s!important;}
+.nav-cta-outline:hover{border-color:rgba(124,58,237,.6)!important;background:rgba(124,58,237,.1)!important;color:#fff!important;}
+.nav-cta-fill{background:var(--p)!important;border:1px solid rgba(124,58,237,.4)!important;color:#fff!important;border-radius:10px!important;font-weight:700!important;white-space:nowrap;box-shadow:0 2px 16px rgba(124,58,237,.3);transition:all .18s!important;}
+.nav-cta-fill:hover{background:var(--p2)!important;transform:translateY(-1px);box-shadow:0 4px 24px rgba(124,58,237,.45)!important;}
 /* PageTransition يضع pointer-events:none على الغلاف أثناء الأنيميشن — يجب إعادة التفعيل للتنقل */
 .desktop-nav,
 .mobile-nav,
@@ -1887,8 +1887,12 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .nav-links-inline>li{display:flex;justify-content:center;align-items:center;}
 
 @keyframes slideUpDropdown{
-  from{opacity:0;transform:translateY(16px);}
+  from{opacity:0;transform:translateY(10px);}
   to{opacity:1;transform:translateY(0);}
+}
+@keyframes megaMenuIn{
+  from{opacity:0;transform:translateX(-50%) translateY(10px) scale(.98);}
+  to{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
 }
 
 /* Use cases mega menu — always one row of 5 columns */
