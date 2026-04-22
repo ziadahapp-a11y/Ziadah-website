@@ -222,13 +222,10 @@ function UseCasesMegaMenu() {
     <div
       className="use-cases-mega-menu"
       style={{
-      position: "absolute",
-      top: "calc(100% + 10px)",
-      /* Viewport-centered panel: avoids clipping when the trigger sits away from the viewport center */
-      insetInlineStart: "50%",
-      insetInlineEnd: "auto",
+      position: "fixed",
+      top: 68,
+      left: "50%",
       transform: "translateX(-50%)",
-      marginInlineStart: "calc(50% - 50vw)",
       width: panelWidth,
       maxWidth: panelWidth,
       minWidth: 0,
@@ -240,7 +237,7 @@ function UseCasesMegaMenu() {
       backdropFilter: "blur(32px)",
       WebkitBackdropFilter: "blur(32px)",
       boxShadow: "0 24px 60px rgba(0,0,0,.6)",
-      zIndex: 100,
+      zIndex: 1000,
       overflowX: "hidden",
       overflowY: "auto",
       maxHeight: "min(75dvh, 560px)",
