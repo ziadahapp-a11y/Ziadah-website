@@ -4113,6 +4113,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   position: relative;
   overflow: hidden;
   text-align: center;
+  padding-top: 100px;
 }
 .pp-hero::before {
   content: "";
@@ -4624,7 +4625,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .aff-final-glow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(100px); z-index: 0; bottom: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(124,58,237,.18) 0%, transparent 70%); }
 
 /* ── Hero — uses design-system `section` layout ── */
-.aff-hero { position: relative; overflow: hidden; text-align: center; }
+.aff-hero { position: relative; overflow: hidden; text-align: center; padding-top: 100px; }
 .aff-hero-title { font-size: clamp(34px,5.5vw,62px); font-weight: 900; color: var(--t); margin: 0 0 20px; letter-spacing: -0.04em; line-height: 1.08; }
 
 /* WA button — WhatsApp green CTA */
