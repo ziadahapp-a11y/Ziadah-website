@@ -1571,8 +1571,8 @@ export default function Landing() {
                       ? [tr.landing.planBusinessGuaranteeAnnual]
                       : []),
                   ],
-                  cta: ld.planBusinessCta,
-                  ctaAction: () => openMeetingBooking(),
+                  cta: tr.landing.subscribeNow,
+                  ctaAction: () => setPlatformModalOpen(true),
                   fill: true,
                 },
               ].map((p, i) => (
