@@ -1,0 +1,300 @@
+import { useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { useSiteT } from "@/cms/siteContent";
+import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+
+type PlanKey = "s" | "g" | "p" | "b";
+type FeatureVal = boolean | string | null;
+type FeatureRow = {
+  ar: string;
+  en: string;
+  s: FeatureVal;
+  g: FeatureVal;
+  p: FeatureVal;
+  b: FeatureVal;
+};
+type CategoryGroup = {
+  arTitle: string;
+  enTitle: string;
+  features: FeatureRow[];
+};
+
+const FEATURE_GROUPS: CategoryGroup[] = [
+  {
+    arTitle: "الأساسيات",
+    enTitle: "Basics",
+    features: [
+      { ar: "تجربة مجانية 7 أيام", en: "7-day free trial", s: true, g: true, p: true, b: true },
+      { ar: "اقتراحات لامحدودة", en: "Unlimited suggestions", s: true, g: true, p: true, b: true },
+      { ar: "مبيعات لامحدودة", en: "Unlimited sales", s: true, g: true, p: true, b: true },
+      { ar: "مزامنة المنتجات", en: "Product sync", s: true, g: true, p: true, b: true },
+      { ar: "نقاط ذكاء اصطناعي مجانية", en: "Free AI points", s: "60", g: "600", p: "6,000", b: "60,000" },
+    ],
+  },
+  {
+    arTitle: "العروض",
+    enTitle: "Offers",
+    features: [
+      { ar: "عرض المنتجات المقترحة", en: "Suggested products display", s: true, g: true, p: true, b: true },
+      { ar: "عرض الكميات", en: "Quantity offers", s: true, g: true, p: true, b: true },
+      { ar: "عرض الكوبونات", en: "Coupon offers", s: false, g: true, p: true, b: true },
+      { ar: "عرض الوصول للشحن المجاني", en: "Free-shipping threshold bar", s: false, g: false, p: true, b: true },
+      { ar: "عرض استبدال المنتجات", en: "Product swap display", s: false, g: false, p: true, b: true },
+    ],
+  },
+  {
+    arTitle: "مواقع الاقتراحات",
+    enTitle: "Suggestion Locations",
+    features: [
+      { ar: "صفحة المنتج", en: "Product page", s: true, g: true, p: true, b: true },
+      { ar: "بعد إضافة المنتج", en: "After adding a product", s: false, g: true, p: true, b: true },
+      { ar: "بعد حذف المنتج", en: "After removing a product", s: false, g: true, p: true, b: true },
+      { ar: "صفحة السلة", en: "Cart page", s: false, g: true, p: true, b: true },
+      { ar: "بعد الدفع", en: "After checkout", s: false, g: false, p: true, b: true },
+      { ar: "حسب قيمة السلة", en: "Based on cart value", s: false, g: false, p: true, b: true },
+      { ar: "الصفحة الرئيسية ★", en: "Home page ★", s: false, g: false, p: false, b: true },
+      { ar: "صفحة التصنيفات ★", en: "Category pages ★", s: false, g: false, p: false, b: true },
+      { ar: "صفحة الدفع ★", en: "Checkout page ★", s: false, g: false, p: false, b: true },
+    ],
+  },
+  {
+    arTitle: "المنتجات المُشغَّلة",
+    enTitle: "Activated Products",
+    features: [
+      { ar: "منتجات محددة", en: "Specific products", s: true, g: true, p: true, b: true },
+      { ar: "قيمة السلة", en: "Cart value triggers", s: true, g: true, p: true, b: true },
+      { ar: "كل المنتجات", en: "All products", s: false, g: true, p: true, b: true },
+    ],
+  },
+  {
+    arTitle: "تصميم الاقتراحات",
+    enTitle: "Recommendations Design",
+    features: [
+      { ar: "تخصيص الأزرار وتفاصيل المنتجات", en: "Button & product detail customization", s: true, g: true, p: true, b: true },
+      { ar: "أشكال المنتجات", en: "Product shapes", s: false, g: true, p: true, b: true },
+      { ar: "أشكال الاقتراحات", en: "Suggestion layouts", s: false, g: true, p: true, b: true },
+    ],
+  },
+  {
+    arTitle: "التقارير والإحصائيات",
+    enTitle: "Reports & Analytics",
+    features: [
+      { ar: "تحليلات عامة لكل مقترح", en: "General analytics per recommendation", s: true, g: true, p: true, b: true },
+      { ar: "تحليلات مفصلة حسب المنتج", en: "Detailed analytics per product", s: false, g: false, p: true, b: true },
+    ],
+  },
+  {
+    arTitle: "الخصائص المتطورة",
+    enTitle: "Advanced Features",
+    features: [
+      { ar: "دعم الثيمات الخاصة", en: "Custom theme support", s: false, g: false, p: true, b: true },
+      { ar: "فريق العمل", en: "Team members", s: false, g: "2", p: "2", b: "∞" },
+      { ar: "مدير حساب خاص ★", en: "Dedicated success manager ★", s: false, g: false, p: false, b: true },
+      { ar: "مراجعة شهرية استراتيجية ★", en: "Monthly strategic review ★", s: false, g: false, p: false, b: true },
+      { ar: "دعم تقني مخصص ★", en: "Dedicated technical support ★", s: false, g: false, p: false, b: true },
+    ],
+  },
+];
+
+const CHECK = (
+  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden>
+    <circle cx="8.5" cy="8.5" r="8.5" fill="rgba(124,58,237,.18)" />
+    <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#a855f7" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+const DASH = <span style={{ color: "rgba(255,255,255,.2)", fontSize: 16, lineHeight: 1 }}>—</span>;
+
+function CellVal({ val, planKey }: { val: FeatureVal; planKey: PlanKey }) {
+  if (val === true) return <span className="pp-check">{planKey === "b" ? <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="8.5" fill="rgba(217,119,6,.2)" /><path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#d97706" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg> : CHECK}</span>;
+  if (val === false || val === null) return <span className="pp-dash">{DASH}</span>;
+  return <span className="pp-val">{val}</span>;
+}
+
+export default function PricingPage() {
+  const { lang } = useLanguage();
+  const t = useSiteT();
+  const { openMeetingBooking } = useMeetingBooking();
+  const [mode, setMode] = useState<"m" | "y">("y");
+  const [open, setOpen] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))
+  );
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
+
+  const isAr = lang === "ar";
+  const tr = t[lang].landing;
+  const dir = isAr ? "rtl" : "ltr";
+
+  const plans: { key: PlanKey; name: string; desc: string; mPrice: string | number; yPrice: string | number; yAnnual: string | number; yOrig: string; yDisc: string; badge: string | null; featured: boolean }[] = [
+    {
+      key: "s",
+      name: isAr ? "الانطلاقة" : "Starter",
+      desc: isAr ? "للمبتدئين والراغبين بالتجربة" : "For beginners",
+      mPrice: 29, yPrice: 22, yAnnual: 260, yOrig: "860", yDisc: "70%",
+      badge: null, featured: false,
+    },
+    {
+      key: "g",
+      name: isAr ? "النمو" : "Growth",
+      desc: isAr ? "للتجار الأفراد" : "For individual merchants",
+      mPrice: 290, yPrice: 217, yAnnual: "2,600", yOrig: "3,026", yDisc: "15%",
+      badge: null, featured: false,
+    },
+    {
+      key: "p",
+      name: isAr ? "الاحترافية" : "Professional",
+      desc: isAr ? "للشركات والمؤسسات" : "For companies",
+      mPrice: 790, yPrice: 579, yAnnual: "6,948", yOrig: "8,244", yDisc: "16%",
+      badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
+    },
+    {
+      key: "b",
+      name: isAr ? "الأعمال" : "Business",
+      desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
+      mPrice: "1,990", yPrice: "1,159", yAnnual: "13,904", yOrig: "24,000", yDisc: "42%",
+      badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
+    },
+  ];
+
+  const toggleGroup = (title: string) =>
+    setOpen((prev) => ({ ...prev, [title]: !prev[title] }));
+
+  return (
+    <div className="pp-root" dir={dir}>
+      {/* Hero */}
+      <div className="pp-hero">
+        <div className="pp-hero-inner">
+          <div className="pp-tag">{isAr ? "الأسعار" : "Pricing"}</div>
+          <h1 className="pp-title">{isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}</h1>
+          <p className="pp-sub">{isAr ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة" : "Unlimited suggestions & sales in all plans · VAT included"}</p>
+
+          {/* Toggle */}
+          <div className="pp-toggle">
+            <button className={`pp-tb${mode === "m" ? " on" : ""}`} onClick={() => setMode("m")}>
+              {isAr ? "شهري" : "Monthly"}
+            </button>
+            <button className={`pp-tb${mode === "y" ? " on" : ""}`} onClick={() => setMode("y")}>
+              {isAr ? "سنوي" : "Yearly"}
+              <span className="pp-save-pill">{isAr ? "وفّر حتى 70٪" : "Save up to 70%"}</span>
+            </button>
+          </div>
+
+          {/* Plan Cards */}
+          <div className="pp-cards">
+            {plans.map((plan) => {
+              const displayPrice = mode === "m" ? plan.mPrice : plan.yPrice;
+              return (
+                <div key={plan.key} className={`pp-card${plan.featured ? " pp-card--feat" : ""}`}>
+                  {plan.badge && <div className="pp-card-badge">{plan.badge}</div>}
+                  <div className="pp-card-name">{plan.name}</div>
+                  <div className="pp-card-desc">{plan.desc}</div>
+                  {mode === "y" && (
+                    <div className="pp-card-orig-row">
+                      <span className="pp-card-orig">{plan.yOrig} ⃁</span>
+                      <span className="pp-card-disc">{plan.yDisc} {isAr ? "خصم" : "off"}</span>
+                    </div>
+                  )}
+                  <div className="pp-card-price">
+                    <span className="pp-card-num">{displayPrice}</span>
+                    <span className="pp-card-cur">⃁</span>
+                    <span className="pp-card-per">{isAr ? "/ شهر" : "/ mo"}</span>
+                  </div>
+                  {mode === "y" && (
+                    <div className="pp-card-annual">{isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}</div>
+                  )}
+                  <button
+                    className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
+                    onClick={plan.key === "b" ? () => openMeetingBooking() : () => setPlatformModalOpen(true)}
+                  >
+                    {plan.key === "b" ? (isAr ? "تواصل مع المبيعات" : "Contact Sales") : (isAr ? "ابدأ الآن" : "Get Started")}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Comparison */}
+      <div className="pp-compare">
+        <div className="pp-compare-inner">
+          <h2 className="pp-compare-title">{isAr ? "مقارنة الخصائص" : "Feature Comparison"}</h2>
+
+          {/* Sticky header */}
+          <div className="pp-tbl-head">
+            <div className="pp-tbl-label-col" />
+            {plans.map((plan) => (
+              <div key={plan.key} className={`pp-tbl-plan-col${plan.featured ? " pp-tbl-plan-col--feat" : ""}`}>
+                <div className="pp-tbl-plan-name">{plan.name}</div>
+                <div className="pp-tbl-plan-price">
+                  {mode === "m" ? plan.mPrice : plan.yPrice} <span style={{ fontSize: 11 }}>⃁/{isAr ? "شهر" : "mo"}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Feature groups */}
+          {FEATURE_GROUPS.map((group) => {
+            const isOpen = open[group.arTitle] !== false;
+            const title = isAr ? group.arTitle : group.enTitle;
+            return (
+              <div key={group.arTitle} className="pp-group">
+                <button
+                  className="pp-group-header"
+                  onClick={() => toggleGroup(group.arTitle)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="pp-group-title">{title}</span>
+                  <span className={`pp-group-chevron${isOpen ? " open" : ""}`}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <div className="pp-group-body">
+                    {group.features.map((feat, fi) => (
+                      <div key={fi} className={`pp-row${fi % 2 === 1 ? " pp-row--alt" : ""}`}>
+                        <div className="pp-row-label">
+                          {isAr ? feat.ar : feat.en}
+                        </div>
+                        {plans.map((plan) => (
+                          <div key={plan.key} className={`pp-row-cell${plan.featured ? " pp-row-cell--feat" : ""}`}>
+                            <CellVal val={feat[plan.key]} planKey={plan.key} />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* Footnote */}
+          <div className="pp-footnote">
+            {isAr
+              ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
+              : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
+          </div>
+        </div>
+      </div>
+
+      {/* Platform Modal placeholder — handled by Nav */}
+      {platformModalOpen && (
+        <div
+          style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,.7)", display: "flex", alignItems: "center", justifyContent: "center" }}
+          onClick={() => setPlatformModalOpen(false)}
+        >
+          <div style={{ background: "#120f28", borderRadius: 20, padding: "40px 32px", maxWidth: 360, width: "90%", textAlign: "center", border: "1px solid rgba(124,58,237,.3)" }}>
+            <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{isAr ? "اختر منصتك" : "Choose your platform"}</div>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 20 }}>
+              <a href="https://apps.salla.sa/ar/app/735036134" target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px 20px", borderRadius: 12, background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Salla</a>
+              <a href="https://web.ziadah.app" target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px 20px", borderRadius: 12, background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Zid</a>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

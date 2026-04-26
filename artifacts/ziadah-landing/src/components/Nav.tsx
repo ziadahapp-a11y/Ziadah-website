@@ -974,7 +974,7 @@ function MobileMoreDropdown({
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
             {tr.nav.analyze}
           </span>
-          <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
+          <span onClick={() => { navigateTo("/pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             {tr.nav.pricing}
           </span>
@@ -1233,7 +1233,7 @@ export default function Nav() {
             </li>
 
             <li style={navLinkLiStyle}>
-              <span onClick={() => navigateToHash("/#pricing")} style={{
+              <span onClick={() => navigateTo("/pricing")} style={{
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
@@ -1377,7 +1377,7 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
             <li style={navLinkLiStyle}>
-              <span onClick={() => navigateToHash("/#pricing")} style={{
+              <span onClick={() => navigateTo("/pricing")} style={{
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
@@ -1667,7 +1667,7 @@ export default function Nav() {
               { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
               { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
               { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
-              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },
+              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateTo("/pricing"); }, active: false },
               { key: "more", iconKey: "more" as const, label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
             ].map((item) => {
               const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);

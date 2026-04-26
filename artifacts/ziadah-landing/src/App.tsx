@@ -27,6 +27,7 @@ const Landing = lazy(() => import("@/pages/Landing"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
+const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
 const Analyze = lazy(() => import("@/pages/Analyze"));
 const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
@@ -141,6 +142,7 @@ function PublicRoutes() {
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/features" component={Features} />
+      <Route path="/pricing" component={PricingPage} />
       <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
