@@ -120,16 +120,18 @@ export default function PricingPage() {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   const isAr = lang === "ar";
-  const tr = t[lang].landing;
+  const ld = t[lang].landing;
   const dir = isAr ? "rtl" : "ltr";
 
-  const plans: { key: PlanKey; name: string; desc: string; mPrice: string | number; yPrice: string | number; yAnnual: string | number; yOrig: string; yDisc: string; badge: string | null; featured: boolean }[] = [
+  const plans: { key: PlanKey; name: string; desc: string; mPrice: string | number; yPrice: string | number; yAnnual: string | number; yOrig: string; yDisc: string; badge: string | null; featured: boolean; featIntro: string | null; features: string[] }[] = [
     {
       key: "s",
       name: isAr ? "الانطلاقة" : "Starter",
       desc: isAr ? "للمبتدئين والراغبين بالتجربة" : "For beginners",
       mPrice: 29, yPrice: 22, yAnnual: 260, yOrig: "860", yDisc: "70%",
       badge: null, featured: false,
+      featIntro: null,
+      features: ld.planStarterFeatures as string[],
     },
     {
       key: "g",
@@ -137,6 +139,8 @@ export default function PricingPage() {
       desc: isAr ? "للتجار الأفراد" : "For individual merchants",
       mPrice: 290, yPrice: 217, yAnnual: "2,600", yOrig: "3,026", yDisc: "15%",
       badge: null, featured: false,
+      featIntro: ld.planGrowthIntro as string,
+      features: ld.planGrowthFeatures as string[],
     },
     {
       key: "p",
@@ -144,6 +148,8 @@ export default function PricingPage() {
       desc: isAr ? "للشركات والمؤسسات" : "For companies",
       mPrice: 790, yPrice: 579, yAnnual: "6,948", yOrig: "8,244", yDisc: "16%",
       badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
+      featIntro: ld.planProIntro as string,
+      features: ld.planProFeatures as string[],
     },
     {
       key: "b",
@@ -151,6 +157,8 @@ export default function PricingPage() {
       desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
       mPrice: "1,990", yPrice: "1,159", yAnnual: "13,904", yOrig: "24,000", yDisc: "42%",
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
+      featIntro: ld.planBusinessIntro as string,
+      features: ld.planBusinessFeatures as string[],
     },
   ];
 
@@ -206,6 +214,22 @@ export default function PricingPage() {
                   >
                     {isAr ? "ابدأ الآن" : "Get Started"}
                   </button>
+
+                  {/* Short feature list */}
+                  <div className="pp-card-feats">
+                    {plan.featIntro && (
+                      <p className="pp-card-feat-intro">{plan.featIntro}</p>
+                    )}
+                    <ul className="pp-card-feat-list">
+                      {plan.features.map((f, i) => (
+                        <li key={i} className="pp-card-feat-item">
+                          <span className="pp-card-feat-check">✓</span>
+                          {f.replace(" ★", "")}
+                          {f.includes("★") && <span className="pp-card-feat-star">★</span>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               );
             })}

@@ -4298,6 +4298,51 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   transform: translateY(-2px);
 }
 
+/* ── Card feature list ── */
+.pp-card-feats {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  text-align: start;
+}
+.pp-card-feat-intro {
+  font-size: .78rem;
+  color: rgba(255,255,255,.45);
+  margin: 0 0 10px;
+  font-style: italic;
+}
+.pp-card-feat-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pp-card-feat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: .82rem;
+  color: rgba(255,255,255,.8);
+  line-height: 1.4;
+}
+.pp-card-feat-check {
+  flex-shrink: 0;
+  color: var(--p4);
+  font-weight: 700;
+  font-size: .85rem;
+  margin-top: 1px;
+}
+.pp-card--feat .pp-card-feat-check {
+  color: #f59e0b;
+}
+.pp-card-feat-star {
+  color: #f59e0b;
+  margin-inline-start: 4px;
+  font-size: .75rem;
+}
+
 /* ── Compare section ── */
 .pp-compare {
   padding: 16px 24px 100px;
