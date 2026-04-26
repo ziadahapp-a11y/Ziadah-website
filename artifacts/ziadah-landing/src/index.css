@@ -4200,6 +4200,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   flex-direction: column;
   gap: 0;
   position: relative;
+  overflow: visible;   /* allow badge to render above card edge */
 }
 .pp-card:hover {
   border-color: rgba(124,58,237,.38);
