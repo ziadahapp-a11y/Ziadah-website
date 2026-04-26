@@ -493,11 +493,11 @@ export default function Landing() {
   }, []);
 
   const prices = {
-    m:        { s: 29,    g: 290,    p: 790,    b: "1,990"  },
-    y:        { s: 260,   g: "2,600",p: "6,948",b: "13,904" },
-    yMonthly: { s: 22,    g: 217,    p: 579,    b: "1,159"  },
-    yOrig:    { s: "860", g: "3,026",p: "8,244",b: "24,000" },
-    yDisc:    { s: "70%", g: "15%",  p: "16%",  b: "42%"   },
+    m:         { s: 29,    g: 290,    p: 790,    b: "1,990"  },
+    y:         { s: 22,    g: 217,    p: 579,    b: "1,159"  },
+    yAnnual:   { s: 260,   g: "2,600",p: "6,948",b: "13,904" },
+    yOrig:     { s: "860", g: "3,026",p: "8,244",b: "24,000" },
+    yDisc:     { s: "70%", g: "15%",  p: "16%",  b: "42%"   },
   } as const;
 
   const pm = pricingMode;
@@ -1507,7 +1507,7 @@ export default function Landing() {
                   price: prices[pricingMode].s,
                   origPrice: pricingMode === "y" ? prices.yOrig.s : null,
                   discPct: pricingMode === "y" ? prices.yDisc.s : null,
-                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.s : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.s : null,
                   feat: false,
                   badge: null,
                   aiCredit: ld.planStarterCredits[pm],
@@ -1523,7 +1523,7 @@ export default function Landing() {
                   price: prices[pricingMode].g,
                   origPrice: pricingMode === "y" ? prices.yOrig.g : null,
                   discPct: pricingMode === "y" ? prices.yDisc.g : null,
-                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.g : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.g : null,
                   feat: false,
                   badge: null,
                   aiCredit: ld.planGrowthCredits[pm],
@@ -1542,7 +1542,7 @@ export default function Landing() {
                   price: prices[pricingMode].p,
                   origPrice: pricingMode === "y" ? prices.yOrig.p : null,
                   discPct: pricingMode === "y" ? prices.yDisc.p : null,
-                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.p : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.p : null,
                   feat: false,
                   badge: tr.landing.planProBadge,
                   aiCredit: ld.planProCredits[pm],
@@ -1558,7 +1558,7 @@ export default function Landing() {
                   price: prices[pricingMode].b,
                   origPrice: pricingMode === "y" ? prices.yOrig.b : null,
                   discPct: pricingMode === "y" ? prices.yDisc.b : null,
-                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.b : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.b : null,
                   feat: true,
                   badge: ld.planBusinessBadge,
                   aiCredit: ld.planBusinessCredits[pm],
@@ -1595,9 +1595,7 @@ export default function Landing() {
                           <span className="p-num">{p.price}</span>
                           <span className="p-cur">⃁</span>
                         </span>
-                        <span className="p-per">
-                          {pricingMode === "y" ? tr.landing.perYear : tr.landing.perMonth}
-                        </span>
+                        <span className="p-per">{tr.landing.perMonth}</span>
                       </>
                     ) : (
                       <span style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}>
