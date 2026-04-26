@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+import PlatformModal from "@/components/PlatformModal";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -113,7 +113,6 @@ function CellVal({ val, planKey }: { val: FeatureVal; planKey: PlanKey }) {
 export default function PricingPage() {
   const { lang } = useLanguage();
   const t = useSiteT();
-  const { openMeetingBooking } = useMeetingBooking();
   const [mode, setMode] = useState<"m" | "y">("y");
   const [open, setOpen] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))
@@ -203,9 +202,9 @@ export default function PricingPage() {
                   )}
                   <button
                     className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
-                    onClick={plan.key === "b" ? () => openMeetingBooking() : () => setPlatformModalOpen(true)}
+                    onClick={() => setPlatformModalOpen(true)}
                   >
-                    {plan.key === "b" ? (isAr ? "تواصل مع المبيعات" : "Contact Sales") : (isAr ? "ابدأ الآن" : "Get Started")}
+                    {isAr ? "ابدأ الآن" : "Get Started"}
                   </button>
                 </div>
               );
@@ -280,21 +279,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      {/* Platform Modal placeholder — handled by Nav */}
-      {platformModalOpen && (
-        <div
-          style={{ position: "fixed", inset: 0, zIndex: 9999, background: "rgba(0,0,0,.7)", display: "flex", alignItems: "center", justifyContent: "center" }}
-          onClick={() => setPlatformModalOpen(false)}
-        >
-          <div style={{ background: "#120f28", borderRadius: 20, padding: "40px 32px", maxWidth: 360, width: "90%", textAlign: "center", border: "1px solid rgba(124,58,237,.3)" }}>
-            <div style={{ fontSize: 22, fontWeight: 700, marginBottom: 12 }}>{isAr ? "اختر منصتك" : "Choose your platform"}</div>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", marginTop: 20 }}>
-              <a href="https://apps.salla.sa/ar/app/735036134" target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px 20px", borderRadius: 12, background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Salla</a>
-              <a href="https://web.ziadah.app" target="_blank" rel="noreferrer" style={{ flex: 1, padding: "14px 20px", borderRadius: 12, background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", color: "#fff", textDecoration: "none", fontWeight: 700 }}>Zid</a>
-            </div>
-          </div>
-        </div>
-      )}
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </div>
   );
 }
