@@ -1580,15 +1580,31 @@ export default function Landing() {
                   key={i}
                   className={`pc rv d${i + 1}${p.feat ? " feat" : ""}`}
                 >
-                  {p.badge && <div className="pc-badge">{p.badge}</div>}
+                  {/* Badge row — always reserves space for alignment */}
+                  <div className="pc-badge-row">
+                    {p.badge
+                      ? <div className="pc-badge">{p.badge}</div>
+                      : <div className="pc-badge-ph" aria-hidden />
+                    }
+                  </div>
+
+                  {/* Plan name + desc */}
                   <div className="p-name">{p.name}</div>
                   <div className="p-desc">{p.desc}</div>
-                  {p.origPrice && (
-                    <div className="p-orig-row">
-                      <span className="p-orig-price">{p.origPrice} ⃁</span>
-                      <span className="p-disc-badge">{p.discPct} خصم</span>
-                    </div>
-                  )}
+
+                  {/* Discount row — always reserves space */}
+                  <div className="p-orig-row">
+                    {p.origPrice ? (
+                      <>
+                        <span className="p-orig-price">{p.origPrice} ⃁</span>
+                        <span className="p-disc-badge">{p.discPct} خصم</span>
+                      </>
+                    ) : (
+                      <span className="p-orig-ph" aria-hidden>‎</span>
+                    )}
+                  </div>
+
+                  {/* Price */}
                   <div className="p-price">
                     {p.price != null ? (
                       <>
@@ -1604,12 +1620,18 @@ export default function Landing() {
                       </span>
                     )}
                   </div>
-                  {p.monthlyEquiv && (
-                    <div className="p-monthly-equiv">
-                      {tr.landing.monthlyEquivPrefix} {p.monthlyEquiv} {tr.landing.monthlyEquivSuffix}
-                    </div>
-                  )}
+
+                  {/* Annual billing line — always reserves space */}
+                  <div className="p-monthly-equiv">
+                    {p.monthlyEquiv
+                      ? `${tr.landing.monthlyEquivPrefix} ${p.monthlyEquiv} ${tr.landing.monthlyEquivSuffix}`
+                      : <span aria-hidden>‎</span>
+                    }
+                  </div>
+
                   <hr className="p-hr" />
+
+                  {/* AI credit box */}
                   <div className="p-ai-box" dir={dir}>
                     <div className="p-ai-box-inner">
                       <div className="p-ai-copy">
@@ -1619,18 +1641,22 @@ export default function Landing() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Feature list */}
                   <ul className="p-list">
                     {p.features.map((l, j) => (
                       <li key={`pf-${i}-${j}`}>{l}</li>
                     ))}
                   </ul>
+
+                  {/* CTA pinned to bottom */}
                   <button
-                      onClick={p.ctaAction}
-                      className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                      style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
-                    >
-                      {p.cta}
-                    </button>
+                    onClick={p.ctaAction}
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
+                  >
+                    {p.cta}
+                  </button>
                 </GlassCard>
               ))}
             </div>

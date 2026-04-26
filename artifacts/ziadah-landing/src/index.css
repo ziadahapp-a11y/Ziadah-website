@@ -1323,11 +1323,17 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   border-color:rgba(251,191,36,.55);
   box-shadow:0 0 0 1px rgba(217,119,6,.24),0 28px 64px rgba(120,53,15,.3);
 }
+/* Badge row — always present to keep cards aligned */
+.pc-badge-row{
+  min-height:32px;
+  display:flex;
+  align-items:center;
+  margin-bottom:14px;
+}
 .pc-badge{
   display:inline-flex;
   align-items:center;
   gap:5px;
-  margin-bottom:16px;
   padding:5px 16px;
   border-radius:999px;
   background:linear-gradient(135deg,rgba(124,58,237,.95),rgba(76,29,149,.9));
@@ -1339,6 +1345,17 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   letter-spacing:.08em;
   text-transform:uppercase;
   box-shadow:0 4px 18px rgba(88,28,220,.42),0 0 0 4px rgba(124,58,237,.1);
+}
+/* Invisible placeholder when no badge */
+.pc-badge-ph{
+  height:26px;
+  visibility:hidden;
+}
+/* Placeholder for orig-price row when no discount */
+.p-orig-ph{
+  display:block;
+  min-height:22px;
+  visibility:hidden;
 }
 .p-name{
   font-size:clamp(17px,2.2vw,19px);
