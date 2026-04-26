@@ -12,6 +12,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
 import { scrollToHashElement } from "@/utils/anchorScroll";
+import { navigateTo } from "@/components/PageTransition";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
@@ -1633,6 +1634,50 @@ export default function Landing() {
                 </GlassCard>
               ))}
             </div>
+
+            {/* Compare link */}
+            <div className="tc" style={{ marginTop: 36 }}>
+              <button
+                onClick={() => navigateTo("/pricing")}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(124,58,237,.1)",
+                  border: "1px solid rgba(124,58,237,.28)",
+                  borderRadius: 12,
+                  padding: "11px 28px",
+                  color: "rgba(216,180,254,.9)",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  fontFamily: "var(--font)",
+                  cursor: "pointer",
+                  transition: "all .2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124,58,237,.2)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124,58,237,.5)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124,58,237,.1)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124,58,237,.28)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(216,180,254,.9)";
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="9" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="1" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                </svg>
+                {lang === "ar" ? "مقارنة تفصيلية بين الباقات" : "Detailed plan comparison"}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: lang === "ar" ? "rotate(180deg)" : "none" }}>
+                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
           </div>
         </section>
         {/* HELP CENTER */}
