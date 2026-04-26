@@ -227,7 +227,8 @@ export default function PricingPage() {
               return (
                 <div
                   key={plan.key}
-                  className={`gc pp-card rv d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
+                  className={`gc pp-card pp-card-in d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
+                  style={{ animationDelay: `${idx * 0.08}s` }}
                 >
                   {/* Badge — absolute positioned like landing cards */}
                   {plan.badge && (
