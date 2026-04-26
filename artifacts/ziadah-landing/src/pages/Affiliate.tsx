@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PageShell from "../components/PageShell";
-import SEO from "../components/SEO";
+import BilingualSEO from "../components/BilingualSEO";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const WA_LINK =
@@ -26,8 +26,7 @@ function WaIcon({ size = 20 }: { size?: number }) {
 
 const AR = {
   seoTitle: "برنامج الشراكة والأفيليت | زيادة",
-  seoDesc:
-    "اشترك في برنامج أفيليت زيادة — عمولة 10٪ على كل اشتراك سنوي، وخصم 10٪ لعملائك.",
+  seoDesc: "اشترك في برنامج أفيليت زيادة — عمولة 10٪ على كل اشتراك سنوي، وخصم 10٪ لعملائك.",
   tag: "برنامج الشراكة",
   heroTitle: "اربح مع كل متجر تنمّيه",
   heroDesc:
@@ -40,27 +39,14 @@ const AR = {
     { val: "12 شهراً", label: "مدة احتساب العمولة" },
     { val: "فوري", label: "رابط تتبع خاص بك" },
   ],
+  howTag: "آلية العمل",
   howTitle: "كيف يعمل البرنامج؟",
   howSteps: [
-    {
-      num: "01",
-      icon: "🤝",
-      title: "سجّل كشريك",
-      desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك. سنرسل لك رابط الإحالة الخاص بك فوراً.",
-    },
-    {
-      num: "02",
-      icon: "🔗",
-      title: "شارك رابطك",
-      desc: "عملاؤك يشتركون في زيادة من خلال رابطك ويحصلون تلقائياً على خصم 10٪.",
-    },
-    {
-      num: "03",
-      icon: "💰",
-      title: "اكسب عمولتك",
-      desc: "تحصل على 10٪ من قيمة كل اشتراك سنوي طوال مدة بقاء العميل.",
-    },
+    { num: "01", icon: "🤝", title: "سجّل كشريك", desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك. سنرسل لك رابط الإحالة الخاص بك فوراً." },
+    { num: "02", icon: "🔗", title: "شارك رابطك", desc: "عملاؤك يشتركون في زيادة من خلال رابطك ويحصلون تلقائياً على خصم 10٪." },
+    { num: "03", icon: "💰", title: "اكسب عمولتك", desc: "تحصل على 10٪ من قيمة كل اشتراك سنوي طوال مدة بقاء العميل." },
   ],
+  benefitsTag: "المزايا",
   benefitsTitle: "لماذا تشارك معنا؟",
   benefits: [
     { icon: "📈", title: "عمولة تنمو معك", desc: "لا سقف للعمولة — كلما أحلت أكثر، كسبت أكثر." },
@@ -70,6 +56,7 @@ const AR = {
     { icon: "🛒", title: "تكامل مع سلة وزد", desc: "المنصتان الأكثر انتشاراً في السوق السعودي." },
     { icon: "⚡", title: "إعداد في دقيقتين", desc: "عميلك يفعّل التطبيق بنفسه بدون تدخل تقني." },
   ],
+  calcTag: "الحاسبة",
   calcTitle: "احسب أرباحك",
   calcDesc: "حرّك المقياس وشاهد عمولتك تنمو",
   calcStores: "عدد المتاجر المُحالة",
@@ -78,38 +65,22 @@ const AR = {
   calcYourComm: "عمولتك السنوية (10٪)",
   calcMonthlyComm: "عمولتك الشهرية",
   calcClientSave: "مدخرات عملائك (خصم 10٪)",
+  faqTag: "الأسئلة الشائعة",
   faqTitle: "أسئلة شائعة",
   faqs: [
-    {
-      q: "من يحق له الانضمام للبرنامج؟",
-      a: "البرنامج مفتوح للوكالات التسويقية والمستشارين الرقميين وأي شخص لديه شبكة من أصحاب المتاجر الإلكترونية.",
-    },
-    {
-      q: "متى أحصل على عمولتي؟",
-      a: "تُحتسب العمولة بعد إتمام الاشتراك وانتهاء فترة الاسترداد (7 أيام)، وتُصرف شهرياً عبر التحويل البنكي.",
-    },
-    {
-      q: "هل العمولة لمرة واحدة أم متكررة؟",
-      a: "متكررة — تحصل على 10٪ طوال مدة اشتراك العميل. وإذا جدّد، تحصل على عمولة التجديد أيضاً.",
-    },
-    {
-      q: "هل الخصم يُطبق على جميع الباقات؟",
-      a: "نعم، خصم 10٪ يُطبق على جميع الباقات السنوية عند الاشتراك عبر رابطك.",
-    },
-    {
-      q: "كيف أتابع إحالاتي وعمولاتي؟",
-      a: "نوفر لك لوحة تحكم خاصة تُظهر النقرات والتسجيلات والاشتراكات المكتملة والعمولات المستحقة.",
-    },
+    { q: "من يحق له الانضمام للبرنامج؟", a: "البرنامج مفتوح للوكالات التسويقية والمستشارين الرقميين وأي شخص لديه شبكة من أصحاب المتاجر الإلكترونية." },
+    { q: "متى أحصل على عمولتي؟", a: "تُحتسب العمولة بعد إتمام الاشتراك وانتهاء فترة الاسترداد (7 أيام)، وتُصرف شهرياً عبر التحويل البنكي." },
+    { q: "هل العمولة لمرة واحدة أم متكررة؟", a: "متكررة — تحصل على 10٪ طوال مدة اشتراك العميل. وإذا جدّد، تحصل على عمولة التجديد أيضاً." },
+    { q: "هل الخصم يُطبق على جميع الباقات؟", a: "نعم، خصم 10٪ يُطبق على جميع الباقات السنوية عند الاشتراك عبر رابطك." },
+    { q: "كيف أتابع إحالاتي وعمولاتي؟", a: "نوفر لك لوحة تحكم خاصة تُظهر النقرات والتسجيلات والاشتراكات المكتملة والعمولات المستحقة." },
   ],
   finalTitle: "مستعد تبدأ؟",
-  finalDesc:
-    "تواصل معنا الآن عبر واتساب ونساعدك تنطلق كشريك معتمد في أقل من 24 ساعة.",
+  finalDesc: "تواصل معنا الآن عبر واتساب ونساعدك تنطلق كشريك معتمد في أقل من 24 ساعة.",
 };
 
 const EN = {
   seoTitle: "Affiliate & Partner Program | Ziadah",
-  seoDesc:
-    "Join Ziadah's affiliate program — earn 10% commission on every annual subscription, and give your clients a 10% discount.",
+  seoDesc: "Join Ziadah's affiliate program — earn 10% commission on every annual subscription, and give your clients a 10% discount.",
   tag: "Partner Program",
   heroTitle: "Earn with every store you grow",
   heroDesc:
@@ -122,27 +93,14 @@ const EN = {
     { val: "12 months", label: "Commission duration" },
     { val: "Instant", label: "Your unique tracking link" },
   ],
+  howTag: "How it works",
   howTitle: "How it works",
   howSteps: [
-    {
-      num: "01",
-      icon: "🤝",
-      title: "Register as a partner",
-      desc: "Reach out via WhatsApp. We'll send your personal referral link right away.",
-    },
-    {
-      num: "02",
-      icon: "🔗",
-      title: "Share your link",
-      desc: "Clients subscribe through your link and automatically get a 10% discount.",
-    },
-    {
-      num: "03",
-      icon: "💰",
-      title: "Earn monthly",
-      desc: "You receive 10% of every annual subscription for as long as the client stays.",
-    },
+    { num: "01", icon: "🤝", title: "Register as a partner", desc: "Reach out via WhatsApp. We'll send your personal referral link right away." },
+    { num: "02", icon: "🔗", title: "Share your link", desc: "Clients subscribe through your link and automatically get a 10% discount." },
+    { num: "03", icon: "💰", title: "Earn monthly", desc: "You receive 10% of every annual subscription for as long as the client stays." },
   ],
+  benefitsTag: "Benefits",
   benefitsTitle: "Why partner with us?",
   benefits: [
     { icon: "📈", title: "Unlimited earnings", desc: "No commission cap — the more you refer, the more you earn." },
@@ -152,6 +110,7 @@ const EN = {
     { icon: "🛒", title: "Salla & Zid integration", desc: "The two most popular e-commerce platforms in Saudi Arabia." },
     { icon: "⚡", title: "2-minute setup", desc: "Clients activate the app themselves — no technical help needed." },
   ],
+  calcTag: "Calculator",
   calcTitle: "Calculate your earnings",
   calcDesc: "Move the slider and watch your commission grow",
   calcStores: "Referred stores",
@@ -160,32 +119,17 @@ const EN = {
   calcYourComm: "Your annual commission (10%)",
   calcMonthlyComm: "Your monthly commission",
   calcClientSave: "Client savings (10% discount)",
+  faqTag: "FAQ",
   faqTitle: "Frequently asked questions",
   faqs: [
-    {
-      q: "Who can join the program?",
-      a: "Marketing agencies, digital consultants, and anyone with a network of online store owners.",
-    },
-    {
-      q: "When do I get paid?",
-      a: "After the 7-day refund period ends, commissions are paid monthly via bank transfer.",
-    },
-    {
-      q: "Is the commission one-time or recurring?",
-      a: "Recurring — you earn 10% for the full duration of the client's subscription and on renewals.",
-    },
-    {
-      q: "Does the discount apply to all plans?",
-      a: "Yes, the 10% discount applies to all annual plans when clients subscribe through your link.",
-    },
-    {
-      q: "How do I track my referrals?",
-      a: "We provide a dashboard showing clicks, registrations, completed subscriptions, and commissions.",
-    },
+    { q: "Who can join the program?", a: "Marketing agencies, digital consultants, and anyone with a network of online store owners." },
+    { q: "When do I get paid?", a: "After the 7-day refund period ends, commissions are paid monthly via bank transfer." },
+    { q: "Is the commission one-time or recurring?", a: "Recurring — you earn 10% for the full duration of the client's subscription and on renewals." },
+    { q: "Does the discount apply to all plans?", a: "Yes, the 10% discount applies to all annual plans when clients subscribe through your link." },
+    { q: "How do I track my referrals?", a: "We provide a dashboard showing clicks, registrations, completed subscriptions, and commissions." },
   ],
   finalTitle: "Ready to get started?",
-  finalDesc:
-    "Reach out via WhatsApp now and we'll help you launch as a certified partner in less than 24 hours.",
+  finalDesc: "Reach out via WhatsApp now and we'll help you launch as a certified partner in less than 24 hours.",
 };
 
 function fmt(n: number, isAr: boolean) {
@@ -210,22 +154,29 @@ export default function Affiliate() {
 
   return (
     <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-      <SEO
+      <BilingualSEO
         titleAr={AR.seoTitle}
         titleEn={EN.seoTitle}
         descriptionAr={AR.seoDesc}
         descriptionEn={EN.seoDesc}
+        canonical="/affiliate"
       />
 
       <div className="aff-root" dir={dir}>
 
         {/* ══════════ HERO ══════════ */}
         <section className="aff-hero">
-          <div className="aff-glow aff-glow--hero" />
-          <div className="aff-wrap">
-            <div className="aff-tag">{c.tag}</div>
+          <div className="aff-hero-glow" aria-hidden />
+          <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+
+            {/* Section tag — design system */}
+            <div className="stag" style={{ margin: "0 auto 24px" }}>
+              <span className="stag-dot" />
+              {c.tag}
+            </div>
+
             <h1 className="aff-hero-title">{c.heroTitle}</h1>
-            <p className="aff-hero-desc">{c.heroDesc}</p>
+            <p className="ssub" style={{ margin: "0 auto 36px", textAlign: "center" }}>{c.heroDesc}</p>
 
             <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn">
               <WaIcon size={22} />
@@ -233,10 +184,10 @@ export default function Affiliate() {
             </a>
             <p className="aff-cta-sub">{c.ctaSub}</p>
 
-            {/* Stats row */}
+            {/* Stats row — glass cards */}
             <div className="aff-stats">
               {c.stats.map((s, i) => (
-                <div key={i} className="aff-stat">
+                <div key={i} className="gc aff-stat rv" style={{ animationDelay: `${i * 0.1}s` }}>
                   <div className="aff-stat-val">{s.val}</div>
                   <div className="aff-stat-label">{s.label}</div>
                 </div>
@@ -246,14 +197,18 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ HOW IT WORKS ══════════ */}
-        <section className="aff-section">
-          <div className="aff-wrap">
-            <div className="aff-sh">
-              <span className="aff-sh-tag">{c.howTitle}</span>
+        <section>
+          <div className="wrap">
+            <div className="aff-sec-head">
+              <div className="stag" style={{ margin: "0 auto 16px" }}>
+                <span className="stag-dot" />
+                {c.howTag}
+              </div>
+              <h2 className="st" style={{ textAlign: "center" }}>{c.howTitle}</h2>
             </div>
             <div className="aff-steps">
               {c.howSteps.map((step, i) => (
-                <div key={i} className="aff-step">
+                <div key={i} className={`gc aff-step rv d${i + 1}`}>
                   <div className="aff-step-num">{step.num}</div>
                   <div className="aff-step-icon">{step.icon}</div>
                   <div className="aff-step-title">{step.title}</div>
@@ -268,14 +223,18 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ BENEFITS ══════════ */}
-        <section className="aff-section aff-section--dark">
-          <div className="aff-wrap">
-            <div className="aff-sh">
-              <span className="aff-sh-tag">{c.benefitsTitle}</span>
+        <section style={{ background: "rgba(124,58,237,.04)" }}>
+          <div className="wrap">
+            <div className="aff-sec-head">
+              <div className="stag" style={{ margin: "0 auto 16px" }}>
+                <span className="stag-dot" />
+                {c.benefitsTag}
+              </div>
+              <h2 className="st" style={{ textAlign: "center" }}>{c.benefitsTitle}</h2>
             </div>
             <div className="aff-benefits">
               {c.benefits.map((b, i) => (
-                <div key={i} className="aff-benefit">
+                <div key={i} className={`gc aff-benefit rv d${(i % 3) + 1}`}>
                   <div className="aff-benefit-icon">{b.icon}</div>
                   <div className="aff-benefit-title">{b.title}</div>
                   <div className="aff-benefit-desc">{b.desc}</div>
@@ -286,21 +245,27 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ CALCULATOR ══════════ */}
-        <section className="aff-section">
-          <div className="aff-wrap">
-            <div className="aff-sh">
-              <span className="aff-sh-tag">{c.calcTitle}</span>
-              <p className="aff-sh-sub">{c.calcDesc}</p>
+        <section>
+          <div className="wrap">
+            <div className="aff-sec-head">
+              <div className="stag" style={{ margin: "0 auto 16px" }}>
+                <span className="stag-dot" />
+                {c.calcTag}
+              </div>
+              <h2 className="st" style={{ textAlign: "center" }}>{c.calcTitle}</h2>
+              <p className="ssub" style={{ textAlign: "center", margin: "0 auto 40px" }}>{c.calcDesc}</p>
             </div>
 
-            <div className="aff-calc">
+            <div className="gc aff-calc">
               {/* Controls */}
               <div className="aff-calc-controls">
                 {/* Stores slider */}
                 <div className="aff-calc-field">
                   <label className="aff-calc-label">
                     {c.calcStores}
-                    <span className="aff-calc-badge">{isAr ? fmt(stores, true) + " متجر" : stores + " stores"}</span>
+                    <span className="aff-calc-badge">
+                      {isAr ? fmt(stores, true) + " متجر" : stores + " stores"}
+                    </span>
                   </label>
                   <input
                     type="range"
@@ -368,16 +333,20 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ FAQ ══════════ */}
-        <section className="aff-section aff-section--dark">
-          <div className="aff-wrap aff-wrap--narrow">
-            <div className="aff-sh">
-              <span className="aff-sh-tag">{c.faqTitle}</span>
+        <section style={{ background: "rgba(124,58,237,.04)" }}>
+          <div className="wrap" style={{ maxWidth: 780 }}>
+            <div className="aff-sec-head">
+              <div className="stag" style={{ margin: "0 auto 16px" }}>
+                <span className="stag-dot" />
+                {c.faqTag}
+              </div>
+              <h2 className="st" style={{ textAlign: "center" }}>{c.faqTitle}</h2>
             </div>
             <div className="aff-faqs">
               {c.faqs.map((faq, i) => (
                 <div
                   key={i}
-                  className={`aff-faq${openFaq === i ? " aff-faq--open" : ""}`}
+                  className={`gc aff-faq${openFaq === i ? " aff-faq--open" : ""}`}
                 >
                   <button
                     className="aff-faq-q"
@@ -413,10 +382,10 @@ export default function Affiliate() {
 
         {/* ══════════ FINAL CTA ══════════ */}
         <section className="aff-final">
-          <div className="aff-glow aff-glow--final" />
-          <div className="aff-wrap aff-final-inner">
-            <h2 className="aff-final-title">{c.finalTitle}</h2>
-            <p className="aff-final-desc">{c.finalDesc}</p>
+          <div className="aff-final-glow" aria-hidden />
+          <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+            <h2 className="st" style={{ textAlign: "center", marginBottom: 16 }}>{c.finalTitle}</h2>
+            <p className="ssub" style={{ textAlign: "center", margin: "0 auto 32px" }}>{c.finalDesc}</p>
             <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn aff-wa-btn--lg">
               <WaIcon size={24} />
               {c.ctaMain}

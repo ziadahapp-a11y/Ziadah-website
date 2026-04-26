@@ -4108,10 +4108,9 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   font-family: var(--font);
 }
 
-/* ── Hero ── */
+/* ── Hero — uses design-system `section` layout ── */
 .pp-hero {
   position: relative;
-  padding: clamp(90px, 11vh, 130px) 24px 72px;
   overflow: hidden;
   text-align: center;
 }
@@ -4126,42 +4125,15 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   background: radial-gradient(ellipse at center, rgba(124,58,237,.18) 0%, transparent 68%);
   pointer-events: none;
 }
-.pp-hero-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
 
-.pp-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--p4);
-  text-transform: uppercase;
-  letter-spacing: 1.6px;
-  background: rgba(124,58,237,.13);
-  border: 1px solid rgba(124,58,237,.26);
-  padding: 5px 16px;
-  border-radius: 999px;
-  margin-bottom: 22px;
-}
-
+/* Title — keep large for hero context */
 .pp-title {
   font-size: clamp(30px, 5vw, 52px);
   font-weight: 900;
-  color: #fff;
+  color: var(--t);
   margin: 0 0 14px;
   letter-spacing: -0.03em;
   line-height: 1.12;
-}
-
-.pp-sub {
-  font-size: clamp(14px, 1.8vw, 17px);
-  color: rgba(255,255,255,.5);
-  margin: 0 auto 38px;
-  max-width: 520px;
-  line-height: 1.65;
 }
 
 /* ── Toggle ── */
@@ -4209,26 +4181,22 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .pp-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: var(--card-gap);
   text-align: start;
 }
 
+/* .gc handles bg/border/blur/radius; pp-card adds layout + spacing */
 .pp-card {
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 22px;
-  padding: 28px 22px 24px;
+  padding: var(--card-pad-md);
   display: flex;
   flex-direction: column;
   gap: 7px;
   position: relative;
-  transition: transform .24s, box-shadow .24s, border-color .24s;
 }
 .pp-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 50px rgba(0,0,0,.35);
-  border-color: rgba(124,58,237,.25);
+  border-color: rgba(124,58,237,.38);
 }
+/* Business featured card — gold overrides on top of .gc */
 .pp-card--feat {
   background: linear-gradient(160deg, rgba(217,119,6,.1) 0%, rgba(120,53,15,.12) 50%, rgba(91,33,182,.1) 100%);
   border-color: rgba(217,119,6,.38);
@@ -4411,21 +4379,10 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   font-size: .75rem;
 }
 
-/* ── Compare section ── */
+/* ── Compare section — uses design-system `section` + `.wrap` ── */
 .pp-compare {
-  padding: 16px 24px 100px;
-}
-.pp-compare-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-}
-.pp-compare-title {
-  font-size: clamp(20px, 2.8vw, 28px);
-  font-weight: 900;
-  color: #fff;
-  margin: 0 0 28px;
-  text-align: center;
-  letter-spacing: -0.02em;
+  padding-block: 0;
+  padding-bottom: 80px;
 }
 
 /* Sticky header */
@@ -4593,115 +4550,97 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 
 /* ===== AFFILIATE PAGE ===== */
 .aff-root { min-height: 100vh; }
-.aff-wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-.aff-wrap--narrow { max-width: 780px; }
 
 /* Glow blobs */
-.aff-glow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(100px); z-index: 0; }
-.aff-glow--hero { top: -120px; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse, rgba(124,58,237,.22) 0%, rgba(124,58,237,.06) 50%, transparent 75%); }
-.aff-glow--final { bottom: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(124,58,237,.18) 0%, transparent 70%); }
+.aff-hero-glow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(110px); z-index: 0; top: -120px; left: 50%; transform: translateX(-50%); width: 800px; height: 500px; background: radial-gradient(ellipse, rgba(124,58,237,.22) 0%, rgba(124,58,237,.06) 50%, transparent 75%); }
+.aff-final-glow { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(100px); z-index: 0; bottom: -80px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(124,58,237,.18) 0%, transparent 70%); }
 
-/* ── Hero ── */
-.aff-hero { position: relative; padding: clamp(100px,13vh,150px) 24px 90px; text-align: center; overflow: hidden; }
-.aff-hero .aff-wrap { position: relative; z-index: 1; }
-.aff-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--p4); text-transform: uppercase; letter-spacing: 2px; background: rgba(124,58,237,.12); border: 1px solid rgba(124,58,237,.3); padding: 6px 20px; border-radius: 999px; margin-bottom: 28px; }
-.aff-hero-title { font-size: clamp(34px,5.5vw,62px); font-weight: 900; color: #fff; margin: 0 0 20px; letter-spacing: -0.04em; line-height: 1.08; }
-.aff-hero-desc { font-size: clamp(14px,1.8vw,17px); color: rgba(255,255,255,.52); max-width: 660px; margin: 0 auto 40px; line-height: 1.8; }
+/* ── Hero — uses design-system `section` layout ── */
+.aff-hero { position: relative; overflow: hidden; text-align: center; }
+.aff-hero-title { font-size: clamp(34px,5.5vw,62px); font-weight: 900; color: var(--t); margin: 0 0 20px; letter-spacing: -0.04em; line-height: 1.08; }
 
-/* WA button */
-.aff-wa-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #25d366; color: #fff; font-family: var(--font); font-size: 15.5px; font-weight: 800; padding: 15px 34px; border-radius: 14px; text-decoration: none; box-shadow: 0 6px 28px rgba(37,211,102,.38); transition: all .22s; letter-spacing: .02em; }
+/* WA button — WhatsApp green CTA */
+.aff-wa-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #25d366; color: #fff; font-family: var(--font); font-size: 15.5px; font-weight: 800; padding: 15px 34px; border-radius: var(--r12); text-decoration: none; box-shadow: 0 6px 28px rgba(37,211,102,.38); transition: all .22s; letter-spacing: .02em; }
 .aff-wa-btn:hover { background: #1fba5a; box-shadow: 0 10px 40px rgba(37,211,102,.55); transform: translateY(-2px); }
 .aff-wa-btn--lg { font-size: 17px; padding: 17px 42px; border-radius: 16px; }
-.aff-cta-sub { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 14px; letter-spacing: .02em; }
+.aff-cta-sub { font-size: 12px; color: var(--tm); margin-top: 14px; letter-spacing: .02em; }
 
-/* Stats */
-.aff-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 64px; text-align: start; }
-.aff-stat { background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.09); border-radius: 18px; padding: 24px 22px; transition: border-color .22s, transform .22s, box-shadow .22s; }
-.aff-stat:hover { border-color: rgba(124,58,237,.35); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.15); }
+/* ── Section heading helper ── */
+.aff-sec-head { text-align: center; margin-bottom: 52px; }
+
+/* Stats — .gc provides glass; add padding + specific styles */
+.aff-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--card-gap); margin-top: 64px; text-align: start; }
+.aff-stat { padding: var(--card-pad-md); }
 .aff-stat-val { font-size: clamp(28px,3.5vw,38px); font-weight: 900; color: var(--p4); letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1; }
-.aff-stat-label { font-size: 13px; color: rgba(255,255,255,.48); line-height: 1.55; }
+.aff-stat-label { font-size: 13px; color: var(--tm); line-height: 1.55; }
 
-/* ── Section layout ── */
-.aff-section { padding: 90px 0; }
-.aff-section--dark { background: rgba(255,255,255,.022); border-top: 1px solid rgba(255,255,255,.065); border-bottom: 1px solid rgba(255,255,255,.065); }
-
-/* Section heading */
-.aff-sh { text-align: center; margin-bottom: 52px; }
-.aff-sh-tag { display: inline-block; font-size: clamp(22px,3vw,32px); font-weight: 900; color: #fff; letter-spacing: -0.03em; }
-.aff-sh-sub { font-size: 15px; color: rgba(255,255,255,.45); margin-top: 10px; }
-
-/* ── Steps ── */
-.aff-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; position: relative; }
-.aff-step { position: relative; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.09); border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; transition: border-color .22s, transform .22s, box-shadow .22s; }
-.aff-step:hover { border-color: rgba(124,58,237,.35); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.18); }
+/* ── Steps — .gc provides glass; add layout ── */
+.aff-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--card-gap); position: relative; }
+.aff-step { padding: var(--card-pad-lg); display: flex; flex-direction: column; gap: 14px; }
 .aff-step-num { font-size: 11px; font-weight: 800; color: var(--p4); background: rgba(124,58,237,.14); border: 1px solid rgba(124,58,237,.28); padding: 4px 10px; border-radius: 8px; align-self: flex-start; letter-spacing: .08em; }
 .aff-step-icon { font-size: 32px; line-height: 1; }
-.aff-step-title { font-size: 16px; font-weight: 800; color: #fff; }
-.aff-step-desc { font-size: 13.5px; color: rgba(255,255,255,.52); line-height: 1.7; }
+.aff-step-title { font-size: 16px; font-weight: 800; color: var(--t); }
+.aff-step-desc { font-size: 13.5px; color: var(--tm); line-height: 1.7; }
 .aff-step-connector { display: none; }
 
-/* ── Benefits ── */
-.aff-benefits { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-.aff-benefit { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 26px 22px; display: flex; flex-direction: column; gap: 12px; transition: border-color .22s, transform .22s, box-shadow .22s; }
-.aff-benefit:hover { border-color: rgba(124,58,237,.3); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.14); }
+/* ── Benefits — .gc provides glass; add layout ── */
+.aff-benefits { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--card-gap); }
+.aff-benefit { padding: var(--card-pad-md); display: flex; flex-direction: column; gap: 12px; }
 .aff-benefit-icon { font-size: 28px; line-height: 1; }
-.aff-benefit-title { font-size: 15px; font-weight: 800; color: #fff; }
-.aff-benefit-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.7; }
+.aff-benefit-title { font-size: 15px; font-weight: 800; color: var(--t); }
+.aff-benefit-desc { font-size: 13px; color: var(--tm); line-height: 1.7; }
 
-/* ── Calculator ── */
-.aff-calc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.09); border-radius: 24px; overflow: hidden; }
-.aff-calc-controls { padding: 36px 36px; display: flex; flex-direction: column; gap: 32px; border-inline-end: 1px solid rgba(255,255,255,.07); }
-.aff-calc-results { padding: 36px 36px; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
+/* ── Calculator — .gc provides glass; grid layout ── */
+.aff-calc { display: grid; grid-template-columns: 1fr 1fr; gap: 0; overflow: hidden; padding: 0; }
+.aff-calc-controls { padding: 36px; display: flex; flex-direction: column; gap: 32px; border-inline-end: 1px solid var(--b1); }
+.aff-calc-results { padding: 36px; display: flex; flex-direction: column; gap: 20px; justify-content: center; }
 .aff-calc-field { display: flex; flex-direction: column; gap: 14px; }
-.aff-calc-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.7); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.aff-calc-label { font-size: 13px; font-weight: 700; color: var(--tm); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .aff-calc-badge { background: rgba(124,58,237,.18); border: 1px solid rgba(124,58,237,.3); color: var(--p4); font-size: 13px; font-weight: 800; padding: 3px 12px; border-radius: 999px; white-space: nowrap; }
 
 /* Slider */
-.aff-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px; background: rgba(255,255,255,.1); outline: none; cursor: pointer; }
+.aff-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 999px; background: var(--s2); outline: none; cursor: pointer; }
 .aff-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--p4); border: 3px solid rgba(255,255,255,.12); box-shadow: 0 0 0 4px rgba(124,58,237,.25), 0 4px 12px rgba(0,0,0,.3); cursor: pointer; transition: transform .15s; }
 .aff-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
 .aff-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--p4); border: 3px solid rgba(255,255,255,.12); cursor: pointer; }
-.aff-slider-labels { display: flex; justify-content: space-between; font-size: 11.5px; color: rgba(255,255,255,.3); }
+.aff-slider-labels { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--tm); }
 
 /* Plan tabs */
 .aff-plan-tabs { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
-.aff-plan-tab { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 12px; padding: 10px 12px; font-family: var(--font); font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,.55); cursor: pointer; transition: all .18s; display: flex; flex-direction: column; gap: 3px; align-items: flex-start; text-align: start; }
-.aff-plan-tab:hover { border-color: rgba(124,58,237,.3); color: rgba(255,255,255,.85); }
+.aff-plan-tab { background: var(--s1); border: 1px solid var(--b1); border-radius: var(--r12); padding: 10px 12px; font-family: var(--font); font-size: 12.5px; font-weight: 700; color: var(--tm); cursor: pointer; transition: all .18s; display: flex; flex-direction: column; gap: 3px; align-items: flex-start; text-align: start; }
+.aff-plan-tab:hover { border-color: rgba(124,58,237,.3); color: var(--t); }
 .aff-plan-tab--on { background: rgba(124,58,237,.18); border-color: rgba(124,58,237,.5); color: #fff; }
-.aff-plan-tab-price { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.38); }
-.aff-plan-tab--on .aff-plan-tab-price { color: rgba(124,58,237,.85); }
+.aff-plan-tab-price { font-size: 11px; font-weight: 600; color: var(--tm); }
+.aff-plan-tab--on .aff-plan-tab-price { color: var(--p4); }
 
-/* Calc result cards */
-.aff-calc-res { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+/* Calc result rows */
+.aff-calc-res { background: var(--s1); border: 1px solid var(--b1); border-radius: var(--r12); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .aff-calc-res--main { background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(124,58,237,.08)); border-color: rgba(124,58,237,.4); }
 .aff-calc-res--client { border-color: rgba(37,211,102,.2); background: rgba(37,211,102,.05); }
-.aff-calc-res-label { font-size: 11.5px; color: rgba(255,255,255,.45); font-weight: 600; letter-spacing: .03em; }
+.aff-calc-res-label { font-size: 11.5px; color: var(--tm); font-weight: 600; letter-spacing: .03em; }
 .aff-calc-res-val { font-size: 26px; font-weight: 900; color: var(--p4); letter-spacing: -0.03em; line-height: 1.1; }
 .aff-calc-res--main .aff-calc-res-val { font-size: 32px; }
 .aff-calc-res-val--sm { font-size: 20px; }
 .aff-calc-res--client .aff-calc-res-val { color: #4ade80; }
 
-/* ── FAQ ── */
+/* ── FAQ — .gc provides glass; add layout ── */
 .aff-faqs { display: flex; flex-direction: column; gap: 10px; }
-.aff-faq { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.09); border-radius: 16px; overflow: hidden; transition: border-color .2s; }
-.aff-faq--open { border-color: rgba(124,58,237,.35); }
-.aff-faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; cursor: pointer; font-family: var(--font); font-size: 14.5px; font-weight: 700; color: rgba(255,255,255,.9); background: transparent; border: none; text-align: start; user-select: none; transition: background .15s; }
+.aff-faq { padding: 0; }
+.aff-faq--open { border-color: rgba(124,58,237,.35) !important; }
+.aff-faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; cursor: pointer; font-family: var(--font); font-size: 14.5px; font-weight: 700; color: var(--t); background: transparent; border: none; text-align: start; user-select: none; transition: background .15s; }
 .aff-faq-q:hover { background: rgba(124,58,237,.06); }
-.aff-faq-chevron { color: rgba(255,255,255,.35); flex-shrink: 0; transition: transform .22s, color .2s; }
+.aff-faq-chevron { color: var(--tm); flex-shrink: 0; transition: transform .22s, color .2s; }
 .aff-faq--open .aff-faq-chevron { transform: rotate(180deg); color: var(--p4); }
-.aff-faq-a { padding: 0 22px 20px; font-size: 13.5px; color: rgba(255,255,255,.56); line-height: 1.75; border-top: 1px solid rgba(255,255,255,.07); padding-top: 16px; }
+.aff-faq-a { padding: 16px 22px 20px; font-size: 13.5px; color: var(--tm); line-height: 1.75; border-top: 1px solid var(--b1); }
 
-/* ── Final CTA ── */
-.aff-final { position: relative; padding: 110px 24px; text-align: center; overflow: hidden; }
-.aff-final-inner { position: relative; z-index: 1; }
-.aff-final-title { font-size: clamp(28px,4.5vw,46px); font-weight: 900; color: #fff; margin: 0 0 18px; letter-spacing: -0.03em; }
-.aff-final-desc { font-size: clamp(14px,1.7vw,16.5px); color: rgba(255,255,255,.5); max-width: 520px; margin: 0 auto 40px; line-height: 1.75; }
+/* ── Final CTA — uses design-system `section` layout ── */
+.aff-final { position: relative; overflow: hidden; }
 
 /* ── Responsive ── */
 @media (max-width: 960px) {
   .aff-stats { grid-template-columns: repeat(2,1fr); }
   .aff-calc { grid-template-columns: 1fr; }
-  .aff-calc-controls { border-inline-end: none; border-bottom: 1px solid rgba(255,255,255,.07); }
+  .aff-calc-controls { border-inline-end: none; border-bottom: 1px solid var(--b1); }
   .aff-benefits { grid-template-columns: repeat(2,1fr); }
 }
 @media (max-width: 680px) {

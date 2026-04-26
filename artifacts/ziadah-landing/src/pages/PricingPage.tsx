@@ -123,7 +123,20 @@ export default function PricingPage() {
   const ld = t[lang].landing;
   const dir = isAr ? "rtl" : "ltr";
 
-  const plans: { key: PlanKey; name: string; desc: string; mPrice: string | number; yPrice: string | number; yAnnual: string | number; yOrig: string; yDisc: string; badge: string | null; featured: boolean; featIntro: string | null; features: string[] }[] = [
+  const plans: {
+    key: PlanKey;
+    name: string;
+    desc: string;
+    mPrice: string | number;
+    yPrice: string | number;
+    yAnnual: string | number;
+    yOrig: string;
+    yDisc: string;
+    badge: string | null;
+    featured: boolean;
+    featIntro: string | null;
+    features: string[];
+  }[] = [
     {
       key: "s",
       name: isAr ? "الانطلاقة" : "Starter",
@@ -167,12 +180,25 @@ export default function PricingPage() {
 
   return (
     <div className="pp-root" dir={dir}>
-      {/* Hero */}
-      <div className="pp-hero">
-        <div className="pp-hero-inner">
-          <div className="pp-tag">{isAr ? "الأسعار" : "Pricing"}</div>
-          <h1 className="pp-title">{isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}</h1>
-          <p className="pp-sub">{isAr ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة" : "Unlimited suggestions & sales in all plans · VAT included"}</p>
+
+      {/* ── Hero ── */}
+      <section className="pp-hero">
+        <div className="wrap" style={{ textAlign: "center" }}>
+
+          {/* Section tag — uses design system .stag */}
+          <div className="stag" style={{ margin: "0 auto 22px" }}>
+            <span className="stag-dot" />
+            {isAr ? "الأسعار" : "Pricing"}
+          </div>
+
+          <h1 className="pp-title">
+            {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
+          </h1>
+          <p className="ssub" style={{ margin: "0 auto 40px", textAlign: "center" }}>
+            {isAr
+              ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
+              : "Unlimited suggestions & sales in all plans · VAT included"}
+          </p>
 
           {/* Toggle */}
           <div className="pp-toggle">
@@ -187,27 +213,43 @@ export default function PricingPage() {
 
           {/* Plan Cards */}
           <div className="pp-cards">
-            {plans.map((plan) => {
+            {plans.map((plan, idx) => {
               const displayPrice = mode === "m" ? plan.mPrice : plan.yPrice;
               return (
-                <div key={plan.key} className={`pp-card${plan.featured ? " pp-card--feat" : ""}`}>
-                  {plan.badge && <div className="pp-card-badge">{plan.badge}</div>}
+                <div
+                  key={plan.key}
+                  className={`gc pp-card rv d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
+                >
+                  {/* Badge — absolute positioned like landing cards */}
+                  {plan.badge && (
+                    <div className="pp-card-badge">{plan.badge}</div>
+                  )}
+
                   <div className="pp-card-name">{plan.name}</div>
                   <div className="pp-card-desc">{plan.desc}</div>
+
+                  {/* Discount row */}
                   {mode === "y" && (
                     <div className="pp-card-orig-row">
                       <span className="pp-card-orig">{plan.yOrig} ⃁</span>
                       <span className="pp-card-disc">{plan.yDisc} {isAr ? "خصم" : "off"}</span>
                     </div>
                   )}
+
+                  {/* Price */}
                   <div className="pp-card-price">
                     <span className="pp-card-num">{displayPrice}</span>
                     <span className="pp-card-cur">⃁</span>
                     <span className="pp-card-per">{isAr ? "/ شهر" : "/ mo"}</span>
                   </div>
+
                   {mode === "y" && (
-                    <div className="pp-card-annual">{isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}</div>
+                    <div className="pp-card-annual">
+                      {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
+                    </div>
                   )}
+
+                  {/* CTA — uses design system button base */}
                   <button
                     className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
                     onClick={() => setPlatformModalOpen(true)}
@@ -215,7 +257,7 @@ export default function PricingPage() {
                     {isAr ? "ابدأ الآن" : "Get Started"}
                   </button>
 
-                  {/* Short feature list */}
+                  {/* Feature list */}
                   <div className="pp-card-feats">
                     {plan.featIntro && (
                       <p className="pp-card-feat-intro">{plan.featIntro}</p>
@@ -235,12 +277,20 @@ export default function PricingPage() {
             })}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Feature Comparison */}
-      <div className="pp-compare">
-        <div className="pp-compare-inner">
-          <h2 className="pp-compare-title">{isAr ? "مقارنة الخصائص" : "Feature Comparison"}</h2>
+      {/* ── Feature Comparison ── */}
+      <section className="pp-compare">
+        <div className="wrap">
+
+          {/* Section heading — design system h2.st */}
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <div className="stag" style={{ margin: "0 auto 16px" }}>
+              <span className="stag-dot" />
+              {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
+            </div>
+            <h2 className="st">{isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}</h2>
+          </div>
 
           {/* Sticky header */}
           <div className="pp-tbl-head">
@@ -249,7 +299,8 @@ export default function PricingPage() {
               <div key={plan.key} className={`pp-tbl-plan-col${plan.featured ? " pp-tbl-plan-col--feat" : ""}`}>
                 <div className="pp-tbl-plan-name">{plan.name}</div>
                 <div className="pp-tbl-plan-price">
-                  {mode === "m" ? plan.mPrice : plan.yPrice} <span style={{ fontSize: 11 }}>⃁/{isAr ? "شهر" : "mo"}</span>
+                  {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
+                  <span style={{ fontSize: 11 }}>⃁/{isAr ? "شهر" : "mo"}</span>
                 </div>
               </div>
             ))}
@@ -295,13 +346,13 @@ export default function PricingPage() {
           })}
 
           {/* Footnote */}
-          <div className="pp-footnote">
+          <p className="pp-footnote">
             {isAr
               ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
               : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
-          </div>
+          </p>
         </div>
-      </div>
+      </section>
 
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </div>
