@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import PlatformModal from "@/components/PlatformModal";
@@ -118,6 +118,15 @@ export default function PricingPage() {
     Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))
   );
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("on")),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll(".pp-root .rv").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   const isAr = lang === "ar";
   const ld = t[lang].landing;

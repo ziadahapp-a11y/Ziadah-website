@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PageShell from "../components/PageShell";
 import BilingualSEO from "../components/BilingualSEO";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -145,6 +145,15 @@ export default function Affiliate() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [stores, setStores] = useState(5);
   const [planIdx, setPlanIdx] = useState(1);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("on")),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll(".aff-root .rv").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
 
   const plan = PLANS[planIdx];
   const totalAnnual = stores * plan.annual;
