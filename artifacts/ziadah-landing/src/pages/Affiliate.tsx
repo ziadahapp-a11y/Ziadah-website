@@ -1,216 +1,212 @@
+import { useState } from "react";
 import PageShell from "../components/PageShell";
 import SEO from "../components/SEO";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const WA_LINK = "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
+const WA_LINK =
+  "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
+
+const PLANS = [
+  { keyAr: "الانطلاقة", keyEn: "Starter", annual: 260 },
+  { keyAr: "النمو", keyEn: "Growth", annual: 2600 },
+  { keyAr: "الاحترافية", keyEn: "Professional", annual: 6948 },
+  { keyAr: "الأعمال", keyEn: "Business", annual: 13904 },
+];
+
+function WaIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden>
+      <path
+        d="M10 2C5.6 2 2 5.6 2 10C2 11.4 2.4 12.8 3 14L2 18L6 17C7.2 17.6 8.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2ZM13.5 12.5C13.3 13 12.5 13.5 12 13.5C11.3 13.5 10.8 13.3 8.5 11.5C6.5 9.7 6 8.7 6 8C6 7.5 6.2 7 6.7 6.5C7 6.2 7.3 6 7.7 6C8 6 8.3 6.5 8.7 7.3C9 7.8 9.3 8.5 9.3 8.8C9.3 9 9 9.3 8.8 9.5C8.7 9.7 8.5 9.8 8.7 10.2C9 10.7 9.5 11.3 10 11.8C10.5 12.3 11 12.7 11.5 12.8C11.8 13 12 12.8 12.3 12.5C12.5 12.2 12.8 12 13 12C13.3 12 14 12.8 13.5 12.5Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
 
 const AR = {
   seoTitle: "برنامج الشراكة والأفيليت | زيادة",
-  seoDesc: "اشترك في برنامج أفيليت زيادة — عمولة 10٪ على كل اشتراك سنوي، وخصم 10٪ لعملائك. مخصص للوكالات التسويقية والمستشارين.",
+  seoDesc:
+    "اشترك في برنامج أفيليت زيادة — عمولة 10٪ على كل اشتراك سنوي، وخصم 10٪ لعملائك.",
   tag: "برنامج الشراكة",
   heroTitle: "اربح مع كل متجر تنمّيه",
-  heroDesc: "برنامج أفيليت مصمم للوكالات التسويقية والمستشارين الرقميين — شارك زيادة مع عملائك، واكسب عمولة ثابتة على كل اشتراك سنوي طوال فترة الاشتراك.",
+  heroDesc:
+    "برنامج أفيليت مصمم للوكالات التسويقية والمستشارين الرقميين — شارك زيادة مع عملائك، واكسب عمولة ثابتة على كل اشتراك سنوي طوال فترة الاشتراك.",
   ctaMain: "ابدأ الشراكة الآن عبر واتساب",
   ctaSub: "يرد عليك فريقنا خلال دقائق",
   stats: [
-    { val: "10٪", label: "عمولتك على كل اشتراك سنوي" },
-    { val: "10٪", label: "خصم لعميلك على الباقة السنوية" },
-    { val: "12 شهراً", label: "مدة احتساب العمولة على الاشتراك" },
+    { val: "10٪", label: "عمولتك على كل اشتراك" },
+    { val: "10٪", label: "خصم لعملائك" },
+    { val: "12 شهراً", label: "مدة احتساب العمولة" },
     { val: "فوري", label: "رابط تتبع خاص بك" },
   ],
   howTitle: "كيف يعمل البرنامج؟",
   howSteps: [
     {
       num: "01",
+      icon: "🤝",
       title: "سجّل كشريك",
-      desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك أو نشاطك التسويقي. سنرسل لك رابط الإحالة الخاص بك فوراً.",
+      desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك. سنرسل لك رابط الإحالة الخاص بك فوراً.",
     },
     {
       num: "02",
-      title: "شارك رابطك مع عملائك",
-      desc: "عملاؤك يشتركون في زيادة من خلال رابطك ويحصلون تلقائياً على خصم 10٪ على الباقة السنوية.",
+      icon: "🔗",
+      title: "شارك رابطك",
+      desc: "عملاؤك يشتركون في زيادة من خلال رابطك ويحصلون تلقائياً على خصم 10٪.",
     },
     {
       num: "03",
-      title: "اكسب عمولتك شهرياً",
-      desc: "تحصل على 10٪ من قيمة الاشتراك السنوي لكل عميل أحلته — طوال مدة اشتراكه.",
+      icon: "💰",
+      title: "اكسب عمولتك",
+      desc: "تحصل على 10٪ من قيمة كل اشتراك سنوي طوال مدة بقاء العميل.",
     },
   ],
   benefitsTitle: "لماذا تشارك معنا؟",
   benefits: [
-    {
-      icon: "💰",
-      title: "عمولة تنمو معك",
-      desc: "كلما زاد عدد العملاء الذين تُحيلهم، زاد دخلك الشهري. لا سقف للعمولة.",
-    },
-    {
-      icon: "🎯",
-      title: "منتج يبيع نفسه",
-      desc: "زيادة تحقق نتائج ملموسة لمتاجر التجزئة الإلكتروني — نسب التحويل والمبيعات تتكلم عن نفسها.",
-    },
-    {
-      icon: "🤝",
-      title: "دعم مخصص للشركاء",
-      desc: "مدير حساب خاص يساعدك في الإجابة على أسئلة عملائك وإتمام عمليات البيع.",
-    },
-    {
-      icon: "📊",
-      title: "تقارير شفافة",
-      desc: "لوحة تحكم لتتبع إحالاتك ومبالغ عمولاتك المتراكمة في الوقت الفعلي.",
-    },
-    {
-      icon: "🔗",
-      title: "تكامل سلس",
-      desc: "زيادة تتكامل مع سلة وزد — المنصتين الأكثر انتشاراً في السوق السعودي.",
-    },
-    {
-      icon: "⚡",
-      title: "إعداد في دقيقتين",
-      desc: "عميلك يفعّل التطبيق بنفسه دون الحاجة لتدخل تقني — مما يقلل العبء عنك وعنه.",
-    },
+    { icon: "📈", title: "عمولة تنمو معك", desc: "لا سقف للعمولة — كلما أحلت أكثر، كسبت أكثر." },
+    { icon: "🎯", title: "منتج يبيع نفسه", desc: "نتائج ملموسة لأصحاب المتاجر — المبيعات تتكلم عن نفسها." },
+    { icon: "🧑‍💼", title: "دعم مخصص", desc: "مدير حساب خاص يساعدك في الإجابة على أسئلة عملائك." },
+    { icon: "📊", title: "تقارير شفافة", desc: "لوحة تحكم لتتبع إحالاتك وعمولاتك في الوقت الفعلي." },
+    { icon: "🛒", title: "تكامل مع سلة وزد", desc: "المنصتان الأكثر انتشاراً في السوق السعودي." },
+    { icon: "⚡", title: "إعداد في دقيقتين", desc: "عميلك يفعّل التطبيق بنفسه بدون تدخل تقني." },
   ],
-  exampleTitle: "مثال على أرباحك",
-  exampleDesc: "لنفترض أنك أحلت 10 متاجر على باقة النمو السنوية:",
-  exampleRows: [
-    { label: "سعر باقة النمو السنوية", val: "2,600 ⃁" },
-    { label: "عدد المتاجر المُحالة", val: "10 متاجر" },
-    { label: "إجمالي الاشتراكات", val: "26,000 ⃁" },
-    { label: "عمولتك (10٪)", val: "2,600 ⃁ سنوياً" },
-  ],
-  exampleNote: "* مع نمو عدد إحالاتك وترقي عملائك لباقات أعلى، تزداد أرباحك تلقائياً.",
+  calcTitle: "احسب أرباحك",
+  calcDesc: "حرّك المقياس وشاهد عمولتك تنمو",
+  calcStores: "عدد المتاجر المُحالة",
+  calcPlan: "الباقة",
+  calcAnnualTotal: "إجمالي الاشتراكات السنوية",
+  calcYourComm: "عمولتك السنوية (10٪)",
+  calcMonthlyComm: "عمولتك الشهرية",
+  calcClientSave: "مدخرات عملائك (خصم 10٪)",
   faqTitle: "أسئلة شائعة",
   faqs: [
     {
       q: "من يحق له الانضمام للبرنامج؟",
-      a: "البرنامج مفتوح للوكالات التسويقية والمستشارين الرقميين ومديري متاجر التجارة الإلكترونية وأي شخص لديه شبكة من أصحاب المتاجر الإلكترونية.",
+      a: "البرنامج مفتوح للوكالات التسويقية والمستشارين الرقميين وأي شخص لديه شبكة من أصحاب المتاجر الإلكترونية.",
     },
     {
       q: "متى أحصل على عمولتي؟",
-      a: "تُحتسب العمولة بعد إتمام عملية الاشتراك وانتهاء فترة الاسترداد (7 أيام)، وتُصرف بشكل شهري عبر التحويل البنكي.",
+      a: "تُحتسب العمولة بعد إتمام الاشتراك وانتهاء فترة الاسترداد (7 أيام)، وتُصرف شهرياً عبر التحويل البنكي.",
     },
     {
       q: "هل العمولة لمرة واحدة أم متكررة؟",
-      a: "العمولة متكررة — تحصل على 10٪ طوال مدة اشتراك العميل السنوي. إذا جدّد اشتراكه، تحصل على عمولة التجديد أيضاً.",
+      a: "متكررة — تحصل على 10٪ طوال مدة اشتراك العميل. وإذا جدّد، تحصل على عمولة التجديد أيضاً.",
     },
     {
-      q: "هل للخصم حد أدنى للباقة؟",
-      a: "الخصم 10٪ يُطبق على جميع الباقات السنوية (الانطلاقة، النمو، الاحترافية، الأعمال) عند الاشتراك عبر رابطك.",
+      q: "هل الخصم يُطبق على جميع الباقات؟",
+      a: "نعم، خصم 10٪ يُطبق على جميع الباقات السنوية عند الاشتراك عبر رابطك.",
     },
     {
       q: "كيف أتابع إحالاتي وعمولاتي؟",
-      a: "نوفر لك لوحة تحكم خاصة تُظهر عدد النقرات والتسجيلات والاشتراكات المكتملة والعمولات المستحقة.",
+      a: "نوفر لك لوحة تحكم خاصة تُظهر النقرات والتسجيلات والاشتراكات المكتملة والعمولات المستحقة.",
     },
   ],
   finalTitle: "مستعد تبدأ؟",
-  finalDesc: "تواصل معنا الآن عبر واتساب ونساعدك تنطلق كشريك معتمد في أقل من 24 ساعة.",
+  finalDesc:
+    "تواصل معنا الآن عبر واتساب ونساعدك تنطلق كشريك معتمد في أقل من 24 ساعة.",
 };
 
 const EN = {
   seoTitle: "Affiliate & Partner Program | Ziadah",
-  seoDesc: "Join Ziadah's affiliate program — earn 10% commission on every annual subscription, and give your clients a 10% discount. Designed for marketing agencies and consultants.",
+  seoDesc:
+    "Join Ziadah's affiliate program — earn 10% commission on every annual subscription, and give your clients a 10% discount.",
   tag: "Partner Program",
   heroTitle: "Earn with every store you grow",
-  heroDesc: "An affiliate program built for marketing agencies and digital consultants — share Ziadah with your clients, earn a fixed commission on every annual subscription for as long as they stay subscribed.",
+  heroDesc:
+    "An affiliate program built for marketing agencies and digital consultants — share Ziadah with your clients, earn a fixed commission on every annual subscription.",
   ctaMain: "Start Partnering via WhatsApp",
   ctaSub: "Our team replies within minutes",
   stats: [
-    { val: "10%", label: "Your commission on every annual plan" },
-    { val: "10%", label: "Discount for your client on annual plans" },
-    { val: "12 months", label: "Commission duration per subscription" },
-    { val: "Instant", label: "Unique tracking link for you" },
+    { val: "10%", label: "Your commission per subscription" },
+    { val: "10%", label: "Discount for your clients" },
+    { val: "12 months", label: "Commission duration" },
+    { val: "Instant", label: "Your unique tracking link" },
   ],
-  howTitle: "How does it work?",
+  howTitle: "How it works",
   howSteps: [
     {
       num: "01",
+      icon: "🤝",
       title: "Register as a partner",
-      desc: "Reach out via WhatsApp and tell us about your agency or marketing activity. We'll send you your personal referral link right away.",
+      desc: "Reach out via WhatsApp. We'll send your personal referral link right away.",
     },
     {
       num: "02",
-      title: "Share your link with clients",
-      desc: "Your clients subscribe to Ziadah through your link and automatically receive a 10% discount on their annual plan.",
+      icon: "🔗",
+      title: "Share your link",
+      desc: "Clients subscribe through your link and automatically get a 10% discount.",
     },
     {
       num: "03",
-      title: "Earn your commission monthly",
-      desc: "You receive 10% of the annual subscription value for every client you refer — for the entire duration of their subscription.",
+      icon: "💰",
+      title: "Earn monthly",
+      desc: "You receive 10% of every annual subscription for as long as the client stays.",
     },
   ],
   benefitsTitle: "Why partner with us?",
   benefits: [
-    {
-      icon: "💰",
-      title: "Commission that grows with you",
-      desc: "The more clients you refer, the higher your monthly income. No commission cap.",
-    },
-    {
-      icon: "🎯",
-      title: "A product that sells itself",
-      desc: "Ziadah delivers measurable results for e-commerce stores — conversion rates and sales speak for themselves.",
-    },
-    {
-      icon: "🤝",
-      title: "Dedicated partner support",
-      desc: "A dedicated account manager helps you answer client questions and close deals.",
-    },
-    {
-      icon: "📊",
-      title: "Transparent reporting",
-      desc: "A dashboard to track your referrals and accumulated commissions in real time.",
-    },
-    {
-      icon: "🔗",
-      title: "Seamless integration",
-      desc: "Ziadah integrates with Salla and Zid — the two most popular e-commerce platforms in the Saudi market.",
-    },
-    {
-      icon: "⚡",
-      title: "2-minute setup",
-      desc: "Your client activates the app themselves without any technical help — reducing the burden on both of you.",
-    },
+    { icon: "📈", title: "Unlimited earnings", desc: "No commission cap — the more you refer, the more you earn." },
+    { icon: "🎯", title: "A product that sells itself", desc: "Ziadah delivers measurable results — the numbers speak." },
+    { icon: "🧑‍💼", title: "Dedicated support", desc: "A dedicated account manager helps you close deals." },
+    { icon: "📊", title: "Transparent reporting", desc: "Track referrals and commissions in real time." },
+    { icon: "🛒", title: "Salla & Zid integration", desc: "The two most popular e-commerce platforms in Saudi Arabia." },
+    { icon: "⚡", title: "2-minute setup", desc: "Clients activate the app themselves — no technical help needed." },
   ],
-  exampleTitle: "Your potential earnings",
-  exampleDesc: "Say you refer 10 stores on the Growth annual plan:",
-  exampleRows: [
-    { label: "Growth annual plan price", val: "2,600 SAR" },
-    { label: "Referred stores", val: "10 stores" },
-    { label: "Total subscriptions", val: "26,000 SAR" },
-    { label: "Your commission (10%)", val: "2,600 SAR/year" },
-  ],
-  exampleNote: "* As the number of referrals grows and clients upgrade to higher plans, your income grows automatically.",
+  calcTitle: "Calculate your earnings",
+  calcDesc: "Move the slider and watch your commission grow",
+  calcStores: "Referred stores",
+  calcPlan: "Plan",
+  calcAnnualTotal: "Total annual subscriptions",
+  calcYourComm: "Your annual commission (10%)",
+  calcMonthlyComm: "Your monthly commission",
+  calcClientSave: "Client savings (10% discount)",
   faqTitle: "Frequently asked questions",
   faqs: [
     {
       q: "Who can join the program?",
-      a: "The program is open to marketing agencies, digital consultants, e-commerce store managers, and anyone with a network of online store owners.",
+      a: "Marketing agencies, digital consultants, and anyone with a network of online store owners.",
     },
     {
       q: "When do I get paid?",
-      a: "Commissions are calculated after subscription completion and the 7-day refund period, and are paid monthly via bank transfer.",
+      a: "After the 7-day refund period ends, commissions are paid monthly via bank transfer.",
     },
     {
       q: "Is the commission one-time or recurring?",
-      a: "It's recurring — you earn 10% for the full duration of the client's annual subscription. If they renew, you earn the renewal commission too.",
+      a: "Recurring — you earn 10% for the full duration of the client's subscription and on renewals.",
     },
     {
-      q: "Is the discount available on all plans?",
-      a: "The 10% discount applies to all annual plans (Starter, Growth, Professional, Business) when subscribing through your link.",
+      q: "Does the discount apply to all plans?",
+      a: "Yes, the 10% discount applies to all annual plans when clients subscribe through your link.",
     },
     {
-      q: "How do I track my referrals and commissions?",
-      a: "We provide a dedicated dashboard showing clicks, registrations, completed subscriptions, and earned commissions.",
+      q: "How do I track my referrals?",
+      a: "We provide a dashboard showing clicks, registrations, completed subscriptions, and commissions.",
     },
   ],
   finalTitle: "Ready to get started?",
-  finalDesc: "Reach out via WhatsApp now and we'll help you launch as a certified partner in less than 24 hours.",
+  finalDesc:
+    "Reach out via WhatsApp now and we'll help you launch as a certified partner in less than 24 hours.",
 };
+
+function fmt(n: number, isAr: boolean) {
+  return n.toLocaleString(isAr ? "ar-SA" : "en-US");
+}
 
 export default function Affiliate() {
   const { lang } = useLanguage();
   const c = lang === "ar" ? AR : EN;
   const isAr = lang === "ar";
   const dir = isAr ? "rtl" : "ltr";
+
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [stores, setStores] = useState(5);
+  const [planIdx, setPlanIdx] = useState(1);
+
+  const plan = PLANS[planIdx];
+  const totalAnnual = stores * plan.annual;
+  const yourComm = totalAnnual * 0.1;
+  const monthly = yourComm / 12;
+  const clientSave = totalAnnual * 0.1;
 
   return (
     <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
@@ -223,22 +219,21 @@ export default function Affiliate() {
 
       <div className="aff-root" dir={dir}>
 
-        {/* ── Hero ── */}
+        {/* ══════════ HERO ══════════ */}
         <section className="aff-hero">
-          <div className="aff-glow aff-glow--top" />
+          <div className="aff-glow aff-glow--hero" />
           <div className="aff-wrap">
             <div className="aff-tag">{c.tag}</div>
             <h1 className="aff-hero-title">{c.heroTitle}</h1>
             <p className="aff-hero-desc">{c.heroDesc}</p>
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-cta-btn">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M10 2C5.6 2 2 5.6 2 10C2 11.4 2.4 12.8 3 14L2 18L6 17C7.2 17.6 8.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2ZM13.5 12.5C13.3 13 12.5 13.5 12 13.5C11.3 13.5 10.8 13.3 8.5 11.5C6.5 9.7 6 8.7 6 8C6 7.5 6.2 7 6.7 6.5C7 6.2 7.3 6 7.7 6C8 6 8.3 6.5 8.7 7.3C9 7.8 9.3 8.5 9.3 8.8C9.3 9 9 9.3 8.8 9.5C8.7 9.7 8.5 9.8 8.7 10.2C9 10.7 9.5 11.3 10 11.8C10.5 12.3 11 12.7 11.5 12.8C11.8 13 12 12.8 12.3 12.5C12.5 12.2 12.8 12 13 12C13.3 12 14 12.8 13.5 12.5Z" fill="currentColor"/>
-              </svg>
+
+            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn">
+              <WaIcon size={22} />
               {c.ctaMain}
             </a>
             <p className="aff-cta-sub">{c.ctaSub}</p>
 
-            {/* Stats */}
+            {/* Stats row */}
             <div className="aff-stats">
               {c.stats.map((s, i) => (
                 <div key={i} className="aff-stat">
@@ -250,24 +245,21 @@ export default function Affiliate() {
           </div>
         </section>
 
-        {/* ── How it works ── */}
+        {/* ══════════ HOW IT WORKS ══════════ */}
         <section className="aff-section">
           <div className="aff-wrap">
-            <div className="aff-section-tag">{c.howTitle}</div>
+            <div className="aff-sh">
+              <span className="aff-sh-tag">{c.howTitle}</span>
+            </div>
             <div className="aff-steps">
               {c.howSteps.map((step, i) => (
                 <div key={i} className="aff-step">
                   <div className="aff-step-num">{step.num}</div>
-                  <div className="aff-step-body">
-                    <div className="aff-step-title">{step.title}</div>
-                    <div className="aff-step-desc">{step.desc}</div>
-                  </div>
+                  <div className="aff-step-icon">{step.icon}</div>
+                  <div className="aff-step-title">{step.title}</div>
+                  <div className="aff-step-desc">{step.desc}</div>
                   {i < c.howSteps.length - 1 && (
-                    <div className="aff-step-arrow" aria-hidden>
-                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                        <path d={isAr ? "M14 11H8M8 8l-3 3 3 3" : "M8 11h6M14 8l3 3-3 3"} stroke="rgba(124,58,237,.5)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
+                    <div className="aff-step-connector" aria-hidden />
                   )}
                 </div>
               ))}
@@ -275,10 +267,12 @@ export default function Affiliate() {
           </div>
         </section>
 
-        {/* ── Benefits ── */}
-        <section className="aff-section aff-section--alt">
+        {/* ══════════ BENEFITS ══════════ */}
+        <section className="aff-section aff-section--dark">
           <div className="aff-wrap">
-            <div className="aff-section-tag">{c.benefitsTitle}</div>
+            <div className="aff-sh">
+              <span className="aff-sh-tag">{c.benefitsTitle}</span>
+            </div>
             <div className="aff-benefits">
               {c.benefits.map((b, i) => (
                 <div key={i} className="aff-benefit">
@@ -291,55 +285,140 @@ export default function Affiliate() {
           </div>
         </section>
 
-        {/* ── Earnings Example ── */}
+        {/* ══════════ CALCULATOR ══════════ */}
         <section className="aff-section">
           <div className="aff-wrap">
-            <div className="aff-section-tag">{c.exampleTitle}</div>
-            <p className="aff-example-desc">{c.exampleDesc}</p>
-            <div className="aff-example-table">
-              {c.exampleRows.map((row, i) => (
-                <div key={i} className={`aff-example-row${i === c.exampleRows.length - 1 ? " aff-example-row--total" : ""}`}>
-                  <span className="aff-example-row-label">{row.label}</span>
-                  <span className="aff-example-row-val">{row.val}</span>
+            <div className="aff-sh">
+              <span className="aff-sh-tag">{c.calcTitle}</span>
+              <p className="aff-sh-sub">{c.calcDesc}</p>
+            </div>
+
+            <div className="aff-calc">
+              {/* Controls */}
+              <div className="aff-calc-controls">
+                {/* Stores slider */}
+                <div className="aff-calc-field">
+                  <label className="aff-calc-label">
+                    {c.calcStores}
+                    <span className="aff-calc-badge">{isAr ? fmt(stores, true) + " متجر" : stores + " stores"}</span>
+                  </label>
+                  <input
+                    type="range"
+                    min={1}
+                    max={50}
+                    value={stores}
+                    onChange={(e) => setStores(Number(e.target.value))}
+                    className="aff-slider"
+                  />
+                  <div className="aff-slider-labels">
+                    <span>1</span>
+                    <span>50</span>
+                  </div>
+                </div>
+
+                {/* Plan selector */}
+                <div className="aff-calc-field">
+                  <label className="aff-calc-label">{c.calcPlan}</label>
+                  <div className="aff-plan-tabs">
+                    {PLANS.map((p, i) => (
+                      <button
+                        key={i}
+                        className={`aff-plan-tab${planIdx === i ? " aff-plan-tab--on" : ""}`}
+                        onClick={() => setPlanIdx(i)}
+                      >
+                        {isAr ? p.keyAr : p.keyEn}
+                        <span className="aff-plan-tab-price">
+                          {isAr ? fmt(p.annual, true) + " ⃁" : fmt(p.annual, false) + " SAR"}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Results */}
+              <div className="aff-calc-results">
+                <div className="aff-calc-res aff-calc-res--main">
+                  <span className="aff-calc-res-label">{c.calcYourComm}</span>
+                  <span className="aff-calc-res-val">
+                    {isAr ? fmt(yourComm, true) + " ⃁" : fmt(yourComm, false) + " SAR"}
+                  </span>
+                </div>
+                <div className="aff-calc-res">
+                  <span className="aff-calc-res-label">{c.calcMonthlyComm}</span>
+                  <span className="aff-calc-res-val aff-calc-res-val--sm">
+                    {isAr ? fmt(Math.round(monthly), true) + " ⃁" : fmt(Math.round(monthly), false) + " SAR"}
+                  </span>
+                </div>
+                <div className="aff-calc-res">
+                  <span className="aff-calc-res-label">{c.calcAnnualTotal}</span>
+                  <span className="aff-calc-res-val aff-calc-res-val--sm">
+                    {isAr ? fmt(totalAnnual, true) + " ⃁" : fmt(totalAnnual, false) + " SAR"}
+                  </span>
+                </div>
+                <div className="aff-calc-res aff-calc-res--client">
+                  <span className="aff-calc-res-label">{c.calcClientSave}</span>
+                  <span className="aff-calc-res-val aff-calc-res-val--sm">
+                    {isAr ? fmt(clientSave, true) + " ⃁" : fmt(clientSave, false) + " SAR"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════ FAQ ══════════ */}
+        <section className="aff-section aff-section--dark">
+          <div className="aff-wrap aff-wrap--narrow">
+            <div className="aff-sh">
+              <span className="aff-sh-tag">{c.faqTitle}</span>
+            </div>
+            <div className="aff-faqs">
+              {c.faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className={`aff-faq${openFaq === i ? " aff-faq--open" : ""}`}
+                >
+                  <button
+                    className="aff-faq-q"
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    aria-expanded={openFaq === i}
+                  >
+                    <span>{faq.q}</span>
+                    <svg
+                      className="aff-faq-chevron"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      aria-hidden
+                    >
+                      <path
+                        d="M4 7l5 5 5-5"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  {openFaq === i && (
+                    <div className="aff-faq-a">{faq.a}</div>
+                  )}
                 </div>
               ))}
             </div>
-            <p className="aff-example-note">{c.exampleNote}</p>
           </div>
         </section>
 
-        {/* ── FAQ ── */}
-        <section className="aff-section aff-section--alt">
-          <div className="aff-wrap">
-            <div className="aff-section-tag">{c.faqTitle}</div>
-            <div className="aff-faqs">
-              {c.faqs.map((faq, i) => (
-                <details key={i} className="aff-faq">
-                  <summary className="aff-faq-q">
-                    <span>{faq.q}</span>
-                    <span className="aff-faq-chevron" aria-hidden>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="aff-faq-a">{faq.a}</div>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Final CTA ── */}
+        {/* ══════════ FINAL CTA ══════════ */}
         <section className="aff-final">
-          <div className="aff-glow aff-glow--bottom" />
+          <div className="aff-glow aff-glow--final" />
           <div className="aff-wrap aff-final-inner">
             <h2 className="aff-final-title">{c.finalTitle}</h2>
             <p className="aff-final-desc">{c.finalDesc}</p>
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-cta-btn aff-cta-btn--large">
-              <svg width="22" height="22" viewBox="0 0 20 20" fill="none" aria-hidden>
-                <path d="M10 2C5.6 2 2 5.6 2 10C2 11.4 2.4 12.8 3 14L2 18L6 17C7.2 17.6 8.6 18 10 18C14.4 18 18 14.4 18 10C18 5.6 14.4 2 10 2ZM13.5 12.5C13.3 13 12.5 13.5 12 13.5C11.3 13.5 10.8 13.3 8.5 11.5C6.5 9.7 6 8.7 6 8C6 7.5 6.2 7 6.7 6.5C7 6.2 7.3 6 7.7 6C8 6 8.3 6.5 8.7 7.3C9 7.8 9.3 8.5 9.3 8.8C9.3 9 9 9.3 8.8 9.5C8.7 9.7 8.5 9.8 8.7 10.2C9 10.7 9.5 11.3 10 11.8C10.5 12.3 11 12.7 11.5 12.8C11.8 13 12 12.8 12.3 12.5C12.5 12.2 12.8 12 13 12C13.3 12 14 12.8 13.5 12.5Z" fill="currentColor"/>
-              </svg>
+            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn aff-wa-btn--lg">
+              <WaIcon size={24} />
               {c.ctaMain}
             </a>
           </div>
