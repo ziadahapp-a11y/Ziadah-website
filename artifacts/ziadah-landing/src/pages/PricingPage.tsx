@@ -150,7 +150,7 @@ export default function PricingPage() {
       key: "s",
       name: isAr ? "الانطلاقة" : "Starter",
       desc: isAr ? "للمبتدئين والراغبين بالتجربة" : "For beginners",
-      mPrice: 29, yPrice: 22, yAnnual: 260, yOrig: "860", yDisc: "70%",
+      mPrice: 29, yPrice: 24, yAnnual: 290, yOrig: "348", yDisc: "17%",
       badge: null, featured: false,
       featIntro: null,
       features: ld.planStarterFeatures as string[],
@@ -159,7 +159,7 @@ export default function PricingPage() {
       key: "g",
       name: isAr ? "النمو" : "Growth",
       desc: isAr ? "للتجار الأفراد" : "For individual merchants",
-      mPrice: 290, yPrice: 217, yAnnual: "2,600", yOrig: "3,026", yDisc: "15%",
+      mPrice: 290, yPrice: 249, yAnnual: "2,990", yOrig: "3,480", yDisc: "14%",
       badge: null, featured: false,
       featIntro: ld.planGrowthIntro as string,
       features: ld.planGrowthFeatures as string[],
@@ -168,7 +168,7 @@ export default function PricingPage() {
       key: "p",
       name: isAr ? "الاحترافية" : "Professional",
       desc: isAr ? "للشركات والمؤسسات" : "For companies",
-      mPrice: 790, yPrice: 579, yAnnual: "6,948", yOrig: "8,244", yDisc: "16%",
+      mPrice: 790, yPrice: 666, yAnnual: "7,990", yOrig: "9,480", yDisc: "16%",
       badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
       featIntro: ld.planProIntro as string,
       features: ld.planProFeatures as string[],
@@ -177,7 +177,7 @@ export default function PricingPage() {
       key: "b",
       name: isAr ? "الأعمال" : "Business",
       desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
-      mPrice: "1,990", yPrice: "1,159", yAnnual: "13,904", yOrig: "24,000", yDisc: "42%",
+      mPrice: "1,990", yPrice: "1,333", yAnnual: "15,990", yOrig: "23,880", yDisc: "33%",
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
       featIntro: ld.planBusinessIntro as string,
       features: ld.planBusinessFeatures as string[],
@@ -216,7 +216,7 @@ export default function PricingPage() {
             </button>
             <button className={`pp-tb${mode === "y" ? " on" : ""}`} onClick={() => setMode("y")}>
               {isAr ? "سنوي" : "Yearly"}
-              <span className="pp-save-pill">{isAr ? "وفّر حتى 70٪" : "Save up to 70%"}</span>
+              <span className="pp-save-pill">{isAr ? "وفّر حتى 33٪" : "Save up to 33%"}</span>
             </button>
           </div>
 

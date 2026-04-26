@@ -7,10 +7,10 @@ const WA_LINK =
   "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
 
 const PLANS = [
-  { keyAr: "الانطلاقة", keyEn: "Starter", annual: 260 },
-  { keyAr: "النمو", keyEn: "Growth", annual: 2600 },
-  { keyAr: "الاحترافية", keyEn: "Professional", annual: 6948 },
-  { keyAr: "الأعمال", keyEn: "Business", annual: 13904 },
+  { keyAr: "الانطلاقة", keyEn: "Starter", annual: 290 },
+  { keyAr: "النمو", keyEn: "Growth", annual: 2990 },
+  { keyAr: "الاحترافية", keyEn: "Professional", annual: 7990 },
+  { keyAr: "الأعمال", keyEn: "Business", annual: 15990 },
 ];
 
 function WaIcon({ size = 20 }: { size?: number }) {
