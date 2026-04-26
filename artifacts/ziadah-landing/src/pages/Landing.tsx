@@ -493,8 +493,11 @@ export default function Landing() {
   }, []);
 
   const prices = {
-    m: { s: 29, g: 290, p: 790, b: "1,990" },
-    y: { s: 24, g: 249, p: 665, b: "1,332" },
+    m:        { s: 29,    g: 290,    p: 790,    b: "1,990"  },
+    y:        { s: 260,   g: "2,600",p: "6,948",b: "13,904" },
+    yMonthly: { s: 22,    g: 217,    p: 579,    b: "1,159"  },
+    yOrig:    { s: "860", g: "3,026",p: "8,244",b: "24,000" },
+    yDisc:    { s: "70%", g: "15%",  p: "16%",  b: "42%"   },
   } as const;
 
   const pm = pricingMode;
@@ -1502,18 +1505,25 @@ export default function Landing() {
                   name: tr.landing.planStarter,
                   desc: tr.landing.planStarterDesc,
                   price: prices[pricingMode].s,
+                  origPrice: pricingMode === "y" ? prices.yOrig.s : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.s : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.s : null,
                   feat: false,
                   badge: null,
                   aiCredit: ld.planStarterCredits[pm],
                   aiNote: ld.planAiFootnote,
                   features: [...(ld.planStarterFeatures as string[])],
                   cta: tr.landing.subscribeNow,
+                  ctaAction: () => setPlatformModalOpen(true),
                   fill: false,
                 },
                 {
                   name: tr.landing.planGrowth,
                   desc: tr.landing.planGrowthDesc,
                   price: prices[pricingMode].g,
+                  origPrice: pricingMode === "y" ? prices.yOrig.g : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.g : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.g : null,
                   feat: false,
                   badge: null,
                   aiCredit: ld.planGrowthCredits[pm],
@@ -1523,26 +1533,34 @@ export default function Landing() {
                     ...(ld.planGrowthFeatures as string[]),
                   ],
                   cta: tr.landing.subscribeNow,
+                  ctaAction: () => setPlatformModalOpen(true),
                   fill: false,
                 },
                 {
                   name: tr.landing.planPro,
                   desc: tr.landing.planProDesc,
                   price: prices[pricingMode].p,
-                  feat: true,
+                  origPrice: pricingMode === "y" ? prices.yOrig.p : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.p : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.p : null,
+                  feat: false,
                   badge: tr.landing.planProBadge,
                   aiCredit: ld.planProCredits[pm],
                   aiNote: ld.planAiFootnote,
                   features: [ld.planProIntro, ...(ld.planProFeatures as string[])],
                   cta: tr.landing.subscribeNow,
-                  fill: true,
+                  ctaAction: () => setPlatformModalOpen(true),
+                  fill: false,
                 },
                 {
                   name: tr.landing.planBusiness,
                   desc: tr.landing.planBusinessDesc,
                   price: prices[pricingMode].b,
-                  feat: false,
-                  badge: null,
+                  origPrice: pricingMode === "y" ? prices.yOrig.b : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.b : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yMonthly.b : null,
+                  feat: true,
+                  badge: ld.planBusinessBadge,
                   aiCredit: ld.planBusinessCredits[pm],
                   aiNote: ld.planAiFootnote,
                   features: [
@@ -1552,8 +1570,9 @@ export default function Landing() {
                       ? [tr.landing.planBusinessGuaranteeAnnual]
                       : []),
                   ],
-                  cta: tr.landing.subscribeNow,
-                  fill: false,
+                  cta: ld.planBusinessCta,
+                  ctaAction: () => openMeetingBooking(),
+                  fill: true,
                 },
               ].map((p, i) => (
                 <GlassCard
@@ -1563,6 +1582,12 @@ export default function Landing() {
                   {p.badge && <div className="pc-badge">{p.badge}</div>}
                   <div className="p-name">{p.name}</div>
                   <div className="p-desc">{p.desc}</div>
+                  {p.origPrice && (
+                    <div className="p-orig-row">
+                      <span className="p-orig-price">{p.origPrice} ⃁</span>
+                      <span className="p-disc-badge">{p.discPct} خصم</span>
+                    </div>
+                  )}
                   <div className="p-price">
                     {p.price != null ? (
                       <>
@@ -1570,16 +1595,21 @@ export default function Landing() {
                           <span className="p-num">{p.price}</span>
                           <span className="p-cur">⃁</span>
                         </span>
-                        <span className="p-per">{tr.landing.perMonth}</span>
+                        <span className="p-per">
+                          {pricingMode === "y" ? tr.landing.perYear : tr.landing.perMonth}
+                        </span>
                       </>
                     ) : (
-                      <span
-                        style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}
-                      >
+                      <span style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}>
                         {tr.landing.custom}
                       </span>
                     )}
                   </div>
+                  {p.monthlyEquiv && (
+                    <div className="p-monthly-equiv">
+                      {tr.landing.monthlyEquivPrefix} {p.monthlyEquiv} {tr.landing.monthlyEquivSuffix}
+                    </div>
+                  )}
                   <hr className="p-hr" />
                   <div className="p-ai-box" dir={dir}>
                     <div className="p-ai-box-inner">
@@ -1596,7 +1626,7 @@ export default function Landing() {
                     ))}
                   </ul>
                   <button
-                      onClick={() => setPlatformModalOpen(true)}
+                      onClick={p.ctaAction}
                       className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
                       style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
                     >
