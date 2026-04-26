@@ -1289,36 +1289,56 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   display:flex;
   flex-direction:column;
   min-height:0;
-  transition:border-color .28s ease,box-shadow .28s ease;
+  transition:border-color .28s ease,box-shadow .28s ease,transform .28s ease;
+  overflow:hidden;
+  position:relative;
+}
+/* Top accent line for regular cards */
+#pricing .pc::before{
+  content:"";
+  position:absolute;
+  inset-inline:0;
+  top:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,rgba(124,58,237,.45),transparent);
+  pointer-events:none;
 }
 #pricing .pc:hover{
-  border-color:rgba(167,139,250,.38);
+  border-color:rgba(167,139,250,.45);
+  transform:translateY(-5px);
+  box-shadow:0 24px 52px rgba(0,0,0,.25),0 0 0 1px rgba(167,139,250,.14);
 }
 #pricing .pc.feat{
-  border-color:rgba(192,132,252,.42);
-  background:linear-gradient(165deg,rgba(88,28,220,.2) 0%,rgba(12,8,24,.42) 52%,rgba(8,6,18,.35) 100%);
-  box-shadow:0 0 0 1px rgba(167,139,250,.14),0 22px 56px rgba(58,12,120,.22);
+  border-color:rgba(217,119,6,.45);
+  background:linear-gradient(165deg,rgba(120,53,15,.2) 0%,rgba(12,8,24,.45) 48%,rgba(8,6,18,.38) 100%);
+  box-shadow:0 0 0 1px rgba(217,119,6,.16),0 22px 56px rgba(120,53,15,.22);
   position:relative;
   z-index:1;
 }
-@media(min-width:1025px){
-  #pricing .pc.feat:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 0 1px rgba(196,181,253,.2),0 28px 64px rgba(76,29,149,.28);
-  }
+/* Golden top accent for Business card */
+#pricing .pc.feat::before{
+  background:linear-gradient(90deg,transparent,rgba(245,158,11,.7),transparent);
+}
+#pricing .pc.feat:hover{
+  border-color:rgba(251,191,36,.55);
+  box-shadow:0 0 0 1px rgba(217,119,6,.24),0 28px 64px rgba(120,53,15,.3);
 }
 .pc-badge{
-  display:inline-block;
-  margin-bottom:12px;
-  padding:5px 14px;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-bottom:16px;
+  padding:5px 16px;
   border-radius:999px;
-  background:linear-gradient(135deg,#7c3aed,#5b21b6);
-  font-size:11px;
-  font-weight:700;
+  background:linear-gradient(135deg,rgba(124,58,237,.95),rgba(76,29,149,.9));
+  border:1px solid rgba(167,139,250,.42);
+  font-size:10.5px;
+  font-weight:800;
   color:#fff;
   width:fit-content;
-  letter-spacing:.02em;
-  box-shadow:0 4px 14px rgba(88,28,220,.35);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  box-shadow:0 4px 18px rgba(88,28,220,.42),0 0 0 4px rgba(124,58,237,.1);
 }
 .p-name{
   font-size:clamp(17px,2.2vw,19px);
@@ -1359,6 +1379,25 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   color:#92400e;
   background:rgba(217,119,6,.15);
   border-color:rgba(217,119,6,.3);
+}
+/* Business badge — gold */
+#pricing .pc.feat .pc-badge{
+  background:linear-gradient(135deg,#d97706,#92400e);
+  border-color:rgba(245,158,11,.48);
+  box-shadow:0 4px 18px rgba(217,119,6,.42),0 0 0 4px rgba(245,158,11,.1);
+}
+/* Business price number — gold gradient */
+#pricing .pc.feat .p-num{
+  background:linear-gradient(135deg,#f59e0b,#fbbf24 60%,#fcd34d);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+/* Business feature checkmarks — gold */
+#pricing .pc.feat .p-list li::before{
+  color:#f59e0b;
+  background:rgba(217,119,6,.14);
+  border-color:rgba(245,158,11,.3);
 }
 .p-monthly-equiv{
   font-size:11.5px;
@@ -1522,14 +1561,15 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
   text-decoration:none;
 }
 .pbtn-ghost{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(167,139,250,.28);
+  background:rgba(124,58,237,.08);
+  border:1px solid rgba(167,139,250,.32);
   color:rgba(255,250,255,.94);
 }
 .pbtn-ghost:hover{
-  background:rgba(124,58,237,.12);
-  border-color:rgba(192,132,252,.4);
-  transform:translateY(-1px);
+  background:rgba(124,58,237,.16);
+  border-color:rgba(192,132,252,.52);
+  box-shadow:0 6px 24px rgba(124,58,237,.2);
+  transform:translateY(-2px);
 }
 .pbtn-fill{
   background:var(--btn-primary-grad);
@@ -1539,6 +1579,17 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
 }
 .pbtn-fill:hover{
   box-shadow:0 8px 32px rgba(124,58,237,.48);
+  transform:translateY(-2px);
+}
+/* Business gold CTA */
+#pricing .pc.feat .pbtn-fill{
+  background:linear-gradient(135deg,#d97706,#b45309);
+  border-color:rgba(245,158,11,.5);
+  box-shadow:0 6px 22px rgba(217,119,6,.35);
+}
+#pricing .pc.feat .pbtn-fill:hover{
+  box-shadow:0 10px 36px rgba(217,119,6,.52);
+  filter:brightness(1.1);
   transform:translateY(-2px);
 }
 
