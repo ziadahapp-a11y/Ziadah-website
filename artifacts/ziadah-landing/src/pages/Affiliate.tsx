@@ -34,7 +34,7 @@ const AR = {
   ctaMain: "ابدأ الشراكة الآن عبر واتساب",
   ctaSub: "يرد عليك فريقنا خلال دقائق",
   stats: [
-    { val: "10%", label: "عمولتك على كل اشتراك" },
+    { val: "10%", label: "عمولتك على كل اشتراك*" },
     { val: "10%", label: "خصم لعملائك" },
     { val: "12 شهراً", label: "مدة احتساب العمولة" },
     { val: "فوري", label: "كود إحالة خاص بك" },
@@ -88,7 +88,7 @@ const EN = {
   ctaMain: "Start Partnering via WhatsApp",
   ctaSub: "Our team replies within minutes",
   stats: [
-    { val: "10%", label: "Your commission per subscription" },
+    { val: "10%", label: "Your commission per subscription*" },
     { val: "10%", label: "Discount for your clients" },
     { val: "12 months", label: "Commission duration" },
     { val: "Instant", label: "Your unique referral code" },
@@ -312,7 +312,7 @@ export default function Affiliate() {
               {/* Results */}
               <div className="aff-calc-results">
                 <div className="aff-calc-res aff-calc-res--main">
-                  <span className="aff-calc-res-label">{c.calcYourComm}</span>
+                  <span className="aff-calc-res-label">{c.calcYourComm}*</span>
                   <span className="aff-calc-res-val">
                     {fmt(yourComm)} {isAr ? "⃁" : "SAR"}
                   </span>
@@ -336,6 +336,12 @@ export default function Affiliate() {
                   </span>
                 </div>
               </div>
+
+              <p className="aff-calc-footnote">
+                {isAr
+                  ? "* العمولة محسوبة على سعر الاشتراك غير شامل ضريبة القيمة المضافة."
+                  : "* Commission is calculated on the subscription price excluding VAT."}
+              </p>
             </div>
           </div>
         </section>
