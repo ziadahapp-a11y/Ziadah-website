@@ -26,25 +26,25 @@ function WaIcon({ size = 20 }: { size?: number }) {
 
 const AR = {
   seoTitle: "برنامج الشراكة والأفيليت | زيادة",
-  seoDesc: "اشترك في برنامج أفيليت زيادة — عمولة 10٪ على كل اشتراك سنوي، وخصم 10٪ لعملائك.",
+  seoDesc: "اشترك في برنامج أفيليت زيادة — عمولة 10% على كل اشتراك سنوي، وخصم 10% لعملائك.",
   tag: "برنامج الشراكة",
   heroTitle: "اربح مع كل متجر تنمّيه",
   heroDesc:
-    "برنامج أفيليت مصمم للوكالات التسويقية والمستشارين الرقميين — شارك زيادة مع عملائك، واكسب عمولة ثابتة على كل اشتراك سنوي طوال فترة الاشتراك.",
+    "برنامج أفيليت مصمم للوكالات التسويقية والمستشارين الرقميين — شارك كودك مع عملائك، واكسب عمولة ثابتة على كل اشتراك سنوي طوال فترة الاشتراك.",
   ctaMain: "ابدأ الشراكة الآن عبر واتساب",
   ctaSub: "يرد عليك فريقنا خلال دقائق",
   stats: [
-    { val: "10٪", label: "عمولتك على كل اشتراك" },
-    { val: "10٪", label: "خصم لعملائك" },
+    { val: "10%", label: "عمولتك على كل اشتراك" },
+    { val: "10%", label: "خصم لعملائك" },
     { val: "12 شهراً", label: "مدة احتساب العمولة" },
-    { val: "فوري", label: "رابط تتبع خاص بك" },
+    { val: "فوري", label: "كود إحالة خاص بك" },
   ],
   howTag: "آلية العمل",
   howTitle: "كيف يعمل البرنامج؟",
   howSteps: [
-    { num: "01", icon: "🤝", title: "سجّل كشريك", desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك. سنرسل لك رابط الإحالة الخاص بك فوراً." },
-    { num: "02", icon: "🔗", title: "شارك رابطك", desc: "عملاؤك يشتركون في زيادة من خلال رابطك ويحصلون تلقائياً على خصم 10٪." },
-    { num: "03", icon: "💰", title: "اكسب عمولتك", desc: "تحصل على 10٪ من قيمة كل اشتراك سنوي طوال مدة بقاء العميل." },
+    { num: "01", icon: "🤝", title: "سجّل كشريك", desc: "تواصل معنا عبر واتساب وأخبرنا عن وكالتك. سنرسل لك كود الإحالة الخاص بك فوراً." },
+    { num: "02", icon: "🏷️", title: "شارك كودك", desc: "عملاؤك يشتركون في زيادة بإدخال كودك عند الاشتراك ويحصلون تلقائياً على خصم 10%." },
+    { num: "03", icon: "💰", title: "اكسب عمولتك", desc: "تحصل على 10% من قيمة كل اشتراك سنوي طوال مدة بقاء العميل." },
   ],
   benefitsTag: "المزايا",
   benefitsTitle: "لماذا تشارك معنا؟",
@@ -52,9 +52,9 @@ const AR = {
     { icon: "📈", title: "عمولة تنمو معك", desc: "لا سقف للعمولة — كلما أحلت أكثر، كسبت أكثر." },
     { icon: "🎯", title: "منتج يبيع نفسه", desc: "نتائج ملموسة لأصحاب المتاجر — المبيعات تتكلم عن نفسها." },
     { icon: "🧑‍💼", title: "دعم مخصص", desc: "مدير حساب خاص يساعدك في الإجابة على أسئلة عملائك." },
-    { icon: "📊", title: "تقارير شفافة", desc: "لوحة تحكم لتتبع إحالاتك وعمولاتك في الوقت الفعلي." },
     { icon: "🛒", title: "تكامل مع سلة وزد", desc: "المنصتان الأكثر انتشاراً في السوق السعودي." },
     { icon: "⚡", title: "إعداد في دقيقتين", desc: "عميلك يفعّل التطبيق بنفسه بدون تدخل تقني." },
+    { icon: "🔄", title: "عمولة متكررة", desc: "تحصل على عمولتك في كل تجديد — ليس فقط أول اشتراك." },
   ],
   calcTag: "الحاسبة",
   calcTitle: "احسب أرباحك",
@@ -62,17 +62,17 @@ const AR = {
   calcStores: "عدد المتاجر المُحالة",
   calcPlan: "الباقة",
   calcAnnualTotal: "إجمالي الاشتراكات السنوية",
-  calcYourComm: "عمولتك السنوية (10٪)",
+  calcYourComm: "عمولتك السنوية (10%)",
   calcMonthlyComm: "عمولتك الشهرية",
-  calcClientSave: "مدخرات عملائك (خصم 10٪)",
+  calcClientSave: "مدخرات عملائك (خصم 10%)",
   faqTag: "الأسئلة الشائعة",
   faqTitle: "أسئلة شائعة",
   faqs: [
     { q: "من يحق له الانضمام للبرنامج؟", a: "البرنامج مفتوح للوكالات التسويقية والمستشارين الرقميين وأي شخص لديه شبكة من أصحاب المتاجر الإلكترونية." },
     { q: "متى أحصل على عمولتي؟", a: "تُحتسب العمولة بعد إتمام الاشتراك وانتهاء فترة الاسترداد (7 أيام)، وتُصرف شهرياً عبر التحويل البنكي." },
-    { q: "هل العمولة لمرة واحدة أم متكررة؟", a: "متكررة — تحصل على 10٪ طوال مدة اشتراك العميل. وإذا جدّد، تحصل على عمولة التجديد أيضاً." },
-    { q: "هل الخصم يُطبق على جميع الباقات؟", a: "نعم، خصم 10٪ يُطبق على جميع الباقات السنوية عند الاشتراك عبر رابطك." },
-    { q: "كيف أتابع إحالاتي وعمولاتي؟", a: "نوفر لك لوحة تحكم خاصة تُظهر النقرات والتسجيلات والاشتراكات المكتملة والعمولات المستحقة." },
+    { q: "هل العمولة لمرة واحدة أم متكررة؟", a: "متكررة — تحصل على 10% طوال مدة اشتراك العميل. وإذا جدّد، تحصل على عمولة التجديد أيضاً." },
+    { q: "هل الخصم يُطبق على جميع الباقات؟", a: "نعم، خصم 10% يُطبق على جميع الباقات السنوية عند الاشتراك بإدخال كودك." },
+    { q: "كيف يستخدم عميلي كودي؟", a: "يُدخل عميلك الكود عند إتمام الاشتراك في زيادة، فيُطبَّق الخصم تلقائياً وتُحتسب العمولة لحسابك." },
   ],
   finalTitle: "مستعد تبدأ؟",
   finalDesc: "تواصل معنا الآن عبر واتساب ونساعدك تنطلق كشريك معتمد في أقل من 24 ساعة.",
@@ -84,20 +84,20 @@ const EN = {
   tag: "Partner Program",
   heroTitle: "Earn with every store you grow",
   heroDesc:
-    "An affiliate program built for marketing agencies and digital consultants — share Ziadah with your clients, earn a fixed commission on every annual subscription.",
+    "An affiliate program built for marketing agencies and digital consultants — share your code with clients, earn a fixed commission on every annual subscription.",
   ctaMain: "Start Partnering via WhatsApp",
   ctaSub: "Our team replies within minutes",
   stats: [
     { val: "10%", label: "Your commission per subscription" },
     { val: "10%", label: "Discount for your clients" },
     { val: "12 months", label: "Commission duration" },
-    { val: "Instant", label: "Your unique tracking link" },
+    { val: "Instant", label: "Your unique referral code" },
   ],
   howTag: "How it works",
   howTitle: "How it works",
   howSteps: [
-    { num: "01", icon: "🤝", title: "Register as a partner", desc: "Reach out via WhatsApp. We'll send your personal referral link right away." },
-    { num: "02", icon: "🔗", title: "Share your link", desc: "Clients subscribe through your link and automatically get a 10% discount." },
+    { num: "01", icon: "🤝", title: "Register as a partner", desc: "Reach out via WhatsApp. We'll send you your personal referral code right away." },
+    { num: "02", icon: "🏷️", title: "Share your code", desc: "Clients enter your code at checkout and automatically get a 10% discount." },
     { num: "03", icon: "💰", title: "Earn monthly", desc: "You receive 10% of every annual subscription for as long as the client stays." },
   ],
   benefitsTag: "Benefits",
@@ -106,9 +106,9 @@ const EN = {
     { icon: "📈", title: "Unlimited earnings", desc: "No commission cap — the more you refer, the more you earn." },
     { icon: "🎯", title: "A product that sells itself", desc: "Ziadah delivers measurable results — the numbers speak." },
     { icon: "🧑‍💼", title: "Dedicated support", desc: "A dedicated account manager helps you close deals." },
-    { icon: "📊", title: "Transparent reporting", desc: "Track referrals and commissions in real time." },
     { icon: "🛒", title: "Salla & Zid integration", desc: "The two most popular e-commerce platforms in Saudi Arabia." },
     { icon: "⚡", title: "2-minute setup", desc: "Clients activate the app themselves — no technical help needed." },
+    { icon: "🔄", title: "Recurring commission", desc: "Earn on every renewal, not just the first subscription." },
   ],
   calcTag: "Calculator",
   calcTitle: "Calculate your earnings",
@@ -125,15 +125,15 @@ const EN = {
     { q: "Who can join the program?", a: "Marketing agencies, digital consultants, and anyone with a network of online store owners." },
     { q: "When do I get paid?", a: "After the 7-day refund period ends, commissions are paid monthly via bank transfer." },
     { q: "Is the commission one-time or recurring?", a: "Recurring — you earn 10% for the full duration of the client's subscription and on renewals." },
-    { q: "Does the discount apply to all plans?", a: "Yes, the 10% discount applies to all annual plans when clients subscribe through your link." },
-    { q: "How do I track my referrals?", a: "We provide a dashboard showing clicks, registrations, completed subscriptions, and commissions." },
+    { q: "Does the discount apply to all plans?", a: "Yes, the 10% discount applies to all annual plans when clients enter your referral code at checkout." },
+    { q: "How does my client use my code?", a: "Your client enters your referral code when subscribing to Ziadah. The discount is applied automatically and the commission is credited to your account." },
   ],
   finalTitle: "Ready to get started?",
   finalDesc: "Reach out via WhatsApp now and we'll help you launch as a certified partner in less than 24 hours.",
 };
 
-function fmt(n: number, isAr: boolean) {
-  return n.toLocaleString(isAr ? "ar-SA" : "en-US");
+function fmt(n: number) {
+  return n.toLocaleString("en-US");
 }
 
 export default function Affiliate() {
@@ -178,7 +178,6 @@ export default function Affiliate() {
           <div className="aff-hero-glow" aria-hidden />
           <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
 
-            {/* Section tag — design system */}
             <div className="stag" style={{ margin: "0 auto 24px" }}>
               <span className="stag-dot" />
               {c.tag}
@@ -193,7 +192,7 @@ export default function Affiliate() {
             </a>
             <p className="aff-cta-sub">{c.ctaSub}</p>
 
-            {/* Stats row — glass cards */}
+            {/* Stats row */}
             <div className="aff-stats">
               {c.stats.map((s, i) => (
                 <div key={i} className="gc aff-stat rv" style={{ animationDelay: `${i * 0.1}s` }}>
@@ -273,7 +272,7 @@ export default function Affiliate() {
                   <label className="aff-calc-label">
                     {c.calcStores}
                     <span className="aff-calc-badge">
-                      {isAr ? fmt(stores, true) + " متجر" : stores + " stores"}
+                      {isAr ? fmt(stores) + " متجر" : stores + " stores"}
                     </span>
                   </label>
                   <input
@@ -302,7 +301,7 @@ export default function Affiliate() {
                       >
                         {isAr ? p.keyAr : p.keyEn}
                         <span className="aff-plan-tab-price">
-                          {isAr ? fmt(p.annual, true) + " ⃁" : fmt(p.annual, false) + " SAR"}
+                          {fmt(p.annual)} {isAr ? "⃁" : "SAR"}
                         </span>
                       </button>
                     ))}
@@ -315,25 +314,25 @@ export default function Affiliate() {
                 <div className="aff-calc-res aff-calc-res--main">
                   <span className="aff-calc-res-label">{c.calcYourComm}</span>
                   <span className="aff-calc-res-val">
-                    {isAr ? fmt(yourComm, true) + " ⃁" : fmt(yourComm, false) + " SAR"}
+                    {fmt(yourComm)} {isAr ? "⃁" : "SAR"}
                   </span>
                 </div>
                 <div className="aff-calc-res">
                   <span className="aff-calc-res-label">{c.calcMonthlyComm}</span>
                   <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {isAr ? fmt(Math.round(monthly), true) + " ⃁" : fmt(Math.round(monthly), false) + " SAR"}
+                    {fmt(Math.round(monthly))} {isAr ? "⃁" : "SAR"}
                   </span>
                 </div>
                 <div className="aff-calc-res">
                   <span className="aff-calc-res-label">{c.calcAnnualTotal}</span>
                   <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {isAr ? fmt(totalAnnual, true) + " ⃁" : fmt(totalAnnual, false) + " SAR"}
+                    {fmt(totalAnnual)} {isAr ? "⃁" : "SAR"}
                   </span>
                 </div>
                 <div className="aff-calc-res aff-calc-res--client">
                   <span className="aff-calc-res-label">{c.calcClientSave}</span>
                   <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {isAr ? fmt(clientSave, true) + " ⃁" : fmt(clientSave, false) + " SAR"}
+                    {fmt(clientSave)} {isAr ? "⃁" : "SAR"}
                   </span>
                 </div>
               </div>
