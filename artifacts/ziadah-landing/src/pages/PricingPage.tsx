@@ -118,6 +118,7 @@ export default function PricingPage() {
     Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))
   );
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const [mobilePlanIdx, setMobilePlanIdx] = useState(1);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -302,11 +303,24 @@ export default function PricingPage() {
             <h2 className="st">{isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}</h2>
           </div>
 
+          {/* Mobile plan selector — hidden on desktop */}
+          <div className="pp-mobile-plan-tabs">
+            {plans.map((plan, i) => (
+              <button
+                key={plan.key}
+                className={`pp-mobile-plan-tab${mobilePlanIdx === i ? " pp-mobile-plan-tab--on" : ""}${plan.featured ? " pp-mobile-plan-tab--feat" : ""}`}
+                onClick={() => setMobilePlanIdx(i)}
+              >
+                {plan.name}
+              </button>
+            ))}
+          </div>
+
           {/* Sticky header */}
           <div className="pp-tbl-head">
             <div className="pp-tbl-label-col" />
-            {plans.map((plan) => (
-              <div key={plan.key} className={`pp-tbl-plan-col${plan.featured ? " pp-tbl-plan-col--feat" : ""}`}>
+            {plans.map((plan, i) => (
+              <div key={plan.key} className={`pp-tbl-plan-col${plan.featured ? " pp-tbl-plan-col--feat" : ""}${mobilePlanIdx === i ? " pp-tbl-plan-col--m-active" : ""}`}>
                 <div className="pp-tbl-plan-name">{plan.name}</div>
                 <div className="pp-tbl-plan-price">
                   {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
@@ -342,8 +356,8 @@ export default function PricingPage() {
                         <div className="pp-row-label">
                           {isAr ? feat.ar : feat.en}
                         </div>
-                        {plans.map((plan) => (
-                          <div key={plan.key} className={`pp-row-cell${plan.featured ? " pp-row-cell--feat" : ""}`}>
+                        {plans.map((plan, i) => (
+                          <div key={plan.key} className={`pp-row-cell${plan.featured ? " pp-row-cell--feat" : ""}${mobilePlanIdx === i ? " pp-row-cell--m-active" : ""}`}>
                             <CellVal val={feat[plan.key]} planKey={plan.key} />
                           </div>
                         ))}
