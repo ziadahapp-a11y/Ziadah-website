@@ -4190,7 +4190,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   padding: var(--card-pad-md);
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 0;
   position: relative;
 }
 .pp-card:hover {
@@ -4224,25 +4224,26 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 
 .pp-card-name {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 800;
   color: rgba(255,255,255,.92);
-  margin-top: 4px;
+  margin-top: 6px;
+  margin-bottom: 3px;
 }
 .pp-card--feat .pp-card-name { color: #fbbf24; }
 
 .pp-card-desc {
-  font-size: 12px;
-  color: rgba(255,255,255,.38);
-  margin-bottom: 6px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,.4);
+  margin-bottom: 12px;
   line-height: 1.5;
-  min-height: 36px;
 }
 
 .pp-card-orig-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 4px;
 }
 .pp-card-orig {
   font-size: 12.5px;
@@ -4268,7 +4269,8 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   display: flex;
   align-items: baseline;
   gap: 5px;
-  margin-top: 4px;
+  margin-top: 2px;
+  margin-bottom: 4px;
 }
 .pp-card-num {
   font-size: clamp(32px, 4vw, 42px);
@@ -4303,18 +4305,19 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 
 .pp-card-cta {
-  margin-top: auto;
-  padding: 12px 20px;
+  margin-top: 14px;
+  padding: 13px 20px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.13);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.8);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.88);
   font-family: var(--font);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 800;
   cursor: pointer;
   transition: all .2s;
   letter-spacing: .01em;
+  width: 100%;
 }
 .pp-card-cta:hover {
   background: rgba(124,58,237,.22);
@@ -4336,14 +4339,15 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 
 /* ── Card feature list ── */
 .pp-card-feats {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,.08);
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.09);
   text-align: start;
+  flex: 1;
 }
 .pp-card-feat-intro {
-  font-size: .78rem;
-  color: rgba(255,255,255,.45);
+  font-size: .79rem;
+  color: rgba(255,255,255,.48);
   margin: 0 0 10px;
   font-style: italic;
 }
@@ -4353,15 +4357,15 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
 }
 .pp-card-feat-item {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: .82rem;
-  color: rgba(255,255,255,.8);
-  line-height: 1.4;
+  gap: 9px;
+  font-size: .84rem;
+  color: rgba(255,255,255,.82);
+  line-height: 1.45;
 }
 .pp-card-feat-check {
   flex-shrink: 0;
@@ -4525,6 +4529,61 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   padding: 0 24px;
   max-width: 760px;
   margin-inline: auto;
+}
+
+/* ── Activation CTA section ── */
+.pp-activate {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(124,58,237,.06) 0%, transparent 100%);
+  border-top: 1px solid rgba(124,58,237,.14);
+  text-align: center;
+}
+.pp-activate-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse at center, rgba(124,58,237,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.pp-activate-title {
+  font-size: clamp(26px, 3.5vw, 40px);
+  font-weight: 900;
+  color: var(--t);
+  margin: 0 0 14px;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+}
+.pp-activate-sub {
+  font-size: 13.5px;
+  color: rgba(255,255,255,.42);
+  margin: 0 0 32px;
+  letter-spacing: .01em;
+}
+.pp-activate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--p3) 0%, var(--p4) 100%);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all .22s;
+  box-shadow: 0 8px 28px rgba(124,58,237,.40);
+  letter-spacing: .01em;
+}
+.pp-activate-btn:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 12px 38px rgba(124,58,237,.55);
+  transform: translateY(-2px);
 }
 
 /* ── Responsive ── */

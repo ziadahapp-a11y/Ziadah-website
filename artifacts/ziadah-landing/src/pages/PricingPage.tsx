@@ -363,6 +363,39 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* ── Activation CTA ── */}
+      <section className="pp-activate">
+        <div className="pp-activate-glow" aria-hidden />
+        <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+          <div className="stag" style={{ margin: "0 auto 18px" }}>
+            <span className="stag-dot" />
+            {isAr ? "ابدأ الآن" : "Get Started"}
+          </div>
+          <h2 className="pp-activate-title">
+            {isAr ? "فعّل متجرك اليوم" : "Activate Your Store Today"}
+          </h2>
+          <p className="ssub" style={{ margin: "0 auto 10px", textAlign: "center" }}>
+            {isAr
+              ? "7 أيام تجربة مجانية · بدون بطاقة ائتمانية · إلغاء في أي وقت"
+              : "7-day free trial · No credit card · Cancel anytime"}
+          </p>
+          <p className="pp-activate-sub">
+            {isAr
+              ? "تفعيل فوري على منصات زد وسلة وبيع"
+              : "Instant activation on Zid, Salla & Bea"}
+          </p>
+          <button
+            className="pp-activate-btn"
+            onClick={() => setPlatformModalOpen(true)}
+          >
+            {isAr ? "ابدأ التفعيل المجاني" : "Start Free Activation"}
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden style={{ flexShrink: 0 }}>
+              <path d="M4 9h10M10 5l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </div>
   );
