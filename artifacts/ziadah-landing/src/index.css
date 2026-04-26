@@ -101,7 +101,7 @@ section{
   z-index:2;
   width:100%;
   box-sizing:border-box;
-  padding-block:56px;
+  padding-block:40px;
   padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px));
   padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
   overflow-x:clip;
@@ -109,14 +109,14 @@ section{
 /* تابلت / آيباد: إيقاع أقصر من الديسكتوب لتقليل الفراغ العمودي */
 @media(min-width:769px) and (max-width:1024px){
   section{
-    padding-block:clamp(72px, 7.5vw, 96px);
+    padding-block:clamp(52px, 6vw, 72px);
     padding-left:max(4%, env(safe-area-inset-left, 0px));
     padding-right:max(4%, env(safe-area-inset-right, 0px));
   }
 }
 @media(min-width:1025px){
   section{
-    padding-block:110px;
+    padding-block:76px;
     padding-left:max(5%, env(safe-area-inset-left, 0px));
     padding-right:max(5%, env(safe-area-inset-right, 0px));
   }
@@ -4144,7 +4144,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   border-radius: 14px;
   padding: 5px;
   gap: 4px;
-  margin-bottom: 52px;
+  margin-bottom: 28px;
 }
 .pp-tb {
   padding: 9px 22px;
@@ -4566,10 +4566,10 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .aff-cta-sub { font-size: 12px; color: var(--tm); margin-top: 14px; letter-spacing: .02em; }
 
 /* ── Section heading helper ── */
-.aff-sec-head { text-align: center; margin-bottom: 52px; }
+.aff-sec-head { text-align: center; margin-bottom: 28px; }
 
 /* Stats — .gc provides glass; add padding + specific styles */
-.aff-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--card-gap); margin-top: 64px; text-align: start; }
+.aff-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--card-gap); margin-top: 24px; text-align: start; }
 .aff-stat { padding: var(--card-pad-md); }
 .aff-stat-val { font-size: clamp(28px,3.5vw,38px); font-weight: 900; color: var(--p4); letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1; }
 .aff-stat-label { font-size: 13px; color: var(--tm); line-height: 1.55; }

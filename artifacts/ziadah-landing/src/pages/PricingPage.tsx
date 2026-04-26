@@ -194,7 +194,7 @@ export default function PricingPage() {
           <h1 className="pp-title">
             {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
           </h1>
-          <p className="ssub" style={{ margin: "0 auto 40px", textAlign: "center" }}>
+          <p className="ssub" style={{ margin: "0 auto 22px", textAlign: "center" }}>
             {isAr
               ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
               : "Unlimited suggestions & sales in all plans · VAT included"}

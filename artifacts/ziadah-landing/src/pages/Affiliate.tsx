@@ -176,7 +176,7 @@ export default function Affiliate() {
             </div>
 
             <h1 className="aff-hero-title">{c.heroTitle}</h1>
-            <p className="ssub" style={{ margin: "0 auto 36px", textAlign: "center" }}>{c.heroDesc}</p>
+            <p className="ssub" style={{ margin: "0 auto 20px", textAlign: "center" }}>{c.heroDesc}</p>
 
             <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn">
               <WaIcon size={22} />
@@ -253,7 +253,7 @@ export default function Affiliate() {
                 {c.calcTag}
               </div>
               <h2 className="st" style={{ textAlign: "center" }}>{c.calcTitle}</h2>
-              <p className="ssub" style={{ textAlign: "center", margin: "0 auto 40px" }}>{c.calcDesc}</p>
+              <p className="ssub" style={{ textAlign: "center", margin: "0 auto 20px" }}>{c.calcDesc}</p>
             </div>
 
             <div className="gc aff-calc">
@@ -385,7 +385,7 @@ export default function Affiliate() {
           <div className="aff-final-glow" aria-hidden />
           <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
             <h2 className="st" style={{ textAlign: "center", marginBottom: 16 }}>{c.finalTitle}</h2>
-            <p className="ssub" style={{ textAlign: "center", margin: "0 auto 32px" }}>{c.finalDesc}</p>
+            <p className="ssub" style={{ textAlign: "center", margin: "0 auto 20px" }}>{c.finalDesc}</p>
             <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn aff-wa-btn--lg">
               <WaIcon size={24} />
               {c.ctaMain}
