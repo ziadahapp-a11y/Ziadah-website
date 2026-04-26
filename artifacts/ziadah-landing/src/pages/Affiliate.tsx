@@ -156,7 +156,8 @@ export default function Affiliate() {
   }, []);
 
   const plan = PLANS[planIdx];
-  const totalAnnual = stores * plan.annual;
+  const priceExVat = Math.round(plan.annual / 1.15);  // strip 15% VAT
+  const totalAnnual = stores * priceExVat;
   const yourComm = totalAnnual * 0.1;
   const monthly = yourComm / 12;
   const clientSave = totalAnnual * 0.1;
