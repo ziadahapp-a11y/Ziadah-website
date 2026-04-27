@@ -149,6 +149,7 @@ export default function PricingPage() {
     featIntro: string | null;
     features: string[];
     aiPoints: string;
+    aiPointsY: string;
   }[] = [
     {
       key: "s",
@@ -158,7 +159,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: null,
       features: ld.planStarterFeatures as string[],
-      aiPoints: "5",
+      aiPoints: "5", aiPointsY: "60",
     },
     {
       key: "g",
@@ -168,7 +169,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: ld.planGrowthIntro as string,
       features: ld.planGrowthFeatures as string[],
-      aiPoints: "50",
+      aiPoints: "50", aiPointsY: "600",
     },
     {
       key: "p",
@@ -178,7 +179,7 @@ export default function PricingPage() {
       badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
       featIntro: ld.planProIntro as string,
       features: ld.planProFeatures as string[],
-      aiPoints: "500",
+      aiPoints: "500", aiPointsY: "6,000",
     },
     {
       key: "b",
@@ -188,7 +189,7 @@ export default function PricingPage() {
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
       featIntro: ld.planBusinessIntro as string,
       features: ld.planBusinessFeatures as string[],
-      aiPoints: "5,000",
+      aiPoints: "5,000", aiPointsY: "60,000",
     },
   ];
 
@@ -290,9 +291,13 @@ export default function PricingPage() {
                   {/* AI Points chip */}
                   <div className={`pp-ai-chip${plan.featured ? " pp-ai-chip--feat" : ""}`}>
                     <span className="pp-ai-chip-icon" aria-hidden>✦</span>
-                    <span className="pp-ai-chip-val">{plan.aiPoints}</span>
+                    <span className="pp-ai-chip-val">
+                      {mode === "m" ? plan.aiPoints : plan.aiPointsY}
+                    </span>
                     <span className="pp-ai-chip-label">
-                      {isAr ? "نقطة ذكاء اصطناعي / شهر" : "AI points / month"}
+                      {isAr
+                        ? (mode === "m" ? "نقطة ذكاء اصطناعي / شهر" : "نقطة ذكاء اصطناعي / سنة")
+                        : (mode === "m" ? "AI points / month" : "AI points / year")}
                     </span>
                   </div>
 
