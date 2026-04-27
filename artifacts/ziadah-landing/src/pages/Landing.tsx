@@ -103,6 +103,136 @@ function SecTag({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ── Live Demo Store Section ────────────────────────────────────
+
+const DEMO_STORE = "https://ky0vcg.zid.store";
+
+const LIVE_TABS_AR = [
+  { id: "home",    label: "🏠 الرئيسية",        url: DEMO_STORE + "/",        desc: "اكتشف اقتراحات المنتجات الذكية على الصفحة الرئيسية" },
+  { id: "product", label: "🛍️ صفحة المنتج",    url: DEMO_STORE + "/products", desc: "شاهد التوصيات الذكية أثناء تصفح المنتج" },
+  { id: "cart",    label: "🛒 صفحة السلة",      url: DEMO_STORE + "/cart",     desc: "جرّب عروض زيادة قبل إتمام الشراء" },
+];
+
+const LIVE_TABS_EN = [
+  { id: "home",    label: "🏠 Home",         url: DEMO_STORE + "/",        desc: "Discover AI product suggestions on the homepage" },
+  { id: "product", label: "🛍️ Product Page", url: DEMO_STORE + "/products", desc: "See smart recommendations while browsing a product" },
+  { id: "cart",    label: "🛒 Cart Page",    url: DEMO_STORE + "/cart",     desc: "Try Ziadah offers before completing checkout" },
+];
+
+function LiveDemoSection({ lang }: { lang: string }) {
+  const isAr = lang === "ar";
+  const tabs = isAr ? LIVE_TABS_AR : LIVE_TABS_EN;
+  const [activeIdx, setActiveIdx] = useState(0);
+  const activeTab = tabs[activeIdx];
+
+  return (
+    <section id="live-demo" className="live-demo-sec">
+      <div className="wrap">
+        {/* Header */}
+        <div className="tc" style={{ marginBottom: 40 }}>
+          <div className="stag" style={{ margin: "0 auto 18px" }}>
+            <span className="stag-dot" />
+            {isAr ? "المتجر التجريبي" : "Live Demo Store"}
+          </div>
+          <h2 className="st rv d1 font-semibold">
+            {isAr ? "جرّب زيادة الآن في متجر حقيقي" : "Try Ziadah live in a real store"}
+          </h2>
+          <p className="ssub rv d2" style={{ maxWidth: 560, margin: "0 auto" }}>
+            {isAr
+              ? "تصفّح المتجر التجريبي وشاهد كيف تعمل ميزات زيادة على أرض الواقع — دون الحاجة لإنشاء حساب"
+              : "Browse our demo store and see how Ziadah features work in the real world — no account needed"}
+          </p>
+        </div>
+
+        {/* Tab switcher */}
+        <div className="ld-tabs rv d2" role="tablist" aria-label={isAr ? "صفحات المتجر التجريبي" : "Demo store pages"}>
+          {tabs.map((tab, i) => (
+            <button
+              key={tab.id}
+              role="tab"
+              aria-selected={activeIdx === i}
+              className={`ld-tab${activeIdx === i ? " ld-tab--on" : ""}`}
+              onClick={() => setActiveIdx(i)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Page description */}
+        <p className="ld-tab-desc rv d2">{activeTab.desc}</p>
+
+        {/* Browser frame */}
+        <div className="ld-browser rv d3" role="region" aria-label={isAr ? "المتجر التجريبي" : "Demo store"}>
+          {/* Chrome toolbar */}
+          <div className="ld-toolbar" dir="ltr">
+            <div className="ld-dots" aria-hidden>
+              <span className="ld-dot ld-dot--red" />
+              <span className="ld-dot ld-dot--yellow" />
+              <span className="ld-dot ld-dot--green" />
+            </div>
+            <div className="ld-urlbar" aria-label={isAr ? "عنوان المتجر التجريبي" : "Demo store address"}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ opacity: .5, flexShrink: 0 }}>
+                <path d="M7 1.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM1 7h12M7 1.5C5.7 3 5 4.9 5 7s.7 4 2 5.5M7 1.5C8.3 3 9 4.9 9 7s-.7 4-2 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+              <span className="ld-url-text">{activeTab.url.replace("https://", "")}</span>
+            </div>
+            <a
+              href={activeTab.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ld-open-btn"
+              aria-label={isAr ? "فتح في تبويب جديد" : "Open in new tab"}
+              title={isAr ? "فتح في تبويب جديد" : "Open in new tab"}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M6 2H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V8M9 1h4m0 0v4m0-4L6 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          {/* iframe */}
+          <div className="ld-frame-wrap">
+            <iframe
+              key={activeTab.url}
+              src={activeTab.url}
+              className="ld-frame"
+              title={isAr ? "المتجر التجريبي — زيادة" : "Demo Store — Ziadah"}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope"
+              loading="lazy"
+            />
+            {/* Fallback overlay if iframe is blocked */}
+            <div className="ld-fallback" aria-hidden>
+              <div className="ld-fallback-inner">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <rect width="40" height="40" rx="12" fill="rgba(124,58,237,.15)"/>
+                  <path d="M14 20h12M22 15l5 5-5 5" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <p style={{ margin: "12px 0 4px", fontWeight: 700 }}>
+                  {isAr ? "فتح المتجر التجريبي" : "Open Demo Store"}
+                </p>
+                <a href={activeTab.url} target="_blank" rel="noopener noreferrer" className="ld-fallback-btn">
+                  {isAr ? "اضغط هنا للمتابعة" : "Click here to continue"}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA below frame */}
+        <div className="ld-cta rv d4">
+          <a href={DEMO_STORE} target="_blank" rel="noopener noreferrer" className="ld-cta-link">
+            {isAr ? "فتح المتجر التجريبي كاملاً" : "Open full demo store"}
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Demo Flow Section ─────────────────────────────────────────
 
 const DEMO_PHASES_AR = [
@@ -983,6 +1113,10 @@ export default function Landing() {
             </div>
         </section>
         <WidgetsShowcaseSection />
+
+        {/* LIVE DEMO STORE */}
+        <LiveDemoSection lang={lang} />
+
         {/* PERSONALIZATION DEMO */}
         <section id="demo">
           <div className="wrap">

@@ -4787,3 +4787,215 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .aff-calc-res-val--sm { font-size: 18px; }
   .aff-calc-res--main .aff-calc-res-val { font-size: 26px; }
 }
+
+/* ===== LIVE DEMO STORE SECTION ===== */
+.live-demo-sec {
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.live-demo-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Tabs */
+.ld-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.ld-tab {
+  padding: 10px 20px;
+  border-radius: 40px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.55);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.ld-tab:hover {
+  border-color: rgba(168,85,247,.4);
+  color: rgba(255,255,255,.85);
+}
+.ld-tab--on {
+  background: rgba(124,58,237,.2);
+  border-color: rgba(168,85,247,.6);
+  color: #fff;
+  box-shadow: 0 2px 16px rgba(124,58,237,.25);
+}
+
+/* Tab description */
+.ld-tab-desc {
+  text-align: center;
+  color: rgba(255,255,255,.45);
+  font-size: 14px;
+  margin: 0 auto 28px;
+  min-height: 1.4em;
+}
+
+/* Browser frame */
+.ld-browser {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow:
+    0 0 0 1px rgba(124,58,237,.15),
+    0 24px 80px rgba(0,0,0,.5),
+    0 4px 20px rgba(124,58,237,.1);
+  background: #0d0d12;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+/* Chrome toolbar */
+.ld-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.ld-dots { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.ld-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.ld-dot--red    { background: #ff5f57; }
+.ld-dot--yellow { background: #ffbd2e; }
+.ld-dot--green  { background: #28c840; }
+.ld-urlbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0,0,0,.3);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 8px;
+  padding: 5px 12px;
+  color: rgba(255,255,255,.5);
+  font-size: 12px;
+  overflow: hidden;
+  min-width: 0;
+}
+.ld-url-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: monospace;
+  letter-spacing: .01em;
+}
+.ld-open-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.05);
+  color: rgba(255,255,255,.5);
+  flex-shrink: 0;
+  transition: all .18s;
+  text-decoration: none;
+}
+.ld-open-btn:hover {
+  background: rgba(124,58,237,.2);
+  border-color: rgba(168,85,247,.4);
+  color: #fff;
+}
+
+/* iframe container */
+.ld-frame-wrap {
+  position: relative;
+  height: 620px;
+  background: #f5f5f5;
+}
+.ld-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Fallback overlay — hidden by default, shown when iframe can't load */
+.ld-fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13,13,18,.97);
+  z-index: 10;
+  text-align: center;
+  color: rgba(255,255,255,.75);
+}
+.ld-fallback-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+.ld-fallback-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 28px;
+  border-radius: 40px;
+  background: rgba(124,58,237,.25);
+  border: 1px solid rgba(168,85,247,.5);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all .2s;
+}
+.ld-fallback-btn:hover { background: rgba(124,58,237,.45); }
+
+/* CTA row below frame */
+.ld-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.ld-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 40px;
+  background: rgba(124,58,237,.15);
+  border: 1px solid rgba(168,85,247,.4);
+  color: rgba(255,255,255,.85);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all .2s;
+}
+.ld-cta-link:hover {
+  background: rgba(124,58,237,.3);
+  border-color: rgba(168,85,247,.7);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .live-demo-sec { padding: 70px 0 60px; }
+  .ld-frame-wrap { height: 460px; }
+  .ld-tab { font-size: 12.5px; padding: 8px 14px; }
+}
+@media (max-width: 480px) {
+  .ld-frame-wrap { height: 380px; }
+  .ld-tabs { gap: 6px; }
+  .ld-tab { font-size: 12px; padding: 7px 12px; }
+  .ld-dot { width: 8px; height: 8px; }
+}
