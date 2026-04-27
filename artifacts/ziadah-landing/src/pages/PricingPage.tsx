@@ -30,7 +30,7 @@ const FEATURE_GROUPS: CategoryGroup[] = [
       { ar: "اقتراحات لامحدودة", en: "Unlimited suggestions", s: true, g: true, p: true, b: true },
       { ar: "مبيعات لامحدودة", en: "Unlimited sales", s: true, g: true, p: true, b: true },
       { ar: "مزامنة المنتجات", en: "Product sync", s: true, g: true, p: true, b: true },
-      { ar: "نقاط ذكاء اصطناعي مجانية / شهر", en: "Free AI points / month", s: "60", g: "600", p: "6,000", b: "60,000" },
+      { ar: "نقاط ذكاء اصطناعي مجانية / شهر", en: "Free AI points / month", s: "5", g: "50", p: "500", b: "5,000" },
     ],
   },
   {
@@ -158,7 +158,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: null,
       features: ld.planStarterFeatures as string[],
-      aiPoints: "60",
+      aiPoints: "5",
     },
     {
       key: "g",
@@ -168,7 +168,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: ld.planGrowthIntro as string,
       features: ld.planGrowthFeatures as string[],
-      aiPoints: "600",
+      aiPoints: "50",
     },
     {
       key: "p",
@@ -178,7 +178,7 @@ export default function PricingPage() {
       badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
       featIntro: ld.planProIntro as string,
       features: ld.planProFeatures as string[],
-      aiPoints: "6,000",
+      aiPoints: "500",
     },
     {
       key: "b",
@@ -188,7 +188,7 @@ export default function PricingPage() {
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
       featIntro: ld.planBusinessIntro as string,
       features: ld.planBusinessFeatures as string[],
-      aiPoints: "60,000",
+      aiPoints: "5,000",
     },
   ];
 
