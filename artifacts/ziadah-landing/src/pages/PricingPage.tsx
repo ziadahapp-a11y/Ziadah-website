@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import PlatformModal from "@/components/PlatformModal";
+import BilingualSEO from "@/components/BilingualSEO";
+import { PricingPageSchema } from "@/components/JsonLd";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -189,7 +191,19 @@ export default function PricingPage() {
     setOpen((prev) => ({ ...prev, [title]: !prev[title] }));
 
   return (
-    <div className="pp-root" dir={dir}>
+    <>
+      <BilingualSEO
+        titleAr="أسعار زيادة — اختر الباقة المناسبة لمتجرك"
+        titleEn="Ziadah Pricing — Plans for Zid & Salla Stores"
+        descriptionAr="تعرّف على باقات زيادة الأربع: الانطلاقة والنمو والاحترافية والأعمال. اقتراحات ومبيعات لامحدودة في كل الباقات — شاملة ضريبة القيمة المضافة."
+        descriptionEn="Explore Ziadah's four AI-powered plans for Zid & Salla stores: Starter, Growth, Professional, and Business — unlimited suggestions, unlimited sales, VAT included."
+        canonical="/pricing"
+        keywordsAr="أسعار زيادة، باقات زيادة، اشتراك زيادة، تجربة مجانية، اقتراح منتجات، ذكاء اصطناعي، زد، سلة"
+        keywordsEn="Ziadah pricing, Ziadah plans, Zid app pricing, Salla app pricing, AI ecommerce subscription"
+      />
+      <PricingPageSchema />
+
+      <div className="pp-root" dir={dir}>
 
       {/* ── Hero ── */}
       <section className="pp-hero">
@@ -413,5 +427,6 @@ export default function PricingPage() {
 
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </div>
+    </>
   );
 }

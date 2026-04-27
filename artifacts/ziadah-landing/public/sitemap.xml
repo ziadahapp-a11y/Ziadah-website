@@ -2469,4 +2469,44 @@
     <changefreq>monthly</changefreq>
     <priority>0.72</priority>
   </url>
+
+  <!-- ═══ Pricing page ═══ -->
+  <url>
+    <loc>https://www.ziadah.app/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/pricing" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/" />
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/pricing" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/" />
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+
+  <!-- ═══ Affiliate / Partner program ═══ -->
+  <url>
+    <loc>https://www.ziadah.app/affiliate</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/affiliate" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/affiliate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/" />
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/affiliate</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/affiliate" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/affiliate" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/" />
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
 </urlset>

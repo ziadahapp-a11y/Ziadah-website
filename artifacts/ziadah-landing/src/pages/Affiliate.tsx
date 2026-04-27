@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PageShell from "../components/PageShell";
 import BilingualSEO from "../components/BilingualSEO";
+import { FAQSchema, AffiliatePageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const WA_LINK =
@@ -170,7 +171,11 @@ export default function Affiliate() {
         descriptionAr={AR.seoDesc}
         descriptionEn={EN.seoDesc}
         canonical="/affiliate"
+        keywordsAr="برنامج أفيليت، شراكة زيادة، عمولة، كود إحالة، وكالة تسويق، زد، سلة"
+        keywordsEn="Ziadah affiliate, partner program, referral code, commission, marketing agency"
       />
+      <AffiliatePageSchema />
+      <FAQSchema faqs={c.faqs} />
 
       <div className="aff-root" dir={dir}>
 
