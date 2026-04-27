@@ -30,7 +30,7 @@ const FEATURE_GROUPS: CategoryGroup[] = [
       { ar: "اقتراحات لامحدودة", en: "Unlimited suggestions", s: true, g: true, p: true, b: true },
       { ar: "مبيعات لامحدودة", en: "Unlimited sales", s: true, g: true, p: true, b: true },
       { ar: "مزامنة المنتجات", en: "Product sync", s: true, g: true, p: true, b: true },
-      { ar: "نقاط ذكاء اصطناعي مجانية", en: "Free AI points", s: "60", g: "600", p: "6,000", b: "60,000" },
+      { ar: "نقاط ذكاء اصطناعي مجانية / شهر", en: "Free AI points / month", s: "60", g: "600", p: "6,000", b: "60,000" },
     ],
   },
   {
@@ -148,6 +148,7 @@ export default function PricingPage() {
     featured: boolean;
     featIntro: string | null;
     features: string[];
+    aiPoints: string;
   }[] = [
     {
       key: "s",
@@ -157,6 +158,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: null,
       features: ld.planStarterFeatures as string[],
+      aiPoints: "60",
     },
     {
       key: "g",
@@ -166,6 +168,7 @@ export default function PricingPage() {
       badge: null, featured: false,
       featIntro: ld.planGrowthIntro as string,
       features: ld.planGrowthFeatures as string[],
+      aiPoints: "600",
     },
     {
       key: "p",
@@ -175,6 +178,7 @@ export default function PricingPage() {
       badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
       featIntro: ld.planProIntro as string,
       features: ld.planProFeatures as string[],
+      aiPoints: "6,000",
     },
     {
       key: "b",
@@ -184,6 +188,7 @@ export default function PricingPage() {
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
       featIntro: ld.planBusinessIntro as string,
       features: ld.planBusinessFeatures as string[],
+      aiPoints: "60,000",
     },
   ];
 
@@ -281,6 +286,15 @@ export default function PricingPage() {
                   >
                     {isAr ? "ابدأ الآن" : "Get Started"}
                   </button>
+
+                  {/* AI Points chip */}
+                  <div className={`pp-ai-chip${plan.featured ? " pp-ai-chip--feat" : ""}`}>
+                    <span className="pp-ai-chip-icon" aria-hidden>✦</span>
+                    <span className="pp-ai-chip-val">{plan.aiPoints}</span>
+                    <span className="pp-ai-chip-label">
+                      {isAr ? "نقطة ذكاء اصطناعي / شهر" : "AI points / month"}
+                    </span>
+                  </div>
 
                   {/* Feature list */}
                   <div className="pp-card-feats">
