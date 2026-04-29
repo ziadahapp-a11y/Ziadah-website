@@ -5140,3 +5140,27 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   flex-wrap: wrap;
 }
 .pp-price-breakdown-sep { color: rgba(168,85,247,.6); font-weight: 700; }
+
+/* ===== AI CHIP & TOPUP — mobile fixes ===== */
+@media (max-width: 480px) {
+  .pp-ai-chip {
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 8px 12px;
+  }
+  .pp-ai-chip-val { font-size: 15px; }
+  .pp-ai-chip-label {
+    font-size: 11px;
+    flex-basis: 100%;
+    padding-inline-start: 18px;
+  }
+  .ai-topup-trigger { gap: 5px; padding: 8px 10px; }
+  .ai-topup-label {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+  .ai-topup-sel-price { font-size: 11px; padding: 2px 5px; }
+}
