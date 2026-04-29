@@ -254,9 +254,13 @@ export default function PricingPage() {
             {plans.map((plan, idx) => {
               const basePrice = mode === "m" ? plan.mPrice : plan.yPrice;
               const selTopup = topupSel[plan.key] != null ? AI_TOPUPS[topupSel[plan.key]!] : null;
+              const topupBase = mode === "m" ? plan.mPrice : plan.yAnnual;
               const displayPrice = selTopup
-                ? fmtPrice(parsePrice(basePrice) + selTopup.price)
+                ? fmtPrice(parsePrice(topupBase) + selTopup.price)
                 : basePrice;
+              const priceLabel = selTopup && mode === "y"
+                ? (isAr ? "/ سنة" : "/ yr")
+                : (isAr ? "/ شهر" : "/ mo");
               return (
                 <div
                   key={plan.key}
@@ -283,18 +287,21 @@ export default function PricingPage() {
                   <div className="pp-card-price">
                     <span className="pp-card-num">{displayPrice}</span>
                     <span className="pp-card-cur">⃁</span>
-                    <span className="pp-card-per">{isAr ? "/ شهر" : "/ mo"}</span>
+                    <span className="pp-card-per">{priceLabel}</span>
                   </div>
 
                   {selTopup && (
                     <div className="pp-price-breakdown">
-                      <span>{isAr ? "الخطة" : "Plan"}: {basePrice} ⃁</span>
+                      <span>
+                        {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
+                        : {topupBase} ⃁
+                      </span>
                       <span className="pp-price-breakdown-sep">+</span>
                       <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} ⃁</span>
                     </div>
                   )}
 
-                  {mode === "y" && (
+                  {mode === "y" && !selTopup && (
                     <div className="pp-card-annual">
                       {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
                     </div>

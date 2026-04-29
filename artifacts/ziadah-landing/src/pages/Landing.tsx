@@ -1720,9 +1720,15 @@ export default function Landing() {
               ].map((p, i) => {
                 const lSelTopupIdx = landingTopupSel[i] ?? null;
                 const lSelTopup = lSelTopupIdx != null ? AI_TOPUPS[lSelTopupIdx] : null;
-                const lEffectivePrice = lSelTopup != null && p.price != null
-                  ? fmtPrice(parsePrice(p.price as number | string) + lSelTopup.price)
+                const lTopupBase = (pricingMode === "y" && p.monthlyEquiv != null)
+                  ? parsePrice(p.monthlyEquiv as number | string)
+                  : (p.price != null ? parsePrice(p.price as number | string) : null);
+                const lEffectivePrice = lSelTopup != null && lTopupBase != null
+                  ? fmtPrice(lTopupBase + lSelTopup.price)
                   : p.price;
+                const lPriceLabel = lSelTopup && pricingMode === "y"
+                  ? (lang === "ar" ? "/ سنة" : "/ yr")
+                  : tr.landing.perMonth;
                 const isAr = lang === "ar";
                 return (
                 <GlassCard
@@ -1761,7 +1767,7 @@ export default function Landing() {
                           <span className="p-num">{lEffectivePrice}</span>
                           <span className="p-cur">⃁</span>
                         </span>
-                        <span className="p-per">{tr.landing.perMonth}</span>
+                        <span className="p-per">{lPriceLabel}</span>
                       </>
                     ) : (
                       <span style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}>
@@ -1769,17 +1775,20 @@ export default function Landing() {
                       </span>
                     )}
                   </div>
-                  {lSelTopup && (
+                  {lSelTopup && lTopupBase != null && (
                     <div className="pp-price-breakdown">
-                      <span>{isAr ? "الخطة" : "Plan"}: {p.price} ⃁</span>
+                      <span>
+                        {isAr ? (pricingMode === "y" ? "الخطة السنوية" : "الخطة") : (pricingMode === "y" ? "Annual plan" : "Plan")}
+                        : {pricingMode === "y" ? p.monthlyEquiv : p.price} ⃁
+                      </span>
                       <span className="pp-price-breakdown-sep">+</span>
                       <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(lSelTopup.price)} ⃁</span>
                     </div>
                   )}
 
-                  {/* Annual billing line — always reserves space */}
+                  {/* Annual billing line — hide when topup selected in yearly mode */}
                   <div className="p-monthly-equiv">
-                    {p.monthlyEquiv
+                    {!lSelTopup && p.monthlyEquiv
                       ? `${tr.landing.monthlyEquivPrefix} ${p.monthlyEquiv} ${tr.landing.monthlyEquivSuffix}`
                       : <span aria-hidden>‎</span>
                     }
