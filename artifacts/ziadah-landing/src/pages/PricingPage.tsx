@@ -265,7 +265,7 @@ export default function PricingPage() {
                 <div
                   key={plan.key}
                   className={`gc pp-card pp-card-in d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
-                  style={{ animationDelay: `${idx * 0.08}s` }}
+                  style={{ animationDelay: `${idx * 0.08}s`, zIndex: topupOpen[plan.key] ? 20 : undefined }}
                 >
                   {/* Badge — absolute positioned like landing cards */}
                   {plan.badge && (

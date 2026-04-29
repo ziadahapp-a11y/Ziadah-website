@@ -1734,6 +1734,7 @@ export default function Landing() {
                 <GlassCard
                   key={i}
                   className={`pc rv d${i + 1}${p.feat ? " feat" : ""}`}
+                  style={{ zIndex: landingTopupOpen === i ? 20 : undefined }}
                 >
                   {/* Badge row — always reserves space for alignment */}
                   <div className="pc-badge-row">
