@@ -4,6 +4,7 @@ import { useSiteT } from "@/cms/siteContent";
 import PlatformModal from "@/components/PlatformModal";
 import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
+import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -121,6 +122,13 @@ export default function PricingPage() {
   );
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [mobilePlanIdx, setMobilePlanIdx] = useState(1);
+  const [topupOpen, setTopupOpen] = useState<Record<PlanKey, boolean>>({ s: false, g: false, p: false, b: false });
+  const [topupSel, setTopupSel] = useState<Record<PlanKey, number | null>>({ s: null, g: null, p: null, b: null });
+  const toggleTopup = (k: PlanKey) => setTopupOpen((prev) => ({ ...prev, [k]: !prev[k] }));
+  const selectTopup = (k: PlanKey, idx: number | null) => {
+    setTopupSel((prev) => ({ ...prev, [k]: idx }));
+    setTopupOpen((prev) => ({ ...prev, [k]: false }));
+  };
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -244,7 +252,11 @@ export default function PricingPage() {
           {/* Plan Cards */}
           <div className="pp-cards">
             {plans.map((plan, idx) => {
-              const displayPrice = mode === "m" ? plan.mPrice : plan.yPrice;
+              const basePrice = mode === "m" ? plan.mPrice : plan.yPrice;
+              const selTopup = topupSel[plan.key] != null ? AI_TOPUPS[topupSel[plan.key]!] : null;
+              const displayPrice = selTopup
+                ? fmtPrice(parsePrice(basePrice) + selTopup.price)
+                : basePrice;
               return (
                 <div
                   key={plan.key}
@@ -274,6 +286,14 @@ export default function PricingPage() {
                     <span className="pp-card-per">{isAr ? "/ شهر" : "/ mo"}</span>
                   </div>
 
+                  {selTopup && (
+                    <div className="pp-price-breakdown">
+                      <span>{isAr ? "الخطة" : "Plan"}: {basePrice} ⃁</span>
+                      <span className="pp-price-breakdown-sep">+</span>
+                      <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} ⃁</span>
+                    </div>
+                  )}
+
                   {mode === "y" && (
                     <div className="pp-card-annual">
                       {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
@@ -299,6 +319,48 @@ export default function PricingPage() {
                         ? (mode === "m" ? "نقطة ذكاء اصطناعي / شهر" : "نقطة ذكاء اصطناعي / سنة")
                         : (mode === "m" ? "AI points / month" : "AI points / year")}
                     </span>
+                  </div>
+
+                  {/* AI Topup Dropdown */}
+                  <div className="ai-topup">
+                    <button
+                      className={`ai-topup-trigger${topupOpen[plan.key] ? " open" : ""}${selTopup ? " has-sel" : ""}${plan.featured ? " feat" : ""}`}
+                      onClick={() => toggleTopup(plan.key)}
+                    >
+                      <span className="ai-topup-icon">⚡</span>
+                      <span className="ai-topup-label">
+                        {selTopup
+                          ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
+                          : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
+                      </span>
+                      {selTopup && (
+                        <span className="ai-topup-sel-price">+{fmtPrice(selTopup.price)} ⃁</span>
+                      )}
+                      <svg className="ai-topup-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    {topupOpen[plan.key] && (
+                      <div className="ai-topup-list">
+                        <button
+                          className={`ai-topup-opt${topupSel[plan.key] == null ? " active" : ""}`}
+                          onClick={() => selectTopup(plan.key, null)}
+                        >
+                          <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
+                          <span>—</span>
+                        </button>
+                        {AI_TOPUPS.map((pkg, ti) => (
+                          <button
+                            key={ti}
+                            className={`ai-topup-opt${topupSel[plan.key] === ti ? " active" : ""}`}
+                            onClick={() => selectTopup(plan.key, ti)}
+                          >
+                            <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
+                            <span>+{fmtPrice(pkg.price)} ⃁</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Feature list */}

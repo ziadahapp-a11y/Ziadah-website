@@ -11,6 +11,7 @@ import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
+import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { navigateTo } from "@/components/PageTransition";
 import { sectors } from "@/data/sectors";
@@ -532,6 +533,13 @@ export default function Landing() {
   const tr = t[lang];
   const [, goRoute] = useLangAwareLocation();
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
+  const [landingTopupOpen, setLandingTopupOpen] = useState<number | null>(null);
+  const [landingTopupSel, setLandingTopupSel] = useState<Record<number, number | null>>({});
+  const toggleLandingTopup = (i: number) => setLandingTopupOpen((prev) => (prev === i ? null : i));
+  const selectLandingTopup = (i: number, idx: number | null) => {
+    setLandingTopupSel((prev) => ({ ...prev, [i]: idx }));
+    setLandingTopupOpen(null);
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const { openMeetingBooking } = useMeetingBooking();
@@ -1709,7 +1717,14 @@ export default function Landing() {
                   ctaAction: () => setPlatformModalOpen(true),
                   fill: true,
                 },
-              ].map((p, i) => (
+              ].map((p, i) => {
+                const lSelTopupIdx = landingTopupSel[i] ?? null;
+                const lSelTopup = lSelTopupIdx != null ? AI_TOPUPS[lSelTopupIdx] : null;
+                const lEffectivePrice = lSelTopup != null && p.price != null
+                  ? fmtPrice(parsePrice(p.price as number | string) + lSelTopup.price)
+                  : p.price;
+                const isAr = lang === "ar";
+                return (
                 <GlassCard
                   key={i}
                   className={`pc rv d${i + 1}${p.feat ? " feat" : ""}`}
@@ -1743,7 +1758,7 @@ export default function Landing() {
                     {p.price != null ? (
                       <>
                         <span className="p-price-main">
-                          <span className="p-num">{p.price}</span>
+                          <span className="p-num">{lEffectivePrice}</span>
                           <span className="p-cur">⃁</span>
                         </span>
                         <span className="p-per">{tr.landing.perMonth}</span>
@@ -1754,6 +1769,13 @@ export default function Landing() {
                       </span>
                     )}
                   </div>
+                  {lSelTopup && (
+                    <div className="pp-price-breakdown">
+                      <span>{isAr ? "الخطة" : "Plan"}: {p.price} ⃁</span>
+                      <span className="pp-price-breakdown-sep">+</span>
+                      <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(lSelTopup.price)} ⃁</span>
+                    </div>
+                  )}
 
                   {/* Annual billing line — always reserves space */}
                   <div className="p-monthly-equiv">
@@ -1776,6 +1798,48 @@ export default function Landing() {
                     </div>
                   </div>
 
+                  {/* AI Topup Dropdown */}
+                  <div className="ai-topup">
+                    <button
+                      className={`ai-topup-trigger${landingTopupOpen === i ? " open" : ""}${lSelTopup ? " has-sel" : ""}${p.feat ? " feat" : ""}`}
+                      onClick={() => toggleLandingTopup(i)}
+                    >
+                      <span className="ai-topup-icon">⚡</span>
+                      <span className="ai-topup-label">
+                        {lSelTopup
+                          ? `${lSelTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
+                          : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
+                      </span>
+                      {lSelTopup && (
+                        <span className="ai-topup-sel-price">+{fmtPrice(lSelTopup.price)} ⃁</span>
+                      )}
+                      <svg className="ai-topup-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    {landingTopupOpen === i && (
+                      <div className="ai-topup-list">
+                        <button
+                          className={`ai-topup-opt${lSelTopupIdx == null ? " active" : ""}`}
+                          onClick={() => selectLandingTopup(i, null)}
+                        >
+                          <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
+                          <span>—</span>
+                        </button>
+                        {AI_TOPUPS.map((pkg, ti) => (
+                          <button
+                            key={ti}
+                            className={`ai-topup-opt${lSelTopupIdx === ti ? " active" : ""}`}
+                            onClick={() => selectLandingTopup(i, ti)}
+                          >
+                            <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
+                            <span>+{fmtPrice(pkg.price)} ⃁</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
                   {/* Feature list */}
                   <ul className="p-list">
                     {p.features.map((l, j) => (
@@ -1792,7 +1856,8 @@ export default function Landing() {
                     {p.cta}
                   </button>
                 </GlassCard>
-              ))}
+                );
+              })}
             </div>
 
             {/* Compare link */}
