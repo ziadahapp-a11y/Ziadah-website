@@ -5101,9 +5101,14 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   background: #1a1030;
   border: 1px solid rgba(124,58,237,.3);
   border-radius: 12px;
-  overflow: hidden;
-  z-index: 50;
-  box-shadow: 0 16px 40px rgba(0,0,0,.5);
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 260px;
+  z-index: 200;
+  box-shadow: 0 16px 40px rgba(0,0,0,.6);
+  /* scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,.4) transparent;
 }
 .ai-topup-opt {
   display: flex;
@@ -5164,3 +5169,8 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   }
   .ai-topup-sel-price { font-size: 11px; padding: 2px 5px; }
 }
+
+/* Allow topup dropdown to overflow pricing cards */
+.pc.gc,
+.pricing-sec__grid .gc { overflow: visible; }
+.ai-topup { overflow: visible; }
