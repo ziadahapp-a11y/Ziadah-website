@@ -1,0 +1,31 @@
+Step 3.0 looks clean. Let me audit it line by line before approving.
+What's correct:
+The mapping table is honest. Every new token traces back to an existing value. --bg-section-alt: rgba(9, 0, 25, 1) was previously inline in #hiw and #gp only, so naming it as a token is renaming, not changing. Acceptable.
+The deprecated tokens stay in the file with @deprecated comments rather than being deleted. That's the right move - it lets components migrate gradually through 3.2-3.15 without breaking on day one. Deletion happens at the end of Phase 3 once all references are gone. Mature approach.
+The four hardcoded purples are correctly NOT added to the token file. They die in the components when those components get refactored. Adding them would have been a contradiction of Phase 2.
+--accent-cta aliasing to --p (#7c3aed) confirms the canonical primary purple decision. No new value, just a semantic name pointing at the existing one.
+--text-on-accent: #ffffff is flagged as "لا مصدر موجود - قيمة معيارية" (no existing source, standard value). White on purple buttons is a reasonable standard token to introduce. I'll allow it because pure white as button text is universal and not a "design choice" being smuggled in. But worth noting: this is the one case where Replit added a value not previously in the codebase. It's defensible.
+What needs verification before I approve:
+1. The actual file content was not shown. Replit described what's in the file but didn't paste the file. For step 3.0 I want to see the literal CSS. Specifically:
+
+All 11 type scale tokens with their full definitions (size, weight, line-height, letter-spacing, font-family)
+The 13 spacing tokens
+The motion tokens
+The semantic aliases block
+Confirmation of the @deprecated comment format being applied
+
+2. The type scale needs a clamp implementation question answered. Phase 2 specified separate desktop and mobile sizes for display, h1, h2. Replit didn't say whether the tokens use clamp() for fluid scaling or whether each tier has a separate --type-display-mobile token. This affects how 3.3 (Hero) gets refactored.
+3. Type scale "11 tokens" but Phase 2 specified 10 + 1 stat = 11. That math checks out. But I want to see them named to confirm.
+4. No prefers-reduced-motion block in the token file. That's correct - Phase 2 put it in step 3.1, not 3.0. But I want Replit to confirm it understands the boundary: 3.0 is variables only, 3.1 is the global behavior rules.
+Prompt for Replit before we move to 3.1:
+
+Step 3.0 description is approved in principle but I need verification before unlocking 3.1.
+Deliver:
+
+The complete literal contents of dashboard-glass-system.css after your edits. Paste the full file. I want to see every token definition, not just the summary.
+Confirm the type scale implementation pattern. For --type-display, --type-h1, --type-h2: did you use clamp(mobile, vw, desktop) for fluid scaling, or did you define separate --type-display-mobile tokens? Either is acceptable but pick one and document the rule. The rule applies to every responsive tier.
+Confirm token boundaries. Step 3.0 is CSS variables only. No global selectors, no @media queries, no :focus-visible rules, no prefers-reduced-motion block. Those land in 3.1. Confirm the file you wrote contains zero behavior, only declarations.
+Show the @deprecated comment format you used. I want to see how --tm, --brand, --brand-2, --r2 are marked so future maintainers know to migrate.
+List any token from Phase 2 that you did NOT add to this file with a one-line reason why. I want to know if anything got deferred without being flagged.
+
+After delivering this, stop. Do not start 3.1.

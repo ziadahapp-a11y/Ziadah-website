@@ -92,10 +92,11 @@
   --radius-xl:   24px;    /* large containers, hero cards, modals */
   --radius-pill: 9999px;  /* badges, section tags, nav pills */
 
-  /* Legacy aliases — kept for backward compat during cleanup */
-  --r12: 12px;   /* = --radius-md */
-  --r20: 20px;   /* = --radius-lg */
-  --r2:  24px;   /* = --radius-xl (confusing old name, deprecated) */
+  /* @deprecated --r12 / --r20 / --r2 — use --radius-md / --radius-lg / --radius-xl instead.
+     Kept for backward compat until component cleanup passes 3.2–3.15 complete. */
+  --r12: 12px;
+  --r20: 20px;
+  --r2:  24px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
