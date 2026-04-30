@@ -1,0 +1,33 @@
+The audit is still incomplete. You delivered Section 8 (RTL), Section 9 (Animation), and the re-grade, but you skipped Section 6 (UX Issues) and Section 7 (Information Architecture) from the original request. Also, the Critical count says 8 but only 6 user-facing Criticals (C1-C6) are listed (C7 is explicitly a maintainability note, not user-facing). Numbers don't reconcile.
+Deliver the following now:
+Section 6: UX Issues
+Audit and report on:
+
+Hover states (which interactive elements have them, which don't, are they consistent)
+Focus states (already flagged Critical, but list every interactive element missing focus-visible)
+Active states (button press feedback, link active state)
+Disabled states (do disabled buttons/inputs have a visible disabled style)
+Loading states (skeleton loaders, spinners, button loading state during form submit)
+Empty states (what does the testimonials section look like with zero entries, what does the calculator show before user input)
+CTA clarity per section (is there one clear primary action per viewport, or competing CTAs)
+Mobile responsiveness gaps - check the mobile hero specifically, was a CTA visible above the fold at 390px width
+Keyboard navigation order (does Tab follow visual order, are skip links present)
+Semantic HTML (are buttons actually buttons, links actually links, headings in correct order h1 > h2 > h3 with no skipping)
+ARIA labels on icon-only buttons, on the calculator slider, on dropdowns
+Form input UX (labels, placeholders used as labels, error messages, success states)
+
+Section 7: Information Architecture
+Audit and report on:
+
+Section order on the homepage - does it match the user's mental model (problem > solution > proof > price > action)
+Content density per section - is any single section trying to do too many jobs
+Value prop clarity in the first viewport at desktop (1440px) and mobile (390px) - can a first-time visitor answer "what is this product" and "why should I care" in 5 seconds
+Scan path - where does the eye go first, second, third, and is that intentional
+Repetition - is the same message repeated across multiple sections without adding new info
+Missing sections that pro sites usually have (FAQ position, social proof position, comparison table)
+Footer architecture - is it a real footer or a dump of every link in the site
+
+Section 10: List all 8 Criticals explicitly
+The re-graded summary says 8 Criticals but only C1-C7 were detailed and C7 is marked non-user-facing. Either the count is wrong or one Critical is missing from the impact table. List all 8 Criticals with: number, file/line, finding, user-facing impact in one sentence.
+Severity grading rule reminder: Same issue = same severity. Apply this to every new finding in Section 6 and 7. Do not introduce new "Minor" labels for problems you already graded "Major" elsewhere.
+Output only Sections 6, 7, and 10. Do not start Phase 2.
