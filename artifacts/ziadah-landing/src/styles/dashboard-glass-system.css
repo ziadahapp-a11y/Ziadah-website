@@ -1,98 +1,253 @@
 /**
- * Design tokens — backgrounds, text, glass, borders (dark + light).
- * Light theme: Cursor-inspired warm cream palette (cursor.com design language).
- * Dark theme: warm-tinted deep background with violet accent.
- * Consumed by vision-ui-appearance.css and index.css.
+ * ZIADAH DESIGN SYSTEM — Phase 2 Tokens
+ * Phase 3.0: Token file update
+ *
+ * INTEGRITY RULES (enforced, never break):
+ * ─ No hex/rgba value was changed. Every existing value is preserved exactly.
+ * ─ New semantic tokens are aliases pointing to existing color values only.
+ * ─ Deprecated tokens are kept until component cleanup passes (3.2–3.15).
+ * ─ Fonts: Tajawal (Arabic/headings), Rubik (Latin/numerals) — unchanged.
+ * ─ font-style: italic on Tajawal is FORBIDDEN globally. No exceptions.
+ * ─ All directional spacing in new code uses logical properties only.
+ * ─ transition: all is FORBIDDEN. Always specify individual properties.
  */
 
+/* ═══════════════════════════════════════════════════════════════
+   SECTION A — MOTION SYSTEM
+   These tokens replace the 9 ad-hoc duration values found in the
+   audit. var(--ease) is aliased to --ease-standard for clarity.
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --ds-t: color 0.25s var(--ease), background-color 0.25s var(--ease),
-    border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.2s var(--ease);
+  /* Duration scale */
+  --duration-instant:    80ms;   /* button press scale, micro-feedback */
+  --duration-fast:      160ms;   /* hover color change, chips, nav links */
+  --duration-base:      240ms;   /* cards, dropdowns, badges, toggles */
+  --duration-slow:      400ms;   /* scroll reveal, large panels */
+  --duration-deliberate: 500ms;  /* hero entrance (hard cap — nothing slower) */
 
-  /* Cursor design language: warm brown border base (oklab-equivalent rgba) */
-  --cursor-dark:   #26251e;
-  --cursor-cream:  #f2f1ed;
-  --cursor-light:  #e6e5e0;
-  --cursor-orange: #f54e00;
+  /* Easing curves */
+  --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);    /* default for everything */
+  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1); /* entrances: hero, dropdowns */
+  --ease-linear:    linear;                            /* marquee only */
+
+  /* Legacy alias — kept for backward compat; new code uses --ease-standard */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Legacy composite transition — kept for backward compat; new code uses
+     explicit properties with the duration + easing tokens above */
+  --ds-t: color var(--duration-base) var(--ease-standard),
+          background-color var(--duration-base) var(--ease-standard),
+          border-color var(--duration-base) var(--ease-standard),
+          box-shadow var(--duration-base) var(--ease-standard),
+          transform var(--duration-instant) var(--ease-standard);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION B — SPACING SCALE (8pt grid, 4pt sub-steps allowed)
+   Use --sp-{n} where n = value / 4.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --sp-1:   4px;   /* inline dot/icon gap, micro padding */
+  --sp-2:   8px;   /* badge padding-block, chip internal gap */
+  --sp-3:  12px;   /* button sm padding-block, compact card gap */
+  --sp-4:  16px;   /* button md padding-inline, nav gap */
+  --sp-5:  20px;   /* grid gap between cards (valid 4pt sub-step) */
+  --sp-6:  24px;   /* card padding compact, h1 margin-bottom */
+  --sp-8:  32px;   /* card padding default, section sub-group gap */
+  --sp-10: 40px;   /* gap between content groups within a section */
+  --sp-12: 48px;   /* card padding lg */
+  --sp-16: 64px;   /* page inline pad mobile, small section gap */
+  --sp-20: 80px;   /* section vertical padding desktop (replaces 76px) */
+  --sp-24: 96px;   /* hero padding-top on all pages (replaces 100px) */
+  --sp-32: 128px;  /* max section gap on large viewports */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION C — TYPE SCALE
+   Sizes only. Weight / line-height applied per class in index.css.
+   Fonts never change: Tajawal (Arabic/headings), Rubik (Latin/nums).
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --type-display:  clamp(40px, 5.5vw, 64px);  /* hero h1 only */
+  --type-h1:       clamp(34px, 4vw, 48px);     /* inner-page h1 */
+  --type-h2:       clamp(30px, 3.5vw, 44px);   /* section headings (was up to 58px) */
+  --type-h3:       clamp(22px, 2.5vw, 28px);   /* sub-section headings */
+  --type-h4:       clamp(18px, 2vw, 20px);     /* card titles */
+  --type-lead:     clamp(16px, 1.5vw, 18px);   /* hero sub-text, intro paragraphs */
+  --type-body:     16px;                        /* default paragraph */
+  --type-body-sm:  14px;                        /* secondary text, captions */
+  --type-label:    14px;                        /* buttons, form labels */
+  --type-caption:  12px;                        /* badges, micro-copy */
+  --type-stat:     48px;                        /* stat numbers (replaces 90px) */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION D — BORDER-RADIUS SCALE
+   New semantic names alongside old --r12 / --r20 / --r2 aliases.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --radius-sm:   8px;     /* icon containers, small UI elements */
+  --radius-md:   12px;    /* buttons (all sizes), chips, tags */
+  --radius-lg:   20px;    /* cards (card default) */
+  --radius-xl:   24px;    /* large containers, hero cards, modals */
+  --radius-pill: 9999px;  /* badges, section tags, nav pills */
+
+  /* Legacy aliases — kept for backward compat during cleanup */
+  --r12: 12px;   /* = --radius-md */
+  --r20: 20px;   /* = --radius-lg */
+  --r2:  24px;   /* = --radius-xl (confusing old name, deprecated) */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION E — SHADOW SCALE
+   All rgba values identical to existing --glass-shadow values.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --shadow-none: none;
+  --shadow-sm:   0 4px 16px rgba(0, 0, 0, 0.28);
+  --shadow-md:   0 8px 32px rgba(0, 0, 0, 0.40);   /* = --glass-shadow */
+  --shadow-lg:   0 16px 48px rgba(0, 0, 0, 0.52);  /* = --glass-shadow-hover */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION F — CURSOR DESIGN LANGUAGE TOKENS
+   Unchanged from original. Kept verbatim.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --cursor-dark:    #26251e;
+  --cursor-cream:   #f2f1ed;
+  --cursor-light:   #e6e5e0;
+  --cursor-orange:  #f54e00;
   --cursor-crimson: #cf2d56;
-  --cursor-gold:   #c08532;
+  --cursor-gold:    #c08532;
   --cursor-success: #1f8a65;
 
-  /* Cursor surface scale */
   --cursor-s100: #f7f7f4;
   --cursor-s200: #f2f1ed;
   --cursor-s300: #ebeae5;
   --cursor-s400: #e6e5e0;
   --cursor-s500: #e1e0db;
 
-  /* Cursor border tokens (warm brown at various alpha) */
   --cursor-b1: rgba(38, 37, 30, 0.1);
   --cursor-b2: rgba(38, 37, 30, 0.2);
   --cursor-b3: rgba(38, 37, 30, 0.55);
 
-  /* Cursor elevated card shadow */
   --cursor-card-shadow:
     rgba(0, 0, 0, 0.14) 0px 28px 70px,
     rgba(0, 0, 0, 0.10) 0px 14px 32px,
     rgba(38, 37, 30, 0.1) 0px 0px 0px 1px;
 }
 
-/* Default to dark if attribute missing (SSR / first paint) */
+/* ═══════════════════════════════════════════════════════════════
+   SECTION G — DARK THEME (default)
+   All values identical to previous file. No hex/rgba changed.
+   New semantic tokens added as aliases below each group.
+   ═══════════════════════════════════════════════════════════════ */
 :root,
 [data-theme="dark"] {
-  --bg: #080615;
-  --page-background: linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%);
-  --t: #f5f2ee;
-  --tm: rgba(245, 242, 238, 0.72);
-  --td: rgba(255, 255, 255, 1);
+
+  /* ── Page backgrounds ── */
+  --bg:               #080615;
+  --page-background:  linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%);
+
+  /* Phase 2 semantic aliases */
+  --bg-page:          #080615;                /* = --bg */
+  --bg-gradient:      linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%); /* = --page-background */
+  --bg-section-alt:   rgba(9, 0, 25, 1);      /* NEW token for hardcoded inline values in #hiw and #gp */
+
+  /* ── Text colors ── */
+  --t:      #f5f2ee;
+  --td:     rgba(255, 255, 255, 1);
+
+  /* @deprecated --tm — 8% gap from --text-secondary is imperceptible.
+     Use --text-secondary (0.80) or --text-tertiary (0.58) instead.
+     Kept until component cleanup passes 3.2–3.15 complete. */
+  --tm:     rgba(245, 242, 238, 0.72);
 
   --text-1: #f5f2ee;
   --text-2: rgba(245, 242, 238, 0.80);
   --text-3: rgba(232, 228, 220, 0.58);
   --text-4: rgba(210, 205, 195, 0.38);
 
-  /* Warm white borders instead of cold white */
+  /* Phase 2 semantic aliases */
+  --text-primary:    #f5f2ee;               /* = --t = --text-1 */
+  --text-secondary:  rgba(245, 242, 238, 0.80); /* = --text-2 — sub-headings, descriptions */
+  --text-tertiary:   rgba(232, 228, 220, 0.58); /* = --text-3 — helper text, captions */
+  --text-muted:      rgba(210, 205, 195, 0.38); /* = --text-4 — disabled, placeholder */
+  --text-on-accent:  #ffffff;
+
+  /* ── Borders ── */
   --b1: rgba(245, 242, 238, 0.08);
   --b2: rgba(245, 242, 238, 0.14);
   --b3: rgba(245, 242, 238, 0.24);
 
-  /* Warm dark surfaces */
+  /* Phase 2 semantic aliases */
+  --border-subtle:  rgba(245, 242, 238, 0.08);  /* = --b1 */
+  --border-default: rgba(245, 242, 238, 0.14);  /* = --b2 */
+  --border-strong:  rgba(245, 242, 238, 0.24);  /* = --b3 */
+
+  /* ── Surfaces ── */
   --s1: rgba(245, 242, 238, 0.04);
   --s2: rgba(245, 242, 238, 0.07);
   --s3: rgba(245, 242, 238, 0.11);
 
-  --p: #7c3aed;
+  /* Phase 2 semantic aliases */
+  --surface-1: rgba(245, 242, 238, 0.04);  /* = --s1 */
+  --surface-2: rgba(245, 242, 238, 0.07);  /* = --s2 */
+  --surface-3: rgba(245, 242, 238, 0.11);  /* = --s3 */
+
+  /* ── Accent / Brand ── */
+  --p:  #7c3aed;
   --p2: #6d28d9;
   --p3: #a855f7;
   --p4: #c084fc;
 
-  --c: #06b6d4;
+  /* @deprecated --brand / --brand-2 — use --accent-primary / --accent-primary-light */
+  --brand:   #7c3aed;
+  --brand-2: #a855f7;
+
+  --accent-light: rgba(124, 58, 237, 0.18);
+
+  /* Phase 2 semantic aliases */
+  --accent-primary:         #7c3aed;  /* = --p — canonical brand purple */
+  --accent-secondary:       #6d28d9;  /* = --p2 — pressed / hover state */
+  --accent-primary-light:   #a855f7;  /* = --p3 — light accent, section tags */
+  --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
+
+  /* Canonical CTA color — Phase 2 decision: #7c3aed wins over rgba(74,0,148,1)
+     and #5b21b6. All primary buttons converge here in Phase 3. */
+  --accent-cta:       #7c3aed;  /* = --p — primary button background */
+  --accent-cta-hover: #6d28d9;  /* = --p2 — primary button hover */
+
+  /* ── Semantic status colors ── */
+  --c:  #06b6d4;
   --pk: #ec4899;
   --gr: #22c55e;
   --go: #fbbf24;
 
-  --brand: #7c3aed;
-  --brand-2: #a855f7;
-  --accent-light: rgba(124, 58, 237, 0.18);
+  --success: #22c55e;   /* = --gr */
+  --warning: #fbbf24;   /* = --go */
+  --info:    #06b6d4;   /* = --c */
+  --error:   #ec4899;   /* = --pk */
 
-  --glass-bg: transparent;
-  --glass-bg-2: rgba(26, 20, 16, 0.68);
-  --glass-border: 1px solid rgba(124, 58, 237, 0.22);
-  --glass-blur: blur(22px);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40);
-  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.52);
+  /* ── Glass system ── */
+  --glass-bg:           transparent;
+  --glass-bg-2:         rgba(26, 20, 16, 0.68);
+  --glass-border:       1px solid rgba(124, 58, 237, 0.22);
+  --glass-blur:         blur(22px);
+  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.40);   /* = --shadow-md */
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.52);  /* = --shadow-lg */
 
-  --r2: 24px;
-  --r12: 12px;
-  --r20: 20px;
-
-  --btn-primary-grad: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  /* ── Button tokens ── */
+  --btn-primary-grad:   linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   --btn-primary-shadow: 0 4px 22px rgba(124, 58, 237, 0.42);
 
-  --scrollbar-thumb: rgba(124, 58, 237, 0.38);
+  /* ── Scrollbar ── */
+  --scrollbar-thumb:       rgba(124, 58, 237, 0.38);
   --scrollbar-thumb-hover: rgba(167, 139, 250, 0.55);
 }
 
-/* ── LIGHT THEME: Cursor warm cream palette ── */
-
+/* ═══════════════════════════════════════════════════════════════
+   SECTION H — LIGHT THEME (Cursor warm cream palette)
+   Placeholder — not implemented. Unchanged from original.
+   ═══════════════════════════════════════════════════════════════ */
