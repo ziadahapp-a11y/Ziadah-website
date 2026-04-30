@@ -1,0 +1,57 @@
+Solid audit. The findings are real and well-categorized. Before you move to Phase 2, here's my read on it and what to push back on:
+
+**What's strong in this audit:**
+- The button system finding (10 variants, no hierarchy, three "primary" buttons looking different) is the single highest-leverage fix. That alone will move the site 30% toward "pro."
+- Catching the 90px stat numbers competing with the 72px hero is exactly the kind of hierarchy failure that screams vibecoded.
+- The dead `.nb-*` class system and `!important` spam on nav CTAs - good catch, that's accumulated refactor debt that needs cleanup, not just cosmetic patching.
+- No `:focus-visible` anywhere is correctly flagged Critical. Accessibility, not optional.
+- The animated gradient text on H1 is a top-tier vibecoded tell. Killing it is non-negotiable.
+
+**What's weak or worth challenging:**
+
+1. **The audit got cut off mid-sentence at "Noise"** in section 5. You're missing the rest of the vibecoded signals section, plus sections 6 (UX issues) and 7 (Information architecture) entirely. Make Replit finish the audit before you let it move on.
+
+2. **Some "Minor" items are mislabeled.** 9 different border-radius values is flagged Major in the cards table but the same issue appears as Minor elsewhere. Inconsistency in severity = inconsistency in the fix priority.
+
+3. **Hardcoded colors flagged Critical (3.1, 3.2) but the constraint says don't change colors.** This is fine because tokenizing existing values isn't changing them, but make sure Replit understands the difference: it should map `rgba(74,0,148,1)` to a new token like `--p-deep` (keeping the exact hex), not replace it with `--p`.
+
+4. **Missing from the audit:**
+   - RTL/Arabic-specific issues (you have an Arabic site - `text-align`, `direction`, mirrored icons, Latin numerals vs Arabic-Indic, font fallback for mixed scripts)
+   - Mobile breakpoints behavior
+   - Z-index stacking order
+   - Animation/transition consistency (timing, easing)
+   - Image and asset optimization signals (if any)
+
+**Prompt for Replit to finish Phase 1 properly:**
+
+---
+
+The audit is incomplete. Before we proceed to Phase 2, do the following:
+
+1. Finish section 5 (Visual Signals of Vibecoded Design). The output cut off mid-word at "Noise."
+
+2. Add the missing sections you skipped:
+   - **Section 6: UX Issues** (hover/focus/active/disabled states, loading states, empty states, CTA clarity, mobile responsiveness, accessibility, keyboard nav, semantic HTML)
+   - **Section 7: Information Architecture** (section order, content density per section, value prop clarity in first viewport, scan path)
+
+3. Add a new **Section 8: RTL and Arabic-specific issues**. The site is Arabic-RTL. Audit:
+   - `dir="rtl"` and `direction` usage consistency
+   - Logical properties (`margin-inline-start` vs `margin-left`) vs physical
+   - Icons that should mirror in RTL (arrows, chevrons) but don't
+   - Mixed-script handling (Arabic + "AI", numerals, brand names)
+   - Font fallback chain for Arabic vs Latin glyphs
+   - Text alignment defaults
+
+4. Add **Section 9: Animation and Motion** - audit every transition and animation for timing consistency, easing curves, and whether the motion serves a purpose or is decoration.
+
+5. **Re-grade severity consistently.** Right now 9 different border-radius values is Major in one place and Minor elsewhere. Same issue = same severity. Apply this rule across all sections.
+
+6. For every "Critical" finding, add a one-line note on the user-facing impact. "No `:focus-visible`" is critical because keyboard users cannot see where they are - state that explicitly.
+
+7. Confirm: do not propose any color or font changes. Tokenizing existing hardcoded values is allowed (e.g. mapping `rgba(74,0,148,1)` to a new token name while keeping the exact value). Replacing one existing color with another is not.
+
+Output only the missing sections and the re-graded severity table. Do not start Phase 2.
+
+---
+
+Drop that in. Once the audit is actually complete, then we shape the Phase 2 prompt around what it returns.
