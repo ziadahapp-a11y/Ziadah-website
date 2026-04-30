@@ -1814,7 +1814,9 @@ export default function Landing() {
                       className={`ai-topup-trigger${landingTopupOpen === i ? " open" : ""}${lSelTopup ? " has-sel" : ""}${p.feat ? " feat" : ""}`}
                       onClick={() => toggleLandingTopup(i)}
                     >
-                      <span className="ai-topup-icon">⚡</span>
+                      <span className="ai-topup-icon" aria-hidden>
+                        <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1L1 8h4.5L4.5 13 10 6H5.5L6.5 1Z" fill="currentColor"/></svg>
+                      </span>
                       <span className="ai-topup-label">
                         {lSelTopup
                           ? `${lSelTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`

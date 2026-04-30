@@ -278,11 +278,10 @@ img,video,canvas,svg{max-width:100%;height:auto;}
 }
 
 /* ── SEC TAGS ── */
-.stag{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:50px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.22);color:var(--p3);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;}
+.stag{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:50px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);color:var(--p3);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:none;margin-bottom:18px;}
 
-
-.stag-dot{width:5px;height:5px;border-radius:50%;background:var(--p3);box-shadow:0 0 7px var(--p3);animation:pdot 2s infinite;}
-@keyframes pdot{0%,100%{box-shadow:0 0 4px var(--p3)}50%{box-shadow:0 0 14px var(--p3)}}
+.stag-dot{width:5px;height:5px;border-radius:50%;background:var(--p3);flex-shrink:0;}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:.6}}
 h2.st{font-size:clamp(34px,4.5vw,58px);font-weight:600;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px;overflow-wrap:break-word;word-break:break-word;}
 .ssub{font-size:17px;color:var(--tm);line-height:1.8;max-width:560px;overflow-wrap:break-word;}
 #why .ssub{color:rgba(245,242,238,1);}
@@ -352,7 +351,7 @@ h2.st{font-size:clamp(34px,4.5vw,58px);font-weight:600;letter-spacing:-1.5px;lin
   padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px));
   padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
   overflow-x:clip;
-  background:rgba(5, 0, 15, 1);
+  background:var(--page-background);
   font-family:"Tajawal",var(--font),system-ui,sans-serif;
 }
 .landing-sbar-after-hero{
@@ -4327,22 +4326,23 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   margin-top: 14px;
   padding: 13px 20px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.07);
-  color: rgba(255,255,255,.88);
+  border: 1px solid transparent;
+  background: #5b21b6;
+  color: #fff;
   font-family: var(--font);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
-  transition: all .2s;
+  transition: background .18s, transform .18s, box-shadow .18s;
   letter-spacing: .01em;
   width: 100%;
+  text-align: center;
 }
 .pp-card-cta:hover {
-  background: rgba(124,58,237,.22);
-  border-color: rgba(124,58,237,.45);
-  color: #fff;
+  background: #6d28d9;
+  box-shadow: 0 6px 20px rgba(124,58,237,.3);
   transform: translateY(-1px);
+  color: #fff;
 }
 .pp-card-cta--feat {
   background: linear-gradient(135deg, #d97706, #b45309);
@@ -4698,7 +4698,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 
 /* ── Hero — uses design-system `section` layout ── */
 .aff-hero { position: relative; overflow: hidden; text-align: center; padding-top: 100px; }
-.aff-hero-title { font-size: clamp(34px,5.5vw,62px); font-weight: 900; color: var(--t); margin: 0 0 20px; letter-spacing: -0.04em; line-height: 1.08; }
+.aff-hero-title { font-size: clamp(30px,4.8vw,54px); font-weight: 700; color: var(--t); margin: 0 0 20px; letter-spacing: -0.03em; line-height: 1.1; }
 
 /* WA button — WhatsApp green CTA */
 .aff-wa-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #25d366; color: #fff; font-family: var(--font); font-size: 15.5px; font-weight: 800; padding: 15px 34px; border-radius: var(--r12); text-decoration: none; box-shadow: 0 6px 28px rgba(37,211,102,.38); transition: all .22s; letter-spacing: .02em; }
@@ -4712,7 +4712,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 /* Stats — .gc provides glass; add padding + specific styles */
 .aff-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--card-gap); margin-top: 24px; text-align: start; }
 .aff-stat { padding: var(--card-pad-md); }
-.aff-stat-val { font-size: clamp(28px,3.5vw,38px); font-weight: 900; color: var(--p4); letter-spacing: -0.04em; margin-bottom: 8px; line-height: 1; }
+.aff-stat-val { font-size: clamp(24px,2.8vw,32px); font-weight: 700; color: var(--t); letter-spacing: -0.03em; margin-bottom: 6px; line-height: 1.1; }
 .aff-stat-label { font-size: 13px; color: var(--tm); line-height: 1.55; }
 
 /* ── Steps — .gc provides glass; add layout ── */

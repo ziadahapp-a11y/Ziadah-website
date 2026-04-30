@@ -317,7 +317,9 @@ export default function PricingPage() {
 
                   {/* AI Points chip */}
                   <div className={`pp-ai-chip${plan.featured ? " pp-ai-chip--feat" : ""}`}>
-                    <span className="pp-ai-chip-icon" aria-hidden>✦</span>
+                    <span className="pp-ai-chip-icon" aria-hidden>
+                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4.5" cy="4.5" r="4" fill="currentColor" opacity=".85"/></svg>
+                    </span>
                     <span className="pp-ai-chip-val">
                       {mode === "m" ? plan.aiPoints : plan.aiPointsY}
                     </span>
@@ -334,7 +336,9 @@ export default function PricingPage() {
                       className={`ai-topup-trigger${topupOpen[plan.key] ? " open" : ""}${selTopup ? " has-sel" : ""}${plan.featured ? " feat" : ""}`}
                       onClick={() => toggleTopup(plan.key)}
                     >
-                      <span className="ai-topup-icon">⚡</span>
+                      <span className="ai-topup-icon" aria-hidden>
+                        <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1L1 8h4.5L4.5 13 10 6H5.5L6.5 1Z" fill="currentColor"/></svg>
+                      </span>
                       <span className="ai-topup-label">
                         {selTopup
                           ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
