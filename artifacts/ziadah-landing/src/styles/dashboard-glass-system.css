@@ -41,8 +41,8 @@
 /* Default to dark if attribute missing (SSR / first paint) */
 :root,
 [data-theme="dark"] {
-  --bg: #05000f;
-  --page-background: #05000f;
+  --bg: #080615;
+  --page-background: linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%);
   --t: #f5f2ee;
   --tm: rgba(245, 242, 238, 0.72);
   --td: rgba(255, 255, 255, 1);
