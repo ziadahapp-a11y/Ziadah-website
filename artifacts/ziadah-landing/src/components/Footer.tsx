@@ -127,18 +127,6 @@ export default function Footer() {
               {tr.footer.copyright}
             </Editable>
           </div>
-          <div className="ft-links">
-            <span onClick={() => navigateTo("/privacy")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy">
-                {tr.footer.privacy}
-              </Editable>
-            </span>
-            <span onClick={() => navigateTo("/terms")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms">
-                {tr.footer.terms}
-              </Editable>
-            </span>
-          </div>
         </div>
       </div>
     </footer>

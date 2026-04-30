@@ -36,8 +36,6 @@ const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
-const Privacy = lazy(() => import("@/pages/Privacy"));
-const Terms = lazy(() => import("@/pages/Terms"));
 const Sectors = lazy(() => import("@/pages/Sectors"));
 const EcommerceStoreSectors = lazy(() => import("@/pages/EcommerceStoreSectors"));
 const SectorDetail = lazy(() => import("@/pages/SectorDetail"));
@@ -183,8 +181,6 @@ function PublicRoutes() {
       <Route path="/use-cases/by-presentation" component={UseCasesByPresentation} />
       <Route path="/use-cases/by-goal" component={UseCasesByGoal} />
       <Route path="/use-cases/by-experience" component={UseCasesByExperience} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );
