@@ -570,7 +570,16 @@ html[dir="rtl"] .hero-uc-carousel{
   word-break:break-word;
 }
 @media (max-width:960px){
-  .hero-grid{gap:36px;}
+  /* Hero: remove full-screen lock on mobile — let content size it */
+  .hero.hero-v2{
+    min-height:auto;
+    height:auto;
+    justify-content:flex-start;
+    padding-top:calc(env(safe-area-inset-top, 0px) + 68px);
+    padding-bottom:clamp(36px,8vw,60px);
+    background:var(--page-background);
+  }
+  .hero-grid{gap:20px;}
   .hero-copy-col{max-width:100%;min-width:0;width:100%;}
   .hero-carousel-col{
     display:none;
