@@ -1,0 +1,249 @@
+The audit is genuinely comprehensive now. Sections 6, 7, and 10 are still cut off in what you pasted (6 ends mid-sentence at 6.19 about testimonial cards), but I have enough signal to write Phase 2.
+
+Before I do, two things worth flagging:
+
+**The audit got truncated again.** You're missing the end of Section 6 (semantic HTML, ARIA), all of Section 7 (Information Architecture), and Section 10 (the explicit list of all 8 Criticals). Replit keeps hitting an output limit and stopping mid-sentence. We have two options:
+
+**Option A:** Push for the missing pieces one more time, then write Phase 2 with the complete picture.
+
+**Option B:** Write Phase 2 now based on what we have. The audit is already 90% there. Section 7 (IA) and the rest of 6 will surface findings, but the core system fixes (tokens, button hierarchy, RTL correctness, focus rings, motion system, type scale) are already documented and don't depend on what's missing.
+
+**My honest recommendation: Option B.** Here's why. The findings we have are enough to build a complete design system. Section 7 (IA) will produce recommendations like "move FAQ above pricing" or "add CTA after the calculator" - those are content/layout decisions you can make in Phase 3 section by section, they don't need to be in the system proposal. And the missing 2 Criticals from Section 10 are almost certainly C2 (mobile hero CTA) and one we already have evidence for in the body. We're not flying blind.
+
+Going with Option B unless you stop me.
+
+---
+
+**Phase 2 prompt - the complete system proposal:**
+
+---
+
+You have completed the audit. Now produce the Phase 2 system proposal. This is a written reference document only. Do not write or modify any code. I must approve this document before Phase 3 begins.
+
+**Hard constraints, restated:**
+- Do NOT change any font families. Tajawal stays. Rubik stays.
+- Do NOT change any color hex/rgba values. The existing palette is fixed.
+- You MAY introduce new token names that map to existing values. You may NOT introduce new color values.
+- If a role in the system requires a value the palette doesn't have, stop and ask me before inventing one.
+
+**Deliver the following sections in order. No code, only specifications.**
+
+---
+
+**1. Spacing scale**
+
+Define a single 8pt-based scale. Map every existing off-grid value in the codebase to the nearest scale step. Output as a table:
+
+`Token name | Value | Use case`
+
+Cover: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128. For each, write the actual use case (e.g. "16 = inline gap between icon and label, 24 = card internal padding, 64 = section vertical padding mobile, 96 = section vertical padding desktop"). Then list every off-grid value found in the audit (76px, 30px, 22px, 26px, 7px, 18px, 28px, 100px etc.) and what they should snap to.
+
+---
+
+**2. Type scale**
+
+Using ONLY Tajawal and Rubik (the existing fonts), define a complete type scale. For each tier specify: token name, font-size (px), line-height (unitless), font-weight, letter-spacing, font-family.
+
+Required tiers:
+- `display` (hero h1 only)
+- `h1` (page h1 on inner pages)
+- `h2` (section heading)
+- `h3` (sub-section)
+- `h4` (card title)
+- `lead` (hero sub-text, intro paragraphs)
+- `body` (default paragraph)
+- `body-sm` (secondary text, captions, helper text)
+- `label` (form labels, button text)
+- `caption` (smallest, badges, micro-copy)
+
+Rules:
+- Display tops out at 64px desktop, scales down responsively
+- h2 maxes at 44px on inner pages, not 58px
+- No tier may have letter-spacing more aggressive than -0.02em on headings
+- No uppercase + letter-spacing combinations on any tier
+- Synthetic italic (`font-style: italic` on Tajawal) is forbidden. Document the rule.
+- Mobile sizes for display, h1, h2 must be specified separately (not just clamp)
+
+For every audit finding in section 2 (Typography), state which new tier it maps to.
+
+---
+
+**3. Color usage map (palette is fixed)**
+
+List every existing color value in the codebase. Map each to a semantic role. New token names allowed; new values forbidden.
+
+Required roles:
+- `bg-page` (page background)
+- `bg-section-alt` (alternating section background, if any)
+- `surface-1` (default card)
+- `surface-2` (raised card, hover state)
+- `border-subtle`
+- `border-default`
+- `border-strong`
+- `text-primary`
+- `text-secondary`
+- `text-tertiary` (currently --tm)
+- `text-on-accent`
+- `accent-primary` (currently --p)
+- `accent-primary-hover`
+- `accent-primary-pressed`
+- `accent-deep` (the hardcoded rgba(74,0,148,1))
+- `success`
+- `warning`
+- `error`
+- `info`
+
+For each role, specify the existing hex/rgba it maps to. If two existing colors compete for the same role (e.g. multiple purples), recommend which becomes the canonical token and which gets retired (i.e. its existing usages get re-pointed to the canonical token).
+
+Specifically resolve:
+- The four hardcoded purples (`rgba(74,0,148,1)`, `#5b21b6`, `rgba(108,15,200,1)`, `rgba(146,52,254,1)`) and where each role-maps
+- The undefined `rgba(208,179,255,1)` in success-stories - flag for my decision
+- The two hardcoded `rgba(9,0,25,1)` section backgrounds
+
+---
+
+**4. Border-radius scale**
+
+Define a 5-tier scale. Map all 9 existing radius values (8, 9, 10, 12, 14, 20, 22, 24, 50) to scale steps.
+
+`radius-sm | radius-md | radius-lg | radius-xl | radius-pill`
+
+State which UI elements get which tier (chips/badges = sm, buttons = md, cards = lg, large containers = xl, fully rounded = pill).
+
+---
+
+**5. Shadow scale**
+
+Define 4 tiers: `shadow-none, shadow-sm, shadow-md, shadow-lg`. Use existing shadow values from the codebase, no new color values inside shadows. State which elements get which tier and the rule for when shadows escalate (default → hover → active).
+
+---
+
+**6. Motion system**
+
+The codebase has `var(--ds-t)` and `var(--ease)` already defined and ignored. Build the motion system around them.
+
+Specify:
+- `duration-instant` (80ms - micro feedback like button press)
+- `duration-fast` (160ms - small UI like nav, chips, hover)
+- `duration-base` (240ms - cards, dropdowns, default)
+- `duration-slow` (400ms - page transitions, larger reveals)
+- `duration-deliberate` (600ms - hero entrance, max acceptable)
+
+Easing:
+- `ease-standard` (existing var(--ease) = cubic-bezier(0.4, 0, 0.2, 1)) - default for almost everything
+- `ease-emphasized` (cubic-bezier(0.22, 1, 0.36, 1) - existing, used for entrances)
+- `ease-linear` - marquee only
+
+Rules:
+- Forbid `transition: all`. List the 9 components currently using it.
+- Kill the H1 gradient animation (`hgrad`). State this explicitly.
+- Reduce hero entrance from 0.9s to 0.5s (duration-deliberate is the cap).
+- Reduce scroll reveal from 0.8s to 0.4s.
+- Mandate a `prefers-reduced-motion: reduce` block that disables: hgrad, float-drift, oa-od orbs, hero entrance fup, scroll reveal rv, ring-pulse if decorative. Specify which animations stay (functional ones like dropdown open/close at minimum duration).
+
+---
+
+**7. Button system**
+
+There are currently 11 button implementations including the inline-styled one. Reduce to a system of 3 variants × 3 sizes.
+
+Variants:
+- `primary` - solid accent, used once per viewport
+- `secondary` - outlined or muted surface, supporting actions
+- `ghost` - text-only, low-emphasis tertiary actions
+
+Sizes: `sm, md, lg`
+
+For each variant × size combination specify: padding, font-size (referencing type scale), border-radius (referencing radius scale), background, border, color, hover state, active state, disabled state, focus-visible state.
+
+Then map every existing button class in the codebase to which variant/size it becomes:
+- `.btn-p, .nav-cta-fill, .hc-btn-primary, .pp-card-cta` → primary
+- etc.
+
+The inline-styled "مقارنة" button in Landing.tsx must be replaced with a class-based component. Mandate this.
+
+---
+
+**8. Focus-visible system**
+
+Define a single global focus-visible ring that works on all backgrounds:
+- Specify outline-offset, outline-width, outline-color (must use existing palette)
+- Specify how it adapts on dark vs light surfaces if applicable
+- Mandate it applies to: all buttons, all links, all form inputs (including the custom slider), all interactive cards, all dropdown triggers, all FAQ accordion buttons, all sector chips, all pricing toggles, all social icons
+- The slider needs a special focus treatment because it's `opacity: 0` natively. Specify how the visible custom track receives the focus ring.
+
+---
+
+**9. Card system**
+
+Three card tiers based on actual interactivity:
+- `card-static` - no hover, no cursor change, decorative or content-only (stats, dividers)
+- `card-interactive` - subtle hover, cursor: pointer, leads somewhere on click
+- `card-emphasis` - elevated hover (current `.gc-lift` behavior), used sparingly for primary content cards
+
+Mandate: glass morphism (`backdrop-filter: blur`) only on cards that overlay content or images. Strip it from solid-background sections where it has no visual effect.
+
+The blanket `.gc::before` purple gradient must be removed and re-applied only on `card-emphasis`.
+
+---
+
+**10. RTL correctness rules**
+
+State as enforceable rules:
+
+1. All directional spacing uses logical properties: `margin-inline-start/end`, `padding-inline-start/end`, `inset-inline-start/end`. Physical `margin-left`, `margin-right`, `left`, `right` are forbidden except for centering (`left: 50%; transform: translateX(-50%)`).
+
+2. List every physical-property usage from audit findings 8.1-8.5 and specify the logical-property replacement for each.
+
+3. The `.tc-card-slim { direction: ltr }` override is removed. `direction: ltr` applies only to the inner `.tc-stars` element.
+
+4. The `.hc-result-amount { direction: ltr }` override is removed. Numerals render correctly without it.
+
+5. Mixed-script handling: any inline Latin string inside Arabic flow ("AI", brand names) wraps in `<span dir="ltr" style="unicode-bidi: isolate">`. Mandate this for the "AI مفعّل" badge.
+
+6. The comparison arrow (`.ba-arrow-circle scaleX(-1)` in RTL): require visual verification. State the rule: directional arrows that convey sequence ("before → after") follow reading direction (right-to-left in RTL = arrow points left, no transform needed). Decorative chevrons can mirror.
+
+7. Tajawal + `font-style: italic` is forbidden globally. Replace with semantic alternatives (color shift, font-weight change, or actual em on text that's genuinely emphasized).
+
+---
+
+**11. Component-level removals (the vibecoded purge list)**
+
+State explicitly that the following are removed in Phase 3:
+- H1 gradient animation `hgrad`
+- Floating-card decorative animation `float-drift`
+- Hidden orb animations `oa, ob, oc, od` and the `.o1-.o4` elements
+- `.logos-lbl` uppercase + letter-spacing 2px treatment - replaced with normal-case label
+- The CMS Login link visible in production footer
+- Emoji icons in sector filters - replaced with a coherent icon set (specify which: lucide, phosphor, custom SVG - ask me)
+- Section glow pseudo-elements (`.pp-hero::before, .aff-hero-glow, .hc-card::before`) - retained only where they sit behind real content, removed where decorative
+
+---
+
+**12. Information architecture decisions deferred**
+
+State that section order, content density per section, and value-prop-above-the-fold decisions are handled per-section in Phase 3 with my approval, not in this system document. List the sections in current order and flag any you recommend reordering with a one-line rationale.
+
+---
+
+**13. Phase 3 execution order**
+
+Propose the order in which sections will be refactored in Phase 3. My constraint: one section at a time, before/after for each, my approval before moving on.
+
+Suggested order: tokens file first (foundational), then nav, then hero, then each homepage section top-to-bottom, then footer. Confirm or revise.
+
+---
+
+**14. Open questions for me**
+
+List every decision in this proposal that you couldn't make alone. Examples:
+- Which icon library replaces emoji
+- Whether `rgba(208,179,255,1)` (the undefined success-stories color) gets retired or formally added
+- Whether the comparison arrow current direction is correct
+- Whether to keep or remove the calculator slider entirely (opacity: 0 native input is fragile)
+
+End with: "Awaiting approval before Phase 3."
+
+---
+
+Drop that in. When Replit returns the system document, paste it here and I'll review it before you green-light Phase 3.
