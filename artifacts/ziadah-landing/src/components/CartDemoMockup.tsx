@@ -39,7 +39,7 @@ export default function CartDemoMockup() {
   };
 
   return (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px", direction: "ltr" }}>
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingTop: 40, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: lightPurple, border: `1px solid ${borderPurple}`, color: purple, fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
@@ -60,7 +60,7 @@ export default function CartDemoMockup() {
               <div style={{ width: 80, height: 8, borderRadius: 10, background: "var(--s2)" }} />
             </div>
 
-            <div style={{ background: "#f8f8fc", minHeight: 580, direction: "ltr" }}>
+            <div style={{ background: "#f8f8fc", minHeight: 580, direction: isEn ? "ltr" : "rtl" }}>
               <div style={{ background: "#fff", padding: "16px 16px 10px", borderBottom: "1px solid #f0f0f5" }}>
                 <div style={{ textAlign: "start" }}>
                   <span style={{ fontSize: 26, fontWeight: 900, color: purple, letterSpacing: -1 }}>

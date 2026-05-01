@@ -849,7 +849,7 @@ function MobileMoreDropdown({
           }}>
             {useCasesDropdown.sections.map((section) => (
               <div key={section.title} style={{ marginBottom: 10, paddingBottom: 8 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingInlineEnd: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {section.items.map((item) => (
                     <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>

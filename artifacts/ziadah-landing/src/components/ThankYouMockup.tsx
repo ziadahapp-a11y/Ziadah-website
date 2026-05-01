@@ -73,7 +73,7 @@ export default function ThankYouMockup() {
 
             <div style={{
               background: "#f5f5f7", borderRadius: 34, overflow: "hidden",
-              minHeight: 580, direction: "ltr", fontFamily: "var(--font)",
+              minHeight: 580, direction: isEn ? "ltr" : "rtl", fontFamily: "var(--font)",
             }}>
               <div style={{
                 background: "#fff", padding: "48px 16px 12px",

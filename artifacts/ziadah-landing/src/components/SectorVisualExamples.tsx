@@ -247,7 +247,7 @@ function SectorScenarioWidgetShowcaseCard({
         >
           {icon}
         </div>
-        <div style={{ flex: 1, textAlign: lang === "ar" ? "right" : "left", minWidth: 0 }}>
+        <div style={{ flex: 1, textAlign: "start", minWidth: 0 }}>
           <div
             style={{
               fontSize: 14,
