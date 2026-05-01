@@ -1,5 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import { useLanguage } from "@/i18n/LanguageContext";
+import WidgetTabs from "@/components/WidgetTabs";
 
 const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <div style={{
@@ -134,9 +135,76 @@ const AddToCartRow = ({
   </div>
 );
 
+const Phone1Content = () => (
+  <PhoneMockup>
+    <PhoneTopBar />
+    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
+      طريقة الشحن
+    </div>
+    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
+    <div style={{
+      background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
+      borderRadius: 14, padding: "12px 14px", margin: "12px 0",
+    }}>
+      <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,.85)", marginBottom: 8 }}>
+        باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
+      </div>
+      <div style={{ background: "var(--s3)", borderRadius: 99, height: 5, overflow: "hidden" }}>
+        <div style={{ width: "30%", height: "100%", background: "#fff", borderRadius: 99 }} />
+      </div>
+    </div>
+    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>منتجات مقترحة</div>
+    <ProductCard name="سلسلال ذهب بحجر ياقوت" reviews="4681" price="45" checked={true} />
+    <ProductCard name="حلق ذهب بحجر ياقوت" reviews="4681" price="100" checked={true} />
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
+    </div>
+    <div style={{
+      background: "var(--s2)", border: "1px solid var(--b1)",
+      borderRadius: 14, padding: "12px 0", textAlign: "center",
+      fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
+    }}>ادفع الآن</div>
+  </PhoneMockup>
+);
+
+const Phone2Content = () => (
+  <PhoneMockup>
+    <PhoneTopBar />
+    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
+    <ShippingRow method="مجاني" time="" highlighted />
+    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
+    <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
+      لاتنسى تضيفها بعرض خاص لك الآن
+    </div>
+    <div style={{
+      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+      background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.25)",
+      borderRadius: 12, padding: "10px 14px", marginBottom: 12,
+    }}>
+      <span style={{ fontSize: 22, fontWeight: 900, color: "#10b981" }}>30</span>
+      <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
+    </div>
+    <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="🧣" />
+    <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="📿" />
+    <AddToCartRow name="سبحة بكلايت بلون أحمر" reviews="6984" price="200" image="📿" />
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
+    </div>
+    <div style={{
+      background: "var(--s2)", border: "1px solid var(--b1)",
+      borderRadius: 14, padding: "12px 0", textAlign: "center",
+      fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
+    }}>ادفع الآن</div>
+  </PhoneMockup>
+);
+
 function CheckoutMockup() {
   const { lang } = useLanguage();
-  const isEn = lang === "en";
+  const isAr = lang !== "en";
+  const isEn = !isAr;
   return (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
@@ -146,150 +214,23 @@ function CheckoutMockup() {
         }}>
           {isEn ? "How does Ziadah look on the checkout page?" : "كيف يبدو زيادة في صفحة الدفع؟"}
         </h2>
-
-        <div style={{
-          display: "flex", justifyContent: "center", gap: 28, flexWrap: "nowrap",
-        }}>
-          {/* LEFT PHONE: Free shipping progress + cross-sell checkboxes */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-            <div style={{
-              fontSize: 12, fontWeight: 700, color: "var(--p4)", textAlign: "center",
-              background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)",
-              padding: "5px 16px", borderRadius: 99,
-            }}>
-              {isEn ? "Complete for free shipping" : "أكمل للشحن المجاني"}
-            </div>
-            <PhoneMockup>
-              <PhoneTopBar />
-
-              {/* Shipping method */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
-                طريقة الشحن
-              </div>
-              <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
-
-              {/* Free shipping progress banner */}
-              <div style={{
-                background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
-                borderRadius: 14, padding: "12px 14px", margin: "12px 0",
-              }}>
-                <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,.85)", marginBottom: 8 }}>
-                  باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
-                </div>
-                <div style={{
-                  background: "var(--s3)", borderRadius: 99, height: 5, overflow: "hidden",
-                }}>
-                  <div style={{ width: "30%", height: "100%", background: "#fff", borderRadius: 99 }} />
-                </div>
-              </div>
-
-              {/* Cross-sell product checkboxes */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>
-                منتجات مقترحة
-              </div>
-              <ProductCard name="سلسلال ذهب بحجر ياقوت" reviews="4681" price="45" checked={true} />
-              <ProductCard name="حلق ذهب بحجر ياقوت" reviews="4681" price="100" checked={true} />
-
-              {/* Footer row */}
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-                paddingTop: 10, paddingBottom: 4,
-              }}>
-                <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
-                <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
-              </div>
-
-              {/* Pay button */}
-              <div style={{
-                background: "var(--s2)", border: "1px solid var(--b1)",
-                borderRadius: 14, padding: "12px 0", textAlign: "center",
-                fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
-              }}>
-                ادفع الآن
-              </div>
-            </PhoneMockup>
-          </div>
-
-          {/* RIGHT PHONE: Upsell rows with add-to-cart */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-            <div style={{
-              fontSize: 12, fontWeight: 700, color: "#10b981", textAlign: "center",
-              background: "rgba(16,185,129,.1)", border: "1px solid rgba(16,185,129,.25)",
-              padding: "5px 16px", borderRadius: 99,
-            }}>
-              {isEn ? "Premium Free Shipping Offer" : "عرض الشحن المجاني المميز"}
-            </div>
-            <PhoneMockup>
-              <PhoneTopBar />
-
-              {/* Shipping options */}
-              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
-                طريقة الشحن
-              </div>
-              <ShippingRow method="مجاني" time="" highlighted />
-              <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
-
-              {/* Upsell headline */}
-              <div style={{
-                textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900,
-                margin: "12px 0 8px",
-              }}>
-                لاتنسى تضيفها بعرض خاص لك الآن
-              </div>
-
-              {/* Free shipping badge */}
-              <div style={{
-                display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.25)",
-                borderRadius: 12, padding: "10px 14px", marginBottom: 12,
-              }}>
-                <span style={{ fontSize: 22, fontWeight: 900, color: "#10b981" }}>30</span>
-                <span style={{ fontSize: 11, color: "#10b981", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
-              </div>
-
-              {/* Upsell product rows */}
-              <AddToCartRow
-                name="شماغ الجنادرية كلاسيك رجالي"
-                reviews="6984"
-                price="241"
-                originalPrice="345"
-                discount="وفر 20%"
-                image="🧣"
-              />
-              <AddToCartRow
-                name="سبحة بكلايت بلون أزرق"
-                reviews="6984"
-                price="200"
-                image="📿"
-              />
-              <AddToCartRow
-                name="سبحة بكلايت بلون أحمر"
-                reviews="6984"
-                price="200"
-                image="📿"
-              />
-
-              {/* Footer row */}
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-                paddingTop: 10, paddingBottom: 4,
-              }}>
-                <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
-                <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
-              </div>
-
-              {/* Pay button */}
-              <div style={{
-                background: "var(--s2)", border: "1px solid var(--b1)",
-                borderRadius: 14, padding: "12px 0", textAlign: "center",
-                fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
-              }}>
-                ادفع الآن
-              </div>
-            </PhoneMockup>
-          </div>
-        </div>
+        <WidgetTabs
+          isAr={isAr}
+          tabs={[
+            {
+              labelAr: "أكمل للشحن المجاني",
+              labelEn: "Complete for Free Shipping",
+              icon: "🚚",
+              content: <Phone1Content />,
+            },
+            {
+              labelAr: "عرض الشحن المجاني المميز",
+              labelEn: "Premium Free Shipping Offer",
+              icon: "✅",
+              content: <Phone2Content />,
+            },
+          ]}
+        />
       </div>
     </section>
   );
