@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
   <div style={{
@@ -134,6 +135,8 @@ const AddToCartRow = ({
 );
 
 function CheckoutMockup() {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
   return (
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
@@ -141,7 +144,7 @@ function CheckoutMockup() {
           fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 900, textAlign: "center",
           marginBottom: 40, color: "var(--t)",
         }}>
-          كيف يبدو زيادة في صفحة الدفع؟
+          {isEn ? "How does Ziadah look on the checkout page?" : "كيف يبدو زيادة في صفحة الدفع؟"}
         </h2>
 
         <div style={{
@@ -154,7 +157,7 @@ function CheckoutMockup() {
               background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.25)",
               padding: "5px 16px", borderRadius: 99,
             }}>
-              أكمل للشحن المجاني
+              {isEn ? "Complete for free shipping" : "أكمل للشحن المجاني"}
             </div>
             <PhoneMockup>
               <PhoneTopBar />
@@ -215,7 +218,7 @@ function CheckoutMockup() {
               background: "rgba(16,185,129,.1)", border: "1px solid rgba(16,185,129,.25)",
               padding: "5px 16px", borderRadius: 99,
             }}>
-              عرض الشحن المجاني المميز
+              {isEn ? "Premium Free Shipping Offer" : "عرض الشحن المجاني المميز"}
             </div>
             <PhoneMockup>
               <PhoneTopBar />
