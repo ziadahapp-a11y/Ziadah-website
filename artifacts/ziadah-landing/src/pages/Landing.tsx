@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Bike, Store, Shirt, Smartphone, Sparkles,
+  UtensilsCrossed, Dumbbell, Gem, Home, Package,
+  Stethoscope, Award,
+} from "lucide-react";
 import PageShell from "../components/PageShell";
 import { Logo } from "../components/Nav";
 import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
@@ -18,6 +24,21 @@ import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+
+const SECTOR_LUCIDE_ICONS: Record<string, LucideIcon> = {
+  "delivery-apps":       Bike,
+  "ecommerce-platforms": Store,
+  "abayas-fashion":      Shirt,
+  "electronics":         Smartphone,
+  "beauty-care":         Sparkles,
+  "restaurants-cafes":   UtensilsCrossed,
+  "health-fitness":      Dumbbell,
+  "jewelry":             Gem,
+  "home-supplies":       Home,
+  "digital-products":    Package,
+  "clinics":             Stethoscope,
+  "gold":                Award,
+};
 
 /** عيّنة مختصرة للصفحة الرئيسية — التوصيل والمنصات أولاً ثم أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
@@ -1100,7 +1121,10 @@ export default function Landing() {
                           onClick={() => goRoute(`/sectors/${sec!.slug}`)}
                         >
                           <span className="landing-sectors-chip__ico" aria-hidden>
-                            {sec!.icon}
+                            {(() => {
+                              const Icon = SECTOR_LUCIDE_ICONS[sec!.slug];
+                              return Icon ? <Icon size={18} strokeWidth={1.7} /> : sec!.icon;
+                            })()}
                           </span>
                           <span className="landing-sectors-chip__label">{stitle}</span>
                         </button>

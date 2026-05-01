@@ -266,6 +266,9 @@ function AppShell() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        تخطي إلى المحتوى الرئيسي
+      </a>
       <ScrollToTop />
       <CmsInlineToolbar />
       <CmsInlineEditorPanel />
@@ -273,7 +276,9 @@ function AppShell() {
       {showQuickLogin && <CmsQuickLoginModal />}
       <div style={{ paddingTop: showInlineToolbar ? 48 : 0, display: "flex", flexDirection: "column" }}>
         {!isCms && <Nav />}
-        <Router />
+        <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+          <Router />
+        </main>
         {!isCms && <Footer />}
       </div>
     </>

@@ -184,7 +184,7 @@ export default function PricingPage() {
       name: isAr ? "الاحترافية" : "Professional",
       desc: isAr ? "للشركات والمؤسسات" : "For companies",
       mPrice: 790, yPrice: 666, yAnnual: "7,990", yOrig: "9,480", yDisc: "16%",
-      badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: false,
+      badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: true,
       featIntro: ld.planProIntro as string,
       features: ld.planProFeatures as string[],
       aiPoints: "500", aiPointsY: "6,000",
@@ -194,7 +194,7 @@ export default function PricingPage() {
       name: isAr ? "الأعمال" : "Business",
       desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
       mPrice: "1,990", yPrice: "1,333", yAnnual: "15,990", yOrig: "23,880", yDisc: "33%",
-      badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: true,
+      badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: false,
       featIntro: ld.planBusinessIntro as string,
       features: ld.planBusinessFeatures as string[],
       aiPoints: "5,000", aiPointsY: "60,000",
@@ -308,12 +308,23 @@ export default function PricingPage() {
                   )}
 
                   {/* CTA — uses design system button base */}
-                  <button
-                    className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
-                    onClick={() => setPlatformModalOpen(true)}
-                  >
-                    {isAr ? "ابدأ الآن" : "Get Started"}
-                  </button>
+                  {plan.key === "b" ? (
+                    <a
+                      href="https://wa.me/966544357555"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="pp-card-cta pp-card-cta--contact"
+                    >
+                      {isAr ? "تواصل معنا" : "Contact Us"}
+                    </a>
+                  ) : (
+                    <button
+                      className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
+                      onClick={() => setPlatformModalOpen(true)}
+                    >
+                      {isAr ? "ابدأ الآن" : "Get Started"}
+                    </button>
+                  )}
 
                   {/* AI Points chip */}
                   <div className={`pp-ai-chip${plan.featured ? " pp-ai-chip--feat" : ""}`}>

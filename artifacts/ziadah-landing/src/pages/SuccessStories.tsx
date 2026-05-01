@@ -812,7 +812,7 @@ export default function SuccessStories() {
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.22s ease;
+            transition: border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease;
             font-family: var(--font);
             backdrop-filter: blur(12px);
           }
