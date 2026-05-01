@@ -1,5 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import AddonsWidget from "../../components/widgets/AddonsWidget";
+import WidgetTabs from "../../components/WidgetTabs";
 
 const data: UseCasePageData = {
   hero: {
@@ -56,8 +57,7 @@ const data: UseCasePageData = {
     result: "الاختبار المتعدد يرفع متوسط عدد الإضافات المختارة من 0.7 إضافة (اقتراح واحد فقط) إلى 2.3 إضافة — ثلاثة أضعاف المبيعات الإضافية بنفس الجهد.",
   },
   extraSections: (isAr) => (
-    <>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
+    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
           <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
@@ -65,40 +65,51 @@ const data: UseCasePageData = {
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
         <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الإضافات كما يراها عميلك فعلياً" : "This is how the add-ons suggestion looks to your customer"}</p>
-        <AddonsWidget />
+        <WidgetTabs
+          isAr={isAr}
+          fullWidthContent
+          tabs={[
+            {
+              labelAr: "📱 مثال حي",
+              labelEn: "📱 Live Demo",
+              content: <AddonsWidget />,
+            },
+            {
+              labelAr: "💡 لماذا يعمل؟",
+              labelEn: "💡 Why It Works",
+              content: (
+                <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
+                  <div className="shine"/>
+                  <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
+                    <div style={{ padding: "24px 28px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.15)", borderRadius: 14 }}>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
+                      <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                        {(isAr ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"] : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]).map((item, i) => (
+                          <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                            <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div style={{ padding: "24px 28px", background: "rgba(107,114,128,.05)", border: "1px solid rgba(107,114,128,.15)", borderRadius: 14 }}>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: "var(--td)", marginBottom: 12 }}>{isAr ? "➡️ اقتراح مفرد (التقليدي)" : "➡️ Single suggestion (Traditional)"}</div>
+                      <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                        {(isAr ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18%"] : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]).map((item, i) => (
+                          <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                            <span style={{ color: "var(--td)", fontWeight: 700 }}>•</span> {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ),
+            },
+          ]}
+        />
       </div>
     </section>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-            <div style={{ padding: "24px 28px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"] : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                    <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div style={{ padding: "24px 28px", background: "rgba(107,114,128,.05)", border: "1px solid rgba(107,114,128,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "var(--td)", marginBottom: 12 }}>{isAr ? "➡️ اقتراح مفرد (التقليدي)" : "➡️ Single suggestion (Traditional)"}</div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18%"] : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                    <span style={{ color: "var(--td)", fontWeight: 700 }}>•</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    </>
   ),
   plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض الإضافات الذكي في متجرك",

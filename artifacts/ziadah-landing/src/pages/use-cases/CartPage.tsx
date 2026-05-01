@@ -3,6 +3,7 @@ import CouponWidget from "../../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../../components/widgets/FreeShippingThresholdWidget";
 import RelatedProductsWidget from "../../components/widgets/RelatedProductsWidget";
 import { PageHeroPhone } from "../../components/UseCasePagesShowcase";
+import WidgetTabs from "../../components/WidgetTabs";
 
 function CartHeroContent() {
   return (
@@ -122,20 +123,26 @@ const data: UseCasePageData = {
         </div>
         <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
         <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "واجهات صفحة السلة — قسيمة الخصم، شريط الشحن المجاني، ومنتجات ذات صلة" : "Cart page widgets — auto coupon, free-shipping progress, and related products"}</p>
-        <div style={{ display: "flex", flexWrap: "nowrap", gap: 24, justifyContent: "center" }}>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "قسيمة خصم تلقائية" : "Automatic discount coupon"}</div>
-            <CouponWidget />
-          </div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "الوصول للشحن المجاني" : "Free shipping progress"}</div>
-            <FreeShippingThresholdWidget />
-          </div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--tm)", marginBottom: 12 }}>{isAr ? "منتجات ذات صلة" : "Related products"}</div>
-            <RelatedProductsWidget />
-          </div>
-        </div>
+        <WidgetTabs
+          isAr={isAr}
+          tabs={[
+            {
+              labelAr: "🏷️ قسيمة الخصم",
+              labelEn: "🏷️ Discount Coupon",
+              content: <CouponWidget />,
+            },
+            {
+              labelAr: "🚚 شريط الشحن المجاني",
+              labelEn: "🚚 Free Shipping Bar",
+              content: <FreeShippingThresholdWidget />,
+            },
+            {
+              labelAr: "🛍️ منتجات ذات صلة",
+              labelEn: "🛍️ Related Products",
+              content: <RelatedProductsWidget />,
+            },
+          ]}
+        />
       </div>
     </section>
   ),
