@@ -70,7 +70,7 @@ const data: UseCasePageData = {
       </div>
     </section>
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
+  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل كل إضافة للسلة إلى فرصة بيع إضافية",
   ctaDesc: "زيادة يتدخل في اللحظة المثلى ليرفع قيمة كل طلب تلقائياً.",
   heroEn: {
@@ -126,7 +126,7 @@ const data: UseCasePageData = {
     ],
     result: "Order value rose from 110 to 165 SAR with a purchase decision the customer didn't plan — but she's happy about it.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Turn every add-to-cart into an additional sales opportunity",
   ctaDescEn: "Ziadah intervenes at the optimal moment to automatically increase every order value.",
   seo: {

@@ -68,7 +68,7 @@ const data: UseCasePageData = {
       </div>
     </section>
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
+  plans: ["الأعمال"],
   ctaTitle: "اجعل كل زائر يشعر أن المتجر بُني له",
   ctaDesc: "تجربة مخصصة من اللحظة الأولى = عميل يشتري ويعود.",
   heroEn: {
@@ -124,7 +124,7 @@ const data: UseCasePageData = {
     ],
     result: "The customer went directly to the product and completed the purchase with the combo — purchase time dropped from 12 minutes to 3 minutes.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
+  plansEn: ["Business"],
   ctaTitleEn: "Make every visitor feel the store was built for them",
   ctaDescEn: "A personalized experience from the first moment = a customer who buys and returns.",
   seo: {

@@ -88,7 +88,7 @@ const data: UseCasePageData = {
       </div>
     </section>
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
+  plans: ["الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض الشحن المجاني",
   ctaDesc: "ارفع معدل إتمام الطلبات عبر عتبة واضحة واقتراحات ذكية.",
   heroEn: {
@@ -144,7 +144,7 @@ const data: UseCasePageData = {
     ],
     result: "Turn hesitation into completion with a clear threshold and a relevant suggestion.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
+  plansEn: ["Professional", "Business"],
   ctaTitleEn: "Activate free shipping display",
   ctaDescEn: "Increase completion with a clear threshold and smart suggestions.",
   seo: {

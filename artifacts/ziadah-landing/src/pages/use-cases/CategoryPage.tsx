@@ -68,7 +68,7 @@ const data: UseCasePageData = {
       </div>
     </section>
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
+  plans: ["الأعمال"],
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
   ctaDesc: "توجيه ذكي في اللحظة المناسبة = عميل يشتري بدلاً من أن يغادر.",
   heroEn: {
@@ -124,7 +124,7 @@ const data: UseCasePageData = {
     ],
     result: "The customer found what they wanted in under two minutes and added the combo to cart directly.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
+  plansEn: ["Business"],
   ctaTitleEn: "Turn category browsing into a purchase decision",
   ctaDescEn: "Smart guidance at the right moment = a customer who buys instead of leaving.",
   seo: {

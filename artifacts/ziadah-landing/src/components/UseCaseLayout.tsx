@@ -297,7 +297,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               background: "color-mix(in srgb, var(--p) 5%, transparent)",
               border: "1px solid color-mix(in srgb, var(--p) 18%, transparent)",
               borderRadius: 20,
-              padding: "44px 52px",
+              padding: "clamp(20px,4vw,44px) clamp(18px,4vw,52px)",
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
@@ -410,7 +410,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               }}>
                 {/* coloured top bar */}
                 <div style={{ height: 3, background: "linear-gradient(90deg, var(--sh-accent2), var(--p), var(--sh-green))" }} />
-                <div style={{ padding: "36px 44px" }}>
+                <div style={{ padding: "clamp(18px,3vw,36px) clamp(18px,4vw,44px)" }}>
                   <div className="sector-html-badge" style={{ marginBottom: 20 }}>
                     <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
                       {exampleLabel}
@@ -438,7 +438,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                       ))}
                     </div>
                     {/* result card */}
-                    <div style={{ position: "sticky", top: 100 }}>
+                    <div style={{ position: "sticky", top: 100, alignSelf: "start" }}>
                       <div style={{
                         background: "color-mix(in srgb, var(--sh-green) 9%, transparent)",
                         border: "1px solid color-mix(in srgb, var(--sh-green) 32%, transparent)",
@@ -472,7 +472,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 background: "color-mix(in srgb, var(--p) 4%, transparent)",
                 border: "1px solid color-mix(in srgb, var(--p) 16%, transparent)",
                 borderRadius: 18,
-                padding: "28px 36px",
+                padding: "clamp(16px,3vw,28px) clamp(18px,4vw,36px)",
               }}>
                 <div style={{ textAlign: "center", marginBottom: 20 }}>
                   <div className="sector-html-badge" style={{ margin: "0 auto" }}>
@@ -518,7 +518,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               background: "color-mix(in srgb, var(--p) 5%, transparent)",
               border: "1px solid color-mix(in srgb, var(--p) 18%, transparent)",
               borderRadius: 20,
-              padding: "36px 44px",
+              padding: "clamp(18px,3vw,36px) clamp(18px,4vw,44px)",
               overflow: "hidden",
               width: "100%",
               maxWidth: 1200,
@@ -606,7 +606,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             background: "color-mix(in srgb, var(--p) 8%, transparent)",
             border: "1px solid color-mix(in srgb, var(--p) 22%, transparent)",
             borderRadius: 24,
-            padding: "72px 60px",
+            padding: "clamp(36px,6vw,72px) clamp(20px,5vw,60px)",
             textAlign: "center",
             overflow: "hidden",
           }}>

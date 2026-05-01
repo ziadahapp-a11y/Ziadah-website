@@ -346,7 +346,7 @@ const data: UseCasePageData = {
     ],
     result: "الطلب ارتفع من 55 إلى 200 ⃁ والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
   },
-  plans: ["النمو", "الاحترافية", "الأعمال"],
+  plans: ["الأعمال"],
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",
   extraSections: <CheckoutMockup />,
@@ -403,7 +403,7 @@ const data: UseCasePageData = {
     ],
     result: "The order rose from 55 to 200 SAR and the customer felt the decision was in their favor — because they saved shipping costs.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
+  plansEn: ["Business"],
   ctaTitleEn: "Turn the checkout page into a smart sales opportunity",
   ctaDescEn: "Activate Ziadah and watch your order values rise with every payment.",
   seo: {
