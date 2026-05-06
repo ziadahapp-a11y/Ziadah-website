@@ -46,7 +46,7 @@ function LanguageSwitcher() {
         background: "unset",
         backgroundImage: "none",
         border: "1px solid rgba(255,255,255,.1)",
-        color: "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
+        color: "rgba(255,255,255,.8)", fontSize: 12, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
@@ -1340,7 +1340,7 @@ export default function Nav() {
                 <button
                   type="button"
                   className="nb nav-cta-outline"
-                  style={{ cursor: "pointer", fontFamily: "var(--font)", display: "flex", alignItems: "center", gap: 6 }}
+                  style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}
                 >
                   {lang === "ar" ? "دخول" : "Login"}
                   {chevron(openDrop === "login")}
@@ -1352,7 +1352,7 @@ export default function Nav() {
               type="button"
               className="nb nav-cta-outline"
               onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
-              style={{ cursor: "pointer", fontFamily: "var(--font)" }}
+              style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12 }}
             >
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
                 {tr.nav.bookMeeting}

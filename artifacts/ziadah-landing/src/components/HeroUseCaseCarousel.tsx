@@ -1,44 +1,41 @@
 import { useMemo } from "react";
-import WidgetShowcaseCard, {
-  buildWidgetShowcaseItems,
-  type WidgetShowcaseItemData,
-  type WidgetShowcaseKind,
-} from "@/components/WidgetShowcaseCard";
+import { buildWidgetShowcaseItems } from "@/components/WidgetShowcaseCard";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 
-/** نفس بطاقتي المعاينة في قسم الويدجت: عروض الكميات + الشراء معاً. */
-const HERO_WIDGET_KINDS: WidgetShowcaseKind[] = ["volume", "bundle"];
-
 /**
- * الهيرو: بطاقتان ثابتتان فقط (بدون مارquee).
- * backdrop-filter لا يُرسم موثوقًا تحت مسار متحرك؛ heroMarquee يعوض بتدرج أوضح.
+ * الهيرو: معاينة عروض الكميات أولاً (عرض الودجت فقط، بدون بطاقة الزجاج)، ثم «الشراء معاً» بدون إطار البطاقة.
  */
 export default function HeroUseCaseCarousel() {
-  const { lang, dir } = useLanguage();
+  const { lang } = useLanguage();
   const t = useSiteT();
   const tr = t[lang];
   const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
 
-  const heroWidgets = useMemo(() => {
+  const { bundle, volume } = useMemo(() => {
     const all = buildWidgetShowcaseItems(wLabels);
     const byKind = new Map(all.map((item) => [item.kind, item]));
-    return HERO_WIDGET_KINDS.map((k) => byKind.get(k)).filter(
-      (item): item is WidgetShowcaseItemData => item != null,
-    );
+    return {
+      bundle: byKind.get("bundle"),
+      volume: byKind.get("volume"),
+    };
   }, [wLabels]);
+
+  const stackStyle = {
+    width: "100%" as const,
+    alignSelf: "stretch" as const,
+    display: "flex" as const,
+    flexDirection: "column" as const,
+  };
 
   return (
     <div className="hero-static-widgets" aria-hidden dir="ltr">
-      {heroWidgets.map((item) => (
-        <WidgetShowcaseCard
-          key={item.kind}
-          heroMarquee
-          item={item}
-          dir={dir}
-          lang={lang}
-        />
-      ))}
+      {volume ? (
+        <div style={stackStyle}>{volume.widget}</div>
+      ) : null}
+      {bundle ? (
+        <div style={stackStyle}>{bundle.widget}</div>
+      ) : null}
     </div>
   );
 }

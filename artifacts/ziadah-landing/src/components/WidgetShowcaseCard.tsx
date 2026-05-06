@@ -77,11 +77,6 @@ type WidgetShowcaseCardProps = {
   width?: number;
   /** للكاروسيل: عرض كامل العمود */
   fullWidth?: boolean;
-  /**
-   * مارquee الهيرو يحرك المسار بـ CSS transform؛ backdrop-filter لا يُرسم بشكل موثوق تحت هذا الأب،
-   * لذا نستخدم تدرجاً أغلظ يشبه الزجاج المصمت.
-   */
-  heroMarquee?: boolean;
 };
 
 function WidgetShowcaseCardHeader({
@@ -294,7 +289,6 @@ export default function WidgetShowcaseCard({
   lang,
   width = 280,
   fullWidth = false,
-  heroMarquee = false,
 }: WidgetShowcaseCardProps) {
   const rgb = item.rgb;
   const base: CSSProperties = {
@@ -311,26 +305,6 @@ export default function WidgetShowcaseCard({
     border: `1px solid rgba(${rgb},0.3)`,
     boxSizing: "border-box",
   };
-
-  if (heroMarquee) {
-    return (
-      <div
-        className={`widget-showcase-card widget-showcase-card--${item.kind}`}
-        style={{
-          ...base,
-          padding: "20px",
-          height: "fit-content",
-          background: "unset",
-          backgroundColor: "unset",
-          backgroundImage: "none",
-          boxShadow: `0 12px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.16), 0 0 24px rgba(${rgb},0.14)`,
-        }}
-      >
-        <WidgetShowcaseCardHeader item={item} dir={dir} lang={lang} />
-        <div style={{ width: "100%", alignSelf: "stretch", display: "flex", flexDirection: "column" }}>{item.widget}</div>
-      </div>
-    );
-  }
 
   return (
     <div

@@ -7,9 +7,7 @@ import {
 } from "lucide-react";
 import PageShell from "../components/PageShell";
 import { Logo } from "../components/Nav";
-import HeroUseCaseCarousel, {
-  HeroStaticWidgets,
-} from "../components/HeroUseCaseCarousel";
+import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import SEO from "../components/SEO";
@@ -181,10 +179,10 @@ function LiveDemoSection({ lang }: { lang: string }) {
             <span className="stag-dot" />
             {isAr ? "المتجر التجريبي" : "Live Demo Store"}
           </div>
-          <h2 className="st rv d1 font-semibold">
+          <h2 className="st font-semibold">
             {isAr ? "جرّب زيادة الآن في متجر حقيقي" : "Try Ziadah live in a real store"}
           </h2>
-          <p className="ssub rv d2" style={{ maxWidth: 560, margin: "0 auto" }}>
+          <p className="ssub" style={{ maxWidth: 560, margin: "0 auto" }}>
             {isAr
               ? "تصفّح المتجر التجريبي وشاهد كيف تعمل ميزات زيادة على أرض الواقع — دون الحاجة لإنشاء حساب"
               : "Browse our demo store and see how Ziadah features work in the real world — no account needed"}
@@ -192,7 +190,7 @@ function LiveDemoSection({ lang }: { lang: string }) {
         </div>
 
         {/* Tab switcher */}
-        <div className="ld-tabs rv d2" role="tablist" aria-label={isAr ? "صفحات المتجر التجريبي" : "Demo store pages"}>
+        <div className="ld-tabs" role="tablist" aria-label={isAr ? "صفحات المتجر التجريبي" : "Demo store pages"}>
           {tabs.map((tab, i) => (
             <button
               key={tab.id}
@@ -207,11 +205,11 @@ function LiveDemoSection({ lang }: { lang: string }) {
         </div>
 
         {/* Page description */}
-        <p className="ld-tab-desc rv d2">{activeTab.desc}</p>
+        <p className="ld-tab-desc">{activeTab.desc}</p>
 
         {/* Desktop / mobile preview toggle */}
         <div
-          className="ld-view-toggle rv d2"
+          className="ld-view-toggle"
           role="group"
           aria-label={isAr ? "وضع عرض المتجر" : "Store preview mode"}
           dir="ltr"
@@ -237,9 +235,9 @@ function LiveDemoSection({ lang }: { lang: string }) {
           </div>
         </div>
 
-        {/* Browser frame */}
+        {/* Browser frame — no .rv: LiveDemoSection re-renders strip IO-added .on from React-controlled classNames */}
         <div
-          className={`ld-browser rv d3${isMobilePreview ? " ld-browser--mobile" : ""}`}
+          className={`ld-browser${isMobilePreview ? " ld-browser--mobile" : ""}`}
           role="region"
           aria-label={isAr ? "المتجر التجريبي" : "Demo store"}
         >
@@ -301,7 +299,7 @@ function LiveDemoSection({ lang }: { lang: string }) {
         </div>
 
         {/* CTA below frame */}
-        <div className="ld-cta rv d4">
+        <div className="ld-cta">
           <a href={DEMO_STORE} target="_blank" rel="noopener noreferrer" className="ld-cta-link">
             {isAr ? "فتح المتجر التجريبي كاملاً" : "Open full demo store"}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
