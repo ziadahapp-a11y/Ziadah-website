@@ -12,6 +12,7 @@ import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
   "شروحات المنصة": "platform-tutorials",
+  "شروحات التطبيق": "platform-tutorials",
   "الذكاء الاصطناعي": "artificial-intelligence",
   "دليل التاجر": "merchant-guide",
   "التجارة الإلكترونية": "ecommerce",

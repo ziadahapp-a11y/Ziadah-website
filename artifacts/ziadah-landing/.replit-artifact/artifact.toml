@@ -1,6 +1,6 @@
 kind = "web"
 previewPath = "/"
-title = "زيادة - منصة الذكاء الاصطناعي"
+title = "زيادة - تطبيق الذكاء الاصطناعي"
 version = "1.0.0"
 id = "artifacts/ziadah-landing"
 router = "path"

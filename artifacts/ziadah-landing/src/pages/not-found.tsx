@@ -25,7 +25,7 @@ export default function NotFound() {
         titleAr="الصفحة غير موجودة — زيادة"
         titleEn="Page Not Found — Ziadah"
         descriptionAr="عذراً، الرابط غير صحيح أو الصفحة نُقلت. ارجع للصفحة الرئيسية لمواصلة استكشاف تطبيق زيادة للتجارة الذكية."
-        descriptionEn="This URL may be wrong or the page moved. Return home to continue exploring Ziadah’s AI ecommerce platform."
+        descriptionEn="This URL may be wrong or the page moved. Return home to continue exploring Ziadah’s AI ecommerce app."
         canonical="/"
         noIndex
         keywordsAr="زيادة، 404، صفحة غير موجودة"

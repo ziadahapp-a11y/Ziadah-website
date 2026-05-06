@@ -15,10 +15,10 @@ const DEFAULTS = {
   ar: {
     title: "تطبيق زيادة - اقتراح المنتجات بالذكاء الاصطناعي",
     description:
-      "زيادة: منصة SaaS للتوصيات الذكية على زد وسلة. ارفع المبيعات والتحويل بلغة عربية ورسمية مع دعم السعودية والخليج.",
+      "زيادة: تطبيق SaaS للتوصيات الذكية على زد وسلة. ارفع المبيعات والتحويل بلغة عربية ورسمية مع دعم السعودية والخليج.",
   },
   en: {
-    title: "AI Ecommerce Platform for Zid & Salla Stores",
+    title: "AI Ecommerce App for Zid & Salla Stores",
     description:
       "Ziadah is AI-powered SaaS for Zid and Salla: personalized recommendations, AOV and conversion growth for merchants in Saudi Arabia and the GCC.",
   },

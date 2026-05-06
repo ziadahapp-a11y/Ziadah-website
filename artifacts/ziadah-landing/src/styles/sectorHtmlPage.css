@@ -134,9 +134,10 @@
 }
 
 .sector-html-btn--fire {
-  background: linear-gradient(135deg, var(--p), var(--sh-accent));
+  background-image: none;
+  background-color: rgba(9, 0, 25, 1);
   color: #fff;
-  box-shadow: 0 6px 28px color-mix(in srgb, var(--p) 35%, transparent);
+  box-shadow: none;
 }
 
 .sector-html-btn--fire:hover {

@@ -7,7 +7,9 @@ import {
 } from "lucide-react";
 import PageShell from "../components/PageShell";
 import { Logo } from "../components/Nav";
-import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
+import HeroUseCaseCarousel, {
+  HeroStaticWidgets,
+} from "../components/HeroUseCaseCarousel";
 import PlatformModal from "../components/PlatformModal";
 import HomeCalculator from "../components/HomeCalculator";
 import SEO from "../components/SEO";
@@ -129,6 +131,26 @@ function SecTag({ children }: { children: React.ReactNode }) {
 
 const DEMO_STORE = "https://ky0vcg.zid.store";
 
+/** Inner store frame width inside the bootstrap document (matches phone CSS px). */
+const LIVE_DEMO_MOBILE_INNER_WIDTH = 390;
+
+function escapeHtmlAttrDoubleQuotes(raw: string): string {
+  return raw.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+/**
+ * Zid themes use viewport width=device-width. In some browsers embedded iframes
+ * resolve device-width against the outer page, so (max-width:768px) never wins.
+ * A tiny bootstrap document nests the real store at a fixed width so device-width
+ * matches mobile breakpoints inside the storefront.
+ */
+function liveDemoMobileBootstrapSrcDoc(storeUrl: string): string {
+  const u = new URL(storeUrl);
+  const innerSrc = escapeHtmlAttrDoubleQuotes(u.toString());
+  const w = LIVE_DEMO_MOBILE_INNER_WIDTH;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=${w},initial-scale=1"/><style>*{box-sizing:border-box}html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#f5f3ff;}iframe{display:block;margin:0 auto;border:0;width:${w}px;height:100%;max-width:100%;min-height:100%;}</style></head><body><iframe src="${innerSrc}" title="store" width="${w}" style="height:100%;min-height:100%" allow="accelerometer; clipboard-write; encrypted-media; gyroscope" referrerpolicy="no-referrer-when-downgrade"></iframe></body></html>`;
+}
+
 const LIVE_TABS_AR = [
   { id: "home",    label: "🏠 الرئيسية",        url: DEMO_STORE + "/",        desc: "اكتشف اقتراحات المنتجات الذكية على الصفحة الرئيسية" },
   { id: "product", label: "🛍️ صفحة المنتج",    url: DEMO_STORE + "/products", desc: "شاهد التوصيات الذكية أثناء تصفح المنتج" },
@@ -145,10 +167,13 @@ function LiveDemoSection({ lang }: { lang: string }) {
   const isAr = lang === "ar";
   const tabs = isAr ? LIVE_TABS_AR : LIVE_TABS_EN;
   const [activeIdx, setActiveIdx] = useState(0);
+  const [viewportMode, setViewportMode] = useState<"desktop" | "mobile">("desktop");
   const activeTab = tabs[activeIdx];
+  const urlDisplay = activeTab.url.replace(/^https:\/\//, "");
+  const isMobilePreview = viewportMode === "mobile";
 
   return (
-    <section id="live-demo" className="live-demo-sec">
+    <section id="live-demo" className="live-demo-sec landing-white-violet">
       <div className="wrap">
         {/* Header */}
         <div className="tc" style={{ marginBottom: 40 }}>
@@ -184,8 +209,40 @@ function LiveDemoSection({ lang }: { lang: string }) {
         {/* Page description */}
         <p className="ld-tab-desc rv d2">{activeTab.desc}</p>
 
+        {/* Desktop / mobile preview toggle */}
+        <div
+          className="ld-view-toggle rv d2"
+          role="group"
+          aria-label={isAr ? "وضع عرض المتجر" : "Store preview mode"}
+          dir="ltr"
+        >
+          <span className="ld-view-toggle-label">{isAr ? "العرض" : "Preview"}</span>
+          <div className="ld-view-switch">
+            <button
+              type="button"
+              className={`ld-view-opt${!isMobilePreview ? " ld-view-opt--active" : ""}`}
+              aria-pressed={!isMobilePreview}
+              onClick={() => setViewportMode("desktop")}
+            >
+              {isAr ? "كمبيوتر" : "Desktop"}
+            </button>
+            <button
+              type="button"
+              className={`ld-view-opt${isMobilePreview ? " ld-view-opt--active" : ""}`}
+              aria-pressed={isMobilePreview}
+              onClick={() => setViewportMode("mobile")}
+            >
+              {isAr ? "جوال" : "Mobile"}
+            </button>
+          </div>
+        </div>
+
         {/* Browser frame */}
-        <div className="ld-browser rv d3" role="region" aria-label={isAr ? "المتجر التجريبي" : "Demo store"}>
+        <div
+          className={`ld-browser rv d3${isMobilePreview ? " ld-browser--mobile" : ""}`}
+          role="region"
+          aria-label={isAr ? "المتجر التجريبي" : "Demo store"}
+        >
           {/* Chrome toolbar */}
           <div className="ld-toolbar" dir="ltr">
             <div className="ld-dots" aria-hidden>
@@ -197,7 +254,7 @@ function LiveDemoSection({ lang }: { lang: string }) {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ opacity: .5, flexShrink: 0 }}>
                 <path d="M7 1.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM1 7h12M7 1.5C5.7 3 5 4.9 5 7s.7 4 2 5.5M7 1.5C8.3 3 9 4.9 9 7s-.7 4-2 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
               </svg>
-              <span className="ld-url-text">{activeTab.url.replace("https://", "")}</span>
+              <span className="ld-url-text">{urlDisplay}</span>
             </div>
             <a
               href={activeTab.url}
@@ -216,12 +273,14 @@ function LiveDemoSection({ lang }: { lang: string }) {
           {/* iframe */}
           <div className="ld-frame-wrap">
             <iframe
-              key={activeTab.url}
-              src={activeTab.url}
+              key={`${viewportMode}:${activeTab.id}`}
               className="ld-frame"
               title={isAr ? "المتجر التجريبي — زيادة" : "Demo Store — Ziadah"}
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope"
-              loading="lazy"
+              loading="eager"
+              {...(isMobilePreview
+                ? { srcDoc: liveDemoMobileBootstrapSrcDoc(activeTab.url) }
+                : { src: activeTab.url })}
             />
             {/* Fallback overlay if iframe is blocked */}
             <div className="ld-fallback" aria-hidden>
@@ -750,50 +809,46 @@ export default function Landing() {
         {/* NAV */}
         
         {/* HERO */}
-        <section className="hero hero-v2" dir={dir} style={{ alignItems: "center", justifyContent: "center" }}>
+        <section
+          className="hero hero-v2"
+          dir={dir}
+          aria-labelledby="landing-hero-heading"
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
           <div className="hero-grid">
-            <div className="hero-copy-col">
-              <div className="hero-in hero-copy-inner">
-                <div className="hero-mobile-logo">
-                  <Logo />
-                </div>
-                <div className="hbadge">
-                  <span className="hbadge-pill">{tr.landing.aiBadge}</span>
-                  <span className="hbadge-txt">
-                    {tr.landing.aiBadgeText}
-                  </span>
-                </div>
-                <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
-                  <span className="ht-line1 font-thin">
-                    {tr.landing.heroTitle1}
-                  </span>
-                  {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-                  <span className="grad font-extrabold hero-title-grad">
-                    {tr.landing.heroTitleGrad}
-                  </span>
-                </h1>
-                <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
-                <div className="hero-ctas">
-                  <button
-                    onClick={() => setPlatformModalOpen(true)}
-                    className="btn-p btn-p-hero"
-                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-                  >
-                    {tr.landing.ctaPrimary}
-                  </button>
-                  <a href="#hiw" className="btn-g btn-g-hero">
-                    {tr.landing.ctaSecondary}
-                  </a>
-                </div>
+            <div className="hero-in hero-copy-inner">
+              <div className="hero-mobile-logo">
+                <Logo />
+              </div>
+              <div className="hbadge hbadge--hero">
+                <span className="hbadge-live" aria-hidden />
+                <span className="hbadge-pill">{tr.landing.aiBadge}</span>
+                <span className="hbadge-txt">{tr.landing.aiBadgeText}</span>
+              </div>
+              <h1 id="landing-hero-heading" className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
+                <span className="ht-line1 font-thin">{tr.landing.heroTitle1}</span>
+                {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
+                <span className="grad font-extrabold hero-title-grad">{tr.landing.heroTitleGrad}</span>
+              </h1>
+              <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
+              <div className="hero-ctas">
+                <button
+                  onClick={() => setPlatformModalOpen(true)}
+                  className="btn-p btn-p-hero"
+                  style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
+                >
+                  {tr.landing.ctaPrimary}
+                </button>
+                <a href="#hiw" className="btn-g btn-g-hero">
+                  {tr.landing.ctaSecondary}
+                </a>
               </div>
             </div>
-            <div className="hero-carousel-col">
-              <HeroUseCaseCarousel />
-            </div>
+            <HeroUseCaseCarousel />
           </div>
         </section>
         {/* LOGOS */}
-        <div className="logos-sec">
+        <div className="logos-sec landing-white-violet">
           <div className="landing-sbar-after-hero">
             <div className="sbar sbar-hero">
               <div className="sbi">
@@ -842,7 +897,7 @@ export default function Landing() {
           </div>
         </div>
         {/* BEFORE / AFTER + CALCULATOR */}
-        <section id="why">
+        <section id="why" className="landing-white-violet">
           <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: 40, justifyContent: "flex-start", alignItems: "center" }}>
             <div className="tc" style={{ marginBottom: 0 }}>
               <SecTag>{tr.landing.whyTag}</SecTag>
@@ -1432,7 +1487,7 @@ export default function Landing() {
           </div>
         </section>
         {/* DETAILED REPORTS */}
-        <section id="reports">
+        <section id="reports" className="landing-white-violet">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.reportsTag}</SecTag>
@@ -1474,13 +1529,13 @@ export default function Landing() {
                 {/* Stats grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
-                    const colors = ["#06b6d4", "#a855f7", "#10b981", "#f59e0b"];
+                    const statText = "var(--lv-purple-deep)";
                     return (
-                    <div key={i} style={{ padding: "14px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12 }}>
+                    <div key={i} style={{ padding: "14px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, color: statText }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
-                      <div style={{ fontSize: 18, fontWeight: 900, color: colors[i], lineHeight: 1 }}>{s.value}</div>
-                      {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
-                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
+                      <div style={{ fontSize: 18, fontWeight: 900, color: statText, lineHeight: 1 }}>{s.value}</div>
+                      {s.sub && <div style={{ fontSize: 11, color: statText, marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
+                      <div style={{ fontSize: 11, color: statText, marginTop: 4 }}>{s.label}</div>
                     </div>
                   );
                   })}
@@ -1497,7 +1552,7 @@ export default function Landing() {
               </GlassCard>
 
               {/* Product-level report card */}
-              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%", color: "rgba(255, 255, 255, 1)" }}>
+              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -1577,7 +1632,11 @@ export default function Landing() {
           </div>
         </section>
         {/* TESTIMONIALS */}
-        <section id="testimonials" style={{ overflowX: "clip", paddingInline: 0 }}>
+        <section
+          id="testimonials"
+          className="landing-white-violet"
+          style={{ overflowX: "clip", paddingInline: 0 }}
+        >
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.testimonialsTag}</SecTag>
@@ -2135,7 +2194,7 @@ export default function Landing() {
           </div>
         </section>
         {/* FINAL CTA */}
-        <section className="cta-sec">
+        <section className="cta-sec landing-white-violet">
           <div className="wrap">
             <GlassCard className="cta-box rv">
               <div className="cta-glow" />

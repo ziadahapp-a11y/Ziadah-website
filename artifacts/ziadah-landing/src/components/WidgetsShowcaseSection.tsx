@@ -47,7 +47,7 @@ export default function WidgetsShowcaseSection({
         position: "relative",
         zIndex: 2,
         padding: showSectorEmbed ? "36px 0 28px" : "80px 0",
-        background: "transparent",
+        background: "rgba(9, 0, 25, 1)",
         scrollMarginTop: 120,
       }}
     >

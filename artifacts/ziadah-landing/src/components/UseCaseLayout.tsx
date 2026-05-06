@@ -246,7 +246,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <section className="sector-html"
             style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", borderBottom: "1px solid var(--b1)" }}>
             <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
-              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 16 }}>
+              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 16, marginLeft: 10, paddingTop: 7, paddingBottom: 7 }}>
                 <span className="stag-dot" />
                 <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
                   {cv(["hero", "tag"], hero.tag)}

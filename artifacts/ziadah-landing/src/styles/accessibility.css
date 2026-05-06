@@ -47,10 +47,6 @@ textarea:focus-visible {
 
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
-  /* Hero marquee */
-  .hero-marquee-track {
-    animation: none !important;
-  }
   /* Logo scroll marquee */
   .marquee-track {
     animation: none !important;

@@ -1169,7 +1169,7 @@ export default function SuccessStories() {
             <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>
               <div className="shine"/><div className="cta-glow"/>
               <h2 style={{ fontSize: "clamp(22px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{isAr ? "متجرك القادم في قائمة النجاح" : "Your Store Is Next on the Success List"}</h2>
-              <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{isAr ? "انضم لـ +700 متجر وابدأ رحلتك اليوم" : "Join +700 stores and start your journey today"}</p>
+              <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{isAr ? "انضم لـ +1500 متجر وابدأ رحلتك اليوم" : "Join +1500 stores and start your journey today"}</p>
               <div className="cta-btns">
                 <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>{isAr ? "فعّل الآن" : "Activate Now"}</button>
               </div>

@@ -2,6 +2,7 @@
   "keywordResearch": {
     "primaryHighIntent": [
       { "en": "AI ecommerce platform", "ar": "منصة تجارة إلكترونية بالذكاء الاصطناعي" },
+      { "en": "AI ecommerce app", "ar": "تطبيق تجارة إلكترونية بالذكاء الاصطناعي" },
       { "en": "SaaS for online stores", "ar": "برمجية كخدمة للمتاجر الإلكترونية" },
       { "en": "Zid Salla AI app", "ar": "تطبيق ذكاء اصطناعي لزد وسلة" },
       { "en": "personalized product recommendations", "ar": "توصيات منتجات مخصصة" },
@@ -35,8 +36,8 @@
   },
   "pages": {
     "/": {
-      "keywordsAr": "منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، اقتراح منتجات، تسويق منتجات، زيادة مبيعات، متجر إلكتروني السعودية، الخليج",
-      "keywordsEn": "AI ecommerce platform, Zid, Salla, personalized product recommendations, ecommerce marketing, AOV, Saudi Arabia, GCC, SaaS, online store growth"
+      "keywordsAr": "تطبيق تجارة إلكترونية، منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، اقتراح منتجات، تسويق منتجات، زيادة مبيعات، متجر إلكتروني السعودية، الخليج",
+      "keywordsEn": "AI ecommerce app, AI ecommerce platform, Zid, Salla, personalized product recommendations, ecommerce marketing, AOV, Saudi Arabia, GCC, SaaS, online store growth"
     },
     "/features": {
       "keywordsAr": "خصائص زيادة، أهداف التوصية، البيع المتقاطع، ويدجات المتجر، تخصيص العرض، ذكاء اصطناعي تجارة",

@@ -77,6 +77,11 @@ type WidgetShowcaseCardProps = {
   width?: number;
   /** للكاروسيل: عرض كامل العمود */
   fullWidth?: boolean;
+  /**
+   * مارquee الهيرو يحرك المسار بـ CSS transform؛ backdrop-filter لا يُرسم بشكل موثوق تحت هذا الأب،
+   * لذا نستخدم تدرجاً أغلظ يشبه الزجاج المصمت.
+   */
+  heroMarquee?: boolean;
 };
 
 function WidgetShowcaseCardHeader({
@@ -267,7 +272,8 @@ function WidgetShowcaseCardHeader({
         <div
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
             gap: 12,
             direction: dir,
             flexDirection: "row",
@@ -288,27 +294,53 @@ export default function WidgetShowcaseCard({
   lang,
   width = 280,
   fullWidth = false,
+  heroMarquee = false,
 }: WidgetShowcaseCardProps) {
+  const rgb = item.rgb;
+  const base: CSSProperties = {
+    width: fullWidth ? "100%" : width,
+    maxWidth: fullWidth ? 380 : undefined,
+    flexShrink: 0,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 20,
+    padding: "16px",
+    borderRadius: 18,
+    border: `1px solid rgba(${rgb},0.3)`,
+    boxSizing: "border-box",
+  };
+
+  if (heroMarquee) {
+    return (
+      <div
+        className={`widget-showcase-card widget-showcase-card--${item.kind}`}
+        style={{
+          ...base,
+          padding: "20px",
+          height: "fit-content",
+          background: "unset",
+          backgroundColor: "unset",
+          backgroundImage: "none",
+          boxShadow: `0 12px 40px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.16), 0 0 24px rgba(${rgb},0.14)`,
+        }}
+      >
+        <WidgetShowcaseCardHeader item={item} dir={dir} lang={lang} />
+        <div style={{ width: "100%", alignSelf: "stretch", display: "flex", flexDirection: "column" }}>{item.widget}</div>
+      </div>
+    );
+  }
+
   return (
     <div
       className={`widget-showcase-card widget-showcase-card--${item.kind}`}
       style={{
-        width: fullWidth ? "100%" : width,
-        maxWidth: fullWidth ? 380 : undefined,
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        gap: 20,
-        padding: "16px",
-        borderRadius: 18,
-        background: `linear-gradient(160deg, rgba(${item.rgb},0.14) 0%, rgba(${item.rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
+        ...base,
+        background: `linear-gradient(160deg, rgba(${rgb},0.14) 0%, rgba(${rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
-        border: `1px solid rgba(${item.rgb},0.3)`,
-        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${item.rgb},0.1)`,
-        boxSizing: "border-box",
+        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${rgb},0.1)`,
       }}
     >
       <WidgetShowcaseCardHeader item={item} dir={dir} lang={lang} />

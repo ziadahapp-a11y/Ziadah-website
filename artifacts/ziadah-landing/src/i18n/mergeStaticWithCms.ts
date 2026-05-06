@@ -15,11 +15,17 @@ const STATIC_ONLY_I18N_KEYS = new Set([
   "en.landing.ctaPrimary",
   "ar.landing.ctaSecondary",
   "en.landing.ctaSecondary",
+  /** Final landing CTA button label; repo copy must win over stale CMS. */
+  "ar.landing.ctaBtn",
+  "en.landing.ctaBtn",
   "ar.landing.sectorsBriefSub",
   "en.landing.sectorsBriefSub",
   /** Home calculator H2: repo copy ships without re-seeding `content_blocks`. */
   "ar.homeCalculator.title",
   "en.homeCalculator.title",
+  /** Result footnote (cross-sell / upsell wording); ignore stale CMS typos. */
+  "ar.homeCalculator.resultNote",
+  "en.homeCalculator.resultNote",
   /** Testimonials H2: avoid stale CMS `content_blocks` hiding repo copy updates. */
   "ar.landing.testimonialsTitle",
   "en.landing.testimonialsTitle",

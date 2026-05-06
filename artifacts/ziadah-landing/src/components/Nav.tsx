@@ -42,15 +42,14 @@ function LanguageSwitcher() {
       onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
       style={{
         display: "flex", alignItems: "center", gap: 5,
-        padding: "6px 12px", borderRadius: 8,
-        background: "rgba(255,255,255,.07)",
-        border: "1px solid rgba(255,255,255,.12)",
+        padding: "5px 10px", borderRadius: 8,
+        background: "unset",
+        backgroundImage: "none",
+        border: "1px solid rgba(255,255,255,.1)",
         color: "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.13)"; }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.07)"; }}
       title={lang === "ar" ? "Switch to English" : "التبديل للعربية"}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1052,23 +1051,62 @@ export default function Nav() {
   const { openMeetingBooking } = useMeetingBooking();
   const runBlur = useBlurTransition();
   const isRtl = lang === "ar";
-  const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState<"menu1" | "menu2">("menu1");
   const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | "login" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
+  /** Solid purple desktop bar only over landing “white violet” blocks (and optional `[data-nav-backdrop="light"]`). */
+  const [desktopNavOverLightBackdrop, setDesktopNavOverLightBackdrop] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", fn, { passive: true }); fn();
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
 
   useEffect(() => {
     setOpenDrop(null);
     setMobileOpenDrop(null);
+  }, [location]);
+
+  useEffect(() => {
+    let raf = 0;
+    const LIGHT_BACKDROP_SEL = ".landing-white-violet, [data-nav-backdrop=\"light\"]";
+
+    const sampleUnderNav = (): boolean => {
+      if (typeof window === "undefined" || window.matchMedia("(max-width: 1024px)").matches) {
+        return false;
+      }
+      const x = Math.min(window.innerWidth - 2, Math.max(2, window.innerWidth / 2));
+      const y = 29;
+      try {
+        const stack = document.elementsFromPoint(x, y);
+        for (const node of stack) {
+          if (!(node instanceof Element)) continue;
+          if (node.closest(".desktop-nav")) continue;
+          if (node.id === "zd-cur" || node.id === "zd-curR") continue;
+          return !!node.closest(LIGHT_BACKDROP_SEL);
+        }
+      } catch {
+        /* SSR / security */
+      }
+      return false;
+    };
+
+    const tick = () => {
+      raf = 0;
+      setDesktopNavOverLightBackdrop(sampleUnderNav());
+    };
+
+    const schedule = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(tick);
+    };
+
+    tick();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
   }, [location]);
 
   const handleHoverStart = (label: string) => {
@@ -1138,26 +1176,40 @@ export default function Nav() {
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
-        position: "fixed", top: 12, left: "50%", right: "auto", zIndex: 900,
+        position: "fixed", top: 0, left: "50%", right: "auto", zIndex: 900,
         transform: "translateX(-50%)", display: "flex", flexDirection: "column",
-        width: "calc(100% - 32px)",
-        maxWidth: 1480,
+        width: "100%",
         marginLeft: 0,
         marginRight: 0,
-        background: scrolled ? "rgba(5,3,16,.92)" : "rgba(5,3,16,.72)",
-        border: "1px solid rgba(255,255,255,.1)",
-        boxShadow: scrolled
-          ? "0 8px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.07)"
-          : "0 4px 24px rgba(0,0,0,.2)",
-        borderRadius: 16, padding: "0 20px",
-        backdropFilter: "blur(40px)", transition: "background .4s, box-shadow .4s, border-color .4s",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        ...(desktopNavOverLightBackdrop
+          ? {
+            backgroundColor: "rgba(9, 0, 25, 1)",
+            backgroundImage: "none",
+            border: "1px solid rgba(124, 58, 237, 0.18)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+            backdropFilter: "blur(20px)",
+            color: "var(--tm)",
+          }
+          : {
+            background: "unset",
+            border: "none",
+            boxShadow: "none",
+            backdropFilter: "blur(20px)",
+          }),
+        borderRadius: 0,
+        padding: "0 20px",
+        transition: "background .4s, box-shadow .4s, border-color .4s",
       }}>
         {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
+          display: "flex", alignItems: "center", justifyContent: "center",
           height: 58,
           paddingLeft: 16,
           paddingRight: 16,
+          width: "100%",
+          gap: 50,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Logo />
@@ -1281,7 +1333,7 @@ export default function Nav() {
           </ul>
           </div>
 
-          <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div className="nav-ctas" style={{ display: "flex", gap: 5, alignItems: "center" }}>
             <LanguageSwitcher />
             <div style={{ position: "relative" }}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("login")} onHoverEnd={handleHoverEnd}>
@@ -1666,8 +1718,8 @@ export default function Nav() {
               { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
               { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
               { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
-              { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
               { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateTo("/pricing"); }, active: false },
+              { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
               { key: "more", iconKey: "more" as const, label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
             ].map((item) => {
               const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);

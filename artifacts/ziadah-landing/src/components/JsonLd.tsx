@@ -25,7 +25,7 @@ export function OrganizationSchema() {
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
     logo: "https://www.ziadah.app/logo.png",
-    description: "منصة ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
+    description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
     sameAs: [
       "https://twitter.com/ziadah_app",
       "https://www.instagram.com/ziadah.app",
