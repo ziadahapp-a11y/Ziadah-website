@@ -625,7 +625,7 @@ html[dir="rtl"] .hero-uc-carousel{
   flex-direction:row;
   flex-wrap:nowrap;
   gap:24px;
-  align-items:center;
+  align-items:flex-start;
   justify-content:flex-start;
   box-sizing:border-box;
   height:fit-content;
@@ -692,8 +692,11 @@ html[dir="rtl"] .hero-uc-carousel{
   color:rgba(255, 255, 255, 1);
 }
 @media (min-width: 961px){
+  #landing-hero-heading .ht-line1{
+    font-size:45px;
+  }
   #landing-hero-heading .hero-title-grad{
-    font-size:43px;
+    font-size:37px;
   }
 }
 @media (max-width:960px){
