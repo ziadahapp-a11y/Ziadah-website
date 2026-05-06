@@ -42,7 +42,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
         borderBottom: "1px solid var(--b1)",
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: 16 }}>
+      <div style={{ display: "flex", textAlign: "center", marginBottom: 16, justifyContent: "center" }}>
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot" />
           {sectorsBreadcrumb}
@@ -57,7 +57,6 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
             {useSplit ? (
               <>
                 {isAr ? rich.heroHeadlineLine1Ar : rich.heroHeadlineLine1En}
-                <br />
                 <span className="sector-html-grad">{isAr ? rich.heroHeadlineLine2Ar : rich.heroHeadlineLine2En}</span>
               </>
             ) : (
