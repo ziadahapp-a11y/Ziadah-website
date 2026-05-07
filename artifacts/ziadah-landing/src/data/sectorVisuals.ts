@@ -202,7 +202,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "كورس ثم مستوى أعلى",
         titleEn: "Course then advanced",
         contextAr: "شراء كورس برمجة مبتدئ",
@@ -490,7 +490,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "service-design": {
     scenarios: [
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "شعار → هوية",
         titleEn: "Logo → identity",
         contextAr: "شراء باقة شعار",
@@ -1103,7 +1103,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/bundle-deals",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "مودال — ترحيب المنصة",
         titleEn: "Modal — platform welcome",
         contextAr: "أول طلب لمستخدم ججل — مودال بكود ترحيب وشروط واضحة.",

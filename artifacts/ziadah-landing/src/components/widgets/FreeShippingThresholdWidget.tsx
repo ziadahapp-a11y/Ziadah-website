@@ -39,8 +39,8 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
+            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{
             height: 7,
@@ -57,11 +57,11 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
               transition: "width .5s ease",
             }} />
           </div>
-          <div style={{ fontSize: 9, color: "var(--td)", textAlign: "center" }}>
+          <div style={{ fontSize: 12, color: "var(--td)", textAlign: "center" }}>
             {tr.progressNote}
           </div>
         </div>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {tr.products.map((p, i) => (
             <div key={i} style={{
@@ -85,8 +85,8 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
               </div>
               <div style={{
                 width: 20,
@@ -98,7 +98,7 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
                 justifyContent: "center",
                 flexShrink: 0,
               }}>
-                <span style={{ color: "var(--td)", fontSize: 10, fontWeight: 900 }}>✓</span>
+                <span style={{ color: "var(--td)", fontSize: 12, fontWeight: 900 }}>✓</span>
               </div>
             </div>
           ))}

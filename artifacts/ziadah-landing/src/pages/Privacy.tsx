@@ -1,5 +1,7 @@
-import { t } from "@/i18n/translations";
+import { useState } from "react";
 import PageShell from "../components/PageShell";
+import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
@@ -32,6 +34,9 @@ export default function Privacy() {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang];
+  const pc = tr.pageClosingCta;
+  const ld = tr.landing;
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const isEn = lang === "en";
   const content = isEn ? sections.en : sections.ar;
   const pk = getPageKeywords("/privacy");
@@ -50,15 +55,18 @@ export default function Privacy() {
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Privacy Policy" : "سياسة الخصوصية", url: "/privacy" }]} />
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
         <DsPageBackdrop />
-        <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
-          <div className="wrap gc ds-legal-doc">
+        <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
+          <div className="wrap">
             <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
               {tr.legalPages.privacyH1}
             </h1>
-            <p style={{ fontSize: 14, color: "var(--td)", marginBottom: 48 }}>
+            <p style={{ fontSize: 14, color: "var(--td)", marginBottom: 0 }}>
               {isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}
             </p>
-
+          </div>
+        </section>
+        <section style={{ paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
+          <div className="wrap gc ds-legal-doc">
             <div style={{ display: "flex", flexDirection: "column", gap: 40, fontSize: 15, lineHeight: 1.9, color: "var(--tm)" }}>
               {content.map((s, i) => (
                 <div key={i}>
@@ -71,7 +79,14 @@ export default function Privacy() {
             </div>
           </div>
         </section>
+        <PageClosingCta
+          title={pc.legalTitle}
+          description={pc.legalDesc}
+          buttonLabel={ld.ctaBtn}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

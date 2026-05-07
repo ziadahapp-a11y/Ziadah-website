@@ -18,9 +18,9 @@ export default function IncreaseConversionWidget() {
           marginBottom: 10,
           textAlign: "center",
         }}>
-          <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 4 }}>{tr.giftLabel}</div>
+          <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 4 }}>{tr.giftLabel}</div>
           <div style={{ fontSize: 20, fontWeight: 900, color: "#34d399" }}>{tr.discountAmount}</div>
-          <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.discountNote}</div>
+          <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountNote}</div>
           <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
 
@@ -41,7 +41,7 @@ export default function IncreaseConversionWidget() {
               border: "1px solid var(--b1)",
             }}>
               <span style={{ fontSize: 12 }}>{item.icon}</span>
-              <span style={{ fontSize: 10, color: "var(--tm)", fontWeight: 600 }}>{item.text}</span>
+              <span style={{ fontSize: 12, color: "var(--tm)", fontWeight: 600 }}>{item.text}</span>
             </div>
           ))}
         </div>
@@ -57,7 +57,7 @@ export default function IncreaseConversionWidget() {
           alignItems: "center",
         }}>
           <span style={{ fontSize: 14 }}>👥</span>
-          <span style={{ fontSize: 9, color: "#fcd34d", fontWeight: 700 }}>{tr.socialProof}</span>
+          <span style={{ fontSize: 12, color: "#fcd34d", fontWeight: 700 }}>{tr.socialProof}</span>
         </div>
       </div>
 

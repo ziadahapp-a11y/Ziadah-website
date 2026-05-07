@@ -1,6 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import BundleDealsWidget from "../../components/widgets/BundleDealsWidget";
-import WidgetTabs from "../../components/WidgetTabs";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,58 +57,56 @@ const data: UseCasePageData = {
     result: "العميل الذي يرى التوفير بوضوح (المبلغ وليس النسبة فقط) يتحول إلى المشتري بنسبة 52% — الشفافية في الخصم هي المحرك الأقوى لقرار الشراء.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر الحزمة للعميل داخل المتجر؟" : "How does the bundle appear to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الحزمة كما يراها عميلك فعلياً" : "This is how the bundle suggestion looks to your customer"}</p>
-        <WidgetTabs
-          isAr={isAr}
-          fullWidthContent
-          tabs={[
-            {
-              labelAr: "📱 مثال حي",
-              labelEn: "📱 Live Demo",
-              content: <BundleDealsWidget />,
-            },
-            {
-              labelAr: "🧮 كيف يحسب الخصم؟",
-              labelEn: "🧮 How Discount Works",
-              content: (
-                <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-                  <div className="shine"/>
-                  <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "كيف يحسب زيادة نسبة خصم الحزمة المثلى؟" : "How does Ziadah calculate the optimal bundle discount?"}</h3>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                    {(isAr ? [
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تظهر الحزمة للعميل داخل المتجر؟" : "How does the bundle appear to customers in-store?"}
+      subtitle={
+        isAr ? "هكذا تبدو واجهة اقتراح الحزمة كما يراها عميلك فعلياً" : "This is how the bundle suggestion looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <BundleDealsWidget />,
+        },
+        {
+          labelAr: "🧮 كيف يحسب الخصم؟",
+          labelEn: "🧮 How Discount Works",
+          placement: "below",
+          content: (
+            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
+              <div className="shine" />
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+                {isAr ? "كيف يحسب زيادة نسبة خصم الحزمة المثلى؟" : "How does Ziadah calculate the optimal bundle discount?"}
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {(isAr
+                  ? [
                       { step: "1", title: "تحليل هامش كل منتج", desc: "يحسب زيادة هامش الربح لكل منتج في الحزمة المقترحة قبل تحديد نسبة الخصم." },
                       { step: "2", title: "استهداف نسبة تحفيز", desc: "يُطبّق خصماً يتراوح بين 10-25% من الإجمالي — كافٍ ليُحفّز القرار دون إضرار بالهامش." },
                       { step: "3", title: "اختبار تلقائي A/B", desc: "يجرب زيادة نسب خصم مختلفة على شرائح صغيرة ويُثبّت النسبة التي تُحقق أعلى إيراد فعلي." },
-                    ] : [
+                    ]
+                  : [
                       { step: "1", title: "Analyze each product's margin", desc: "Ziadah calculates the profit margin for each product in the proposed bundle before setting the discount." },
                       { step: "2", title: "Target an incentive rate", desc: "Applies a discount between 10-25% of the total — enough to motivate the decision without hurting the margin." },
                       { step: "3", title: "Automatic A/B testing", desc: "Ziadah tests different discount rates on small segments and locks in the rate that achieves the highest actual revenue." },
-                    ]).map((item, i) => (
-                      <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(124,58,237,.04)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 14 }}>
-                        <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(168,85,247,.15)", border: "1px solid rgba(168,85,247,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#a855f7", flexShrink: 0 }}>{item.step}</div>
-                        <div style={{ textAlign: "start" }}>
-                          <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
-                          <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{item.desc}</div>
-                        </div>
-                      </div>
-                    ))}
+                    ]
+                ).map((item, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(124,58,237,.04)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 14 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(168,85,247,.15)", border: "1px solid rgba(168,85,247,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#a855f7", flexShrink: 0 }}>{item.step}</div>
+                    <div style={{ textAlign: "start" }}>
+                      <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
+                      <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{item.desc}</div>
+                    </div>
                   </div>
-                </div>
-              ),
-            },
-          ]}
-        />
-      </div>
-    </section>
+                ))}
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل منتجاتك إلى حزم تبيع نفسها",
   ctaDesc: "زيادة يبني الحزمة ويختار الخصم ويعرضها في الوقت الصحيح — أنت تجني النتيجة.",
   heroEn: {
@@ -164,7 +162,6 @@ const data: UseCasePageData = {
     ],
     result: "The customer who sees savings clearly (the amount, not just the percentage) converts at 52% — transparency in the discount is the strongest driver of purchase decisions.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Turn your products into bundles that sell themselves",
   ctaDescEn: "Ziadah builds the bundle, chooses the discount, and displays it at the right time — you reap the results.",
   seo: {

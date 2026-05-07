@@ -3,6 +3,8 @@ import { t } from "@/i18n/translations";
 import { blogPosts, categories, categoryColors } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
+import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
@@ -31,11 +33,14 @@ function getInitialFilters() {
 export default function Blog() {
   const t = useSiteT();
   const cmsMap = useSiteContentMap();
-  const { lang, dir, isAr } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const tx = t[lang].blog;
+  const pc = t[lang].pageClosingCta;
+  const ld = t[lang].landing;
   const initial = getInitialFilters();
   const [activeCategory, setActiveCategory] = useState(initial.cat);
   const [search, setSearch] = useState(initial.search);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   function updateUrl(cat: string, searchVal: string) {
     // Preserve unrelated params (e.g. `mode=dark|light`) while updating blog filters.
@@ -122,6 +127,7 @@ export default function Blog() {
   const pk = getPageKeywords("/blog");
 
   return (
+    <>
     <StandardPage
       titleAr={t.ar.blog.seoTitle}
       titleEn={t.en.blog.seoTitle}
@@ -130,32 +136,24 @@ export default function Blog() {
       canonical="/blog"
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
-      className="relative overflow-x-clip"
+      className="relative overflow-x-clip blog-white-shell"
       style={{ color: "var(--t)" }}
     >
     <>
     <DsPageBackdrop />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
-    
-
-      {/* HERO */}
       <section
-        style={{
-          paddingTop: "var(--page-hero-pt)",
-          paddingBottom: 56,
-          textAlign: "center",
-          position: "relative",
-          zIndex: 2,
-          paddingInline: "var(--page-inline-pad)",
-        }}
+        className="page-hero-viewport page-hero-viewport--center blog-page-hero"
+        style={{ position: "relative", zIndex: 2 }}
       >
+        <div className="blog-page-hero-inner">
         <div className="stag rv" style={{ display: "inline-flex" }}>
           <span className="stag-dot" />
           {tx.tag}
         </div>
         <h1
-          className="rv d1"
+          className="rv d1 blog-page-hero-title"
           style={{
             fontSize: "clamp(22px,5vw,64px)",
             fontWeight: 900,
@@ -167,7 +165,7 @@ export default function Blog() {
           {tx.heroTitle}
         </h1>
         <p
-          className="ssub rv d2"
+          className="ssub rv d2 blog-page-hero-lead"
           style={{ margin: "0 auto 36px", maxWidth: 560 }}
         >
           {tx.heroSub}
@@ -175,46 +173,37 @@ export default function Blog() {
 
         {/* Search */}
         <div
-          className="rv d3"
+          className="rv d3 blog-page-hero-search-wrap"
           style={{ maxWidth: 540, margin: "0 auto", position: "relative" }}
         >
           <input
+            type="search"
+            className="blog-page-hero-search"
+            autoComplete="off"
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
             placeholder={tx.searchPlaceholder}
             style={{
               width: "100%",
-              padding: "15px 50px 15px 20px",
-              background: "var(--s1)",
-              border: "1px solid var(--b2)",
+              paddingBlock: 15,
+              paddingInlineEnd: 52,
+              paddingInlineStart: 22,
               borderRadius: 50,
-              color: "var(--t)",
               fontFamily: "var(--font)",
               fontSize: 15,
-              outline: "none",
-              backdropFilter: "blur(20px)",
-              transition: "border .25s",
             }}
-            onFocus={(e) =>
-              (e.target.style.borderColor = "rgba(168,85,247,.5)")
-            }
-            onBlur={(e) =>
-              (e.target.style.borderColor = "")
-            }
           />
           <svg
             width="18"
             height="18"
             viewBox="0 0 18 18"
             fill="none"
+            className="blog-page-hero-search-ico"
             style={{
               position: "absolute",
-              left: isAr ? 18 : undefined,
-              right: isAr ? undefined : 18,
+              insetInlineEnd: 18,
               top: "50%",
               transform: "translateY(-50%)",
-              color: "var(--td)",
-              opacity: 0.75,
             }}
           >
             <circle
@@ -235,6 +224,7 @@ export default function Blog() {
             />
           </svg>
         </div>
+        </div>
       </section>
 
       {/* CATEGORY FILTER */}
@@ -242,7 +232,7 @@ export default function Blog() {
         style={{
           position: "relative",
           zIndex: 2,
-          padding: "0 5% 48px",
+          padding: "48px 5% 48px",
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -311,116 +301,62 @@ export default function Blog() {
                 const catObj = categories.find(c => c.id === post.category);
                 const catDisplay = catObj ? getCatLabel(catObj) : post.category;
                 return (
-                <div
+                <a
                   key={post.slug}
-                  onClick={() => navigateTo(`/blog/${post.slug}`)}
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  href={`/blog/${post.slug}`}
+                  className="blog-card-link"
+                  onClick={(e) => {
+                    if (
+                      e.defaultPrevented ||
+                      e.ctrlKey ||
+                      e.metaKey ||
+                      e.shiftKey ||
+                      e.altKey ||
+                      e.button !== 0
+                    ) {
+                      return;
+                    }
+                    e.preventDefault();
+                    navigateTo(`/blog/${post.slug}`);
+                  }}
                 >
                   <article
-                    className="gc gc-lift rv"
+                    className="blog-card gc gc-lift rv"
                     style={{
                       animationDelay: `${i * 0.05}s`,
-                      cursor: "pointer",
-                      overflow: "hidden",
-                      display: "flex",
-                      flexDirection: "column",
-                      minHeight: "100%",
                     }}
                   >
-                    <div className="shine" />
-                    {/* Cover */}
+                    <div className="shine" aria-hidden />
                     <div
-                      style={{
-                        background: post.coverGradient,
-                        height: "clamp(160px, 28vw, 200px)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 64,
-                        position: "relative",
-                        flexShrink: 0,
-                      }}
+                      className="blog-card__media"
+                      style={{ background: post.coverGradient }}
                     >
                       <div className="blog-cover-overlay" aria-hidden />
-                      <span style={{ position: "relative", zIndex: 1 }}>
+                      <span className="blog-card__icon-wrap">
                         {post.coverIcon}
                       </span>
-                      {/* Category badge */}
                       <div
+                        className="blog-card__badge"
                         style={{
-                          position: "absolute",
-                          top: 16,
-                          right: isAr ? 16 : undefined,
-                          left: isAr ? undefined : 16,
-                          zIndex: 2,
-                          padding: "4px 12px",
-                          borderRadius: 50,
-                          background: `${categoryColors[post.category]}22`,
-                          border: `1px solid ${categoryColors[post.category]}55`,
+                          background: `${categoryColors[post.category]}28`,
+                          border: `1px solid ${categoryColors[post.category]}66`,
                           color: categoryColors[post.category],
-                          fontSize: 11,
-                          fontWeight: 700,
-                          letterSpacing: 0.5,
                         }}
                       >
                         {catDisplay}
                       </div>
                     </div>
-
-                    {/* Content */}
-                    <div
-                      style={{
-                        padding: "20px 24px 24px",
-                        display: "flex",
-                        flexDirection: "column",
-                        flex: 1,
-                      }}
-                    >
-                      <h2
-                        style={{
-                          fontSize: 18,
-                          fontWeight: 800,
-                          lineHeight: 1.4,
-                          marginBottom: 10,
-                          color: "var(--t)",
-                        }}
-                      >
-                        {getTitle(post)}
-                      </h2>
-                      <p
-                        style={{
-                          fontSize: 13,
-                          color: "var(--tm)",
-                          lineHeight: 1.7,
-                          marginBottom: 16,
-                          flex: 1,
-                        }}
-                      >
-                        {getSummary(post)}
-                      </p>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          paddingTop: 14,
-                          borderTop: "1px solid var(--b1)",
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 6,
-                            fontSize: 12,
-                            color: "var(--td)",
-                          }}
-                        >
+                    <div className="blog-card__body">
+                      <h2 className="blog-card__title">{getTitle(post)}</h2>
+                      <p className="blog-card__excerpt">{getSummary(post)}</p>
+                      <div className="blog-card__footer">
+                        <div className="blog-card__meta-chip">
                           <svg
                             width="12"
                             height="12"
                             viewBox="0 0 12 12"
                             fill="none"
+                            aria-hidden
                           >
                             <circle
                               cx="6"
@@ -438,25 +374,44 @@ export default function Blog() {
                           </svg>
                           {getReadTime(post)} {tx.readSuffix}
                         </div>
-                        <span
-                          style={{
-                            fontSize: 12,
-                            color: "var(--td)",
-                          }}
-                        >
+                        <span className="blog-card__date">
                           {getPublishDate(post)}
+                        </span>
+                        <span className="blog-card__go" aria-hidden>
+                          <svg
+                            className="blog-card__go-svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M6 12l4-4-4-4"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
                         </span>
                       </div>
                     </div>
                   </article>
-                </div>
+                </a>
                 );
               })}
             </div>
           )}
         </div>
       </section>
+      <PageClosingCta
+        title={pc.blogIndexTitle}
+        description={pc.blogIndexDesc}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
     </>
     </StandardPage>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
+    </>
   );
 }

@@ -55,7 +55,6 @@ const data: UseCasePageData = {
     ],
     result: "38% من هؤلاء العملاء أضافوا الإكسسوارات فوراً، و22% عادوا خلال 48 ساعة باستخدام الكوبون.",
   },
-  plans: ["الاحترافية", "الأعمال"],
   ctaTitle: "حوّل صفحة الشكر إلى مصدر دخل إضافي",
   ctaDesc: "ابنِ ولاء حقيقي وحفّز الطلبات المتكررة من أولى خطوات العلاقة مع العميل.",
   extraSections: <ThankYouMockup />,
@@ -112,7 +111,6 @@ const data: UseCasePageData = {
     ],
     result: "38% of these customers added accessories immediately, and 22% returned within 48 hours using the coupon.",
   },
-  plansEn: ["Professional", "Business"],
   ctaTitleEn: "Turn the thank you page into an additional revenue source",
   ctaDescEn: "Build real loyalty and drive repeat orders from the very first steps of the customer relationship.",
   seo: {

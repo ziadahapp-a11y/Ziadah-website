@@ -12,7 +12,6 @@ import {
   Copy,
   Check,
   ExternalLink,
-  Calendar,
   Sparkles,
   LayoutGrid,
   ChevronDown,
@@ -37,6 +36,7 @@ import {
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import PageShell from "@/components/PageShell";
+import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -55,8 +55,6 @@ import {
 } from "@/lib/analyzeValueEstimate";
 import { cn } from "@/lib/utils";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
-import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 
 /** Stored `value` is English (API); labels are single-locale (no bilingual strings). */
 const INDUSTRY_OPTIONS = [
@@ -791,6 +789,7 @@ export default function Analyze() {
   const { lang } = useLanguage();
   const isArabic = lang === "ar";
   const tr = siteT[lang].analyze;
+  const ld = siteT[lang].landing;
   const pk = getPageKeywords("/analyze");
   const apiBase = getApiSubmitOrigin();
 
@@ -806,7 +805,6 @@ export default function Analyze() {
   const [step, setStep] = useState<Step>("idle");
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [platformOpen, setPlatformOpen] = useState(false);
-  const { openMeetingBooking } = useMeetingBooking();
   const [retryBusy, setRetryBusy] = useState(false);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const valueInputsSeededForStore = useRef<number | null>(null);
@@ -1734,47 +1732,14 @@ export default function Analyze() {
                     </div>
                   </div>
 
-                  <section
-                    id="analyze-cta"
-                    className="analyze-results-cta flex flex-col items-center justify-start gap-2.5"
-                  >
-                    <div className="analyze-cta-badge w-fit" aria-hidden>
-                      <Zap className="h-3 w-3 shrink-0" aria-hidden />
-                      <span>{lang === "ar" ? "استثمر النتائج الآن" : "Take Action Now"}</span>
-                    </div>
-                    <h3 className="analyze-cta-title" style={{ color: "var(--t)" }}>
-                      {tr.ctaLaunch}
-                    </h3>
-                    <p className="ssub tc max-w-lg mx-auto mt-2 mb-0">
-                      {tr.ctaLaunchSub}
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center mt-5">
-                      <button
-                        type="button"
-                        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
-                        onClick={() => setPlatformOpen(true)}
-                      >
-                        <Zap className="h-4.5 w-4.5 shrink-0" aria-hidden />
-                        {tr.ctaLaunch}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
-                        onClick={() => setPlatformOpen(true)}
-                      >
-                        <Sparkles className="h-4 w-4 shrink-0" aria-hidden />
-                        {tr.ctaActivate}
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-g inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base"
-                        onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
-                      >
-                        <Calendar className="h-4 w-4 shrink-0" aria-hidden />
-                        {tr.ctaBookMeeting}
-                      </button>
-                    </div>
-                  </section>
+                  <div id="analyze-cta" className="w-full">
+                    <PageClosingCta
+                      title={tr.ctaLaunch}
+                      description={tr.ctaLaunchSub}
+                      buttonLabel={ld.ctaBtn}
+                      onActivate={() => setPlatformOpen(true)}
+                    />
+                  </div>
 
                   <div
                     id="analyze-share"

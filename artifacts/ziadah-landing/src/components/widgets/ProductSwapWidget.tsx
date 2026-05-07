@@ -30,7 +30,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
       }
     >
       <div>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{
           padding: "12px",
           borderRadius: 14,
@@ -46,7 +46,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
             borderRadius: 20,
             background: "rgba(16,185,129,.12)",
             border: "1px solid rgba(16,185,129,.3)",
-            fontSize: 9,
+            fontSize: 12,
             fontWeight: 700,
             color: "#34d399",
             marginBottom: 10,
@@ -66,13 +66,13 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
               flexShrink: 0,
             }}>{productEmoji}</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{tr.productName}</div>
-              <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 2 }}>{tr.reviews}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{tr.productName}</div>
+              <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 2 }}>{tr.reviews}</div>
               <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 4 }}>
-                <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.origPrice}</span>
+                <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.origPrice}</span>
                 <span style={{ fontSize: 14, fontWeight: 900, color: "var(--t)" }}>{tr.newPrice}</span>
                 <span style={{
-                  fontSize: 9,
+                  fontSize: 12,
                   padding: "2px 7px",
                   borderRadius: 20,
                   background: "rgba(16,185,129,.15)",
@@ -93,8 +93,8 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
           background: "rgba(16,185,129,.08)",
           border: "1px solid rgba(16,185,129,.2)",
         }}>
-          <span style={{ color: "#34d399", fontSize: 10 }}>✓</span>
-          <span style={{ fontSize: 9, color: "var(--tm)" }}>{tr.warrantyNote}</span>
+          <span style={{ color: "#34d399", fontSize: 12 }}>✓</span>
+          <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.warrantyNote}</span>
         </div>
         <button style={{
           width: "100%",

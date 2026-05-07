@@ -91,13 +91,43 @@
 .sector-html-hero-h {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
   gap: 20px;
   font-size: 60px;
   font-weight: 900;
   line-height: 1.08;
   margin: 0 0 18px;
   color: var(--t);
+}
+
+/* Two-column playbook hero (<UseCaseLayout> / <SectorHtmlHero> inside `.sector-html`) */
+.sector-html-hero-copy {
+  justify-self: start;
+  width: 100%;
+  max-width: 560px;
+}
+
+.sector-html-hero-grid .sector-html-hero-copy .stag {
+  margin-inline: 0;
+}
+
+.sector-html-hero-mock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.sector-html .sector-html-hero-grid h1.sector-html-hero-h {
+  text-align: start;
+  align-items: flex-start;
+}
+
+.sector-html-hero-grid .sector-html-hero-copy .sector-html-hero-sub {
+  max-width: 100%;
+  text-align: start;
+  margin-inline: 0;
 }
 
 .sector-html-grad {
@@ -139,7 +169,7 @@
 
 .sector-html-btn--fire {
   background-image: none;
-  background-color: rgba(9, 0, 25, 1);
+  background-color: rgba(127, 64, 237, 1);
   color: #fff;
   box-shadow: none;
 }
@@ -175,7 +205,7 @@
   border: 1px solid var(--sh-border2);
   border-radius: 999px;
   padding: 7px 14px;
-  font-size: 0.72rem;
+  font-size: max(12px, 0.72rem);
   font-family: var(--sh-en);
   display: flex;
   align-items: center;
@@ -284,7 +314,7 @@
 }
 
 .sector-html-pb-app {
-  font-size: 0.72rem;
+  font-size: max(12px, 0.72rem);
   font-weight: 700;
   font-family: var(--sh-en);
   color: var(--sh-accent);
@@ -299,7 +329,7 @@
 }
 
 .sector-html-pb-time {
-  font-size: 0.68rem;
+  font-size: max(12px, 0.68rem);
   font-family: var(--sh-en);
   color: var(--td);
 }
@@ -352,7 +382,7 @@
 }
 
 .sector-html-rb-head {
-  font-size: 0.62rem;
+  font-size: max(12px, 0.62rem);
   font-family: var(--sh-en);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -387,7 +417,7 @@
   border: none;
   border-radius: 999px;
   padding: 4px 10px;
-  font-size: 0.64rem;
+  font-size: max(12px, 0.64rem);
   font-family: var(--sh-en);
   font-weight: 600;
   cursor: default;
@@ -446,7 +476,7 @@
 }
 
 .sector-html-aud-who {
-  font-size: 0.66rem;
+  font-size: max(12px, 0.66rem);
   font-family: var(--sh-en);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -565,7 +595,7 @@
 
 .sector-html-al-en {
   font-family: var(--sh-en);
-  font-size: 0.66rem;
+  font-size: max(12px, 0.66rem);
   color: var(--sh-accent);
   margin-bottom: 6px;
   display: block;
@@ -588,7 +618,7 @@
 
 .sector-html-pc-recs-label,
 .sector-html-sc-head {
-  font-size: 0.64rem;
+  font-size: max(12px, 0.64rem);
   font-family: var(--sh-en);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -607,7 +637,7 @@
 }
 
 .sector-html-pcr-match {
-  font-size: 0.65rem;
+  font-size: max(12px, 0.65rem);
   font-family: var(--sh-en);
   color: var(--sh-green);
   font-weight: 700;
@@ -657,13 +687,13 @@
 }
 
 .sector-html-kpil {
-  font-size: 0.66rem;
+  font-size: max(12px, 0.66rem);
   color: var(--td);
   margin-top: 2px;
 }
 
 .sector-html-kpid {
-  font-size: 0.64rem;
+  font-size: max(12px, 0.64rem);
   font-family: var(--sh-en);
   color: var(--sh-green);
   margin-top: 4px;
@@ -683,7 +713,7 @@
 
 .sector-html-b-lbl {
   width: 56px;
-  font-size: 0.65rem;
+  font-size: max(12px, 0.65rem);
   color: var(--td);
   font-family: var(--sh-en);
   flex-shrink: 0;
@@ -729,7 +759,7 @@
 }
 
 .sector-html-b-val {
-  font-size: 0.65rem;
+  font-size: max(12px, 0.65rem);
   font-family: var(--sh-en);
   font-weight: 700;
   color: var(--sh-accent);
@@ -746,7 +776,7 @@
 
 .sector-html-ftable th {
   padding: 11px 12px;
-  font-size: 0.68rem;
+  font-size: max(12px, 0.68rem);
   font-family: var(--sh-en);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -773,7 +803,7 @@
 
 .sector-html-ft-en {
   font-family: var(--sh-en);
-  font-size: 0.65rem;
+  font-size: max(12px, 0.65rem);
   color: var(--td);
   display: block;
   margin-top: 2px;
@@ -781,7 +811,7 @@
 
 .sector-html-fp {
   display: inline-block;
-  font-size: 0.62rem;
+  font-size: max(12px, 0.62rem);
   font-family: var(--sh-en);
   padding: 3px 8px;
   border-radius: 999px;
@@ -1088,6 +1118,31 @@
     order: 2 !important;
   }
 
+  .sector-html-hero-copy {
+    max-width: 100%;
+    text-align: center;
+    justify-self: center;
+    margin-inline: auto;
+  }
+
+  .sector-html .sector-html-hero-grid h1.sector-html-hero-h {
+    text-align: center;
+    align-items: center;
+  }
+
+  .sector-html-hero-grid .sector-html-hero-copy .sector-html-hero-sub {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .sector-html-hero-grid .sector-html-hero-copy .sector-html-badge {
+    margin-inline: auto;
+  }
+
+  .sector-html-hero-grid .sector-html-hero-copy .sector-html-hero-copy-ctas {
+    justify-content: center;
+  }
+
   /* Centre the phone mockup under the text */
   .sector-html-phone-wrap {
     margin: 0 auto;
@@ -1119,7 +1174,7 @@
 
   /* Floating tags: smaller, no negative side overflow */
   .sector-html-ftag {
-    font-size: 0.62rem;
+    font-size: max(12px, 0.62rem);
     padding: 5px 10px;
     gap: 5px;
   }
@@ -1149,7 +1204,7 @@
   }
 
   .sector-html-badge {
-    font-size: 0.7rem;
+    font-size: max(12px, 0.7rem);
     padding: 6px 14px;
   }
 
@@ -1162,7 +1217,7 @@
 
   /* Floating tags: even more compact, anchor to phone corners */
   .sector-html-ftag {
-    font-size: 0.56rem;
+    font-size: max(12px, 0.56rem);
     padding: 4px 8px;
     gap: 4px;
     max-width: calc(50vw - 20px);
@@ -1203,4 +1258,170 @@
   .sector-html-aud {
     padding: 20px;
   }
+}
+
+/* ── صفحات الحلول: خلفية بيضاء فقط على الهيرو العلوي (المحتوى داخل القسم فقط) ── */
+.use-case-playbook-hero.sector-html {
+  background-color: rgba(255, 255, 255, 1);
+  color: #312e81;
+  --t: #312e81;
+  --td: rgba(49, 46, 129, 0.9);
+  --tm: rgba(76, 29, 149, 0.74);
+  --b1: rgba(124, 58, 237, 0.14);
+  --b2: rgba(124, 58, 237, 0.22);
+  --s1: rgba(124, 58, 237, 0.07);
+}
+
+/* Sticky in-page nav: stays under fixed site Nav while scrolling */
+.use-case-quicknav-stick--playbook {
+  position: sticky;
+  top: max(calc(env(safe-area-inset-top, 0px) + 58px), 58px);
+  z-index: 24;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px max(var(--page-inline-pad), env(safe-area-inset-left, 0px)) 12px
+    max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.use-case-quicknav-stick--playbook .sector-page-quicknav {
+  max-width: 1160px;
+  margin-inline: auto;
+}
+
+/* Anchor targets clear fixed Nav (~52–58px) + sticky pill row (~48px + padding) */
+section#uc-what,
+section#uc-strategies,
+section#uc-example,
+section#uc-showcase,
+#uc-stats {
+  scroll-margin-top: calc(env(safe-area-inset-top, 0px) + clamp(108px, 22vh, 142px));
+}
+
+.use-case-playbook-hero .sector-html-hero-h {
+  color: rgba(9, 0, 25, 1);
+}
+
+.use-case-playbook-hero .sector-html-hero-sub {
+  color: rgba(49, 46, 129, 0.82);
+}
+
+.use-case-playbook-hero .sector-html-grad {
+  background-image: linear-gradient(135deg, #6d28d9 0%, #a855f7 55%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.use-case-playbook-hero .sector-html-btn--ghost {
+  color: var(--t);
+  border-color: rgba(124, 58, 237, 0.28);
+}
+
+.use-case-playbook-hero .sector-html-btn--ghost:hover {
+  border-color: rgba(124, 58, 237, 0.48);
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.use-case-playbook-hero .sector-html-ftag {
+  background: #ffffff;
+  border-color: rgba(124, 58, 237, 0.24);
+  color: #312e81;
+  box-shadow: 0 10px 32px rgba(124, 58, 237, 0.12);
+}
+
+.use-case-playbook-hero .sector-html-ftag span:not(.sector-html-fdot) {
+  color: #312e81;
+}
+
+/* إطار الهاتف في الهيرو: إطار أوضح يتماشى مع الشاشة الداخلية */
+.use-case-playbook-hero .sector-html-phone {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 239, 255, 0.88) 100%);
+  border-color: rgba(124, 58, 237, 0.22);
+  box-shadow:
+    0 0 44px rgba(124, 58, 237, 0.14),
+    0 26px 52px rgba(15, 23, 42, 0.07);
+}
+
+.use-case-playbook-hero .sector-html-phone-inner {
+  /* إصلاح color-mix(..., var(--bg)) داخل الويجتات: --bg الجذر داكن فيُفسد البطاقات على الشاشة الفاتحة */
+  --bg: #f7f5fc;
+  --t: #3730a3;
+  --td: rgba(55, 48, 163, 0.92);
+  --tm: rgba(124, 58, 237, 0.72);
+  background: linear-gradient(165deg, #ffffff 0%, #faf8ff 42%, #f3efff 100%);
+  border: 1px solid rgba(124, 58, 237, 0.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -12px 32px rgba(124, 58, 237, 0.045);
+}
+
+.use-case-playbook-hero .sector-html-or-name {
+  color: var(--t);
+}
+
+.use-case-playbook-hero .sector-html-or-price {
+  color: rgba(76, 29, 149, 0.75);
+}
+
+.use-case-playbook-hero .sector-html-pb-time {
+  color: rgba(49, 46, 129, 0.72);
+}
+
+.use-case-playbook-hero .sector-html-ft-name {
+  color: var(--t);
+}
+
+.use-case-playbook-hero .sector-html-ft-en {
+  color: rgba(76, 29, 149, 0.68);
+}
+
+.use-case-quicknav-stick--playbook .sector-page-quicknav button {
+  border-color: rgba(124, 58, 237, 0.24) !important;
+  color: #312e81 !important;
+  background: transparent !important;
+}
+
+.use-case-quicknav-stick--playbook .sector-page-quicknav button:hover {
+  border-color: rgba(124, 58, 237, 0.45) !important;
+  background: rgba(124, 58, 237, 0.06) !important;
+}
+
+.use-case-playbook-hero .sector-html-hero-grid .sector-html-hero-copy .stag {
+  background: rgba(124, 58, 237, 0.1);
+  border: none;
+  color: #6d28d9;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+.use-case-playbook-hero .sector-html-hero-copy .sector-html-badge {
+  border: none;
+}
+
+.use-case-playbook-hero .stag-dot {
+  background: #7c3aed;
+}
+
+/* Live widget showcase — scrollable screen inside phone frame */
+.uc-live-showcase .sector-html-phone-inner {
+  display: flex;
+  flex-direction: column;
+  max-height: min(560px, 72vh);
+  overflow: hidden;
+}
+
+.uc-live-showcase .uc-live-showcase__phone-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }

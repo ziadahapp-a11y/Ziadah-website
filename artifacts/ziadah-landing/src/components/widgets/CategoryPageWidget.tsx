@@ -21,7 +21,7 @@ export default function CategoryPageWidget() {
           border: "1px solid rgba(124,58,237,.2)",
         }}>
           <span style={{ fontSize: 12 }}>🎯</span>
-          <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>{tr.sortedLabel}</span>
+          <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.sortedLabel}</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -48,10 +48,10 @@ export default function CategoryPageWidget() {
                   flexShrink: 0,
                 }}>{p.emoji}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{p.name}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{p.name}</div>
                   {p.badge && (
                     <div style={{
-                      fontSize: 8,
+                      fontSize: 12,
                       padding: "1px 6px",
                       borderRadius: 20,
                       background: p.hot ? "rgba(168,85,247,.25)" : "rgba(6,182,212,.2)",
@@ -63,7 +63,7 @@ export default function CategoryPageWidget() {
                   )}
                   <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
                     <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "var(--t)" }}>{tr.currency}{p.price}</span>
-                    {p.origPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>}
+                    {p.origPrice && <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>}
                   </div>
                 </div>
               </div>
@@ -73,7 +73,7 @@ export default function CategoryPageWidget() {
                 borderRadius: 10,
                 background: p.hot ? "rgba(124,58,237,0.2)" : "var(--s2)",
                 color: p.hot ? "#c084fc" : "var(--t)",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 border: p.hot ? "1px solid rgba(124,58,237,0.2)" : "1px solid var(--b1)",
                 cursor: "pointer",

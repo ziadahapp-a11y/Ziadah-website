@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import FreeShippingThresholdWidget from "../../components/widgets/FreeShippingThresholdWidget";
 
 const data: UseCasePageData = {
@@ -56,39 +57,13 @@ const data: UseCasePageData = {
     result: "تحويل من تردد إلى إتمام باستخدام عتبة واضحة واقتراح مخصص.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "4px 14px",
-            borderRadius: 50,
-            background: "rgba(124,58,237,.08)",
-            border: "1px solid rgba(124,58,237,.2)",
-            color: "#7c3aed",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: 1,
-            textTransform: "uppercase" as const,
-            marginBottom: 16,
-          }}
-        >
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }} />
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>
-          {isAr ? "كيف يُعرض الشحن المجاني للعميل؟" : "How does the free-shipping prompt look?"}
-        </h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>
-          {isAr ? "شريط تقدّم واقتراحات تسدّ الفجوة" : "Progress bar + gap-closing suggestions"}
-        </p>
-        <FreeShippingThresholdWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يُعرض الشحن المجاني للعميل؟" : "How does the free-shipping prompt look?"}
+      subtitle={isAr ? "شريط تقدّم واقتراحات تسدّ الفجوة" : "Progress bar + gap-closing suggestions"}
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <FreeShippingThresholdWidget /> }]}
+    />
   ),
-  plans: ["الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض الشحن المجاني",
   ctaDesc: "ارفع معدل إتمام الطلبات عبر عتبة واضحة واقتراحات ذكية.",
   heroEn: {
@@ -144,7 +119,6 @@ const data: UseCasePageData = {
     ],
     result: "Turn hesitation into completion with a clear threshold and a relevant suggestion.",
   },
-  plansEn: ["Professional", "Business"],
   ctaTitleEn: "Activate free shipping display",
   ctaDescEn: "Increase completion with a clear threshold and smart suggestions.",
   seo: {

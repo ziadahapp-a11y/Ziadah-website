@@ -180,7 +180,7 @@ export default function Affiliate() {
       <div className="aff-root" dir={dir}>
 
         {/* ══════════ HERO ══════════ */}
-        <section className="aff-hero">
+        <section className="aff-hero page-hero-viewport page-hero-viewport--center">
           <div className="aff-hero-glow" aria-hidden />
           <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
 

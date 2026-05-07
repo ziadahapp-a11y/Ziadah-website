@@ -2292,7 +2292,7 @@ export const categories: Category[] = [
     id: "strategies",
     label: "استراتيجيات النمو",
     labelEn: "Growth Strategies",
-    color: "#8b5cf6",
+    color: "#7c3aed",
     icon: "📈",
     articles: [
       {

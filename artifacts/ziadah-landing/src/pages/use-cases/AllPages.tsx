@@ -67,7 +67,6 @@ const data: UseCasePageData = {
     ],
     result: "قيمة الطلب ارتفعت 55% مقارنة بالنية الأصلية، والعميل عاد خلال 36 ساعة باستخدام الكوبون.",
   },
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "غطِّ كل رحلة العميل بذكاء اصطناعي واحد",
   ctaDesc: "لا تترك أي نقطة تماس بدون توصية ذكية — فعّل زيادة اليوم.",
   heroEn: {
@@ -136,7 +135,6 @@ const data: UseCasePageData = {
     ],
     result: "Order value increased 55% compared to original intent, and the customer returned within 36 hours using the coupon.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Cover the entire customer journey with a single AI",
   ctaDescEn: "Don't leave any touchpoint without a smart recommendation — activate Ziadah today.",
   seo: {

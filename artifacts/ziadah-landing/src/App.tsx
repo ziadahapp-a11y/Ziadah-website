@@ -28,6 +28,7 @@ const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
 const PricingPage = lazy(() => import("@/pages/PricingPage"));
+const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
 const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
 const Analyze = lazy(() => import("@/pages/Analyze"));
@@ -103,10 +104,12 @@ function ScrollToTop() {
 /** خلفية بسيطة أثناء تحميل أجزاء الصفحات (تقليل حجم الحزمة الأولى) */
 function LazyRouteFallback() {
   const { dir } = useLanguage();
+  // أثناء تحميل المسار الكسول: يطابق منتقي Nav فيعطي شريطاً صلباً بدل شفاف على خلفية الصفحة.
   return (
     <div
+      data-nav-backdrop="light"
+      className="min-h-screen-dvh"
       style={{
-        minHeight: "100vh",
         background: "var(--page-background)",
         direction: dir,
       }}
@@ -142,6 +145,7 @@ function PublicRoutes() {
       <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/features" component={Features} />
       <Route path="/pricing" component={PricingPage} />
+      <Route path="/zid-apps-comparison" component={ZidAppsComparison} />
       <Route path="/affiliate" component={Affiliate} />
       <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
       <Route path="/sectors/:slug" component={SectorDetail} />

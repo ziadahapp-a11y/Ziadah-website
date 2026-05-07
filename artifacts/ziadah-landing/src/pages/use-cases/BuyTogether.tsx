@@ -1,6 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import BuyTogetherWidget from "../../components/widgets/BuyTogetherWidget";
-import WidgetTabs from "../../components/WidgetTabs";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,61 +57,64 @@ const data: UseCasePageData = {
     result: "عرض 'الشراء معاً' بخيار إضافة الكل دفعة واحدة يرفع نسبة تبنّي الطقم الكامل من 9% إلى 33% — كل ثلاثة أفراد من كل عشرة يختارون الطقم بدلاً من قطعة واحدة.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الشراء معاً كما يراها عميلك فعلياً" : "This is how the 'Bought Together' suggestion looks to your customer"}</p>
-        <WidgetTabs
-          isAr={isAr}
-          fullWidthContent
-          tabs={[
-            {
-              labelAr: "📱 مثال حي",
-              labelEn: "📱 Live Demo",
-              content: <BuyTogetherWidget />,
-            },
-            {
-              labelAr: "⚖️ الفرق عن الحزم",
-              labelEn: "⚖️ vs Bundle Deals",
-              content: (
-                <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-                  <div className="shine"/>
-                  <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "الفرق بين 'الشراء معاً' و'عروض الحزم'" : "'Bought Together' vs. Bundle Deals"}</h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
-                    <div style={{ padding: "24px 28px", background: "rgba(6,182,212,.05)", border: "1px solid rgba(6,182,212,.15)", borderRadius: 14 }}>
-                      <div style={{ fontSize: 17, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>{isAr ? "🤝 الشراء معاً" : "🤝 Bought Together"}</div>
-                      <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                        {(isAr ? ["مبني على بيانات الارتباط الفعلي", "كل منتج يحتفظ بسعره المستقل", "يُظهر الإجمالي بدون خصم إلزامي", "مناسب لأي نوع من المنتجات"] : ["Based on real association data", "Each product keeps its independent price", "Shows total without mandatory discount", "Suitable for any product type"]).map((item, i) => (
-                          <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                            <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
-                      <div style={{ fontSize: 17, fontWeight: 800, color: "#10b981", marginBottom: 12 }}>{isAr ? "🎁 عروض الحزم (Bundle)" : "🎁 Bundle Deals"}</div>
-                      <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                        {(isAr ? ["سعر خاص للمجموعة كوحدة واحدة", "يُبرز التوفير كحافز رئيسي", "يُباع الطقم بسعر أقل من المجموع", "يحفّز على شراء كميات أو مجموعات"] : ["Special price for the group as one unit", "Highlights savings as the main incentive", "Set sold at less than individual total", "Encourages buying quantities or sets"]).map((item, i) => (
-                          <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                            <span style={{ color: "#10b981", fontWeight: 700 }}>✓</span> {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr
+          ? "هكذا تبدو واجهة اقتراح الشراء معاً كما يراها عميلك فعلياً"
+          : "This is how the 'Bought Together' suggestion looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <BuyTogetherWidget />,
+        },
+        {
+          labelAr: "⚖️ الفرق عن الحزم",
+          labelEn: "⚖️ vs Bundle Deals",
+          placement: "below",
+          content: (
+            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
+              <div className="shine" />
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+                {isAr ? "الفرق بين 'الشراء معاً' و'عروض الحزم'" : "'Bought Together' vs. Bundle Deals"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
+                <div style={{ padding: "24px 28px", background: "rgba(6,182,212,.05)", border: "1px solid rgba(6,182,212,.15)", borderRadius: 14 }}>
+                  <div style={{ fontSize: 17, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>{isAr ? "🤝 الشراء معاً" : "🤝 Bought Together"}</div>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                    {(isAr
+                      ? ["مبني على بيانات الارتباط الفعلي", "كل منتج يحتفظ بسعره المستقل", "يُظهر الإجمالي بدون خصم إلزامي", "مناسب لأي نوع من المنتجات"]
+                      : ["Based on real association data", "Each product keeps its independent price", "Shows total without mandatory discount", "Suitable for any product type"]
+                    ).map((item, i) => (
+                      <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                        <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ),
-            },
-          ]}
-        />
-      </div>
-    </section>
+                <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
+                  <div style={{ fontSize: 17, fontWeight: 800, color: "#10b981", marginBottom: 12 }}>{isAr ? "🎁 عروض الحزم (Bundle)" : "🎁 Bundle Deals"}</div>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                    {(isAr
+                      ? ["سعر خاص للمجموعة كوحدة واحدة", "يُبرز التوفير كحافز رئيسي", "يُباع الطقم بسعر أقل من المجموع", "يحفّز على شراء كميات أو مجموعات"]
+                      : ["Special price for the group as one unit", "Highlights savings as the main incentive", "Set sold at less than individual total", "Encourages buying quantities or sets"]
+                    ).map((item, i) => (
+                      <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
+                        <span style={{ color: "#10b981", fontWeight: 700 }}>✓</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض 'الشراء معاً' في متجرك",
   ctaDesc: "بيانات عملاؤك تعرف ما يُشترى معاً — دع زيادة يعرضه تلقائياً لكل زائر.",
   heroEn: {
@@ -167,7 +170,6 @@ const data: UseCasePageData = {
     ],
     result: "Showing 'Bought Together' with a one-click add-all option increases complete set adoption from 9% to 33% — three out of every ten customers choose the set instead of a single item.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Activate 'Frequently Bought Together' in your store",
   ctaDescEn: "Your customer data knows what's bought together — let Ziadah display it automatically for every visitor.",
   seo: {

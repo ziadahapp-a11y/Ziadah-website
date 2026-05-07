@@ -29,7 +29,7 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
       }
     >
       <div style={{ textAlign: "center", marginBottom: 14 }}>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 12 }}>{tr.descLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 12 }}>{tr.descLabel}</div>
         <div style={{
           display: "inline-flex",
           alignItems: "center",
@@ -42,12 +42,12 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
         }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>{tr.discountAmount}</div>
-            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
+            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(168,85,247,.3)" }} />
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: "1px" }}>{tr.couponCode}</div>
-            <div style={{ fontSize: 9, color: "var(--td)", marginTop: 2 }}>{tr.freeShipping}</div>
+            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.freeShipping}</div>
           </div>
         </div>
         <div style={{
@@ -56,7 +56,7 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
           alignItems: "center",
           justifyContent: "center",
           marginBottom: 14,
-          fontSize: 10,
+          fontSize: 12,
           color: "#f87171",
           fontWeight: 600,
         }}>

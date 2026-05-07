@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import CategoryPageWidget from "../../components/widgets/CategoryPageWidget";
 
 const data: UseCasePageData = {
@@ -56,19 +57,17 @@ const data: UseCasePageData = {
     result: "العميل وجد ما يريده في أقل من دقيقتين وأضاف الكومبو للسلة مباشرة.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر صفحة التصنيف المُخصَّصة؟" : "How does the personalized category page look?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يرى عميلك صفحة التصنيف بعد تخصيصها بالذكاء الاصطناعي" : "This is how your customer sees the category page after AI personalization"}</p>
-        <CategoryPageWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تظهر صفحة التصنيف المُخصَّصة؟" : "How does the personalized category page look?"}
+      subtitle={
+        isAr
+          ? "هكذا يرى عميلك صفحة التصنيف بعد تخصيصها بالذكاء الاصطناعي"
+          : "This is how your customer sees the category page after AI personalization"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CategoryPageWidget /> }]}
+    />
   ),
-  plans: ["الأعمال"],
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
   ctaDesc: "توجيه ذكي في اللحظة المناسبة = عميل يشتري بدلاً من أن يغادر.",
   heroEn: {
@@ -124,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "The customer found what they wanted in under two minutes and added the combo to cart directly.",
   },
-  plansEn: ["Business"],
   ctaTitleEn: "Turn category browsing into a purchase decision",
   ctaDescEn: "Smart guidance at the right moment = a customer who buys instead of leaving.",
   seo: {

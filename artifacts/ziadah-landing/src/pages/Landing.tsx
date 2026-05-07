@@ -24,6 +24,7 @@ import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+import PageClosingCta from "@/components/PageClosingCta";
 
 const SECTOR_LUCIDE_ICONS: Record<string, LucideIcon> = {
   "delivery-apps":       Bike,
@@ -741,7 +742,7 @@ export default function Landing() {
 
   const row1Avatars = ["R", "T", "S", "F", "N", "B"];
   const row1Colors = [
-    "linear-gradient(135deg,#7c3aed,#5b21b6)",
+    "linear-gradient(135deg,#7c3aed,#6d28d9)",
     "linear-gradient(135deg,#059669,#047857)",
     "linear-gradient(135deg,#ec4899,#be185d)",
     "linear-gradient(135deg,#7c3aed,#4f46e5)",
@@ -846,7 +847,7 @@ export default function Landing() {
           </div>
         </section>
         {/* LOGOS */}
-        <div className="logos-sec landing-white-violet">
+        <div className="logos-sec landing-hero-band">
           <div className="landing-sbar-after-hero">
             <div className="sbar sbar-hero">
               <div className="sbi">
@@ -932,7 +933,7 @@ export default function Landing() {
               <GlassCard
                 className="ba-card rv d3"
                 style={{
-                  background: "rgba(88,28,220,.07)",
+                  background: "rgba(124,58,237,.07)",
                   borderColor: "rgba(124,58,237,.2)",
                 }}
               >
@@ -1529,7 +1530,7 @@ export default function Landing() {
                   {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
                     const statText = "var(--lv-purple-deep)";
                     return (
-                    <div key={i} style={{ padding: "14px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, color: statText }}>
+                    <div key={i} style={{ padding: "14px 14px", background: "unset", border: "1px solid var(--b1)", borderRadius: 12, color: statText }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
                       <div style={{ fontSize: 18, fontWeight: 900, color: statText, lineHeight: 1 }}>{s.value}</div>
                       {s.sub && <div style={{ fontSize: 11, color: statText, marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
@@ -1604,7 +1605,7 @@ export default function Landing() {
             </div>
 
             {/* Bottom banner */}
-            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
+            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, borderColor: "rgba(124,58,237,.18)" }}>
               <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
                   <circle cx="13" cy="13" r="10" fill="rgba(124,58,237,.1)" stroke="rgba(168,85,247,.4)" strokeWidth="1.5"/>
@@ -2191,35 +2192,22 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* FINAL CTA */}
-        <section className="cta-sec landing-white-violet">
-          <div className="wrap">
-            <GlassCard className="cta-box rv">
-              <div className="cta-glow" />
-              <h2>
-                {tr.landing.ctaTitle.split('\n').map((line: string, i: number) => (
-                  <span key={i}>{line}{i === 0 && <br />}</span>
-                ))}
-              </h2>
-              <p>
-                {tr.landing.ctaDesc}
-              </p>
-              <div className="cta-btns">
-                <button
-                  onClick={() => setPlatformModalOpen(true)}
-                  className="cta-btn cb-zid"
-                  style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
-                  </svg>
-                  {tr.landing.ctaBtn}
-                </button>
-              </div>
-              <div className="cta-note text-[16px]">{tr.landing.ctaNote}</div>
-            </GlassCard>
-          </div>
-        </section>
+        <PageClosingCta
+          title={
+            <>
+              {tr.landing.ctaTitle.split("\n").map((line: string, i: number) => (
+                <span key={i}>
+                  {line}
+                  {i === 0 && <br />}
+                </span>
+              ))}
+            </>
+          }
+          description={tr.landing.ctaDesc}
+          buttonLabel={tr.landing.ctaBtn}
+          note={tr.landing.ctaNote}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

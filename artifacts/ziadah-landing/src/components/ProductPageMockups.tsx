@@ -87,7 +87,7 @@ export default function ProductPageMockups() {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
             gap: 32,
             justifyContent: "center",
           }}
@@ -1029,7 +1029,6 @@ function colorToRgb(color: string): string {
     "#4f46e5": "79,70,229",
     "#7c3aed": "124,58,237",
     "#e11d48": "225,29,72",
-    "#8b5cf6": "139,92,246",
   };
   return map[color] || "168,85,247";
 }

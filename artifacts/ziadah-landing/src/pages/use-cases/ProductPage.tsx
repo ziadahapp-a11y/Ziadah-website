@@ -56,7 +56,6 @@ const data: UseCasePageData = {
     ],
     result: "العميلة اشترت الحزمة — الطلب ارتفع من 220 إلى 330 ⃁ (+50%) بمجرد اقتراح واحد.",
   },
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
   heroVisual: (
@@ -118,7 +117,6 @@ const data: UseCasePageData = {
     ],
     result: "The customer bought the bundle — the order increased from 220 to 330 SAR (+50%) with just one suggestion.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Boost your product page sales today",
   ctaDescEn: "Activate Ziadah with one click and see the difference within the first week.",
   seo: {

@@ -1,7 +1,9 @@
-import { useEffect, type ReactElement, type ReactNode } from "react";
+import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "../components/PageShell";
+import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { blogPosts, categoryColors, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
@@ -395,6 +397,9 @@ export default function BlogPost() {
   const t = useSiteT();
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].blog;
+  const pc = t[lang].pageClosingCta;
+  const ld = t[lang].landing;
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
   const fields = useBlogPostFields(post ?? blogPosts[0]);
@@ -422,12 +427,14 @@ export default function BlogPost() {
   if (!post) {
     return (
       <PageShell
+        className="blog-white-shell"
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           gap: 16,
+          minHeight: "100%",
         }}
       >
         
@@ -505,7 +512,7 @@ export default function BlogPost() {
       { name: tx.breadcrumbBlog, url: "/blog" },
       { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
-    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+    <PageShell className="relative overflow-x-clip blog-white-shell" style={{ color: "var(--t)" }}>
       <DsPageBackdrop />
 
       {/* HERO / COVER */}
@@ -781,102 +788,113 @@ export default function BlogPost() {
             </h2>
             <div className="blog-cards-grid">
               {relatedPosts.map((rel, i) => (
-                <div
+                <a
                   key={rel.slug}
-                  onClick={() => navigateTo(`/blog/${rel.slug}`)}
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  href={`/blog/${rel.slug}`}
+                  className="blog-card-link"
+                  onClick={(e) => {
+                    if (
+                      e.defaultPrevented ||
+                      e.ctrlKey ||
+                      e.metaKey ||
+                      e.shiftKey ||
+                      e.altKey ||
+                      e.button !== 0
+                    ) {
+                      return;
+                    }
+                    e.preventDefault();
+                    navigateTo(`/blog/${rel.slug}`);
+                  }}
                 >
                   <article
-                    className="gc gc-lift rv"
+                    className="blog-card blog-card--compact gc gc-lift rv"
                     style={{
                       animationDelay: `${i * 0.07}s`,
-                      cursor: "pointer",
-                      overflow: "hidden",
-                      display: "flex",
-                      flexDirection: "column",
-                      minHeight: "100%",
                     }}
                   >
-                    <div className="shine" />
+                    <div className="shine" aria-hidden />
                     <div
-                      style={{
-                        background: rel.coverGradient,
-                        height: "clamp(110px, 22vw, 130px)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 44,
-                        position: "relative",
-                      }}
+                      className="blog-card__media"
+                      style={{ background: rel.coverGradient }}
                     >
                       <div className="blog-cover-overlay" aria-hidden />
-                      <span style={{ position: "relative", zIndex: 1 }}>
+                      <span className="blog-card__icon-wrap">
                         {rel.coverIcon}
                       </span>
-                    </div>
-                    <div style={{ padding: "16px 20px 20px" }}>
-                      <span
+                      <div
+                        className="blog-card__badge"
                         style={{
-                          fontSize: 11,
-                          fontWeight: 700,
+                          background: `${categoryColors[rel.category]}28`,
+                          border: `1px solid ${categoryColors[rel.category]}66`,
                           color: categoryColors[rel.category],
-                          display: "block",
-                          marginBottom: 6,
                         }}
                       >
                         {getCatDisplay(rel.category)}
-                      </span>
-                      <h3
-                        style={{
-                          fontSize: 15,
-                          fontWeight: 700,
-                          lineHeight: 1.45,
-                          color: "var(--t)",
-                          marginBottom: 8,
-                        }}
-                      >
+                      </div>
+                    </div>
+                    <div className="blog-card__body">
+                      <h3 className="blog-card__title">
                         {getRelatedTitle(rel)}
                       </h3>
-                      <span
-                        style={{
-                          fontSize: 12,
-                          color: "var(--td)",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 5,
-                        }}
-                      >
-                        <svg
-                          width="11"
-                          height="11"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                        >
-                          <circle
-                            cx="6"
-                            cy="6"
-                            r="5"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                          />
-                          <path
-                            d="M6 3v3l2 1.5"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                        {getRelatedReadTime(rel)} {tx.readSuffix}
-                      </span>
+                      <div className="blog-card__footer">
+                        <div className="blog-card__meta-chip">
+                          <svg
+                            width="11"
+                            height="11"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            aria-hidden
+                          >
+                            <circle
+                              cx="6"
+                              cy="6"
+                              r="5"
+                              stroke="currentColor"
+                              strokeWidth="1"
+                            />
+                            <path
+                              d="M6 3v3l2 1.5"
+                              stroke="currentColor"
+                              strokeWidth="1"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          {getRelatedReadTime(rel)} {tx.readSuffix}
+                        </div>
+                        <span className="blog-card__go" aria-hidden>
+                          <svg
+                            className="blog-card__go-svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M6 12l4-4-4-4"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </div>
                     </div>
                   </article>
-                </div>
+                </a>
               ))}
             </div>
           </div>
         </section>
       )}
+      <PageClosingCta
+        title={pc.blogPostTitle}
+        description={pc.blogPostDesc}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
     </PageShell>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

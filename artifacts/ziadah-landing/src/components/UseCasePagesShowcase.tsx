@@ -37,7 +37,7 @@ interface ShowcaseCase {
 function MiniStatusBar({ accent }: { accent: string }) {
   return (
     <div className="sector-html-phone-bar" style={{ padding: "0 2px 8px" }}>
-      <div style={{ fontSize: 9, fontWeight: 700, color: accent }}>9:41</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: accent }}>9:41</div>
       <div className="sector-html-pb-time">▓▓▓</div>
     </div>
   );
@@ -45,38 +45,123 @@ function MiniStatusBar({ accent }: { accent: string }) {
 
 /* ── PRODUCT PAGE ── */
 export function ProductPageMockup() {
-  const accent = "#a855f7";
+  const accent = "#7c3aed";
+  const accentLight = "#a78bfa";
+  const surface = "linear-gradient(155deg, rgba(255,255,255,.94) 0%, rgba(248,245,255,.9) 100%)";
+  const rowHi =
+    "linear-gradient(90deg, rgba(124,58,237,.14) 0%, rgba(167,139,250,.09) 55%, rgba(255,255,255,.5) 100%)";
+  const rowLo = "rgba(255,255,255,.72)";
+  const borderSoft = "rgba(124,58,237,.14)";
+  const borderHi = "rgba(124,58,237,.32)";
   return (
     <>
       <MiniStatusBar accent={accent} />
       {/* product card */}
-      <div style={{ background: "color-mix(in srgb, var(--bg) 60%, transparent)", borderRadius: 12, padding: "9px 10px", marginBottom: 9, border: "1px solid rgba(168,85,247,.18)" }}>
-        <div style={{ height: 68, borderRadius: 8, background: "rgba(168,85,247,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 7, border: "1px solid rgba(168,85,247,.12)" }}>📿</div>
-        <p style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", marginBottom: 3 }}>مسبحة باكليت حمراء</p>
+      <div
+        style={{
+          background: surface,
+          borderRadius: 14,
+          padding: "10px 11px",
+          marginBottom: 10,
+          border: `1px solid ${borderSoft}`,
+          boxShadow: "0 4px 16px rgba(124,58,237,.07), inset 0 1px 0 rgba(255,255,255,.9)",
+        }}
+      >
+        <div
+          style={{
+            height: 72,
+            borderRadius: 10,
+            background: `linear-gradient(145deg, ${accentLight}33 0%, ${accent}22 48%, rgba(124,58,237,.12) 100%)`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 26,
+            marginBottom: 8,
+            border: `1px solid ${borderSoft}`,
+          }}
+        >
+          📿
+        </div>
+        <p style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 4, letterSpacing: "-0.02em" }}>
+          مسبحة باكليت حمراء
+        </p>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: 11, fontWeight: 900, color: accent }}>200 SAR</span>
-          <span style={{ fontSize: 7, color: "#f59e0b" }}>★★★★★ (200)</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: accent, fontVariantNumeric: "tabular-nums" }}>
+            200 SAR
+          </span>
+          <span style={{ fontSize: 12, fontWeight: 700 }}>
+            <span style={{ color: "#f59e0b" }}>★★★★★</span>
+            <span style={{ color: "var(--tm)", fontWeight: 600, marginInlineStart: 4 }}>(200)</span>
+          </span>
         </div>
       </div>
       {/* section divider */}
-      <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 7 }}>
-        <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
-        <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>اشترِ أكثر ووفّر أكثر</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+        <div
+          style={{
+            width: 4,
+            height: 14,
+            borderRadius: 3,
+            background: `linear-gradient(180deg, ${accentLight}, ${accent})`,
+            boxShadow: `0 0 12px ${accent}44`,
+          }}
+        />
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>اشترِ أكثر ووفّر أكثر</span>
       </div>
       {[
         { label: "قطعة واحدة", price: "200 SAR", tag: null, hi: false },
         { label: "قطعتان", price: "320 SAR", tag: "خصم 20%", hi: false },
         { label: "3 قطع", price: "420 SAR", tag: "⭐ أفضل قيمة", hi: true },
       ].map((o, i) => (
-        <div key={i} style={{ background: o.hi ? "rgba(168,85,247,.1)" : "color-mix(in srgb, var(--bg) 55%, transparent)", border: o.hi ? "1px solid rgba(168,85,247,.35)" : "1px solid rgba(168,85,247,.12)", borderRadius: 8, padding: "6px 8px", marginBottom: 5, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: 8.5, fontWeight: 700, color: o.hi ? accent : "var(--tm)" }}>{o.label}</span>
-          <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
-            {o.tag && <span style={{ fontSize: 6.5, padding: "1px 5px", borderRadius: 4, background: "rgba(168,85,247,.18)", color: accent, fontWeight: 700 }}>{o.tag}</span>}
-            <span style={{ fontSize: 9.5, fontWeight: 900, color: o.hi ? accent : "var(--t)" }}>{o.price}</span>
+        <div
+          key={i}
+          style={{
+            background: o.hi ? rowHi : rowLo,
+            border: `1px solid ${o.hi ? borderHi : borderSoft}`,
+            borderRadius: 10,
+            padding: "8px 10px",
+            marginBottom: 6,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            boxShadow: o.hi ? "0 2px 12px rgba(124,58,237,.12)" : "inset 0 1px 0 rgba(255,255,255,.85)",
+          }}
+        >
+          <span style={{ fontSize: 12, fontWeight: 700, color: o.hi ? accent : "var(--tm)" }}>{o.label}</span>
+          <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+            {o.tag ? (
+              <span
+                style={{
+                  fontSize: 12,
+                  padding: "2px 7px",
+                  borderRadius: 6,
+                  background: o.hi ? "rgba(124,58,237,.2)" : "rgba(124,58,237,.12)",
+                  color: accent,
+                  fontWeight: 800,
+                }}
+              >
+                {o.tag}
+              </span>
+            ) : null}
+            <span style={{ fontSize: 12, fontWeight: 900, color: o.hi ? accent : "var(--t)" }}>{o.price}</span>
           </div>
         </div>
       ))}
-      <div style={{ marginTop: 6, padding: "7px 0", borderRadius: 8, background: "linear-gradient(135deg,#a855f7,rgba(168,85,247,.7))", fontSize: 9, fontWeight: 800, color: "#fff", textAlign: "center", boxShadow: "0 4px 12px rgba(168,85,247,.4)" }}>🛒 إضافة للسلة</div>
+      <div
+        style={{
+          marginTop: 8,
+          padding: "9px 0",
+          borderRadius: 10,
+          background: "linear-gradient(135deg,#9333ea,#7c3aed 55%,#6d28d9)",
+          fontSize: 12,
+          fontWeight: 900,
+          color: "#fff",
+          textAlign: "center",
+          boxShadow: "0 6px 20px rgba(124,58,237,.35), inset 0 1px 0 rgba(255,255,255,.22)",
+        }}
+      >
+        🛒 إضافة للسلة
+      </div>
     </>
   );
 }
@@ -87,22 +172,22 @@ function CartPageContent() {
   return (
     <>
       <MiniStatusBar accent={accent} />
-      <div style={{ fontSize: 9.5, fontWeight: 800, color: "var(--t)", marginBottom: 9, display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 9, display: "flex", alignItems: "center", gap: 5 }}>
         <span>🛒</span> سلتك (2 منتجات)
       </div>
       {[{ emoji: "📿", name: "مسبحة باكليت", price: "200 SAR" }, { emoji: "🪔", name: "بخور عود أصيل", price: "95 SAR" }].map((p, i) => (
         <div key={i} style={{ display: "flex", gap: 6, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(6,182,212,.14)", borderRadius: 9, padding: "6px 8px", marginBottom: 6, alignItems: "center" }}>
           <div style={{ width: 28, height: 28, borderRadius: 7, background: "rgba(6,182,212,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{p.emoji}</div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 8.5, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
-            <span style={{ fontSize: 9.5, fontWeight: 800, color: accent }}>{p.price}</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
+            <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>{p.price}</span>
           </div>
         </div>
       ))}
       <div style={{ background: "rgba(6,182,212,.07)", border: "1px solid rgba(6,182,212,.22)", borderRadius: 9, padding: "7px 9px", marginBottom: 8 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-          <span style={{ fontSize: 7.5, fontWeight: 700, color: accent }}>🚚 شحن مجاني عند 350 SAR</span>
-          <span style={{ fontSize: 7.5, color: "var(--td)" }}>أضف 55 SAR</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: accent }}>🚚 شحن مجاني عند 350 SAR</span>
+          <span style={{ fontSize: 12, color: "var(--td)" }}>أضف 55 SAR</span>
         </div>
         <div style={{ height: 4, background: "rgba(6,182,212,.15)", borderRadius: 3 }}>
           <div style={{ width: "84%", height: "100%", borderRadius: 3, background: `linear-gradient(90deg, ${accent}, #22d3ee)` }} />
@@ -110,16 +195,16 @@ function CartPageContent() {
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
         <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
-        <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>منتجات ذات صلة</span>
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>منتجات ذات صلة</span>
       </div>
       {[{ emoji: "🌿", name: "زيت بخور", price: "75 SAR" }, { emoji: "🎁", name: "حقيبة هدية", price: "35 SAR" }].map((p, i) => (
         <div key={i} style={{ display: "flex", gap: 6, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(6,182,212,.12)", borderRadius: 8, padding: "5px 7px", marginBottom: 5, alignItems: "center" }}>
           <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(6,182,212,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>{p.emoji}</div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 8, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
-            <span style={{ fontSize: 8.5, color: accent, fontWeight: 800 }}>{p.price}</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
+            <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{p.price}</span>
           </div>
-          <span className="sector-html-rbi-add" style={{ fontSize: 7 }}>+ أضف</span>
+          <span className="sector-html-rbi-add" style={{ fontSize: 12 }}>+ أضف</span>
         </div>
       ))}
     </>
@@ -132,34 +217,34 @@ function CheckoutPageContent() {
   return (
     <>
       <MiniStatusBar accent={accent} />
-      <div style={{ fontSize: 9.5, fontWeight: 800, color: "var(--t)", marginBottom: 9, display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 9, display: "flex", alignItems: "center", gap: 5 }}>
         <span>💳</span> إتمام الطلب
       </div>
       <div style={{ background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 10, padding: "8px 9px", marginBottom: 8 }}>
-        <p style={{ fontSize: 7.5, color: "var(--td)", marginBottom: 6 }}>ملخص الطلب</p>
+        <p style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>ملخص الطلب</p>
         {[["المنتجات (2)", "295 SAR"], ["الشحن", "مجاني 🎉"], ["الإجمالي", "295 SAR"]].map(([k, v], i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-            <span style={{ fontSize: 8.5, color: "var(--tm)" }}>{k}</span>
-            <span style={{ fontSize: 8.5, fontWeight: 700, color: i === 2 ? accent : "var(--t)" }}>{v}</span>
+            <span style={{ fontSize: 12, color: "var(--tm)" }}>{k}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: i === 2 ? accent : "var(--t)" }}>{v}</span>
           </div>
         ))}
       </div>
       <div style={{ background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.28)", borderRadius: 10, padding: "8px 9px", marginBottom: 8 }}>
-        <span style={{ fontSize: 8, fontWeight: 800, color: accent }}>✨ أضف قبل إتمام الطلب</span>
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>✨ أضف قبل إتمام الطلب</span>
         {[{ emoji: "🎁", name: "تغليف هدية فاخر", price: "15 SAR" }, { emoji: "🛡️", name: "ضمان إضافي سنة", price: "25 SAR" }].map((a, i) => (
           <div key={i} style={{ display: "flex", gap: 5, alignItems: "center", background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(16,185,129,.1)", borderRadius: 7, padding: "5px 6px", marginTop: 5 }}>
-            <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(16,185,129,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11 }}>{a.emoji}</div>
+            <div style={{ width: 22, height: 22, borderRadius: 6, background: "rgba(16,185,129,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12 }}>{a.emoji}</div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 7.5, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{a.name}</p>
-              <span style={{ fontSize: 8.5, color: accent, fontWeight: 800 }}>{a.price}</span>
+              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{a.name}</p>
+              <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{a.price}</span>
             </div>
             <div style={{ width: 15, height: 15, borderRadius: 4, border: "1.5px solid rgba(16,185,129,.5)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontSize: 7.5, color: accent }}>+</span>
+              <span style={{ fontSize: 12, color: accent }}>+</span>
             </div>
           </div>
         ))}
       </div>
-      <div style={{ padding: "8px 0", borderRadius: 9, background: "linear-gradient(135deg,#10b981,rgba(16,185,129,.7))", textAlign: "center", fontSize: 9.5, fontWeight: 800, color: "#fff", boxShadow: "0 4px 12px rgba(16,185,129,.4)" }}>✅ إتمام الطلب الآن</div>
+      <div style={{ padding: "8px 0", borderRadius: 9, background: "linear-gradient(135deg,#10b981,rgba(16,185,129,.7))", textAlign: "center", fontSize: 12, fontWeight: 800, color: "#fff", boxShadow: "0 4px 12px rgba(16,185,129,.4)" }}>✅ إتمام الطلب الآن</div>
     </>
   );
 }
@@ -172,13 +257,13 @@ function ThankYouPageContent() {
       <MiniStatusBar accent={accent} />
       <div style={{ textAlign: "center", padding: "8px 0 10px" }}>
         <div style={{ fontSize: 26, marginBottom: 4 }}>🎉</div>
-        <p style={{ fontSize: 10.5, fontWeight: 900, color: "var(--t)", marginBottom: 2 }}>تم تأكيد طلبك!</p>
-        <p style={{ fontSize: 7.5, color: "var(--td)" }}>رقم الطلب #ZD-4821</p>
+        <p style={{ fontSize: 12, fontWeight: 900, color: "var(--t)", marginBottom: 2 }}>تم تأكيد طلبك!</p>
+        <p style={{ fontSize: 12, color: "var(--td)" }}>رقم الطلب #ZD-4821</p>
       </div>
       <div style={{ height: 1, background: "rgba(245,158,11,.2)", margin: "0 0 9px" }} />
       <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 7 }}>
         <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
-        <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>قد يعجبك أيضاً</span>
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>قد يعجبك أيضاً</span>
       </div>
       {[
         { emoji: "🪔", name: "بخور فاخر", price: "85 SAR", tag: "+13% يشترونه معاً" },
@@ -187,17 +272,17 @@ function ThankYouPageContent() {
         <div key={i} style={{ display: "flex", gap: 6, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(245,158,11,.15)", borderRadius: 9, padding: "6px 8px", marginBottom: 6, alignItems: "center" }}>
           <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(245,158,11,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>{p.emoji}</div>
           <div style={{ flex: 1 }}>
-            <p style={{ fontSize: 8.5, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{p.name}</p>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{p.name}</p>
             <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-              <span style={{ fontSize: 9.5, color: accent, fontWeight: 800 }}>{p.price}</span>
-              <span style={{ fontSize: 6.5, padding: "1px 4px", borderRadius: 4, background: "rgba(245,158,11,.12)", color: accent, fontWeight: 700 }}>{p.tag}</span>
+              <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{p.price}</span>
+              <span style={{ fontSize: 12, padding: "1px 4px", borderRadius: 4, background: "rgba(245,158,11,.12)", color: accent, fontWeight: 700 }}>{p.tag}</span>
             </div>
           </div>
-          <span className="sector-html-rbi-add" style={{ fontSize: 7 }}>شراء</span>
+          <span className="sector-html-rbi-add" style={{ fontSize: 12 }}>شراء</span>
         </div>
       ))}
       <div style={{ background: "rgba(245,158,11,.07)", border: "1px solid rgba(245,158,11,.2)", borderRadius: 9, padding: "7px 9px", textAlign: "center" }}>
-        <p style={{ fontSize: 7.5, color: "var(--tm)", lineHeight: 1.5 }}>🏆 لديك <b style={{ color: accent }}>580 نقطة</b> — اطلب مجدداً للوصول إلى مكافأة 10%</p>
+        <p style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.5 }}>🏆 لديك <b style={{ color: accent }}>580 نقطة</b> — اطلب مجدداً للوصول إلى مكافأة 10%</p>
       </div>
     </>
   );
@@ -205,33 +290,33 @@ function ThankYouPageContent() {
 
 /* ── HOME PAGE ── */
 function HomePageContent() {
-  const accent = "#8b5cf6";
+  const accent = "#7c3aed";
   return (
     <>
       <MiniStatusBar accent={accent} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 9 }}>
-        <span style={{ fontSize: 10.5, fontWeight: 900, color: "var(--t)" }}>متجر النخبة</span>
+        <span style={{ fontSize: 12, fontWeight: 900, color: "var(--t)" }}>متجر النخبة</span>
         <span style={{ fontSize: 13 }}>🛒</span>
       </div>
-      <div style={{ background: "rgba(139,92,246,.1)", border: "1px solid rgba(139,92,246,.22)", borderRadius: 10, padding: "9px 10px", marginBottom: 9 }}>
-        <p style={{ fontSize: 7.5, color: accent, fontWeight: 700, marginBottom: 3 }}>✨ مرحباً عمر، عاد موسمك المفضل!</p>
-        <p style={{ fontSize: 9, fontWeight: 800, color: "var(--t)", marginBottom: 5 }}>عطور ومسابح رمضان 🌙</p>
+      <div style={{ background: "rgba(124,58,237,.1)", border: "1px solid rgba(124,58,237,.22)", borderRadius: 10, padding: "9px 10px", marginBottom: 9 }}>
+        <p style={{ fontSize: 12, color: accent, fontWeight: 700, marginBottom: 3 }}>✨ مرحباً عمر، عاد موسمك المفضل!</p>
+        <p style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 5 }}>عطور ومسابح رمضان 🌙</p>
         <div style={{ display: "flex", gap: 5 }}>
           {["📿", "🕌", "🪔"].map((e, i) => (
-            <div key={i} style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(139,92,246,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, border: "1px solid rgba(139,92,246,.18)" }}>{e}</div>
+            <div key={i} style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(124,58,237,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, border: "1px solid rgba(124,58,237,.18)" }}>{e}</div>
           ))}
         </div>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 7 }}>
         <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
-        <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>مقترح لك بناءً على مشترياتك</span>
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>مقترح لك بناءً على مشترياتك</span>
       </div>
       <div style={{ display: "flex", gap: 6, overflowX: "clip" }}>
         {[{ emoji: "🌿", name: "زيت بخور", price: "75 SAR" }, { emoji: "🎁", name: "طقم هدايا", price: "150 SAR" }, { emoji: "🪬", name: "حرز فضة", price: "90 SAR" }].map((p, i) => (
-          <div key={i} style={{ minWidth: 68, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(139,92,246,.14)", borderRadius: 9, padding: "6px 5px", textAlign: "center", flexShrink: 0 }}>
-            <div style={{ height: 38, borderRadius: 6, background: "rgba(139,92,246,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>
-            <p style={{ fontSize: 7, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{p.name}</p>
-            <span style={{ fontSize: 7.5, color: accent, fontWeight: 800 }}>{p.price}</span>
+          <div key={i} style={{ minWidth: 68, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(124,58,237,.14)", borderRadius: 9, padding: "6px 5px", textAlign: "center", flexShrink: 0 }}>
+            <div style={{ height: 38, borderRadius: 6, background: "rgba(124,58,237,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{p.name}</p>
+            <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{p.price}</span>
           </div>
         ))}
       </div>
@@ -245,34 +330,34 @@ function CategoryPageContent() {
   return (
     <>
       <MiniStatusBar accent={accent} />
-      <div style={{ fontSize: 9.5, fontWeight: 800, color: "var(--t)", marginBottom: 7, display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 7, display: "flex", alignItems: "center", gap: 5 }}>
         <span>🗂️</span> تصنيف: مسابح وتراث
       </div>
       <div style={{ display: "flex", gap: 4, marginBottom: 8, flexWrap: "wrap" }}>
         {["الكل", "مسابح", "عطور", "هدايا"].map((f, i) => (
-          <div key={i} style={{ padding: "3px 8px", borderRadius: 20, background: i === 0 ? accent : "color-mix(in srgb, var(--bg) 55%, transparent)", border: `1px solid ${i === 0 ? accent : "rgba(79,70,229,.2)"}`, fontSize: 7.5, fontWeight: 700, color: i === 0 ? "#fff" : "var(--tm)" }}>{f}</div>
+          <div key={i} style={{ padding: "3px 8px", borderRadius: 20, background: i === 0 ? accent : "color-mix(in srgb, var(--bg) 55%, transparent)", border: `1px solid ${i === 0 ? accent : "rgba(79,70,229,.2)"}`, fontSize: 12, fontWeight: 700, color: i === 0 ? "#fff" : "var(--tm)" }}>{f}</div>
         ))}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6, marginBottom: 8 }}>
         {[{ emoji: "📿", name: "مسبحة كهرمان", price: "320 SAR" }, { emoji: "🪬", name: "حرز فضة", price: "180 SAR" }, { emoji: "🕌", name: "سجادة صلاة", price: "95 SAR" }, { emoji: "🌿", name: "بخور عربي", price: "65 SAR" }].map((p, i) => (
           <div key={i} style={{ background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(79,70,229,.14)", borderRadius: 9, padding: "7px 6px" }}>
             <div style={{ height: 38, borderRadius: 6, background: "rgba(79,70,229,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>
-            <p style={{ fontSize: 7, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
-            <span style={{ fontSize: 8, color: accent, fontWeight: 800 }}>{p.price}</span>
+            <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>{p.name}</p>
+            <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{p.price}</span>
           </div>
         ))}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6 }}>
         <div style={{ width: 3, height: 12, borderRadius: 2, background: accent, boxShadow: `0 0 5px ${accent}` }} />
-        <span style={{ fontSize: 8.5, fontWeight: 800, color: accent }}>تكمّل بعضها — اشترِ معاً</span>
+        <span style={{ fontSize: 12, fontWeight: 800, color: accent }}>تكمّل بعضها — اشترِ معاً</span>
       </div>
       <div style={{ background: "rgba(79,70,229,.07)", border: "1px solid rgba(79,70,229,.22)", borderRadius: 9, padding: "7px 9px", display: "flex", gap: 5, alignItems: "center" }}>
         <span style={{ fontSize: 12 }}>📿</span>
-        <span style={{ fontSize: 8, color: "var(--td)" }}>+</span>
+        <span style={{ fontSize: 12, color: "var(--td)" }}>+</span>
         <span style={{ fontSize: 12 }}>🌿</span>
         <div style={{ flex: 1, marginInlineStart: 3 }}>
-          <p style={{ fontSize: 7.5, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>مسبحة + بخور معاً</p>
-          <span style={{ fontSize: 7.5, color: accent, fontWeight: 700 }}>385 SAR — وفّر 15%</span>
+          <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 1 }}>مسبحة + بخور معاً</p>
+          <span style={{ fontSize: 12, color: accent, fontWeight: 700 }}>385 SAR — وفّر 15%</span>
         </div>
       </div>
     </>
@@ -293,21 +378,21 @@ function AllPagesContent() {
   return (
     <>
       <MiniStatusBar accent={accent} />
-      <div style={{ fontSize: 9.5, fontWeight: 800, color: "var(--t)", marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
+      <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 8, display: "flex", alignItems: "center", gap: 5 }}>
         <span>🌐</span> كل صفحات متجرك
       </div>
       {rows.map((p, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center", gap: 7, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(236,72,153,.12)", borderRadius: 8, padding: "5px 8px", marginBottom: 5 }}>
           <div style={{ width: 24, height: 24, borderRadius: 6, background: "rgba(236,72,153,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, flexShrink: 0 }}>{p.icon}</div>
-          <span style={{ fontSize: 8.5, fontWeight: 700, color: "var(--t)", flex: 1 }}>{p.label}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", flex: 1 }}>{p.label}</span>
           <div style={{ display: "flex", alignItems: "center", gap: 3 }}>
             <div style={{ width: 5, height: 5, borderRadius: "50%", background: p.ok ? "#00d4a0" : "#f59e0b", boxShadow: `0 0 5px ${p.ok ? "#00d4a0" : "#f59e0b"}` }} />
-            <span style={{ fontSize: 7, fontWeight: 700, color: p.ok ? "#00d4a0" : "#f59e0b" }}>{p.status}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: p.ok ? "#00d4a0" : "#f59e0b" }}>{p.status}</span>
           </div>
         </div>
       ))}
       <div style={{ background: "rgba(236,72,153,.07)", border: "1px solid rgba(236,72,153,.22)", borderRadius: 8, padding: "7px 9px", textAlign: "center", marginTop: 2 }}>
-        <span style={{ fontSize: 8.5, color: accent, fontWeight: 700 }}>⚡ منطق واحد — تغطية كاملة</span>
+        <span style={{ fontSize: 12, color: accent, fontWeight: 700 }}>⚡ منطق واحد — تغطية كاملة</span>
       </div>
     </>
   );
@@ -413,7 +498,7 @@ const CASES: ShowcaseCase[] = [
     float1En: "✨ Real-time personalization",
     float2Ar: "👤 كل زائر مختلف",
     float2En: "👤 Every visitor is unique",
-    accentColor: "#8b5cf6",
+    accentColor: "#7c3aed",
     href: "/use-cases/home-page",
     MockupContent: HomePageContent,
   },
@@ -513,7 +598,7 @@ function UseCaseRow({
             {bullets.map((b, i) => (
               <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                 <div style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 6, background: "color-mix(in srgb, var(--p) 12%, transparent)", border: "1px solid color-mix(in srgb, var(--p) 28%, transparent)", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>
-                  <span style={{ fontSize: 9, color: "var(--p)" }}>✓</span>
+                  <span style={{ fontSize: 12, color: "var(--p)" }}>✓</span>
                 </div>
                 <span style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.6 }}>{b}</span>
               </div>
@@ -593,6 +678,116 @@ export function PageHeroPhone({
         <span>{float2}</span>
       </div>
     </div>
+  );
+}
+
+function trimFloat(s: string, max: number) {
+  const t = s.trim();
+  return t.length <= max ? t : `${t.slice(0, max - 1)}…`;
+}
+
+/** Generic in-phone preview when a use-case page has no custom `heroVisual`. */
+export function UseCaseGenericHeroMock({
+  hero,
+  stats,
+}: {
+  hero: { icon: string; title: string; tagline: string };
+  stats: Array<{ value: string; label: string; color?: string }>;
+}) {
+  const { dir, lang } = useLanguage();
+  const isEn = lang === "en";
+  const accent = "var(--p)";
+  const chip = (s: (typeof stats)[0], i: number) => (
+    <div
+      key={i}
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 8,
+        padding: "7px 9px",
+        borderRadius: 10,
+        marginBottom: 6,
+        border: `1px solid color-mix(in srgb, ${s.color || accent} 35%, transparent)`,
+        background: `color-mix(in srgb, ${s.color || accent} 8%, transparent)`,
+      }}
+    >
+      <span style={{ fontSize: 11, fontWeight: 800, color: s.color || accent }}>{s.value}</span>
+      <span style={{ fontSize: 10, fontWeight: 600, color: "var(--td)", lineHeight: 1.35, textAlign: dir === "rtl" ? "right" : "left" }}>
+        {s.label}
+      </span>
+    </div>
+  );
+
+  return (
+    <div dir={dir} style={{ fontFamily: "var(--font, system-ui)", padding: "0 2px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, fontWeight: 700, marginBottom: 10, color: "var(--td)" }}>
+        <span>9:41</span>
+        <span aria-hidden>📶 🔋</span>
+      </div>
+      <div
+        style={{
+          borderRadius: 14,
+          padding: "12px 11px",
+          border: "1px solid color-mix(in srgb, var(--p) 22%, transparent)",
+          background: "color-mix(in srgb, var(--bg) 72%, transparent)",
+          marginBottom: 10,
+        }}
+      >
+        <div style={{ fontSize: 28, lineHeight: 1, marginBottom: 8 }}>{hero.icon}</div>
+        <div style={{ fontSize: 12, fontWeight: 900, color: "var(--t)", lineHeight: 1.35, marginBottom: 6 }}>
+          {hero.title}
+        </div>
+        <div style={{ fontSize: 10, fontWeight: 600, color: "var(--tm)", lineHeight: 1.55 }}>{hero.tagline}</div>
+      </div>
+      <div style={{ fontSize: 10, fontWeight: 800, color: "var(--p)", marginBottom: 6, letterSpacing: "0.04em" }}>
+        {isEn ? "LIVE INSIGHTS" : "مؤشرات مباشرة"}
+      </div>
+      {stats.slice(0, 2).map((s, i) => chip(s, i))}
+      <button
+        type="button"
+        style={{
+          width: "100%",
+          marginTop: 4,
+          border: "none",
+          borderRadius: 10,
+          padding: "9px 0",
+          fontSize: 11,
+          fontWeight: 900,
+          cursor: "default",
+          color: "#fff",
+          background: "linear-gradient(135deg, #a855f7, #7c3aed)",
+        }}
+      >
+        {isEn ? "Smart offers on" : "عروض ذكية على"}
+      </button>
+    </div>
+  );
+}
+
+/** Default hero phone + tags for any solution page without a custom visual. */
+export function DefaultUseCaseHeroPhone({
+  hero,
+  stats,
+}: {
+  hero: { icon: string; title: string; tagline: string };
+  stats: Array<{ value: string; label: string; color?: string }>;
+}) {
+  const { lang } = useLanguage();
+  const isEn = lang === "en";
+  const float1 = stats[0]
+    ? trimFloat(`${stats[0].value} · ${stats[0].label}`, 34)
+    : isEn
+      ? "AI offers live"
+      : "عروض ذكية فوراً";
+  const float2 = stats[1]
+    ? trimFloat(`${stats[1].value} · ${stats[1].label}`, 34)
+    : trimFloat(hero.tagline, 36);
+
+  return (
+    <PageHeroPhone float1={float1} float2={float2}>
+      <UseCaseGenericHeroMock hero={hero} stats={stats} />
+    </PageHeroPhone>
   );
 }
 

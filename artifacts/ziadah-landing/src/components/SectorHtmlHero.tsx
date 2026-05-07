@@ -30,27 +30,19 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
     <>
     <section
       dir={dir}
+      className="page-hero-viewport"
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "stretch",
-        paddingTop: "var(--page-hero-pt)",
-        paddingBottom: 48,
         position: "relative",
         zIndex: 2,
-        paddingInline: "var(--page-inline-pad)",
         borderBottom: "1px solid var(--b1)",
       }}
     >
-      <div style={{ display: "flex", textAlign: "center", marginBottom: 16, justifyContent: "center" }}>
-        <div className="stag rv" style={{ display: "inline-flex" }}>
-          <span className="stag-dot" />
-          {sectorsBreadcrumb}
-        </div>
-      </div>
-
-      <div className="sector-html-hero-grid rv d1">
-        <div>
+      <div className="sector-html-hero-grid rv d1" style={{ maxWidth: 1160, margin: "0 auto", alignItems: "center" }}>
+        <div className="sector-html-hero-copy">
+          <div className="stag rv" style={{ display: "inline-flex", marginBottom: 14 }}>
+            <span className="stag-dot" />
+            {sectorsBreadcrumb}
+          </div>
           {badge ? <div className="sector-html-badge sh-en">{badge}</div> : null}
 
           <h1 className="sector-html-hero-h">
@@ -66,7 +58,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
 
           <p className="sector-html-hero-sub">{sub}</p>
 
-          <div className="sector-html-cta-row">
+          <div className="sector-html-cta-row sector-html-hero-copy-ctas">
             <button type="button" className="sector-html-btn sector-html-btn--fire sh-en" onClick={() => setPlatformModalOpen(true)}>
               🚀 {isAr ? "فعّل الآن" : "Activate Now"}
             </button>
@@ -83,6 +75,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
           </p>
         </div>
 
+        <div className="sector-html-hero-mock">
         <div className="sector-html-phone-wrap">
           {ft1 ? (
             <div className="sector-html-ftag sector-html-ftag--1">
@@ -130,6 +123,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
               <span className="sh-en">{ft2}</span>
             </div>
           ) : null}
+        </div>
         </div>
       </div>
     </section>

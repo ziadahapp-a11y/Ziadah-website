@@ -18,7 +18,7 @@ export const stories: StoryData[] = [
     store: "متجر ريبال",
     sector: "مستلزمات التنظيف",
     logo: "ر",
-    color: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+    color: "linear-gradient(135deg,#7c3aed,#6d28d9)",
     accent: "#7c3aed",
     challenge: "استهداف العميل لإتمام طلبه بعرض محفز وبسيط لتقليل السلات المتروكة",
     strategy: "تفعيل نوافذ تسويقية تحفز العميل للطلب عند إضافة منتج للسلة أو بدء الطلب",

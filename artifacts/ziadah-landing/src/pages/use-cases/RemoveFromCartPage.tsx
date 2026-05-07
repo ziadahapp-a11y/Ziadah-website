@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import RemoveFromCartWidget from "../../components/widgets/RemoveFromCartWidget";
 
 const data: UseCasePageData = {
@@ -56,21 +57,17 @@ const data: UseCasePageData = {
     result: "بيع بـ 238 ⃁ بدلاً من خسارة 280 ⃁ كاملاً — المتجر احتفظ بالعميل وحقق إيراداً لم يكن ليحدث لولا التدخل الذكي.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يتدخل زيادة لحظة الحذف؟" : "How does Ziadah intervene at the removal moment?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "محاكاة تفاعلية — شاهد نافذة الاحتجاز الذكية تظهر قبل اختفاء المنتج" : "Interactive simulation — watch the smart retention popup appear before the product disappears"}</p>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <RemoveFromCartWidget />
-        </div>
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يتدخل زيادة لحظة الحذف؟" : "How does Ziadah intervene at the removal moment?"}
+      subtitle={
+        isAr
+          ? "محاكاة تفاعلية — شاهد نافذة الاحتجاز الذكية تظهر قبل اختفاء المنتج"
+          : "Interactive simulation — watch the smart retention popup appear before the product disappears"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <RemoveFromCartWidget /> }]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "أوقف خسارة المبيعات قبل أن تحدث",
   ctaDesc: "كل محاولة حذف هي فرصة مخفية — زيادة يحوّلها إلى بيع ناجح.",
   heroEn: {
@@ -126,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "A sale at 238 SAR instead of losing 280 SAR entirely — the store retained the customer and earned revenue that wouldn't have happened without smart intervention.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Stop losing sales before they happen",
   ctaDescEn: "Every removal attempt is a hidden opportunity — Ziadah turns it into a successful sale.",
   seo: {

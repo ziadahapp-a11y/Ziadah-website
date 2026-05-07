@@ -4,13 +4,16 @@ import DsPageBackdrop from "./DsPageBackdrop";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "./PlatformModal";
+import PageClosingCta from "./PageClosingCta";
 import SEO from "./SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
+import { planLabelsForUseCasePath } from "@/data/useCasePlans";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
+import { DefaultUseCaseHeroPhone } from "@/components/UseCasePagesShowcase";
 import "@/styles/sectorHtmlPage.css";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
@@ -75,7 +78,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [scrollProg, setScrollProg] = useState(0);
   const t = useSiteT();
-  const { lang } = useLanguage();
+  const { lang, dir } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";
 
@@ -86,7 +89,11 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const strategies = isEn && data.strategiesEn ? data.strategiesEn : data.strategies;
   const stats = isEn && data.statsEn ? data.statsEn : data.stats;
   const exampleScenario = isEn && data.exampleScenarioEn ? data.exampleScenarioEn : data.exampleScenario;
-  const plans = isEn && data.plansEn ? data.plansEn : data.plans;
+  const centralizedPlans = data.seo?.canonical ? planLabelsForUseCasePath(data.seo.canonical, lang) : [];
+  const plans =
+    centralizedPlans.length > 0
+      ? centralizedPlans
+      : (isEn && data.plansEn ? data.plansEn : data.plans);
   const ctaTitle = isEn && data.ctaTitleEn ? data.ctaTitleEn : data.ctaTitle;
   const ctaDesc = isEn && data.ctaDescEn ? data.ctaDescEn : data.ctaDesc;
   const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
@@ -150,13 +157,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const exampleLabel= gv(cmsKey(lang, "useCaseLayout", "exampleLabel"),tr.useCaseLayout.exampleLabel);
   const availableIn = gv(cmsKey(lang, "useCaseLayout", "availableIn"), tr.useCaseLayout.availableIn);
 
-  /* shared quick-nav row */
+  /* shared quick-nav row (no `.rv`: must stay visible; not scroll-reveal) */
   const QuickNavRow = () => (
-    <div className="rv d2 sector-page-quicknav"
-      style={{ marginTop: 28, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+    <div className="sector-page-quicknav"
+      style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", width: "100%", marginTop: 0 }}>
       {quickNav.map((item) => (
         <button key={item.id} type="button" onClick={() => scrollTo(item.id)}
-          style={{ borderRadius: 999, border: "1px solid var(--b2)", background: "linear-gradient(180deg,var(--s1),rgba(124,58,237,.04))", color: "var(--t)", fontSize: 12, fontWeight: 700, padding: "9px 14px", fontFamily: "var(--font)", cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,.06)", transition: "border-color .2s" }}>
+          style={{ borderRadius: 999, border: "1px solid rgba(253, 253, 252, 0.14)", background: "transparent", color: "var(--t)", fontSize: 12, fontWeight: 700, padding: "9px 14px", fontFamily: "var(--font)", cursor: "pointer", boxShadow: "none", transition: "border-color .2s" }}>
           {isEn ? item.en : item.ar}
         </button>
       ))}
@@ -191,100 +198,71 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         {/* ══════════════════════════════════════════════════
             HERO
         ══════════════════════════════════════════════════ */}
-        {data.heroVisual ? (
-          /* two-column hero */
-          <section className="sector-html"
-            style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 48, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", borderBottom: "1px solid var(--b1)" }}>
-            <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div className="stag rv" style={{ display: "inline-flex" }}>
+        <section
+          dir={dir}
+          className="sector-html use-case-playbook-hero page-hero-viewport"
+          style={{
+            position: "relative",
+            zIndex: 2,
+            borderBottom: "1px solid var(--b1)",
+          }}>
+          <div className="sector-html-hero-grid rv d1" style={{ maxWidth: 1160, margin: "0 auto", alignItems: "center" }}>
+            <div className="sector-html-hero-copy">
+              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 14 }}>
                 <span className="stag-dot" />
                 <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
                   {cv(["hero", "tag"], hero.tag)}
                 </Editable>
               </div>
-            </div>
-            <div className="sector-html-hero-grid rv d1" style={{ maxWidth: 1160, margin: "0 auto" }}>
-              {/* text */}
-              <div>
-                <div className="sector-html-badge">
-                  {hero.icon}{" "}
-                  <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
-                    {cv(["hero", "tagline"], hero.tagline)}
-                  </Editable>
-                </div>
-                <h1 className="sector-html-hero-h">
-                  <Editable contentKey={ucKey("hero", "title")} label="Title" type="text">
-                    {cv(["hero", "title"], hero.title)}
-                  </Editable>
-                </h1>
-                <p className="sector-html-hero-sub">
-                  <Editable contentKey={ucKey("hero", "subtitle")} label="Subtitle" type="text">
-                    {cv(["hero", "subtitle"], hero.subtitle)}
-                  </Editable>
-                </p>
-                <div className="sector-html-cta-row">
-                  <button type="button" className="sector-html-btn sector-html-btn--fire"
-                    onClick={() => setPlatformModalOpen(true)}>
-                    🚀{" "}
-                    <Editable contentKey={ucKey("activateNow")} label="Activate CTA" type="text">
-                      {activateNow}
-                    </Editable>
-                  </button>
-                  <button type="button" className="sector-html-btn sector-html-btn--ghost"
-                    onClick={() => scrollTo("uc-showcase")}>
-                    {isEn ? "See it live ↓" : "شوف الأداة ↓"}
-                  </button>
-                </div>
-              </div>
-              {/* visual */}
-              <div>{data.heroVisual}</div>
-            </div>
-            <QuickNavRow />
-          </section>
-        ) : (
-          /* centered hero */
-          <section className="sector-html"
-            style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)", borderBottom: "1px solid var(--b1)" }}>
-            <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
-              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 16, marginLeft: 10, paddingTop: 7, paddingBottom: 7 }}>
-                <span className="stag-dot" />
-                <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
-                  {cv(["hero", "tag"], hero.tag)}
-                </Editable>
-              </div>
-              <div className="sector-html-badge rv" style={{ margin: "0 auto 20px", display: "inline-flex" }}>
+              <div className="sector-html-badge">
                 {hero.icon}{" "}
                 <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
                   {cv(["hero", "tagline"], hero.tagline)}
                 </Editable>
               </div>
-              <h1 className="sector-html-hero-h rv d1" style={{ textAlign: "center" }}>
+              <h1 className="sector-html-hero-h">
                 <Editable contentKey={ucKey("hero", "title")} label="Title" type="text">
                   {cv(["hero", "title"], hero.title)}
                 </Editable>
               </h1>
-              <p className="sector-html-hero-sub rv d2" style={{ textAlign: "center", margin: "0 auto 28px" }}>
+              <p className="sector-html-hero-sub">
                 <Editable contentKey={ucKey("hero", "subtitle")} label="Subtitle" type="text">
                   {cv(["hero", "subtitle"], hero.subtitle)}
                 </Editable>
               </p>
-              <div className="sector-html-cta-row rv d3" style={{ justifyContent: "center" }}>
-                <button type="button" className="sector-html-btn sector-html-btn--fire"
+              <div className="sector-html-cta-row sector-html-hero-copy-ctas">
+                <button
+                  type="button"
+                  className="sector-html-btn sector-html-btn--fire"
                   onClick={() => setPlatformModalOpen(true)}>
                   🚀{" "}
                   <Editable contentKey={ucKey("activateNow")} label="Activate CTA" type="text">
                     {activateNow}
                   </Editable>
                 </button>
-                <button type="button" className="sector-html-btn sector-html-btn--ghost"
-                  onClick={() => scrollTo("uc-strategies")}>
-                  {isEn ? "How it works ↓" : "كيف يعمل ↓"}
+                <button
+                  type="button"
+                  className="sector-html-btn sector-html-btn--ghost"
+                  onClick={() => scrollTo(data.extraSections ? "uc-showcase" : "uc-strategies")}>
+                  {data.extraSections
+                    ? isEn
+                      ? "See it live ↓"
+                      : "شوف الأداة ↓"
+                    : isEn
+                      ? "How it works ↓"
+                      : "كيف يعمل ↓"}
                 </button>
               </div>
-              <QuickNavRow />
             </div>
-          </section>
-        )}
+            <div className="sector-html-hero-mock">{data.heroVisual ?? <DefaultUseCaseHeroPhone hero={hero} stats={stats} />}</div>
+          </div>
+        </section>
+
+        <nav
+          className="use-case-quicknav-stick use-case-quicknav-stick--playbook"
+          aria-label={isEn ? "Sections on this page" : "أقسام هذه الصفحة"}>
+          <QuickNavRow />
+        </nav>
 
         {/* ══════════════════════════════════════════════════
             WHAT WE DO
@@ -586,7 +564,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             style={{
               position: "relative",
               zIndex: 2,
-              padding: "0 0 56px",
+              padding: 0,
               width: "100%",
             }}
           >
@@ -597,48 +575,29 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         {/* ══════════════════════════════════════════════════
             CTA
         ══════════════════════════════════════════════════ */}
-        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px", width: "100%" }}>
-          <div className="sector-html rv" style={{
-            width: "100%",
-            maxWidth: 1200,
-            margin: "0 auto",
-            position: "relative",
-            background: "color-mix(in srgb, var(--p) 8%, transparent)",
-            border: "1px solid color-mix(in srgb, var(--p) 22%, transparent)",
-            borderRadius: 24,
-            padding: "clamp(36px,6vw,72px) clamp(20px,5vw,60px)",
-            textAlign: "center",
-            overflow: "hidden",
-          }}>
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, background: "linear-gradient(90deg, var(--p), var(--sh-accent), var(--sh-gold))" }} />
-            {/* glow */}
-            <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 500, height: 300, background: "radial-gradient(ellipse, color-mix(in srgb, var(--p) 18%, transparent) 0%, transparent 70%)", pointerEvents: "none" }} />
-            <h2 className="sector-html-hero-h" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-              <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
-                {cv(["ctaTitle"], ctaTitle)}
-              </Editable>
-            </h2>
-            <p className="sector-html-hero-sub" style={{ textAlign: "center", margin: "0 auto 36px", position: "relative", zIndex: 1 }}>
-              <Editable contentKey={ucKey("ctaDesc")} label="CTA desc" type="text">
-                {cv(["ctaDesc"], ctaDesc)}
-              </Editable>
-            </p>
-            <div className="sector-html-cta-row" style={{ justifyContent: "center", position: "relative", zIndex: 1 }}>
-              <button type="button" className="sector-html-btn sector-html-btn--fire"
-                onClick={() => setPlatformModalOpen(true)}>
-                🚀{" "}
-                <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
-                  {activateNow}
-                </Editable>
-              </button>
-            </div>
-            <p className="cta-note" style={{ position: "relative", zIndex: 1, marginTop: 20 }}>
-              <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
-                {ctaNote}
-              </Editable>
-            </p>
-          </div>
-        </section>
+        <PageClosingCta
+          title={
+            <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
+              {cv(["ctaTitle"], ctaTitle)}
+            </Editable>
+          }
+          description={
+            <Editable contentKey={ucKey("ctaDesc")} label="CTA desc" type="text">
+              {cv(["ctaDesc"], ctaDesc)}
+            </Editable>
+          }
+          buttonLabel={
+            <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
+              {activateNow}
+            </Editable>
+          }
+          note={
+            <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
+              {ctaNote}
+            </Editable>
+          }
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
 
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />

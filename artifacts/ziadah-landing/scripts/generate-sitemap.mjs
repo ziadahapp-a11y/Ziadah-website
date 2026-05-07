@@ -120,6 +120,7 @@ const STATIC_MAIN = [
   { path: "/terms", priority: "0.3", freq: "yearly" },
   { path: "/sectors", priority: "0.85", freq: "weekly" },
   { path: "/sectors/ecommerce-stores", priority: "0.85", freq: "weekly" },
+  { path: "/zid-apps-comparison", priority: "0.75", freq: "monthly" },
 ];
 
 function main() {

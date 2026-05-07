@@ -2,54 +2,56 @@ import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import CouponWidget from "../../components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "../../components/widgets/FreeShippingThresholdWidget";
 import RelatedProductsWidget from "../../components/widgets/RelatedProductsWidget";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import { PageHeroPhone } from "../../components/UseCasePagesShowcase";
-import WidgetTabs from "../../components/WidgetTabs";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { useSiteT } from "@/cms/siteContent";
 
 function CartHeroContent() {
+  const { lang, dir } = useLanguage();
+  const t = useSiteT();
+  const tr = t[lang].widgets.cartHeroPhone;
+
   return (
-    <div dir="rtl" style={{ fontFamily: "var(--font, system-ui)", padding: "0 2px" }}>
+    <div dir={dir} style={{ fontFamily: "var(--font, system-ui)", padding: "0 2px" }}>
       {/* status bar */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, fontWeight: 700, marginBottom: 10, color: "var(--td)" }}>
         <span>9:41</span>
         <span>📶 🔋</span>
       </div>
       {/* cart header */}
-      <div style={{ fontWeight: 900, fontSize: 13, marginBottom: 10, color: "var(--t)" }}>🛒 سلة الشراء (3 منتجات)</div>
+      <div style={{ fontWeight: 900, fontSize: 13, marginBottom: 10, color: "var(--t)" }}>{tr.cartTitle}</div>
       {/* progress */}
       <div style={{ background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.25)", borderRadius: 10, padding: "8px 10px", marginBottom: 10 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: "#10b981", marginBottom: 5 }}>أضف 30 ⃁ للشحن المجاني 🚚</div>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#10b981", marginBottom: 5 }}>{tr.freeShipHint}</div>
         <div style={{ height: 5, background: "rgba(16,185,129,.15)", borderRadius: 99 }}>
           <div style={{ height: "100%", width: "82%", background: "linear-gradient(90deg, #10b981, #34d399)", borderRadius: 99 }} />
         </div>
-        <div style={{ fontSize: 9, color: "var(--td)", marginTop: 4 }}>170 ⃁ / 200 ⃁</div>
+        <div style={{ fontSize: 9, color: "var(--td)", marginTop: 4 }}>{tr.progressTotals}</div>
       </div>
       {/* items */}
-      {[
-        { name: "كريم مرطب", price: "85 ⃁", img: "🧴" },
-        { name: "بخاخ شعر", price: "60 ⃁", img: "💆" },
-        { name: "غسول وجه",  price: "25 ⃁", img: "✨" },
-      ].map((item, i) => (
+      {tr.lineItems.map((item, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 0", borderBottom: "1px solid var(--b1)" }}>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "var(--s2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>{item.img}</div>
+          <div style={{ width: 30, height: 30, borderRadius: 8, background: "var(--s2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, flexShrink: 0 }}>{item.emoji}</div>
           <div style={{ flex: 1, fontSize: 11, fontWeight: 700 }}>{item.name}</div>
           <div style={{ fontSize: 11, fontWeight: 900, color: "#10b981" }}>{item.price}</div>
         </div>
       ))}
       {/* suggestion */}
       <div style={{ background: "rgba(245,158,11,.07)", border: "1px solid rgba(245,158,11,.25)", borderRadius: 10, padding: "8px 10px", marginTop: 10 }}>
-        <div style={{ fontSize: 10, fontWeight: 700, color: "#f59e0b", marginBottom: 4 }}>💡 اشتروا معاً</div>
+        <div style={{ fontSize: 10, fontWeight: 700, color: "#f59e0b", marginBottom: 4 }}>{tr.suggestionTitle}</div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontSize: 11, fontWeight: 700 }}>بلسم شعر 💇</span>
-          <button type="button" style={{ fontSize: 9, fontWeight: 900, background: "#f59e0b", color: "#fff", border: "none", borderRadius: 6, padding: "3px 8px", cursor: "pointer" }}>+32 ⃁</button>
+          <span style={{ fontSize: 11, fontWeight: 700 }}>{tr.suggestionName}</span>
+          <button type="button" style={{ fontSize: 9, fontWeight: 900, background: "#f59e0b", color: "#fff", border: "none", borderRadius: 6, padding: "3px 8px", cursor: "pointer" }}>{tr.suggestionAdd}</button>
         </div>
       </div>
       {/* total */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, padding: "8px 0", borderTop: "1px solid var(--b1)" }}>
-        <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>الإجمالي</span>
-        <span style={{ fontSize: 13, fontWeight: 900, color: "#a855f7" }}>170 ⃁</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.totalLabel}</span>
+        <span style={{ fontSize: 13, fontWeight: 900, color: "#a855f7" }}>{tr.grandTotal}</span>
       </div>
       <button type="button" style={{ width: "100%", marginTop: 8, background: "linear-gradient(135deg, #a855f7, #7c3aed)", color: "#fff", border: "none", borderRadius: 10, padding: "9px 0", fontSize: 12, fontWeight: 900, cursor: "pointer" }}>
-        إتمام الشراء →
+        {tr.checkoutCta}
       </button>
     </div>
   );
@@ -115,38 +117,33 @@ const data: UseCasePageData = {
     </PageHeroPhone>
   ),
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center", paddingTop: 40, paddingBottom: 40 }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "واجهات صفحة السلة — قسيمة الخصم، شريط الشحن المجاني، ومنتجات ذات صلة" : "Cart page widgets — auto coupon, free-shipping progress, and related products"}</p>
-        <WidgetTabs
-          isAr={isAr}
-          tabs={[
-            {
-              labelAr: "🏷️ قسيمة الخصم",
-              labelEn: "🏷️ Discount Coupon",
-              content: <CouponWidget />,
-            },
-            {
-              labelAr: "🚚 شريط الشحن المجاني",
-              labelEn: "🚚 Free Shipping Bar",
-              content: <FreeShippingThresholdWidget />,
-            },
-            {
-              labelAr: "🛍️ منتجات ذات صلة",
-              labelEn: "🛍️ Related Products",
-              content: <RelatedProductsWidget />,
-            },
-          ]}
-        />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr
+          ? "واجهات صفحة السلة — قسيمة الخصم، شريط الشحن المجاني، ومنتجات ذات صلة"
+          : "Cart page widgets — auto coupon, free-shipping progress, and related products"
+      }
+      tabs={[
+        {
+          labelAr: "🏷️ قسيمة الخصم",
+          labelEn: "🏷️ Discount Coupon",
+          content: <CouponWidget />,
+        },
+        {
+          labelAr: "🚚 شريط الشحن المجاني",
+          labelEn: "🚚 Free Shipping Bar",
+          content: <FreeShippingThresholdWidget />,
+        },
+        {
+          labelAr: "🛍️ منتجات ذات صلة",
+          labelEn: "🛍️ Related Products",
+          content: <RelatedProductsWidget />,
+        },
+      ]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل سلة النيّة إلى سلة مكتملة",
   ctaDesc: "قلّل التخلي وارفع قيمة الطلب في نفس الوقت مع زيادة.",
   heroEn: {
@@ -202,7 +199,6 @@ const data: UseCasePageData = {
     ],
     result: "The order rose from 170 to 202 SAR and the customer felt they benefited from the deal.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Turn the intent cart into a completed cart",
   ctaDescEn: "Reduce abandonment and increase order value at the same time with Ziadah.",
   seo: {

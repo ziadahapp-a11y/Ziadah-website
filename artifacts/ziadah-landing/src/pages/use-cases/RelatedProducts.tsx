@@ -1,6 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import RelatedProductsWidget from "../../components/widgets/RelatedProductsWidget";
-import WidgetTabs from "../../components/WidgetTabs";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,57 +57,57 @@ const data: UseCasePageData = {
     result: "متوسط قبول اقتراح 'منتجات ذات صلة' يبلغ 38% عند استخدام زر الإضافة المباشر مقابل 16% عند الاكتفاء بالرابط — الفارق في التصميم يصنع الفارق في الإيراد.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح المنتجات ذات الصلة كما يراها عميلك فعلياً" : "This is how the related products suggestion looks to your customer"}</p>
-        <WidgetTabs
-          isAr={isAr}
-          fullWidthContent
-          tabs={[
-            {
-              labelAr: "📱 مثال حي",
-              labelEn: "📱 Live Demo",
-              content: <RelatedProductsWidget />,
-            },
-            {
-              labelAr: "📍 أين تظهر؟",
-              labelEn: "📍 Where It Appears",
-              content: (
-                <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-                  <div className="shine"/>
-                  <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "أين تظهر 'منتجات ذات صلة'؟" : "Where do 'Related Products' appear?"}</h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-                    {(isAr ? [
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr
+          ? "هكذا تبدو واجهة اقتراح المنتجات ذات الصلة كما يراها عميلك فعلياً"
+          : "This is how the related products suggestion looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <RelatedProductsWidget />,
+        },
+        {
+          labelAr: "📍 أين تظهر؟",
+          labelEn: "📍 Where It Appears",
+          placement: "below",
+          content: (
+            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
+              <div className="shine" />
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+                {isAr ? "أين تظهر 'منتجات ذات صلة'؟" : "Where do 'Related Products' appear?"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+                {(isAr
+                  ? [
                       { place: "📄 صفحة المنتج", note: "أسفل الوصف أو في الشريط الجانبي" },
                       { place: "🛒 صفحة السلة", note: "قبل الدفع لزيادة قيمة الطلب" },
                       { place: "🏠 الصفحة الرئيسية", note: "بناءً على آخر تصفح للعميل" },
                       { place: "🏷️ صفحة التصنيف", note: "بين المنتجات أو في الشريط الجانبي" },
-                    ] : [
+                    ]
+                  : [
                       { place: "📄 Product Page", note: "Below the description or in the sidebar" },
                       { place: "🛒 Cart Page", note: "Before checkout to increase order value" },
                       { place: "🏠 Home Page", note: "Based on the customer's recent browsing" },
                       { place: "🏷️ Category Page", note: "Between products or in the sidebar" },
-                    ]).map((item, i) => (
-                      <div key={i} style={{ padding: "20px 24px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 14, textAlign: "center" }}>
-                        <div style={{ fontSize: 22, marginBottom: 8 }}>{item.place}</div>
-                        <div style={{ fontSize: 13, color: "var(--tm)" }}>{item.note}</div>
-                      </div>
-                    ))}
+                    ]
+                ).map((item, i) => (
+                  <div key={i} style={{ padding: "20px 24px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 14, textAlign: "center" }}>
+                    <div style={{ fontSize: 22, marginBottom: 8 }}>{item.place}</div>
+                    <div style={{ fontSize: 13, color: "var(--tm)" }}>{item.note}</div>
                   </div>
-                </div>
-              ),
-            },
-          ]}
-        />
-      </div>
-    </section>
+                ))}
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض المنتجات ذات الصلة اليوم",
   ctaDesc: "كل زيارة فرصة — دع زيادة يقترح المنتج المناسب بزر الإضافة المباشر.",
   heroEn: {
@@ -163,7 +163,6 @@ const data: UseCasePageData = {
     ],
     result: "Average acceptance of 'Related Products' suggestions reaches 38% with a direct add button vs. 16% with links only — the design difference makes the revenue difference.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Activate related products display today",
   ctaDescEn: "Every visit is an opportunity — let Ziadah suggest the right product with a direct add button.",
   seo: {

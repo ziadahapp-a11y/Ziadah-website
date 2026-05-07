@@ -215,8 +215,8 @@
   --accent-primary-light:   #a855f7;  /* = --p3 — light accent, section tags */
   --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
 
-  /* Canonical CTA color — Phase 2 decision: #7c3aed wins over rgba(74,0,148,1)
-     and #5b21b6. All primary buttons converge here in Phase 3. */
+  /* Canonical CTA color — Phase 2 decision: #7c3aed wins over rgba(74,0,148,1);
+     gradients/light sections use #6d28d9 as darker stop (replaces #5b21b6). */
   --accent-cta:       #7c3aed;  /* = --p — primary button background */
   --accent-cta-hover: #6d28d9;  /* = --p2 — primary button hover */
 
@@ -234,7 +234,7 @@
   /* ── Glass system ── */
   --glass-bg:           transparent;
   --glass-bg-2:         rgba(26, 20, 16, 0.68);
-  --glass-border:       1px solid rgba(124, 58, 237, 0.22);
+  --glass-border:       1px solid rgba(124, 58, 237, 0.21);
   --glass-blur:         blur(22px);
   --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.40);   /* = --shadow-md */
   --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.52);  /* = --shadow-lg */

@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import ProductSwapWidget from "../../components/widgets/ProductSwapWidget";
 
 const data: UseCasePageData = {
@@ -57,17 +58,16 @@ const data: UseCasePageData = {
   },
   extraSections: (isAr) => (
     <>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الاستبدال كما يراها عميلك فعلياً" : "This is how the upgrade suggestion looks to your customer"}</p>
-        <ProductSwapWidget />
-      </div>
-    </section>
+      <UseCaseLiveShowcase
+        isAr={isAr}
+        title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+        subtitle={
+          isAr
+            ? "هكذا تبدو واجهة اقتراح الاستبدال كما يراها عميلك فعلياً"
+            : "This is how the upgrade suggestion looks to your customer"
+        }
+        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ProductSwapWidget /> }]}
+      />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
@@ -100,7 +100,6 @@ const data: UseCasePageData = {
     </section>
     </>
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع قيمة كل طلب بالترقية الذكية",
   ctaDesc: "عميل واحد يختار النسخة الأفضل يساوي طلبين — فعّل Upsell مع زيادة اليوم.",
   heroEn: {
@@ -156,7 +155,6 @@ const data: UseCasePageData = {
     ],
     result: "Upgrade acceptance rate ranges from 22-35% when presented correctly with value emphasis — and each acceptance directly increases revenue.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Increase every order value with smart upgrades",
   ctaDescEn: "One customer choosing the better version equals two orders — activate Upsell with Ziadah today.",
   seo: {

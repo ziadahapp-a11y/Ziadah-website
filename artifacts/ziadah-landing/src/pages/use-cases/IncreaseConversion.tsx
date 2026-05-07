@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import IncreaseConversionWidget from "../../components/widgets/IncreaseConversionWidget";
 
 const data: UseCasePageData = {
@@ -57,17 +58,16 @@ const data: UseCasePageData = {
   },
   extraSections: (isAr) => (
     <>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يُحوّل زيادة الزائر إلى مشترٍ؟" : "How does Ziadah convert visitors into buyers?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يبدو اقتراح رفع التحويل كما يراه عميلك الجديد" : "This is how the conversion boost looks to your new customer"}</p>
-        <IncreaseConversionWidget />
-      </div>
-    </section>
+      <UseCaseLiveShowcase
+        isAr={isAr}
+        title={isAr ? "كيف يُحوّل زيادة الزائر إلى مشترٍ؟" : "How does Ziadah convert visitors into buyers?"}
+        subtitle={
+          isAr
+            ? "هكذا يبدو اقتراح رفع التحويل كما يراه عميلك الجديد"
+            : "This is how the conversion boost looks to your new customer"
+        }
+        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <IncreaseConversionWidget /> }]}
+      />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
         <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
@@ -101,7 +101,6 @@ const data: UseCasePageData = {
     </section>
     </>
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ضاعف إيراداتك بنفس عدد الزوار",
   ctaDesc: "رفع CVR بنسبة صغيرة يساوي آلاف ⃁ شهرياً — فعّل زيادة الآن.",
   heroEn: {
@@ -157,7 +156,6 @@ const data: UseCasePageData = {
     ],
     result: "Revenue doubled without spending a single extra SAR on ads — just by improving conversion rate.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Double your revenue with the same number of visitors",
   ctaDescEn: "Raising CVR by a small percentage equals thousands of SAR monthly — activate Ziadah now.",
   seo: {

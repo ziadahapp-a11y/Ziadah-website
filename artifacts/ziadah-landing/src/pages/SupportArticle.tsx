@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { t } from "@/i18n/translations";
-import { useParams } from "wouter";
+import { useEffect, useState } from "react";
 import PageShell from "../components/PageShell";
+import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import {
   categories as supportCategories,
   getArticleById,
@@ -9,6 +9,7 @@ import {
   type FullArticle,
 } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
+import { useParams } from "wouter";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
@@ -22,6 +23,9 @@ export default function SupportArticle() {
   const t = useSiteT();
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].support;
+  const pc = t[lang].pageClosingCta;
+  const ld = t[lang].landing;
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const { id } = useParams<{ id: string }>();
   const article = id ? getArticleById(id) : undefined;
   const category = article ? getCategoryById(article.categoryId) : undefined;
@@ -279,7 +283,14 @@ export default function SupportArticle() {
           })()}
         </div>
       </div>
+      <PageClosingCta
+        title={pc.supportTitle}
+        description={pc.supportDesc}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
     </PageShell>
+    <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "@/components/PageShell";
+import PlatformModal from "@/components/PlatformModal";
+import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -56,6 +58,7 @@ export default function SectorDetail() {
   const pageRichEarly = getSectorPageRich(params.slug ?? "");
   const htmlPlaybook = Boolean(pageRichEarly?.htmlLayout);
   const [scrollProg, setScrollProg] = useState(0);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -100,7 +103,7 @@ export default function SectorDetail() {
             style={{
               padding: "12px 28px",
               borderRadius: 50,
-              background: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+              background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
               color: "#fff",
               border: "none",
               fontWeight: 700,
@@ -117,6 +120,8 @@ export default function SectorDetail() {
   }
 
   const title = lang === "ar" ? sector.titleAr : sector.titleEn;
+  const pc = t[lang].pageClosingCta;
+  const ld = t[lang].landing;
   const tagline = lang === "ar" ? sector.taglineAr : sector.taglineEn;
   const pageRich = pageRichEarly;
   const slim = Boolean(pageRich?.slimSectorPage);
@@ -220,15 +225,15 @@ export default function SectorDetail() {
                     onClick={() => scrollToSection(item.id)}
                     style={{
                       borderRadius: 999,
-                      border: "1px solid var(--b2)",
-                      background: "linear-gradient(180deg, var(--s1), rgba(124,58,237,.04))",
+                      border: "1px solid rgba(253, 253, 252, 0.14)",
+                      background: "transparent",
                       color: "var(--t)",
                       fontSize: 12,
                       fontWeight: 700,
                       padding: "9px 14px",
                       fontFamily: "var(--font)",
                       cursor: "pointer",
-                      boxShadow: "0 2px 8px rgba(0,0,0,.06)",
+                      boxShadow: "none",
                       transition: "border-color .2s, transform .15s",
                     }}
                   >
@@ -240,22 +245,23 @@ export default function SectorDetail() {
           </>
         ) : (
           <section
-            className="sector-page-hero"
+            className="sector-page-hero page-hero-viewport page-hero-viewport--center"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              paddingTop: "var(--page-hero-pt)",
-              paddingBottom: 36,
               position: "relative",
               zIndex: 2,
-              paddingInline: "var(--page-inline-pad)",
-              maxWidth: 1200,
-              margin: "0 auto",
               borderBottom: "1px solid var(--b1)",
             }}
           >
+            <div
+              style={{
+                maxWidth: 1200,
+                margin: "0 auto",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
             <div className="stag rv" style={{ display: "inline-flex" }}>
               <span className="stag-dot" />
               {tr.breadcrumbSectors}
@@ -335,21 +341,22 @@ export default function SectorDetail() {
                   onClick={() => scrollToSection(item.id)}
                   style={{
                     borderRadius: 999,
-                    border: "1px solid var(--b2)",
-                    background: "linear-gradient(180deg, var(--s1), rgba(124,58,237,.04))",
+                    border: "1px solid rgba(253, 253, 252, 0.14)",
+                    background: "transparent",
                     color: "var(--t)",
                     fontSize: 12,
                     fontWeight: 700,
                     padding: "9px 14px",
                     fontFamily: "var(--font)",
                     cursor: "pointer",
-                    boxShadow: "0 2px 8px rgba(0,0,0,.06)",
+                    boxShadow: "none",
                     transition: "border-color .2s, transform .15s",
                   }}
                 >
                   {lang === "ar" ? item.labelAr : item.labelEn}
                 </button>
               ))}
+            </div>
             </div>
           </section>
         )}
@@ -592,7 +599,14 @@ export default function SectorDetail() {
             </button>
           </div>
         </article>
+        <PageClosingCta
+          title={lang === "ar" ? `جاهز تفعّل زيادة في قطاع ${title}؟` : `Ready to activate Ziadah for ${title}?`}
+          description={pc.sectorDetailDesc}
+          buttonLabel={ld.ctaBtn}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

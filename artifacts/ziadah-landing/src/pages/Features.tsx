@@ -3,6 +3,7 @@ import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
@@ -44,7 +45,7 @@ const usecases = [
   { sector: "الإلكترونيات والتقنية", sectorEn: "Electronics & Technology", icon: "💻", color: "#06b6d4", strategies: ["ملحقات الجهاز (Add-ons)", "الحماية والضمان الممتد", "Upsell للموديل الأحدث", "حزمة الإعداد الكامل"], strategiesEn: ["Device accessories (Add-ons)", "Protection & extended warranty", "Upsell to newer model", "Complete setup bundle"], result: "+22% متوسط الطلب", resultEn: "+22% average order value", stores: "+90 متجر", storesEn: "+90 stores" },
   { sector: "المنزل والديكور", sectorEn: "Home & Decor", icon: "🏠", color: "#10b981", strategies: ["تجميع مستلزمات الغرفة", "منتجات ذات صلة بالديكور", "Combo للأثاث المتكامل", "خصم الكميات"], strategiesEn: ["Bundle room essentials", "Decor-related products", "Combo for matching furniture", "Volume discounts"], result: "+26% متوسط الطلب", resultEn: "+26% average order value", stores: "+70 متجر", storesEn: "+70 stores" },
   { sector: "الرياضة واللياقة", sectorEn: "Sports & Fitness", icon: "🏋️", color: "#4f46e5", strategies: ["حزمة المستلزمات الرياضية", "منتجات التغذية + معدات", "روتين التمرين الكامل", "Upsell للإصدار المتميز"], strategiesEn: ["Sports essentials bundle", "Nutrition products + equipment", "Complete workout routine", "Upsell to premium edition"], result: "+30% متوسط الطلب", resultEn: "+30% average order value", stores: "+60 متجر", storesEn: "+60 stores" },
-  { sector: "الكتب والتعليم", sectorEn: "Books & Education", icon: "📚", color: "#8b5cf6", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"], result: "+18% متوسط الطلب", resultEn: "+18% average order value", stores: "+40 متجر", storesEn: "+40 stores" },
+  { sector: "الكتب والتعليم", sectorEn: "Books & Education", icon: "📚", color: "#7c3aed", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"], result: "+18% متوسط الطلب", resultEn: "+18% average order value", stores: "+40 متجر", storesEn: "+40 stores" },
   { sector: "التبرعات والخيرية", sectorEn: "Donations & Charity", icon: "🤲", color: "#059669", strategies: ["مشاريع تبرع مكملة", "زيادة مبلغ التبرع", "اشترك تبرعياً شهرياً", "عرض المشاريع ذات الأولوية"], strategiesEn: ["Complementary donation projects", "Increase donation amount", "Monthly donation subscription", "Show priority projects"], result: "+48% متوسط التبرع", resultEn: "+48% average donation", stores: "+40 منظمة", storesEn: "+40 organizations" },
 ];
 
@@ -54,6 +55,7 @@ export default function Features() {
   const t = useSiteT();
   const { lang, isAr } = useLanguage();
   const ft = t[lang].features;
+  const ld = t[lang].landing;
   const pk = getPageKeywords("/features");
 
   useEffect(() => {
@@ -86,7 +88,7 @@ export default function Features() {
       <DsPageBackdrop />
 
       {/* HERO */}
-      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 56, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
+      <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
         <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{ft.heroTag}</div>
         <h1 className="st rv d1" style={{ fontSize: "clamp(22px,5vw,64px)", marginTop: 8 }} dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />
         <p className="ssub rv d2" style={{ margin: "0 auto 48px" }}>{ft.heroSub}</p>
@@ -274,19 +276,12 @@ export default function Features() {
         </section>
       )}
 
-      {/* CTA */}
-      <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <div className="gc cta-box rv" style={{ padding: "clamp(40px,8vw,72px) clamp(22px,6vw,56px)" }}>
-            <div className="shine"/><div className="cta-glow"/>
-            <h2 style={{ fontSize: "clamp(30px,4vw,50px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{ft.ctaTitle}</h2>
-            <p style={{ color: "var(--tm)", marginBottom: 36, position: "relative", zIndex: 1 }}>{ft.ctaSub}</p>
-            <div className="cta-btns">
-              <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>{ft.ctaBtn}</button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageClosingCta
+        title={ft.ctaTitle}
+        description={ft.ctaSub}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
     </PageShell>
     <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

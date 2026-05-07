@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import PageShell from "@/components/PageShell";
+import PlatformModal from "@/components/PlatformModal";
+import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -321,6 +323,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
   const siteT = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = siteT[lang].analyze;
+  const ld = siteT[lang].landing;
   const pk = getPageKeywords("/analyze");
   const apiBase = getApiSubmitOrigin();
 
@@ -329,6 +332,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
   const [data, setData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(!invalidToken);
   const [errorKind, setErrorKind] = useState<"notfound" | "notready" | null>(null);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
     if (invalidToken) {
@@ -616,38 +620,19 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                   </section>
                 )}
 
-                {/* CTA footer */}
-                <div className="analyze-results-cta analyze-results-cta--report">
-                  <div className="analyze-cta-badge analyze-cta-badge--report">
-                    <Zap className="h-3 w-3 shrink-0" aria-hidden />
-                    <span>{lang === "ar" ? "ابدأ الآن مجاناً" : "Start Free Today"}</span>
-                  </div>
-                  <h3 className="analyze-cta-title analyze-results-cta--report__title" style={{ color: "var(--t)" }}>
-                    {tr.ctaFooterTitle}
-                  </h3>
-                  <p className="analyze-report-cta-sub tc max-w-lg mx-auto">
-                    {tr.ctaFooterSub}
-                  </p>
-                  <div className="analyze-results-cta--report__actions">
-                    <Link
-                      href="/analyze"
-                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base no-underline"
-                    >
-                      {tr.ctaAnalyzeStore}
-                      <ArrowRight
-                        className="h-4 w-4 shrink-0"
-                        style={dir === "rtl" ? { transform: "scaleX(-1)" } : undefined}
-                        aria-hidden
-                      />
-                    </Link>
-                  </div>
-                </div>
+                <PageClosingCta
+                  title={tr.ctaFooterTitle}
+                  description={tr.ctaFooterSub}
+                  buttonLabel={ld.ctaBtn}
+                  onActivate={() => setPlatformModalOpen(true)}
+                />
               </div>
             );
           })()}
         </main>
         </div>
       </PageShell>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

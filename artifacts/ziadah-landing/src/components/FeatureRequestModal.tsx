@@ -227,7 +227,7 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                 disabled={sending}
                 style={{
                   width: "100%", padding: "14px",
-                  background: sending ? "rgba(124,58,237,.4)" : "linear-gradient(135deg,#7c3aed,#5b21b6)",
+                  background: sending ? "rgba(124,58,237,.4)" : "linear-gradient(135deg,#7c3aed,#6d28d9)",
                   border: "none", borderRadius: 50, color: "#fff",
                   fontFamily: "var(--font)", fontSize: 15, fontWeight: 700,
                   cursor: sending ? "not-allowed" : "pointer",

@@ -5,6 +5,8 @@ export interface WidgetTab {
   labelEn: string;
   icon?: string;
   content: React.ReactNode;
+  /** For `UseCaseLiveShowcase`: full-width block under the row (e.g. comparison tables). The phone keeps the first tab. */
+  placement?: "inPhone" | "below";
 }
 
 interface WidgetTabsProps {
@@ -46,7 +48,7 @@ export default function WidgetTabs({ isAr, tabs, fullWidthContent = false }: Wid
                 padding: "10px 22px",
                 borderRadius: 99,
                 background: isActive
-                  ? "linear-gradient(135deg,#7c3aed,#5b21b6)"
+                  ? "linear-gradient(135deg,#7c3aed,#6d28d9)"
                   : "rgba(124,58,237,0.06)",
                 color: isActive ? "#fff" : "var(--p4)",
                 border: `1.5px solid ${isActive ? "transparent" : "rgba(124,58,237,0.22)"}`,

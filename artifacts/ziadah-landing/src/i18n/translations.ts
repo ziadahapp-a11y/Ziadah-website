@@ -65,6 +65,19 @@ export const t = {
       shopify: "شوبيفاي",
       comingSoon: "قريباً",
       sectors: "القطاعات",
+      zidAppsComparison: "مقارنة التطبيقات",
+      zidPlatformApps: "تطبيقات منصة زد",
+      sallaPlatformApps: "تطبيقات منصة سلة",
+      sallaAppsNavItem1: "قريباً",
+      sallaAppsNavItem2: "قريباً",
+      comparisonNav: "المقارنة",
+      comparisonDropdownZid: "تطبيقات زد",
+      comparisonDropdownSalla: "تطبيقات سلة",
+    },
+    zidAppsComparisonPage: {
+      seoTitle: "مقارنة تطبيقات منصة زد — زيادة",
+      seoDesc:
+        "جدول مقارنة تفصيلية بين تطبيق زيادة ونماء وبووست وتاسك اب ورقمي على منصة زد: طريقة الاقتراح، الأساسيات، العروض، مواقع الظهور، التصميم، والتحليلات.",
     },
     featureModal: {
       title: "طلب ميزة جديدة",
@@ -139,6 +152,27 @@ export const t = {
       heroH1Sub: "بأرقام موثقة من تجار يستخدمون تطبيق زيادة",
       heroLead:
         "أكثر من 700 متجر إلكتروني اختار زيادة لزيادة المبيعات بالذكاء الاصطناعي. إليك قصصهم بأرقام واضحة.",
+      ctaClosingTitle: "متجرك القادم في قائمة النجاح",
+      ctaClosingDesc: "انضم لـ +1500 متجر وابدأ رحلتك اليوم",
+      ctaClosingBtn: "فعّل الآن",
+    },
+    pageClosingCta: {
+      sectorsHubTitle: "قطاعك التالي يبدأ بتفعيل زيادة",
+      sectorsHubDesc: "اختَر دليلك وفعّل التوصيات الذكية على زد أو سلة في دقائق.",
+      ecommerceSectorsTitle: "جاهز تطبّق الدليل على متجرك؟",
+      ecommerceSectorsDesc: "كل قطاع معه أمثلة جاهزة في زيادة — فعّل وابدأ بنفس اليوم.",
+      sectorDetailDesc: "طبّق نفس الأمثلة والحلول الظاهرة أعلاه على متجرك.",
+      blogIndexTitle: "من القراءة إلى التفعيل",
+      blogIndexDesc: "نفّذ ما تتعلمه على متجرك — فعّل توصيات زيادة الذكية.",
+      blogPostTitle: "نفّذ هذا على متجرك",
+      blogPostDesc: "حوّل ما قرأته إلى مبيعات مع تفعيل سريع على زد أو سلة.",
+      supportTitle: "جاهز تفعّل بعد ما اطلعت؟",
+      supportDesc: "اربط متجرك وابدأ بنفس خطوات مركز المساعدة — خلال دقائق.",
+      legalTitle: "جاهز تستخدم زيادة مع الالتزام بهذه السياسات؟",
+      legalDesc: "فعّل التطبيق على متجرك واستفد من التوصيات الذكية وفق الشروط المعروضة.",
+      pricingTitle: "فعّل متجرك اليوم",
+      pricingDesc:
+        "7 أيام تجربة مجانية · بدون بطاقة ائتمانية · إلغاء في أي وقت · تفعيل فوري على زد وسلة وبيع",
     },
     sectorsPage: {
       seoTitle: "القطاعات — زيادة للمتاجر حسب مجالك",
@@ -774,6 +808,8 @@ export const t = {
       perOrder: "لكل طلب",
       disclaimer: "* هذه الأرقام تقديرية بناءً على المدخلات المختارة وتجارب عملاء زيادة. النتائج الفعلية تختلف حسب طبيعة المتجر والمنتجات والجمهور المستهدف.",
       cta: "فعّل زيادة الآن",
+      closingTitle: "جاهز تحوّل التقدير إلى مبيعات حقيقية؟",
+      closingDesc: "فعّل زيادة وطبّق نفس افتراضات الحاسبة على متجرك فوراً.",
     },
     analyze: {
       seoTitle: "حلّل متجرك بالذكاء الاصطناعي — تقاطع بيع وبيع أعلى",
@@ -1094,6 +1130,7 @@ export const t = {
           { emoji: "🧢", name: "قبعة رياضية", price: "89" },
           { emoji: "🎽", name: "تيشيرت رياضي", price: "129" },
         ] as { emoji: string; name: string; price: string }[],
+        offerCountdown: "02:47:13",
       },
       increaseAOV: {
         title: "زيادة متوسط الطلب",
@@ -1148,6 +1185,23 @@ export const t = {
         ] as { emoji: string; name: string; reviews: string; price: string }[],
         currency: "⃁ ",
         btnAdd: "أضف للسلة",
+      },
+      /** معاينة هاتف صفحة السلة — تعرض بلغة الواجهة */
+      cartHeroPhone: {
+        cartTitle: "🛒 سلة الشراء (3 منتجات)",
+        freeShipHint: "أضف 30 ⃁ للشحن المجاني 🚚",
+        progressTotals: "170 ⃁ / 200 ⃁",
+        lineItems: [
+          { emoji: "🧴", name: "كريم مرطب", price: "85 ⃁" },
+          { emoji: "💆", name: "بخاخ شعر", price: "60 ⃁" },
+          { emoji: "✨", name: "غسول وجه", price: "25 ⃁" },
+        ] as { emoji: string; name: string; price: string }[],
+        suggestionTitle: "💡 اشتروا معاً",
+        suggestionName: "بلسم شعر 💇",
+        suggestionAdd: "+32 ⃁",
+        totalLabel: "الإجمالي",
+        grandTotal: "170 ⃁",
+        checkoutCta: "إتمام الشراء →",
       },
     },
   },
@@ -1217,6 +1271,19 @@ export const t = {
       shopify: "Shopify",
       comingSoon: "Coming Soon",
       sectors: "Industries",
+      zidAppsComparison: "App comparison",
+      zidPlatformApps: "Zid platform apps",
+      sallaPlatformApps: "Salla platform apps",
+      sallaAppsNavItem1: "Coming soon",
+      sallaAppsNavItem2: "Coming soon",
+      comparisonNav: "Comparison",
+      comparisonDropdownZid: "Zid apps",
+      comparisonDropdownSalla: "Salla apps",
+    },
+    zidAppsComparisonPage: {
+      seoTitle: "Zid platform apps comparison — Ziadah",
+      seoDesc:
+        "Feature comparison of Ziadah vs Namaa, Boost, TaskUp, and Raqmi on Zid: suggestion engine, basics, offers, placements, design, and analytics.",
     },
     featureModal: {
       title: "Request a Feature",
@@ -1290,6 +1357,27 @@ export const t = {
       heroH1Sub: "Verified metrics from merchants using the Ziadah platform",
       heroLead:
         "700+ ecommerce stores chose Ziadah to grow sales with AI. Here are their stories with clear, measurable outcomes.",
+      ctaClosingTitle: "Your Store Is Next on the Success List",
+      ctaClosingDesc: "Join +1500 stores and start your journey today",
+      ctaClosingBtn: "Activate Now",
+    },
+    pageClosingCta: {
+      sectorsHubTitle: "Your next vertical starts with activating Ziadah",
+      sectorsHubDesc: "Pick your playbook and turn on smart recommendations on Zid or Salla in minutes.",
+      ecommerceSectorsTitle: "Ready to apply the guide to your store?",
+      ecommerceSectorsDesc: "Every vertical includes ready examples in Ziadah — activate and ship the same day.",
+      sectorDetailDesc: "Apply the same examples and playbooks above to your store.",
+      blogIndexTitle: "From reading to activation",
+      blogIndexDesc: "Ship what you learn on your store — turn on Ziadah AI recommendations.",
+      blogPostTitle: "Ship this on your store",
+      blogPostDesc: "Turn what you read into revenue with a fast Zid or Salla activation.",
+      supportTitle: "Ready to activate after browsing help?",
+      supportDesc: "Connect your store and follow the same help-center steps — in minutes.",
+      legalTitle: "Ready to use Ziadah under these policies?",
+      legalDesc: "Activate the app on your store and get smart recommendations under the terms shown here.",
+      pricingTitle: "Activate Your Store Today",
+      pricingDesc:
+        "7-day free trial · No credit card · Cancel anytime · Instant activation on Zid, Salla & Bea",
     },
     sectorsPage: {
       seoTitle: "Industries — Ziadah for your vertical",
@@ -1868,6 +1956,8 @@ export const t = {
       perOrder: "per order",
       disclaimer: "* These are estimated figures based on your selected inputs and Ziadah customer results. Actual results vary depending on your store, products, and target audience.",
       cta: "Activate Ziadah and grow your ecommerce revenue now",
+      closingTitle: "Ready to turn the estimate into real revenue?",
+      closingDesc: "Activate Ziadah and apply the same calculator assumptions to your live store.",
     },
     analyze: {
       seoTitle: "AI Store Analysis — Cross-Sell & Upsell Insights",
@@ -2189,6 +2279,7 @@ export const t = {
           { emoji: "🧢", name: "Sports Cap", price: "89" },
           { emoji: "🎽", name: "Sports T-Shirt", price: "129" },
         ] as { emoji: string; name: string; price: string }[],
+        offerCountdown: "02:47:13",
       },
       increaseAOV: {
         title: "Increase Average Order",
@@ -2243,6 +2334,23 @@ export const t = {
         ] as { emoji: string; name: string; reviews: string; price: string }[],
         currency: "SAR ",
         btnAdd: "Add to Cart",
+      },
+      /** Cart page hero phone preview — locale-aware */
+      cartHeroPhone: {
+        cartTitle: "🛒 Shopping cart (3 items)",
+        freeShipHint: "Add SAR 30 for free shipping 🚚",
+        progressTotals: "SAR 170 / SAR 200",
+        lineItems: [
+          { emoji: "🧴", name: "Moisturizing cream", price: "SAR 85" },
+          { emoji: "💆", name: "Hair spray", price: "SAR 60" },
+          { emoji: "✨", name: "Face wash", price: "SAR 25" },
+        ] as { emoji: string; name: string; price: string }[],
+        suggestionTitle: "💡 Frequently bought together",
+        suggestionName: "Hair conditioner 💇",
+        suggestionAdd: "+ SAR 32",
+        totalLabel: "Total",
+        grandTotal: "SAR 170",
+        checkoutCta: "Checkout →",
       },
     },
     blog: {

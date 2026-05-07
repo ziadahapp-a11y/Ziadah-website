@@ -203,6 +203,171 @@ function getPlatformLogoSrc(platformKey: "salla" | "zid", _lang: "ar" | "en", th
   return platformKey === "zid" ? platformZidLogoSrc(theme) : platformSallaLogoSrc(theme);
 }
 
+type PlatformAppNavItem = { label: string; href: string; enabled: boolean };
+
+function getZidPlatformAppNavItems(tr: Translations): PlatformAppNavItem[] {
+  return [{ label: tr.nav.zidAppsComparison, href: "/zid-apps-comparison", enabled: true }];
+}
+
+/** Set `enabled: true` and real `href` when each Salla page is ready. */
+function getSallaPlatformAppNavItems(tr: Translations): PlatformAppNavItem[] {
+  return [
+    { label: tr.nav.sallaAppsNavItem1, href: "#", enabled: false },
+  ];
+}
+
+function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
+  const t = useSiteT();
+  const { lang } = useLanguage();
+  const tr = t[lang];
+  const rowHover = (el: HTMLElement, on: boolean) => {
+    el.style.background = on ? "rgba(124,58,237,.1)" : "transparent";
+  };
+  return (
+    <>
+      {items.map((item) => {
+        const key = `${item.href}-${item.label}`;
+        if (!item.enabled) {
+          return (
+            <div
+              key={key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 10,
+                padding: "10px 14px",
+                borderRadius: 12,
+                color: "var(--td)",
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: "default",
+                fontFamily: "var(--font)",
+              }}
+            >
+              <span>{item.label}</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  background: "var(--s2)",
+                  color: "var(--td)",
+                  padding: "2px 8px",
+                  borderRadius: 20,
+                  flexShrink: 0,
+                }}
+              >
+                {tr.nav.comingSoon}
+              </span>
+            </div>
+          );
+        }
+        const external = /^https?:\/\//i.test(item.href);
+        if (external) {
+          return (
+            <a
+              key={key}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "block",
+                padding: "10px 14px",
+                borderRadius: 12,
+                textDecoration: "none",
+                color: "var(--t)",
+                fontSize: 14,
+                fontWeight: 500,
+                transition: "background .2s",
+                fontFamily: "var(--font)",
+              }}
+              onMouseEnter={(e) => rowHover(e.currentTarget, true)}
+              onMouseLeave={(e) => rowHover(e.currentTarget, false)}
+            >
+              {item.label}
+            </a>
+          );
+        }
+        return (
+          <span
+            key={key}
+            role="button"
+            tabIndex={0}
+            onClick={() => navigateTo(item.href)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigateTo(item.href);
+              }
+            }}
+            style={{
+              display: "block",
+              padding: "10px 14px",
+              borderRadius: 12,
+              color: "var(--t)",
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "background .2s",
+              fontFamily: "var(--font)",
+            }}
+            onMouseEnter={(e) => rowHover(e.currentTarget as HTMLElement, true)}
+            onMouseLeave={(e) => rowHover(e.currentTarget as HTMLElement, false)}
+          >
+            {item.label}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+function ComparisonAppsGroupedDropdown({
+  zidItems,
+  sallaItems,
+}: {
+  zidItems: PlatformAppNavItem[];
+  sallaItems: PlatformAppNavItem[];
+}) {
+  const t = useSiteT();
+  const { lang } = useLanguage();
+  const tr = t[lang];
+  const panelStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "calc(100% + 10px)",
+    right: 0,
+    left: "auto",
+    minWidth: "min(300px, calc(100vw - 24px))",
+    maxWidth: "calc(100vw - 16px)",
+    boxSizing: "border-box",
+    background: "rgba(8,6,20,.97)",
+    border: "1px solid rgba(255,255,255,.1)",
+    borderRadius: 16,
+    padding: "8px 6px",
+    backdropFilter: "blur(32px)",
+    boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+    zIndex: 100,
+  };
+  const sectionTitleStyle: React.CSSProperties = {
+    fontSize: 10,
+    fontWeight: 800,
+    color: "var(--p4)",
+    padding: "6px 12px 2px",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    fontFamily: "var(--font)",
+  };
+  return (
+    <div style={panelStyle}>
+      <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownZid}</div>
+      <PlatformAppNavItemList items={zidItems} />
+      <div style={{ height: 1, background: "rgba(255,255,255,.1)", margin: "8px 8px 6px" }} />
+      <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownSalla}</div>
+      <PlatformAppNavItemList items={sallaItems} />
+    </div>
+  );
+}
+
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
   return (
     <div onMouseEnter={onHoverStart} onMouseLeave={onHoverEnd} style={{ position: "relative" }}>
@@ -711,6 +876,8 @@ function MobileMoreDropdown({
   const { openMeetingBooking } = useMeetingBooking();
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
+  const zidPlatformAppNavItems = getZidPlatformAppNavItems(tr);
+  const sallaPlatformAppNavItems = getSallaPlatformAppNavItems(tr);
 
   const [openSection, setOpenSection] = useState<string | null>(initialOpenSection ?? null);
   const toggleSection = (section: string) => setOpenSection(prev => prev === section ? null : section);
@@ -851,7 +1018,11 @@ function MobileMoreDropdown({
                 <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingInlineEnd: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {section.items.map((item) => (
-                    <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
+                    <span
+                      key={item.href}
+                      onClick={() => { navigateTo(item.href); onClose(); }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
                       {item.label}
                     </span>
                   ))}
@@ -916,6 +1087,91 @@ function MobileMoreDropdown({
                   </div>
                 )
               )}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+          <button
+            type="button"
+            onClick={() => toggleSection("comparisonApps")}
+            aria-expanded={openSection === "comparisonApps"}
+            style={{
+              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
+              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              textTransform: "uppercase", fontFamily: "var(--font)",
+            }}
+          >
+            <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
+              {tr.nav.comparisonNav}
+            </Editable>
+            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "comparisonApps" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+          </button>
+          <div style={{
+            overflow: "hidden",
+            maxHeight: openSection === "comparisonApps" ? "2000px" : "0px",
+            opacity: openSection === "comparisonApps" ? 1 : 0,
+            transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
+          }}>
+            <div style={{ paddingBottom: 8 }}>
+              <div style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", padding: "8px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownZid}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {zidPlatformAppNavItems.map((item) =>
+                  item.enabled ? (
+                    <span
+                      key={item.href + item.label}
+                      onClick={() => {
+                        navigateTo(item.href);
+                        onClose();
+                      }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
+                      <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "zidAppsComparison")} label="Nav Zid apps comparison">
+                        {item.label}
+                      </Editable>
+                    </span>
+                  ) : null,
+                )}
+              </div>
+              <div style={{ height: 1, background: "rgba(255,255,255,.08)", margin: "10px 4px 8px" }} />
+              <div style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", padding: "4px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownSalla}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {sallaPlatformAppNavItems.map((item) =>
+                  item.enabled ? (
+                    <span
+                      key={item.href + item.label}
+                      onClick={() => {
+                        navigateTo(item.href);
+                        onClose();
+                      }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
+                      {item.label}
+                    </span>
+                  ) : (
+                    <div
+                      key={item.href + item.label}
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "space-between",
+                        padding: "9px 12px", borderRadius: 10,
+                        background: "rgba(255,255,255,.04)", color: "var(--td)",
+                        border: "1px solid rgba(255,255,255,.07)",
+                        fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                      }}
+                    >
+                      <Editable
+                        allowClickThrough
+                        contentKey={cmsKey(lang, "nav", "sallaAppsNavItem1")}
+                        label="Nav Salla slot 1"
+                      >
+                        {item.label}
+                      </Editable>
+                      <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{tr.nav.comingSoon}</span>
+                    </div>
+                  ),
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -1056,57 +1312,11 @@ export default function Nav() {
   const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | "login" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
-  /** Solid purple desktop bar only over landing “white violet” blocks (and optional `[data-nav-backdrop="light"]`). */
-  const [desktopNavOverLightBackdrop, setDesktopNavOverLightBackdrop] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setOpenDrop(null);
     setMobileOpenDrop(null);
-  }, [location]);
-
-  useEffect(() => {
-    let raf = 0;
-    const LIGHT_BACKDROP_SEL = ".landing-white-violet, [data-nav-backdrop=\"light\"]";
-
-    const sampleUnderNav = (): boolean => {
-      if (typeof window === "undefined" || window.matchMedia("(max-width: 1024px)").matches) {
-        return false;
-      }
-      const x = Math.min(window.innerWidth - 2, Math.max(2, window.innerWidth / 2));
-      const y = 29;
-      try {
-        const stack = document.elementsFromPoint(x, y);
-        for (const node of stack) {
-          if (!(node instanceof Element)) continue;
-          if (node.closest(".desktop-nav")) continue;
-          if (node.id === "zd-cur" || node.id === "zd-curR") continue;
-          return !!node.closest(LIGHT_BACKDROP_SEL);
-        }
-      } catch {
-        /* SSR / security */
-      }
-      return false;
-    };
-
-    const tick = () => {
-      raf = 0;
-      setDesktopNavOverLightBackdrop(sampleUnderNav());
-    };
-
-    const schedule = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(tick);
-    };
-
-    tick();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      if (raf) window.cancelAnimationFrame(raf);
-    };
   }, [location]);
 
   const handleHoverStart = (label: string) => {
@@ -1140,6 +1350,8 @@ export default function Nav() {
 
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
+  const zidPlatformAppNavItems = getZidPlatformAppNavItems(tr);
+  const sallaPlatformAppNavItems = getSallaPlatformAppNavItems(tr);
   const mobileHelpItems = [
     {
       label: tr.nav.faq,
@@ -1183,24 +1395,16 @@ export default function Nav() {
         marginRight: 0,
         justifyContent: "flex-start",
         alignItems: "center",
-        ...(desktopNavOverLightBackdrop
-          ? {
-            backgroundColor: "rgba(9, 0, 25, 1)",
-            backgroundImage: "none",
-            border: "1px solid rgba(124, 58, 237, 0.18)",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
-            backdropFilter: "blur(20px)",
-            color: "var(--tm)",
-          }
-          : {
-            background: "unset",
-            border: "none",
-            boxShadow: "none",
-            backdropFilter: "blur(20px)",
-          }),
+        backgroundColor: "rgba(9, 0, 25, 0.96)",
+        backgroundImage: "none",
+        border: "1px solid rgba(124, 58, 237, 0.18)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        color: "var(--tm)",
         borderRadius: 0,
         padding: "0 20px",
-        transition: "background .4s, box-shadow .4s, border-color .4s",
+        transition: "background .22s ease, box-shadow .22s ease, border-color .22s ease",
       }}>
         {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
@@ -1426,6 +1630,19 @@ export default function Nav() {
                   {chevron(openDrop === "platforms2")}
                 </button>
                 {openDrop === "platforms2" && <PlatformsDropdown />}
+              </DropdownWrapper>
+            </li>
+            <li style={navLinkLiStyle}>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("comparisonNav2")} onHoverEnd={handleHoverEnd}>
+                <button type="button" style={navBtnStyle(openDrop === "comparisonNav2" || location === "/zid-apps-comparison")}>
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
+                    {tr.nav.comparisonNav}
+                  </Editable>{" "}
+                  {chevron(openDrop === "comparisonNav2")}
+                </button>
+                {openDrop === "comparisonNav2" && (
+                  <ComparisonAppsGroupedDropdown zidItems={zidPlatformAppNavItems} sallaItems={sallaPlatformAppNavItems} />
+                )}
               </DropdownWrapper>
             </li>
             <li style={navLinkLiStyle}>

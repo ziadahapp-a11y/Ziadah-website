@@ -41,7 +41,7 @@ export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) 
       }
     >
       <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {tr.items.map((p, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -68,7 +68,7 @@ export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) 
                 flexShrink: 0,
                 transition: "all .2s ease",
               }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 10, fontWeight: 900 }}>✓</span>}
+                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
               </div>
               <div style={{
                 width: 36,
@@ -83,11 +83,11 @@ export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) 
                 border: "1px solid rgba(168,85,247,.26)",
               }}>{p.emoji}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
-                <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
+                <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
                 <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 2 }}>
                   <span style={{ fontSize: 12, fontWeight: 800, color: "var(--t)" }}>{tr.currency}{p.price}</span>
-                  {p.originalPrice && <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.originalPrice}</span>}
+                  {p.originalPrice && <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.originalPrice}</span>}
                 </div>
               </div>
             </div>

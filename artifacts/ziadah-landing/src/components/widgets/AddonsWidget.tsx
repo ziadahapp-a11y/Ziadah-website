@@ -42,8 +42,8 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
     >
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[8px] text-[9px]">{tr.descLabel}</div>
+          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
+          className="mt-[8px] text-[12px]">{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {tr.items.map((a, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -68,13 +68,13 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
                 flexShrink: 0,
                 transition: "all .2s ease",
               }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
+                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
             </div>
           ))}
         </div>
@@ -89,7 +89,7 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "var(--tm)" }}>{tr.totalLabel}</span>
+        <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.totalLabel}</span>
         <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total}{tr.currency}</span>
       </div>
       <button style={{

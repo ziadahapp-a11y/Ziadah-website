@@ -1,6 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import BuyMoreSaveMoreWidget from "../../components/widgets/BuyMoreSaveMoreWidget";
-import WidgetTabs from "../../components/WidgetTabs";
 
 const data: UseCasePageData = {
   hero: {
@@ -57,58 +57,56 @@ const data: UseCasePageData = {
     result: "عرض شريط التقدم 'أضف قطعة واحدة ووفّر X ⃁' يرفع معدل اختيار الكميات الأكبر بنسبة 42% مقارنة بجدول الشرائح الثابت — الرسالة الشخصية المباشرة تُحفّز أكثر.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح عروض الكميات كما يراها عميلك فعلياً" : "This is how the volume offer looks to your customer"}</p>
-        <WidgetTabs
-          isAr={isAr}
-          fullWidthContent
-          tabs={[
-            {
-              labelAr: "📱 مثال حي",
-              labelEn: "📱 Live Demo",
-              content: <BuyMoreSaveMoreWidget />,
-            },
-            {
-              labelAr: "🏷️ مناسب لأي منتج؟",
-              labelEn: "🏷️ Best Product Fits",
-              content: (
-                <div style={{ border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-                  <div className="shine"/>
-                  <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}</h3>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-                    {(isAr ? [
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr ? "هكذا تبدو واجهة اقتراح عروض الكميات كما يراها عميلك فعلياً" : "This is how the volume offer looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <BuyMoreSaveMoreWidget />,
+        },
+        {
+          labelAr: "🏷️ مناسب لأي منتج؟",
+          labelEn: "🏷️ Best Product Fits",
+          placement: "below",
+          content: (
+            <div style={{ border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
+              <div className="shine" />
+              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+                {isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+                {(isAr
+                  ? [
                       { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
                       { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
                       { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
                       { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
-                    ] : [
+                    ]
+                  : [
                       { icon: "🔄", type: "Consumable products", examples: "Cleaning, skincare, food" },
                       { icon: "📦", type: "Storable products", examples: "Coffee, supplements, stationery" },
                       { icon: "🎁", type: "Gift & seasonal products", examples: "Chocolate, candles, perfumes" },
                       { icon: "🏭", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
-                    ]).map((item, i) => (
-                      <div key={i} style={{ padding: "20px 24px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.12)", borderRadius: 14 }}>
-                        <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
-                        <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
-                        <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
-                      </div>
-                    ))}
+                    ]
+                ).map((item, i) => (
+                  <div key={i} style={{ padding: "20px 24px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.12)", borderRadius: 14 }}>
+                    <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
+                    <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
+                    <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
                   </div>
-                </div>
-              ),
-            },
-          ]}
-        />
-      </div>
-    </section>
+                ))}
+              </div>
+            </div>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عروض الكميات",
   ctaDesc: "زيادة يُنشئ عروض الكميات تلقائياً ويُحفّز العميل لشراء أكثر بنفس منتجك.",
   heroEn: {
@@ -164,7 +162,6 @@ const data: UseCasePageData = {
     ],
     result: "Showing a progress bar 'Add one more unit and save X SAR' increases the rate of choosing larger quantities by 42% compared to a static tier table — a direct, personal message motivates more.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Activate quantity offers",
   ctaDescEn: "Ziadah automatically generates quantity offers and motivates customers to buy more of your products.",
   seo: {

@@ -3,6 +3,7 @@ import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
@@ -201,6 +202,7 @@ export default function Calculator() {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang].calculator;
+  const ld = t[lang].landing;
   const pk = getPageKeywords("/calculator");
   const numLocale = lang === "ar" ? "ar-SA-u-nu-latn" : "en-US";
   const currencySuffix = lang === "ar" ? " ⃁" : " SAR";
@@ -317,14 +319,14 @@ export default function Calculator() {
         <DsPageBackdrop />
 
         <section
+          className="page-hero-viewport page-hero-viewport--center"
           style={{
             position: "relative",
             zIndex: 2,
-            padding: "var(--page-hero-pt) var(--page-inline-pad) 80px",
           }}
         >
           <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div style={{ textAlign: "center", marginBottom: 0 }}>
               <div className="stag rv" style={{ display: "inline-flex" }}>
                 <span className="stag-dot" />
                 {tr.tag}
@@ -342,7 +344,17 @@ export default function Calculator() {
                 style={{ margin: "0 auto", maxWidth: 520 }}
               >{tr.subtitle}</p>
             </div>
+          </div>
+        </section>
 
+        <section
+          style={{
+            position: "relative",
+            zIndex: 2,
+            padding: "0 var(--page-inline-pad) 80px",
+          }}
+        >
+          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
             <div
               style={{
                 display: "grid",
@@ -721,6 +733,13 @@ export default function Calculator() {
           </div>
         </section>
 
+        <PageClosingCta
+          title={tr.closingTitle}
+          description={tr.closingDesc}
+          buttonLabel={ld.ctaBtn}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
+
         <style>{`
           /* مقبض بنفسجي صلب */
           input.calc-range-input {
@@ -762,7 +781,7 @@ export default function Calculator() {
           input.calc-range-input:active::-webkit-slider-thumb {
             cursor: grabbing;
             box-shadow:
-              0 2px 16px rgba(91, 33, 182, 0.65),
+              0 2px 16px rgba(124, 58, 237, 0.65),
               0 0 0 2px rgba(255, 255, 255, 0.55);
           }
           input.calc-range-input:focus-visible::-webkit-slider-thumb {
@@ -795,7 +814,7 @@ export default function Calculator() {
           input.calc-range-input:active::-moz-range-thumb {
             cursor: grabbing;
             box-shadow:
-              0 2px 16px rgba(91, 33, 182, 0.65),
+              0 2px 16px rgba(124, 58, 237, 0.65),
               0 0 0 2px rgba(255, 255, 255, 0.55);
           }
           input.calc-range-input:focus-visible::-moz-range-thumb {

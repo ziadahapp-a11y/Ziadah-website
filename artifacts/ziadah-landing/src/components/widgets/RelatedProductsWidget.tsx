@@ -30,8 +30,8 @@ export default function RelatedProductsWidget({ demo }: { demo?: RelatedProducts
     >
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[5px] text-[10px]">{tr.descLabel}</div>
+          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
+          className="mt-[5px] text-[12px]">{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {tr.products.map((p, i) => (
             <div key={i} style={{
@@ -56,9 +56,9 @@ export default function RelatedProductsWidget({ demo }: { demo?: RelatedProducts
                   flexShrink: 0,
                 }}>{p.emoji}</div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
-                  <div style={{ fontSize: 9, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>{tr.currency}{p.price}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
+                  <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>{tr.currency}{p.price}</div>
                 </div>
               </div>
               <button style={{
@@ -69,7 +69,7 @@ export default function RelatedProductsWidget({ demo }: { demo?: RelatedProducts
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 color: "#c084fc",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 800,
                 border: "1px solid rgba(124,58,237,0.2)",
                 cursor: "pointer",

@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import CouponWidget from "../../components/widgets/CouponWidget";
 
 const data: UseCasePageData = {
@@ -56,39 +57,13 @@ const data: UseCasePageData = {
     result: "تحويل من تخلي عن السلة إلى إتمام بعرض محدود الوقت.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "4px 14px",
-            borderRadius: 50,
-            background: "rgba(124,58,237,.08)",
-            border: "1px solid rgba(124,58,237,.2)",
-            color: "#7c3aed",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: 1,
-            textTransform: "uppercase" as const,
-            marginBottom: 16,
-          }}
-        >
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }} />
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>
-          {isAr ? "كيف تظهر قسيمة الخصم للعميل؟" : "How does the coupon appear to customers?"}
-        </h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>
-          {isAr ? "واجهة كوبون واضحة مع عداد زمني" : "Clear coupon UI with a countdown"}
-        </p>
-        <CouponWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تظهر قسيمة الخصم للعميل؟" : "How does the coupon appear to customers?"}
+      subtitle={isAr ? "واجهة كوبون واضحة مع عداد زمني" : "Clear coupon UI with a countdown"}
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CouponWidget /> }]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل قسيمة الخصم الذكية",
   ctaDesc: "حوّل المترددين إلى مشترين بعرض واضح ومحدود الوقت.",
   heroEn: {
@@ -144,7 +119,6 @@ const data: UseCasePageData = {
     ],
     result: "Turn cart abandonment into completion with a time-bound offer.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Activate smart discount coupons",
   ctaDescEn: "Convert hesitators into buyers with a clear, time-limited offer.",
   seo: {

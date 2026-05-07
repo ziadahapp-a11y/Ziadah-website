@@ -121,7 +121,7 @@ function WidgetShowcaseCardHeader({
   });
 
   const descStyle: CSSProperties = {
-    fontSize: item.kind === "bundle" ? 11 : 12,
+    fontSize: 12,
     color: "var(--tm)",
     lineHeight: 1.55,
     marginTop: 4,

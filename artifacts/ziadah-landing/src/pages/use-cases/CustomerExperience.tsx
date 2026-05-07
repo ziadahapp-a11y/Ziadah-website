@@ -80,7 +80,6 @@ const data: UseCasePageData = {
     ],
     result: "في deployments مشابهة: ارتفع متوسط قيمة الطلب بين 18% و34% في أول ستة أسابيع، ووصل معدل التحويل إلى ضعف أو ثلاثة أضعاف في فئات مختارة — دون ساعات إعداد أسبوعية من التاجر.",
   },
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "اجعل كل عميل يشعر أن المتجر صُمّم له",
   ctaDesc: "فعّل محرك التوصيات الذكي من زيادة واترك التخصيص العميق للذكاء الاصطناعي.",
   extraSections: (isAr) => (
@@ -237,7 +236,6 @@ const data: UseCasePageData = {
     ],
     result: "In comparable deployments: AOV rose between 18% and 34% in the first six weeks, and conversion reached 2–3× in selected categories — without weekly manual setup from the merchant.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Make every customer feel the store was built for them",
   ctaDescEn: "Activate Ziadah's smart recommendations engine and let deep personalization run on autopilot.",
   seo: {

@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PageShell from "@/components/PageShell";
+import PlatformModal from "@/components/PlatformModal";
+import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -15,6 +17,9 @@ export default function EcommerceStoreSectors() {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
+  const pc = t[lang].pageClosingCta;
+  const ld = t[lang].landing;
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const pk = getPageKeywords("/sectors/ecommerce-stores");
   const ecommerceSectors = sectors.filter((sector) => !EXCLUDED_SLUGS.has(sector.slug));
 
@@ -58,16 +63,7 @@ export default function EcommerceStoreSectors() {
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
         <DsPageBackdrop />
 
-        <section
-          style={{
-            paddingTop: "var(--page-hero-pt)",
-            paddingBottom: 40,
-            textAlign: "center",
-            position: "relative",
-            zIndex: 2,
-            paddingInline: "var(--page-inline-pad)",
-          }}
-        >
+        <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
           <div className="stag rv" style={{ display: "inline-flex" }}>
             <span className="stag-dot" />
             {lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
@@ -139,7 +135,14 @@ export default function EcommerceStoreSectors() {
             })}
           </div>
         </section>
+        <PageClosingCta
+          title={pc.ecommerceSectorsTitle}
+          description={pc.ecommerceSectorsDesc}
+          buttonLabel={ld.ctaBtn}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

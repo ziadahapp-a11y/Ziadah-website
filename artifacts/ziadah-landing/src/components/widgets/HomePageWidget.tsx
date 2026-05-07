@@ -17,7 +17,7 @@ export default function HomePageWidget() {
           border: "1.5px solid rgba(124,58,237,.3)",
           marginBottom: 10,
         }}>
-          <div style={{ fontSize: 9, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
+          <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
               <div style={{
@@ -32,10 +32,10 @@ export default function HomePageWidget() {
                 flexShrink: 0,
               }}>👟</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
                   <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
-                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
+                  <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function HomePageWidget() {
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
               color: "#c084fc",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 800,
               border: "1px solid rgba(124,58,237,0.2)",
               cursor: "pointer",
@@ -67,12 +67,12 @@ export default function HomePageWidget() {
         }}>
           <span style={{ fontSize: 12 }}>⏱️</span>
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 9, color: "#f87171", fontWeight: 700 }}>{tr.offerExpires}</div>
-            <div style={{ fontSize: 11, fontWeight: 900, color: "var(--t)" }}>02:47:13</div>
+            <div style={{ fontSize: 12, color: "#f87171", fontWeight: 700 }}>{tr.offerExpires}</div>
+            <div style={{ fontSize: 12, fontWeight: 900, color: "var(--t)" }}>{tr.offerCountdown}</div>
           </div>
         </div>
 
-        <div style={{ fontSize: 9, color: "var(--td)", marginBottom: 7 }}>{tr.topSellersLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 7 }}>{tr.topSellersLabel}</div>
         <div style={{ display: "flex", gap: 7 }}>
           {tr.miniProducts.map((p, i) => (
             <div key={i} style={{
@@ -84,8 +84,8 @@ export default function HomePageWidget() {
               textAlign: "center",
             }}>
               <div style={{ fontSize: 20, marginBottom: 3 }}>{p.emoji}</div>
-              <div style={{ fontSize: 9, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 10, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+              <div style={{ fontSize: 12, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
             </div>
           ))}
         </div>

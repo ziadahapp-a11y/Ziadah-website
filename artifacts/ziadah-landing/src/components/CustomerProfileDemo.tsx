@@ -22,7 +22,7 @@ const nasserProfile = {
   labelEn: "Returning Customer",
   tags: [
     { text: "ذكر", textEn: "Male", color: "#6366f1" },
-    { text: "آيفون 17", textEn: "iPhone 17", color: "#8b5cf6" },
+    { text: "آيفون 17", textEn: "iPhone 17", color: "#7c3aed" },
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [

@@ -1,29 +1,6 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import { useLanguage } from "@/i18n/LanguageContext";
-import WidgetTabs from "@/components/WidgetTabs";
-
-const PhoneMockup = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
-  <div style={{
-    width: 280,
-    background: "var(--s1)",
-    border: "1px solid var(--b2)",
-    borderRadius: 36,
-    overflow: "hidden",
-    boxShadow: "0 32px 80px rgba(0,0,0,.15)",
-    backdropFilter: "blur(12px)",
-    flexShrink: 0,
-    ...style,
-  }}>
-    <div style={{
-      display: "flex", justifyContent: "center", paddingTop: 14, paddingBottom: 8,
-    }}>
-      <div style={{ width: 80, height: 6, background: "var(--s3)", borderRadius: 99 }} />
-    </div>
-    <div style={{ padding: "0 16px 24px" }}>
-      {children}
-    </div>
-  </div>
-);
+import UseCaseLiveShowcase from "@/components/UseCaseLiveShowcase";
 
 const PhoneTopBar = () => (
   <div style={{
@@ -130,13 +107,13 @@ const AddToCartRow = ({
       fontSize: 10, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
       cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
     }}>
-      اضف للسلة
+      أضف للسلة
     </button>
   </div>
 );
 
 const Phone1Content = () => (
-  <PhoneMockup>
+  <>
     <PhoneTopBar />
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
       طريقة الشحن
@@ -155,7 +132,7 @@ const Phone1Content = () => (
       </div>
     </div>
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>منتجات مقترحة</div>
-    <ProductCard name="سلسلال ذهب بحجر ياقوت" reviews="4681" price="45" checked={true} />
+    <ProductCard name="سلسلة ذهبية بحجر ياقوت" reviews="4681" price="45" checked={true} />
     <ProductCard name="حلق ذهب بحجر ياقوت" reviews="4681" price="100" checked={true} />
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
       <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
@@ -166,17 +143,17 @@ const Phone1Content = () => (
       borderRadius: 14, padding: "12px 0", textAlign: "center",
       fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
     }}>ادفع الآن</div>
-  </PhoneMockup>
+  </>
 );
 
 const Phone2Content = () => (
-  <PhoneMockup>
+  <>
     <PhoneTopBar />
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
     <ShippingRow method="مجاني" time="" highlighted />
     <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
     <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
-      لاتنسى تضيفها بعرض خاص لك الآن
+      لا تنسَ تضيفها بعرض خاص لك الآن
     </div>
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -198,7 +175,7 @@ const Phone2Content = () => (
       borderRadius: 14, padding: "12px 0", textAlign: "center",
       fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
     }}>ادفع الآن</div>
-  </PhoneMockup>
+  </>
 );
 
 function CheckoutMockup() {
@@ -206,33 +183,25 @@ function CheckoutMockup() {
   const isAr = lang !== "en";
   const isEn = !isAr;
   return (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <h2 style={{
-          fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 900, textAlign: "center",
-          marginBottom: 40, color: "var(--t)",
-        }}>
-          {isEn ? "How does Ziadah look on the checkout page?" : "كيف يبدو زيادة في صفحة الدفع؟"}
-        </h2>
-        <WidgetTabs
-          isAr={isAr}
-          tabs={[
-            {
-              labelAr: "أكمل للشحن المجاني",
-              labelEn: "Complete for Free Shipping",
-              icon: "🚚",
-              content: <Phone1Content />,
-            },
-            {
-              labelAr: "عرض الشحن المجاني المميز",
-              labelEn: "Premium Free Shipping Offer",
-              icon: "✅",
-              content: <Phone2Content />,
-            },
-          ]}
-        />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isEn ? "How does Ziadah look on the checkout page?" : "كيف يبدو زيادة في صفحة الدفع؟"}
+      subtitle={isEn ? "Swipe tabs — same patterns, inside a shopper’s phone frame." : "بدّل بين النمطين — داخل إطار هاتف العميل."}
+      tabs={[
+        {
+          labelAr: "أكمل للشحن المجاني",
+          labelEn: "Complete for Free Shipping",
+          icon: "🚚",
+          content: <Phone1Content />,
+        },
+        {
+          labelAr: "عرض الشحن المجاني المميز",
+          labelEn: "Premium Free Shipping Offer",
+          icon: "✅",
+          content: <Phone2Content />,
+        },
+      ]}
+    />
   );
 }
 
@@ -290,7 +259,6 @@ const data: UseCasePageData = {
     ],
     result: "الطلب ارتفع من 55 إلى 200 ⃁ والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
   },
-  plans: ["الأعمال"],
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",
   extraSections: <CheckoutMockup />,
@@ -347,7 +315,6 @@ const data: UseCasePageData = {
     ],
     result: "The order rose from 55 to 200 SAR and the customer felt the decision was in their favor — because they saved shipping costs.",
   },
-  plansEn: ["Business"],
   ctaTitleEn: "Turn the checkout page into a smart sales opportunity",
   ctaDescEn: "Activate Ziadah and watch your order values rise with every payment.",
   seo: {

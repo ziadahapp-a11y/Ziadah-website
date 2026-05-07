@@ -78,6 +78,10 @@
     "/sectors": {
       "keywordsAr": "قطاعات التجارة، زد، سلة، ذكاء اصطناعي، مجال المتجر، أفضل ممارسات",
       "keywordsEn": "ecommerce verticals, Zid, Salla, AI merchandising, industry guide, best practices"
+    },
+    "/zid-apps-comparison": {
+      "keywordsAr": "مقارنة تطبيقات زد، زيادة، نماء، بووست، تاسك اب، رقمي، توصيات منتجات، منصة زد",
+      "keywordsEn": "Zid apps comparison, Ziyada, Namaa, Boost, TaskUp, Raqmi, product recommendations, Zid marketplace"
     }
   }
 }

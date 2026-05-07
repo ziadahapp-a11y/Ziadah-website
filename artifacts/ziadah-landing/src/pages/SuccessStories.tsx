@@ -3,6 +3,7 @@ import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
+import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
@@ -877,6 +878,32 @@ export default function SuccessStories() {
             opacity: 1;
             transform: translateY(0);
           }
+          .success-stories-sticky-toolbar {
+            margin-top: 20px;
+            background: rgba(12, 9, 31, 1);
+            border-bottom: none;
+            border-image: none;
+          }
+          [data-theme="light"] .success-stories-sticky-toolbar {
+            background: var(--bg);
+          }
+          .success-stories-hero {
+            background: #fff;
+            color: #0f172a;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+          }
+          .success-stories-hero .hero-stat-v2 {
+            background: linear-gradient(165deg, rgba(248, 250, 252, 1) 0%, rgba(241, 245, 249, 1) 100%);
+            border-color: rgba(15, 23, 42, 0.1);
+            box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          }
+          .success-stories-hero .hero-stat-v2::after {
+            opacity: 0.22;
+          }
+          .success-stories-hero .hero-stat-v2:hover {
+            border-color: color-mix(in srgb, var(--accent, #a855f7) 35%, rgba(15, 23, 42, 0.12));
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1), 0 0 0 1px color-mix(in srgb, var(--accent, #a855f7) 14%, transparent);
+          }
           .hero-stat-v2 {
             padding: 22px 34px;
             min-width: 140px;
@@ -1041,16 +1068,25 @@ export default function SuccessStories() {
         `}</style>
         
 
-        <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 24, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
+        <section
+          className="success-stories-hero page-hero-viewport page-hero-viewport--center"
+          style={{ position: "relative", zIndex: 2 }}
+        >
           <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{sx.heroTag}</div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(24px,5vw,72px)", marginTop: 10, marginBottom: 12 }}>
+          <h1 className="st rv d1" style={{ fontSize: "clamp(24px,5vw,72px)", marginTop: 10, marginBottom: 12, color: "inherit" }}>
             <span
-              style={{ background: "linear-gradient(135deg,#a855f7,#06b6d4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+              style={{
+                color: "rgba(8, 6, 21, 1)",
+                backgroundImage: "none",
+                backgroundClip: "unset",
+                WebkitBackgroundClip: "unset",
+                WebkitTextFillColor: "unset",
+              }}
               className="mt-[1px] mb-[1px]">{sx.heroH1Gradient}</span>
             <br />
-            <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "var(--tm)", fontWeight: 700 }}>{sx.heroH1Sub}</span>
+            <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "#334155", fontWeight: 700 }}>{sx.heroH1Sub}</span>
           </h1>
-          <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "var(--td)" }}>
+          <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "#64748b" }}>
             {sx.heroLead}
           </p>
           <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -1066,13 +1102,13 @@ export default function SuccessStories() {
               <div key={l} className="hero-stat-v2" style={{ "--accent": c } as CSSProperties}>
                 <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
                 <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
-                <div style={{ fontSize: 13, color: "var(--td)", fontWeight: 600 }}>{l}</div>
+                <div style={{ fontSize: 13, color: "#64748b", fontWeight: 600 }}>{l}</div>
               </div>
             ))}
           </div>
         </section>
 
-        <section style={{ position: "sticky", top: 80, zIndex: 800, paddingInline: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, background: "var(--bg)", backdropFilter: "blur(20px)", borderBottom: "1px solid var(--b1)" }}>
+        <section className="success-stories-sticky-toolbar" style={{ position: "sticky", top: 80, zIndex: 800, paddingInline: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, backdropFilter: "blur(20px)" }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div
               ref={filterRef}
@@ -1093,8 +1129,8 @@ export default function SuccessStories() {
           </div>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, paddingInline: "5%", paddingBottom: 80 }}>
-          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
+        <section style={{ position: "relative", zIndex: 2, paddingInline: "5%", paddingBottom: 80, display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center" }}>
+          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center" }}>
             {activeSector !== "الكل" && (
               <div style={{ marginBottom: 24, display: "flex", alignItems: "center", gap: 12 }}>
                 <div style={{ fontSize: 15, color: "var(--td)" }}>
@@ -1164,18 +1200,12 @@ export default function SuccessStories() {
           </div>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
-          <div style={{ maxWidth: 800, margin: "0 auto" }}>
-            <div className="gc cta-box rv" style={{ padding: "72px 56px" }}>
-              <div className="shine"/><div className="cta-glow"/>
-              <h2 style={{ fontSize: "clamp(22px,4vw,52px)", fontWeight: 900, marginBottom: 16, position: "relative", zIndex: 1 }}>{isAr ? "متجرك القادم في قائمة النجاح" : "Your Store Is Next on the Success List"}</h2>
-              <p style={{ color: "var(--tm)", fontSize: 17, marginBottom: 40, position: "relative", zIndex: 1 }}>{isAr ? "انضم لـ +1500 متجر وابدأ رحلتك اليوم" : "Join +1500 stores and start your journey today"}</p>
-              <div className="cta-btns">
-                <button onClick={() => setPlatformModalOpen(true)} className="cta-btn cb-zid" style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff"/></svg>{isAr ? "فعّل الآن" : "Activate Now"}</button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <PageClosingCta
+          title={sx.ctaClosingTitle}
+          description={sx.ctaClosingDesc}
+          buttonLabel={sx.ctaClosingBtn}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
