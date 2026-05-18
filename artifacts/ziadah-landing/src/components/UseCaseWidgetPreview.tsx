@@ -9,7 +9,7 @@ interface UseCaseWidgetPreviewProps {
   maxWidth?: number;
 }
 
-export default function UseCaseWidgetPreview({ title, subtitle, children, maxWidth = 320 }: UseCaseWidgetPreviewProps) {
+export default function UseCaseWidgetPreview({ children, maxWidth = 320 }: UseCaseWidgetPreviewProps) {
   const { isAr } = useLanguage();
   const direction = isAr ? "rtl" : "ltr";
   const textAlign = isAr ? ("right" as const) : ("left" as const);
@@ -30,27 +30,6 @@ export default function UseCaseWidgetPreview({ title, subtitle, children, maxWid
         WebkitBackdropFilter: "var(--uc-preview-blur, blur(20px))",
       }}
       className="widget-preview mt-[0px] mb-[0px]">
-      <div style={{
-        background: "var(--uc-preview-header-bg, linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(124,58,237,0.05) 100%))",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        borderBottom: "var(--uc-preview-header-divider, 1px solid rgba(124,58,237,0.1))",
-        padding: "10px 16px",
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-      }}>
-        <div style={{ display: "flex", gap: 5 }}>
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
-          <div style={{ width: 9, height: 9, borderRadius: "50%", background: "var(--td)" }} />
-        </div>
-        <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: ".5px" }}>{title}</div>
-          {subtitle && <div style={{ fontSize: 12, color: "var(--tm)", marginTop: 1 }}>{subtitle}</div>}
-        </div>
-        <div style={{ width: 30 }} />
-      </div>
       <div
         style={{
           padding: "12px",

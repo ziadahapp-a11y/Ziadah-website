@@ -64,7 +64,7 @@ export default function EcommerceStoreSectors() {
         <DsPageBackdrop />
 
         <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
-          <div className="stag rv" style={{ display: "inline-flex" }}>
+          <div className="stag rv">
             <span className="stag-dot" />
             {lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
           </div>

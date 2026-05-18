@@ -40,12 +40,14 @@ function LanguageSwitcher() {
     <button
       type="button"
       onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.1)"; }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "unset"; }}
       style={{
         display: "flex", alignItems: "center", gap: 5,
         padding: "5px 10px", borderRadius: 8,
         background: "unset",
         backgroundImage: "none",
-        border: "1px solid rgba(255,255,255,.1)",
+        border: "none",
         color: "rgba(255,255,255,.8)", fontSize: 12, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,

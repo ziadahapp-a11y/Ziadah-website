@@ -151,7 +151,7 @@ export const t = {
       heroH1Gradient: "أثر مستدام لمتجرك",
       heroH1Sub: "بأرقام موثقة من تجار يستخدمون تطبيق زيادة",
       heroLead:
-        "أكثر من 700 متجر إلكتروني اختار زيادة لزيادة المبيعات بالذكاء الاصطناعي. إليك قصصهم بأرقام واضحة.",
+        "اكتشف كيف ضاعف أكثر من 700 متجر إلكتروني مبيعاته بتوصيات الذكاء الاصطناعي عبر منصة زيادة — أرقام موثقة، نتائج حقيقية، وقصص ملهمة من السوق السعودي والخليجي.",
       ctaClosingTitle: "متجرك القادم في قائمة النجاح",
       ctaClosingDesc: "انضم لـ +1500 متجر وابدأ رحلتك اليوم",
       ctaClosingBtn: "فعّل الآن",
@@ -516,7 +516,6 @@ export const t = {
       testimonialsRow2: [
         { text: "تطبيق ممتاز جدًا ويساعد على زيادة المبيعات وخدمة العملاء دائما متجاوبين", name: "skinly", role: "متجر عناية" },
         { text: "التطبيق ممتاز ويساعد في زيادة المبيعات.. وخدمة العملاء رهيبين 👍", name: "For Her | فور هر", role: "متجر إلكتروني" },
-        { text: "10/10", name: "Ziadah Commerce", role: "متجر إلكتروني" },
         { text: "تطبيق متميز , سهل عملية التبرعات على المتبرعين مما أتاح لهم فرص إضافية للمساهمة الفاعلة في بذل الخير ورفع سلة التبرعات فريق العمل متعاون جدًا ومتفاعل وخدوم أنصح باستخدامه وتجربته", name: "جمعية القرآن بالزلفي", role: "جمعية خيرية" },
         { text: "تطبيق فكرته حلوه ويساعد في زيادة المبيعات بالاضافه للدعم الفني ما يقصرون بأي ملاحظات او مساعده", name: "ZUM", role: "متجر إلكتروني" },
         { text: "رائع جداً", name: "جمعية برهان لتحفيظ القران", role: "جمعية خيرية" },
@@ -1356,7 +1355,7 @@ export const t = {
       heroH1Gradient: "Lasting growth for your online store",
       heroH1Sub: "Verified metrics from merchants using the Ziadah platform",
       heroLead:
-        "700+ ecommerce stores chose Ziadah to grow sales with AI. Here are their stories with clear, measurable outcomes.",
+        "Discover how 700+ ecommerce stores multiplied revenue with AI-powered recommendations on Ziadah — verified numbers, real outcomes, and inspiring stories from across Saudi Arabia and the Gulf.",
       ctaClosingTitle: "Your Store Is Next on the Success List",
       ctaClosingDesc: "Join +1500 stores and start your journey today",
       ctaClosingBtn: "Activate Now",
@@ -1723,7 +1722,6 @@ export const t = {
       testimonialsRow2: [
         { text: "Excellent app for growing sales — customer service is always responsive.", name: "skinly", role: "Skincare store" },
         { text: "Excellent app for sales — customer support is fantastic 👍", name: "For Her | فور هر", role: "Online store" },
-        { text: "10/10", name: "Ziadah Commerce", role: "Online store" },
         { text: "Outstanding app that simplifies donations and gives donors more ways to contribute and grow the donation cart. The team is helpful, responsive, and dedicated — highly recommended.", name: "جمعية القرآن بالزلفي", role: "Charity" },
         { text: "Great concept and it helps sales — technical support never falls short on feedback or help.", name: "ZUM", role: "Online store" },
         { text: "Excellent.", name: "جمعية برهان لتحفيظ القران", role: "Charity" },

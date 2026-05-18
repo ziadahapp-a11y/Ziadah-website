@@ -148,7 +148,7 @@ export default function Blog() {
         style={{ position: "relative", zIndex: 2 }}
       >
         <div className="blog-page-hero-inner">
-        <div className="stag rv" style={{ display: "inline-flex" }}>
+        <div className="stag rv">
           <span className="stag-dot" />
           {tx.tag}
         </div>

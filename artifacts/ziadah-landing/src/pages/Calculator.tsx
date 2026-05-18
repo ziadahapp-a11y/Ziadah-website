@@ -327,7 +327,7 @@ export default function Calculator() {
         >
           <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 0 }}>
-              <div className="stag rv" style={{ display: "inline-flex" }}>
+              <div className="stag rv">
                 <span className="stag-dot" />
                 {tr.tag}
               </div>

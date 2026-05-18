@@ -88,7 +88,7 @@ export default function Support() {
         style={{ position: "relative", zIndex: 2, overflow: "hidden" }}
       >
         <div className="support-page-hero-inner">
-        <div className="stag rv" style={{ display: "inline-flex" }}>
+        <div className="stag rv">
           <span className="stag-dot" />
           {tx.tag}
         </div>
@@ -415,7 +415,7 @@ export default function Support() {
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
             <div style={{ flex: "1 1 220px", minWidth: 0 }}>
-              <div className="stag" style={{ display: "inline-flex", marginBottom: 12 }}>
+              <div className="stag" style={{ marginBottom: 12 }}>
                 <span className="stag-dot" />
                 {tx.videoTag}
               </div>

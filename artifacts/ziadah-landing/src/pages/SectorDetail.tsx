@@ -262,7 +262,7 @@ export default function SectorDetail() {
                 alignItems: "center",
               }}
             >
-            <div className="stag rv" style={{ display: "inline-flex" }}>
+            <div className="stag rv">
               <span className="stag-dot" />
               {tr.breadcrumbSectors}
             </div>
@@ -271,7 +271,7 @@ export default function SectorDetail() {
             </div>
             {pageRich ? (
               <>
-                <div className="stag rv d1" style={{ display: "inline-flex", marginBottom: 6 }}>
+                <div className="stag rv d1" style={{ marginBottom: 6 }}>
                   <span className="stag-dot" />
                   {tr.sectorHeroSectorLabel}: {title}
                 </div>

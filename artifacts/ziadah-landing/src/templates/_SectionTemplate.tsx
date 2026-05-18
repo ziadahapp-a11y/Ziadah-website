@@ -33,7 +33,7 @@ export default function MySection(_props: MySectionProps) {
     >
       <div className="wrap tc">
         {/* ── TAG ── */}
-        <div className="stag rv" style={{ display: "inline-flex" }}>
+        <div className="stag rv">
           <span className="stag-dot" />
           {/* tx.tag — مفتاح الترجمة */}
           {isAr ? "وسم القسم" : "SECTION TAG"}

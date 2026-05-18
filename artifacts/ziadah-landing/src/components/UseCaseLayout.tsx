@@ -208,7 +208,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           }}>
           <div className="sector-html-hero-grid rv d1" style={{ maxWidth: 1160, margin: "0 auto", alignItems: "center" }}>
             <div className="sector-html-hero-copy">
-              <div className="stag rv" style={{ display: "inline-flex", marginBottom: 14 }}>
+              <div className="stag rv" style={{ marginBottom: 14 }}>
                 <span className="stag-dot" />
                 <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
                   {cv(["hero", "tag"], hero.tag)}

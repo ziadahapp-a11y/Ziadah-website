@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter @workspace/ziadah-landing exec tsc --noEmit)",
+      "Bash(pnpm --filter @workspace/ziadah-landing run typecheck)",
+      "WebSearch",
+      "Bash(npx tsc *)",
+      "WebFetch(domain:yourworldh9sa.com)",
+      "Bash(find /home/runner -type f \\\\\\( -name \"*.png\" -o -name \"*.jpg\" \\\\\\) -mmin -30 2>/dev/null | grep -v \"node_modules\\\\|/\\\\.cache\\\\|/\\\\.git\\\\|dist/\\\\|\\\\.cursor\" | head -20)",
+      "Read(//home/runner/**)",
+      "Bash(curl -sL -A 'Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36' --max-time 12 https://ziadah.app/ -o /tmp/ziadah.html)",
+      "Read(//tmp/**)",
+      "Bash(curl -sI --max-time 8 \"https://www.google.com/s2/favicons?domain=yourworldh9sa.com&sz=128\")",
+      "Bash(echo \"TSC_EXIT=$?\")",
+      "Bash(magick phone_035.png -crop 1887x1+0+1900 +repage -colorspace gray txt:)",
+      "Bash(awk -F: 'NR>1 {split\\($1,a,\",\"\\); x=a[1]; gsub\\(/[^0-9]/, \"\", $3\\); v=substr\\($2, index\\($2,\"#\"\\)+1, 6\\); print x, v}')",
+      "Bash(awk '{ if \\($2 ~ /^[0-3]/\\) print \"dark\", $1, $2; }')",
+      "Bash(awk -F: 'NR>1 {split\\($1,a,\",\"\\); x=a[1]; v=substr\\($2, index\\($2,\"#\"\\)+1, 6\\); if \\(v ~ /^[0-3]/\\) print x; }')",
+      "Bash(magick phone_035.png -crop 1887x1+0+1900 +repage txt:)",
+      "Bash(magick phone_035.png -crop 1887x1+0+1900 +repage -depth 8 PNG32:-)",
+      "Bash(magick PNG32:- txt:)",
+      "Bash(awk '/^[0-9]/ { *)",
+      "Bash(awk 'NR==1{first=$1} {last=$1} END{print \"screen y=1900: x=\"first\"..\"last}')",
+      "Bash(magick phone_035.png -crop 1x3871+940+0 +repage txt:)",
+      "Bash(awk 'NR==1{first=$1} {last=$1} END{print \"screen x=940: y=\"first\"..\"last}')",
+      "Bash(gawk --version)",
+      "Bash(gawk ' *)",
+      "Bash(curl -sI -A 'Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36' https://cdn.salla.sa/gn8RmxHVzto9BHus8MQBr4ksa8bDrB67f2BN6BJX.jpg --max-time 8)",
+      "Bash(magick phone_035.png -format 'x=__TRACKED_VAR__: %[pixel:p{__TRACKED_VAR__,1900}]\\\\n' info:)",
+      "Bash(magick phone_035.png -format '  \\(__TRACKED_VAR__,__TRACKED_VAR__\\)=%[pixel:p{__TRACKED_VAR__,__TRACKED_VAR__}]\\\\n' info:)",
+      "Bash(magick phone_035.png -format '%[pixel:p{940,__TRACKED_VAR__}]' info:)",
+      "Bash(magick phone_035.png -format '%[pixel:p{__TRACKED_VAR__,1900}]' info:)",
+      "Bash(magick /home/runner/workspace/phone_035.png -trim +repage /home/runner/workspace/artifacts/ziadah-landing/public/iphone-mockup.png)",
+      "Bash(identify /home/runner/workspace/artifacts/ziadah-landing/public/iphone-mockup.png)",
+      "Bash(npm run *)"
+    ]
+  }
+}

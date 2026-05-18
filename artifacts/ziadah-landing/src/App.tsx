@@ -23,6 +23,7 @@ import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
+const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
 const Landing = lazy(() => import("@/pages/Landing"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
@@ -101,9 +102,23 @@ function ScrollToTop() {
   return null;
 }
 
-/** Suspense fallback: blur overlay covers the gap while lazy chunks load */
+/**
+ * Suspense fallback for lazy route chunks.
+ *
+ * Delay-mounted so fast transitions (already-cached chunks) show nothing — the
+ * blur overlay alone covers them. Only slow loads reveal the branded spinner.
+ */
 function LazyRouteFallback() {
-  return null;
+  return (
+    <div className="route-fallback" role="status" aria-live="polite" aria-busy="true">
+      <div className="route-fallback__ring" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <span className="route-fallback__sr">جارٍ التحميل…</span>
+    </div>
+  );
 }
 
 function PublicRoutes() {
@@ -128,6 +143,7 @@ function PublicRoutes() {
           <ErrorStatus />
         </Suspense>
       </Route>
+      <Route path="/success-stories/:slug" component={SuccessStoryDetail} />
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />

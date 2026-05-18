@@ -140,7 +140,7 @@ export default function HomeCalculator() {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%" }}>
-        <div className="stag rv" style={{ display: "inline-flex", width: "fit-content" }}>
+        <div className="stag rv">
           <span className="stag-dot" />
           <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
             {tr.tag}

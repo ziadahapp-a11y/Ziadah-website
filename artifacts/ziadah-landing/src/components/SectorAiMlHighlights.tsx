@@ -16,7 +16,7 @@ export default function SectorAiMlHighlights() {
     <div id="sector-ai-ml" className="gc rv d1" style={{ padding: 0, marginBottom: 22, scrollMarginTop: 120 }}>
       <div className="shine" />
       <div style={{ padding: "22px 24px 26px" }}>
-        <div className="stag" style={{ display: "inline-flex", marginBottom: 10 }}>
+        <div className="stag" style={{ marginBottom: 10 }}>
           <span className="stag-dot" />
           {tr.sectorAiSectionTag}
         </div>

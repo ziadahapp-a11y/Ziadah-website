@@ -160,7 +160,7 @@ export default function LandingSolutionsMatrix({ variant = "landing" }: { varian
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingInline: showBlurbs ? "0" : "5%" }}>
         {!showBlurbs ? (
           <div style={{ textAlign: "center", marginBottom: 44 }}>
-            <div className="stag rv" style={{ display: "inline-flex" }}>
+            <div className="stag rv">
               <span className="stag-dot" />
               {lr.solutionsMatrixTag}
             </div>

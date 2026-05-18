@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef, type CSSProperties } from "react";
-import { t } from "@/i18n/translations";
 import PageShell from "../components/PageShell";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
@@ -10,6 +9,7 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteT } from "../cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { stories, storyEn, type StoryData } from "@/data/successStoriesData";
+import { navigateTo } from "@/components/PageTransition";
 
 const SECTOR_NAME_EN: Record<string, string> = {
   "الكل": "All",
@@ -69,99 +69,49 @@ const sectors: SectorRow[] = [
 
 const allSectors = Array.from(new Set(stories.map(s => s.sector)));
 
-function StoryCard({ s, index, total, isAr }: { s: StoryData; index: number; total: number; isAr: boolean }) {
+function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
   const en = storyEn[s.store];
+  const sectorLabel = isAr ? s.sector : (en?.sector || SECTOR_NAME_EN[s.sector] || s.sector);
+  const storeLabel = isAr ? s.store : (en?.store || s.store);
 
   return (
-    <section
-      className={`story-full-section rv d${(index % 3) + 1}`}
-      style={
-        {
-          width: "100%",
-          height: "fit-content",
-          padding: 0,
-          boxSizing: "border-box",
-        } as CSSProperties
-      }
+    <button
+      type="button"
+      className="brief-story-card"
+      onClick={() => navigateTo(`/success-stories/${s.slug}`)}
+      aria-label={isAr ? `اقرأ قصة ${s.store}` : `Read ${storeLabel} story`}
     >
-      <div
-        className="story-card-v3 story-card-v3-full"
-        style={
-          {
-            width: "100%",
-            maxWidth: 920,
-            ["--story-accent" as string]: s.accent,
-            ["--story-gradient" as string]: s.color,
-          } as CSSProperties
-        }
-      >
-        <div className="story-card-v3-glow" aria-hidden />
-        <div className="story-card-v3-glow story-card-v3-glow-2" aria-hidden />
-        <div className="story-card-v3-topbar" style={{ background: s.color }} />
-
-        <div className="story-head-v3">
-          <div className="story-logo-wrap-v3">
-            <div className="story-logo-v3" style={{ background: s.color }}>
-              {s.logo}
-            </div>
+      <div className="brief-story-card__topbar" />
+      <div className="brief-story-card__head">
+        {s.logoUrl ? (
+          <div className="brief-story-card__logo brief-story-card__logo--img">
+            <img src={s.logoUrl} alt="" loading="lazy" />
           </div>
-          <div className="story-head-text-v3">
-            <div className="story-title-row-v3">
-              <span className="story-meta-pill-v3">
-                {isAr ? `القصة ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}` : `Story ${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`}
-              </span>
-            </div>
-            <h3 className="story-title-v3">{isAr ? s.store : (en?.store || s.store)}</h3>
-            <div className="story-sector-v3">
-              <span className="story-sector-chip-v3">
-                <span className="story-sector-ico">{SECTOR_ICONS[s.sector] || "◆"}</span>
-                {isAr ? s.sector : (en?.sector || SECTOR_NAME_EN[s.sector] || s.sector)}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="story-body-v3">
-          <div className="story-two-cards-v3">
-            <div className="detail-panel-v3 detail-challenge-v3">
-              <div className="detail-panel-h-v3">{isAr ? "التحدي" : "Challenge"}</div>
-              <p className="detail-panel-p-v3">{isAr ? s.challenge : (en?.challenge || s.challenge)}</p>
-            </div>
-            <div className="detail-panel-v3 detail-strategy-v3">
-              <div className="detail-panel-h-v3">{isAr ? "الاستراتيجية" : "Strategy"}</div>
-              <p className="detail-panel-p-v3">{isAr ? s.strategy : (en?.strategy || s.strategy)}</p>
-            </div>
-          </div>
-
-          <div className="story-popup-strip-v3">
-            <div className="story-popup-strip-inner-v3">
-              <span className="story-popup-type-v3">{isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}</span>
-              <span className="platform-tag-v3 story-popup-badge-v3">{isAr ? s.popupType : (en?.popupType || s.popupType)}</span>
-            </div>
-          </div>
-
-          <div className="story-impact-v3 story-results-kpi-v3">
-            <div className="story-results-head-v3">
-              <span className="story-results-ico" aria-hidden>◈</span>
-              {isAr ? "النتائج الموثقة" : "Verified results"}
-            </div>
-            <div className="story-kpi-grid-v3 kpi-count-2">
-              <div className="story-kpi-v3 story-kpi-conv-v3">
-                <div className="story-kpi-value-v3">{s.conversions}</div>
-                <div className="story-kpi-label-v3">{isAr ? "التحويلات" : "Conversions"}</div>
-              </div>
-              <div className="story-kpi-v3 story-kpi-sales-v3">
-                <div className="story-kpi-value-v3">
-                  {s.sales}
-                  <span className="story-kpi-currency-v3">{isAr ? "ر.س" : "SAR"}</span>
-                </div>
-                <div className="story-kpi-label-v3">{isAr ? "إجمالي المبيعات" : "Total sales"}</div>
-              </div>
-            </div>
-          </div>
+        ) : (
+          <div className="brief-story-card__logo">{s.logo}</div>
+        )}
+        <div className="brief-story-card__head-text">
+          <h3 className="brief-story-card__title">{storeLabel}</h3>
+          <span className="brief-story-card__sector">
+            <span className="brief-story-card__sector-ico">{SECTOR_ICONS[s.sector] || "◆"}</span>
+            {sectorLabel}
+          </span>
         </div>
       </div>
-    </section>
+
+      <div className="brief-story-card__kpi">
+        <div className="brief-story-card__kpi-label">{isAr ? "إجمالي المبيعات" : "Total sales"}</div>
+        <div className="brief-story-card__kpi-value">
+          {s.sales}
+          <span className="brief-story-card__kpi-currency">{isAr ? "ر.س" : "SAR"}</span>
+        </div>
+      </div>
+
+      <div className="brief-story-card__cta">
+        <span>{isAr ? "اقرأ القصة كاملة" : "Read full story"}</span>
+        <span className="brief-story-card__cta-arrow" aria-hidden>{isAr ? "←" : "→"}</span>
+      </div>
+    </button>
   );
 }
 
@@ -803,30 +753,32 @@ export default function SuccessStories() {
           .filter-btn-v2 {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 18px;
-            border-radius: 12px;
-            border: 1.5px solid var(--b1);
-            background: var(--s1);
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1px solid var(--b1);
+            background: color-mix(in srgb, var(--s1) 65%, transparent);
             color: var(--td);
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            transition: border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease;
+            transition: transform 0.18s ease, border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease;
             font-family: var(--font);
             backdrop-filter: blur(12px);
           }
           .filter-btn-v2:hover {
-            border-color: rgba(168,85,247,.4);
+            border-color: rgba(168,85,247,.45);
             color: var(--t);
-            background: rgba(168,85,247,.08);
+            background: rgba(168,85,247,.1);
+            transform: translateY(-1px);
           }
           .filter-btn-v2.active {
-            background: linear-gradient(135deg,#7c3aed,#a855f7);
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
             border-color: transparent;
             color: #fff;
-            box-shadow: 0 4px 20px rgba(124,58,237,.35);
+            box-shadow: 0 6px 22px rgba(124,58,237,.42), inset 0 1px 0 rgba(255,255,255,.18);
+            transform: translateY(-1px);
           }
           .filter-count-v2 {
             display: inline-flex;
@@ -879,30 +831,62 @@ export default function SuccessStories() {
             transform: translateY(0);
           }
           .success-stories-sticky-toolbar {
-            margin-top: 20px;
-            background: rgba(12, 9, 31, 1);
-            border-bottom: none;
+            margin-top: 0;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            backdrop-filter: blur(24px) saturate(1.2);
+            border-bottom: 1px solid var(--b1);
             border-image: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,.15);
           }
           [data-theme="light"] .success-stories-sticky-toolbar {
-            background: var(--bg);
+            background: color-mix(in srgb, #ffffff 90%, transparent);
+            box-shadow: 0 4px 16px rgba(15,23,42,.05);
           }
           .success-stories-hero {
-            background: #fff;
-            color: #0f172a;
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            position: relative;
+            background:
+              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.22), transparent 65%),
+              radial-gradient(ellipse 100% 60% at 50% 100%, rgba(6,182,212,.06), transparent 70%);
+            color: var(--t);
+            border-bottom: 1px solid color-mix(in srgb, rgba(168,85,247,.25) 40%, var(--b1));
+            padding-block: 64px 80px;
+            overflow: hidden;
           }
+          .success-stories-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+              linear-gradient(rgba(168,85,247,.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(168,85,247,.04) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 30%, transparent 80%);
+            opacity: 0.6;
+          }
+          [data-theme="light"] .success-stories-hero {
+            background:
+              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.14), transparent 65%),
+              linear-gradient(180deg, #fafafe 0%, #ffffff 100%);
+            border-bottom-color: rgba(15, 23, 42, 0.08);
+          }
+          .success-stories-hero > * { position: relative; z-index: 1; }
           .success-stories-hero .hero-stat-v2 {
-            background: linear-gradient(165deg, rgba(248, 250, 252, 1) 0%, rgba(241, 245, 249, 1) 100%);
-            border-color: rgba(15, 23, 42, 0.1);
-            box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            background: linear-gradient(165deg, rgba(168,85,247,.1) 0%, rgba(0,0,0,.28) 100%);
+            border-color: color-mix(in srgb, rgba(168,85,247,.35) 40%, var(--b1));
+            box-shadow: 0 8px 28px rgba(0,0,0,.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
           }
           .success-stories-hero .hero-stat-v2::after {
-            opacity: 0.22;
+            opacity: 0.55;
           }
           .success-stories-hero .hero-stat-v2:hover {
-            border-color: color-mix(in srgb, var(--accent, #a855f7) 35%, rgba(15, 23, 42, 0.12));
-            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1), 0 0 0 1px color-mix(in srgb, var(--accent, #a855f7) 14%, transparent);
+            border-color: color-mix(in srgb, rgba(168,85,247,.55) 50%, var(--b1));
+            box-shadow: 0 18px 48px rgba(0,0,0,.4), 0 0 0 1px color-mix(in srgb, rgba(168,85,247,.4) 50%, transparent);
+          }
+          [data-theme="light"] .success-stories-hero .hero-stat-v2 {
+            background: linear-gradient(165deg, rgba(255,255,255,.92) 0%, rgba(248, 250, 252, 1) 100%);
+            border-color: rgba(168,85,247,.18);
+            box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
           }
           .hero-stat-v2 {
             padding: 22px 34px;
@@ -947,38 +931,42 @@ export default function SuccessStories() {
             z-index: 1;
           }
           .sector-card-v2 {
-            padding: var(--card-pad-md);
-            border-radius: 18px;
+            padding: 18px 20px;
+            border-radius: 16px;
             border: 1px solid var(--b1);
-            background: linear-gradient(165deg, rgba(255,255,255,.04) 0%, rgba(0,0,0,.08) 100%);
+            background: linear-gradient(165deg, rgba(168,85,247,.04) 0%, rgba(0,0,0,.16) 100%);
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             cursor: pointer;
-            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease, background 0.28s ease;
             position: relative;
             overflow: hidden;
             box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
           }
           .sector-card-v2:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 56px rgba(0,0,0,.34);
-            border-color: rgba(168,85,247,.32);
-            background: linear-gradient(165deg, rgba(168,85,247,.07) 0%, rgba(0,0,0,.1) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 48px rgba(0,0,0,.36), 0 0 0 1px rgba(168,85,247,.22);
+            border-color: rgba(168,85,247,.42);
+            background: linear-gradient(165deg, rgba(168,85,247,.1) 0%, rgba(0,0,0,.14) 100%);
           }
-          .sector-card-v2::after {
+          .sector-card-v2::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, #a855f7, #06b6d4);
-            opacity: 0;
-            transition: opacity 0.25s ease;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #7c3aed, #a855f7, #06b6d4);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
           }
-          .sector-card-v2:hover::after {
-            opacity: 1;
+          .sector-card-v2:hover::before {
+            transform: scaleX(1);
+          }
+          .sectors-grid-v2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
           }
 
           /* ── LIGHT MODE: SuccessStories ── */
@@ -1065,50 +1053,236 @@ export default function SuccessStories() {
             .story-footer-v3 { flex-direction: column; align-items: stretch !important; }
             .expand-btn-v3 { width: 100%; justify-content: center; }
           }
+
+          /* ── Brief story card (grid item, links to detail page) ── */
+          .brief-story-card {
+            --story-accent: #a855f7;
+            position: relative;
+            isolation: isolate;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 24px 22px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--b1);
+            background: linear-gradient(165deg, rgba(168,85,247,.04) 0%, rgba(0,0,0,.18) 100%);
+            backdrop-filter: blur(20px) saturate(1.1);
+            cursor: pointer;
+            font-family: inherit;
+            text-align: inherit;
+            color: inherit;
+            overflow: hidden;
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 18px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.05);
+          }
+          .brief-story-card::after {
+            content: '';
+            position: absolute;
+            inset: -30% -20% auto auto;
+            width: 60%;
+            height: 55%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, color-mix(in srgb, var(--story-accent) 22%, transparent), transparent 70%);
+            opacity: 0.4;
+            pointer-events: none;
+            transition: opacity 0.32s ease;
+          }
+          .brief-story-card:hover {
+            transform: translateY(-6px);
+            border-color: color-mix(in srgb, var(--story-accent) 55%, var(--b1));
+            box-shadow: 0 26px 60px rgba(0,0,0,.42), 0 0 0 1px color-mix(in srgb, var(--story-accent) 30%, transparent);
+          }
+          .brief-story-card:hover::after { opacity: 0.7; }
+          .brief-story-card__topbar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            opacity: 1;
+            background: linear-gradient(90deg, #7c3aed, #a855f7, #06b6d4);
+            background-size: 200% 100%;
+            background-position: 0% 50%;
+            transition: background-position 0.6s ease;
+          }
+          .brief-story-card:hover .brief-story-card__topbar {
+            background-position: 100% 50%;
+          }
+          .brief-story-card__head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+          }
+          .brief-story-card__logo {
+            flex-shrink: 0;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            font-weight: 900;
+            color: #fff;
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 6px 18px rgba(0,0,0,.25);
+            overflow: hidden;
+          }
+          .brief-story-card__logo--img {
+            background: #fff;
+            border: 1px solid color-mix(in srgb, var(--story-accent) 28%, rgba(0,0,0,.08));
+            padding: 6px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.18);
+          }
+          .brief-story-card__logo--img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+          }
+          .brief-story-card__head-text { flex: 1; min-width: 0; }
+          .brief-story-card__title {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--t);
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+          }
+          .brief-story-card__sector {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--td);
+          }
+          .brief-story-card__sector-ico { font-size: 1em; opacity: 0.9; }
+          .brief-story-card__kpi {
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: color-mix(in srgb, var(--story-accent) 8%, rgba(0,0,0,.18));
+            border: 1px solid color-mix(in srgb, var(--story-accent) 22%, var(--b1));
+          }
+          .brief-story-card__kpi-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--td);
+            margin-bottom: 6px;
+          }
+          .brief-story-card__kpi-value {
+            font-size: clamp(1.35rem, 3.6vw, 1.7rem);
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #c4b5fd 0%, #a855f7 60%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+          }
+          .brief-story-card__kpi-currency {
+            display: inline-block;
+            font-size: 0.5em;
+            font-weight: 800;
+            margin-inline-start: 6px;
+            color: var(--tm);
+            -webkit-text-fill-color: var(--tm);
+            opacity: 0.85;
+          }
+          .brief-story-card__cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #a855f7;
+            padding-top: 6px;
+            margin-top: 2px;
+            border-top: 1px solid color-mix(in srgb, var(--story-accent) 14%, var(--b1));
+          }
+          .brief-story-card__cta-arrow {
+            transition: transform 0.25s ease;
+            font-size: 14px;
+          }
+          .brief-story-card:hover .brief-story-card__cta-arrow {
+            transform: translateX(4px);
+          }
+          [dir="rtl"] .brief-story-card:hover .brief-story-card__cta-arrow {
+            transform: translateX(-4px);
+          }
+          [data-theme="light"] .brief-story-card {
+            background: linear-gradient(165deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.65) 100%);
+            box-shadow: 0 4px 20px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.9);
+          }
+          [data-theme="light"] .brief-story-card__kpi {
+            background: color-mix(in srgb, var(--story-accent) 8%, rgba(255,255,255,.7));
+          }
         `}</style>
         
 
         <section
           className="success-stories-hero page-hero-viewport page-hero-viewport--center"
-          style={{ position: "relative", zIndex: 2 }}
+          style={{
+            position: "relative",
+            zIndex: 2,
+            background:
+              "radial-gradient(ellipse 60% 50% at 15% 0%, rgba(168,85,247,.14), transparent 65%)," +
+              "radial-gradient(ellipse 55% 45% at 85% 10%, rgba(6,182,212,.12), transparent 65%)," +
+              "radial-gradient(ellipse 70% 50% at 50% 110%, rgba(236,72,153,.08), transparent 70%)," +
+              "linear-gradient(180deg, #fdfcff 0%, #ffffff 60%, #fafbff 100%)",
+          }}
         >
-          <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{sx.heroTag}</div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(24px,5vw,72px)", marginTop: 10, marginBottom: 12, color: "inherit" }}>
-            <span
-              style={{
-                color: "rgba(8, 6, 21, 1)",
-                backgroundImage: "none",
-                backgroundClip: "unset",
-                WebkitBackgroundClip: "unset",
-                WebkitTextFillColor: "unset",
-              }}
-              className="mt-[1px] mb-[1px]">{sx.heroH1Gradient}</span>
+          <div
+            className="stag rv"
+            style={{
+              background: "linear-gradient(135deg, rgba(168,85,247,.12), rgba(6,182,212,.1))",
+              borderColor: "rgba(168,85,247,.28)",
+              color: "#7c3aed",
+              boxShadow: "0 4px 14px rgba(168,85,247,.12)",
+            }}
+          >
+            <span className="stag-dot" style={{ background: "#a855f7", boxShadow: "0 0 0 4px rgba(168,85,247,.18)" }} />
+            {sx.heroTag}
+          </div>
+          <h1 className="st rv d1" style={{ fontSize: "clamp(28px,5.5vw,72px)", marginTop: 10, marginBottom: 14, color: "#7c3aed", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
+            <span style={{ color: "#7c3aed", fontWeight: 900 }}>{sx.heroH1Gradient}</span>
             <br />
-            <span style={{ fontSize: "clamp(24px,3vw,36px)", color: "#334155", fontWeight: 700 }}>{sx.heroH1Sub}</span>
+            <span style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 800, color: "#7c3aed" }}>{sx.heroH1Sub}</span>
           </h1>
-          <p className="ssub rv d2" style={{ margin: "0 auto 28px", maxWidth: 600, fontSize: "clamp(14px,1.8vw,17px)", lineHeight: 1.8, color: "#64748b" }}>
+          <p className="ssub rv d2" style={{ margin: "0 auto 36px", maxWidth: 640, fontSize: "clamp(15px,1.9vw,18px)", lineHeight: 1.75, color: "#7c3aed" }}>
             {sx.heroLead}
           </p>
           <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             {(isAr ? [
-              ["13", "قصة نجاح", "#a855f7"],
-              ["192K+", "تحويل", "#06b6d4"],
-              ["4.6M+", "ريال مبيعات", "#10b981"],
+              ["13", "قصة نجاح موثقة"],
+              ["192K+", "عملية تحويل"],
+              ["4.6M+", "ريال مبيعات"],
             ] : [
-              ["13", "Success Stories", "#a855f7"],
-              ["192K+", "Conversions", "#06b6d4"],
-              ["4.6M+", "SAR in Sales", "#10b981"],
-            ]).map(([v, l, c]) => (
-              <div key={l} className="hero-stat-v2" style={{ "--accent": c } as CSSProperties}>
-                <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 2, background: c as string, borderRadius: "16px 16px 0 0" }} />
-                <div style={{ fontSize: "clamp(28px,3.5vw,42px)", fontWeight: 900, color: c as string, lineHeight: 1, marginBottom: 6 }}>{v}</div>
-                <div style={{ fontSize: 13, color: "#64748b", fontWeight: 600 }}>{l}</div>
+              ["13", "Verified Stories"],
+              ["192K+", "Conversions"],
+              ["4.6M+", "SAR in Sales"],
+            ]).map(([v, l]) => (
+              <div key={l} className="hero-stat-v2" style={{ "--accent": "#7c3aed", boxShadow: "none" } as CSSProperties}>
+                <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 3, background: "#7c3aed", borderRadius: "18px 18px 0 0" }} />
+                <div
+                  style={{
+                    fontSize: "clamp(28px,3.5vw,42px)",
+                    fontWeight: 900,
+                    lineHeight: 1,
+                    marginBottom: 6,
+                    color: "#7c3aed",
+                    letterSpacing: "-0.02em",
+                  }}
+                >{v}</div>
+                <div style={{ fontSize: 13, color: "#7c3aed", fontWeight: 700, letterSpacing: ".01em" }}>{l}</div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="success-stories-sticky-toolbar" style={{ position: "sticky", top: 80, zIndex: 800, paddingInline: "5%", paddingTop: 14, paddingBottom: 14, marginBottom: 20, backdropFilter: "blur(20px)" }}>
+        <section className="success-stories-sticky-toolbar" style={{ position: "sticky", top: 80, zIndex: 800, paddingInline: "5%", paddingTop: 16, paddingBottom: 16, marginBottom: 32 }}>
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div
               ref={filterRef}
@@ -1150,19 +1324,31 @@ export default function SuccessStories() {
             )}
             <div
               className={`stories-fade-v2 ${visible ? "shown" : "hidden"}`}
-              style={{ display: "flex", flexDirection: "column", gap: 40 }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+                gap: 20,
+                width: "100%",
+              }}
             >
-              {filteredStories.map((s, i) => (
-                <StoryCard key={`${s.store}-${i}`} s={s} index={i} total={filteredStories.length} isAr={isAr} />
+              {filteredStories.map((s) => (
+                <BriefStoryCard key={s.slug} s={s} isAr={isAr} />
               ))}
             </div>
           </div>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, padding: "0 5% 100px" }}>
+        <section style={{ position: "relative", zIndex: 2, padding: "60px 5% 100px", borderTop: "1px solid var(--b1)" }}>
+          <div style={{
+            position: "absolute",
+            top: 0, left: "50%", transform: "translateX(-50%)",
+            width: "min(80%, 900px)", height: 1,
+            background: "linear-gradient(90deg, transparent, color-mix(in srgb, #a855f7 40%, transparent), transparent)",
+            pointerEvents: "none",
+          }} />
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
-              <div className="stag rv" style={{ display: "inline-flex" }}><span className="stag-dot"/>{isAr ? "حسب القطاع" : "By Sector"}</div>
+              <div className="stag rv"><span className="stag-dot"/>{isAr ? "حسب القطاع" : "By Sector"}</div>
               <h2 className="st rv d1 font-semibold" style={{ marginBottom: 12 }}>{isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}</h2>
               <p className="ssub rv d2" style={{ margin: "0 auto", color: "var(--td)" }}>{isAr ? "زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك" : "Ziadah works with all types of stores — discover the results in your industry"}</p>
             </div>
@@ -1201,6 +1387,7 @@ export default function SuccessStories() {
         </section>
 
         <PageClosingCta
+          dark
           title={sx.ctaClosingTitle}
           description={sx.ctaClosingDesc}
           buttonLabel={sx.ctaClosingBtn}

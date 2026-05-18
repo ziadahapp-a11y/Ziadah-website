@@ -22,7 +22,7 @@ export default function SectorHubPlaybook({
     >
       <div className="shine" />
       <div style={{ padding: "26px 24px 8px" }}>
-        <div className="stag" style={{ display: "inline-flex", marginBottom: 12 }}>
+        <div className="stag" style={{ marginBottom: 12 }}>
           <span className="stag-dot" />
           {tr.sectorHubPlaybookTag}
         </div>
