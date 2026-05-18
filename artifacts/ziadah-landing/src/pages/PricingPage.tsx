@@ -226,8 +226,7 @@ export default function PricingPage() {
         <div className="wrap" style={{ textAlign: "center" }}>
 
           {/* Section tag — uses design system .stag */}
-          <div className="stag" style={{ margin: "0 auto 22px" }}>
-            <span className="stag-dot" />
+          <div className="stag" style={{ margin: "0 0 22px" }}>
             {isAr ? "الأسعار" : "Pricing"}
           </div>
 
@@ -267,7 +266,10 @@ export default function PricingPage() {
                 <div
                   key={plan.key}
                   className={`gc pp-card pp-card-in d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
-                  style={{ animationDelay: `${idx * 0.08}s`, zIndex: topupOpen[plan.key] ? 20 : undefined }}
+                  style={{
+                    animationDelay: `${idx * 0.08}s`,
+                    zIndex: topupOpen[plan.key] ? 20 : undefined,
+                  }}
                 >
                   {/* Badge — absolute positioned like landing cards */}
                   {plan.badge && (
@@ -416,7 +418,6 @@ export default function PricingPage() {
           {/* Section heading — design system h2.st */}
           <div style={{ textAlign: "center", marginBottom: 32 }}>
             <div className="stag" style={{ margin: "0 auto 16px" }}>
-              <span className="stag-dot" />
               {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
             </div>
             <h2 className="st">{isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}</h2>

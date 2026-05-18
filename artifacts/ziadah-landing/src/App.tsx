@@ -2,7 +2,7 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useLayoutEffect } from "react";
-import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
@@ -101,21 +101,9 @@ function ScrollToTop() {
   return null;
 }
 
-/** خلفية بسيطة أثناء تحميل أجزاء الصفحات (تقليل حجم الحزمة الأولى) */
+/** Suspense fallback: blur overlay covers the gap while lazy chunks load */
 function LazyRouteFallback() {
-  const { dir } = useLanguage();
-  // أثناء تحميل المسار الكسول: يطابق منتقي Nav فيعطي شريطاً صلباً بدل شفاف على خلفية الصفحة.
-  return (
-    <div
-      data-nav-backdrop="light"
-      className="min-h-screen-dvh"
-      style={{
-        background: "var(--page-background)",
-        direction: dir,
-      }}
-      aria-hidden
-    />
-  );
+  return null;
 }
 
 function PublicRoutes() {

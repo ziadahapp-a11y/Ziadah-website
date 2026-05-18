@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useRef } from "react";
 import { useLocation } from "wouter";
+import { useBlurTransition } from "@/components/BlurTransitionProvider";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 
 const NAV_GUARD_MS = 180;
@@ -156,15 +157,18 @@ export function navigateToHash(href: string) {
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const [loc, navigate] = useLocation();
+  const runBlur = useBlurTransition();
   const wrapRef = useRef<HTMLDivElement>(null);
   const prevLoc = useRef(loc);
+  const fromProgrammaticNav = useRef(false);
 
   const triggerTransition = useCallback(
     (path: string) => {
       preloadRoute(path);
-      navigate(path);
+      fromProgrammaticNav.current = true;
+      runBlur(() => navigate(path));
     },
-    [navigate]
+    [navigate, runBlur]
   );
 
   useEffect(() => {
@@ -178,13 +182,20 @@ export default function PageTransition({ children }: { children: React.ReactNode
 
   useEffect(() => {
     if (loc === prevLoc.current) return;
+    const wasProgrammatic = fromProgrammaticNav.current;
+    fromProgrammaticNav.current = false;
     prevLoc.current = loc;
+
+    if (!wasProgrammatic) {
+      runBlur(() => {});
+    }
+
     const el = wrapRef.current;
     if (!el) return;
     el.classList.remove("page-transition-in");
     void el.offsetWidth;
     el.classList.add("page-transition-in");
-  }, [loc]);
+  }, [loc, runBlur]);
 
   return (
     <div ref={wrapRef} className="page-transition-wrap page-transition-in">

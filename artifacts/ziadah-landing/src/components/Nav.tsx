@@ -1332,7 +1332,7 @@ export default function Nav() {
     display: "flex", alignItems: "center", gap: 5, padding: "7px 13px",
     borderRadius: 10,
     background: isOpen ? "rgba(124,58,237,.15)" : "transparent",
-    border: isOpen ? "1px solid rgba(124,58,237,.25)" : "1px solid transparent",
+    border: "none",
     color: isOpen ? "#fff" : "rgba(255,255,255,.72)",
     fontFamily: "var(--font)", fontSize: 13.5, fontWeight: 500, cursor: "pointer",
     transition: "all .18s", whiteSpace: "nowrap",

@@ -13,6 +13,12 @@ if (Number.isNaN(port) || port <= 0) {
 
 const basePath = process.env.BASE_PATH ?? "/";
 
+/** Replit proxy: HMR must use the public HTTPS host, not localhost. */
+const isReplit = process.env.REPL_ID !== undefined;
+const replitDevHost =
+  process.env.REPLIT_DEV_DOMAIN ??
+  process.env.REPLIT_DOMAINS?.split(",")[0]?.trim();
+
 /** Single `.env` at monorepo root (DATABASE_URL, VITE_*, etc.). */
 const envDir = path.resolve(import.meta.dirname, "../..");
 
@@ -55,7 +61,22 @@ export default defineConfig({
   server: {
     port,
     host: "0.0.0.0",
+    strictPort: true,
     allowedHosts: true,
+    watch: isReplit
+      ? {
+          usePolling: true,
+          interval: 200,
+        }
+      : undefined,
+    hmr:
+      isReplit && replitDevHost
+        ? {
+            protocol: "wss",
+            host: replitDevHost,
+            clientPort: 443,
+          }
+        : true,
     proxy: {
       "/api": {
         target: apiProxyTarget,
