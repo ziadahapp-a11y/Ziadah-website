@@ -40,12 +40,12 @@ const ProductCard = ({
       <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#34d399" }}>{price} ⃁</span>
           <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#34d399" }}>{price} ⃁</span>
       )}
       {discount && (
         <span style={{
@@ -59,8 +59,8 @@ const ProductCard = ({
     {checked !== undefined && (
       <div style={{
         width: 22, height: 22, borderRadius: 6, flexShrink: 0,
-        background: checked ? "#7c3aed" : "var(--s2)",
-        border: `1px solid ${checked ? "#7c3aed" : "var(--b2)"}`,
+        background: checked ? "#22c57d" : "var(--s2)",
+        border: `1px solid ${checked ? "#22c57d" : "var(--b2)"}`,
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         {checked && <span style={{ color: "#fff", fontSize: 11 }}>✓</span>}
@@ -103,7 +103,7 @@ const AddToCartRow = ({
       </div>
     </div>
     <button style={{
-      background: "#7c3aed", border: "none", color: "#fff",
+      background: "#22c57d", border: "none", color: "#fff",
       fontSize: 10, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
       cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
     }}>
@@ -120,7 +120,7 @@ const Phone1Content = () => (
     </div>
     <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
     <div style={{
-      background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
+      background: "linear-gradient(135deg, #22c57d, #16a34a)",
       borderRadius: 14, padding: "12px 14px", margin: "12px 0",
     }}>
       <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
@@ -152,7 +152,7 @@ const Phone2Content = () => (
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
     <ShippingRow method="مجاني" time="" highlighted />
     <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
-    <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
+    <div style={{ textAlign: "center", color: "#22c57d", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
       لا تنسَ تضيفها بعرض خاص لك الآن
     </div>
     <div style={{
@@ -222,7 +222,7 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "أكمل للشحن المجاني",
       desc: "يحسب زيادة الفجوة بين قيمة الطلب وعتبة الشحن المجاني ويقترح منتجات بالقيمة الناقصة تماماً مع شريط تقدم مرئي يحفّز العميل على الإضافة.",
-      color: "#7c3aed",
+      color: "#22c57d",
     },
     {
       icon: "✅",
@@ -244,7 +244,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+27%", label: "متوسط قيمة الطلب", color: "#34d399" },
     { value: "+19%", label: "معدل إتمام الشراء", color: "#10b981" },
     { value: "-34%", label: "معدل التخلي عند الدفع", color: "#ec4899" },
     { value: "+41%", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
@@ -278,7 +278,7 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "Complete for Free Shipping",
       desc: "Ziadah calculates the gap between order value and free shipping threshold and suggests products at exactly the missing value with a visual progress bar motivating the customer to add.",
-      color: "#7c3aed",
+      color: "#22c57d",
     },
     {
       icon: "✅",
@@ -300,7 +300,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+27%", label: "Average order value", color: "#a855f7" },
+    { value: "+27%", label: "Average order value", color: "#34d399" },
     { value: "+19%", label: "Purchase completion rate", color: "#10b981" },
     { value: "-34%", label: "Checkout abandonment rate", color: "#ec4899" },
     { value: "+41%", label: "Orders exceeding shipping threshold", color: "#06b6d4" },

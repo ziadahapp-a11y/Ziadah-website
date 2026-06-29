@@ -25,7 +25,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "عرض بديل أوفر",
       desc: "إذا كان السعر هو العائق، يقترح زيادة منتجاً مشابهاً بسعر أقل — يُبقي العميل في التجربة ويُبقي المتجر يكسب بيعاً بدلاً من لا شيء.",
-      color: "#7c3aed",
+      color: "#22c57d",
     },
     {
       icon: "💬",
@@ -42,7 +42,7 @@ const data: UseCasePageData = {
   ],
   stats: [
     { value: "-42%", label: "حالات الحذف التي تنتهي ببيع بعد تدخل زيادة", color: "#ec4899" },
-    { value: "31%", label: "معدل قبول الخصم الاحتجازي لحظة الحذف", color: "#a855f7" },
+    { value: "31%", label: "معدل قبول الخصم الاحتجازي لحظة الحذف", color: "#34d399" },
     { value: "+24%", label: "إيرادات محفوظة كانت ستُفقد بدون التدخل", color: "#10b981" },
     { value: "12 ث", label: "متوسط وقت اتخاذ القرار بعد ظهور عرض زيادة", color: "#06b6d4" },
   ],
@@ -92,7 +92,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "More Affordable Alternative",
       desc: "If price is the obstacle, Ziadah suggests a similar product at a lower price — keeping the customer in the experience and earning a sale instead of nothing.",
-      color: "#7c3aed",
+      color: "#22c57d",
     },
     {
       icon: "💬",
@@ -109,7 +109,7 @@ const data: UseCasePageData = {
   ],
   statsEn: [
     { value: "-42%", label: "Removal cases ending in a sale after Ziadah's intervention", color: "#ec4899" },
-    { value: "31%", label: "Retention discount acceptance rate at removal moment", color: "#a855f7" },
+    { value: "31%", label: "Retention discount acceptance rate at removal moment", color: "#34d399" },
     { value: "+24%", label: "Saved revenue that would have been lost without intervention", color: "#10b981" },
     { value: "12 sec", label: "Average decision time after Ziadah's offer appears", color: "#06b6d4" },
   ],

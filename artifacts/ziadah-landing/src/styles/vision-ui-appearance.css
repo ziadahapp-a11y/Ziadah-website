@@ -8,13 +8,13 @@
 
 :root {
   /* saudi_riyal: glyph for U+20C1 (رمز الريال) — خطوط النظام غالباً بدون هذا الحرف على الجوال */
-  --font-en: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
-  --font-ar: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
-  --font: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
+  --font-en: "saudi_riyal", "Inter", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-ar: "saudi_riyal", "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  --font: "saudi_riyal", "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
 }
 
 html {
-  font-family: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
+  font-family: "saudi_riyal", "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
 }
 
 html {

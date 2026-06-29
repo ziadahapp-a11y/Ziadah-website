@@ -13,8 +13,8 @@ export default function HomePageWidget() {
         <div style={{
           padding: "10px 12px",
           borderRadius: 12,
-          background: "rgba(124,58,237,.12)",
-          border: "1.5px solid rgba(124,58,237,.3)",
+          background: "rgba(34, 197, 125,.12)",
+          border: "1.5px solid rgba(34, 197, 125,.3)",
           marginBottom: 10,
         }}>
           <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
@@ -24,7 +24,7 @@ export default function HomePageWidget() {
                 width: 36,
                 height: 36,
                 borderRadius: 8,
-                background: "rgba(168,85,247,.2)",
+                background: "rgba(52, 211, 153,.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -34,7 +34,7 @@ export default function HomePageWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#6ee7b7" }}>{tr.productPrice}</span>
                   <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
                 </div>
               </div>
@@ -43,13 +43,13 @@ export default function HomePageWidget() {
               width: "100%",
               padding: "7px 10px",
               borderRadius: 10,
-              background: "rgba(124,58,237,0.12)",
+              background: "rgba(34, 197, 125,0.12)",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
-              color: "#c084fc",
+              color: "#6ee7b7",
               fontSize: 12,
               fontWeight: 800,
-              border: "1px solid rgba(124,58,237,0.2)",
+              border: "1px solid rgba(34, 197, 125,0.2)",
               cursor: "pointer",
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
@@ -85,7 +85,7 @@ export default function HomePageWidget() {
             }}>
               <div style={{ fontSize: 20, marginBottom: 3 }}>{p.emoji}</div>
               <div style={{ fontSize: 12, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: "#6ee7b7" }}>{tr.currency}{p.price}</div>
             </div>
           ))}
         </div>

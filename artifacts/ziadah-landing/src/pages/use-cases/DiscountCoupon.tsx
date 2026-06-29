@@ -26,7 +26,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "شرط قيمة السلة",
       desc: "مثلاً: خصم عند تجاوز مبلغ معين — يُشجّع على رفع قيمة الطلب.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🎯",
@@ -43,7 +43,7 @@ const data: UseCasePageData = {
   ],
   stats: [
     { value: "-38%", label: "معدل التخلي عند استخدام الإنقاذ بكوبون", color: "#ec4899" },
-    { value: "+24%", label: "إتمام الطلب بعد ظهور القسيمة", color: "#a855f7" },
+    { value: "+24%", label: "إتمام الطلب بعد ظهور القسيمة", color: "#34d399" },
     { value: "+18%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#10b981" },
   ],
@@ -89,7 +89,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "Cart value condition",
       desc: "E.g. discount after crossing a threshold — encourages higher order value.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🎯",
@@ -106,7 +106,7 @@ const data: UseCasePageData = {
   ],
   statsEn: [
     { value: "-38%", label: "Abandonment when rescue coupon is used", color: "#ec4899" },
-    { value: "+24%", label: "Completion after coupon appears", color: "#a855f7" },
+    { value: "+24%", label: "Completion after coupon appears", color: "#34d399" },
     { value: "+18%", label: "Average order value", color: "#06b6d4" },
     { value: "+31%", label: "Recovered customers monthly", color: "#10b981" },
   ],

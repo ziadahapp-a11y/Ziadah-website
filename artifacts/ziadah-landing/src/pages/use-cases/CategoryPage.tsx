@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "ترتيب ذكي مخصص",
       desc: "يعيد زيادة ترتيب بطاقات المنتجات بناءً على احتمالية شراء كل عميل — المنتجات الأنسب تظهر أولاً لكل زائر.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🏷️",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#a855f7" },
+    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#34d399" },
     { value: "+33%", label: "معدل إضافة للسلة", color: "#10b981" },
     { value: "+21%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "-24%", label: "وقت اتخاذ قرار الشراء", color: "#ec4899" },
@@ -86,7 +86,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Smart Personalized Ordering",
       desc: "Ziadah reorders product cards based on each customer's purchase probability — the most relevant products appear first for every visitor.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🏷️",
@@ -108,7 +108,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+27%", label: "Category-to-product click-through rate", color: "#a855f7" },
+    { value: "+27%", label: "Category-to-product click-through rate", color: "#34d399" },
     { value: "+33%", label: "Add-to-cart rate", color: "#10b981" },
     { value: "+21%", label: "Average order value", color: "#06b6d4" },
     { value: "-24%", label: "Purchase decision time", color: "#ec4899" },

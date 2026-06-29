@@ -11,7 +11,7 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteT } from "../cms/siteContent";
 
 const goals = [
-  { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", titleEn: "Add More Products", subtitle: "زيادة عدد المنتجات في كل طلب", subtitleEn: "Increase the number of products per order", color: "#a855f7", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", descEn: "AI suggests additional products related to what's in the customer's cart or what they're browsing. The goal is to increase product count, not just value.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", whenEn: "Best when your store sells small complementary products at low prices.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", exampleEn: "Customer bought shampoo → suggested conditioner + hair mask.", boost: "+28% متوسط المنتجات في السلة", boostEn: "+28% average products in cart" },
+  { id: 1, icon: "🛒", title: "إضافة المزيد من المنتجات", titleEn: "Add More Products", subtitle: "زيادة عدد المنتجات في كل طلب", subtitleEn: "Increase the number of products per order", color: "#34d399", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", descEn: "AI suggests additional products related to what's in the customer's cart or what they're browsing. The goal is to increase product count, not just value.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", whenEn: "Best when your store sells small complementary products at low prices.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", exampleEn: "Customer bought shampoo → suggested conditioner + hair mask.", boost: "+28% متوسط المنتجات في السلة", boostEn: "+28% average products in cart" },
   { id: 2, icon: "📦", title: "عرض الكميات (Buy X Get Y)", titleEn: "Quantity Offers (Buy X Get Y)", subtitle: "تحفيز الشراء بكميات أكبر", subtitleEn: "Encourage buying in larger quantities", color: "#06b6d4", desc: "يعرض النظام خصوماً تدريجية عند شراء كميات أكبر: اشتر 2 واحصل على خصم 10%، اشتر 3 وخصم 20%. يحفز زيادة الكمية لنفس المنتج.", descEn: "The system offers tiered discounts for larger quantities: buy 2 get 10% off, buy 3 get 20% off. Encourages buying more of the same product.", when: "مثالي للمنتجات القابلة للاستهلاك: العطور، المواد الغذائية، مستحضرات التجميل.", whenEn: "Ideal for consumable products: perfumes, food items, cosmetics.", example: "عميل في صفحة مشروب البروتين → يظهر له: 'اشتر 3 واحصل على خصم 15%'.", exampleEn: "Customer on protein drink page → sees: 'Buy 3 and get 15% off'.", boost: "+35% في الكمية المطلوبة", boostEn: "+35% in ordered quantity" },
   { id: 3, icon: "⬆️", title: "استبدال المنتج (Upsell)", titleEn: "Product Swap (Upsell)", subtitle: "عرض بديل أعلى قيمة وجودة", subtitleEn: "Show a higher-value, higher-quality alternative", color: "#10b981", desc: "يقترح النظام نسخة أفضل أو أعلى جودة من المنتج الذي يشاهده العميل. يرفع قيمة الطلب ويقدم تجربة أفضل للعميل.", descEn: "The system suggests a better or higher-quality version of the product the customer is viewing. Raises order value and delivers a better experience.", when: "مفيد جداً عندما يكون لديك فئات متعددة من المنتج: أساسي ومتميز وبريميوم.", whenEn: "Very useful when you have multiple product tiers: basic, premium, and elite.", example: "عميل في صفحة سماعة بسعر 100 ⃁ → يظهر له سماعة بسعر 180 ⃁ بمزايا أفضل.", exampleEn: "Customer on a SAR 100 headphone page → shown a SAR 180 headphone with better features.", boost: "+41% في متوسط قيمة الطلب", boostEn: "+41% in average order value" },
   { id: 4, icon: "💰", title: "زيادة قيمة السلة", titleEn: "Increase Cart Value", subtitle: "رفع المبلغ الإجمالي لتجاوز عتبة معينة", subtitleEn: "Raise total amount to cross a specific threshold", color: "#f59e0b", desc: "يعرض منتجات إضافية مختارة ذكياً لمساعدة العميل على تجاوز عتبة الشحن المجاني أو الخصم. 'أضف 30 ⃁ للحصول على شحن مجاني'.", descEn: "Shows smartly selected additional products to help the customer cross the free shipping or discount threshold. 'Add SAR 30 for free shipping'.", when: "ممتاز عندما يكون لديك عتبة للشحن المجاني أو خصم على الطلبات الكبيرة.", whenEn: "Excellent when you have a free shipping threshold or discount on large orders.", example: "سلة بقيمة 170 ⃁ → يقترح منتج بـ35 ⃁ لتصل لـ200 وتحصل على شحن مجاني.", exampleEn: "Cart at SAR 170 → suggests a SAR 35 product to reach 200 and get free shipping.", boost: "+22% من الطلبات تتجاوز عتبة الشحن", boostEn: "+22% of orders exceed shipping threshold" },
@@ -19,7 +19,7 @@ const goals = [
 ];
 
 const presentations = [
-  { icon: "🔗", title: "منتجات ذات صلة", titleEn: "Related Products", color: "#a855f7", desc: "يحلل الذكاء الاصطناعي ما يتصفحه العميل وسلوكه السابق ويقترح منتجات مرتبطة بالموضوع. الأقوى في التأثير لأنه يعكس اهتمامات العميل الحقيقية.", descEn: "AI analyzes customer browsing and past behavior to suggest related products. Most impactful as it reflects the customer's real interests.", positions: ["صفحة المنتج", "الصفحة الرئيسية", "صفحة البحث"], positionsEn: ["Product Page", "Home Page", "Search Page"], best: "متاجر الأزياء، الإلكترونيات", bestEn: "Fashion stores, Electronics" },
+  { icon: "🔗", title: "منتجات ذات صلة", titleEn: "Related Products", color: "#34d399", desc: "يحلل الذكاء الاصطناعي ما يتصفحه العميل وسلوكه السابق ويقترح منتجات مرتبطة بالموضوع. الأقوى في التأثير لأنه يعكس اهتمامات العميل الحقيقية.", descEn: "AI analyzes customer browsing and past behavior to suggest related products. Most impactful as it reflects the customer's real interests.", positions: ["صفحة المنتج", "الصفحة الرئيسية", "صفحة البحث"], positionsEn: ["Product Page", "Home Page", "Search Page"], best: "متاجر الأزياء، الإلكترونيات", bestEn: "Fashion stores, Electronics" },
   { icon: "➕", title: "إضافات (Add-ons)", titleEn: "Add-ons", color: "#06b6d4", desc: "يقترح منتجات تكمل المنتج الأساسي وتضيف قيمة وظيفية له. عرض طبيعي ومنطقي يشعر العميل أنه يحصل على تجربة أكمل.", descEn: "Suggests products that complement the main product and add functional value. A natural, logical display that makes customers feel they're getting a more complete experience.", positions: ["صفحة المنتج", "السلة", "الدفع"], positionsEn: ["Product Page", "Cart", "Checkout"], best: "الإلكترونيات، الرياضة، العناية", bestEn: "Electronics, Sports, Beauty" },
   { icon: "🛒", title: "اشتروا مع بعض (BTAT)", titleEn: "Bought Together (BTAT)", color: "#10b981", desc: "يستند على بيانات تاريخية من آلاف الطلبات ليعرف أي المنتجات يُشترى مجتمعة. 'عملاء اشتروا هذا أيضاً اشتروا...' - اجتماعي وموثوق.", descEn: "Based on historical data from thousands of orders to identify which products are bought together. 'Customers who bought this also bought...' — social and trustworthy.", positions: ["صفحة المنتج", "السلة"], positionsEn: ["Product Page", "Cart"], best: "الطعام، الأزياء، المنزل", bestEn: "Food, Fashion, Home" },
   { icon: "🎁", title: "Combo (حزم ذكية)", titleEn: "Combo (Smart Bundles)", color: "#f59e0b", desc: "يُجمّع منتجين أو أكثر بسعر حزمة خاص يوفر على العميل ويرفع قيمة طلبه. قوي جداً للمنتجات المتكاملة مثل الروتين الكامل أو الطقم الكامل.", descEn: "Bundles two or more products at a special package price that saves the customer money and raises order value. Very powerful for complementary products like full routines or complete sets.", positions: ["صفحة المنتج", "الصفحة الرئيسية", "صفحة الفئة"], positionsEn: ["Product Page", "Home Page", "Category Page"], best: "العناية، الأزياء، الغذاء", bestEn: "Beauty, Fashion, Food" },
@@ -39,13 +39,13 @@ const activities = [
 ];
 
 const usecases = [
-  { sector: "الأزياء والموضة", sectorEn: "Fashion & Apparel", icon: "👗", color: "#a855f7", strategies: ["تجميع الإطقم الكاملة", "عرض الإكسسوارات المكملة", "Upsell للفئة الأعلى", "كوبون للشراء الأول"], strategiesEn: ["Bundle complete outfits", "Show complementary accessories", "Upsell to premium tier", "First-purchase coupon"], result: "+35% متوسط الطلب", resultEn: "+35% average order value", stores: "+230 متجر", storesEn: "+230 stores" },
+  { sector: "الأزياء والموضة", sectorEn: "Fashion & Apparel", icon: "👗", color: "#34d399", strategies: ["تجميع الإطقم الكاملة", "عرض الإكسسوارات المكملة", "Upsell للفئة الأعلى", "كوبون للشراء الأول"], strategiesEn: ["Bundle complete outfits", "Show complementary accessories", "Upsell to premium tier", "First-purchase coupon"], result: "+35% متوسط الطلب", resultEn: "+35% average order value", stores: "+230 متجر", storesEn: "+230 stores" },
   { sector: "الجمال والعناية", sectorEn: "Beauty & Skincare", icon: "💄", color: "#ec4899", strategies: ["روتين العناية الكامل", "تجميع المنتجات المتكاملة", "Buy 3 وفر 20%", "عرض نسخة الحجم الكبير"], strategiesEn: ["Complete skincare routine", "Bundle complementary products", "Buy 3 save 20%", "Show larger size version"], result: "+32% متوسط الطلب", resultEn: "+32% average order value", stores: "+140 متجر", storesEn: "+140 stores" },
   { sector: "الغذاء والمشروبات", sectorEn: "Food & Beverages", icon: "🍯", color: "#f59e0b", strategies: ["حزم التوفير الشهرية", "اشتر أكثر ووفر أكثر", "منتجات مكملة للوجبة", "اشتراكات دورية"], strategiesEn: ["Monthly savings bundles", "Buy more save more", "Meal complementary products", "Recurring subscriptions"], result: "+28% متوسط الطلب", resultEn: "+28% average order value", stores: "+180 متجر", storesEn: "+180 stores" },
   { sector: "الإلكترونيات والتقنية", sectorEn: "Electronics & Technology", icon: "💻", color: "#06b6d4", strategies: ["ملحقات الجهاز (Add-ons)", "الحماية والضمان الممتد", "Upsell للموديل الأحدث", "حزمة الإعداد الكامل"], strategiesEn: ["Device accessories (Add-ons)", "Protection & extended warranty", "Upsell to newer model", "Complete setup bundle"], result: "+22% متوسط الطلب", resultEn: "+22% average order value", stores: "+90 متجر", storesEn: "+90 stores" },
   { sector: "المنزل والديكور", sectorEn: "Home & Decor", icon: "🏠", color: "#10b981", strategies: ["تجميع مستلزمات الغرفة", "منتجات ذات صلة بالديكور", "Combo للأثاث المتكامل", "خصم الكميات"], strategiesEn: ["Bundle room essentials", "Decor-related products", "Combo for matching furniture", "Volume discounts"], result: "+26% متوسط الطلب", resultEn: "+26% average order value", stores: "+70 متجر", storesEn: "+70 stores" },
   { sector: "الرياضة واللياقة", sectorEn: "Sports & Fitness", icon: "🏋️", color: "#4f46e5", strategies: ["حزمة المستلزمات الرياضية", "منتجات التغذية + معدات", "روتين التمرين الكامل", "Upsell للإصدار المتميز"], strategiesEn: ["Sports essentials bundle", "Nutrition products + equipment", "Complete workout routine", "Upsell to premium edition"], result: "+30% متوسط الطلب", resultEn: "+30% average order value", stores: "+60 متجر", storesEn: "+60 stores" },
-  { sector: "الكتب والتعليم", sectorEn: "Books & Education", icon: "📚", color: "#7c3aed", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"], result: "+18% متوسط الطلب", resultEn: "+18% average order value", stores: "+40 متجر", storesEn: "+40 stores" },
+  { sector: "الكتب والتعليم", sectorEn: "Books & Education", icon: "📚", color: "#22c57d", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"], result: "+18% متوسط الطلب", resultEn: "+18% average order value", stores: "+40 متجر", storesEn: "+40 stores" },
   { sector: "التبرعات والخيرية", sectorEn: "Donations & Charity", icon: "🤲", color: "#059669", strategies: ["مشاريع تبرع مكملة", "زيادة مبلغ التبرع", "اشترك تبرعياً شهرياً", "عرض المشاريع ذات الأولوية"], strategiesEn: ["Complementary donation projects", "Increase donation amount", "Monthly donation subscription", "Show priority projects"], result: "+48% متوسط التبرع", resultEn: "+48% average donation", stores: "+40 منظمة", storesEn: "+40 organizations" },
 ];
 
@@ -101,7 +101,7 @@ export default function Features() {
             { id: "activities" as const, label: ft.tabActivities },
             { id: "usecases" as const, label: ft.tabUsecases },
           ].map(tab => (
-            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: "10px 22px", borderRadius: 12, border: "none", background: activeTab === tab.id ? "rgba(124,58,237,.2)" : "transparent", color: activeTab === tab.id ? "var(--p)" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", transition: "all .25s", borderColor: activeTab === tab.id ? "rgba(124,58,237,.4)" : "transparent", outline: activeTab === tab.id ? "1px solid rgba(124,58,237,.3)" : "none" }}>
+            <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ padding: "10px 22px", borderRadius: 12, border: "none", background: activeTab === tab.id ? "rgba(34, 197, 125,.2)" : "transparent", color: activeTab === tab.id ? "var(--p)" : "var(--tm)", fontFamily: "var(--font)", fontSize: 14, fontWeight: activeTab === tab.id ? 700 : 500, cursor: "pointer", transition: "all .25s", borderColor: activeTab === tab.id ? "rgba(34, 197, 125,.4)" : "transparent", outline: activeTab === tab.id ? "1px solid rgba(34, 197, 125,.3)" : "none" }}>
               {tab.label}
             </button>
           ))}
@@ -123,7 +123,7 @@ export default function Features() {
                       <div style={{ flex: 1 }}>
                         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
                           <h3 style={{ fontSize: 20, fontWeight: 900 }}>{isAr ? g.title : g.titleEn}</h3>
-                          <span style={{ padding: "2px 10px", borderRadius: 50, background: `rgba(168,85,247,.1)`, border: `1px solid rgba(168,85,247,.2)`, fontSize: 11, color: g.color, fontWeight: 700 }}>{ft.goalLabel} #{g.id}</span>
+                          <span style={{ padding: "2px 10px", borderRadius: 50, background: `rgba(52, 211, 153,.1)`, border: `1px solid rgba(52, 211, 153,.2)`, fontSize: 11, color: g.color, fontWeight: 700 }}>{ft.goalLabel} #{g.id}</span>
                         </div>
                         <div style={{ fontSize: 13, color: "var(--td)" }}>{isAr ? g.subtitle : g.subtitleEn}</div>
                       </div>
@@ -142,7 +142,7 @@ export default function Features() {
                       </div>
                       <div>
                         <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{ft.expectedResult}</div>
-                        <div style={{ padding: "16px 20px", background: `rgba(168,85,247,.08)`, border: `1px solid rgba(168,85,247,.2)`, borderRadius: 12, textAlign: "center" }}>
+                        <div style={{ padding: "16px 20px", background: `rgba(52, 211, 153,.08)`, border: `1px solid rgba(52, 211, 153,.2)`, borderRadius: 12, textAlign: "center" }}>
                           {(() => { const boost = isAr ? g.boost : g.boostEn; return (<><div style={{ fontSize: 28, fontWeight: 900, color: g.color }}>{boost.split(" ")[0]}</div><div style={{ fontSize: 12, color: "var(--td)", marginTop: 4 }}>{boost.substring(boost.indexOf(" ") + 1)}</div></>); })()}
                         </div>
                       </div>
@@ -163,7 +163,7 @@ export default function Features() {
               <div key={isAr ? p.title : p.titleEn} className={`gc rv d${(i%2)+1}`} style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div className="shine"/>
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-                  <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(168,85,247,.1)`, border: "1px solid rgba(168,85,247,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>{p.icon}</div>
+                  <div style={{ width: 52, height: 52, borderRadius: 16, background: `rgba(52, 211, 153,.1)`, border: "1px solid rgba(52, 211, 153,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>{p.icon}</div>
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 800 }}>{isAr ? p.title : p.titleEn}</div>
                     <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{ft.presentationLabel} #{i + 1}</div>
@@ -191,7 +191,7 @@ export default function Features() {
                 <div key={a.num} className={`gc rv d${(i%3)+1}`} style={{ padding: "var(--card-pad-md)", minHeight: "100%" }}>
                   <div className="shine"/>
                   <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-                    <div style={{ width: 42, height: 42, borderRadius: 13, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{a.icon}</div>
+                    <div style={{ width: 42, height: 42, borderRadius: 13, background: "rgba(34, 197, 125,.12)", border: "1px solid rgba(34, 197, 125,.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>{a.icon}</div>
                     <div>
                       <div style={{ fontSize: 16, fontWeight: 800 }}>{isAr ? a.title : a.titleEn}</div>
                       <div style={{ fontSize: 11, color: "var(--p3)", fontWeight: 700 }}>{ft.activityLabel} {a.num}</div>
@@ -210,7 +210,7 @@ export default function Features() {
                     <div style={{ fontSize: 11, color: "var(--td)", fontWeight: 700, marginBottom: 6 }}>{ft.availablePlans}</div>
                     <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
                       {(isAr ? a.avail : a.availEn).map(pkg => (
-                        <span key={pkg} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.18)", fontSize: 11, color: "var(--p3)" }}>{pkg}</span>
+                        <span key={pkg} style={{ padding: "3px 9px", borderRadius: 50, background: "rgba(34, 197, 125,.08)", border: "1px solid rgba(34, 197, 125,.18)", fontSize: 11, color: "var(--p3)" }}>{pkg}</span>
                       ))}
                     </div>
                   </div>
@@ -228,10 +228,10 @@ export default function Features() {
                 {activities.map((a, i) => (
                   <div key={a.num} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
                     <div style={{ textAlign: "center", padding: "0 8px" }}>
-                      <div style={{ width: 44, height: 44, borderRadius: 13, background: "rgba(124,58,237,.14)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, margin: "0 auto 8px" }}>{a.icon}</div>
+                      <div style={{ width: 44, height: 44, borderRadius: 13, background: "rgba(34, 197, 125,.14)", border: "1px solid rgba(34, 197, 125,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, margin: "0 auto 8px" }}>{a.icon}</div>
                       <div style={{ fontSize: 11, fontWeight: 700, whiteSpace: "nowrap", maxWidth: 70, textAlign: "center", margin: "0 auto" }}>{isAr ? a.title : a.titleEn}</div>
                     </div>
-                    {i < activities.length - 1 && <div style={{ width: 30, height: 1, background: "linear-gradient(90deg,rgba(124,58,237,.5),rgba(6,182,212,.5))", flexShrink: 0 }}/>}
+                    {i < activities.length - 1 && <div style={{ width: 30, height: 1, background: "linear-gradient(90deg,rgba(34, 197, 125,.5),rgba(6,182,212,.5))", flexShrink: 0 }}/>}
                   </div>
                 ))}
               </div>
@@ -255,7 +255,7 @@ export default function Features() {
                       <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{isAr ? u.stores : u.storesEn}</div>
                     </div>
                   </div>
-                  <div style={{ textAlign: "center", padding: "10px 16px", background: `rgba(168,85,247,.08)`, border: "1px solid rgba(168,85,247,.2)", borderRadius: 12, flexShrink: 0 }}>
+                  <div style={{ textAlign: "center", padding: "10px 16px", background: `rgba(52, 211, 153,.08)`, border: "1px solid rgba(52, 211, 153,.2)", borderRadius: 12, flexShrink: 0 }}>
                     {(() => { const result = isAr ? u.result : u.resultEn; return (<><div style={{ fontSize: 22, fontWeight: 900, color: u.color }}>{result.split(" ")[0]}</div><div style={{ fontSize: 11, color: "var(--td)", marginTop: 2, whiteSpace: "nowrap" }}>{result.substring(result.indexOf(" ") + 1)}</div></>); })()}
                   </div>
                 </div>

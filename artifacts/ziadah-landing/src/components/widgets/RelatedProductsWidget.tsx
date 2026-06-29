@@ -48,7 +48,7 @@ export default function RelatedProductsWidget({ demo }: { demo?: RelatedProducts
                   width: 40,
                   height: 40,
                   borderRadius: 10,
-                  background: "rgba(124,58,237,.15)",
+                  background: "rgba(34, 197, 125,.15)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -58,20 +58,20 @@ export default function RelatedProductsWidget({ demo }: { demo?: RelatedProducts
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
                   <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>{tr.currency}{p.price}</div>
+                  <div style={{ fontSize: 12, fontWeight: 800, color: "#6ee7b7", marginTop: 2 }}>{tr.currency}{p.price}</div>
                 </div>
               </div>
               <button style={{
                 width: "100%",
                 padding: "7px 12px",
                 borderRadius: 10,
-                background: "rgba(124,58,237,0.12)",
+                background: "rgba(34, 197, 125,0.12)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                color: "#c084fc",
+                color: "#6ee7b7",
                 fontSize: 12,
                 fontWeight: 800,
-                border: "1px solid rgba(124,58,237,0.2)",
+                border: "1px solid rgba(34, 197, 125,0.2)",
                 cursor: "pointer",
               }} className="widget-btn-sm">
                 {tr.btnAdd}

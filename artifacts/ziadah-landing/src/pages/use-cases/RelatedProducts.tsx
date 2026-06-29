@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🤖",
       title: "توصيات مخصصة لكل عميل",
       desc: "بناءً على ملف العميل ومشترياته السابقة وتصفحه الحالي، يختار زيادة المنتجات التي تناسبه هو تحديداً — لا قائمة عامة للجميع.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🛒",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+38%", label: "زيادة في معدل إضافة المنتجات للسلة", color: "#a855f7" },
+    { value: "+38%", label: "زيادة في معدل إضافة المنتجات للسلة", color: "#34d399" },
     { value: "+26%", label: "متوسط عدد المنتجات في الطلب الواحد", color: "#06b6d4" },
     { value: "42%", label: "من العملاء يتفاعلون مع قائمة الصلة", color: "#10b981" },
     { value: "3 ثوانٍ", label: "متوسط وقت الإضافة من عرض الاقتراح", color: "#f59e0b" },
@@ -96,7 +96,7 @@ const data: UseCasePageData = {
                       { place: "🏷️ Category Page", note: "Between products or in the sidebar" },
                     ]
                 ).map((item, i) => (
-                  <div key={i} style={{ padding: "20px 24px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 14, textAlign: "center" }}>
+                  <div key={i} style={{ padding: "20px 24px", background: "rgba(34, 197, 125,.05)", border: "1px solid rgba(34, 197, 125,.15)", borderRadius: 14, textAlign: "center" }}>
                     <div style={{ fontSize: 22, marginBottom: 8 }}>{item.place}</div>
                     <div style={{ fontSize: 13, color: "var(--tm)" }}>{item.note}</div>
                   </div>
@@ -126,7 +126,7 @@ const data: UseCasePageData = {
       icon: "🤖",
       title: "Personalized recommendations",
       desc: "Based on the customer's profile, past purchases, and current browsing, Ziadah selects products suited specifically to them — not a generic list for everyone.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🛒",
@@ -148,7 +148,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+38%", label: "Increase in product add-to-cart rate", color: "#a855f7" },
+    { value: "+38%", label: "Increase in product add-to-cart rate", color: "#34d399" },
     { value: "+26%", label: "Average number of products per order", color: "#06b6d4" },
     { value: "42%", label: "Of customers interact with the related products list", color: "#10b981" },
     { value: "3 sec", label: "Average time to add from suggestion display", color: "#f59e0b" },

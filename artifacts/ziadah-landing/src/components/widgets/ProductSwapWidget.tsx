@@ -34,8 +34,8 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
         <div style={{
           padding: "12px",
           borderRadius: 14,
-          background: "rgba(124,58,237,.1)",
-          border: "1.5px solid rgba(124,58,237,.3)",
+          background: "rgba(34, 197, 125,.1)",
+          border: "1.5px solid rgba(34, 197, 125,.3)",
           marginBottom: 12,
         }}>
           <div style={{
@@ -58,7 +58,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
               width: 56,
               height: 56,
               borderRadius: 12,
-              background: "rgba(124,58,237,.15)",
+              background: "rgba(34, 197, 125,.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -100,13 +100,13 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
           width: "100%",
           padding: "10px",
           borderRadius: 12,
-          background: "rgba(124,58,237,0.12)",
+          background: "rgba(34, 197, 125,0.12)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          color: "#c084fc",
+          color: "#6ee7b7",
           fontSize: 14,
           fontWeight: 800,
-          border: "1px solid rgba(124,58,237,0.2)",
+          border: "1px solid rgba(34, 197, 125,0.2)",
           cursor: "pointer",
         }} className="widget-btn">
           {tr.btnUpgrade}

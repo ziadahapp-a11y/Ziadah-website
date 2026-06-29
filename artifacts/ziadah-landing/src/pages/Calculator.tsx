@@ -269,8 +269,8 @@ export default function Calculator() {
       onChange: setVisitors,
       formatDisplay: (n) => fmtN(n),
       formatTick: (n) => fmtN(n),
-      color: "#a855f7",
-      colorRgb: "168,85,247",
+      color: "#34d399",
+      colorRgb: "52, 211, 153",
     },
     {
       label: tr.conversionRate,
@@ -281,8 +281,8 @@ export default function Calculator() {
       onChange: setConvRate,
       formatDisplay: (n) => fmtN(n, 1) + "%",
       formatTick: (n) => fmtN(n, 1),
-      color: "#a855f7",
-      colorRgb: "168,85,247",
+      color: "#34d399",
+      colorRgb: "52, 211, 153",
     },
     {
       label: tr.avgOrderValue,
@@ -293,8 +293,8 @@ export default function Calculator() {
       onChange: setAov,
       formatDisplay: (n) => fmtN(n) + currencySuffix,
       formatTick: (n) => fmtN(n) + currencySuffix,
-      color: "#a855f7",
-      colorRgb: "168,85,247",
+      color: "#34d399",
+      colorRgb: "52, 211, 153",
     },
   ];
 
@@ -442,11 +442,11 @@ export default function Calculator() {
 
                   <div
                     style={{
-                      background: "rgba(168,85,247,.1)",
-                      border: "1px solid rgba(168,85,247,.2)",
+                      background: "rgba(52, 211, 153,.1)",
+                      border: "1px solid rgba(52, 211, 153,.2)",
                       borderRadius: 16,
                       padding: "24px 22px",
-                      borderTop: "3px solid #a855f7",
+                      borderTop: "3px solid #34d399",
                       position: "relative",
                       overflow: "hidden",
                       direction: dir,
@@ -457,7 +457,7 @@ export default function Calculator() {
                       style={{
                         fontSize: 13,
                         fontWeight: 700,
-                        color: "#c084fc",
+                        color: "#6ee7b7",
                         marginBottom: 18,
                         letterSpacing: 0.3,
                         position: "relative",
@@ -491,9 +491,9 @@ export default function Calculator() {
                             style={{
                               fontSize: 11,
                               fontWeight: 800,
-                              color: "#c084fc",
-                              background: "rgba(168,85,247,.18)",
-                              border: "1px solid rgba(168,85,247,.35)",
+                              color: "#6ee7b7",
+                              background: "rgba(52, 211, 153,.18)",
+                              border: "1px solid rgba(52, 211, 153,.35)",
                               borderRadius: 6,
                               padding: "2px 7px",
                             }}
@@ -514,8 +514,8 @@ export default function Calculator() {
 
                 <div
                   style={{
-                    background: "rgba(124,58,237,.1)",
-                    border: "1px solid rgba(168,85,247,.28)",
+                    background: "rgba(34, 197, 125,.1)",
+                    border: "1px solid rgba(52, 211, 153,.28)",
                     borderRadius: 18,
                     padding: "28px 28px",
                     position: "relative",
@@ -526,7 +526,7 @@ export default function Calculator() {
                     style={{
                       fontSize: 15,
                       fontWeight: 800,
-                      color: "#c084fc",
+                      color: "#6ee7b7",
                       marginBottom: 22,
                       display: "flex",
                       alignItems: "center",
@@ -540,7 +540,7 @@ export default function Calculator() {
                         width: 8,
                         height: 8,
                         borderRadius: "50%",
-                        background: "#a855f7",
+                        background: "#34d399",
                         display: "inline-block",
                       }}
                     />
@@ -563,7 +563,7 @@ export default function Calculator() {
                         borderRadius: 14,
                         padding: "18px 16px",
                         textAlign: "center",
-                        border: "1px solid rgba(168,85,247,.22)",
+                        border: "1px solid rgba(52, 211, 153,.22)",
                         direction: dir,
                         unicodeBidi: "isolate",
                       }}
@@ -604,7 +604,7 @@ export default function Calculator() {
                         borderRadius: 14,
                         padding: "18px 16px",
                         textAlign: "center",
-                        border: "1px solid rgba(168,85,247,.22)",
+                        border: "1px solid rgba(52, 211, 153,.22)",
                         direction: dir,
                         unicodeBidi: "isolate",
                       }}
@@ -645,7 +645,7 @@ export default function Calculator() {
                         borderRadius: 14,
                         padding: "18px 16px",
                         textAlign: "center",
-                        border: "1px solid rgba(168,85,247,.22)",
+                        border: "1px solid rgba(52, 211, 153,.22)",
                         direction: dir,
                         unicodeBidi: "isolate",
                       }}
@@ -704,8 +704,8 @@ export default function Calculator() {
                     width: "100%",
                     textAlign: "center",
                     padding: "16px 32px",
-                    background: "#7c3aed",
-                    border: "1px solid rgba(168,85,247,.4)",
+                    background: "#22c57d",
+                    border: "1px solid rgba(52, 211, 153,.4)",
                     borderRadius: 14,
                     color: "#fff",
                     fontFamily: "var(--font)",
@@ -713,17 +713,17 @@ export default function Calculator() {
                     fontWeight: 800,
                     cursor: "pointer",
                     transition: "all .25s",
-                    boxShadow: "0 8px 32px rgba(124,58,237,.35)",
+                    boxShadow: "0 8px 32px rgba(34, 197, 125,.35)",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = "translateY(-2px)";
                     e.currentTarget.style.boxShadow =
-                      "0 12px 40px rgba(124,58,237,.5)";
+                      "0 12px 40px rgba(34, 197, 125,.5)";
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = "none";
                     e.currentTarget.style.boxShadow =
-                      "0 8px 32px rgba(124,58,237,.35)";
+                      "0 8px 32px rgba(34, 197, 125,.35)";
                   }}
                 >
                   {tr.cta}
@@ -764,30 +764,30 @@ export default function Calculator() {
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: #a855f7;
+            background: #34d399;
             border: 3px solid rgba(255, 255, 255, 0.92);
             margin-top: -7px;
             box-shadow:
-              0 2px 10px rgba(124, 58, 237, 0.45),
-              0 0 0 1px rgba(168, 85, 247, 0.35);
+              0 2px 10px rgba(34, 197, 125, 0.45),
+              0 0 0 1px rgba(52, 211, 153, 0.35);
             cursor: grab;
             transition: box-shadow 0.15s ease, transform 0.15s ease;
           }
           input.calc-range-input:hover::-webkit-slider-thumb {
             box-shadow:
-              0 4px 14px rgba(124, 58, 237, 0.55),
-              0 0 0 1px rgba(192, 132, 252, 0.5);
+              0 4px 14px rgba(34, 197, 125, 0.55),
+              0 0 0 1px rgba(110, 231, 183, 0.5);
           }
           input.calc-range-input:active::-webkit-slider-thumb {
             cursor: grabbing;
             box-shadow:
-              0 2px 16px rgba(124, 58, 237, 0.65),
+              0 2px 16px rgba(34, 197, 125, 0.65),
               0 0 0 2px rgba(255, 255, 255, 0.55);
           }
           input.calc-range-input:focus-visible::-webkit-slider-thumb {
             box-shadow:
-              0 0 0 3px rgba(168, 85, 247, 0.45),
-              0 2px 10px rgba(124, 58, 237, 0.45);
+              0 0 0 3px rgba(52, 211, 153, 0.45),
+              0 2px 10px rgba(34, 197, 125, 0.45);
           }
           input.calc-range-input::-moz-range-track {
             height: 12px;
@@ -798,29 +798,29 @@ export default function Calculator() {
             width: 26px;
             height: 26px;
             border-radius: 50%;
-            background: #a855f7;
+            background: #34d399;
             border: 3px solid rgba(255, 255, 255, 0.92);
             box-shadow:
-              0 2px 10px rgba(124, 58, 237, 0.45),
-              0 0 0 1px rgba(168, 85, 247, 0.35);
+              0 2px 10px rgba(34, 197, 125, 0.45),
+              0 0 0 1px rgba(52, 211, 153, 0.35);
             border-width: 3px;
             cursor: grab;
           }
           input.calc-range-input:hover::-moz-range-thumb {
             box-shadow:
-              0 4px 14px rgba(124, 58, 237, 0.55),
-              0 0 0 1px rgba(192, 132, 252, 0.5);
+              0 4px 14px rgba(34, 197, 125, 0.55),
+              0 0 0 1px rgba(110, 231, 183, 0.5);
           }
           input.calc-range-input:active::-moz-range-thumb {
             cursor: grabbing;
             box-shadow:
-              0 2px 16px rgba(124, 58, 237, 0.65),
+              0 2px 16px rgba(34, 197, 125, 0.65),
               0 0 0 2px rgba(255, 255, 255, 0.55);
           }
           input.calc-range-input:focus-visible::-moz-range-thumb {
             box-shadow:
-              0 0 0 3px rgba(168, 85, 247, 0.45),
-              0 2px 10px rgba(124, 58, 237, 0.45);
+              0 0 0 3px rgba(52, 211, 153, 0.45),
+              0 2px 10px rgba(34, 197, 125, 0.45);
           }
 
           @media (max-width: 1024px) {

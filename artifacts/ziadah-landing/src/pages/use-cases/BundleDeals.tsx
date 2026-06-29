@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "حزمة التكامل الوظيفي",
       desc: "منتجان أو ثلاثة تُكمّل بعضها وظيفياً في طقم متكامل — الهاتف مع الغلاف والشاشة، أو مجموعة العناية الكاملة.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🎁",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+52%", label: "معدل قبول عرض الحزمة عند إبراز التوفير بوضوح", color: "#a855f7" },
+    { value: "+52%", label: "معدل قبول عرض الحزمة عند إبراز التوفير بوضوح", color: "#34d399" },
     { value: "+39%", label: "متوسط قيمة الطلب مع حزمة واحدة على الأقل", color: "#06b6d4" },
     { value: "+25%", label: "هامش الإيراد الإجمالي رغم الخصم على الحزمة", color: "#10b981" },
     { value: "68%", label: "من العملاء يُفضّلون الحزمة على الشراء المفرد حين يرون التوفير", color: "#f59e0b" },
@@ -92,8 +92,8 @@ const data: UseCasePageData = {
                       { step: "3", title: "Automatic A/B testing", desc: "Ziadah tests different discount rates on small segments and locks in the rate that achieves the highest actual revenue." },
                     ]
                 ).map((item, i) => (
-                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(124,58,237,.04)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 14 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(168,85,247,.15)", border: "1px solid rgba(168,85,247,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#a855f7", flexShrink: 0 }}>{item.step}</div>
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(34, 197, 125,.04)", border: "1px solid rgba(34, 197, 125,.12)", borderRadius: 14 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(52, 211, 153,.15)", border: "1px solid rgba(52, 211, 153,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#34d399", flexShrink: 0 }}>{item.step}</div>
                     <div style={{ textAlign: "start" }}>
                       <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
                       <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{item.desc}</div>
@@ -125,7 +125,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "Functional Complement Bundle",
       desc: "Two or three products that functionally complete each other in one set — a phone with case and screen protector, or a complete skincare routine.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🎁",
@@ -147,7 +147,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+52%", label: "Bundle acceptance rate when savings are clearly shown", color: "#a855f7" },
+    { value: "+52%", label: "Bundle acceptance rate when savings are clearly shown", color: "#34d399" },
     { value: "+39%", label: "Average order value with at least one bundle", color: "#06b6d4" },
     { value: "+25%", label: "Total revenue margin despite the bundle discount", color: "#10b981" },
     { value: "68%", label: "Of customers prefer the bundle over individual purchase when they see the savings", color: "#f59e0b" },

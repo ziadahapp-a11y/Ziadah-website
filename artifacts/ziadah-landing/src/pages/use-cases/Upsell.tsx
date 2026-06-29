@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "الفئة الأعلى — القيمة الأوضح",
       desc: "يعرض النسخة المتميزة مع جدول مقارنة واضح يُبرز الفروقات الحقيقية. العميل يرى لماذا يستحق الفارق في السعر.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "📦",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+41%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+41%", label: "متوسط قيمة الطلب", color: "#34d399" },
     { value:"+28%", label: "معدل قبول اقتراح الترقية", color: "#06b6d4" },
     { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#10b981" },
     { value: "+22%", label: "معدل تكرار الشراء", color: "#f59e0b" },
@@ -118,7 +118,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "Higher Tier — Clearer Value",
       desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "📦",
@@ -140,7 +140,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+41%", label: "Average order value", color: "#a855f7" },
+    { value: "+41%", label: "Average order value", color: "#34d399" },
     { value: "+28%", label: "Upgrade suggestion acceptance rate", color: "#06b6d4" },
     { value: "+35%", label: "Long-term customer satisfaction", color: "#10b981" },
     { value: "+22%", label: "Repeat purchase rate", color: "#f59e0b" },

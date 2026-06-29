@@ -298,7 +298,7 @@ export default function CmsContentPage() {
                 className={cn(
                   "w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40",
                   selectedPage === p
-                    ? "bg-violet-100/95 text-violet-950 shadow-[inset_3px_0_0_0_rgb(124,58,237)] dark:bg-violet-950/45 dark:text-violet-50"
+                    ? "bg-violet-100/95 text-violet-950 shadow-[inset_3px_0_0_0_rgb(34, 197, 125)] dark:bg-violet-950/45 dark:text-violet-50"
                     : "text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800/90",
                 )}
               >

@@ -330,7 +330,7 @@ function AnalyzePhoneStatusBar({ accentColor }: { accentColor: string }) {
   );
 }
 
-const ANALYZE_WIDGET_PHONE_ACCENT = "#7c3aed";
+const ANALYZE_WIDGET_PHONE_ACCENT = "#22c57d";
 
 function AnalyzeStoreWidget({
   group,
@@ -360,7 +360,7 @@ function AnalyzeStoreWidget({
         borderRadius: 44,
         border: "2px solid var(--b1)",
         boxShadow:
-          "0 0 40px rgba(124,58,237,.12), 0 20px 60px rgba(0,0,0,.5)",
+          "0 0 40px rgba(34, 197, 125,.12), 0 20px 60px rgba(0,0,0,.5)",
         padding: "14px 10px",
         position: "relative",
         overflow: "hidden",
@@ -564,7 +564,7 @@ function AnchorGroupCard({
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
-            style={{ color: "var(--p3)", borderColor: "rgba(124,58,237,.25)", background: "rgba(124,58,237,.06)" }}
+            style={{ color: "var(--p3)", borderColor: "rgba(34, 197, 125,.25)", background: "rgba(34, 197, 125,.06)" }}
             aria-label="open product"
           >
             <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
@@ -668,7 +668,7 @@ function ProgressStep({
             state === "done"
               ? "rgba(34,197,94,.14)"
               : state === "active"
-                ? "rgba(124,58,237,.16)"
+                ? "rgba(34, 197, 125,.16)"
                 : "var(--s2)",
           color:
             state === "done"
@@ -1290,8 +1290,8 @@ export default function Analyze() {
             >
               <div className="text-center mb-10 flex flex-col justify-start items-center gap-5">
                 <div
-                  className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(124,58,237,.2)]"
-                  style={{ background: "rgba(124,58,237,.12)" }}
+                  className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(34, 197, 125,.2)]"
+                  style={{ background: "rgba(34, 197, 125,.12)" }}
                 >
                   <Loader2 className="h-7 w-7 animate-spin" style={{ color: "var(--p3)" }} aria-hidden />
                 </div>
@@ -1476,7 +1476,7 @@ export default function Analyze() {
 
                   <div className="analyze-sbar" role="presentation">
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(124,58,237,.1)" }}>
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(34, 197, 125,.1)" }}>
                         <Package className="h-4 w-4" style={{ color: "var(--p3)" }} aria-hidden />
                       </div>
                       <p className="analyze-stat-num">{status.productCount}</p>
@@ -1497,7 +1497,7 @@ export default function Analyze() {
                       <p className="analyze-stat-label">{tr.statCross}</p>
                     </div>
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(168,85,247,.1)" }}>
+                      <div className="analyze-sbi-icon" style={{ background: "rgba(52, 211, 153,.1)" }}>
                         <TrendingUp className="h-4 w-4" style={{ color: "var(--p4)" }} aria-hidden />
                       </div>
                       <p className="analyze-stat-num analyze-stat-num--p">{upsells}</p>
@@ -1718,7 +1718,7 @@ export default function Analyze() {
                       </div>
                     </div>
                     <div className="analyze-info-card">
-                      <div className="analyze-info-card__icon" style={{ background: "rgba(124,58,237,.1)", color: "var(--p3)" }}>
+                      <div className="analyze-info-card__icon" style={{ background: "rgba(34, 197, 125,.1)", color: "var(--p3)" }}>
                         <Cpu className="h-4 w-4" aria-hidden />
                       </div>
                       <div>

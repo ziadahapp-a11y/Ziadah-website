@@ -41,7 +41,7 @@ export default function SectorAiMlHighlights() {
                 padding: "14px 16px 16px",
                 borderRadius: 14,
                 border: "1px solid var(--b2)",
-                background: "rgba(124,58,237,.04)",
+                background: "rgba(34, 197, 125,.04)",
               }}
             >
               <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>

@@ -31,7 +31,7 @@ export const categories: Category[] = [
     id: "start",
     label: "البداية السريعة",
     labelEn: "Quick Start",
-    color: "#a855f7",
+    color: "#34d399",
     icon: "⚡",
     articles: [
       {
@@ -2292,7 +2292,7 @@ export const categories: Category[] = [
     id: "strategies",
     label: "استراتيجيات النمو",
     labelEn: "Growth Strategies",
-    color: "#7c3aed",
+    color: "#22c57d",
     icon: "📈",
     articles: [
       {

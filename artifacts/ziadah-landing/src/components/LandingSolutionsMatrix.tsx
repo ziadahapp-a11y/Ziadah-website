@@ -48,8 +48,8 @@ function MatrixGroupPanel({
             fontSize: 12,
             fontWeight: 700,
             color: "var(--tm)",
-            background: "rgba(124,58,237,.1)",
-            border: "1px solid rgba(124,58,237,.25)",
+            background: "rgba(34, 197, 125,.1)",
+            border: "1px solid rgba(34, 197, 125,.25)",
             borderRadius: 999,
             padding: "6px 12px",
             cursor: "pointer",
@@ -64,7 +64,7 @@ function MatrixGroupPanel({
           style={{
             padding: "12px 18px 14px",
             borderBottom: "1px solid var(--b1)",
-            background: "rgba(124,58,237,.04)",
+            background: "rgba(34, 197, 125,.04)",
           }}
         >
           <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>
@@ -100,8 +100,8 @@ function MatrixGroupPanel({
                 transition: "border-color .2s, background .2s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(124,58,237,.35)";
-                e.currentTarget.style.background = "rgba(124,58,237,.06)";
+                e.currentTarget.style.borderColor = "rgba(34, 197, 125,.35)";
+                e.currentTarget.style.background = "rgba(34, 197, 125,.06)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = "";
@@ -220,13 +220,13 @@ export default function LandingSolutionsMatrix({ variant = "landing" }: { varian
                       textAlign: dir === "rtl" ? "right" : "left",
                       padding: "10px 12px",
                       borderRadius: 14,
-                      border: selected ? "2px solid rgba(124,58,237,.55)" : "1px solid var(--b2)",
-                      background: selected ? "rgba(124,58,237,.1)" : "var(--s1)",
+                      border: selected ? "2px solid rgba(34, 197, 125,.55)" : "1px solid var(--b2)",
+                      background: selected ? "rgba(34, 197, 125,.1)" : "var(--s1)",
                       cursor: "pointer",
                       fontFamily: "var(--font)",
                       color: "var(--t)",
                       transition: "border-color .15s, background .15s",
-                      boxShadow: selected ? "0 4px 14px rgba(124,58,237,.12)" : "none",
+                      boxShadow: selected ? "0 4px 14px rgba(34, 197, 125,.12)" : "none",
                     }}
                   >
                     <div

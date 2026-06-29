@@ -34,13 +34,13 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
         <div style={{
           padding: "10px 12px",
           borderRadius: 10,
-          background: "rgba(124,58,237,.12)",
-          border: "1.5px solid rgba(124,58,237,.3)",
+          background: "rgba(34, 197, 125,.12)",
+          border: "1.5px solid rgba(34, 197, 125,.3)",
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
-            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
+            <span style={{ fontSize: 12, color: "#6ee7b7", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{
             height: 7,
@@ -53,7 +53,7 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
               height: "100%",
               width: `${progress}%`,
               borderRadius: 10,
-              background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))",
+              background: "linear-gradient(90deg, rgba(34, 197, 125,0.6), rgba(52, 211, 153,0.5))",
               transition: "width .5s ease",
             }} />
           </div>
@@ -86,7 +86,7 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: "#6ee7b7" }}>{tr.currency}{p.price}</div>
               </div>
               <div style={{
                 width: 20,

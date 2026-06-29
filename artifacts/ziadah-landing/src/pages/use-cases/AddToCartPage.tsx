@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "توصية فورية لحظة الإضافة",
       desc: "بمجرد الضغط على 'أضف للسلة' تظهر نافذة Glassmorphism خفيفة بمنتج مكمّل واحد فقط — مختار بعناية ليكون ذو صلة مباشرة بالمنتج المضاف.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🤝",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#a855f7" },
+    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#34d399" },
     { value: "38%", label: "معدل قبول التوصية لحظة الإضافة", color: "#06b6d4" },
     { value: "+27%", label: "إيرادات إضافية من كل جلسة تسوق", color: "#10b981" },
     { value: "x2.4", label: "أسرع قرار شراء مقارنة بالتوصية في الصفحة الرئيسية", color: "#f59e0b" },
@@ -86,7 +86,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "Instant Recommendation at Add-to-Cart",
       desc: "The moment 'Add to Cart' is clicked, a sleek glassmorphism popup appears with one complementary product only — carefully selected for direct relevance to the added product.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🤝",
@@ -108,7 +108,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#a855f7" },
+    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#34d399" },
     { value: "38%", label: "Recommendation acceptance rate at add-to-cart moment", color: "#06b6d4" },
     { value: "+27%", label: "Additional revenue from every shopping session", color: "#10b981" },
     { value: "x2.4", label: "Faster purchase decision vs. home page recommendation", color: "#f59e0b" },

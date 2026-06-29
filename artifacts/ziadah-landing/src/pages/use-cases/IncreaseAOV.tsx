@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo بسعر خاص",
       desc: "يجمّع منتجات مكمّلة بخصم 15-25% على سعر المجموع. العميل يحصل على قيمة أعلى ويدفع أكثر — فوز للطرفين.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🚚",
@@ -47,7 +47,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+35%", label: "متوسط قيمة الطلب", color: "#34d399" },
     { value: "+28%", label: "عدد المنتجات في السلة", color: "#06b6d4" },
     { value: "+42%", label: "الطلبات فوق عتبة الشحن", color: "#10b981" },
     { value: "7x", label: "عائد الاستثمار في المتوسط", color: "#f59e0b" },
@@ -92,7 +92,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Combo Bundles at Special Prices",
       desc: "Combines complementary products at a 15-25% discount on the total. The customer gets higher value and pays more — a win for both sides.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🚚",
@@ -120,7 +120,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value", color: "#a855f7" },
+    { value: "+35%", label: "Average order value", color: "#34d399" },
     { value: "+28%", label: "Number of products in cart", color: "#06b6d4" },
     { value: "+42%", label: "Orders above shipping threshold", color: "#10b981" },
     { value: "7x", label: "Average return on investment", color: "#f59e0b" },

@@ -200,7 +200,7 @@ export default function SuccessStories() {
             transform: translateX(-50%);
             width: min(480px, 72%);
             height: 1px;
-            background: linear-gradient(90deg, transparent, color-mix(in srgb, #a855f7 35%, transparent), transparent);
+            background: linear-gradient(90deg, transparent, color-mix(in srgb, #34d399 35%, transparent), transparent);
             opacity: 0.5;
             pointer-events: none;
           }
@@ -415,14 +415,14 @@ export default function SuccessStories() {
             opacity: 0.95;
           }
           .story-kpi-conv-v3::before {
-            background: linear-gradient(90deg, #7c3aed, #a855f7);
+            background: linear-gradient(90deg, #22c57d, #34d399);
           }
           .story-kpi-sales-v3::before {
             background: linear-gradient(90deg, #0891b2, #22d3ee);
           }
           .story-card-v3:hover .story-kpi-conv-v3 {
-            border-color: color-mix(in srgb, #a855f7 35%, var(--b1));
-            box-shadow: 0 8px 28px rgba(124,58,237,.12);
+            border-color: color-mix(in srgb, #34d399 35%, var(--b1));
+            box-shadow: 0 8px 28px rgba(34, 197, 125,.12);
           }
           .story-card-v3:hover .story-kpi-sales-v3 {
             border-color: color-mix(in srgb, #06b6d4 35%, var(--b1));
@@ -436,7 +436,7 @@ export default function SuccessStories() {
             letter-spacing: -0.035em;
           }
           .story-kpi-conv-v3 .story-kpi-value-v3 {
-            background: linear-gradient(135deg, #c4b5fd 0%, #a855f7 45%, #7c3aed 100%);
+            background: linear-gradient(135deg, #6ee7b7 0%, #34d399 45%, #22c57d 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -768,16 +768,16 @@ export default function SuccessStories() {
             backdrop-filter: blur(12px);
           }
           .filter-btn-v2:hover {
-            border-color: rgba(168,85,247,.45);
+            border-color: rgba(52, 211, 153,.45);
             color: var(--t);
-            background: rgba(168,85,247,.1);
+            background: rgba(52, 211, 153,.1);
             transform: translateY(-1px);
           }
           .filter-btn-v2.active {
-            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            background: linear-gradient(135deg, #22c57d 0%, #34d399 100%);
             border-color: transparent;
             color: #fff;
-            box-shadow: 0 6px 22px rgba(124,58,237,.42), inset 0 1px 0 rgba(255,255,255,.18);
+            box-shadow: 0 6px 22px rgba(34, 197, 125,.42), inset 0 1px 0 rgba(255,255,255,.18);
             transform: translateY(-1px);
           }
           .filter-count-v2 {
@@ -797,8 +797,8 @@ export default function SuccessStories() {
             background: var(--s3);
           }
           .filter-btn-v2:not(.active) .filter-count-v2 {
-            background: rgba(168,85,247,.12);
-            color: #a855f7;
+            background: rgba(52, 211, 153,.12);
+            color: #34d399;
           }
           .filter-scroll-wrap {
             display: flex;
@@ -845,10 +845,10 @@ export default function SuccessStories() {
           .success-stories-hero {
             position: relative;
             background:
-              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.22), transparent 65%),
+              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(52, 211, 153,.22), transparent 65%),
               radial-gradient(ellipse 100% 60% at 50% 100%, rgba(6,182,212,.06), transparent 70%);
             color: var(--t);
-            border-bottom: 1px solid color-mix(in srgb, rgba(168,85,247,.25) 40%, var(--b1));
+            border-bottom: 1px solid color-mix(in srgb, rgba(52, 211, 153,.25) 40%, var(--b1));
             padding-block: 64px 80px;
             overflow: hidden;
           }
@@ -858,40 +858,40 @@ export default function SuccessStories() {
             inset: 0;
             pointer-events: none;
             background-image:
-              linear-gradient(rgba(168,85,247,.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(168,85,247,.04) 1px, transparent 1px);
+              linear-gradient(rgba(52, 211, 153,.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(52, 211, 153,.04) 1px, transparent 1px);
             background-size: 48px 48px;
             mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, #000 30%, transparent 80%);
             opacity: 0.6;
           }
           [data-theme="light"] .success-stories-hero {
             background:
-              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(168,85,247,.14), transparent 65%),
+              radial-gradient(ellipse 70% 50% at 50% 0%, rgba(52, 211, 153,.14), transparent 65%),
               linear-gradient(180deg, #fafafe 0%, #ffffff 100%);
             border-bottom-color: rgba(15, 23, 42, 0.08);
           }
           .success-stories-hero > * { position: relative; z-index: 1; }
           .success-stories-hero .hero-stat-v2 {
-            background: linear-gradient(165deg, rgba(168,85,247,.1) 0%, rgba(0,0,0,.28) 100%);
-            border-color: color-mix(in srgb, rgba(168,85,247,.35) 40%, var(--b1));
+            background: linear-gradient(165deg, rgba(52, 211, 153,.1) 0%, rgba(0,0,0,.28) 100%);
+            border-color: color-mix(in srgb, rgba(52, 211, 153,.35) 40%, var(--b1));
             box-shadow: 0 8px 28px rgba(0,0,0,.32), inset 0 1px 0 rgba(255, 255, 255, 0.08);
           }
           .success-stories-hero .hero-stat-v2::after {
             opacity: 0.55;
           }
           .success-stories-hero .hero-stat-v2:hover {
-            border-color: color-mix(in srgb, rgba(168,85,247,.55) 50%, var(--b1));
-            box-shadow: 0 18px 48px rgba(0,0,0,.4), 0 0 0 1px color-mix(in srgb, rgba(168,85,247,.4) 50%, transparent);
+            border-color: color-mix(in srgb, rgba(52, 211, 153,.55) 50%, var(--b1));
+            box-shadow: 0 18px 48px rgba(0,0,0,.4), 0 0 0 1px color-mix(in srgb, rgba(52, 211, 153,.4) 50%, transparent);
           }
           [data-theme="light"] .success-stories-hero .hero-stat-v2 {
             background: linear-gradient(165deg, rgba(255,255,255,.92) 0%, rgba(248, 250, 252, 1) 100%);
-            border-color: rgba(168,85,247,.18);
+            border-color: rgba(52, 211, 153,.18);
             box-shadow: 0 2px 16px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
           }
           .hero-stat-v2 {
             padding: 22px 34px;
             min-width: 140px;
-            background: linear-gradient(165deg, color-mix(in srgb, var(--accent, #a855f7) 8%, var(--s1)) 0%, var(--s1) 100%);
+            background: linear-gradient(165deg, color-mix(in srgb, var(--accent, #34d399) 8%, var(--s1)) 0%, var(--s1) 100%);
             border: 1px solid var(--b1);
             border-radius: 18px;
             backdrop-filter: blur(20px);
@@ -908,13 +908,13 @@ export default function SuccessStories() {
             z-index: 0;
             pointer-events: none;
             border-radius: inherit;
-            background: radial-gradient(ellipse 90% 55% at 50% -20%, color-mix(in srgb, var(--accent, #a855f7) 22%, transparent), transparent 65%);
+            background: radial-gradient(ellipse 90% 55% at 50% -20%, color-mix(in srgb, var(--accent, #34d399) 22%, transparent), transparent 65%);
             opacity: 0.45;
           }
           .hero-stat-v2:hover {
             transform: translateY(-5px);
-            border-color: color-mix(in srgb, var(--accent, #a855f7) 45%, var(--b1));
-            box-shadow: 0 16px 48px rgba(0,0,0,.32), 0 0 0 1px color-mix(in srgb, var(--accent, #a855f7) 15%, transparent);
+            border-color: color-mix(in srgb, var(--accent, #34d399) 45%, var(--b1));
+            box-shadow: 0 16px 48px rgba(0,0,0,.32), 0 0 0 1px color-mix(in srgb, var(--accent, #34d399) 15%, transparent);
           }
           .hero-stat-v2::before {
             content: '';
@@ -934,7 +934,7 @@ export default function SuccessStories() {
             padding: 18px 20px;
             border-radius: 16px;
             border: 1px solid var(--b1);
-            background: linear-gradient(165deg, rgba(168,85,247,.04) 0%, rgba(0,0,0,.16) 100%);
+            background: linear-gradient(165deg, rgba(52, 211, 153,.04) 0%, rgba(0,0,0,.16) 100%);
             display: flex;
             align-items: center;
             gap: 14px;
@@ -946,16 +946,16 @@ export default function SuccessStories() {
           }
           .sector-card-v2:hover {
             transform: translateY(-3px);
-            box-shadow: 0 20px 48px rgba(0,0,0,.36), 0 0 0 1px rgba(168,85,247,.22);
-            border-color: rgba(168,85,247,.42);
-            background: linear-gradient(165deg, rgba(168,85,247,.1) 0%, rgba(0,0,0,.14) 100%);
+            box-shadow: 0 20px 48px rgba(0,0,0,.36), 0 0 0 1px rgba(52, 211, 153,.22);
+            border-color: rgba(52, 211, 153,.42);
+            background: linear-gradient(165deg, rgba(52, 211, 153,.1) 0%, rgba(0,0,0,.14) 100%);
           }
           .sector-card-v2::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, #7c3aed, #a855f7, #06b6d4);
+            background: linear-gradient(90deg, #22c57d, #34d399, #06b6d4);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.35s ease;
@@ -975,7 +975,7 @@ export default function SuccessStories() {
             box-shadow: 0 4px 28px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
           }
           [data-theme="light"] .story-card-v3:hover {
-            box-shadow: 0 28px 72px rgba(0,0,0,.08), 0 0 0 1px rgba(124,58,237,.12);
+            box-shadow: 0 28px 72px rgba(0,0,0,.08), 0 0 0 1px rgba(34, 197, 125,.12);
           }
           [data-theme="light"] .story-card-v3::after {
             opacity: 0.4;
@@ -1021,7 +1021,7 @@ export default function SuccessStories() {
           }
           [data-theme="light"] .sector-card-v2:hover {
             box-shadow: 0 16px 48px rgba(0,0,0,.08);
-            background: linear-gradient(165deg, rgba(168,85,247,.06) 0%, rgba(255,255,255,.85) 100%);
+            background: linear-gradient(165deg, rgba(52, 211, 153,.06) 0%, rgba(255,255,255,.85) 100%);
           }
           @media (max-width: 768px) {
             .story-head-v3 { padding: 22px 20px 16px !important; }
@@ -1056,7 +1056,7 @@ export default function SuccessStories() {
 
           /* ── Brief story card (grid item, links to detail page) ── */
           .brief-story-card {
-            --story-accent: #a855f7;
+            --story-accent: #34d399;
             position: relative;
             isolation: isolate;
             display: flex;
@@ -1065,7 +1065,7 @@ export default function SuccessStories() {
             padding: 24px 22px 20px;
             border-radius: 20px;
             border: 1px solid var(--b1);
-            background: linear-gradient(165deg, rgba(168,85,247,.04) 0%, rgba(0,0,0,.18) 100%);
+            background: linear-gradient(165deg, rgba(52, 211, 153,.04) 0%, rgba(0,0,0,.18) 100%);
             backdrop-filter: blur(20px) saturate(1.1);
             cursor: pointer;
             font-family: inherit;
@@ -1098,7 +1098,7 @@ export default function SuccessStories() {
             top: 0; left: 0; right: 0;
             height: 3px;
             opacity: 1;
-            background: linear-gradient(90deg, #7c3aed, #a855f7, #06b6d4);
+            background: linear-gradient(90deg, #22c57d, #34d399, #06b6d4);
             background-size: 200% 100%;
             background-position: 0% 50%;
             transition: background-position 0.6s ease;
@@ -1123,7 +1123,7 @@ export default function SuccessStories() {
             font-size: 19px;
             font-weight: 900;
             color: #fff;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            background: linear-gradient(135deg, #34d399, #22c57d);
             box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 6px 18px rgba(0,0,0,.25);
             overflow: hidden;
           }
@@ -1176,7 +1176,7 @@ export default function SuccessStories() {
             font-weight: 900;
             font-variant-numeric: tabular-nums;
             line-height: 1.1;
-            background: linear-gradient(135deg, #c4b5fd 0%, #a855f7 60%, #7c3aed 100%);
+            background: linear-gradient(135deg, #6ee7b7 0%, #34d399 60%, #22c57d 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1197,7 +1197,7 @@ export default function SuccessStories() {
             justify-content: space-between;
             font-size: 12.5px;
             font-weight: 700;
-            color: #a855f7;
+            color: #34d399;
             padding-top: 6px;
             margin-top: 2px;
             border-top: 1px solid color-mix(in srgb, var(--story-accent) 14%, var(--b1));
@@ -1228,7 +1228,7 @@ export default function SuccessStories() {
             position: "relative",
             zIndex: 2,
             background:
-              "radial-gradient(ellipse 60% 50% at 15% 0%, rgba(168,85,247,.14), transparent 65%)," +
+              "radial-gradient(ellipse 60% 50% at 15% 0%, rgba(52, 211, 153,.14), transparent 65%)," +
               "radial-gradient(ellipse 55% 45% at 85% 10%, rgba(6,182,212,.12), transparent 65%)," +
               "radial-gradient(ellipse 70% 50% at 50% 110%, rgba(236,72,153,.08), transparent 70%)," +
               "linear-gradient(180deg, #fdfcff 0%, #ffffff 60%, #fafbff 100%)",
@@ -1237,21 +1237,21 @@ export default function SuccessStories() {
           <div
             className="stag rv"
             style={{
-              background: "linear-gradient(135deg, rgba(168,85,247,.12), rgba(6,182,212,.1))",
-              borderColor: "rgba(168,85,247,.28)",
-              color: "#7c3aed",
-              boxShadow: "0 4px 14px rgba(168,85,247,.12)",
+              background: "linear-gradient(135deg, rgba(52, 211, 153,.12), rgba(6,182,212,.1))",
+              borderColor: "rgba(52, 211, 153,.28)",
+              color: "#22c57d",
+              boxShadow: "0 4px 14px rgba(52, 211, 153,.12)",
             }}
           >
-            <span className="stag-dot" style={{ background: "#a855f7", boxShadow: "0 0 0 4px rgba(168,85,247,.18)" }} />
+            <span className="stag-dot" style={{ background: "#34d399", boxShadow: "0 0 0 4px rgba(52, 211, 153,.18)" }} />
             {sx.heroTag}
           </div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(28px,5.5vw,72px)", marginTop: 10, marginBottom: 14, color: "#7c3aed", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
-            <span style={{ color: "#7c3aed", fontWeight: 900 }}>{sx.heroH1Gradient}</span>
+          <h1 className="st rv d1" style={{ fontSize: "clamp(28px,5.5vw,72px)", marginTop: 10, marginBottom: 14, color: "#22c57d", lineHeight: 1.1, letterSpacing: "-0.03em" }}>
+            <span style={{ color: "#22c57d", fontWeight: 900 }}>{sx.heroH1Gradient}</span>
             <br />
-            <span style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 800, color: "#7c3aed" }}>{sx.heroH1Sub}</span>
+            <span style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 800, color: "#22c57d" }}>{sx.heroH1Sub}</span>
           </h1>
-          <p className="ssub rv d2" style={{ margin: "0 auto 36px", maxWidth: 640, fontSize: "clamp(15px,1.9vw,18px)", lineHeight: 1.75, color: "#7c3aed" }}>
+          <p className="ssub rv d2" style={{ margin: "0 auto 36px", maxWidth: 640, fontSize: "clamp(15px,1.9vw,18px)", lineHeight: 1.75, color: "#22c57d" }}>
             {sx.heroLead}
           </p>
           <div className="rv d3" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -1264,19 +1264,19 @@ export default function SuccessStories() {
               ["192K+", "Conversions"],
               ["4.6M+", "SAR in Sales"],
             ]).map(([v, l]) => (
-              <div key={l} className="hero-stat-v2" style={{ "--accent": "#7c3aed", boxShadow: "none" } as CSSProperties}>
-                <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 3, background: "#7c3aed", borderRadius: "18px 18px 0 0" }} />
+              <div key={l} className="hero-stat-v2" style={{ "--accent": "#22c57d", boxShadow: "none" } as CSSProperties}>
+                <div style={{ position: "absolute", top: 0, right: 0, left: 0, height: 3, background: "#22c57d", borderRadius: "18px 18px 0 0" }} />
                 <div
                   style={{
                     fontSize: "clamp(28px,3.5vw,42px)",
                     fontWeight: 900,
                     lineHeight: 1,
                     marginBottom: 6,
-                    color: "#7c3aed",
+                    color: "#22c57d",
                     letterSpacing: "-0.02em",
                   }}
                 >{v}</div>
-                <div style={{ fontSize: 13, color: "#7c3aed", fontWeight: 700, letterSpacing: ".01em" }}>{l}</div>
+                <div style={{ fontSize: 13, color: "#22c57d", fontWeight: 700, letterSpacing: ".01em" }}>{l}</div>
               </div>
             ))}
           </div>
@@ -1316,7 +1316,7 @@ export default function SuccessStories() {
                 </div>
                 <button
                   onClick={() => handleSectorChange("الكل")}
-                  style={{ fontSize: 12, color: "var(--td)", background: "rgba(168,85,247,.08)", border: "1px solid rgba(168,85,247,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
+                  style={{ fontSize: 12, color: "var(--td)", background: "rgba(52, 211, 153,.08)", border: "1px solid rgba(52, 211, 153,.2)", borderRadius: 8, padding: "5px 12px", cursor: "pointer", fontFamily: "var(--font)", transition: "all 0.2s" }}
                 >
                   {isAr ? "عرض الكل" : "Show All"}
                 </button>
@@ -1343,7 +1343,7 @@ export default function SuccessStories() {
             position: "absolute",
             top: 0, left: "50%", transform: "translateX(-50%)",
             width: "min(80%, 900px)", height: 1,
-            background: "linear-gradient(90deg, transparent, color-mix(in srgb, #a855f7 40%, transparent), transparent)",
+            background: "linear-gradient(90deg, transparent, color-mix(in srgb, #34d399 40%, transparent), transparent)",
             pointerEvents: "none",
           }} />
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -1371,7 +1371,7 @@ export default function SuccessStories() {
                       <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 4, color: "var(--t)" }}>{isAr ? s.nameAr : s.name}</div>
                       <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 6 }}>{s.stores} · {s.avg}</div>
                       {count > 0 && (
-                        <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#a855f7", fontWeight: 700, background: "rgba(168,85,247,.1)", padding: "3px 10px", borderRadius: 8 }}>
+                        <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#34d399", fontWeight: 700, background: "rgba(52, 211, 153,.1)", padding: "3px 10px", borderRadius: 8 }}>
                           {count} {isAr ? "قصة نجاح" : (count === 1 ? "success story" : "success stories")}
                         </div>
                       )}

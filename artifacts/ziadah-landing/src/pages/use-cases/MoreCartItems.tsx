@@ -20,7 +20,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "اشتروا معاً (BTAT)",
       desc: "يعرض منتجات اشتراها عملاء مشابهون مع نفس المنتج — اجتماعي وموثوق ويزيد عدد البنود.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "➕",
@@ -42,7 +42,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#a855f7" },
+    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#34d399" },
     { value: "+28%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "+41%", label: "معدل قبول التوصية", color: "#10b981" },
     { value: "+19%", label: "رضا العملاء عن التجربة", color: "#f59e0b" },
@@ -87,7 +87,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "Bought Together (BTAT)",
       desc: "Shows products similar customers bought with the same item — social proof that increases line count.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "➕",
@@ -109,7 +109,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+32%", label: "Average products in cart", color: "#a855f7" },
+    { value: "+32%", label: "Average products in cart", color: "#34d399" },
     { value: "+28%", label: "Average order value", color: "#06b6d4" },
     { value: "+41%", label: "Recommendation acceptance rate", color: "#10b981" },
     { value: "+19%", label: "Customer satisfaction", color: "#f59e0b" },

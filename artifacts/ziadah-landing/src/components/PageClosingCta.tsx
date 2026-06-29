@@ -61,11 +61,11 @@ export default function PageClosingCta({
             width: min(80%, 720px);
             height: 1px;
             margin: 0 auto 48px;
-            background: linear-gradient(90deg, transparent, rgba(168,85,247,.5), transparent);
+            background: linear-gradient(90deg, transparent, rgba(52, 211, 153,.5), transparent);
           }
           section.cta-sec.landing-white-violet.cta-sec--dark .cta-box.gc {
-            background: linear-gradient(165deg, rgba(168,85,247,.12) 0%, rgba(15,10,35,.55) 100%) !important;
-            border: 1px solid rgba(168,85,247,.32) !important;
+            background: linear-gradient(165deg, rgba(52, 211, 153,.12) 0%, rgba(15,10,35,.55) 100%) !important;
+            border: 1px solid rgba(52, 211, 153,.32) !important;
             border-image: none !important;
             backdrop-filter: blur(20px) saturate(1.1);
             -webkit-backdrop-filter: blur(20px) saturate(1.1);
@@ -73,11 +73,11 @@ export default function PageClosingCta({
             border-radius: 24px !important;
           }
           section.cta-sec.landing-white-violet.cta-sec--dark .cta-box .cta-glow {
-            background: radial-gradient(ellipse, rgba(168,85,247,.28), transparent 70%) !important;
-            background-image: radial-gradient(ellipse, rgba(168,85,247,.28), transparent 70%) !important;
+            background: radial-gradient(ellipse, rgba(52, 211, 153,.28), transparent 70%) !important;
+            background-image: radial-gradient(ellipse, rgba(52, 211, 153,.28), transparent 70%) !important;
           }
           section.cta-sec.landing-white-violet.cta-sec--dark .cta-box .shine {
-            background: rgba(168,85,247,.08);
+            background: rgba(52, 211, 153,.08);
             background-image: none;
           }
           section.cta-sec.landing-white-violet.cta-sec--dark .cta-box h2 {
@@ -97,15 +97,15 @@ export default function PageClosingCta({
           }
           [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box.gc {
             background: linear-gradient(165deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.72) 100%) !important;
-            border-color: rgba(168,85,247,.22) !important;
+            border-color: rgba(52, 211, 153,.22) !important;
             box-shadow: 0 12px 36px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9) !important;
           }
           [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box h2 {
-            color: #4c1d95 !important;
-            -webkit-text-fill-color: #4c1d95 !important;
+            color: #0a0a0b !important;
+            -webkit-text-fill-color: #0a0a0b !important;
           }
           [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box p {
-            color: rgba(124,58,237,.78) !important;
+            color: rgba(34, 197, 125,.78) !important;
           }
         `}</style>
       )}

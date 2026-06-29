@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "تجربة مخصصة = قرار أسرع",
       desc: "كل عميل يرى المنتجات الأنسب له فور وصوله. لا تشتت، لا بحث طويل — مسار مباشر من الوصول للشراء يقلل وقت الاتخاذ.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⭐",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+25%", label: "معدل التحويل الإجمالي", color: "#a855f7" },
+    { value: "+25%", label: "معدل التحويل الإجمالي", color: "#34d399" },
     { value: "-40%", label: "وقت اتخاذ قرار الشراء", color: "#06b6d4" },
     { value: "+32%", label: "معدل تحويل الزوار الجدد", color: "#10b981" },
     { value: "+45%", label: "معدل تحويل العملاء العائدين", color: "#f59e0b" },
@@ -75,14 +75,14 @@ const data: UseCasePageData = {
           <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16 }}>
             {(isAr ? [
-              { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#a855f7" },
+              { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#34d399" },
               { icon: "🤝", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
               { icon: "⚡", title: "الإلحاح", desc: "عروض محدودة الوقت وعدادات توقيت تحفّز الشراء الآن", color: "#f59e0b" },
               { icon: "💎", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#10b981" },
               { icon: "🔄", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
               { icon: "📱", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
             ] : [
-              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#a855f7" },
+              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#34d399" },
               { icon: "🤝", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
               { icon: "⚡", title: "Urgency", desc: "Time-limited offers and countdown timers motivate buying now", color: "#f59e0b" },
               { icon: "💎", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#10b981" },
@@ -119,7 +119,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Personalized Experience = Faster Decision",
       desc: "Every customer sees the most relevant products upon arrival. No distraction, no long searches — a direct path from arrival to purchase that shortens decision time.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⭐",
@@ -141,7 +141,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+25%", label: "Overall conversion rate", color: "#a855f7" },
+    { value: "+25%", label: "Overall conversion rate", color: "#34d399" },
     { value: "-40%", label: "Purchase decision time", color: "#06b6d4" },
     { value: "+32%", label: "New visitor conversion rate", color: "#10b981" },
     { value: "+45%", label: "Returning customer conversion rate", color: "#f59e0b" },

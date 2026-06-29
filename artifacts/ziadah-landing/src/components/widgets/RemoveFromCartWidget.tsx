@@ -44,7 +44,7 @@ export default function RemoveFromCartWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
                 <div style={{ fontSize: 12, color: "var(--td)" }}>{tr.productSize}</div>
-                <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc" }}>{tr.productPrice}</div>
+                <div style={{ fontSize: 12, fontWeight: 900, color: "#6ee7b7" }}>{tr.productPrice}</div>
               </div>
               <button style={{
                 padding: "5px 9px", borderRadius: 7,

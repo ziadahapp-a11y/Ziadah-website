@@ -105,9 +105,9 @@
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --shadow-none: none;
-  --shadow-sm:   0 4px 16px rgba(0, 0, 0, 0.28);
-  --shadow-md:   0 8px 32px rgba(0, 0, 0, 0.40);   /* = --glass-shadow */
-  --shadow-lg:   0 16px 48px rgba(0, 0, 0, 0.52);  /* = --glass-shadow-hover */
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-md:   0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -8px rgba(0, 0, 0, 0.08);   /* = --glass-shadow */
+  --shadow-lg:   0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 60px -12px rgba(0, 0, 0, 0.16); /* = --glass-shadow-hover */
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -147,105 +147,104 @@
 :root,
 [data-theme="dark"] {
 
-  /* ── Page backgrounds ── */
-  --bg:               #080615;
-  --page-background:  linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%);
+  /* ── Page backgrounds ──
+     Adstellar-inspired light SaaS: pure white page, faint zinc-50 alt bands. */
+  --bg:               #ffffff;
+  --page-background:  #ffffff;
 
   /* Phase 2 semantic aliases */
-  --bg-page:          #080615;                /* = --bg */
-  --bg-gradient:      linear-gradient(160deg, #0e0a22 0%, #080615 45%, #0b0718 100%); /* = --page-background */
-  --bg-section-alt:   rgba(9, 0, 25, 1);      /* NEW token for hardcoded inline values in #hiw and #gp */
+  --bg-page:          #ffffff;                /* = --bg */
+  --bg-gradient:      #ffffff;                /* = --page-background */
+  --bg-section-alt:   #fafafb;                /* zinc-50/60 alternate band */
 
-  /* ── Text colors ── */
-  --t:      #f5f2ee;
-  --td:     rgba(255, 255, 255, 1);
+  /* ── Text colors ── (near-black foreground + zinc muted scale) */
+  --t:      #0a0a0b;
+  --td:     #0a0a0b;
 
-  /* @deprecated --tm — 8% gap from --text-secondary is imperceptible.
-     Use --text-secondary (0.80) or --text-tertiary (0.58) instead.
-     Kept until component cleanup passes 3.2–3.15 complete. */
-  --tm:     rgba(245, 242, 238, 0.72);
+  /* @deprecated --tm — kept until component cleanup. zinc-600. */
+  --tm:     #52525b;
 
-  --text-1: #f5f2ee;
-  --text-2: rgba(245, 242, 238, 0.80);
-  --text-3: rgba(232, 228, 220, 0.58);
-  --text-4: rgba(210, 205, 195, 0.38);
+  --text-1: #0a0a0b;
+  --text-2: #3f3f46;
+  --text-3: #52525b;
+  --text-4: #a1a1aa;
 
   /* Phase 2 semantic aliases */
-  --text-primary:    #f5f2ee;               /* = --t = --text-1 */
-  --text-secondary:  rgba(245, 242, 238, 0.80); /* = --text-2 — sub-headings, descriptions */
-  --text-tertiary:   rgba(232, 228, 220, 0.58); /* = --text-3 — helper text, captions */
-  --text-muted:      rgba(210, 205, 195, 0.38); /* = --text-4 — disabled, placeholder */
+  --text-primary:    #0a0a0b;   /* = --t = --text-1 — near-black */
+  --text-secondary:  #3f3f46;   /* = --text-2 — zinc-700, sub-headings */
+  --text-tertiary:   #52525b;   /* = --text-3 — zinc-600, helper text */
+  --text-muted:      #a1a1aa;   /* = --text-4 — zinc-400, disabled/placeholder */
   --text-on-accent:  #ffffff;
 
-  /* ── Borders ── */
-  --b1: rgba(245, 242, 238, 0.08);
-  --b2: rgba(245, 242, 238, 0.14);
-  --b3: rgba(245, 242, 238, 0.24);
+  /* ── Borders ── (hairline zinc-200) */
+  --b1: rgba(9, 9, 11, 0.06);
+  --b2: rgba(9, 9, 11, 0.10);
+  --b3: rgba(9, 9, 11, 0.16);
 
   /* Phase 2 semantic aliases */
-  --border-subtle:  rgba(245, 242, 238, 0.08);  /* = --b1 */
-  --border-default: rgba(245, 242, 238, 0.14);  /* = --b2 */
-  --border-strong:  rgba(245, 242, 238, 0.24);  /* = --b3 */
+  --border-subtle:  rgba(9, 9, 11, 0.06);  /* = --b1 */
+  --border-default: rgba(9, 9, 11, 0.10);  /* = --b2 ≈ zinc-200 */
+  --border-strong:  rgba(9, 9, 11, 0.16);  /* = --b3 */
 
-  /* ── Surfaces ── */
-  --s1: rgba(245, 242, 238, 0.04);
-  --s2: rgba(245, 242, 238, 0.07);
-  --s3: rgba(245, 242, 238, 0.11);
+  /* ── Surfaces ── (light gray fills / elevate overlays) */
+  --s1: rgba(9, 9, 11, 0.03);
+  --s2: rgba(9, 9, 11, 0.05);
+  --s3: rgba(9, 9, 11, 0.08);
 
   /* Phase 2 semantic aliases */
-  --surface-1: rgba(245, 242, 238, 0.04);  /* = --s1 */
-  --surface-2: rgba(245, 242, 238, 0.07);  /* = --s2 */
-  --surface-3: rgba(245, 242, 238, 0.11);  /* = --s3 */
+  --surface-1: rgba(9, 9, 11, 0.03);  /* = --s1 */
+  --surface-2: rgba(9, 9, 11, 0.05);  /* = --s2 */
+  --surface-3: rgba(9, 9, 11, 0.08);  /* = --s3 */
 
-  /* ── Accent / Brand ── */
-  --p:  #7c3aed;
-  --p2: #6d28d9;
-  --p3: #a855f7;
-  --p4: #c084fc;
+  /* ── Accent / Brand ── (emerald green #22c57d) */
+  --p:  #22c57d;
+  --p2: #16a34a;
+  --p3: #34d399;
+  --p4: #6ee7b7;
 
   /* @deprecated --brand / --brand-2 — use --accent-primary / --accent-primary-light */
-  --brand:   #7c3aed;
-  --brand-2: #a855f7;
+  --brand:   #22c57d;
+  --brand-2: #34d399;
 
-  --accent-light: rgba(124, 58, 237, 0.18);
+  --accent-light: rgba(34, 197, 125, 0.14);
 
   /* Phase 2 semantic aliases */
-  --accent-primary:         #7c3aed;  /* = --p — canonical brand purple */
-  --accent-secondary:       #6d28d9;  /* = --p2 — pressed / hover state */
-  --accent-primary-light:   #a855f7;  /* = --p3 — light accent, section tags */
-  --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
+  --accent-primary:         #22c57d;  /* = --p — canonical brand emerald */
+  --accent-secondary:       #16a34a;  /* = --p2 — pressed / hover state */
+  --accent-primary-light:   #34d399;  /* = --p3 — light accent, section tags */
+  --accent-primary-lighter: #6ee7b7;  /* = --p4 — lightest accent */
 
-  /* Canonical CTA color — Phase 2 decision: #7c3aed wins over rgba(74,0,148,1);
-     gradients/light sections use #6d28d9 as darker stop (replaces #5b21b6). */
-  --accent-cta:       #7c3aed;  /* = --p — primary button background */
-  --accent-cta-hover: #6d28d9;  /* = --p2 — primary button hover */
+  /* Canonical CTA color — black primary CTA (Adstellar pattern); emerald is the
+     secondary/activation accent handled per-component. */
+  --accent-cta:       #18181b;  /* zinc-900 — primary button background */
+  --accent-cta-hover: #27272a;  /* zinc-800 — primary button hover */
 
   /* ── Semantic status colors ── */
   --c:  #06b6d4;
-  --pk: #ec4899;
+  --pk: #ef4444;
   --gr: #22c55e;
-  --go: #fbbf24;
+  --go: #f59e0b;
 
-  --success: #22c55e;   /* = --gr */
-  --warning: #fbbf24;   /* = --go */
+  --success: #16a34a;   /* emerald-600 */
+  --warning: #f59e0b;   /* = --go */
   --info:    #06b6d4;   /* = --c */
-  --error:   #ec4899;   /* = --pk */
+  --error:   #ef4444;   /* = --pk */
 
-  /* ── Glass system ── */
-  --glass-bg:           transparent;
-  --glass-bg-2:         rgba(26, 20, 16, 0.68);
-  --glass-border:       1px solid rgba(124, 58, 237, 0.21);
-  --glass-blur:         blur(22px);
-  --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.40);   /* = --shadow-md */
-  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.52);  /* = --shadow-lg */
+  /* ── Glass system ── (now: white cards, hairline border, soft diffuse shadow) */
+  --glass-bg:           #ffffff;
+  --glass-bg-2:         #ffffff;
+  --glass-border:       1px solid rgba(9, 9, 11, 0.08);
+  --glass-blur:         blur(0px);
+  --glass-shadow:       0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+  --glass-shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 60px -12px rgba(0, 0, 0, 0.16);
 
-  /* ── Button tokens ── */
-  --btn-primary-grad:   linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  --btn-primary-shadow: 0 4px 22px rgba(124, 58, 237, 0.42);
+  /* ── Button tokens ── (black primary CTA + soft shadow) */
+  --btn-primary-grad:   linear-gradient(135deg, #18181b 0%, #0a0a0b 100%);
+  --btn-primary-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -8px rgba(0, 0, 0, 0.14);
 
   /* ── Scrollbar ── */
-  --scrollbar-thumb:       rgba(124, 58, 237, 0.38);
-  --scrollbar-thumb-hover: rgba(167, 139, 250, 0.55);
+  --scrollbar-thumb:       rgba(34, 197, 125, 0.38);
+  --scrollbar-thumb-hover: rgba(22, 163, 74, 0.55);
 }
 /* ═══════════════════════════════════════════════════════════════
    SECTION H — LIGHT THEME (Cursor warm cream palette)

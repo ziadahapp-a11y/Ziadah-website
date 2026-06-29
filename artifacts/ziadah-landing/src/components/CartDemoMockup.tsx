@@ -4,9 +4,9 @@ export default function CartDemoMockup() {
   const { lang } = useLanguage();
   const isEn = lang === "en";
 
-  const purple = "#7c3aed";
-  const lightPurple = "rgba(124,58,237,0.1)";
-  const borderPurple = "rgba(124,58,237,0.25)";
+  const purple = "#22c57d";
+  const lightPurple = "rgba(34, 197, 125,0.1)";
+  const borderPurple = "rgba(34, 197, 125,0.25)";
 
   const products = isEn
     ? [
@@ -127,7 +127,7 @@ export default function CartDemoMockup() {
                             <span style={{ fontSize: 9, color: "#aaa", textDecoration: "line-through" }}>{p.originalPrice} SAR</span>
                           )}
                           {p.discount && (
-                            <span style={{ fontSize: 8, fontWeight: 700, color: "#7c3aed", background: "rgba(124,58,237,0.1)", borderRadius: 4, padding: "1px 4px" }}>
+                            <span style={{ fontSize: 8, fontWeight: 700, color: "#22c57d", background: "rgba(34, 197, 125,0.1)", borderRadius: 4, padding: "1px 4px" }}>
                               {t.save} {p.discount}
                             </span>
                           )}

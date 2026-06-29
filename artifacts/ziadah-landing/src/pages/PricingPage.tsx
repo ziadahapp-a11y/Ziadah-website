@@ -102,8 +102,8 @@ const FEATURE_GROUPS: CategoryGroup[] = [
 
 const CHECK = (
   <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden>
-    <circle cx="8.5" cy="8.5" r="8.5" fill="rgba(124,58,237,.18)" />
-    <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#a855f7" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="8.5" cy="8.5" r="8.5" fill="rgba(34, 197, 125,.18)" />
+    <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#34d399" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 const DASH = <span style={{ color: "rgba(255,255,255,.2)", fontSize: 16, lineHeight: 1 }}>—</span>;

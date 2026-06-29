@@ -147,7 +147,7 @@ function liveDemoMobileBootstrapSrcDoc(storeUrl: string): string {
   const u = new URL(storeUrl);
   const innerSrc = escapeHtmlAttrDoubleQuotes(u.toString());
   const w = LIVE_DEMO_MOBILE_INNER_WIDTH;
-  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=${w},initial-scale=1"/><style>*{box-sizing:border-box}html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#f5f3ff;}iframe{display:block;margin:0 auto;border:0;width:${w}px;height:100%;max-width:100%;min-height:100%;}</style></head><body><iframe src="${innerSrc}" title="store" width="${w}" style="height:100%;min-height:100%" allow="accelerometer; clipboard-write; encrypted-media; gyroscope" referrerpolicy="no-referrer-when-downgrade"></iframe></body></html>`;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=${w},initial-scale=1"/><style>*{box-sizing:border-box}html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#f8fafc;}iframe{display:block;margin:0 auto;border:0;width:${w}px;height:100%;max-width:100%;min-height:100%;}</style></head><body><iframe src="${innerSrc}" title="store" width="${w}" style="height:100%;min-height:100%" allow="accelerometer; clipboard-write; encrypted-media; gyroscope" referrerpolicy="no-referrer-when-downgrade"></iframe></body></html>`;
 }
 
 const LIVE_TABS_AR = [
@@ -285,8 +285,8 @@ function LiveDemoSection({ lang }: { lang: string }) {
             <div className="ld-fallback" aria-hidden>
               <div className="ld-fallback-inner">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                  <rect width="40" height="40" rx="12" fill="rgba(124,58,237,.15)"/>
-                  <path d="M14 20h12M22 15l5 5-5 5" stroke="#a855f7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <rect width="40" height="40" rx="12" fill="rgba(34, 197, 125,.15)"/>
+                  <path d="M14 20h12M22 15l5 5-5 5" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <p style={{ margin: "12px 0 4px", fontWeight: 700 }}>
                   {isAr ? "فتح المتجر التجريبي" : "Open Demo Store"}
@@ -348,13 +348,13 @@ function DemoPhaseIndicator({ lang }: { lang: string }) {
 function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string> }) {
   const isAr = lang === "ar";
   const nasserSigs = [
-    { c: "#a855f7", t: tr.demoMaleSig1 },
+    { c: "#34d399", t: tr.demoMaleSig1 },
     { c: "#06b6d4", t: tr.demoMaleSig2 },
     { c: "#10b981", t: tr.demoMaleSig3 },
   ];
   const nouraSigs = [
     { c: "#ec4899", t: tr.demoFemaleSig1 },
-    { c: "#a855f7", t: tr.demoFemaleSig2 },
+    { c: "#34d399", t: tr.demoFemaleSig2 },
     { c: "#f59e0b", t: tr.demoFemaleSig3 },
   ];
   return (
@@ -402,9 +402,9 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
             <div className="dfs-engine-ring" />
             <div className="dfs-engine-ring dfs-engine-ring-2" />
             <svg width="38" height="38" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <circle cx="16" cy="16" r="14" fill="rgba(124,58,237,.22)" stroke="rgba(168,85,247,.6)" strokeWidth="1.5" />
-              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(168,85,247,.95)" />
-              <circle cx="16" cy="16" r="2.5" fill="#c084fc" />
+              <circle cx="16" cy="16" r="14" fill="rgba(34, 197, 125,.22)" stroke="rgba(52, 211, 153,.6)" strokeWidth="1.5" />
+              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(52, 211, 153,.95)" />
+              <circle cx="16" cy="16" r="2.5" fill="#6ee7b7" />
             </svg>
             <div className="dfs-engine-lbl">{isAr ? "محرك الذكاء الاصطناعي" : "AI Engine"}</div>
             <div className="dfs-engine-sub">{isAr ? "يحلل · يفهم · يخصص" : "Analyze · Personalize"}</div>
@@ -562,8 +562,8 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
                 <div className="demo-sp">{tr.demoMaleSugg1Price}</div>
               </div>
               <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(168,85,247,.15)" stroke="rgba(168,85,247,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /></svg>
+                <div className="demo-si" style={{ background: "rgba(52, 211, 153,.07)", border: "1px solid rgba(52, 211, 153,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(52, 211, 153,.15)" stroke="rgba(52, 211, 153,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(52, 211, 153,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(52, 211, 153,.5)" /></svg>
                 </div>
                 <div className="demo-sb"><div className="demo-sn">{tr.demoMaleSugg2Name}</div><div className="demo-sw">{tr.demoMaleSugg2Sub}</div></div>
                 <div className="demo-sp">{tr.demoMaleSugg2Price}</div>
@@ -590,8 +590,8 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
                 <div className="demo-sp">289 ⃁</div>
               </div>
               <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(168,85,247,.12)" stroke="rgba(168,85,247,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(168,85,247,.08)" stroke="rgba(168,85,247,.3)" strokeWidth="1" /></svg>
+                <div className="demo-si" style={{ background: "rgba(52, 211, 153,.07)", border: "1px solid rgba(52, 211, 153,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(52, 211, 153,.12)" stroke="rgba(52, 211, 153,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(52, 211, 153,.08)" stroke="rgba(52, 211, 153,.3)" strokeWidth="1" /></svg>
                 </div>
                 <div className="demo-sb"><div className="demo-sn">{tr.demoFemaleSugg2Name}</div><div className="demo-sw">{tr.demoFemaleSugg2Sub}</div></div>
                 <div className="demo-sp">449 ⃁</div>
@@ -742,16 +742,16 @@ export default function Landing() {
 
   const row1Avatars = ["R", "T", "S", "F", "N", "B"];
   const row1Colors = [
-    "linear-gradient(135deg,#7c3aed,#6d28d9)",
+    "linear-gradient(135deg,#22c57d,#16a34a)",
     "linear-gradient(135deg,#059669,#047857)",
     "linear-gradient(135deg,#ec4899,#be185d)",
-    "linear-gradient(135deg,#7c3aed,#4f46e5)",
+    "linear-gradient(135deg,#22c57d,#4f46e5)",
     "linear-gradient(135deg,#10b981,#059669)",
     "linear-gradient(135deg,#06b6d4,#0891b2)",
   ];
   const row2Avatars = ["A", "R", "K", "Q", "K", "Y"];
   const row2Colors = [
-    "linear-gradient(135deg,#a855f7,#7c3aed)",
+    "linear-gradient(135deg,#34d399,#22c57d)",
     "linear-gradient(135deg,#ec4899,#9333ea)",
     "linear-gradient(135deg,#06b6d4,#0891b2)",
     "linear-gradient(135deg,#4f46e5,#4338ca)",
@@ -839,7 +839,7 @@ export default function Landing() {
       <PageShell>
         {/* CURSOR — ديسكتوب فقط */}
         <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
-        <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(168,85,247,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
+        <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(52, 211, 153,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
         {/* NAV */}
         
         {/* HERO */}
@@ -957,7 +957,7 @@ export default function Landing() {
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                     <path
                       d="M4 11H18M12 5L18 11L12 17"
-                      stroke="#a855f7"
+                      stroke="#34d399"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -969,7 +969,7 @@ export default function Landing() {
                 className="ba-card rv d3"
                 style={{
                   background: "none",
-                  borderColor: "rgba(124,58,237,.2)",
+                  borderColor: "rgba(34, 197, 125,.2)",
                 }}
               >
                 <div className="ba-lbl ba-lbl-a text-[16px]">{tr.landing.afterLabel}</div>
@@ -1015,8 +1015,8 @@ export default function Landing() {
                         width="14"
                         height="20"
                         rx="3"
-                        fill="rgba(124,58,237,.14)"
-                        stroke="rgba(168,85,247,.45)"
+                        fill="rgba(34, 197, 125,.14)"
+                        stroke="rgba(52, 211, 153,.45)"
                         strokeWidth="1.5"
                       />
                       <rect
@@ -1025,7 +1025,7 @@ export default function Landing() {
                         width="8"
                         height="2"
                         rx="1"
-                        fill="rgba(168,85,247,.55)"
+                        fill="rgba(52, 211, 153,.55)"
                       />
                       <rect
                         x="12"
@@ -1033,7 +1033,7 @@ export default function Landing() {
                         width="5"
                         height="2"
                         rx="1"
-                        fill="rgba(168,85,247,.35)"
+                        fill="rgba(52, 211, 153,.35)"
                       />
                       <circle
                         cx="21"
@@ -1064,14 +1064,14 @@ export default function Landing() {
                         cx="16"
                         cy="13"
                         r="8"
-                        fill="rgba(124,58,237,.12)"
-                        stroke="rgba(168,85,247,.4)"
+                        fill="rgba(34, 197, 125,.12)"
+                        stroke="rgba(52, 211, 153,.4)"
                         strokeWidth="1.5"
                       />
                       <path
                         d="M10 22 C10 17 13 15 16 15 C19 15 22 17 22 22"
-                        fill="rgba(124,58,237,.08)"
-                        stroke="rgba(168,85,247,.35)"
+                        fill="rgba(34, 197, 125,.08)"
+                        stroke="rgba(52, 211, 153,.35)"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                       />
@@ -1079,21 +1079,21 @@ export default function Landing() {
                         cx="13"
                         cy="12"
                         r="1.5"
-                        fill="rgba(168,85,247,.7)"
+                        fill="rgba(52, 211, 153,.7)"
                       />
-                      <circle cx="16" cy="12" r="1.5" fill="#a855f7" />
+                      <circle cx="16" cy="12" r="1.5" fill="#34d399" />
                       <circle
                         cx="19"
                         cy="12"
                         r="1.5"
-                        fill="rgba(168,85,247,.7)"
+                        fill="rgba(52, 211, 153,.7)"
                       />
                       <line
                         x1="8"
                         y1="5"
                         x2="11"
                         y2="8"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(52, 211, 153,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -1102,7 +1102,7 @@ export default function Landing() {
                         y1="3"
                         x2="16"
                         y2="7"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(52, 211, 153,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -1111,7 +1111,7 @@ export default function Landing() {
                         y1="5"
                         x2="21"
                         y2="8"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(52, 211, 153,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -1131,8 +1131,8 @@ export default function Landing() {
                         width="5"
                         height="8"
                         rx="1.5"
-                        fill="rgba(168,85,247,.25)"
-                        stroke="rgba(168,85,247,.45)"
+                        fill="rgba(52, 211, 153,.25)"
+                        stroke="rgba(52, 211, 153,.45)"
                         strokeWidth="1.2"
                       />
                       <rect
@@ -1141,8 +1141,8 @@ export default function Landing() {
                         width="5"
                         height="14"
                         rx="1.5"
-                        fill="rgba(168,85,247,.45)"
-                        stroke="rgba(168,85,247,.6)"
+                        fill="rgba(52, 211, 153,.45)"
+                        stroke="rgba(52, 211, 153,.6)"
                         strokeWidth="1.2"
                       />
                       <rect
@@ -1151,8 +1151,8 @@ export default function Landing() {
                         width="5"
                         height="21"
                         rx="1.5"
-                        fill="#a855f7"
-                        stroke="rgba(168,85,247,.7)"
+                        fill="#34d399"
+                        stroke="rgba(52, 211, 153,.7)"
                         strokeWidth="1.2"
                       />
                       <path
@@ -1274,23 +1274,23 @@ export default function Landing() {
                           cx="13"
                           cy="13"
                           r="9"
-                          stroke="rgba(168,85,247,.45)"
+                          stroke="rgba(52, 211, 153,.45)"
                           strokeWidth="1.5"
                         />
                         <circle
                           cx="13"
                           cy="13"
                           r="5"
-                          stroke="rgba(168,85,247,.65)"
+                          stroke="rgba(52, 211, 153,.65)"
                           strokeWidth="1.5"
                         />
-                        <circle cx="13" cy="13" r="2" fill="#a855f7" />
+                        <circle cx="13" cy="13" r="2" fill="#34d399" />
                         <line
                           x1="13"
                           y1="2"
                           x2="13"
                           y2="6"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(52, 211, 153,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1299,7 +1299,7 @@ export default function Landing() {
                           y1="20"
                           x2="13"
                           y2="24"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(52, 211, 153,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1308,7 +1308,7 @@ export default function Landing() {
                           y1="13"
                           x2="6"
                           y2="13"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(52, 211, 153,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1317,7 +1317,7 @@ export default function Landing() {
                           y1="13"
                           x2="24"
                           y2="13"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(52, 211, 153,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1415,25 +1415,25 @@ export default function Landing() {
                       width="20"
                       height="20"
                       rx="5"
-                      fill="rgba(124,58,237,.15)"
-                      stroke="rgba(168,85,247,.45)"
+                      fill="rgba(34, 197, 125,.15)"
+                      stroke="rgba(52, 211, 153,.45)"
                       strokeWidth="1.5"
                     />
                     <circle
                       cx="10.5"
                       cy="10.5"
                       r="2"
-                      fill="rgba(168,85,247,.6)"
+                      fill="rgba(52, 211, 153,.6)"
                     />
                     <circle
                       cx="19.5"
                       cy="10.5"
                       r="2"
-                      fill="rgba(168,85,247,.6)"
+                      fill="rgba(52, 211, 153,.6)"
                     />
                     <path
                       d="M10 18 Q15 22 20 18"
-                      stroke="#a855f7"
+                      stroke="#34d399"
                       strokeWidth="1.8"
                       strokeLinecap="round"
                       fill="none"
@@ -1443,7 +1443,7 @@ export default function Landing() {
                       y1="1"
                       x2="15"
                       y2="5"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(52, 211, 153,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1452,7 +1452,7 @@ export default function Landing() {
                       y1="25"
                       x2="15"
                       y2="29"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(52, 211, 153,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1461,7 +1461,7 @@ export default function Landing() {
                       y1="15"
                       x2="5"
                       y2="15"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(52, 211, 153,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1470,7 +1470,7 @@ export default function Landing() {
                       y1="15"
                       x2="29"
                       y2="15"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(52, 211, 153,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1537,12 +1537,12 @@ export default function Landing() {
               {/* Campaign-level report card */}
               <GlassCard className="rv d1" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(34, 197, 125,.12)", border: "1px solid rgba(34, 197, 125,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                      <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(124,58,237,.12)" stroke="rgba(168,85,247,.45)" strokeWidth="1.4"/>
-                      <line x1="7" y1="8" x2="15" y2="8" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
-                      <line x1="7" y1="11" x2="15" y2="11" stroke="rgba(168,85,247,.7)" strokeWidth="1.6" strokeLinecap="round"/>
-                      <line x1="7" y1="14" x2="11" y2="14" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                      <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(34, 197, 125,.12)" stroke="rgba(52, 211, 153,.45)" strokeWidth="1.4"/>
+                      <line x1="7" y1="8" x2="15" y2="8" stroke="rgba(52, 211, 153,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                      <line x1="7" y1="11" x2="15" y2="11" stroke="rgba(52, 211, 153,.7)" strokeWidth="1.6" strokeLinecap="round"/>
+                      <line x1="7" y1="14" x2="11" y2="14" stroke="rgba(52, 211, 153,.4)" strokeWidth="1.3" strokeLinecap="round"/>
                     </svg>
                   </div>
                   <div>
@@ -1552,12 +1552,12 @@ export default function Landing() {
                 </div>
 
                 {/* Campaign name bar */}
-                <div style={{ padding: "10px 14px", background: "rgba(124,58,237,.06)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ padding: "10px 14px", background: "rgba(34, 197, 125,.06)", border: "1px solid rgba(34, 197, 125,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }}/>
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#34d399", boxShadow: "0 0 6px #34d399" }}/>
                     <span style={{ fontSize: 13, fontWeight: 700 }}>{tr.landing.reportsCampaignName}</span>
                   </div>
-                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>{tr.landing.reportsCampaignActive}</span>
+                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(52, 211, 153,.1)", border: "1px solid rgba(52, 211, 153,.2)", padding: "2px 10px", borderRadius: 50 }}>{tr.landing.reportsCampaignActive}</span>
                 </div>
 
                 {/* Stats grid */}
@@ -1605,8 +1605,8 @@ export default function Landing() {
                 {/* Product rows */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {(tr.landing.reportsProducts as { name: string; clicks: string; clickRate: string; conv: string; convRate: string; sales: string }[]).map((p, i) => {
-                    const pColors = ["#a855f7", "#06b6d4", "#10b981"];
-                    const pColor = pColors[i] || "#a855f7";
+                    const pColors = ["#34d399", "#06b6d4", "#10b981"];
+                    const pColor = pColors[i] || "#34d399";
                     return (
                     <div key={i} style={{ padding: "12px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -1624,7 +1624,7 @@ export default function Landing() {
                           <div key={j} style={{ display: "flex", gap: 4, alignItems: "center" }}>
                             <span style={{ fontSize: 12, color: "var(--td)" }}>{m.l}:</span>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
-                            <span style={{ fontSize: 11, color: pColor, background: `rgba(${pColor === "#a855f7" ? "168,85,247" : pColor === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
+                            <span style={{ fontSize: 11, color: pColor, background: `rgba(${pColor === "#34d399" ? "52, 211, 153" : pColor === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
                           </div>
                         ))}
                       </div>
@@ -1633,19 +1633,19 @@ export default function Landing() {
                   })}
                 </div>
 
-                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
+                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(34, 197, 125,.05)", border: "1px solid rgba(34, 197, 125,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
                   {tr.landing.reportsFooter}
                 </div>
               </GlassCard>
             </div>
 
             {/* Bottom banner */}
-            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, borderColor: "rgba(124,58,237,.18)" }}>
-              <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, borderColor: "rgba(34, 197, 125,.18)" }}>
+              <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(34, 197, 125,.12)", border: "1px solid rgba(34, 197, 125,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                  <circle cx="13" cy="13" r="10" fill="rgba(124,58,237,.1)" stroke="rgba(168,85,247,.4)" strokeWidth="1.5"/>
-                  <path d="M13 8v5l3 3" stroke="#a855f7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="13" cy="13" r="1.5" fill="#a855f7"/>
+                  <circle cx="13" cy="13" r="10" fill="rgba(34, 197, 125,.1)" stroke="rgba(52, 211, 153,.4)" strokeWidth="1.5"/>
+                  <path d="M13 8v5l3 3" stroke="#34d399" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="13" cy="13" r="1.5" fill="#34d399"/>
                 </svg>
               </div>
               <div style={{ flex: 1 }}>
@@ -2041,8 +2041,8 @@ export default function Landing() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  background: "rgba(124,58,237,.1)",
-                  border: "1px solid rgba(124,58,237,.28)",
+                  background: "rgba(34, 197, 125,.1)",
+                  border: "1px solid rgba(34, 197, 125,.28)",
                   borderRadius: 12,
                   padding: "11px 28px",
                   color: "rgba(216,180,254,.9)",
@@ -2053,13 +2053,13 @@ export default function Landing() {
                   transition: "all .2s",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124,58,237,.2)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124,58,237,.5)";
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(34, 197, 125,.2)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(34, 197, 125,.5)";
                   (e.currentTarget as HTMLButtonElement).style.color = "#fff";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124,58,237,.1)";
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124,58,237,.28)";
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(34, 197, 125,.1)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(34, 197, 125,.28)";
                   (e.currentTarget as HTMLButtonElement).style.color = "rgba(216,180,254,.9)";
                 }}
               >
@@ -2182,15 +2182,15 @@ export default function Landing() {
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path
                           d="M4 3h6v14H4z"
-                          fill="rgba(168,85,247,.12)"
-                          stroke="rgba(168,85,247,.35)"
+                          fill="rgba(52, 211, 153,.12)"
+                          stroke="rgba(52, 211, 153,.35)"
                           strokeWidth="1.2"
                           strokeLinejoin="round"
                         />
                         <path
                           d="M10 3h6v14h-6z"
-                          fill="rgba(168,85,247,.08)"
-                          stroke="rgba(168,85,247,.3)"
+                          fill="rgba(52, 211, 153,.08)"
+                          stroke="rgba(52, 211, 153,.3)"
                           strokeWidth="1.2"
                           strokeLinejoin="round"
                         />
@@ -2199,7 +2199,7 @@ export default function Landing() {
                           y1="3"
                           x2="10"
                           y2="17"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(52, 211, 153,.4)"
                           strokeWidth="1"
                         />
                       </svg>
@@ -2219,8 +2219,8 @@ export default function Landing() {
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
                       style={{
                         background:
-                          openFaq === i ? "rgba(124,58,237,.06)" : "rgba(37, 0, 107, 0.05)",
-                        border: `1px solid ${openFaq === i ? "rgba(124,58,237,.3)" : "var(--b1)"}`,
+                          openFaq === i ? "rgba(34, 197, 125,.06)" : "rgba(37, 0, 107, 0.05)",
+                        border: `1px solid ${openFaq === i ? "rgba(34, 197, 125,.3)" : "var(--b1)"}`,
                         borderRadius: openFaq === i ? "14px 14px 0 0" : "14px",
                       }}
                     >
@@ -2249,10 +2249,10 @@ export default function Landing() {
                       style={{
                         maxHeight: openFaq === i ? 400 : 0,
                         overflow: "hidden",
-                        background: "rgba(124,58,237,.04)",
+                        background: "rgba(34, 197, 125,.04)",
                         border:
                           openFaq === i
-                            ? "1px solid rgba(124,58,237,.15)"
+                            ? "1px solid rgba(34, 197, 125,.15)"
                             : "none",
                         borderTop: "none",
                         borderRadius: "0 0 14px 14px",

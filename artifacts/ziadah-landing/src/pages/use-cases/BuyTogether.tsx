@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "📈",
       title: "تحليل الارتباط الفعلي",
       desc: "يحلل زيادة آلاف الطلبات لاستخراج أكثر المنتجات ارتباطاً بالشراء المشترك — لا اجتهادات يدوية، بل بيانات حقيقية من متجرك.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🖱️",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "نسبة الطلبات التي تحتوي على أكثر من منتج", color: "#a855f7" },
+    { value: "+35%", label: "نسبة الطلبات التي تحتوي على أكثر من منتج", color: "#34d399" },
     { value: "+29%", label: "متوسط قيمة الطلب مع عرض 'الشراء معاً'", color: "#06b6d4" },
     { value: "48%", label: "من العملاء ينقرون على عرض 'الشراء معاً'", color: "#10b981" },
     { value: "+17%", label: "رضا العملاء عن اكتمال تجربة الشراء", color: "#f59e0b" },
@@ -133,7 +133,7 @@ const data: UseCasePageData = {
       icon: "📈",
       title: "Real Association Analysis",
       desc: "Ziadah analyzes thousands of orders to extract the most frequently co-purchased products — no manual guesswork, just real data from your store.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "🖱️",
@@ -155,7 +155,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Orders containing more than one product", color: "#a855f7" },
+    { value: "+35%", label: "Orders containing more than one product", color: "#34d399" },
     { value: "+29%", label: "Average order value with 'Bought Together' offer", color: "#06b6d4" },
     { value: "48%", label: "Of customers click on the 'Bought Together' offer", color: "#10b981" },
     { value: "+17%", label: "Customer satisfaction with the complete purchase experience", color: "#f59e0b" },

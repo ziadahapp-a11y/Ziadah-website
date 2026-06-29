@@ -253,13 +253,13 @@ export default function Blog() {
                   borderRadius: 50,
                   border:
                     activeCategory === cat.id
-                      ? "1px solid rgba(168,85,247,.5)"
+                      ? "1px solid rgba(52, 211, 153,.5)"
                       : "1px solid var(--b1)",
                   background:
                     activeCategory === cat.id
-                      ? "rgba(124,58,237,.15)"
+                      ? "rgba(34, 197, 125,.15)"
                       : "var(--s1)",
-                  color: activeCategory === cat.id ? "#c084fc" : "var(--tm)",
+                  color: activeCategory === cat.id ? "#6ee7b7" : "var(--tm)",
                   fontFamily: "var(--font)",
                   fontSize: 14,
                   fontWeight: activeCategory === cat.id ? 700 : 500,

@@ -33,7 +33,7 @@ function ThankYouPhoneScrollContent() {
     continue: isEn ? "Continue Shopping →" : "→ متابعة التسوق",
   };
 
-  const cardBgs = ["#ede9fe,#ddd6fe", "#fce7f3,#fbcfe8", "#e0f2fe,#bae6fd"];
+  const cardBgs = ["#d1fae5,#a7f3d0", "#fce7f3,#fbcfe8", "#e0f2fe,#bae6fd"];
 
   return (
     <div
@@ -59,7 +59,7 @@ function ThankYouPhoneScrollContent() {
         <div style={{ fontSize: 13, fontWeight: 800, color: "#1c1c1e" }}>{t.orderSum}</div>
         <div style={{ fontSize: 12, fontWeight: 700, color: "#1c1c1e" }}>
           <span style={{ color: "#8e8e93", fontSize: 11, fontWeight: 500 }}>{t.total} </span>
-          <span style={{ color: "#7c3aed", fontWeight: 900 }}>349 SAR</span>
+          <span style={{ color: "#22c57d", fontWeight: 900 }}>349 SAR</span>
         </div>
       </div>
 
@@ -105,7 +105,7 @@ function ThankYouPhoneScrollContent() {
               style={{
                 padding: "3px 7px",
                 borderRadius: 20,
-                background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+                background: "linear-gradient(135deg,#22c57d,#16a34a)",
                 color: "var(--t)",
                 fontSize: 9,
                 fontWeight: 800,
@@ -158,9 +158,9 @@ function ThankYouPhoneScrollContent() {
                   </span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
-                  <span style={{ fontSize: 11, fontWeight: 900, color: "#7c3aed" }}>{p.newPrice} SAR</span>
-                  <span style={{ fontSize: 9, color: "#c4b5fd", textDecoration: "line-through" }}>{p.oldPrice}</span>
-                  <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(124,58,237,.1)", color: "#7c3aed", fontWeight: 700 }}>-{p.discount}</span>
+                  <span style={{ fontSize: 11, fontWeight: 900, color: "#22c57d" }}>{p.newPrice} SAR</span>
+                  <span style={{ fontSize: 9, color: "#94a3b8", textDecoration: "line-through" }}>{p.oldPrice}</span>
+                  <span style={{ fontSize: 8, padding: "1px 5px", borderRadius: 8, background: "rgba(34, 197, 125,.1)", color: "#22c57d", fontWeight: 700 }}>-{p.discount}</span>
                 </div>
               </div>
               <button
@@ -168,7 +168,7 @@ function ThankYouPhoneScrollContent() {
                 style={{
                   padding: "5px 10px",
                   borderRadius: 20,
-                  background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+                  background: "linear-gradient(135deg,#22c57d,#16a34a)",
                   color: "var(--t)",
                   border: "none",
                   fontSize: 10,
@@ -192,7 +192,7 @@ function ThankYouPhoneScrollContent() {
             marginTop: 12,
             padding: "11px 0",
             borderRadius: 24,
-            background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+            background: "linear-gradient(135deg,#22c57d,#16a34a)",
             color: "var(--t)",
             border: "none",
             fontSize: 12,
@@ -203,7 +203,7 @@ function ThankYouPhoneScrollContent() {
             justifyContent: "center",
             gap: 6,
             fontFamily: "var(--font)",
-            boxShadow: "0 4px 16px rgba(124,58,237,.4)",
+            boxShadow: "0 4px 16px rgba(34, 197, 125,.4)",
           }}
         >
           <span>🛒</span> {t.addAll}

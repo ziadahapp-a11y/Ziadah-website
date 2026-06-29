@@ -525,13 +525,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, flexShrink: 0 }}>
                   {(
                     [
-                      { icon: "📊", labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const, color: "#a855f7" },
+                      { icon: "📊", labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const, color: "#34d399" },
                       { icon: "📦", labelKey: "productReports" as const, subKey: "productReportsSub" as const, color: "#06b6d4" },
                       { icon: "⚡", labelKey: "liveData" as const, subKey: "liveDataSub" as const, color: "#10b981" },
                     ] as const
                   ).map((item, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "color-mix(in srgb, var(--bg) 60%, transparent)", border: "1px solid color-mix(in srgb, var(--p) 14%, transparent)", borderRadius: 12, minWidth: 240 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#a855f7" ? "168,85,247" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.12)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
+                      <div style={{ width: 36, height: 36, borderRadius: 10, background: `rgba(${item.color === "#34d399" ? "52, 211, 153" : item.color === "#06b6d4" ? "6,182,212" : "16,185,129"},.12)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, flexShrink: 0 }}>
                         {item.icon}
                       </div>
                       <div>

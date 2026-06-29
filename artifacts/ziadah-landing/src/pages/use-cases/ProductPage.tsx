@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🔗",
       title: "منتجات ذات صلة",
       desc: "يحلل الذكاء الاصطناعي سلوك العملاء المشابهين ويعرض المنتجات التي يشترونها معاً في أغلب الأحيان. الأكثر تأثيراً لأنها تعكس اهتمامات حقيقية.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "➕",
@@ -41,7 +41,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+42%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+42%", label: "متوسط قيمة الطلب", color: "#34d399" },
     { value: "+38%", label: "عدد المنتجات بالسلة", color: "#06b6d4" },
     { value: "+25%", label: "معدل التحويل", color: "#10b981" },
     { value: "+60%", label: "احتمال عودة العميل", color: "#f59e0b" },
@@ -80,7 +80,7 @@ const data: UseCasePageData = {
       icon: "🔗",
       title: "Related Products",
       desc: "AI analyzes similar customers' behavior and displays products they most frequently buy together. Most impactful because it reflects real interests.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "➕",
@@ -102,7 +102,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+42%", label: "Average order value", color: "#a855f7" },
+    { value: "+42%", label: "Average order value", color: "#34d399" },
     { value: "+38%", label: "Number of products in cart", color: "#06b6d4" },
     { value: "+25%", label: "Conversion rate", color: "#10b981" },
     { value: "+60%", label: "Customer return probability", color: "#f59e0b" },

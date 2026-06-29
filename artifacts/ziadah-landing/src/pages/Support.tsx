@@ -467,14 +467,14 @@ export default function Support() {
                         position: "absolute",
                         top: 10,
                         insetInlineEnd: 10,
-                        background: "rgba(124,58,237,.22)",
-                        border: "1px solid rgba(168,85,247,.4)",
+                        background: "rgba(34, 197, 125,.22)",
+                        border: "1px solid rgba(52, 211, 153,.4)",
                         backdropFilter: "blur(8px)",
                         padding: "4px 12px",
                         borderRadius: 999,
                         fontSize: 10,
                         fontWeight: 700,
-                        color: "#4c1d95",
+                        color: "#0a0a0b",
                       }}
                     >
                       {vCat}
@@ -482,7 +482,7 @@ export default function Support() {
                   </div>
                   <div style={{ padding: "var(--card-pad-sm)", flex: 1, display: "flex", flexDirection: "column" }}>
                     <div style={{ fontSize: 15, fontWeight: 700, color: "#3d2a6b", lineHeight: 1.4, marginBottom: 6 }}>{vTitle}</div>
-                    <div style={{ fontSize: 13, color: "rgba(76,29,149,.58)", lineHeight: 1.65 }}>{vDesc}</div>
+                    <div style={{ fontSize: 13, color: "rgba(9, 9, 11,.58)", lineHeight: 1.65 }}>{vDesc}</div>
                   </div>
                 </div>
               );

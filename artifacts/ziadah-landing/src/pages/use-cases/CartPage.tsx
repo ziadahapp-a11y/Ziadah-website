@@ -48,9 +48,9 @@ function CartHeroContent() {
       {/* total */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, padding: "8px 0", borderTop: "1px solid var(--b1)" }}>
         <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.totalLabel}</span>
-        <span style={{ fontSize: 13, fontWeight: 900, color: "#a855f7" }}>{tr.grandTotal}</span>
+        <span style={{ fontSize: 13, fontWeight: 900, color: "#34d399" }}>{tr.grandTotal}</span>
       </div>
-      <button type="button" style={{ width: "100%", marginTop: 8, background: "linear-gradient(135deg, #a855f7, #7c3aed)", color: "#fff", border: "none", borderRadius: 10, padding: "9px 0", fontSize: 12, fontWeight: 900, cursor: "pointer" }}>
+      <button type="button" style={{ width: "100%", marginTop: 8, background: "linear-gradient(135deg, #34d399, #22c57d)", color: "#fff", border: "none", borderRadius: 10, padding: "9px 0", fontSize: 12, fontWeight: 900, cursor: "pointer" }}>
         {tr.checkoutCta}
       </button>
     </div>
@@ -97,7 +97,7 @@ const data: UseCasePageData = {
   ],
   stats: [
     { value: "-38%", label: "معدل التخلي عن السلة", color: "#ec4899" },
-    { value: "+22%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+22%", label: "متوسط قيمة الطلب", color: "#34d399" },
     { value: "+31%", label: "الطلبات تتجاوز عتبة الشحن", color: "#10b981" },
     { value: "+18%", label: "معدل إتمام الشراء", color: "#06b6d4" },
   ],
@@ -185,7 +185,7 @@ const data: UseCasePageData = {
   ],
   statsEn: [
     { value: "-38%", label: "Cart abandonment rate", color: "#ec4899" },
-    { value: "+22%", label: "Average order value", color: "#a855f7" },
+    { value: "+22%", label: "Average order value", color: "#34d399" },
     { value: "+31%", label: "Orders exceeding shipping threshold", color: "#10b981" },
     { value: "+18%", label: "Purchase completion rate", color: "#06b6d4" },
   ],

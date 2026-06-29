@@ -237,7 +237,7 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ BENEFITS ══════════ */}
-        <section style={{ background: "rgba(124,58,237,.04)" }}>
+        <section style={{ background: "rgba(34, 197, 125,.04)" }}>
           <div className="wrap">
             <div className="aff-sec-head">
               <div className="stag" style={{ margin: "0 auto 16px" }}>
@@ -353,7 +353,7 @@ export default function Affiliate() {
         </section>
 
         {/* ══════════ FAQ ══════════ */}
-        <section style={{ background: "rgba(124,58,237,.04)" }}>
+        <section style={{ background: "rgba(34, 197, 125,.04)" }}>
           <div className="wrap" style={{ maxWidth: 780 }}>
             <div className="aff-sec-head">
               <div className="stag" style={{ margin: "0 auto 16px" }}>

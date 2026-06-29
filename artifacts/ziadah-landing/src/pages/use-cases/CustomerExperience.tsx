@@ -37,7 +37,7 @@ const data: UseCasePageData = {
       icon: "🪪",
       title: "طبقة الهوية الكاملة",
       desc: "بناء ملف زائر غني: مصدر الزيارة، الجهاز، المنطقة، تاريخ التصفح والشراء — أساس لا يُبنى التوصية بدونه.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⚡",
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+18–34%", label: "متوسط قيمة الطلب خلال أول 6 أسابيع", color: "#a855f7" },
+    { value: "+18–34%", label: "متوسط قيمة الطلب خلال أول 6 أسابيع", color: "#34d399" },
     { value: "حتى 3×", label: "معدل التحويل مقارنة بالأساس", color: "#06b6d4" },
     { value: "+40", label: "إشارة سلوكية في المزيج", color: "#10b981" },
     { value: "<80ms", label: "زمن توليد التوصية", color: "#f59e0b" },
@@ -115,7 +115,7 @@ const data: UseCasePageData = {
                           style={{
                             textAlign: i === 0 ? "start" : "center",
                             padding: "14px 16px",
-                            background: i === 2 ? "rgba(124,58,237,.12)" : "rgba(124,58,237,.06)",
+                            background: i === 2 ? "rgba(34, 197, 125,.12)" : "rgba(34, 197, 125,.06)",
                             borderBottom: "1px solid var(--b1)",
                             fontWeight: 900,
                             color: i === 2 ? "var(--p4)" : "var(--t)",
@@ -193,7 +193,7 @@ const data: UseCasePageData = {
       icon: "🪪",
       title: "Full identity layer",
       desc: "A rich visitor profile: traffic source, device, region, browsing and purchase history — the foundation recommendations are built on.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⚡",
@@ -221,7 +221,7 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+18–34%", label: "Average order value in first 6 weeks", color: "#a855f7" },
+    { value: "+18–34%", label: "Average order value in first 6 weeks", color: "#34d399" },
     { value: "Up to 3×", label: "Conversion vs. baseline", color: "#06b6d4" },
     { value: "40+", label: "Behavioral signals in the mix", color: "#10b981" },
     { value: "<80ms", label: "Recommendation generation time", color: "#f59e0b" },

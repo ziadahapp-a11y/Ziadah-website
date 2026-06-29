@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — العرض الأخير",
       desc: "عند محاولة مغادرة المتجر (حركة الماوس نحو إغلاق التبويب) يظهر Popup بعرض خاص فوري. الفرصة الأخيرة قبل الخسارة.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⏱️",
@@ -43,7 +43,7 @@ const data: UseCasePageData = {
   stats: [
     { value: "-38%", label: "معدل التخلي عن السلة", color: "#ec4899" },
     { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#10b981" },
-    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#a855f7" },
+    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#34d399" },
     { value: "+24%", label: "إيرادات الشهر الأول", color: "#06b6d4" },
   ],
   exampleScenario: {
@@ -89,7 +89,7 @@ const data: UseCasePageData = {
                 <div style={{ padding: "12px 16px", background: "rgba(225,29,72,.06)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
                   ✗ {row.cause}
                 </div>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{isAr ? "←" : "→"}</div>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(34, 197, 125,.15)", border: "1px solid rgba(34, 197, 125,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{isAr ? "←" : "→"}</div>
                 <div style={{ padding: "12px 16px", background: "rgba(16,185,129,.06)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
                   ✓ {row.solution}
                 </div>
@@ -131,7 +131,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — Last Offer",
       desc: "When attempting to leave the store (mouse moving toward closing the tab), a popup with a special instant offer appears. The last chance before losing the sale.",
-      color: "#a855f7",
+      color: "#34d399",
     },
     {
       icon: "⏱️",
@@ -143,7 +143,7 @@ const data: UseCasePageData = {
   statsEn: [
     { value: "-38%", label: "Cart abandonment rate", color: "#ec4899" },
     { value: "+31%", label: "Recovered customers monthly", color: "#10b981" },
-    { value: "+18%", label: "Purchase completion rate", color: "#a855f7" },
+    { value: "+18%", label: "Purchase completion rate", color: "#34d399" },
     { value: "+24%", label: "First month revenue", color: "#06b6d4" },
   ],
   exampleScenarioEn: {

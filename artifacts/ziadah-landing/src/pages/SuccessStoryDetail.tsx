@@ -97,7 +97,7 @@ export default function SuccessStoryDetail() {
 
         <style>{`
           .story-article {
-            --accent: var(--story-accent, #a855f7);
+            --accent: var(--story-accent, #34d399);
             position: relative;
             counter-reset: section;
           }
@@ -120,8 +120,8 @@ export default function SuccessStoryDetail() {
             pointer-events: none;
             z-index: 0;
             background-image:
-              linear-gradient(rgba(168,85,247,.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(168,85,247,.04) 1px, transparent 1px);
+              linear-gradient(rgba(52, 211, 153,.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(52, 211, 153,.04) 1px, transparent 1px);
             background-size: 48px 48px;
             mask-image: radial-gradient(ellipse 60% 70% at 50% 0%, #000 30%, transparent 80%);
             opacity: 0.5;
