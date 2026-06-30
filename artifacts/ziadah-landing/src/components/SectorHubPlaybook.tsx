@@ -17,22 +17,20 @@ export default function SectorHubPlaybook({
   return (
     <section
       id="sector-store-playbook"
-      className="sector-playbook-wrap gc rv d2"
-      style={{ padding: 0, marginBottom: 28, scrollMarginTop: 120, position: "relative", zIndex: 2 }}
+      className="sector-playbook-wrap rv d2 relative z-[2] rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      style={{ marginBottom: 28, scrollMarginTop: 120 }}
     >
-      <div className="shine" />
-      <div style={{ padding: "26px 24px 8px" }}>
-        <div className="stag" style={{ marginBottom: 12 }}>
-          <span className="stag-dot" />
+      <div className="mb-3">
+        <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
           {tr.sectorHubPlaybookTag}
-        </div>
-        <p style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75, maxWidth: 720 }}>
-          {tr.sectorHubPlaybookLead}
-        </p>
+        </span>
       </div>
+      <p className="mb-5 text-sm text-zinc-700 leading-relaxed max-w-[720px]">
+        {tr.sectorHubPlaybookLead}
+      </p>
 
-      <div id="section-examples" style={{ scrollMarginTop: 120, padding: "8px 24px 24px" }}>
-        <h3 style={{ margin: "0 0 14px", fontSize: 17, fontWeight: 900, color: "var(--p)" }}>{tr.sectorHubExamplesEmbedTitle}</h3>
+      <div id="section-examples" className="scroll-mt-[120px]">
+        <h3 className="mb-3.5 text-base md:text-lg font-bold text-violet-600 leading-snug">{tr.sectorHubExamplesEmbedTitle}</h3>
         <SectorVisualExamples bundle={bundle} introVariant="sector" sectorSlug={sectorSlug} />
       </div>
     </section>

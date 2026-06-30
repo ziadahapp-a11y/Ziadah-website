@@ -53,24 +53,24 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
           }}>
             {tr.specialOfferBadge}
           </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
             <div style={{
-              width: 56,
-              height: 56,
+              width: 60,
+              height: 60,
               borderRadius: 12,
               background: "rgba(124, 58, 237,.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 28,
+              fontSize: 30,
               flexShrink: 0,
             }}>{productEmoji}</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{tr.productName}</div>
-              <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 2 }}>{tr.reviews}</div>
-              <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 4 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "var(--t)", lineHeight: 1.35 }}>{tr.productName}</div>
+              <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 3 }}>{tr.reviews}</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 6px", alignItems: "center", marginTop: 6 }}>
                 <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.origPrice}</span>
-                <span style={{ fontSize: 14, fontWeight: 900, color: "var(--t)" }}>{tr.newPrice}</span>
+                <span style={{ fontSize: 15, fontWeight: 900, color: "var(--t)" }}>{tr.newPrice}</span>
                 <span style={{
                   fontSize: 12,
                   padding: "2px 7px",
@@ -78,6 +78,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
                   background: "rgba(139, 92, 246,.15)",
                   color: "#8b5cf6",
                   fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}>{tr.saveBadge}</span>
               </div>
             </div>

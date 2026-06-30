@@ -74,17 +74,17 @@ const data: UseCasePageData = {
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16 }}>
             {(isAr ? [
-              { icon: "", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#8b5cf6" },
+              { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#8b5cf6" },
               { icon: "🤝", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
               { icon: "⚡", title: "الإلحاح", desc: "عروض محدودة الوقت وعدادات توقيت تحفّز الشراء الآن", color: "#f59e0b" },
-              { icon: "", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#8b5cf6" },
+              { icon: "💎", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#8b5cf6" },
               { icon: "🔄", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
               { icon: "📱", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
             ] : [
-              { icon: "", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#8b5cf6" },
+              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#8b5cf6" },
               { icon: "🤝", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
               { icon: "⚡", title: "Urgency", desc: "Time-limited offers and countdown timers motivate buying now", color: "#f59e0b" },
-              { icon: "", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#8b5cf6" },
+              { icon: "💎", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#8b5cf6" },
               { icon: "🔄", title: "Simplicity", desc: "Smooth buying path without obstacles reduces friction", color: "#ec4899" },
               { icon: "📱", title: "Mobile Compatibility", desc: "Seamless experience across all devices and screens", color: "#4f46e5" },
             ]).map((item, i) => (

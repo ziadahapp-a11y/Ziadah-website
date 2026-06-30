@@ -909,16 +909,34 @@ export default function HomeTrackflow() {
       mockup: (
         <div className="space-y-2.5 num-ltr">
           {[
-            { label: "Zid Store · saudi.com", state: t({ ar: "متصل", en: "connected" }), color: "#7c3aed", soon: false },
-            { label: "Salla Store · uae.com", state: t({ ar: "متصل", en: "connected" }), color: "#0ea5e9", soon: false },
-            { label: "WooCommerce", state: t({ ar: "قريباً", en: "soon" }), color: "#6366f1", soon: true },
+            { label: "Zid Store", sub: "saudi.com", brand: "ZID", state: t({ ar: "متصل", en: "connected" }), color: "#7c3aed", soon: false },
+            { label: "Salla Store", sub: "uae.com", brand: "SLA", state: t({ ar: "متصل", en: "connected" }), color: "#0ea5e9", soon: false },
+            { label: "WooCommerce", sub: "wordpress.org", brand: "WOO", state: t({ ar: "قريباً", en: "soon" }), color: "#6366f1", soon: true },
           ].map((s) => (
-            <div key={s.label} className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.04] border border-white/8">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
-                <span className="text-xs text-zinc-300">{s.label}</span>
+            <div
+              key={s.label}
+              className={`flex items-center gap-3 p-2.5 rounded-xl border transition-colors ${
+                s.soon ? "bg-white/[0.02] border-white/8" : "bg-white/[0.05] border-white/10"
+              }`}
+            >
+              <span
+                className="flex items-center justify-center w-9 h-9 rounded-lg text-[9px] font-black tracking-tight ring-1 ring-inset ring-white/10 shrink-0"
+                style={{ backgroundColor: `${s.color}22`, color: s.color }}
+              >
+                {s.brand}
+              </span>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-semibold text-zinc-100 leading-tight">{s.label}</div>
+                <div className="text-[10px] text-zinc-500 truncate">{s.sub}</div>
               </div>
-              <span className={`text-[10px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${s.soon ? "text-amber-400" : "text-violet-400"}`}>{s.state}</span>
+              {s.soon ? (
+                <span className="text-[10px] font-bold text-amber-400 shrink-0">{s.state}</span>
+              ) : (
+                <span className="flex items-center gap-1 text-[10px] font-bold text-violet-300 shrink-0">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  {s.state}
+                </span>
+              )}
             </div>
           ))}
         </div>
@@ -932,57 +950,66 @@ export default function HomeTrackflow() {
       statLabel: t({ ar: "أماكن عرض جاهزة", en: "Ready-made placements" }),
       Icon: LayoutGrid,
       mockup: (
-        <div className="grid grid-cols-2 gap-2.5 num-ltr">
-          {[
-            { name: t({ ar: "صفحة المنتج", en: "Product page" }), Icon: Package, color: "#7c3aed" },
-            { name: t({ ar: "السلة", en: "Cart" }), Icon: ShoppingCart, color: "#0ea5e9" },
-            { name: t({ ar: "الدفع", en: "Checkout" }), Icon: CreditCard, color: "#6366f1" },
-            { name: t({ ar: "التصنيفات", en: "Category" }), Icon: Tag, color: "#ec4899", soon: true },
-          ].map((c) => (
-            <div
-              key={c.name}
-              className={`group relative overflow-hidden p-3 rounded-xl border transition-all duration-300 ${
-                c.soon
-                  ? "bg-white/[0.02] border-white/8"
-                  : "bg-white/[0.05] border-white/10 hover:-translate-y-0.5 hover:border-violet-400/30 hover:bg-white/[0.07]"
-              }`}
-            >
-              {!c.soon && (
-                <span
-                  className="absolute -right-5 -top-5 w-14 h-14 rounded-full blur-xl opacity-30 transition-opacity duration-300 group-hover:opacity-50"
-                  style={{ backgroundColor: c.color }}
-                />
-              )}
-              <div className="relative flex items-center justify-between mb-2.5">
-                <span
-                  className="flex items-center justify-center w-6 h-6 rounded-lg ring-1 ring-inset ring-white/10"
-                  style={{ backgroundColor: `${c.color}26`, color: c.color }}
-                >
-                  <c.Icon className="w-3.5 h-3.5" />
-                </span>
-                <span
-                  className={`relative inline-flex items-center w-7 h-4 rounded-full transition-colors duration-300 ${
-                    c.soon ? "bg-white/10" : "bg-violet-500/80 shadow-[0_0_8px_rgba(139,92,246,0.5)]"
-                  }`}
-                  aria-hidden="true"
-                >
-                  <span
-                    className={`absolute top-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-all duration-300 ${
-                      c.soon ? "left-0.5" : "left-3.5"
-                    }`}
-                  />
-                </span>
-              </div>
-              <div className="relative text-xs text-zinc-100 font-semibold leading-tight">{c.name}</div>
+        <div className="space-y-2.5 num-ltr">
+          <div className="flex items-center justify-between px-0.5">
+            <span className="text-[10px] font-semibold text-zinc-400">{t({ ar: "أماكن العرض", en: "Placements" })}</span>
+            <span className="flex items-center gap-1 text-[10px] font-bold text-violet-300 num-ltr">
+              <BadgeCheck className="w-3.5 h-3.5" />3/4 {t({ ar: "مفعّل", en: "live" })}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2.5">
+            {[
+              { name: t({ ar: "صفحة المنتج", en: "Product page" }), Icon: Package, color: "#7c3aed" },
+              { name: t({ ar: "السلة", en: "Cart" }), Icon: ShoppingCart, color: "#0ea5e9" },
+              { name: t({ ar: "الدفع", en: "Checkout" }), Icon: CreditCard, color: "#6366f1" },
+              { name: t({ ar: "التصنيفات", en: "Category" }), Icon: Tag, color: "#ec4899", soon: true },
+            ].map((c) => (
               <div
-                className={`relative mt-0.5 text-[9px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${
-                  c.soon ? "text-amber-400/90" : "text-violet-300"
+                key={c.name}
+                className={`group relative overflow-hidden p-3 rounded-xl border transition-all duration-300 ${
+                  c.soon
+                    ? "bg-white/[0.02] border-white/8"
+                    : "bg-white/[0.05] border-white/10 hover:-translate-y-0.5 hover:border-violet-400/30 hover:bg-white/[0.07]"
                 }`}
               >
-                {c.soon ? t({ ar: "قريباً", en: "soon" }) : t({ ar: "مفعّل", en: "live" })}
+                {!c.soon && (
+                  <span
+                    className="absolute -right-5 -top-5 w-14 h-14 rounded-full blur-xl opacity-30 transition-opacity duration-300 group-hover:opacity-50"
+                    style={{ backgroundColor: c.color }}
+                  />
+                )}
+                <div className="relative flex items-center justify-between mb-2.5">
+                  <span
+                    className="flex items-center justify-center w-7 h-7 rounded-lg ring-1 ring-inset ring-white/10"
+                    style={{ backgroundColor: `${c.color}26`, color: c.color }}
+                  >
+                    <c.Icon className="w-3.5 h-3.5" />
+                  </span>
+                  <span
+                    className={`relative inline-flex items-center w-8 h-[18px] rounded-full transition-colors duration-300 ${
+                      c.soon ? "bg-white/10" : "bg-violet-500/90 shadow-[0_0_10px_rgba(139,92,246,0.55)]"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <span
+                      className={`absolute top-0.5 w-3.5 h-3.5 rounded-full bg-white shadow-sm transition-all duration-300 ${
+                        c.soon ? "left-0.5" : "left-4"
+                      }`}
+                    />
+                  </span>
+                </div>
+                <div className="relative text-xs text-zinc-100 font-semibold leading-tight">{c.name}</div>
+                <div
+                  className={`relative mt-1 flex items-center gap-1 text-[9px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${
+                    c.soon ? "text-amber-400/90" : "text-violet-300"
+                  }`}
+                >
+                  {!c.soon && <span className="w-1 h-1 rounded-full bg-violet-400" />}
+                  {c.soon ? t({ ar: "قريباً", en: "soon" }) : t({ ar: "مفعّل", en: "live" })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       ),
     },
@@ -994,19 +1021,33 @@ export default function HomeTrackflow() {
       statLabel: t({ ar: "بدون إعداد يدوي", en: "No manual setup" }),
       Icon: Sparkles,
       mockup: (
-        <div className="space-y-2 num-ltr">
-          <div className="flex items-center justify-between gap-2">
-            <span className="px-2.5 py-1.5 rounded-md bg-white/[0.04] border border-white/8 text-[11px] text-zinc-400 font-mono">{t({ ar: "سلوك العميل", en: "behavior" })}</span>
-            <span className="text-zinc-600">→</span>
-            <span className="px-2.5 py-1.5 rounded-md bg-violet-500/15 border border-violet-400/30 text-[11px] text-violet-300 font-mono">{t({ ar: "تحليل", en: "analyze" })}</span>
-            <span className="text-zinc-600">→</span>
-            <span className="px-2.5 py-1.5 rounded-md bg-violet-500/15 border border-violet-400/30 text-[11px] text-violet-300 font-mono">{t({ ar: "اقتراح", en: "recommend" })}</span>
+        <div className="space-y-3 num-ltr">
+          <div className="flex items-center gap-1.5">
+            <span className="flex-1 text-center px-2 py-1.5 rounded-lg bg-white/[0.04] border border-white/8 text-[10px] text-zinc-400 font-mono">{t({ ar: "سلوك", en: "behavior" })}</span>
+            <ArrowRight className="w-3 h-3 text-zinc-600 shrink-0" />
+            <span className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg bg-violet-500/15 border border-violet-400/30 text-[10px] text-violet-300 font-mono">
+              <Wand2 className="w-3 h-3" />
+              {t({ ar: "تحليل", en: "analyze" })}
+            </span>
+            <ArrowRight className="w-3 h-3 text-zinc-600 shrink-0" />
+            <span className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg bg-violet-500/15 border border-violet-400/30 text-[10px] text-violet-300 font-mono">
+              <Sparkles className="w-3 h-3" />
+              {t({ ar: "اقتراح", en: "suggest" })}
+            </span>
           </div>
-          <div className="grid grid-cols-2 gap-2 text-[10px]">
-            <div className="p-2 rounded-md bg-white/[0.04] border border-white/8 text-zinc-400">+ {t({ ar: "تصفّح", en: "browsing" })}</div>
-            <div className="p-2 rounded-md bg-white/[0.04] border border-white/8 text-zinc-400">+ {t({ ar: "طلبات سابقة", en: "past orders" })}</div>
-            <div className="p-2 rounded-md bg-white/[0.04] border border-white/8 text-zinc-400">+ {t({ ar: "يُشترى معاً", en: "bought together" })}</div>
-            <div className="p-2 rounded-md bg-white/[0.04] border border-white/8 text-zinc-400">+ {t({ ar: "المخزون", en: "inventory" })}</div>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: t({ ar: "تصفّح", en: "browsing" }), Icon: Activity },
+              { label: t({ ar: "طلبات سابقة", en: "past orders" }), Icon: Repeat2 },
+              { label: t({ ar: "يُشترى معاً", en: "bought together" }), Icon: Combine },
+              { label: t({ ar: "المخزون", en: "inventory" }), Icon: Package },
+            ].map((it) => (
+              <div key={it.label} className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.04] border border-white/8">
+                <it.Icon className="w-3.5 h-3.5 text-violet-300/80 shrink-0" />
+                <span className="flex-1 text-[10px] text-zinc-400 truncate">{it.label}</span>
+                <Check className="w-3 h-3 text-violet-400 shrink-0" />
+              </div>
+            ))}
           </div>
         </div>
       ),
@@ -1020,15 +1061,30 @@ export default function HomeTrackflow() {
       Icon: TrendingUp,
       mockup: (
         <div className="space-y-3 num-ltr">
-          <div className="flex items-end gap-1.5 h-16">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="text-[10px] text-zinc-500">{t({ ar: "متوسط قيمة الطلب", en: "Avg. order value" })}</div>
+              <div className="text-xl font-bold text-white tabular-nums leading-tight">+35%</div>
+            </div>
+            <span className="flex items-center gap-1 text-[10px] font-bold text-violet-300 bg-violet-500/10 border border-violet-400/20 rounded-full px-2.5 py-1">
+              <ArrowUpRight className="w-3 h-3" />
+              {t({ ar: "نمو مستمر", en: "trending up" })}
+            </span>
+          </div>
+          <div className="flex items-end gap-1.5 h-16 rounded-lg bg-white/[0.02] border border-white/8 p-2">
             {[35, 52, 41, 68, 58, 80, 92].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t-sm bg-gradient-to-t from-violet-600/40 to-violet-400" style={{ height: `${h}%` }} />
+              <div
+                key={i}
+                className={`flex-1 rounded-t-sm transition-all ${
+                  i >= 4 ? "bg-gradient-to-t from-violet-600 to-violet-400 shadow-[0_0_10px_rgba(139,92,246,0.4)]" : "bg-gradient-to-t from-white/10 to-white/20"
+                }`}
+                style={{ height: `${h}%` }}
+              />
             ))}
           </div>
-          <div className="flex justify-between text-[10px] text-zinc-500">
-            <span>{t({ ar: "قبل", en: "before" })}</span>
-            <span className="text-violet-400 font-bold">+35% {t({ ar: "قيمة الطلب", en: "AOV" })}</span>
-            <span>{t({ ar: "بعد", en: "after" })}</span>
+          <div className="flex items-center justify-between text-[10px]">
+            <span className="text-zinc-500">{t({ ar: "قبل زيادة", en: "before Ziadah" })}</span>
+            <span className="text-violet-300 font-bold">{t({ ar: "بعد زيادة", en: "after Ziadah" })}</span>
           </div>
         </div>
       ),
@@ -1037,8 +1093,8 @@ export default function HomeTrackflow() {
 
   const pricingPlans = [
     { name: t({ ar: "الانطلاقة", en: "Starter" }), price: 29, orders: t({ ar: "5 نقاط ذكاء/شهر", en: "5 AI points/mo" }), popular: false },
-    { name: t({ ar: "النمو", en: "Growth" }), price: 290, orders: t({ ar: "50 نقطة ذكاء/شهر", en: "50 AI points/mo" }), popular: true },
-    { name: t({ ar: "الاحترافية", en: "Professional" }), price: 790, orders: t({ ar: "500 نقطة ذكاء/شهر", en: "500 AI points/mo" }), popular: false },
+    { name: t({ ar: "النمو", en: "Growth" }), price: 290, orders: t({ ar: "50 نقطة ذكاء/شهر", en: "50 AI points/mo" }), popular: false },
+    { name: t({ ar: "الاحترافية", en: "Professional" }), price: 790, orders: t({ ar: "500 نقطة ذكاء/شهر", en: "500 AI points/mo" }), popular: true },
     { name: t({ ar: "الأعمال", en: "Business" }), price: 1990, orders: t({ ar: "5,000 نقطة ذكاء/شهر", en: "5,000 AI points/mo" }), popular: false },
   ];
 
@@ -1987,35 +2043,73 @@ export default function HomeTrackflow() {
                     <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none transition-opacity duration-500" />
                     <div className="relative p-6 md:p-7">
-                      <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="relative w-11 h-11 rounded-xl bg-violet-600 flex items-center justify-center shrink-0 shadow-[0_0_18px_rgba(109, 40, 217,0.45)]">
-                            {(() => {
-                              const ActiveIcon = steps[activeStep].Icon;
-                              return <ActiveIcon className="w-5 h-5 text-white" />;
-                            })()}
-                            <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full bg-white text-violet-700 text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-zinc-950`}>
-                              {activeStep + 1}
-                            </span>
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-sm font-bold text-white leading-tight truncate">{steps[activeStep].title}</div>
-                            <div className="text-[10px] text-zinc-500 num-ltr">
-                              {t({ ar: "الخطوة", en: "Step" })} {activeStep + 1}/{steps.length}
+                      {/* app top-bar */}
+                      <div className="flex items-center justify-between mb-5">
+                        <div className="flex items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                          <span className="ms-2 text-[10px] font-bold tracking-wide text-zinc-500">{t({ ar: "زيادة · معاينة", en: "Ziadah · Preview" })}</span>
+                        </div>
+                        <span className="flex items-center gap-1.5 rounded-full bg-violet-500/10 border border-violet-400/20 px-2 py-1">
+                          <span className="relative flex w-1.5 h-1.5">
+                            <span className="absolute inline-flex w-full h-full rounded-full bg-violet-400 opacity-75 animate-ping" />
+                            <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-violet-400" />
+                          </span>
+                          <span className="text-[9px] font-bold tracking-widest text-violet-300 uppercase">{t({ ar: "مباشر", en: "live" })}</span>
+                        </span>
+                      </div>
+
+                      {/* all-steps stepper */}
+                      <div className="flex items-center mb-5">
+                        {steps.map((s, i) => {
+                          const done = i < activeStep;
+                          const active = i === activeStep;
+                          const StepIcon = s.Icon;
+                          return (
+                            <div key={i} className={`flex items-center ${i < steps.length - 1 ? "flex-1" : ""}`}>
+                              <button
+                                type="button"
+                                onClick={() => setActiveStep(i)}
+                                aria-label={`${t({ ar: "الخطوة", en: "Step" })} ${i + 1}`}
+                                className={`relative flex items-center justify-center rounded-xl shrink-0 transition-all duration-300 ${
+                                  active
+                                    ? "w-10 h-10 bg-violet-600 shadow-[0_0_18px_rgba(124,58,237,0.55)]"
+                                    : done
+                                    ? "w-9 h-9 bg-violet-500/20 ring-1 ring-inset ring-violet-400/30"
+                                    : "w-9 h-9 bg-white/[0.06] ring-1 ring-inset ring-white/10 hover:bg-white/[0.1]"
+                                }`}
+                              >
+                                {done ? (
+                                  <Check className="w-3.5 h-3.5 text-violet-300" />
+                                ) : (
+                                  <StepIcon className={active ? "w-4 h-4 text-white" : "w-3.5 h-3.5 text-zinc-400"} />
+                                )}
+                                {active && (
+                                  <span className="absolute -top-1.5 -end-1.5 w-4 h-4 rounded-full bg-white text-violet-700 text-[9px] font-bold flex items-center justify-center num-ltr ring-2 ring-zinc-950">
+                                    {i + 1}
+                                  </span>
+                                )}
+                              </button>
+                              {i < steps.length - 1 && (
+                                <span className={`mx-1.5 h-px flex-1 rounded-full transition-colors duration-300 ${done ? "bg-violet-400/50" : "bg-white/10"}`} />
+                              )}
                             </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* active step title */}
+                      <div className="flex items-center justify-between gap-3 mb-5">
+                        <div className="min-w-0">
+                          <div className="text-sm font-bold text-white leading-tight truncate">{steps[activeStep].title}</div>
+                          <div className="text-[10px] text-zinc-500 num-ltr mt-0.5">
+                            {t({ ar: "الخطوة", en: "Step" })} {activeStep + 1}/{steps.length}
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          {steps.map((_, i) => (
-                            <button
-                              key={i}
-                              type="button"
-                              aria-label={`${t({ ar: "الخطوة", en: "Step" })} ${i + 1}`}
-                              onClick={() => setActiveStep(i)}
-                              className={`h-1.5 rounded-full transition-all ${i === activeStep ? "w-5 bg-violet-400" : "w-1.5 bg-white/20 hover:bg-white/40"}`}
-                            />
-                          ))}
-                        </div>
+                        <span className="shrink-0 text-[11px] font-bold text-violet-300 num-ltr bg-violet-500/10 border border-violet-400/20 rounded-full px-2.5 py-1">
+                          {steps[activeStep].stat}
+                        </span>
                       </div>
 
                       <div className="min-h-[150px]">
@@ -2032,18 +2126,23 @@ export default function HomeTrackflow() {
                         </AnimatePresence>
                       </div>
 
-                      <div className="mt-5 flex items-center justify-between rounded-xl bg-gradient-to-r from-violet-500/15 to-violet-500/[0.04] border border-violet-500/20 px-4 py-3">
-                        <div className="flex items-center gap-2">
-                          <span className="relative flex w-2 h-2">
-                            <span className="absolute inline-flex w-full h-full rounded-full bg-violet-400 opacity-75 animate-ping" />
-                            <span className="relative inline-flex w-2 h-2 rounded-full bg-violet-400" />
-                          </span>
-                          <span className="text-[11px] font-bold text-violet-200">{t({ ar: "اقتراحات تُعرض الآن", en: "Recommending live" })}</span>
+                      <div className="mt-5 grid grid-cols-2 gap-2.5">
+                        <div className="rounded-xl bg-white/[0.03] border border-white/8 px-3 py-2.5">
+                          <div className="text-[9px] text-zinc-500 mb-1">{t({ ar: "اقتراحات / ساعة", en: "Suggestions / hr" })}</div>
+                          <div className="flex items-center gap-1.5 num-ltr">
+                            <span className="text-sm font-bold text-white tabular-nums">1,284</span>
+                            <TrendingUp className="w-3 h-3 text-violet-300" />
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1.5 num-ltr">
-                          <TrendingUp className="w-3 h-3 text-violet-300" />
-                          <span className="text-[12px] font-bold text-white tabular-nums">1,284</span>
-                          <span className="text-[10px] text-zinc-400">/ hr</span>
+                        <div className="rounded-xl bg-gradient-to-br from-violet-500/15 to-violet-500/[0.04] border border-violet-400/20 px-3 py-2.5">
+                          <div className="text-[9px] text-zinc-400 mb-1">{t({ ar: "الحالة", en: "Status" })}</div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="relative flex w-2 h-2">
+                              <span className="absolute inline-flex w-full h-full rounded-full bg-violet-400 opacity-75 animate-ping" />
+                              <span className="relative inline-flex w-2 h-2 rounded-full bg-violet-400" />
+                            </span>
+                            <span className="text-[11px] font-bold text-violet-200">{t({ ar: "تعمل الآن", en: "Active now" })}</span>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -110,9 +110,9 @@
   --chart-4: 240 6% 90%;
   --chart-5: 240 4% 40%;
 
-  --app-font-sans: 'saudi_riyal', 'Rubik', 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
-  --app-font-serif: 'saudi_riyal', Georgia, serif;
-  --app-font-mono: 'saudi_riyal', 'JetBrains Mono', Menlo, monospace;
+  --app-font-sans: 'Rubik', 'IBM Plex Sans Arabic', 'Inter', 'saudi_riyal', system-ui, sans-serif;
+  --app-font-serif: Georgia, 'saudi_riyal', serif;
+  --app-font-mono: 'JetBrains Mono', Menlo, 'saudi_riyal', monospace;
   --radius: 1rem;
 
   /* Automatically computed opaque borders (intensity via --opaque-button-border-intensity) */
@@ -179,10 +179,12 @@
   .flex.num-ltr { display: flex; }
   .inline-flex.num-ltr { display: inline-flex; }
   /* Render the official Saudi Riyal symbol (U+20C1 ⃁) via the bundled saudi_riyal
-     font everywhere on the homepage. The font only covers the riyal codepoints, so
-     listing it first leaves all other text on Rubik — no visual change. Without
-     this, ⃁ falls back to a system glyph that reads like a shekel sign. */
-  .tf-home { font-family: "saudi_riyal", "Rubik", var(--font), system-ui, sans-serif; }
+     font. The font's cmap also maps the capital letters A/B/C/D (legacy shortcode
+     glyphs), so it MUST NOT lead the stack — otherwise those four letters get pulled
+     from this font and render blank. Keep it as the last family before system-ui:
+     Rubik supplies normal text (incl. A–D); the riyal symbol — which Rubik lacks —
+     falls through to saudi_riyal before any system shekel-like fallback. */
+  .tf-home { font-family: "Rubik", var(--font), "saudi_riyal", system-ui, sans-serif; }
 }
 
 /* The "elevate" interaction system — uniform hover/active brightness overlays. */

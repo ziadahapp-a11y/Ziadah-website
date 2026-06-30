@@ -197,7 +197,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         />
 
         {/* ══════════════════ HERO ══════════════════ */}
-        <section dir={dir} className="relative pt-20 pb-20 md:pt-28 md:pb-24 px-4 border-b border-zinc-200">
+        <section dir={dir} className="relative pt-40 pb-20 md:pt-48 md:pb-24 px-4 border-b border-zinc-200">
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-6xl">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center rv d1">

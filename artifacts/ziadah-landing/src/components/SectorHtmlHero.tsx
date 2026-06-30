@@ -47,7 +47,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
 
   return (
     <>
-      <section dir={dir} className="relative pt-20 pb-20 md:pt-28 md:pb-24 px-4 border-b border-zinc-200">
+      <section dir={dir} className="relative pt-40 pb-20 md:pt-48 md:pb-24 px-4 border-b border-zinc-200">
         <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
         <div className="container mx-auto relative max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
@@ -105,7 +105,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
             <div className="relative w-full mt-4 lg:mt-0 flex justify-center">
               {ft1 ? (
                 <div className="absolute -top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white border border-zinc-200 shadow-card px-3 py-1.5 text-xs font-bold text-zinc-700 start-2 lg:start-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
                   {ft1}
                 </div>
               ) : null}

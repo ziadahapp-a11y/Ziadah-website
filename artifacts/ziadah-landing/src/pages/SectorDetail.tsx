@@ -192,7 +192,7 @@ export default function SectorDetail() {
         ]}
       />
       <WebPageSchema name={pageTitle} description={seoDesc} url={`/sectors/${sector.slug}`} />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "var(--t)" }}>
+      <PageShell className="relative overflow-x-clip bg-white text-zinc-950" style={{ background: "#fff" }}>
 
         {htmlPlaybook && pageRich ? (
           <>
@@ -222,7 +222,7 @@ export default function SectorDetail() {
           <>
             <section
               dir={dir}
-              className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200 text-center"
+              className="relative pt-40 pb-16 md:pt-48 md:pb-20 px-4 border-b border-zinc-200 text-center"
             >
               <div
                 className="absolute inset-0 bg-grid-fade opacity-60 -z-10"
@@ -310,57 +310,34 @@ export default function SectorDetail() {
           <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
             {sector.useCardLayout && sector.howToPhaseCards?.length ? (
               <div
-                style={{
-                  display: "grid",
-                  gap: 14,
-                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
-                }}
+                className="grid gap-3.5"
+                style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))" }}
               >
                 {sector.howToPhaseCards.map((card, i) => (
-                  <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
-                    <div className="shine" />
-                    <div style={{ padding: "18px 18px 20px" }}>
-                      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
-                        <span style={{ fontSize: 22, lineHeight: 1 }} aria-hidden>
-                          {card.emoji}
-                        </span>
-                        <h3
-                          style={{
-                            margin: 0,
-                            fontSize: 16,
-                            fontWeight: 800,
-                            color: "var(--p)",
-                            lineHeight: 1.35,
-                          }}
-                        >
-                          {lang === "ar" ? card.titleAr : card.titleEn}
-                        </h3>
-                      </div>
-                      <ul
-                        style={{
-                          margin: 0,
-                          paddingInlineStart: 20,
-                          color: "var(--td)",
-                          lineHeight: 1.7,
-                          fontSize: 14,
-                        }}
-                      >
-                        {(slim ? (lang === "ar" ? card.bulletsAr : card.bulletsEn).slice(0, 2) : lang === "ar" ? card.bulletsAr : card.bulletsEn).map((b, j) => (
-                          <li key={j} style={{ marginBottom: 8 }}>
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
+                  <div
+                    key={i}
+                    className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-5 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  >
+                    <div className="flex items-start gap-2.5 mb-3">
+                      <span className="text-2xl leading-none" aria-hidden>
+                        {card.emoji}
+                      </span>
+                      <h3 className="m-0 text-base font-extrabold text-zinc-950 leading-snug">
+                        {lang === "ar" ? card.titleAr : card.titleEn}
+                      </h3>
                     </div>
+                    <ul className="m-0 ps-5 list-disc text-sm text-zinc-600 leading-relaxed space-y-2">
+                      {(slim ? (lang === "ar" ? card.bulletsAr : card.bulletsEn).slice(0, 2) : lang === "ar" ? card.bulletsAr : card.bulletsEn).map((b, j) => (
+                        <li key={j}>{b}</li>
+                      ))}
+                    </ul>
                   </div>
                 ))}
               </div>
             ) : (
-              <ol style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+              <ol className="m-0 ps-5 list-decimal text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
                 {howTo.map((line, i) => (
-                  <li key={i} style={{ marginBottom: 10 }}>
-                    {line}
-                  </li>
+                  <li key={i}>{line}</li>
                 ))}
               </ol>
             )}
@@ -374,32 +351,27 @@ export default function SectorDetail() {
           <SectionBlock title={tr.sectionHowZiadah} delayClass="d2" sectionId="section-how-help">
             {sector.useCardLayout && sector.helpCards?.length ? (
               <div
-                style={{
-                  display: "grid",
-                  gap: 12,
-                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
-                }}
+                className="grid gap-3"
+                style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}
               >
                 {sector.helpCards.map((hc, i) => (
-                  <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
-                    <div className="shine" />
-                    <div style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "16px 18px 18px" }}>
-                      <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>
-                        {hc.emoji}
-                      </span>
-                      <p style={{ margin: 0, fontSize: 14, color: "var(--td)", lineHeight: 1.65 }}>
-                        {lang === "ar" ? hc.bodyAr : hc.bodyEn}
-                      </p>
-                    </div>
+                  <div
+                    key={i}
+                    className={`rv d${(i % 3) + 1} flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white p-4 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  >
+                    <span className="text-2xl leading-none shrink-0" aria-hidden>
+                      {hc.emoji}
+                    </span>
+                    <p className="m-0 text-sm text-zinc-600 leading-relaxed">
+                      {lang === "ar" ? hc.bodyAr : hc.bodyEn}
+                    </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+              <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
                 {helps.map((line, i) => (
-                  <li key={i} style={{ marginBottom: 10 }}>
-                    {line}
-                  </li>
+                  <li key={i}>{line}</li>
                 ))}
               </ul>
             )}
@@ -415,23 +387,20 @@ export default function SectorDetail() {
           ) : null}
 
           {!showPlatformHub && visualBundle ? (
-            <div id="section-examples" className={`gc rv d3`} style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
-              <div className="shine" />
-              <div style={{ padding: "22px 24px 8px" }}>
-                <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 4, marginTop: 0 }}>{tr.sectionExamples}</h2>
-              </div>
-              <div style={{ padding: "0 24px 26px" }}>
-                <SectorVisualExamples bundle={visualBundle} sectorSlug={sector.slug} />
-              </div>
+            <div
+              id="section-examples"
+              className="rv d3 rounded-2xl border border-zinc-200 bg-white p-7 md:p-9 shadow-card"
+              style={{ marginBottom: 20, scrollMarginTop: 120 }}
+            >
+              <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-5 leading-tight">{tr.sectionExamples}</h2>
+              <SectorVisualExamples bundle={visualBundle} sectorSlug={sector.slug} />
             </div>
           ) : null}
           {!showPlatformHub && !visualBundle ? (
             <SectionBlock title={tr.sectionExamples} delayClass="d3" sectionId="section-examples">
-              <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+              <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
                 {(lang === "ar" ? sector.examplesAr : sector.examplesEn).map((line, i) => (
-                  <li key={i} style={{ marginBottom: 10 }}>
-                    {line}
-                  </li>
+                  <li key={i}>{line}</li>
                 ))}
               </ul>
             </SectionBlock>
@@ -440,32 +409,11 @@ export default function SectorDetail() {
           {!slim ? (
             <SectionBlock title={tr.sectionExperience} delayClass="d1" sectionId="section-experience">
               {sector.useCardLayout ? (
-                <div
-                  className="gc rv"
-                  style={{
-                    padding: 0,
-                    marginBottom: 0,
-                    borderInlineStart: "4px solid rgba(124, 58, 237, 0.55)",
-                  }}
-                >
-                  <div className="shine" />
-                  <div style={{ padding: "22px 24px 24px" }}>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: 15,
-                        color: "var(--tm)",
-                        lineHeight: 1.85,
-                      }}
-                    >
-                      {experience}
-                    </p>
-                  </div>
+                <div className="rv rounded-2xl border border-zinc-200 border-s-4 border-s-violet-500 bg-zinc-50/60 p-6">
+                  <p className="m-0 text-[15px] text-zinc-700 leading-loose">{experience}</p>
                 </div>
               ) : (
-                <p style={{ margin: 0, fontSize: 15, color: "var(--tm)", lineHeight: 1.8 }}>
-                  {experience}
-                </p>
+                <p className="m-0 text-[15px] text-zinc-700 leading-loose">{experience}</p>
               )}
             </SectionBlock>
           ) : null}
@@ -476,32 +424,27 @@ export default function SectorDetail() {
             <SectionBlock title={tr.sectionBestPractices} delayClass="d1" sectionId="section-best">
               {sector.useCardLayout && sector.bestCards?.length ? (
                 <div
-                  style={{
-                    display: "grid",
-                    gap: 12,
-                    gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
-                  }}
+                  className="grid gap-3"
+                  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))" }}
                 >
                   {sector.bestCards.map((bc, i) => (
-                    <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
-                      <div className="shine" />
-                      <div style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "14px 16px 16px" }}>
-                        <span style={{ fontSize: 18, lineHeight: 1.25, flexShrink: 0 }} aria-hidden>
-                          {bc.emoji}
-                        </span>
-                        <p style={{ margin: 0, fontSize: 14, color: "var(--td)", lineHeight: 1.65 }}>
-                          {lang === "ar" ? bc.textAr : bc.textEn}
-                        </p>
-                      </div>
+                    <div
+                      key={i}
+                      className={`rv d${(i % 3) + 1} flex items-start gap-2.5 rounded-2xl border border-zinc-200 bg-white p-4 hover:border-zinc-300 hover:shadow-card transition-all`}
+                    >
+                      <span className="text-lg leading-snug shrink-0" aria-hidden>
+                        {bc.emoji}
+                      </span>
+                      <p className="m-0 text-sm text-zinc-600 leading-relaxed">
+                        {lang === "ar" ? bc.textAr : bc.textEn}
+                      </p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <ul style={{ margin: 0, paddingInlineStart: 22, color: "var(--td)", lineHeight: 1.75, fontSize: 15 }}>
+                <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
                   {best.map((line, i) => (
-                    <li key={i} style={{ marginBottom: 10 }}>
-                      {line}
-                    </li>
+                    <li key={i}>{line}</li>
                   ))}
                 </ul>
               )}
