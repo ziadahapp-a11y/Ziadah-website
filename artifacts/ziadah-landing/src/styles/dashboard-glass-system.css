@@ -69,7 +69,7 @@
 /* ═══════════════════════════════════════════════════════════════
    SECTION C — TYPE SCALE
    Sizes only. Weight / line-height applied per class in index.css.
-   Fonts never change: Tajawal (Arabic/headings), Rubik (Latin/nums).
+   Fonts: saudi_riyal -> IBM Plex Sans Arabic -> Inter. Tajawal/Rubik legacy fallbacks.
    ═══════════════════════════════════════════════════════════════ */
 :root {
   --type-display:  clamp(40px, 5.5vw, 64px);  /* hero h1 only */
@@ -213,7 +213,7 @@
   --accent-light: rgba(22, 163, 74, 0.14);
 
   /* Phase 2 semantic aliases */
-  --accent-primary:         #16a34a;  /* = --p — canonical brand emerald */
+  --accent-primary:         #16a34a;  /* = --p — canonical brand green #16a34a */
   --accent-secondary:       #15803d;  /* = --p2 — pressed / hover state */
   --accent-primary-light:   #22c55e;  /* = --p3 — light accent, section tags */
   --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
