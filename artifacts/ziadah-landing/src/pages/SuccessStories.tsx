@@ -10,6 +10,7 @@ import { useSiteT } from "../cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { stories, storyEn, type StoryData } from "@/data/successStoriesData";
 import { navigateTo } from "@/components/PageTransition";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 const SECTOR_NAME_EN: Record<string, string> = {
   "الكل": "All",
@@ -275,8 +276,7 @@ export default function SuccessStories() {
         </nav>
 
         {/* ══════════════════ STORY GRID ══════════════════ */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl">
+        <Section containerClassName="max-w-6xl">
             {activeSector !== "الكل" && (
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <div className="text-sm text-zinc-600">
@@ -304,17 +304,13 @@ export default function SuccessStories() {
                 <BriefStoryCard key={s.slug} s={s} isAr={isAr} />
               ))}
             </div>
-          </div>
-        </section>
+        </Section>
 
         {/* ══════════════════ BY SECTOR ══════════════════ */}
-        <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-          <div className="container mx-auto max-w-6xl">
+        <Section band="muted" containerClassName="max-w-6xl">
             <div className="text-center mb-14">
               <div className="mb-4">
-                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
-                  {isAr ? "حسب القطاع" : "By Sector"}
-                </span>
+                <Eyebrow>{isAr ? "حسب القطاع" : "By Sector"}</Eyebrow>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
                 {isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}
@@ -352,8 +348,7 @@ export default function SuccessStories() {
                 );
               })}
             </div>
-          </div>
-        </section>
+        </Section>
 
         <PageClosingCta
           title={sx.ctaClosingTitle}

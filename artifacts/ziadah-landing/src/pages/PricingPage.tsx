@@ -15,6 +15,7 @@ import PageClosingCta from "@/components/PageClosingCta";
 import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -244,9 +245,7 @@ export default function PricingPage() {
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
             <div className="container mx-auto relative max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
-                  {isAr ? "الأسعار" : "Pricing"}
-                </span>
+                <Eyebrow className="mb-4">{isAr ? "الأسعار" : "Pricing"}</Eyebrow>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
                   {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
                 </h1>
@@ -496,12 +495,9 @@ export default function PricingPage() {
           </section>
 
           {/* ══════════════════ FEATURE COMPARISON ══════════════════ */}
-          <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-            <div className="container mx-auto max-w-6xl">
+          <Section band="muted" containerClassName="max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
-                  {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
-                </span>
+                <Eyebrow className="mb-4">{isAr ? "مقارنة الخصائص" : "Feature Comparison"}</Eyebrow>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 leading-tight">
                   {isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}
                 </h2>
@@ -598,8 +594,7 @@ export default function PricingPage() {
                   ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
                   : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
               </p>
-            </div>
-          </section>
+        </Section>
 
           <PageClosingCta
             title={pc.pricingTitle}

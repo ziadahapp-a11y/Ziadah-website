@@ -9,6 +9,7 @@ import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { navigateTo } from "@/components/PageTransition";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 export default function Sectors() {
   const t = useSiteT();
@@ -102,9 +103,7 @@ export default function Sectors() {
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-3xl text-center">
             <div className="rv mb-4">
-              <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
-                {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
-              </span>
+              <Eyebrow>{lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}</Eyebrow>
             </div>
             <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
               {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
@@ -118,8 +117,7 @@ export default function Sectors() {
         </section>
 
         {/* ══════════════════ BUCKETS ══════════════════ */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl">
+        <Section containerClassName="max-w-6xl">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {sectorBuckets.map((bucket, i) => {
                 const title = lang === "ar" ? bucket.titleAr : bucket.titleEn;
@@ -148,8 +146,7 @@ export default function Sectors() {
                 );
               })}
             </div>
-          </div>
-        </section>
+        </Section>
 
         <PageClosingCta
           title={pc.sectorsHubTitle}

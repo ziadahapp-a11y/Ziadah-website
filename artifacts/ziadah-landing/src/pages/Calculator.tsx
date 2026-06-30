@@ -9,6 +9,7 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 function fmtLocale(n: number, locale: string, decimals = 0): string {
   return n.toLocaleString(locale, {
@@ -211,9 +212,7 @@ export default function Calculator() {
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-3xl text-center">
             <div className="rv mb-4">
-              <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
-                {tr.tag}
-              </span>
+              <Eyebrow>{tr.tag}</Eyebrow>
             </div>
             <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
               {tr.title}
@@ -225,8 +224,7 @@ export default function Calculator() {
         </section>
 
         {/* ══════════════════ CALCULATOR ══════════════════ */}
-        <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-          <div className="container mx-auto max-w-6xl">
+        <Section band="muted" containerClassName="max-w-6xl">
             <div className="rv rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
               <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/15 blur-[100px] rounded-full pointer-events-none" />
@@ -344,8 +342,7 @@ export default function Calculator() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+        </Section>
 
         <PageClosingCta
           title={tr.closingTitle}

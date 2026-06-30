@@ -10,6 +10,7 @@ import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
+import { Eyebrow } from "@/components/trackflow";
 
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
@@ -155,9 +156,7 @@ export default function Blog() {
         <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
         <div className="container mx-auto relative max-w-3xl text-center">
           <div className="rv mb-4">
-            <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
-              {tx.tag}
-            </span>
+            <Eyebrow>{tx.tag}</Eyebrow>
           </div>
           <h1 className="rv d1 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.05]">
             {tx.heroTitle}

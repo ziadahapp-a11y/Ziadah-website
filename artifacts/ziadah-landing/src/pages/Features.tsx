@@ -190,8 +190,7 @@ export default function Features() {
 
       {/* ══════════════════ GOALS ══════════════════ */}
       {activeTab === "goals" && (
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl flex flex-col gap-6">
+        <Section containerClassName="max-w-6xl flex flex-col gap-6">
             {goals.map((g, i) => {
               const boost = isAr ? g.boost : g.boostEn;
               return (
@@ -237,14 +236,12 @@ export default function Features() {
                 </div>
               );
             })}
-          </div>
-        </section>
+        </Section>
       )}
 
       {/* ══════════════════ PRESENTATIONS ══════════════════ */}
       {activeTab === "presentations" && (
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {presentations.map((p, i) => (
               <div
                 key={isAr ? p.title : p.titleEn}
@@ -268,14 +265,12 @@ export default function Features() {
                 <div className="text-xs font-bold text-green-600">{ft.bestFor}{isAr ? p.best : p.bestEn}</div>
               </div>
             ))}
-          </div>
-        </section>
+        </Section>
       )}
 
       {/* ══════════════════ ACTIVITIES ══════════════════ */}
       {activeTab === "activities" && (
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl">
+        <Section containerClassName="max-w-6xl">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {activities.map((a, i) => (
                 <div
@@ -332,14 +327,12 @@ export default function Features() {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
+        </Section>
       )}
 
       {/* ══════════════════ USE CASES ══════════════════ */}
       {activeTab === "usecases" && (
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {usecases.map((u, i) => {
               const result = isAr ? u.result : u.resultEn;
               return (
@@ -376,8 +369,7 @@ export default function Features() {
                 </div>
               );
             })}
-          </div>
-        </section>
+        </Section>
       )}
 
       <PageClosingCta
