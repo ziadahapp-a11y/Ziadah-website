@@ -33,7 +33,6 @@ A full-stack SaaS application for Ziadah that lets store owners connect their e-
 
 ## Artifacts
 
-- `artifacts/ziadah-engine` — React+Vite frontend at `/engine/`
 - `artifacts/api-server` — Express 5 API server at `/api`
 - `artifacts/ziadah-landing` — React+Vite Arabic RTL dark-theme marketing site at `/`
 - `artifacts/ziadah-landing/src/components/WidgetTabs.tsx` — reusable tabbed widget wrapper (pill tabs, purple gradient active state, fade animation). Used in 8 use-case pages.
