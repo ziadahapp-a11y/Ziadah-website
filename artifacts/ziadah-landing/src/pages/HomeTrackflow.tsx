@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -43,9 +43,11 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
+import { t as translations } from "@/i18n/translations";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import SEO from "@/components/SEO";
 import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
+import SectorsBriefSection from "@/components/SectorsBriefSection";
 import PlatformModal from "@/components/PlatformModal";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema } from "@/components/JsonLd";
 
@@ -70,6 +72,52 @@ const storeLogos = [
   { name: "Mazeed", src: "/logos/mazeed.png" },
   { name: "AlSalman Oud", src: "/logos/alsalman-oud.png" },
   { name: "PC Palace", src: "/logos/pc-palace.png" },
+];
+
+// Logos keyed by the exact merchant name used in the testimonial data
+// (translations.ts → landing.testimonialsRow1/2). Used for the avatar in each
+// review card; names without a logo fall back to a colored initial.
+const testimonialLogos: Record<string, string> = {
+  "روبـن": "https://media.zid.store/6f05584b-ae1f-4f36-98ed-57432e185a35/9113838a-3b34-4692-8658-aee1400ea30c-200x.png",
+  "Honey Dose | عسل هني دوز": "https://media.zid.store/a7ba195c-7619-4cbd-8d69-d9efcbb5b774/86116d0f-ee24-43df-96fe-eb235de88ab1-200x.png",
+  "متجر عبق الغيم للبخور والمسك": "/logos/abaq-alghim.png",
+  "Nahla Oil": "/logos/nahla-oil.svg",
+  "FABIAN": "/logos/fabian.png",
+  "تمدُّد": "https://media.zid.store/3a5300b3-8c91-48b3-973b-4a439491aa54/151fb0f1-8cfc-46c1-ac1d-6fe22805874c-200x.jpg",
+  "Bestclean | بست كلين": "/logos/bestclean.png",
+  "عسل رشوف": "/logos/assal-rashouf.svg",
+  "سكندز": "/logos/scundz.svg",
+  "الجباره": "/logos/aljabarah.svg",
+  "Moknh": "https://cdn.salla.sa/gn8RmxHVzto9BHus8MQBr4ksa8bDrB67f2BN6BJX.jpg",
+  "شركة اثنى عشر كوب المحدودة": "/logos/12cups.png",
+  "كحيلة": "https://media.zid.store/d7a1c023-699a-4a11-9c1d-4ac3de1c541c/ec38bb4f-a97b-4335-af7e-1d01c8df1c2d-200x.png",
+  "منصة التبرع لتحفيظ القران الكريم بجمعية نبأ": "https://media.zid.store/b973b0cb-4869-4bad-9f7f-7605b17db09d/7446c429-507d-4551-a04c-b3edfa8ddd21-200x.jpg",
+  "تكِنو تولز": "https://cdn.salla.sa/ZYlpqp/lwHvlcLqReOzflpUYwi01YkHvBHpThYNPjO2dCsa.png",
+  "skinly": "/logos/skinly.svg",
+  "For Her | فور هر": "/logos/for-her.png",
+  "جمعية القرآن بالزلفي": "https://media.zid.store/56594f92-bddf-4810-851b-bcdf56526fa2/516acbf9-1b79-4301-8031-c6408fe7677d-200x.png",
+  "ZUM": "/logos/zum.png",
+  "جمعية برهان لتحفيظ القران": "https://media.zid.store/e18c120e-c286-43cc-bed1-30006c3015e0/b585e03b-a8d5-4fe9-9317-88c771726a3a-200x.png",
+  "Nutters.sa": "https://media.zid.store/12666468-7385-4e28-bcff-2fc85a98c040/f52b5768-97e0-41b0-bf02-b31ef77ff26b-200x.png",
+  "احتياجات اللياقة \"FitNeeds\"": "https://media.zid.store/2e960427-9ad4-49c9-b85e-847f5cf7af6c/f810143d-457d-4b42-88f5-f5c259a2d10b-200x.png",
+  "rawat": "https://media.zid.store/8518f951-6cf4-412c-8e2a-39f0f6bb6515/988a8efe-3643-4760-a43e-2741d67b0a28-200x.png",
+  "KHOBRAA ALMOJTAMA": "https://media.zid.store/8a5f4b81-ebc0-44bd-9005-126976b57582/8be45245-0e6e-4ea5-96c2-4f58f844cf60-200x.png",
+  "ناتشورال تاتش": "/logos/natural-touch.png",
+  "Jawan": "https://cdn.salla.sa/prQbX/RwjbCA3bojdAGfDYGhnrpx470pi5ZErY3v1pOlTn.jpg",
+  "مس ديزاين | Miss Designs": "https://media.zid.store/1cc0795b-d617-4e97-9a76-574a2a0246d0/e643e12c-f034-4c10-aaac-e02ace451a03-200x.jpg",
+  "Ghalior paris - غاليور باريس": "https://cdn.salla.sa/AzEKGA/MxwEia9PCbIZIiAqYHFDaPCoDJPi5xTcQJI4uGvz.png",
+  "متجر كاف": "https://cdn.files.salla.network/theme/263279303/c97a6a82-0fe2-4744-adbb-70ac4e86ac1c.webp",
+  "Diva202511": "https://cdn.salla.sa/PdrAEK/hI9UPrP9Yxf7vffawFyLaAMb6knMuRTUSOrsGSLz.jpg",
+  "كهرمان": "https://cdn.salla.sa/nWmmm/Dt8hWcCEgS4DiC3iMyUYCthlgnwNzrFbUKoMWS3g.png",
+};
+
+// Fallback avatar palette for merchants without a logo.
+const TESTIMONIAL_AV_COLORS = [
+  "linear-gradient(135deg,#7c3aed,#6d28d9)",
+  "linear-gradient(135deg,#9333ea,#7e22ce)",
+  "linear-gradient(135deg,#8b5cf6,#6366f1)",
+  "linear-gradient(135deg,#a855f7,#9333ea)",
+  "linear-gradient(135deg,#6366f1,#4f46e5)",
 ];
 
 type Bi<T> = { ar: T; en: T };
@@ -307,6 +355,10 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
 export default function HomeTrackflow() {
   const { lang } = useLanguage();
   const isAr = lang === "ar";
+  // Currency label — matches the hero offer widget (ر.س / SAR). The official
+  // SAR glyph (U+20C1) isn't reliably covered by the loaded font, so we use the
+  // text abbreviation everywhere for one consistent, always-rendering symbol.
+  const riyal = isAr ? "ر.س" : "SAR";
   function t<T>(v: Bi<T>): T {
     return v[lang];
   }
@@ -321,10 +373,34 @@ export default function HomeTrackflow() {
   const logosMarqueeTrackRef = useRef<HTMLDivElement>(null);
   useMarqueeShiftSync(logosMarqueeTrackRef);
 
+  // Merchant reviews ("آراء التجار") — verified testimonials sourced from the
+  // shared translations so we don't duplicate the copy. Each row scrolls as its
+  // own marquee (top RTL, bottom LTR); the logo lookup falls back to a colored
+  // initial when a merchant has no logo.
+  const testimonialsMarquee1Ref = useRef<HTMLDivElement>(null);
+  const testimonialsMarquee2Ref = useRef<HTMLDivElement>(null);
+  useMarqueeShiftSync(testimonialsMarquee1Ref);
+  useMarqueeShiftSync(testimonialsMarquee2Ref);
+  const buildTestimonials = (
+    rows: { text: string; name: string; role: string }[],
+  ) =>
+    rows.map((r, i) => ({
+      ...r,
+      logo: testimonialLogos[r.name],
+      av: r.name.trim().charAt(0),
+      col: TESTIMONIAL_AV_COLORS[i % TESTIMONIAL_AV_COLORS.length],
+    }));
+  const testimonialsRow1 = buildTestimonials(
+    translations[lang].landing.testimonialsRow1 as { text: string; name: string; role: string }[],
+  );
+  const testimonialsRow2 = buildTestimonials(
+    translations[lang].landing.testimonialsRow2 as { text: string; name: string; role: string }[],
+  );
+
   // Aggregate proof numbers across all stores running Ziadah.
   const stats = [
     { value: "+1,500", label: t({ ar: "متجر", en: "Stores" }) },
-    { value: "+20M", label: t({ ar: "⃁ مبيعات إضافية", en: "⃁ in extra sales" }) },
+    { value: "+20M", label: t({ ar: "مبيعات إضافية (ر.س)", en: "in extra sales (SAR)" }) },
     { value: "+200K", label: t({ ar: "منتج تم شراؤه", en: "Products purchased" }) },
     { value: "+40M", label: t({ ar: "ظهور ناجح", en: "Successful impressions" }) },
   ];
@@ -528,8 +604,8 @@ export default function HomeTrackflow() {
     {
       q: t({ ar: "كم تكلّف؟", en: "How much does it cost?" }),
       a: t({
-        ar: "الانطلاقة ⃁29/شهرياً للمتاجر الصغيرة · النمو ⃁290/شهرياً · الاحترافية ⃁790/شهرياً · الأعمال ⃁1,990/شهرياً. كل الباقات فيها تجربة مجانية 7 أيام وشاملة ضريبة القيمة المضافة.",
-        en: "Starter ⃁29/mo for small stores · Growth ⃁290/mo · Professional ⃁790/mo · Business ⃁1,990/mo. All plans include a 7-day free trial and are VAT-inclusive.",
+        ar: "الانطلاقة 29 ر.س/شهرياً للمتاجر الصغيرة · النمو 290 ر.س/شهرياً · الاحترافية 790 ر.س/شهرياً · الأعمال 1,990 ر.س/شهرياً. كل الباقات فيها تجربة مجانية 7 أيام وشاملة ضريبة القيمة المضافة.",
+        en: "Starter SAR 29/mo for small stores · Growth SAR 290/mo · Professional SAR 790/mo · Business SAR 1,990/mo. All plans include a 7-day free trial and are VAT-inclusive.",
       }),
     },
     {
@@ -848,7 +924,7 @@ export default function HomeTrackflow() {
                 <span className="inline-block text-xs font-bold tracking-widest text-violet-400 uppercase mb-3">
                   {t({ ar: "القصة باختصار", en: "The story, briefly" })}
                 </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug">
+                <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                   {t({ ar: "وين تروح مبيعاتك كل يوم؟", en: "Where do your sales go every day?" })}
                 </h2>
               </div>
@@ -975,7 +1051,7 @@ export default function HomeTrackflow() {
                   <span className="inline-block text-xs font-bold tracking-widest text-purple-400 uppercase mb-4">
                     {t({ ar: "حاسبة", en: "Calculator" })}
                   </span>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
                   </h2>
                   <p className="text-base md:text-lg text-zinc-300 leading-relaxed mb-3 max-w-2xl">
@@ -1000,7 +1076,8 @@ export default function HomeTrackflow() {
                         {t({ ar: "إيراد متجرك الشهري", en: "Your monthly store revenue" })}
                       </div>
                       <div className="text-5xl md:text-6xl font-extrabold text-white mb-7 num-ltr">
-                        ⃁{revenue.toLocaleString("en-US")}
+                        {revenue.toLocaleString("en-US")}
+                        <span className="text-[0.4em] font-semibold align-middle ms-2 text-zinc-400">{riyal}</span>
                       </div>
                       <Slider
                         dir={isAr ? "rtl" : "ltr"}
@@ -1042,7 +1119,7 @@ export default function HomeTrackflow() {
                             <div className="flex items-center justify-between text-xs mb-2">
                               <span className="text-zinc-300">{row.label}</span>
                               <span className={`font-bold num-ltr ${row.textClass}`}>
-                                ⃁{row.value.toLocaleString("en-US")}
+                                {row.value.toLocaleString("en-US")} {riyal}
                               </span>
                             </div>
                             <div className="h-2 rounded-full bg-white/[0.06] overflow-hidden">
@@ -1065,7 +1142,8 @@ export default function HomeTrackflow() {
                             {t({ ar: "سنوياً", en: "Annually" })}
                           </div>
                           <div className="text-3xl md:text-4xl font-extrabold text-white num-ltr">
-                            ⃁{annualExtra.toLocaleString("en-US")}
+                            {annualExtra.toLocaleString("en-US")}
+                            <span className="text-[0.45em] font-semibold align-middle ms-1 text-zinc-400">{riyal}</span>
                           </div>
                         </div>
                         <div className="rounded-xl bg-white/[0.05] border border-white/10 p-5">
@@ -1073,7 +1151,8 @@ export default function HomeTrackflow() {
                             {t({ ar: "شهرياً", en: "Monthly" })}
                           </div>
                           <div className="text-3xl md:text-4xl font-extrabold text-white num-ltr">
-                            ⃁{monthlyExtra.toLocaleString("en-US")}
+                            {monthlyExtra.toLocaleString("en-US")}
+                            <span className="text-[0.45em] font-semibold align-middle ms-1 text-zinc-400">{riyal}</span>
                           </div>
                         </div>
                       </div>
@@ -1438,8 +1517,8 @@ export default function HomeTrackflow() {
                       en: "At add-to-cart or checkout, Ziadah suggests an upgrade or small add-on that completes the order — before purchase ends.",
                     }),
                     example: t({
-                      ar: "مثال: عند الدفع، «ضيف ضمان سنتين بـ ⃁19» أو «أكمل لـ ⃁200 وخذ شحن مجاني» — يرفع قيمة الطلب فوراً.",
-                      en: "Example: at checkout, \"Add a 2-year warranty for ⃁19\" or \"Reach ⃁200 for free shipping\" — instantly raising order value.",
+                      ar: "مثال: عند الدفع، «ضيف ضمان سنتين بـ 19 ر.س» أو «أكمل لـ 200 ر.س وخذ شحن مجاني» — يرفع قيمة الطلب فوراً.",
+                      en: "Example: at checkout, \"Add a 2-year warranty for SAR 19\" or \"Reach SAR 200 for free shipping\" — instantly raising order value.",
                     }),
                   },
                   {
@@ -1670,6 +1749,9 @@ export default function HomeTrackflow() {
           {/* USE-CASE WIDGETS SHOWCASE */}
           <WidgetsShowcaseSection />
 
+          {/* SECTORS — حلول مخصّصة لمجال تجارتك */}
+          <SectorsBriefSection />
+
           {/* PRICING TEASER */}
           <section id="pricing" className="py-24 px-4 scroll-mt-20">
             <div className="container mx-auto max-w-6xl">
@@ -1699,7 +1781,8 @@ export default function HomeTrackflow() {
                     <h3 className={`text-lg font-bold mb-3 ${plan.popular ? "text-white" : "text-zinc-950"}`}>{plan.name}</h3>
                     <div className="flex items-baseline gap-2 mb-5">
                       <span className={`text-4xl font-bold num-ltr ${plan.popular ? "text-white" : "text-zinc-950"}`}>
-                        ⃁{plan.price.toLocaleString("en-US")}
+                        {plan.price.toLocaleString("en-US")}
+                        <span className="text-base font-semibold align-middle ms-1 opacity-70">{riyal}</span>
                       </span>
                       <span className={`text-sm ${plan.popular ? "text-zinc-400" : "text-zinc-500"}`}>{t({ ar: "/شهرياً", en: "/mo" })}</span>
                     </div>
@@ -1762,7 +1845,7 @@ export default function HomeTrackflow() {
                 <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-500/20 blur-[100px] rounded-full pointer-events-none" />
                 <div className="relative">
-                  <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                  <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {t({ ar: "جاهز ترفع متوسط طلبك ومبيعاتك؟", en: "Ready to raise your order value and sales?" })}
                   </h2>
                   <p className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl mx-auto">
