@@ -31,7 +31,7 @@ export const categories: Category[] = [
     id: "start",
     label: "البداية السريعة",
     labelEn: "Quick Start",
-    color: "#22c55e",
+    color: "#8b5cf6",
     icon: "⚡",
     articles: [
       {
@@ -803,7 +803,7 @@ export const categories: Category[] = [
     id: "ai",
     label: "الذكاء الاصطناعي",
     labelEn: "Artificial Intelligence",
-    color: "#22c55e",
+    color: "#8b5cf6",
     icon: "🤖",
     articles: [
       {
@@ -2292,7 +2292,7 @@ export const categories: Category[] = [
     id: "strategies",
     label: "استراتيجيات النمو",
     labelEn: "Growth Strategies",
-    color: "#16a34a",
+    color: "#7c3aed",
     icon: "📈",
     articles: [
       {

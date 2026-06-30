@@ -106,8 +106,8 @@ export default function HomeCalculator() {
       step: 1000,
       onChange: setVisitors,
       display: fmt(visitors),
-      color: "#22c55e",
-      colorRgb: "34, 197, 94",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
     {
       label: tr.labelConvRate,
@@ -119,8 +119,8 @@ export default function HomeCalculator() {
       step: 0.1,
       onChange: setConvRate,
       display: fmt(convRate, 1) + "%",
-      color: "#22c55e",
-      colorRgb: "34, 197, 94",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
     {
       label: tr.labelAOV,
@@ -132,8 +132,8 @@ export default function HomeCalculator() {
       step: 10,
       onChange: setAov,
       display: fmt(aov) + tr.resultCurrency,
-      color: "#22c55e",
-      colorRgb: "34, 197, 94",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
   ];
 

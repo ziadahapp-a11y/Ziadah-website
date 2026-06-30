@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactElement, type ReactNode } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
+import { motion } from "framer-motion";
+import { Clock, Calendar, ChevronRight, ArrowLeft, ArrowRight } from "lucide-react";
 import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
@@ -15,6 +17,7 @@ import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { useBlogPostFields } from "@/cms/useBlogPostFields";
 import CustomerProfileDemo from "../components/CustomerProfileDemo";
 import { toWesternDigits } from "@/utils/westernDigits";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -49,10 +52,10 @@ function renderContent(content: string) {
           style={{
             margin: "28px 0",
             padding: "20px 24px",
-            background: "linear-gradient(135deg, rgba(249,115,22,0.12) 0%, rgba(234,88,12,0.06) 100%)",
-            border: "1px solid rgba(249,115,22,0.35)",
+            background: "rgba(124, 58, 237,0.06)",
+            border: "1px solid rgba(124, 58, 237,0.25)",
             borderRadius: 16,
-            borderInlineStart: "4px solid #f97316",
+            borderInlineStart: "4px solid #7c3aed",
             display: "flex",
             flexDirection: "column",
             gap: 6,
@@ -63,7 +66,7 @@ function renderContent(content: string) {
               key={ci}
               style={{
                 fontSize: 15,
-                color: "var(--t)",
+                color: "#18181b",
                 lineHeight: 1.8,
                 margin: 0,
               }}
@@ -99,10 +102,10 @@ function renderContent(content: string) {
               maxWidth: 220,
               height: "auto",
               borderRadius: 20,
-              boxShadow: "0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px var(--b1)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.12), 0 0 0 1px #e4e4e7",
               display: "block",
               margin: "0 auto",
-              border: "1px solid var(--b1)",
+              border: "1px solid #e4e4e7",
             }}
           />
           {alt && (
@@ -110,7 +113,7 @@ function renderContent(content: string) {
               style={{
                 marginTop: 12,
                 fontSize: 13,
-                color: "var(--td)",
+                color: "#71717a",
                 fontStyle: "italic",
               }}
             >
@@ -132,7 +135,7 @@ function renderContent(content: string) {
             fontWeight: 800,
             marginTop: 40,
             marginBottom: 16,
-            color: "var(--t)",
+            color: "#09090b",
             letterSpacing: "-0.5px",
           }}
         >
@@ -148,7 +151,7 @@ function renderContent(content: string) {
             fontWeight: 700,
             marginTop: 28,
             marginBottom: 12,
-            color: "#c084fc",
+            color: "#7c3aed",
           }}
         >
           {line.slice(4)}
@@ -161,7 +164,7 @@ function renderContent(content: string) {
           style={{
             fontSize: 15,
             fontWeight: 700,
-            color: "var(--t)",
+            color: "#09090b",
             marginBottom: 8,
           }}
         >
@@ -176,7 +179,7 @@ function renderContent(content: string) {
             key={i}
             style={{
               fontSize: 15,
-              color: "var(--tm)",
+              color: "#3f3f46",
               lineHeight: 1.8,
               marginBottom: 6,
             }}
@@ -203,12 +206,12 @@ function renderContent(content: string) {
                 alignItems: "flex-start",
                 gap: 10,
                 fontSize: 15,
-                color: "var(--tm)",
+                color: "#3f3f46",
                 lineHeight: 1.8,
                 marginBottom: 6,
               }}
             >
-              <span style={{ color: "#22c55e", flexShrink: 0, marginTop: 2 }}>
+              <span style={{ color: "#7c3aed", flexShrink: 0, marginTop: 2 }}>
                 ●
               </span>
               <span>
@@ -238,7 +241,7 @@ function renderContent(content: string) {
                 alignItems: "flex-start",
                 gap: 12,
                 fontSize: 15,
-                color: "var(--tm)",
+                color: "#3f3f46",
                 lineHeight: 1.8,
                 marginBottom: 8,
               }}
@@ -248,14 +251,14 @@ function renderContent(content: string) {
                   width: 24,
                   height: 24,
                   borderRadius: 6,
-                  background: "rgba(22, 163, 74,.15)",
-                  border: "1px solid rgba(22, 163, 74,.25)",
+                  background: "rgba(124, 58, 237,.12)",
+                  border: "1px solid rgba(124, 58, 237,.25)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 12,
                   fontWeight: 700,
-                  color: "#22c55e",
+                  color: "#7c3aed",
                   flexShrink: 0,
                   marginTop: 1,
                 }}
@@ -306,10 +309,10 @@ function renderContent(content: string) {
                     key={hi}
                     style={{
                       padding: "10px 16px",
-                      background: "rgba(22, 163, 74,.12)",
-                      border: "1px solid rgba(22, 163, 74,.2)",
+                      background: "rgba(124, 58, 237,.12)",
+                      border: "1px solid rgba(124, 58, 237,.2)",
                       fontWeight: 700,
-                      color: "#c084fc",
+                      color: "#7c3aed",
                     }}
                   >
                     {h}
@@ -325,11 +328,11 @@ function renderContent(content: string) {
                       key={ci}
                       style={{
                         padding: "10px 16px",
-                        border: "1px solid var(--b1)",
-                        color: "var(--tm)",
+                        border: "1px solid #e4e4e7",
+                        color: "#3f3f46",
                         background:
                           ri % 2 === 0
-                            ? "var(--s1)"
+                            ? "#fafafa"
                             : "transparent",
                       }}
                     >
@@ -349,7 +352,7 @@ function renderContent(content: string) {
           key={i}
           style={{
             fontSize: 15,
-            color: "var(--tm)",
+            color: "#3f3f46",
             lineHeight: 1.8,
             marginBottom: 8,
           }}
@@ -363,7 +366,7 @@ function renderContent(content: string) {
           key={i}
           style={{
             fontSize: 16,
-            color: "var(--tm)",
+            color: "#3f3f46",
             lineHeight: 1.85,
             marginBottom: 16,
           }}
@@ -384,7 +387,7 @@ function formatInline(text: string): React.ReactNode {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} style={{ color: "var(--t)", fontWeight: 700 }}>
+        <strong key={i} style={{ color: "#09090b", fontWeight: 700 }}>
           {part.slice(2, -2)}
         </strong>
       );
@@ -400,6 +403,7 @@ export default function BlogPost() {
   const pc = t[lang].pageClosingCta;
   const ld = t[lang].landing;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
   const fields = useBlogPostFields(post ?? blogPosts[0]);
@@ -437,22 +441,16 @@ export default function BlogPost() {
           minHeight: "100%",
         }}
       >
-        
-        <h1 style={{ fontSize: 32, fontWeight: 900, position: "relative", zIndex: 2 }}>
+        <h1 className="text-3xl md:text-4xl font-extrabold text-zinc-950 relative z-[2]">
           {tx.notFound}
         </h1>
-        <span
+        <button
+          type="button"
           onClick={() => navigateTo("/blog")}
-          style={{
-            color: "#22c55e",
-            textDecoration: "none",
-            position: "relative",
-            zIndex: 2,
-            cursor: "pointer",
-          }}
+          className="relative z-[2] inline-flex items-center gap-2 text-violet-600 font-semibold hover:opacity-70 transition-opacity cursor-pointer"
         >
           {tx.backToBlog}
-        </span>
+        </button>
       </PageShell>
     );
   }
@@ -512,380 +510,187 @@ export default function BlogPost() {
       { name: tx.breadcrumbBlog, url: "/blog" },
       { name: fields.title, url: `/blog/${post.slug}` }
     ]} />
-    <PageShell className="relative overflow-x-clip blog-white-shell" style={{ color: "var(--t)" }}>
+    <PageShell className="relative overflow-x-clip blog-white-shell" style={{ color: "#09090b" }}>
       <DsPageBackdrop />
 
       {/* HERO / COVER */}
-      <section
-        style={{
-          paddingTop: "var(--page-article-pt)",
-          paddingInline: "var(--page-inline-pad)",
-          position: "relative",
-          zIndex: 2,
-        }}
-      >
-        <div
-          style={{
-            background: post.coverGradient,
-            minHeight: "clamp(220px, 52vw, 320px)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-            overflow: "hidden",
-            borderRadius: "clamp(16px, 4vw, 40px)",
-            border: "none",
-          }}
-        >
-          <div
+      <section className="relative z-[2] px-4 pt-20 md:pt-28">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative flex items-center justify-center overflow-hidden rounded-3xl"
             style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: 40,
-              background:
-                "linear-gradient(135deg, rgba(52, 1, 193, 0.5) 0%, rgba(136, 93, 254, 0.3) 100%)",
-            }}
-          />
-          <span
-            style={{
-              fontSize: 96,
-              position: "relative",
-              zIndex: 1,
-              filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))",
+              background: post.coverGradient,
+              minHeight: "clamp(220px, 52vw, 320px)",
             }}
           >
-            {post.coverIcon}
-          </span>
+            <div className="absolute inset-0 bg-zinc-950/35" />
+            <span
+              className="relative z-[1]"
+              style={{
+                fontSize: 96,
+                filter: "drop-shadow(0 8px 32px rgba(0,0,0,0.5))",
+              }}
+            >
+              {post.coverIcon}
+            </span>
+          </motion.div>
         </div>
       </section>
 
       {/* ARTICLE */}
-      <section
-        style={{
-          position: "relative",
-          zIndex: 2,
-          padding: "0 5% 80px",
-        }}
-      >
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+      <Section band="white" containerClassName="max-w-3xl" className="!pt-12 !pb-20">
+        <div>
           {/* Breadcrumb */}
-          <nav
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              fontSize: 13,
-              color: "var(--td)",
-              padding: "24px 0 20px",
-            }}
-          >
-            <span
+          <nav className="flex flex-wrap items-center gap-1.5 text-[13px] text-zinc-500 pb-5">
+            <button
+              type="button"
               onClick={() => navigateTo("/")}
-              style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLElement).style.color = "var(--td)")
-              }
+              className="text-zinc-500 hover:text-zinc-950 transition-colors cursor-pointer"
             >
               {tx.breadcrumbHome}
-            </span>
-            <span>›</span>
-            <span
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden />
+            <button
+              type="button"
               onClick={() => navigateTo("/blog")}
-              style={{ color: "var(--td)", textDecoration: "none", cursor: "pointer" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLElement).style.color = "var(--td)")
-              }
+              className="text-zinc-500 hover:text-zinc-950 transition-colors cursor-pointer"
             >
               {tx.breadcrumbBlog}
-            </span>
-            <span>›</span>
-            <span
-              style={{
-                color: categoryColors[post.category],
-                cursor: "pointer",
-              }}
-            >
+            </button>
+            <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden />
+            <span className="font-semibold text-violet-600">
               {getCatDisplay(post.category)}
             </span>
           </nav>
 
           {/* Meta */}
-          <div className="rv" style={{ marginBottom: 20 }}>
-            <span
-              style={{
-                display: "inline-block",
-                padding: "4px 14px",
-                borderRadius: 50,
-                background: `${categoryColors[post.category]}22`,
-                border: `1px solid ${categoryColors[post.category]}55`,
-                color: categoryColors[post.category],
-                fontSize: 12,
-                fontWeight: 700,
-                marginBottom: 16,
-              }}
-            >
-              {getCatDisplay(post.category)}
-            </span>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-5"
+          >
+            <div className="mb-4">
+              <Eyebrow>{getCatDisplay(post.category)}</Eyebrow>
+            </div>
 
             <h1
-              style={{
-                fontSize: "clamp(26px,4vw,40px)",
-                fontWeight: 900,
-                lineHeight: 1.25,
-                marginBottom: 16,
-                letterSpacing: "-0.5px",
-              }}
+              className="font-extrabold text-zinc-950 leading-tight mb-4"
+              style={{ fontSize: "clamp(26px,4vw,40px)", letterSpacing: "-0.5px" }}
             >
               {fields.title}
             </h1>
 
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 20,
-                fontSize: 13,
-                color: "var(--td)",
-                flexWrap: "wrap",
-              }}
-            >
-              <span
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <circle
-                    cx="7"
-                    cy="7"
-                    r="6"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M7 4v3l2 1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                {fields.readTime} {tx.readSuffix}
+            <div className="flex flex-wrap items-center gap-5 text-[13px] text-zinc-500">
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" aria-hidden />
+                <span className="num-ltr">{fields.readTime}</span> {tx.readSuffix}
               </span>
-              <span
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 6,
-                }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <rect
-                    x="2"
-                    y="3"
-                    width="10"
-                    height="9"
-                    rx="1.5"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M5 1v2M9 1v2M2 6h10"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                {fields.publishDate}
+              <span className="inline-flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" aria-hidden />
+                <span className="num-ltr">{fields.publishDate}</span>
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Summary */}
-          <div
-            className="gc rv d1"
-            style={{
-              padding: "20px 24px",
-              marginBottom: 32,
-              borderRight: isAr ? `3px solid ${categoryColors[post.category]}` : undefined,
-              borderLeft: isAr ? undefined : `3px solid ${categoryColors[post.category]}`,
-              borderRadius: 14,
-            }}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="rounded-2xl border border-zinc-200 bg-zinc-50/60 border-s-4 border-s-violet-600 p-6 mb-8"
           >
-            <p
-              style={{
-                fontSize: 16,
-                color: "var(--tm)",
-                lineHeight: 1.8,
-                margin: 0,
-              }}
-            >
+            <p className="text-base text-zinc-700 leading-relaxed m-0">
               {fields.summary}
             </p>
-          </div>
+          </motion.div>
 
           {/* Content */}
-          <div className="rv d2">{renderContent(fields.content)}</div>
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {renderContent(fields.content)}
+          </motion.div>
 
           {/* Back link */}
-          <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--b1)" }}>
-            <span
+          <div className="mt-12 pt-6 border-t border-zinc-200">
+            <button
+              type="button"
               onClick={() => navigateTo("/blog")}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                color: "#22c55e",
-                textDecoration: "none",
-                fontSize: 15,
-                fontWeight: 600,
-                transition: "opacity .2s",
-                cursor: "pointer",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.7")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+              className="inline-flex items-center gap-2 text-violet-600 font-semibold text-[15px] hover:opacity-70 transition-opacity cursor-pointer"
             >
               {tx.backToAll}
-            </span>
+            </button>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* RELATED POSTS */}
       {relatedPosts.length > 0 && (
-        <section
-          style={{
-            position: "relative",
-            zIndex: 2,
-            padding: "0 5% 100px",
-          }}
-        >
-          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <h2
-              className="rv"
-              style={{
-                fontSize: 24,
-                fontWeight: 800,
-                marginBottom: 24,
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              <span
-                style={{
-                  width: 4,
-                  height: 24,
-                  background: "var(--p)",
-                  borderRadius: 2,
-                  display: "inline-block",
+        <Section band="muted" containerClassName="max-w-6xl">
+          <h2 className="flex items-center gap-3 text-2xl font-bold text-zinc-950 mb-8">
+            <span className="inline-block w-1 h-6 rounded bg-violet-600" aria-hidden />
+            {tx.relatedArticles}
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPosts.map((rel, i) => (
+              <motion.a
+                key={rel.slug}
+                href={`/blog/${rel.slug}`}
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.07 }}
+                className="group block rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all"
+                onClick={(e) => {
+                  if (
+                    e.defaultPrevented ||
+                    e.ctrlKey ||
+                    e.metaKey ||
+                    e.shiftKey ||
+                    e.altKey ||
+                    e.button !== 0
+                  ) {
+                    return;
+                  }
+                  e.preventDefault();
+                  navigateTo(`/blog/${rel.slug}`);
                 }}
-              />
-              {tx.relatedArticles}
-            </h2>
-            <div className="blog-cards-grid">
-              {relatedPosts.map((rel, i) => (
-                <a
-                  key={rel.slug}
-                  href={`/blog/${rel.slug}`}
-                  className="blog-card-link"
-                  onClick={(e) => {
-                    if (
-                      e.defaultPrevented ||
-                      e.ctrlKey ||
-                      e.metaKey ||
-                      e.shiftKey ||
-                      e.altKey ||
-                      e.button !== 0
-                    ) {
-                      return;
-                    }
-                    e.preventDefault();
-                    navigateTo(`/blog/${rel.slug}`);
-                  }}
-                >
-                  <article
-                    className="blog-card blog-card--compact gc gc-lift rv"
-                    style={{
-                      animationDelay: `${i * 0.07}s`,
-                    }}
+              >
+                <article className="flex flex-col h-full">
+                  <div
+                    className="relative flex items-center justify-center h-36 border-b border-zinc-200"
+                    style={{ background: rel.coverGradient }}
                   >
-                    <div className="shine" aria-hidden />
-                    <div
-                      className="blog-card__media"
-                      style={{ background: rel.coverGradient }}
-                    >
-                      <div className="blog-cover-overlay" aria-hidden />
-                      <span className="blog-card__icon-wrap">
-                        {rel.coverIcon}
+                    <span className="text-4xl drop-shadow-sm" aria-hidden>
+                      {rel.coverIcon}
+                    </span>
+                    <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
+                      {getCatDisplay(rel.category)}
+                    </span>
+                  </div>
+                  <div className="flex flex-col flex-1 p-6">
+                    <h3 className="text-base font-bold text-zinc-950 leading-snug mb-4 line-clamp-2 group-hover:text-zinc-700 transition-colors">
+                      {getRelatedTitle(rel)}
+                    </h3>
+                    <div className="mt-auto flex items-center justify-between text-xs text-zinc-500">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" aria-hidden />
+                        <span className="num-ltr">{getRelatedReadTime(rel)}</span> {tx.readSuffix}
                       </span>
-                      <div
-                        className="blog-card__badge"
-                        style={{
-                          background: `${categoryColors[rel.category]}28`,
-                          border: `1px solid ${categoryColors[rel.category]}66`,
-                          color: categoryColors[rel.category],
-                        }}
-                      >
-                        {getCatDisplay(rel.category)}
-                      </div>
+                      <ArrowCTA className="w-4 h-4 text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden />
                     </div>
-                    <div className="blog-card__body">
-                      <h3 className="blog-card__title">
-                        {getRelatedTitle(rel)}
-                      </h3>
-                      <div className="blog-card__footer">
-                        <div className="blog-card__meta-chip">
-                          <svg
-                            width="11"
-                            height="11"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            aria-hidden
-                          >
-                            <circle
-                              cx="6"
-                              cy="6"
-                              r="5"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                            />
-                            <path
-                              d="M6 3v3l2 1.5"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                          {getRelatedReadTime(rel)} {tx.readSuffix}
-                        </div>
-                        <span className="blog-card__go" aria-hidden>
-                          <svg
-                            className="blog-card__go-svg"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                          >
-                            <path
-                              d="M6 12l4-4-4-4"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                </a>
-              ))}
-            </div>
+                  </div>
+                </article>
+              </motion.a>
+            ))}
           </div>
-        </section>
+        </Section>
       )}
       <PageClosingCta
         title={pc.blogPostTitle}

@@ -4,10 +4,10 @@
  * This is NOT a second design system. The single design system is TrackFlow
  * (see src/components/trackflow/DESIGN_SYSTEM.md). This file only keeps the old
  * .gc/.btn-p/landing-* CSS alive while it is phased out, and its brand tokens
- * have been re-pointed to the one emerald brand color (--brand: #16a34a).
+ * have been re-pointed to the one violet brand color (--brand: #7c3aed).
  *
  * INTEGRITY RULES (enforced, never break):
- * ─ Brand color is emerald green (#16a34a) only — never reintroduce violet.
+ * ─ Brand color is violet (#7c3aed) only — never reintroduce green.
  * ─ New semantic tokens are aliases pointing to existing color values only.
  * ─ Fonts: saudi_riyal → IBM Plex Sans Arabic → Inter (set in index.css /
  *   vision-ui-appearance.css). Tajawal/Rubik remain only as legacy fallbacks.
@@ -200,25 +200,25 @@
   --surface-2: rgba(9, 9, 11, 0.05);  /* = --s2 */
   --surface-3: rgba(9, 9, 11, 0.08);  /* = --s3 */
 
-  /* ── Accent / Brand ── (emerald green #16a34a) */
-  --p:  #16a34a;
-  --p2: #15803d;
-  --p3: #22c55e;
-  --p4: #c084fc;
+  /* ── Accent / Brand ── (violet #7c3aed) */
+  --p:  #7c3aed;
+  --p2: #6d28d9;
+  --p3: #8b5cf6;
+  --p4: #a78bfa;
 
   /* @deprecated --brand / --brand-2 — use --accent-primary / --accent-primary-light */
-  --brand:   #16a34a;
-  --brand-2: #22c55e;
+  --brand:   #7c3aed;
+  --brand-2: #8b5cf6;
 
-  --accent-light: rgba(22, 163, 74, 0.14);
+  --accent-light: rgba(124, 58, 237, 0.14);
 
   /* Phase 2 semantic aliases */
-  --accent-primary:         #16a34a;  /* = --p — canonical brand green #16a34a */
-  --accent-secondary:       #15803d;  /* = --p2 — pressed / hover state */
-  --accent-primary-light:   #22c55e;  /* = --p3 — light accent, section tags */
-  --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
+  --accent-primary:         #7c3aed;  /* = --p — canonical brand purple #7c3aed */
+  --accent-secondary:       #6d28d9;  /* = --p2 — pressed / hover state */
+  --accent-primary-light:   #8b5cf6;  /* = --p3 — light accent, section tags */
+  --accent-primary-lighter: #a78bfa;  /* = --p4 — lightest accent */
 
-  /* Canonical CTA color — black primary CTA (Adstellar pattern); emerald is the
+  /* Canonical CTA color — black primary CTA (Adstellar pattern); violet is the
      secondary/activation accent handled per-component. */
   --accent-cta:       #18181b;  /* zinc-900 — primary button background */
   --accent-cta-hover: #27272a;  /* zinc-800 — primary button hover */
@@ -226,10 +226,10 @@
   /* ── Semantic status colors ── */
   --c:  #06b6d4;
   --pk: #ef4444;
-  --gr: #22c55e;
+  --gr: #8b5cf6;
   --go: #f59e0b;
 
-  --success: #15803d;   /* green-600 */
+  --success: #6d28d9;   /* violet-700 */
   --warning: #f59e0b;   /* = --go */
   --info:    #06b6d4;   /* = --c */
   --error:   #ef4444;   /* = --pk */
@@ -247,8 +247,8 @@
   --btn-primary-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -8px rgba(0, 0, 0, 0.14);
 
   /* ── Scrollbar ── */
-  --scrollbar-thumb:       rgba(22, 163, 74, 0.38);
-  --scrollbar-thumb-hover: rgba(21, 128, 61, 0.55);
+  --scrollbar-thumb:       rgba(124, 58, 237, 0.38);
+  --scrollbar-thumb-hover: rgba(109, 40, 217, 0.55);
 }
 /* ═══════════════════════════════════════════════════════════════
    SECTION H — LIGHT THEME (Cursor warm cream palette)

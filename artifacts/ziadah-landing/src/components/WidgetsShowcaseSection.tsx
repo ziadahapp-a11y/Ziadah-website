@@ -67,13 +67,15 @@ export default function WidgetsShowcaseSection({
           flexDirection: "column",
           background: "#ffffff",
           borderRadius: 24,
+          border: "1px solid rgb(228 228 231)" /* zinc-200 — design-system card border */,
           overflow: "hidden",
-          boxShadow:
-            "0 18px 50px rgba(10, 5, 30, 0.35), 0 4px 14px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.08) inset",
+          // design-system .shadow-card (light SaaS elevation, not the old heavy dark drop)
+          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -8px rgba(0,0,0,0.08)",
           textDecoration: "none",
           color: "inherit",
           cursor: "pointer",
-          transition: "transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1)",
+          transition:
+            "transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1), border-color 0.25s cubic-bezier(.4,0,.2,1)",
         }}
       >
         <div
@@ -86,50 +88,23 @@ export default function WidgetsShowcaseSection({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: `
-              radial-gradient(130% 90% at 100% 0%, rgba(255,255,255,0.18) 0%, transparent 45%),
-              radial-gradient(110% 80% at 0% 0%, rgba(${rgb},0.95) 0%, rgba(${rgb},0.55) 45%, rgba(${rgb},0.3) 100%),
-              linear-gradient(160deg, rgba(${rgb},0.65) 0%, rgba(${rgb},0.92) 100%)
-            `,
-            boxShadow:
-              "inset 0 1px 0 rgba(255,255,255,0.28), inset 0 -40px 60px -30px rgba(0,0,0,0.28)",
+            // Light SaaS surface with only a faint wash of the widget's hue —
+            // keeps per-widget colour identity while reading as a clean white card.
+            background: `linear-gradient(180deg, rgba(${rgb},0.07) 0%, rgba(${rgb},0.025) 55%, #ffffff 100%)`,
+            borderBottom: "1px solid rgb(244 244 245)" /* zinc-100 divider to footer */,
           }}
         >
+          {/* single soft corner glow for depth — far lighter than the old saturated blobs */}
           <div
             aria-hidden
             style={{
               position: "absolute",
-              top: "-22%",
-              insetInlineEnd: "-18%",
-              width: "65%",
-              height: "65%",
-              background:
-                "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.1) 45%, transparent 70%)",
-              filter: "blur(22px)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              bottom: "-30%",
-              insetInlineStart: "-22%",
-              width: "70%",
-              height: "70%",
-              background: `radial-gradient(circle at 50% 50%, rgba(${rgb},0.85) 0%, rgba(${rgb},0.25) 50%, transparent 75%)`,
-              filter: "blur(28px)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 14px)",
-              mixBlendMode: "soft-light",
+              top: "-26%",
+              insetInlineEnd: "-20%",
+              width: "60%",
+              height: "60%",
+              background: `radial-gradient(circle at 50% 50%, rgba(${rgb},0.16) 0%, transparent 70%)`,
+              filter: "blur(30px)",
               pointerEvents: "none",
             }}
           />
@@ -155,7 +130,7 @@ export default function WidgetsShowcaseSection({
             style={{
               fontSize: 20,
               fontWeight: 700,
-              color: "#0b0b0f",
+              color: "rgb(9 9 11)" /* zinc-950 */,
               letterSpacing: "-0.5px",
               lineHeight: 1.2,
             }}
@@ -167,7 +142,7 @@ export default function WidgetsShowcaseSection({
               marginTop: 6,
               fontSize: 13,
               fontWeight: 400,
-              color: "#6b6b76",
+              color: "rgb(82 82 91)" /* zinc-600 */,
               lineHeight: 1.5,
             }}
           >

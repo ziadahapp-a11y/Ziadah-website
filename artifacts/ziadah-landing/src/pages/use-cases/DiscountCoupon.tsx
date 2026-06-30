@@ -26,7 +26,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "شرط قيمة السلة",
       desc: "مثلاً: خصم عند تجاوز مبلغ معين — يُشجّع على رفع قيمة الطلب.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -38,14 +38,14 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "دمج مع الشحن",
       desc: "أحياناً تُقترن القسيمة بشحن مجاني أو عرض تكميلي — رسالة واحدة أكثر إقناعاً.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
   ],
   stats: [
     { value: "-38%", label: "معدل التخلي عند استخدام الإنقاذ بكوبون", color: "#ec4899" },
-    { value: "+24%", label: "إتمام الطلب بعد ظهور القسيمة", color: "#22c55e" },
+    { value: "+24%", label: "إتمام الطلب بعد ظهور القسيمة", color: "#8b5cf6" },
     { value: "+18%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#22c55e" },
+    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#8b5cf6" },
   ],
   exampleScenario: {
     title: "عميل في السلة منذ دقائق",
@@ -89,7 +89,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "Cart value condition",
       desc: "E.g. discount after crossing a threshold — encourages higher order value.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -101,14 +101,14 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "Pair with shipping",
       desc: "Sometimes combined with free shipping or a complementary offer — one stronger message.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
   ],
   statsEn: [
     { value: "-38%", label: "Abandonment when rescue coupon is used", color: "#ec4899" },
-    { value: "+24%", label: "Completion after coupon appears", color: "#22c55e" },
+    { value: "+24%", label: "Completion after coupon appears", color: "#8b5cf6" },
     { value: "+18%", label: "Average order value", color: "#06b6d4" },
-    { value: "+31%", label: "Recovered customers monthly", color: "#22c55e" },
+    { value: "+31%", label: "Recovered customers monthly", color: "#8b5cf6" },
   ],
   exampleScenarioEn: {
     title: "Customer in cart for several minutes",

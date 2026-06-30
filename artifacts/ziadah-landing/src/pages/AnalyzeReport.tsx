@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import {
   Zap,
   CheckCircle2,
@@ -28,6 +28,25 @@ import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { getApiSubmitOrigin } from "@/lib/apiSubmitOrigin";
 import { t as staticSiteTranslations } from "@/i18n/translations";
+
+/**
+ * Brand-accent inline styles, all derived from the canonical brand token
+ * `--p3` (#7c3aed). Expressed via CSS vars + color-mix so the accent stays on
+ * the single brand color without hardcoding a second palette.
+ */
+const BRAND = "var(--p3)";
+const BRAND_PILL: CSSProperties = {
+  background: "color-mix(in srgb, var(--p3) 10%, transparent)",
+  borderColor: "color-mix(in srgb, var(--p3) 25%, transparent)",
+  color: "var(--p3)",
+};
+const BRAND_TINT_10: CSSProperties = { background: "color-mix(in srgb, var(--p3) 10%, transparent)" };
+const BRAND_TINT_12: CSSProperties = { background: "color-mix(in srgb, var(--p3) 12%, transparent)", color: "var(--p3)" };
+const BRAND_LINK: CSSProperties = {
+  color: "var(--p3)",
+  borderColor: "color-mix(in srgb, var(--p3) 25%, transparent)",
+  background: "color-mix(in srgb, var(--p3) 6%, transparent)",
+};
 
 interface ProductRef {
   productId: number;
@@ -102,13 +121,19 @@ function RolePill({ role }: { role: string }) {
   const tr = siteT[lang].analyze;
   if (role === "cross_sell")
     return (
-      <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-xs font-bold">
+      <span
+        className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-xs font-bold"
+        style={BRAND_PILL}
+      >
         <ShoppingCart className="h-3 w-3 shrink-0" aria-hidden />
         {tr.roleCrossSell}
       </span>
     );
   return (
-    <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-xs font-bold">
+    <span
+      className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-xs font-bold"
+      style={BRAND_PILL}
+    >
       <TrendingUp className="h-3 w-3 shrink-0" aria-hidden />
       {tr.roleUpsell}
     </span>
@@ -172,7 +197,7 @@ function ProductThumb({
           {product.title}
         </p>
         {product.price != null && (
-          <p className={`font-bold mt-auto ${report ? "analyze-report-product-price" : "text-sm"}`} style={{ color: "var(--p3)" }}>
+          <p className={`font-bold mt-auto num-ltr ${report ? "analyze-report-product-price" : "text-sm"}`} style={{ color: "var(--p3)" }}>
             {formatPrice(product.price, currencySymbol)}
           </p>
         )}
@@ -201,7 +226,7 @@ function AnchorGroupSection({
   return (
     <div className="analyze-anchor-group-card analyze-anchor-group-card--report">
       <div className="analyze-anchor-group-header">
-        <span className="analyze-anchor-group-index" aria-label={anchorLabel}>
+        <span className="analyze-anchor-group-index num-ltr" aria-label={anchorLabel}>
           {index + 1}
         </span>
         <div className="min-w-0 flex-1">
@@ -214,20 +239,26 @@ function AnchorGroupSection({
           </p>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             {group.anchor.price != null && (
-              <span className="text-xs font-extrabold" style={{ color: "var(--go)" }}>
+              <span className="text-xs font-extrabold num-ltr" style={{ color: "var(--go)" }}>
                 {formatPrice(group.anchor.price, currencySymbol)}
               </span>
             )}
             {crossCount > 0 && (
-              <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]">
+              <span
+                className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]"
+                style={BRAND_PILL}
+              >
                 <ShoppingCart className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {crossCount} {lang === "ar" ? "متقاطع" : "cross-sell"}
+                <span className="num-ltr">{crossCount}</span> {lang === "ar" ? "متقاطع" : "cross-sell"}
               </span>
             )}
             {upCount > 0 && (
-              <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]">
+              <span
+                className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]"
+                style={BRAND_PILL}
+              >
                 <TrendingUp className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {upCount} {lang === "ar" ? "أعلى" : "upsell"}
+                <span className="num-ltr">{upCount}</span> {lang === "ar" ? "أعلى" : "upsell"}
               </span>
             )}
           </div>
@@ -238,7 +269,7 @@ function AnchorGroupSection({
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
-            style={{ color: "var(--p3)", borderColor: "rgba(22, 163, 74,.25)", background: "rgba(22, 163, 74,.06)" }}
+            style={BRAND_LINK}
           >
             <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
           </a>
@@ -391,7 +422,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
               </p>
               <Link
                 href="/analyze"
-                className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[48px] px-6 no-underline"
+                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors no-underline"
               >
                 {tr.ctaAnalyzeStore}
               </Link>
@@ -446,7 +477,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                 </p>
                 <Link
                   href="/analyze"
-                  className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors no-underline text-sm"
                 >
                   {tr.ctaAnalyzeStore}
                 </Link>
@@ -478,7 +509,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                     <CopyLinkButton />
                     <Link
                       href="/analyze"
-                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[40px] px-4 text-sm no-underline shadow-sm"
+                      className="inline-flex items-center justify-center gap-2 min-h-[40px] px-4 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors text-sm no-underline shadow-sm"
                     >
                       <Zap className="h-3.5 w-3.5 shrink-0" aria-hidden />
                       {tr.ctaAnalyzeStore}
@@ -499,7 +530,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                         {data.platform ? (
                           <span
                             className="text-[11px] font-semibold capitalize px-2 py-0.5 rounded-full ms-1"
-                            style={{ background: "rgba(34,197,94,.12)", color: "rgba(34,197,94,.75)" }}
+                            style={BRAND_TINT_12}
                           >
                             {data.platform}
                           </span>
@@ -548,24 +579,24 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                   <div className="analyze-report-hero__stats" role="presentation">
                     <div className="analyze-sbar analyze-sbar--3 analyze-sbar--report-hero">
                       <div className="analyze-sbi">
-                        <div className="analyze-sbi-icon" style={{ background: "rgba(22, 163, 74,.1)" }}>
-                          <Package className="h-5 w-5" style={{ color: "var(--p3)" }} aria-hidden />
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_10}>
+                          <Package className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
                         </div>
-                        <p className="analyze-stat-num">{data.productCount}</p>
+                        <p className="analyze-stat-num num-ltr">{data.productCount}</p>
                         <p className="analyze-stat-label">{tr.statProductsAnalyzed}</p>
                       </div>
                       <div className="analyze-sbi">
-                        <div className="analyze-sbi-icon" style={{ background: "rgba(6,182,212,.1)" }}>
-                          <ShoppingCart className="h-5 w-5" style={{ color: "var(--c)" }} aria-hidden />
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_10}>
+                          <ShoppingCart className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
                         </div>
-                        <p className="analyze-stat-num analyze-stat-num--c">{data.crossSellCount ?? 0}</p>
+                        <p className="analyze-stat-num num-ltr" style={{ color: BRAND }}>{data.crossSellCount ?? 0}</p>
                         <p className="analyze-stat-label">{tr.statCrossOpps}</p>
                       </div>
                       <div className="analyze-sbi">
-                        <div className="analyze-sbi-icon" style={{ background: "rgba(34, 197, 94,.12)" }}>
-                          <TrendingUp className="h-5 w-5" style={{ color: "var(--p4)" }} aria-hidden />
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_12}>
+                          <TrendingUp className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
                         </div>
-                        <p className="analyze-stat-num analyze-stat-num--p">{data.upsellCount ?? 0}</p>
+                        <p className="analyze-stat-num num-ltr" style={{ color: BRAND }}>{data.upsellCount ?? 0}</p>
                         <p className="analyze-stat-label">{tr.statUpsellOpps}</p>
                       </div>
                     </div>

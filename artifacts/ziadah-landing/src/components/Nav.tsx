@@ -18,7 +18,7 @@ export const Logo = () => {
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
-  const logoSrc = lang === "ar" ? "/logo-ar.png" : "/logo-en.png";
+  const logoSrc = lang === "ar" ? "/logo-ar.svg" : "/logo-en.svg";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
       <img
@@ -27,7 +27,7 @@ export const Logo = () => {
         loading="eager"
         fetchPriority="high"
         decoding="async"
-        style={{ height: 30, width: 39 }}
+        style={{ height: 30, width: "auto" }}
       />
     </span>
   );
@@ -40,7 +40,7 @@ function LanguageSwitcher() {
     <button
       type="button"
       onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.1)"; }}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "unset"; }}
       style={{
         display: "flex", alignItems: "center", gap: 5,
@@ -48,7 +48,7 @@ function LanguageSwitcher() {
         background: "unset",
         backgroundImage: "none",
         border: "none",
-        color: "rgba(255,255,255,.8)", fontSize: 12, fontWeight: 700,
+        color: "var(--tm)", fontSize: 12, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
@@ -70,8 +70,8 @@ function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "li
   const itemStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10,
     padding: "10px 16px", borderRadius: 10, textDecoration: "none",
-    background: "rgba(255,255,255,.04)",
-    border: "1px solid rgba(255,255,255,.07)",
+    background: "#f9fafb",
+    border: "1px solid #e4e4e7",
     color: "var(--t)", fontSize: 14, fontWeight: 500,
     cursor: "pointer", transition: "background .2s",
     fontFamily: "var(--font)",
@@ -83,12 +83,12 @@ function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "li
       insetInlineEnd: 0,
       zIndex: 950,
       minWidth: 160,
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
+      background: "#fff",
+      border: "1px solid #e4e4e7",
       borderRadius: 14,
       padding: 6,
-      backdropFilter: "blur(32px)",
-      boxShadow: "0 16px 48px rgba(0,0,0,.55)",
+      backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)",
       animation: "slideUpDropdown .18s cubic-bezier(.23,1,.32,1)",
     }}>
       <a
@@ -96,8 +96,8 @@ function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "li
         target="_blank"
         rel="noreferrer"
         style={itemStyle}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.09)"; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.04)"; }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f9fafb"; }}
       >
         <img src={sallaLogo} alt="Salla" style={{ height: 18, width: "auto" }} />
         <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "سلة" : "Salla"}</span>
@@ -107,8 +107,8 @@ function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "li
         target="_blank"
         rel="noreferrer"
         style={{ ...itemStyle, marginTop: 4 }}
-        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.09)"; }}
-        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.04)"; }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f9fafb"; }}
       >
         <img src={zidLogo} alt="Zid" style={{ height: 18, width: "auto" }} />
         <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "زد" : "Zid"}</span>
@@ -223,7 +223,7 @@ function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
   const { lang } = useLanguage();
   const tr = t[lang];
   const rowHover = (el: HTMLElement, on: boolean) => {
-    el.style.background = on ? "rgba(22, 163, 74,.1)" : "transparent";
+    el.style.background = on ? "rgba(124, 58, 237,.1)" : "transparent";
   };
   return (
     <>
@@ -240,7 +240,7 @@ function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
                 gap: 10,
                 padding: "10px 14px",
                 borderRadius: 12,
-                color: "var(--td)",
+                color: "#71717a",
                 fontSize: 14,
                 fontWeight: 500,
                 cursor: "default",
@@ -252,8 +252,8 @@ function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
                 style={{
                   fontSize: 10,
                   fontWeight: 700,
-                  background: "var(--s2)",
-                  color: "var(--td)",
+                  background: "#f4f4f5",
+                  color: "#71717a",
                   padding: "2px 8px",
                   borderRadius: 20,
                   flexShrink: 0,
@@ -342,18 +342,18 @@ function ComparisonAppsGroupedDropdown({
     minWidth: "min(300px, calc(100vw - 24px))",
     maxWidth: "calc(100vw - 16px)",
     boxSizing: "border-box",
-    background: "rgba(8,6,20,.97)",
-    border: "1px solid rgba(255,255,255,.1)",
+    background: "#fff",
+    border: "1px solid #e4e4e7",
     borderRadius: 16,
     padding: "8px 6px",
-    backdropFilter: "blur(32px)",
-    boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+    backdropFilter: "none",
+    boxShadow: "0 16px 48px rgba(9,9,11,.14)",
     zIndex: 100,
   };
   const sectionTitleStyle: React.CSSProperties = {
     fontSize: 10,
     fontWeight: 800,
-    color: "var(--p4)",
+    color: "#7c3aed",
     padding: "6px 12px 2px",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -363,7 +363,7 @@ function ComparisonAppsGroupedDropdown({
     <div style={panelStyle}>
       <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownZid}</div>
       <PlatformAppNavItemList items={zidItems} />
-      <div style={{ height: 1, background: "rgba(255,255,255,.1)", margin: "8px 8px 6px" }} />
+      <div style={{ height: 1, background: "#e4e4e7", margin: "8px 8px 6px" }} />
       <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownSalla}</div>
       <PlatformAppNavItemList items={sallaItems} />
     </div>
@@ -409,13 +409,13 @@ function UseCasesMegaMenu() {
       maxWidth: panelWidth,
       minWidth: 0,
       boxSizing: "border-box",
-      background: "rgba(5,3,18,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
+      background: "#fff",
+      border: "1px solid #e4e4e7",
       borderRadius: 18,
       padding: "20px 16px",
-      backdropFilter: "blur(48px)",
-      WebkitBackdropFilter: "blur(48px)",
-      boxShadow: "0 32px 80px rgba(0,0,0,.7), 0 1px 0 rgba(255,255,255,.07) inset",
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+      boxShadow: "0 24px 64px rgba(9,9,11,.16)",
       zIndex: 1000,
       overflowX: "hidden",
       overflowY: "auto",
@@ -432,15 +432,15 @@ function UseCasesMegaMenu() {
           style={{
             padding: "4px 10px",
             borderInlineEnd: i < useCasesDropdown.sections.length - 1
-              ? `1px solid rgba(255,255,255,.07)`
+              ? `1px solid #e4e4e7`
               : "none",
           }}
         >
           <div style={{
             display: "flex", alignItems: "center", gap: 6,
-            fontSize: 10, fontWeight: 800, color: "var(--p4)", marginBottom: 10,
+            fontSize: 10, fontWeight: 800, color: "#7c3aed", marginBottom: 10,
             paddingBottom: 8,
-            borderBottom: "1px solid rgba(255,255,255,.06)",
+            borderBottom: "1px solid #e4e4e7",
             textTransform: "uppercase", letterSpacing: 1.2, fontFamily: "var(--font)",
           }}>
             <span style={{ fontSize: 14, lineHeight: 1 }}>
@@ -455,21 +455,21 @@ function UseCasesMegaMenu() {
               style={{
                 display: "block", padding: "9px 10px", borderRadius: 10,
                 textDecoration: "none", transition: "background .18s, color .18s", fontSize: 13.5,
-                fontWeight: 600, color: "rgba(255,255,255,.82)", cursor: "pointer", fontFamily: "var(--font)",
+                fontWeight: 600, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
                 overflowWrap: "anywhere", wordBreak: "break-word", marginBottom: 2,
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(22, 163, 74,.13)";
-                (e.currentTarget as HTMLElement).style.color = "#fff";
+                (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)";
+                (e.currentTarget as HTMLElement).style.color = "#7c3aed";
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLElement).style.background = "transparent";
-                (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,.82)";
+                (e.currentTarget as HTMLElement).style.color = "var(--t)";
               }}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 11.5, color: "rgba(255,255,255,.4)", marginTop: 2, fontWeight: 400, lineHeight: 1.4, overflowWrap: "anywhere", wordBreak: "break-word" }}>
+                <span style={{ display: "block", fontSize: 11.5, color: "var(--tm)", marginTop: 2, fontWeight: 400, lineHeight: 1.4, overflowWrap: "anywhere", wordBreak: "break-word" }}>
                   {item.subtitle}
                 </span>
               )}
@@ -493,10 +493,10 @@ function PlatformsDropdown() {
       minWidth: "min(200px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       {platformItems.map((item) => {
         if (!item.enabled) {
@@ -505,14 +505,14 @@ function PlatformsDropdown() {
               key={item.label}
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 14px", borderRadius: 12, color: "var(--td)",
+                padding: "10px 14px", borderRadius: 12, color: "#71717a",
                 fontSize: 14, fontWeight: 500, cursor: "default",
               }}
             >
               <span>{item.label}</span>
               <span style={{
-                fontSize: 10, fontWeight: 700, background: "var(--s2)",
-                color: "var(--td)", padding: "2px 8px", borderRadius: 20,
+                fontSize: 10, fontWeight: 700, background: "#f4f4f5",
+                color: "#71717a", padding: "2px 8px", borderRadius: 20,
               }}>
                 {item.badge}
               </span>
@@ -538,7 +538,7 @@ function PlatformsDropdown() {
               fontWeight: 500,
               transition: "background .2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = "rgba(22, 163, 74,.1)")}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
             <img
@@ -591,10 +591,10 @@ function HelpDropdown() {
       minWidth: "min(300px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       {helpItems.map((item) => (
         <span
@@ -613,13 +613,13 @@ function HelpDropdown() {
             borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
             width: "100%", textAlign: lang === "ar" ? "right" : "left",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(22, 163, 74,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
-          <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+          <div style={{ color: "#7c3aed", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
-            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
+            <div style={{ fontSize: 12, color: "#71717a", marginTop: 2 }}>{item.subtitle}</div>
           </div>
         </span>
       ))}
@@ -802,10 +802,10 @@ function SectorsDropdown() {
       maxWidth: "calc(100vw - 16px)",
       maxHeight: 420, overflowY: "auto",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       <span
         role="button"
@@ -821,18 +821,18 @@ function SectorsDropdown() {
           display: "block",
           padding: "10px 14px",
           borderRadius: 12,
-          color: "var(--p)",
+          color: "#7c3aed",
           fontSize: 14,
           fontWeight: 700,
           cursor: "pointer",
           transition: "background .2s",
         }}
-        onMouseEnter={e => (e.currentTarget.style.background = "rgba(22, 163, 74,.1)")}
+        onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >
         {allSectorsLabel}
       </span>
-      <div style={{ height: 1, background: "var(--b2)", margin: "6px 8px" }} />
+      <div style={{ height: 1, background: "#e4e4e7", margin: "6px 8px" }} />
       {MAIN_SECTOR_NAV.map((item) => (
         <span
           key={item.href}
@@ -851,7 +851,7 @@ function SectorsDropdown() {
             color: "var(--t)", fontSize: 14, fontWeight: 500,
             cursor: "pointer", transition: "background .2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(22, 163, 74,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
           <span style={{ fontSize: 17, lineHeight: 1 }}>{item.icon}</span>
@@ -909,16 +909,16 @@ function MobileMoreDropdown({
 
   const directLinkStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
-    borderRadius: 14, background: "rgba(255,255,255,.04)", textDecoration: "none",
-    border: "1px solid rgba(255,255,255,.08)",
+    borderRadius: 14, background: "#f9fafb", textDecoration: "none",
+    border: "1px solid #e4e4e7",
     color: "var(--tm)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
     marginBottom: 6,
   };
 
   const subLinkStyle: React.CSSProperties = {
     display: "block", padding: "10px 12px", borderRadius: 10,
-    background: "rgba(255,255,255,.04)", textDecoration: "none",
-    border: "1px solid rgba(255,255,255,.07)",
+    background: "#f9fafb", textDecoration: "none",
+    border: "1px solid #e4e4e7",
     color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
@@ -959,13 +959,13 @@ function MobileMoreDropdown({
           maxWidth: 540,
           marginInline: "auto",
           zIndex: 950,
-          background: "rgba(8,6,20,.98)",
-          border: "1px solid rgba(255,255,255,.1)",
+          background: "#fff",
+          border: "1px solid #e4e4e7",
           borderBottom: "none",
           borderRadius: "22px 22px 0 0",
           padding: "10px 14px 8px",
-          backdropFilter: "blur(32px)",
-          boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
+          backdropFilter: "none",
+          boxShadow: "0 -8px 40px rgba(9,9,11,.18)",
           maxHeight: "80vh",
           overflowY: "auto",
           animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
@@ -976,16 +976,16 @@ function MobileMoreDropdown({
           width: 44,
           height: 4,
           borderRadius: 999,
-          background: "rgba(255,255,255,.2)",
+          background: "#d4d4d8",
           margin: "2px auto 10px",
         }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 0.8, textTransform: "uppercase" }}>{tr.nav.menu}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#71717a", letterSpacing: 0.8, textTransform: "uppercase" }}>{tr.nav.menu}</span>
           <button
             type="button"
             onClick={onClose}
             style={{
-              background: "rgba(255,255,255,.07)", border: "none", color: "var(--tm)",
+              background: "#f4f4f5", border: "none", color: "var(--tm)",
               width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -994,7 +994,7 @@ function MobileMoreDropdown({
           </button>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("useCases")}
@@ -1002,12 +1002,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.useCases}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "useCases" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "useCases" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -1017,7 +1017,7 @@ function MobileMoreDropdown({
           }}>
             {useCasesDropdown.sections.map((section) => (
               <div key={section.title} style={{ marginBottom: 10, paddingBottom: 8 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingInlineEnd: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", marginBottom: 6, paddingInlineEnd: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {section.items.map((item) => (
                     <span
@@ -1034,7 +1034,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("platforms")}
@@ -1042,12 +1042,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.platforms}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "platforms" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "platforms" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -1079,13 +1079,13 @@ function MobileMoreDropdown({
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "9px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)", color: "var(--td)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb", color: "#71717a",
+                      border: "1px solid #e4e4e7",
                       fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                     }}
                   >
                     <span>{item.label}</span>
-                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                    {item.badge && <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                   </div>
                 )
               )}
@@ -1093,7 +1093,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("comparisonApps")}
@@ -1101,14 +1101,14 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
               {tr.nav.comparisonNav}
             </Editable>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "comparisonApps" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "comparisonApps" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -1117,7 +1117,7 @@ function MobileMoreDropdown({
             transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
           }}>
             <div style={{ paddingBottom: 8 }}>
-              <div style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", padding: "8px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownZid}</div>
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#71717a", padding: "8px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownZid}</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {zidPlatformAppNavItems.map((item) =>
                   item.enabled ? (
@@ -1136,8 +1136,8 @@ function MobileMoreDropdown({
                   ) : null,
                 )}
               </div>
-              <div style={{ height: 1, background: "rgba(255,255,255,.08)", margin: "10px 4px 8px" }} />
-              <div style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", padding: "4px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownSalla}</div>
+              <div style={{ height: 1, background: "#e4e4e7", margin: "10px 4px 8px" }} />
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#71717a", padding: "4px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownSalla}</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {sallaPlatformAppNavItems.map((item) =>
                   item.enabled ? (
@@ -1157,8 +1157,8 @@ function MobileMoreDropdown({
                       style={{
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                         padding: "9px 12px", borderRadius: 10,
-                        background: "rgba(255,255,255,.04)", color: "var(--td)",
-                        border: "1px solid rgba(255,255,255,.07)",
+                        background: "#f9fafb", color: "#71717a",
+                        border: "1px solid #e4e4e7",
                         fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                       }}
                     >
@@ -1169,7 +1169,7 @@ function MobileMoreDropdown({
                       >
                         {item.label}
                       </Editable>
-                      <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{tr.nav.comingSoon}</span>
+                      <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{tr.nav.comingSoon}</span>
                     </div>
                   ),
                 )}
@@ -1178,7 +1178,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("help")}
@@ -1186,12 +1186,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.help}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "help" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "help" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -1203,13 +1203,13 @@ function MobileMoreDropdown({
               {mobileHelpItems.map((item) => {
                 const itemStyle: React.CSSProperties = {
                   display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                  borderRadius: 10, background: "rgba(255,255,255,.04)",
-                  border: "1px solid rgba(255,255,255,.07)",
+                  borderRadius: 10, background: "#f9fafb",
+                  border: "1px solid #e4e4e7",
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
                   <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                    <span style={{ color: "#7c3aed", flexShrink: 0 }}>{item.icon}</span>
                     {item.label}
                   </span>
                 );
@@ -1277,7 +1277,7 @@ function MobileMoreDropdown({
             }}
             style={{
               flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-              border: "1px solid rgba(255,255,255,.16)", background: "transparent",
+              border: "1px solid #e4e4e7", background: "transparent",
               color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
               cursor: "pointer",
             }}
@@ -1333,9 +1333,9 @@ export default function Nav() {
   const navBtnStyle = (isOpen: boolean): React.CSSProperties => ({
     display: "flex", alignItems: "center", gap: 5, padding: "7px 13px",
     borderRadius: 10,
-    background: isOpen ? "rgba(22, 163, 74,.15)" : "transparent",
+    background: isOpen ? "rgba(124, 58, 237,.15)" : "transparent",
     border: "none",
-    color: isOpen ? "#fff" : "rgba(255,255,255,.72)",
+    color: isOpen ? "var(--t)" : "var(--tm)",
     fontFamily: "var(--font)", fontSize: 13.5, fontWeight: 500, cursor: "pointer",
     transition: "all .18s", whiteSpace: "nowrap",
   });
@@ -1399,7 +1399,7 @@ export default function Nav() {
         alignItems: "center",
         backgroundColor: "rgba(250, 250, 251, 0.96)",
         backgroundImage: "none",
-        border: "1px solid rgba(22, 163, 74, 0.18)",
+        border: "1px solid rgba(124, 58, 237, 0.18)",
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -1425,7 +1425,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1454,7 +1454,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1479,18 +1479,6 @@ export default function Nav() {
             </li>
 
             <li style={navLinkLiStyle}>
-              <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
-                <button type="button" style={navBtnStyle(openDrop === "platforms")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
-                    {tr.nav.platforms}
-                  </Editable>{" "}
-                  {chevron(openDrop === "platforms")}
-                </button>
-                {openDrop === "platforms" && <PlatformsDropdown />}
-              </DropdownWrapper>
-            </li>
-
-            <li style={navLinkLiStyle}>
               <span onClick={() => navigateTo("/pricing")} style={{
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
@@ -1511,7 +1499,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1580,7 +1568,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
@@ -1604,7 +1592,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
@@ -1664,7 +1652,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
@@ -1677,7 +1665,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/analyze" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(22, 163, 74,.1)" : "transparent",
+                textDecoration: "none", background: location === "/analyze" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
@@ -1706,7 +1694,7 @@ export default function Nav() {
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
         background: "rgba(250, 250, 251,.88)",
-        borderBottom: "1px solid rgba(255,255,255,.08)",
+        borderBottom: "1px solid #e4e4e7",
         backdropFilter: "blur(32px)",
         alignItems: "center", justifyContent: "center",
         height: 52,
@@ -1719,8 +1707,8 @@ export default function Nav() {
       {/* MOBILE NAV */}
       <div className="mobile-nav" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(6,4,18,.97)",
-        borderTop: "1px solid rgba(255,255,255,.08)",
+        background: "rgba(255,255,255,.96)",
+        borderTop: "1px solid #e4e4e7",
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
         transition: "background .3s, border-color .3s",
       }}>
@@ -1737,17 +1725,17 @@ export default function Nav() {
             overflowY: "auto",
             WebkitOverflowScrolling: "touch",
             touchAction: "pan-y",
-            background: "rgba(8,6,20,.97)",
-            border: "1px solid rgba(255,255,255,.1)",
-            backdropFilter: "blur(32px)",
-            boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+            background: "#fff",
+            border: "1px solid #e4e4e7",
+            backdropFilter: "none",
+            boxShadow: "0 16px 48px rgba(9,9,11,.16)",
             animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
           }}>
             {mobileOpenDrop === "useCases" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {useCasesDropdown.sections.map((section) => (
                   <div key={section.title}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingInline: 4, textTransform: "uppercase" }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", marginBottom: 4, paddingInline: 4, textTransform: "uppercase" }}>
                       {section.title}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -1757,8 +1745,8 @@ export default function Nav() {
                           onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
                           style={{
                             display: "block", padding: "10px 12px", borderRadius: 10,
-                            background: "rgba(255,255,255,.04)",
-                            border: "1px solid rgba(255,255,255,.07)",
+                            background: "#f9fafb",
+                            border: "1px solid #e4e4e7",
                             color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                           }}
                         >
@@ -1782,8 +1770,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8,
                       padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                     }}
                   >
                     <img src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)} alt={item.label} loading="lazy" style={{ height: 18, width: "auto", display: "block" }} />
@@ -1794,13 +1782,13 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
-                      color: "var(--td)", fontSize: 13, fontWeight: 500,
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
+                      color: "#71717a", fontSize: 13, fontWeight: 500,
                     }}
                   >
                     <span>{item.label}</span>
-                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                    {item.badge && <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                   </div>
                 ))}
               </div>
@@ -1811,8 +1799,8 @@ export default function Nav() {
                   onClick={() => { navigateTo("/sectors"); setMobileOpenDrop(null); }}
                   style={{
                     display: "block", padding: "10px 12px", borderRadius: 10,
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                     color: "var(--p)", fontSize: 13, fontWeight: 700, cursor: "pointer",
                   }}
                 >
@@ -1825,8 +1813,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
@@ -1848,12 +1836,12 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
-                    <span style={{ color: "var(--p4)", flexShrink: 0, display: "flex" }}>{item.icon}</span>
+                    <span style={{ color: "#7c3aed", flexShrink: 0, display: "flex" }}>{item.icon}</span>
                     {item.label}
                   </span>
                 ))}
@@ -1869,8 +1857,8 @@ export default function Nav() {
                   style={{
                     display: "flex", alignItems: "center", gap: 10,
                     padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                   }}
                 >
                   <img src={getPlatformLogoSrc("salla", lang as "ar" | "en", theme as "dark" | "light")} alt="Salla" loading="lazy" style={{ height: 18, width: "auto" }} />
@@ -1884,8 +1872,8 @@ export default function Nav() {
                   style={{
                     display: "flex", alignItems: "center", gap: 10,
                     padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                   }}
                 >
                   <img src={getPlatformLogoSrc("zid", lang as "ar" | "en", theme as "dark" | "light")} alt="Zid" loading="lazy" style={{ height: 18, width: "auto" }} />
@@ -1907,8 +1895,8 @@ export default function Nav() {
                     justifyContent: "space-between",
                     padding: "10px 12px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                     color: "var(--t)",
                     fontSize: 13,
                     fontWeight: 500,
@@ -1951,7 +1939,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#22c55e" : "var(--tm)",
+                  color: accent ? "#7c3aed" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",
@@ -1996,7 +1984,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#22c55e" : "var(--tm)",
+                  color: accent ? "#7c3aed" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",

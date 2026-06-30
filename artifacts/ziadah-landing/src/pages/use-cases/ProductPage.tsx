@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🔗",
       title: "منتجات ذات صلة",
       desc: "يحلل الذكاء الاصطناعي سلوك العملاء المشابهين ويعرض المنتجات التي يشترونها معاً في أغلب الأحيان. الأكثر تأثيراً لأنها تعكس اهتمامات حقيقية.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "Upsell — النسخة الأفضل",
       desc: "يعرض نسخة أعلى مواصفة أو موديل أحدث من نفس المنتج مع إبراز الفارق الحقيقي في القيمة. يرفع متوسط قيمة الطلب بشكل ملحوظ.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎁",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+42%", label: "متوسط قيمة الطلب", color: "#22c55e" },
+    { value: "+42%", label: "متوسط قيمة الطلب", color: "#8b5cf6" },
     { value: "+38%", label: "عدد المنتجات بالسلة", color: "#06b6d4" },
-    { value: "+25%", label: "معدل التحويل", color: "#22c55e" },
+    { value: "+25%", label: "معدل التحويل", color: "#8b5cf6" },
     { value: "+60%", label: "احتمال عودة العميل", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -80,7 +80,7 @@ const data: UseCasePageData = {
       icon: "🔗",
       title: "Related Products",
       desc: "AI analyzes similar customers' behavior and displays products they most frequently buy together. Most impactful because it reflects real interests.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -92,7 +92,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "Upsell — The Better Version",
       desc: "Shows a higher-spec version or newer model of the same product highlighting the real difference in value. Noticeably increases average order value.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎁",
@@ -102,9 +102,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+42%", label: "Average order value", color: "#22c55e" },
+    { value: "+42%", label: "Average order value", color: "#8b5cf6" },
     { value: "+38%", label: "Number of products in cart", color: "#06b6d4" },
-    { value: "+25%", label: "Conversion rate", color: "#22c55e" },
+    { value: "+25%", label: "Conversion rate", color: "#8b5cf6" },
     { value: "+60%", label: "Customer return probability", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

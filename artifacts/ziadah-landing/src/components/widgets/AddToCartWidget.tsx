@@ -46,10 +46,10 @@ export default function AddToCartWidget() {
               gap: 6,
               padding: "8px 20px",
               borderRadius: 50,
-              background: "rgba(22, 163, 74,.15)",
-              border: "1px solid rgba(22, 163, 74,.3)",
+              background: "rgba(124, 58, 237,.15)",
+              border: "1px solid rgba(124, 58, 237,.3)",
               fontSize: 12,
-              color: "var(--p4, #22c55e)",
+              color: "var(--p4, #8b5cf6)",
             }}>
               <span style={{ display: "inline-block" }}>⏳</span>
               {tr.adding}
@@ -61,12 +61,12 @@ export default function AddToCartWidget() {
           <div style={{ textAlign: "center", padding: "28px 0" }}>
             <div style={{
               width: 48, height: 48, borderRadius: "50%",
-              background: "rgba(16,185,129,.15)",
-              border: "1px solid rgba(16,185,129,.4)",
+              background: "rgba(139, 92, 246,.15)",
+              border: "1px solid rgba(139, 92, 246,.4)",
               display: "flex", alignItems: "center", justifyContent: "center",
               margin: "0 auto 12px", fontSize: 22,
             }}>✓</div>
-            <div style={{ fontSize: 13, fontWeight: 800, color: "#22c55e", marginBottom: 4 }}>
+            <div style={{ fontSize: 13, fontWeight: 800, color: "#8b5cf6", marginBottom: 4 }}>
               {tr.added}
             </div>
             <div style={{ fontSize: 12, color: "var(--td)" }}>
@@ -80,19 +80,19 @@ export default function AddToCartWidget() {
             <div style={{
               display: "flex", alignItems: "center", gap: 6, marginBottom: 12,
               padding: "6px 10px", borderRadius: 8,
-              background: "rgba(16,185,129,.08)", border: "1px solid rgba(16,185,129,.2)",
+              background: "rgba(139, 92, 246,.08)", border: "1px solid rgba(139, 92, 246,.2)",
             }}>
               <span style={{ fontSize: 14 }}>✅</span>
-              <span style={{ fontSize: 12, color: "#22c55e", fontWeight: 700 }}>{tr.addedTag}</span>
+              <span style={{ fontSize: 12, color: "#8b5cf6", fontWeight: 700 }}>{tr.addedTag}</span>
             </div>
             <div style={{
               padding: "12px",
               borderRadius: 12,
-              background: "rgba(34, 197, 94,.08)",
-              border: "1.5px solid rgba(34, 197, 94,.25)",
+              background: "rgba(139, 92, 246,.08)",
+              border: "1.5px solid rgba(139, 92, 246,.25)",
               backdropFilter: "blur(12px)",
             }}>
-              <div style={{ fontSize: 12, color: "#22c55e", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
+              <div style={{ fontSize: 12, color: "#8b5cf6", fontWeight: 700, marginBottom: 8, letterSpacing: 0.5 }}>
                 {tr.alsoLabel}
               </div>
               <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 10 }}>
@@ -113,11 +113,11 @@ export default function AddToCartWidget() {
               <button style={{
                 width: "100%", padding: "7px 10px",
                 borderRadius: 9,
-                background: "rgba(22, 163, 74,0.12)",
+                background: "rgba(124, 58, 237,0.12)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 color: "#c084fc", fontSize: 12, fontWeight: 800,
-                border: "1px solid rgba(22, 163, 74,0.2)", cursor: "pointer",
+                border: "1px solid rgba(124, 58, 237,0.2)", cursor: "pointer",
               }}>
                 {tr.btnAdd}
               </button>

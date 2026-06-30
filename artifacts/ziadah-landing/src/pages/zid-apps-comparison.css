@@ -1,7 +1,7 @@
 /* Zid apps comparison page — scroll chrome & subtle interactions */
 .zi-compare-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(22, 163, 74, 0.35) rgba(22, 163, 74, 0.06);
+  scrollbar-color: rgba(22 163 74 / 0.35) rgba(22 163 74 / 0.06);
 }
 
 .zi-compare-scroll::-webkit-scrollbar {
@@ -10,19 +10,19 @@
 }
 
 .zi-compare-scroll::-webkit-scrollbar-track {
-  background: rgba(22, 163, 74, 0.05);
+  background: rgba(22 163 74 / 0.05);
   border-radius: 9px;
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(22, 163, 74, 0.45), rgba(21, 128, 61, 0.35));
+  background: linear-gradient(180deg, rgba(22 163 74 / 0.45), rgba(21 128 61 / 0.35));
   border-radius: 9px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(22, 163, 74, 0.55), rgba(21, 128, 61, 0.45));
+  background: linear-gradient(180deg, rgba(22 163 74 / 0.55), rgba(21 128 61 / 0.45));
   background-clip: padding-box;
 }
 

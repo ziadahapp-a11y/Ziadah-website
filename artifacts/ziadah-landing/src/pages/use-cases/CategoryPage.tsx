@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "ترتيب ذكي مخصص",
       desc: "يعيد زيادة ترتيب بطاقات المنتجات بناءً على احتمالية شراء كل عميل — المنتجات الأنسب تظهر أولاً لكل زائر.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "كومبو داخل الكاتالوج",
       desc: "يظهر بطاقات كومبو مدمجة بين المنتجات العادية تجمع منتجين أو أكثر بسعر أقل مما يفكر فيه العميل.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -41,8 +41,8 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#22c55e" },
-    { value: "+33%", label: "معدل إضافة للسلة", color: "#22c55e" },
+    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#8b5cf6" },
+    { value: "+33%", label: "معدل إضافة للسلة", color: "#8b5cf6" },
     { value: "+21%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "-24%", label: "وقت اتخاذ قرار الشراء", color: "#ec4899" },
   ],
@@ -86,7 +86,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Smart Personalized Ordering",
       desc: "Ziadah reorders product cards based on each customer's purchase probability — the most relevant products appear first for every visitor.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -98,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "In-Catalog Combos",
       desc: "Shows embedded combo cards between regular products that bundle two or more items at a price lower than what the customer would expect.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -108,8 +108,8 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+27%", label: "Category-to-product click-through rate", color: "#22c55e" },
-    { value: "+33%", label: "Add-to-cart rate", color: "#22c55e" },
+    { value: "+27%", label: "Category-to-product click-through rate", color: "#8b5cf6" },
+    { value: "+33%", label: "Add-to-cart rate", color: "#8b5cf6" },
     { value: "+21%", label: "Average order value", color: "#06b6d4" },
     { value: "-24%", label: "Purchase decision time", color: "#ec4899" },
   ],

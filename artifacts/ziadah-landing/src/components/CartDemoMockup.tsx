@@ -4,9 +4,9 @@ export default function CartDemoMockup() {
   const { lang } = useLanguage();
   const isEn = lang === "en";
 
-  const accent = "#16a34a";
-  const accentLight = "rgba(22, 163, 74,0.1)";
-  const accentBorder = "rgba(22, 163, 74,0.25)";
+  const accent = "#7c3aed";
+  const accentLight = "rgba(124, 58, 237,0.1)";
+  const accentBorder = "rgba(124, 58, 237,0.25)";
 
   const products = isEn
     ? [
@@ -99,13 +99,13 @@ export default function CartDemoMockup() {
                 </div>
                 <div style={{ fontSize: 11, color: accent, fontWeight: 700, marginBottom: 10 }}>{t.addNow}</div>
 
-                <div style={{ background: "rgba(16,185,129,0.07)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: 8, padding: "6px 10px", display: "flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: "#22c55e" }}>✓</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#22c55e" }}>{t.freeShip}</span>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: "#22c55e", marginInlineStart: 6 }}>✓</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#22c55e" }}>{t.freeCod}</span>
+                <div style={{ background: "rgba(139, 92, 246,0.07)", border: "1px solid rgba(139, 92, 246,0.25)", borderRadius: 8, padding: "6px 10px", display: "flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#8b5cf6" }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#8b5cf6" }}>{t.freeShip}</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: "#8b5cf6", marginInlineStart: 6 }}>✓</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#8b5cf6" }}>{t.freeCod}</span>
                   <span style={{ flex: 1 }} />
-                  <span style={{ fontSize: 10, fontWeight: 900, color: "#22c55e" }}>{t.save30}</span>
+                  <span style={{ fontSize: 10, fontWeight: 900, color: "#8b5cf6" }}>{t.save30}</span>
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -127,7 +127,7 @@ export default function CartDemoMockup() {
                             <span style={{ fontSize: 9, color: "#aaa", textDecoration: "line-through" }}>{p.originalPrice} SAR</span>
                           )}
                           {p.discount && (
-                            <span style={{ fontSize: 8, fontWeight: 700, color: "#16a34a", background: "rgba(22, 163, 74,0.1)", borderRadius: 4, padding: "1px 4px" }}>
+                            <span style={{ fontSize: 8, fontWeight: 700, color: "#7c3aed", background: "rgba(124, 58, 237,0.1)", borderRadius: 4, padding: "1px 4px" }}>
                               {t.save} {p.discount}
                             </span>
                           )}

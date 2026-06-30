@@ -75,10 +75,10 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
     >
       <div style={{
         background: "rgba(8,6,20,.98)",
-        border: "1px solid rgba(22, 163, 74,.3)",
+        border: "1px solid rgba(124, 58, 237,.3)",
         borderRadius: 24, padding: 40, width: "100%", maxWidth: 500,
         position: "relative", direction: dir,
-        boxShadow: "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(22, 163, 74,.15)",
+        boxShadow: "0 40px 100px rgba(0,0,0,.8), 0 0 60px rgba(124, 58, 237,.15)",
       }}>
         <button
           type="button"
@@ -97,7 +97,7 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
           <div style={{ textAlign: "center", padding: "20px 0" }}>
             <div style={{
               width: 64, height: 64, borderRadius: "50%",
-              background: "rgba(16,185,129,.15)", border: "1px solid rgba(16,185,129,.4)",
+              background: "rgba(139, 92, 246,.15)", border: "1px solid rgba(139, 92, 246,.4)",
               display: "flex", alignItems: "center", justifyContent: "center",
               margin: "0 auto 20px", fontSize: 28,
             }}>
@@ -115,12 +115,12 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
             <div style={{ marginBottom: 28 }}>
               <div style={{
                 width: 48, height: 48, borderRadius: 14,
-                background: "rgba(22, 163, 74,.15)", border: "1px solid rgba(22, 163, 74,.3)",
+                background: "rgba(124, 58, 237,.15)", border: "1px solid rgba(124, 58, 237,.3)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 marginBottom: 16,
               }}>
                 <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-                  <path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="rgba(34, 197, 94,.8)"/>
+                  <path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="rgba(139, 92, 246,.8)"/>
                 </svg>
               </div>
               <h3 style={{ fontFamily: "var(--font)", fontSize: 22, fontWeight: 800, color: "var(--t)", marginBottom: 8 }}>
@@ -148,7 +148,7 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                     borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: dir, boxSizing: "border-box",
                   }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(22, 163, 74,.6)"}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124, 58, 237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
                 {nameError && (
@@ -176,7 +176,7 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                     borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: "ltr", textAlign: dir === "rtl" ? "right" : "left", boxSizing: "border-box",
                   }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(22, 163, 74,.6)"}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124, 58, 237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
                 {emailError && (
@@ -202,7 +202,7 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                     borderRadius: 12, color: "var(--t)", fontFamily: "var(--font)", fontSize: 14,
                     outline: "none", direction: dir, resize: "vertical", boxSizing: "border-box",
                   }}
-                  onFocus={e => e.currentTarget.style.borderColor = "rgba(22, 163, 74,.6)"}
+                  onFocus={e => e.currentTarget.style.borderColor = "rgba(124, 58, 237,.6)"}
                   onBlur={e => e.currentTarget.style.borderColor = ""}
                 />
                 {descError && (
@@ -227,12 +227,12 @@ export default function FeatureRequestModal({ onClose }: { onClose: () => void }
                 disabled={sending}
                 style={{
                   width: "100%", padding: "14px",
-                  background: sending ? "rgba(22, 163, 74,.4)" : "linear-gradient(135deg,#16a34a,#15803d)",
+                  background: sending ? "rgba(124, 58, 237,.4)" : "linear-gradient(135deg,#7c3aed,#6d28d9)",
                   border: "none", borderRadius: 50, color: "#fff",
                   fontFamily: "var(--font)", fontSize: 15, fontWeight: 700,
                   cursor: sending ? "not-allowed" : "pointer",
                   transition: "all .25s", marginTop: 4,
-                  boxShadow: sending ? "none" : "0 0 30px rgba(22, 163, 74,.4)",
+                  boxShadow: sending ? "none" : "0 0 30px rgba(124, 58, 237,.4)",
                 }}
               >
                 {sending ? tr.featureModal.sending : tr.featureModal.submit}

@@ -52,57 +52,20 @@ export default function UseCaseLiveShowcase({
         dir={isAr ? "rtl" : "ltr"}
         style={{ maxWidth: 1200, alignItems: "center" }}
       >
-        <div className="sector-html-hero-copy" style={{ textAlign: "start" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              padding: "4px 14px",
-              borderRadius: 50,
-              background: "rgba(22, 163, 74,.08)",
-              border: "1px solid rgba(22, 163, 74,.2)",
-              color: "#16a34a",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: 1,
-              textTransform: "uppercase",
-              marginBottom: 16,
-            }}
-          >
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#16a34a" }} />
-            {badge ?? defaultBadge}
+        <div className="sector-html-hero-copy text-start">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+            <span className="text-xs font-bold uppercase tracking-wide text-violet-700">{badge ?? defaultBadge}</span>
           </div>
-          <h3
-            className="sector-html-hero-h"
-            style={{
-              fontSize: "clamp(20px,2.5vw,30px)",
-              fontWeight: 900,
-              marginBottom: 8,
-              alignItems: "flex-start",
-              textAlign: "start",
-            }}
-          >
+          <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 leading-tight" style={{ marginBottom: 8 }}>
             {title}
           </h3>
-          <p
-            className="sector-html-hero-sub"
-            style={{
-              fontSize: 14,
-              color: "var(--tm)",
-              marginBottom: single ? 0 : 20,
-              lineHeight: 1.7,
-              textAlign: "start",
-            }}
-          >
+          <p className="text-base text-zinc-600 leading-relaxed" style={{ marginBottom: single ? 0 : 20 }}>
             {subtitle}
           </p>
 
           {!single && (
-            <div
-              className="uc-live-showcase__tab-row"
-              style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}
-            >
+            <div className="flex flex-wrap gap-2 mt-2.5">
               {tabs.map((tab, i) => {
                 const isAct = i === active;
                 return (
@@ -110,28 +73,11 @@ export default function UseCaseLiveShowcase({
                     key={i}
                     type="button"
                     onClick={() => setActive(i)}
-                    style={{
-                      padding: "10px 18px",
-                      borderRadius: 99,
-                      background: isAct
-                        ? "linear-gradient(135deg,#16a34a,#15803d)"
-                        : "rgba(22, 163, 74,0.06)",
-                      color: isAct ? "#fff" : "var(--p4)",
-                      border: `1.5px solid ${isAct ? "transparent" : "rgba(22, 163, 74,0.22)"}`,
-                      fontWeight: 700,
-                      fontSize: 13,
-                      cursor: "pointer",
-                      transition: "all .22s cubic-bezier(.23,1,.32,1)",
-                      fontFamily: "var(--font)",
-                      boxShadow: isAct
-                        ? "0 4px 18px rgba(22, 163, 74,.38), 0 1px 0 rgba(255,255,255,.08) inset"
-                        : "none",
-                      outline: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      whiteSpace: "nowrap",
-                    }}
+                    className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                      isAct
+                        ? "bg-zinc-950 text-white border border-transparent"
+                        : "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
+                    }`}
                   >
                     {tab.icon && <span>{tab.icon}</span>}
                     {isAr ? tab.labelAr : tab.labelEn}

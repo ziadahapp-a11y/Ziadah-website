@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="ft-brand">
             <div className="ft-logo">
               <img
-                src={lang === "ar" ? "/logo-ar.png" : "/logo-en.png"}
+                src={lang === "ar" ? "/logo-ar.svg" : "/logo-en.svg"}
                 alt={tr.seo.brandLogoAlt}
                 style={{ height: 40, width: "auto" }}
               />

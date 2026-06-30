@@ -31,9 +31,9 @@ export default function PageClosingCta({
       <div className="container mx-auto max-w-4xl">
         <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative p-10 md:p-14 text-center">
           <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-emerald-500/20 blur-[100px] rounded-full pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-violet-500/20 blur-[100px] rounded-full pointer-events-none" />
           <div className="relative">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">{title}</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>{title}</h2>
             <p className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl mx-auto">{description}</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <button
@@ -49,7 +49,7 @@ export default function PageClosingCta({
             {note != null && note !== "" ? (
               <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-500">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
                   {note}
                 </span>
               </div>

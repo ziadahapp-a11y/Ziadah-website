@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🤖",
       title: "توصيات مخصصة لكل عميل",
       desc: "بناءً على ملف العميل ومشترياته السابقة وتصفحه الحالي، يختار زيادة المنتجات التي تناسبه هو تحديداً — لا قائمة عامة للجميع.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🛒",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "ترتيب ذكي بالأولوية",
       desc: "المنتجات لا تظهر عشوائياً — يرتبها زيادة حسب احتمالية الشراء لهذا العميل، فيظهر الأعلى ربحاً والأكثر صلة أولاً.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔄",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+38%", label: "زيادة في معدل إضافة المنتجات للسلة", color: "#22c55e" },
+    { value: "+38%", label: "زيادة في معدل إضافة المنتجات للسلة", color: "#8b5cf6" },
     { value: "+26%", label: "متوسط عدد المنتجات في الطلب الواحد", color: "#06b6d4" },
-    { value: "42%", label: "من العملاء يتفاعلون مع قائمة الصلة", color: "#22c55e" },
+    { value: "42%", label: "من العملاء يتفاعلون مع قائمة الصلة", color: "#8b5cf6" },
     { value: "3 ثوانٍ", label: "متوسط وقت الإضافة من عرض الاقتراح", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -76,9 +76,8 @@ const data: UseCasePageData = {
           labelEn: "📍 Where It Appears",
           placement: "below",
           content: (
-            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-              <div className="shine" />
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px", width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>
                 {isAr ? "أين تظهر 'منتجات ذات صلة'؟" : "Where do 'Related Products' appear?"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
@@ -96,9 +95,9 @@ const data: UseCasePageData = {
                       { place: "🏷️ Category Page", note: "Between products or in the sidebar" },
                     ]
                 ).map((item, i) => (
-                  <div key={i} style={{ padding: "20px 24px", background: "rgba(22, 163, 74,.05)", border: "1px solid rgba(22, 163, 74,.15)", borderRadius: 14, textAlign: "center" }}>
+                  <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 24px", textAlign: "center" }}>
                     <div style={{ fontSize: 22, marginBottom: 8 }}>{item.place}</div>
-                    <div style={{ fontSize: 13, color: "var(--tm)" }}>{item.note}</div>
+                    <div className="text-zinc-600" style={{ fontSize: 13 }}>{item.note}</div>
                   </div>
                 ))}
               </div>
@@ -126,7 +125,7 @@ const data: UseCasePageData = {
       icon: "🤖",
       title: "Personalized recommendations",
       desc: "Based on the customer's profile, past purchases, and current browsing, Ziadah selects products suited specifically to them — not a generic list for everyone.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🛒",
@@ -138,7 +137,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "Smart Priority Ordering",
       desc: "Products don't appear randomly — Ziadah ranks them by purchase probability for this customer, showing the most relevant and profitable ones first.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔄",
@@ -148,9 +147,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+38%", label: "Increase in product add-to-cart rate", color: "#22c55e" },
+    { value: "+38%", label: "Increase in product add-to-cart rate", color: "#8b5cf6" },
     { value: "+26%", label: "Average number of products per order", color: "#06b6d4" },
-    { value: "42%", label: "Of customers interact with the related products list", color: "#22c55e" },
+    { value: "42%", label: "Of customers interact with the related products list", color: "#8b5cf6" },
     { value: "3 sec", label: "Average time to add from suggestion display", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

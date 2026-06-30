@@ -1267,9 +1267,9 @@
   --t: #312e81;
   --td: rgba(49, 46, 129, 0.9);
   --tm: rgba(9, 9, 11, 0.74);
-  --b1: rgba(22, 163, 74, 0.14);
-  --b2: rgba(22, 163, 74, 0.22);
-  --s1: rgba(22, 163, 74, 0.07);
+  --b1: rgba(124, 58, 237, 0.14);
+  --b2: rgba(124, 58, 237, 0.22);
+  --s1: rgba(124, 58, 237, 0.07);
 }
 
 /* Sticky in-page nav: stays under fixed site Nav while scrolling */
@@ -1282,7 +1282,7 @@
   padding: 10px max(var(--page-inline-pad), env(safe-area-inset-left, 0px)) 12px
     max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
   background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid rgba(22, 163, 74, 0.14);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.14);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -1310,7 +1310,7 @@ section#uc-showcase,
 }
 
 .use-case-playbook-hero .sector-html-grad {
-  background-image: linear-gradient(135deg, #15803d 0%, #22c55e 55%, #c084fc 100%);
+  background-image: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 55%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1319,20 +1319,20 @@ section#uc-showcase,
 
 .use-case-playbook-hero .sector-html-btn--ghost {
   color: var(--t);
-  border-color: rgba(22, 163, 74, 0.28);
+  border-color: rgba(124, 58, 237, 0.28);
 }
 
 .use-case-playbook-hero .sector-html-btn--ghost:hover {
-  border-color: rgba(22, 163, 74, 0.48);
-  color: #15803d;
-  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(124, 58, 237, 0.48);
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.08);
 }
 
 .use-case-playbook-hero .sector-html-ftag {
   background: #ffffff;
-  border-color: rgba(22, 163, 74, 0.24);
+  border-color: rgba(124, 58, 237, 0.24);
   color: #312e81;
-  box-shadow: 0 10px 32px rgba(22, 163, 74, 0.12);
+  box-shadow: 0 10px 32px rgba(124, 58, 237, 0.12);
 }
 
 .use-case-playbook-hero .sector-html-ftag span:not(.sector-html-fdot) {
@@ -1342,9 +1342,9 @@ section#uc-showcase,
 /* إطار الهاتف في الهيرو: إطار أوضح يتماشى مع الشاشة الداخلية */
 .use-case-playbook-hero .sector-html-phone {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 239, 255, 0.88) 100%);
-  border-color: rgba(22, 163, 74, 0.22);
+  border-color: rgba(124, 58, 237, 0.22);
   box-shadow:
-    0 0 44px rgba(22, 163, 74, 0.14),
+    0 0 44px rgba(124, 58, 237, 0.14),
     0 26px 52px rgba(15, 23, 42, 0.07);
 }
 
@@ -1353,12 +1353,12 @@ section#uc-showcase,
   --bg: #f7f5fc;
   --t: #3730a3;
   --td: rgba(55, 48, 163, 0.92);
-  --tm: rgba(22, 163, 74, 0.72);
+  --tm: rgba(124, 58, 237, 0.72);
   background: linear-gradient(165deg, #ffffff 0%, #fbfaff 42%, #f3f0ff 100%);
-  border: 1px solid rgba(22, 163, 74, 0.11);
+  border: 1px solid rgba(124, 58, 237, 0.11);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -12px 32px rgba(22, 163, 74, 0.045);
+    inset 0 -12px 32px rgba(124, 58, 237, 0.045);
 }
 
 .use-case-playbook-hero .sector-html-or-name {
@@ -1382,20 +1382,20 @@ section#uc-showcase,
 }
 
 .use-case-quicknav-stick--playbook .sector-page-quicknav button {
-  border-color: rgba(22, 163, 74, 0.24) !important;
+  border-color: rgba(124, 58, 237, 0.24) !important;
   color: #312e81 !important;
   background: transparent !important;
 }
 
 .use-case-quicknav-stick--playbook .sector-page-quicknav button:hover {
-  border-color: rgba(22, 163, 74, 0.45) !important;
-  background: rgba(22, 163, 74, 0.06) !important;
+  border-color: rgba(124, 58, 237, 0.45) !important;
+  background: rgba(124, 58, 237, 0.06) !important;
 }
 
 .use-case-playbook-hero .sector-html-hero-grid .sector-html-hero-copy .stag {
-  background: rgba(22, 163, 74, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   border: none;
-  color: #15803d;
+  color: #6d28d9;
   padding-top: 7px;
   padding-bottom: 7px;
   margin-right: 0;
@@ -1407,7 +1407,7 @@ section#uc-showcase,
 }
 
 .use-case-playbook-hero .stag-dot {
-  background: #16a34a;
+  background: #7c3aed;
 }
 
 /* Live widget showcase — scrollable screen inside phone frame */
@@ -1424,4 +1424,89 @@ section#uc-showcase,
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   TrackFlow unification — re-skin all bespoke sector content to the
+   single light SaaS design system (zinc text/borders, white cards,
+   violet accent). Scoped to the sector article so it never leaks.
+   ════════════════════════════════════════════════════════════════════ */
+.landing-shell .sector-html,
+.landing-shell .sector-html--compact {
+  --t: #09090b;   /* zinc-950 — headings / strong */
+  --td: #52525b;  /* zinc-600 — body */
+  --tm: #3f3f46;  /* zinc-700 — secondary */
+  --p: #7c3aed;   /* violet-600 — accent (unchanged) */
+  --b1: #e4e4e7;  /* zinc-200 */
+  --b2: #d4d4d8;  /* zinc-300 */
+  --s1: #fafafa;  /* zinc-50 surface */
+  --bg: #ffffff;
+  --glass-bg: #ffffff;
+  --glass-border: 1px solid #e4e4e7;
+  --glass-blur: none;
+  --glass-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 10px 30px rgba(9, 9, 11, 0.05);
+  --glass-shadow-hover: 0 1px 2px rgba(9, 9, 11, 0.05), 0 16px 38px rgba(9, 9, 11, 0.08);
+  --r20: 1rem;
+}
+
+/* Glass cards → flat TrackFlow cards */
+.landing-shell .sector-html .gc {
+  border-radius: 1rem;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 10px 30px rgba(9, 9, 11, 0.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.landing-shell .sector-html .gc::before {
+  display: none;
+}
+.landing-shell .sector-html .gc:hover {
+  border-color: #d4d4d8;
+  transform: none;
+  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.05), 0 16px 38px rgba(9, 9, 11, 0.08);
+}
+
+/* Bespoke surfaces (why cards, AI cards, dashboards, pills) → white zinc */
+.landing-shell .sector-html .sector-html-wcard,
+.landing-shell .sector-html .sector-html-tpill,
+.landing-shell .sector-html .sector-html-ai-point,
+.landing-shell .sector-html .sector-html-ai-layer {
+  background: #ffffff;
+  border-color: #e4e4e7;
+}
+
+/* Section headings inside the bespoke layout → TrackFlow heading scale */
+.landing-shell .sector-html h2 {
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  font-weight: 700;
+  color: #09090b;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* CTA buttons inside sector content → near-black primary */
+.landing-shell .sector-html .sector-html-btn--fire {
+  background: #09090b;
+  border: none;
+  color: #ffffff;
+  box-shadow: none;
+}
+.landing-shell .sector-html .sector-html-btn--fire:hover {
+  background: #27272a;
+}
+.landing-shell .sector-html .sector-html-btn--ghost {
+  background: #ffffff;
+  border: 1px solid #d4d4d8;
+  color: #09090b;
+}
+.landing-shell .sector-html .sector-html-btn--ghost:hover {
+  background: #f4f4f5;
+  border-color: #a1a1aa;
+}
+
+/* Scroll-progress bar → solid violet (matches use-case pages) */
+.sector-html-prog {
+  background: linear-gradient(90deg, #a78bfa, #7c3aed);
+  box-shadow: none;
 }

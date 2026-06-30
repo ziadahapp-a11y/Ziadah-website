@@ -40,7 +40,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
           <div id="section-why" className="gc rv d2" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
             <div className="shine" />
             <div style={{ padding: "22px 24px 26px" }}>
-              <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 14, marginTop: 0 }}>{tr.sectorSectionWhy}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 14, marginTop: 0 }}>{tr.sectorSectionWhy}</h2>
               <div className="sector-html-why-grid">
                 {rich.whyCards.map((w, i) => (
                   <div key={i} className="sector-html-wcard">
@@ -71,7 +71,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="section-why" className="gc rv d2" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 14, marginTop: 0 }}>{tr.sectorSectionWhy}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 14, marginTop: 0 }}>{tr.sectorSectionWhy}</h2>
             <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}>
               {rich.whyCards.map((w, i) => (
                 <div key={i} className="gc rv" style={{ padding: 0, marginBottom: 0 }}>
@@ -155,7 +155,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                 padding: "4px 10px",
                 borderRadius: 999,
                 border: "1px solid var(--b2)",
-                background: "rgba(22, 163, 74,.08)",
+                background: "rgba(124, 58, 237,.08)",
                 color: "var(--t)",
               }}
             >
@@ -180,7 +180,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="sector-ai-context" className="gc rv d1" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
             <div className="sector-html-ai-layout sector-html-ai-layout--compact">
               <div className="sector-html-ai-vis sector-html-ai-vis--profileonly">{profileCard}</div>
               <div className="sector-html-ai-compact-col">
@@ -209,7 +209,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="sector-ai-context" className="gc rv d1" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
             <div className="sector-html-ai-layout">
               <div>
                 {layers.map((layer, i) => (
@@ -259,8 +259,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
       <div id="sector-ai-context" className="gc rv d1" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
         <div className="shine" />
         <div style={{ padding: "22px 24px 26px" }}>
-          <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
-          <div style={{ marginBottom: 16, padding: "14px 16px", borderRadius: 12, border: "1px solid var(--b2)", background: "rgba(22, 163, 74,.04)" }}>
+          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
+          <div style={{ marginBottom: 16, padding: "14px 16px", borderRadius: 12, border: "1px solid var(--b2)", background: "rgba(124, 58, 237,.04)" }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: "var(--tm)", marginBottom: 8 }}>{tr.sectorAiProfile}</div>
             <p style={{ margin: 0, fontSize: 14, color: "var(--t)", lineHeight: 1.65 }}>{isAr ? rich.aiProfileTagsAr : rich.aiProfileTagsEn}</p>
           </div>
@@ -471,7 +471,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                 padding: "12px 14px",
                 borderRadius: 12,
                 border: "1px solid var(--b2)",
-                background: "linear-gradient(180deg, rgba(22, 163, 74,.08), transparent)",
+                background: "linear-gradient(180deg, rgba(124, 58, 237,.08), transparent)",
                 fontWeight: 800,
                 fontSize: 15,
                 color: "var(--p)",
@@ -506,7 +506,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="section-metrics" className="gc rv d2" style={{ padding: 0, marginBottom: 16, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 16, marginTop: 0 }}>{tr.sectorSectionMetrics}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 16, marginTop: 0 }}>{tr.sectorSectionMetrics}</h2>
             {trackingBlockHtml}
             {dashboardBlock}
           </div>
@@ -519,7 +519,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="section-tracking" className="gc rv d2" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionTracking}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionTracking}</h2>
             {trackingBlockPlain}
           </div>
         </div>
@@ -527,7 +527,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="section-analytics" className="gc rv d1" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "22px 24px 26px" }}>
-            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAnalytics}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAnalytics}</h2>
             {analyticsBlockFull}
           </div>
         </div>
@@ -541,7 +541,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div id="section-sector-cta" className="gc rv d1" style={{ padding: 0, marginBottom: 20, scrollMarginTop: 120 }}>
           <div className="shine" />
           <div style={{ padding: "28px 24px 30px", textAlign: "center" }}>
-            <h2 style={{ fontSize: 20, fontWeight: 800, color: "var(--p)", marginBottom: 10, marginTop: 0 }}>{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 10, marginTop: 0 }}>{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
             <p style={{ margin: "0 0 20px", fontSize: 15, color: "var(--tm)", lineHeight: 1.75, maxWidth: 560, marginInline: "auto" }}>{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
             <div className="sector-html-cta-row" style={{ justifyContent: "center" }}>
               <button

@@ -330,7 +330,7 @@ function AnalyzePhoneStatusBar({ accentColor }: { accentColor: string }) {
   );
 }
 
-const ANALYZE_WIDGET_PHONE_ACCENT = "#16a34a";
+const ANALYZE_WIDGET_PHONE_ACCENT = "#7c3aed";
 
 function AnalyzeStoreWidget({
   group,
@@ -360,7 +360,7 @@ function AnalyzeStoreWidget({
         borderRadius: 44,
         border: "2px solid var(--b1)",
         boxShadow:
-          "0 0 40px rgba(22, 163, 74,.12), 0 20px 60px rgba(0,0,0,.5)",
+          "0 0 40px rgba(124, 58, 237,.12), 0 20px 60px rgba(0,0,0,.5)",
         padding: "14px 10px",
         position: "relative",
         overflow: "hidden",
@@ -423,8 +423,8 @@ function AnalyzeStoreWidget({
             <span
               className="inline-flex w-fit items-center gap-1 text-[9px] font-bold py-0.5 rounded-full mb-1"
               style={{
-                background: "rgba(251,191,36,0.8)",
-                color: "#1a0f00",
+                background: "#7c3aed",
+                color: "#ffffff",
                 paddingLeft: 9,
                 paddingRight: 9,
               }}
@@ -440,7 +440,7 @@ function AnalyzeStoreWidget({
               {anchor.title}
             </p>
             {anchor.price != null && (
-              <p className="text-[11px] font-extrabold mt-0.5" style={{ color: "var(--go)" }}>
+              <p className="text-[11px] font-extrabold mt-0.5" style={{ color: "#7c3aed" }}>
                 {formatPrice(anchor.price, currencySymbol)}
               </p>
             )}
@@ -540,7 +540,7 @@ function AnchorGroupCard({
           </p>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             {anchor.price != null && (
-              <span className="text-xs font-extrabold" style={{ color: "var(--go)" }}>
+              <span className="text-xs font-extrabold" style={{ color: "#7c3aed" }}>
                 {formatPrice(anchor.price, currencySymbol)}
               </span>
             )}
@@ -564,7 +564,7 @@ function AnchorGroupCard({
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
-            style={{ color: "var(--p3)", borderColor: "rgba(22, 163, 74,.25)", background: "rgba(22, 163, 74,.06)" }}
+            style={{ color: "#7c3aed", borderColor: "rgba(124, 58, 237,.25)", background: "rgba(124, 58, 237,.06)" }}
             aria-label="open product"
           >
             <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
@@ -666,9 +666,9 @@ function ProgressStep({
         style={{
           background:
             state === "done"
-              ? "rgba(34,197,94,.14)"
+              ? "rgba(124, 58, 237,.14)"
               : state === "active"
-                ? "rgba(22, 163, 74,.16)"
+                ? "rgba(124, 58, 237,.16)"
                 : "var(--s2)",
           color:
             state === "done"
@@ -760,7 +760,7 @@ function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
     <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-stretch sm:items-center">
       <Link
         href={`/report/${encodeURIComponent(reportShareToken)}`}
-        className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
+        className="rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
       >
         <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
         {tr.viewFullReport}
@@ -768,15 +768,15 @@ function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
       <button
         type="button"
         onClick={copy}
-        className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
+        className="rounded-xl border border-zinc-300 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
       >
-        {copied ? <Check className="h-4 w-4 text-[var(--gr)]" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
+        {copied ? <Check className="h-4 w-4 text-violet-600" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
         {copied ? tr.copied : tr.copyReportLink}
       </button>
       <button
         type="button"
         onClick={() => window.location.reload()}
-        className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
+        className="rounded-xl border border-zinc-300 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors inline-flex items-center justify-center gap-2 min-h-[44px] px-5 text-sm"
       >
         {tr.analyzeAnother}
       </button>
@@ -1034,7 +1034,7 @@ export default function Analyze() {
                   {tr.heroTitleMain ? (
                     <span className="ht-line1 font-thin block">{tr.heroTitleMain}</span>
                   ) : null}
-                  <span className="grad font-extrabold hero-title-grad analyze-hero-accent block">
+                  <span className="font-extrabold analyze-hero-accent block" style={{ color: "#7c3aed" }}>
                     {tr.heroAccent}
                   </span>
                   {tr.heroTitleRest ? (
@@ -1093,7 +1093,7 @@ export default function Analyze() {
               </ol>
 
               <div
-                className="gc gc-lift analyze-form-card flex flex-col w-full max-w-[900px] mx-auto mb-5 rv"
+                className="rounded-2xl border border-zinc-200 bg-white shadow-card hover:shadow-card-lg transition-all analyze-form-card flex flex-col w-full max-w-[900px] mx-auto mb-5 rv"
                 style={{ transitionDelay: "0.44s", width: "100%" }}
               >
                 <form onSubmit={handleSubmit} className="flex flex-col gap-2.5 w-full">
@@ -1249,7 +1249,7 @@ export default function Analyze() {
 
                   <button
                     type="submit"
-                    className="btn-p btn-p-hero w-full !justify-center inline-flex items-center gap-2 text-sm min-h-[48px]"
+                    className="rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors disabled:opacity-60 w-full !justify-center inline-flex items-center gap-2 text-sm min-h-[48px]"
                     disabled={submitting}
                   >
                     {submitting ? (
@@ -1290,10 +1290,10 @@ export default function Analyze() {
             >
               <div className="text-center mb-10 flex flex-col justify-start items-center gap-5">
                 <div
-                  className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(22, 163, 74,.2)]"
-                  style={{ background: "rgba(22, 163, 74,.12)" }}
+                  className="h-14 w-14 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_12px_40px_rgba(124, 58, 237,.2)]"
+                  style={{ background: "rgba(124, 58, 237,.12)" }}
                 >
-                  <Loader2 className="h-7 w-7 animate-spin" style={{ color: "var(--p3)" }} aria-hidden />
+                  <Loader2 className="h-7 w-7 animate-spin" style={{ color: "#7c3aed" }} aria-hidden />
                 </div>
                 <h2 className="st tc mb-1" style={{ color: "var(--t)" }}>
                   {tr.progressTitle}
@@ -1307,7 +1307,7 @@ export default function Analyze() {
                   {tr.progressEtaNote}
                 </p>
               </div>
-              <div className="gc analyze-progress-card space-y-6">
+              <div className="rounded-2xl border border-zinc-200 bg-white shadow-card analyze-progress-card space-y-6">
                 <ProgressStep label={tr.step1Title} sublabel={step1Sub} state={s1} />
                 <div className="analyze-progress-rule" aria-hidden />
                 <ProgressStep label={tr.step2Title} sublabel={tr.step2Sub} state={s2} />
@@ -1363,7 +1363,7 @@ export default function Analyze() {
                   type="button"
                   onClick={() => void handleRetryPipeline()}
                   disabled={retryBusy || storeId == null}
-                  className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
+                  className="rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors disabled:opacity-60 inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
                 >
                   {retryBusy ? (
                     <>
@@ -1383,7 +1383,7 @@ export default function Analyze() {
                     setStoreId(null);
                     valueInputsSeededForStore.current = null;
                   }}
-                  className="btn-g inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
+                  className="rounded-xl border border-zinc-300 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors inline-flex items-center justify-center gap-2 min-h-[44px] px-6"
                 >
                   {tr.backToForm}
                 </button>
@@ -1476,29 +1476,29 @@ export default function Analyze() {
 
                   <div className="analyze-sbar" role="presentation">
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(22, 163, 74,.1)" }}>
-                        <Package className="h-4 w-4" style={{ color: "var(--p3)" }} aria-hidden />
+                      <div className="analyze-sbi-icon" style={{ background: "#7c3aed1a" }}>
+                        <Package className="h-4 w-4" style={{ color: "#7c3aed" }} aria-hidden />
                       </div>
                       <p className="analyze-stat-num">{status.productCount}</p>
                       <p className="analyze-stat-label">{tr.statProducts}</p>
                     </div>
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(251,191,36,.12)" }}>
-                        <Star className="h-4 w-4" style={{ color: "var(--go)" }} aria-hidden />
+                      <div className="analyze-sbi-icon" style={{ background: "#7c3aed1f" }}>
+                        <Star className="h-4 w-4" style={{ color: "#7c3aed" }} aria-hidden />
                       </div>
-                      <p className="analyze-stat-num analyze-stat-num--go">{groups.length}</p>
+                      <p className="analyze-stat-num" style={{ color: "#7c3aed" }}>{groups.length}</p>
                       <p className="analyze-stat-label">{tr.statAnchors}</p>
                     </div>
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(6,182,212,.1)" }}>
-                        <ShoppingCart className="h-4 w-4" style={{ color: "var(--c)" }} aria-hidden />
+                      <div className="analyze-sbi-icon" style={{ background: "#09090b10" }}>
+                        <ShoppingCart className="h-4 w-4" style={{ color: "#52525b" }} aria-hidden />
                       </div>
-                      <p className="analyze-stat-num analyze-stat-num--c">{crossSells}</p>
+                      <p className="analyze-stat-num" style={{ color: "#52525b" }}>{crossSells}</p>
                       <p className="analyze-stat-label">{tr.statCross}</p>
                     </div>
                     <div className="analyze-sbi">
-                      <div className="analyze-sbi-icon" style={{ background: "rgba(34, 197, 94,.1)" }}>
-                        <TrendingUp className="h-4 w-4" style={{ color: "var(--p4)" }} aria-hidden />
+                      <div className="analyze-sbi-icon" style={{ background: "#7c3aed1a" }}>
+                        <TrendingUp className="h-4 w-4" style={{ color: "#7c3aed" }} aria-hidden />
                       </div>
                       <p className="analyze-stat-num analyze-stat-num--p">{upsells}</p>
                       <p className="analyze-stat-label">{tr.statUpsell}</p>
@@ -1525,7 +1525,7 @@ export default function Analyze() {
 
                   <section
                     id="analyze-value"
-                    className="gc analyze-form-card flex flex-col gap-3 sm:gap-4"
+                    className="rounded-2xl border border-zinc-200 bg-white shadow-card analyze-form-card flex flex-col gap-3 sm:gap-4"
                     aria-labelledby="value-est-heading"
                   >
                     <div>
@@ -1718,7 +1718,7 @@ export default function Analyze() {
                       </div>
                     </div>
                     <div className="analyze-info-card">
-                      <div className="analyze-info-card__icon" style={{ background: "rgba(22, 163, 74,.1)", color: "var(--p3)" }}>
+                      <div className="analyze-info-card__icon" style={{ background: "rgba(124, 58, 237,.1)", color: "#7c3aed" }}>
                         <Cpu className="h-4 w-4" aria-hidden />
                       </div>
                       <div>
@@ -1743,7 +1743,7 @@ export default function Analyze() {
 
                   <div
                     id="analyze-share"
-                    className="analyze-share-panel gc flex flex-col items-center justify-start gap-2.5"
+                    className="analyze-share-panel rounded-2xl border border-zinc-200 bg-white shadow-card flex flex-col items-center justify-start gap-2.5"
                   >
                     <div className="analyze-share-header">
                       <div className="analyze-share-icon" aria-hidden>

@@ -19,20 +19,3 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </HelmetProvider>
 );
-
-/**
- * Fade out the initial HTML splash (#initial-loader) after the first paint of
- * the React app. Two RAFs ensure the app has actually rendered before we hide it.
- */
-if (typeof window !== "undefined") {
-  const dismissInitialLoader = () => {
-    document.documentElement.classList.add("app-mounted");
-    const loader = document.getElementById("initial-loader");
-    if (loader) {
-      const cleanup = () => loader.remove();
-      loader.addEventListener("transitionend", cleanup, { once: true });
-      window.setTimeout(cleanup, 1200);
-    }
-  };
-  requestAnimationFrame(() => requestAnimationFrame(dismissInitialLoader));
-}

@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "تجربة مخصصة = قرار أسرع",
       desc: "كل عميل يرى المنتجات الأنسب له فور وصوله. لا تشتت، لا بحث طويل — مسار مباشر من الوصول للشراء يقلل وقت الاتخاذ.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⭐",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🏷️",
       title: "تحفيز الشراء الأول",
       desc: "للزوار الجدد الذين لم يشتروا بعد: يقدم كوبون خاص للطلب الأول أو عرضاً مؤقتاً يقنعهم بتجربة المتجر.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📱",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+25%", label: "معدل التحويل الإجمالي", color: "#22c55e" },
+    { value: "+25%", label: "معدل التحويل الإجمالي", color: "#8b5cf6" },
     { value: "-40%", label: "وقت اتخاذ قرار الشراء", color: "#06b6d4" },
-    { value: "+32%", label: "معدل تحويل الزوار الجدد", color: "#22c55e" },
+    { value: "+32%", label: "معدل تحويل الزوار الجدد", color: "#8b5cf6" },
     { value: "+45%", label: "معدل تحويل العملاء العائدين", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -70,29 +70,28 @@ const data: UseCasePageData = {
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
+        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10">
+          <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16 }}>
             {(isAr ? [
-              { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#22c55e" },
+              { icon: "", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#8b5cf6" },
               { icon: "🤝", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
               { icon: "⚡", title: "الإلحاح", desc: "عروض محدودة الوقت وعدادات توقيت تحفّز الشراء الآن", color: "#f59e0b" },
-              { icon: "💎", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#22c55e" },
+              { icon: "", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#8b5cf6" },
               { icon: "🔄", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
               { icon: "📱", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
             ] : [
-              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#22c55e" },
+              { icon: "", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#8b5cf6" },
               { icon: "🤝", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
               { icon: "⚡", title: "Urgency", desc: "Time-limited offers and countdown timers motivate buying now", color: "#f59e0b" },
-              { icon: "💎", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#22c55e" },
+              { icon: "", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#8b5cf6" },
               { icon: "🔄", title: "Simplicity", desc: "Smooth buying path without obstacles reduces friction", color: "#ec4899" },
               { icon: "📱", title: "Mobile Compatibility", desc: "Seamless experience across all devices and screens", color: "#4f46e5" },
             ]).map((item, i) => (
-              <div key={i} style={{ padding: "20px 20px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14 }}>
+              <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 20px" }}>
                 <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
-                <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 6, color: item.color }}>{item.title}</div>
-                <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6 }}>{item.desc}</div>
+                <div className="text-violet-600" style={{ fontSize: 15, fontWeight: 800, marginBottom: 6 }}>{item.title}</div>
+                <div className="text-zinc-600" style={{ fontSize: 13, lineHeight: 1.6 }}>{item.desc}</div>
               </div>
             ))}
           </div>
@@ -119,7 +118,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Personalized Experience = Faster Decision",
       desc: "Every customer sees the most relevant products upon arrival. No distraction, no long searches — a direct path from arrival to purchase that shortens decision time.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⭐",
@@ -131,7 +130,7 @@ const data: UseCasePageData = {
       icon: "🏷️",
       title: "First Purchase Incentive",
       desc: "For new visitors who haven't purchased yet: offers a special coupon for their first order or a time-limited deal to convince them to try the store.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📱",
@@ -141,9 +140,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+25%", label: "Overall conversion rate", color: "#22c55e" },
+    { value: "+25%", label: "Overall conversion rate", color: "#8b5cf6" },
     { value: "-40%", label: "Purchase decision time", color: "#06b6d4" },
-    { value: "+32%", label: "New visitor conversion rate", color: "#22c55e" },
+    { value: "+32%", label: "New visitor conversion rate", color: "#8b5cf6" },
     { value: "+45%", label: "Returning customer conversion rate", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

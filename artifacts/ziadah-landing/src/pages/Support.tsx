@@ -366,7 +366,7 @@ export default function Support() {
             <h2 className="text-3xl md:text-4xl font-bold text-zinc-950 mb-2 leading-tight">{tx.videoTitle}</h2>
             <p className="text-lg text-zinc-600">{tx.videoSub}</p>
           </div>
-          <span className="inline-flex items-center rounded-full bg-green-100 border border-green-200 px-4 py-1.5 text-xs font-bold text-green-700">
+          <span className="inline-flex items-center rounded-full bg-violet-100 border border-violet-200 px-4 py-1.5 text-xs font-bold text-violet-700">
             {tx.videoComingSoon}
           </span>
         </div>
@@ -387,7 +387,7 @@ export default function Support() {
                   <span className="absolute bottom-2.5 start-2.5 rounded-md bg-black/60 backdrop-blur px-2.5 py-1 text-[11px] font-bold text-white num-ltr">
                     {v.duration}
                   </span>
-                  <span className="absolute top-2.5 end-2.5 rounded-full bg-emerald-500/90 px-3 py-1 text-[10px] font-bold text-zinc-950">
+                  <span className="absolute top-2.5 end-2.5 rounded-full bg-violet-500/90 px-3 py-1 text-[10px] font-bold text-zinc-950">
                     {vCat}
                   </span>
                   <span className="absolute top-2.5 start-2.5 rounded-full bg-white/15 backdrop-blur px-2.5 py-1 text-[10px] font-bold text-white">

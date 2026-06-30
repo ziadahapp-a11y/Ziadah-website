@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "حزمة التكامل الوظيفي",
       desc: "منتجان أو ثلاثة تُكمّل بعضها وظيفياً في طقم متكامل — الهاتف مع الغلاف والشاشة، أو مجموعة العناية الكاملة.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎁",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🍽️",
       title: "حزمة الوجبة الكاملة",
       desc: "للمطاعم والمنتجات الغذائية: جمع الرئيسي والمرافق والمشروب في وجبة بسعر موحد أقل من الأفراد.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔢",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+52%", label: "معدل قبول عرض الحزمة عند إبراز التوفير بوضوح", color: "#22c55e" },
+    { value: "+52%", label: "معدل قبول عرض الحزمة عند إبراز التوفير بوضوح", color: "#8b5cf6" },
     { value: "+39%", label: "متوسط قيمة الطلب مع حزمة واحدة على الأقل", color: "#06b6d4" },
-    { value: "+25%", label: "هامش الإيراد الإجمالي رغم الخصم على الحزمة", color: "#22c55e" },
+    { value: "+25%", label: "هامش الإيراد الإجمالي رغم الخصم على الحزمة", color: "#8b5cf6" },
     { value: "68%", label: "من العملاء يُفضّلون الحزمة على الشراء المفرد حين يرون التوفير", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -74,9 +74,8 @@ const data: UseCasePageData = {
           labelEn: "🧮 How Discount Works",
           placement: "below",
           content: (
-            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-              <div className="shine" />
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
                 {isAr ? "كيف يحسب زيادة نسبة خصم الحزمة المثلى؟" : "How does Ziadah calculate the optimal bundle discount?"}
               </h3>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -92,11 +91,11 @@ const data: UseCasePageData = {
                       { step: "3", title: "Automatic A/B testing", desc: "Ziadah tests different discount rates on small segments and locks in the rate that achieves the highest actual revenue." },
                     ]
                 ).map((item, i) => (
-                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px", background: "rgba(22, 163, 74,.04)", border: "1px solid rgba(22, 163, 74,.12)", borderRadius: 14 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgba(34, 197, 94,.15)", border: "1px solid rgba(34, 197, 94,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, color: "#22c55e", flexShrink: 0 }}>{item.step}</div>
+                  <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "18px 22px" }}>
+                    <div className="bg-violet-100 border border-violet-200 text-violet-600" style={{ width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 900, flexShrink: 0 }}>{item.step}</div>
                     <div style={{ textAlign: "start" }}>
-                      <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
-                      <div style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7 }}>{item.desc}</div>
+                      <div className="font-bold text-zinc-950" style={{ fontSize: 15, marginBottom: 4 }}>{item.title}</div>
+                      <div className="text-sm text-zinc-600" style={{ lineHeight: 1.7 }}>{item.desc}</div>
                     </div>
                   </div>
                 ))}
@@ -125,7 +124,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "Functional Complement Bundle",
       desc: "Two or three products that functionally complete each other in one set — a phone with case and screen protector, or a complete skincare routine.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎁",
@@ -137,7 +136,7 @@ const data: UseCasePageData = {
       icon: "🍽️",
       title: "Complete Meal Bundle",
       desc: "For restaurants and food products: combining the main dish, sides, and drink in a meal at a unified price lower than individual items.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔢",
@@ -147,9 +146,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+52%", label: "Bundle acceptance rate when savings are clearly shown", color: "#22c55e" },
+    { value: "+52%", label: "Bundle acceptance rate when savings are clearly shown", color: "#8b5cf6" },
     { value: "+39%", label: "Average order value with at least one bundle", color: "#06b6d4" },
-    { value: "+25%", label: "Total revenue margin despite the bundle discount", color: "#22c55e" },
+    { value: "+25%", label: "Total revenue margin despite the bundle discount", color: "#8b5cf6" },
     { value: "68%", label: "Of customers prefer the bundle over individual purchase when they see the savings", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

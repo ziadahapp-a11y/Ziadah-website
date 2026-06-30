@@ -11,7 +11,7 @@
   transform: translateX(-50%) translateY(-120%);
   z-index: 9999;
   padding: 10px 20px;
-  background: var(--accent-cta, #16a34a);
+  background: var(--accent-cta, #7c3aed);
   color: #fff;
   font-weight: 700;
   font-size: 14px;
@@ -30,7 +30,7 @@
   outline: none;
 }
 :focus-visible {
-  outline: 3px solid var(--accent-cta, #16a34a);
+  outline: 3px solid var(--accent-cta, #7c3aed);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -40,7 +40,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid var(--accent-cta, #16a34a);
+  outline: 3px solid var(--accent-cta, #7c3aed);
   outline-offset: 3px;
   border-radius: 4px;
 }

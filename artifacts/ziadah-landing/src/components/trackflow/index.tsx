@@ -2,7 +2,7 @@
  * TrackFlow design-system primitives.
  *
  * Shared building blocks that capture the look established on the home page
- * (`src/pages/HomeTrackflow.tsx`): a light SaaS theme with emerald accents, a
+ * (`src/pages/HomeTrackflow.tsx`): a light SaaS theme with violet accents, a
  * `py-24` section rhythm alternating white / muted (`zinc-50`) bands, dark
  * "mockup-card" panels, rounded-2xl bordered cards, and a green uppercase
  * eyebrow + bold heading + muted subtitle section header.
@@ -67,7 +67,7 @@ export function Section({
 /** Green uppercase eyebrow label used above section headings. */
 export function Eyebrow({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <span className={`inline-block text-xs font-bold tracking-widest text-green-600 uppercase ${className}`}>
+    <span className={`inline-block text-xs font-bold tracking-widest text-violet-600 uppercase ${className}`}>
       {children}
     </span>
   );
@@ -85,9 +85,9 @@ export function Pill({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-100 border border-green-200 text-xs font-semibold text-green-700 ${className}`}
+      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 text-xs font-semibold text-violet-700 ${className}`}
     >
-      {Icon && <Icon className="w-3.5 h-3.5 text-green-600" />}
+      {Icon && <Icon className="w-3.5 h-3.5 text-violet-600" />}
       {children}
     </span>
   );
@@ -306,16 +306,16 @@ export function CtaSection({
     <Section band={band} containerClassName="max-w-4xl">
       <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative p-10 md:p-14 text-center">
         <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-emerald-500/20 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-violet-500/20 blur-[100px] rounded-full pointer-events-none" />
         <div className="relative">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">{title}</h2>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>{title}</h2>
           {subtitle && <p className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl mx-auto">{subtitle}</p>}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">{children}</div>
           {trust && trust.length > 0 && (
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-500">
               {trust.map((item, i) => (
                 <span key={i} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
                   {item}
                 </span>
               ))}

@@ -31,9 +31,9 @@ export const categories = [
 
 export const categoryColors: Record<string, string> = {
   "updates": "#f97316",
-  "sales-strategies": "#22c55e",
+  "sales-strategies": "#8b5cf6",
   "platform-tutorials": "#06b6d4",
-  "artificial-intelligence": "#22c55e",
+  "artificial-intelligence": "#8b5cf6",
   "merchant-guide": "#f59e0b",
   "ecommerce": "#ec4899",
   "studies-research": "#3b82f6",
@@ -256,7 +256,7 @@ Ziadah AI's engine exists to turn every visit into a personal experience, every 
     title: "10 طرق مجربة لرفع متوسط قيمة الطلب في متجرك",
     titleEn: "10 Proven Ways to Increase Your Store's Average Order Value",
     category: "sales-strategies",
-    categoryColor: "#22c55e",
+    categoryColor: "#8b5cf6",
     readTime: "8 دقائق",
     readTimeEn: "8 min",
     publishDate: "12 مارس 2025",
@@ -264,7 +264,7 @@ Ziadah AI's engine exists to turn every visit into a personal experience, every 
     publishDateIso: "2025-03-12",
     summary: "متوسط قيمة الطلب هو أحد أهم المؤشرات التي تؤثر مباشرةً على أرباح متجرك. في هذا الدليل نستعرض عشر استراتيجيات عملية يستخدمها كبار التجار لرفع هذا المؤشر دون الحاجة لزيادة ميزانية الإعلانات.",
     summaryEn: "Average order value is one of the most important metrics that directly impacts your store's profits. In this guide, we review ten practical strategies used by top merchants to boost this metric without increasing your advertising budget.",
-    coverGradient: "linear-gradient(135deg, rgba(22, 163, 74,0.5) 0%, rgba(34, 197, 94,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(124, 58, 237,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "📈",
     related: ["upsell-vs-cross-sell", "ai-recommendations-guide", "ramadan-sales-strategy"],
     content: `
@@ -395,7 +395,7 @@ You don't need to apply all ten strategies at once. Start with the easiest and m
     title: "الفرق بين Upsell وCross-sell وكيف تستخدم كلاً منهما في متجرك",
     titleEn: "The Difference Between Upsell and Cross-Sell and How to Use Each in Your Store",
     category: "sales-strategies",
-    categoryColor: "#22c55e",
+    categoryColor: "#8b5cf6",
     readTime: "6 دقائق",
     readTimeEn: "6 min",
     publishDate: "5 مارس 2025",
@@ -403,7 +403,7 @@ You don't need to apply all ten strategies at once. Start with the easiest and m
     publishDateIso: "2025-03-05",
     summary: "كثير من التجار يخلطون بين مفهومَي البيع البديل والبيع المتقاطع. في هذا المقال نشرح الفرق بوضوح ونعطيك أمثلة عملية من تجارة عربية حقيقية لتطبيق كل منهما في متجرك.",
     summaryEn: "Many merchants confuse upselling and cross-selling. In this article, we clearly explain the difference and give you practical examples from real Arab commerce to apply each one in your store.",
-    coverGradient: "linear-gradient(135deg, rgba(34, 197, 94,0.5) 0%, rgba(236,72,153,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(236,72,153,0.3) 100%)",
     coverIcon: "🎯",
     related: ["how-to-increase-average-order-value", "ai-recommendations-guide", "product-page-optimization"],
     content: `
@@ -508,7 +508,7 @@ Ziadah combines both strategies automatically and chooses the best time for each
     title: "كيف يعمل الذكاء الاصطناعي في توصيات المنتجات؟ دليل شامل للتاجر",
     titleEn: "How Does AI Work in Product Recommendations? A Comprehensive Guide for Merchants",
     category: "artificial-intelligence",
-    categoryColor: "#22c55e",
+    categoryColor: "#8b5cf6",
     readTime: "10 دقائق",
     readTimeEn: "10 min",
     publishDate: "28 فبراير 2025",
@@ -516,7 +516,7 @@ Ziadah combines both strategies automatically and chooses the best time for each
     publishDateIso: "2025-02-28",
     summary: "الذكاء الاصطناعي في توصيات المنتجات ليس سحراً، بل علم قابل للفهم. في هذا المقال نشرح بطريقة بسيطة كيف تعمل خوارزميات التوصية وكيف تستفيد منها في تحقيق نتائج ملموسة.",
     summaryEn: "AI in product recommendations isn't magic — it's an understandable science. In this article, we explain in simple terms how recommendation algorithms work and how you can leverage them to achieve tangible results.",
-    coverGradient: "linear-gradient(135deg, rgba(16,185,129,0.5) 0%, rgba(6,182,212,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(6,182,212,0.3) 100%)",
     coverIcon: "🤖",
     related: ["how-ai-learns-customer-behavior", "personalization-ecommerce", "upsell-vs-cross-sell"],
     content: `
@@ -647,7 +647,7 @@ AI isn't a secret. It's a system that learns from your store's data to suggest t
     title: "كيف يتعلم الذكاء الاصطناعي من سلوك عملاء متجرك؟",
     titleEn: "How Does AI Learn from Your Store's Customer Behavior?",
     category: "artificial-intelligence",
-    categoryColor: "#22c55e",
+    categoryColor: "#8b5cf6",
     readTime: "7 دقائق",
     readTimeEn: "7 min",
     publishDate: "20 فبراير 2025",
@@ -655,7 +655,7 @@ AI isn't a secret. It's a system that learns from your store's data to suggest t
     publishDateIso: "2025-02-20",
     summary: "خلف كل توصية ذكية هناك عملية تعلم مستمرة. نكشف لك كيف يجمع نظام زيادة الإشارات ويحولها إلى اقتراحات تزيد مبيعاتك، وماذا يعني هذا لك كتاجر.",
     summaryEn: "Behind every smart recommendation lies a continuous learning process. We reveal how Ziadah's system collects signals and transforms them into suggestions that increase your sales, and what this means for you as a merchant.",
-    coverGradient: "linear-gradient(135deg, rgba(16,185,129,0.4) 0%, rgba(34, 197, 94,0.4) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.4) 0%, rgba(139, 92, 246,0.4) 100%)",
     coverIcon: "🧠",
     related: ["ai-recommendations-guide", "personalization-ecommerce", "how-to-increase-average-order-value"],
     content: `
@@ -814,7 +814,7 @@ Very high accuracy. Recommendations will be customized for each segment of your 
     publishDateIso: "2025-03-15",
     summary: "بعد تثبيت زيادة على متجرك في زد أو سلة، كيف تضمن إعداده بشكل صحيح لتحقيق أقصى نتيجة؟ دليل تفصيلي شامل من التفعيل حتى أول طلب إضافي.",
     summaryEn: "After installing Ziadah on your Zid or Salla store, how do you ensure it's set up correctly for maximum results? A comprehensive step-by-step guide from activation to your first additional order.",
-    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.5) 0%, rgba(22, 163, 74,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.5) 0%, rgba(124, 58, 237,0.3) 100%)",
     coverIcon: "⚙️",
     related: ["understanding-ziadah-dashboard", "5-goals-explained", "first-recommendation-campaign"],
     content: `
@@ -997,7 +997,7 @@ If results are lower, check: product clarity, recommendation relevance, display 
     publishDateIso: "2025-03-08",
     summary: "زيادة تمنحك خمسة أهداف مختلفة لحملات التوصية. كثير من التجار يختارون الهدف الخطأ فيضيعون فرص نمو. هذا الدليل يساعدك على اختيار الهدف الصحيح لكل موقف.",
     summaryEn: "Ziadah gives you five different goals for recommendation campaigns. Many merchants choose the wrong goal and miss growth opportunities. This guide helps you choose the right goal for every situation.",
-    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.4) 0%, rgba(16,185,129,0.4) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.4) 0%, rgba(139, 92, 246,0.4) 100%)",
     coverIcon: "🎪",
     related: ["ziadah-platform-setup-guide", "understanding-ziadah-dashboard", "how-to-increase-average-order-value"],
     content: `
@@ -1482,7 +1482,7 @@ A smart recommendation system must account for these characteristics and adapt t
     publishDateIso: "2025-02-18",
     summary: "صفحة المنتج هي لحظة الحقيقة في رحلة العميل. في هذا الدليل نستعرض 8 عناصر أثبتت علمياً أنها ترفع معدل التحويل، مع أمثلة واقعية من متاجر عربية ناجحة.",
     summaryEn: "The product page is the moment of truth in the customer journey. In this guide, we review 8 elements scientifically proven to increase conversion rates, with real-world examples from successful Arab stores.",
-    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.4) 0%, rgba(22, 163, 74,0.4) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.4) 0%, rgba(124, 58, 237,0.4) 100%)",
     coverIcon: "🛍️",
     related: ["upsell-vs-cross-sell", "personalization-ecommerce", "how-to-increase-average-order-value"],
     content: `
@@ -1850,7 +1850,7 @@ Consistency in review reveals patterns and helps you make decisions based on rea
     publishDateIso: "2025-02-25",
     summary: "التجار الأذكياء يخططون لمواسمهم قبل ثلاثة أشهر. هذا الدليل يضع بين يديك تقويماً تجارياً كاملاً للمنطقة العربية مع استراتيجية تخصصية لكل موسم.",
     summaryEn: "Smart merchants plan their seasons three months ahead. This guide puts a complete commercial calendar for the Arab region at your fingertips with a specialized strategy for every season.",
-    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "📅",
     related: ["ramadan-sales-strategy", "how-to-increase-average-order-value", "upsell-vs-cross-sell"],
     content: `
@@ -2003,7 +2003,7 @@ Consistency in review reveals patterns and helps you make decisions based on rea
     publishDateIso: "2025-03-03",
     summary: "إنشاء أول حملة توصية قد يبدو معقداً، لكنه في الواقع بسيط جداً. هذا الدليل يأخذك خطوة بخطوة من الصفر حتى تفعيل حملتك الأولى وقياس نتائجها.",
     summaryEn: "Creating your first recommendation campaign may seem complex, but it's actually very simple. This guide takes you step by step from scratch to activating your first campaign and measuring its results.",
-    coverGradient: "linear-gradient(135deg, rgba(22, 163, 74,0.5) 0%, rgba(6,182,212,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(124, 58, 237,0.5) 0%, rgba(6,182,212,0.3) 100%)",
     coverIcon: "🚀",
     related: ["ziadah-platform-setup-guide", "5-goals-explained", "understanding-ziadah-dashboard"],
     content: `
@@ -2192,7 +2192,7 @@ If you have a new store with few products, manually specify what complements wha
     publishDateIso: "2025-02-12",
     summary: "البيانات موجودة في كل متجر، لكن القليل من التجار يعرفون كيف يقرؤونها ويستفيدون منها. هذا الدليل يعلمك كيف تحوّل أرقام متجرك إلى قرارات تزيد أرباحك.",
     summaryEn: "Data exists in every store, but few merchants know how to read and leverage it. This guide teaches you how to turn your store's numbers into decisions that increase your profits.",
-    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.4) 0%, rgba(22, 163, 74,0.4) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.4) 0%, rgba(124, 58, 237,0.4) 100%)",
     coverIcon: "📉",
     related: ["understanding-ziadah-dashboard", "how-to-increase-average-order-value", "seasonal-campaigns-guide"],
     content: `
@@ -2410,7 +2410,7 @@ If a customer buys 200 SAR every month for a year, their annual value is 2,400 S
     publishDateIso: "2025-04-01",
     summary: "خاصية البيع المتقاطع في زيادة تذهب أبعد من مجرد عرض منتجات عشوائية — يحلل الذكاء الاصطناعي أنماط الشراء الفعلية ليقترح المنتج المكمل المناسب في اللحظة الصحيحة. نستعرض كيف تعمل هذه الخاصية عبر قطاعات الأزياء والإلكترونيات والتجميل مع نتائج قياسية.",
     summaryEn: "Ziadah's cross-selling feature goes beyond simply displaying random products — AI analyzes actual purchase patterns to suggest the right complementary product at the right moment. We explore how this feature works across fashion, electronics, and beauty sectors with benchmark results.",
-    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(6,182,212,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "🔗",
     related: ["upsell-feature-ziadah", "buy-together-feature-ziadah", "upsell-vs-cross-sell"],
     content: `
@@ -2675,7 +2675,7 @@ Smart cross-selling isn't a luxury — it's a necessity for any store wanting to
     publishDateIso: "2025-04-03",
     summary: "البيع البديل الناجح لا يُزعج العميل — بل يُقنعه بأن هناك خياراً أفضل يستحق الفرق. خاصية Upsell في زيادة تختار اللحظة الصحيحة والمنتج الأنسب لرفع قيمة الطلب بشكل طبيعي ومقبول.",
     summaryEn: "Successful upselling doesn't annoy the customer — it convinces them that there's a better option worth the difference. Ziadah's Upsell feature chooses the right moment and the most suitable product to naturally and acceptably increase order value.",
-    coverGradient: "linear-gradient(135deg, rgba(22, 163, 74,0.5) 0%, rgba(6,182,212,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(124, 58, 237,0.5) 0%, rgba(6,182,212,0.3) 100%)",
     coverIcon: "⬆️",
     related: ["cross-sell-feature-ziadah", "bundle-deals-feature-ziadah", "upsell-vs-cross-sell"],
     content: `
@@ -2964,7 +2964,7 @@ Upselling is the fastest way to increase average order value without needing to 
     publishDateIso: "2025-04-05",
     summary: "الحزم الذكية ليست مجرد تجميع منتجات — هي علم في تقديم القيمة. خاصية Bundle Deals في زيادة تتيح للتاجر إنشاء حزم تلقائية وثابتة تزيد متوسط قيمة الطلب بنسبة 40% إلى 60% مع جعل العميل يشعر أنه يوفّر.",
     summaryEn: "Smart bundles aren't just about grouping products — they're a science of delivering value. Ziadah's Bundle Deals feature allows merchants to create automatic and fixed bundles that increase average order value by 40% to 60% while making the customer feel they're saving.",
-    coverGradient: "linear-gradient(135deg, rgba(16,185,129,0.5) 0%, rgba(245,158,11,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(245,158,11,0.3) 100%)",
     coverIcon: "📦",
     related: ["buy-together-feature-ziadah", "addons-feature-ziadah", "how-to-increase-average-order-value"],
     content: `
@@ -3241,7 +3241,7 @@ Bundle pages create unique content that differs from individual product pages, e
     publishDateIso: "2025-04-07",
     summary: "خاصية 'اشترِ معاً' تتعلم تلقائياً من بيانات الشراء السابقة لتعرف ما الذي يُشترى معاً في الواقع — لا ما تعتقد أنه يُشترى معاً. النتيجة: توصيات أكثر دقة وارتفاع واضح في قيمة كل طلب.",
     summaryEn: "The 'Buy Together' feature automatically learns from past purchase data to know what is actually bought together — not what you think is bought together. The result: more accurate recommendations and a clear increase in each order's value.",
-    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.5) 0%, rgba(22, 163, 74,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(245,158,11,0.5) 0%, rgba(124, 58, 237,0.3) 100%)",
     coverIcon: "🤝",
     related: ["cross-sell-feature-ziadah", "bundle-deals-feature-ziadah", "ai-recommendations-guide"],
     content: `
@@ -3494,7 +3494,7 @@ Additionally, the internal links created by recommendations help Google bots dis
     publishDateIso: "2025-04-09",
     summary: "الإضافات الذكية تتيح لك عرض الملحقات الوظيفية كالبطاريات والأغطية وخدمات الضمان الممتدة مباشرةً في صفحة المنتج والسلة — قبل أن يفكر العميل في البحث عنها من مكان آخر.",
     summaryEn: "Smart addons allow you to display functional accessories like batteries, cases, and extended warranty services directly on the product page and cart — before the customer thinks about looking for them elsewhere.",
-    coverGradient: "linear-gradient(135deg, rgba(34, 197, 94,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "🔧",
     related: ["cross-sell-feature-ziadah", "buy-together-feature-ziadah", "product-page-optimization"],
     content: `
@@ -3817,7 +3817,7 @@ Smart addons directly improve user experience metrics: customers find everything
     publishDateIso: "2025-04-11",
     summary: "خصومات الكمية من أقوى أدوات رفع عدد القطع في كل طلب. زيادة تتيح إعداد عروض 'اشترِ أكثر وفّر أكثر' بشكل مرن وذكي يشجع العميل على الشراء بكميات أعلى دون الإحساس بالضغط.",
     summaryEn: "Quantity discounts are among the most powerful tools for increasing the number of items per order. Ziadah allows you to set up 'Buy More, Save More' offers flexibly and smartly, encouraging customers to buy higher quantities without feeling pressured.",
-    coverGradient: "linear-gradient(135deg, rgba(16,185,129,0.5) 0%, rgba(6,182,212,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(6,182,212,0.3) 100%)",
     coverIcon: "🛒",
     related: ["bundle-deals-feature-ziadah", "cart-page-upsell-feature", "how-to-increase-average-order-value"],
     content: `
@@ -4122,7 +4122,7 @@ Quantity offers indirectly improve user experience metrics. A customer buying a 
     publishDateIso: "2025-04-13",
     summary: "توصيات المنتجات ذات الصلة في زيادة لا تعتمد على التصنيف اليدوي — الذكاء الاصطناعي يحلل سلوك التصفح والبحث والشراء ليقترح ما يريده العميل بالفعل، حتى قبل أن يعرف هو نفسه ما يريد.",
     summaryEn: "Related product recommendations in Ziadah don't rely on manual categorization — AI analyzes browsing, search, and purchase behavior to suggest what the customer actually wants, even before they know it themselves.",
-    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(22, 163, 74,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(124, 58, 237,0.3) 100%)",
     coverIcon: "🔍",
     related: ["ai-recommendations-guide", "cross-sell-feature-ziadah", "personalization-ecommerce"],
     content: `
@@ -4397,7 +4397,7 @@ Additionally, related recommendations increase the number of pages per session, 
     publishDateIso: "2025-04-15",
     summary: "صفحة السلة ليست مجرد ملخص للطلب — هي فرصة ذهبية للبيع الإضافي. زيادة تحول سلة التسوق لنقطة بيع متكاملة عبر عتبة الشحن المجاني والإضافات اللحظية والعروض المحدودة الوقت.",
     summaryEn: "The cart page isn't just an order summary — it's a golden opportunity for additional sales. Ziadah transforms the shopping cart into a complete sales point through free shipping thresholds, instant add-ons, and time-limited offers.",
-    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "🛒",
     related: ["thank-you-page-feature-ziadah", "buy-more-save-more-feature-ziadah", "addons-feature-ziadah"],
     content: `
@@ -4662,7 +4662,7 @@ To achieve the highest return from cart page strategies, follow these proven rul
     publishDateIso: "2025-04-17",
     summary: "أكثر من 95% من التجار يُهدرون صفحة الشكر. زيادة تُحولها إلى فرصة ذهبية للبيع الإضافي — في اللحظة التي يكون فيها العميل في أعلى مستويات الرضا والثقة بمتجرك.",
     summaryEn: "Over 95% of merchants waste the thank you page. Ziadah transforms it into a golden opportunity for additional sales — at the moment when the customer is at the highest levels of satisfaction and trust in your store.",
-    coverGradient: "linear-gradient(135deg, rgba(22, 163, 74,0.5) 0%, rgba(245,158,11,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(124, 58, 237,0.5) 0%, rgba(245,158,11,0.3) 100%)",
     coverIcon: "🎉",
     related: ["cart-page-upsell-feature", "cross-sell-feature-ziadah", "upsell-vs-cross-sell"],
     content: `
@@ -4931,7 +4931,7 @@ To achieve the best results from the thank you page, follow these proven practic
     publishDateIso: "2025-04-19",
     summary: "العميل الذي يهمّ بمغادرة موقعك لم يقرر 'لا' بالضرورة — أحياناً يحتاج دفعةً أخيرة. زيادة تولّد كوبونات ذكية مخصصة لاسترداد العملاء المترددين في اللحظة المناسبة.",
     summaryEn: "A customer about to leave your site hasn't necessarily decided 'no' — sometimes they just need one last push. Ziadah generates smart, personalized coupons to recover hesitant customers at the right moment.",
-    coverGradient: "linear-gradient(135deg, rgba(34, 197, 94,0.5) 0%, rgba(236,72,153,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(236,72,153,0.3) 100%)",
     coverIcon: "🎫",
     related: ["cart-page-upsell-feature", "thank-you-page-feature-ziadah", "upsell-vs-cross-sell"],
     content: `
@@ -5245,7 +5245,7 @@ To achieve the highest return from dynamic coupons and Exit Intent, follow these
     publishDateIso: "2025-04-21",
     summary: "ما الحجم الحقيقي لتأثير البيع البديل على إيرادات الشركات؟ نستعرض أبرز الدراسات من McKinsey وForrester وHarvard Business Review لنضع أرقاماً حقيقية على قيمة Upselling كاستراتيجية نمو.",
     summaryEn: "What is the real impact of upselling on company revenues? We review the most prominent studies from McKinsey, Forrester, and Harvard Business Review to put real numbers on the value of upselling as a growth strategy.",
-    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(22, 163, 74,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(124, 58, 237,0.3) 100%)",
     coverIcon: "📊",
     related: ["cross-selling-amazon-research", "personalization-conversion-research", "upsell-vs-cross-sell"],
     content: `
@@ -5496,7 +5496,7 @@ These research-backed principles are the foundation upon which recommendation al
     publishDateIso: "2025-04-23",
     summary: "نموذج أمازون في التوصيات هو الأكثر دراسةً في التاريخ التجاري. نحلل كيف يعمل نظام Cross-Selling الخاص بها، ما الأبحاث الأكاديمية التي نشأت عنه، وكيف يمكن لأي متجر تطبيق مبادئه.",
     summaryEn: "Amazon's recommendation model is the most studied in commercial history. We analyze how its cross-selling system works, what academic research has emerged from it, and how any store can apply its principles.",
-    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "🛍️",
     related: ["upselling-revenue-impact-research", "personalization-conversion-research", "ai-recommendations-guide"],
     content: `
@@ -6078,7 +6078,7 @@ Avoiding these five mistakes is the difference between upselling that boosts you
     publishDateIso: "2025-04-27",
     summary: "قبول العميل للـ Upsell ليس عشوائياً — هناك آليات نفسية دقيقة تحكم القرار. أبحاث Daniel Kahneman وRichard Thaler وروبرت سيالديني تشرح لماذا يقول العميل 'نعم' أو 'لا'.",
     summaryEn: "Customer acceptance of upsells isn't random — there are precise psychological mechanisms governing the decision. Research by Daniel Kahneman, Richard Thaler, and Robert Cialdini explains why customers say 'yes' or 'no'.",
-    coverGradient: "linear-gradient(135deg, rgba(34, 197, 94,0.5) 0%, rgba(59,130,246,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(59,130,246,0.3) 100%)",
     coverIcon: "🧠",
     related: ["upselling-common-mistakes", "upselling-revenue-impact-research", "how-to-increase-average-order-value"],
     content: `
@@ -6680,7 +6680,7 @@ The investment in personalization typically pays for itself within 60 days of ac
     publishDateIso: "2025-05-01",
     summary: "قطاع الأزياء هو من أكثر القطاعات التي تستفيد من Upselling وCross-Selling. دراسات من McKinsey Fashion وBoston Consulting Group تكشف الاستراتيجيات الأكثر فاعلية مع أرقام حقيقية.",
     summaryEn: "The fashion industry is one of the sectors that benefits most from Upselling and Cross-Selling. Studies from McKinsey Fashion and Boston Consulting Group reveal the most effective strategies with real numbers.",
-    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(34, 197, 94,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(236,72,153,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "👗",
     related: ["beauty-cross-selling-guide", "upselling-revenue-impact-research", "cross-sell-feature-ziadah"],
     content: `
@@ -6971,7 +6971,7 @@ If you run an online fashion store and want to start smart upselling immediately
     publishDateIso: "2025-05-03",
     summary: "قطاع التجميل يمتلك ميزة فريدة: العملاء يبحثون عن روتين متكامل، ليس منتجاً واحداً. بيانات Mintel وEuromonitor تكشف كيف تحول استراتيجيات الروتين وCross-Selling الموسمي هذا القطاع.",
     summaryEn: "The beauty industry has a unique advantage: customers are looking for a complete routine, not a single product. Data from Mintel and Euromonitor reveals how routine strategies and seasonal Cross-Selling are transforming this sector.",
-    coverGradient: "linear-gradient(135deg, rgba(34, 197, 94,0.5) 0%, rgba(236,72,153,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(236,72,153,0.3) 100%)",
     coverIcon: "💄",
     related: ["fashion-upselling-guide", "personalization-conversion-research", "cross-sell-feature-ziadah"],
     content: `
@@ -7276,7 +7276,7 @@ To start immediately implementing smart Cross-Selling in your beauty and skincar
     publishDateIso: "2025-05-05",
     summary: "نسبة قبول العروض الإضافية ليست قدراً ثابتاً — عوامل بسيطة في التصميم والصياغة والتوقيت يمكنها مضاعفة هذه النسبة. نتائج A/B Testing من كبرى الشركات وأبحاث Nielsen Norman Group تكشف ما يُحدث الفرق.",
     summaryEn: "Upsell offer acceptance rates are not set in stone — simple factors in design, copywriting, and timing can multiply those rates. A/B testing results from major companies and Nielsen Norman Group research reveal what makes the difference.",
-    coverGradient: "linear-gradient(135deg, rgba(16,185,129,0.5) 0%, rgba(59,130,246,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(139, 92, 246,0.5) 0%, rgba(59,130,246,0.3) 100%)",
     coverIcon: "📈",
     related: ["psychology-of-upselling", "upselling-common-mistakes", "how-to-increase-average-order-value"],
     content: `
@@ -7593,7 +7593,7 @@ Increasing upsell offer acceptance rates by 300% is not a dream — it's an achi
     publishDateIso: "2025-05-07",
     summary: "هل التوصيات الذكية تُحدث فرقاً حقيقياً أم مجرد ميزة تسويقية؟ نقارن بالأرقام بين متاجر تستخدم توصيات AI ومتاجر لا تستخدمها، مستندين لدراسات Shopify وBigCommerce وتقارير مستقلة.",
     summaryEn: "Do smart recommendations make a real difference or are they just a marketing gimmick? We compare the numbers between stores using AI recommendations and those that don't, backed by studies from Shopify, BigCommerce, and independent reports.",
-    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(16,185,129,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(139, 92, 246,0.3) 100%)",
     coverIcon: "⚡",
     related: ["personalization-conversion-research", "upselling-revenue-impact-research", "ai-recommendations-guide"],
     content: `
@@ -7892,7 +7892,7 @@ If you're running an online store and don't use smart recommendations yet, the s
     publishDateIso: "2025-05-09",
     summary: "أين يتجه عالم التوصيات الذكية والبيع الشخصي بحلول 2030؟ تقارير Gartner وStatista وMcKinsey تُقدم خريطة لمستقبل التجارة الذكية ودور الذكاء الاصطناعي في تشكيله.",
     summaryEn: "Where is the world of smart recommendations and personalized selling headed by 2030? Reports from Gartner, Statista, and McKinsey provide a roadmap for the future of smart commerce and the role of AI in shaping it.",
-    coverGradient: "linear-gradient(135deg, rgba(22, 163, 74,0.5) 0%, rgba(59,130,246,0.3) 100%)",
+    coverGradient: "linear-gradient(135deg, rgba(124, 58, 237,0.5) 0%, rgba(59,130,246,0.3) 100%)",
     coverIcon: "🚀",
     related: ["smart-recommendations-comparison-study", "personalization-conversion-research", "ai-recommendations-guide"],
     content: `

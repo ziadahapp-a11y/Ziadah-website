@@ -15,8 +15,8 @@ export default function IncreaseAOVWidget() {
         <div style={{
           padding: "11px 14px",
           borderRadius: 12,
-          background: "rgba(22, 163, 74,.12)",
-          border: "1.5px solid rgba(22, 163, 74,.3)",
+          background: "rgba(124, 58, 237,.12)",
+          border: "1.5px solid rgba(124, 58, 237,.3)",
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
@@ -24,7 +24,7 @@ export default function IncreaseAOVWidget() {
             <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "var(--s3)", overflow: "hidden", marginBottom: 3 }}>
-            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(22, 163, 74,0.6), rgba(34, 197, 94,0.5))" }} />
+            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124, 58, 237,0.6), rgba(139, 92, 246,0.5))" }} />
           </div>
           <div style={{ fontSize: 12, color: "var(--td)", textAlign: "center" }}>
             {tr.progressNote}
@@ -48,7 +48,7 @@ export default function IncreaseAOVWidget() {
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: "rgba(34, 197, 94,.12)",
+                background: "rgba(139, 92, 246,.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -67,11 +67,11 @@ export default function IncreaseAOVWidget() {
               width: "100%",
               padding: "6px 10px",
               borderRadius: 10,
-              background: "rgba(22, 163, 74,.25)",
+              background: "rgba(124, 58, 237,.25)",
               color: "#c084fc",
               fontSize: 12,
               fontWeight: 800,
-              border: "1px solid rgba(34, 197, 94,.3)",
+              border: "1px solid rgba(139, 92, 246,.3)",
               cursor: "pointer",
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
@@ -80,9 +80,9 @@ export default function IncreaseAOVWidget() {
 
       <div style={{
         fontSize: 12,
-        color: "#22c55e",
-        background: "rgba(16,185,129,.1)",
-        border: "1px solid rgba(16,185,129,.25)",
+        color: "#8b5cf6",
+        background: "rgba(139, 92, 246,.1)",
+        border: "1px solid rgba(139, 92, 246,.25)",
         borderRadius: 8,
         padding: "6px 10px",
         textAlign: "center",

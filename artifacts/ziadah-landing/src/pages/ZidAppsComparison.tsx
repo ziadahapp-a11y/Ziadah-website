@@ -9,6 +9,7 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
+import { Eyebrow } from "@/components/trackflow";
 import "./zid-apps-comparison.css";
 
 type Bilingual = { ar: string; en: string };
@@ -53,39 +54,41 @@ const COPY = {
 
 const APPS = [
   {
+    // Ziyada — the brand column, highlighted with the canonical green.
     nameAr: "زيادة",
     nameEn: "Ziyada",
-    tint: "rgba(22, 163, 74, 0.1)",
-    cellBg: "rgba(22, 163, 74, 0.05)",
-    thBg: "linear-gradient(180deg, #f3f0ff 0%, #ede9fe 100%)",
+    tint: "rgba(22 163 74 / 0.1)",
+    cellBg: "rgba(22 163 74 / 0.05)",
+    thBg: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%)",
   },
   {
+    // Competitor columns use neutral zinc tints (single brand color rule).
     nameAr: "نماء",
     nameEn: "Namaa",
-    tint: "rgba(20, 184, 166, 0.1)",
-    cellBg: "rgba(20, 184, 166, 0.05)",
-    thBg: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%)",
+    tint: "rgba(113, 113, 122, 0.08)",
+    cellBg: "rgba(244, 244, 245, 0.6)",
+    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
   },
   {
     nameAr: "بووست",
     nameEn: "Boost",
-    tint: "rgba(163, 230, 53, 0.12)",
-    cellBg: "rgba(163, 230, 53, 0.06)",
-    thBg: "linear-gradient(180deg, #f7fee7 0%, #ecfccb 100%)",
+    tint: "rgba(113, 113, 122, 0.08)",
+    cellBg: "rgba(244, 244, 245, 0.6)",
+    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
   },
   {
     nameAr: "تاسك اب",
     nameEn: "TaskUp",
-    tint: "rgba(236, 72, 153, 0.1)",
-    cellBg: "rgba(236, 72, 153, 0.05)",
-    thBg: "linear-gradient(180deg, #fdf2f8 0%, #fce7f3 100%)",
+    tint: "rgba(113, 113, 122, 0.08)",
+    cellBg: "rgba(244, 244, 245, 0.6)",
+    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
   },
   {
     nameAr: "رقمي",
     nameEn: "Raqmi",
-    tint: "rgba(79, 70, 229, 0.1)",
-    cellBg: "rgba(79, 70, 229, 0.05)",
-    thBg: "linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%)",
+    tint: "rgba(113, 113, 122, 0.08)",
+    cellBg: "rgba(244, 244, 245, 0.6)",
+    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
   },
 ] as const;
 
@@ -264,15 +267,15 @@ function CheckIcon() {
     <span
       className="zi-check-icon"
       style={{
-        color: "#047857",
+        color: "#6d28d9",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         width: 28,
         height: 28,
         borderRadius: "999px",
-        background: "linear-gradient(145deg, rgba(16, 185, 129, 0.14) 0%, rgba(5, 150, 105, 0.08) 100%)",
-        border: "1px solid rgba(16, 185, 129, 0.22)",
+        background: "linear-gradient(145deg, rgba(139, 92, 246, 0.14) 0%, rgba(124, 58, 237, 0.08) 100%)",
+        border: "1px solid rgba(139, 92, 246, 0.22)",
       }}
       aria-hidden
     >
@@ -287,7 +290,7 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
   if (value === true) return <CheckIcon />;
   if (value === false) {
     return (
-      <span style={{ color: "rgba(15,23,42,0.32)", fontWeight: 700, fontSize: 15 }} aria-label={lang === "ar" ? "غير متوفر" : "Not available"}>
+      <span style={{ color: "rgba(24,24,27,0.30)", fontWeight: 700, fontSize: 15 }} aria-label={lang === "ar" ? "غير متوفر" : "Not available"}>
         —
       </span>
     );
@@ -298,11 +301,11 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
         style={{
           fontSize: 12,
           fontWeight: 700,
-          color: "#15803d",
+          color: "rgb(21 128 61)",
           padding: "4px 8px",
           borderRadius: 7,
-          background: "rgba(22, 163, 74, 0.1)",
-          border: "1px solid rgba(22, 163, 74, 0.18)",
+          background: "rgba(22 163 74 / 0.1)",
+          border: "1px solid rgba(22 163 74 / 0.18)",
         }}
       >
         {tx(COPY.plan, lang)}
@@ -312,10 +315,11 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
   if (typeof value === "number") {
     return (
       <span
+        className="num-ltr"
         style={{
           fontWeight: 800,
           fontSize: 16,
-          color: "#0f172a",
+          color: "#18181b",
           fontVariantNumeric: "tabular-nums",
         }}
       >
@@ -324,7 +328,7 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
     );
   }
   return (
-    <span style={{ fontSize: 12, fontWeight: 600, lineHeight: 1.5, color: "#334155" }}>{tx(value, lang)}</span>
+    <span style={{ fontSize: 12, fontWeight: 600, lineHeight: 1.5, color: "#3f3f46" }}>{tx(value, lang)}</span>
   );
 }
 
@@ -362,7 +366,7 @@ export default function ZidAppsComparison() {
             position: "relative",
             zIndex: 2,
             background:
-              "radial-gradient(120% 80% at 50% -10%, rgba(192, 132, 252, 0.22) 0%, transparent 55%), linear-gradient(180deg, #f3f0ff 0%, #f5f3ff 42%, #faf8ff 78%, #f1f5f9 100%)",
+              "radial-gradient(120% 80% at 50% -10%, rgba(22 163 74 / 0.08) 0%, transparent 55%), linear-gradient(180deg, #ffffff 0%, #fafafa 60%, #f4f4f5 100%)",
             direction: dir,
           }}
         >
@@ -374,22 +378,22 @@ export default function ZidAppsComparison() {
                 textAlign: "center",
               }}
             >
+              <Eyebrow className="mb-4">{isAr ? "مقارنة التطبيقات" : "Apps comparison"}</Eyebrow>
               <h1
                 className="zi-compare-hero-title"
                 style={{
                   fontSize: "clamp(28px, 3.8vw, 46px)",
-                  fontWeight: 900,
+                  fontWeight: 800,
                   margin: "0 0 14px",
                   letterSpacing: isAr ? 0 : -0.5,
-                  color: "#1e1b4b",
+                  color: "#09090b",
                   lineHeight: 1.2,
-                  textShadow: "0 1px 0 rgba(255,255,255,0.5), 0 18px 48px rgba(22, 163, 74, 0.12)",
                 }}
               >
                 {tx(COPY.h1, lang)}
               </h1>
               <div
-                className="zi-compare-date-pill"
+                className="zi-compare-date-pill num-ltr"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -397,11 +401,11 @@ export default function ZidAppsComparison() {
                   padding: "8px 16px",
                   fontSize: 13,
                   fontWeight: 600,
-                  color: "#15803d",
-                  background: "rgba(22, 163, 74, 0.1)",
-                  border: "1px solid rgba(22, 163, 74, 0.18)",
+                  color: "rgb(21 128 61)",
+                  background: "rgba(22 163 74 / 0.1)",
+                  border: "1px solid rgba(22 163 74 / 0.18)",
                   borderRadius: 999,
-                  boxShadow: "0 4px 16px rgba(22, 163, 74, 0.08)",
+                  boxShadow: "0 4px 16px rgba(22 163 74 / 0.08)",
                 }}
               >
                 {tx(COPY.dateNote, lang)}
@@ -419,7 +423,7 @@ export default function ZidAppsComparison() {
           >
           <div className="wrap" style={{ maxWidth: 1140, marginInline: "auto" }}>
             <div className="zi-compare-mobile-bleed">
-            <p className="zi-compare-scroll-hint" style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 600, color: "#64748b", textAlign: "center", lineHeight: 1.4 }}>
+            <p className="zi-compare-scroll-hint" style={{ margin: "0 0 10px", fontSize: 13, fontWeight: 600, color: "#71717a", textAlign: "center", lineHeight: 1.4 }}>
               {tx(COPY.scrollHint, lang)}
             </p>
 
@@ -430,11 +434,11 @@ export default function ZidAppsComparison() {
                 overflowY: "auto",
                 maxHeight: "min(75vh, calc(100vh - 200px))",
                 WebkitOverflowScrolling: "touch",
-                borderRadius: 20,
-                border: "1px solid rgba(22, 163, 74, 0.14)",
+                borderRadius: 16,
+                border: "1px solid #e4e4e7",
                 boxShadow:
-                  "0 0 0 1px rgba(255,255,255,0.6) inset, 0 4px 6px rgba(30, 27, 75, 0.04), 0 20px 50px rgba(49, 46, 129, 0.1)",
-                background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
+                  "0 4px 6px rgba(24, 24, 27, 0.03), 0 20px 50px rgba(24, 24, 27, 0.06)",
+                background: "#ffffff",
                 padding: "clamp(6px, 1.5vw, 14px)",
               }}
             >
@@ -455,40 +459,40 @@ export default function ZidAppsComparison() {
                         padding: "16px 14px",
                         textAlign: isAr ? "right" : "left",
                         fontWeight: 800,
-                        color: "#475569",
+                        color: "#52525b",
                         fontSize: 12,
                         letterSpacing: isAr ? 0 : "0.02em",
                         textTransform: isAr ? "none" : "uppercase",
-                        background: "linear-gradient(180deg, #f8fafc 0%, #e8eef5 100%)",
-                        borderBottom: "2px solid rgba(22, 163, 74, 0.18)",
+                        background: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+                        borderBottom: "2px solid rgb(22 163 74)",
                         width: 200,
                         position: "sticky",
                         top: 0,
                         right: isAr ? 0 : "auto",
                         left: isAr ? "auto" : 0,
                         zIndex: 5,
-                        boxShadow: isAr ? "-3px 0 12px rgba(15,23,42,0.06)" : "3px 0 12px rgba(15,23,42,0.06)",
+                        boxShadow: isAr ? "-3px 0 12px rgba(24,24,27,0.06)" : "3px 0 12px rgba(24,24,27,0.06)",
                       }}
                     >
                       {tx(COPY.featureCol, lang)}
                     </th>
-                    {APPS.map((app) => (
+                    {APPS.map((app, i) => (
                       <th
                         key={app.nameAr}
                         style={{
                           padding: "16px 10px",
                           textAlign: "center",
                           fontWeight: 800,
-                          color: "#312e81",
+                          color: i === 0 ? "rgb(21 128 61)" : "#3f3f46",
                           fontSize: 13,
                           letterSpacing: isAr ? 0 : "0.04em",
                           background: app.thBg,
-                          borderBottom: "2px solid rgba(22, 163, 74, 0.18)",
+                          borderBottom: i === 0 ? "2px solid rgb(22 163 74)" : "2px solid #e4e4e7",
                           minWidth: 100,
                           position: "sticky",
                           top: 0,
                           zIndex: 4,
-                          boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.45), 0 2px 0 rgba(22, 163, 74, 0.1)",
+                          boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.45)",
                         }}
                       >
                         {lang === "ar" ? app.nameAr : app.nameEn}
@@ -507,11 +511,11 @@ export default function ZidAppsComparison() {
                               padding: "16px 16px 16px 18px",
                               fontWeight: 800,
                               fontSize: 14,
-                              color: "#0a0a0b",
-                              background: "linear-gradient(90deg, rgba(192, 132, 252, 0.22) 0%, rgba(209, 250, 229, 0.55) 48%, rgba(226, 232, 240, 0.35) 100%)",
-                              borderTop: ri > 0 ? "1px solid rgba(22, 163, 74,0.12)" : undefined,
+                              color: "#09090b",
+                              background: "linear-gradient(90deg, rgba(237, 233, 254, 0.7) 0%, rgba(245, 243, 255, 0.6) 48%, rgba(244, 244, 245, 0.5) 100%)",
+                              borderTop: ri > 0 ? "1px solid rgba(22 163 74 / 0.12)" : undefined,
                               textAlign: isAr ? "right" : "left",
-                              borderInlineStart: "4px solid #16a34a",
+                              borderInlineStart: "4px solid rgb(22 163 74)",
                               letterSpacing: isAr ? 0 : "0.01em",
                             }}
                           >
@@ -527,13 +531,13 @@ export default function ZidAppsComparison() {
                             <div
                               className="zi-compare-banner"
                               style={{
-                                background: "linear-gradient(145deg, #312e81 0%, #1e0a3b 40%, #0f172a 100%)",
+                                background: "linear-gradient(145deg, #18181b 0%, #09090b 55%, #2e1065 100%)",
                                 color: "#fff",
                                 margin: "12px 4px",
                                 padding: "28px 18px 24px",
                                 textAlign: "center",
                                 borderRadius: 16,
-                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 12px 32px rgba(15, 23, 42, 0.35)",
+                                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10), 0 12px 32px rgba(9, 9, 11, 0.35)",
                               }}
                             >
                               <p
@@ -584,7 +588,7 @@ export default function ZidAppsComparison() {
                                     }}
                                   >
                                     {BANNER_PCTS[i] ? (
-                                      <div style={{ fontSize: 18, fontWeight: 900, color: "#fca5a5" }}>{BANNER_PCTS[i]}</div>
+                                      <div className="num-ltr" style={{ fontSize: 18, fontWeight: 900, color: "#fca5a5" }}>{BANNER_PCTS[i]}</div>
                                     ) : (
                                       <div style={{ fontSize: 13, opacity: 0.5 }}>—</div>
                                     )}
@@ -607,9 +611,9 @@ export default function ZidAppsComparison() {
                           style={{
                             padding: "13px 14px",
                             fontWeight: 600,
-                            color: "#334155",
+                            color: "#3f3f46",
                             fontSize: 13,
-                            borderBottom: "1px solid rgba(15,23,42,0.07)",
+                            borderBottom: "1px solid rgba(24,24,27,0.07)",
                             verticalAlign: "middle",
                             textAlign: isAr ? "right" : "left",
                             background: zebra,
@@ -617,7 +621,7 @@ export default function ZidAppsComparison() {
                             right: isAr ? 0 : "auto",
                             left: isAr ? "auto" : 0,
                             zIndex: 2,
-                            boxShadow: isAr ? "-4px 0 12px rgba(15,23,42,0.05)" : "4px 0 12px rgba(15,23,42,0.05)",
+                            boxShadow: isAr ? "-4px 0 12px rgba(24,24,27,0.05)" : "4px 0 12px rgba(24,24,27,0.05)",
                           }}
                         >
                           {tx(row.label, lang)}
@@ -629,7 +633,7 @@ export default function ZidAppsComparison() {
                               padding: "13px 10px",
                               textAlign: "center",
                               verticalAlign: "middle",
-                              borderBottom: "1px solid rgba(15,23,42,0.07)",
+                              borderBottom: "1px solid rgba(24,24,27,0.07)",
                               background: APPS[ci].cellBg,
                             }}
                           >

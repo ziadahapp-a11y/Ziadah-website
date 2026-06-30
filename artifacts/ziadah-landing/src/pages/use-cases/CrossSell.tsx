@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "اشتروا مع بعض (BTAT)",
       desc: "يستخرج من قاعدة بيانات الطلبات الحقيقية أكثر المنتجات التي تُشترى معاً — ثم يعرضها معاً بمنطق اجتماعي موثوق: 'عملاء اشتروا هذا اشتروا أيضاً...'",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo ذكية",
       desc: "يجمّع منتجات متكاملة في حزمة بسعر مخفوض يظهر التوفير بوضوح. العميل يشعر أنه الرابح والمتجر يرفع قيمة الطلب.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#22c55e" },
+    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#8b5cf6" },
     { value: "+28%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "+41%", label: "معدل قبول التوصية", color: "#22c55e" },
+    { value: "+41%", label: "معدل قبول التوصية", color: "#8b5cf6" },
     { value: "+19%", label: "رضا العملاء عن التجربة", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -76,34 +76,33 @@ const data: UseCasePageData = {
           labelEn: "⚖️ Cross-sell vs Upsell",
           placement: "below",
           content: (
-            <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-              <div className="shine" />
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>
                 {isAr ? "الفرق بين البيع المتقاطع والبيع البديل" : "Cross-selling vs. Upselling"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
-                <div style={{ padding: "24px 28px", background: "rgba(6,182,212,.05)", border: "1px solid rgba(6,182,212,.15)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: "#06b6d4", marginBottom: 12 }}>{isAr ? "🔗 البيع المتقاطع (Cross-sell)" : "🔗 Cross-Selling"}</div>
+                <div className="rounded-xl border border-violet-200 bg-violet-50/60" style={{ padding: "24px 28px" }}>
+                  <div className="text-violet-700" style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>{isAr ? "🔗 البيع المتقاطع (Cross-sell)" : "🔗 Cross-Selling"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"]
                       : ["Suggests complementary products", "Increases number of products in cart", "Works on product page and cart", "Example: phone + case + screen protector"]
                     ).map((item, i) => (
-                      <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                        <span style={{ color: "#06b6d4", fontWeight: 700 }}>✓</span> {item}
+                      <li key={i} className="text-zinc-600" style={{ display: "flex", gap: 8, fontSize: 14, alignItems: "center" }}>
+                        <span className="text-violet-700" style={{ fontWeight: 700 }}>✓</span> {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div style={{ padding: "24px 28px", background: "rgba(34, 197, 94,.05)", border: "1px solid rgba(34, 197, 94,.15)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: "#22c55e", marginBottom: 12 }}>{isAr ? "⬆️ البيع البديل (Upsell)" : "⬆️ Upselling"}</div>
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "24px 28px" }}>
+                  <div className="text-violet-600" style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>{isAr ? " البيع البديل (Upsell)" : " Upselling"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"]
                       : ["Suggests a better version of the same product", "Increases the main product price", "Primarily works on the product page", "Example: basic phone → higher-spec phone"]
                     ).map((item, i) => (
-                      <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                        <span style={{ color: "#22c55e", fontWeight: 700 }}>✓</span> {item}
+                      <li key={i} className="text-zinc-600" style={{ display: "flex", gap: 8, fontSize: 14, alignItems: "center" }}>
+                        <span className="text-violet-600" style={{ fontWeight: 700 }}>✓</span> {item}
                       </li>
                     ))}
                   </ul>
@@ -133,7 +132,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "Bought Together (BTAT)",
       desc: "Extracts from the real order database the most frequently co-purchased products — then displays them together with trusted social proof: 'Customers who bought this also bought...'",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -145,7 +144,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Smart Combo Bundles",
       desc: "Combines complementary products in a discounted bundle that clearly shows savings. The customer feels like a winner and the store increases order value.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -155,9 +154,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+32%", label: "Average number of products in cart", color: "#22c55e" },
+    { value: "+32%", label: "Average number of products in cart", color: "#8b5cf6" },
     { value: "+28%", label: "Average order value", color: "#06b6d4" },
-    { value: "+41%", label: "Recommendation acceptance rate", color: "#22c55e" },
+    { value: "+41%", label: "Recommendation acceptance rate", color: "#8b5cf6" },
     { value: "+19%", label: "Customer satisfaction with the experience", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

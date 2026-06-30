@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — العرض الأخير",
       desc: "عند محاولة مغادرة المتجر (حركة الماوس نحو إغلاق التبويب) يظهر Popup بعرض خاص فوري. الفرصة الأخيرة قبل الخسارة.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⏱️",
@@ -42,8 +42,8 @@ const data: UseCasePageData = {
   ],
   stats: [
     { value: "-38%", label: "معدل التخلي عن السلة", color: "#ec4899" },
-    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#22c55e" },
-    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#22c55e" },
+    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#8b5cf6" },
+    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#8b5cf6" },
     { value: "+24%", label: "إيرادات الشهر الأول", color: "#06b6d4" },
   ],
   exampleScenario: {
@@ -70,9 +70,8 @@ const data: UseCasePageData = {
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
+        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px" }}>
+          <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {(isAr ? [
               { cause: "التردد وعدم الحسم", solution: "كوبون مؤقت يخلق سبباً للشراء الآن" },
@@ -86,11 +85,11 @@ const data: UseCasePageData = {
               { cause: "Cart more expensive than expected", solution: "Discount coupon brings price within expectations" },
             ]).map((row, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
-                <div style={{ padding: "12px 16px", background: "rgba(225,29,72,.06)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 text-zinc-600" style={{ padding: "12px 16px", fontSize: 13 }}>
                   ✗ {row.cause}
                 </div>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(22, 163, 74,.15)", border: "1px solid rgba(22, 163, 74,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{isAr ? "←" : "→"}</div>
-                <div style={{ padding: "12px 16px", background: "rgba(16,185,129,.06)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
+                <div className="border-violet-200 bg-violet-50/60 text-violet-700" style={{ width: 28, height: 28, borderRadius: "50%", borderWidth: 1, borderStyle: "solid", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{isAr ? "←" : "→"}</div>
+                <div className="rounded-xl border border-violet-200 bg-violet-50/60 text-violet-700" style={{ padding: "12px 16px", fontSize: 13 }}>
                   ✓ {row.solution}
                 </div>
               </div>
@@ -131,7 +130,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — Last Offer",
       desc: "When attempting to leave the store (mouse moving toward closing the tab), a popup with a special instant offer appears. The last chance before losing the sale.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⏱️",
@@ -142,8 +141,8 @@ const data: UseCasePageData = {
   ],
   statsEn: [
     { value: "-38%", label: "Cart abandonment rate", color: "#ec4899" },
-    { value: "+31%", label: "Recovered customers monthly", color: "#22c55e" },
-    { value: "+18%", label: "Purchase completion rate", color: "#22c55e" },
+    { value: "+31%", label: "Recovered customers monthly", color: "#8b5cf6" },
+    { value: "+18%", label: "Purchase completion rate", color: "#8b5cf6" },
     { value: "+24%", label: "First month revenue", color: "#06b6d4" },
   ],
   exampleScenarioEn: {

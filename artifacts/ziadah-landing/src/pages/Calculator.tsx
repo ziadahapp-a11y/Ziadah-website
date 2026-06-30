@@ -38,8 +38,8 @@ interface SliderConfig {
 /**
  * One labelled slider control inside the dark calculator card, styled to match
  * the home page calculator (`src/pages/HomeTrackflow.tsx`): muted uppercase
- * label, emerald value chip, and the shared `@/components/ui/slider` with the
- * white/20 track, emerald range, and emerald-ringed thumb.
+ * label, violet value chip, and the shared `@/components/ui/slider` with the
+ * white/20 track, violet range, and violet-ringed thumb.
  */
 function SliderCard({
   label,
@@ -61,7 +61,7 @@ function SliderCard({
     <div className="rounded-xl bg-white/[0.04] border border-white/10 p-5">
       <div className="flex items-center justify-between gap-3 mb-4">
         <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">{label}</span>
-        <span className="num-ltr rounded-md bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-sm font-extrabold text-emerald-300">
+        <span className="num-ltr rounded-md bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-sm font-extrabold text-violet-300">
           {formatDisplay(value)}
         </span>
       </div>
@@ -73,7 +73,7 @@ function SliderCard({
         value={[value]}
         aria-label={label}
         onValueChange={(v) => apply(v[0])}
-        className="[&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-emerald-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-emerald-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(16,185,129,0.25)]"
+        className="[&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-violet-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-violet-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(139, 92, 246,0.25)]"
       />
       <div className="num-ltr mt-3 flex justify-between text-[11px] text-zinc-500">
         <span>{formatTick(min)}</span>
@@ -227,7 +227,7 @@ export default function Calculator() {
         <Section band="muted" containerClassName="max-w-6xl">
             <div className="rv rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
               <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/15 blur-[100px] rounded-full pointer-events-none" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none" />
               <div className="relative p-7 md:p-10 lg:p-12" dir={dir}>
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                   {/* left: controls */}
@@ -266,35 +266,35 @@ export default function Calculator() {
                       </div>
 
                       {/* with Ziadah */}
-                      <div className="rounded-2xl bg-gradient-to-br from-emerald-500/[0.12] to-transparent border border-emerald-500/30 p-6">
-                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-300 mb-5">
+                      <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.12] to-transparent border border-violet-500/30 p-6">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
                           <span className="relative flex h-1.5 w-1.5">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
                           </span>
                           {tr.withRec}
                         </div>
                         <div className="space-y-4">
                           <div>
                             <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyOrders}</div>
-                            <div className="text-xl font-extrabold text-emerald-300 num-ltr">
+                            <div className="text-xl font-extrabold text-violet-300 num-ltr">
                               {fmtN(Math.round(r.orders))}
                             </div>
                           </div>
                           <div>
                             <div className="text-[11px] text-zinc-500 mb-1">{tr.effectiveAvgOrder}</div>
                             <div className="num-ltr flex items-center gap-2 flex-wrap">
-                              <span className="text-xl font-extrabold text-emerald-300">
+                              <span className="text-xl font-extrabold text-violet-300">
                                 {fmtCur(r.effectiveAov)}
                               </span>
-                              <span className="rounded-md bg-emerald-500/18 border border-emerald-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-emerald-300">
+                              <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
                                 +{fmtCur(r.aovIncrease)}
                               </span>
                             </div>
                           </div>
                           <div>
                             <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyRevenue}</div>
-                            <div className="text-xl font-extrabold text-emerald-300 num-ltr">
+                            <div className="text-xl font-extrabold text-violet-300 num-ltr">
                               {fmtCur(r.newRevenue)}
                             </div>
                           </div>
@@ -303,8 +303,8 @@ export default function Calculator() {
                     </div>
 
                     {/* impact summary */}
-                    <div className="rounded-2xl bg-gradient-to-br from-emerald-500/[0.08] to-transparent border border-emerald-500/20 p-6 md:p-7">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-300 mb-6">
+                    <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
                         <BarChart3 className="w-4 h-4" />
                         {tr.impactSummary}
                       </div>
@@ -314,9 +314,9 @@ export default function Calculator() {
                             key={s.label}
                             className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center"
                           >
-                            <s.Icon className="w-4 h-4 text-emerald-400 mx-auto mb-2" />
+                            <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
                             <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
-                            <div className="text-xl md:text-2xl font-extrabold text-emerald-300 num-ltr leading-tight">
+                            <div className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight">
                               {s.value}
                             </div>
                             <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>

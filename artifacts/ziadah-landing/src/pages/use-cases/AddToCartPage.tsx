@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "توصية فورية لحظة الإضافة",
       desc: "بمجرد الضغط على 'أضف للسلة' تظهر نافذة Glassmorphism خفيفة بمنتج مكمّل واحد فقط — مختار بعناية ليكون ذو صلة مباشرة بالمنتج المضاف.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🤝",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "توصية أحادية بدون إرباك",
       desc: "عرض منتج واحد فقط لحظة الإضافة — لا قائمة تُربك العميل. التركيز على خيار واحد يرفع معدل التحويل بشكل كبير.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#22c55e" },
+    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#8b5cf6" },
     { value: "38%", label: "معدل قبول التوصية لحظة الإضافة", color: "#06b6d4" },
-    { value: "+27%", label: "إيرادات إضافية من كل جلسة تسوق", color: "#22c55e" },
+    { value: "+27%", label: "إيرادات إضافية من كل جلسة تسوق", color: "#8b5cf6" },
     { value: "x2.4", label: "أسرع قرار شراء مقارنة بالتوصية في الصفحة الرئيسية", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -86,7 +86,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "Instant Recommendation at Add-to-Cart",
       desc: "The moment 'Add to Cart' is clicked, a sleek glassmorphism popup appears with one complementary product only — carefully selected for direct relevance to the added product.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🤝",
@@ -98,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Single Recommendation, No Overwhelm",
       desc: "Showing just one product at the add-to-cart moment — no list to overwhelm the customer. Focusing on a single option significantly increases conversion rate.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -108,9 +108,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#22c55e" },
+    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#8b5cf6" },
     { value: "38%", label: "Recommendation acceptance rate at add-to-cart moment", color: "#06b6d4" },
-    { value: "+27%", label: "Additional revenue from every shopping session", color: "#22c55e" },
+    { value: "+27%", label: "Additional revenue from every shopping session", color: "#8b5cf6" },
     { value: "x2.4", label: "Faster purchase decision vs. home page recommendation", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

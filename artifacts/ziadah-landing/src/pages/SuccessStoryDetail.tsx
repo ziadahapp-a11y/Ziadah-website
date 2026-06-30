@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { useParams } from "wouter";
-import { ArrowLeft, ArrowRight, ExternalLink, Quote } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ExternalLink,
+  Quote,
+  Droplets,
+  Sparkles,
+  Shirt,
+  Moon,
+  ShoppingBag,
+  Wind,
+  Flower2,
+  Gem,
+  HeartHandshake,
+  type LucideIcon,
+} from "lucide-react";
 import PageShell from "@/components/PageShell";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
@@ -12,6 +27,7 @@ import { findStoryBySlug, storyEn, stories } from "@/data/successStoriesData";
 import { getStoryArticle } from "@/data/successStoriesArticles";
 import { navigateTo } from "@/components/PageTransition";
 import NotFound from "@/pages/not-found";
+import { Section, Eyebrow, Card, StatCard } from "@/components/trackflow";
 
 function splitParagraphs(text: string): string[] {
   return text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
@@ -30,17 +46,17 @@ const SECTOR_NAME_EN: Record<string, string> = {
   "موقع التبرعات الإلكترونية": "Online Donations",
 };
 
-const SECTOR_ICONS: Record<string, string> = {
-  "مستلزمات التنظيف": "🧴",
-  "منتجات البشرة": "💄",
-  "الأقمشة الرجالية": "👔",
-  "عبايات الحج واللباس المحتشم": "🌙",
-  "متجر إلكتروني متنوع": "🛍️",
-  "العود والبخور": "🕌",
-  "مستحضرات العناية بالبشرة": "✨",
-  "عطور": "🌸",
-  "عسل طبيعي": "🍯",
-  "موقع التبرعات الإلكترونية": "🤲",
+const SECTOR_ICONS: Record<string, LucideIcon> = {
+  "مستلزمات التنظيف": Droplets,
+  "منتجات البشرة": Sparkles,
+  "الأقمشة الرجالية": Shirt,
+  "عبايات الحج واللباس المحتشم": Moon,
+  "متجر إلكتروني متنوع": ShoppingBag,
+  "العود والبخور": Wind,
+  "مستحضرات العناية بالبشرة": Sparkles,
+  "عطور": Flower2,
+  "عسل طبيعي": Gem,
+  "موقع التبرعات الإلكترونية": HeartHandshake,
 };
 
 export default function SuccessStoryDetail() {
@@ -63,6 +79,8 @@ export default function SuccessStoryDetail() {
   const displayChallenge = isAr ? story.challenge : (en?.challenge || story.challenge);
   const displayStrategy = isAr ? story.strategy : (en?.strategy || story.strategy);
   const displayPopupType = isAr ? story.popupType : (en?.popupType || story.popupType);
+
+  const SectorIcon = SECTOR_ICONS[story.sector];
 
   const article = getStoryArticle(story.slug, isAr);
   const leadText = article?.intro ?? displayChallenge;
@@ -115,7 +133,7 @@ export default function SuccessStoryDetail() {
           <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
             {isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}
           </span>
-          <span className="inline-flex items-center rounded-full bg-green-100 border border-green-200 px-3.5 py-1.5 text-sm font-bold text-green-700">
+          <span className="inline-flex items-center rounded-full border border-violet-200 bg-violet-100 px-3.5 py-1.5 text-sm font-bold text-violet-700">
             {displayPopupType}
           </span>
         </div>
@@ -130,21 +148,27 @@ export default function SuccessStoryDetail() {
           <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-6">{article.resultsContext}</p>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-center shadow-card">
-            <div className="text-3xl md:text-4xl font-extrabold text-zinc-950 num-ltr">{story.conversions}</div>
-            <div className="mt-1.5 text-xs font-bold tracking-widest text-zinc-500 uppercase">
-              {isAr ? "التحويلات" : "Conversions"}
-            </div>
-          </div>
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-center shadow-card">
-            <div className="text-3xl md:text-4xl font-extrabold text-zinc-950 num-ltr">
-              {story.sales}
-              <span className="ms-1.5 text-base font-bold text-zinc-500">{isAr ? "ر.س" : "SAR"}</span>
-            </div>
-            <div className="mt-1.5 text-xs font-bold tracking-widest text-zinc-500 uppercase">
-              {isAr ? "إجمالي المبيعات" : "Total sales"}
-            </div>
-          </div>
+          <StatCard
+            value={story.conversions}
+            label={
+              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+                {isAr ? "التحويلات" : "Conversions"}
+              </span>
+            }
+          />
+          <StatCard
+            value={
+              <>
+                {story.sales}
+                <span className="ms-1.5 text-base font-bold text-zinc-500">{isAr ? "ر.س" : "SAR"}</span>
+              </>
+            }
+            label={
+              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+                {isAr ? "إجمالي المبيعات" : "Total sales"}
+              </span>
+            }
+          />
         </div>
       </>
     ),
@@ -181,10 +205,12 @@ export default function SuccessStoryDetail() {
               <span>{isAr ? "كل قصص النجاح" : "All success stories"}</span>
             </button>
 
-            <span className="inline-flex items-center gap-2 mb-6 rounded-full bg-green-100 border border-green-200 px-3.5 py-1.5 text-xs font-bold text-green-700">
-              <span aria-hidden>{SECTOR_ICONS[story.sector] || "◆"}</span>
-              {displaySector}
-            </span>
+            <div className="mb-6">
+              <Eyebrow className="inline-flex items-center gap-2">
+                {SectorIcon && <SectorIcon className="w-3.5 h-3.5 text-violet-600" aria-hidden />}
+                {displaySector}
+              </Eyebrow>
+            </div>
 
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
               {displayStore}
@@ -192,7 +218,7 @@ export default function SuccessStoryDetail() {
 
             <p className="text-lg md:text-xl text-zinc-600 leading-relaxed mb-8">{leadText}</p>
 
-            <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-card">
+            <Card animate={false} className="flex flex-wrap items-center gap-4 p-5">
               {story.logoUrl ? (
                 <div className="shrink-0 w-12 h-12 rounded-xl border border-zinc-200 bg-white p-1.5 flex items-center justify-center overflow-hidden">
                   <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
@@ -221,43 +247,41 @@ export default function SuccessStoryDetail() {
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden />
                 </a>
               )}
-            </div>
+            </Card>
           </div>
         </section>
 
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-3xl">
-            {articleSections.map((s, i) => (
-              <div key={i} className={i > 0 ? "mt-16 pt-16 border-t border-zinc-200" : ""}>
-                <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                  <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {s.heading}
-                </h2>
-                {s.body}
-              </div>
-            ))}
+        <Section containerClassName="max-w-3xl">
+          {articleSections.map((s, i) => (
+            <div key={i} className={i > 0 ? "mt-16 pt-16 border-t border-zinc-200" : ""}>
+              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
+                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {s.heading}
+              </h2>
+              {s.body}
+            </div>
+          ))}
 
-            {article?.takeaway && (
-              <div className="mt-16 pt-16 border-t border-zinc-200">
-                <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                  <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
-                    {String(articleSections.length + 1).padStart(2, "0")}
-                  </span>
-                  {isAr ? "الخلاصة" : "Key Takeaway"}
-                </h2>
-                <div className="relative rounded-2xl border border-emerald-200 bg-emerald-50/60 p-7 md:p-8 ps-14 md:ps-16">
-                  <Quote className="absolute top-6 w-7 h-7 text-emerald-500/60" aria-hidden style={{ insetInlineStart: "1.25rem" }} />
-                  <p className="text-base md:text-lg font-semibold text-emerald-800 leading-relaxed">
-                    {article.takeaway}
-                  </p>
-                </div>
+          {article?.takeaway && (
+            <div className="mt-16 pt-16 border-t border-zinc-200">
+              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
+                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
+                  {String(articleSections.length + 1).padStart(2, "0")}
+                </span>
+                {isAr ? "الخلاصة" : "Key Takeaway"}
+              </h2>
+              <div className="relative rounded-2xl border border-violet-200 bg-violet-50/60 p-7 md:p-8 ps-14 md:ps-16">
+                <Quote className="absolute top-6 w-7 h-7 text-violet-500/60" aria-hidden style={{ insetInlineStart: "1.25rem" }} />
+                <p className="text-base md:text-lg font-semibold text-violet-800 leading-relaxed">
+                  {article.takeaway}
+                </p>
               </div>
-            )}
-          </div>
-        </section>
+            </div>
+          )}
+        </Section>
 
         <PageClosingCta
           title={sx.ctaClosingTitle}

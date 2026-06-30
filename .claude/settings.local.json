@@ -32,7 +32,9 @@
       "Bash(magick phone_035.png -format '%[pixel:p{__TRACKED_VAR__,1900}]' info:)",
       "Bash(magick /home/runner/workspace/phone_035.png -trim +repage /home/runner/workspace/artifacts/ziadah-landing/public/iphone-mockup.png)",
       "Bash(identify /home/runner/workspace/artifacts/ziadah-landing/public/iphone-mockup.png)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(awk 'NR>=635 && NR<=665 && /--p[0-9]?:/' index.css)",
+      "Bash(perl -0pi -e 's/React\\\\.CSSProperties/CSSProperties/g' src/pages/AnalyzeReport.tsx)"
     ]
   }
 }

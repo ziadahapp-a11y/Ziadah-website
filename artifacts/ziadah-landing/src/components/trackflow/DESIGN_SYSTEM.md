@@ -7,16 +7,16 @@ Do **not** invent new section/card/button styles — reuse the primitives.
 
 > The older "Vision UI / glass" CSS (`styles/dashboard-glass-system.css`,
 > `vision-*.css`, and the legacy `.gc`/`.btn-p`/`landing-*` blocks in `index.css`)
-> is a **legacy bridge only**. Its tokens have been re-pointed to the emerald brand
+> is a **legacy bridge only**. Its tokens have been re-pointed to the violet brand
 > color and must never reintroduce a second palette. New work uses the primitives
 > above, not those classes.
 
 ## Theme
-- Light SaaS theme, emerald accents. Page background stays white/`zinc-50`.
+- Light SaaS theme, violet/purple accents. Page background stays white/`zinc-50`.
 - Text: headings `text-zinc-950`, body `text-zinc-600`/`text-zinc-700`, muted `text-zinc-500`/`text-zinc-400`.
-- **Canonical brand green = green-600 `#16a34a` (`--accent: 142 71% 36%`, glass `--brand: #16a34a`).**
+- **Canonical brand purple = violet-600 `#7c3aed` (`--accent: 262 83% 36%`, glass `--brand: #7c3aed`).**
   These three must always agree — there is exactly one brand color.
-- Accent green: `text-green-600`, `bg-green-600`, `text-emerald-*` for highlights. **Never purple/violet.**
+- Accent purple: `text-violet-600`, `bg-violet-600`, `text-violet-*` for highlights. **Never green/emerald.**
 - Fonts: `saudi_riyal` (riyal glyph) → `IBM Plex Sans Arabic` → `Inter`. (Tajawal/Rubik are legacy fallbacks only.)
 - Font weights: headings `font-bold`/`font-extrabold`, eyebrows/labels `font-bold` + `tracking-widest uppercase`.
 - Numbers/prices/latin-in-RTL wrapped in `num-ltr` (e.g. `<span className="num-ltr">35%</span>`).
@@ -31,8 +31,8 @@ Do **not** invent new section/card/button styles — reuse the primitives.
 - `useT()` → `{ t, lang, isAr, dir, ArrowCTA }`. Use `t({ ar: "…", en: "…" })` for bilingual strings,
   exactly like HomeTrackflow. ArrowCTA flips direction (ArrowLeft in AR, ArrowRight in EN).
 - `<Section band id containerClassName>` — page band wrapper.
-- `<SectionHeading eyebrow title subtitle align>` — centered green eyebrow + bold h2 + muted subtitle.
-- `<Eyebrow>` / `<Pill icon>` — green uppercase label / green rounded chip.
+- `<SectionHeading eyebrow title subtitle align>` — centered violet eyebrow + bold h2 + muted subtitle.
+- `<Eyebrow>` / `<Pill icon>` — violet uppercase label / violet rounded chip.
 - `<Card>` — `rounded-2xl border border-zinc-200 bg-white p-7 hover:shadow-card` with scroll-in motion.
 - `<FeatureCard num icon title desc example>` — numbered/icon pillar card (icon sits in a `bg-zinc-950` tile).
 - `<StatCard value label>` — big-number stat.
@@ -43,8 +43,8 @@ Do **not** invent new section/card/button styles — reuse the primitives.
 
 ## Icons
 - Use `lucide-react` icons (import named), NOT emoji. Map existing emoji to the closest lucide icon
-  (🛒→ShoppingCart, 📦→Package, 💰→banknote/TrendingUp, 🏷️→Tag, 🎁→Gift, 📊→BarChart3, ⬆️→TrendingUp, 🔗→Combine/Link, etc.).
-- Icons inside dark tiles: `w-5 h-5 text-white`. Inline accent icons: `text-green-600`/`text-emerald-500`.
+  (→ShoppingCart, →Package, →banknote/TrendingUp, →Tag, →Gift, →BarChart3, →TrendingUp, →Combine/Link, etc.).
+- Icons inside dark tiles: `w-5 h-5 text-white`. Inline accent icons: `text-violet-600`/`text-violet-500`.
 
 ## Buttons (raw, if not using the primitives)
 - Primary: `bg-zinc-950 hover:bg-zinc-800 text-white font-semibold`.
@@ -55,7 +55,7 @@ Do **not** invent new section/card/button styles — reuse the primitives.
 ## Cards & panels
 - Standard card: `rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`.
 - Dark panel / highlighted plan / preview mock: `rounded-3xl mockup-card overflow-hidden shadow-card-lg`
-  often with `bg-grid-dark opacity-40` overlay + a green blur glow. Text on it is `text-white`/`text-zinc-300/400`.
+  often with `bg-grid-dark opacity-40` overlay + a violet blur glow. Text on it is `text-white`/`text-zinc-300/400`.
 - Small inset note: `rounded-lg bg-zinc-50 border border-zinc-200 p-3.5`.
 - Pricing popular card uses `mockup-card shadow-card-lg` (dark) with white text; others white border cards.
 

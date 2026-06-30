@@ -13,8 +13,8 @@ export default function HomePageWidget() {
         <div style={{
           padding: "10px 12px",
           borderRadius: 12,
-          background: "rgba(22, 163, 74,.12)",
-          border: "1.5px solid rgba(22, 163, 74,.3)",
+          background: "rgba(124, 58, 237,.12)",
+          border: "1.5px solid rgba(124, 58, 237,.3)",
           marginBottom: 10,
         }}>
           <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
@@ -24,7 +24,7 @@ export default function HomePageWidget() {
                 width: 36,
                 height: 36,
                 borderRadius: 8,
-                background: "rgba(34, 197, 94,.2)",
+                background: "rgba(139, 92, 246,.2)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -43,13 +43,13 @@ export default function HomePageWidget() {
               width: "100%",
               padding: "7px 10px",
               borderRadius: 10,
-              background: "rgba(22, 163, 74,0.12)",
+              background: "rgba(124, 58, 237,0.12)",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
               color: "#c084fc",
               fontSize: 12,
               fontWeight: 800,
-              border: "1px solid rgba(22, 163, 74,0.2)",
+              border: "1px solid rgba(124, 58, 237,0.2)",
               cursor: "pointer",
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>

@@ -20,7 +20,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "اشتروا معاً (BTAT)",
       desc: "يعرض منتجات اشتراها عملاء مشابهون مع نفس المنتج — اجتماعي وموثوق ويزيد عدد البنود.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -32,7 +32,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم تكمل الطلب",
       desc: "يجمع منتجات مترابطة في عرض واحد يشجّع على أخذ المجموعة كاملاً بدل منتج واحد.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -42,9 +42,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#22c55e" },
+    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#8b5cf6" },
     { value: "+28%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "+41%", label: "معدل قبول التوصية", color: "#22c55e" },
+    { value: "+41%", label: "معدل قبول التوصية", color: "#8b5cf6" },
     { value: "+19%", label: "رضا العملاء عن التجربة", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -87,7 +87,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "Bought Together (BTAT)",
       desc: "Shows products similar customers bought with the same item — social proof that increases line count.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -99,7 +99,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Bundles that complete the order",
       desc: "Groups related products in one offer so customers take the full set instead of a single SKU.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -109,9 +109,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+32%", label: "Average products in cart", color: "#22c55e" },
+    { value: "+32%", label: "Average products in cart", color: "#8b5cf6" },
     { value: "+28%", label: "Average order value", color: "#06b6d4" },
-    { value: "+41%", label: "Recommendation acceptance rate", color: "#22c55e" },
+    { value: "+41%", label: "Recommendation acceptance rate", color: "#8b5cf6" },
     { value: "+19%", label: "Customer satisfaction", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

@@ -115,15 +115,15 @@ function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
   if (val === true)
     return (
       <Check
-        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-emerald-400" : "text-emerald-500"}`}
+        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-violet-600" : "text-violet-500"}`}
         strokeWidth={2.5}
         aria-hidden
       />
     );
   if (val === false || val === null)
-    return <Minus className={`mx-auto w-4 h-4 ${featured ? "text-white/25" : "text-zinc-300"}`} aria-hidden />;
+    return <Minus className={`mx-auto w-4 h-4 ${featured ? "text-violet-300" : "text-zinc-300"}`} aria-hidden />;
   return (
-    <span className={`text-sm font-bold num-ltr ${featured ? "text-white" : "text-zinc-900"}`}>{val}</span>
+    <span className={`text-sm font-bold num-ltr ${featured ? "text-violet-700" : "text-zinc-900"}`}>{val}</span>
   );
 }
 
@@ -243,6 +243,11 @@ export default function PricingPage() {
           {/* ══════════════════ HERO + PLAN CARDS ══════════════════ */}
           <section className="relative pt-20 pb-24 md:pt-24 px-4">
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+            {/* Soft green brand glow behind the hero — symmetric, RTL-safe */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[460px] w-[760px] max-w-full -translate-x-1/2 rounded-full bg-violet-500/10 blur-[130px]"
+            />
             <div className="container mx-auto relative max-w-6xl">
               <div className="text-center mb-12">
                 <Eyebrow className="mb-4">{isAr ? "الأسعار" : "Pricing"}</Eyebrow>
@@ -262,7 +267,9 @@ export default function PricingPage() {
                   <button
                     type="button"
                     className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                      mode === "m" ? "bg-zinc-950 text-white" : "text-zinc-600 hover:text-zinc-950"
+                      mode === "m"
+                        ? "bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-sm shadow-violet-600/30"
+                        : "text-zinc-600 hover:text-zinc-950"
                     }`}
                     onClick={() => setMode("m")}
                   >
@@ -271,12 +278,14 @@ export default function PricingPage() {
                   <button
                     type="button"
                     className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                      mode === "y" ? "bg-zinc-950 text-white" : "text-zinc-600 hover:text-zinc-950"
+                      mode === "y"
+                      ? "bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-sm shadow-violet-600/30"
+                      : "text-zinc-600 hover:text-zinc-950"
                     }`}
                     onClick={() => setMode("y")}
                   >
                     {isAr ? "سنوي" : "Yearly"}
-                    <span className="rounded-full bg-green-100 border border-green-200 px-2 py-0.5 text-[10px] font-bold text-green-700">
+                    <span className="rounded-full bg-violet-100 border border-violet-200 px-2 py-0.5 text-[10px] font-bold text-violet-700">
                       {isAr ? "وفّر حتى 33٪" : "Save up to 33%"}
                     </span>
                   </button>
@@ -301,20 +310,20 @@ export default function PricingPage() {
                       key={plan.key}
                       className={`relative flex flex-col rounded-2xl p-6 ${
                         featured
-                          ? "mockup-card shadow-card-lg overflow-visible"
-                          : "bg-white border border-zinc-200 shadow-card hover:border-zinc-300 transition-colors"
+                          ? "mockup-card overflow-visible ring-1 ring-violet-500/40 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45),0_0_50px_-8px_rgba(124, 58, 237,0.55)]"
+                          : "bg-white border border-zinc-200 shadow-card hover:border-violet-200 hover:shadow-card-lg transition-all"
                       }`}
                       style={{ zIndex: topupOpen[plan.key] ? 20 : undefined }}
                     >
                       {/* "Most popular" badge for the featured (dark) plan */}
                       {featured && (
-                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500 to-violet-600 px-3 py-1 text-xs font-bold text-white shadow-lg shadow-violet-600/40 whitespace-nowrap">
                           {isAr ? "الأكثر اختياراً" : "Most popular"}
                         </div>
                       )}
                       {/* Non-featured plan badge (e.g. Business) */}
                       {!featured && plan.badge && (
-                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-zinc-900 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900 px-3 py-1 text-xs font-bold text-white shadow-md whitespace-nowrap">
                           {plan.badge}
                         </div>
                       )}
@@ -326,19 +335,19 @@ export default function PricingPage() {
 
                       {/* Discount row */}
                       {mode === "y" && (
-                        <div className="flex items-center gap-2 mb-2 num-ltr">
-                          <span className={`text-sm line-through ${featured ? "text-zinc-500" : "text-zinc-400"}`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className={`num-ltr text-sm line-through ${featured ? "text-zinc-500" : "text-zinc-400"}`}>
                             {plan.yOrig} ⃁
                           </span>
-                          <span className="rounded-full bg-green-100 border border-green-200 px-2 py-0.5 text-[10px] font-bold text-green-700">
+                          <span className="rounded-full bg-violet-100 border border-violet-200 px-2 py-0.5 text-[10px] font-bold text-violet-700">
                             {plan.yDisc} {isAr ? "خصم" : "off"}
                           </span>
                         </div>
                       )}
 
                       {/* Price */}
-                      <div className="flex items-baseline gap-1.5 mb-1 num-ltr">
-                        <span className={`text-4xl font-extrabold ${featured ? "text-white" : "text-zinc-950"}`}>
+                      <div className="flex items-baseline gap-1.5 mb-1">
+                        <span className={`num-ltr text-4xl font-extrabold ${featured ? "text-white" : "text-zinc-950"}`}>
                           {displayPrice}
                         </span>
                         <span className={`text-2xl font-bold ${featured ? "text-zinc-300" : "text-zinc-700"}`}>⃁</span>
@@ -346,7 +355,7 @@ export default function PricingPage() {
                       </div>
 
                       {selTopup && (
-                        <div className={`flex flex-wrap items-center gap-1.5 text-[11px] mb-3 num-ltr ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                        <div className={`flex flex-wrap items-center gap-1.5 text-[11px] mb-3 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
                           <span>
                             {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
                             : {topupBase} ⃁
@@ -357,7 +366,7 @@ export default function PricingPage() {
                       )}
 
                       {mode === "y" && !selTopup && (
-                        <div className={`text-xs mb-3 num-ltr ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                        <div className={`text-xs mb-3 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
                           {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
                         </div>
                       )}
@@ -371,7 +380,7 @@ export default function PricingPage() {
                             rel="noreferrer"
                             className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
                               featured
-                                ? "bg-white text-zinc-950 hover:bg-zinc-100"
+                                ? "bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-900/40 hover:from-violet-400 hover:to-violet-500"
                                 : "bg-zinc-950 text-white hover:bg-zinc-800"
                             }`}
                           >
@@ -382,7 +391,7 @@ export default function PricingPage() {
                             type="button"
                             className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
                               featured
-                                ? "bg-white text-zinc-950 hover:bg-zinc-100"
+                                ? "bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-900/40 hover:from-violet-400 hover:to-violet-500"
                                 : "bg-zinc-950 text-white hover:bg-zinc-800"
                             }`}
                             onClick={() => setPlatformModalOpen(true)}
@@ -396,8 +405,8 @@ export default function PricingPage() {
                       <div
                         className={`inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold ${
                           featured
-                            ? "bg-emerald-500/15 border border-emerald-500/30 text-emerald-300"
-                            : "bg-green-50 border border-green-100 text-green-700"
+                            ? "bg-violet-500/15 border border-violet-500/30 text-violet-300"
+                            : "bg-violet-50 border border-violet-100 text-violet-700"
                         }`}
                       >
                         <Sparkles className="w-3.5 h-3.5 shrink-0" />
@@ -417,17 +426,17 @@ export default function PricingPage() {
                             featured
                               ? "border-white/15 bg-white/[0.04] text-zinc-200 hover:border-white/25"
                               : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300"
-                          } ${topupSel[plan.key] != null ? (featured ? "border-emerald-400/40" : "border-emerald-300") : ""}`}
+                          } ${topupSel[plan.key] != null ? (featured ? "border-violet-400/40" : "border-violet-300") : ""}`}
                           onClick={() => toggleTopup(plan.key)}
                         >
-                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-emerald-300" : "text-green-600"}`} />
+                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-violet-300" : "text-violet-600"}`} />
                           <span className="flex-1 text-start truncate">
                             {selTopup
                               ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
                               : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
                           </span>
                           {selTopup && (
-                            <span className={`num-ltr font-bold ${featured ? "text-emerald-300" : "text-green-600"}`}>
+                            <span className={`num-ltr font-bold ${featured ? "text-violet-300" : "text-violet-600"}`}>
                               +{fmtPrice(selTopup.price)} ⃁
                             </span>
                           )}
@@ -455,9 +464,9 @@ export default function PricingPage() {
                               <button
                                 key={ti}
                                 type="button"
-                                className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors num-ltr ${
+                                className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors ${
                                   featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
-                                } ${topupSel[plan.key] === ti ? (featured ? "bg-emerald-500/15 text-emerald-300" : "bg-green-50 text-green-700") : ""}`}
+                                } ${topupSel[plan.key] === ti ? (featured ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-700") : ""}`}
                                 onClick={() => selectTopup(plan.key, ti)}
                               >
                                 <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
@@ -477,11 +486,11 @@ export default function PricingPage() {
                         )}
                         {plan.features.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5">
-                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-emerald-400" : "text-green-600"}`} />
+                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-violet-400" : "text-violet-600"}`} />
                             <span className={`text-sm ${featured ? "text-zinc-300" : "text-zinc-700"}`}>
                               {f.replace(" ★", "")}
                               {f.includes("★") && (
-                                <span className={`ms-1 ${featured ? "text-emerald-300" : "text-green-600"}`}>★</span>
+                                <span className={`ms-1 ${featured ? "text-violet-300" : "text-violet-600"}`}>★</span>
                               )}
                             </span>
                           </div>
@@ -511,8 +520,8 @@ export default function PricingPage() {
                     type="button"
                     className={`rounded-full border px-3.5 py-2 text-xs font-bold transition-colors ${
                       mobilePlanIdx === i
-                        ? "border-zinc-950 bg-zinc-950 text-white"
-                        : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
+                        ? "border-violet-600 bg-violet-600 text-white shadow-sm shadow-violet-600/30"
+                        : "border-zinc-200 bg-white text-zinc-700 hover:border-violet-300"
                     }`}
                     onClick={() => setMobilePlanIdx(i)}
                   >
@@ -528,14 +537,14 @@ export default function PricingPage() {
                   {plans.map((plan, i) => (
                     <div
                       key={plan.key}
-                      className={`p-4 text-center ${plan.featured ? "bg-zinc-950" : ""} ${
+                      className={`p-4 text-center ${plan.featured ? "bg-violet-600 border-x border-violet-600" : ""} ${
                         mobilePlanIdx === i ? "" : "hidden md:block"
                       }`}
                     >
                       <div className={`text-sm font-bold ${plan.featured ? "text-white" : "text-zinc-950"}`}>
                         {plan.name}
                       </div>
-                      <div className={`mt-0.5 text-xs num-ltr ${plan.featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                      <div className={`mt-0.5 text-xs num-ltr ${plan.featured ? "text-violet-100" : "text-zinc-500"}`}>
                         {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
                         <span>⃁/{isAr ? "شهر" : "mo"}</span>
                       </div>
@@ -551,13 +560,13 @@ export default function PricingPage() {
                     <div key={group.arTitle} className="border-b border-zinc-100 last:border-b-0">
                       <button
                         type="button"
-                        className="flex w-full items-center justify-between bg-zinc-50/60 px-4 py-3.5 text-start transition-colors hover:bg-zinc-100/60"
+                        className="flex w-full items-center justify-between border-s-2 border-violet-500 bg-zinc-50/80 px-4 py-3.5 text-start transition-colors hover:bg-violet-50"
                         onClick={() => toggleGroup(group.arTitle)}
                         aria-expanded={isOpen}
                       >
                         <span className="text-sm font-bold text-zinc-950">{title}</span>
                         <ChevronDown
-                          className={`w-4 h-4 text-zinc-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                          className={`w-4 h-4 text-violet-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
                         />
                       </button>
 
@@ -572,7 +581,7 @@ export default function PricingPage() {
                               {plans.map((plan, i) => (
                                 <div
                                   key={plan.key}
-                                  className={`px-4 py-3 text-center ${plan.featured ? "bg-zinc-950" : ""} ${
+                                  className={`px-4 py-3 text-center ${plan.featured ? "bg-violet-50 border-x border-violet-200" : ""} ${
                                     mobilePlanIdx === i ? "" : "hidden md:block"
                                   }`}
                                 >

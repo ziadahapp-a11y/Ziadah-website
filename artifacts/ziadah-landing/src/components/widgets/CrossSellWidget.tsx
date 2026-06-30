@@ -39,8 +39,8 @@ export default function CrossSellWidget({
               gap: 8,
               padding: rowProducts ? "8px 8px" : "9px 10px",
               borderRadius: 10,
-              background: i === 0 ? "rgba(22, 163, 74,.15)" : "var(--s1)",
-              border: i === 0 ? "1.5px solid rgba(34, 197, 94,.4)" : "1.5px solid var(--b1)",
+              background: i === 0 ? "rgba(124, 58, 237,.15)" : "var(--s1)",
+              border: i === 0 ? "1.5px solid rgba(139, 92, 246,.4)" : "1.5px solid var(--b1)",
               ...(rowProducts
                 ? {
                     flex: "1 1 124px",
@@ -60,7 +60,7 @@ export default function CrossSellWidget({
                   width: 32,
                   height: 32,
                   borderRadius: 8,
-                  background: "rgba(22, 163, 74,.15)",
+                  background: "rgba(124, 58, 237,.15)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -82,11 +82,11 @@ export default function CrossSellWidget({
                 width: "100%",
                 padding: "6px 10px",
                 borderRadius: 10,
-                background: "rgba(22, 163, 74,.25)",
+                background: "rgba(124, 58, 237,.25)",
                 color: "#c084fc",
                 fontSize: 12,
                 fontWeight: 800,
-                border: "1px solid rgba(34, 197, 94,.3)",
+                border: "1px solid rgba(139, 92, 246,.3)",
                 cursor: "pointer",
               }} className="widget-btn-sm">{tr.btnAdd}</button>
             </div>
@@ -97,13 +97,13 @@ export default function CrossSellWidget({
         width: "100%",
         padding: "9px",
         borderRadius: 12,
-        background: "rgba(22, 163, 74,0.12)",
+        background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         color: "#c084fc",
         fontSize: 14,
         fontWeight: 800,
-        border: "1px solid rgba(22, 163, 74,0.2)",
+        border: "1px solid rgba(124, 58, 237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         {tr.btnCart}

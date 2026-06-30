@@ -36,15 +36,15 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
           gap: 8,
           padding: "14px 24px",
           borderRadius: 14,
-          border: "2px dashed rgba(34, 197, 94,.6)",
-          background: "rgba(22, 163, 74,.1)",
+          border: "2px dashed rgba(139, 92, 246,.6)",
+          background: "rgba(124, 58, 237,.1)",
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>{tr.discountAmount}</div>
             <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
           </div>
-          <div style={{ width: 1, height: 40, background: "rgba(34, 197, 94,.3)" }} />
+          <div style={{ width: 1, height: 40, background: "rgba(139, 92, 246,.3)" }} />
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: "1px" }}>{tr.couponCode}</div>
             <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.freeShipping}</div>
@@ -68,13 +68,13 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
         width: "100%",
         padding: "11px",
         borderRadius: 12,
-        background: "rgba(22, 163, 74,0.12)",
+        background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         color: "#c084fc",
         fontSize: 14,
         fontWeight: 800,
-        border: "1px solid rgba(22, 163, 74,0.2)",
+        border: "1px solid rgba(124, 58, 237,0.2)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",

@@ -173,7 +173,7 @@ export default function Blog() {
               value={search}
               onChange={(e) => handleSearchChange(e.target.value)}
               placeholder={tx.searchPlaceholder}
-              className="w-full h-12 rounded-full border border-zinc-300 bg-white ps-5 pe-12 text-[15px] text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
+              className="w-full h-12 rounded-full border border-zinc-300 bg-white ps-5 pe-12 text-[15px] text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-violet-500/20 transition-colors"
             />
             <Search className="absolute end-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-zinc-400 pointer-events-none" />
           </div>
@@ -245,7 +245,7 @@ export default function Blog() {
                         <span className="text-5xl drop-shadow-sm" aria-hidden>
                           {post.coverIcon}
                         </span>
-                        <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-green-100 border border-green-200 text-[11px] font-bold text-green-700">
+                        <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
                           {catDisplay}
                         </span>
                       </div>
@@ -262,7 +262,7 @@ export default function Blog() {
                             <span className="num-ltr">{getReadTime(post)}</span> {tx.readSuffix}
                           </span>
                           <span className="num-ltr">{getPublishDate(post)}</span>
-                          <ArrowCTA className="w-4 h-4 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <ArrowCTA className="w-4 h-4 text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
                       </div>
                     </article>

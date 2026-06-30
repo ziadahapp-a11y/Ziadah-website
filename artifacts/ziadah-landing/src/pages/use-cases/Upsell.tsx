@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "الفئة الأعلى — القيمة الأوضح",
       desc: "يعرض النسخة المتميزة مع جدول مقارنة واضح يُبرز الفروقات الحقيقية. العميل يرى لماذا يستحق الفارق في السعر.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📦",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "⭐",
       title: "الإصدار المتميز (Premium)",
       desc: "يعرض الإصدار Premium أو البريميوم مع تأكيد المزايا الإضافية بشكل جذاب — يناسب العملاء الذين يقدّرون الجودة.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔄",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+41%", label: "متوسط قيمة الطلب", color: "#22c55e" },
+    { value: "+41%", label: "متوسط قيمة الطلب", color: "#8b5cf6" },
     { value:"+28%", label: "معدل قبول اقتراح الترقية", color: "#06b6d4" },
-    { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#22c55e" },
+    { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#8b5cf6" },
     { value: "+22%", label: "معدل تكرار الشراء", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -70,25 +70,24 @@ const data: UseCasePageData = {
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine" style={{ width: "100%" }}/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "متى يعمل Upsell ومتى لا يعمل؟" : "When upselling works — and when it doesn't"}</h3>
+        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px" }}>
+          <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>{isAr ? "متى يعمل Upsell ومتى لا يعمل؟" : "When upselling works — and when it doesn't"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
-            <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#22c55e", marginBottom: 12 }}>{isAr ? "✅ يعمل بشكل ممتاز عندما" : "✅ Works great when"}</div>
+            <div className="rounded-xl border border-violet-200 bg-violet-50/60" style={{ padding: "24px 28px" }}>
+              <div className="text-violet-700" style={{ fontSize: 17, fontWeight: 800, marginBottom: 12 }}>{isAr ? " يعمل بشكل ممتاز عندما" : " Works great when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {(isAr ? ["الفارق في السعر 20-50% وليس أكثر", "الفوائد الإضافية واضحة وملموسة", "العميل له تاريخ شراء في الفئة المتميزة", "يُعرض قبل إضافة المنتج للسلة"] : ["Price difference is 20-50%, not more", "Additional benefits are clear and tangible", "Customer has a purchase history in premium category", "Shown before adding the product to cart"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "flex-start" }}>
-                    <span style={{ color: "#22c55e", fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
+                  <li key={i} className="text-zinc-600" style={{ display: "flex", gap: 8, fontSize: 14, alignItems: "flex-start" }}>
+                    <span className="text-violet-600" style={{ fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div style={{ padding: "24px 28px", background: "rgba(225,29,72,.05)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 14 }}>
+            <div className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "24px 28px" }}>
               <div style={{ fontSize: 17, fontWeight: 800, color: "#e11d48", marginBottom: 12 }}>{isAr ? "⚠️ لا يعمل بشكل جيد عندما" : "⚠️ Doesn't work well when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {(isAr ? ["الفارق أكبر من 50% بدون مبرر واضح", "النسخة المُقترحة في فئة مختلفة كلياً", "العميل في مرحلة متقدمة من عملية الدفع", "يُعرض بشكل مكثف أكثر من مرة"] : ["Difference exceeds 50% without clear justification", "Suggested version is in a completely different category", "Customer is in an advanced stage of checkout", "Shown too aggressively or repeatedly"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "flex-start" }}>
+                  <li key={i} className="text-zinc-600" style={{ display: "flex", gap: 8, fontSize: 14, alignItems: "flex-start" }}>
                     <span style={{ color: "#e11d48", fontWeight: 700, flexShrink: 0 }}>✗</span> {item}
                   </li>
                 ))}
@@ -118,7 +117,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "Higher Tier — Clearer Value",
       desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "📦",
@@ -130,7 +129,7 @@ const data: UseCasePageData = {
       icon: "⭐",
       title: "Premium Edition",
       desc: "Displays the Premium edition with its additional benefits highlighted attractively — perfect for customers who value quality.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔄",
@@ -140,9 +139,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+41%", label: "Average order value", color: "#22c55e" },
+    { value: "+41%", label: "Average order value", color: "#8b5cf6" },
     { value: "+28%", label: "Upgrade suggestion acceptance rate", color: "#06b6d4" },
-    { value: "+35%", label: "Long-term customer satisfaction", color: "#22c55e" },
+    { value: "+35%", label: "Long-term customer satisfaction", color: "#8b5cf6" },
     { value: "+22%", label: "Repeat purchase rate", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

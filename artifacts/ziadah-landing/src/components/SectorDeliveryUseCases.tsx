@@ -232,7 +232,7 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
   const sub = isAr ? row.subAr : row.subEn;
   const tag = row.tagAr && row.tagEn ? (isAr ? row.tagAr : row.tagEn) : undefined;
   const icon = row.icon ?? "📦";
-  const borderO = row.className === "highlight-o" ? "rgba(22, 163, 74,.35)" : row.className === "highlight-g" ? "rgba(0,212,160,.3)" : "var(--b2)";
+  const borderO = row.className === "highlight-o" ? "rgba(124, 58, 237,.35)" : row.className === "highlight-g" ? "rgba(0,212,160,.3)" : "var(--b2)";
   return (
     <div
       className={`sector-html-ucv-item ${row.className ?? ""}`.trim()}
@@ -272,7 +272,7 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
             borderRadius: 999,
             border: "1px solid var(--b2)",
             whiteSpace: "nowrap",
-            background: row.tagClass === "tag-gold" ? "rgba(245,192,48,.12)" : row.tagClass === "tag-g" ? "rgba(0,212,160,.1)" : "rgba(22, 163, 74,.08)",
+            background: row.tagClass === "tag-gold" ? "rgba(245,192,48,.12)" : row.tagClass === "tag-g" ? "rgba(0,212,160,.1)" : "rgba(124, 58, 237,.08)",
             color: row.tagClass === "tag-gold" ? "#f5c030" : row.tagClass === "tag-g" ? "#00d4a0" : "var(--p)",
           }}
         >
@@ -299,7 +299,7 @@ export default function SectorDeliveryUseCases() {
         <p className="sh-en" style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--tm)", marginBottom: 8 }}>
           {isAr ? "أمثلة حية" : "Live examples"}
         </p>
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: "var(--p)", marginBottom: 6, marginTop: 0 }}>{tr.sectorSectionUseCases}</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 6, marginTop: 0 }}>{tr.sectorSectionUseCases}</h2>
         <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--td)", lineHeight: 1.6, maxWidth: 560 }}>
           {isAr ? "أهم السيناريوهات — يمكنك استكشاف الباقي من لوحة زيادة بعد التفعيل." : "Key scenarios — explore the rest in Ziadah after activation."}
         </p>

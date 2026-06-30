@@ -28,7 +28,7 @@ export type WidgetShowcaseItemData = {
 };
 
 const WIDGET_ICONS = ["📦", "🤝", "➕", "🔎", "🏷️", "🚚", "⬆️"];
-const WIDGET_RGBS = ["34, 197, 94", "6,182,212", "16,185,129", "245,158,11", "236,72,153", "22, 163, 74", "79,70,229"];
+const WIDGET_RGBS = ["139, 92, 246", "6,182,212", "139, 92, 246", "245,158,11", "236,72,153", "124, 58, 237", "79,70,229"];
 
 /** ترتيب ثابت يطابق `widgetElements` وقوائم الترجمة */
 const WIDGET_KINDS: WidgetShowcaseKind[] = [

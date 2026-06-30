@@ -22,7 +22,7 @@ const nasserProfile = {
   labelEn: "Returning Customer",
   tags: [
     { text: "ذكر", textEn: "Male", color: "#6366f1" },
-    { text: "آيفون 17", textEn: "iPhone 17", color: "#16a34a" },
+    { text: "آيفون 17", textEn: "iPhone 17", color: "#7c3aed" },
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [
@@ -47,7 +47,7 @@ const nouraProfile = {
   tags: [
     { text: "أنثى", textEn: "Female", color: "#ec4899" },
     { text: "جوّال أندرويد", textEn: "Android Mobile", color: "#f97316" },
-    { text: "عطور وجمال", textEn: "Fragrance & Beauty", color: "#14b8a6" },
+    { text: "عطور وجمال", textEn: "Fragrance & Beauty", color: "#8b5cf6" },
   ],
   stats: [
     { label: "مصدر الزيارة", labelEn: "Traffic Source", value: "إعلان رمضان", valueEn: "Ramadan Ad" },
@@ -81,7 +81,7 @@ export default function CustomerProfileDemo() {
         margin: "40px 0",
         borderRadius: 24,
         overflow: "hidden",
-        border: "1px solid rgba(22, 163, 74,0.2)",
+        border: "1px solid rgba(124, 58, 237,0.2)",
         background: "var(--s1)",
         boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
         fontFamily: "var(--font)",
@@ -324,8 +324,8 @@ export default function CustomerProfileDemo() {
                       alignItems: "center",
                       gap: 8,
                       padding: "6px 14px",
-                      background: "rgba(34, 197, 94,0.12)",
-                      border: "1px solid rgba(34, 197, 94,0.25)",
+                      background: "rgba(139, 92, 246,0.12)",
+                      border: "1px solid rgba(139, 92, 246,0.25)",
                       borderRadius: 20,
                       fontSize: 11,
                       color: "#c084fc",
@@ -426,8 +426,8 @@ export default function CustomerProfileDemo() {
                   style={{
                     marginTop: 16,
                     padding: "12px 14px",
-                    background: "rgba(34, 197, 94,0.06)",
-                    border: "1px solid rgba(34, 197, 94,0.15)",
+                    background: "rgba(139, 92, 246,0.06)",
+                    border: "1px solid rgba(139, 92, 246,0.15)",
                     borderRadius: 12,
                     display: "flex",
                     gap: 10,

@@ -1,5 +1,23 @@
 import { useEffect, useState } from "react";
-import { Search, Clock, ChevronRight, ArrowRight, ArrowLeft, Lightbulb, AlertTriangle } from "lucide-react";
+import {
+  Search,
+  Clock,
+  ChevronRight,
+  ArrowRight,
+  ArrowLeft,
+  Lightbulb,
+  AlertTriangle,
+  MessageCircle,
+  Zap,
+  Settings,
+  Bot,
+  CreditCard,
+  Wrench,
+  Monitor,
+  TrendingUp,
+  BookOpen,
+  type LucideIcon,
+} from "lucide-react";
 import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
@@ -17,8 +35,20 @@ import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { useSupportArticleFields } from "../cms/useSupportArticleFields";
+import { Section, PrimaryButton } from "@/components/trackflow";
 
 const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
+
+/** Map the category emoji icons to lucide icons (DS uses lucide, never emoji). */
+const CATEGORY_ICON: Record<string, LucideIcon> = {
+  "": Zap,
+  "": Settings,
+  "": Bot,
+  "": CreditCard,
+  "": Wrench,
+  "": Monitor,
+  "": TrendingUp,
+};
 
 export default function SupportArticle() {
   const t = useSiteT();
@@ -59,13 +89,9 @@ export default function SupportArticle() {
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-3">{tx.notFoundTitle}</h1>
             <p className="text-zinc-600 mb-8">{tx.notFoundDesc}</p>
-            <button
-              type="button"
-              onClick={() => navigateTo("/support")}
-              className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-md bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
-            >
+            <PrimaryButton onClick={() => navigateTo("/support")}>
               {tx.notFoundBtn}
-            </button>
+            </PrimaryButton>
           </div>
         </div>
       </PageShell>
@@ -76,6 +102,7 @@ export default function SupportArticle() {
   const articleDesc = cmsFields.desc;
   const articleTime = cmsFields.time;
   const catLabel = getCatLabel(category);
+  const CategoryIcon = CATEGORY_ICON[category.icon] ?? BookOpen;
   const pk = getPageKeywords("/support");
   const titleSuffixAr = "مركز مساعدة زيادة";
   const titleSuffixEn = "Ziadah Help Center";
@@ -99,8 +126,8 @@ export default function SupportArticle() {
     ]} />
     <PageShell className="bg-white" style={{ background: "#fff" }}>
 
-      <article dir={dir} className="px-4 pt-16 md:pt-20 pb-20">
-        <div className="container mx-auto max-w-3xl">
+      <Section band="white" className="!pt-16 md:!pt-20 !pb-20" containerClassName="max-w-3xl">
+        <article dir={dir}>
 
           {/* Breadcrumb */}
           <nav className="flex items-center flex-wrap gap-2 mb-8 text-sm text-zinc-500">
@@ -127,21 +154,17 @@ export default function SupportArticle() {
           <header className="mb-10">
             <div className="flex items-center gap-3 flex-wrap mb-5">
               <span
-                className="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0"
-                style={{ background: `${category.color}18`, border: `1px solid ${category.color}30` }}
+                className="w-9 h-9 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0"
                 aria-hidden
               >
-                {category.icon}
+                <CategoryIcon className="w-5 h-5 text-white" />
               </span>
-              <span
-                className="text-xs font-bold rounded-full px-3 py-1"
-                style={{ color: category.color, background: `${category.color}12`, border: `1px solid ${category.color}25` }}
-              >
+              <span className="inline-flex items-center rounded-full bg-violet-100 border border-violet-200 px-3 py-1 text-xs font-bold text-violet-700">
                 {catLabel}
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
                 <Clock className="w-3.5 h-3.5" />
-                {articleTime} {tx.readSuffix}
+                <span className="num-ltr">{articleTime}</span> {tx.readSuffix}
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950 leading-tight mb-4">
@@ -159,8 +182,7 @@ export default function SupportArticle() {
                 return (
                   <h2
                     key={i}
-                    className="text-xl md:text-2xl font-bold text-zinc-950 mt-3 pb-2.5 border-b"
-                    style={{ borderColor: `${category.color}20` }}
+                    className="text-xl md:text-2xl font-bold text-zinc-950 mt-3 pb-2.5 border-b border-zinc-200"
                   >
                     {section.text}
                   </h2>
@@ -180,10 +202,7 @@ export default function SupportArticle() {
                   <div key={i} className="flex flex-col gap-2.5">
                     {section.items.map((item, j) => (
                       <div key={j} className="flex gap-3.5 items-start">
-                        <div
-                          className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold num-ltr"
-                          style={{ background: `${category.color}15`, border: `1px solid ${category.color}25`, color: category.color }}
-                        >
+                        <div className="w-7 h-7 rounded-lg bg-violet-100 border border-violet-200 text-violet-700 flex items-center justify-center shrink-0 text-sm font-bold num-ltr">
                           {j + 1}
                         </div>
                         <p className="text-[15px] text-zinc-700 leading-relaxed pt-0.5 m-0">{item}</p>
@@ -198,10 +217,7 @@ export default function SupportArticle() {
                   <div key={i} className="flex flex-col gap-2">
                     {section.items.map((item, j) => (
                       <div key={j} className="flex gap-3 items-start rounded-lg bg-zinc-50 border border-zinc-200 px-3.5 py-2.5">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full shrink-0 mt-2"
-                          style={{ background: category.color }}
-                        />
+                        <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-2 bg-violet-600" />
                         <p className="text-sm text-zinc-700 leading-relaxed m-0">{item}</p>
                       </div>
                     ))}
@@ -211,12 +227,12 @@ export default function SupportArticle() {
 
               if (section.type === "tip") {
                 return (
-                  <div key={i} className="flex gap-3 items-start rounded-xl bg-emerald-50 border border-emerald-200 p-4">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
-                      <Lightbulb className="w-4 h-4 text-emerald-600" />
+                  <div key={i} className="flex gap-3 items-start rounded-xl bg-violet-50 border border-violet-200 p-4">
+                    <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                      <Lightbulb className="w-4 h-4 text-violet-600" />
                     </div>
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase mb-1">{tx.tipLabel}</div>
+                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-1">{tx.tipLabel}</div>
                       <p className="text-sm text-zinc-700 leading-relaxed m-0">{section.text}</p>
                     </div>
                   </div>
@@ -256,9 +272,9 @@ export default function SupportArticle() {
                 href="https://api.whatsapp.com/send/?phone=966510131856"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-bold hover:bg-emerald-100 transition-colors"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-sm font-bold hover:bg-violet-100 transition-colors"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <MessageCircle className="w-4 h-4" />
                 {tx.contactSupport}
               </a>
             </div>
@@ -281,7 +297,7 @@ export default function SupportArticle() {
                     >
                       <div>
                         <div className="text-sm font-bold text-zinc-950">{siblingTitle(s)}</div>
-                        <div className="text-xs text-zinc-500 mt-1">{siblingTime(s)} {tx.readSuffix}</div>
+                        <div className="text-xs text-zinc-500 mt-1"><span className="num-ltr">{siblingTime(s)}</span> {tx.readSuffix}</div>
                       </div>
                       <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 ${isAr ? "rotate-180" : ""}`} />
                     </button>
@@ -290,8 +306,8 @@ export default function SupportArticle() {
               </div>
             );
           })()}
-        </div>
-      </article>
+        </article>
+      </Section>
       <PageClosingCta
         title={pc.supportTitle}
         description={pc.supportDesc}

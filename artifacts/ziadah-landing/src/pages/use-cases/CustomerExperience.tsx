@@ -37,7 +37,7 @@ const data: UseCasePageData = {
       icon: "🪪",
       title: "طبقة الهوية الكاملة",
       desc: "بناء ملف زائر غني: مصدر الزيارة، الجهاز، المنطقة، تاريخ التصفح والشراء — أساس لا يُبنى التوصية بدونه.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⚡",
@@ -49,7 +49,7 @@ const data: UseCasePageData = {
       icon: "🧠",
       title: "ذاكرة تراكمية",
       desc: "المشتريات السابقة، المنتجات التي شاهدها دون شراء، العودات المتكررة، وأوقات النشاط المفضلة — كلها تغذي النموذج مع الوقت.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "👥",
@@ -65,9 +65,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+18–34%", label: "متوسط قيمة الطلب خلال أول 6 أسابيع", color: "#22c55e" },
+    { value: "+18–34%", label: "متوسط قيمة الطلب خلال أول 6 أسابيع", color: "#8b5cf6" },
     { value: "حتى 3×", label: "معدل التحويل مقارنة بالأساس", color: "#06b6d4" },
-    { value: "+40", label: "إشارة سلوكية في المزيج", color: "#22c55e" },
+    { value: "+40", label: "إشارة سلوكية في المزيج", color: "#8b5cf6" },
     { value: "<80ms", label: "زمن توليد التوصية", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -86,12 +86,11 @@ const data: UseCasePageData = {
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
         <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-          <div className="gc rv" style={{ padding: "36px 28px", borderRadius: 20, overflow: "hidden" }}>
-            <div className="shine" />
-            <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 8, textAlign: "center" }}>
+          <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 28px", overflow: "hidden" }}>
+            <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 8, textAlign: "center" }}>
               {isAr ? "مقارنة سريعة" : "Quick comparison"}
             </h3>
-            <p style={{ fontSize: 14, color: "var(--tm)", textAlign: "center", marginBottom: 24, lineHeight: 1.7 }}>
+            <p className="text-zinc-600" style={{ fontSize: 14, textAlign: "center", marginBottom: 24, lineHeight: 1.7 }}>
               {isAr
                 ? "لماذا التوصيات التقليدية تتوقف مبكراً بينما محرك زيادة يستمر بالتعلم؟"
                 : "Why traditional recommendations plateau while Ziadah's engine keeps learning."}
@@ -115,10 +114,10 @@ const data: UseCasePageData = {
                           style={{
                             textAlign: i === 0 ? "start" : "center",
                             padding: "14px 16px",
-                            background: i === 2 ? "rgba(22, 163, 74,.12)" : "rgba(22, 163, 74,.06)",
-                            borderBottom: "1px solid var(--b1)",
+                            background: i === 2 ? "#f5f3ff" : "#fafafa",
+                            borderBottom: "1px solid #e4e4e7",
                             fontWeight: 900,
-                            color: i === 2 ? "var(--p4)" : "var(--t)",
+                            color: i === 2 ? "#7c3aed" : "#09090b",
                             borderRadius: i === 0 ? "12px 0 0 0" : i === 2 ? "0 12px 0 0" : 0,
                           }}
                         >
@@ -134,10 +133,10 @@ const data: UseCasePageData = {
                       <td
                         style={{
                           padding: "12px 16px",
-                          borderBottom: "1px solid var(--b1)",
+                          borderBottom: "1px solid #e4e4e7",
                           fontWeight: 700,
-                          color: "var(--t)",
-                          background: "var(--s2)",
+                          color: "#09090b",
+                          background: "#fafafa",
                         }}
                       >
                         {row[0]}
@@ -145,10 +144,10 @@ const data: UseCasePageData = {
                       <td
                         style={{
                           padding: "12px 16px",
-                          borderBottom: "1px solid var(--b1)",
+                          borderBottom: "1px solid #e4e4e7",
                           textAlign: "center",
-                          color: "var(--tm)",
-                          background: "var(--s2)",
+                          color: "#52525b",
+                          background: "#fafafa",
                         }}
                       >
                         {row[1]}
@@ -156,11 +155,11 @@ const data: UseCasePageData = {
                       <td
                         style={{
                           padding: "12px 16px",
-                          borderBottom: "1px solid var(--b1)",
+                          borderBottom: "1px solid #e4e4e7",
                           textAlign: "center",
                           fontWeight: 700,
-                          color: "#22c55e",
-                          background: "rgba(16,185,129,.06)",
+                          color: "#7c3aed",
+                          background: "#f5f3ff",
                         }}
                       >
                         {row[2]}
@@ -193,7 +192,7 @@ const data: UseCasePageData = {
       icon: "🪪",
       title: "Full identity layer",
       desc: "A rich visitor profile: traffic source, device, region, browsing and purchase history — the foundation recommendations are built on.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⚡",
@@ -205,7 +204,7 @@ const data: UseCasePageData = {
       icon: "🧠",
       title: "Cumulative memory",
       desc: "Past purchases, viewed-not-bought products, repeat visits, and preferred activity windows — all feeding the model over time.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "👥",
@@ -221,9 +220,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+18–34%", label: "Average order value in first 6 weeks", color: "#22c55e" },
+    { value: "+18–34%", label: "Average order value in first 6 weeks", color: "#8b5cf6" },
     { value: "Up to 3×", label: "Conversion vs. baseline", color: "#06b6d4" },
-    { value: "40+", label: "Behavioral signals in the mix", color: "#22c55e" },
+    { value: "40+", label: "Behavioral signals in the mix", color: "#8b5cf6" },
     { value: "<80ms", label: "Recommendation generation time", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

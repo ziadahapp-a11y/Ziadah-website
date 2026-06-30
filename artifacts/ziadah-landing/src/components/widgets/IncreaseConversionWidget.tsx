@@ -13,13 +13,13 @@ export default function IncreaseConversionWidget() {
         <div style={{
           padding: "12px 14px",
           borderRadius: 12,
-          background: "rgba(16,185,129,.1)",
-          border: "1.5px solid rgba(16,185,129,.3)",
+          background: "rgba(139, 92, 246,.1)",
+          border: "1.5px solid rgba(139, 92, 246,.3)",
           marginBottom: 10,
           textAlign: "center",
         }}>
           <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 4 }}>{tr.giftLabel}</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: "#22c55e" }}>{tr.discountAmount}</div>
+          <div style={{ fontSize: 20, fontWeight: 900, color: "#8b5cf6" }}>{tr.discountAmount}</div>
           <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountNote}</div>
           <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
@@ -65,13 +65,13 @@ export default function IncreaseConversionWidget() {
         width: "100%",
         padding: "10px",
         borderRadius: 12,
-        background: "rgba(16,185,129,0.12)",
+        background: "rgba(139, 92, 246,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#22c55e",
+        color: "#8b5cf6",
         fontSize: 14,
         fontWeight: 800,
-        border: "1px solid rgba(16,185,129,0.2)",
+        border: "1px solid rgba(139, 92, 246,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         {tr.btnBuy}

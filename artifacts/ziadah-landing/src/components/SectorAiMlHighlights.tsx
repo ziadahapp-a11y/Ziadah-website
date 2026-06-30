@@ -20,7 +20,7 @@ export default function SectorAiMlHighlights() {
           <span className="stag-dot" />
           {tr.sectorAiSectionTag}
         </div>
-        <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 10, marginTop: 0 }}>
+        <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight" style={{ marginBottom: 10, marginTop: 0 }}>
           {tr.sectorAiSectionTitle}
         </h2>
         <p style={{ margin: "0 0 18px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
@@ -41,7 +41,7 @@ export default function SectorAiMlHighlights() {
                 padding: "14px 16px 16px",
                 borderRadius: 14,
                 border: "1px solid var(--b2)",
-                background: "rgba(22, 163, 74,.04)",
+                background: "rgba(124, 58, 237,.04)",
               }}
             >
               <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>

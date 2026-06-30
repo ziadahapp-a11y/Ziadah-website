@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "جدول الشرائح التدريجي",
       desc: "يعرض جدولاً واضحاً: 1 قطعة = 49 ⃁ | 2 قطعة = 44 ⃁ لكل قطعة | 3+ = 39 ⃁ لكل قطعة — العميل يرى الفرق مباشرة.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔋",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "حساب التوفير الفعلي",
       desc: "بدلاً من عرض النسبة فقط، يُظهر زيادة المبلغ الفعلي الذي يوفره العميل عند اختيار كمية أكبر — أكثر إقناعاً وأوضح قيمة.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⏳",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+61%", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#22c55e" },
+    { value: "+61%", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#8b5cf6" },
     { value: "+45%", label: "متوسط إيراد الطلب الواحد مع عروض الكميات", color: "#06b6d4" },
-    { value: "+34%", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#22c55e" },
+    { value: "+34%", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#8b5cf6" },
     { value: "2.8x", label: "متوسط الكمية المشتراة مقارنة بدون عرض الكميات", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -74,9 +74,8 @@ const data: UseCasePageData = {
           labelEn: "🏷️ Best Product Fits",
           placement: "below",
           content: (
-            <div style={{ border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)", width: "100%" }}>
-              <div className="shine" />
-              <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
                 {isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
@@ -94,10 +93,10 @@ const data: UseCasePageData = {
                       { icon: "🏭", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
                     ]
                 ).map((item, i) => (
-                  <div key={i} style={{ padding: "20px 24px", background: "rgba(34, 197, 94,.05)", border: "1px solid rgba(34, 197, 94,.12)", borderRadius: 14 }}>
+                  <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 24px" }}>
                     <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
-                    <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
-                    <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
+                    <div className="font-bold text-zinc-950" style={{ fontSize: 14, marginBottom: 6 }}>{item.type}</div>
+                    <div className="text-zinc-500" style={{ fontSize: 12 }}>{item.examples}</div>
                   </div>
                 ))}
               </div>
@@ -125,7 +124,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "Tiered Pricing Table",
       desc: "Displays a clear table: 1 unit = 49 SAR | 2 units = 44 SAR each | 3+ = 39 SAR each — the customer sees the difference instantly.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "🔋",
@@ -137,7 +136,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Actual Savings Calculator",
       desc: "Instead of just showing percentages, Ziadah displays the exact amount saved when choosing a larger quantity — more convincing and clearer value.",
-      color: "#22c55e",
+      color: "#8b5cf6",
     },
     {
       icon: "⏳",
@@ -147,9 +146,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+61%", label: "Increase in bulk purchase rate when tiers are displayed", color: "#22c55e" },
+    { value: "+61%", label: "Increase in bulk purchase rate when tiers are displayed", color: "#8b5cf6" },
     { value: "+45%", label: "Average order revenue with volume offers", color: "#06b6d4" },
-    { value: "+34%", label: "Repeat purchase rate as stock depletes slowly", color: "#22c55e" },
+    { value: "+34%", label: "Repeat purchase rate as stock depletes slowly", color: "#8b5cf6" },
     { value: "2.8x", label: "Average quantity purchased vs. without volume offers", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

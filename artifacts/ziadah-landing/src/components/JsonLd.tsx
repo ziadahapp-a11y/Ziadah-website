@@ -24,7 +24,7 @@ export function OrganizationSchema() {
     name: "Ziadah",
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
-    logo: "https://www.ziadah.app/logo.png",
+    logo: "https://www.ziadah.app/logo-en.svg",
     description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
     sameAs: [
       "https://twitter.com/ziadah_app",
@@ -301,7 +301,7 @@ export function ArticleSchema({
       name: "Ziadah",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.ziadah.app/logo.png",
+        url: "https://www.ziadah.app/logo-en.svg",
         width: 512,
         height: 512,
       }
