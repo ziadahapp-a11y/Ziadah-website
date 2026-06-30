@@ -1011,7 +1011,7 @@ export default function HomeTrackflow() {
                         onValueChange={(v) => setRevenue(v[0])}
                         className="mb-8 [&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-violet-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-violet-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(16,185,129,0.25)]"
                       />
-                      <div className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-3">
+                      <div className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400 mb-3">
                         {t({ ar: "إيراد إضافي محتمل شهرياً", en: "Potential extra revenue monthly" })}
                       </div>
                       <div className="rounded-xl bg-white/[0.04] border border-white/10 p-5 space-y-4">
@@ -1061,7 +1061,7 @@ export default function HomeTrackflow() {
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="rounded-xl bg-white/[0.05] border border-white/10 p-5">
-                          <div className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1.5">
+                          <div className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1.5">
                             {t({ ar: "سنوياً", en: "Annually" })}
                           </div>
                           <div className="text-3xl md:text-4xl font-extrabold text-white num-ltr">
@@ -1069,7 +1069,7 @@ export default function HomeTrackflow() {
                           </div>
                         </div>
                         <div className="rounded-xl bg-white/[0.05] border border-white/10 p-5">
-                          <div className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1.5">
+                          <div className="text-[10px] uppercase tracking-widest text-zinc-400 mb-1.5">
                             {t({ ar: "شهرياً", en: "Monthly" })}
                           </div>
                           <div className="text-3xl md:text-4xl font-extrabold text-white num-ltr">
@@ -1078,7 +1078,7 @@ export default function HomeTrackflow() {
                         </div>
                       </div>
                       <div className="mt-auto pt-6">
-                        <p className="text-[11px] text-zinc-500 leading-relaxed mb-4">
+                        <p className="text-[11px] text-zinc-400 leading-relaxed mb-4">
                           {t({
                             ar: "تقدير متحفّظ عند 20٪ إيراد إضافي. النتائج تختلف حسب القطاع وحجم الكتالوج.",
                             en: "Conservative estimate at 20% extra revenue. Results vary by sector and catalog size.",
@@ -1781,7 +1781,7 @@ export default function HomeTrackflow() {
                       <ArrowCTA className="ms-1 w-4 h-4" />
                     </Button>
                   </div>
-                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-500">
+                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-400">
                     <span className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
                       {t({ ar: "تجربة مجانية 7 أيام", en: "7-day free trial" })}
