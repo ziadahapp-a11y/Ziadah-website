@@ -1361,6 +1361,13 @@ export default function HomeTrackflow() {
                 </div>
               </div>
 
+              <p className="text-center text-xs text-zinc-400 mt-4">
+                {t({
+                  ar: "تقديرات داخلية بناءً على متاجر تستخدم زيادة؛ تختلف حسب القطاع وحجم الكتالوج.",
+                  en: "Internal estimates based on stores using Ziadah; vary by sector and catalog size.",
+                })}
+              </p>
+
               <div className="text-center mt-10">
                 <Link
                   href="/features"
