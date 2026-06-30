@@ -154,20 +154,6 @@ function ThreadTweet({
   );
 }
 
-// Small circular progress "donut" shown beside each metric's score.
-function ScoreRing({ score, color }: { score: number; color: string }) {
-  const pct = Math.max(0, Math.min(100, (score / 10) * 100));
-  return (
-    <span className="relative inline-block w-5 h-5 shrink-0 align-middle">
-      <span
-        className="absolute inset-0 rounded-full"
-        style={{ background: `conic-gradient(${color} ${pct}%, ${color}26 0)` }}
-      />
-      <span className="absolute inset-[3px] rounded-full bg-white" />
-    </span>
-  );
-}
-
 // Hero "offer widget" — a live preview of the upsell UI Ziadah injects into a
 // store: a buy-more-save-more tier selector beside a frequently-bought-together
 // set. This is literally the product output, so it doubles as the hero visual
@@ -352,6 +338,297 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
   );
 }
 
+// ── Personalization demo: AI engine analyzes shoppers → personalized recs ──
+const DEMO_PHASES_AR = [
+  "بيانات العملاء تتدفق للمحرّك",
+  "الذكاء الاصطناعي يحلل السلوك والتفضيلات",
+  "توصيات مخصصة لكل عميل",
+];
+const DEMO_PHASES_EN = [
+  "Customer data flowing to the engine",
+  "AI analyzing behavior and preferences",
+  "Personalized recommendations ready",
+];
+
+function DemoPhaseIndicator({ isAr }: { isAr: boolean }) {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setPhase((p) => (p + 1) % 3), 2600);
+    return () => clearInterval(id);
+  }, []);
+  const phases = isAr ? DEMO_PHASES_AR : DEMO_PHASES_EN;
+  return (
+    <div className="demo-phase-bar">
+      {phases.map((label, i) => (
+        <div key={i} className={`demo-phase-item${phase === i ? " demo-phase-active" : ""}`}>
+          <span className="demo-phase-dot" />
+          <span className="demo-phase-text">{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DemoFlowSection({ isAr }: { isAr: boolean }) {
+  const nasserSigs = [
+    { c: "#a855f7", t: isAr ? "يتصفح المستلزمات الرياضية" : "Browsing athletic gear" },
+    { c: "#06b6d4", t: isAr ? "سلته تحوي مشروب بروتين" : "Cart has a protein drink" },
+    { c: "#8b5cf6", t: isAr ? "اشترى حذاء قبل شهر" : "Bought sneakers last month" },
+  ];
+  const nouraSigs = [
+    { c: "#ec4899", t: isAr ? "تتصفح منتجات التجميل" : "Browsing beauty products" },
+    { c: "#a855f7", t: isAr ? "اشترت عطراً الأسبوع الماضي" : "Bought perfume last week" },
+    { c: "#f59e0b", t: isAr ? "سلتها تحوي كريم مرطب" : "Cart has a moisturizer" },
+  ];
+  return (
+    <div className="dfs dfs-hero-dark" dir={isAr ? "rtl" : "ltr"}>
+      <DemoPhaseIndicator isAr={isAr} />
+
+      <div className="dfs-card gc">
+        <div className="shine" />
+
+        {/* ROW 1: profile | hflow | engine | hflow | profile */}
+        <div className="dfs-top">
+
+          {/* NASSER */}
+          <div className="dfs-profile rv d1">
+            <div className="dfs-av-wrap">
+              <div className="dfs-av-ring" />
+              <div className="dfs-av-ring dfs-av-ring-2" />
+              <img src="/avatar-male.webp" className="dfs-av" alt="" loading="lazy" />
+              <div className="dfs-av-badge dfs-av-badge-p">92%</div>
+            </div>
+            <div className="dfs-pbody">
+              <div className="dfs-pname">{isAr ? "ناصر" : "Nasser"}</div>
+              <div className="dfs-pmeta">{isAr ? "الرياض · آيفون · 28 سنة" : "Riyadh · iPhone · 28 yrs"}</div>
+              <div className="dfs-sigs">
+                {nasserSigs.map((s, i) => (
+                  <div key={i} className="dfs-sig">
+                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
+                    {s.t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Horizontal flow: Nasser → engine */}
+          <div className="dfs-hflow" aria-hidden="true">
+            <div className="dfs-hline dfs-hline-p" />
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="dfs-hpt dfs-hpt-p" style={{ "--di": i } as React.CSSProperties} />
+            ))}
+          </div>
+
+          {/* AI ENGINE hub */}
+          <div className="dfs-engine">
+            <div className="dfs-engine-ring" />
+            <div className="dfs-engine-ring dfs-engine-ring-2" />
+            <svg width="38" height="38" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="16" cy="16" r="14" fill="rgba(124, 58, 237,.22)" stroke="rgba(168, 85, 247,.6)" strokeWidth="1.5" />
+              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(168, 85, 247,.95)" />
+              <circle cx="16" cy="16" r="2.5" fill="#c084fc" />
+            </svg>
+            <div className="dfs-engine-lbl">{isAr ? "محرك الذكاء الاصطناعي" : "AI Engine"}</div>
+            <div className="dfs-engine-sub">{isAr ? "يحلل · يفهم · يخصص" : "Analyze · Personalize"}</div>
+            <div className="dfs-edots" aria-hidden="true">
+              {[0, 1, 2].map((i) => <span key={i} className="dfs-edot" style={{ "--di": i } as React.CSSProperties} />)}
+            </div>
+          </div>
+
+          {/* Horizontal flow: engine ← Noura */}
+          <div className="dfs-hflow" aria-hidden="true">
+            <div className="dfs-hline dfs-hline-pk" />
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="dfs-hpt dfs-hpt-pk" style={{ "--di": i } as React.CSSProperties} />
+            ))}
+          </div>
+
+          {/* NOURA */}
+          <div className="dfs-profile rv d2">
+            <div className="dfs-av-wrap">
+              <div className="dfs-av-ring dfs-av-ring-pk" />
+              <div className="dfs-av-ring dfs-av-ring-2 dfs-av-ring-pk" />
+              <img src="/avatar-female.webp" className="dfs-av" alt="" loading="lazy" />
+              <div className="dfs-av-badge dfs-av-badge-pk">96%</div>
+            </div>
+            <div className="dfs-pbody">
+              <div className="dfs-pname">{isAr ? "نوره" : "Noura"}</div>
+              <div className="dfs-pmeta">{isAr ? "جدة · سامسونج · 24 سنة" : "Jeddah · Samsung · 24 yrs"}</div>
+              <div className="dfs-sigs">
+                {nouraSigs.map((s, i) => (
+                  <div key={i} className="dfs-sig">
+                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
+                    {s.t}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>{/* /dfs-top */}
+
+        {/* ROW 2: upward connector — store data rises into engine */}
+        <div className="dfs-store-up" aria-hidden="true">
+          <div className="dfs-sup-line" />
+          {[0, 1, 2, 3].map((i) => (
+            <span key={i} className="dfs-upt" style={{ "--di": i } as React.CSSProperties} />
+          ))}
+        </div>
+
+        {/* ROW 2b: Store data label */}
+        <div className="dfs-store-label">
+          <div className="dfs-store-line" />
+          <span className="dfs-store-tag">{isAr ? "بيانات المتجر" : "Store Data"}</span>
+          <div className="dfs-store-line" />
+        </div>
+        <div className="dfs-store rv d2">
+
+          {/* Product Catalog */}
+          <div className="dfs-store-card gc">
+            <div className="shine" />
+            <div className="dfs-sc-hd">
+              <div className="dfs-sc-ico" style={{ background: "rgba(245,158,11,.1)", border: "1px solid rgba(245,158,11,.22)" }}>🛍️</div>
+              <div>
+                <div className="dfs-sc-title">{isAr ? "كتالوج المنتجات" : "Product Catalog"}</div>
+                <div className="dfs-sc-sub">{isAr ? "4 منتجات · متزامنة" : "4 products · synced"}</div>
+              </div>
+              <div className="dfs-live-dot" style={{ color: "#f59e0b" }}>● {isAr ? "مباشر" : "Live"}</div>
+            </div>
+            <div className="dfs-sc-list">
+              {([
+                { icon: "👟", name: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", cat: isAr ? "رياضة" : "Sports", price: isAr ? "349 ⃁" : "SAR 349", stock: 23 },
+                { icon: "🎧", name: isAr ? "سماعات JBL Reflect" : "JBL Reflect Earbuds", cat: isAr ? "إلكترونيات" : "Electronics", price: isAr ? "219 ⃁" : "SAR 219", stock: 41 },
+                { icon: "🥤", name: isAr ? "بروتين Whey" : "Whey Protein Drink", cat: isAr ? "لياقة" : "Fitness", price: isAr ? "149 ⃁" : "SAR 149", stock: 88 },
+                { icon: "🧴", name: isAr ? "كريم مرطب Nivea" : "Nivea Moisturizer", cat: isAr ? "تجميل" : "Beauty", price: isAr ? "89 ⃁" : "SAR 89", stock: 112 },
+              ] as { icon: string; name: string; cat: string; price: string; stock: number }[]).map((p, i) => (
+                <div key={i} className="dfs-sc-row">
+                  <span className="dfs-sc-emoji">{p.icon}</span>
+                  <div className="dfs-sc-info">
+                    <div className="dfs-sc-name">{p.name}</div>
+                    <div className="dfs-sc-cat">{p.cat}</div>
+                  </div>
+                  <div className="dfs-sc-price">{p.price}</div>
+                  <div className="dfs-sc-stock">{p.stock} {isAr ? "قطعة" : "in stock"}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Order History */}
+          <div className="dfs-store-card gc">
+            <div className="shine" />
+            <div className="dfs-sc-hd">
+              <div className="dfs-sc-ico" style={{ background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)" }}>📦</div>
+              <div>
+                <div className="dfs-sc-title">{isAr ? "سجل الطلبات" : "Order History"}</div>
+                <div className="dfs-sc-sub">{isAr ? "آخر 4 طلبات" : "Last 4 orders"}</div>
+              </div>
+              <div className="dfs-live-dot" style={{ color: "#06b6d4" }}>● {isAr ? "مباشر" : "Live"}</div>
+            </div>
+            <div className="dfs-sc-list">
+              {([
+                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", status: "done" as const, total: isAr ? "349 ⃁" : "SAR 349" },
+                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "عطر + كريم Nivea" : "Perfume + Nivea Cream", status: "done" as const, total: isAr ? "538 ⃁" : "SAR 538" },
+                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "سماعات JBL + بروتين" : "JBL Earbuds + Protein", status: "active" as const, total: isAr ? "368 ⃁" : "SAR 368" },
+                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "باليت مكياج" : "Makeup Palette", status: "done" as const, total: isAr ? "289 ⃁" : "SAR 289" },
+              ] as { av: string; customer: string; items: string; status: "done" | "active"; total: string }[]).map((o, i) => (
+                <div key={i} className="dfs-sc-row">
+                  <span className="dfs-sc-emoji">{o.av}</span>
+                  <div className="dfs-sc-info">
+                    <div className="dfs-sc-name">{o.customer}</div>
+                    <div className="dfs-sc-cat">{o.items}</div>
+                  </div>
+                  <div className={`dfs-sc-status ${o.status === "active" ? "dfs-sc-status-act" : ""}`}>
+                    {o.status === "done" ? (isAr ? "مكتمل" : "Done") : (isAr ? "جاري" : "Active")}
+                  </div>
+                  <div className="dfs-sc-price">{o.total}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>{/* /dfs-store */}
+
+        {/* ROW 3: output divider — engine → personalized recs */}
+        <div className="dfs-divider" aria-hidden="true">
+          <div className="dfs-div-line" />
+          <div className="dfs-div-label">{isAr ? "↓ توصيات مخصصة" : "↓ Personalized output"}</div>
+          <div className="dfs-div-line" />
+          <div className="dfs-vpt-wrap dfs-vpt-wrap-l">
+            {[0, 1, 2].map((i) => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
+          </div>
+          <div className="dfs-vpt-wrap dfs-vpt-wrap-r">
+            {[0, 1, 2].map((i) => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
+          </div>
+        </div>
+
+        {/* ROW 3: recommendations */}
+        <div className="dfs-recs">
+
+          {/* Nasser recs */}
+          <div className="dfs-rec dfs-rec-p rv d3">
+            <div className="dfs-rec-hd">
+              <div>
+                <div className="dfs-pname">{isAr ? "ناصر" : "Nasser"}</div>
+                <div className="dfs-pmeta">{isAr ? "الرياض · آيفون · 28 سنة" : "Riyadh · iPhone · 28 yrs"}</div>
+              </div>
+              <div className="demo-chip">92%</div>
+            </div>
+            <div className="demo-sl">{isAr ? "المقترحات بالذكاء الاصطناعي" : "AI Suggestions"}</div>
+            <div className="demo-suggs">
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(240,240,248,.06)", border: "1px solid rgba(240,240,248,.12)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="12" rx="5.5" ry="3.5" fill="rgba(240,240,248,.12)" stroke="rgba(240,240,248,.4)" strokeWidth="1" /><path d="M3.5 12 Q5.5 5.5 9 3.5 Q12.5 5.5 14.5 12" fill="rgba(15,10,30,.4)" stroke="rgba(240,240,248,.18)" strokeWidth="1" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{isAr ? "عرض الكولاجين" : "Collagen Offer"}</div><div className="demo-sw">{isAr ? "يكمل مشروب البروتين في سلتك" : "Complements the protein drink in your cart"}</div></div>
+                <div className="demo-sp">{isAr ? "349 ⃁" : "SAR 349"}</div>
+              </div>
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(168, 85, 247,.07)", border: "1px solid rgba(168, 85, 247,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(168, 85, 247,.15)" stroke="rgba(168, 85, 247,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(168, 85, 247,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(168, 85, 247,.5)" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{isAr ? "سماعات JBL Reflect" : "JBL Reflect Earbuds"}</div><div className="demo-sw">{isAr ? "78% يشترونها مع نفس الحذاء" : "78% buy them with the same sneakers"}</div></div>
+                <div className="demo-sp">{isAr ? "219 ⃁" : "SAR 219"}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Noura recs */}
+          <div className="dfs-rec dfs-rec-pk rv d4">
+            <div className="dfs-rec-hd">
+              <div>
+                <div className="dfs-pname">{isAr ? "نوره" : "Noura"}</div>
+                <div className="dfs-pmeta">{isAr ? "جدة · سامسونج · 24 سنة" : "Jeddah · Samsung · 24 yrs"}</div>
+              </div>
+              <div className="demo-chip" style={{ background: "rgba(236,72,153,.12)", border: "1px solid rgba(236,72,153,.28)", color: "#f9a8d4" }}>96%</div>
+            </div>
+            <div className="demo-sl">{isAr ? "المقترحات بالذكاء الاصطناعي" : "AI Suggestions"}</div>
+            <div className="demo-suggs">
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(236,72,153,.07)", border: "1px solid rgba(236,72,153,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="9" rx="2" fill="rgba(236,72,153,.12)" stroke="rgba(236,72,153,.45)" strokeWidth="1" /><rect x="4" y="7" width="3" height="2" rx=".6" fill="rgba(255,130,160,.3)" /><rect x="8" y="7" width="3" height="2" rx=".6" fill="rgba(200,70,120,.3)" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{isAr ? "باليت مكياج" : "Makeup Palette"}</div><div className="demo-sw">{isAr ? "يكمل العطر الذي اشترته" : "Complements the perfume she bought"}</div></div>
+                <div className="demo-sp">{isAr ? "289 ⃁" : "SAR 289"}</div>
+              </div>
+              <div className="demo-sugg">
+                <div className="demo-si" style={{ background: "rgba(168, 85, 247,.07)", border: "1px solid rgba(168, 85, 247,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(168, 85, 247,.12)" stroke="rgba(168, 85, 247,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(168, 85, 247,.08)" stroke="rgba(168, 85, 247,.3)" strokeWidth="1" /></svg>
+                </div>
+                <div className="demo-sb"><div className="demo-sn">{isAr ? "كريم يوسرين مرطب" : "Eucerin Moisturizer"}</div><div className="demo-sw">{isAr ? "مقترن مع كريمك في السلة" : "Pairs with the cream in your cart"}</div></div>
+                <div className="demo-sp">{isAr ? "449 ⃁" : "SAR 449"}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>{/* /dfs-recs */}
+
+      </div>{/* /dfs-card */}
+    </div>
+  );
+}
+
 export default function HomeTrackflow() {
   const { lang } = useLanguage();
   const isAr = lang === "ar";
@@ -429,19 +706,6 @@ export default function HomeTrackflow() {
     { name: t({ ar: "سلة", en: "Salla" }), brand: "Salla", color: "#0ea5e9", soon: false },
     { name: t({ ar: "ووردبريس", en: "WordPress" }), brand: "WordPress", color: "#6366f1", soon: true },
     { name: t({ ar: "متجر مخصص", en: "Custom store" }), brand: "Custom", color: "#f59e0b", soon: true },
-  ];
-
-  // Hero dashboard rows: per-metric scores as the shopper journey looks before
-  // vs after Ziadah's recommendations go live.
-  const beforeRows = [
-    { metric: t({ ar: "متوسط قيمة الطلب", en: "Avg. order value" }), score: 3.0, badge: t({ ar: "منخفض", en: "Low" }), tone: "error" as const },
-    { metric: t({ ar: "البيع المتقاطع", en: "Cross-sell rate" }), score: 2.6, badge: t({ ar: "ضعيف", en: "Weak" }), tone: "error" as const },
-    { metric: t({ ar: "معدّل إضافة منتج", en: "Add-on rate" }), score: 3.2, badge: t({ ar: "منخفض", en: "Low" }), tone: "warn" as const },
-  ];
-  const afterRows = [
-    { metric: t({ ar: "متوسط قيمة الطلب", en: "Avg. order value" }), score: 9.1, badge: t({ ar: "ممتاز", en: "Great" }) },
-    { metric: t({ ar: "البيع المتقاطع", en: "Cross-sell rate" }), score: 8.6, badge: t({ ar: "قوي", en: "Strong" }) },
-    { metric: t({ ar: "معدّل إضافة منتج", en: "Add-on rate" }), score: 8.9, badge: t({ ar: "ممتاز", en: "Great" }) },
   ];
 
   const trustItems = [
@@ -723,132 +987,17 @@ export default function HomeTrackflow() {
                   </motion.div>
                 </div>
 
-                {/* RIGHT — offer widget + before/after result cards */}
+                {/* RIGHT — AI engine analyzes shoppers → personalized recommendations */}
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.25 }}
                   className="relative w-full mt-6 lg:mt-0"
                 >
-                  <div className="absolute inset-x-0 -top-10 bottom-0 -z-10 bg-gradient-to-tr from-violet-200/50 via-purple-100/40 to-sky-100/40 blur-[90px] rounded-[45%] pointer-events-none" />
+                  <div className="absolute inset-x-0 -top-10 bottom-0 -z-10 bg-gradient-to-tr from-violet-500/25 via-purple-500/15 to-indigo-500/15 blur-[90px] rounded-[45%] pointer-events-none" />
 
                   <div className="relative w-full max-w-xl mx-auto lg:me-0 lg:ms-auto">
-                    <HeroOffer engineLabel={engineLabel} />
-
-                    <div className="flex items-center justify-center gap-2.5 mt-3 mb-4">
-                      <span className="h-px w-8 bg-gradient-to-r from-transparent to-zinc-300" />
-                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
-                        {t({ ar: "النتيجة على متجرك", en: "The result on your store" })}
-                      </span>
-                      <span className="h-px w-8 bg-gradient-to-l from-transparent to-zinc-300" />
-                    </div>
-
-                    <div className="relative num-ltr grid grid-cols-2 gap-3 sm:gap-4 items-stretch">
-                      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md ring-1 ring-zinc-200/80">
-                        <ArrowRight className="w-3.5 h-3.5 text-violet-500" />
-                      </div>
-
-                      {/* BEFORE */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -24 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.4 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="relative z-10"
-                      >
-                        <div className="h-full rounded-2xl bg-white/60 backdrop-blur-sm border border-zinc-200/70 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] p-3.5 saturate-[0.92]">
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-rose-50 border border-rose-100 text-[9px] font-bold uppercase tracking-wide text-rose-500">
-                              <XCircle className="w-3 h-3" />
-                              {t({ ar: "بدون زيادة", en: "Without Ziadah" })}
-                            </span>
-                            <div className="flex items-center gap-1.5">
-                              <ScoreRing score={3.0} color="#f43f5e" />
-                              <span className="text-[11px] font-extrabold text-rose-500 num-ltr">3.0/10</span>
-                            </div>
-                          </div>
-                          <div className="space-y-2.5">
-                            {beforeRows.map((r, i) => (
-                              <div key={r.metric}>
-                                <div className="flex items-center justify-between gap-2 mb-1">
-                                  <span className="text-[12px] font-bold text-zinc-900">{r.metric}</span>
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-[12px] font-bold text-rose-500 num-ltr">{r.score.toFixed(1)}</span>
-                                    <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap text-white ${r.tone === "warn" ? "bg-amber-400" : "bg-rose-500"}`}>
-                                      {r.badge}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="h-1 w-full rounded-full bg-zinc-100 overflow-hidden">
-                                  <motion.div
-                                    className="h-full rounded-full bg-gradient-to-r from-rose-400 to-rose-500"
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: `${(r.score / 10) * 100}%` }}
-                                    viewport={{ once: true, amount: 0.6 }}
-                                    transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: "easeOut" }}
-                                  />
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-
-                      {/* AFTER */}
-                      <motion.div
-                        initial={{ opacity: 0, x: 24 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.4 }}
-                        transition={{ duration: 0.6, delay: 0.18, ease: "easeOut" }}
-                        className="relative z-20"
-                      >
-                        <div className="h-full group relative overflow-hidden rounded-2xl bg-white border border-violet-200 ring-1 ring-violet-500/10 shadow-[0_24px_50px_-16px_rgba(16,185,129,0.42)] p-3.5 transition-transform duration-300 hover:-translate-y-1">
-                          <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-transparent via-violet-400 to-transparent" />
-                          <div className="flex items-center justify-between mb-3">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-50 border border-violet-100 text-[9px] font-bold uppercase tracking-wide text-violet-600">
-                              <span className="relative flex h-1.5 w-1.5">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-                              </span>
-                              {t({ ar: "مع زيادة", en: "With Ziadah" })}
-                            </span>
-                            <div className="flex items-center gap-1.5 num-ltr">
-                              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-violet-100 text-[9px] font-extrabold text-violet-700">
-                                <TrendingUp className="w-2.5 h-2.5" />
-                                +6.1
-                              </span>
-                              <ScoreRing score={9.1} color="#8b5cf6" />
-                              <span className="text-[11px] font-extrabold text-violet-600">9.1/10</span>
-                            </div>
-                          </div>
-                          <div className="space-y-2.5">
-                            {afterRows.map((r, i) => (
-                              <div key={r.metric}>
-                                <div className="flex items-center justify-between gap-2 mb-1">
-                                  <span className="text-[12px] font-bold text-zinc-900">{r.metric}</span>
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-[12px] font-bold text-violet-600 num-ltr">{r.score.toFixed(1)}</span>
-                                    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap text-white bg-violet-500">
-                                      <CheckCircle2 className="w-2.5 h-2.5" />
-                                      {r.badge}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="h-1 w-full rounded-full bg-violet-50 overflow-hidden">
-                                  <motion.div
-                                    className="h-full rounded-full bg-gradient-to-r from-violet-400 to-violet-500"
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: `${(r.score / 10) * 100}%` }}
-                                    viewport={{ once: true, amount: 0.6 }}
-                                    transition={{ duration: 0.9, delay: 0.35 + i * 0.1, ease: "easeOut" }}
-                                  />
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
+                    <DemoFlowSection isAr={isAr} />
                   </div>
                 </motion.div>
               </div>
@@ -918,7 +1067,7 @@ export default function HomeTrackflow() {
           </section>
 
           {/* THE PROBLEM — Ziadah's framed problem→solution story */}
-          <section className="pt-24 px-4 bg-black">
+          <section className="py-24 px-4 bg-black">
             <div className="container mx-auto max-w-xl">
               <div className="text-center mb-9">
                 <span className="inline-block text-xs font-bold tracking-widest text-violet-400 uppercase mb-3">
@@ -1751,6 +1900,89 @@ export default function HomeTrackflow() {
 
           {/* SECTORS — حلول مخصّصة لمجال تجارتك */}
           <SectorsBriefSection />
+
+          {/* TESTIMONIALS — آراء التجار: verified merchant reviews, two marquees */}
+          <section
+            id="testimonials"
+            className="py-24 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20 overflow-x-clip"
+          >
+            <div className="container mx-auto max-w-6xl px-4">
+              <div className="text-center mb-12">
+                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
+                  {translations[lang].landing.testimonialsTag}
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
+                  {translations[lang].landing.testimonialsTitle}
+                </h2>
+                <p className="text-lg text-zinc-600">
+                  {translations[lang].landing.testimonialsSub}
+                </p>
+              </div>
+            </div>
+
+            {[
+              { ref: testimonialsMarquee1Ref, data: testimonialsRow1, dir: "marquee-rtl", mb: "mb-5" },
+              { ref: testimonialsMarquee2Ref, data: testimonialsRow2, dir: "marquee-ltr", mb: "" },
+            ].map((row, ri) => (
+              <div key={ri} className={`marquee-row ${row.mb}`}>
+                <div
+                  ref={row.ref}
+                  className={`marquee-track ${row.dir}`}
+                  style={{ animationDuration: `${row.data.length * 4}s` }}
+                >
+                  {[0, 1, 2].map((seg) => (
+                    <div key={seg} className="marquee-segment">
+                      {row.data.map((t, i) => (
+                        <div
+                          key={`${seg}-${i}`}
+                          dir={isAr ? "rtl" : "ltr"}
+                          className="shrink-0 w-[280px] sm:w-[320px] me-4 flex flex-col rounded-2xl border border-zinc-200 bg-white p-5 shadow-card text-start"
+                        >
+                          <div className="flex gap-0.5 mb-3" dir="ltr">
+                            {Array.from({ length: 5 }).map((_, s) => (
+                              <Star key={s} className="w-3.5 h-3.5 fill-violet-500 text-violet-500" aria-hidden="true" />
+                            ))}
+                          </div>
+                          <p className="flex-1 text-sm leading-relaxed text-zinc-700 mb-4 line-clamp-5">
+                            {t.text}
+                          </p>
+                          <div className="flex items-center gap-2.5 mt-auto">
+                            <div
+                              className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center overflow-hidden text-xs font-extrabold text-white"
+                              style={{ background: t.logo ? "#fff" : t.col }}
+                            >
+                              {t.logo ? (
+                                <img
+                                  src={t.logo}
+                                  alt={t.name}
+                                  loading="lazy"
+                                  className="w-full h-full object-cover"
+                                  onError={(e) => {
+                                    const img = e.currentTarget;
+                                    const parent = img.parentElement;
+                                    if (parent) {
+                                      parent.style.background = t.col;
+                                      parent.textContent = t.av;
+                                    }
+                                  }}
+                                />
+                              ) : (
+                                t.av
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-sm font-bold text-zinc-900 truncate">{t.name}</div>
+                              <div className="text-xs text-zinc-500 truncate">{t.role}</div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
 
           {/* PRICING TEASER */}
           <section id="pricing" className="py-24 px-4 scroll-mt-20">
