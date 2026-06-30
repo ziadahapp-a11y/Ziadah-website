@@ -548,7 +548,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
                   >
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-base" aria-hidden="true">{p.emoji}</span>
                     <div className="min-w-0 flex-1 text-start">
-                      <div className="truncate text-[11.5px] font-bold text-zinc-900 leading-tight">{p.name}</div>
+                      <div className="text-[11.5px] font-bold text-zinc-900 leading-tight">{p.name}</div>
                       <div className="text-[11px] font-extrabold text-green-600 num-ltr">{money(p.price)}</div>
                     </div>
                     <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-md border ${p.selected ? "border-emerald-500 bg-emerald-500 text-white" : "border-zinc-300 bg-white"}`}>
@@ -571,7 +571,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
                 {sc.products!.map((p, i) => (
                   <div key={i} className="flex items-center gap-2.5 rounded-xl border border-green-100 bg-white p-2">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-base" aria-hidden="true">{p.emoji}</span>
-                    <div className="min-w-0 flex-1 text-start text-[11.5px] font-bold text-zinc-900 truncate">{p.name}</div>
+                    <div className="min-w-0 flex-1 text-start text-[11.5px] font-bold text-zinc-900">{p.name}</div>
                     <span className="shrink-0 text-[11px] font-extrabold text-green-600 num-ltr">{money(p.price)}</span>
                   </div>
                 ))}

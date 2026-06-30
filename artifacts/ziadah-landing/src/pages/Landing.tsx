@@ -172,7 +172,7 @@ function LiveDemoSection({ lang }: { lang: string }) {
   const isMobilePreview = viewportMode === "mobile";
 
   return (
-    <section id="live-demo" className="live-demo-sec landing-white-violet">
+    <section id="live-demo" className="live-demo-sec landing-white-accent">
       <div className="wrap">
         {/* Header */}
         <div className="tc" style={{ marginBottom: 40 }}>
@@ -931,7 +931,7 @@ export default function Landing() {
           </div>
         </div>
         {/* BEFORE / AFTER + CALCULATOR */}
-        <section id="why" className="landing-white-violet">
+        <section id="why" className="landing-white-accent">
           <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: 40, justifyContent: "flex-start", alignItems: "center" }}>
             <div className="tc" style={{ marginBottom: 0 }}>
               <SecTag>{tr.landing.whyTag}</SecTag>
@@ -1521,7 +1521,7 @@ export default function Landing() {
           </div>
         </section>
         {/* DETAILED REPORTS */}
-        <section id="reports" className="landing-white-violet">
+        <section id="reports" className="landing-white-accent">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.reportsTag}</SecTag>
@@ -1563,7 +1563,7 @@ export default function Landing() {
                 {/* Stats grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
-                    const statText = "var(--lv-purple-deep)";
+                    const statText = "var(--lv-accent-deep)";
                     return (
                     <div key={i} style={{ padding: "14px 14px", background: "unset", border: "1px solid var(--b1)", borderRadius: 12, color: statText }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
@@ -1668,7 +1668,7 @@ export default function Landing() {
         {/* TESTIMONIALS */}
         <section
           id="testimonials"
-          className="landing-white-violet"
+          className="landing-white-accent"
           style={{ overflowX: "clip", paddingInline: 0 }}
         >
           <div className="wrap">

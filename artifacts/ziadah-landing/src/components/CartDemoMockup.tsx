@@ -4,9 +4,9 @@ export default function CartDemoMockup() {
   const { lang } = useLanguage();
   const isEn = lang === "en";
 
-  const purple = "#16a34a";
-  const lightPurple = "rgba(22, 163, 74,0.1)";
-  const borderPurple = "rgba(22, 163, 74,0.25)";
+  const accent = "#16a34a";
+  const accentLight = "rgba(22, 163, 74,0.1)";
+  const accentBorder = "rgba(22, 163, 74,0.25)";
 
   const products = isEn
     ? [
@@ -42,8 +42,8 @@ export default function CartDemoMockup() {
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", paddingTop: 40, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: lightPurple, border: `1px solid ${borderPurple}`, color: purple, fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: purple, boxShadow: `0 0 7px ${purple}` }} />
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: accentLight, border: `1px solid ${accentBorder}`, color: accent, fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: accent, boxShadow: `0 0 7px ${accent}` }} />
             {t.tag}
           </div>
           <h2 style={{ fontSize: "clamp(24px,3vw,38px)", fontWeight: 900, marginBottom: 12, color: "var(--t)" }}>
@@ -63,7 +63,7 @@ export default function CartDemoMockup() {
             <div style={{ background: "#f8f8fc", minHeight: 580, direction: isEn ? "ltr" : "rtl" }}>
               <div style={{ background: "#fff", padding: "16px 16px 10px", borderBottom: "1px solid #f0f0f5" }}>
                 <div style={{ textAlign: "start" }}>
-                  <span style={{ fontSize: 26, fontWeight: 900, color: purple, letterSpacing: -1 }}>
+                  <span style={{ fontSize: 26, fontWeight: 900, color: accent, letterSpacing: -1 }}>
                     {t.cartTitle}
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function CartDemoMockup() {
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
                   <span style={{ fontSize: 13, fontWeight: 900, color: "#111" }}>{t.youMayLike}</span>
                 </div>
-                <div style={{ fontSize: 11, color: purple, fontWeight: 700, marginBottom: 10 }}>{t.addNow}</div>
+                <div style={{ fontSize: 11, color: accent, fontWeight: 700, marginBottom: 10 }}>{t.addNow}</div>
 
                 <div style={{ background: "rgba(16,185,129,0.07)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: 8, padding: "6px 10px", display: "flex", alignItems: "center", gap: 6, marginBottom: 12 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, color: "#22c55e" }}>✓</span>
@@ -133,7 +133,7 @@ export default function CartDemoMockup() {
                           )}
                         </div>
                       </div>
-                      <button style={{ background: purple, color: "var(--t)", border: "none", borderRadius: 8, padding: "6px 8px", fontSize: 9, fontWeight: 800, cursor: "default", whiteSpace: "nowrap" as const, flexShrink: 0, fontFamily: "inherit" }}>
+                      <button style={{ background: accent, color: "var(--t)", border: "none", borderRadius: 8, padding: "6px 8px", fontSize: 9, fontWeight: 800, cursor: "default", whiteSpace: "nowrap" as const, flexShrink: 0, fontFamily: "inherit" }}>
                         {t.addToCart}
                       </button>
                     </div>
@@ -143,7 +143,7 @@ export default function CartDemoMockup() {
 
               <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: "10px 14px 4px", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: purple }}>{t.total}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: accent }}>{t.total}</span>
                   <span style={{ fontSize: 15, fontWeight: 900, color: "#111" }}>1,165.00 <span style={{ fontSize: 12 }}>SAR</span></span>
                 </div>
                 <button style={{ width: "100%", background: "var(--s2)", color: "var(--t)", border: "none", borderRadius: 10, padding: "12px 0", fontSize: 13, fontWeight: 800, cursor: "default", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 10, fontFamily: "inherit" }}>
