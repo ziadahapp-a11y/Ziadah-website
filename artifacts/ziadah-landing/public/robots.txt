@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /cms/
-Disallow: /cms
 
 Sitemap: https://www.ziadah.app/sitemap.xml

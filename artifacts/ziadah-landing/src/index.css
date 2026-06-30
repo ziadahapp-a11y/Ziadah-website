@@ -7672,3 +7672,52 @@ section#live-demo.landing-white-violet .ssub {
 .tf-home :is(h1, h2, h3, h4, h5, h6, p, span, a, em, strong, li, small, button) {
   -webkit-text-fill-color: currentColor;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Design-system roles + accessibility baseline (additive — no visual change
+   to existing components; documents palette roles and fills a11y gaps).
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  /* Semantic color roles for the marketing site. Reserve red strictly for the
+     "without/bad" state and purple/violet for the "with Ziadah/good" state. */
+  --role-good: #7c3aed;   /* with Ziadah / positive */
+  --role-good-soft: #a855f7;
+  --role-bad: #f43f5e;    /* without / negative */
+  --role-warn: #f59e0b;   /* generic / partial */
+  --focus-ring: #7c3aed;
+}
+
+/* Skip link: visually hidden until keyboard-focused (the markup exists in
+   App.tsx but had no styles, so it was rendering unstyled). */
+.skip-link {
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 2147483647;
+  transform: translateY(-120%);
+  padding: 10px 16px;
+  background: #0d0d12;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 10px 0;
+  text-decoration: none;
+  transition: transform 160ms ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Visible keyboard focus baseline for interactive elements that don't already
+   ship their own ring (links, custom buttons, slider thumbs, accordion). Uses
+   :where() for zero specificity so component-specific focus styles still win. */
+:where(a, button, [role="button"], [role="tab"], summary, input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
+}
