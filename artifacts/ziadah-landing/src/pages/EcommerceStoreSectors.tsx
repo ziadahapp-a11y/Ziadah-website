@@ -10,6 +10,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { sectors } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
+import { Section, Eyebrow } from "@/components/trackflow";
 
 const EXCLUDED_SLUGS = new Set(["delivery-apps", "ecommerce-platforms"]);
 
@@ -74,9 +75,7 @@ export default function EcommerceStoreSectors() {
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-3xl text-center">
             <div className="rv mb-4">
-              <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
-                {lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
-              </span>
+              <Eyebrow>{lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}</Eyebrow>
             </div>
             <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
               {lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
@@ -90,8 +89,7 @@ export default function EcommerceStoreSectors() {
         </section>
 
         {/* ══════════════════ SECTOR GRID ══════════════════ */}
-        <section className="py-24 px-4">
-          <div className="container mx-auto max-w-6xl">
+        <Section containerClassName="max-w-6xl">
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {ecommerceSectors.map((s, i) => {
                 const title = lang === "ar" ? s.titleAr : s.titleEn;
@@ -119,8 +117,7 @@ export default function EcommerceStoreSectors() {
                 );
               })}
             </div>
-          </div>
-        </section>
+        </Section>
 
         <PageClosingCta
           title={pc.ecommerceSectorsTitle}
