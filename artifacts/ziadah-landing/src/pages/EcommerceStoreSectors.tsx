@@ -74,7 +74,7 @@ export default function EcommerceStoreSectors() {
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-3xl text-center">
             <div className="rv mb-4">
-              <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+              <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                 {lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
               </span>
             </div>
@@ -111,7 +111,7 @@ export default function EcommerceStoreSectors() {
                     </div>
                     <div className="text-lg font-bold text-zinc-950 mb-2 leading-snug">{title}</div>
                     <p className="text-sm text-zinc-600 leading-relaxed mb-5">{tag}</p>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-purple-600">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-green-600">
                       {tr.cardCta}
                       <ArrowCTA className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                     </span>

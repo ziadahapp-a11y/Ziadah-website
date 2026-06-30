@@ -17,7 +17,7 @@ const data: UseCasePageData = {
       icon: "🏠",
       title: "الصفحة الرئيسية",
       desc: "استقبال مخصص لكل عميل بناءً على سجله — الزائر الجديد يرى الأفضل، العائد يرى ما يكمل تجربته.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "📁",
@@ -29,7 +29,7 @@ const data: UseCasePageData = {
       icon: "📄",
       title: "صفحة المنتج",
       desc: "توصيات إضافية، نسخة أفضل، حزم كومبو — كلها تظهر في المكان الصح بالتوقيت الصح.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🛒",
@@ -51,10 +51,10 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+45%", label: "متوسط الزيادة في الإيرادات", color: "#a855f7" },
+    { value: "+45%", label: "متوسط الزيادة في الإيرادات", color: "#22c55e" },
     { value: "+38%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "-35%", label: "معدل التخلي عن السلة", color: "#ec4899" },
-    { value: "+52%", label: "معدل الشراء المتكرر", color: "#8b5cf6" },
+    { value: "+52%", label: "معدل الشراء المتكرر", color: "#22c55e" },
   ],
   exampleScenario: {
     title: "رحلة عميل كاملة مع زيادة",
@@ -85,7 +85,7 @@ const data: UseCasePageData = {
       icon: "🏠",
       title: "Home Page",
       desc: "Personalized welcome for every customer based on their history — new visitors see the best, returning ones see what completes their experience.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "📁",
@@ -97,7 +97,7 @@ const data: UseCasePageData = {
       icon: "📄",
       title: "Product Page",
       desc: "Additional recommendations, better versions, combo bundles — all appearing at the right place at the right time.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🛒",
@@ -119,10 +119,10 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+45%", label: "Average revenue increase", color: "#a855f7" },
+    { value: "+45%", label: "Average revenue increase", color: "#22c55e" },
     { value: "+38%", label: "Average order value", color: "#06b6d4" },
     { value: "-35%", label: "Cart abandonment rate", color: "#ec4899" },
-    { value: "+52%", label: "Repeat purchase rate", color: "#8b5cf6" },
+    { value: "+52%", label: "Repeat purchase rate", color: "#22c55e" },
   ],
   exampleScenarioEn: {
     title: "A complete customer journey with Ziadah",

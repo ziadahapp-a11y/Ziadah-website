@@ -34,8 +34,8 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
         <div style={{
           padding: "12px",
           borderRadius: 14,
-          background: "rgba(124, 58, 237,.1)",
-          border: "1.5px solid rgba(124, 58, 237,.3)",
+          background: "rgba(22, 163, 74,.1)",
+          border: "1.5px solid rgba(22, 163, 74,.3)",
           marginBottom: 12,
         }}>
           <div style={{
@@ -48,7 +48,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
             border: "1px solid rgba(16,185,129,.3)",
             fontSize: 12,
             fontWeight: 700,
-            color: "#a855f7",
+            color: "#22c55e",
             marginBottom: 10,
           }}>
             {tr.specialOfferBadge}
@@ -58,7 +58,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
               width: 56,
               height: 56,
               borderRadius: 12,
-              background: "rgba(124, 58, 237,.15)",
+              background: "rgba(22, 163, 74,.15)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -76,7 +76,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
                   padding: "2px 7px",
                   borderRadius: 20,
                   background: "rgba(16,185,129,.15)",
-                  color: "#a855f7",
+                  color: "#22c55e",
                   fontWeight: 700,
                 }}>{tr.saveBadge}</span>
               </div>
@@ -93,20 +93,20 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
           background: "rgba(16,185,129,.08)",
           border: "1px solid rgba(16,185,129,.2)",
         }}>
-          <span style={{ color: "#a855f7", fontSize: 12 }}>✓</span>
+          <span style={{ color: "#22c55e", fontSize: 12 }}>✓</span>
           <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.warrantyNote}</span>
         </div>
         <button style={{
           width: "100%",
           padding: "10px",
           borderRadius: 12,
-          background: "rgba(124, 58, 237,0.12)",
+          background: "rgba(22, 163, 74,0.12)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           color: "#c084fc",
           fontSize: 14,
           fontWeight: 800,
-          border: "1px solid rgba(124, 58, 237,0.2)",
+          border: "1px solid rgba(22, 163, 74,0.2)",
           cursor: "pointer",
         }} className="widget-btn">
           {tr.btnUpgrade}

@@ -97,11 +97,11 @@ export default function RemoveFromCartWidget() {
                   <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
                   <div style={{ display: "flex", gap: 6, alignItems: "center", marginTop: 3 }}>
                     <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.originalPrice}</span>
-                    <span style={{ fontSize: 14, fontWeight: 900, color: "#8b5cf6" }}>{tr.newPrice}</span>
+                    <span style={{ fontSize: 14, fontWeight: 900, color: "#22c55e" }}>{tr.newPrice}</span>
                     <span style={{
                       fontSize: 12, fontWeight: 700, padding: "2px 6px",
                       borderRadius: 50, background: "rgba(16,185,129,.15)",
-                      border: "1px solid rgba(16,185,129,.3)", color: "#8b5cf6",
+                      border: "1px solid rgba(16,185,129,.3)", color: "#22c55e",
                     }}>{tr.saveLabel}</span>
                   </div>
                 </div>
@@ -119,7 +119,7 @@ export default function RemoveFromCartWidget() {
                 background: "rgba(16,185,129,0.12)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                color: "#a855f7", fontSize: 12, fontWeight: 800,
+                color: "#22c55e", fontSize: 12, fontWeight: 800,
                 border: "1px solid rgba(16,185,129,0.2)", cursor: "pointer",
               }}>
                 {tr.btnAccept}

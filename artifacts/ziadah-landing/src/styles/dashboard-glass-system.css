@@ -196,22 +196,22 @@
   --surface-2: rgba(9, 9, 11, 0.05);  /* = --s2 */
   --surface-3: rgba(9, 9, 11, 0.08);  /* = --s3 */
 
-  /* ── Accent / Brand ── (emerald green #7c3aed) */
-  --p:  #7c3aed;
-  --p2: #6d28d9;
-  --p3: #a855f7;
+  /* ── Accent / Brand ── (emerald green #16a34a) */
+  --p:  #16a34a;
+  --p2: #15803d;
+  --p3: #22c55e;
   --p4: #c084fc;
 
   /* @deprecated --brand / --brand-2 — use --accent-primary / --accent-primary-light */
-  --brand:   #7c3aed;
-  --brand-2: #a855f7;
+  --brand:   #16a34a;
+  --brand-2: #22c55e;
 
-  --accent-light: rgba(124, 58, 237, 0.14);
+  --accent-light: rgba(22, 163, 74, 0.14);
 
   /* Phase 2 semantic aliases */
-  --accent-primary:         #7c3aed;  /* = --p — canonical brand emerald */
-  --accent-secondary:       #6d28d9;  /* = --p2 — pressed / hover state */
-  --accent-primary-light:   #a855f7;  /* = --p3 — light accent, section tags */
+  --accent-primary:         #16a34a;  /* = --p — canonical brand emerald */
+  --accent-secondary:       #15803d;  /* = --p2 — pressed / hover state */
+  --accent-primary-light:   #22c55e;  /* = --p3 — light accent, section tags */
   --accent-primary-lighter: #c084fc;  /* = --p4 — lightest accent */
 
   /* Canonical CTA color — black primary CTA (Adstellar pattern); emerald is the
@@ -222,10 +222,10 @@
   /* ── Semantic status colors ── */
   --c:  #06b6d4;
   --pk: #ef4444;
-  --gr: #a855f7;
+  --gr: #22c55e;
   --go: #f59e0b;
 
-  --success: #6d28d9;   /* violet-600 */
+  --success: #15803d;   /* green-600 */
   --warning: #f59e0b;   /* = --go */
   --info:    #06b6d4;   /* = --c */
   --error:   #ef4444;   /* = --pk */
@@ -243,8 +243,8 @@
   --btn-primary-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -8px rgba(0, 0, 0, 0.14);
 
   /* ── Scrollbar ── */
-  --scrollbar-thumb:       rgba(124, 58, 237, 0.38);
-  --scrollbar-thumb-hover: rgba(109, 40, 217, 0.55);
+  --scrollbar-thumb:       rgba(22, 163, 74, 0.38);
+  --scrollbar-thumb-hover: rgba(21, 128, 61, 0.55);
 }
 /* ═══════════════════════════════════════════════════════════════
    SECTION H — LIGHT THEME (Cursor warm cream palette)

@@ -238,7 +238,7 @@ function AnchorGroupSection({
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
-            style={{ color: "var(--p3)", borderColor: "rgba(124, 58, 237,.25)", background: "rgba(124, 58, 237,.06)" }}
+            style={{ color: "var(--p3)", borderColor: "rgba(22, 163, 74,.25)", background: "rgba(22, 163, 74,.06)" }}
           >
             <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
           </a>
@@ -548,7 +548,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                   <div className="analyze-report-hero__stats" role="presentation">
                     <div className="analyze-sbar analyze-sbar--3 analyze-sbar--report-hero">
                       <div className="analyze-sbi">
-                        <div className="analyze-sbi-icon" style={{ background: "rgba(124, 58, 237,.1)" }}>
+                        <div className="analyze-sbi-icon" style={{ background: "rgba(22, 163, 74,.1)" }}>
                           <Package className="h-5 w-5" style={{ color: "var(--p3)" }} aria-hidden />
                         </div>
                         <p className="analyze-stat-num">{data.productCount}</p>
@@ -562,7 +562,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
                         <p className="analyze-stat-label">{tr.statCrossOpps}</p>
                       </div>
                       <div className="analyze-sbi">
-                        <div className="analyze-sbi-icon" style={{ background: "rgba(168, 85, 247,.12)" }}>
+                        <div className="analyze-sbi-icon" style={{ background: "rgba(34, 197, 94,.12)" }}>
                           <TrendingUp className="h-5 w-5" style={{ color: "var(--p4)" }} aria-hidden />
                         </div>
                         <p className="analyze-stat-num analyze-stat-num--p">{data.upsellCount ?? 0}</p>

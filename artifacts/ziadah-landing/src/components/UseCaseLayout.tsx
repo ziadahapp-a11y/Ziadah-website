@@ -191,7 +191,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
         {/* ── fixed scroll progress bar ── */}
         <div
-          className="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-violet-400 to-purple-600 z-50"
+          className="fixed top-0 left-0 h-0.5 bg-gradient-to-r from-emerald-400 to-green-600 z-50"
           style={{ width: `${scrollProg}%` }}
           aria-hidden
         />
@@ -202,19 +202,19 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="container mx-auto relative max-w-6xl">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center rv d1">
               <div className="text-center lg:text-start">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 mb-6">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-100 border border-green-200 mb-6">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   </span>
-                  <span className="text-xs font-semibold text-purple-700">
+                  <span className="text-xs font-semibold text-green-700">
                     <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
                       {cv(["hero", "tag"], hero.tag)}
                     </Editable>
                   </span>
                 </div>
 
-                <div className="inline-flex items-center gap-2 mb-5 text-sm font-bold text-violet-700">
+                <div className="inline-flex items-center gap-2 mb-5 text-sm font-bold text-green-700">
                   <span className="text-lg leading-none">{hero.icon}</span>
                   <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
                     {cv(["hero", "tagline"], hero.tagline)}
@@ -288,7 +288,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="container mx-auto max-w-6xl">
             <div className="rv rounded-2xl border border-zinc-200 bg-white p-8 md:p-12 shadow-card">
               <div className="mb-4">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                   {isEn ? "How it works" : "كيف يعمل"}
                 </span>
               </div>
@@ -306,7 +306,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div id="uc-stats" className="scroll-mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
                 {stats.map((s, i) => (
                   <div key={i} className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-zinc-50/60 p-6 text-center`}>
-                    <div className="text-3xl md:text-4xl font-extrabold num-ltr" style={{ color: s.color || "#6d28d9" }}>
+                    <div className="text-3xl md:text-4xl font-extrabold num-ltr" style={{ color: s.color || "#15803d" }}>
                       <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1}`} type="text">
                         {cv(["stats", String(i), "value"], s.value)}
                       </Editable>
@@ -368,7 +368,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <div className="container mx-auto max-w-5xl">
               <div className="rv rounded-2xl border border-zinc-200 bg-white p-8 md:p-12 shadow-card">
                 <div className="mb-5">
-                  <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+                  <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                     <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
                       {exampleLabel}
                     </Editable>
@@ -395,9 +395,9 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     ))}
                   </div>
                   <div className="lg:sticky lg:top-24">
-                    <div className="rounded-2xl border border-violet-200 bg-violet-50/60 p-7">
-                      <CheckCircle2 className="w-8 h-8 text-violet-600 mb-3" />
-                      <p className="text-base font-bold text-violet-700 leading-relaxed">
+                    <div className="rounded-2xl border border-green-200 bg-green-50/60 p-7">
+                      <CheckCircle2 className="w-8 h-8 text-green-600 mb-3" />
+                      <p className="text-base font-bold text-green-700 leading-relaxed">
                         <Editable contentKey={ucKey("exampleScenario", "result")} label="Result" type="text">
                           {cv(["exampleScenario", "result"], exampleScenario.result)}
                         </Editable>
@@ -415,7 +415,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
             <div className="container mx-auto max-w-4xl text-center">
               <div className="mb-7">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                   <Editable contentKey={cmsKey(lang, "useCaseLayout", "availableIn")} label="Available in" type="text">
                     {availableIn}
                   </Editable>
@@ -427,7 +427,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     key={i}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-zinc-200 text-sm font-bold text-zinc-800 shadow-card"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-violet-600" />
+                    <CheckCircle2 className="w-4 h-4 text-green-600" />
                     <Editable contentKey={ucKey("plans", String(i))} label={`Plan ${i + 1}`} type="text">
                       {cv(["plans", String(i)], plan)}
                     </Editable>
@@ -445,7 +445,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div className="grid lg:grid-cols-2 gap-10 items-center">
                 <div>
                   <div className="mb-4">
-                    <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+                    <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                       <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTag")} label="Reports tag" type="text">
                         {reportsTag}
                       </Editable>
@@ -465,9 +465,9 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 <div className="flex flex-col gap-3">
                   {(
                     [
-                      { Icon: BarChart3, labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const, color: "#6d28d9" },
+                      { Icon: BarChart3, labelKey: "campaignReports" as const, subKey: "campaignReportsSub" as const, color: "#15803d" },
                       { Icon: Package, labelKey: "productReports" as const, subKey: "productReportsSub" as const, color: "#06b6d4" },
-                      { Icon: Zap, labelKey: "liveData" as const, subKey: "liveDataSub" as const, color: "#8b5cf6" },
+                      { Icon: Zap, labelKey: "liveData" as const, subKey: "liveDataSub" as const, color: "#22c55e" },
                     ] as const
                   ).map((item, i) => (
                     <div key={i} className="flex items-center gap-3.5 p-4 rounded-xl border border-zinc-200 bg-zinc-50/60">

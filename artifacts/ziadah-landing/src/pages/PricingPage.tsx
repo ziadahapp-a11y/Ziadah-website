@@ -114,7 +114,7 @@ function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
   if (val === true)
     return (
       <Check
-        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-purple-400" : "text-violet-500"}`}
+        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-emerald-400" : "text-emerald-500"}`}
         strokeWidth={2.5}
         aria-hidden
       />
@@ -244,7 +244,7 @@ export default function PricingPage() {
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
             <div className="container mx-auto relative max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {isAr ? "الأسعار" : "Pricing"}
                 </span>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
@@ -277,7 +277,7 @@ export default function PricingPage() {
                     onClick={() => setMode("y")}
                   >
                     {isAr ? "سنوي" : "Yearly"}
-                    <span className="rounded-full bg-purple-100 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700">
+                    <span className="rounded-full bg-green-100 border border-green-200 px-2 py-0.5 text-[10px] font-bold text-green-700">
                       {isAr ? "وفّر حتى 33٪" : "Save up to 33%"}
                     </span>
                   </button>
@@ -309,7 +309,7 @@ export default function PricingPage() {
                     >
                       {/* "Most popular" badge for the featured (dark) plan */}
                       {featured && (
-                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-green-600 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
                           {isAr ? "الأكثر اختياراً" : "Most popular"}
                         </div>
                       )}
@@ -331,7 +331,7 @@ export default function PricingPage() {
                           <span className={`text-sm line-through ${featured ? "text-zinc-500" : "text-zinc-400"}`}>
                             {plan.yOrig} ⃁
                           </span>
-                          <span className="rounded-full bg-purple-100 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700">
+                          <span className="rounded-full bg-green-100 border border-green-200 px-2 py-0.5 text-[10px] font-bold text-green-700">
                             {plan.yDisc} {isAr ? "خصم" : "off"}
                           </span>
                         </div>
@@ -397,8 +397,8 @@ export default function PricingPage() {
                       <div
                         className={`inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold ${
                           featured
-                            ? "bg-violet-500/15 border border-violet-500/30 text-violet-300"
-                            : "bg-violet-50 border border-violet-100 text-violet-700"
+                            ? "bg-emerald-500/15 border border-emerald-500/30 text-emerald-300"
+                            : "bg-green-50 border border-green-100 text-green-700"
                         }`}
                       >
                         <Sparkles className="w-3.5 h-3.5 shrink-0" />
@@ -418,17 +418,17 @@ export default function PricingPage() {
                             featured
                               ? "border-white/15 bg-white/[0.04] text-zinc-200 hover:border-white/25"
                               : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300"
-                          } ${topupSel[plan.key] != null ? (featured ? "border-violet-400/40" : "border-violet-300") : ""}`}
+                          } ${topupSel[plan.key] != null ? (featured ? "border-emerald-400/40" : "border-emerald-300") : ""}`}
                           onClick={() => toggleTopup(plan.key)}
                         >
-                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-violet-300" : "text-violet-600"}`} />
+                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-emerald-300" : "text-green-600"}`} />
                           <span className="flex-1 text-start truncate">
                             {selTopup
                               ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
                               : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
                           </span>
                           {selTopup && (
-                            <span className={`num-ltr font-bold ${featured ? "text-violet-300" : "text-violet-600"}`}>
+                            <span className={`num-ltr font-bold ${featured ? "text-emerald-300" : "text-green-600"}`}>
                               +{fmtPrice(selTopup.price)} ⃁
                             </span>
                           )}
@@ -458,7 +458,7 @@ export default function PricingPage() {
                                 type="button"
                                 className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors num-ltr ${
                                   featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
-                                } ${topupSel[plan.key] === ti ? (featured ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-700") : ""}`}
+                                } ${topupSel[plan.key] === ti ? (featured ? "bg-emerald-500/15 text-emerald-300" : "bg-green-50 text-green-700") : ""}`}
                                 onClick={() => selectTopup(plan.key, ti)}
                               >
                                 <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
@@ -478,11 +478,11 @@ export default function PricingPage() {
                         )}
                         {plan.features.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5">
-                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-purple-400" : "text-purple-600"}`} />
+                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-emerald-400" : "text-green-600"}`} />
                             <span className={`text-sm ${featured ? "text-zinc-300" : "text-zinc-700"}`}>
                               {f.replace(" ★", "")}
                               {f.includes("★") && (
-                                <span className={`ms-1 ${featured ? "text-violet-300" : "text-violet-600"}`}>★</span>
+                                <span className={`ms-1 ${featured ? "text-emerald-300" : "text-green-600"}`}>★</span>
                               )}
                             </span>
                           </div>
@@ -499,7 +499,7 @@ export default function PricingPage() {
           <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
             <div className="container mx-auto max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 leading-tight">

@@ -45,14 +45,14 @@ function MiniStatusBar({ accent }: { accent: string }) {
 
 /* ── PRODUCT PAGE ── */
 export function ProductPageMockup() {
-  const accent = "#7c3aed";
+  const accent = "#16a34a";
   const accentLight = "#c084fc";
   const surface = "linear-gradient(155deg, rgba(255,255,255,.94) 0%, rgba(248,245,255,.9) 100%)";
   const rowHi =
-    "linear-gradient(90deg, rgba(124, 58, 237,.14) 0%, rgba(192, 132, 252,.09) 55%, rgba(255,255,255,.5) 100%)";
+    "linear-gradient(90deg, rgba(22, 163, 74,.14) 0%, rgba(192, 132, 252,.09) 55%, rgba(255,255,255,.5) 100%)";
   const rowLo = "rgba(255,255,255,.72)";
-  const borderSoft = "rgba(124, 58, 237,.14)";
-  const borderHi = "rgba(124, 58, 237,.32)";
+  const borderSoft = "rgba(22, 163, 74,.14)";
+  const borderHi = "rgba(22, 163, 74,.32)";
   return (
     <>
       <MiniStatusBar accent={accent} />
@@ -64,14 +64,14 @@ export function ProductPageMockup() {
           padding: "10px 11px",
           marginBottom: 10,
           border: `1px solid ${borderSoft}`,
-          boxShadow: "0 4px 16px rgba(124, 58, 237,.07), inset 0 1px 0 rgba(255,255,255,.9)",
+          boxShadow: "0 4px 16px rgba(22, 163, 74,.07), inset 0 1px 0 rgba(255,255,255,.9)",
         }}
       >
         <div
           style={{
             height: 72,
             borderRadius: 10,
-            background: `linear-gradient(145deg, ${accentLight}33 0%, ${accent}22 48%, rgba(124, 58, 237,.12) 100%)`,
+            background: `linear-gradient(145deg, ${accentLight}33 0%, ${accent}22 48%, rgba(22, 163, 74,.12) 100%)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -124,7 +124,7 @@ export function ProductPageMockup() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            boxShadow: o.hi ? "0 2px 12px rgba(124, 58, 237,.12)" : "inset 0 1px 0 rgba(255,255,255,.85)",
+            boxShadow: o.hi ? "0 2px 12px rgba(22, 163, 74,.12)" : "inset 0 1px 0 rgba(255,255,255,.85)",
           }}
         >
           <span style={{ fontSize: 12, fontWeight: 700, color: o.hi ? accent : "var(--tm)" }}>{o.label}</span>
@@ -135,7 +135,7 @@ export function ProductPageMockup() {
                   fontSize: 12,
                   padding: "2px 7px",
                   borderRadius: 6,
-                  background: o.hi ? "rgba(124, 58, 237,.2)" : "rgba(124, 58, 237,.12)",
+                  background: o.hi ? "rgba(22, 163, 74,.2)" : "rgba(22, 163, 74,.12)",
                   color: accent,
                   fontWeight: 800,
                 }}
@@ -152,12 +152,12 @@ export function ProductPageMockup() {
           marginTop: 8,
           padding: "9px 0",
           borderRadius: 10,
-          background: "linear-gradient(135deg,#a855f7,#7c3aed 55%,#6d28d9)",
+          background: "linear-gradient(135deg,#22c55e,#16a34a 55%,#15803d)",
           fontSize: 12,
           fontWeight: 900,
           color: "#fff",
           textAlign: "center",
-          boxShadow: "0 6px 20px rgba(124, 58, 237,.35), inset 0 1px 0 rgba(255,255,255,.22)",
+          boxShadow: "0 6px 20px rgba(22, 163, 74,.35), inset 0 1px 0 rgba(255,255,255,.22)",
         }}
       >
         🛒 إضافة للسلة
@@ -213,7 +213,7 @@ function CartPageContent() {
 
 /* ── CHECKOUT PAGE ── */
 function CheckoutPageContent() {
-  const accent = "#8b5cf6";
+  const accent = "#22c55e";
   return (
     <>
       <MiniStatusBar accent={accent} />
@@ -244,7 +244,7 @@ function CheckoutPageContent() {
           </div>
         ))}
       </div>
-      <div style={{ padding: "8px 0", borderRadius: 9, background: "linear-gradient(135deg,#8b5cf6,rgba(16,185,129,.7))", textAlign: "center", fontSize: 12, fontWeight: 800, color: "#fff", boxShadow: "0 4px 12px rgba(16,185,129,.4)" }}>✅ إتمام الطلب الآن</div>
+      <div style={{ padding: "8px 0", borderRadius: 9, background: "linear-gradient(135deg,#22c55e,rgba(16,185,129,.7))", textAlign: "center", fontSize: 12, fontWeight: 800, color: "#fff", boxShadow: "0 4px 12px rgba(16,185,129,.4)" }}>✅ إتمام الطلب الآن</div>
     </>
   );
 }
@@ -290,7 +290,7 @@ function ThankYouPageContent() {
 
 /* ── HOME PAGE ── */
 function HomePageContent() {
-  const accent = "#7c3aed";
+  const accent = "#16a34a";
   return (
     <>
       <MiniStatusBar accent={accent} />
@@ -298,12 +298,12 @@ function HomePageContent() {
         <span style={{ fontSize: 12, fontWeight: 900, color: "var(--t)" }}>متجر النخبة</span>
         <span style={{ fontSize: 13 }}>🛒</span>
       </div>
-      <div style={{ background: "rgba(124, 58, 237,.1)", border: "1px solid rgba(124, 58, 237,.22)", borderRadius: 10, padding: "9px 10px", marginBottom: 9 }}>
+      <div style={{ background: "rgba(22, 163, 74,.1)", border: "1px solid rgba(22, 163, 74,.22)", borderRadius: 10, padding: "9px 10px", marginBottom: 9 }}>
         <p style={{ fontSize: 12, color: accent, fontWeight: 700, marginBottom: 3 }}>✨ مرحباً عمر، عاد موسمك المفضل!</p>
         <p style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", marginBottom: 5 }}>عطور ومسابح رمضان 🌙</p>
         <div style={{ display: "flex", gap: 5 }}>
           {["📿", "🕌", "🪔"].map((e, i) => (
-            <div key={i} style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(124, 58, 237,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, border: "1px solid rgba(124, 58, 237,.18)" }}>{e}</div>
+            <div key={i} style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(22, 163, 74,.12)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, border: "1px solid rgba(22, 163, 74,.18)" }}>{e}</div>
           ))}
         </div>
       </div>
@@ -313,8 +313,8 @@ function HomePageContent() {
       </div>
       <div style={{ display: "flex", gap: 6, overflowX: "clip" }}>
         {[{ emoji: "🌿", name: "زيت بخور", price: "75 SAR" }, { emoji: "🎁", name: "طقم هدايا", price: "150 SAR" }, { emoji: "🪬", name: "حرز فضة", price: "90 SAR" }].map((p, i) => (
-          <div key={i} style={{ minWidth: 68, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(124, 58, 237,.14)", borderRadius: 9, padding: "6px 5px", textAlign: "center", flexShrink: 0 }}>
-            <div style={{ height: 38, borderRadius: 6, background: "rgba(124, 58, 237,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>
+          <div key={i} style={{ minWidth: 68, background: "color-mix(in srgb, var(--bg) 55%, transparent)", border: "1px solid rgba(22, 163, 74,.14)", borderRadius: 9, padding: "6px 5px", textAlign: "center", flexShrink: 0 }}>
+            <div style={{ height: 38, borderRadius: 6, background: "rgba(22, 163, 74,.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, marginBottom: 4 }}>{p.emoji}</div>
             <p style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{p.name}</p>
             <span style={{ fontSize: 12, color: accent, fontWeight: 800 }}>{p.price}</span>
           </div>
@@ -418,7 +418,7 @@ const CASES: ShowcaseCase[] = [
     float1En: "📈 +32% avg order value",
     float2Ar: "🛒 اشترِ أكثر ووفّر",
     float2En: "🛒 Buy More Save More",
-    accentColor: "#a855f7",
+    accentColor: "#22c55e",
     href: "/use-cases/product-page",
     MockupContent: ProductPageMockup,
   },
@@ -458,7 +458,7 @@ const CASES: ShowcaseCase[] = [
     float1En: "✨ One-tap add-ons",
     float2Ar: "💳 إتمام أسرع",
     float2En: "💳 Faster checkout",
-    accentColor: "#8b5cf6",
+    accentColor: "#22c55e",
     href: "/use-cases/checkout-page",
     MockupContent: CheckoutPageContent,
   },
@@ -498,7 +498,7 @@ const CASES: ShowcaseCase[] = [
     float1En: "✨ Real-time personalization",
     float2Ar: "👤 كل زائر مختلف",
     float2En: "👤 Every visitor is unique",
-    accentColor: "#7c3aed",
+    accentColor: "#16a34a",
     href: "/use-cases/home-page",
     MockupContent: HomePageContent,
   },
@@ -756,7 +756,7 @@ export function UseCaseGenericHeroMock({
           fontWeight: 900,
           cursor: "default",
           color: "#fff",
-          background: "linear-gradient(135deg, #a855f7, #7c3aed)",
+          background: "linear-gradient(135deg, #22c55e, #16a34a)",
         }}
       >
         {isEn ? "Smart offers on" : "عروض ذكية على"}

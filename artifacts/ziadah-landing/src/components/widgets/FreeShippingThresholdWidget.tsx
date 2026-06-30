@@ -34,8 +34,8 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
         <div style={{
           padding: "10px 12px",
           borderRadius: 10,
-          background: "rgba(124, 58, 237,.12)",
-          border: "1.5px solid rgba(124, 58, 237,.3)",
+          background: "rgba(22, 163, 74,.12)",
+          border: "1.5px solid rgba(22, 163, 74,.3)",
           marginBottom: 12,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
@@ -53,7 +53,7 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
               height: "100%",
               width: `${progress}%`,
               borderRadius: 10,
-              background: "linear-gradient(90deg, rgba(124, 58, 237,0.6), rgba(168, 85, 247,0.5))",
+              background: "linear-gradient(90deg, rgba(22, 163, 74,0.6), rgba(34, 197, 94,0.5))",
               transition: "width .5s ease",
             }} />
           </div>

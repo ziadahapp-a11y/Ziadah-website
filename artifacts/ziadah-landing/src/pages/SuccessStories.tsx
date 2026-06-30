@@ -112,7 +112,7 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-1 text-sm font-bold text-purple-600 border-t border-zinc-100">
+      <div className="flex items-center justify-between pt-1 text-sm font-bold text-green-600 border-t border-zinc-100">
         <span>{isAr ? "اقرأ القصة كاملة" : "Read full story"}</span>
         <Arrow className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" aria-hidden />
       </div>
@@ -201,12 +201,12 @@ export default function SuccessStories() {
         <section dir={dir} className="relative pt-20 pb-20 md:pt-28 md:pb-24 px-4 border-b border-zinc-200">
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
           <div className="container mx-auto relative max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 mb-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-100 border border-green-200 mb-6">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-xs font-semibold text-purple-700">{sx.heroTag}</span>
+              <span className="text-xs font-semibold text-green-700">{sx.heroTag}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
@@ -263,7 +263,7 @@ export default function SuccessStories() {
                     <span aria-hidden>{SECTOR_ICONS[sector] || "◆"}</span>
                     <span>{sectorDisplay(sector)}</span>
                     <span className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-md text-[11px] font-extrabold num-ltr ${
-                      active ? "bg-white/20 text-white" : "bg-purple-100 text-purple-700"
+                      active ? "bg-white/20 text-white" : "bg-green-100 text-green-700"
                     }`}>
                       {sectorCounts[sector] || 0}
                     </span>
@@ -281,15 +281,15 @@ export default function SuccessStories() {
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <div className="text-sm text-zinc-600">
                   {isAr ? (
-                    <>عرض <span className="font-extrabold text-purple-600 num-ltr">{filteredStories.length}</span> قصة في قطاع{" "}<span className="font-bold text-zinc-950">{activeSector}</span></>
+                    <>عرض <span className="font-extrabold text-green-600 num-ltr">{filteredStories.length}</span> قصة في قطاع{" "}<span className="font-bold text-zinc-950">{activeSector}</span></>
                   ) : (
-                    <>Showing <span className="font-extrabold text-purple-600 num-ltr">{filteredStories.length}</span> {filteredStories.length === 1 ? "story" : "stories"} in{" "}<span className="font-bold text-zinc-950">{SECTOR_NAME_EN[activeSector] || activeSector}</span></>
+                    <>Showing <span className="font-extrabold text-green-600 num-ltr">{filteredStories.length}</span> {filteredStories.length === 1 ? "story" : "stories"} in{" "}<span className="font-bold text-zinc-950">{SECTOR_NAME_EN[activeSector] || activeSector}</span></>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => handleSectorChange("الكل")}
-                  className="text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 rounded-lg px-3 py-1.5 hover:bg-purple-100 transition-colors"
+                  className="text-xs font-bold text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 hover:bg-green-100 transition-colors"
                 >
                   {isAr ? "عرض الكل" : "Show All"}
                 </button>
@@ -312,7 +312,7 @@ export default function SuccessStories() {
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-14">
               <div className="mb-4">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
                   {isAr ? "حسب القطاع" : "By Sector"}
                 </span>
               </div>
@@ -342,12 +342,12 @@ export default function SuccessStories() {
                       <div className="font-bold text-[15px] text-zinc-950 mb-1">{isAr ? s.nameAr : s.name}</div>
                       <div className="text-xs text-zinc-500 mb-1.5">{s.stores} · {s.avg}</div>
                       {count > 0 && (
-                        <div className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-50 border border-purple-100 px-2.5 py-0.5 rounded-md num-ltr">
+                        <div className="inline-flex items-center gap-1 text-[11px] font-bold text-green-700 bg-green-50 border border-green-100 px-2.5 py-0.5 rounded-md num-ltr">
                           {count} {isAr ? "قصة نجاح" : (count === 1 ? "success story" : "success stories")}
                         </div>
                       )}
                     </div>
-                    <SectorChevron className="w-4 h-4 text-zinc-300 shrink-0 transition-colors group-hover:text-purple-600" aria-hidden />
+                    <SectorChevron className="w-4 h-4 text-zinc-300 shrink-0 transition-colors group-hover:text-green-600" aria-hidden />
                   </button>
                 );
               })}

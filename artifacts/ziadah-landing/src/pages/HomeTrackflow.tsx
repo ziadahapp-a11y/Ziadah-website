@@ -113,10 +113,10 @@ const testimonialLogos: Record<string, string> = {
 
 // Fallback avatar palette for merchants without a logo.
 const TESTIMONIAL_AV_COLORS = [
-  "linear-gradient(135deg,#7c3aed,#6d28d9)",
+  "linear-gradient(135deg,#16a34a,#15803d)",
   "linear-gradient(135deg,#9333ea,#7e22ce)",
-  "linear-gradient(135deg,#8b5cf6,#6366f1)",
-  "linear-gradient(135deg,#a855f7,#9333ea)",
+  "linear-gradient(135deg,#22c55e,#6366f1)",
+  "linear-gradient(135deg,#22c55e,#9333ea)",
   "linear-gradient(135deg,#6366f1,#4f46e5)",
 ];
 
@@ -207,9 +207,9 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
   return (
     <div className="relative w-full mx-auto">
       {/* soft emerald glow behind the widget */}
-      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-violet-500/20 blur-3xl pointer-events-none" />
+      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-emerald-500/20 blur-3xl pointer-events-none" />
 
-      <div className="rounded-3xl border border-white/10 bg-[#0b0f14] p-3 shadow-2xl shadow-violet-950/40">
+      <div className="rounded-3xl border border-white/10 bg-[#0b0f14] p-3 shadow-2xl shadow-green-950/40">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {/* LEFT — buy more, save more tiers */}
           <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-3">
@@ -225,14 +225,14 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
                   transition={{ duration: 0.45, delay: 0.1 + i * 0.1 }}
                   className={`relative flex items-center gap-2.5 rounded-xl border p-2.5 ${
                     tier.selected
-                      ? "border-violet-400/60 bg-violet-500/[0.12] ring-1 ring-violet-400/40"
+                      ? "border-emerald-400/60 bg-emerald-500/[0.12] ring-1 ring-emerald-400/40"
                       : "border-white/[0.07] bg-white/[0.02]"
                   }`}
                 >
                   {/* radio */}
                   <span
                     className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
-                      tier.selected ? "border-violet-400 bg-violet-400" : "border-white/25"
+                      tier.selected ? "border-emerald-400 bg-emerald-400" : "border-white/25"
                     }`}
                   >
                     {tier.selected && <span className="h-1.5 w-1.5 rounded-full bg-[#0b0f14]" />}
@@ -253,7 +253,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
                   </div>
 
                   {tier.off != null && (
-                    <span className="absolute -top-2 start-2 rounded-md bg-violet-500 px-1.5 py-0.5 text-[10px] font-extrabold text-[#0b0f14] num-ltr">
+                    <span className="absolute -top-2 start-2 rounded-md bg-emerald-500 px-1.5 py-0.5 text-[10px] font-extrabold text-[#0b0f14] num-ltr">
                       -{tier.off}%
                     </span>
                   )}
@@ -261,7 +261,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
               ))}
             </div>
 
-            <div className="mt-2.5 flex items-center justify-center gap-1.5 rounded-xl border border-violet-400/30 bg-violet-500/10 px-2.5 py-1.5 text-[11px] font-bold text-violet-300">
+            <div className="mt-2.5 flex items-center justify-center gap-1.5 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1.5 text-[11px] font-bold text-emerald-300">
               <Truck className="h-3.5 w-3.5" />
               {tr({ ar: "أفضل قيمة للعملاء — شحن مجاني", en: "Best value — free shipping" })}
             </div>
@@ -281,7 +281,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
                   transition={{ duration: 0.45, delay: 0.2 + i * 0.1 }}
                   className="flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.02] p-2.5"
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/15 text-lg" aria-hidden="true">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500/15 text-lg" aria-hidden="true">
                     {item.emoji}
                   </span>
 
@@ -304,7 +304,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
                     </div>
                   </div>
 
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-violet-500 text-[#0b0f14]">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-emerald-500 text-[#0b0f14]">
                     <Check className="h-3.5 w-3.5" strokeWidth={3} />
                   </span>
                 </motion.div>
@@ -313,7 +313,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
 
             <button
               type="button"
-              className="mt-2.5 w-full rounded-xl bg-violet-500 px-3 py-2 text-[12px] font-extrabold text-[#0b0f14] transition-colors hover:bg-violet-400"
+              className="mt-2.5 w-full rounded-xl bg-emerald-500 px-3 py-2 text-[12px] font-extrabold text-[#0b0f14] transition-colors hover:bg-emerald-400"
             >
               {tr({ ar: "اشترِ الطقم كاملاً", en: "Buy the full set" })}
               {" — "}
@@ -324,10 +324,10 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
 
         {/* live engine badge */}
         <div className="mt-3 flex justify-center">
-          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-violet-300 ring-1 ring-violet-400/20">
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-emerald-300 ring-1 ring-emerald-400/20">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
             </span>
             {engineLabel}
             <img src={ENGINE_ICON} alt="" className="h-3.5 w-3.5 rounded-[3px] object-cover" />
@@ -338,293 +338,309 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
   );
 }
 
-// ── Personalization demo: AI engine analyzes shoppers → personalized recs ──
-const DEMO_PHASES_AR = [
-  "بيانات العملاء تتدفق للمحرّك",
-  "الذكاء الاصطناعي يحلل السلوك والتفضيلات",
-  "توصيات مخصصة لكل عميل",
-];
-const DEMO_PHASES_EN = [
-  "Customer data flowing to the engine",
-  "AI analyzing behavior and preferences",
-  "Personalized recommendations ready",
-];
+// ── Personalization demo: AI reads customer + store data → dynamic offers ──
+type DemoProduct = { emoji: string; name: string; price: number; selected?: boolean };
+type DemoTier = { qty: string; sub: string; price: number; was?: number; best?: boolean };
+type DemoScenario = {
+  customer: { name: string; avatar: string; signals: string[] };
+  offer: "addons" | "bundle" | "buymore";
+  icon: typeof Gift;
+  title: string;
+  products?: DemoProduct[];
+  tiers?: DemoTier[];
+  bundleTotal?: number;
+};
 
-function DemoPhaseIndicator({ isAr }: { isAr: boolean }) {
-  const [phase, setPhase] = useState(0);
+function DemoFlowSection({ isAr }: { isAr: boolean }) {
+  const money = (n: number) => (isAr ? `${n} ر.س` : `SAR ${n}`);
+
+  const scenarios: DemoScenario[] = [
+    {
+      customer: {
+        name: isAr ? "نورة" : "Noura",
+        avatar: "/avatar-female.webp",
+        signals: isAr
+          ? ["اشترت عطراً مؤخراً", "تتصفّح منتجات التجميل", "السلة بها كريم مرطب"]
+          : ["Bought perfume recently", "Browsing beauty", "Cart has a moisturizer"],
+      },
+      offer: "addons",
+      icon: Gift,
+      title: isAr ? "إضافات تكمل مكياجها" : "Add-ons that complete her look",
+      products: [
+        { emoji: "💄", name: isAr ? "باليت مكياج" : "Makeup Palette", price: 289, selected: true },
+        { emoji: "🖌️", name: isAr ? "فرش مكياج" : "Makeup Brushes", price: 129, selected: true },
+        { emoji: "🪞", name: isAr ? "مرآة LED" : "LED Mirror", price: 89 },
+        { emoji: "🧴", name: isAr ? "مزيل مكياج" : "Makeup Remover", price: 59 },
+      ],
+    },
+    {
+      customer: {
+        name: isAr ? "ناصر" : "Nasser",
+        avatar: "/avatar-male.webp",
+        signals: isAr
+          ? ["يتصفّح المستلزمات الرياضية", "السلة بها مشروب بروتين", "اشترى حذاء قبل شهر"]
+          : ["Browsing athletic gear", "Cart has a protein drink", "Bought sneakers last month"],
+      },
+      offer: "bundle",
+      icon: Combine,
+      title: isAr ? "اشترِ الطقم الرياضي كاملاً" : "Buy the full sports kit",
+      products: [
+        { emoji: "👟", name: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", price: 349 },
+        { emoji: "🎧", name: isAr ? "سماعات JBL" : "JBL Earbuds", price: 219 },
+        { emoji: "🥤", name: isAr ? "بروتين Whey" : "Whey Protein", price: 149 },
+        { emoji: "🧦", name: isAr ? "جوارب رياضية" : "Sports Socks", price: 39 },
+      ],
+      bundleTotal: 756,
+    },
+    {
+      customer: {
+        name: isAr ? "لمى" : "Lama",
+        avatar: "/avatar-female.webp",
+        signals: isAr
+          ? ["تهتم بالعناية بالبشرة", "اشترت غسولاً مؤخراً", "تبحث عن سيروم"]
+          : ["Into skincare", "Bought a cleanser recently", "Searching for a serum"],
+      },
+      offer: "buymore",
+      icon: Tag,
+      title: isAr ? "اشترِ أكثر ووفّر أكثر" : "Buy more, save more",
+      tiers: [
+        { qty: isAr ? "اشترِ 1" : "Buy 1", sub: isAr ? "بدون خصم" : "No discount", price: 99 },
+        { qty: isAr ? "اشترِ 2" : "Buy 2", sub: isAr ? "خصم 15%" : "15% off", price: 168, was: 198 },
+        { qty: isAr ? "اشترِ 3" : "Buy 3", sub: isAr ? "خصم 25%" : "25% off", price: 223, was: 297 },
+        { qty: isAr ? "اشترِ 4" : "Buy 4", sub: isAr ? "خصم 35% + شحن مجاني" : "35% off + free shipping", price: 257, was: 396, best: true },
+      ],
+    },
+  ];
+
+  const [idx, setIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setPhase((p) => (p + 1) % 3), 2600);
+    const id = setInterval(() => setIdx((i) => (i + 1) % 3), 4400);
     return () => clearInterval(id);
   }, []);
-  const phases = isAr ? DEMO_PHASES_AR : DEMO_PHASES_EN;
+
+  const [step, setStep] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setStep((s) => (s + 1) % 3), 1600);
+    return () => clearInterval(id);
+  }, []);
+
+  const sc = scenarios[idx];
+  const steps = isAr
+    ? ["يقرأ بيانات العميل", "يحلّل السلوك والمتجر", "يجهّز العرض المناسب"]
+    : ["Reading customer data", "Analyzing behavior & store", "Building the best offer"];
+
+  const storeRows = [
+    { icon: LayoutGrid, label: isAr ? "الكتالوج" : "Catalog", value: "240" },
+    { icon: Package, label: isAr ? "الطلبات" : "Orders", value: isAr ? "١٫٨ ألف" : "1.8k" },
+    { icon: Combine, label: isAr ? "اقترانات" : "Pairings", value: "320" },
+  ];
+
   return (
-    <div className="demo-phase-bar">
-      {phases.map((label, i) => (
-        <div key={i} className={`demo-phase-item${phase === i ? " demo-phase-active" : ""}`}>
-          <span className="demo-phase-dot" />
-          <span className="demo-phase-text">{label}</span>
+    <div className="relative w-full max-w-sm mx-auto lg:me-0 lg:ms-auto">
+      <div className="rounded-3xl border border-green-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(22, 163, 74,0.35)] ring-1 ring-emerald-500/5">
+        {/* header */}
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 border border-green-100 px-2.5 py-1 text-[11px] font-bold text-green-700">
+            <Sparkles className="w-3.5 h-3.5" />
+            {isAr ? "محرّك زيادة" : "Ziadah Engine"}
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-zinc-500">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            </span>
+            {isAr ? "تحليل مباشر" : "Live"}
+          </span>
         </div>
-      ))}
+
+        {/* INPUTS — customer data (dynamic) + store data */}
+        <div className="mt-4 grid grid-cols-2 gap-2.5 items-stretch">
+          <motion.div
+            key={sc.customer.name}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="rounded-2xl border border-zinc-100 bg-zinc-50/70 p-2.5"
+          >
+            <div className="flex items-center gap-2">
+              <img src={sc.customer.avatar} alt="" className="h-7 w-7 rounded-full object-cover" loading="lazy" />
+              <div className="min-w-0 text-start">
+                <div className="text-[12px] font-bold text-zinc-900 leading-tight truncate">{sc.customer.name}</div>
+                <div className="text-[9.5px] text-zinc-500 leading-tight">{isAr ? "بيانات العميل" : "Customer data"}</div>
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1">
+              {sc.customer.signals.map((s, i) => (
+                <li key={i} className="flex items-center gap-1.5 text-[10.5px] text-zinc-600">
+                  <span className="h-1 w-1 rounded-full bg-emerald-400 shrink-0" />
+                  <span className="truncate">{s}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <div className="rounded-2xl border border-zinc-100 bg-zinc-50/70 p-2.5">
+            <div className="flex items-center gap-2">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-green-600">
+                <Store className="h-3.5 w-3.5" />
+              </span>
+              <div className="min-w-0 text-start">
+                <div className="text-[12px] font-bold text-zinc-900 leading-tight truncate">{isAr ? "متجرك" : "Your store"}</div>
+                <div className="text-[9.5px] text-zinc-500 leading-tight">{isAr ? "بيانات المتجر" : "Store data"}</div>
+              </div>
+            </div>
+            <ul className="mt-2 space-y-1">
+              {storeRows.map((r, i) => (
+                <li key={i} className="flex items-center justify-between gap-1 text-[10.5px] text-zinc-600">
+                  <span className="flex items-center gap-1.5 truncate">
+                    <r.icon className="h-3 w-3 text-zinc-400 shrink-0" />
+                    {r.label}
+                  </span>
+                  <span className="font-bold text-zinc-800 num-ltr shrink-0">{r.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* AI ENGINE — analyzing both inputs */}
+        <div className="my-3 flex flex-col items-center">
+          <ArrowDownFlow />
+          <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-green-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-emerald-500/25">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+            </span>
+            {steps[step]}
+          </div>
+        </div>
+
+        {/* OUTPUT — dynamic offer (add-ons / bundle / buy-more) */}
+        <motion.div
+          key={`${idx}-${sc.offer}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="rounded-2xl border border-green-100 bg-green-50/40 p-2.5"
+        >
+          <div className="mb-2 flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-green-700">
+              <sc.icon className="h-3.5 w-3.5" />
+              {sc.title}
+            </span>
+            <span className="shrink-0 rounded-full bg-green-100 px-1.5 py-0.5 text-[9px] font-bold text-green-700">
+              {sc.offer === "addons"
+                ? isAr ? "إضافات" : "Add-ons"
+                : sc.offer === "bundle"
+                  ? isAr ? "اشترِ معاً" : "Bundle"
+                  : isAr ? "كمية" : "Tiered"}
+            </span>
+          </div>
+
+          {/* ADD-ONS — pick & add */}
+          {sc.offer === "addons" && (
+            <>
+              <div className="space-y-1.5">
+                {sc.products!.map((p, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-center gap-2.5 rounded-xl border p-2 ${p.selected ? "border-emerald-300 bg-white ring-1 ring-green-200" : "border-green-100 bg-white"}`}
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-base" aria-hidden="true">{p.emoji}</span>
+                    <div className="min-w-0 flex-1 text-start">
+                      <div className="truncate text-[11.5px] font-bold text-zinc-900 leading-tight">{p.name}</div>
+                      <div className="text-[11px] font-extrabold text-green-600 num-ltr">{money(p.price)}</div>
+                    </div>
+                    <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-md border ${p.selected ? "border-emerald-500 bg-emerald-500 text-white" : "border-zinc-300 bg-white"}`}>
+                      {p.selected && <Check className="h-3 w-3" />}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <button type="button" className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-[10px] bg-green-600 py-2 text-[12px] font-extrabold text-white transition-colors hover:bg-emerald-500">
+                <ShoppingCart className="h-3.5 w-3.5" />
+                {isAr ? "أضف الإضافات المختارة للسلة" : "Add selected to cart"}
+              </button>
+            </>
+          )}
+
+          {/* BUNDLE — add them all */}
+          {sc.offer === "bundle" && (
+            <>
+              <div className="space-y-1.5">
+                {sc.products!.map((p, i) => (
+                  <div key={i} className="flex items-center gap-2.5 rounded-xl border border-green-100 bg-white p-2">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-100 text-base" aria-hidden="true">{p.emoji}</span>
+                    <div className="min-w-0 flex-1 text-start text-[11.5px] font-bold text-zinc-900 truncate">{p.name}</div>
+                    <span className="shrink-0 text-[11px] font-extrabold text-green-600 num-ltr">{money(p.price)}</span>
+                  </div>
+                ))}
+              </div>
+              <button type="button" className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-[10px] bg-green-600 py-2 text-[12px] font-extrabold text-white transition-colors hover:bg-emerald-500">
+                <ShoppingCart className="h-3.5 w-3.5" />
+                {isAr ? "أضف الكل للسلة —" : "Add all to cart —"} <span className="num-ltr">{money(sc.bundleTotal!)}</span>
+              </button>
+            </>
+          )}
+
+          {/* BUY MORE, SAVE MORE — tiers */}
+          {sc.offer === "buymore" && (
+            <>
+              <div className="space-y-1.5">
+                {sc.tiers!.map((tr, i) => (
+                  <div
+                    key={i}
+                    className={`relative flex items-center gap-2.5 rounded-xl border p-2 ${tr.best ? "border-emerald-400 bg-emerald-500/[0.07] ring-1 ring-emerald-300" : "border-green-100 bg-white"}`}
+                  >
+                    <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${tr.best ? "border-emerald-500 bg-emerald-500" : "border-zinc-300 bg-white"}`}>
+                      {tr.best && <span className="h-1.5 w-1.5 rounded-full bg-white" />}
+                    </span>
+                    <div className="min-w-0 flex-1 text-start">
+                      <div className="text-[11.5px] font-bold text-zinc-900 leading-tight">{tr.qty}</div>
+                      <div className="text-[10px] text-zinc-500 leading-tight">{tr.sub}</div>
+                    </div>
+                    <div className="shrink-0 text-end num-ltr leading-tight">
+                      {tr.was != null && <div className="text-[9px] text-zinc-400 line-through">{tr.was}</div>}
+                      <div className="text-[12px] font-extrabold text-green-600">{money(tr.price)}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 flex items-center justify-center gap-1.5 rounded-[10px] border border-green-200 bg-green-50 py-1.5 text-[10.5px] font-bold text-green-700">
+                <Truck className="h-3.5 w-3.5" />
+                {isAr ? "أفضل قيمة — شحن مجاني عند شراء 4" : "Best value — free shipping at 4"}
+              </div>
+            </>
+          )}
+        </motion.div>
+
+        {/* scenario dots */}
+        <div className="mt-3 flex items-center justify-center gap-1.5">
+          {scenarios.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              aria-label={`scenario ${i + 1}`}
+              onClick={() => setIdx(i)}
+              className={`h-1.5 rounded-full transition-all ${i === idx ? "w-5 bg-emerald-500" : "w-1.5 bg-green-200"}`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
-function DemoFlowSection({ isAr }: { isAr: boolean }) {
-  const nasserSigs = [
-    { c: "#a855f7", t: isAr ? "يتصفح المستلزمات الرياضية" : "Browsing athletic gear" },
-    { c: "#06b6d4", t: isAr ? "سلته تحوي مشروب بروتين" : "Cart has a protein drink" },
-    { c: "#8b5cf6", t: isAr ? "اشترى حذاء قبل شهر" : "Bought sneakers last month" },
-  ];
-  const nouraSigs = [
-    { c: "#ec4899", t: isAr ? "تتصفح منتجات التجميل" : "Browsing beauty products" },
-    { c: "#a855f7", t: isAr ? "اشترت عطراً الأسبوع الماضي" : "Bought perfume last week" },
-    { c: "#f59e0b", t: isAr ? "سلتها تحوي كريم مرطب" : "Cart has a moisturizer" },
-  ];
+function ArrowDownFlow() {
   return (
-    <div className="dfs dfs-hero-dark" dir={isAr ? "rtl" : "ltr"}>
-      <DemoPhaseIndicator isAr={isAr} />
-
-      <div className="dfs-card gc">
-        <div className="shine" />
-
-        {/* ROW 1: profile | hflow | engine | hflow | profile */}
-        <div className="dfs-top">
-
-          {/* NASSER */}
-          <div className="dfs-profile rv d1">
-            <div className="dfs-av-wrap">
-              <div className="dfs-av-ring" />
-              <div className="dfs-av-ring dfs-av-ring-2" />
-              <img src="/avatar-male.webp" className="dfs-av" alt="" loading="lazy" />
-              <div className="dfs-av-badge dfs-av-badge-p">92%</div>
-            </div>
-            <div className="dfs-pbody">
-              <div className="dfs-pname">{isAr ? "ناصر" : "Nasser"}</div>
-              <div className="dfs-pmeta">{isAr ? "الرياض · آيفون · 28 سنة" : "Riyadh · iPhone · 28 yrs"}</div>
-              <div className="dfs-sigs">
-                {nasserSigs.map((s, i) => (
-                  <div key={i} className="dfs-sig">
-                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
-                    {s.t}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Horizontal flow: Nasser → engine */}
-          <div className="dfs-hflow" aria-hidden="true">
-            <div className="dfs-hline dfs-hline-p" />
-            {[0, 1, 2, 3].map((i) => (
-              <span key={i} className="dfs-hpt dfs-hpt-p" style={{ "--di": i } as React.CSSProperties} />
-            ))}
-          </div>
-
-          {/* AI ENGINE hub */}
-          <div className="dfs-engine">
-            <div className="dfs-engine-ring" />
-            <div className="dfs-engine-ring dfs-engine-ring-2" />
-            <svg width="38" height="38" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <circle cx="16" cy="16" r="14" fill="rgba(124, 58, 237,.22)" stroke="rgba(168, 85, 247,.6)" strokeWidth="1.5" />
-              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(168, 85, 247,.95)" />
-              <circle cx="16" cy="16" r="2.5" fill="#c084fc" />
-            </svg>
-            <div className="dfs-engine-lbl">{isAr ? "محرك الذكاء الاصطناعي" : "AI Engine"}</div>
-            <div className="dfs-engine-sub">{isAr ? "يحلل · يفهم · يخصص" : "Analyze · Personalize"}</div>
-            <div className="dfs-edots" aria-hidden="true">
-              {[0, 1, 2].map((i) => <span key={i} className="dfs-edot" style={{ "--di": i } as React.CSSProperties} />)}
-            </div>
-          </div>
-
-          {/* Horizontal flow: engine ← Noura */}
-          <div className="dfs-hflow" aria-hidden="true">
-            <div className="dfs-hline dfs-hline-pk" />
-            {[0, 1, 2, 3].map((i) => (
-              <span key={i} className="dfs-hpt dfs-hpt-pk" style={{ "--di": i } as React.CSSProperties} />
-            ))}
-          </div>
-
-          {/* NOURA */}
-          <div className="dfs-profile rv d2">
-            <div className="dfs-av-wrap">
-              <div className="dfs-av-ring dfs-av-ring-pk" />
-              <div className="dfs-av-ring dfs-av-ring-2 dfs-av-ring-pk" />
-              <img src="/avatar-female.webp" className="dfs-av" alt="" loading="lazy" />
-              <div className="dfs-av-badge dfs-av-badge-pk">96%</div>
-            </div>
-            <div className="dfs-pbody">
-              <div className="dfs-pname">{isAr ? "نوره" : "Noura"}</div>
-              <div className="dfs-pmeta">{isAr ? "جدة · سامسونج · 24 سنة" : "Jeddah · Samsung · 24 yrs"}</div>
-              <div className="dfs-sigs">
-                {nouraSigs.map((s, i) => (
-                  <div key={i} className="dfs-sig">
-                    <i style={{ background: s.c, boxShadow: `0 0 5px ${s.c}` }} />
-                    {s.t}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>{/* /dfs-top */}
-
-        {/* ROW 2: upward connector — store data rises into engine */}
-        <div className="dfs-store-up" aria-hidden="true">
-          <div className="dfs-sup-line" />
-          {[0, 1, 2, 3].map((i) => (
-            <span key={i} className="dfs-upt" style={{ "--di": i } as React.CSSProperties} />
-          ))}
-        </div>
-
-        {/* ROW 2b: Store data label */}
-        <div className="dfs-store-label">
-          <div className="dfs-store-line" />
-          <span className="dfs-store-tag">{isAr ? "بيانات المتجر" : "Store Data"}</span>
-          <div className="dfs-store-line" />
-        </div>
-        <div className="dfs-store rv d2">
-
-          {/* Product Catalog */}
-          <div className="dfs-store-card gc">
-            <div className="shine" />
-            <div className="dfs-sc-hd">
-              <div className="dfs-sc-ico" style={{ background: "rgba(245,158,11,.1)", border: "1px solid rgba(245,158,11,.22)" }}>🛍️</div>
-              <div>
-                <div className="dfs-sc-title">{isAr ? "كتالوج المنتجات" : "Product Catalog"}</div>
-                <div className="dfs-sc-sub">{isAr ? "4 منتجات · متزامنة" : "4 products · synced"}</div>
-              </div>
-              <div className="dfs-live-dot" style={{ color: "#f59e0b" }}>● {isAr ? "مباشر" : "Live"}</div>
-            </div>
-            <div className="dfs-sc-list">
-              {([
-                { icon: "👟", name: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", cat: isAr ? "رياضة" : "Sports", price: isAr ? "349 ⃁" : "SAR 349", stock: 23 },
-                { icon: "🎧", name: isAr ? "سماعات JBL Reflect" : "JBL Reflect Earbuds", cat: isAr ? "إلكترونيات" : "Electronics", price: isAr ? "219 ⃁" : "SAR 219", stock: 41 },
-                { icon: "🥤", name: isAr ? "بروتين Whey" : "Whey Protein Drink", cat: isAr ? "لياقة" : "Fitness", price: isAr ? "149 ⃁" : "SAR 149", stock: 88 },
-                { icon: "🧴", name: isAr ? "كريم مرطب Nivea" : "Nivea Moisturizer", cat: isAr ? "تجميل" : "Beauty", price: isAr ? "89 ⃁" : "SAR 89", stock: 112 },
-              ] as { icon: string; name: string; cat: string; price: string; stock: number }[]).map((p, i) => (
-                <div key={i} className="dfs-sc-row">
-                  <span className="dfs-sc-emoji">{p.icon}</span>
-                  <div className="dfs-sc-info">
-                    <div className="dfs-sc-name">{p.name}</div>
-                    <div className="dfs-sc-cat">{p.cat}</div>
-                  </div>
-                  <div className="dfs-sc-price">{p.price}</div>
-                  <div className="dfs-sc-stock">{p.stock} {isAr ? "قطعة" : "in stock"}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Order History */}
-          <div className="dfs-store-card gc">
-            <div className="shine" />
-            <div className="dfs-sc-hd">
-              <div className="dfs-sc-ico" style={{ background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)" }}>📦</div>
-              <div>
-                <div className="dfs-sc-title">{isAr ? "سجل الطلبات" : "Order History"}</div>
-                <div className="dfs-sc-sub">{isAr ? "آخر 4 طلبات" : "Last 4 orders"}</div>
-              </div>
-              <div className="dfs-live-dot" style={{ color: "#06b6d4" }}>● {isAr ? "مباشر" : "Live"}</div>
-            </div>
-            <div className="dfs-sc-list">
-              {([
-                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "حذاء Ultra Pro" : "Ultra Pro Sneakers", status: "done" as const, total: isAr ? "349 ⃁" : "SAR 349" },
-                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "عطر + كريم Nivea" : "Perfume + Nivea Cream", status: "done" as const, total: isAr ? "538 ⃁" : "SAR 538" },
-                { av: "👨", customer: isAr ? "ناصر" : "Nasser", items: isAr ? "سماعات JBL + بروتين" : "JBL Earbuds + Protein", status: "active" as const, total: isAr ? "368 ⃁" : "SAR 368" },
-                { av: "👩", customer: isAr ? "نوره" : "Noura", items: isAr ? "باليت مكياج" : "Makeup Palette", status: "done" as const, total: isAr ? "289 ⃁" : "SAR 289" },
-              ] as { av: string; customer: string; items: string; status: "done" | "active"; total: string }[]).map((o, i) => (
-                <div key={i} className="dfs-sc-row">
-                  <span className="dfs-sc-emoji">{o.av}</span>
-                  <div className="dfs-sc-info">
-                    <div className="dfs-sc-name">{o.customer}</div>
-                    <div className="dfs-sc-cat">{o.items}</div>
-                  </div>
-                  <div className={`dfs-sc-status ${o.status === "active" ? "dfs-sc-status-act" : ""}`}>
-                    {o.status === "done" ? (isAr ? "مكتمل" : "Done") : (isAr ? "جاري" : "Active")}
-                  </div>
-                  <div className="dfs-sc-price">{o.total}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>{/* /dfs-store */}
-
-        {/* ROW 3: output divider — engine → personalized recs */}
-        <div className="dfs-divider" aria-hidden="true">
-          <div className="dfs-div-line" />
-          <div className="dfs-div-label">{isAr ? "↓ توصيات مخصصة" : "↓ Personalized output"}</div>
-          <div className="dfs-div-line" />
-          <div className="dfs-vpt-wrap dfs-vpt-wrap-l">
-            {[0, 1, 2].map((i) => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
-          </div>
-          <div className="dfs-vpt-wrap dfs-vpt-wrap-r">
-            {[0, 1, 2].map((i) => <span key={i} className="dfs-vpt dfs-vpt-g" style={{ "--di": i } as React.CSSProperties} />)}
-          </div>
-        </div>
-
-        {/* ROW 3: recommendations */}
-        <div className="dfs-recs">
-
-          {/* Nasser recs */}
-          <div className="dfs-rec dfs-rec-p rv d3">
-            <div className="dfs-rec-hd">
-              <div>
-                <div className="dfs-pname">{isAr ? "ناصر" : "Nasser"}</div>
-                <div className="dfs-pmeta">{isAr ? "الرياض · آيفون · 28 سنة" : "Riyadh · iPhone · 28 yrs"}</div>
-              </div>
-              <div className="demo-chip">92%</div>
-            </div>
-            <div className="demo-sl">{isAr ? "المقترحات بالذكاء الاصطناعي" : "AI Suggestions"}</div>
-            <div className="demo-suggs">
-              <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(240,240,248,.06)", border: "1px solid rgba(240,240,248,.12)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><ellipse cx="9" cy="12" rx="5.5" ry="3.5" fill="rgba(240,240,248,.12)" stroke="rgba(240,240,248,.4)" strokeWidth="1" /><path d="M3.5 12 Q5.5 5.5 9 3.5 Q12.5 5.5 14.5 12" fill="rgba(15,10,30,.4)" stroke="rgba(240,240,248,.18)" strokeWidth="1" /></svg>
-                </div>
-                <div className="demo-sb"><div className="demo-sn">{isAr ? "عرض الكولاجين" : "Collagen Offer"}</div><div className="demo-sw">{isAr ? "يكمل مشروب البروتين في سلتك" : "Complements the protein drink in your cart"}</div></div>
-                <div className="demo-sp">{isAr ? "349 ⃁" : "SAR 349"}</div>
-              </div>
-              <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168, 85, 247,.07)", border: "1px solid rgba(168, 85, 247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(168, 85, 247,.15)" stroke="rgba(168, 85, 247,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(168, 85, 247,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(168, 85, 247,.5)" /></svg>
-                </div>
-                <div className="demo-sb"><div className="demo-sn">{isAr ? "سماعات JBL Reflect" : "JBL Reflect Earbuds"}</div><div className="demo-sw">{isAr ? "78% يشترونها مع نفس الحذاء" : "78% buy them with the same sneakers"}</div></div>
-                <div className="demo-sp">{isAr ? "219 ⃁" : "SAR 219"}</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Noura recs */}
-          <div className="dfs-rec dfs-rec-pk rv d4">
-            <div className="dfs-rec-hd">
-              <div>
-                <div className="dfs-pname">{isAr ? "نوره" : "Noura"}</div>
-                <div className="dfs-pmeta">{isAr ? "جدة · سامسونج · 24 سنة" : "Jeddah · Samsung · 24 yrs"}</div>
-              </div>
-              <div className="demo-chip" style={{ background: "rgba(236,72,153,.12)", border: "1px solid rgba(236,72,153,.28)", color: "#f9a8d4" }}>96%</div>
-            </div>
-            <div className="demo-sl">{isAr ? "المقترحات بالذكاء الاصطناعي" : "AI Suggestions"}</div>
-            <div className="demo-suggs">
-              <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(236,72,153,.07)", border: "1px solid rgba(236,72,153,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="5" width="14" height="9" rx="2" fill="rgba(236,72,153,.12)" stroke="rgba(236,72,153,.45)" strokeWidth="1" /><rect x="4" y="7" width="3" height="2" rx=".6" fill="rgba(255,130,160,.3)" /><rect x="8" y="7" width="3" height="2" rx=".6" fill="rgba(200,70,120,.3)" /></svg>
-                </div>
-                <div className="demo-sb"><div className="demo-sn">{isAr ? "باليت مكياج" : "Makeup Palette"}</div><div className="demo-sw">{isAr ? "يكمل العطر الذي اشترته" : "Complements the perfume she bought"}</div></div>
-                <div className="demo-sp">{isAr ? "289 ⃁" : "SAR 289"}</div>
-              </div>
-              <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168, 85, 247,.07)", border: "1px solid rgba(168, 85, 247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(168, 85, 247,.12)" stroke="rgba(168, 85, 247,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(168, 85, 247,.08)" stroke="rgba(168, 85, 247,.3)" strokeWidth="1" /></svg>
-                </div>
-                <div className="demo-sb"><div className="demo-sn">{isAr ? "كريم يوسرين مرطب" : "Eucerin Moisturizer"}</div><div className="demo-sw">{isAr ? "مقترن مع كريمك في السلة" : "Pairs with the cream in your cart"}</div></div>
-                <div className="demo-sp">{isAr ? "449 ⃁" : "SAR 449"}</div>
-              </div>
-            </div>
-          </div>
-
-        </div>{/* /dfs-recs */}
-
-      </div>{/* /dfs-card */}
+    <div className="flex flex-col items-center gap-0.5 py-1" aria-hidden="true">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="h-1 w-1 rounded-full bg-emerald-300"
+          style={{ animation: `dfsPulse 1.5s ${i * 0.18}s infinite` }}
+        />
+      ))}
     </div>
   );
 }
@@ -693,7 +709,7 @@ export default function HomeTrackflow() {
   const engineLabel = t({ ar: "محرّك زيادة", en: "Ziadah Engine" });
 
   const placements = [
-    { name: { ar: "صفحة المنتج", en: "Product page" }, Icon: Store, color: "#7c3aed" },
+    { name: { ar: "صفحة المنتج", en: "Product page" }, Icon: Store, color: "#16a34a" },
     { name: { ar: "السلة", en: "Cart" }, Icon: ShoppingCart, color: "#0ea5e9" },
     { name: { ar: "صفحة الدفع", en: "Checkout" }, Icon: CreditCard, color: "#6366f1" },
     { name: { ar: "الرئيسية", en: "Home page" }, Icon: LayoutGrid, color: "#f59e0b" },
@@ -702,7 +718,7 @@ export default function HomeTrackflow() {
   ];
 
   const storePlatforms = [
-    { name: t({ ar: "زد", en: "Zid" }), brand: "Zid", color: "#7c3aed", soon: false },
+    { name: t({ ar: "زد", en: "Zid" }), brand: "Zid", color: "#16a34a", soon: false },
     { name: t({ ar: "سلة", en: "Salla" }), brand: "Salla", color: "#0ea5e9", soon: false },
     { name: t({ ar: "ووردبريس", en: "WordPress" }), brand: "WordPress", color: "#6366f1", soon: true },
     { name: t({ ar: "متجر مخصص", en: "Custom store" }), brand: "Custom", color: "#f59e0b", soon: true },
@@ -725,7 +741,7 @@ export default function HomeTrackflow() {
       mockup: (
         <div className="space-y-2.5 num-ltr">
           {[
-            { label: "Zid Store · saudi.com", state: t({ ar: "متصل", en: "connected" }), color: "#7c3aed", soon: false },
+            { label: "Zid Store · saudi.com", state: t({ ar: "متصل", en: "connected" }), color: "#16a34a", soon: false },
             { label: "Salla Store · uae.com", state: t({ ar: "متصل", en: "connected" }), color: "#0ea5e9", soon: false },
             { label: "WooCommerce", state: t({ ar: "قريباً", en: "soon" }), color: "#6366f1", soon: true },
           ].map((s) => (
@@ -734,7 +750,7 @@ export default function HomeTrackflow() {
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
                 <span className="text-xs text-zinc-300">{s.label}</span>
               </div>
-              <span className={`text-[10px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${s.soon ? "text-amber-400" : "text-violet-400"}`}>{s.state}</span>
+              <span className={`text-[10px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${s.soon ? "text-amber-400" : "text-emerald-400"}`}>{s.state}</span>
             </div>
           ))}
         </div>
@@ -750,7 +766,7 @@ export default function HomeTrackflow() {
       mockup: (
         <div className="grid grid-cols-2 gap-2 num-ltr">
           {[
-            { name: t({ ar: "صفحة المنتج", en: "Product page" }), color: "#7c3aed" },
+            { name: t({ ar: "صفحة المنتج", en: "Product page" }), color: "#16a34a" },
             { name: t({ ar: "السلة", en: "Cart" }), color: "#0ea5e9" },
             { name: t({ ar: "الدفع", en: "Checkout" }), color: "#6366f1" },
             { name: t({ ar: "التصنيفات", en: "Category" }), color: "#ec4899", soon: true },
@@ -758,7 +774,7 @@ export default function HomeTrackflow() {
             <div key={c.name} className="p-2.5 rounded-lg bg-white/[0.04] border border-white/8">
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: c.color }} />
-                <span className={`text-[10px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${c.soon ? "text-amber-400" : "text-violet-400"}`}>{c.soon ? t({ ar: "قريباً", en: "soon" }) : t({ ar: "مفعّل", en: "live" })}</span>
+                <span className={`text-[10px] font-bold ${isAr ? "" : "uppercase tracking-widest"} ${c.soon ? "text-amber-400" : "text-emerald-400"}`}>{c.soon ? t({ ar: "قريباً", en: "soon" }) : t({ ar: "مفعّل", en: "live" })}</span>
               </div>
               <div className="text-xs text-zinc-200 font-medium">{c.name}</div>
             </div>
@@ -778,9 +794,9 @@ export default function HomeTrackflow() {
           <div className="flex items-center justify-between gap-2">
             <span className="px-2.5 py-1.5 rounded-md bg-white/[0.04] border border-white/8 text-[11px] text-zinc-400 font-mono">{t({ ar: "سلوك العميل", en: "behavior" })}</span>
             <span className="text-zinc-600">→</span>
-            <span className="px-2.5 py-1.5 rounded-md bg-purple-500/15 border border-purple-400/30 text-[11px] text-purple-300 font-mono">{t({ ar: "تحليل", en: "analyze" })}</span>
+            <span className="px-2.5 py-1.5 rounded-md bg-emerald-500/15 border border-emerald-400/30 text-[11px] text-emerald-300 font-mono">{t({ ar: "تحليل", en: "analyze" })}</span>
             <span className="text-zinc-600">→</span>
-            <span className="px-2.5 py-1.5 rounded-md bg-violet-500/15 border border-violet-400/30 text-[11px] text-violet-300 font-mono">{t({ ar: "اقتراح", en: "recommend" })}</span>
+            <span className="px-2.5 py-1.5 rounded-md bg-emerald-500/15 border border-emerald-400/30 text-[11px] text-emerald-300 font-mono">{t({ ar: "اقتراح", en: "recommend" })}</span>
           </div>
           <div className="grid grid-cols-2 gap-2 text-[10px]">
             <div className="p-2 rounded-md bg-white/[0.04] border border-white/8 text-zinc-400">+ {t({ ar: "تصفّح", en: "browsing" })}</div>
@@ -802,12 +818,12 @@ export default function HomeTrackflow() {
         <div className="space-y-3 num-ltr">
           <div className="flex items-end gap-1.5 h-16">
             {[35, 52, 41, 68, 58, 80, 92].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t-sm bg-gradient-to-t from-purple-600/40 to-purple-400" style={{ height: `${h}%` }} />
+              <div key={i} className="flex-1 rounded-t-sm bg-gradient-to-t from-green-600/40 to-emerald-400" style={{ height: `${h}%` }} />
             ))}
           </div>
           <div className="flex justify-between text-[10px] text-zinc-500">
             <span>{t({ ar: "قبل", en: "before" })}</span>
-            <span className="text-violet-400 font-bold">+35% {t({ ar: "قيمة الطلب", en: "AOV" })}</span>
+            <span className="text-emerald-400 font-bold">+35% {t({ ar: "قيمة الطلب", en: "AOV" })}</span>
             <span>{t({ ar: "بعد", en: "after" })}</span>
           </div>
         </div>
@@ -912,10 +928,10 @@ export default function HomeTrackflow() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 mb-7"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-100 border border-green-200 mb-7"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-                    <span className="text-xs font-semibold text-purple-700">
+                    <Sparkles className="w-3.5 h-3.5 text-green-600" />
+                    <span className="text-xs font-semibold text-green-700">
                       {t({ ar: "منصة اقتراح المنتجات بالذكاء الاصطناعي", en: "The AI product-recommendation platform" })}
                     </span>
                   </motion.div>
@@ -980,7 +996,7 @@ export default function HomeTrackflow() {
                   >
                     {trustItems.map((item) => (
                       <span key={item.label} className="flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-purple-600" />
+                        <CheckCircle2 className="w-4 h-4 text-green-600" />
                         {item.label}
                       </span>
                     ))}
@@ -994,11 +1010,9 @@ export default function HomeTrackflow() {
                   transition={{ duration: 0.6, delay: 0.25 }}
                   className="relative w-full mt-6 lg:mt-0"
                 >
-                  <div className="absolute inset-x-0 -top-10 bottom-0 -z-10 bg-gradient-to-tr from-violet-500/25 via-purple-500/15 to-indigo-500/15 blur-[90px] rounded-[45%] pointer-events-none" />
+                  <div className="absolute inset-x-0 -top-10 bottom-0 -z-10 bg-gradient-to-tr from-emerald-500/25 via-emerald-500/15 to-emerald-500/15 blur-[90px] rounded-[45%] pointer-events-none" />
 
-                  <div className="relative w-full max-w-xl mx-auto lg:me-0 lg:ms-auto">
-                    <DemoFlowSection isAr={isAr} />
-                  </div>
+                  <DemoFlowSection isAr={isAr} />
                 </motion.div>
               </div>
             </div>
@@ -1015,9 +1029,9 @@ export default function HomeTrackflow() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-                    className="rounded-2xl bg-gradient-to-br from-violet-50 to-white border border-violet-100 ring-1 ring-violet-500/5 p-5 sm:p-6 text-center"
+                    className="rounded-2xl bg-gradient-to-br from-green-50 to-white border border-green-100 ring-1 ring-emerald-500/5 p-5 sm:p-6 text-center"
                   >
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-violet-600 num-ltr">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-green-600 num-ltr">
                       {s.value}
                     </div>
                     <div className="mt-1.5 text-xs sm:text-sm font-semibold text-zinc-500">{s.label}</div>
@@ -1070,7 +1084,7 @@ export default function HomeTrackflow() {
           <section className="py-24 px-4 bg-black">
             <div className="container mx-auto max-w-xl">
               <div className="text-center mb-9">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-400 uppercase mb-3">
+                <span className="inline-block text-xs font-bold tracking-widest text-emerald-400 uppercase mb-3">
                   {t({ ar: "القصة باختصار", en: "The story, briefly" })}
                 </span>
                 <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
@@ -1096,7 +1110,7 @@ export default function HomeTrackflow() {
                                 وصلك <span className="font-bold text-white num-ltr">1,000</span> زائر اليوم… واشترى منهم{" "}
                                 <span className="font-bold text-white num-ltr">120</span>، أغلبهم منتج واحد بس.
                                 <br />
-                                <span className="font-bold text-violet-400">وين راحت بقية المبيعات؟</span>
+                                <span className="font-bold text-emerald-400">وين راحت بقية المبيعات؟</span>
                               </>
                             ),
                             en: (
@@ -1104,7 +1118,7 @@ export default function HomeTrackflow() {
                                 <span className="font-bold text-white num-ltr">1,000</span> visitors came today… and{" "}
                                 <span className="font-bold text-white num-ltr">120</span> bought — most just one item.
                                 <br />
-                                <span className="font-bold text-violet-400">Where did the rest of the sales go?</span>
+                                <span className="font-bold text-emerald-400">Where did the rest of the sales go?</span>
                               </>
                             ),
                           })}
@@ -1162,21 +1176,21 @@ export default function HomeTrackflow() {
                             ar: (
                               <>
                                 الحل؟ تفعّل زيادة
-                                <CheckCircle2 className="inline-block w-4 h-4 text-violet-400 align-[-2px] ms-1" aria-hidden="true" />
+                                <CheckCircle2 className="inline-block w-4 h-4 text-emerald-400 align-[-2px] ms-1" aria-hidden="true" />
                                 <br />
                                 تقترح لكل عميل المنتج اللي يكمّل طلبه — فيضيف أكثر، ويرتفع متوسط قيمة الطلب
-                                <TrendingUp className="inline-block w-4 h-4 text-violet-400 align-[-2px] mx-1" aria-hidden="true" />
+                                <TrendingUp className="inline-block w-4 h-4 text-emerald-400 align-[-2px] mx-1" aria-hidden="true" />
                                 بدون أي إعلان إضافي.
                               </>
                             ),
                             en: (
                               <>
                                 The fix? Turn on Ziadah
-                                <CheckCircle2 className="inline-block w-4 h-4 text-violet-400 align-[-2px] ms-1" aria-hidden="true" />
+                                <CheckCircle2 className="inline-block w-4 h-4 text-emerald-400 align-[-2px] ms-1" aria-hidden="true" />
                                 <br />
                                 It suggests each shopper the item that completes their order — so they add more, and your
                                 average order value climbs
-                                <TrendingUp className="inline-block w-4 h-4 text-violet-400 align-[-2px] mx-1" aria-hidden="true" />
+                                <TrendingUp className="inline-block w-4 h-4 text-emerald-400 align-[-2px] mx-1" aria-hidden="true" />
                                 with no extra ads.
                               </>
                             ),
@@ -1195,9 +1209,9 @@ export default function HomeTrackflow() {
             <div className="container mx-auto max-w-6xl">
               <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
                 <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-500/15 blur-[100px] rounded-full pointer-events-none" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/15 blur-[100px] rounded-full pointer-events-none" />
                 <div className="relative p-7 md:p-10 lg:p-12">
-                  <span className="inline-block text-xs font-bold tracking-widest text-purple-400 uppercase mb-4">
+                  <span className="inline-block text-xs font-bold tracking-widest text-emerald-400 uppercase mb-4">
                     {t({ ar: "حاسبة", en: "Calculator" })}
                   </span>
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
@@ -1235,7 +1249,7 @@ export default function HomeTrackflow() {
                         step={5000}
                         value={[revenue]}
                         onValueChange={(v) => setRevenue(v[0])}
-                        className="mb-8 [&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-violet-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-violet-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(16,185,129,0.25)]"
+                        className="mb-8 [&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-emerald-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-emerald-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(16,185,129,0.25)]"
                       />
                       <div className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400 mb-3">
                         {t({ ar: "إيراد إضافي محتمل شهرياً", en: "Potential extra revenue monthly" })}
@@ -1260,8 +1274,8 @@ export default function HomeTrackflow() {
                             label: t({ ar: "مع زيادة", en: "With Ziadah" }),
                             value: extraZiadah,
                             pct: Math.round((extraZiadah / maxExtra) * 100),
-                            barClass: "bg-violet-500/80",
-                            textClass: "text-violet-300",
+                            barClass: "bg-emerald-500/80",
+                            textClass: "text-emerald-300",
                           },
                         ].map((row) => (
                           <div key={row.label}>
@@ -1280,8 +1294,8 @@ export default function HomeTrackflow() {
                     </div>
 
                     {/* right: results */}
-                    <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-8 flex flex-col">
-                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
+                    <div className="rounded-2xl bg-gradient-to-br from-emerald-500/[0.08] to-transparent border border-emerald-500/20 p-6 md:p-8 flex flex-col">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-300 mb-6">
                         <TrendingUp className="w-4 h-4" />
                         {t({ ar: "متوسط الإيراد الإضافي مع زيادة", en: "Average extra revenue with Ziadah" })}
                       </div>
@@ -1330,7 +1344,7 @@ export default function HomeTrackflow() {
           <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
             <div className="container mx-auto max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {t({ ar: "فكّر فيها كذا", en: "Think of it this way" })}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
@@ -1386,14 +1400,14 @@ export default function HomeTrackflow() {
                 {/* smart salesperson */}
                 <div className="rounded-2xl mockup-card overflow-hidden shadow-card-lg relative p-7 md:p-8">
                   <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-purple-500/15 blur-[100px] rounded-full pointer-events-none" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-emerald-500/15 blur-[100px] rounded-full pointer-events-none" />
                   <div className="relative">
-                    <div className="absolute top-0 end-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-[10px] font-bold tracking-widest uppercase">
+                    <div className="absolute top-0 end-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold tracking-widest uppercase">
                       <CheckCircle2 className="w-3 h-3" />
                       {t({ ar: "مع زيادة", en: "With Ziadah" })}
                     </div>
-                    <div className="w-12 h-12 rounded-xl bg-violet-500/15 border border-violet-500/30 flex items-center justify-center mb-5">
-                      <Wand2 className="w-6 h-6 text-violet-300" />
+                    <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-5">
+                      <Wand2 className="w-6 h-6 text-emerald-300" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
                       {t({ ar: "بائع يعرف كل عميل", en: "A salesperson who knows every customer" })}
@@ -1411,7 +1425,7 @@ export default function HomeTrackflow() {
                         t({ ar: "سلّة أكبر ومتوسط طلب أعلى", en: "Bigger carts, higher average order value" }),
                       ].map((p) => (
                         <div key={p} className="flex items-start gap-2 text-zinc-300">
-                          <CheckCircle2 className="w-4 h-4 text-violet-400 shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                           <span>{p}</span>
                         </div>
                       ))}
@@ -1420,7 +1434,7 @@ export default function HomeTrackflow() {
                       <span className="text-xs text-zinc-400">
                         {t({ ar: "من كل 100 سلّة, فيها منتج إضافي", en: "Out of every 100 carts, with an add-on" })}
                       </span>
-                      <span className="text-2xl font-extrabold text-violet-300 num-ltr">34</span>
+                      <span className="text-2xl font-extrabold text-emerald-300 num-ltr">34</span>
                     </div>
                   </div>
                 </div>
@@ -1495,20 +1509,20 @@ export default function HomeTrackflow() {
                     key: "ziadah",
                     Icon: Wand2,
                     label: t({ ar: "مع زيادة (ذكاء اصطناعي)", en: "With Ziadah (AI)" }),
-                    badge: "bg-violet-100 border-violet-200 text-violet-700",
-                    border: "border-violet-400",
-                    dotColor: "bg-violet-500",
+                    badge: "bg-green-100 border-green-200 text-green-700",
+                    border: "border-emerald-400",
+                    dotColor: "bg-emerald-500",
                     visible: 34,
                     visibleLabel: t({ ar: "34٪ من السلال فيها منتج إضافي", en: "34% of carts add an extra item" }),
                     impact: t({ ar: "+35٪ متوسط نمو قيمة الطلب", en: "+35% avg order-value lift" }),
-                    impactColor: "text-violet-600",
+                    impactColor: "text-green-600",
                     lines: [
                       t({ ar: "اقتراح شخصي لكل عميل", en: "Personalized for each shopper" }),
                       t({ ar: "يبرز المنتجات اللي تُشترى معاً", en: "Surfaces bought-together items" }),
                       t({ ar: "متوسط طلب أعلى · إيراد أكثر", en: "Higher AOV · more revenue" }),
                     ],
                     verdict: t({ ar: "كل عميل يشوف ما يناسبه فعلاً", en: "Every shopper sees what truly fits" }),
-                    verdictColor: "text-violet-700 bg-violet-100 border-violet-200",
+                    verdictColor: "text-green-700 bg-green-100 border-green-200",
                     featured: true,
                   },
                 ].map((sc, i) => (
@@ -1521,7 +1535,7 @@ export default function HomeTrackflow() {
                     className={`relative rounded-2xl border-2 ${sc.border} bg-white p-6 ${sc.featured ? "shadow-card-lg" : "shadow-card"}`}
                   >
                     {sc.featured && (
-                      <div className="absolute -top-3 start-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-violet-600 text-white text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
+                      <div className="absolute -top-3 start-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-green-600 text-white text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
                         {t({ ar: "الأعلى أثراً", en: "Best impact" })}
                       </div>
                     )}
@@ -1543,7 +1557,7 @@ export default function HomeTrackflow() {
                       {sc.lines.map((line) => (
                         <li key={line} className="flex items-start gap-2 text-zinc-700">
                           {sc.key === "ziadah" ? (
-                            <CheckCircle2 className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                           ) : (
                             <XCircle className={`w-4 h-4 shrink-0 mt-0.5 ${sc.key === "generic" ? "text-amber-500" : "text-zinc-400"}`} />
                           )}
@@ -1578,7 +1592,7 @@ export default function HomeTrackflow() {
                     </div>
                   </div>
                   <div className="flex items-center gap-3 justify-center md:justify-start">
-                    <TrendingUp className="w-7 h-7 text-violet-500 shrink-0" />
+                    <TrendingUp className="w-7 h-7 text-emerald-500 shrink-0" />
                     <div>
                       <div className="text-2xl font-extrabold text-zinc-950 num-ltr">+15–35%</div>
                       <div className="text-xs text-zinc-600">
@@ -1615,7 +1629,7 @@ export default function HomeTrackflow() {
           <section className="py-24 px-4">
             <div className="container mx-auto max-w-6xl">
               <div className="text-center mb-14">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {t({ ar: "وش تسوّي زيادة بالضبط", en: "What Ziadah actually does" })}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
@@ -1712,7 +1726,7 @@ export default function HomeTrackflow() {
           <section id="steps" className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20">
             <div className="container mx-auto max-w-6xl">
               <div className="text-center mb-14">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {t({ ar: "كيف تشتغل زيادة", en: "How Ziadah works" })}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
@@ -1731,16 +1745,16 @@ export default function HomeTrackflow() {
                 <div className="lg:col-span-2 order-2 lg:order-1 lg:sticky lg:top-24">
                   <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
                     <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-purple-500/15 blur-[100px] rounded-full pointer-events-none transition-opacity duration-500" />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-emerald-500/15 blur-[100px] rounded-full pointer-events-none transition-opacity duration-500" />
                     <div className="relative p-6 md:p-7">
                       <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="relative w-11 h-11 rounded-xl bg-purple-600 flex items-center justify-center shrink-0 shadow-[0_0_18px_rgba(109, 40, 217,0.45)]">
+                          <div className="relative w-11 h-11 rounded-xl bg-green-600 flex items-center justify-center shrink-0 shadow-[0_0_18px_rgba(21, 128, 61,0.45)]">
                             {(() => {
                               const ActiveIcon = steps[activeStep].Icon;
                               return <ActiveIcon className="w-5 h-5 text-white" />;
                             })()}
-                            <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full bg-white text-purple-700 text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-zinc-950`}>
+                            <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full bg-white text-green-700 text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-zinc-950`}>
                               {activeStep + 1}
                             </span>
                           </div>
@@ -1758,7 +1772,7 @@ export default function HomeTrackflow() {
                               type="button"
                               aria-label={`${t({ ar: "الخطوة", en: "Step" })} ${i + 1}`}
                               onClick={() => setActiveStep(i)}
-                              className={`h-1.5 rounded-full transition-all ${i === activeStep ? "w-5 bg-violet-400" : "w-1.5 bg-white/20 hover:bg-white/40"}`}
+                              className={`h-1.5 rounded-full transition-all ${i === activeStep ? "w-5 bg-emerald-400" : "w-1.5 bg-white/20 hover:bg-white/40"}`}
                             />
                           ))}
                         </div>
@@ -1778,13 +1792,13 @@ export default function HomeTrackflow() {
                         </AnimatePresence>
                       </div>
 
-                      <div className="mt-5 flex items-center justify-between rounded-xl bg-violet-500/10 border border-violet-500/20 px-4 py-3">
+                      <div className="mt-5 flex items-center justify-between rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-4 py-3">
                         <div className="flex items-center gap-2">
                           <span className="relative flex w-2 h-2">
-                            <span className="absolute inline-flex w-full h-full rounded-full bg-violet-400 opacity-75 animate-ping" />
-                            <span className="relative inline-flex w-2 h-2 rounded-full bg-violet-400" />
+                            <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+                            <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
                           </span>
-                          <span className="text-[11px] font-bold text-violet-300">{t({ ar: "اقتراحات تُعرض الآن", en: "Recommending live" })}</span>
+                          <span className="text-[11px] font-bold text-emerald-300">{t({ ar: "اقتراحات تُعرض الآن", en: "Recommending live" })}</span>
                         </div>
                         <span className="text-[10px] text-zinc-400 num-ltr">1,284 / hr</span>
                       </div>
@@ -1810,19 +1824,19 @@ export default function HomeTrackflow() {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.08 }}
                             className={`relative w-full text-start flex items-start gap-4 rounded-2xl border bg-white p-5 transition-all ${
-                              isActive ? "border-purple-300 shadow-card-lg ring-1 ring-purple-200" : "border-zinc-100 shadow-card hover:shadow-card-lg hover:border-zinc-200"
+                              isActive ? "border-emerald-300 shadow-card-lg ring-1 ring-green-200" : "border-zinc-100 shadow-card hover:shadow-card-lg hover:border-zinc-200"
                             }`}
                           >
-                            <div className={`relative w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-purple-600" : "bg-zinc-950"}`}>
+                            <div className={`relative w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-green-600" : "bg-zinc-950"}`}>
                               <s.Icon className="w-5 h-5 text-white" />
-                              <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-white transition-colors ${isActive ? "bg-zinc-950" : "bg-purple-600"}`}>
+                              <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-white transition-colors ${isActive ? "bg-zinc-950" : "bg-green-600"}`}>
                                 {i + 1}
                               </span>
                             </div>
                             <div className="flex-1 pt-0.5">
                               <div className="flex items-center justify-between gap-3 mb-1">
                                 <h3 className="text-base font-bold text-zinc-950">{s.title}</h3>
-                                <span className="shrink-0 text-[11px] font-bold text-purple-600 num-ltr bg-purple-50 border border-purple-100 rounded-full px-2 py-0.5">{s.stat}</span>
+                                <span className="shrink-0 text-[11px] font-bold text-green-600 num-ltr bg-green-50 border border-green-100 rounded-full px-2 py-0.5">{s.stat}</span>
                               </div>
                               <p className="text-sm text-zinc-600 leading-relaxed mb-0.5">{s.desc}</p>
                               <span className="text-[11px] text-zinc-400 num-ltr">{s.statLabel}</span>
@@ -1842,7 +1856,7 @@ export default function HomeTrackflow() {
             <div className="container mx-auto max-w-6xl">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-card">
-                  <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-3">
+                  <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-3">
                     {t({ ar: "أماكن العرض", en: "Placements" })}
                   </span>
                   <h3 className="text-2xl font-bold text-zinc-950 mb-6">
@@ -1864,7 +1878,7 @@ export default function HomeTrackflow() {
                 </div>
 
                 <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-card">
-                  <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-3">
+                  <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-3">
                     {t({ ar: "منصات التجارة", en: "E-commerce platforms" })}
                   </span>
                   <h3 className="text-2xl font-bold text-zinc-950 mb-6">
@@ -1908,7 +1922,7 @@ export default function HomeTrackflow() {
           >
             <div className="container mx-auto max-w-6xl px-4">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {translations[lang].landing.testimonialsTag}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
@@ -1940,7 +1954,7 @@ export default function HomeTrackflow() {
                         >
                           <div className="flex gap-0.5 mb-3" dir="ltr">
                             {Array.from({ length: 5 }).map((_, s) => (
-                              <Star key={s} className="w-3.5 h-3.5 fill-violet-500 text-violet-500" aria-hidden="true" />
+                              <Star key={s} className="w-3.5 h-3.5 fill-emerald-500 text-emerald-500" aria-hidden="true" />
                             ))}
                           </div>
                           <p className="flex-1 text-sm leading-relaxed text-zinc-700 mb-4 line-clamp-5">
@@ -1988,7 +2002,7 @@ export default function HomeTrackflow() {
           <section id="pricing" className="py-24 px-4 scroll-mt-20">
             <div className="container mx-auto max-w-6xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {t({ ar: "الأسعار", en: "Pricing" })}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
@@ -2006,7 +2020,7 @@ export default function HomeTrackflow() {
                     className={`relative rounded-2xl p-6 flex flex-col ${plan.popular ? "mockup-card shadow-card-lg" : "bg-white border border-zinc-200 shadow-card"}`}
                   >
                     {plan.popular && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                         {t({ ar: "الأكثر اختياراً", en: "Most popular" })}
                       </div>
                     )}
@@ -2031,7 +2045,7 @@ export default function HomeTrackflow() {
                     <div className={`flex-1 space-y-3 pt-6 mt-6 border-t ${plan.popular ? "border-white/10" : "border-zinc-100"}`}>
                       {planFeatures.map((feature) => (
                         <div key={feature} className="flex items-center gap-2.5">
-                          <CheckCircle2 className={`w-4 h-4 shrink-0 ${plan.popular ? "text-purple-400" : "text-purple-600"}`} />
+                          <CheckCircle2 className={`w-4 h-4 shrink-0 ${plan.popular ? "text-emerald-400" : "text-green-600"}`} />
                           <span className={`text-sm ${plan.popular ? "text-zinc-300" : "text-zinc-700"}`}>{feature}</span>
                         </div>
                       ))}
@@ -2046,7 +2060,7 @@ export default function HomeTrackflow() {
           <section id="faq" className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20">
             <div className="container mx-auto max-w-3xl">
               <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase mb-4">
                   {t({ ar: "أسئلة شائعة", en: "FAQ" })}
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
@@ -2075,7 +2089,7 @@ export default function HomeTrackflow() {
             <div className="container mx-auto max-w-4xl">
               <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative p-10 md:p-14 text-center">
                 <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-500/20 blur-[100px] rounded-full pointer-events-none" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-emerald-500/20 blur-[100px] rounded-full pointer-events-none" />
                 <div className="relative">
                   <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
                     {t({ ar: "جاهز ترفع متوسط طلبك ومبيعاتك؟", en: "Ready to raise your order value and sales?" })}
@@ -2098,15 +2112,15 @@ export default function HomeTrackflow() {
                   </div>
                   <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-400">
                     <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       {t({ ar: "تجربة مجانية 7 أيام", en: "7-day free trial" })}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       {t({ ar: "تركيب بنقرة وحدة", en: "One-click install" })}
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                       {t({ ar: "دعم بالعربية", en: "Arabic support" })}
                     </span>
                   </div>

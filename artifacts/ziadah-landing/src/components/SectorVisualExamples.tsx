@@ -20,7 +20,7 @@ function hexToRgbTuple(hex: string): string {
       .join("");
   }
   const n = parseInt(h, 16);
-  if (Number.isNaN(n) || h.length !== 6) return "124, 58, 237";
+  if (Number.isNaN(n) || h.length !== 6) return "22, 163, 74";
   const r = (n >> 16) & 255;
   const g = (n >> 8) & 255;
   const b = n & 255;
@@ -396,8 +396,8 @@ export default function SectorVisualExamples({
                         width: 52,
                         height: 52,
                         borderRadius: 16,
-                        background: "rgba(124, 58, 237,.12)",
-                        border: "1px solid rgba(124, 58, 237,.22)",
+                        background: "rgba(22, 163, 74,.12)",
+                        border: "1px solid rgba(22, 163, 74,.22)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -458,8 +458,8 @@ export default function SectorVisualExamples({
               onClick={() => jumpTo(i)}
               style={{
                 borderRadius: 999,
-                border: isActive ? "1px solid rgba(124, 58, 237,.45)" : "1px solid var(--b2)",
-                background: isActive ? "rgba(124, 58, 237,.14)" : "transparent",
+                border: isActive ? "1px solid rgba(22, 163, 74,.45)" : "1px solid var(--b2)",
+                background: isActive ? "rgba(22, 163, 74,.14)" : "transparent",
                 color: isActive ? "var(--p3)" : "var(--tm)",
                 fontWeight: 700,
                 fontSize: 12,
@@ -509,8 +509,8 @@ export default function SectorVisualExamples({
             disabled={!canMove}
             style={{
               borderRadius: 10,
-              border: "1px solid rgba(124, 58, 237,.35)",
-              background: "rgba(124, 58, 237,.12)",
+              border: "1px solid rgba(22, 163, 74,.35)",
+              background: "rgba(22, 163, 74,.12)",
               color: "var(--p3)",
               fontWeight: 700,
               fontSize: 12,
@@ -614,8 +614,8 @@ export default function SectorVisualExamples({
                       width: 52,
                       height: 52,
                       borderRadius: 16,
-                      background: "rgba(124, 58, 237,.12)",
-                      border: "1px solid rgba(124, 58, 237,.22)",
+                      background: "rgba(22, 163, 74,.12)",
+                      border: "1px solid rgba(22, 163, 74,.22)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -722,7 +722,7 @@ function ScenarioCard({
             color: "var(--p3)",
           }}
         >
-          <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(124, 58, 237,.4), transparent)" }} />
+          <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(22, 163, 74,.4), transparent)" }} />
           {tr.vizAiLabel}
           <span style={{ flex: 1, height: 1, background: "linear-gradient(270deg, rgba(6,182,212,.35), transparent)" }} />
         </div>
@@ -771,8 +771,8 @@ function ScenarioCard({
                 fontSize: 12,
                 fontWeight: 800,
                 color: "var(--p3)",
-                background: "rgba(124, 58, 237,.1)",
-                border: "1px solid rgba(124, 58, 237,.28)",
+                background: "rgba(22, 163, 74,.1)",
+                border: "1px solid rgba(22, 163, 74,.28)",
                 borderRadius: 999,
                 padding: "6px 12px",
                 cursor: "pointer",
@@ -847,7 +847,7 @@ function ScenarioCard({
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
           <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineEnd: 4 }}>{tr.vizWidgetLabel}</span>
-          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(124, 58, 237,.12)", border: "1px solid rgba(124, 58, 237,.25)", fontSize: 12, fontWeight: 700, color: "var(--p3)" }}>
+          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(22, 163, 74,.12)", border: "1px solid rgba(22, 163, 74,.25)", fontSize: 12, fontWeight: 700, color: "var(--p3)" }}>
             {isAr ? s.widgetAr : s.widgetEn}
           </span>
           <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineStart: 8, marginInlineEnd: 4 }}>{tr.vizPlacementLabel}</span>
@@ -941,7 +941,7 @@ function ScenarioUiOverlay({
         {body ? <div style={{ fontSize: 11, color: "var(--tm)", marginTop: 4, lineHeight: 1.5 }}>{body}</div> : null}
         {typeof pct === "number" ? (
           <div style={{ marginTop: 8, height: 6, borderRadius: 99, background: "rgba(0,0,0,.2)", overflow: "hidden" }}>
-            <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${accent}, #a855f7)` }} />
+            <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${accent}, #22c55e)` }} />
           </div>
         ) : null}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginTop: 8 }}>
@@ -995,7 +995,7 @@ function ScenarioUiOverlay({
               </button>
             ) : null}
             {primary ? (
-              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#7c3aed)`, color: "#fff", border: "none" }}>
+              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#16a34a)`, color: "#fff", border: "none" }}>
                 {primary}
               </button>
             ) : null}
@@ -1044,8 +1044,8 @@ function ScenarioUiOverlay({
                 textAlign: "center",
                 padding: "10px 12px",
                 borderRadius: 12,
-                background: "rgba(124, 58, 237,.1)",
-                border: "1px dashed rgba(124, 58, 237,.35)",
+                background: "rgba(22, 163, 74,.1)",
+                border: "1px dashed rgba(22, 163, 74,.35)",
                 color: "var(--p3)",
                 marginBottom: 12,
               }}
@@ -1055,7 +1055,7 @@ function ScenarioUiOverlay({
           ) : null}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {primary ? (
-              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#7c3aed)`, color: "#fff", border: "none", width: "100%" }}>
+              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#16a34a)`, color: "#fff", border: "none", width: "100%" }}>
                 {primary}
               </button>
             ) : null}

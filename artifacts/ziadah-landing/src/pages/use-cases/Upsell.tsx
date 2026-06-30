@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "الفئة الأعلى — القيمة الأوضح",
       desc: "يعرض النسخة المتميزة مع جدول مقارنة واضح يُبرز الفروقات الحقيقية. العميل يرى لماذا يستحق الفارق في السعر.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "📦",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "⭐",
       title: "الإصدار المتميز (Premium)",
       desc: "يعرض الإصدار Premium أو البريميوم مع تأكيد المزايا الإضافية بشكل جذاب — يناسب العملاء الذين يقدّرون الجودة.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🔄",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+41%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+41%", label: "متوسط قيمة الطلب", color: "#22c55e" },
     { value:"+28%", label: "معدل قبول اقتراح الترقية", color: "#06b6d4" },
-    { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#8b5cf6" },
+    { value: "+35%", label: "رضا العملاء على المدى البعيد", color: "#22c55e" },
     { value: "+22%", label: "معدل تكرار الشراء", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -75,11 +75,11 @@ const data: UseCasePageData = {
           <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "متى يعمل Upsell ومتى لا يعمل؟" : "When upselling works — and when it doesn't"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
             <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#8b5cf6", marginBottom: 12 }}>{isAr ? "✅ يعمل بشكل ممتاز عندما" : "✅ Works great when"}</div>
+              <div style={{ fontSize: 17, fontWeight: 800, color: "#22c55e", marginBottom: 12 }}>{isAr ? "✅ يعمل بشكل ممتاز عندما" : "✅ Works great when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                 {(isAr ? ["الفارق في السعر 20-50% وليس أكثر", "الفوائد الإضافية واضحة وملموسة", "العميل له تاريخ شراء في الفئة المتميزة", "يُعرض قبل إضافة المنتج للسلة"] : ["Price difference is 20-50%, not more", "Additional benefits are clear and tangible", "Customer has a purchase history in premium category", "Shown before adding the product to cart"]).map((item, i) => (
                   <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "flex-start" }}>
-                    <span style={{ color: "#8b5cf6", fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
+                    <span style={{ color: "#22c55e", fontWeight: 700, flexShrink: 0 }}>✓</span> {item}
                   </li>
                 ))}
               </ul>
@@ -118,7 +118,7 @@ const data: UseCasePageData = {
       icon: "🏆",
       title: "Higher Tier — Clearer Value",
       desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "📦",
@@ -130,7 +130,7 @@ const data: UseCasePageData = {
       icon: "⭐",
       title: "Premium Edition",
       desc: "Displays the Premium edition with its additional benefits highlighted attractively — perfect for customers who value quality.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🔄",
@@ -140,9 +140,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+41%", label: "Average order value", color: "#a855f7" },
+    { value: "+41%", label: "Average order value", color: "#22c55e" },
     { value: "+28%", label: "Upgrade suggestion acceptance rate", color: "#06b6d4" },
-    { value: "+35%", label: "Long-term customer satisfaction", color: "#8b5cf6" },
+    { value: "+35%", label: "Long-term customer satisfaction", color: "#22c55e" },
     { value: "+22%", label: "Repeat purchase rate", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

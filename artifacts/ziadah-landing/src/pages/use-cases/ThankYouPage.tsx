@@ -18,13 +18,13 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "منتج تكميلي ما بعد الشراء",
       desc: "يعرض منتجاً مكمّلاً مباشراً لما اشتراه العميل للتو — بمنطق 'معظم من اشتروا هذا أضافوا أيضاً...' لتحفيز الطلب الثاني.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "⬆️",
       title: "Upsell للطلب القادم",
       desc: "يقترح ترقية أو نسخة أفضل تناسب الطلب التالي — مع عرض خاص محدود المدة لتحفيز العودة.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🏷️",
@@ -40,9 +40,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+48%", label: "معدل الشراء المتكرر", color: "#a855f7" },
+    { value: "+48%", label: "معدل الشراء المتكرر", color: "#22c55e" },
     { value: "+26%", label: "قيمة الطلب الثاني", color: "#06b6d4" },
-    { value: "+35%", label: "معدل استخدام كوبون العودة", color: "#8b5cf6" },
+    { value: "+35%", label: "معدل استخدام كوبون العودة", color: "#22c55e" },
     { value: "+42%", label: "رضا العميل على المدى البعيد", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -74,13 +74,13 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Post-Purchase Complementary Product",
       desc: "Shows a directly complementary product to what the customer just bought — with the logic 'Most who bought this also added...' to stimulate the second order.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "⬆️",
       title: "Upsell for Next Order",
       desc: "Suggests an upgrade or better version for the next order — with a special limited-time offer to incentivize return.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🏷️",
@@ -96,9 +96,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+48%", label: "Repeat purchase rate", color: "#a855f7" },
+    { value: "+48%", label: "Repeat purchase rate", color: "#22c55e" },
     { value: "+26%", label: "Second order value", color: "#06b6d4" },
-    { value: "+35%", label: "Return coupon usage rate", color: "#8b5cf6" },
+    { value: "+35%", label: "Return coupon usage rate", color: "#22c55e" },
     { value: "+42%", label: "Long-term customer satisfaction", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

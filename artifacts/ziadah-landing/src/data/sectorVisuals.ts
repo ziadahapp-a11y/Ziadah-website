@@ -82,7 +82,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "abayas-fashion": {
     scenarios: [
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "إطقم لونية متناسقة",
         titleEn: "Coordinated color set",
         contextAr: "عميلة تتصفح عباية سوداء مخملية",
@@ -114,7 +114,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart page",
       },
       {
-        accent: "#7c3aed",
+        accent: "#16a34a",
         titleAr: "ترقية للفئة الأعلى",
         titleEn: "Upsell tier",
         contextAr: "وقت طويل على صفحة عباية أساسية",
@@ -134,7 +134,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "health-fitness": {
     scenarios: [
       {
-        accent: "#8b5cf6",
+        accent: "#22c55e",
         titleAr: "مكدس تغذية",
         titleEn: "Nutrition stack",
         contextAr: "مشروب بروتين في السلة",
@@ -202,7 +202,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#7c3aed",
+        accent: "#16a34a",
         titleAr: "كورس ثم مستوى أعلى",
         titleEn: "Course then advanced",
         contextAr: "شراء كورس برمجة مبتدئ",
@@ -217,7 +217,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Post-checkout",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "كوبون لحظي",
         titleEn: "Timely coupon",
         contextAr: "سلة رقمية بدون إتمام",
@@ -253,7 +253,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart / checkout",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#22c55e",
         titleAr: "لابتوب + حقيبة",
         titleEn: "Laptop + bag",
         contextAr: "تصفح لابتوب للأعمال",
@@ -319,7 +319,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Product page",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "تغليف هدية",
         titleEn: "Gift wrap",
         contextAr: "قبل الدفع",
@@ -370,7 +370,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "شراء كميات",
         titleEn: "Volume deal",
         contextAr: "كريم مرطّب سريع الاستهلاك",
@@ -440,7 +440,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "home-supplies": {
     scenarios: [
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "نظام تخزين",
         titleEn: "Storage system",
         contextAr: "منظم خزانة في السلة",
@@ -455,7 +455,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#22c55e",
         titleAr: "مكنسة + أكياس",
         titleEn: "Vacuum + bags",
         contextAr: "مكنسة كهربائية",
@@ -470,7 +470,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Product page",
       },
       {
-        accent: "#6d28d9",
+        accent: "#15803d",
         titleAr: "مطبخ كامل",
         titleEn: "Kitchen bundle",
         contextAr: "أواني طهي",
@@ -490,7 +490,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "service-design": {
     scenarios: [
       {
-        accent: "#7c3aed",
+        accent: "#16a34a",
         titleAr: "شعار → هوية",
         titleEn: "Logo → identity",
         contextAr: "شراء باقة شعار",
@@ -505,7 +505,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "موقع + صيانة",
         titleEn: "Site + care",
         contextAr: "تصميم موقع لصفحة واحدة",
@@ -540,7 +540,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   charities: {
     scenarios: [
       {
-        accent: "#6d28d9",
+        accent: "#15803d",
         titleAr: "مشروع مكمّل",
         titleEn: "Related cause",
         contextAr: "تبرع كسوة شتاء",
@@ -555,7 +555,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Donation page",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#22c55e",
         titleAr: "زيادة بسيطة",
         titleEn: "Gentle top-up",
         contextAr: "بعد إتمام تبرع",
@@ -655,7 +655,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "لعب + إضافة رقمية",
         titleEn: "Game + digital add-on",
         contextAr: "بطاقة متجر ألعاب",
@@ -818,7 +818,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/add-to-cart",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "بانر علوي — الشحن المجاني",
         titleEn: "Top banner — free delivery",
         contextAr: "السلة عند 33 ⃁ والحد 45 ⃁ — يظهر شريط تقدم واقتراح منتج يسد الفجوة.",
@@ -844,7 +844,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/free-shipping",
       },
       {
-        accent: "#a855f7",
+        accent: "#22c55e",
         titleAr: "مودال — كوبون قبل المغادرة",
         titleEn: "Modal — exit coupon",
         contextAr: "المستخدم يهم بإغلاق التطبيق مع سلة غير مكتملة — نافذة مركزة بكود قصير المدى.",
@@ -1103,7 +1103,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/bundle-deals",
       },
       {
-        accent: "#7c3aed",
+        accent: "#16a34a",
         titleAr: "مودال — ترحيب المنصة",
         titleEn: "Modal — platform welcome",
         contextAr: "أول طلب لمستخدم ججل — مودال بكود ترحيب وشروط واضحة.",

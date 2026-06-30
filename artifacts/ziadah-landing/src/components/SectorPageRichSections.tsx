@@ -155,7 +155,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                 padding: "4px 10px",
                 borderRadius: 999,
                 border: "1px solid var(--b2)",
-                background: "rgba(124, 58, 237,.08)",
+                background: "rgba(22, 163, 74,.08)",
                 color: "var(--t)",
               }}
             >
@@ -260,7 +260,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div className="shine" />
         <div style={{ padding: "22px 24px 26px" }}>
           <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 12, marginTop: 0 }}>{tr.sectorSectionAiContext}</h2>
-          <div style={{ marginBottom: 16, padding: "14px 16px", borderRadius: 12, border: "1px solid var(--b2)", background: "rgba(124, 58, 237,.04)" }}>
+          <div style={{ marginBottom: 16, padding: "14px 16px", borderRadius: 12, border: "1px solid var(--b2)", background: "rgba(22, 163, 74,.04)" }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: "var(--tm)", marginBottom: 8 }}>{tr.sectorAiProfile}</div>
             <p style={{ margin: 0, fontSize: 14, color: "var(--t)", lineHeight: 1.65 }}>{isAr ? rich.aiProfileTagsAr : rich.aiProfileTagsEn}</p>
           </div>
@@ -471,7 +471,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                 padding: "12px 14px",
                 borderRadius: 12,
                 border: "1px solid var(--b2)",
-                background: "linear-gradient(180deg, rgba(124, 58, 237,.08), transparent)",
+                background: "linear-gradient(180deg, rgba(22, 163, 74,.08), transparent)",
                 fontWeight: 800,
                 fontSize: 15,
                 color: "var(--p)",

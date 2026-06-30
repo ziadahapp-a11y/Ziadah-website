@@ -208,7 +208,7 @@ function renderContent(content: string) {
                 marginBottom: 6,
               }}
             >
-              <span style={{ color: "#a855f7", flexShrink: 0, marginTop: 2 }}>
+              <span style={{ color: "#22c55e", flexShrink: 0, marginTop: 2 }}>
                 ●
               </span>
               <span>
@@ -248,14 +248,14 @@ function renderContent(content: string) {
                   width: 24,
                   height: 24,
                   borderRadius: 6,
-                  background: "rgba(124, 58, 237,.15)",
-                  border: "1px solid rgba(124, 58, 237,.25)",
+                  background: "rgba(22, 163, 74,.15)",
+                  border: "1px solid rgba(22, 163, 74,.25)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 12,
                   fontWeight: 700,
-                  color: "#a855f7",
+                  color: "#22c55e",
                   flexShrink: 0,
                   marginTop: 1,
                 }}
@@ -306,8 +306,8 @@ function renderContent(content: string) {
                     key={hi}
                     style={{
                       padding: "10px 16px",
-                      background: "rgba(124, 58, 237,.12)",
-                      border: "1px solid rgba(124, 58, 237,.2)",
+                      background: "rgba(22, 163, 74,.12)",
+                      border: "1px solid rgba(22, 163, 74,.2)",
                       fontWeight: 700,
                       color: "#c084fc",
                     }}
@@ -444,7 +444,7 @@ export default function BlogPost() {
         <span
           onClick={() => navigateTo("/blog")}
           style={{
-            color: "#a855f7",
+            color: "#22c55e",
             textDecoration: "none",
             position: "relative",
             zIndex: 2,
@@ -738,7 +738,7 @@ export default function BlogPost() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                color: "#a855f7",
+                color: "#22c55e",
                 textDecoration: "none",
                 fontSize: 15,
                 fontWeight: 600,

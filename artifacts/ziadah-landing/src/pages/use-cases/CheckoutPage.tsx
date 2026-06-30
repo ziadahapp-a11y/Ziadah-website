@@ -19,7 +19,7 @@ const ShippingRow = ({ method, time, price, highlighted }: { method: string; tim
     borderBottom: highlighted ? "none" : "1px solid var(--b1)",
   }}>
     <div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: highlighted ? "#8b5cf6" : "var(--t)" }}>{method}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: highlighted ? "#22c55e" : "var(--t)" }}>{method}</div>
       <div style={{ fontSize: 10, color: "var(--td)", marginTop: 2 }}>{time}</div>
     </div>
     {price && <div style={{ fontSize: 12, fontWeight: 700, color: "var(--tm)" }}>{price}</div>}
@@ -40,17 +40,17 @@ const ProductCard = ({
       <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#22c55e" }}>{price} ⃁</span>
           <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 11, fontWeight: 800, color: "#a855f7" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#22c55e" }}>{price} ⃁</span>
       )}
       {discount && (
         <span style={{
           fontSize: 9, fontWeight: 700, background: "rgba(16,185,129,.15)",
-          color: "#8b5cf6", padding: "1px 6px", borderRadius: 99, marginTop: 2, display: "inline-block",
+          color: "#22c55e", padding: "1px 6px", borderRadius: 99, marginTop: 2, display: "inline-block",
         }}>
           {discount}
         </span>
@@ -59,8 +59,8 @@ const ProductCard = ({
     {checked !== undefined && (
       <div style={{
         width: 22, height: 22, borderRadius: 6, flexShrink: 0,
-        background: checked ? "#7c3aed" : "var(--s2)",
-        border: `1px solid ${checked ? "#7c3aed" : "var(--b2)"}`,
+        background: checked ? "#16a34a" : "var(--s2)",
+        border: `1px solid ${checked ? "#16a34a" : "var(--b2)"}`,
         display: "flex", alignItems: "center", justifyContent: "center",
       }}>
         {checked && <span style={{ color: "#fff", fontSize: 11 }}>✓</span>}
@@ -95,7 +95,7 @@ const AddToCartRow = ({
         {discount && (
           <span style={{
             fontSize: 9, fontWeight: 700, background: "rgba(16,185,129,.15)",
-            color: "#8b5cf6", padding: "1px 5px", borderRadius: 99,
+            color: "#22c55e", padding: "1px 5px", borderRadius: 99,
           }}>
             {discount}
           </span>
@@ -103,7 +103,7 @@ const AddToCartRow = ({
       </div>
     </div>
     <button style={{
-      background: "#7c3aed", border: "none", color: "#fff",
+      background: "#16a34a", border: "none", color: "#fff",
       fontSize: 10, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
       cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
     }}>
@@ -120,7 +120,7 @@ const Phone1Content = () => (
     </div>
     <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
     <div style={{
-      background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
+      background: "linear-gradient(135deg, #16a34a, #15803d)",
       borderRadius: 14, padding: "12px 14px", margin: "12px 0",
     }}>
       <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
@@ -152,7 +152,7 @@ const Phone2Content = () => (
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
     <ShippingRow method="مجاني" time="" highlighted />
     <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
-    <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
+    <div style={{ textAlign: "center", color: "#16a34a", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
       لا تنسَ تضيفها بعرض خاص لك الآن
     </div>
     <div style={{
@@ -160,8 +160,8 @@ const Phone2Content = () => (
       background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.25)",
       borderRadius: 12, padding: "10px 14px", marginBottom: 12,
     }}>
-      <span style={{ fontSize: 22, fontWeight: 900, color: "#8b5cf6" }}>30</span>
-      <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
+      <span style={{ fontSize: 22, fontWeight: 900, color: "#22c55e" }}>30</span>
+      <span style={{ fontSize: 11, color: "#22c55e", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
     </div>
     <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="🧣" />
     <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="📿" />
@@ -222,13 +222,13 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "أكمل للشحن المجاني",
       desc: "يحسب زيادة الفجوة بين قيمة الطلب وعتبة الشحن المجاني ويقترح منتجات بالقيمة الناقصة تماماً مع شريط تقدم مرئي يحفّز العميل على الإضافة.",
-      color: "#7c3aed",
+      color: "#16a34a",
     },
     {
       icon: "✅",
       title: "Cross-sell بنقرة واحدة",
       desc: "يعرض منتجات مكمّلة مع خيار الإضافة بخانة اختيار — سهلة وسريعة — دون الحاجة للرجوع لصفحات المنتجات.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎁",
@@ -244,8 +244,8 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27%", label: "متوسط قيمة الطلب", color: "#a855f7" },
-    { value: "+19%", label: "معدل إتمام الشراء", color: "#8b5cf6" },
+    { value: "+27%", label: "متوسط قيمة الطلب", color: "#22c55e" },
+    { value: "+19%", label: "معدل إتمام الشراء", color: "#22c55e" },
     { value: "-34%", label: "معدل التخلي عند الدفع", color: "#ec4899" },
     { value: "+41%", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
   ],
@@ -278,13 +278,13 @@ const data: UseCasePageData = {
       icon: "🚚",
       title: "Complete for Free Shipping",
       desc: "Ziadah calculates the gap between order value and free shipping threshold and suggests products at exactly the missing value with a visual progress bar motivating the customer to add.",
-      color: "#7c3aed",
+      color: "#16a34a",
     },
     {
       icon: "✅",
       title: "One-Click Cross-sell",
       desc: "Shows complementary products with a checkbox add option — easy and quick — without needing to go back to product pages.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎁",
@@ -300,8 +300,8 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+27%", label: "Average order value", color: "#a855f7" },
-    { value: "+19%", label: "Purchase completion rate", color: "#8b5cf6" },
+    { value: "+27%", label: "Average order value", color: "#22c55e" },
+    { value: "+19%", label: "Purchase completion rate", color: "#22c55e" },
     { value: "-34%", label: "Checkout abandonment rate", color: "#ec4899" },
     { value: "+41%", label: "Orders exceeding shipping threshold", color: "#06b6d4" },
   ],

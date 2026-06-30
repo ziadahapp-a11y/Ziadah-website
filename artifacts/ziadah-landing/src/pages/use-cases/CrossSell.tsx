@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "اشتروا مع بعض (BTAT)",
       desc: "يستخرج من قاعدة بيانات الطلبات الحقيقية أكثر المنتجات التي تُشترى معاً — ثم يعرضها معاً بمنطق اجتماعي موثوق: 'عملاء اشتروا هذا اشتروا أيضاً...'",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "➕",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo ذكية",
       desc: "يجمّع منتجات متكاملة في حزمة بسعر مخفوض يظهر التوفير بوضوح. العميل يشعر أنه الرابح والمتجر يرفع قيمة الطلب.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎯",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#a855f7" },
+    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#22c55e" },
     { value: "+28%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "+41%", label: "معدل قبول التوصية", color: "#8b5cf6" },
+    { value: "+41%", label: "معدل قبول التوصية", color: "#22c55e" },
     { value: "+19%", label: "رضا العملاء عن التجربة", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -95,15 +95,15 @@ const data: UseCasePageData = {
                     ))}
                   </ul>
                 </div>
-                <div style={{ padding: "24px 28px", background: "rgba(168, 85, 247,.05)", border: "1px solid rgba(168, 85, 247,.15)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "⬆️ البيع البديل (Upsell)" : "⬆️ Upselling"}</div>
+                <div style={{ padding: "24px 28px", background: "rgba(34, 197, 94,.05)", border: "1px solid rgba(34, 197, 94,.15)", borderRadius: 14 }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: "#22c55e", marginBottom: 12 }}>{isAr ? "⬆️ البيع البديل (Upsell)" : "⬆️ Upselling"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["يقترح نسخة أفضل من نفس المنتج", "يرفع سعر المنتج الأساسي", "يعمل على صفحة المنتج بشكل رئيسي", "مثال: هاتف بسيط → هاتف بمواصفات أعلى"]
                       : ["Suggests a better version of the same product", "Increases the main product price", "Primarily works on the product page", "Example: basic phone → higher-spec phone"]
                     ).map((item, i) => (
                       <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                        <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
+                        <span style={{ color: "#22c55e", fontWeight: 700 }}>✓</span> {item}
                       </li>
                     ))}
                   </ul>
@@ -133,7 +133,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "Bought Together (BTAT)",
       desc: "Extracts from the real order database the most frequently co-purchased products — then displays them together with trusted social proof: 'Customers who bought this also bought...'",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "➕",
@@ -145,7 +145,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Smart Combo Bundles",
       desc: "Combines complementary products in a discounted bundle that clearly shows savings. The customer feels like a winner and the store increases order value.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎯",
@@ -155,9 +155,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+32%", label: "Average number of products in cart", color: "#a855f7" },
+    { value: "+32%", label: "Average number of products in cart", color: "#22c55e" },
     { value: "+28%", label: "Average order value", color: "#06b6d4" },
-    { value: "+41%", label: "Recommendation acceptance rate", color: "#8b5cf6" },
+    { value: "+41%", label: "Recommendation acceptance rate", color: "#22c55e" },
     { value: "+19%", label: "Customer satisfaction with the experience", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

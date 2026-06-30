@@ -19,7 +19,7 @@ export default function IncreaseConversionWidget() {
           textAlign: "center",
         }}>
           <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 4 }}>{tr.giftLabel}</div>
-          <div style={{ fontSize: 20, fontWeight: 900, color: "#a855f7" }}>{tr.discountAmount}</div>
+          <div style={{ fontSize: 20, fontWeight: 900, color: "#22c55e" }}>{tr.discountAmount}</div>
           <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountNote}</div>
           <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
@@ -68,7 +68,7 @@ export default function IncreaseConversionWidget() {
         background: "rgba(16,185,129,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#a855f7",
+        color: "#22c55e",
         fontSize: 14,
         fontWeight: 800,
         border: "1px solid rgba(16,185,129,0.2)",

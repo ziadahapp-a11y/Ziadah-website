@@ -221,13 +221,13 @@ export default function Affiliate() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 mb-7"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-100 border border-green-200 mb-7"
             >
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-xs font-semibold text-purple-700">{c.tag}</span>
+              <span className="text-xs font-semibold text-green-700">{c.tag}</span>
             </motion.div>
 
             <motion.h1
@@ -316,8 +316,8 @@ export default function Affiliate() {
               const Icon = BENEFIT_ICONS[i];
               return (
                 <Card key={i}>
-                  <div className="w-11 h-11 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-purple-600" />
+                  <div className="w-11 h-11 rounded-xl bg-green-100 border border-green-200 flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-green-600" />
                   </div>
                   <h3 className="text-lg font-bold text-zinc-950 mb-2.5 leading-snug">{b.title}</h3>
                   <p className="text-sm text-zinc-600 leading-relaxed">{b.desc}</p>
@@ -339,7 +339,7 @@ export default function Affiliate() {
                 <div>
                   <label className="flex items-center justify-between gap-3 mb-4 text-sm font-bold text-zinc-950">
                     <span>{c.calcStores}</span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-xs font-bold text-purple-700 num-ltr">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 border border-green-200 text-xs font-bold text-green-700 num-ltr">
                       {isAr ? fmt(stores) + " متجر" : stores + " stores"}
                     </span>
                   </label>
@@ -349,7 +349,7 @@ export default function Affiliate() {
                     max={50}
                     value={stores}
                     onChange={(e) => setStores(Number(e.target.value))}
-                    className="aff-slider w-full accent-violet-600"
+                    className="aff-slider w-full accent-green-600"
                   />
                   <div className="flex items-center justify-between mt-2 text-xs text-zinc-400 num-ltr">
                     <span>1</span>
@@ -368,7 +368,7 @@ export default function Affiliate() {
                         onClick={() => setPlanIdx(i)}
                         className={`flex flex-col items-start gap-1 rounded-xl border p-3.5 text-start transition-all ${
                           planIdx === i
-                            ? "border-violet-500 bg-violet-50 ring-1 ring-violet-500/20"
+                            ? "border-emerald-500 bg-green-50 ring-1 ring-emerald-500/20"
                             : "border-zinc-200 bg-white hover:border-zinc-300"
                         }`}
                       >
@@ -386,7 +386,7 @@ export default function Affiliate() {
               <div className="flex flex-col gap-3">
                 <div className="rounded-2xl mockup-card overflow-hidden shadow-card-lg relative p-6 text-center">
                   <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[140px] bg-purple-500/20 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[140px] bg-emerald-500/20 blur-[80px] rounded-full pointer-events-none" />
                   <div className="relative">
                     <div className="text-sm text-zinc-400 mb-1.5">{c.calcYourComm}*</div>
                     <div className="text-4xl md:text-5xl font-extrabold text-white num-ltr">
@@ -408,9 +408,9 @@ export default function Affiliate() {
                       {fmt(totalAnnual)} {riyal}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between rounded-xl border border-violet-200 bg-violet-50/60 p-4">
-                    <span className="text-sm text-violet-700">{c.calcClientSave}</span>
-                    <span className="text-base font-bold text-violet-700 num-ltr">
+                  <div className="flex items-center justify-between rounded-xl border border-green-200 bg-green-50/60 p-4">
+                    <span className="text-sm text-green-700">{c.calcClientSave}</span>
+                    <span className="text-base font-bold text-green-700 num-ltr">
                       {fmt(clientSave)} {riyal}
                     </span>
                   </div>

@@ -26,7 +26,7 @@ export default function BundleDealsWidget() {
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: "rgba(168, 85, 247,.15)",
+                background: "rgba(34, 197, 94,.15)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -43,7 +43,7 @@ export default function BundleDealsWidget() {
                 width: 16,
                 height: 16,
                 borderRadius: "50%",
-                background: "rgba(124, 58, 237,0.5)",
+                background: "rgba(22, 163, 74,0.5)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -59,8 +59,8 @@ export default function BundleDealsWidget() {
       <div style={{
         padding: "10px 14px",
         borderRadius: 12,
-        background: "rgba(124, 58, 237,.12)",
-        border: "1.5px solid rgba(168, 85, 247,.4)",
+        background: "rgba(22, 163, 74,.12)",
+        border: "1.5px solid rgba(34, 197, 94,.4)",
         marginBottom: 10,
         display: "flex",
         justifyContent: "space-between",
@@ -76,7 +76,7 @@ export default function BundleDealsWidget() {
             fontWeight: 800,
             padding: "3px 10px",
             borderRadius: 20,
-            background: "rgba(124, 58, 237,0.3)",
+            background: "rgba(22, 163, 74,0.3)",
             color: "#c084fc",
           }}>{tr.saveBadge}</div>
         </div>
@@ -90,13 +90,13 @@ export default function BundleDealsWidget() {
         width: "100%",
         padding: "10px",
         borderRadius: 12,
-        background: "rgba(124, 58, 237,0.12)",
+        background: "rgba(22, 163, 74,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         color: "#c084fc",
         fontSize: 14,
         fontWeight: 800,
-        border: "1px solid rgba(124, 58, 237,0.2)",
+        border: "1px solid rgba(22, 163, 74,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         {tr.btnAdd}

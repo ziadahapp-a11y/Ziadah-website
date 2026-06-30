@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo بسعر خاص",
       desc: "يجمّع منتجات مكمّلة بخصم 15-25% على سعر المجموع. العميل يحصل على قيمة أعلى ويدفع أكثر — فوز للطرفين.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "🚚",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "Upsell موجّه بذكاء",
       desc: "يعرض النسخة الأعلى بفارق معقول وبمبررات واضحة — لا يقترحها لكل عميل، بل للمرشّحين الذين تظهر أنماطهم ميلاً للجودة.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "📊",
@@ -47,9 +47,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+35%", label: "متوسط قيمة الطلب", color: "#22c55e" },
     { value: "+28%", label: "عدد المنتجات في السلة", color: "#06b6d4" },
-    { value: "+42%", label: "الطلبات فوق عتبة الشحن", color: "#8b5cf6" },
+    { value: "+42%", label: "الطلبات فوق عتبة الشحن", color: "#22c55e" },
     { value: "7x", label: "عائد الاستثمار في المتوسط", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -92,7 +92,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Combo Bundles at Special Prices",
       desc: "Combines complementary products at a 15-25% discount on the total. The customer gets higher value and pays more — a win for both sides.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "🚚",
@@ -104,7 +104,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "AI-Powered Upsell",
       desc: "Shows a higher version at a reasonable difference with clear justification — doesn't suggest it to every customer, only to those whose patterns show a preference for quality.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "📊",
@@ -120,9 +120,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value", color: "#a855f7" },
+    { value: "+35%", label: "Average order value", color: "#22c55e" },
     { value: "+28%", label: "Number of products in cart", color: "#06b6d4" },
-    { value: "+42%", label: "Orders above shipping threshold", color: "#8b5cf6" },
+    { value: "+42%", label: "Orders above shipping threshold", color: "#22c55e" },
     { value: "7x", label: "Average return on investment", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

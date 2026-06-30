@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "📈",
       title: "تحليل الارتباط الفعلي",
       desc: "يحلل زيادة آلاف الطلبات لاستخراج أكثر المنتجات ارتباطاً بالشراء المشترك — لا اجتهادات يدوية، بل بيانات حقيقية من متجرك.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "🖱️",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "💬",
       title: "رسالة اجتماعية موثوقة",
       desc: "يُرفق العرض بجملة بناءً على بيانات حقيقية مثل 'عملاء اشتروا هذا اشتروا أيضاً...' — تبني ثقة وتُسرّع القرار.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎨",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "نسبة الطلبات التي تحتوي على أكثر من منتج", color: "#a855f7" },
+    { value: "+35%", label: "نسبة الطلبات التي تحتوي على أكثر من منتج", color: "#22c55e" },
     { value: "+29%", label: "متوسط قيمة الطلب مع عرض 'الشراء معاً'", color: "#06b6d4" },
-    { value: "48%", label: "من العملاء ينقرون على عرض 'الشراء معاً'", color: "#8b5cf6" },
+    { value: "48%", label: "من العملاء ينقرون على عرض 'الشراء معاً'", color: "#22c55e" },
     { value: "+17%", label: "رضا العملاء عن اكتمال تجربة الشراء", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -96,14 +96,14 @@ const data: UseCasePageData = {
                   </ul>
                 </div>
                 <div style={{ padding: "24px 28px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 17, fontWeight: 800, color: "#8b5cf6", marginBottom: 12 }}>{isAr ? "🎁 عروض الحزم (Bundle)" : "🎁 Bundle Deals"}</div>
+                  <div style={{ fontSize: 17, fontWeight: 800, color: "#22c55e", marginBottom: 12 }}>{isAr ? "🎁 عروض الحزم (Bundle)" : "🎁 Bundle Deals"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["سعر خاص للمجموعة كوحدة واحدة", "يُبرز التوفير كحافز رئيسي", "يُباع الطقم بسعر أقل من المجموع", "يحفّز على شراء كميات أو مجموعات"]
                       : ["Special price for the group as one unit", "Highlights savings as the main incentive", "Set sold at less than individual total", "Encourages buying quantities or sets"]
                     ).map((item, i) => (
                       <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                        <span style={{ color: "#8b5cf6", fontWeight: 700 }}>✓</span> {item}
+                        <span style={{ color: "#22c55e", fontWeight: 700 }}>✓</span> {item}
                       </li>
                     ))}
                   </ul>
@@ -133,7 +133,7 @@ const data: UseCasePageData = {
       icon: "📈",
       title: "Real Association Analysis",
       desc: "Ziadah analyzes thousands of orders to extract the most frequently co-purchased products — no manual guesswork, just real data from your store.",
-      color: "#a855f7",
+      color: "#22c55e",
     },
     {
       icon: "🖱️",
@@ -145,7 +145,7 @@ const data: UseCasePageData = {
       icon: "💬",
       title: "Trusted Social Proof",
       desc: "The offer includes a data-backed message like 'Customers who bought this also bought...' — building trust and accelerating the decision.",
-      color: "#8b5cf6",
+      color: "#22c55e",
     },
     {
       icon: "🎨",
@@ -155,9 +155,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Orders containing more than one product", color: "#a855f7" },
+    { value: "+35%", label: "Orders containing more than one product", color: "#22c55e" },
     { value: "+29%", label: "Average order value with 'Bought Together' offer", color: "#06b6d4" },
-    { value: "48%", label: "Of customers click on the 'Bought Together' offer", color: "#8b5cf6" },
+    { value: "48%", label: "Of customers click on the 'Bought Together' offer", color: "#22c55e" },
     { value: "+17%", label: "Customer satisfaction with the complete purchase experience", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

@@ -55,8 +55,8 @@ const APPS = [
   {
     nameAr: "زيادة",
     nameEn: "Ziyada",
-    tint: "rgba(124, 58, 237, 0.1)",
-    cellBg: "rgba(124, 58, 237, 0.05)",
+    tint: "rgba(22, 163, 74, 0.1)",
+    cellBg: "rgba(22, 163, 74, 0.05)",
     thBg: "linear-gradient(180deg, #f3f0ff 0%, #ede9fe 100%)",
   },
   {
@@ -298,11 +298,11 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
         style={{
           fontSize: 12,
           fontWeight: 700,
-          color: "#6d28d9",
+          color: "#15803d",
           padding: "4px 8px",
           borderRadius: 7,
-          background: "rgba(124, 58, 237, 0.1)",
-          border: "1px solid rgba(124, 58, 237, 0.18)",
+          background: "rgba(22, 163, 74, 0.1)",
+          border: "1px solid rgba(22, 163, 74, 0.18)",
         }}
       >
         {tx(COPY.plan, lang)}
@@ -383,7 +383,7 @@ export default function ZidAppsComparison() {
                   letterSpacing: isAr ? 0 : -0.5,
                   color: "#1e1b4b",
                   lineHeight: 1.2,
-                  textShadow: "0 1px 0 rgba(255,255,255,0.5), 0 18px 48px rgba(124, 58, 237, 0.12)",
+                  textShadow: "0 1px 0 rgba(255,255,255,0.5), 0 18px 48px rgba(22, 163, 74, 0.12)",
                 }}
               >
                 {tx(COPY.h1, lang)}
@@ -397,11 +397,11 @@ export default function ZidAppsComparison() {
                   padding: "8px 16px",
                   fontSize: 13,
                   fontWeight: 600,
-                  color: "#6d28d9",
-                  background: "rgba(124, 58, 237, 0.1)",
-                  border: "1px solid rgba(124, 58, 237, 0.18)",
+                  color: "#15803d",
+                  background: "rgba(22, 163, 74, 0.1)",
+                  border: "1px solid rgba(22, 163, 74, 0.18)",
                   borderRadius: 999,
-                  boxShadow: "0 4px 16px rgba(124, 58, 237, 0.08)",
+                  boxShadow: "0 4px 16px rgba(22, 163, 74, 0.08)",
                 }}
               >
                 {tx(COPY.dateNote, lang)}
@@ -431,7 +431,7 @@ export default function ZidAppsComparison() {
                 maxHeight: "min(75vh, calc(100vh - 200px))",
                 WebkitOverflowScrolling: "touch",
                 borderRadius: 20,
-                border: "1px solid rgba(124, 58, 237, 0.14)",
+                border: "1px solid rgba(22, 163, 74, 0.14)",
                 boxShadow:
                   "0 0 0 1px rgba(255,255,255,0.6) inset, 0 4px 6px rgba(30, 27, 75, 0.04), 0 20px 50px rgba(49, 46, 129, 0.1)",
                 background: "linear-gradient(180deg, #ffffff 0%, #fafbff 100%)",
@@ -460,7 +460,7 @@ export default function ZidAppsComparison() {
                         letterSpacing: isAr ? 0 : "0.02em",
                         textTransform: isAr ? "none" : "uppercase",
                         background: "linear-gradient(180deg, #f8fafc 0%, #e8eef5 100%)",
-                        borderBottom: "2px solid rgba(124, 58, 237, 0.18)",
+                        borderBottom: "2px solid rgba(22, 163, 74, 0.18)",
                         width: 200,
                         position: "sticky",
                         top: 0,
@@ -483,12 +483,12 @@ export default function ZidAppsComparison() {
                           fontSize: 13,
                           letterSpacing: isAr ? 0 : "0.04em",
                           background: app.thBg,
-                          borderBottom: "2px solid rgba(124, 58, 237, 0.18)",
+                          borderBottom: "2px solid rgba(22, 163, 74, 0.18)",
                           minWidth: 100,
                           position: "sticky",
                           top: 0,
                           zIndex: 4,
-                          boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.45), 0 2px 0 rgba(124, 58, 237, 0.1)",
+                          boxShadow: "inset 0 -1px 0 rgba(255,255,255,0.45), 0 2px 0 rgba(22, 163, 74, 0.1)",
                         }}
                       >
                         {lang === "ar" ? app.nameAr : app.nameEn}
@@ -509,9 +509,9 @@ export default function ZidAppsComparison() {
                               fontSize: 14,
                               color: "#0a0a0b",
                               background: "linear-gradient(90deg, rgba(192, 132, 252, 0.22) 0%, rgba(209, 250, 229, 0.55) 48%, rgba(226, 232, 240, 0.35) 100%)",
-                              borderTop: ri > 0 ? "1px solid rgba(124, 58, 237,0.12)" : undefined,
+                              borderTop: ri > 0 ? "1px solid rgba(22, 163, 74,0.12)" : undefined,
                               textAlign: isAr ? "right" : "left",
-                              borderInlineStart: "4px solid #7c3aed",
+                              borderInlineStart: "4px solid #16a34a",
                               letterSpacing: isAr ? 0 : "0.01em",
                             }}
                           >
