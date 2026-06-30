@@ -1,13 +1,17 @@
 /**
- * ZIADAH DESIGN SYSTEM — Phase 2 Tokens
- * Phase 3.0: Token file update
+ * ZIADAH — LEGACY token bridge (do not extend).
+ *
+ * This is NOT a second design system. The single design system is TrackFlow
+ * (see src/components/trackflow/DESIGN_SYSTEM.md). This file only keeps the old
+ * .gc/.btn-p/landing-* CSS alive while it is phased out, and its brand tokens
+ * have been re-pointed to the one emerald brand color (--brand: #16a34a).
  *
  * INTEGRITY RULES (enforced, never break):
- * ─ No hex/rgba value was changed. Every existing value is preserved exactly.
+ * ─ Brand color is emerald green (#16a34a) only — never reintroduce violet.
  * ─ New semantic tokens are aliases pointing to existing color values only.
- * ─ Deprecated tokens are kept until component cleanup passes (3.2–3.15).
- * ─ Fonts: Tajawal (Arabic/headings), Rubik (Latin/numerals) — unchanged.
- * ─ font-style: italic on Tajawal is FORBIDDEN globally. No exceptions.
+ * ─ Fonts: saudi_riyal → IBM Plex Sans Arabic → Inter (set in index.css /
+ *   vision-ui-appearance.css). Tajawal/Rubik remain only as legacy fallbacks.
+ * ─ font-style: italic on the Arabic font is FORBIDDEN globally. No exceptions.
  * ─ All directional spacing in new code uses logical properties only.
  * ─ transition: all is FORBIDDEN. Always specify individual properties.
  */

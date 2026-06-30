@@ -1,13 +1,23 @@
-# TrackFlow Design System — page conversion guide
+# TrackFlow Design System — the single design system
 
-The home page `src/pages/HomeTrackflow.tsx` is the reference. Every public page must
-match its look. Build on the shared primitives in `src/components/trackflow/index.tsx`.
+This is **the one and only** design system for the app. The home page
+`src/pages/HomeTrackflow.tsx` is the reference; every public page must match its look.
+Build on the shared primitives in `src/components/trackflow/index.tsx`.
 Do **not** invent new section/card/button styles — reuse the primitives.
+
+> The older "Vision UI / glass" CSS (`styles/dashboard-glass-system.css`,
+> `vision-*.css`, and the legacy `.gc`/`.btn-p`/`landing-*` blocks in `index.css`)
+> is a **legacy bridge only**. Its tokens have been re-pointed to the emerald brand
+> color and must never reintroduce a second palette. New work uses the primitives
+> above, not those classes.
 
 ## Theme
 - Light SaaS theme, emerald accents. Page background stays white/`zinc-50`.
 - Text: headings `text-zinc-950`, body `text-zinc-600`/`text-zinc-700`, muted `text-zinc-500`/`text-zinc-400`.
-- Accent green: `text-green-600`, `bg-green-600`, `text-emerald-*` for highlights. Never purple/violet.
+- **Canonical brand green = green-600 `#16a34a` (`--accent: 142 71% 36%`, glass `--brand: #16a34a`).**
+  These three must always agree — there is exactly one brand color.
+- Accent green: `text-green-600`, `bg-green-600`, `text-emerald-*` for highlights. **Never purple/violet.**
+- Fonts: `saudi_riyal` (riyal glyph) → `IBM Plex Sans Arabic` → `Inter`. (Tajawal/Rubik are legacy fallbacks only.)
 - Font weights: headings `font-bold`/`font-extrabold`, eyebrows/labels `font-bold` + `tracking-widest uppercase`.
 - Numbers/prices/latin-in-RTL wrapped in `num-ltr` (e.g. `<span className="num-ltr">35%</span>`).
 
