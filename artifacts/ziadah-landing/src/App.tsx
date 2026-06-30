@@ -1,5 +1,4 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
-import { Redirect } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useLayoutEffect } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
@@ -9,14 +8,6 @@ import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
-import { CmsAuthProvider } from "@/cms/CmsAuthContext";
-import { useCmsAuth } from "@/cms/CmsAuthContext";
-import { CmsEditorProvider } from "@/cms/CmsEditorContext";
-import { CmsProtected } from "@/cms/components/CmsProtected";
-import { CmsInlineToolbar } from "@/cms/components/CmsInlineToolbar";
-import { CmsInlineEditorPanel } from "@/cms/components/CmsInlineEditorPanel";
-import { CmsFloatingEditableToolbar } from "@/cms/components/CmsFloatingEditableToolbar";
-import { CmsQuickLoginModal } from "@/cms/components/CmsQuickLoginModal";
 import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
@@ -24,7 +15,7 @@ import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
-const Landing = lazy(() => import("@/pages/Landing"));
+const Landing = lazy(() => import("@/pages/HomeTrackflow"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
@@ -70,29 +61,7 @@ const UseCasesByPresentation = lazy(() => import("@/pages/use-cases/UseCasesByPr
 const UseCasesByGoal = lazy(() => import("@/pages/use-cases/UseCasesByGoal"));
 const UseCasesByExperience = lazy(() => import("@/pages/use-cases/UseCasesByExperience"));
 
-const CmsLogin = lazy(() => import("@/cms/pages/Login"));
-const CmsDashboard = lazy(() => import("@/cms/pages/Dashboard"));
-const CmsContent = lazy(() => import("@/cms/pages/Content"));
-const CmsPages = lazy(() => import("@/cms/pages/Pages"));
-const CmsMedia = lazy(() => import("@/cms/pages/Media"));
-const CmsUsers = lazy(() => import("@/cms/pages/Users"));
-const CmsAudit = lazy(() => import("@/cms/pages/Audit"));
-const CmsSettings = lazy(() => import("@/cms/pages/Settings"));
-
 const queryClient = new QueryClient();
-
-/** CMS quick-login FAB: dev/preview hosts only — not on production (e.g. ziadah.app). */
-function shouldShowCmsQuickLogin(): boolean {
-  if (import.meta.env.DEV) return true;
-  if (typeof window === "undefined") return false;
-  const h = window.location.hostname;
-  return (
-    h === "localhost" ||
-    h === "127.0.0.1" ||
-    h.endsWith(".replit.dev") ||
-    h.endsWith(".repl.co")
-  );
-}
 
 function ScrollToTop() {
   const [location] = useLangAwareLocation();
@@ -194,100 +163,29 @@ function PublicRoutes() {
   );
 }
 
-function CmsRoutes() {
-  return (
-    <Switch>
-      <Route path="/cms/login" component={CmsLogin} />
-      <Route path="/cms/dashboard">
-        <CmsProtected>
-          <CmsDashboard />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/content">
-        <CmsProtected>
-          <CmsContent />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/pages">
-        <CmsProtected>
-          <CmsPages />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/media">
-        <CmsProtected>
-          <CmsMedia />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/users">
-        <CmsProtected>
-          <CmsUsers />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/audit">
-        <CmsProtected>
-          <CmsAudit />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/settings">
-        <CmsProtected>
-          <CmsSettings />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms">
-        <Redirect to="/cms/dashboard" />
-      </Route>
-      <Route>
-        <Redirect to="/" />
-      </Route>
-    </Switch>
-  );
-}
-
 function Router() {
-  const [loc] = useLangAwareLocation();
-  const isCms = loc.startsWith("/cms");
   return (
-    <>
-      {isCms ? (
-        <Suspense fallback={<LazyRouteFallback />}>
-          <CmsRoutes />
-        </Suspense>
-      ) : (
-        <PageTransition>
-          <Suspense fallback={<LazyRouteFallback />}>
-            <PublicRoutes />
-          </Suspense>
-        </PageTransition>
-      )}
-    </>
+    <PageTransition>
+      <Suspense fallback={<LazyRouteFallback />}>
+        <PublicRoutes />
+      </Suspense>
+    </PageTransition>
   );
 }
 
 function AppShell() {
-  const [loc] = useLangAwareLocation();
-  const isCms = loc.startsWith("/cms");
-  const { user, loading } = useCmsAuth();
-  const showInlineToolbar =
-    !!user && (user.role === "editor" || user.role === "super_admin");
-  const showQuickLogin =
-    !loading && !user && !isCms && shouldShowCmsQuickLogin();
-
   return (
     <>
       <a href="#main-content" className="skip-link">
         تخطي إلى المحتوى الرئيسي
       </a>
       <ScrollToTop />
-      <CmsInlineToolbar />
-      <CmsInlineEditorPanel />
-      <CmsFloatingEditableToolbar />
-      {showQuickLogin && <CmsQuickLoginModal />}
-      <div style={{ paddingTop: showInlineToolbar ? 48 : 0, display: "flex", flexDirection: "column" }}>
-        {!isCms && <Nav />}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Nav />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
           <Router />
         </main>
-        {!isCms && <Footer />}
+        <Footer />
       </div>
     </>
   );
@@ -301,16 +199,12 @@ function App() {
           <SiteContentProvider>
             <BlurTransitionProvider>
               <QueryClientProvider client={queryClient}>
-                <CmsAuthProvider>
-                  <CmsEditorProvider>
-                    <WouterRouter
-                      base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                      hook={useLangAwareLocation}
-                    >
-                      <AppShell />
-                    </WouterRouter>
-                  </CmsEditorProvider>
-                </CmsAuthProvider>
+                <WouterRouter
+                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                  hook={useLangAwareLocation}
+                >
+                  <AppShell />
+                </WouterRouter>
               </QueryClientProvider>
             </BlurTransitionProvider>
           </SiteContentProvider>
