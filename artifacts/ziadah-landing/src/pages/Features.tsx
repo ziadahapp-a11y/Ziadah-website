@@ -8,6 +8,7 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteT } from "../cms/siteContent";
+import { Section } from "@/components/trackflow";
 import {
   ShoppingCart,
   Package,
