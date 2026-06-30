@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "استكمل ما تركته",
       desc: "للعميل العائد يعرض المنتجات التي تصفّحها في آخر زيارة مع رسالة 'ما زلت مهتماً؟' تختصر عليه وقت البحث.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "⭐",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo موفّرة",
       desc: "يعرض حزماً مدروسة من المنتجات المكمّلة بسعر إجمالي منخفض. مثالية للعملاء الذين لم يقرروا بعد ماذا يريدون.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🕐",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+34%", label: "وقت التصفح في الموقع", color: "#34d399" },
+    { value: "+34%", label: "وقت التصفح في الموقع", color: "#a855f7" },
     { value: "+29%", label: "معدل الانتقال للمنتجات", color: "#06b6d4" },
-    { value: "+22%", label: "معدل التحويل للعملاء العائدين", color: "#10b981" },
+    { value: "+22%", label: "معدل التحويل للعملاء العائدين", color: "#8b5cf6" },
     { value: "-18%", label: "معدل الارتداد من الصفحة الرئيسية", color: "#ec4899" },
   ],
   exampleScenario: {
@@ -86,7 +86,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "Continue Where You Left Off",
       desc: "For returning customers, shows products they browsed in their last visit with a 'Still interested?' message that saves them search time.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "⭐",
@@ -98,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Money-Saving Combo Bundles",
       desc: "Displays curated bundles of complementary products at a lower total price. Perfect for customers who haven't decided what they want yet.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🕐",
@@ -108,9 +108,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+34%", label: "Browse time on site", color: "#34d399" },
+    { value: "+34%", label: "Browse time on site", color: "#a855f7" },
     { value: "+29%", label: "Product click-through rate", color: "#06b6d4" },
-    { value: "+22%", label: "Returning customer conversion rate", color: "#10b981" },
+    { value: "+22%", label: "Returning customer conversion rate", color: "#8b5cf6" },
     { value: "-18%", label: "Home page bounce rate", color: "#ec4899" },
   ],
   exampleScenarioEn: {

@@ -48,17 +48,17 @@ export default function WidgetTabs({ isAr, tabs, fullWidthContent = false }: Wid
                 padding: "10px 22px",
                 borderRadius: 99,
                 background: isActive
-                  ? "linear-gradient(135deg,#22c57d,#16a34a)"
-                  : "rgba(34, 197, 125,0.06)",
+                  ? "linear-gradient(135deg,#7c3aed,#6d28d9)"
+                  : "rgba(124, 58, 237,0.06)",
                 color: isActive ? "#fff" : "var(--p4)",
-                border: `1.5px solid ${isActive ? "transparent" : "rgba(34, 197, 125,0.22)"}`,
+                border: `1.5px solid ${isActive ? "transparent" : "rgba(124, 58, 237,0.22)"}`,
                 fontWeight: 700,
                 fontSize: 13,
                 cursor: "pointer",
                 transition: "all .22s cubic-bezier(.23,1,.32,1)",
                 fontFamily: "var(--font)",
                 boxShadow: isActive
-                  ? "0 4px 18px rgba(34, 197, 125,.38), 0 1px 0 rgba(255,255,255,.08) inset"
+                  ? "0 4px 18px rgba(124, 58, 237,.38), 0 1px 0 rgba(255,255,255,.08) inset"
                   : "none",
                 outline: "none",
                 display: "flex",

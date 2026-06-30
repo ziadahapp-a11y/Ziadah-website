@@ -60,9 +60,9 @@ export default function UseCaseLiveShowcase({
               gap: 7,
               padding: "4px 14px",
               borderRadius: 50,
-              background: "rgba(34, 197, 125,.08)",
-              border: "1px solid rgba(34, 197, 125,.2)",
-              color: "#22c57d",
+              background: "rgba(124, 58, 237,.08)",
+              border: "1px solid rgba(124, 58, 237,.2)",
+              color: "#7c3aed",
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: 1,
@@ -70,7 +70,7 @@ export default function UseCaseLiveShowcase({
               marginBottom: 16,
             }}
           >
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#22c57d" }} />
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }} />
             {badge ?? defaultBadge}
           </div>
           <h3
@@ -114,17 +114,17 @@ export default function UseCaseLiveShowcase({
                       padding: "10px 18px",
                       borderRadius: 99,
                       background: isAct
-                        ? "linear-gradient(135deg,#22c57d,#16a34a)"
-                        : "rgba(34, 197, 125,0.06)",
+                        ? "linear-gradient(135deg,#7c3aed,#6d28d9)"
+                        : "rgba(124, 58, 237,0.06)",
                       color: isAct ? "#fff" : "var(--p4)",
-                      border: `1.5px solid ${isAct ? "transparent" : "rgba(34, 197, 125,0.22)"}`,
+                      border: `1.5px solid ${isAct ? "transparent" : "rgba(124, 58, 237,0.22)"}`,
                       fontWeight: 700,
                       fontSize: 13,
                       cursor: "pointer",
                       transition: "all .22s cubic-bezier(.23,1,.32,1)",
                       fontFamily: "var(--font)",
                       boxShadow: isAct
-                        ? "0 4px 18px rgba(34, 197, 125,.38), 0 1px 0 rgba(255,255,255,.08) inset"
+                        ? "0 4px 18px rgba(124, 58, 237,.38), 0 1px 0 rgba(255,255,255,.08) inset"
                         : "none",
                       outline: "none",
                       display: "flex",

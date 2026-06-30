@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { ShoppingBag, Bike, Puzzle, ArrowRight, ArrowLeft } from "lucide-react";
 import PageShell from "@/components/PageShell";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
-import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
@@ -13,6 +13,8 @@ import { navigateTo } from "@/components/PageTransition";
 export default function Sectors() {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
+  const isAr = lang === "ar";
+  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
   const tr = t[lang].sectorsPage;
   const pc = t[lang].pageClosingCta;
   const ld = t[lang].landing;
@@ -21,7 +23,7 @@ export default function Sectors() {
   const sectorBuckets = [
     {
       slug: "ecommerce-stores",
-      icon: "🛍️",
+      Icon: ShoppingBag,
       titleAr: "المتاجر الإلكترونية",
       titleEn: "Ecommerce Stores",
       descAr: "نفس القطاعات الحالية مع أدلة تطبيق زيادة لكل نوع متجر.",
@@ -30,7 +32,7 @@ export default function Sectors() {
     },
     {
       slug: "delivery-apps",
-      icon: "🛵",
+      Icon: Bike,
       titleAr: "تطبيقات التوصيل",
       titleEn: "Delivery Apps",
       descAr: "صفحة مخصصة لكيفية رفع الطلبات والقيمة في تطبيقات التوصيل.",
@@ -39,7 +41,7 @@ export default function Sectors() {
     },
     {
       slug: "ecommerce-platforms",
-      icon: "🧩",
+      Icon: Puzzle,
       titleAr: "منصات التسوق الإلكترونية",
       titleEn: "Ecommerce Platforms",
       descAr: "صفحة مخصصة لمنصات السوق المتعدد البائعين وتجارب الاكتشاف.",
@@ -60,6 +62,12 @@ export default function Sectors() {
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
+
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
 
   return (
     <>
@@ -88,81 +96,61 @@ export default function Sectors() {
         }
         url="/sectors"
       />
-      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-        <DsPageBackdrop />
-
-        <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
-          <div className="stag rv">
-            <span className="stag-dot" />
-            {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
+      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+        {/* ══════════════════ HERO ══════════════════ */}
+        <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
+          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+          <div className="container mx-auto relative max-w-3xl text-center">
+            <div className="rv mb-4">
+              <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
+                {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
+              </span>
+            </div>
+            <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
+              {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
+            </h1>
+            <p className="rv d2 text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
+              {lang === "ar"
+                ? "اختر القسم المناسب لنشاطك. المتاجر الإلكترونية تحتوي على القطاعات الحالية كاملة، مع صفحات مستقلة لتطبيقات التوصيل ومنصات التسوق الإلكترونية."
+                : "Choose the category that fits your business. Ecommerce Stores includes all existing sectors, with dedicated pages for Delivery Apps and Ecommerce Platforms."}
+            </p>
           </div>
-          <h1 className="st rv d1" style={{ fontSize: "clamp(32px,4vw,52px)", marginTop: 8 }}>
-            {lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
-          </h1>
-          <p className="ssub rv d2" style={{ margin: "0 auto", maxWidth: 720 }}>
-            {lang === "ar"
-              ? "اختر القسم المناسب لنشاطك. المتاجر الإلكترونية تحتوي على القطاعات الحالية كاملة، مع صفحات مستقلة لتطبيقات التوصيل ومنصات التسوق الإلكترونية."
-              : "Choose the category that fits your business. Ecommerce Stores includes all existing sectors, with dedicated pages for Delivery Apps and Ecommerce Platforms."}
-          </p>
         </section>
 
-        <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 100px" }}>
-          <div
-            style={{
-              maxWidth: 1200,
-              margin: "0 auto",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
-              gap: 20,
-            }}
-          >
-            {sectorBuckets.map((bucket, i) => {
-              const title = lang === "ar" ? bucket.titleAr : bucket.titleEn;
-              const tag = lang === "ar" ? bucket.descAr : bucket.descEn;
-              return (
-                <a
-                  key={bucket.slug}
-                  href={bucket.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigateTo(bucket.href);
-                  }}
-                  className={`gc rv d${(i % 3) + 1}`}
-                  style={{
-                    padding: 0,
-                    textAlign: dir === "rtl" ? "right" : "left",
-                    cursor: "pointer",
-                    border: "none",
-                    background: "transparent",
-                    fontFamily: "var(--font)",
-                    color: "inherit",
-                    textDecoration: "none",
-                    position: "relative",
-                    zIndex: 3,
-                    pointerEvents: "auto",
-                    display: "block",
-                  }}
-                >
-                  <div className="shine" />
-                  <div style={{ padding: "24px 22px 26px" }}>
-                    <div style={{ fontSize: 36, marginBottom: 10 }}>{bucket.icon}</div>
-                    <div style={{ fontSize: 18, fontWeight: 800, color: "var(--t)", marginBottom: 8 }}>{title}</div>
-                    <div style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.55, marginBottom: 16 }}>{tag}</div>
-                    <span
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "var(--p)",
-                      }}
-                    >
-                      {tr.cardCta} →
+        {/* ══════════════════ BUCKETS ══════════════════ */}
+        <section className="py-24 px-4">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {sectorBuckets.map((bucket, i) => {
+                const title = lang === "ar" ? bucket.titleAr : bucket.titleEn;
+                const tag = lang === "ar" ? bucket.descAr : bucket.descEn;
+                const Icon = bucket.Icon;
+                return (
+                  <a
+                    key={bucket.slug}
+                    href={bucket.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(bucket.href);
+                    }}
+                    className={`rv d${(i % 3) + 1} group block rounded-2xl border border-zinc-200 bg-white p-7 text-start hover:border-zinc-300 hover:shadow-card transition-all`}
+                  >
+                    <div className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center mb-5">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="text-lg font-bold text-zinc-950 mb-2 leading-snug">{title}</div>
+                    <p className="text-sm text-zinc-600 leading-relaxed mb-5">{tag}</p>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-green-600">
+                      {tr.cardCta}
+                      <ArrowCTA className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" />
                     </span>
-                  </div>
-                </a>
-              );
-            })}
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </section>
+
         <PageClosingCta
           title={pc.sectorsHubTitle}
           description={pc.sectorsHubDesc}

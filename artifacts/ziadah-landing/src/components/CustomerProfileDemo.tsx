@@ -22,7 +22,7 @@ const nasserProfile = {
   labelEn: "Returning Customer",
   tags: [
     { text: "ذكر", textEn: "Male", color: "#6366f1" },
-    { text: "آيفون 17", textEn: "iPhone 17", color: "#22c57d" },
+    { text: "آيفون 17", textEn: "iPhone 17", color: "#7c3aed" },
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [
@@ -81,7 +81,7 @@ export default function CustomerProfileDemo() {
         margin: "40px 0",
         borderRadius: 24,
         overflow: "hidden",
-        border: "1px solid rgba(34, 197, 125,0.2)",
+        border: "1px solid rgba(124, 58, 237,0.2)",
         background: "var(--s1)",
         boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
         fontFamily: "var(--font)",
@@ -324,11 +324,11 @@ export default function CustomerProfileDemo() {
                       alignItems: "center",
                       gap: 8,
                       padding: "6px 14px",
-                      background: "rgba(52, 211, 153,0.12)",
-                      border: "1px solid rgba(52, 211, 153,0.25)",
+                      background: "rgba(168, 85, 247,0.12)",
+                      border: "1px solid rgba(168, 85, 247,0.25)",
                       borderRadius: 20,
                       fontSize: 11,
-                      color: "#6ee7b7",
+                      color: "#c084fc",
                       fontWeight: 600,
                       marginBottom: 10,
                     }}
@@ -426,8 +426,8 @@ export default function CustomerProfileDemo() {
                   style={{
                     marginTop: 16,
                     padding: "12px 14px",
-                    background: "rgba(52, 211, 153,0.06)",
-                    border: "1px solid rgba(52, 211, 153,0.15)",
+                    background: "rgba(168, 85, 247,0.06)",
+                    border: "1px solid rgba(168, 85, 247,0.15)",
                     borderRadius: 12,
                     display: "flex",
                     gap: 10,

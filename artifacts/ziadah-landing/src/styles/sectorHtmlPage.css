@@ -1267,9 +1267,9 @@
   --t: #312e81;
   --td: rgba(49, 46, 129, 0.9);
   --tm: rgba(9, 9, 11, 0.74);
-  --b1: rgba(34, 197, 125, 0.14);
-  --b2: rgba(34, 197, 125, 0.22);
-  --s1: rgba(34, 197, 125, 0.07);
+  --b1: rgba(124, 58, 237, 0.14);
+  --b2: rgba(124, 58, 237, 0.22);
+  --s1: rgba(124, 58, 237, 0.07);
 }
 
 /* Sticky in-page nav: stays under fixed site Nav while scrolling */
@@ -1282,7 +1282,7 @@
   padding: 10px max(var(--page-inline-pad), env(safe-area-inset-left, 0px)) 12px
     max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
   background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid rgba(34, 197, 125, 0.14);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.14);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -1310,7 +1310,7 @@ section#uc-showcase,
 }
 
 .use-case-playbook-hero .sector-html-grad {
-  background-image: linear-gradient(135deg, #16a34a 0%, #34d399 55%, #6ee7b7 100%);
+  background-image: linear-gradient(135deg, #6d28d9 0%, #a855f7 55%, #c084fc 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1319,20 +1319,20 @@ section#uc-showcase,
 
 .use-case-playbook-hero .sector-html-btn--ghost {
   color: var(--t);
-  border-color: rgba(34, 197, 125, 0.28);
+  border-color: rgba(124, 58, 237, 0.28);
 }
 
 .use-case-playbook-hero .sector-html-btn--ghost:hover {
-  border-color: rgba(34, 197, 125, 0.48);
-  color: #16a34a;
-  background: rgba(34, 197, 125, 0.08);
+  border-color: rgba(124, 58, 237, 0.48);
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.08);
 }
 
 .use-case-playbook-hero .sector-html-ftag {
   background: #ffffff;
-  border-color: rgba(34, 197, 125, 0.24);
+  border-color: rgba(124, 58, 237, 0.24);
   color: #312e81;
-  box-shadow: 0 10px 32px rgba(34, 197, 125, 0.12);
+  box-shadow: 0 10px 32px rgba(124, 58, 237, 0.12);
 }
 
 .use-case-playbook-hero .sector-html-ftag span:not(.sector-html-fdot) {
@@ -1342,9 +1342,9 @@ section#uc-showcase,
 /* إطار الهاتف في الهيرو: إطار أوضح يتماشى مع الشاشة الداخلية */
 .use-case-playbook-hero .sector-html-phone {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(243, 239, 255, 0.88) 100%);
-  border-color: rgba(34, 197, 125, 0.22);
+  border-color: rgba(124, 58, 237, 0.22);
   box-shadow:
-    0 0 44px rgba(34, 197, 125, 0.14),
+    0 0 44px rgba(124, 58, 237, 0.14),
     0 26px 52px rgba(15, 23, 42, 0.07);
 }
 
@@ -1353,12 +1353,12 @@ section#uc-showcase,
   --bg: #f7f5fc;
   --t: #3730a3;
   --td: rgba(55, 48, 163, 0.92);
-  --tm: rgba(34, 197, 125, 0.72);
-  background: linear-gradient(165deg, #ffffff 0%, #f6fefb 42%, #ecfdf5 100%);
-  border: 1px solid rgba(34, 197, 125, 0.11);
+  --tm: rgba(124, 58, 237, 0.72);
+  background: linear-gradient(165deg, #ffffff 0%, #fbfaff 42%, #f3f0ff 100%);
+  border: 1px solid rgba(124, 58, 237, 0.11);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -12px 32px rgba(34, 197, 125, 0.045);
+    inset 0 -12px 32px rgba(124, 58, 237, 0.045);
 }
 
 .use-case-playbook-hero .sector-html-or-name {
@@ -1382,20 +1382,20 @@ section#uc-showcase,
 }
 
 .use-case-quicknav-stick--playbook .sector-page-quicknav button {
-  border-color: rgba(34, 197, 125, 0.24) !important;
+  border-color: rgba(124, 58, 237, 0.24) !important;
   color: #312e81 !important;
   background: transparent !important;
 }
 
 .use-case-quicknav-stick--playbook .sector-page-quicknav button:hover {
-  border-color: rgba(34, 197, 125, 0.45) !important;
-  background: rgba(34, 197, 125, 0.06) !important;
+  border-color: rgba(124, 58, 237, 0.45) !important;
+  background: rgba(124, 58, 237, 0.06) !important;
 }
 
 .use-case-playbook-hero .sector-html-hero-grid .sector-html-hero-copy .stag {
-  background: rgba(34, 197, 125, 0.1);
+  background: rgba(124, 58, 237, 0.1);
   border: none;
-  color: #16a34a;
+  color: #6d28d9;
   padding-top: 7px;
   padding-bottom: 7px;
   margin-right: 0;
@@ -1407,7 +1407,7 @@ section#uc-showcase,
 }
 
 .use-case-playbook-hero .stag-dot {
-  background: #22c57d;
+  background: #7c3aed;
 }
 
 /* Live widget showcase — scrollable screen inside phone frame */

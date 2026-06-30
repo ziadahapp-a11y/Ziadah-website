@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
-import DsPageBackdrop from "@/components/DsPageBackdrop";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
+import { Eyebrow } from "@/components/trackflow";
 
 const sections = {
   ar: [
@@ -34,6 +34,12 @@ const sections = {
   ],
 };
 
+const gridStyle: CSSProperties = {
+  backgroundImage:
+    "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+  backgroundSize: "48px 48px",
+};
+
 export default function Terms() {
   const t = useSiteT();
   const { lang, dir } = useLanguage();
@@ -47,42 +53,49 @@ export default function Terms() {
 
   return (
     <>
-    <SEO
-      titleAr={t.ar.legalPages.termsTitle}
-      titleEn={t.en.legalPages.termsTitle}
-      descriptionAr={t.ar.legalPages.termsDesc}
-      descriptionEn={t.en.legalPages.termsDesc}
-      canonical="/terms"
-      keywordsAr={pk?.keywordsAr}
-      keywordsEn={pk?.keywordsEn}
-    />
+      <SEO
+        titleAr={t.ar.legalPages.termsTitle}
+        titleEn={t.en.legalPages.termsTitle}
+        descriptionAr={t.ar.legalPages.termsDesc}
+        descriptionEn={t.en.legalPages.termsDesc}
+        canonical="/terms"
+        keywordsAr={pk?.keywordsAr}
+        keywordsEn={pk?.keywordsEn}
+      />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Terms & Conditions" : "الشروط والأحكام", url: "/terms" }]} />
-      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-        <DsPageBackdrop />
-        <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
-          <div className="wrap">
-            <h1 style={{ fontSize: "clamp(32px,4vw,52px)", fontWeight: 900, marginBottom: 16, letterSpacing: -1.5 }}>
+      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "#09090b" }}>
+        {/* HERO */}
+        <section dir={dir} className="relative pt-24 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
+          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+          <div className="container mx-auto relative max-w-3xl text-center">
+            <div className="mb-4">
+              <Eyebrow>{isEn ? "Legal" : "قانوني"}</Eyebrow>
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.08]">
               {tr.legalPages.termsH1}
             </h1>
-            <p style={{ fontSize: 14, color: "var(--td)", marginBottom: 0 }}>
+            <p className="text-sm text-zinc-500 num-ltr">
               {isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}
             </p>
           </div>
         </section>
-        <section style={{ paddingBottom: 80, paddingInline: "var(--page-inline-pad)", position: "relative", zIndex: 2 }}>
-          <div className="wrap gc ds-legal-doc">
-            <div style={{ display: "flex", flexDirection: "column", gap: 40, fontSize: 15, lineHeight: 1.9, color: "var(--tm)" }}>
+
+        {/* DOCUMENT */}
+        <section dir={dir} className="py-24 px-4 bg-white">
+          <div className="container mx-auto max-w-3xl">
+            <div className="flex flex-col gap-12">
               {content.map((s, i) => (
                 <div key={i}>
-                  <h2 style={{ fontSize: 20, fontWeight: 800, color: "var(--t)", marginBottom: 12 }}>
+                  <h2 className="text-xl md:text-2xl font-bold text-zinc-950 mb-3 leading-snug">
                     {s.title}
                   </h2>
-                  <p>{s.body}</p>
+                  <p className="text-base text-zinc-700 leading-relaxed">{s.body}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
         <PageClosingCta
           title={pc.legalTitle}
           description={pc.legalDesc}

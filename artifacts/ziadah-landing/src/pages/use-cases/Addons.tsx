@@ -19,7 +19,7 @@ const data: UseCasePageData = {
       icon: "☑️",
       title: "الاختبار المتعدد (Multi-select)",
       desc: "يُعرض للعميل قائمة إضافات بصناديق اختيار — يحدد ما يريد ويرى السعر الإجمالي يتحدث فورياً. يُحسّن معدل قبول الإضافات بشكل ملحوظ.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "🎯",
@@ -31,7 +31,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "إبراز قيمة الإضافة",
       desc: "لكل إضافة يُعرض سعرها بوضوح مع رسالة قيمة مختصرة — 'احمِ هاتفك' أو 'أكمل طقمك' — تجعل الاختيار منطقياً وسهلاً.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📍",
@@ -41,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+44%", label: "معدل قبول قائمة الإضافات", color: "#34d399" },
+    { value: "+44%", label: "معدل قبول قائمة الإضافات", color: "#a855f7" },
     { value: "+31%", label: "متوسط قيمة الطلب مع إضافة واحدة على الأقل", color: "#06b6d4" },
-    { value: "2.3", label: "متوسط عدد الإضافات المختارة في كل طلب", color: "#10b981" },
+    { value: "2.3", label: "متوسط عدد الإضافات المختارة في كل طلب", color: "#8b5cf6" },
     { value: "+22%", label: "تكرار الشراء من العملاء الذين اختاروا إضافات", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -80,15 +80,15 @@ const data: UseCasePageData = {
                 {isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
-                <div style={{ padding: "24px 28px", background: "rgba(52, 211, 153,.05)", border: "1px solid rgba(52, 211, 153,.15)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: "#34d399", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
+                <div style={{ padding: "24px 28px", background: "rgba(168, 85, 247,.05)", border: "1px solid rgba(168, 85, 247,.15)", borderRadius: 14 }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"]
                       : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]
                     ).map((item, i) => (
                       <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                        <span style={{ color: "#34d399", fontWeight: 700 }}>✓</span> {item}
+                        <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
                       </li>
                     ))}
                   </ul>
@@ -131,7 +131,7 @@ const data: UseCasePageData = {
       icon: "☑️",
       title: "Multi-Select Checkboxes",
       desc: "Customers see a list of add-ons with checkboxes — they select what they want and see the total update instantly. Significantly improves add-on acceptance rates.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "🎯",
@@ -143,7 +143,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "Highlight Add-on Value",
       desc: "Each add-on displays its price clearly with a brief value message — 'Protect your phone' or 'Complete your set' — making the choice logical and easy.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📍",
@@ -153,9 +153,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+44%", label: "Add-on list acceptance rate", color: "#34d399" },
+    { value: "+44%", label: "Add-on list acceptance rate", color: "#a855f7" },
     { value: "+31%", label: "Average order value with at least one add-on", color: "#06b6d4" },
-    { value: "2.3", label: "Average number of add-ons selected per order", color: "#10b981" },
+    { value: "2.3", label: "Average number of add-ons selected per order", color: "#8b5cf6" },
     { value: "+22%", label: "Repeat purchases from customers who chose add-ons", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

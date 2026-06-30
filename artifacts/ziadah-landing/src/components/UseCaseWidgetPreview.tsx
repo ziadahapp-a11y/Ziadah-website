@@ -18,9 +18,9 @@ export default function UseCaseWidgetPreview({ children, maxWidth = 320 }: UseCa
     <div
       style={{
         background: "var(--uc-preview-bg, var(--s1))",
-        border: "var(--uc-preview-border, 1px solid rgba(34, 197, 125,0.15))",
+        border: "var(--uc-preview-border, 1px solid rgba(124, 58, 237,0.15))",
         borderRadius: 16,
-        boxShadow: "var(--uc-preview-shadow, 0 8px 32px rgba(34, 197, 125,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04))",
+        boxShadow: "var(--uc-preview-shadow, 0 8px 32px rgba(124, 58, 237,.06), 0 2px 8px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,0.04))",
         overflow: "hidden",
         direction,
         width: "100%",

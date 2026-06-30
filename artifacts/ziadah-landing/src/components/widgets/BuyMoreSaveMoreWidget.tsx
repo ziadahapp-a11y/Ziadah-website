@@ -42,8 +42,8 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
                 gap: 10,
                 padding: "9px 12px",
                 borderRadius: 12,
-                background: isSelected ? "rgba(34, 197, 125,.18)" : "var(--s1)",
-                border: isSelected ? "1.5px solid rgba(52, 211, 153,.5)" : "1.5px solid var(--b1)",
+                background: isSelected ? "rgba(124, 58, 237,.18)" : "var(--s1)",
+                border: isSelected ? "1.5px solid rgba(168, 85, 247,.5)" : "1.5px solid var(--b1)",
                 cursor: "pointer",
                 transition: "all .2s ease",
               }}>
@@ -52,7 +52,7 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
                   height: 16,
                   borderRadius: "50%",
                   border: isSelected ? "none" : "1.5px solid var(--b2)",
-                  background: isSelected ? "rgba(34, 197, 125,0.5)" : "transparent",
+                  background: isSelected ? "rgba(124, 58, 237,0.5)" : "transparent",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -72,14 +72,14 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
                       fontWeight: 800,
                       padding: "2px 7px",
                       borderRadius: 20,
-                      background: "rgba(34, 197, 125,0.5)",
+                      background: "rgba(124, 58, 237,0.5)",
                       color: "var(--t)",
                     }}>{opt.badge}</div>
                   )}
                   {opt.origPrice && (
                     <div style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{opt.origPrice}</div>
                   )}
-                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "#6ee7b7" : "var(--t)" }}>{opt.price}</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "#c084fc" : "var(--t)" }}>{opt.price}</div>
                 </div>
               </div>
             );
@@ -88,7 +88,7 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
       </div>
       <div style={{
         fontSize: 12,
-        color: "#34d399",
+        color: "#a855f7",
         background: "rgba(16,185,129,.1)",
         border: "1px solid rgba(16,185,129,.25)",
         borderRadius: 8,

@@ -20,7 +20,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "شريط التقدّم",
       desc: "يُظهر نسبة المبلغ المحقق من عتبة الشحن المجاني — واضح ومباشر.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "🎯",
@@ -32,7 +32,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "صلة بالسلة",
       desc: "الاقتراحات مرتبطة بما في السلة أو بتصنيفات يهتم بها العميل — لا عشوائية.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "⚡",
@@ -42,9 +42,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+31%", label: "الطلبات التي تتجاوز عتبة الشحن", color: "#34d399" },
+    { value: "+31%", label: "الطلبات التي تتجاوز عتبة الشحن", color: "#a855f7" },
     { value: "+22%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "-18%", label: "مغادرة بسبب الشحن", color: "#10b981" },
+    { value: "-18%", label: "مغادرة بسبب الشحن", color: "#8b5cf6" },
     { value: "+27%", label: "إتمام الشراء بعد الإضافة", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -83,7 +83,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "Progress bar",
       desc: "Shows how much of the free shipping threshold is already covered — clear and direct.",
-      color: "#34d399",
+      color: "#a855f7",
     },
     {
       icon: "🎯",
@@ -95,7 +95,7 @@ const data: UseCasePageData = {
       icon: "🧩",
       title: "Cart relevance",
       desc: "Suggestions tied to what’s in the cart or categories the customer cares about — not random picks.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "⚡",
@@ -105,9 +105,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+31%", label: "Orders exceeding shipping threshold", color: "#34d399" },
+    { value: "+31%", label: "Orders exceeding shipping threshold", color: "#a855f7" },
     { value: "+22%", label: "Average order value", color: "#06b6d4" },
-    { value: "-18%", label: "Shipping-related drop-off", color: "#10b981" },
+    { value: "-18%", label: "Shipping-related drop-off", color: "#8b5cf6" },
     { value: "+27%", label: "Completion after add-on", color: "#f59e0b" },
   ],
   exampleScenarioEn: {

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { t } from "@/i18n/translations";
-import { blogPosts, categories, categoryColors } from "../data/blogPosts";
+import { blogPosts, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
-import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "../cms/siteContent";
+import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
 
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
@@ -41,6 +41,7 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState(initial.cat);
   const [search, setSearch] = useState(initial.search);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
 
   function updateUrl(cat: string, searchVal: string) {
     // Preserve unrelated params (e.g. `mode=dark|light`) while updating blog filters.
@@ -126,6 +127,12 @@ export default function Blog() {
   const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
   const pk = getPageKeywords("/blog");
 
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
+
   return (
     <>
     <StandardPage
@@ -136,267 +143,131 @@ export default function Blog() {
       canonical="/blog"
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
-      className="relative overflow-x-clip blog-white-shell"
-      style={{ color: "var(--t)" }}
+      className="relative overflow-x-clip bg-white"
+      style={{ background: "#fff", color: "#09090b" }}
     >
     <>
-    <DsPageBackdrop />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
     <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
-      <section
-        className="page-hero-viewport page-hero-viewport--center blog-page-hero"
-        style={{ position: "relative", zIndex: 2 }}
-      >
-        <div className="blog-page-hero-inner">
-        <div className="stag rv">
-          <span className="stag-dot" />
-          {tx.tag}
-        </div>
-        <h1
-          className="rv d1 blog-page-hero-title"
-          style={{
-            fontSize: "clamp(22px,5vw,64px)",
-            fontWeight: 900,
-            marginTop: 8,
-            marginBottom: 16,
-            letterSpacing: "-1.5px",
-          }}
-        >
-          {tx.heroTitle}
-        </h1>
-        <p
-          className="ssub rv d2 blog-page-hero-lead"
-          style={{ margin: "0 auto 36px", maxWidth: 560 }}
-        >
-          {tx.heroSub}
-        </p>
 
-        {/* Search */}
-        <div
-          className="rv d3 blog-page-hero-search-wrap"
-          style={{ maxWidth: 540, margin: "0 auto", position: "relative" }}
-        >
-          <input
-            type="search"
-            className="blog-page-hero-search"
-            autoComplete="off"
-            value={search}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            placeholder={tx.searchPlaceholder}
-            style={{
-              width: "100%",
-              paddingBlock: 15,
-              paddingInlineEnd: 52,
-              paddingInlineStart: 22,
-              borderRadius: 50,
-              fontFamily: "var(--font)",
-              fontSize: 15,
-            }}
-          />
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="blog-page-hero-search-ico"
-            style={{
-              position: "absolute",
-              insetInlineEnd: 18,
-              top: "50%",
-              transform: "translateY(-50%)",
-            }}
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="5.5"
-              stroke="currentColor"
-              strokeWidth="1.4"
+      {/* HERO */}
+      <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 px-4">
+        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+        <div className="container mx-auto relative max-w-3xl text-center">
+          <div className="rv mb-4">
+            <span className="inline-block text-xs font-bold tracking-widest text-green-600 uppercase">
+              {tx.tag}
+            </span>
+          </div>
+          <h1 className="rv d1 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.05]">
+            {tx.heroTitle}
+          </h1>
+          <p className="rv d2 text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-9 leading-relaxed">
+            {tx.heroSub}
+          </p>
+
+          {/* Search */}
+          <div className="rv d3 relative max-w-xl mx-auto">
+            <input
+              type="search"
+              autoComplete="off"
+              value={search}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              placeholder={tx.searchPlaceholder}
+              className="w-full h-12 rounded-full border border-zinc-300 bg-white ps-5 pe-12 text-[15px] text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-emerald-500/20 transition-colors"
             />
-            <line
-              x1="12"
-              y1="12"
-              x2="16"
-              y2="16"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
+            <Search className="absolute end-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-zinc-400 pointer-events-none" />
+          </div>
         </div>
       </section>
 
       {/* CATEGORY FILTER */}
-      <section
-        style={{
-          position: "relative",
-          zIndex: 2,
-          padding: "48px 5% 48px",
-        }}
-      >
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div
-            style={{
-              display: "flex",
-              gap: 10,
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleCategoryChange(cat.id)}
-                style={{
-                  padding: "9px 20px",
-                  borderRadius: 50,
-                  border:
-                    activeCategory === cat.id
-                      ? "1px solid rgba(52, 211, 153,.5)"
-                      : "1px solid var(--b1)",
-                  background:
-                    activeCategory === cat.id
-                      ? "rgba(34, 197, 125,.15)"
-                      : "var(--s1)",
-                  color: activeCategory === cat.id ? "#6ee7b7" : "var(--tm)",
-                  fontFamily: "var(--font)",
-                  fontSize: 14,
-                  fontWeight: activeCategory === cat.id ? 700 : 500,
-                  cursor: "pointer",
-                  transition: "all .2s",
-                  backdropFilter: "blur(16px)",
-                }}
-              >
-                {getCatLabel(cat)}
-              </button>
-            ))}
+      <section className="px-4 pb-12">
+        <div className="container mx-auto max-w-6xl">
+          <div className="flex flex-wrap gap-2.5 justify-center">
+            {categories.map((cat) => {
+              const active = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategoryChange(cat.id)}
+                  className={`rounded-full px-5 py-2.5 text-sm transition-colors border ${
+                    active
+                      ? "bg-zinc-950 border-zinc-950 text-white font-bold"
+                      : "bg-white border-zinc-200 text-zinc-700 font-semibold hover:border-zinc-300 hover:bg-zinc-50"
+                  }`}
+                >
+                  {getCatLabel(cat)}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* BLOG GRID */}
-      <section
-        style={{
-          position: "relative",
-          zIndex: 2,
-          padding: "0 var(--page-inline-pad) 100px",
-        }}
-      >
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <section className="px-4 pb-24">
+        <div className="container mx-auto max-w-6xl">
           {filtered.length === 0 ? (
-            <div
-              style={{
-                textAlign: "center",
-                padding: "80px 0",
-                color: "var(--td)",
-                fontSize: 16,
-              }}
-            >
+            <div className="text-center py-20 text-zinc-500 text-base">
               {tx.noResults}
             </div>
           ) : (
-            <div className="blog-cards-grid">
-              {filtered.map((post, i) => {
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((post) => {
                 const catObj = categories.find(c => c.id === post.category);
                 const catDisplay = catObj ? getCatLabel(catObj) : post.category;
                 return (
-                <a
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="blog-card-link"
-                  onClick={(e) => {
-                    if (
-                      e.defaultPrevented ||
-                      e.ctrlKey ||
-                      e.metaKey ||
-                      e.shiftKey ||
-                      e.altKey ||
-                      e.button !== 0
-                    ) {
-                      return;
-                    }
-                    e.preventDefault();
-                    navigateTo(`/blog/${post.slug}`);
-                  }}
-                >
-                  <article
-                    className="blog-card gc gc-lift rv"
-                    style={{
-                      animationDelay: `${i * 0.05}s`,
+                  <a
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="rv group block rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all"
+                    onClick={(e) => {
+                      if (
+                        e.defaultPrevented ||
+                        e.ctrlKey ||
+                        e.metaKey ||
+                        e.shiftKey ||
+                        e.altKey ||
+                        e.button !== 0
+                      ) {
+                        return;
+                      }
+                      e.preventDefault();
+                      navigateTo(`/blog/${post.slug}`);
                     }}
                   >
-                    <div className="shine" aria-hidden />
-                    <div
-                      className="blog-card__media"
-                      style={{ background: post.coverGradient }}
-                    >
-                      <div className="blog-cover-overlay" aria-hidden />
-                      <span className="blog-card__icon-wrap">
-                        {post.coverIcon}
-                      </span>
+                    <article className="flex flex-col h-full">
                       <div
-                        className="blog-card__badge"
-                        style={{
-                          background: `${categoryColors[post.category]}28`,
-                          border: `1px solid ${categoryColors[post.category]}66`,
-                          color: categoryColors[post.category],
-                        }}
+                        className="relative flex items-center justify-center h-44 border-b border-zinc-200"
+                        style={{ background: post.coverGradient }}
                       >
-                        {catDisplay}
+                        <span className="text-5xl drop-shadow-sm" aria-hidden>
+                          {post.coverIcon}
+                        </span>
+                        <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-green-100 border border-green-200 text-[11px] font-bold text-green-700">
+                          {catDisplay}
+                        </span>
                       </div>
-                    </div>
-                    <div className="blog-card__body">
-                      <h2 className="blog-card__title">{getTitle(post)}</h2>
-                      <p className="blog-card__excerpt">{getSummary(post)}</p>
-                      <div className="blog-card__footer">
-                        <div className="blog-card__meta-chip">
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            aria-hidden
-                          >
-                            <circle
-                              cx="6"
-                              cy="6"
-                              r="5"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                            />
-                            <path
-                              d="M6 3v3l2 1.5"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                          {getReadTime(post)} {tx.readSuffix}
+                      <div className="flex flex-col flex-1 p-6">
+                        <h2 className="text-lg font-bold text-zinc-950 leading-snug mb-2.5 line-clamp-2 group-hover:text-zinc-700 transition-colors">
+                          {getTitle(post)}
+                        </h2>
+                        <p className="text-sm text-zinc-600 leading-relaxed mb-5 line-clamp-3">
+                          {getSummary(post)}
+                        </p>
+                        <div className="mt-auto flex items-center justify-between text-xs text-zinc-500">
+                          <span className="inline-flex items-center gap-1.5">
+                            <Clock className="w-3.5 h-3.5" />
+                            <span className="num-ltr">{getReadTime(post)}</span> {tx.readSuffix}
+                          </span>
+                          <span className="num-ltr">{getPublishDate(post)}</span>
+                          <ArrowCTA className="w-4 h-4 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </div>
-                        <span className="blog-card__date">
-                          {getPublishDate(post)}
-                        </span>
-                        <span className="blog-card__go" aria-hidden>
-                          <svg
-                            className="blog-card__go-svg"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                          >
-                            <path
-                              d="M6 12l4-4-4-4"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
                       </div>
-                    </div>
-                  </article>
-                </a>
+                    </article>
+                  </a>
                 );
               })}
             </div>

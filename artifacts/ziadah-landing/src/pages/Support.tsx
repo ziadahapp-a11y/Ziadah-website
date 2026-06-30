@@ -1,6 +1,18 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useState } from "react";
+import {
+  Search,
+  X,
+  ChevronRight,
+  Clock,
+  Mail,
+  Lightbulb,
+  MessageCircle,
+  CalendarClock,
+  ExternalLink,
+  Play,
+} from "lucide-react";
+import { motion } from "framer-motion";
 import PageShell from "../components/PageShell";
-import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
 import SEO from "../components/SEO";
@@ -12,6 +24,7 @@ import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
 
 export default function Support() {
   const { lang, isAr } = useLanguage();
@@ -67,6 +80,12 @@ export default function Support() {
     v6: { title: "Success Stories from Saudi Merchants", description: "Real experiences from merchants who achieved amazing results with Ziadah", category: "Success Stories" },
   };
 
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
+
   return (
     <>
     <SEO
@@ -79,417 +98,311 @@ export default function Support() {
       keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
-    <PageShell className="relative overflow-x-clip support-page">
-      <DsPageBackdrop />
+    <PageShell className="relative overflow-x-clip bg-white support-page" style={{ background: "#fff" }}>
 
       {/* ─── HERO ─── */}
-      <section
-        className="page-hero-viewport page-hero-viewport--center support-page-hero"
-        style={{ position: "relative", zIndex: 2, overflow: "hidden" }}
-      >
-        <div className="support-page-hero-inner">
-        <div className="stag rv">
-          <span className="stag-dot" />
-          {tx.tag}
-        </div>
-        <h1
-          className="rv d1 support-page-hero-title"
-          style={{
-            fontSize: "clamp(22px,5.5vw,68px)",
-            fontWeight: 900,
-            letterSpacing: "-2px",
-            lineHeight: 1.1,
-            marginTop: 10,
-            marginBottom: 16,
-          }}
-        >
-          {tx.heroTitle}
-        </h1>
-        <p
-          className="rv d2 support-page-hero-lead ssub"
-          style={{
-            fontSize: 17,
-            maxWidth: 520,
-            margin: "0 auto 40px",
-            lineHeight: 1.8,
-          }}
-        >
-          {tx.heroSub}
-        </p>
-
-        {/* Search */}
-        <div
-          className="rv d3 support-page-hero-search-wrap"
-          style={{ margin: "0 auto", position: "relative" }}
-        >
-          <input
-            type="search"
-            className="support-page-hero-search"
-            autoComplete="off"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder={tx.searchPlaceholder}
-            style={{
-              width: "100%",
-              paddingBlock: 16,
-              paddingInlineEnd: 52,
-              paddingInlineStart: search.trim() ? 48 : 22,
-              borderRadius: 50,
-              fontFamily: "var(--font)",
-              fontSize: 15,
-            }}
-          />
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            className="support-page-hero-search-ico"
-            style={{
-              position: "absolute",
-              insetInlineEnd: 18,
-              top: "50%",
-              transform: "translateY(-50%)",
-            }}
+      <section className="relative pt-20 pb-24 md:pt-28 md:pb-28 px-4 border-b border-zinc-200">
+        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+        <div className="container mx-auto relative max-w-3xl text-center">
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-5">
+            <Eyebrow>{tx.tag}</Eyebrow>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]"
           >
-            <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.4" />
-            <line
-              x1="12"
-              y1="12"
-              x2="16"
-              y2="16"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          </svg>
-          {!!search && (
-            <button
-              type="button"
-              className="support-page-hero-search-clear"
-              aria-label={isAr ? "مسح البحث" : "Clear search"}
-              onClick={() => setSearch("")}
-              style={{
-                position: "absolute",
-                insetInlineStart: 14,
-                top: "50%",
-                transform: "translateY(-50%)",
-              }}
-            >
-              ✕
-            </button>
-          )}
-        </div>
+            {tx.heroTitle}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-lg md:text-xl text-zinc-600 max-w-xl mx-auto mb-10 leading-relaxed"
+          >
+            {tx.heroSub}
+          </motion.p>
 
-        {/* Search Results Dropdown */}
-        {search.trim() && (
-          <div className="support-page-hero-results rv">
-            {searchResults.length > 0 ? (
-              <>
-                <div className="support-page-hero-results-kicker">
-                  {searchResults.length} {tx.resultCount}
-                </div>
-                {searchResults.map((a, i) => (
-                  <div
-                    key={i}
-                    role="button"
-                    tabIndex={0}
-                    className="support-page-hero-results-row"
-                    onClick={() => {
-                      navigateTo(`/support/article/${a.id}`);
-                      setSearch("");
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
+          {/* Search */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="relative max-w-xl mx-auto"
+          >
+            <Search className="absolute top-1/2 -translate-y-1/2 end-4 w-5 h-5 text-zinc-400 pointer-events-none" />
+            <input
+              type="search"
+              autoComplete="off"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder={tx.searchPlaceholder}
+              className={`w-full h-14 rounded-2xl border border-zinc-200 bg-white text-zinc-950 text-base shadow-card placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 transition-colors pe-14 ${search.trim() ? "ps-12" : "ps-5"}`}
+            />
+            {!!search && (
+              <button
+                type="button"
+                aria-label={isAr ? "مسح البحث" : "Clear search"}
+                onClick={() => setSearch("")}
+                className="absolute top-1/2 -translate-y-1/2 start-4 w-6 h-6 flex items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </motion.div>
+
+          {/* Search Results Dropdown */}
+          {search.trim() && (
+            <div className="relative max-w-xl mx-auto mt-3 rounded-2xl border border-zinc-200 bg-white shadow-card-lg overflow-hidden text-start z-20">
+              {searchResults.length > 0 ? (
+                <>
+                  <div className="px-5 py-3 text-xs font-bold tracking-widest text-zinc-400 uppercase border-b border-zinc-100">
+                    <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
+                  </div>
+                  {searchResults.map((a, i) => (
+                    <div
+                      key={i}
+                      role="button"
+                      tabIndex={0}
+                      className="flex items-start gap-3 px-5 py-4 cursor-pointer hover:bg-zinc-50 border-b border-zinc-100 last:border-b-0 transition-colors"
+                      onClick={() => {
                         navigateTo(`/support/article/${a.id}`);
                         setSearch("");
-                      }
-                    }}
-                  >
-                    <div style={{ flex: 1, textAlign: "inherit" }}>
-                      <div className="support-page-hero-results-title">{getArticleTitle(a)}</div>
-                      <div className="support-page-hero-results-meta">
-                        {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
-                      </div>
-                    </div>
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      style={{ flexShrink: 0, marginTop: 4, transform: isAr ? "rotate(180deg)" : "none" }}
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          navigateTo(`/support/article/${a.id}`);
+                          setSearch("");
+                        }
+                      }}
                     >
-                      <path
-                        d="M9 3L5 7l4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div className="support-page-hero-results-empty">
-                {tx.noResults} «{search}»
-              </div>
-            )}
-          </div>
-        )}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-bold text-zinc-950">{getArticleTitle(a)}</div>
+                        <div className="text-xs text-zinc-500 mt-0.5">
+                          {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
+                        </div>
+                      </div>
+                      <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 mt-1 ${isAr ? "rotate-180" : ""}`} />
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <div className="px-5 py-6 text-sm text-zinc-500 text-center">
+                  {tx.noResults} «{search}»
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
       {/* ─── QUICK LINKS ─── */}
-      <section className="support-section--contact">
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <h2 className="rv support-section-heading">{tx.contactSupport}</h2>
-          <div className="rv support-cards-grid">
-            <a href="mailto:support@ziadah.app" className="gc support-card-priority support-quick-card support-quick-card--primary">
-              <div className="shine" />
-              <span className="support-card-icon-wrap" aria-hidden>
-                <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12l-6 5-6-5z" fill="currentColor" /></svg>
-              </span>
-              <div style={{ flex: 1, minWidth: 0, textAlign: "start" }}>
-                <div className="support-quick-card-title">{navTr.email}</div>
-                <div className="support-quick-card-desc">{navTr.emailSub}</div>
-              </div>
-            </a>
-            <button type="button" onClick={() => setFeatureModalOpen(true)} className="gc support-card-priority support-quick-card support-quick-card--primary">
-              <div className="shine" />
-              <span className="support-card-icon-wrap" aria-hidden>
-                <svg width="22" height="22" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 7v9a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zm0 2.36L15 8v8H5V8l5-3.64z" fill="currentColor" /></svg>
-              </span>
-              <div style={{ flex: 1, minWidth: 0, textAlign: "start" }}>
-                <div className="support-quick-card-title">{navTr.featureRequest}</div>
-                <div className="support-quick-card-desc">{navTr.featureRequestSub}</div>
-              </div>
-            </button>
-            {quickLinks.map(l =>
-              "meeting" in l ? (
-                <button key={l.label} type="button" onClick={() => openMeetingBooking()} className="gc support-quick-card">
-                  <div className="shine" />
-                  <span className="support-quick-card-emoji" aria-hidden>{l.icon}</span>
-                  <div style={{ flex: 1, minWidth: 0, textAlign: "start" }}>
-                    <div className="support-quick-card-title">{l.label}</div>
-                    <div className="support-quick-card-desc">{l.desc}</div>
-                  </div>
-                </button>
-              ) : (
-                <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="gc support-quick-card">
-                  <div className="shine" />
-                  <span className="support-quick-card-emoji" aria-hidden>{l.icon}</span>
-                  <div style={{ flex: 1, minWidth: 0, textAlign: "start" }}>
-                    <div className="support-quick-card-title">{l.label}</div>
-                    <div className="support-quick-card-desc">{l.desc}</div>
-                  </div>
-                </a>
-              )
-            )}
-          </div>
+      <Section band="white">
+        <SectionHeading eyebrow={tx.tag} title={tx.contactSupport} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <a
+            href="mailto:support@ziadah.app"
+            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+          >
+            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
+              <Mail className="w-5 h-5 text-white" />
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="text-base font-bold text-zinc-950">{navTr.email}</div>
+              <div className="text-sm text-zinc-600 mt-0.5">{navTr.emailSub}</div>
+            </div>
+          </a>
+          <button
+            type="button"
+            onClick={() => setFeatureModalOpen(true)}
+            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+          >
+            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
+              <Lightbulb className="w-5 h-5 text-white" />
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="text-base font-bold text-zinc-950">{navTr.featureRequest}</div>
+              <div className="text-sm text-zinc-600 mt-0.5">{navTr.featureRequestSub}</div>
+            </div>
+          </button>
+          {quickLinks.map(l => {
+            const Icon = "meeting" in l ? CalendarClock : l.icon === "💬" ? MessageCircle : ExternalLink;
+            const inner = (
+              <>
+                <span className="w-11 h-11 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0">
+                  <Icon className="w-5 h-5 text-zinc-700" />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-base font-bold text-zinc-950">{l.label}</div>
+                  <div className="text-sm text-zinc-600 mt-0.5">{l.desc}</div>
+                </div>
+              </>
+            );
+            return "meeting" in l ? (
+              <button
+                key={l.label}
+                type="button"
+                onClick={() => openMeetingBooking()}
+                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+              >
+                {inner}
+              </button>
+            ) : (
+              <a
+                key={l.label}
+                href={l.href}
+                target="_blank"
+                rel="noreferrer"
+                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+              >
+                {inner}
+              </a>
+            );
+          })}
         </div>
-      </section>
+      </Section>
 
       {/* ─── CATEGORIES + ARTICLES ─── */}
-      <section className="support-section--kb">
-        <div className="support-panel">
-          <div className="support-cats support-cat-scroll rv">
-            {categories.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                data-on={activeCategory === c.id ? "true" : undefined}
-                className="support-cat-pill"
-                onClick={() => setActiveCategory(c.id)}
-              >
-                <span style={{ fontSize: 15 }} aria-hidden>{c.icon}</span>
-                {getCatLabel(c)}
-                <span className="support-cat-pill-count">{c.articles.length}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="support-layout">
-            <div className="support-sidebar">
-              <div className="gc support-sidebar-panel">
-                <div className="shine" />
-                {categories.map((c) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    data-on={activeCategory === c.id ? "true" : undefined}
-                    className="support-cat-sidebar-btn"
-                    style={
-                      {
-                        "--cat": c.color,
-                      } as CSSProperties
-                    }
-                    onClick={() => setActiveCategory(c.id)}
-                  >
-                    <span style={{ fontSize: 17 }} aria-hidden>{c.icon}</span>
-                    <span style={{ flex: 1 }}>{getCatLabel(c)}</span>
-                    <span className="support-cat-sidebar-count">{c.articles.length}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="support-articles">
-              <div className="support-kb-heading">
-                <span className="support-kb-heading-ico" aria-hidden>{activeCat.icon}</span>
-                <h2 className="support-kb-heading-title">{getCatLabel(activeCat)}</h2>
-                <span className="support-meta-pill">
-                  {activeCat.articles.length} {tx.articleCount}
-                </span>
-              </div>
-
-              <div
-                className="support-articles-grid"
-                style={{ "--support-cat-color": activeCat.color } as CSSProperties}
-              >
-                {activeCat.articles.map((a, i) => (
-                  <div
-                    key={a.id}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => navigateTo(`/support/article/${a.id}`)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        navigateTo(`/support/article/${a.id}`);
-                      }
-                    }}
-                    className="gc gc-lift support-article-card"
-                  >
-                    <div className="shine" />
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-                      <div
-                        className="support-art-num"
-                        style={{
-                          background: `${activeCat.color}1c`,
-                          borderColor: `${activeCat.color}44`,
-                          color: activeCat.color,
-                        }}
-                      >
-                        {i + 1}
-                      </div>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--t)", lineHeight: 1.4, marginBottom: 6 }}>
-                          {getArticleTitle(a)}
-                        </div>
-                        <div style={{ fontSize: 12, color: "var(--tm)", lineHeight: 1.6 }}>{getArticleDesc(a)}</div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginTop: 12, fontSize: 11, color: "var(--td)" }}>
-                          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
-                            <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" />
-                            <path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                          </svg>
-                          {getArticleTime(a)} {tx.readSuffix}
-                          <svg
-                            width="14"
-                            height="14"
-                            viewBox="0 0 14 14"
-                            fill="none"
-                            style={{
-                              marginInlineStart: "auto",
-                              transform: isAr ? "rotate(180deg)" : "none",
-                              opacity: 0.45,
-                            }}
-                            aria-hidden
-                          >
-                            <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+      <Section band="muted">
+        {/* mobile category pills */}
+        <div className="rv flex gap-2 overflow-x-auto pb-2 mb-8 lg:hidden">
+          {categories.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => setActiveCategory(c.id)}
+              className={`shrink-0 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-colors ${
+                activeCategory === c.id
+                  ? "bg-zinc-950 text-white border-zinc-950"
+                  : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300"
+              }`}
+            >
+              <span aria-hidden>{c.icon}</span>
+              {getCatLabel(c)}
+              <span className="text-xs opacity-70 num-ltr">{c.articles.length}</span>
+            </button>
+          ))}
         </div>
-      </section>
 
-      {/* ─── VIDEO LIBRARY ─── */}
-      <section className="support-section--video">
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div className="rv" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 32, gap: 16, flexWrap: "wrap" }}>
-            <div style={{ flex: "1 1 220px", minWidth: 0 }}>
-              <div className="stag" style={{ marginBottom: 12 }}>
-                <span className="stag-dot" />
-                {tx.videoTag}
-              </div>
-              <h2 className="st font-semibold" style={{ marginBottom: 4 }}>
-                {tx.videoTitle}
-              </h2>
-              <p className="support-section--video-intro">{tx.videoSub}</p>
+        <div className="grid lg:grid-cols-[260px_1fr] gap-8">
+          {/* sidebar */}
+          <aside className="hidden lg:block">
+            <div className="rv rounded-2xl border border-zinc-200 bg-white p-3 shadow-card sticky top-24">
+              {categories.map((c) => (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() => setActiveCategory(c.id)}
+                  className={`w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-start transition-colors ${
+                    activeCategory === c.id ? "bg-zinc-950 text-white" : "text-zinc-700 hover:bg-zinc-50"
+                  }`}
+                >
+                  <span className="text-lg" aria-hidden>{c.icon}</span>
+                  <span className="flex-1 text-sm font-bold">{getCatLabel(c)}</span>
+                  <span className={`text-xs num-ltr ${activeCategory === c.id ? "text-zinc-300" : "text-zinc-400"}`}>{c.articles.length}</span>
+                </button>
+              ))}
             </div>
-            <div className="support-video-coming-pill">{tx.videoComingSoon}</div>
-          </div>
+          </aside>
 
-          <div className="rv d1 support-videos-grid">
-            {videoLibrary.map((v) => {
-              const vEn = videoTitlesEn[v.id];
-              const vTitle = isAr ? v.title : (vEn?.title || v.title);
-              const vDesc = isAr ? v.description : (vEn?.description || v.description);
-              const vCat = isAr ? v.category : (vEn?.category || v.category);
-              return (
-                <div key={v.id} className="gc support-video-card">
-                  <div className="shine" />
-                  <div className="support-video-thumb">
-                    <div className="support-video-thumb-inner">
-                      <div className="support-video-thumb-grid" aria-hidden />
-                      <div className="support-video-thumb-play">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-                          <path d="M7 5l10 5-10 5V5z" />
-                        </svg>
-                      </div>
-                      <div className="support-video-thumb-soon">{tx.videoSoonLabel}</div>
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        bottom: 10,
-                        insetInlineStart: 10,
-                        background: "rgba(0,0,0,.62)",
-                        backdropFilter: "blur(8px)",
-                        padding: "4px 10px",
-                        borderRadius: 8,
-                        fontSize: 11,
-                        fontWeight: 700,
-                        color: "#fff",
-                      }}
-                    >
-                      {v.duration}
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 10,
-                        insetInlineEnd: 10,
-                        background: "rgba(34, 197, 125,.22)",
-                        border: "1px solid rgba(52, 211, 153,.4)",
-                        backdropFilter: "blur(8px)",
-                        padding: "4px 12px",
-                        borderRadius: 999,
-                        fontSize: 10,
-                        fontWeight: 700,
-                        color: "#0a0a0b",
-                      }}
-                    >
-                      {vCat}
-                    </div>
+          {/* articles */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-2xl" aria-hidden>{activeCat.icon}</span>
+              <h2 className="text-xl md:text-2xl font-bold text-zinc-950">{getCatLabel(activeCat)}</h2>
+              <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-xs font-bold text-zinc-600 num-ltr">
+                {activeCat.articles.length} {tx.articleCount}
+              </span>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              {activeCat.articles.map((a, i) => (
+                <div
+                  key={a.id}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => navigateTo(`/support/article/${a.id}`)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      navigateTo(`/support/article/${a.id}`);
+                    }
+                  }}
+                  className="rounded-2xl border border-zinc-200 bg-white p-6 cursor-pointer hover:border-zinc-300 hover:shadow-card transition-all flex flex-col gap-3.5"
+                >
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold num-ltr shrink-0"
+                    style={{
+                      background: `${activeCat.color}1c`,
+                      border: `1px solid ${activeCat.color}44`,
+                      color: activeCat.color,
+                    }}
+                  >
+                    {i + 1}
                   </div>
-                  <div style={{ padding: "var(--card-pad-sm)", flex: 1, display: "flex", flexDirection: "column" }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: "#3d2a6b", lineHeight: 1.4, marginBottom: 6 }}>{vTitle}</div>
-                    <div style={{ fontSize: 13, color: "rgba(9, 9, 11,.58)", lineHeight: 1.65 }}>{vDesc}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{getArticleTitle(a)}</div>
+                    <div className="text-sm text-zinc-600 leading-relaxed">{getArticleDesc(a)}</div>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                    <Clock className="w-3.5 h-3.5" />
+                    {getArticleTime(a)} {tx.readSuffix}
+                    <ChevronRight className={`w-4 h-4 ms-auto text-zinc-300 ${isAr ? "rotate-180" : ""}`} />
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </Section>
+
+      {/* ─── VIDEO LIBRARY ─── */}
+      <Section band="white">
+        <div className="flex items-end justify-between gap-4 flex-wrap mb-12">
+          <div>
+            <Eyebrow className="mb-3">{tx.videoTag}</Eyebrow>
+            <h2 className="text-3xl md:text-4xl font-bold text-zinc-950 mb-2 leading-tight">{tx.videoTitle}</h2>
+            <p className="text-lg text-zinc-600">{tx.videoSub}</p>
+          </div>
+          <span className="inline-flex items-center rounded-full bg-purple-100 border border-purple-200 px-4 py-1.5 text-xs font-bold text-purple-700">
+            {tx.videoComingSoon}
+          </span>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {videoLibrary.map((v) => {
+            const vEn = videoTitlesEn[v.id];
+            const vTitle = isAr ? v.title : (vEn?.title || v.title);
+            const vDesc = isAr ? v.description : (vEn?.description || v.description);
+            const vCat = isAr ? v.category : (vEn?.category || v.category);
+            return (
+              <div key={v.id} className="rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all flex flex-col">
+                <div className="relative aspect-video mockup-card flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
+                  <div className="relative w-14 h-14 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                    <Play className="w-6 h-6 text-white" fill="currentColor" />
+                  </div>
+                  <span className="absolute bottom-2.5 start-2.5 rounded-md bg-black/60 backdrop-blur px-2.5 py-1 text-[11px] font-bold text-white num-ltr">
+                    {v.duration}
+                  </span>
+                  <span className="absolute top-2.5 end-2.5 rounded-full bg-violet-500/90 px-3 py-1 text-[10px] font-bold text-zinc-950">
+                    {vCat}
+                  </span>
+                  <span className="absolute top-2.5 start-2.5 rounded-full bg-white/15 backdrop-blur px-2.5 py-1 text-[10px] font-bold text-white">
+                    {tx.videoSoonLabel}
+                  </span>
+                </div>
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{vTitle}</div>
+                  <div className="text-sm text-zinc-600 leading-relaxed">{vDesc}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </Section>
 
       {/* ─── ACTIVATION CTA (same shell as home) ─── */}
       <PageClosingCta

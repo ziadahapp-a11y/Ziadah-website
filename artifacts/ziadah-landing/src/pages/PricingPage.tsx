@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
+import {
+  Check,
+  CheckCircle2,
+  Minus,
+  Sparkles,
+  Zap,
+  ChevronDown,
+} from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
+import PageShell from "@/components/PageShell";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import BilingualSEO from "@/components/BilingualSEO";
@@ -100,18 +109,21 @@ const FEATURE_GROUPS: CategoryGroup[] = [
   },
 ];
 
-const CHECK = (
-  <svg width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden>
-    <circle cx="8.5" cy="8.5" r="8.5" fill="rgba(34, 197, 125,.18)" />
-    <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#34d399" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-const DASH = <span style={{ color: "rgba(255,255,255,.2)", fontSize: 16, lineHeight: 1 }}>—</span>;
-
-function CellVal({ val, planKey }: { val: FeatureVal; planKey: PlanKey }) {
-  if (val === true) return <span className="pp-check">{planKey === "b" ? <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><circle cx="8.5" cy="8.5" r="8.5" fill="rgba(217,119,6,.2)" /><path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#d97706" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg> : CHECK}</span>;
-  if (val === false || val === null) return <span className="pp-dash">{DASH}</span>;
-  return <span className="pp-val">{val}</span>;
+/** Renders one comparison-table cell. Featured plan keeps the dark-card treatment. */
+function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
+  if (val === true)
+    return (
+      <Check
+        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-purple-400" : "text-violet-500"}`}
+        strokeWidth={2.5}
+        aria-hidden
+      />
+    );
+  if (val === false || val === null)
+    return <Minus className={`mx-auto w-4 h-4 ${featured ? "text-white/25" : "text-zinc-300"}`} aria-hidden />;
+  return (
+    <span className={`text-sm font-bold num-ltr ${featured ? "text-white" : "text-zinc-900"}`}>{val}</span>
+  );
 }
 
 export default function PricingPage() {
@@ -144,6 +156,12 @@ export default function PricingPage() {
   const ld = t[lang].landing;
   const pc = t[lang].pageClosingCta;
   const dir = isAr ? "rtl" : "ltr";
+
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
 
   const plans: {
     key: PlanKey;
@@ -219,294 +237,380 @@ export default function PricingPage() {
       />
       <PricingPageSchema />
 
-      <div className="pp-root" dir={dir}>
+      <PageShell className="pp-root relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+        <div dir={dir}>
+          {/* ══════════════════ HERO + PLAN CARDS ══════════════════ */}
+          <section className="relative pt-20 pb-24 md:pt-24 px-4">
+            <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+            <div className="container mx-auto relative max-w-6xl">
+              <div className="text-center mb-12">
+                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                  {isAr ? "الأسعار" : "Pricing"}
+                </span>
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
+                  {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
+                </h1>
+                <p className="text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
+                  {isAr
+                    ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
+                    : "Unlimited suggestions & sales in all plans · VAT included"}
+                </p>
+              </div>
 
-      {/* ── Hero ── */}
-      <section className="pp-hero page-hero-viewport page-hero-viewport--center">
-        <div className="wrap" style={{ textAlign: "center" }}>
-
-          {/* Section tag — uses design system .stag */}
-          <div className="stag" style={{ margin: "0 0 22px" }}>
-            {isAr ? "الأسعار" : "Pricing"}
-          </div>
-
-          <h1 className="pp-title">
-            {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
-          </h1>
-          <p className="ssub" style={{ margin: "0 auto 22px", textAlign: "center" }}>
-            {isAr
-              ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
-              : "Unlimited suggestions & sales in all plans · VAT included"}
-          </p>
-
-          {/* Toggle */}
-          <div className="pp-toggle">
-            <button className={`pp-tb${mode === "m" ? " on" : ""}`} onClick={() => setMode("m")}>
-              {isAr ? "شهري" : "Monthly"}
-            </button>
-            <button className={`pp-tb${mode === "y" ? " on" : ""}`} onClick={() => setMode("y")}>
-              {isAr ? "سنوي" : "Yearly"}
-              <span className="pp-save-pill">{isAr ? "وفّر حتى 33٪" : "Save up to 33%"}</span>
-            </button>
-          </div>
-
-          {/* Plan Cards */}
-          <div className="pp-cards">
-            {plans.map((plan, idx) => {
-              const basePrice = mode === "m" ? plan.mPrice : plan.yPrice;
-              const selTopup = topupSel[plan.key] != null ? AI_TOPUPS[topupSel[plan.key]!] : null;
-              const topupBase = mode === "m" ? plan.mPrice : plan.yAnnual;
-              const displayPrice = selTopup
-                ? fmtPrice(parsePrice(topupBase) + selTopup.price)
-                : basePrice;
-              const priceLabel = selTopup && mode === "y"
-                ? (isAr ? "/ سنة" : "/ yr")
-                : (isAr ? "/ شهر" : "/ mo");
-              return (
-                <div
-                  key={plan.key}
-                  className={`gc pp-card pp-card-in d${idx + 1}${plan.featured ? " pp-card--feat" : ""}`}
-                  style={{
-                    animationDelay: `${idx * 0.08}s`,
-                    zIndex: topupOpen[plan.key] ? 20 : undefined,
-                  }}
-                >
-                  {/* Badge — absolute positioned like landing cards */}
-                  {plan.badge && (
-                    <div className="pp-card-badge">{plan.badge}</div>
-                  )}
-
-                  <div className="pp-card-name">{plan.name}</div>
-                  <div className="pp-card-desc">{plan.desc}</div>
-
-                  {/* Discount row */}
-                  {mode === "y" && (
-                    <div className="pp-card-orig-row">
-                      <span className="pp-card-orig">{plan.yOrig} ⃁</span>
-                      <span className="pp-card-disc">{plan.yDisc} {isAr ? "خصم" : "off"}</span>
-                    </div>
-                  )}
-
-                  {/* Price */}
-                  <div className="pp-card-price">
-                    <span className="pp-card-num">{displayPrice}</span>
-                    <span className="pp-card-cur">⃁</span>
-                    <span className="pp-card-per">{priceLabel}</span>
-                  </div>
-
-                  {selTopup && (
-                    <div className="pp-price-breakdown">
-                      <span>
-                        {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
-                        : {topupBase} ⃁
-                      </span>
-                      <span className="pp-price-breakdown-sep">+</span>
-                      <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} ⃁</span>
-                    </div>
-                  )}
-
-                  {mode === "y" && !selTopup && (
-                    <div className="pp-card-annual">
-                      {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
-                    </div>
-                  )}
-
-                  {/* CTA — uses design system button base */}
-                  {plan.key === "b" ? (
-                    <a
-                      href="https://wa.me/966544357555"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="pp-card-cta pp-card-cta--contact"
-                    >
-                      {isAr ? "تواصل معنا" : "Contact Us"}
-                    </a>
-                  ) : (
-                    <button
-                      className={`pp-card-cta${plan.featured ? " pp-card-cta--feat" : ""}`}
-                      onClick={() => setPlatformModalOpen(true)}
-                    >
-                      {isAr ? "ابدأ الآن" : "Get Started"}
-                    </button>
-                  )}
-
-                  {/* AI Points chip */}
-                  <div className={`pp-ai-chip${plan.featured ? " pp-ai-chip--feat" : ""}`}>
-                    <span className="pp-ai-chip-icon" aria-hidden>
-                      <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4.5" cy="4.5" r="4" fill="currentColor" opacity=".85"/></svg>
+              {/* Billing toggle */}
+              <div className="flex justify-center mb-12">
+                <div className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-white p-1 shadow-card">
+                  <button
+                    type="button"
+                    className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                      mode === "m" ? "bg-zinc-950 text-white" : "text-zinc-600 hover:text-zinc-950"
+                    }`}
+                    onClick={() => setMode("m")}
+                  >
+                    {isAr ? "شهري" : "Monthly"}
+                  </button>
+                  <button
+                    type="button"
+                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+                      mode === "y" ? "bg-zinc-950 text-white" : "text-zinc-600 hover:text-zinc-950"
+                    }`}
+                    onClick={() => setMode("y")}
+                  >
+                    {isAr ? "سنوي" : "Yearly"}
+                    <span className="rounded-full bg-purple-100 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700">
+                      {isAr ? "وفّر حتى 33٪" : "Save up to 33%"}
                     </span>
-                    <span className="pp-ai-chip-val">
-                      {mode === "m" ? plan.aiPoints : plan.aiPointsY}
-                    </span>
-                    <span className="pp-ai-chip-label">
-                      {isAr
-                        ? (mode === "m" ? "نقطة ذكاء اصطناعي / شهر" : "نقطة ذكاء اصطناعي / سنة")
-                        : (mode === "m" ? "AI points / month" : "AI points / year")}
-                    </span>
-                  </div>
-
-                  {/* AI Topup Dropdown */}
-                  <div className="ai-topup">
-                    <button
-                      className={`ai-topup-trigger${topupOpen[plan.key] ? " open" : ""}${selTopup ? " has-sel" : ""}${plan.featured ? " feat" : ""}`}
-                      onClick={() => toggleTopup(plan.key)}
-                    >
-                      <span className="ai-topup-icon" aria-hidden>
-                        <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1L1 8h4.5L4.5 13 10 6H5.5L6.5 1Z" fill="currentColor"/></svg>
-                      </span>
-                      <span className="ai-topup-label">
-                        {selTopup
-                          ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
-                          : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
-                      </span>
-                      {selTopup && (
-                        <span className="ai-topup-sel-price">+{fmtPrice(selTopup.price)} ⃁</span>
-                      )}
-                      <svg className="ai-topup-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                        <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </button>
-                    {topupOpen[plan.key] && (
-                      <div className="ai-topup-list">
-                        <button
-                          className={`ai-topup-opt${topupSel[plan.key] == null ? " active" : ""}`}
-                          onClick={() => selectTopup(plan.key, null)}
-                        >
-                          <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
-                          <span>—</span>
-                        </button>
-                        {AI_TOPUPS.map((pkg, ti) => (
-                          <button
-                            key={ti}
-                            className={`ai-topup-opt${topupSel[plan.key] === ti ? " active" : ""}`}
-                            onClick={() => selectTopup(plan.key, ti)}
-                          >
-                            <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
-                            <span>+{fmtPrice(pkg.price)} ⃁</span>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Feature list */}
-                  <div className="pp-card-feats">
-                    {plan.featIntro && (
-                      <p className="pp-card-feat-intro">{plan.featIntro}</p>
-                    )}
-                    <ul className="pp-card-feat-list">
-                      {plan.features.map((f, i) => (
-                        <li key={i} className="pp-card-feat-item">
-                          <span className="pp-card-feat-check">✓</span>
-                          {f.replace(" ★", "")}
-                          {f.includes("★") && <span className="pp-card-feat-star">★</span>}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Feature Comparison ── */}
-      <section className="pp-compare">
-        <div className="wrap">
-
-          {/* Section heading — design system h2.st */}
-          <div style={{ textAlign: "center", marginBottom: 32 }}>
-            <div className="stag" style={{ margin: "0 auto 16px" }}>
-              {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
-            </div>
-            <h2 className="st">{isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}</h2>
-          </div>
-
-          {/* Mobile plan selector — hidden on desktop */}
-          <div className="pp-mobile-plan-tabs">
-            {plans.map((plan, i) => (
-              <button
-                key={plan.key}
-                className={`pp-mobile-plan-tab${mobilePlanIdx === i ? " pp-mobile-plan-tab--on" : ""}${plan.featured ? " pp-mobile-plan-tab--feat" : ""}`}
-                onClick={() => setMobilePlanIdx(i)}
-              >
-                {plan.name}
-              </button>
-            ))}
-          </div>
-
-          {/* Sticky header */}
-          <div className="pp-tbl-head">
-            <div className="pp-tbl-label-col" />
-            {plans.map((plan, i) => (
-              <div key={plan.key} className={`pp-tbl-plan-col${plan.featured ? " pp-tbl-plan-col--feat" : ""}${mobilePlanIdx === i ? " pp-tbl-plan-col--m-active" : ""}`}>
-                <div className="pp-tbl-plan-name">{plan.name}</div>
-                <div className="pp-tbl-plan-price">
-                  {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
-                  <span style={{ fontSize: 11 }}>⃁/{isAr ? "شهر" : "mo"}</span>
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Feature groups */}
-          {FEATURE_GROUPS.map((group) => {
-            const isOpen = open[group.arTitle] !== false;
-            const title = isAr ? group.arTitle : group.enTitle;
-            return (
-              <div key={group.arTitle} className="pp-group">
-                <button
-                  className="pp-group-header"
-                  onClick={() => toggleGroup(group.arTitle)}
-                  aria-expanded={isOpen}
-                >
-                  <span className="pp-group-title">{title}</span>
-                  <span className={`pp-group-chevron${isOpen ? " open" : ""}`}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </button>
-
-                {isOpen && (
-                  <div className="pp-group-body">
-                    {group.features.map((feat, fi) => (
-                      <div key={fi} className={`pp-row${fi % 2 === 1 ? " pp-row--alt" : ""}`}>
-                        <div className="pp-row-label">
-                          {isAr ? feat.ar : feat.en}
+              {/* Plan Cards */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+                {plans.map((plan) => {
+                  const featured = plan.featured;
+                  const basePrice = mode === "m" ? plan.mPrice : plan.yPrice;
+                  const selTopup = topupSel[plan.key] != null ? AI_TOPUPS[topupSel[plan.key]!] : null;
+                  const topupBase = mode === "m" ? plan.mPrice : plan.yAnnual;
+                  const displayPrice = selTopup
+                    ? fmtPrice(parsePrice(topupBase) + selTopup.price)
+                    : basePrice;
+                  const priceLabel = selTopup && mode === "y"
+                    ? (isAr ? "/ سنة" : "/ yr")
+                    : (isAr ? "/ شهر" : "/ mo");
+                  return (
+                    <div
+                      key={plan.key}
+                      className={`relative flex flex-col rounded-2xl p-6 ${
+                        featured
+                          ? "mockup-card shadow-card-lg overflow-visible"
+                          : "bg-white border border-zinc-200 shadow-card hover:border-zinc-300 transition-colors"
+                      }`}
+                      style={{ zIndex: topupOpen[plan.key] ? 20 : undefined }}
+                    >
+                      {/* "Most popular" badge for the featured (dark) plan */}
+                      {featured && (
+                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-purple-600 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                          {isAr ? "الأكثر اختياراً" : "Most popular"}
                         </div>
-                        {plans.map((plan, i) => (
-                          <div key={plan.key} className={`pp-row-cell${plan.featured ? " pp-row-cell--feat" : ""}${mobilePlanIdx === i ? " pp-row-cell--m-active" : ""}`}>
-                            <CellVal val={feat[plan.key]} planKey={plan.key} />
+                      )}
+                      {/* Non-featured plan badge (e.g. Business) */}
+                      {!featured && plan.badge && (
+                        <div className="absolute -top-3 start-1/2 -translate-x-1/2 rounded-full bg-zinc-900 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                          {plan.badge}
+                        </div>
+                      )}
+
+                      <h3 className={`text-lg font-bold mb-1.5 ${featured ? "text-white" : "text-zinc-950"}`}>
+                        {plan.name}
+                      </h3>
+                      <p className={`text-sm mb-5 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>{plan.desc}</p>
+
+                      {/* Discount row */}
+                      {mode === "y" && (
+                        <div className="flex items-center gap-2 mb-2 num-ltr">
+                          <span className={`text-sm line-through ${featured ? "text-zinc-500" : "text-zinc-400"}`}>
+                            {plan.yOrig} ⃁
+                          </span>
+                          <span className="rounded-full bg-purple-100 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700">
+                            {plan.yDisc} {isAr ? "خصم" : "off"}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Price */}
+                      <div className="flex items-baseline gap-1.5 mb-1 num-ltr">
+                        <span className={`text-4xl font-extrabold ${featured ? "text-white" : "text-zinc-950"}`}>
+                          {displayPrice}
+                        </span>
+                        <span className={`text-2xl font-bold ${featured ? "text-zinc-300" : "text-zinc-700"}`}>⃁</span>
+                        <span className={`text-sm ${featured ? "text-zinc-400" : "text-zinc-500"}`}>{priceLabel}</span>
+                      </div>
+
+                      {selTopup && (
+                        <div className={`flex flex-wrap items-center gap-1.5 text-[11px] mb-3 num-ltr ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                          <span>
+                            {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
+                            : {topupBase} ⃁
+                          </span>
+                          <span className="font-bold">+</span>
+                          <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} ⃁</span>
+                        </div>
+                      )}
+
+                      {mode === "y" && !selTopup && (
+                        <div className={`text-xs mb-3 num-ltr ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                          {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
+                        </div>
+                      )}
+
+                      {/* CTA */}
+                      <div className="mt-2 mb-5">
+                        {plan.key === "b" ? (
+                          <a
+                            href="https://wa.me/966544357555"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
+                              featured
+                                ? "bg-white text-zinc-950 hover:bg-zinc-100"
+                                : "bg-zinc-950 text-white hover:bg-zinc-800"
+                            }`}
+                          >
+                            {isAr ? "تواصل معنا" : "Contact Us"}
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
+                              featured
+                                ? "bg-white text-zinc-950 hover:bg-zinc-100"
+                                : "bg-zinc-950 text-white hover:bg-zinc-800"
+                            }`}
+                            onClick={() => setPlatformModalOpen(true)}
+                          >
+                            {isAr ? "ابدأ الآن" : "Get Started"}
+                          </button>
+                        )}
+                      </div>
+
+                      {/* AI Points chip */}
+                      <div
+                        className={`inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold ${
+                          featured
+                            ? "bg-violet-500/15 border border-violet-500/30 text-violet-300"
+                            : "bg-violet-50 border border-violet-100 text-violet-700"
+                        }`}
+                      >
+                        <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                        <span className="num-ltr font-bold">{mode === "m" ? plan.aiPoints : plan.aiPointsY}</span>
+                        <span className="opacity-80">
+                          {isAr
+                            ? (mode === "m" ? "نقطة ذكاء / شهر" : "نقطة ذكاء / سنة")
+                            : (mode === "m" ? "AI points / mo" : "AI points / yr")}
+                        </span>
+                      </div>
+
+                      {/* AI Topup Dropdown */}
+                      <div className="relative mt-3">
+                        <button
+                          type="button"
+                          className={`flex w-full items-center gap-2 rounded-lg border px-3 py-2.5 text-xs font-semibold transition-colors ${
+                            featured
+                              ? "border-white/15 bg-white/[0.04] text-zinc-200 hover:border-white/25"
+                              : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300"
+                          } ${topupSel[plan.key] != null ? (featured ? "border-violet-400/40" : "border-violet-300") : ""}`}
+                          onClick={() => toggleTopup(plan.key)}
+                        >
+                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-violet-300" : "text-violet-600"}`} />
+                          <span className="flex-1 text-start truncate">
+                            {selTopup
+                              ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
+                              : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
+                          </span>
+                          {selTopup && (
+                            <span className={`num-ltr font-bold ${featured ? "text-violet-300" : "text-violet-600"}`}>
+                              +{fmtPrice(selTopup.price)} ⃁
+                            </span>
+                          )}
+                          <ChevronDown
+                            className={`w-3.5 h-3.5 shrink-0 transition-transform ${topupOpen[plan.key] ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                        {topupOpen[plan.key] && (
+                          <div
+                            className={`absolute inset-x-0 top-full z-30 mt-1.5 overflow-hidden rounded-lg border shadow-card-lg ${
+                              featured ? "border-white/15 bg-zinc-900" : "border-zinc-200 bg-white"
+                            }`}
+                          >
+                            <button
+                              type="button"
+                              className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors ${
+                                featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
+                              } ${topupSel[plan.key] == null ? (featured ? "bg-white/[0.06]" : "bg-zinc-50") : ""}`}
+                              onClick={() => selectTopup(plan.key, null)}
+                            >
+                              <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
+                              <span className="opacity-60">—</span>
+                            </button>
+                            {AI_TOPUPS.map((pkg, ti) => (
+                              <button
+                                key={ti}
+                                type="button"
+                                className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors num-ltr ${
+                                  featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
+                                } ${topupSel[plan.key] === ti ? (featured ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-700") : ""}`}
+                                onClick={() => selectTopup(plan.key, ti)}
+                              >
+                                <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
+                                <span>+{fmtPrice(pkg.price)} ⃁</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Feature list */}
+                      <div className={`flex-1 space-y-3 pt-6 mt-6 border-t ${featured ? "border-white/10" : "border-zinc-100"}`}>
+                        {plan.featIntro && (
+                          <p className={`text-xs font-semibold ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                            {plan.featIntro}
+                          </p>
+                        )}
+                        {plan.features.map((f, i) => (
+                          <div key={i} className="flex items-start gap-2.5">
+                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-purple-400" : "text-purple-600"}`} />
+                            <span className={`text-sm ${featured ? "text-zinc-300" : "text-zinc-700"}`}>
+                              {f.replace(" ★", "")}
+                              {f.includes("★") && (
+                                <span className={`ms-1 ${featured ? "text-violet-300" : "text-violet-600"}`}>★</span>
+                              )}
+                            </span>
                           </div>
                         ))}
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          </section>
 
-          {/* Footnote */}
-          <p className="pp-footnote">
-            {isAr
-              ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
-              : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
-          </p>
+          {/* ══════════════════ FEATURE COMPARISON ══════════════════ */}
+          <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
+            <div className="container mx-auto max-w-6xl">
+              <div className="text-center mb-12">
+                <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase mb-4">
+                  {isAr ? "مقارنة الخصائص" : "Feature Comparison"}
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 leading-tight">
+                  {isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}
+                </h2>
+              </div>
+
+              {/* Mobile plan selector — hidden on desktop */}
+              <div className="md:hidden flex flex-wrap justify-center gap-2 mb-6">
+                {plans.map((plan, i) => (
+                  <button
+                    key={plan.key}
+                    type="button"
+                    className={`rounded-full border px-3.5 py-2 text-xs font-bold transition-colors ${
+                      mobilePlanIdx === i
+                        ? "border-zinc-950 bg-zinc-950 text-white"
+                        : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
+                    }`}
+                    onClick={() => setMobilePlanIdx(i)}
+                  >
+                    {plan.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="rounded-2xl border border-zinc-200 bg-white shadow-card overflow-hidden">
+                {/* Sticky header */}
+                <div className="sticky top-0 z-10 grid grid-cols-2 md:grid-cols-5 items-stretch border-b border-zinc-200 bg-white/95 backdrop-blur">
+                  <div className="hidden md:block" />
+                  {plans.map((plan, i) => (
+                    <div
+                      key={plan.key}
+                      className={`p-4 text-center ${plan.featured ? "bg-zinc-950" : ""} ${
+                        mobilePlanIdx === i ? "" : "hidden md:block"
+                      }`}
+                    >
+                      <div className={`text-sm font-bold ${plan.featured ? "text-white" : "text-zinc-950"}`}>
+                        {plan.name}
+                      </div>
+                      <div className={`mt-0.5 text-xs num-ltr ${plan.featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                        {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
+                        <span>⃁/{isAr ? "شهر" : "mo"}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Feature groups */}
+                {FEATURE_GROUPS.map((group) => {
+                  const isOpen = open[group.arTitle] !== false;
+                  const title = isAr ? group.arTitle : group.enTitle;
+                  return (
+                    <div key={group.arTitle} className="border-b border-zinc-100 last:border-b-0">
+                      <button
+                        type="button"
+                        className="flex w-full items-center justify-between bg-zinc-50/60 px-4 py-3.5 text-start transition-colors hover:bg-zinc-100/60"
+                        onClick={() => toggleGroup(group.arTitle)}
+                        aria-expanded={isOpen}
+                      >
+                        <span className="text-sm font-bold text-zinc-950">{title}</span>
+                        <ChevronDown
+                          className={`w-4 h-4 text-zinc-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+
+                      {isOpen && (
+                        <div>
+                          {group.features.map((feat, fi) => (
+                            <div
+                              key={fi}
+                              className={`grid grid-cols-2 md:grid-cols-5 items-center ${fi % 2 === 1 ? "bg-zinc-50/40" : ""}`}
+                            >
+                              <div className="px-4 py-3 text-sm text-zinc-700">{isAr ? feat.ar : feat.en}</div>
+                              {plans.map((plan, i) => (
+                                <div
+                                  key={plan.key}
+                                  className={`px-4 py-3 text-center ${plan.featured ? "bg-zinc-950" : ""} ${
+                                    mobilePlanIdx === i ? "" : "hidden md:block"
+                                  }`}
+                                >
+                                  <CellVal val={feat[plan.key]} featured={plan.featured} />
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Footnote */}
+              <p className="mt-6 text-center text-xs text-zinc-500 leading-relaxed max-w-3xl mx-auto">
+                {isAr
+                  ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
+                  : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
+              </p>
+            </div>
+          </section>
+
+          <PageClosingCta
+            title={pc.pricingTitle}
+            description={pc.pricingDesc}
+            buttonLabel={isAr ? "ابدأ التفعيل المجاني" : "Start Free Activation"}
+            onActivate={() => setPlatformModalOpen(true)}
+          />
+
+          <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
         </div>
-      </section>
-
-      <PageClosingCta
-        title={pc.pricingTitle}
-        description={pc.pricingDesc}
-        buttonLabel={isAr ? "ابدأ التفعيل المجاني" : "Start Free Activation"}
-        onActivate={() => setPlatformModalOpen(true)}
-      />
-
-      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
-    </div>
+      </PageShell>
     </>
   );
 }

@@ -1,9 +1,6 @@
-/* Adstellar-inspired light SaaS type system: IBM Plex Sans Arabic (Arabic/UI) + Inter (Latin/numerals) */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap");
-/* Cursor design language: EB Garamond as a serif body fallback (closest free equivalent to jjannon) */
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap");
+/* Self-hosted type system (IBM Plex Sans Arabic, Inter, Rubik, Tajawal, EB Garamond).
+   woff2 files live in public/fonts/; regenerate with `node scripts/fetch-fonts.mjs`. */
+@import "./fonts.css";
 /* Anchor class scanning to this package's src/ (Tailwind v4; avoids wrong cwd in monorepos). */
 @import "tailwindcss" source(".");
 @import "tw-animate-css";

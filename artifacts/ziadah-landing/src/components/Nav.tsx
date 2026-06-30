@@ -223,7 +223,7 @@ function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
   const { lang } = useLanguage();
   const tr = t[lang];
   const rowHover = (el: HTMLElement, on: boolean) => {
-    el.style.background = on ? "rgba(34, 197, 125,.1)" : "transparent";
+    el.style.background = on ? "rgba(124, 58, 237,.1)" : "transparent";
   };
   return (
     <>
@@ -459,7 +459,7 @@ function UseCasesMegaMenu() {
                 overflowWrap: "anywhere", wordBreak: "break-word", marginBottom: 2,
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(34, 197, 125,.13)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.13)";
                 (e.currentTarget as HTMLElement).style.color = "#fff";
               }}
               onMouseLeave={e => {
@@ -538,7 +538,7 @@ function PlatformsDropdown() {
               fontWeight: 500,
               transition: "background .2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = "rgba(34, 197, 125,.1)")}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
             <img
@@ -613,7 +613,7 @@ function HelpDropdown() {
             borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
             width: "100%", textAlign: lang === "ar" ? "right" : "left",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(34, 197, 125,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
           <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
@@ -827,7 +827,7 @@ function SectorsDropdown() {
           cursor: "pointer",
           transition: "background .2s",
         }}
-        onMouseEnter={e => (e.currentTarget.style.background = "rgba(34, 197, 125,.1)")}
+        onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >
         {allSectorsLabel}
@@ -851,7 +851,7 @@ function SectorsDropdown() {
             color: "var(--t)", fontSize: 14, fontWeight: 500,
             cursor: "pointer", transition: "background .2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(34, 197, 125,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
           <span style={{ fontSize: 17, lineHeight: 1 }}>{item.icon}</span>
@@ -1333,7 +1333,7 @@ export default function Nav() {
   const navBtnStyle = (isOpen: boolean): React.CSSProperties => ({
     display: "flex", alignItems: "center", gap: 5, padding: "7px 13px",
     borderRadius: 10,
-    background: isOpen ? "rgba(34, 197, 125,.15)" : "transparent",
+    background: isOpen ? "rgba(124, 58, 237,.15)" : "transparent",
     border: "none",
     color: isOpen ? "#fff" : "rgba(255,255,255,.72)",
     fontFamily: "var(--font)", fontSize: 13.5, fontWeight: 500, cursor: "pointer",
@@ -1399,7 +1399,7 @@ export default function Nav() {
         alignItems: "center",
         backgroundColor: "rgba(250, 250, 251, 0.96)",
         backgroundImage: "none",
-        border: "1px solid rgba(34, 197, 125, 0.18)",
+        border: "1px solid rgba(124, 58, 237, 0.18)",
         boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -1425,7 +1425,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1454,7 +1454,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1511,7 +1511,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1580,7 +1580,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
@@ -1604,7 +1604,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
@@ -1664,7 +1664,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
@@ -1677,7 +1677,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/analyze" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(34, 197, 125,.1)" : "transparent",
+                textDecoration: "none", background: location === "/analyze" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
@@ -1951,7 +1951,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#34d399" : "var(--tm)",
+                  color: accent ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",
@@ -1996,7 +1996,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#34d399" : "var(--tm)",
+                  color: accent ? "#a855f7" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",

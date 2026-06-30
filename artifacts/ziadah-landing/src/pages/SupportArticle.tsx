@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Search, Clock, ChevronRight, ArrowRight, ArrowLeft, Lightbulb, AlertTriangle } from "lucide-react";
 import PageShell from "../components/PageShell";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
@@ -31,6 +32,7 @@ export default function SupportArticle() {
   const category = article ? getCategoryById(article.categoryId) : undefined;
   const cmsFields = useSupportArticleFields(article ?? FALLBACK_SUPPORT_ARTICLE);
   const cmsMap = useSiteContentMap();
+  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
 
   const siblingTitle = (a: FullArticle) =>
     isAr
@@ -49,18 +51,22 @@ export default function SupportArticle() {
 
   if (!article || !category) {
     return (
-      <PageShell style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        
-        <div style={{ textAlign: "center", position: "relative", zIndex: 2 }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>🔍</div>
-          <h1 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12 }}>{tx.notFoundTitle}</h1>
-          <p style={{ color: "var(--td)", marginBottom: 28 }}>{tx.notFoundDesc}</p>
-          <span
-            onClick={() => navigateTo("/support")}
-            style={{ padding: "12px 28px", borderRadius: 50, background: "var(--p)", color: "#fff", textDecoration: "none", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
-          >
-            {tx.notFoundBtn}
-          </span>
+      <PageShell className="bg-white" style={{ background: "#fff" }}>
+        <div className="min-h-[70vh] flex items-center justify-center px-4">
+          <div className="text-center max-w-md">
+            <div className="w-16 h-16 rounded-2xl bg-zinc-100 flex items-center justify-center mx-auto mb-6">
+              <Search className="w-7 h-7 text-zinc-400" />
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-3">{tx.notFoundTitle}</h1>
+            <p className="text-zinc-600 mb-8">{tx.notFoundDesc}</p>
+            <button
+              type="button"
+              onClick={() => navigateTo("/support")}
+              className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-md bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
+            >
+              {tx.notFoundBtn}
+            </button>
+          </div>
         </div>
       </PageShell>
     );
@@ -91,68 +97,71 @@ export default function SupportArticle() {
       { name: tx.breadcrumbSupport, url: "/support" },
       { name: articleTitle, url: `/support/article/${article.id}` }
     ]} />
-    <PageShell>
-      
+    <PageShell className="bg-white" style={{ background: "#fff" }}>
 
-      <div style={{ paddingTop: "var(--page-article-pt)", paddingBottom: 80, position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
-        <div style={{ maxWidth: 820, margin: "0 auto" }}>
+      <article dir={dir} className="px-4 pt-16 md:pt-20 pb-20">
+        <div className="container mx-auto max-w-3xl">
 
           {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 32, fontSize: 13, color: "var(--td)" }}>
-            <span
+          <nav className="flex items-center flex-wrap gap-2 mb-8 text-sm text-zinc-500">
+            <button
+              type="button"
               onClick={() => navigateTo("/support")}
-              style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
+              className="hover:text-zinc-950 transition-colors"
             >
               {tx.breadcrumbHelpCenter}
-            </span>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: isAr ? "rotate(180deg)" : "none", flexShrink: 0 }}>
-              <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span
+            </button>
+            <ChevronRight className={`w-3.5 h-3.5 shrink-0 ${isAr ? "rotate-180" : ""}`} />
+            <button
+              type="button"
               onClick={() => navigateTo("/support")}
-              style={{ color: "var(--td)", textDecoration: "none", transition: "color .2s", cursor: "pointer" }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--td)")}
+              className="hover:text-zinc-950 transition-colors"
             >
               {catLabel}
-            </span>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: isAr ? "rotate(180deg)" : "none", flexShrink: 0 }}>
-              <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span style={{ color: "var(--tm)" }}>{articleTitle}</span>
-          </div>
+            </button>
+            <ChevronRight className={`w-3.5 h-3.5 shrink-0 ${isAr ? "rotate-180" : ""}`} />
+            <span className="text-zinc-700 font-medium">{articleTitle}</span>
+          </nav>
 
           {/* Article Header */}
-          <div style={{ marginBottom: 40 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: `${category.color}18`, border: `1px solid ${category.color}30`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>
+          <header className="mb-10">
+            <div className="flex items-center gap-3 flex-wrap mb-5">
+              <span
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-lg shrink-0"
+                style={{ background: `${category.color}18`, border: `1px solid ${category.color}30` }}
+                aria-hidden
+              >
                 {category.icon}
-              </div>
-              <span style={{ fontSize: 13, color: category.color, fontWeight: 700, background: `${category.color}12`, padding: "3px 12px", borderRadius: 50, border: `1px solid ${category.color}25` }}>
+              </span>
+              <span
+                className="text-xs font-bold rounded-full px-3 py-1"
+                style={{ color: category.color, background: `${category.color}12`, border: `1px solid ${category.color}25` }}
+              >
                 {catLabel}
               </span>
-              <span style={{ fontSize: 12, color: "var(--td)", display: "flex", alignItems: "center", gap: 5 }}>
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1"/><path d="M6 3v3l2 1.5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/></svg>
+              <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
+                <Clock className="w-3.5 h-3.5" />
                 {articleTime} {tx.readSuffix}
               </span>
             </div>
-            <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, lineHeight: 1.3, letterSpacing: "-0.5px", marginBottom: 16 }}>
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950 leading-tight mb-4">
               {articleTitle}
             </h1>
-            <p style={{ fontSize: 17, color: "var(--tm)", lineHeight: 1.8 }}>{articleDesc}</p>
-          </div>
+            <p className="text-lg text-zinc-600 leading-relaxed">{articleDesc}</p>
+          </header>
 
-          {/* Divider */}
-          <div style={{ height: 1, background: "var(--b1)", marginBottom: 40 }}/>
+          <div className="h-px bg-zinc-200 mb-10" />
 
           {/* Article Content */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <div className="flex flex-col gap-5">
             {cmsFields.sections.map((section, i) => {
               if (section.type === "heading") {
                 return (
-                  <h2 key={i} style={{ fontSize: 21, fontWeight: 800, color: "var(--t)", marginTop: 12, paddingBottom: 10, borderBottom: `1px solid ${category.color}20` }}>
+                  <h2
+                    key={i}
+                    className="text-xl md:text-2xl font-bold text-zinc-950 mt-3 pb-2.5 border-b"
+                    style={{ borderColor: `${category.color}20` }}
+                  >
                     {section.text}
                   </h2>
                 );
@@ -160,7 +169,7 @@ export default function SupportArticle() {
 
               if (section.type === "paragraph") {
                 return (
-                  <p key={i} style={{ fontSize: 16, color: "var(--tm)", lineHeight: 1.9 }}>
+                  <p key={i} className="text-base md:text-[17px] text-zinc-700 leading-[1.9]">
                     {section.text}
                   </p>
                 );
@@ -168,13 +177,16 @@ export default function SupportArticle() {
 
               if (section.type === "numbered" && section.items) {
                 return (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div key={i} className="flex flex-col gap-2.5">
                     {section.items.map((item, j) => (
-                      <div key={j} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                        <div style={{ width: 28, height: 28, borderRadius: 8, background: `${category.color}15`, border: `1px solid ${category.color}25`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 13, fontWeight: 800, color: category.color }}>
+                      <div key={j} className="flex gap-3.5 items-start">
+                        <div
+                          className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold num-ltr"
+                          style={{ background: `${category.color}15`, border: `1px solid ${category.color}25`, color: category.color }}
+                        >
                           {j + 1}
                         </div>
-                        <p style={{ fontSize: 15, color: "var(--tm)", lineHeight: 1.75, margin: 0, paddingTop: 3 }}>{item}</p>
+                        <p className="text-[15px] text-zinc-700 leading-relaxed pt-0.5 m-0">{item}</p>
                       </div>
                     ))}
                   </div>
@@ -183,11 +195,14 @@ export default function SupportArticle() {
 
               if (section.type === "list" && section.items) {
                 return (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div key={i} className="flex flex-col gap-2">
                     {section.items.map((item, j) => (
-                      <div key={j} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 14px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 10 }}>
-                        <div style={{ width: 6, height: 6, borderRadius: "50%", background: category.color, flexShrink: 0, marginTop: 8 }}/>
-                        <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.7, margin: 0 }}>{item}</p>
+                      <div key={j} className="flex gap-3 items-start rounded-lg bg-zinc-50 border border-zinc-200 px-3.5 py-2.5">
+                        <span
+                          className="w-1.5 h-1.5 rounded-full shrink-0 mt-2"
+                          style={{ background: category.color }}
+                        />
+                        <p className="text-sm text-zinc-700 leading-relaxed m-0">{item}</p>
                       </div>
                     ))}
                   </div>
@@ -196,13 +211,13 @@ export default function SupportArticle() {
 
               if (section.type === "tip") {
                 return (
-                  <div key={i} style={{ background: "rgba(16,185,129,.07)", border: "1px solid rgba(16,185,129,.2)", borderRadius: 14, padding: "16px 20px", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(16,185,129,.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }}>
-                      💡
+                  <div key={i} className="flex gap-3 items-start rounded-xl bg-emerald-50 border border-emerald-200 p-4">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                      <Lightbulb className="w-4 h-4 text-emerald-600" />
                     </div>
                     <div>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: "#10b981", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>{tx.tipLabel}</div>
-                      <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
+                      <div className="text-[11px] font-bold tracking-widest text-emerald-600 uppercase mb-1">{tx.tipLabel}</div>
+                      <p className="text-sm text-zinc-700 leading-relaxed m-0">{section.text}</p>
                     </div>
                   </div>
                 );
@@ -210,13 +225,13 @@ export default function SupportArticle() {
 
               if (section.type === "warning") {
                 return (
-                  <div key={i} style={{ background: "rgba(245,158,11,.07)", border: "1px solid rgba(245,158,11,.25)", borderRadius: 14, padding: "16px 20px", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(245,158,11,.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }}>
-                      ⚠️
+                  <div key={i} className="flex gap-3 items-start rounded-xl bg-amber-50 border border-amber-200 p-4">
+                    <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
+                      <AlertTriangle className="w-4 h-4 text-amber-600" />
                     </div>
                     <div>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: "#f59e0b", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>{tx.warningLabel}</div>
-                      <p style={{ fontSize: 14, color: "var(--tm)", lineHeight: 1.75, margin: 0 }}>{section.text}</p>
+                      <div className="text-[11px] font-bold tracking-widest text-amber-600 uppercase mb-1">{tx.warningLabel}</div>
+                      <p className="text-sm text-zinc-700 leading-relaxed m-0">{section.text}</p>
                     </div>
                   </div>
                 );
@@ -227,29 +242,25 @@ export default function SupportArticle() {
           </div>
 
           {/* Footer Actions */}
-          <div style={{ marginTop: 56, paddingTop: 32, borderTop: "1px solid var(--b1)" }}>
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-              <span
+          <div className="mt-14 pt-8 border-t border-zinc-200">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <button
+                type="button"
                 onClick={() => navigateTo("/support")}
-                style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--tm)", textDecoration: "none", fontSize: 14, fontWeight: 600, transition: "color .2s", cursor: "pointer" }}
-                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "var(--t)")}
-                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "var(--tm)")}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 transition-colors"
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d={isAr ? "M11 5l4 4-4 4M3 9h12" : "M7 5l-4 4 4 4M15 9H3"} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ArrowCTA className={`w-4 h-4 ${isAr ? "" : "rotate-180"}`} />
                 {tx.backToHelp}
-              </span>
-              <div style={{ display: "flex", gap: 10 }}>
-                <a href="https://api.whatsapp.com/send/?phone=966510131856" target="_blank" rel="noreferrer"
-                  style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 20px", background: "rgba(37,211,102,.1)", border: "1px solid rgba(37,211,102,.2)", borderRadius: 50, color: "#25d366", textDecoration: "none", fontSize: 13, fontWeight: 700, transition: "all .2s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(37,211,102,.18)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(37,211,102,.1)"; }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  {tx.contactSupport}
-                </a>
-              </div>
+              </button>
+              <a
+                href="https://api.whatsapp.com/send/?phone=966510131856"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-bold hover:bg-emerald-100 transition-colors"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                {tx.contactSupport}
+              </a>
             </div>
           </div>
 
@@ -258,31 +269,29 @@ export default function SupportArticle() {
             const siblings = category.articles.filter(a => a.id !== article.id).slice(0, 3);
             if (!siblings.length) return null;
             return (
-              <div style={{ marginTop: 48 }}>
-                <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 16, color: "var(--tm)" }}>{tx.relatedArticles}</h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <div className="mt-12">
+                <h3 className="text-lg font-bold text-zinc-950 mb-4">{tx.relatedArticles}</h3>
+                <div className="flex flex-col gap-3">
                   {siblings.map(s => (
-                    <span key={s.id}
+                    <button
+                      key={s.id}
+                      type="button"
                       onClick={() => navigateTo(`/support/article/${s.id}`)}
-                      style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "16px 20px", background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 14, textDecoration: "none", transition: "all .2s", cursor: "pointer" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = `${category.color}40`; (e.currentTarget as HTMLElement).style.background = `${category.color}06`; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--b1)"; (e.currentTarget as HTMLElement).style.background = "var(--s1)"; }}
+                      className="flex items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-white p-5 text-start hover:border-zinc-300 hover:shadow-card transition-all"
                     >
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{siblingTitle(s)}</div>
-                        <div style={{ fontSize: 12, color: "var(--td)", marginTop: 3 }}>{siblingTime(s)} {tx.readSuffix}</div>
+                        <div className="text-sm font-bold text-zinc-950">{siblingTitle(s)}</div>
+                        <div className="text-xs text-zinc-500 mt-1">{siblingTime(s)} {tx.readSuffix}</div>
                       </div>
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ transform: isAr ? "rotate(180deg)" : "none", flexShrink: 0 }}>
-                        <path d="M10 4L6 8l4 4" stroke="var(--td)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </span>
+                      <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 ${isAr ? "rotate-180" : ""}`} />
+                    </button>
                   ))}
                 </div>
               </div>
             );
           })()}
         </div>
-      </div>
+      </article>
       <PageClosingCta
         title={pc.supportTitle}
         description={pc.supportDesc}

@@ -148,7 +148,7 @@ function renderContent(content: string) {
             fontWeight: 700,
             marginTop: 28,
             marginBottom: 12,
-            color: "#6ee7b7",
+            color: "#c084fc",
           }}
         >
           {line.slice(4)}
@@ -208,7 +208,7 @@ function renderContent(content: string) {
                 marginBottom: 6,
               }}
             >
-              <span style={{ color: "#34d399", flexShrink: 0, marginTop: 2 }}>
+              <span style={{ color: "#a855f7", flexShrink: 0, marginTop: 2 }}>
                 ●
               </span>
               <span>
@@ -248,14 +248,14 @@ function renderContent(content: string) {
                   width: 24,
                   height: 24,
                   borderRadius: 6,
-                  background: "rgba(34, 197, 125,.15)",
-                  border: "1px solid rgba(34, 197, 125,.25)",
+                  background: "rgba(124, 58, 237,.15)",
+                  border: "1px solid rgba(124, 58, 237,.25)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 12,
                   fontWeight: 700,
-                  color: "#34d399",
+                  color: "#a855f7",
                   flexShrink: 0,
                   marginTop: 1,
                 }}
@@ -306,10 +306,10 @@ function renderContent(content: string) {
                     key={hi}
                     style={{
                       padding: "10px 16px",
-                      background: "rgba(34, 197, 125,.12)",
-                      border: "1px solid rgba(34, 197, 125,.2)",
+                      background: "rgba(124, 58, 237,.12)",
+                      border: "1px solid rgba(124, 58, 237,.2)",
                       fontWeight: 700,
-                      color: "#6ee7b7",
+                      color: "#c084fc",
                     }}
                   >
                     {h}
@@ -444,7 +444,7 @@ export default function BlogPost() {
         <span
           onClick={() => navigateTo("/blog")}
           style={{
-            color: "#34d399",
+            color: "#a855f7",
             textDecoration: "none",
             position: "relative",
             zIndex: 2,
@@ -738,7 +738,7 @@ export default function BlogPost() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                color: "#34d399",
+                color: "#a855f7",
                 textDecoration: "none",
                 fontSize: 15,
                 fontWeight: 600,

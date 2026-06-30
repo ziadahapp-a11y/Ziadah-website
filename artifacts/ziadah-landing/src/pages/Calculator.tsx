@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
-import { t } from "@/i18n/translations";
+import { TrendingUp, BarChart3, Coins, ArrowUpRight } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 import PageShell from "../components/PageShell";
-import DsPageBackdrop from "@/components/DsPageBackdrop";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
@@ -10,11 +10,7 @@ import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 
-function fmtLocale(
-  n: number,
-  locale: string,
-  decimals = 0,
-): string {
+function fmtLocale(n: number, locale: string, decimals = 0): string {
   return n.toLocaleString(locale, {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
@@ -27,7 +23,7 @@ function snapToStep(v: number, min: number, step: number): number {
   return Number(snapped.toPrecision(12));
 }
 
-interface SliderCardProps {
+interface SliderConfig {
   label: string;
   value: number;
   min: number;
@@ -36,10 +32,14 @@ interface SliderCardProps {
   onChange: (v: number) => void;
   formatDisplay: (n: number) => string;
   formatTick: (n: number) => string;
-  color: string;
-  colorRgb: string;
 }
 
+/**
+ * One labelled slider control inside the dark calculator card, styled to match
+ * the home page calculator (`src/pages/HomeTrackflow.tsx`): muted uppercase
+ * label, emerald value chip, and the shared `@/components/ui/slider` with the
+ * white/20 track, emerald range, and emerald-ringed thumb.
+ */
 function SliderCard({
   label,
   value,
@@ -49,150 +49,34 @@ function SliderCard({
   onChange,
   formatDisplay,
   formatTick,
-  color,
-  colorRgb,
-}: SliderCardProps) {
-  const pct = ((value - min) / (max - min)) * 100;
-
+  dir,
+}: SliderConfig & { dir: "rtl" | "ltr" }) {
   const apply = useCallback(
-    (raw: number) => {
-      onChange(snapToStep(raw, min, step));
-    },
+    (raw: number) => onChange(snapToStep(raw, min, step)),
     [onChange, min, step],
   );
 
   return (
-    <div
-      style={{
-        backgroundColor: "rgba(115, 0, 230, 0.02)",
-        border: "1px solid var(--b1)",
-        borderRadius: 16,
-        padding: "24px 28px",
-        borderInlineEnd: `4px solid ${color}`,
-        position: "relative",
-        overflow: "visible",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          borderRadius: 16,
-          overflow: "hidden",
-          backdropFilter: "blur(4px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 18,
-          position: "relative",
-          zIndex: 1,
-          gap: 12,
-        }}
-      >
-        <span
-          style={{
-            fontSize: 15,
-            fontWeight: 700,
-            color: "var(--t)",
-          }}
-        >
-          {label}
-        </span>
-        <span
-          style={{
-            fontSize: 20,
-            fontWeight: 900,
-            color,
-            background: `rgba(${colorRgb},.12)`,
-            border: `1px solid rgba(${colorRgb},.25)`,
-            borderRadius: 10,
-            padding: "4px 14px",
-            minWidth: 100,
-            textAlign: "center",
-            display: "inline-block",
-          }}
-        >
+    <div className="rounded-xl bg-white/[0.04] border border-white/10 p-5">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">{label}</span>
+        <span className="num-ltr rounded-md bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-sm font-extrabold text-violet-300">
           {formatDisplay(value)}
         </span>
       </div>
-      {/* عزل LTR: سلوك المنزلق واتجاه التعبئة ثابتان في كل اللغات */}
-      <div
-        dir="ltr"
-        lang="en"
-        style={{
-          direction: "ltr",
-          unicodeBidi: "isolate",
-          position: "relative",
-          zIndex: 1,
-          minHeight: 52,
-          paddingTop: 4,
-          paddingBottom: 2,
-        }}
-      >
-        <div
-          style={{
-            position: "relative",
-            height: 12,
-            borderRadius: 6,
-            background: "var(--b1)",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              height: "100%",
-              width: pct + "%",
-              background: color,
-              borderRadius: 6,
-              pointerEvents: "none",
-            }}
-          />
-        </div>
-        <input
-          className="calc-range-input"
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          aria-label={label}
-          onChange={(e) => apply(Number(e.currentTarget.value))}
-          onInput={(e) => apply(Number(e.currentTarget.value))}
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: -11,
-            width: "100%",
-            height: 44,
-            margin: 0,
-            padding: 0,
-            cursor: "grab",
-            zIndex: 2,
-            boxSizing: "border-box",
-          }}
-        />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 11,
-            color: "var(--td)",
-            marginTop: 12,
-            pointerEvents: "none",
-          }}
-        >
-          <span>{formatTick(min)}</span>
-          <span>{formatTick(max)}</span>
-        </div>
+      <Slider
+        dir={dir}
+        min={min}
+        max={max}
+        step={step}
+        value={[value]}
+        aria-label={label}
+        onValueChange={(v) => apply(v[0])}
+        className="[&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-violet-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-violet-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(16,185,129,0.25)]"
+      />
+      <div className="num-ltr mt-3 flex justify-between text-[11px] text-zinc-500">
+        <span>{formatTick(min)}</span>
+        <span>{formatTick(max)}</span>
       </div>
     </div>
   );
@@ -204,12 +88,12 @@ export default function Calculator() {
   const tr = t[lang].calculator;
   const ld = t[lang].landing;
   const pk = getPageKeywords("/calculator");
+  const isAr = lang === "ar";
   const numLocale = lang === "ar" ? "ar-SA-u-nu-latn" : "en-US";
   const currencySuffix = lang === "ar" ? " ⃁" : " SAR";
   const fmtN = (n: number, decimals = 0) => fmtLocale(n, numLocale, decimals);
   const fmtCur = (n: number) => fmtLocale(Math.round(n), numLocale) + currencySuffix;
-  const fmtP = (n: number, decimals = 1) =>
-    "+" + fmtLocale(n, numLocale, decimals) + "%";
+  const fmtP = (n: number, decimals = 1) => "+" + fmtLocale(n, numLocale, decimals) + "%";
 
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
@@ -259,7 +143,7 @@ export default function Calculator() {
     return () => obs.disconnect();
   }, []);
 
-  const sliders: SliderCardProps[] = [
+  const sliders: SliderConfig[] = [
     {
       label: tr.monthlyVisitors,
       value: visitors,
@@ -269,8 +153,6 @@ export default function Calculator() {
       onChange: setVisitors,
       formatDisplay: (n) => fmtN(n),
       formatTick: (n) => fmtN(n),
-      color: "#34d399",
-      colorRgb: "52, 211, 153",
     },
     {
       label: tr.conversionRate,
@@ -281,8 +163,6 @@ export default function Calculator() {
       onChange: setConvRate,
       formatDisplay: (n) => fmtN(n, 1) + "%",
       formatTick: (n) => fmtN(n, 1),
-      color: "#34d399",
-      colorRgb: "52, 211, 153",
     },
     {
       label: tr.avgOrderValue,
@@ -293,10 +173,20 @@ export default function Calculator() {
       onChange: setAov,
       formatDisplay: (n) => fmtN(n) + currencySuffix,
       formatTick: (n) => fmtN(n) + currencySuffix,
-      color: "#34d399",
-      colorRgb: "52, 211, 153",
     },
   ];
+
+  const impactStats = [
+    { Icon: Coins, label: tr.additionalRevenue, value: "+" + fmtCur(r.addRevenue), sub: tr.perMonth },
+    { Icon: TrendingUp, label: tr.revenueGrowth, value: fmtP(r.revGrowth), sub: tr.growthRate },
+    { Icon: ArrowUpRight, label: tr.aovIncrease, value: "+" + fmtCur(r.aovIncrease), sub: tr.perOrder },
+  ];
+
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
 
   return (
     <>
@@ -315,419 +205,143 @@ export default function Calculator() {
         description={lang === "ar" ? t.ar.calculator.seoDesc : t.en.calculator.seoDesc}
         url="/calculator"
       />
-      <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-        <DsPageBackdrop />
-
-        <section
-          className="page-hero-viewport page-hero-viewport--center"
-          style={{
-            position: "relative",
-            zIndex: 2,
-          }}
-        >
-          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: 0 }}>
-              <div className="stag rv">
-                <span className="stag-dot" />
+      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+        {/* ══════════════════ HERO ══════════════════ */}
+        <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4">
+          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+          <div className="container mx-auto relative max-w-3xl text-center">
+            <div className="rv mb-4">
+              <span className="inline-block text-xs font-bold tracking-widest text-purple-600 uppercase">
                 {tr.tag}
-              </div>
-              <h1
-                className="st rv d1"
-                style={{
-                  fontSize: "clamp(22px,4.5vw,60px)",
-                  marginTop: 12,
-                  marginBottom: 8,
-                }}
-              >{tr.title}</h1>
-              <p
-                className="ssub rv d2"
-                style={{ margin: "0 auto", maxWidth: 520 }}
-              >{tr.subtitle}</p>
+              </span>
             </div>
+            <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
+              {tr.title}
+            </h1>
+            <p className="rv d2 text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
+              {tr.subtitle}
+            </p>
           </div>
         </section>
 
-        <section
-          style={{
-            position: "relative",
-            zIndex: 2,
-            padding: "0 var(--page-inline-pad) 80px",
-          }}
-        >
-          <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 32,
-                direction: dir,
-              }}
-              className="calc-grid"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 14,
-                  direction: dir,
-                  unicodeBidi: "isolate",
-                }}
-              >
-                {sliders.map((s) => (
-                  <SliderCard key={s.label} {...s} />
-                ))}
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  direction: dir,
-                  unicodeBidi: "isolate",
-                }}
-              >
-                <div
-                  className="calc-result-cols"
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: 14,
-                    direction: dir,
-                  }}
-                >
-                  <div
-                    style={{
-                      background: "var(--s1)",
-                      border: "1px solid var(--b1)",
-                      borderRadius: 16,
-                      padding: "24px 22px",
-                      borderTop: "3px solid var(--b2)",
-                      direction: dir,
-                      unicodeBidi: "isolate",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "var(--td)",
-                        marginBottom: 18,
-                        letterSpacing: 0.3,
-                      }}
-                    >
-                      {tr.withoutRec}
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmtN(Math.round(r.orders))}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.avgOrder}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmtCur(aov)}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "var(--t)" }}>
-                          {fmtCur(r.baseRevenue)}
-                        </div>
-                      </div>
-                    </div>
+        {/* ══════════════════ CALCULATOR ══════════════════ */}
+        <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
+          <div className="container mx-auto max-w-6xl">
+            <div className="rv rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
+              <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-purple-500/15 blur-[100px] rounded-full pointer-events-none" />
+              <div className="relative p-7 md:p-10 lg:p-12" dir={dir}>
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                  {/* left: controls */}
+                  <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
+                    {sliders.map((s) => (
+                      <SliderCard key={s.label} {...s} dir={isAr ? "rtl" : "ltr"} />
+                    ))}
                   </div>
 
-                  <div
-                    style={{
-                      background: "rgba(52, 211, 153,.1)",
-                      border: "1px solid rgba(52, 211, 153,.2)",
-                      borderRadius: 16,
-                      padding: "24px 22px",
-                      borderTop: "3px solid #34d399",
-                      position: "relative",
-                      overflow: "hidden",
-                      direction: dir,
-                      unicodeBidi: "isolate",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "#6ee7b7",
-                        marginBottom: 18,
-                        letterSpacing: 0.3,
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      {tr.withRec}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 14,
-                        position: "relative",
-                        zIndex: 1,
-                      }}
-                    >
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyOrders}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "#e9d5ff" }}>
-                          {fmtN(Math.round(r.orders))}
+                  {/* right: results */}
+                  <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* without recommendations */}
+                      <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6">
+                        <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-5">
+                          {tr.withoutRec}
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyOrders}</div>
+                            <div className="text-xl font-extrabold text-white num-ltr">
+                              {fmtN(Math.round(r.orders))}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.avgOrder}</div>
+                            <div className="text-xl font-extrabold text-white num-ltr">{fmtCur(aov)}</div>
+                          </div>
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyRevenue}</div>
+                            <div className="text-xl font-extrabold text-white num-ltr">
+                              {fmtCur(r.baseRevenue)}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.effectiveAvgOrder}</div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                          <span style={{ fontSize: 22, fontWeight: 900, color: "#e9d5ff" }}>
-                            {fmtCur(r.effectiveAov)}
+
+                      {/* with Ziadah */}
+                      <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.12] to-transparent border border-violet-500/30 p-6">
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
+                          <span className="relative flex h-1.5 w-1.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
                           </span>
-                          <span
-                            style={{
-                              fontSize: 11,
-                              fontWeight: 800,
-                              color: "#6ee7b7",
-                              background: "rgba(52, 211, 153,.18)",
-                              border: "1px solid rgba(52, 211, 153,.35)",
-                              borderRadius: 6,
-                              padding: "2px 7px",
-                            }}
+                          {tr.withRec}
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyOrders}</div>
+                            <div className="text-xl font-extrabold text-violet-300 num-ltr">
+                              {fmtN(Math.round(r.orders))}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.effectiveAvgOrder}</div>
+                            <div className="num-ltr flex items-center gap-2 flex-wrap">
+                              <span className="text-xl font-extrabold text-violet-300">
+                                {fmtCur(r.effectiveAov)}
+                              </span>
+                              <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
+                                +{fmtCur(r.aovIncrease)}
+                              </span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[11px] text-zinc-500 mb-1">{tr.monthlyRevenue}</div>
+                            <div className="text-xl font-extrabold text-violet-300 num-ltr">
+                              {fmtCur(r.newRevenue)}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* impact summary */}
+                    <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
+                        <BarChart3 className="w-4 h-4" />
+                        {tr.impactSummary}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        {impactStats.map((s) => (
+                          <div
+                            key={s.label}
+                            className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center"
                           >
-                            +{fmtCur(r.aovIncrease)}
-                          </span>
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 11, color: "var(--td)", marginBottom: 3 }}>{tr.monthlyRevenue}</div>
-                        <div style={{ fontSize: 22, fontWeight: 900, color: "#e9d5ff" }}>
-                          {fmtCur(r.newRevenue)}
-                        </div>
+                            <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
+                            <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
+                            <div className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight">
+                              {s.value}
+                            </div>
+                            <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>
+                          </div>
+                        ))}
                       </div>
                     </div>
+
+                    {/* disclaimer */}
+                    <div className="rounded-xl bg-white/[0.03] border border-white/10 px-5 py-4 text-xs text-zinc-400 leading-relaxed">
+                      {tr.disclaimer}
+                    </div>
+
+                    {/* CTA */}
+                    <button
+                      type="button"
+                      onClick={() => setPlatformModalOpen(true)}
+                      className="w-full h-12 rounded-md bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors"
+                    >
+                      {tr.cta}
+                    </button>
                   </div>
                 </div>
-
-                <div
-                  style={{
-                    background: "rgba(34, 197, 125,.1)",
-                    border: "1px solid rgba(52, 211, 153,.28)",
-                    borderRadius: 18,
-                    padding: "28px 28px",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: 15,
-                      fontWeight: 800,
-                      color: "#6ee7b7",
-                      marginBottom: 22,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    <span
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        background: "#34d399",
-                        display: "inline-block",
-                      }}
-                    />
-                    {tr.impactSummary}
-                  </div>
-                  <div
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr 1fr",
-                      gap: 12,
-                      position: "relative",
-                      zIndex: 1,
-                      direction: dir,
-                    }}
-                    className="impact-grid"
-                  >
-                    <div
-                      style={{
-                        background: "rgba(0,0,0,.25)",
-                        borderRadius: 14,
-                        padding: "18px 16px",
-                        textAlign: "center",
-                        border: "1px solid rgba(52, 211, 153,.22)",
-                        direction: dir,
-                        unicodeBidi: "isolate",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginBottom: 8,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {tr.additionalRevenue}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "clamp(16px,2.5vw,24px)",
-                          fontWeight: 900,
-                          color: "#e9d5ff",
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        +{fmtCur(r.addRevenue)}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginTop: 4,
-                        }}
-                      >
-                        {tr.perMonth}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        background: "rgba(0,0,0,.25)",
-                        borderRadius: 14,
-                        padding: "18px 16px",
-                        textAlign: "center",
-                        border: "1px solid rgba(52, 211, 153,.22)",
-                        direction: dir,
-                        unicodeBidi: "isolate",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginBottom: 8,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {tr.revenueGrowth}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "clamp(16px,2.5vw,24px)",
-                          fontWeight: 900,
-                          color: "#e9d5ff",
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        {fmtP(r.revGrowth)}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginTop: 4,
-                        }}
-                      >
-                        {tr.growthRate}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        background: "rgba(0,0,0,.25)",
-                        borderRadius: 14,
-                        padding: "18px 16px",
-                        textAlign: "center",
-                        border: "1px solid rgba(52, 211, 153,.22)",
-                        direction: dir,
-                        unicodeBidi: "isolate",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginBottom: 8,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {tr.aovIncrease}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "clamp(16px,2.5vw,24px)",
-                          fontWeight: 900,
-                          color: "#e9d5ff",
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        +{fmtCur(r.aovIncrease)}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "var(--td)",
-                          marginTop: 4,
-                        }}
-                      >
-                        {tr.perOrder}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    background: "var(--s1)",
-                    border: "1px solid var(--b1)",
-                    borderRadius: 12,
-                    padding: "16px 20px",
-                    fontSize: 12,
-                    color: "var(--td)",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {tr.disclaimer}
-                </div>
-
-                <button
-                  onClick={() => setPlatformModalOpen(true)}
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    textAlign: "center",
-                    padding: "16px 32px",
-                    background: "#22c57d",
-                    border: "1px solid rgba(52, 211, 153,.4)",
-                    borderRadius: 14,
-                    color: "#fff",
-                    fontFamily: "var(--font)",
-                    fontSize: 16,
-                    fontWeight: 800,
-                    cursor: "pointer",
-                    transition: "all .25s",
-                    boxShadow: "0 8px 32px rgba(34, 197, 125,.35)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-2px)";
-                    e.currentTarget.style.boxShadow =
-                      "0 12px 40px rgba(34, 197, 125,.5)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "none";
-                    e.currentTarget.style.boxShadow =
-                      "0 8px 32px rgba(34, 197, 125,.35)";
-                  }}
-                >
-                  {tr.cta}
-                </button>
               </div>
             </div>
           </div>
@@ -739,112 +353,6 @@ export default function Calculator() {
           buttonLabel={ld.ctaBtn}
           onActivate={() => setPlatformModalOpen(true)}
         />
-
-        <style>{`
-          /* مقبض بنفسجي صلب */
-          input.calc-range-input {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-          }
-          input.calc-range-input:focus {
-            outline: none;
-          }
-          input.calc-range-input:active {
-            cursor: grabbing;
-          }
-          input.calc-range-input::-webkit-slider-runnable-track {
-            height: 12px;
-            background: transparent;
-            border: none;
-          }
-          input.calc-range-input::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #34d399;
-            border: 3px solid rgba(255, 255, 255, 0.92);
-            margin-top: -7px;
-            box-shadow:
-              0 2px 10px rgba(34, 197, 125, 0.45),
-              0 0 0 1px rgba(52, 211, 153, 0.35);
-            cursor: grab;
-            transition: box-shadow 0.15s ease, transform 0.15s ease;
-          }
-          input.calc-range-input:hover::-webkit-slider-thumb {
-            box-shadow:
-              0 4px 14px rgba(34, 197, 125, 0.55),
-              0 0 0 1px rgba(110, 231, 183, 0.5);
-          }
-          input.calc-range-input:active::-webkit-slider-thumb {
-            cursor: grabbing;
-            box-shadow:
-              0 2px 16px rgba(34, 197, 125, 0.65),
-              0 0 0 2px rgba(255, 255, 255, 0.55);
-          }
-          input.calc-range-input:focus-visible::-webkit-slider-thumb {
-            box-shadow:
-              0 0 0 3px rgba(52, 211, 153, 0.45),
-              0 2px 10px rgba(34, 197, 125, 0.45);
-          }
-          input.calc-range-input::-moz-range-track {
-            height: 12px;
-            background: transparent;
-            border: none;
-          }
-          input.calc-range-input::-moz-range-thumb {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: #34d399;
-            border: 3px solid rgba(255, 255, 255, 0.92);
-            box-shadow:
-              0 2px 10px rgba(34, 197, 125, 0.45),
-              0 0 0 1px rgba(52, 211, 153, 0.35);
-            border-width: 3px;
-            cursor: grab;
-          }
-          input.calc-range-input:hover::-moz-range-thumb {
-            box-shadow:
-              0 4px 14px rgba(34, 197, 125, 0.55),
-              0 0 0 1px rgba(110, 231, 183, 0.5);
-          }
-          input.calc-range-input:active::-moz-range-thumb {
-            cursor: grabbing;
-            box-shadow:
-              0 2px 16px rgba(34, 197, 125, 0.65),
-              0 0 0 2px rgba(255, 255, 255, 0.55);
-          }
-          input.calc-range-input:focus-visible::-moz-range-thumb {
-            box-shadow:
-              0 0 0 3px rgba(52, 211, 153, 0.45),
-              0 2px 10px rgba(34, 197, 125, 0.45);
-          }
-
-          @media (max-width: 1024px) {
-            .calc-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-          @media (max-width: 768px) {
-            .calc-grid {
-              grid-template-columns: 1fr !important;
-            }
-            .calc-result-cols {
-              grid-template-columns: 1fr !important;
-            }
-            .impact-grid {
-              grid-template-columns: 1fr 1fr !important;
-            }
-          }
-          @media (max-width: 480px) {
-            .impact-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
       </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

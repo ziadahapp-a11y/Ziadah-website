@@ -54,9 +54,9 @@ export default function ReduceAbandonWidget() {
         }}>
           <span style={{ fontSize: 14 }}>🚚</span>
           <div style={{ textAlign: "start", flex: 1 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#34d399" }}>{tr.shippingLabel}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#a855f7" }}>{tr.shippingLabel}</div>
             <div style={{ height: 4, borderRadius: 10, background: "var(--s2)", marginTop: 4, overflow: "hidden" }}>
-              <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#34d399" }} />
+              <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#a855f7" }} />
             </div>
           </div>
         </div>

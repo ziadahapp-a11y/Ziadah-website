@@ -1,8 +1,30 @@
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Handshake,
+  Tag,
+  Banknote,
+  TrendingUp,
+  Target,
+  UserCog,
+  ShoppingCart,
+  Zap,
+  Repeat2,
+  ChevronDown,
+  type LucideIcon,
+} from "lucide-react";
 import PageShell from "../components/PageShell";
 import BilingualSEO from "../components/BilingualSEO";
 import { FAQSchema, AffiliatePageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
+import {
+  Section,
+  SectionHeading,
+  Card,
+  StatCard,
+  CtaSection,
+} from "@/components/trackflow";
+import { Button } from "@/components/ui/button";
 
 const WA_LINK =
   "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
@@ -24,6 +46,10 @@ function WaIcon({ size = 20 }: { size?: number }) {
     </svg>
   );
 }
+
+// Icons mapped from the original emoji per the design-system guidance.
+const HOW_ICONS: LucideIcon[] = [Handshake, Tag, Banknote];
+const BENEFIT_ICONS: LucideIcon[] = [TrendingUp, Target, UserCog, ShoppingCart, Zap, Repeat2];
 
 const AR = {
   seoTitle: "برنامج الشراكة والأفيليت | زيادة",
@@ -157,14 +183,22 @@ export default function Affiliate() {
   }, []);
 
   const plan = PLANS[planIdx];
-  const priceExVat = Math.round(plan.annual / 1.15);  // strip 15% VAT
+  const priceExVat = Math.round(plan.annual / 1.15); // strip 15% VAT
   const totalAnnual = stores * priceExVat;
   const yourComm = totalAnnual * 0.1;
   const monthly = yourComm / 12;
   const clientSave = totalAnnual * 0.1;
 
+  const riyal = isAr ? "⃁" : "SAR";
+
+  const gridStyle = {
+    backgroundImage:
+      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
+    backgroundSize: "48px 48px",
+  } as const;
+
   return (
-    <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
+    <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
       <BilingualSEO
         titleAr={AR.seoTitle}
         titleEn={EN.seoTitle}
@@ -180,104 +214,132 @@ export default function Affiliate() {
       <div className="aff-root" dir={dir}>
 
         {/* ══════════ HERO ══════════ */}
-        <section className="aff-hero page-hero-viewport page-hero-viewport--center">
-          <div className="aff-hero-glow" aria-hidden />
-          <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
+        <section className="relative pt-20 pb-24 md:pt-28 md:pb-28 px-4">
+          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
+          <div className="container mx-auto relative max-w-4xl text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 border border-purple-200 mb-7"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
+              </span>
+              <span className="text-xs font-semibold text-purple-700">{c.tag}</span>
+            </motion.div>
 
-            <div className="stag" style={{ margin: "0 auto 24px" }}>
-              <span className="stag-dot" />
-              {c.tag}
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 leading-[1.05]"
+            >
+              {c.heroTitle}
+            </motion.h1>
 
-            <h1 className="aff-hero-title">{c.heroTitle}</h1>
-            <p className="ssub" style={{ margin: "0 auto 20px", textAlign: "center" }}>{c.heroDesc}</p>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-9 leading-relaxed"
+            >
+              {c.heroDesc}
+            </motion.p>
 
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn">
-              <WaIcon size={22} />
-              {c.ctaMain}
-            </a>
-            <p className="aff-cta-sub">{c.ctaSub}</p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="flex flex-col items-center"
+            >
+              <Button
+                asChild
+                size="lg"
+                className="text-base h-12 px-7 bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
+              >
+                <a href={WA_LINK} target="_blank" rel="noreferrer">
+                  <WaIcon size={20} />
+                  <span className="ms-2">{c.ctaMain}</span>
+                </a>
+              </Button>
+              <p className="mt-3 text-sm text-zinc-500">{c.ctaSub}</p>
+            </motion.div>
 
             {/* Stats row */}
-            <div className="aff-stats">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-14">
               {c.stats.map((s, i) => (
-                <div key={i} className="gc aff-stat rv" style={{ animationDelay: `${i * 0.1}s` }}>
-                  <div className="aff-stat-val">{s.val}</div>
-                  <div className="aff-stat-label">{s.label}</div>
-                </div>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
+                >
+                  <StatCard value={s.val} label={s.label} />
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* ══════════ HOW IT WORKS ══════════ */}
-        <section>
-          <div className="wrap">
-            <div className="aff-sec-head">
-              <div className="stag" style={{ margin: "0 auto 16px" }}>
-                <span className="stag-dot" />
-                {c.howTag}
-              </div>
-              <h2 className="st" style={{ textAlign: "center" }}>{c.howTitle}</h2>
-            </div>
-            <div className="aff-steps">
-              {c.howSteps.map((step, i) => (
-                <div key={i} className={`gc aff-step rv d${i + 1}`}>
-                  <div className="aff-step-num">{step.num}</div>
-                  <div className="aff-step-icon">{step.icon}</div>
-                  <div className="aff-step-title">{step.title}</div>
-                  <div className="aff-step-desc">{step.desc}</div>
-                  {i < c.howSteps.length - 1 && (
-                    <div className="aff-step-connector" aria-hidden />
-                  )}
-                </div>
-              ))}
-            </div>
+        <Section band="muted">
+          <SectionHeading eyebrow={c.howTag} title={c.howTitle} />
+          <div className="grid md:grid-cols-3 gap-5">
+            {c.howSteps.map((step, i) => {
+              const Icon = HOW_ICONS[i];
+              return (
+                <Card key={i}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase num-ltr">
+                      {step.num}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-zinc-950 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg md:text-xl font-bold text-zinc-950 mb-3 leading-snug">{step.title}</h3>
+                  <p className="text-sm md:text-base text-zinc-600 leading-relaxed">{step.desc}</p>
+                </Card>
+              );
+            })}
           </div>
-        </section>
+        </Section>
 
         {/* ══════════ BENEFITS ══════════ */}
-        <section style={{ background: "rgba(34, 197, 125,.04)" }}>
-          <div className="wrap">
-            <div className="aff-sec-head">
-              <div className="stag" style={{ margin: "0 auto 16px" }}>
-                <span className="stag-dot" />
-                {c.benefitsTag}
-              </div>
-              <h2 className="st" style={{ textAlign: "center" }}>{c.benefitsTitle}</h2>
-            </div>
-            <div className="aff-benefits">
-              {c.benefits.map((b, i) => (
-                <div key={i} className={`gc aff-benefit rv d${(i % 3) + 1}`}>
-                  <div className="aff-benefit-icon">{b.icon}</div>
-                  <div className="aff-benefit-title">{b.title}</div>
-                  <div className="aff-benefit-desc">{b.desc}</div>
-                </div>
-              ))}
-            </div>
+        <Section band="white">
+          <SectionHeading eyebrow={c.benefitsTag} title={c.benefitsTitle} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {c.benefits.map((b, i) => {
+              const Icon = BENEFIT_ICONS[i];
+              return (
+                <Card key={i}>
+                  <div className="w-11 h-11 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center mb-4">
+                    <Icon className="w-5 h-5 text-purple-600" />
+                  </div>
+                  <h3 className="text-lg font-bold text-zinc-950 mb-2.5 leading-snug">{b.title}</h3>
+                  <p className="text-sm text-zinc-600 leading-relaxed">{b.desc}</p>
+                </Card>
+              );
+            })}
           </div>
-        </section>
+        </Section>
 
         {/* ══════════ CALCULATOR ══════════ */}
-        <section>
-          <div className="wrap">
-            <div className="aff-sec-head">
-              <div className="stag" style={{ margin: "0 auto 16px" }}>
-                <span className="stag-dot" />
-                {c.calcTag}
-              </div>
-              <h2 className="st" style={{ textAlign: "center" }}>{c.calcTitle}</h2>
-              <p className="ssub" style={{ textAlign: "center", margin: "0 auto 20px" }}>{c.calcDesc}</p>
-            </div>
+        <Section band="muted">
+          <SectionHeading eyebrow={c.calcTag} title={c.calcTitle} subtitle={c.calcDesc} />
 
-            <div className="gc aff-calc">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-7 md:p-10 shadow-card">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
               {/* Controls */}
-              <div className="aff-calc-controls">
+              <div className="flex flex-col gap-7">
                 {/* Stores slider */}
-                <div className="aff-calc-field">
-                  <label className="aff-calc-label">
-                    {c.calcStores}
-                    <span className="aff-calc-badge">
+                <div>
+                  <label className="flex items-center justify-between gap-3 mb-4 text-sm font-bold text-zinc-950">
+                    <span>{c.calcStores}</span>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-purple-100 border border-purple-200 text-xs font-bold text-purple-700 num-ltr">
                       {isAr ? fmt(stores) + " متجر" : stores + " stores"}
                     </span>
                   </label>
@@ -287,27 +349,32 @@ export default function Affiliate() {
                     max={50}
                     value={stores}
                     onChange={(e) => setStores(Number(e.target.value))}
-                    className="aff-slider"
+                    className="aff-slider w-full accent-violet-600"
                   />
-                  <div className="aff-slider-labels">
+                  <div className="flex items-center justify-between mt-2 text-xs text-zinc-400 num-ltr">
                     <span>1</span>
                     <span>50</span>
                   </div>
                 </div>
 
                 {/* Plan selector */}
-                <div className="aff-calc-field">
-                  <label className="aff-calc-label">{c.calcPlan}</label>
-                  <div className="aff-plan-tabs">
+                <div>
+                  <label className="block mb-4 text-sm font-bold text-zinc-950">{c.calcPlan}</label>
+                  <div className="grid grid-cols-2 gap-2.5">
                     {PLANS.map((p, i) => (
                       <button
                         key={i}
-                        className={`aff-plan-tab${planIdx === i ? " aff-plan-tab--on" : ""}`}
+                        type="button"
                         onClick={() => setPlanIdx(i)}
+                        className={`flex flex-col items-start gap-1 rounded-xl border p-3.5 text-start transition-all ${
+                          planIdx === i
+                            ? "border-violet-500 bg-violet-50 ring-1 ring-violet-500/20"
+                            : "border-zinc-200 bg-white hover:border-zinc-300"
+                        }`}
                       >
-                        {isAr ? p.keyAr : p.keyEn}
-                        <span className="aff-plan-tab-price">
-                          {fmt(p.annual)} {isAr ? "⃁" : "SAR"}
+                        <span className="text-sm font-bold text-zinc-950">{isAr ? p.keyAr : p.keyEn}</span>
+                        <span className="text-xs text-zinc-500 num-ltr">
+                          {fmt(p.annual)} {riyal}
                         </span>
                       </button>
                     ))}
@@ -316,102 +383,93 @@ export default function Affiliate() {
               </div>
 
               {/* Results */}
-              <div className="aff-calc-results">
-                <div className="aff-calc-res aff-calc-res--main">
-                  <span className="aff-calc-res-label">{c.calcYourComm}*</span>
-                  <span className="aff-calc-res-val">
-                    {fmt(yourComm)} {isAr ? "⃁" : "SAR"}
-                  </span>
+              <div className="flex flex-col gap-3">
+                <div className="rounded-2xl mockup-card overflow-hidden shadow-card-lg relative p-6 text-center">
+                  <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[140px] bg-purple-500/20 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="relative">
+                    <div className="text-sm text-zinc-400 mb-1.5">{c.calcYourComm}*</div>
+                    <div className="text-4xl md:text-5xl font-extrabold text-white num-ltr">
+                      {fmt(yourComm)} <span className="text-base font-semibold text-zinc-400">{riyal}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="aff-calc-res">
-                  <span className="aff-calc-res-label">{c.calcMonthlyComm}</span>
-                  <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {fmt(Math.round(monthly))} {isAr ? "⃁" : "SAR"}
-                  </span>
-                </div>
-                <div className="aff-calc-res">
-                  <span className="aff-calc-res-label">{c.calcAnnualTotal}</span>
-                  <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {fmt(totalAnnual)} {isAr ? "⃁" : "SAR"}
-                  </span>
-                </div>
-                <div className="aff-calc-res aff-calc-res--client">
-                  <span className="aff-calc-res-label">{c.calcClientSave}</span>
-                  <span className="aff-calc-res-val aff-calc-res-val--sm">
-                    {fmt(clientSave)} {isAr ? "⃁" : "SAR"}
-                  </span>
+
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
+                    <span className="text-sm text-zinc-600">{c.calcMonthlyComm}</span>
+                    <span className="text-base font-bold text-zinc-950 num-ltr">
+                      {fmt(Math.round(monthly))} {riyal}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
+                    <span className="text-sm text-zinc-600">{c.calcAnnualTotal}</span>
+                    <span className="text-base font-bold text-zinc-950 num-ltr">
+                      {fmt(totalAnnual)} {riyal}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-xl border border-violet-200 bg-violet-50/60 p-4">
+                    <span className="text-sm text-violet-700">{c.calcClientSave}</span>
+                    <span className="text-base font-bold text-violet-700 num-ltr">
+                      {fmt(clientSave)} {riyal}
+                    </span>
+                  </div>
                 </div>
               </div>
-
-              <p className="aff-calc-footnote">
-                {isAr
-                  ? "* العمولة محسوبة على سعر الاشتراك غير شامل ضريبة القيمة المضافة."
-                  : "* Commission is calculated on the subscription price excluding VAT."}
-              </p>
             </div>
+
+            <p className="mt-6 text-xs text-zinc-400 text-center">
+              {isAr
+                ? "* العمولة محسوبة على سعر الاشتراك غير شامل ضريبة القيمة المضافة."
+                : "* Commission is calculated on the subscription price excluding VAT."}
+            </p>
           </div>
-        </section>
+        </Section>
 
         {/* ══════════ FAQ ══════════ */}
-        <section style={{ background: "rgba(34, 197, 125,.04)" }}>
-          <div className="wrap" style={{ maxWidth: 780 }}>
-            <div className="aff-sec-head">
-              <div className="stag" style={{ margin: "0 auto 16px" }}>
-                <span className="stag-dot" />
-                {c.faqTag}
-              </div>
-              <h2 className="st" style={{ textAlign: "center" }}>{c.faqTitle}</h2>
-            </div>
-            <div className="aff-faqs">
-              {c.faqs.map((faq, i) => (
+        <Section band="white" containerClassName="max-w-3xl">
+          <SectionHeading eyebrow={c.faqTag} title={c.faqTitle} />
+          <div className="flex flex-col gap-3">
+            {c.faqs.map((faq, i) => {
+              const open = openFaq === i;
+              return (
                 <div
                   key={i}
-                  className={`gc aff-faq${openFaq === i ? " aff-faq--open" : ""}`}
+                  className={`rounded-2xl border bg-white transition-colors ${
+                    open ? "border-zinc-300 shadow-card" : "border-zinc-200 hover:border-zinc-300"
+                  }`}
                 >
                   <button
-                    className="aff-faq-q"
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    aria-expanded={openFaq === i}
+                    type="button"
+                    className="flex w-full items-center justify-between gap-4 p-5 text-start"
+                    onClick={() => setOpenFaq(open ? null : i)}
+                    aria-expanded={open}
                   >
-                    <span>{faq.q}</span>
-                    <svg
-                      className="aff-faq-chevron"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      aria-hidden
-                    >
-                      <path
-                        d="M4 7l5 5 5-5"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    <span className="text-base font-bold text-zinc-950">{faq.q}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 shrink-0 text-zinc-400 transition-transform ${open ? "rotate-180" : ""}`}
+                    />
                   </button>
-                  {openFaq === i && (
-                    <div className="aff-faq-a">{faq.a}</div>
-                  )}
+                  {open && <div className="px-5 pb-5 text-sm text-zinc-600 leading-relaxed">{faq.a}</div>}
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </section>
+        </Section>
 
         {/* ══════════ FINAL CTA ══════════ */}
-        <section className="aff-final">
-          <div className="aff-final-glow" aria-hidden />
-          <div className="wrap" style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-            <h2 className="st" style={{ textAlign: "center", marginBottom: 16 }}>{c.finalTitle}</h2>
-            <p className="ssub" style={{ textAlign: "center", margin: "0 auto 20px" }}>{c.finalDesc}</p>
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="aff-wa-btn aff-wa-btn--lg">
-              <WaIcon size={24} />
-              {c.ctaMain}
+        <CtaSection title={c.finalTitle} subtitle={c.finalDesc}>
+          <Button
+            asChild
+            size="lg"
+            className="bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors"
+          >
+            <a href={WA_LINK} target="_blank" rel="noreferrer">
+              <WaIcon size={22} />
+              <span className="ms-2">{c.ctaMain}</span>
             </a>
-          </div>
-        </section>
+          </Button>
+        </CtaSection>
 
       </div>
     </PageShell>

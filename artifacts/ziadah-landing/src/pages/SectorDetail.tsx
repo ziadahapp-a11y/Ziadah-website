@@ -103,7 +103,7 @@ export default function SectorDetail() {
             style={{
               padding: "12px 28px",
               borderRadius: 50,
-              background: "linear-gradient(135deg,#22c57d,#16a34a)",
+              background: "linear-gradient(135deg,#7c3aed,#6d28d9)",
               color: "#fff",
               border: "none",
               fontWeight: 700,
@@ -289,7 +289,7 @@ export default function SectorDetail() {
                     maxWidth: 440,
                     borderRadius: 20,
                     border: "1px solid var(--b2)",
-                    background: "linear-gradient(165deg, rgba(34, 197, 125,.12), rgba(34, 197, 125,.03))",
+                    background: "linear-gradient(165deg, rgba(124, 58, 237,.12), rgba(124, 58, 237,.03))",
                     boxShadow: "0 12px 40px rgba(0,0,0,.08)",
                     padding: "14px 16px 16px",
                     display: "grid",
@@ -513,7 +513,7 @@ export default function SectorDetail() {
                   style={{
                     padding: 0,
                     marginBottom: 0,
-                    borderInlineStart: "4px solid rgba(34, 197, 125, 0.55)",
+                    borderInlineStart: "4px solid rgba(124, 58, 237, 0.55)",
                   }}
                 >
                   <div className="shine" />

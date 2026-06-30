@@ -1,144 +1,62 @@
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { CheckCircle2, Zap } from "lucide-react";
 
-function ClosingCtaGlassCard({
-  children,
-  className = "",
-  style = {},
-}: {
-  children: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--gx", `${((e.clientX - r.left) / r.width) * 100}%`);
-      el.style.setProperty("--gy", `${((e.clientY - r.top) / r.height) * 100}%`);
-    };
-    el.addEventListener("mousemove", onMove);
-    return () => el.removeEventListener("mousemove", onMove);
-  }, []);
-  return (
-    <div ref={ref} className={`gc ${className}`} style={style}>
-      <div className="shine" />
-      {children}
-    </div>
-  );
-}
-
+/**
+ * Closing CTA shared across marketing + use-case pages.
+ *
+ * Re-themed to the TrackFlow design system: a dark `mockup-card` panel with a
+ * faint grid + green glow, white heading, muted subtitle, and an inverted
+ * (white) primary button — matching the final CTA on the home page
+ * (`src/pages/HomeTrackflow.tsx`). The public API is unchanged so every caller
+ * keeps working; the `dark` prop is now a no-op (the CTA is always the dark
+ * panel) but kept for compatibility.
+ */
 export default function PageClosingCta({
   title,
   description,
   buttonLabel,
   note,
   onActivate,
-  dark = false,
 }: {
   title: ReactNode;
   description: ReactNode;
   buttonLabel: ReactNode;
   note?: ReactNode;
   onActivate: () => void;
-  /** When true, renders a dark-themed variant that blends with dark pages. */
+  /** Deprecated: retained for compatibility; the CTA is always the dark panel now. */
   dark?: boolean;
 }) {
   return (
-    <>
-      {dark && (
-        <style>{`
-          section.cta-sec.landing-white-violet.cta-sec--dark {
-            background: transparent !important;
-            background-color: transparent !important;
-            box-shadow: none !important;
-            padding-top: 40px;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark::before {
-            content: '';
-            display: block;
-            width: min(80%, 720px);
-            height: 1px;
-            margin: 0 auto 48px;
-            background: linear-gradient(90deg, transparent, rgba(52, 211, 153,.5), transparent);
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box.gc {
-            background: linear-gradient(165deg, rgba(52, 211, 153,.12) 0%, rgba(15,10,35,.55) 100%) !important;
-            border: 1px solid rgba(52, 211, 153,.32) !important;
-            border-image: none !important;
-            backdrop-filter: blur(20px) saturate(1.1);
-            -webkit-backdrop-filter: blur(20px) saturate(1.1);
-            box-shadow: 0 20px 56px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06) !important;
-            border-radius: 24px !important;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box .cta-glow {
-            background: radial-gradient(ellipse, rgba(52, 211, 153,.28), transparent 70%) !important;
-            background-image: radial-gradient(ellipse, rgba(52, 211, 153,.28), transparent 70%) !important;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box .shine {
-            background: rgba(52, 211, 153,.08);
-            background-image: none;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box h2 {
-            color: #f8fafc !important;
-            -webkit-text-fill-color: #f8fafc !important;
-            background: none !important;
-            background-image: none !important;
-            -webkit-background-clip: border-box !important;
-            background-clip: border-box !important;
-            display: block !important;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box p {
-            color: rgba(248,250,252,.78) !important;
-          }
-          section.cta-sec.landing-white-violet.cta-sec--dark .cta-box .cta-note {
-            color: rgba(248,250,252,.55) !important;
-          }
-          [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box.gc {
-            background: linear-gradient(165deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.72) 100%) !important;
-            border-color: rgba(52, 211, 153,.22) !important;
-            box-shadow: 0 12px 36px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.9) !important;
-          }
-          [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box h2 {
-            color: #0a0a0b !important;
-            -webkit-text-fill-color: #0a0a0b !important;
-          }
-          [data-theme="light"] section.cta-sec.landing-white-violet.cta-sec--dark .cta-box p {
-            color: rgba(34, 197, 125,.78) !important;
-          }
-        `}</style>
-      )}
-      <section
-        className={`cta-sec landing-white-violet${dark ? " cta-sec--dark" : ""}`}
-        style={dark
-          ? { position: "relative", zIndex: 2 }
-          : { background: "#fff", backgroundColor: "#fff", position: "relative", zIndex: 2 }}
-      >
-        <div className="wrap">
-          <ClosingCtaGlassCard className="cta-box rv">
-            <div className="cta-glow" />
-            <h2>{title}</h2>
-            <p>{description}</p>
-            <div className="cta-btns">
+    <section className="py-24 px-4 bg-white" style={{ position: "relative", zIndex: 2 }}>
+      <div className="container mx-auto max-w-4xl">
+        <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative p-10 md:p-14 text-center">
+          <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-purple-500/20 blur-[100px] rounded-full pointer-events-none" />
+          <div className="relative">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight">{title}</h2>
+            <p className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl mx-auto">{description}</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={onActivate}
-                className="cta-btn cb-zid"
+                className="inline-flex items-center justify-center gap-2 text-base h-12 px-8 rounded-md bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors"
                 style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
               >
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-                  <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
-                </svg>
+                <Zap className="w-4 h-4" />
                 {buttonLabel}
               </button>
             </div>
             {note != null && note !== "" ? (
-              <div className="cta-note text-[16px]">{note}</div>
+              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-500">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-purple-400" />
+                  {note}
+                </span>
+              </div>
             ) : null}
-          </ClosingCtaGlassCard>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
