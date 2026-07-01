@@ -1310,7 +1310,7 @@ export default function HomeTrackflow() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.05 }}
-                    className="sm:text-5xl md:text-5xl 2xl:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 text-[39px]"
+                    className="sm:text-5xl md:text-5xl 2xl:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 text-[40px]"
                   >
                     {isAr ? (
                       <>
