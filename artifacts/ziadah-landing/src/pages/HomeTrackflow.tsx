@@ -1313,7 +1313,13 @@ export default function HomeTrackflow() {
                     className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 leading-[1.05]"
                   >
                     {isAr ? (
-                      <>ارفع متوسط قيمة الطلب ومبيعاتك حتى <span className="whitespace-nowrap">35٪</span></>
+                      <>
+                        زيادة متوسط قيمة طلباتك
+                        <br />
+                        باقتراح منتجات بالذكاء الاصطناعي
+                        <br />
+                        مخصصة لكل عميل في متجرك
+                      </>
                     ) : (
                       <>Raise your average order value and sales by up to <span className="whitespace-nowrap">35%</span></>
                     )}
