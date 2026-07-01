@@ -127,7 +127,23 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       { threshold: 0.06, rootMargin: "0px 0px -24px 0px" }
     );
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+
+    /* also observe .rv nodes added later (e.g. tab switches revealing new content) */
+    const mo = new MutationObserver((mutations) => {
+      mutations.forEach((m) => {
+        m.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.matches(".rv")) obs.observe(node);
+          node.querySelectorAll?.(".rv").forEach((el) => obs.observe(el));
+        });
+      });
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      obs.disconnect();
+      mo.disconnect();
+    };
   }, []);
 
   /* scroll progress — always active */
