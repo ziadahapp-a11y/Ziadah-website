@@ -232,7 +232,7 @@ export default function SectorDetail() {
                   backgroundSize: "48px 48px",
                 }}
               />
-              <div className="container mx-auto max-w-3xl flex flex-col items-center">
+              <div className="container mx-auto max-w-3xl flex flex-col items-center pt-[120px] pb-[120px]">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-6">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />

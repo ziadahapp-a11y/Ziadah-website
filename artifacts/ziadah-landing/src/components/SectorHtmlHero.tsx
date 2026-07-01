@@ -49,7 +49,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
     <>
       <section dir={dir} className="relative pt-40 pb-20 md:pt-48 md:pb-24 px-4 border-b border-zinc-200">
         <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-6xl">
+        <div className="container mx-auto relative max-w-6xl pt-[120px] pb-[120px]">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
             {/* ── copy ── */}
             <div className="text-center lg:text-start">

@@ -101,7 +101,7 @@ export default function Sectors() {
         {/* ══════════════════ HERO ══════════════════ */}
         <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
           <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl text-center">
+          <div className="container mx-auto relative max-w-3xl text-center pt-[120px] pb-[120px]">
             <div className="rv mb-4">
               <Eyebrow>{lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}</Eyebrow>
             </div>
