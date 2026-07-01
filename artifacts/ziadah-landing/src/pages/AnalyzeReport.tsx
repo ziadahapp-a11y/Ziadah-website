@@ -443,6 +443,7 @@ export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
         canonical={canonicalPath}
         keywordsAr={pk?.keywordsAr}
         keywordsEn={pk?.keywordsEn}
+        noIndex
       />
       <WebPageSchema
         name={lang === "ar" ? siteT.ar.analyze.reportSeoTitle : siteT.en.analyze.reportSeoTitle}

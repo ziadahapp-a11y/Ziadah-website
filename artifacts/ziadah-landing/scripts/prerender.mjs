@@ -7,11 +7,13 @@
  * dist/public/<route>/index.html. Crawlers, link unfurlers, and no-JS clients
  * then receive real body content + JSON-LD instead of an empty <div id="root">.
  *
- * Resilient by design: if Puppeteer or Chromium is unavailable, it logs a
- * warning and exits 0 so the build never fails because of prerendering.
+ * Fails the build (non-zero exit) if indexable routes cannot be prerendered:
+ * missing build output, missing Puppeteer/Chromium, a browser launch failure,
+ * or any route failing to render all cause a non-zero exit. This ensures a
+ * production deploy never silently ships bare SPA shells to crawlers.
  *
  * Env:
- *   PRERENDER=0            skip entirely
+ *   PRERENDER=0            skip entirely (explicit opt-out, still exits 0)
  *   PRERENDER_CONCURRENCY  parallel tabs (default 4)
  *   PRERENDER_LIMIT        only prerender the first N routes (for quick checks)
  */
@@ -31,8 +33,8 @@ if (process.env.PRERENDER === "0") {
 }
 
 if (!fs.existsSync(path.join(DIST, "index.html"))) {
-  console.warn("[prerender] dist/public/index.html missing — run vite build first. Skipping.");
-  process.exit(0);
+  console.error("[prerender] dist/public/index.html missing — run vite build first. Failing build.");
+  process.exit(1);
 }
 
 // --- Resolve routes from the generated sitemap (fallback to "/") ------------
@@ -91,8 +93,8 @@ async function main() {
   try {
     puppeteer = (await import("puppeteer")).default;
   } catch {
-    console.warn("[prerender] puppeteer not installed — skipping. Run `pnpm add -D puppeteer && npx puppeteer browsers install chrome` to enable.");
-    return;
+    console.error("[prerender] puppeteer not installed — failing build. Run `pnpm add -D puppeteer && npx puppeteer browsers install chrome` to enable.");
+    process.exit(1);
   }
 
   let routes = readRoutes();
@@ -112,10 +114,10 @@ async function main() {
       args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
     });
   } catch (err) {
-    console.warn(`[prerender] could not launch Chromium — skipping. (${err.message})`);
-    console.warn("[prerender] install the browser with: npx puppeteer browsers install chrome");
+    console.error(`[prerender] could not launch Chromium — failing build. (${err.message})`);
+    console.error("[prerender] install the browser with: npx puppeteer browsers install chrome");
     server.close();
-    return;
+    process.exit(1);
   }
 
   let done = 0;
@@ -163,10 +165,26 @@ async function main() {
   await browser.close();
   server.close();
   console.log(`[prerender] wrote ${done} route(s)${failed ? `, ${failed} failed` : ""}.`);
+
+  if (failed > 0) {
+    console.error(`[prerender] ${failed} route(s) failed to prerender — failing build.`);
+    process.exit(1);
+  }
+
+  // Verify every expected route actually produced an index.html on disk.
+  const missing = routes.filter((route) => {
+    const outDir = route === "/" ? DIST : path.join(DIST, route);
+    return !fs.existsSync(path.join(outDir, "index.html"));
+  });
+  if (missing.length > 0) {
+    console.error(
+      `[prerender] missing output for ${missing.length} route(s): ${missing.join(", ")} — failing build.`,
+    );
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {
-  // Never fail the build because of prerendering.
-  console.warn(`[prerender] unexpected error — skipping: ${err.message}`);
-  process.exit(0);
+  console.error(`[prerender] unexpected error — failing build: ${err.message}`);
+  process.exit(1);
 });

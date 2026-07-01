@@ -70,7 +70,7 @@ function urlEntry(loc, locAr, locEn, lastmod, changefreq, priority) {
     <loc>${esc(loc)}</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="${esc(locAr)}" />
     <xhtml:link rel="alternate" hreflang="en" href="${esc(locEn)}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(SITE + "/")}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(locAr)}" />
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
@@ -111,6 +111,8 @@ const USE_CASE_PATHS = [
 const STATIC_MAIN = [
   { path: "/", priority: "1.0", freq: "weekly" },
   { path: "/features", priority: "0.9", freq: "monthly" },
+  { path: "/pricing", priority: "0.9", freq: "monthly" },
+  { path: "/affiliate", priority: "0.6", freq: "monthly" },
   { path: "/calculator", priority: "0.85", freq: "monthly" },
   { path: "/analyze", priority: "0.88", freq: "weekly" },
   { path: "/success-stories", priority: "0.85", freq: "monthly" },
