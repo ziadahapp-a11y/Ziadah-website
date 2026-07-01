@@ -98,35 +98,62 @@ async function main() {
   }
 
   let routes = readRoutes();
+  const offset = Number(process.env.PRERENDER_OFFSET || 0);
   const limit = Number(process.env.PRERENDER_LIMIT || 0);
+  if (offset > 0) routes = routes.slice(offset);
   if (limit > 0) routes = routes.slice(0, limit);
-  const concurrency = Math.max(1, Number(process.env.PRERENDER_CONCURRENCY || 4));
+  const concurrency = Math.max(1, Number(process.env.PRERENDER_CONCURRENCY || 2));
+  // Periodically closing/relaunching the browser mid-run is itself a source of
+  // instability (a race during the close/relaunch transition can take down
+  // in-flight pages). Only relaunch reactively when the browser actually
+  // disconnects/crashes; keep proactive recycling off by default.
+  const restartEvery = Math.max(1, Number(process.env.PRERENDER_RESTART_EVERY || Infinity));
 
   const server = createServer();
   await new Promise((r) => server.listen(0, "127.0.0.1", r));
   const port = server.address().port;
   const origin = `http://127.0.0.1:${port}`;
 
-  let browser;
-  try {
-    browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"],
-    });
-  } catch (err) {
-    console.error(`[prerender] could not launch Chromium — failing build. (${err.message})`);
-    console.error("[prerender] install the browser with: npx puppeteer browsers install chrome");
-    server.close();
-    process.exit(1);
+  const LAUNCH_ARGS = [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-software-rasterizer",
+    "--disable-extensions",
+    "--disable-background-networking",
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+    "--js-flags=--max-old-space-size=256",
+  ];
+
+  async function launchBrowser() {
+    try {
+      return await puppeteer.launch({ headless: true, args: LAUNCH_ARGS });
+    } catch (err) {
+      console.error(`[prerender] could not launch Chromium — failing build. (${err.message})`);
+      console.error("[prerender] install the browser with: npx puppeteer browsers install chrome");
+      server.close();
+      process.exit(1);
+    }
   }
+
+  let browser = await launchBrowser();
+  let pagesSinceLaunch = 0;
 
   let done = 0;
   let failed = 0;
+  const failedRoutes = [];
 
-  async function renderOne(route) {
+  async function renderOnce(route) {
+    const outDirCheck = route === "/" ? DIST : path.join(DIST, route);
+    if (process.env.PRERENDER_SKIP_EXISTING === "1" && fs.existsSync(path.join(outDirCheck, "index.html"))) {
+      return;
+    }
     const page = await browser.newPage();
     try {
-      await page.goto(origin + route, { waitUntil: "networkidle0", timeout: 30000 });
+      await page.goto(origin + route, { waitUntil: "domcontentloaded", timeout: 30000 });
       // Wait for React to mount (app-mounted is added after first paint).
       await page
         .waitForFunction(
@@ -143,12 +170,37 @@ async function main() {
       const outDir = route === "/" ? DIST : path.join(DIST, route);
       fs.mkdirSync(outDir, { recursive: true });
       fs.writeFileSync(path.join(outDir, "index.html"), html, "utf8");
+      return true;
+    } finally {
+      await page.close().catch(() => {});
+    }
+  }
+
+  async function renderOne(route, isRetry = false) {
+    try {
+      await renderOnce(route);
       done++;
     } catch (err) {
+      const disconnected = !browser.connected;
+      if (disconnected) {
+        console.warn(`[prerender] browser disconnected while rendering ${route} — relaunching.`);
+        browser = await launchBrowser();
+        pagesSinceLaunch = 0;
+      }
+      if (!isRetry) {
+        console.warn(`[prerender] retrying ${route} after error: ${err.message}`);
+        return renderOne(route, true);
+      }
       failed++;
+      failedRoutes.push(route);
       console.warn(`[prerender] failed ${route}: ${err.message}`);
     } finally {
-      await page.close();
+      pagesSinceLaunch++;
+      if (pagesSinceLaunch >= restartEvery && browser.connected) {
+        pagesSinceLaunch = 0;
+        await browser.close().catch(() => {});
+        browser = await launchBrowser();
+      }
     }
   }
 
@@ -162,12 +214,12 @@ async function main() {
   }
   await Promise.all(Array.from({ length: Math.min(concurrency, routes.length) }, worker));
 
-  await browser.close();
+  await browser.close().catch(() => {});
   server.close();
   console.log(`[prerender] wrote ${done} route(s)${failed ? `, ${failed} failed` : ""}.`);
 
   if (failed > 0) {
-    console.error(`[prerender] ${failed} route(s) failed to prerender — failing build.`);
+    console.error(`[prerender] ${failed} route(s) failed to prerender — failing build: ${failedRoutes.join(", ")}`);
     process.exit(1);
   }
 
