@@ -482,7 +482,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 
   return (
     <div className="relative w-full max-w-sm mx-auto lg:me-0 lg:ms-auto">
-      <motion.div layout transition={{ layout: { duration: 0.45, ease: "easeInOut" } }} className="rounded-3xl border border-violet-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(124, 58, 237,0.35)] ring-1 ring-violet-500/5">
+      <div className="rounded-3xl border border-violet-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(124, 58, 237,0.35)] ring-1 ring-violet-500/5">
         {/* header */}
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-50 border border-violet-100 px-2.5 py-1 text-[11px] font-bold text-violet-700">
@@ -503,7 +503,6 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={sc.customer.name}
-              layout
               initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
@@ -655,7 +654,6 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
         <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={`${idx}-${sc.offer}`}
-          layout
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
@@ -770,7 +768,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
             />
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
