@@ -1400,7 +1400,7 @@ export default function Nav() {
         backgroundColor: "rgba(250, 250, 251, 0.96)",
         backgroundImage: "none",
         border: "1px solid rgba(124, 58, 237, 0.18)",
-        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.28)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.14)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         color: "var(--tm)",
