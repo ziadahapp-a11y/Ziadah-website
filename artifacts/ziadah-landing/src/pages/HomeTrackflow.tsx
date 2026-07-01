@@ -1314,7 +1314,7 @@ export default function HomeTrackflow() {
                   >
                     {isAr ? (
                       <>
-                        زيادة متوسط قيمة طلباتك
+                        <span className="font-light">زيادة متوسط قيمة طلباتك</span>
                         <br />
                         باقتراح منتجات بالذكاء الاصطناعي
                         <br />
