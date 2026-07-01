@@ -500,7 +500,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 
         {/* INPUTS — customer data (dynamic) + store data */}
         <div className="relative mt-4 grid grid-cols-2 gap-2.5 items-stretch">
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="popLayout" initial={false}>
             <motion.div
               key={sc.customer.name}
               initial={{ opacity: 0 }}
@@ -651,7 +651,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
         </div>
 
         {/* OUTPUT — dynamic offer (add-ons / bundle / buy-more) */}
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={`${idx}-${sc.offer}`}
           initial={{ opacity: 0 }}
