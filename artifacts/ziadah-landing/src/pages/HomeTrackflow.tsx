@@ -595,31 +595,55 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
           </svg>
         </div>
 
-        {/* AI ENGINE — analyzing both inputs, glowing/rotating ring signals active processing */}
-        <div className="relative mt-8 mb-3 flex flex-col items-center">
-          <div className="relative">
-            <motion.span
-              className="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 blur-md"
-              animate={{ rotate: 360, opacity: prepareActive || outputActive ? 0.9 : 0.6 }}
-              transition={{ rotate: { duration: 3, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.3 } }}
-              aria-hidden="true"
+        {/* AI ENGINE — all 4 steps shown together as a numbered progress
+            stepper; the active step glows/scales up while completed steps
+            fill in solid, so the whole pipeline is visible at once instead
+            of swapping one line of text. */}
+        <div className="relative mt-6 mb-3">
+          <div className="absolute top-3 start-[12.5%] end-[12.5%] h-0.5 bg-zinc-100" aria-hidden="true">
+            <motion.div
+              className="h-0.5 bg-gradient-to-r from-violet-500 to-violet-400"
+              animate={{ width: `${(step / (steps.length - 1)) * 100}%` }}
+              transition={{ duration: 0.3 }}
             />
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={step}
-                initial={{ opacity: 0, y: -4, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: prepareActive ? 1.04 : 1 }}
-                exit={{ opacity: 0, y: 4, scale: 0.94 }}
-                transition={{ duration: 0.25 }}
-                className="relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-violet-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-violet-500/25"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-                </span>
-                {steps[step]}
-              </motion.div>
-            </AnimatePresence>
+          </div>
+          <div className="relative flex items-stretch justify-between">
+            {steps.map((label, i) => {
+              const isActive = i === step;
+              const isDone = i < step;
+              return (
+                <div key={label} className="flex flex-1 flex-col items-center gap-1.5">
+                  <div className="relative flex h-6 w-6 items-center justify-center">
+                    {isActive && (
+                      <motion.span
+                        className="absolute inset-0 rounded-full bg-violet-400"
+                        animate={{ scale: [1, 1.7, 1], opacity: [0.55, 0, 0.55] }}
+                        transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <motion.div
+                      animate={{
+                        backgroundColor: isActive ? "#7c3aed" : isDone ? "#ede9fe" : "#f4f4f5",
+                        color: isActive ? "#ffffff" : isDone ? "#7c3aed" : "#a1a1aa",
+                        scale: isActive ? 1.15 : 1,
+                      }}
+                      transition={{ duration: 0.25 }}
+                      className="relative flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-extrabold num-ltr"
+                    >
+                      {isDone ? <Check className="h-3 w-3" /> : i + 1}
+                    </motion.div>
+                  </div>
+                  <span
+                    className={`text-center text-[9px] font-semibold leading-tight transition-colors ${
+                      isActive ? "text-violet-600" : isDone ? "text-violet-400" : "text-zinc-400"
+                    }`}
+                  >
+                    {label}
+                  </span>
+                </div>
+              );
+            })}
           </div>
           <ArrowDownFlow active={prepareActive || outputActive} />
         </div>
