@@ -247,7 +247,6 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
     <div className="relative w-full mx-auto">
       {/* soft violet glow behind the widget */}
       <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-violet-500/20 blur-3xl pointer-events-none" />
-
       <div className="rounded-3xl border border-white/10 bg-[#0b0f14] p-3 shadow-2xl shadow-violet-950/40">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {/* LEFT — buy more, save more tiers */}
@@ -1180,7 +1179,7 @@ export default function HomeTrackflow() {
           <section className="relative pt-20 pb-24 md:pt-28 md:pb-32 px-4">
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
 
-            <div className="container mx-auto relative max-w-7xl">
+            <div className="container mx-auto relative max-w-7xl mt-[120px] mb-[1px]">
               <div className="grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
                 {/* LEFT — copy */}
                 <div className="text-center lg:text-start">
