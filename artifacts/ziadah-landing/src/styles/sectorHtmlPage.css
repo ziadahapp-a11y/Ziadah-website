@@ -259,7 +259,7 @@
   border: 1px solid var(--sh-border2);
   border-radius: 28px;
   padding: 4px;
-  box-shadow: 0 0 48px color-mix(in srgb, var(--p) 14%, transparent), 0 28px 60px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 48px color-mix(in srgb, var(--p) 7%, transparent), 0 28px 60px rgba(0, 0, 0, 0.225);
   position: relative;
   overflow: hidden;
 }
