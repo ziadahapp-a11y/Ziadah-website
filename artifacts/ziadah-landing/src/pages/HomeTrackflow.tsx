@@ -1290,7 +1290,7 @@ export default function HomeTrackflow() {
           <section className="relative pt-20 pb-24 md:pt-28 md:pb-32 px-4">
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
 
-            <div className="container mx-auto relative max-w-7xl mt-[120px] mb-[1px]">
+            <div className="container mx-auto relative max-w-7xl mb-[1px] mt-[0px]">
               <div className="grid lg:grid-cols-[1.85fr_1fr] gap-14 lg:gap-10 items-center">
                 {/* LEFT — copy */}
                 <div className="text-center lg:text-start">
