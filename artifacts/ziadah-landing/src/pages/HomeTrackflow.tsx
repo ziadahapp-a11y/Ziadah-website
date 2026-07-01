@@ -1291,7 +1291,7 @@ export default function HomeTrackflow() {
             <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
 
             <div className="container mx-auto relative max-w-7xl mt-[120px] mb-[1px]">
-              <div className="grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
+              <div className="grid lg:grid-cols-[1.85fr_1fr] gap-14 lg:gap-10 items-center">
                 {/* LEFT — copy */}
                 <div className="text-center lg:text-start">
                   <motion.div
@@ -1310,7 +1310,7 @@ export default function HomeTrackflow() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.05 }}
-                    className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 leading-[1.05]"
+                    className="text-4xl sm:text-5xl md:text-5xl 2xl:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 leading-[1.05]"
                   >
                     {isAr ? (
                       <>
