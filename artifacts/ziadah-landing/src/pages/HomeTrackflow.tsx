@@ -458,20 +458,21 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 
   const [step, setStep] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setStep((s) => (s + 1) % 3), 1600);
+    const id = setInterval(() => setStep((s) => (s + 1) % 4), 1400);
     return () => clearInterval(id);
   }, []);
 
   const sc = scenarios[idx];
   const steps = isAr
-    ? ["يقرأ بيانات العميل", "يحلّل السلوك والمتجر", "يجهّز العرض المناسب"]
-    : ["Reading customer data", "Analyzing behavior & store", "Building the best offer"];
-  // Ties the connector-line glow and input-card highlight to the same 3-step
+    ? ["يقرأ البيانات", "يحلّل", "يجهّز العرض", "يعرض المنتجات"]
+    : ["Reading data", "Analyzing", "Preparing", "Presenting"];
+  // Ties the connector-line glow and input-card highlight to the same 4-step
   // cycle as the engine badge text, so the flow visibly "moves" from
-  // customer → store → output in sync with what the badge says it's doing.
+  // read → analyze → prepare → present in sync with what the badge says.
   const leftActive = step === 0;
   const rightActive = step === 1;
-  const outputActive = step === 2;
+  const prepareActive = step === 2;
+  const outputActive = step === 3;
 
   const storeRows = [
     { icon: LayoutGrid, label: isAr ? "الكتالوج" : "Catalog", value: "240" },
@@ -598,16 +599,16 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
         <div className="relative mt-8 mb-3 flex flex-col items-center">
           <div className="relative">
             <motion.span
-              className="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 opacity-70 blur-md"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 blur-md"
+              animate={{ rotate: 360, opacity: prepareActive || outputActive ? 0.9 : 0.6 }}
+              transition={{ rotate: { duration: 3, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.3 } }}
               aria-hidden="true"
             />
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
                 initial={{ opacity: 0, y: -4, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                animate={{ opacity: 1, y: 0, scale: prepareActive ? 1.04 : 1 }}
                 exit={{ opacity: 0, y: 4, scale: 0.94 }}
                 transition={{ duration: 0.25 }}
                 className="relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-violet-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-violet-500/25"
@@ -620,7 +621,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
               </motion.div>
             </AnimatePresence>
           </div>
-          <ArrowDownFlow active={outputActive} />
+          <ArrowDownFlow active={prepareActive || outputActive} />
         </div>
 
         {/* OUTPUT — dynamic offer (add-ons / bundle / buy-more) */}
