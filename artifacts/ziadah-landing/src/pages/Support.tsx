@@ -161,21 +161,14 @@ export default function Support() {
                     <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
                   </div>
                   {searchResults.map((a, i) => (
-                    <div
+                    <a
                       key={i}
-                      role="button"
-                      tabIndex={0}
+                      href={`/support/article/${a.id}`}
                       className="flex items-start gap-3 px-5 py-4 cursor-pointer hover:bg-zinc-50 border-b border-zinc-100 last:border-b-0 transition-colors"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         navigateTo(`/support/article/${a.id}`);
                         setSearch("");
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
-                          navigateTo(`/support/article/${a.id}`);
-                          setSearch("");
-                        }
                       }}
                     >
                       <div className="flex-1 min-w-0">
@@ -185,7 +178,7 @@ export default function Support() {
                         </div>
                       </div>
                       <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 mt-1 ${isAr ? "rotate-180" : ""}`} />
-                    </div>
+                    </a>
                   ))}
                 </>
               ) : (
@@ -319,16 +312,12 @@ export default function Support() {
 
             <div className="grid sm:grid-cols-2 gap-4">
               {activeCat.articles.map((a, i) => (
-                <div
+                <a
                   key={a.id}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => navigateTo(`/support/article/${a.id}`)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      navigateTo(`/support/article/${a.id}`);
-                    }
+                  href={`/support/article/${a.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateTo(`/support/article/${a.id}`);
                   }}
                   className="rounded-2xl border border-zinc-200 bg-white p-6 cursor-pointer hover:border-zinc-300 hover:shadow-card transition-all flex flex-col gap-3.5"
                 >
@@ -351,7 +340,7 @@ export default function Support() {
                     {getArticleTime(a)} {tx.readSuffix}
                     <ChevronRight className={`w-4 h-4 ms-auto text-zinc-300 ${isAr ? "rotate-180" : ""}`} />
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>

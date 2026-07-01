@@ -28,6 +28,8 @@ const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const Privacy = lazy(() => import("@/pages/Privacy"));
+const Terms = lazy(() => import("@/pages/Terms"));
 const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
 const Sectors = lazy(() => import("@/pages/Sectors"));
 const EcommerceStoreSectors = lazy(() => import("@/pages/EcommerceStoreSectors"));
@@ -116,6 +118,8 @@ function PublicRoutes() {
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
       <Route path="/pricing" component={PricingPage} />
       <Route path="/zid-apps-comparison" component={ZidAppsComparison} />

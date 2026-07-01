@@ -127,6 +127,18 @@ export default function Footer() {
               {tr.footer.copyright}
             </Editable>
           </div>
+          <div className="ft-legal">
+            <a href="/privacy">
+              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy Link">
+                {tr.footer.privacy}
+              </Editable>
+            </a>
+            <a href="/terms">
+              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms Link">
+                {tr.footer.terms}
+              </Editable>
+            </a>
+          </div>
         </div>
       </div>
     </footer>

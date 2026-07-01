@@ -78,10 +78,13 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
   const Arrow = isAr ? ArrowLeft : ArrowRight;
 
   return (
-    <button
-      type="button"
+    <a
+      href={`/success-stories/${s.slug}`}
       className="group flex flex-col gap-5 text-start rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all"
-      onClick={() => navigateTo(`/success-stories/${s.slug}`)}
+      onClick={(e) => {
+        e.preventDefault();
+        navigateTo(`/success-stories/${s.slug}`);
+      }}
       aria-label={isAr ? `اقرأ قصة ${s.store}` : `Read ${storeLabel} story`}
     >
       <div className="flex items-center gap-3.5 min-w-0">
@@ -117,7 +120,7 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
         <span>{isAr ? "اقرأ القصة كاملة" : "Read full story"}</span>
         <Arrow className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" aria-hidden />
       </div>
-    </button>
+    </a>
   );
 }
 

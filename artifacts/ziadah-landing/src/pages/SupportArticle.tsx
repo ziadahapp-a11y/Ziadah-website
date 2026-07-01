@@ -295,10 +295,13 @@ export default function SupportArticle() {
                 <h3 className="text-lg font-bold text-zinc-950 mb-4">{tx.relatedArticles}</h3>
                 <div className="flex flex-col gap-3">
                   {siblings.map(s => (
-                    <button
+                    <a
                       key={s.id}
-                      type="button"
-                      onClick={() => navigateTo(`/support/article/${s.id}`)}
+                      href={`/support/article/${s.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigateTo(`/support/article/${s.id}`);
+                      }}
                       className="flex items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-white p-5 text-start hover:border-zinc-300 hover:shadow-card transition-all"
                     >
                       <div>
@@ -306,7 +309,7 @@ export default function SupportArticle() {
                         <div className="text-xs text-zinc-500 mt-1"><span className="num-ltr">{siblingTime(s)}</span> {tx.readSuffix}</div>
                       </div>
                       <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 ${isAr ? "rotate-180" : ""}`} />
-                    </button>
+                    </a>
                   ))}
                 </div>
               </div>

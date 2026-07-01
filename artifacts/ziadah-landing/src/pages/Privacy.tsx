@@ -11,22 +11,64 @@ import { Eyebrow } from "@/components/trackflow";
 
 const sections = {
   ar: [
-    { title: "مقدمة", body: "[أضف هنا مقدمة سياسة الخصوصية وكيفية التزام زيادة بحماية بيانات مستخدميها.]" },
-    { title: "البيانات التي نجمعها", body: "[أضف هنا تفاصيل البيانات التي يتم جمعها من المستخدمين وأصحاب المتاجر.]" },
-    { title: "كيف نستخدم بياناتك", body: "[أضف هنا شرحاً لكيفية استخدام البيانات المجمعة وأغراضها.]" },
-    { title: "مشاركة البيانات مع أطراف ثالثة", body: "[أضف هنا سياسة مشاركة البيانات مع أطراف ثالثة وضمانات الحماية.]" },
-    { title: "حفظ البيانات وأمانها", body: "[أضف هنا تفاصيل مدة حفظ البيانات وإجراءات الأمان المتبعة.]" },
-    { title: "حقوقك", body: "[أضف هنا حقوق المستخدم فيما يتعلق ببياناته الشخصية.]" },
-    { title: "التواصل معنا", body: "[أضف هنا معلومات التواصل بخصوص أي استفسارات تتعلق بسياسة الخصوصية.]" },
+    {
+      title: "مقدمة",
+      body: "تلتزم زيادة (\"التطبيق\"، \"نحن\") بحماية خصوصية أصحاب المتاجر على منصتي زد وسلة ومستخدمي متاجرهم. توضح هذه السياسة أنواع البيانات التي نجمعها، وكيفية استخدامها وحمايتها، عند استخدامك لتطبيق زيادة وخدماته المرتبطة بالتوصيات الذكية لرفع متوسط قيمة الطلب.",
+    },
+    {
+      title: "البيانات التي نجمعها",
+      body: "نجمع بيانات حساب التاجر (الاسم، البريد الإلكتروني، بيانات المتجر عبر واجهات زد وسلة الرسمية)، وبيانات تشغيلية عن المنتجات والطلبات والتفاعل مع التوصيات داخل المتجر، بالإضافة إلى بيانات تقنية أساسية مثل نوع المتصفح وسجلات الاستخدام لأغراض تحسين الأداء وكشف الأعطال.",
+    },
+    {
+      title: "كيف نستخدم بياناتك",
+      body: "نستخدم البيانات لتشغيل خدمة التوصيات الذكية وعرضها داخل متجرك، وقياس أثرها على متوسط قيمة الطلب والتحويل، وتزويدك بالتقارير داخل لوحة التحكم، والتواصل معك بخصوص الفواتير والدعم الفني والتحديثات المهمة على الخدمة.",
+    },
+    {
+      title: "مشاركة البيانات مع أطراف ثالثة",
+      body: "لا نبيع بياناتك لأي جهة. قد نشارك بيانات محدودة مع مزودي خدمات موثوقين نستعين بهم لتشغيل التطبيق (مثل الاستضافة السحابية ومعالجة المدفوعات)، وذلك بموجب اتفاقيات حماية بيانات تلزمهم بعدم استخدامها لأي غرض آخر. قد نُفصح عن بيانات محدودة إذا طُلب ذلك بموجب نظام أو أمر قضائي في المملكة العربية السعودية.",
+    },
+    {
+      title: "حفظ البيانات وأمانها",
+      body: "نحتفظ ببياناتك طوال فترة استخدامك للتطبيق، ولمدة إضافية بعد إلغاء الاشتراك بحسب ما يقتضيه النظام لأغراض محاسبية أو قانونية. نطبّق إجراءات أمان تقنية وتنظيمية معقولة، مثل التشفير أثناء النقل والتحكم في صلاحيات الوصول، لحماية البيانات من الوصول أو الاستخدام غير المصرح به.",
+    },
+    {
+      title: "حقوقك",
+      body: "يحق لك طلب الاطلاع على بياناتك الشخصية، أو تصحيحها، أو حذف حسابك وبياناته المرتبطة، وذلك بالتواصل معنا عبر قنوات الدعم. سنقوم بمعالجة طلبك خلال مدة معقولة، وقد نطلب التحقق من هويتك قبل تنفيذه.",
+    },
+    {
+      title: "التواصل معنا",
+      body: "لأي استفسار يتعلق بهذه السياسة أو ببياناتك الشخصية، يمكنك التواصل معنا عبر support@ziadah.app.",
+    },
   ],
   en: [
-    { title: "Introduction", body: "[Add here an introduction to the privacy policy and how Ziadah is committed to protecting user data.]" },
-    { title: "Data We Collect", body: "[Add here details about the data collected from users and store owners.]" },
-    { title: "How We Use Your Data", body: "[Add here an explanation of how collected data is used and its purposes.]" },
-    { title: "Sharing Data with Third Parties", body: "[Add here the data sharing policy with third parties and protection guarantees.]" },
-    { title: "Data Retention and Security", body: "[Add here details about data retention periods and security measures in place.]" },
-    { title: "Your Rights", body: "[Add here user rights regarding their personal data.]" },
-    { title: "Contact Us", body: "[Add here contact information for any privacy policy inquiries.]" },
+    {
+      title: "Introduction",
+      body: "Ziadah (\"the App\", \"we\") is committed to protecting the privacy of merchants on Zid and Salla and their store visitors. This policy explains what data we collect and how we use and protect it when you use Ziadah's AI-powered product recommendation service.",
+    },
+    {
+      title: "Data We Collect",
+      body: "We collect merchant account data (name, email, and store data via the official Zid and Salla APIs), operational data about products, orders, and recommendation interactions inside your store, and basic technical data such as browser type and usage logs for performance monitoring and troubleshooting.",
+    },
+    {
+      title: "How We Use Your Data",
+      body: "We use this data to run and display AI recommendations in your store, measure their impact on average order value and conversion, provide you with dashboard reporting, and communicate with you about billing, support, and important service updates.",
+    },
+    {
+      title: "Sharing Data with Third Parties",
+      body: "We do not sell your data. We may share limited data with trusted service providers who help us operate the App (such as cloud hosting and payment processing), under data protection agreements that restrict them from using it for any other purpose. We may disclose limited data when required by law or a valid legal order in Saudi Arabia.",
+    },
+    {
+      title: "Data Retention and Security",
+      body: "We retain your data for as long as you use the App, and for a further period after cancellation where required for accounting or legal purposes. We apply reasonable technical and organizational safeguards, including encryption in transit and access controls, to protect data from unauthorized access or use.",
+    },
+    {
+      title: "Your Rights",
+      body: "You may request access to, correction of, or deletion of your personal data and account by contacting our support team. We will process your request within a reasonable timeframe and may ask you to verify your identity first.",
+    },
+    {
+      title: "Contact Us",
+      body: "For any question about this policy or your personal data, contact us at support@ziadah.app.",
+    },
   ],
 };
 

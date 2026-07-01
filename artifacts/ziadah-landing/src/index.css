@@ -2823,6 +2823,9 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .ft-col a:hover{color:var(--t);}
 .ft-bot{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--b1);flex-wrap:wrap;gap:12px;}
 .ft-copy{font-size:12px;color:var(--td);}
+.ft-legal{display:flex;align-items:center;gap:16px;}
+.ft-legal a{font-size:12px;color:var(--td);text-decoration:none;}
+.ft-legal a:hover{color:var(--tx);text-decoration:underline;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){

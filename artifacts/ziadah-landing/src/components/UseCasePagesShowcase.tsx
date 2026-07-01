@@ -439,7 +439,7 @@ const CASES: ShowcaseCase[] = [
     float2Ar: "📦 +18% قيمة الطلب",
     float2En: "📦 +18% order value",
     accentColor: "#06b6d4",
-    href: "/use-cases/cart-page",
+    href: "/use-cases/cart",
     MockupContent: CartPageContent,
   },
   {
@@ -459,7 +459,7 @@ const CASES: ShowcaseCase[] = [
     float2Ar: "💳 إتمام أسرع",
     float2En: "💳 Faster checkout",
     accentColor: "#8b5cf6",
-    href: "/use-cases/checkout-page",
+    href: "/use-cases/checkout",
     MockupContent: CheckoutPageContent,
   },
   {
@@ -479,7 +479,7 @@ const CASES: ShowcaseCase[] = [
     float2Ar: "⭐ اقتراحات ذكية",
     float2En: "⭐ Smart suggestions",
     accentColor: "#f59e0b",
-    href: "/use-cases/thank-you-page",
+    href: "/use-cases/thank-you",
     MockupContent: ThankYouPageContent,
   },
   {
@@ -499,7 +499,7 @@ const CASES: ShowcaseCase[] = [
     float2Ar: "👤 كل زائر مختلف",
     float2En: "👤 Every visitor is unique",
     accentColor: "#7c3aed",
-    href: "/use-cases/home-page",
+    href: "/use-cases/home",
     MockupContent: HomePageContent,
   },
   {
@@ -519,7 +519,7 @@ const CASES: ShowcaseCase[] = [
     float2Ar: "📊 +24% قيمة الاختيار",
     float2En: "📊 +24% basket value",
     accentColor: "#4f46e5",
-    href: "/use-cases/category-page",
+    href: "/use-cases/category",
     MockupContent: CategoryPageContent,
   },
   {
