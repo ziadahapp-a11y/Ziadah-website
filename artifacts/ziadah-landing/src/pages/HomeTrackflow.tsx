@@ -466,6 +466,12 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
   const steps = isAr
     ? ["يقرأ بيانات العميل", "يحلّل السلوك والمتجر", "يجهّز العرض المناسب"]
     : ["Reading customer data", "Analyzing behavior & store", "Building the best offer"];
+  // Ties the connector-line glow and input-card highlight to the same 3-step
+  // cycle as the engine badge text, so the flow visibly "moves" from
+  // customer → store → output in sync with what the badge says it's doing.
+  const leftActive = step === 0;
+  const rightActive = step === 1;
+  const outputActive = step === 2;
 
   const storeRows = [
     { icon: LayoutGrid, label: isAr ? "الكتالوج" : "Catalog", value: "240" },
@@ -492,13 +498,19 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
         </div>
 
         {/* INPUTS — customer data (dynamic) + store data */}
-        <div className="mt-4 grid grid-cols-2 gap-2.5 items-stretch">
+        <div className="relative mt-4 grid grid-cols-2 gap-2.5 items-stretch">
           <motion.div
             key={sc.customer.name}
             initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              scale: leftActive ? 1.02 : 1,
+              borderColor: leftActive ? "rgba(167,139,250,0.6)" : "rgba(244,244,245,1)",
+              boxShadow: leftActive ? "0 0 0 3px rgba(167,139,250,0.18)" : "0 0 0 0px rgba(167,139,250,0)",
+            }}
             transition={{ duration: 0.35 }}
-            className="rounded-2xl border border-zinc-100 bg-zinc-50/70 p-2.5"
+            className="rounded-2xl border bg-zinc-50/70 p-2.5"
           >
             <div className="flex items-center gap-2">
               <img src={sc.customer.avatar} alt="" className="h-7 w-7 rounded-full object-cover" loading="lazy" />
@@ -517,7 +529,15 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
             </ul>
           </motion.div>
 
-          <div className="rounded-2xl border border-zinc-100 bg-zinc-50/70 p-2.5">
+          <motion.div
+            animate={{
+              scale: rightActive ? 1.02 : 1,
+              borderColor: rightActive ? "rgba(167,139,250,0.6)" : "rgba(244,244,245,1)",
+              boxShadow: rightActive ? "0 0 0 3px rgba(167,139,250,0.18)" : "0 0 0 0px rgba(167,139,250,0)",
+            }}
+            transition={{ duration: 0.35 }}
+            className="rounded-2xl border bg-zinc-50/70 p-2.5"
+          >
             <div className="flex items-center gap-2">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-100 text-violet-600">
                 <Store className="h-3.5 w-3.5" />
@@ -538,26 +558,81 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
+
+          {/* connector lines — animated dashes travel from each input card
+              down into the engine badge, brightening on the active side so
+              the flow visibly tracks which input the "AI" is reading */}
+          <svg
+            className="absolute -bottom-6 left-0 w-full h-8 pointer-events-none overflow-visible"
+            viewBox="0 0 300 32"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path d="M 75 0 C 75 16, 150 16, 150 32" fill="none" stroke="#e4e4e7" strokeWidth="1.5" />
+            <path d="M 225 0 C 225 16, 150 16, 150 32" fill="none" stroke="#e4e4e7" strokeWidth="1.5" />
+            <motion.path
+              d="M 75 0 C 75 16, 150 16, 150 32"
+              fill="none"
+              strokeLinecap="round"
+              strokeWidth={2.5}
+              strokeDasharray="6 14"
+              stroke={leftActive ? "#7c3aed" : "#c4b5fd"}
+              animate={{ pathOffset: [0, 1], opacity: leftActive ? 1 : 0.55 }}
+              transition={{ pathOffset: { duration: 1, repeat: Infinity, ease: "linear" }, opacity: { duration: 0.3 } }}
+            />
+            <motion.path
+              d="M 225 0 C 225 16, 150 16, 150 32"
+              fill="none"
+              strokeLinecap="round"
+              strokeWidth={2.5}
+              strokeDasharray="6 14"
+              stroke={rightActive ? "#7c3aed" : "#c4b5fd"}
+              animate={{ pathOffset: [0, 1], opacity: rightActive ? 1 : 0.55 }}
+              transition={{ pathOffset: { duration: 1, repeat: Infinity, ease: "linear", delay: 0.3 }, opacity: { duration: 0.3 } }}
+            />
+          </svg>
         </div>
 
-        {/* AI ENGINE — analyzing both inputs */}
-        <div className="my-3 flex flex-col items-center">
-          <ArrowDownFlow />
-          <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-violet-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-violet-500/25">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
-            </span>
-            {steps[step]}
+        {/* AI ENGINE — analyzing both inputs, glowing/rotating ring signals active processing */}
+        <div className="relative mt-8 mb-3 flex flex-col items-center">
+          <div className="relative">
+            <motion.span
+              className="absolute -inset-2 rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-500 opacity-70 blur-md"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              aria-hidden="true"
+            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: -4, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 4, scale: 0.94 }}
+                transition={{ duration: 0.25 }}
+                className="relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-violet-600 px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg shadow-violet-500/25"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                </span>
+                {steps[step]}
+              </motion.div>
+            </AnimatePresence>
           </div>
+          <ArrowDownFlow active={outputActive} />
         </div>
 
         {/* OUTPUT — dynamic offer (add-ons / bundle / buy-more) */}
         <motion.div
           key={`${idx}-${sc.offer}`}
           initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: outputActive ? 1.015 : 1,
+            boxShadow: outputActive ? "0 12px 28px -12px rgba(124,58,237,0.35)" : "0 0px 0px 0px rgba(124,58,237,0)",
+          }}
           transition={{ duration: 0.4 }}
           className="rounded-2xl border border-violet-100 bg-violet-50/40 p-2.5"
         >
@@ -669,16 +744,23 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
   );
 }
 
-function ArrowDownFlow() {
+// Vertical connector below the engine badge: a soft gradient line with a
+// glowing dot that travels down it on loop, showing data actively flowing
+// from the engine into the generated offer. Brightens when `active` (i.e.
+// the badge is on its "building the offer" step) to reinforce the sync.
+function ArrowDownFlow({ active = false }: { active?: boolean }) {
   return (
-    <div className="flex flex-col items-center gap-0.5 py-1" aria-hidden="true">
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className="h-1 w-1 rounded-full bg-violet-300"
-          style={{ animation: `dfsPulse 1.5s ${i * 0.18}s infinite` }}
-        />
-      ))}
+    <div className="relative h-6 w-px my-0.5" aria-hidden="true">
+      <div
+        className="absolute inset-0 w-px mx-auto bg-gradient-to-b from-violet-300 to-violet-200/10 transition-opacity"
+        style={{ opacity: active ? 1 : 0.6 }}
+      />
+      <motion.span
+        className="absolute start-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full shadow-[0_0_6px_2px_rgba(139,92,246,0.55)]"
+        style={{ backgroundColor: active ? "#7c3aed" : "#a78bfa" }}
+        animate={{ top: ["0%", "92%"], opacity: [0, 1, 1, 0] }}
+        transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+      />
     </div>
   );
 }
