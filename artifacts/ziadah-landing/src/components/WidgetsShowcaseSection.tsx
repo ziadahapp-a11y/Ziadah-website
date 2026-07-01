@@ -70,7 +70,7 @@ export default function WidgetsShowcaseSection({
           border: "1px solid rgb(228 228 231)" /* zinc-200 — design-system card border */,
           overflow: "hidden",
           // design-system .shadow-card (light SaaS elevation, not the old heavy dark drop)
-          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -8px rgba(0,0,0,0.08)",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.02), 0 8px 24px -8px rgba(0,0,0,0.04)",
           textDecoration: "none",
           color: "inherit",
           cursor: "pointer",

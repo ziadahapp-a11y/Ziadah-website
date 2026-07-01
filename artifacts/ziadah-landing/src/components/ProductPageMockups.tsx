@@ -223,7 +223,7 @@ function MockupCard({
           background: "var(--s1)",
           borderRadius: 44,
           border: "2px solid var(--b1)",
-          boxShadow: `0 0 40px rgba(${colorToRgb(accentColor)},.12), 0 20px 60px rgba(0,0,0,.5)`,
+          boxShadow: `0 0 40px rgba(${colorToRgb(accentColor)},.06), 0 20px 60px rgba(0,0,0,.25)`,
           padding: "14px 10px",
           position: "relative",
           overflow: "hidden",

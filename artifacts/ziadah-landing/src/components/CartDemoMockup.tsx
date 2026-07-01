@@ -55,7 +55,7 @@ export default function CartDemoMockup() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <div className="phone-mockup-wrap" style={{ width: 340, maxWidth: "100%", background: "#fff", borderRadius: 36, boxShadow: "0 32px 80px rgba(0,0,0,0.22), 0 0 0 10px var(--s2), 0 0 0 12px var(--s3)", overflow: "hidden", position: "relative", fontFamily: "var(--font)" }}>
+          <div className="phone-mockup-wrap" style={{ width: 340, maxWidth: "100%", background: "#fff", borderRadius: 36, boxShadow: "0 32px 80px rgba(0,0,0,0.11), 0 0 0 10px var(--s2), 0 0 0 12px var(--s3)", overflow: "hidden", position: "relative", fontFamily: "var(--font)" }}>
             <div style={{ height: 28, background: "var(--s2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ width: 80, height: 8, borderRadius: 10, background: "var(--s2)" }} />
             </div>
@@ -69,7 +69,7 @@ export default function CartDemoMockup() {
                 </div>
               </div>
 
-              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: 12, boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
+              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: 12, boxShadow: "0 1px 6px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   <div style={{ width: 68, height: 68, borderRadius: 10, background: "#fef2f2", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, flexShrink: 0 }}>
                     📿
@@ -93,7 +93,7 @@ export default function CartDemoMockup() {
                 </div>
               </div>
 
-              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
+              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: "12px 14px", boxShadow: "0 1px 6px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
                   <span style={{ fontSize: 13, fontWeight: 900, color: "#111" }}>{t.youMayLike}</span>
                 </div>
@@ -141,7 +141,7 @@ export default function CartDemoMockup() {
                 </div>
               </div>
 
-              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: "10px 14px 4px", boxShadow: "0 1px 6px rgba(0,0,0,0.06)" }}>
+              <div style={{ background: "#fff", margin: "10px 10px 0", borderRadius: 14, padding: "10px 14px 4px", boxShadow: "0 1px 6px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                   <span style={{ fontSize: 13, fontWeight: 700, color: accent }}>{t.total}</span>
                   <span style={{ fontSize: 15, fontWeight: 900, color: "#111" }}>1,165.00 <span style={{ fontSize: 12 }}>SAR</span></span>

@@ -104,7 +104,7 @@ function WidgetShowcaseCardHeader({
         justifyContent: "center",
         fontSize: Math.round(size * 0.52),
         flexShrink: 0,
-        boxShadow: `0 0 12px rgba(${rgb},.15)`,
+        boxShadow: `0 0 12px rgba(${rgb},.075)`,
       }}
     >
       {item.icon}
@@ -314,7 +314,7 @@ export default function WidgetShowcaseCard({
         background: `linear-gradient(160deg, rgba(${rgb},0.14) 0%, rgba(${rgb},0.03) 45%, rgba(12,10,30,0) 100%)`,
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
-        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${rgb},0.1)`,
+        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.05), inset 0px 1px 0px 0px rgba(255,255,255,0.06), 0px 0px 5px 0px rgba(${rgb},0.05)`,
       }}
     >
       <WidgetShowcaseCardHeader item={item} dir={dir} lang={lang} />

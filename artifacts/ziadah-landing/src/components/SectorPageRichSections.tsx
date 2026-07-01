@@ -307,7 +307,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
               width: "min(280px, 70vw)",
               border: "1px solid var(--b2)",
               background: "var(--bg)",
-              boxShadow: "0 12px 28px rgba(0,0,0,.24)",
+              boxShadow: "0 12px 28px rgba(0,0,0,.12)",
             }}
           >
             {metricMeta[i]?.glossary ?? ""}

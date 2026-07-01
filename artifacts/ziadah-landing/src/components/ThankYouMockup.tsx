@@ -63,7 +63,7 @@ function ThankYouPhoneScrollContent() {
         </div>
       </div>
 
-      <div style={{ background: "#fff", margin: "8px 8px 0", borderRadius: 14, padding: "14px 12px", boxShadow: "0 2px 12px rgba(0,0,0,.07)" }}>
+      <div style={{ background: "#fff", margin: "8px 8px 0", borderRadius: 14, padding: "14px 12px", boxShadow: "0 2px 12px rgba(0,0,0,.035)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
           <div
             style={{
@@ -94,7 +94,7 @@ function ThankYouPhoneScrollContent() {
         </div>
       </div>
 
-      <div style={{ margin: "8px 8px 0", background: "#fff", borderRadius: 14, padding: "12px 12px 14px", boxShadow: "0 2px 12px rgba(0,0,0,.07)" }}>
+      <div style={{ margin: "8px 8px 0", background: "#fff", borderRadius: 14, padding: "12px 12px 14px", boxShadow: "0 2px 12px rgba(0,0,0,.035)" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
           <div>
             <div style={{ fontSize: 12, fontWeight: 800, color: "#1c1c1e" }}>{t.dontMiss}</div>
@@ -203,7 +203,7 @@ function ThankYouPhoneScrollContent() {
             justifyContent: "center",
             gap: 6,
             fontFamily: "var(--font)",
-            boxShadow: "0 4px 16px rgba(124, 58, 237,.4)",
+            boxShadow: "0 4px 16px rgba(124, 58, 237,.2)",
           }}
         >
           <span>🛒</span> {t.addAll}

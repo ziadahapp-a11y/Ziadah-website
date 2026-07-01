@@ -83,7 +83,7 @@ export default function CustomerProfileDemo() {
         overflow: "hidden",
         border: "1px solid rgba(124, 58, 237,0.2)",
         background: "var(--s1)",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.075)",
         fontFamily: "var(--font)",
         backdropFilter: "blur(24px)",
         transition: "var(--theme-transition)",

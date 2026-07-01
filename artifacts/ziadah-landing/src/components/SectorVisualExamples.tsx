@@ -60,7 +60,7 @@ function SectorWidgetMiniPreview({
         overflow: "hidden",
         background: "var(--s1)",
         border: `1px solid rgba(${rgb},0.22)`,
-        boxShadow: `0 8px 28px rgba(${rgb},0.12), inset 0 1px 0 rgba(255,255,255,0.06)`,
+        boxShadow: `0 8px 28px rgba(${rgb},0.06), inset 0 1px 0 rgba(255,255,255,0.03)`,
         width: "100%",
         maxWidth: 320,
         margin: "0 auto",
@@ -217,7 +217,7 @@ function SectorScenarioWidgetShowcaseCard({
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
         border: `1px solid rgba(${rgb},0.3)`,
-        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${rgb},0.1)`,
+        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.05), inset 0px 1px 0px 0px rgba(255,255,255,0.06), 0px 0px 5px 0px rgba(${rgb},0.05)`,
       }}
     >
       <div
@@ -242,7 +242,7 @@ function SectorScenarioWidgetShowcaseCard({
             justifyContent: "center",
             fontSize: 22,
             flexShrink: 0,
-            boxShadow: `0 0 12px rgba(${rgb},.15)`,
+            boxShadow: `0 0 12px rgba(${rgb},.075)`,
           }}
         >
           {icon}
@@ -785,7 +785,7 @@ function ScenarioCard({
             padding: 10,
             background: "linear-gradient(165deg, rgba(255,255,255,.12), rgba(0,0,0,.25))",
             border: "1px solid var(--b1)",
-            boxShadow: "0 28px 60px rgba(0,0,0,.35)",
+            boxShadow: "0 28px 60px rgba(0,0,0,.175)",
           }}
         >
           <div
@@ -899,7 +899,7 @@ function ScenarioUiOverlay({
             display: "flex",
             alignItems: "flex-start",
             gap: 10,
-            boxShadow: "0 18px 40px rgba(0,0,0,.45)",
+            boxShadow: "0 18px 40px rgba(0,0,0,.225)",
           }}
         >
           <span style={{ fontSize: 18, lineHeight: 1 }}>✓</span>
@@ -972,7 +972,7 @@ function ScenarioUiOverlay({
             background: "var(--bg)",
             borderTop: "1px solid var(--b1)",
             padding: "10px 16px 18px",
-            boxShadow: "0 -16px 40px rgba(0,0,0,.4)",
+            boxShadow: "0 -16px 40px rgba(0,0,0,.2)",
           }}
         >
           <div style={{ width: 42, height: 5, borderRadius: 99, background: "var(--b2)", margin: "4px auto 12px" }} />
@@ -1021,7 +1021,7 @@ function ScenarioUiOverlay({
             background: "var(--bg)",
             border: "1px solid var(--b1)",
             padding: "18px 16px 16px",
-            boxShadow: "0 28px 70px rgba(0,0,0,.55)",
+            boxShadow: "0 28px 70px rgba(0,0,0,.275)",
           }}
         >
           {meta ? <div style={{ fontSize: 10, fontWeight: 800, color: "var(--p3)", marginBottom: 8 }}>{meta}</div> : null}
