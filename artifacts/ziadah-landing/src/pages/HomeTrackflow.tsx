@@ -1526,35 +1526,73 @@ export default function HomeTrackflow() {
                     </div>
 
                     {/* right: results */}
-                    <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-5" style={{ unicodeBidi: "isolate" }}>
+                      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {/* without recommendations */}
-                        <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6">
+                        <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6 transition-colors">
                           <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-5">
                             {t({ ar: "بدون اقتراحات", en: "Without recommendations" })}
                           </div>
                           <div className="space-y-4">
                             <div>
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
-                              <div className="text-xl font-extrabold text-white num-ltr">
-                                {fmtN(Math.round(r.orders))}
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.orders)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtN(Math.round(r.orders))}
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
                             <div>
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب", en: "Avg. order" })}</div>
-                              <div className="text-xl font-extrabold text-white num-ltr">{fmtCur(aov)}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={aov}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtCur(aov)}
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
-                            <div>
+                            <div className="pt-3 border-t border-white/10">
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
-                              <div className="text-xl font-extrabold text-white num-ltr">
-                                {fmtCur(r.baseRevenue)}
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.baseRevenue)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtCur(r.baseRevenue)}
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
                           </div>
                         </div>
 
+                        {/* connector: flows from "without" into the elevated "with Ziadah" card */}
+                        <div
+                          className="hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-violet-500 text-white shadow-[0_0_0_5px_rgba(9,9,11,1),0_0_20px_rgba(139,92,246,0.6)]"
+                          style={{ insetInlineStart: "50%" }}
+                          aria-hidden="true"
+                        >
+                          <ArrowCTA className="w-4 h-4" />
+                        </div>
+
                         {/* with Ziadah */}
-                        <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.12] to-transparent border border-violet-500/30 p-6">
+                        <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.14] to-transparent border border-violet-500/40 p-6 shadow-[0_0_40px_-10px_rgba(139,92,246,0.35)] sm:scale-[1.02]">
                           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
                             <span className="relative flex h-1.5 w-1.5">
                               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
@@ -1565,50 +1603,93 @@ export default function HomeTrackflow() {
                           <div className="space-y-4">
                             <div>
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
-                              <div className="text-xl font-extrabold text-violet-300 num-ltr">
-                                {fmtN(Math.round(r.orders))}
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.orders)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                >
+                                  {fmtN(Math.round(r.orders))}
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
                             <div>
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب الفعلي", en: "Effective avg. order" })}</div>
-                              <div className="num-ltr flex items-center gap-2 flex-wrap">
-                                <span className="text-xl font-extrabold text-violet-300">
-                                  {fmtCur(r.effectiveAov)}
-                                </span>
-                                <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
-                                  +{fmtCur(r.aovIncrease)}
-                                </span>
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.effectiveAov)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="num-ltr flex items-center gap-2 flex-wrap"
+                                >
+                                  <span className="text-xl font-extrabold text-violet-300">
+                                    {fmtCur(r.effectiveAov)}
+                                  </span>
+                                  <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
+                                    +{fmtCur(r.aovIncrease)}
+                                  </span>
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
-                            <div>
+                            <div className="pt-3 border-t border-violet-500/20">
                               <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
-                              <div className="text-xl font-extrabold text-violet-300 num-ltr">
-                                {fmtCur(r.newRevenue)}
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.newRevenue)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                >
+                                  {fmtCur(r.newRevenue)}
+                                </motion.div>
+                              </AnimatePresence>
                             </div>
                           </div>
                         </div>
                       </div>
 
                       {/* impact summary */}
-                      <div className="rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                      <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                        <div
+                          className="hidden sm:block absolute -top-3 start-1/2 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-violet-500/50 to-transparent"
+                          aria-hidden="true"
+                        />
                         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
                           <BarChart3 className="w-4 h-4" />
                           {t({ ar: "ملخّص الأثر", en: "Impact summary" })}
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                          {calcImpactStats.map((s) => (
-                            <div
+                          {calcImpactStats.map((s, i) => (
+                            <motion.div
                               key={s.label}
-                              className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center"
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.05, duration: 0.3 }}
+                              className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center transition-colors hover:bg-white/[0.07] hover:border-violet-500/30"
                             >
                               <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
                               <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
-                              <div className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight">
-                                {s.value}
-                              </div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={s.value}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight"
+                                >
+                                  {s.value}
+                                </motion.div>
+                              </AnimatePresence>
                               <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
                       </div>
