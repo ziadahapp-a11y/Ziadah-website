@@ -482,7 +482,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 
   return (
     <div className="relative w-full max-w-sm mx-auto lg:me-0 lg:ms-auto">
-      <div className="rounded-3xl border border-violet-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(124, 58, 237,0.35)] ring-1 ring-violet-500/5">
+      <motion.div layout transition={{ layout: { duration: 0.45, ease: "easeInOut" } }} className="rounded-3xl border border-violet-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(124, 58, 237,0.35)] ring-1 ring-violet-500/5">
         {/* header */}
         <div className="flex items-center justify-between">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-50 border border-violet-100 px-2.5 py-1 text-[11px] font-bold text-violet-700">
@@ -500,35 +500,38 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 
         {/* INPUTS — customer data (dynamic) + store data */}
         <div className="relative mt-4 grid grid-cols-2 gap-2.5 items-stretch">
-          <motion.div
-            key={sc.customer.name}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: leftActive ? 1.02 : 1,
-              borderColor: leftActive ? "rgba(167,139,250,0.6)" : "rgba(244,244,245,1)",
-              boxShadow: leftActive ? "0 0 0 3px rgba(167,139,250,0.18)" : "0 0 0 0px rgba(167,139,250,0)",
-            }}
-            transition={{ duration: 0.35 }}
-            className="rounded-2xl border bg-zinc-50/70 p-2.5"
-          >
-            <div className="flex items-center gap-2">
-              <img src={sc.customer.avatar} alt="" className="h-7 w-7 rounded-full object-cover" loading="lazy" />
-              <div className="min-w-0 text-start">
-                <div className="text-[12px] font-bold text-zinc-900 leading-tight truncate">{sc.customer.name}</div>
-                <div className="text-[9.5px] text-zinc-500 leading-tight">{isAr ? "بيانات العميل" : "Customer data"}</div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={sc.customer.name}
+              layout
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                scale: leftActive ? 1.02 : 1,
+                borderColor: leftActive ? "rgba(167,139,250,0.6)" : "rgba(244,244,245,1)",
+                boxShadow: leftActive ? "0 0 0 3px rgba(167,139,250,0.18)" : "0 0 0 0px rgba(167,139,250,0)",
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ opacity: { duration: 0.3, ease: "easeInOut" }, default: { duration: 0.3, ease: "easeInOut" } }}
+              className="rounded-2xl border bg-zinc-50/70 p-2.5"
+            >
+              <div className="flex items-center gap-2">
+                <img src={sc.customer.avatar} alt="" className="h-7 w-7 rounded-full object-cover" loading="lazy" />
+                <div className="min-w-0 text-start">
+                  <div className="text-[12px] font-bold text-zinc-900 leading-tight truncate">{sc.customer.name}</div>
+                  <div className="text-[9.5px] text-zinc-500 leading-tight">{isAr ? "بيانات العميل" : "Customer data"}</div>
+                </div>
               </div>
-            </div>
-            <ul className="mt-2 space-y-1">
-              {sc.customer.signals.map((s, i) => (
-                <li key={i} className="flex items-center gap-1.5 text-[10.5px] text-zinc-600">
-                  <span className="h-1 w-1 rounded-full bg-violet-400 shrink-0" />
-                  <span className="truncate">{s}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+              <ul className="mt-2 space-y-1">
+                {sc.customer.signals.map((s, i) => (
+                  <li key={i} className="flex items-center gap-1.5 text-[10.5px] text-zinc-600">
+                    <span className="h-1 w-1 rounded-full bg-violet-400 shrink-0" />
+                    <span className="truncate">{s}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </AnimatePresence>
 
           <motion.div
             animate={{
@@ -649,16 +652,18 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
         </div>
 
         {/* OUTPUT — dynamic offer (add-ons / bundle / buy-more) */}
+        <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={`${idx}-${sc.offer}`}
-          initial={{ opacity: 0, y: 8 }}
+          layout
+          initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
-            y: 0,
             scale: outputActive ? 1.015 : 1,
             boxShadow: outputActive ? "0 12px 28px -12px rgba(124,58,237,0.35)" : "0 0px 0px 0px rgba(124,58,237,0)",
           }}
-          transition={{ duration: 0.4 }}
+          exit={{ opacity: 0 }}
+          transition={{ opacity: { duration: 0.3, ease: "easeInOut" }, default: { duration: 0.3, ease: "easeInOut" } }}
           className="rounded-2xl border border-violet-100 bg-violet-50/40 p-2.5"
         >
           <div className="mb-2 flex items-center justify-between gap-2">
@@ -751,6 +756,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
             </>
           )}
         </motion.div>
+        </AnimatePresence>
 
         {/* scenario dots */}
         <div className="mt-3 flex items-center justify-center gap-1.5">
@@ -764,7 +770,7 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
