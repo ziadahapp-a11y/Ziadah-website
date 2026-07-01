@@ -66,7 +66,11 @@ export default function BilingualSEO({
   const resolvedDescEn = descriptionEn ?? cmsDescEn;
 
   const rawTitleSegment = lang === "ar" ? resolvedTitleAr : resolvedTitleEn;
-  const documentTitle = clampMetaTitle(`${rawTitleSegment} | ${SITE_NAME}`, 60);
+  const alreadyBranded = /ziadah|زيادة/i.test(rawTitleSegment);
+  const finalTitleSegment = alreadyBranded
+    ? rawTitleSegment
+    : `${rawTitleSegment} | ${SITE_NAME}`;
+  const documentTitle = clampMetaTitle(finalTitleSegment, 60);
   const description = clampMetaDescription(
     lang === "ar" ? resolvedDescAr : resolvedDescEn,
     160,

@@ -149,7 +149,11 @@ export default function Blog() {
     >
     <>
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
-    <ItemListSchema posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))} />
+    <ItemListSchema
+      posts={blogPosts.map(p => ({ slug: p.slug, title: getTitle(p), summary: getSummary(p), publishDateIso: p.publishDateIso }))}
+      name={t[lang].blog.seoTitle}
+      description={t[lang].blog.seoDesc}
+    />
 
       {/* HERO */}
       <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 px-4">

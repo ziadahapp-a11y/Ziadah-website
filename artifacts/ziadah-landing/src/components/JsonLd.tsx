@@ -320,6 +320,52 @@ export function ArticleSchema({
   return <JsonLd data={data} />;
 }
 
+export function SupportArticleSchema({
+  headline,
+  description,
+  url,
+  articleSection,
+  datePublished,
+  dateModified,
+}: {
+  headline: string;
+  description: string;
+  /** Path without /en prefix, e.g. `/support/article/:id` */
+  url: string;
+  articleSection?: string;
+  datePublished?: string;
+  dateModified?: string;
+}) {
+  const { lang } = useLanguage();
+  const resolvedUrl = absolutePageUrl(url, lang);
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    url: resolvedUrl,
+    inLanguage: lang,
+    ...(articleSection ? { articleSection } : {}),
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : datePublished ? { dateModified: datePublished } : {}),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": resolvedUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Ziadah",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.ziadah.app/logo-en.svg",
+        width: 512,
+        height: 512,
+      },
+    },
+  };
+  return <JsonLd data={data} />;
+}
+
 export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: string }> }) {
   const { lang } = useLanguage();
   const data = {
@@ -335,28 +381,37 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
   return <JsonLd data={data} />;
 }
 
-export function ItemListSchema({ posts }: {
-  posts: Array<{ slug: string; title: string; summary: string; publishDateIso: string }>
+export function ItemListSchema({ posts, name, description }: {
+  posts: Array<{ slug: string; title: string; summary: string; publishDateIso: string }>;
+  /** Localized list name; falls back to the Arabic default when omitted. */
+  name?: string;
+  /** Localized list description; falls back to the Arabic default when omitted. */
+  description?: string;
 }) {
+  const { lang } = useLanguage();
+  const listUrl = absolutePageUrl("/blog", lang);
   const data = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
-    description: "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
-    url: "https://www.ziadah.app/blog",
-    inLanguage: ["ar", "en"],
-    itemListElement: posts.map((post, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Article",
-        "@id": `https://www.ziadah.app/blog/${post.slug}`,
-        url: `https://www.ziadah.app/blog/${post.slug}`,
-        name: post.title,
-        description: post.summary,
-        datePublished: post.publishDateIso
-      }
-    }))
+    name: name ?? "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
+    description: description ?? "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
+    url: listUrl,
+    inLanguage: lang,
+    itemListElement: posts.map((post, index) => {
+      const postUrl = absolutePageUrl(`/blog/${post.slug}`, lang);
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Article",
+          "@id": postUrl,
+          url: postUrl,
+          name: post.title,
+          description: post.summary,
+          datePublished: post.publishDateIso
+        }
+      };
+    })
   };
   return <JsonLd data={data} />;
 }
@@ -528,13 +583,14 @@ export function WebPageSchema({
   url: string;
   breadcrumb?: string;
 }) {
+  const { lang } = useLanguage();
   const data = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name,
     description,
-    url: `https://www.ziadah.app${url}`,
-    inLanguage: ["ar", "en"],
+    url: absolutePageUrl(url, lang),
+    inLanguage: lang,
     isPartOf: {
       "@type": "WebSite",
       name: "زيادة",

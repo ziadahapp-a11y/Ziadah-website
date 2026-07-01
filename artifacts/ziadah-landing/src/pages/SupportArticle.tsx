@@ -31,7 +31,7 @@ import { navigateTo } from "@/components/PageTransition";
 import { useParams } from "wouter";
 import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
-import { BreadcrumbSchema } from "../components/JsonLd";
+import { BreadcrumbSchema, SupportArticleSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { useSupportArticleFields } from "../cms/useSupportArticleFields";
@@ -124,6 +124,12 @@ export default function SupportArticle() {
       { name: tx.breadcrumbSupport, url: "/support" },
       { name: articleTitle, url: `/support/article/${article.id}` }
     ]} />
+    <SupportArticleSchema
+      headline={articleTitle}
+      description={articleDesc}
+      url={`/support/article/${article.id}`}
+      articleSection={catLabel}
+    />
     <PageShell className="bg-white" style={{ background: "#fff" }}>
 
       <Section band="white" className="!pt-16 md:!pt-20 !pb-20" containerClassName="max-w-3xl">
