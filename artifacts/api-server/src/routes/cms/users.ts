@@ -1,5 +1,5 @@
 import { Router } from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { cmsUsersTable, db } from "@workspace/db";
