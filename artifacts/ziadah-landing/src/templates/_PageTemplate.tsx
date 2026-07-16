@@ -35,7 +35,7 @@ export default function MyPage() {
       <Nav />
 
       {/* ── HERO / محتوى رئيسي ── */}
-      <section style={{ paddingTop: "var(--page-hero-pt)", paddingBottom: 80, textAlign: "center", position: "relative", zIndex: 2, paddingInline: "var(--page-inline-pad)" }}>
+      <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>
         <div className="wrap">
           {/* TODO: أضف محتوى الصفحة هنا */}
           {/* استخدم CSS variables للألوان لضمان دعم الموود: var(--bg), var(--t), var(--tm), var(--s1) */}

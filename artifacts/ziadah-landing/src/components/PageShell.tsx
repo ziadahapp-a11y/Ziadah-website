@@ -15,10 +15,9 @@ export default function PageShell({
 
   return (
     <div
-      className={`landing-shell${className ? ` ${className}` : ""}`}
+      className={`landing-shell min-h-screen-dvh${className ? ` ${className}` : ""}`}
       style={{
         background: "var(--page-background)",
-        minHeight: "100vh",
         fontFamily: "var(--font)",
         direction: dir,
         color: "var(--t)",

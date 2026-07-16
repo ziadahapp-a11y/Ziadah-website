@@ -24,8 +24,8 @@ export function OrganizationSchema() {
     name: "Ziadah",
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
-    logo: "https://www.ziadah.app/logo.png",
-    description: "منصة ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
+    logo: "https://www.ziadah.app/logo-en.svg",
+    description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
     sameAs: [
       "https://twitter.com/ziadah_app",
       "https://www.instagram.com/ziadah.app",
@@ -89,7 +89,13 @@ export function SoftwareAppSchema() {
       {
         "@type": "Offer",
         name: "باقة الاحترافية",
-        price: "665",
+        price: "666",
+        priceCurrency: "SAR"
+      },
+      {
+        "@type": "Offer",
+        name: "باقة الأعمال",
+        price: "1333",
         priceCurrency: "SAR"
       }
     ],
@@ -295,7 +301,7 @@ export function ArticleSchema({
       name: "Ziadah",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.ziadah.app/logo.png",
+        url: "https://www.ziadah.app/logo-en.svg",
         width: 512,
         height: 512,
       }
@@ -309,6 +315,52 @@ export function ArticleSchema({
       url: "https://www.ziadah.app/opengraph.jpg",
       width: 1200,
       height: 630,
+    },
+  };
+  return <JsonLd data={data} />;
+}
+
+export function SupportArticleSchema({
+  headline,
+  description,
+  url,
+  articleSection,
+  datePublished,
+  dateModified,
+}: {
+  headline: string;
+  description: string;
+  /** Path without /en prefix, e.g. `/support/article/:id` */
+  url: string;
+  articleSection?: string;
+  datePublished?: string;
+  dateModified?: string;
+}) {
+  const { lang } = useLanguage();
+  const resolvedUrl = absolutePageUrl(url, lang);
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    url: resolvedUrl,
+    inLanguage: lang,
+    ...(articleSection ? { articleSection } : {}),
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : datePublished ? { dateModified: datePublished } : {}),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": resolvedUrl,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Ziadah",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.ziadah.app/logo-en.svg",
+        width: 512,
+        height: 512,
+      },
     },
   };
   return <JsonLd data={data} />;
@@ -329,28 +381,193 @@ export function BreadcrumbSchema({ items }: { items: Array<{ name: string; url: 
   return <JsonLd data={data} />;
 }
 
-export function ItemListSchema({ posts }: {
-  posts: Array<{ slug: string; title: string; summary: string; publishDateIso: string }>
+export function ItemListSchema({ posts, name, description }: {
+  posts: Array<{ slug: string; title: string; summary: string; publishDateIso: string }>;
+  /** Localized list name; falls back to the Arabic default when omitted. */
+  name?: string;
+  /** Localized list description; falls back to the Arabic default when omitted. */
+  description?: string;
 }) {
+  const { lang } = useLanguage();
+  const listUrl = absolutePageUrl("/blog", lang);
   const data = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
-    description: "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
-    url: "https://www.ziadah.app/blog",
-    inLanguage: ["ar", "en"],
-    itemListElement: posts.map((post, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Article",
-        "@id": `https://www.ziadah.app/blog/${post.slug}`,
-        url: `https://www.ziadah.app/blog/${post.slug}`,
-        name: post.title,
-        description: post.summary,
-        datePublished: post.publishDateIso
-      }
-    }))
+    name: name ?? "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
+    description: description ?? "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
+    url: listUrl,
+    inLanguage: lang,
+    itemListElement: posts.map((post, index) => {
+      const postUrl = absolutePageUrl(`/blog/${post.slug}`, lang);
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Article",
+          "@id": postUrl,
+          url: postUrl,
+          name: post.title,
+          description: post.summary,
+          datePublished: post.publishDateIso
+        }
+      };
+    })
+  };
+  return <JsonLd data={data} />;
+}
+
+export function PricingPageSchema() {
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const base = "https://www.ziadah.app";
+  const url = isAr ? `${base}/pricing` : `${base}/en/pricing`;
+  const data = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": url,
+      name: isAr ? "أسعار زيادة — اختر الباقة المناسبة لمتجرك" : "Ziadah Pricing — Choose the right plan for your store",
+      description: isAr
+        ? "تعرّف على باقات زيادة الأربع: الانطلاقة والنمو والاحترافية والأعمال — اقتراحات ومبيعات لامحدودة في كل الباقات."
+        : "Explore Ziadah's four plans: Starter, Growth, Professional, and Business — unlimited suggestions and sales in every plan.",
+      url,
+      inLanguage: isAr ? "ar" : "en",
+      isPartOf: { "@type": "WebSite", name: "زيادة", url: base },
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: isAr ? base : `${base}/en` },
+          { "@type": "ListItem", position: 2, name: isAr ? "الأسعار" : "Pricing", item: url },
+        ],
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: isAr ? "باقات زيادة" : "Ziadah Plans",
+      description: isAr
+        ? "أربع باقات لمتاجر زد وسلة: الانطلاقة والنمو والاحترافية والأعمال"
+        : "Four plans for Zid & Salla stores: Starter, Growth, Professional, and Business",
+      url,
+      numberOfItems: 4,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          item: {
+            "@type": "Product",
+            name: isAr ? "باقة الانطلاقة" : "Starter Plan",
+            description: isAr ? "للمبتدئين والراغبين بالتجربة — اقتراحات ومبيعات لامحدودة" : "For beginners — unlimited suggestions and sales",
+            brand: { "@type": "Brand", name: "Ziadah" },
+            offers: {
+              "@type": "Offer",
+              price: "24",
+              priceCurrency: "SAR",
+              priceSpecification: [
+                { "@type": "UnitPriceSpecification", price: "24", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "سنوي" : "Annual billing" },
+                { "@type": "UnitPriceSpecification", price: "29", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "شهري" : "Monthly billing" },
+              ],
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          item: {
+            "@type": "Product",
+            name: isAr ? "باقة النمو" : "Growth Plan",
+            description: isAr ? "للتجار الأفراد — مع عروض الكوبونات والسلة" : "For individual merchants — includes coupon and cart offers",
+            brand: { "@type": "Brand", name: "Ziadah" },
+            offers: {
+              "@type": "Offer",
+              price: "249",
+              priceCurrency: "SAR",
+              priceSpecification: [
+                { "@type": "UnitPriceSpecification", price: "249", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "سنوي" : "Annual billing" },
+                { "@type": "UnitPriceSpecification", price: "290", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "شهري" : "Monthly billing" },
+              ],
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          item: {
+            "@type": "Product",
+            name: isAr ? "باقة الاحترافية" : "Professional Plan",
+            description: isAr ? "للشركات والمؤسسات — تشمل صفحة ما بعد الدفع وشحن مجاني" : "For companies — includes post-checkout and free-shipping bar",
+            brand: { "@type": "Brand", name: "Ziadah" },
+            offers: {
+              "@type": "Offer",
+              price: "666",
+              priceCurrency: "SAR",
+              priceSpecification: [
+                { "@type": "UnitPriceSpecification", price: "666", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "سنوي" : "Annual billing" },
+                { "@type": "UnitPriceSpecification", price: "790", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "شهري" : "Monthly billing" },
+              ],
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          },
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          item: {
+            "@type": "Product",
+            name: isAr ? "باقة الأعمال" : "Business Plan",
+            description: isAr ? "للمتاجر الكبيرة — الصفحة الرئيسية والتصنيفات وصفحة الدفع" : "For large stores — homepage, category pages, and checkout page",
+            brand: { "@type": "Brand", name: "Ziadah" },
+            offers: {
+              "@type": "Offer",
+              price: "1333",
+              priceCurrency: "SAR",
+              priceSpecification: [
+                { "@type": "UnitPriceSpecification", price: "1333", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "سنوي" : "Annual billing" },
+                { "@type": "UnitPriceSpecification", price: "1590", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "شهري" : "Monthly billing" },
+              ],
+              availability: "https://schema.org/InStock",
+              url,
+            },
+          },
+        },
+      ],
+    },
+  ];
+  return <JsonLd data={data as unknown as Record<string, unknown>[]} />;
+}
+
+export function AffiliatePageSchema() {
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const base = "https://www.ziadah.app";
+  const url = isAr ? `${base}/affiliate` : `${base}/en/affiliate`;
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": url,
+    name: isAr ? "برنامج الشراكة والأفيليت | زيادة" : "Affiliate & Partner Program | Ziadah",
+    description: isAr
+      ? "اشترك في برنامج أفيليت زيادة — عمولة 10% على كل اشتراك سنوي، وخصم 10% لعملائك."
+      : "Join Ziadah's affiliate program — earn 10% commission on every annual subscription and give your clients a 10% discount.",
+    url,
+    inLanguage: isAr ? "ar" : "en",
+    isPartOf: { "@type": "WebSite", name: "زيادة", url: base },
+    about: {
+      "@type": "Thing",
+      name: isAr ? "برنامج الإحالة والشراكة" : "Referral & Partner Program",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: isAr ? base : `${base}/en` },
+        { "@type": "ListItem", position: 2, name: isAr ? "برنامج الشراكة" : "Affiliate Program", item: url },
+      ],
+    },
   };
   return <JsonLd data={data} />;
 }
@@ -366,13 +583,14 @@ export function WebPageSchema({
   url: string;
   breadcrumb?: string;
 }) {
+  const { lang } = useLanguage();
   const data = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name,
     description,
-    url: `https://www.ziadah.app${url}`,
-    inLanguage: ["ar", "en"],
+    url: absolutePageUrl(url, lang),
+    inLanguage: lang,
     isPartOf: {
       "@type": "WebSite",
       name: "زيادة",

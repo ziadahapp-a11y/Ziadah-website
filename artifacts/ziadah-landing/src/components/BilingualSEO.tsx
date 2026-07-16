@@ -15,10 +15,10 @@ const DEFAULTS = {
   ar: {
     title: "تطبيق زيادة - اقتراح المنتجات بالذكاء الاصطناعي",
     description:
-      "زيادة: منصة SaaS للتوصيات الذكية على زد وسلة. ارفع المبيعات والتحويل بلغة عربية ورسمية مع دعم السعودية والخليج.",
+      "زيادة: تطبيق SaaS للتوصيات الذكية على زد وسلة. ارفع المبيعات والتحويل بلغة عربية ورسمية مع دعم السعودية والخليج.",
   },
   en: {
-    title: "AI Ecommerce Platform for Zid & Salla Stores",
+    title: "AI Ecommerce App for Zid & Salla Stores",
     description:
       "Ziadah is AI-powered SaaS for Zid and Salla: personalized recommendations, AOV and conversion growth for merchants in Saudi Arabia and the GCC.",
   },
@@ -66,7 +66,11 @@ export default function BilingualSEO({
   const resolvedDescEn = descriptionEn ?? cmsDescEn;
 
   const rawTitleSegment = lang === "ar" ? resolvedTitleAr : resolvedTitleEn;
-  const documentTitle = clampMetaTitle(`${rawTitleSegment} | ${SITE_NAME}`, 60);
+  const alreadyBranded = /ziadah|زيادة/i.test(rawTitleSegment);
+  const finalTitleSegment = alreadyBranded
+    ? rawTitleSegment
+    : `${rawTitleSegment} | ${SITE_NAME}`;
+  const documentTitle = clampMetaTitle(finalTitleSegment, 60);
   const description = clampMetaDescription(
     lang === "ar" ? resolvedDescAr : resolvedDescEn,
     160,

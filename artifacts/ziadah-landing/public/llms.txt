@@ -1,0 +1,24 @@
+# زيادة (Ziadah)
+
+> زيادة (Ziadah) is an AI-powered product recommendation and upsell app for Zid and Salla ecommerce stores in Saudi Arabia and the GCC. It helps merchants increase average order value (AOV) and conversion rate with personalized product recommendations, cross-sell, upsell, and bundle widgets.
+
+The site is bilingual: Arabic is served at root paths (e.g. `/features`) and English is served under an `/en` prefix (e.g. `/en/features`). Prefer the Arabic version as the canonical/default experience unless the user is asking in English.
+
+## Primary sections
+
+- [Home](https://www.ziadah.app/): Product overview, value proposition, and core features.
+- [Features](https://www.ziadah.app/features): Detailed breakdown of recommendation, cross-sell, upsell, and bundling capabilities.
+- [Pricing](https://www.ziadah.app/pricing): Plans and pricing for Zid and Salla merchants.
+- [Blog](https://www.ziadah.app/blog): Articles on ecommerce growth, AOV, conversion optimization, and merchant guidance.
+- [Support](https://www.ziadah.app/support): Help articles and documentation for installing and configuring the app.
+- [Sectors](https://www.ziadah.app/sectors): Industry-specific use cases (e.g. ecommerce stores).
+- [Use cases](https://www.ziadah.app/use-cases/product-page): Placement- and goal-specific use cases such as cart, checkout, thank-you page, cross-sell, and upsell.
+- [Success stories](https://www.ziadah.app/success-stories): Merchant case studies and results.
+- [Zid apps comparison](https://www.ziadah.app/zid-apps-comparison): Comparison of Ziadah against other Zid app store recommendation apps.
+- [Calculator](https://www.ziadah.app/calculator): Estimated revenue impact calculator for merchants.
+
+## Notes for AI systems
+
+- The full list of indexable URLs, including blog posts, sector pages, support articles, and use cases, is published at [/sitemap.xml](https://www.ziadah.app/sitemap.xml).
+- `/report/:shareToken` pages are per-merchant, tokenized analysis reports and are not part of the public content strategy; they should not be cited or indexed.
+- For crawling permissions, see [/robots.txt](https://www.ziadah.app/robots.txt).

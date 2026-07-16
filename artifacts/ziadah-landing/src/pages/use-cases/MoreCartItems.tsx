@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import CrossSellWidget from "../../components/widgets/CrossSellWidget";
 
 const data: UseCasePageData = {
@@ -19,7 +20,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "اشتروا معاً (BTAT)",
       desc: "يعرض منتجات اشتراها عملاء مشابهون مع نفس المنتج — اجتماعي وموثوق ويزيد عدد البنود.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -31,7 +32,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم تكمل الطلب",
       desc: "يجمع منتجات مترابطة في عرض واحد يشجّع على أخذ المجموعة كاملاً بدل منتج واحد.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -41,9 +42,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#a855f7" },
+    { value: "+32%", label: "متوسط عدد المنتجات في السلة", color: "#8b5cf6" },
     { value: "+28%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
-    { value: "+41%", label: "معدل قبول التوصية", color: "#10b981" },
+    { value: "+41%", label: "معدل قبول التوصية", color: "#8b5cf6" },
     { value: "+19%", label: "رضا العملاء عن التجربة", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -56,41 +57,17 @@ const data: UseCasePageData = {
     result: "نفس الطلب يحتوي على منتجات أكثر دون تغيير في عدد الزوار.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "4px 14px",
-            borderRadius: 50,
-            background: "rgba(124,58,237,.08)",
-            border: "1px solid rgba(124,58,237,.2)",
-            color: "#7c3aed",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: 1,
-            textTransform: "uppercase" as const,
-            marginBottom: 16,
-          }}
-        >
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }} />
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>
-          {isAr ? "كيف يُقترح منتج إضافي للعميل؟" : "How does Ziadah suggest an extra item?"}
-        </h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>
-          {isAr
-            ? "واجهة اقتراح تكميلي — يرفع عدد المنتجات في كل طلب"
-            : "Complementary suggestion UI — more line items per order"}
-        </p>
-        <CrossSellWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يُقترح منتج إضافي للعميل؟" : "How does Ziadah suggest an extra item?"}
+      subtitle={
+        isAr
+          ? "واجهة اقتراح تكميلي — يرفع عدد المنتجات في كل طلب"
+          : "Complementary suggestion UI — more line items per order"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CrossSellWidget productLayout="row" /> }]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "زِد عدد المنتجات في كل طلب",
   ctaDesc: "فعّل زيادة وشاهد بنود السلة ترتفع مع توصيات مخصصة.",
   heroEn: {
@@ -110,7 +87,7 @@ const data: UseCasePageData = {
       icon: "🛒",
       title: "Bought Together (BTAT)",
       desc: "Shows products similar customers bought with the same item — social proof that increases line count.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "➕",
@@ -122,7 +99,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Bundles that complete the order",
       desc: "Groups related products in one offer so customers take the full set instead of a single SKU.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -132,9 +109,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+32%", label: "Average products in cart", color: "#a855f7" },
+    { value: "+32%", label: "Average products in cart", color: "#8b5cf6" },
     { value: "+28%", label: "Average order value", color: "#06b6d4" },
-    { value: "+41%", label: "Recommendation acceptance rate", color: "#10b981" },
+    { value: "+41%", label: "Recommendation acceptance rate", color: "#8b5cf6" },
     { value: "+19%", label: "Customer satisfaction", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -146,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "The same order contains more products without changing visitor count.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Increase items per order",
   ctaDescEn: "Activate Ziadah and watch cart line items grow with personalized suggestions.",
   seo: {

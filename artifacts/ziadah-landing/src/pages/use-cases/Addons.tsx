@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import AddonsWidget from "../../components/widgets/AddonsWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "☑️",
       title: "الاختبار المتعدد (Multi-select)",
       desc: "يُعرض للعميل قائمة إضافات بصناديق اختيار — يحدد ما يريد ويرى السعر الإجمالي يتحدث فورياً. يُحسّن معدل قبول الإضافات بشكل ملحوظ.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "إبراز قيمة الإضافة",
       desc: "لكل إضافة يُعرض سعرها بوضوح مع رسالة قيمة مختصرة — 'احمِ هاتفك' أو 'أكمل طقمك' — تجعل الاختيار منطقياً وسهلاً.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📍",
@@ -40,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+44%", label: "معدل قبول قائمة الإضافات", color: "#a855f7" },
+    { value: "+44%", label: "معدل قبول قائمة الإضافات", color: "#8b5cf6" },
     { value: "+31%", label: "متوسط قيمة الطلب مع إضافة واحدة على الأقل", color: "#06b6d4" },
-    { value: "2.3", label: "متوسط عدد الإضافات المختارة في كل طلب", color: "#10b981" },
+    { value: "2.3", label: "متوسط عدد الإضافات المختارة في كل طلب", color: "#8b5cf6" },
     { value: "+22%", label: "تكرار الشراء من العملاء الذين اختاروا إضافات", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -56,51 +57,61 @@ const data: UseCasePageData = {
     result: "الاختبار المتعدد يرفع متوسط عدد الإضافات المختارة من 0.7 إضافة (اقتراح واحد فقط) إلى 2.3 إضافة — ثلاثة أضعاف المبيعات الإضافية بنفس الجهد.",
   },
   extraSections: (isAr) => (
-    <>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح الإضافات كما يراها عميلك فعلياً" : "This is how the add-ons suggestion looks to your customer"}</p>
-        <AddonsWidget />
-      </div>
-    </section>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
-            <div style={{ padding: "24px 28px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "#a855f7", marginBottom: 12 }}>{isAr ? "☑️ Multi-select (زيادة)" : "☑️ Multi-select (Ziadah)"}</div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"] : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                    <span style={{ color: "#a855f7", fontWeight: 700 }}>✓</span> {item}
-                  </li>
-                ))}
-              </ul>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr ? "هكذا تبدو واجهة اقتراح الإضافات كما يراها عميلك فعلياً" : "This is how the add-ons suggestion looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <AddonsWidget />,
+        },
+        {
+          labelAr: "💡 لماذا يعمل؟",
+          labelEn: "💡 Why It Works",
+          placement: "below",
+          content: (
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
+                {isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
+                <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-6">
+                  <div className="text-lg font-bold text-violet-700" style={{ marginBottom: 12 }}>{isAr ? " Multi-select (زيادة)" : " Multi-select (Ziadah)"}</div>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                    {(isAr
+                      ? ["العميل يشعر بالتحكم الكامل", "يختار ما يناسب ميزانيته وحاجته", "السعر الإجمالي يتحدث فورياً", "معدل قبول يصل لـ 44%"]
+                      : ["Customer feels in full control", "Selects what fits their budget and needs", "Total price updates instantly", "Acceptance rate up to 44%"]
+                    ).map((item, i) => (
+                      <li key={i} className="text-sm text-zinc-600" style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <span className="text-violet-600" style={{ fontWeight: 700 }}>✓</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-6">
+                  <div className="text-lg font-bold text-zinc-500" style={{ marginBottom: 12 }}>{isAr ? "➡️ اقتراح مفرد (التقليدي)" : "➡️ Single suggestion (Traditional)"}</div>
+                  <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                    {(isAr
+                      ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18%"]
+                      : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]
+                    ).map((item, i) => (
+                      <li key={i} className="text-sm text-zinc-600" style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                        <span className="text-zinc-500" style={{ fontWeight: 700 }}>•</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div style={{ padding: "24px 28px", background: "rgba(107,114,128,.05)", border: "1px solid rgba(107,114,128,.15)", borderRadius: 14 }}>
-              <div style={{ fontSize: 18, fontWeight: 800, color: "var(--td)", marginBottom: 12 }}>{isAr ? "➡️ اقتراح مفرد (التقليدي)" : "➡️ Single suggestion (Traditional)"}</div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                {(isAr ? ["قرار ثنائي: نعم أو لا", "إضافة واحدة فقط تُعرض في المرة", "لا مرونة في الاختيار", "معدل قبول يتراوح 12-18%"] : ["Binary decision: yes or no", "Only one add-on shown at a time", "No flexibility in choices", "Acceptance rate ranges 12-18%"]).map((item, i) => (
-                  <li key={i} style={{ display: "flex", gap: 8, fontSize: 14, color: "var(--tm)", alignItems: "center" }}>
-                    <span style={{ color: "var(--td)", fontWeight: 700 }}>•</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    </>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عرض الإضافات الذكي في متجرك",
   ctaDesc: "الإضافة الصغيرة تراكمية — كل طلب مع إضافتين يرفع إيراداتك الشهرية بشكل ملموس.",
   heroEn: {
@@ -119,7 +130,7 @@ const data: UseCasePageData = {
       icon: "☑️",
       title: "Multi-Select Checkboxes",
       desc: "Customers see a list of add-ons with checkboxes — they select what they want and see the total update instantly. Significantly improves add-on acceptance rates.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🎯",
@@ -131,7 +142,7 @@ const data: UseCasePageData = {
       icon: "💰",
       title: "Highlight Add-on Value",
       desc: "Each add-on displays its price clearly with a brief value message — 'Protect your phone' or 'Complete your set' — making the choice logical and easy.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📍",
@@ -141,9 +152,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+44%", label: "Add-on list acceptance rate", color: "#a855f7" },
+    { value: "+44%", label: "Add-on list acceptance rate", color: "#8b5cf6" },
     { value: "+31%", label: "Average order value with at least one add-on", color: "#06b6d4" },
-    { value: "2.3", label: "Average number of add-ons selected per order", color: "#10b981" },
+    { value: "2.3", label: "Average number of add-ons selected per order", color: "#8b5cf6" },
     { value: "+22%", label: "Repeat purchases from customers who chose add-ons", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -156,7 +167,6 @@ const data: UseCasePageData = {
     ],
     result: "Multi-select increases the average number of add-ons selected from 0.7 (single suggestion) to 2.3 — three times the additional sales with the same effort.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Activate smart add-on offers in your store",
   ctaDescEn: "Small add-ons are cumulative — every order with two add-ons noticeably boosts your monthly revenue.",
   seo: {

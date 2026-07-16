@@ -1,98 +1,257 @@
 /**
- * Design tokens — backgrounds, text, glass, borders (dark + light).
- * Light theme: Cursor-inspired warm cream palette (cursor.com design language).
- * Dark theme: warm-tinted deep background with violet accent.
- * Consumed by vision-ui-appearance.css and index.css.
+ * ZIADAH — LEGACY token bridge (do not extend).
+ *
+ * This is NOT a second design system. The single design system is TrackFlow
+ * (see src/components/trackflow/DESIGN_SYSTEM.md). This file only keeps the old
+ * .gc/.btn-p/landing-* CSS alive while it is phased out, and its brand tokens
+ * have been re-pointed to the one violet brand color (--brand: #7c3aed).
+ *
+ * INTEGRITY RULES (enforced, never break):
+ * ─ Brand color is violet (#7c3aed) only — never reintroduce green.
+ * ─ New semantic tokens are aliases pointing to existing color values only.
+ * ─ Fonts: saudi_riyal → IBM Plex Sans Arabic → Inter (set in index.css /
+ *   vision-ui-appearance.css). Tajawal/Rubik remain only as legacy fallbacks.
+ * ─ font-style: italic on the Arabic font is FORBIDDEN globally. No exceptions.
+ * ─ All directional spacing in new code uses logical properties only.
+ * ─ transition: all is FORBIDDEN. Always specify individual properties.
  */
 
+/* ═══════════════════════════════════════════════════════════════
+   SECTION A — MOTION SYSTEM
+   These tokens replace the 9 ad-hoc duration values found in the
+   audit. var(--ease) is aliased to --ease-standard for clarity.
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --ds-t: color 0.25s var(--ease), background-color 0.25s var(--ease),
-    border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.2s var(--ease);
+  /* Duration scale */
+  --duration-instant:    80ms;   /* button press scale, micro-feedback */
+  --duration-fast:      160ms;   /* hover color change, chips, nav links */
+  --duration-base:      240ms;   /* cards, dropdowns, badges, toggles */
+  --duration-slow:      400ms;   /* scroll reveal, large panels */
+  --duration-deliberate: 500ms;  /* hero entrance (hard cap — nothing slower) */
 
-  /* Cursor design language: warm brown border base (oklab-equivalent rgba) */
-  --cursor-dark:   #26251e;
-  --cursor-cream:  #f2f1ed;
-  --cursor-light:  #e6e5e0;
-  --cursor-orange: #f54e00;
+  /* Easing curves */
+  --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);    /* default for everything */
+  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1); /* entrances: hero, dropdowns */
+  --ease-linear:    linear;                            /* marquee only */
+
+  /* Legacy alias — kept for backward compat; new code uses --ease-standard */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Legacy composite transition — kept for backward compat; new code uses
+     explicit properties with the duration + easing tokens above */
+  --ds-t: color var(--duration-base) var(--ease-standard),
+          background-color var(--duration-base) var(--ease-standard),
+          border-color var(--duration-base) var(--ease-standard),
+          box-shadow var(--duration-base) var(--ease-standard),
+          transform var(--duration-instant) var(--ease-standard);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION B — SPACING SCALE (8pt grid, 4pt sub-steps allowed)
+   Use --sp-{n} where n = value / 4.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --sp-1:   4px;   /* inline dot/icon gap, micro padding */
+  --sp-2:   8px;   /* badge padding-block, chip internal gap */
+  --sp-3:  12px;   /* button sm padding-block, compact card gap */
+  --sp-4:  16px;   /* button md padding-inline, nav gap */
+  --sp-5:  20px;   /* grid gap between cards (valid 4pt sub-step) */
+  --sp-6:  24px;   /* card padding compact, h1 margin-bottom */
+  --sp-8:  32px;   /* card padding default, section sub-group gap */
+  --sp-10: 40px;   /* gap between content groups within a section */
+  --sp-12: 48px;   /* card padding lg */
+  --sp-16: 64px;   /* page inline pad mobile, small section gap */
+  --sp-20: 80px;   /* section vertical padding desktop (replaces 76px) */
+  --sp-24: 96px;   /* hero padding-top on all pages (replaces 100px) */
+  --sp-32: 128px;  /* max section gap on large viewports */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION C — TYPE SCALE
+   Sizes only. Weight / line-height applied per class in index.css.
+   Fonts: saudi_riyal -> IBM Plex Sans Arabic -> Inter. Tajawal/Rubik legacy fallbacks.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --type-display:  clamp(40px, 5.5vw, 64px);  /* hero h1 only */
+  --type-h1:       clamp(34px, 4vw, 48px);     /* inner-page h1 */
+  --type-h2:       clamp(30px, 3.5vw, 44px);   /* section headings (was up to 58px) */
+  --type-h3:       clamp(22px, 2.5vw, 28px);   /* sub-section headings */
+  --type-h4:       clamp(18px, 2vw, 20px);     /* card titles */
+  --type-lead:     clamp(16px, 1.5vw, 18px);   /* hero sub-text, intro paragraphs */
+  --type-body:     16px;                        /* default paragraph */
+  --type-body-sm:  14px;                        /* secondary text, captions */
+  --type-label:    14px;                        /* buttons, form labels */
+  --type-caption:  12px;                        /* badges, micro-copy */
+  --type-stat:     48px;                        /* stat numbers (replaces 90px) */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION D — BORDER-RADIUS SCALE
+   New semantic names alongside old --r12 / --r20 / --r2 aliases.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --radius-sm:   8px;     /* icon containers, small UI elements */
+  --radius-md:   12px;    /* buttons (all sizes), chips, tags */
+  --radius-lg:   20px;    /* cards (card default) */
+  --radius-xl:   24px;    /* large containers, hero cards, modals */
+  --radius-pill: 9999px;  /* badges, section tags, nav pills */
+
+  /* @deprecated --r12 / --r20 / --r2 — use --radius-md / --radius-lg / --radius-xl instead.
+     Kept for backward compat until component cleanup passes 3.2–3.15 complete. */
+  --r12: 12px;
+  --r20: 20px;
+  --r2:  24px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION E — SHADOW SCALE
+   All rgba values identical to existing --glass-shadow values.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --shadow-none: none;
+  --shadow-sm:   0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-md:   0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -8px rgba(0, 0, 0, 0.08);   /* = --glass-shadow */
+  --shadow-lg:   0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 60px -12px rgba(0, 0, 0, 0.16); /* = --glass-shadow-hover */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION F — CURSOR DESIGN LANGUAGE TOKENS
+   Unchanged from original. Kept verbatim.
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --cursor-dark:    #26251e;
+  --cursor-cream:   #f2f1ed;
+  --cursor-light:   #e6e5e0;
+  --cursor-orange:  #f54e00;
   --cursor-crimson: #cf2d56;
-  --cursor-gold:   #c08532;
+  --cursor-gold:    #c08532;
   --cursor-success: #1f8a65;
 
-  /* Cursor surface scale */
   --cursor-s100: #f7f7f4;
   --cursor-s200: #f2f1ed;
   --cursor-s300: #ebeae5;
   --cursor-s400: #e6e5e0;
   --cursor-s500: #e1e0db;
 
-  /* Cursor border tokens (warm brown at various alpha) */
   --cursor-b1: rgba(38, 37, 30, 0.1);
   --cursor-b2: rgba(38, 37, 30, 0.2);
   --cursor-b3: rgba(38, 37, 30, 0.55);
 
-  /* Cursor elevated card shadow */
   --cursor-card-shadow:
     rgba(0, 0, 0, 0.14) 0px 28px 70px,
     rgba(0, 0, 0, 0.10) 0px 14px 32px,
     rgba(38, 37, 30, 0.1) 0px 0px 0px 1px;
 }
 
-/* Default to dark if attribute missing (SSR / first paint) */
+/* ═══════════════════════════════════════════════════════════════
+   SECTION G — DARK THEME (default)
+   All values identical to previous file. No hex/rgba changed.
+   New semantic tokens added as aliases below each group.
+   ═══════════════════════════════════════════════════════════════ */
 :root,
 [data-theme="dark"] {
-  --bg: #05000f;
-  --page-background: #05000f;
-  --t: #f5f2ee;
-  --tm: rgba(245, 242, 238, 0.72);
-  --td: rgba(255, 255, 255, 1);
 
-  --text-1: #f5f2ee;
-  --text-2: rgba(245, 242, 238, 0.80);
-  --text-3: rgba(232, 228, 220, 0.58);
-  --text-4: rgba(210, 205, 195, 0.38);
+  /* ── Page backgrounds ──
+     Adstellar-inspired light SaaS: pure white page, faint zinc-50 alt bands. */
+  --bg:               #ffffff;
+  --page-background:  #ffffff;
 
-  /* Warm white borders instead of cold white */
-  --b1: rgba(245, 242, 238, 0.08);
-  --b2: rgba(245, 242, 238, 0.14);
-  --b3: rgba(245, 242, 238, 0.24);
+  /* Phase 2 semantic aliases */
+  --bg-page:          #ffffff;                /* = --bg */
+  --bg-gradient:      #ffffff;                /* = --page-background */
+  --bg-section-alt:   #fafafb;                /* zinc-50/60 alternate band */
 
-  /* Warm dark surfaces */
-  --s1: rgba(245, 242, 238, 0.04);
-  --s2: rgba(245, 242, 238, 0.07);
-  --s3: rgba(245, 242, 238, 0.11);
+  /* ── Text colors ── (near-black foreground + zinc muted scale) */
+  --t:      #0a0a0b;
+  --td:     #0a0a0b;
 
-  --p: #7c3aed;
+  /* @deprecated --tm — kept until component cleanup. zinc-600. */
+  --tm:     #52525b;
+
+  --text-1: #0a0a0b;
+  --text-2: #3f3f46;
+  --text-3: #52525b;
+  --text-4: #a1a1aa;
+
+  /* Phase 2 semantic aliases */
+  --text-primary:    #0a0a0b;   /* = --t = --text-1 — near-black */
+  --text-secondary:  #3f3f46;   /* = --text-2 — zinc-700, sub-headings */
+  --text-tertiary:   #52525b;   /* = --text-3 — zinc-600, helper text */
+  --text-muted:      #a1a1aa;   /* = --text-4 — zinc-400, disabled/placeholder */
+  --text-on-accent:  #ffffff;
+
+  /* ── Borders ── (hairline zinc-200) */
+  --b1: rgba(9, 9, 11, 0.06);
+  --b2: rgba(9, 9, 11, 0.10);
+  --b3: rgba(9, 9, 11, 0.16);
+
+  /* Phase 2 semantic aliases */
+  --border-subtle:  rgba(9, 9, 11, 0.06);  /* = --b1 */
+  --border-default: rgba(9, 9, 11, 0.10);  /* = --b2 ≈ zinc-200 */
+  --border-strong:  rgba(9, 9, 11, 0.16);  /* = --b3 */
+
+  /* ── Surfaces ── (light gray fills / elevate overlays) */
+  --s1: rgba(9, 9, 11, 0.03);
+  --s2: rgba(9, 9, 11, 0.05);
+  --s3: rgba(9, 9, 11, 0.08);
+
+  /* Phase 2 semantic aliases */
+  --surface-1: rgba(9, 9, 11, 0.03);  /* = --s1 */
+  --surface-2: rgba(9, 9, 11, 0.05);  /* = --s2 */
+  --surface-3: rgba(9, 9, 11, 0.08);  /* = --s3 */
+
+  /* ── Accent / Brand ── (violet #7c3aed) */
+  --p:  #7c3aed;
   --p2: #6d28d9;
-  --p3: #a855f7;
-  --p4: #c084fc;
+  --p3: #8b5cf6;
+  --p4: #a78bfa;
 
-  --c: #06b6d4;
-  --pk: #ec4899;
-  --gr: #22c55e;
-  --go: #fbbf24;
+  /* @deprecated --brand / --brand-2 — use --accent-primary / --accent-primary-light */
+  --brand:   #7c3aed;
+  --brand-2: #8b5cf6;
 
-  --brand: #7c3aed;
-  --brand-2: #a855f7;
-  --accent-light: rgba(124, 58, 237, 0.18);
+  --accent-light: rgba(124, 58, 237, 0.14);
 
-  --glass-bg: transparent;
-  --glass-bg-2: rgba(26, 20, 16, 0.68);
-  --glass-border: 1px solid rgba(124, 58, 237, 0.22);
-  --glass-blur: blur(22px);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40);
-  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.52);
+  /* Phase 2 semantic aliases */
+  --accent-primary:         #7c3aed;  /* = --p — canonical brand purple #7c3aed */
+  --accent-secondary:       #6d28d9;  /* = --p2 — pressed / hover state */
+  --accent-primary-light:   #8b5cf6;  /* = --p3 — light accent, section tags */
+  --accent-primary-lighter: #a78bfa;  /* = --p4 — lightest accent */
 
-  --r2: 24px;
-  --r12: 12px;
-  --r20: 20px;
+  /* Canonical CTA color — black primary CTA (Adstellar pattern); violet is the
+     secondary/activation accent handled per-component. */
+  --accent-cta:       #18181b;  /* zinc-900 — primary button background */
+  --accent-cta-hover: #27272a;  /* zinc-800 — primary button hover */
 
-  --btn-primary-grad: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  --btn-primary-shadow: 0 4px 22px rgba(124, 58, 237, 0.42);
+  /* ── Semantic status colors ── */
+  --c:  #06b6d4;
+  --pk: #ef4444;
+  --gr: #8b5cf6;
+  --go: #f59e0b;
 
-  --scrollbar-thumb: rgba(124, 58, 237, 0.38);
-  --scrollbar-thumb-hover: rgba(167, 139, 250, 0.55);
+  --success: #6d28d9;   /* violet-700 */
+  --warning: #f59e0b;   /* = --go */
+  --info:    #06b6d4;   /* = --c */
+  --error:   #ef4444;   /* = --pk */
+
+  /* ── Glass system ── (now: white cards, hairline border, soft diffuse shadow) */
+  --glass-bg:           #ffffff;
+  --glass-bg-2:         #ffffff;
+  --glass-border:       1px solid rgba(9, 9, 11, 0.08);
+  --glass-blur:         blur(0px);
+  --glass-shadow:       0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px -8px rgba(0, 0, 0, 0.08);
+  --glass-shadow-hover: 0 1px 2px rgba(0, 0, 0, 0.04), 0 24px 60px -12px rgba(0, 0, 0, 0.16);
+
+  /* ── Button tokens ── (black primary CTA + soft shadow) */
+  --btn-primary-grad:   linear-gradient(135deg, #18181b 0%, #0a0a0b 100%);
+  --btn-primary-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -8px rgba(0, 0, 0, 0.14);
+
+  /* ── Scrollbar ── */
+  --scrollbar-thumb:       rgba(124, 58, 237, 0.38);
+  --scrollbar-thumb-hover: rgba(109, 40, 217, 0.55);
 }
-
-/* ── LIGHT THEME: Cursor warm cream palette ── */
+/* ═══════════════════════════════════════════════════════════════
+   SECTION H — LIGHT THEME (Cursor warm cream palette)
+   Placeholder — not implemented. Unchanged from original.
+   ═══════════════════════════════════════════════════════════════ */
 

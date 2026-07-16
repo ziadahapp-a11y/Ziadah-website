@@ -29,15 +29,28 @@ A full-stack SaaS application for Ziadah that lets store owners connect their e-
   - Upsell products — premium alternatives
 - **Dashboard**: View all stores with status, product counts, and quick actions
 - **Store Detail**: Tabs for Overview, Products (grid with role badges), and AI Analysis
+- **Mobile UX**: Landing and engine pages use native page scrolling, mobile-safe single-column grids, and responsive form/report spacing.
 
 ## Artifacts
 
-- `artifacts/ziadah-engine` — React+Vite frontend at `/`
 - `artifacts/api-server` — Express 5 API server at `/api`
+- `artifacts/ziadah-landing` — React+Vite Arabic RTL dark-theme marketing site at `/`
+- `artifacts/ziadah-landing/src/components/WidgetTabs.tsx` — reusable tabbed widget wrapper (pill tabs, purple gradient active state, fade animation). Used in 8 use-case pages.
+
+## Landing Site UI/UX Refactor Notes (ziadah-landing)
+
+- **RTL-first**: All layout uses logical CSS properties (`paddingInlineStart/End`, `insetInline*`). `direction: ltr` only appears where intentional (Calculator slider, email input field).
+- **WidgetTabs component**: Converts multi-widget sections into pill-tab UI. 1 tab = no UI, renders directly. Props: `isAr`, `tabs[]`, `fullWidthContent`.
+- **Pages converted to WidgetTabs**: CartPage (3 tabs), CheckoutPage (2 tabs), Addons, BundleDeals, BuyMoreSaveMore, BuyTogether, CrossSell, RelatedProducts.
+- **Audit fixes applied**:
+  - `CheckoutPage.tsx`: 2×280px PhoneMockup `flexWrap:nowrap` overflow → converted to WidgetTabs 2 tabs
+  - `ReduceAbandon.tsx`: hardcoded `→` in cause→solution grid → `isAr ? "←" : "→"`
+  - `IncreaseConversion.tsx`: `gridTemplateColumns: "repeat(3,1fr)"` too narrow on mobile → `repeat(auto-fit,minmax(160px,1fr))`
+  - `Upsell.tsx`: `gridTemplateColumns: "1fr 1fr"` too narrow on mobile → `repeat(auto-fit,minmax(220px,1fr))`
 
 ## Database Schema
 
-- `stores` — registered stores with URL, platform, status, sync/analysis timestamps
+- `stores` — registered stores with URL, platform, status, sync/analysis timestamps, and report share tokens
 - `products` — synced products with role (main/cross_sell/upsell)
 - `analyses` — AI analysis results with main product ID, cross-sell/upsell IDs and reasons
 

@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import IncreaseAOVWidget from "../../components/widgets/IncreaseAOVWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo بسعر خاص",
       desc: "يجمّع منتجات مكمّلة بخصم 15-25% على سعر المجموع. العميل يحصل على قيمة أعلى ويدفع أكثر — فوز للطرفين.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🚚",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "Upsell موجّه بذكاء",
       desc: "يعرض النسخة الأعلى بفارق معقول وبمبررات واضحة — لا يقترحها لكل عميل، بل للمرشّحين الذين تظهر أنماطهم ميلاً للجودة.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -46,9 +47,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب", color: "#a855f7" },
+    { value: "+35%", label: "متوسط قيمة الطلب", color: "#8b5cf6" },
     { value: "+28%", label: "عدد المنتجات في السلة", color: "#06b6d4" },
-    { value: "+42%", label: "الطلبات فوق عتبة الشحن", color: "#10b981" },
+    { value: "+42%", label: "الطلبات فوق عتبة الشحن", color: "#8b5cf6" },
     { value: "7x", label: "عائد الاستثمار في المتوسط", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -62,19 +63,17 @@ const data: UseCasePageData = {
     result: "25,000 ⃁ شهرياً = 300,000 ⃁ سنوياً — مجرد تحسين متوسط السلة بـ 20%.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يُحرّك زيادة العميل لرفع سلّته؟" : "How does Ziadah motivate customers to increase their cart?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يبدو اقتراح رفع متوسط الطلب كما يراه عميلك فعلياً" : "This is how the AOV-boosting suggestion looks to your customer"}</p>
-        <IncreaseAOVWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يُحرّك زيادة العميل لرفع سلّته؟" : "How does Ziadah motivate customers to increase their cart?"}
+      subtitle={
+        isAr
+          ? "هكذا يبدو اقتراح رفع متوسط الطلب كما يراه عميلك فعلياً"
+          : "This is how the AOV-boosting suggestion looks to your customer"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <IncreaseAOVWidget /> }]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "ارفع متوسط سلتك بـ 20% في الشهر الأول",
   ctaDesc: "أدوات Upsell وCombo وعتبة الشحن جاهزة — فعّلها الآن.",
   heroEn: {
@@ -93,7 +92,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Combo Bundles at Special Prices",
       desc: "Combines complementary products at a 15-25% discount on the total. The customer gets higher value and pays more — a win for both sides.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🚚",
@@ -105,7 +104,7 @@ const data: UseCasePageData = {
       icon: "⬆️",
       title: "AI-Powered Upsell",
       desc: "Shows a higher version at a reasonable difference with clear justification — doesn't suggest it to every customer, only to those whose patterns show a preference for quality.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -121,9 +120,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value", color: "#a855f7" },
+    { value: "+35%", label: "Average order value", color: "#8b5cf6" },
     { value: "+28%", label: "Number of products in cart", color: "#06b6d4" },
-    { value: "+42%", label: "Orders above shipping threshold", color: "#10b981" },
+    { value: "+42%", label: "Orders above shipping threshold", color: "#8b5cf6" },
     { value: "7x", label: "Average return on investment", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -136,7 +135,6 @@ const data: UseCasePageData = {
     ],
     result: "25,000 SAR/month = 300,000 SAR/year — just by improving average cart by 20%.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Increase your average cart by 20% in the first month",
   ctaDescEn: "Upsell, combo, and shipping threshold tools are ready — activate them now.",
   seo: {

@@ -7,6 +7,8 @@ import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
+import { useMeetingBooking } from "./MeetingBookingProvider";
+import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 import { Editable } from "@/cms/components/Editable";
 import { cmsKey } from "@/cms/cmsKeys";
@@ -16,7 +18,7 @@ export const Logo = () => {
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
-  const logoSrc = lang === "ar" ? "/logo-ar.png" : "/logo-en.png";
+  const logoSrc = lang === "ar" ? "/logo-ar.svg" : "/logo-en.svg";
   return (
     <span onClick={() => navigateTo("/")} style={{ display: "flex", alignItems: "center", textDecoration: "none", cursor: "pointer" }}>
       <img
@@ -38,17 +40,18 @@ function LanguageSwitcher() {
     <button
       type="button"
       onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
+      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "unset"; }}
       style={{
         display: "flex", alignItems: "center", gap: 5,
-        padding: "6px 12px", borderRadius: 8,
-        background: "rgba(255,255,255,.07)",
-        border: "1px solid rgba(255,255,255,.12)",
-        color: "rgba(255,255,255,.8)", fontSize: 13, fontWeight: 700,
+        padding: "5px 10px", borderRadius: 8,
+        background: "unset",
+        backgroundImage: "none",
+        border: "none",
+        color: "var(--tm)", fontSize: 12, fontWeight: 700,
         cursor: "pointer", transition: "all .2s", fontFamily: "var(--font)",
         whiteSpace: "nowrap", flexShrink: 0,
       }}
-      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.13)"; }}
-      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,.07)"; }}
       title={lang === "ar" ? "Switch to English" : "التبديل للعربية"}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -58,6 +61,59 @@ function LanguageSwitcher() {
       </svg>
       {lang === "ar" ? "EN" : "عربي"}
     </button>
+  );
+}
+
+function LoginDropdown({ lang, theme }: { lang: "ar" | "en"; theme: "dark" | "light" }) {
+  const sallaLogo = getPlatformLogoSrc("salla", lang, theme);
+  const zidLogo = getPlatformLogoSrc("zid", lang, theme);
+  const itemStyle: React.CSSProperties = {
+    display: "flex", alignItems: "center", gap: 10,
+    padding: "10px 16px", borderRadius: 10, textDecoration: "none",
+    background: "#f9fafb",
+    border: "1px solid #e4e4e7",
+    color: "var(--t)", fontSize: 14, fontWeight: 500,
+    cursor: "pointer", transition: "background .2s",
+    fontFamily: "var(--font)",
+  };
+  return (
+    <div style={{
+      position: "absolute",
+      top: "calc(100% + 8px)",
+      insetInlineEnd: 0,
+      zIndex: 950,
+      minWidth: 160,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 14,
+      padding: 6,
+      backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)",
+      animation: "slideUpDropdown .18s cubic-bezier(.23,1,.32,1)",
+    }}>
+      <a
+        href="https://dashboard.ziadah.app/login"
+        target="_blank"
+        rel="noreferrer"
+        style={itemStyle}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f9fafb"; }}
+      >
+        <img src={sallaLogo} alt="Salla" style={{ height: 18, width: "auto" }} />
+        <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "سلة" : "Salla"}</span>
+      </a>
+      <a
+        href="https://web.ziadah.app/"
+        target="_blank"
+        rel="noreferrer"
+        style={{ ...itemStyle, marginTop: 4 }}
+        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)"; }}
+        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#f9fafb"; }}
+      >
+        <img src={zidLogo} alt="Zid" style={{ height: 18, width: "auto" }} />
+        <span style={{ color: "var(--tm)", fontSize: 13 }}>{lang === "ar" ? "زد" : "Zid"}</span>
+      </a>
+    </div>
   );
 }
 
@@ -149,6 +205,171 @@ function getPlatformLogoSrc(platformKey: "salla" | "zid", _lang: "ar" | "en", th
   return platformKey === "zid" ? platformZidLogoSrc(theme) : platformSallaLogoSrc(theme);
 }
 
+type PlatformAppNavItem = { label: string; href: string; enabled: boolean };
+
+function getZidPlatformAppNavItems(tr: Translations): PlatformAppNavItem[] {
+  return [{ label: tr.nav.zidAppsComparison, href: "/zid-apps-comparison", enabled: true }];
+}
+
+/** Set `enabled: true` and real `href` when each Salla page is ready. */
+function getSallaPlatformAppNavItems(tr: Translations): PlatformAppNavItem[] {
+  return [
+    { label: tr.nav.sallaAppsNavItem1, href: "#", enabled: false },
+  ];
+}
+
+function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
+  const t = useSiteT();
+  const { lang } = useLanguage();
+  const tr = t[lang];
+  const rowHover = (el: HTMLElement, on: boolean) => {
+    el.style.background = on ? "rgba(124, 58, 237,.1)" : "transparent";
+  };
+  return (
+    <>
+      {items.map((item) => {
+        const key = `${item.href}-${item.label}`;
+        if (!item.enabled) {
+          return (
+            <div
+              key={key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 10,
+                padding: "10px 14px",
+                borderRadius: 12,
+                color: "#71717a",
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: "default",
+                fontFamily: "var(--font)",
+              }}
+            >
+              <span>{item.label}</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  background: "#f4f4f5",
+                  color: "#71717a",
+                  padding: "2px 8px",
+                  borderRadius: 20,
+                  flexShrink: 0,
+                }}
+              >
+                {tr.nav.comingSoon}
+              </span>
+            </div>
+          );
+        }
+        const external = /^https?:\/\//i.test(item.href);
+        if (external) {
+          return (
+            <a
+              key={key}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: "block",
+                padding: "10px 14px",
+                borderRadius: 12,
+                textDecoration: "none",
+                color: "var(--t)",
+                fontSize: 14,
+                fontWeight: 500,
+                transition: "background .2s",
+                fontFamily: "var(--font)",
+              }}
+              onMouseEnter={(e) => rowHover(e.currentTarget, true)}
+              onMouseLeave={(e) => rowHover(e.currentTarget, false)}
+            >
+              {item.label}
+            </a>
+          );
+        }
+        return (
+          <span
+            key={key}
+            role="button"
+            tabIndex={0}
+            onClick={() => navigateTo(item.href)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigateTo(item.href);
+              }
+            }}
+            style={{
+              display: "block",
+              padding: "10px 14px",
+              borderRadius: 12,
+              color: "var(--t)",
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "background .2s",
+              fontFamily: "var(--font)",
+            }}
+            onMouseEnter={(e) => rowHover(e.currentTarget as HTMLElement, true)}
+            onMouseLeave={(e) => rowHover(e.currentTarget as HTMLElement, false)}
+          >
+            {item.label}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+function ComparisonAppsGroupedDropdown({
+  zidItems,
+  sallaItems,
+}: {
+  zidItems: PlatformAppNavItem[];
+  sallaItems: PlatformAppNavItem[];
+}) {
+  const t = useSiteT();
+  const { lang } = useLanguage();
+  const tr = t[lang];
+  const panelStyle: React.CSSProperties = {
+    position: "absolute",
+    top: "calc(100% + 10px)",
+    right: 0,
+    left: "auto",
+    minWidth: "min(300px, calc(100vw - 24px))",
+    maxWidth: "calc(100vw - 16px)",
+    boxSizing: "border-box",
+    background: "#fff",
+    border: "1px solid #e4e4e7",
+    borderRadius: 16,
+    padding: "8px 6px",
+    backdropFilter: "none",
+    boxShadow: "0 16px 48px rgba(9,9,11,.14)",
+    zIndex: 100,
+  };
+  const sectionTitleStyle: React.CSSProperties = {
+    fontSize: 10,
+    fontWeight: 800,
+    color: "#7c3aed",
+    padding: "6px 12px 2px",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    fontFamily: "var(--font)",
+  };
+  return (
+    <div style={panelStyle}>
+      <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownZid}</div>
+      <PlatformAppNavItemList items={zidItems} />
+      <div style={{ height: 1, background: "#e4e4e7", margin: "8px 8px 6px" }} />
+      <div style={sectionTitleStyle}>{tr.nav.comparisonDropdownSalla}</div>
+      <PlatformAppNavItemList items={sallaItems} />
+    </div>
+  );
+}
+
 function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: React.ReactNode; onHoverStart: () => void; onHoverEnd: () => void }) {
   return (
     <div onMouseEnter={onHoverStart} onMouseLeave={onHoverEnd} style={{ position: "relative" }}>
@@ -157,39 +378,74 @@ function DropdownWrapper({ children, onHoverStart, onHoverEnd }: { children: Rea
   );
 }
 
+const USE_CASE_SECTION_ICONS: Record<string, string> = {
+  "حسب الصفحات": "📄",
+  "حسب النشاط": "⚡",
+  "حسب طريقة العرض": "🎨",
+  "حسب الهدف": "🎯",
+  "حسب التجربة": "✨",
+  "By Page": "📄",
+  "By Activity": "⚡",
+  "By Display Type": "🎨",
+  "By Goal": "🎯",
+  "By Experience": "✨",
+};
+
 function UseCasesMegaMenu() {
   const t = useSiteT();
   const { lang } = useLanguage();
   const tr = t[lang];
   const useCasesDropdown = getUseCasesDropdown(tr);
+  const panelWidth = "min(1200px, calc(100vw - 32px))";
   return (
-    <div style={{
-      position: "absolute",
-      top: "calc(100% + 10px)",
-      ...(lang === "ar" ? { right: 0, left: "auto" } : { left: 0, right: "auto" }),
-      width: "min(900px, calc(100vw - 24px))",
-      maxWidth: "calc(100vw - 16px)",
+    <div
+      className="use-cases-mega-menu"
+      style={{
+      position: "fixed",
+      top: 68,
+      left: "50%",
+      transform: "translateX(-50%)",
+      width: panelWidth,
+      maxWidth: panelWidth,
       minWidth: 0,
       boxSizing: "border-box",
-      background: "rgba(11,0,25,1)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: "16px 10px",
-      backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)",
-      boxShadow: "none", zIndex: 100,
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
-      gap: 8,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 18,
+      padding: "20px 16px",
+      backdropFilter: "none",
+      WebkitBackdropFilter: "none",
+      boxShadow: "0 24px 64px rgba(9,9,11,.16)",
+      zIndex: 1000,
       overflowX: "hidden",
       overflowY: "auto",
-      maxHeight: "min(70vh, 520px)",
-    }}>
-      {useCasesDropdown.sections.map((section) => (
-        <div key={section.title} style={{ padding: "4px 6px" }}>
+      maxHeight: "min(75dvh, 560px)",
+      overscrollBehavior: "contain",
+      WebkitOverflowScrolling: "touch",
+      animation: "megaMenuIn .2s cubic-bezier(.23,1,.32,1)",
+    }}
+    >
+      {useCasesDropdown.sections.map((section, i) => (
+        <div
+          key={section.title}
+          className="use-cases-mega-menu__col"
+          style={{
+            padding: "4px 10px",
+            borderInlineEnd: i < useCasesDropdown.sections.length - 1
+              ? `1px solid #e4e4e7`
+              : "none",
+          }}
+        >
           <div style={{
-            fontSize: 11, fontWeight: 700, color: "var(--p4)", marginBottom: 6,
-            paddingRight: lang === "ar" ? 6 : 0, paddingLeft: lang === "en" ? 6 : 0,
-            textTransform: "uppercase", letterSpacing: 1, fontFamily: "var(--font)",
+            display: "flex", alignItems: "center", gap: 6,
+            fontSize: 10, fontWeight: 800, color: "#7c3aed", marginBottom: 10,
+            paddingBottom: 8,
+            borderBottom: "1px solid #e4e4e7",
+            textTransform: "uppercase", letterSpacing: 1.2, fontFamily: "var(--font)",
           }}>
+            <span style={{ fontSize: 14, lineHeight: 1 }}>
+              {USE_CASE_SECTION_ICONS[section.title] ?? "▸"}
+            </span>
             {section.title}
           </div>
           {section.items.map((item) => (
@@ -197,16 +453,23 @@ function UseCasesMegaMenu() {
               key={item.href + item.label}
               onClick={() => navigateTo(item.href)}
               style={{
-                display: "block", padding: "10px 8px", borderRadius: 12,
-                textDecoration: "none", transition: "background .2s", fontSize: 14,
-                fontWeight: 700, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
+                display: "block", padding: "9px 10px", borderRadius: 10,
+                textDecoration: "none", transition: "background .18s, color .18s", fontSize: 13.5,
+                fontWeight: 600, color: "var(--t)", cursor: "pointer", fontFamily: "var(--font)",
+                overflowWrap: "anywhere", wordBreak: "break-word", marginBottom: 2,
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(124, 58, 237,.1)";
+                (e.currentTarget as HTMLElement).style.color = "#7c3aed";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "transparent";
+                (e.currentTarget as HTMLElement).style.color = "var(--t)";
+              }}
             >
               {item.label}
               {item.subtitle && (
-                <span style={{ display: "block", fontSize: 12, color: "rgba(255, 255, 255, 0.5)", marginTop: 2, fontWeight: 500, lineHeight: 1.45 }}>
+                <span style={{ display: "block", fontSize: 11.5, color: "var(--tm)", marginTop: 2, fontWeight: 400, lineHeight: 1.4, overflowWrap: "anywhere", wordBreak: "break-word" }}>
                   {item.subtitle}
                 </span>
               )}
@@ -230,10 +493,10 @@ function PlatformsDropdown() {
       minWidth: "min(200px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       {platformItems.map((item) => {
         if (!item.enabled) {
@@ -242,14 +505,14 @@ function PlatformsDropdown() {
               key={item.label}
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 14px", borderRadius: 12, color: "var(--td)",
+                padding: "10px 14px", borderRadius: 12, color: "#71717a",
                 fontSize: 14, fontWeight: 500, cursor: "default",
               }}
             >
               <span>{item.label}</span>
               <span style={{
-                fontSize: 10, fontWeight: 700, background: "var(--s2)",
-                color: "var(--td)", padding: "2px 8px", borderRadius: 20,
+                fontSize: 10, fontWeight: 700, background: "#f4f4f5",
+                color: "#71717a", padding: "2px 8px", borderRadius: 20,
               }}>
                 {item.badge}
               </span>
@@ -275,7 +538,7 @@ function PlatformsDropdown() {
               fontWeight: 500,
               transition: "background .2s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
           >
             <img
@@ -328,10 +591,10 @@ function HelpDropdown() {
       minWidth: "min(300px, calc(100vw - 24px))",
       maxWidth: "calc(100vw - 16px)",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       {helpItems.map((item) => (
         <span
@@ -350,13 +613,13 @@ function HelpDropdown() {
             borderRadius: 12, textDecoration: "none", transition: "background .2s", cursor: "pointer",
             width: "100%", textAlign: lang === "ar" ? "right" : "left",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
-          <div style={{ color: "var(--p4)", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
+          <div style={{ color: "#7c3aed", marginTop: 2, flexShrink: 0 }}>{item.icon}</div>
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "var(--t)" }}>{item.label}</div>
-            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{item.subtitle}</div>
+            <div style={{ fontSize: 12, color: "#71717a", marginTop: 2 }}>{item.subtitle}</div>
           </div>
         </span>
       ))}
@@ -511,6 +774,14 @@ function MobileNavIcon({ name, size = 20 }: { name: string; size?: number }) {
           <polyline points="12 5 19 12 12 19" />
         </svg>
       );
+    case "login":
+      return (
+        <svg {...s} aria-hidden>
+          <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
+          <polyline points="10 17 15 12 10 7" />
+          <line x1="15" y1="12" x2="3" y2="12" />
+        </svg>
+      );
     default:
       return (
         <svg {...s} aria-hidden>
@@ -531,10 +802,10 @@ function SectorsDropdown() {
       maxWidth: "calc(100vw - 16px)",
       maxHeight: 420, overflowY: "auto",
       boxSizing: "border-box",
-      background: "rgba(8,6,20,.97)",
-      border: "1px solid rgba(255,255,255,.1)",
-      borderRadius: 16, padding: 8, backdropFilter: "blur(32px)",
-      boxShadow: "0 24px 60px rgba(0,0,0,.6)", zIndex: 100,
+      background: "#fff",
+      border: "1px solid #e4e4e7",
+      borderRadius: 16, padding: 8, backdropFilter: "none",
+      boxShadow: "0 16px 48px rgba(9,9,11,.14)", zIndex: 100,
     }}>
       <span
         role="button"
@@ -550,18 +821,18 @@ function SectorsDropdown() {
           display: "block",
           padding: "10px 14px",
           borderRadius: 12,
-          color: "var(--p)",
+          color: "#7c3aed",
           fontSize: 14,
           fontWeight: 700,
           cursor: "pointer",
           transition: "background .2s",
         }}
-        onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+        onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >
         {allSectorsLabel}
       </span>
-      <div style={{ height: 1, background: "var(--b2)", margin: "6px 8px" }} />
+      <div style={{ height: 1, background: "#e4e4e7", margin: "6px 8px" }} />
       {MAIN_SECTOR_NAV.map((item) => (
         <span
           key={item.href}
@@ -580,7 +851,7 @@ function SectorsDropdown() {
             color: "var(--t)", fontSize: 14, fontWeight: 500,
             cursor: "pointer", transition: "background .2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,.1)")}
+          onMouseEnter={e => (e.currentTarget.style.background = "rgba(124, 58, 237,.1)")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
           <span style={{ fontSize: 17, lineHeight: 1 }}>{item.icon}</span>
@@ -604,8 +875,11 @@ function MobileMoreDropdown({
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
+  const { openMeetingBooking } = useMeetingBooking();
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
+  const zidPlatformAppNavItems = getZidPlatformAppNavItems(tr);
+  const sallaPlatformAppNavItems = getSallaPlatformAppNavItems(tr);
 
   const [openSection, setOpenSection] = useState<string | null>(initialOpenSection ?? null);
   const toggleSection = (section: string) => setOpenSection(prev => prev === section ? null : section);
@@ -628,22 +902,23 @@ function MobileMoreDropdown({
   }, [onClose]);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => { document.body.style.overflow = previousOverflow; };
   }, []);
 
   const directLinkStyle: React.CSSProperties = {
     display: "flex", alignItems: "center", gap: 10, padding: "12px 14px",
-    borderRadius: 14, background: "rgba(255,255,255,.04)", textDecoration: "none",
-    border: "1px solid rgba(255,255,255,.08)",
+    borderRadius: 14, background: "#f9fafb", textDecoration: "none",
+    border: "1px solid #e4e4e7",
     color: "var(--tm)", fontSize: 14, fontWeight: 600, fontFamily: "var(--font)",
     marginBottom: 6,
   };
 
   const subLinkStyle: React.CSSProperties = {
     display: "block", padding: "10px 12px", borderRadius: 10,
-    background: "rgba(255,255,255,.04)", textDecoration: "none",
-    border: "1px solid rgba(255,255,255,.07)",
+    background: "#f9fafb", textDecoration: "none",
+    border: "1px solid #e4e4e7",
     color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
@@ -684,13 +959,13 @@ function MobileMoreDropdown({
           maxWidth: 540,
           marginInline: "auto",
           zIndex: 950,
-          background: "rgba(8,6,20,.98)",
-          border: "1px solid rgba(255,255,255,.1)",
+          background: "#fff",
+          border: "1px solid #e4e4e7",
           borderBottom: "none",
           borderRadius: "22px 22px 0 0",
           padding: "10px 14px 8px",
-          backdropFilter: "blur(32px)",
-          boxShadow: "0 -8px 40px rgba(0,0,0,.6)",
+          backdropFilter: "none",
+          boxShadow: "0 -8px 40px rgba(9,9,11,.18)",
           maxHeight: "80vh",
           overflowY: "auto",
           animation: "slideUpDropdown .25s cubic-bezier(.23,1,.32,1)",
@@ -701,16 +976,16 @@ function MobileMoreDropdown({
           width: 44,
           height: 4,
           borderRadius: 999,
-          background: "rgba(255,255,255,.2)",
+          background: "#d4d4d8",
           margin: "2px auto 10px",
         }} />
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "var(--td)", letterSpacing: 0.8, textTransform: "uppercase" }}>{tr.nav.menu}</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#71717a", letterSpacing: 0.8, textTransform: "uppercase" }}>{tr.nav.menu}</span>
           <button
             type="button"
             onClick={onClose}
             style={{
-              background: "rgba(255,255,255,.07)", border: "none", color: "var(--tm)",
+              background: "#f4f4f5", border: "none", color: "var(--tm)",
               width: 32, height: 32, borderRadius: 10, fontSize: 16, cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}
@@ -719,7 +994,7 @@ function MobileMoreDropdown({
           </button>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("useCases")}
@@ -727,12 +1002,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.useCases}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "useCases" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "useCases" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -742,10 +1017,14 @@ function MobileMoreDropdown({
           }}>
             {useCasesDropdown.sections.map((section) => (
               <div key={section.title} style={{ marginBottom: 10, paddingBottom: 8 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6, paddingRight: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
+                <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", marginBottom: 6, paddingInlineEnd: 4, letterSpacing: 0.5, textTransform: "uppercase" }}>{section.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   {section.items.map((item) => (
-                    <span key={item.href} onClick={() => { navigateTo(item.href); onClose(); }} style={{ ...subLinkStyle, cursor: "pointer" }}>
+                    <span
+                      key={item.href}
+                      onClick={() => { navigateTo(item.href); onClose(); }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
                       {item.label}
                     </span>
                   ))}
@@ -755,7 +1034,7 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("platforms")}
@@ -763,12 +1042,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.platforms}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "platforms" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "platforms" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -800,13 +1079,13 @@ function MobileMoreDropdown({
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "9px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)", color: "var(--td)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb", color: "#71717a",
+                      border: "1px solid #e4e4e7",
                       fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                     }}
                   >
                     <span>{item.label}</span>
-                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                    {item.badge && <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                   </div>
                 )
               )}
@@ -814,7 +1093,92 @@ function MobileMoreDropdown({
           </div>
         </div>
 
-        <div style={{ marginBottom: 8, border: "1px solid rgba(255,255,255,.07)", borderRadius: 14, padding: "4px 8px", background: "rgba(255,255,255,.02)" }}>
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
+          <button
+            type="button"
+            onClick={() => toggleSection("comparisonApps")}
+            aria-expanded={openSection === "comparisonApps"}
+            style={{
+              width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+              background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
+              textTransform: "uppercase", fontFamily: "var(--font)",
+            }}
+          >
+            <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
+              {tr.nav.comparisonNav}
+            </Editable>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "comparisonApps" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+          </button>
+          <div style={{
+            overflow: "hidden",
+            maxHeight: openSection === "comparisonApps" ? "2000px" : "0px",
+            opacity: openSection === "comparisonApps" ? 1 : 0,
+            transition: "max-height .3s cubic-bezier(.23,1,.32,1), opacity .25s ease",
+          }}>
+            <div style={{ paddingBottom: 8 }}>
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#71717a", padding: "8px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownZid}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {zidPlatformAppNavItems.map((item) =>
+                  item.enabled ? (
+                    <span
+                      key={item.href + item.label}
+                      onClick={() => {
+                        navigateTo(item.href);
+                        onClose();
+                      }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
+                      <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "zidAppsComparison")} label="Nav Zid apps comparison">
+                        {item.label}
+                      </Editable>
+                    </span>
+                  ) : null,
+                )}
+              </div>
+              <div style={{ height: 1, background: "#e4e4e7", margin: "10px 4px 8px" }} />
+              <div style={{ fontSize: 10, fontWeight: 800, color: "#71717a", padding: "4px 8px 4px", letterSpacing: 0.6 }}>{tr.nav.comparisonDropdownSalla}</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {sallaPlatformAppNavItems.map((item) =>
+                  item.enabled ? (
+                    <span
+                      key={item.href + item.label}
+                      onClick={() => {
+                        navigateTo(item.href);
+                        onClose();
+                      }}
+                      style={{ ...subLinkStyle, cursor: "pointer" }}
+                    >
+                      {item.label}
+                    </span>
+                  ) : (
+                    <div
+                      key={item.href + item.label}
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "space-between",
+                        padding: "9px 12px", borderRadius: 10,
+                        background: "#f9fafb", color: "#71717a",
+                        border: "1px solid #e4e4e7",
+                        fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
+                      }}
+                    >
+                      <Editable
+                        allowClickThrough
+                        contentKey={cmsKey(lang, "nav", "sallaAppsNavItem1")}
+                        label="Nav Salla slot 1"
+                      >
+                        {item.label}
+                      </Editable>
+                      <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{tr.nav.comingSoon}</span>
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: 8, border: "1px solid #e4e4e7", borderRadius: 14, padding: "4px 8px", background: "#fafafa" }}>
           <button
             type="button"
             onClick={() => toggleSection("help")}
@@ -822,12 +1186,12 @@ function MobileMoreDropdown({
             style={{
               width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
               background: "none", border: "none", cursor: "pointer", padding: "10px 4px",
-              fontSize: 11, fontWeight: 700, color: "var(--p4)", letterSpacing: 0.5,
+              fontSize: 11, fontWeight: 700, color: "#7c3aed", letterSpacing: 0.5,
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
             <span>{tr.nav.help}</span>
-            <span style={{ fontSize: 10, color: "var(--td)", transition: "transform .25s", transform: openSection === "help" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
+            <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "help" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
             overflow: "hidden",
@@ -839,13 +1203,13 @@ function MobileMoreDropdown({
               {mobileHelpItems.map((item) => {
                 const itemStyle: React.CSSProperties = {
                   display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                  borderRadius: 10, background: "rgba(255,255,255,.04)",
-                  border: "1px solid rgba(255,255,255,.07)",
+                  borderRadius: 10, background: "#f9fafb",
+                  border: "1px solid #e4e4e7",
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
                   <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
-                    <span style={{ color: "var(--p4)", flexShrink: 0 }}>{item.icon}</span>
+                    <span style={{ color: "#7c3aed", flexShrink: 0 }}>{item.icon}</span>
                     {item.label}
                   </span>
                 );
@@ -867,7 +1231,7 @@ function MobileMoreDropdown({
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
             {tr.nav.analyze}
           </span>
-          <span onClick={() => { navigateToHash("/#pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
+          <span onClick={() => { navigateTo("/pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
             {tr.nav.pricing}
           </span>
@@ -905,13 +1269,21 @@ function MobileMoreDropdown({
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 10, marginTop: 4 }}>
-          <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" onClick={onClose} style={{
-            flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-            border: "1px solid rgba(255,255,255,.16)", background: "transparent",
-            color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
-          }}>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              openMeetingBooking(MEETING_BOOKING_NAV_URL);
+            }}
+            style={{
+              flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
+              border: "1px solid #e4e4e7", background: "transparent",
+              color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
+              cursor: "pointer",
+            }}
+          >
             {tr.nav.bookMeeting}
-          </a>
+          </button>
           <button type="button" onClick={() => { onClose(); onStartNow?.(); }} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
@@ -934,21 +1306,15 @@ export default function Nav() {
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
+  const { openMeetingBooking } = useMeetingBooking();
   const runBlur = useBlurTransition();
   const isRtl = lang === "ar";
-  const [scrolled, setScrolled] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [mobileMenu, setMobileMenu] = useState<"menu1" | "menu2">("menu1");
-  const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | null>(null);
+  const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | "login" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", fn, { passive: true }); fn();
-    return () => window.removeEventListener("scroll", fn);
-  }, []);
 
   useEffect(() => {
     setOpenDrop(null);
@@ -965,11 +1331,13 @@ export default function Nav() {
   };
 
   const navBtnStyle = (isOpen: boolean): React.CSSProperties => ({
-    display: "flex", alignItems: "center", gap: 5, padding: "8px 14px",
-    borderRadius: 10, background: isOpen ? "rgba(124,58,237,.12)" : "transparent",
-    border: "none", color: isOpen ? "var(--t)" : "var(--tm)",
-    fontFamily: "var(--font)", fontSize: 14, fontWeight: 500, cursor: "pointer",
-    transition: "all .2s", whiteSpace: "nowrap",
+    display: "flex", alignItems: "center", gap: 5, padding: "7px 13px",
+    borderRadius: 10,
+    background: isOpen ? "rgba(124, 58, 237,.15)" : "transparent",
+    border: "none",
+    color: isOpen ? "var(--t)" : "var(--tm)",
+    fontFamily: "var(--font)", fontSize: 13.5, fontWeight: 500, cursor: "pointer",
+    transition: "all .18s", whiteSpace: "nowrap",
   });
 
   const navLinkLiStyle: React.CSSProperties = {
@@ -984,6 +1352,8 @@ export default function Nav() {
 
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
+  const zidPlatformAppNavItems = getZidPlatformAppNavItems(tr);
+  const sallaPlatformAppNavItems = getSallaPlatformAppNavItems(tr);
   const mobileHelpItems = [
     {
       label: tr.nav.faq,
@@ -1020,22 +1390,32 @@ export default function Nav() {
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav" style={{
-        position: "fixed", top: 16, left: "50%", right: "auto", zIndex: 900,
-        transform: "translateX(-50%)", width: "min(92%, 1200px)", maxWidth: 1200,
-        background: scrolled ? "rgba(3,3,11,.2)" : "rgba(3,3,11,.1)",
-        border: "none",
-        borderColor: "rgba(0, 0, 0, 0)",
-        borderImage: "none",
-        boxShadow: scrolled
-          ? "0px 8px 40px 0px rgba(0, 0, 0, 0.5), inset 1px 1px 1px 0px rgba(255, 255, 255, 0.2)"
-          : "inset 1px 1px 2px 0px rgba(255, 255, 255, 0.2)",
-        borderRadius: 18, padding: "0 24px",
-        backdropFilter: "blur(32px)", transition: "all .4s",
+        position: "fixed", top: 0, left: "50%", right: "auto", zIndex: 900,
+        transform: "translateX(-50%)", display: "flex", flexDirection: "column",
+        width: "100%",
+        marginLeft: 0,
+        marginRight: 0,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        backgroundColor: "rgba(250, 250, 251, 0.96)",
+        backgroundImage: "none",
+        border: "1px solid rgba(124, 58, 237, 0.18)",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.14)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        color: "var(--tm)",
+        borderRadius: 0,
+        padding: "0 20px",
+        transition: "background .22s ease, box-shadow .22s ease, border-color .22s ease",
       }}>
         {/* Top row: nav links + CTAs (always visible) */}
         <div className="nav-top-row" style={{
-          display: "flex", alignItems: "center", justifyContent: "space-between",
+          display: "flex", alignItems: "center", justifyContent: "center",
           height: 58,
+          paddingLeft: 16,
+          paddingRight: 16,
+          width: "100%",
+          gap: 50,
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <Logo />
@@ -1045,7 +1425,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1074,7 +1454,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 0px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1099,19 +1479,7 @@ export default function Nav() {
             </li>
 
             <li style={navLinkLiStyle}>
-              <DropdownWrapper onHoverStart={() => handleHoverStart("platforms")} onHoverEnd={handleHoverEnd}>
-                <button type="button" style={navBtnStyle(openDrop === "platforms")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
-                    {tr.nav.platforms}
-                  </Editable>{" "}
-                  {chevron(openDrop === "platforms")}
-                </button>
-                {openDrop === "platforms" && <PlatformsDropdown />}
-              </DropdownWrapper>
-            </li>
-
-            <li style={navLinkLiStyle}>
-              <span onClick={() => navigateToHash("/#pricing")} style={{
+              <span onClick={() => navigateTo("/pricing")} style={{
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
@@ -1131,7 +1499,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer", width: "fit-content",
               }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
@@ -1139,23 +1507,6 @@ export default function Nav() {
               >
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
                   {lang === "en" ? "ROI" : tr.nav.calculator}
-                </Editable>
-              </span>
-            </li>
-
-            <li style={{ ...navLinkLiStyle, width: "fit-content" }}>
-              <span onClick={() => navigateTo("/analyze")} style={{
-                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
-                color: location === "/analyze" ? "var(--t)" : "var(--tm)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(124,58,237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer", width: "fit-content",
-              }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
-                onMouseLeave={e => { if (location !== "/analyze") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
-              >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
-                  {tr.nav.analyze}
                 </Editable>
               </span>
             </li>
@@ -1176,13 +1527,31 @@ export default function Nav() {
           </ul>
           </div>
 
-          <div className="nav-ctas" style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div className="nav-ctas" style={{ display: "flex", gap: 5, alignItems: "center" }}>
             <LanguageSwitcher />
-            <a href="https://calendar.app.google/a3b18uRcuhHijZ8y5" target="_blank" rel="noreferrer" className="nb nav-cta-outline">
+            <div style={{ position: "relative" }}>
+              <DropdownWrapper onHoverStart={() => handleHoverStart("login")} onHoverEnd={handleHoverEnd}>
+                <button
+                  type="button"
+                  className="nb nav-cta-outline"
+                  style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}
+                >
+                  {lang === "ar" ? "دخول" : "Login"}
+                  {chevron(openDrop === "login")}
+                </button>
+                {openDrop === "login" && <LoginDropdown lang={lang} theme={theme} />}
+              </DropdownWrapper>
+            </div>
+            <button
+              type="button"
+              className="nb nav-cta-outline"
+              onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
+              style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12 }}
+            >
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
                 {tr.nav.bookMeeting}
               </Editable>
-            </a>
+            </button>
             <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
               <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "startNow")} label="Nav Start Now">
                 {tr.nav.startNow}
@@ -1199,7 +1568,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
@@ -1223,7 +1592,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/success-stories" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/success-stories" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
@@ -1254,7 +1623,20 @@ export default function Nav() {
               </DropdownWrapper>
             </li>
             <li style={navLinkLiStyle}>
-              <span onClick={() => navigateToHash("/#pricing")} style={{
+              <DropdownWrapper onHoverStart={() => handleHoverStart("comparisonNav2")} onHoverEnd={handleHoverEnd}>
+                <button type="button" style={navBtnStyle(openDrop === "comparisonNav2" || location === "/zid-apps-comparison")}>
+                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
+                    {tr.nav.comparisonNav}
+                  </Editable>{" "}
+                  {chevron(openDrop === "comparisonNav2")}
+                </button>
+                {openDrop === "comparisonNav2" && (
+                  <ComparisonAppsGroupedDropdown zidItems={zidPlatformAppNavItems} sallaItems={sallaPlatformAppNavItems} />
+                )}
+              </DropdownWrapper>
+            </li>
+            <li style={navLinkLiStyle}>
+              <span onClick={() => navigateTo("/pricing")} style={{
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
@@ -1270,7 +1652,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/calculator" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/calculator" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
@@ -1283,7 +1665,7 @@ export default function Nav() {
                 display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
                 color: location === "/analyze" ? "var(--t)" : "var(--tm)",
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(124,58,237,.1)" : "transparent",
+                textDecoration: "none", background: location === "/analyze" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
@@ -1311,8 +1693,8 @@ export default function Nav() {
       {/* MOBILE TOP BAR */}
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(3,3,11,.88)",
-        borderBottom: "1px solid rgba(255,255,255,.08)",
+        background: "rgba(250, 250, 251,.88)",
+        borderBottom: "1px solid #e4e4e7",
         backdropFilter: "blur(32px)",
         alignItems: "center", justifyContent: "center",
         height: 52,
@@ -1325,8 +1707,8 @@ export default function Nav() {
       {/* MOBILE NAV */}
       <div className="mobile-nav" style={{
         position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(6,4,18,.97)",
-        borderTop: "1px solid rgba(255,255,255,.08)",
+        background: "rgba(255,255,255,.96)",
+        borderTop: "1px solid #e4e4e7",
         backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
         transition: "background .3s, border-color .3s",
       }}>
@@ -1341,17 +1723,19 @@ export default function Nav() {
             padding: 8,
             maxHeight: "48vh",
             overflowY: "auto",
-            background: "rgba(8,6,20,.97)",
-            border: "1px solid rgba(255,255,255,.1)",
-            backdropFilter: "blur(32px)",
-            boxShadow: "0 24px 60px rgba(0,0,0,.6)",
+            WebkitOverflowScrolling: "touch",
+            touchAction: "pan-y",
+            background: "#fff",
+            border: "1px solid #e4e4e7",
+            backdropFilter: "none",
+            boxShadow: "0 16px 48px rgba(9,9,11,.16)",
             animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
           }}>
             {mobileOpenDrop === "useCases" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {useCasesDropdown.sections.map((section) => (
                   <div key={section.title}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4, paddingInline: 4, textTransform: "uppercase" }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: "#71717a", marginBottom: 4, paddingInline: 4, textTransform: "uppercase" }}>
                       {section.title}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
@@ -1361,8 +1745,8 @@ export default function Nav() {
                           onClick={() => { navigateTo(item.href); setMobileOpenDrop(null); }}
                           style={{
                             display: "block", padding: "10px 12px", borderRadius: 10,
-                            background: "rgba(255,255,255,.04)",
-                            border: "1px solid rgba(255,255,255,.07)",
+                            background: "#f9fafb",
+                            border: "1px solid #e4e4e7",
                             color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                           }}
                         >
@@ -1386,8 +1770,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 8,
                       padding: "10px 12px", borderRadius: 10, textDecoration: "none",
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                     }}
                   >
                     <img src={getPlatformLogoSrc(item.key as "salla" | "zid", lang, theme)} alt={item.label} loading="lazy" style={{ height: 18, width: "auto", display: "block" }} />
@@ -1398,13 +1782,13 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
-                      color: "var(--td)", fontSize: 13, fontWeight: 500,
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
+                      color: "#71717a", fontSize: 13, fontWeight: 500,
                     }}
                   >
                     <span>{item.label}</span>
-                    {item.badge && <span style={{ fontSize: 10, color: "var(--td)", background: "var(--s2)", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
+                    {item.badge && <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{item.badge}</span>}
                   </div>
                 ))}
               </div>
@@ -1415,8 +1799,8 @@ export default function Nav() {
                   onClick={() => { navigateTo("/sectors"); setMobileOpenDrop(null); }}
                   style={{
                     display: "block", padding: "10px 12px", borderRadius: 10,
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                     color: "var(--p)", fontSize: 13, fontWeight: 700, cursor: "pointer",
                   }}
                 >
@@ -1429,8 +1813,8 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 8,
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
@@ -1452,15 +1836,49 @@ export default function Nav() {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "#f9fafb",
+                      border: "1px solid #e4e4e7",
                       color: "var(--t)", fontSize: 13, fontWeight: 500, cursor: "pointer",
                     }}
                   >
-                    <span style={{ color: "var(--p4)", flexShrink: 0, display: "flex" }}>{item.icon}</span>
+                    <span style={{ color: "#7c3aed", flexShrink: 0, display: "flex" }}>{item.icon}</span>
                     {item.label}
                   </span>
                 ))}
+              </div>
+            )}
+            {mobileOpenDrop === "login" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <a
+                  href="https://dashboard.ziadah.app/login"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpenDrop(null)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    padding: "10px 12px", borderRadius: 10, textDecoration: "none",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
+                  }}
+                >
+                  <img src={getPlatformLogoSrc("salla", lang as "ar" | "en", theme as "dark" | "light")} alt="Salla" loading="lazy" style={{ height: 18, width: "auto" }} />
+                  <span style={{ color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)" }}>{lang === "ar" ? "سلة" : "Salla"}</span>
+                </a>
+                <a
+                  href="https://web.ziadah.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setMobileOpenDrop(null)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 10,
+                    padding: "10px 12px", borderRadius: 10, textDecoration: "none",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
+                  }}
+                >
+                  <img src={getPlatformLogoSrc("zid", lang as "ar" | "en", theme as "dark" | "light")} alt="Zid" loading="lazy" style={{ height: 18, width: "auto" }} />
+                  <span style={{ color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)" }}>{lang === "ar" ? "زد" : "Zid"}</span>
+                </a>
               </div>
             )}
             {mobileOpenDrop === "langTheme" && (
@@ -1477,8 +1895,8 @@ export default function Nav() {
                     justifyContent: "space-between",
                     padding: "10px 12px",
                     borderRadius: 10,
-                    background: "rgba(255,255,255,.04)",
-                    border: "1px solid rgba(255,255,255,.07)",
+                    background: "#f9fafb",
+                    border: "1px solid #e4e4e7",
                     color: "var(--t)",
                     fontSize: 13,
                     fontWeight: 500,
@@ -1506,10 +1924,9 @@ export default function Nav() {
               { key: "home", iconKey: "home" as const, label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
               { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
               { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
-              { key: "analyze", iconKey: "analyze" as const, label: tr.nav.analyze, cmsContentKey: cmsKey(lang, "nav", "analyze"), action: () => { setMobileOpenDrop(null); navigateTo("/analyze"); }, active: location === "/analyze" },
               { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
-              { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
-              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateToHash("/#pricing"); }, active: false },
+              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateTo("/pricing"); }, active: false },
+              { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
               { key: "more", iconKey: "more" as const, label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
             ].map((item) => {
               const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
@@ -1522,7 +1939,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#a855f7" : "var(--tm)",
+                  color: accent ? "#7c3aed" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",
@@ -1548,11 +1965,12 @@ export default function Nav() {
             transition: "opacity .22s ease, transform .22s ease",
           }}>
             {[
+              { key: "login", iconKey: "login" as const, dropKey: "login" as const, label: lang === "ar" ? "دخول" : "Login", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "login" ? null : "login"), active: false, hasDrop: true },
               { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
               { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
-              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); window.open("https://calendar.app.google/a3b18uRcuhHijZ8y5", "_blank", "noopener,noreferrer"); }, active: false },
+              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
               { key: "startNow", iconKey: "startNow" as const, label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
-              { key: "langTheme", iconKey: "langTheme" as const, dropKey: "langTheme" as const, label: lang === "ar" ? "اللغة/الوضع" : "Lang/Mode", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "langTheme" ? null : "langTheme"), active: false, hasDrop: true },
+              { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
               { key: "back", iconKey: "back" as const, label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
             ].map((item) => {
               const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
@@ -1566,7 +1984,7 @@ export default function Nav() {
                 style={{
                   flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
                   justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#a855f7" : "var(--tm)",
+                  color: accent ? "#7c3aed" : "var(--tm)",
                   fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
                   transition: "color .2s",
                   WebkitTapHighlightColor: "transparent",

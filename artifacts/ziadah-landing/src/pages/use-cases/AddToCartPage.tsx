@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import AddToCartWidget from "../../components/widgets/AddToCartWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "توصية فورية لحظة الإضافة",
       desc: "بمجرد الضغط على 'أضف للسلة' تظهر نافذة Glassmorphism خفيفة بمنتج مكمّل واحد فقط — مختار بعناية ليكون ذو صلة مباشرة بالمنتج المضاف.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🤝",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "توصية أحادية بدون إرباك",
       desc: "عرض منتج واحد فقط لحظة الإضافة — لا قائمة تُربك العميل. التركيز على خيار واحد يرفع معدل التحويل بشكل كبير.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -40,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#a855f7" },
+    { value: "+35%", label: "متوسط قيمة الطلب عند تطبيق التوصية الفورية", color: "#8b5cf6" },
     { value: "38%", label: "معدل قبول التوصية لحظة الإضافة", color: "#06b6d4" },
-    { value: "+27%", label: "إيرادات إضافية من كل جلسة تسوق", color: "#10b981" },
+    { value: "+27%", label: "إيرادات إضافية من كل جلسة تسوق", color: "#8b5cf6" },
     { value: "x2.4", label: "أسرع قرار شراء مقارنة بالتوصية في الصفحة الرئيسية", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -56,21 +57,17 @@ const data: UseCasePageData = {
     result: "قيمة الطلب ارتفعت من 110 إلى 165 ⃁ بقرار شراء لم تخطط له العميلة — لكنها سعيدة به.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تبدو التوصية لحظة الإضافة؟" : "How does the add-to-cart recommendation look?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "محاكاة تفاعلية — شاهد ردة فعل زيادة بمجرد ضغط العميل على الإضافة" : "Interactive simulation — see Ziadah's response the moment a customer clicks add to cart"}</p>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <AddToCartWidget />
-        </div>
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تبدو التوصية لحظة الإضافة؟" : "How does the add-to-cart recommendation look?"}
+      subtitle={
+        isAr
+          ? "محاكاة تفاعلية — شاهد ردة فعل زيادة بمجرد ضغط العميل على الإضافة"
+          : "Interactive simulation — see Ziadah's response the moment a customer clicks add to cart"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <AddToCartWidget /> }]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل كل إضافة للسلة إلى فرصة بيع إضافية",
   ctaDesc: "زيادة يتدخل في اللحظة المثلى ليرفع قيمة كل طلب تلقائياً.",
   heroEn: {
@@ -89,7 +86,7 @@ const data: UseCasePageData = {
       icon: "⚡",
       title: "Instant Recommendation at Add-to-Cart",
       desc: "The moment 'Add to Cart' is clicked, a sleek glassmorphism popup appears with one complementary product only — carefully selected for direct relevance to the added product.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🤝",
@@ -101,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Single Recommendation, No Overwhelm",
       desc: "Showing just one product at the add-to-cart moment — no list to overwhelm the customer. Focusing on a single option significantly increases conversion rate.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -111,9 +108,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#a855f7" },
+    { value: "+35%", label: "Average order value when instant recommendation is applied", color: "#8b5cf6" },
     { value: "38%", label: "Recommendation acceptance rate at add-to-cart moment", color: "#06b6d4" },
-    { value: "+27%", label: "Additional revenue from every shopping session", color: "#10b981" },
+    { value: "+27%", label: "Additional revenue from every shopping session", color: "#8b5cf6" },
     { value: "x2.4", label: "Faster purchase decision vs. home page recommendation", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -126,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "Order value rose from 110 to 165 SAR with a purchase decision the customer didn't plan — but she's happy about it.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Turn every add-to-cart into an additional sales opportunity",
   ctaDescEn: "Ziadah intervenes at the optimal moment to automatically increase every order value.",
   seo: {

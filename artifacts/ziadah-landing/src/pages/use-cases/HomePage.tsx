@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import HomePageWidget from "../../components/widgets/HomePageWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "استكمل ما تركته",
       desc: "للعميل العائد يعرض المنتجات التي تصفّحها في آخر زيارة مع رسالة 'ما زلت مهتماً؟' تختصر عليه وقت البحث.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⭐",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "حزم Combo موفّرة",
       desc: "يعرض حزماً مدروسة من المنتجات المكمّلة بسعر إجمالي منخفض. مثالية للعملاء الذين لم يقرروا بعد ماذا يريدون.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🕐",
@@ -40,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+34%", label: "وقت التصفح في الموقع", color: "#a855f7" },
+    { value: "+34%", label: "وقت التصفح في الموقع", color: "#8b5cf6" },
     { value: "+29%", label: "معدل الانتقال للمنتجات", color: "#06b6d4" },
-    { value: "+22%", label: "معدل التحويل للعملاء العائدين", color: "#10b981" },
+    { value: "+22%", label: "معدل التحويل للعملاء العائدين", color: "#8b5cf6" },
     { value: "-18%", label: "معدل الارتداد من الصفحة الرئيسية", color: "#ec4899" },
   ],
   exampleScenario: {
@@ -56,19 +57,17 @@ const data: UseCasePageData = {
     result: "العميل انتقل مباشرة للمنتج وأتم الشراء مع الكومبو — وقت الشراء انخفض من 12 دقيقة إلى 3 دقائق.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر الصفحة الرئيسية المُخصَّصة؟" : "How does the personalized home page look?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يستقبل عميلك العائد الصفحة الرئيسية المُصمَّمة خصيصاً له" : "This is how your returning customer is greeted by a home page designed just for them"}</p>
-        <HomePageWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تظهر الصفحة الرئيسية المُخصَّصة؟" : "How does the personalized home page look?"}
+      subtitle={
+        isAr
+          ? "هكذا يستقبل عميلك العائد الصفحة الرئيسية المُصمَّمة خصيصاً له"
+          : "This is how your returning customer is greeted by a home page designed just for them"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <HomePageWidget /> }]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "اجعل كل زائر يشعر أن المتجر بُني له",
   ctaDesc: "تجربة مخصصة من اللحظة الأولى = عميل يشتري ويعود.",
   heroEn: {
@@ -87,7 +86,7 @@ const data: UseCasePageData = {
       icon: "🔄",
       title: "Continue Where You Left Off",
       desc: "For returning customers, shows products they browsed in their last visit with a 'Still interested?' message that saves them search time.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⭐",
@@ -99,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "Money-Saving Combo Bundles",
       desc: "Displays curated bundles of complementary products at a lower total price. Perfect for customers who haven't decided what they want yet.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🕐",
@@ -109,9 +108,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+34%", label: "Browse time on site", color: "#a855f7" },
+    { value: "+34%", label: "Browse time on site", color: "#8b5cf6" },
     { value: "+29%", label: "Product click-through rate", color: "#06b6d4" },
-    { value: "+22%", label: "Returning customer conversion rate", color: "#10b981" },
+    { value: "+22%", label: "Returning customer conversion rate", color: "#8b5cf6" },
     { value: "-18%", label: "Home page bounce rate", color: "#ec4899" },
   ],
   exampleScenarioEn: {
@@ -124,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "The customer went directly to the product and completed the purchase with the combo — purchase time dropped from 12 minutes to 3 minutes.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Make every visitor feel the store was built for them",
   ctaDescEn: "A personalized experience from the first moment = a customer who buys and returns.",
   seo: {

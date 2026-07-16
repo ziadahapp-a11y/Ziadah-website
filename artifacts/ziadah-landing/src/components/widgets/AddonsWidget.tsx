@@ -42,8 +42,8 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
     >
       <div style={{ marginBottom: 10 }}>
         <div
-          style={{ fontSize: 10, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[8px] text-[9px]">{tr.descLabel}</div>
+          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
+          className="mt-[8px] text-[12px]">{tr.descLabel}</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
           {tr.items.map((a, i) => (
             <div key={i} onClick={() => toggle(i)} style={{
@@ -52,8 +52,8 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
               gap: 9,
               padding: "8px 10px",
               borderRadius: 10,
-              background: checked[i] ? "rgba(124,58,237,.15)" : "var(--s1)",
-              border: checked[i] ? "1.5px solid rgba(124,58,237,.4)" : "1.5px solid var(--b1)",
+              background: checked[i] ? "rgba(124, 58, 237,.15)" : "var(--s1)",
+              border: checked[i] ? "1.5px solid rgba(124, 58, 237,.4)" : "1.5px solid var(--b1)",
               cursor: "pointer",
               transition: "all .2s ease",
             }}>
@@ -61,20 +61,20 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
                 width: 17,
                 height: 17,
                 borderRadius: 5,
-                background: checked[i] ? "rgba(124,58,237,0.5)" : "var(--b1)",
+                background: checked[i] ? "rgba(124, 58, 237,0.5)" : "var(--b1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 flexShrink: 0,
                 transition: "all .2s ease",
               }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 9, fontWeight: 900 }}>✓</span>}
+                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
               </div>
               <span style={{ fontSize: 14 }}>{a.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 11, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
             </div>
           ))}
         </div>
@@ -82,27 +82,27 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
       <div style={{
         padding: "8px 12px",
         borderRadius: 10,
-        background: "rgba(124,58,237,.1)",
-        border: "1px solid rgba(124,58,237,.25)",
+        background: "rgba(124, 58, 237,.1)",
+        border: "1px solid rgba(124, 58, 237,.25)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 10,
       }}>
-        <span style={{ fontSize: 10, color: "var(--tm)" }}>{tr.totalLabel}</span>
+        <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.totalLabel}</span>
         <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total}{tr.currency}</span>
       </div>
       <button style={{
         width: "100%",
         padding: "9px",
         borderRadius: 10,
-        background: "rgba(124,58,237,0.12)",
+        background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         color: "#c084fc",
         fontSize: 14,
         fontWeight: 800,
-        border: "1px solid rgba(124,58,237,0.2)",
+        border: "1px solid rgba(124, 58, 237,0.2)",
         cursor: "pointer",
       }} className="widget-btn">
         {tr.btnAdd}

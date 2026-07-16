@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import {
   Zap,
   CheckCircle2,
@@ -19,12 +19,34 @@ import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import PageShell from "@/components/PageShell";
+import PlatformModal from "@/components/PlatformModal";
+import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { getApiSubmitOrigin } from "@/lib/apiSubmitOrigin";
+import { t as staticSiteTranslations } from "@/i18n/translations";
+
+/**
+ * Brand-accent inline styles, all derived from the canonical brand token
+ * `--p3` (#7c3aed). Expressed via CSS vars + color-mix so the accent stays on
+ * the single brand color without hardcoding a second palette.
+ */
+const BRAND = "var(--p3)";
+const BRAND_PILL: CSSProperties = {
+  background: "color-mix(in srgb, var(--p3) 10%, transparent)",
+  borderColor: "color-mix(in srgb, var(--p3) 25%, transparent)",
+  color: "var(--p3)",
+};
+const BRAND_TINT_10: CSSProperties = { background: "color-mix(in srgb, var(--p3) 10%, transparent)" };
+const BRAND_TINT_12: CSSProperties = { background: "color-mix(in srgb, var(--p3) 12%, transparent)", color: "var(--p3)" };
+const BRAND_LINK: CSSProperties = {
+  color: "var(--p3)",
+  borderColor: "color-mix(in srgb, var(--p3) 25%, transparent)",
+  background: "color-mix(in srgb, var(--p3) 6%, transparent)",
+};
 
 interface ProductRef {
   productId: number;
@@ -48,6 +70,7 @@ interface AnchorGroup {
 
 interface ReportData {
   storeId: number;
+  reportShareToken?: string;
   status: string;
   platform: string | null;
   productCount: number;
@@ -98,13 +121,19 @@ function RolePill({ role }: { role: string }) {
   const tr = siteT[lang].analyze;
   if (role === "cross_sell")
     return (
-      <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-xs font-bold">
+      <span
+        className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-xs font-bold"
+        style={BRAND_PILL}
+      >
         <ShoppingCart className="h-3 w-3 shrink-0" aria-hidden />
         {tr.roleCrossSell}
       </span>
     );
   return (
-    <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-xs font-bold">
+    <span
+      className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-xs font-bold"
+      style={BRAND_PILL}
+    >
       <TrendingUp className="h-3 w-3 shrink-0" aria-hidden />
       {tr.roleUpsell}
     </span>
@@ -116,13 +145,16 @@ function ProductThumb({
   currencySymbol,
   isHero = false,
   heroLabel = "",
+  variant = "default",
 }: {
   product: ProductRef;
   currencySymbol: string;
   isHero?: boolean;
   heroLabel?: string;
+  variant?: "default" | "report";
 }) {
   const arabic = isAr(product.title);
+  const report = variant === "report";
   return (
     <a
       href={product.productUrl ?? "#"}
@@ -130,9 +162,9 @@ function ProductThumb({
       rel="noopener noreferrer"
       className={`group flex flex-col rounded-[var(--r12)] overflow-hidden transition-all min-h-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
         isHero ? "analyze-anchor-card" : "analyze-product-card"
-      }`}
+      }${report ? " analyze-report-product-card" : ""}`}
     >
-      <div className={`relative overflow-hidden ${isHero ? "h-44" : "h-36"}`}>
+      <div className={`relative overflow-hidden ${isHero ? (report ? "h-40 sm:h-44" : "h-44") : report ? "h-32 sm:h-36" : "h-36"}`}>
         {product.imageUrl ? (
           <img
             src={product.imageUrl}
@@ -156,16 +188,16 @@ function ProductThumb({
           </div>
         ) : null}
       </div>
-      <div className="p-3 flex flex-col gap-1 flex-1">
+      <div className={`flex flex-col flex-1 ${report ? "analyze-report-product-meta" : "p-3 gap-1"}`}>
         <p
-          className="text-xs font-semibold leading-snug line-clamp-2"
+          className={`font-semibold leading-snug line-clamp-2 ${report ? "analyze-report-product-title" : "text-xs"}`}
           style={{ color: "var(--t)" }}
           dir={arabic ? "rtl" : "ltr"}
         >
           {product.title}
         </p>
         {product.price != null && (
-          <p className="font-bold text-sm mt-auto" style={{ color: "var(--p3)" }}>
+          <p className={`font-bold mt-auto num-ltr ${report ? "analyze-report-product-price" : "text-sm"}`} style={{ color: "var(--p3)" }}>
             {formatPrice(product.price, currencySymbol)}
           </p>
         )}
@@ -185,16 +217,16 @@ function AnchorGroupSection({
   index: number;
   currencySymbol: string;
   lang: string;
-  tr: ReturnType<typeof useSiteT>[string]["analyze"];
+  tr: typeof staticSiteTranslations.ar.analyze;
 }) {
   const crossCount = group.recommendations.filter((r) => r.role === "cross_sell").length;
   const upCount = group.recommendations.filter((r) => r.role === "upsell").length;
   const anchorLabel = lang === "ar" ? `مرساة ${index + 1}` : `Anchor ${index + 1}`;
 
   return (
-    <div className="analyze-anchor-group-card">
+    <div className="analyze-anchor-group-card analyze-anchor-group-card--report">
       <div className="analyze-anchor-group-header">
-        <span className="analyze-anchor-group-index" aria-label={anchorLabel}>
+        <span className="analyze-anchor-group-index num-ltr" aria-label={anchorLabel}>
           {index + 1}
         </span>
         <div className="min-w-0 flex-1">
@@ -207,20 +239,26 @@ function AnchorGroupSection({
           </p>
           <div className="flex items-center gap-2 mt-1 flex-wrap">
             {group.anchor.price != null && (
-              <span className="text-xs font-extrabold" style={{ color: "var(--go)" }}>
+              <span className="text-xs font-extrabold num-ltr" style={{ color: "var(--go)" }}>
                 {formatPrice(group.anchor.price, currencySymbol)}
               </span>
             )}
             {crossCount > 0 && (
-              <span className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]">
+              <span
+                className="analyze-pill analyze-pill--cross inline-flex items-center gap-1 text-[10px]"
+                style={BRAND_PILL}
+              >
                 <ShoppingCart className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {crossCount} {lang === "ar" ? "متقاطع" : "cross-sell"}
+                <span className="num-ltr">{crossCount}</span> {lang === "ar" ? "متقاطع" : "cross-sell"}
               </span>
             )}
             {upCount > 0 && (
-              <span className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]">
+              <span
+                className="analyze-pill analyze-pill--up inline-flex items-center gap-1 text-[10px]"
+                style={BRAND_PILL}
+              >
                 <TrendingUp className="h-2.5 w-2.5 shrink-0" aria-hidden />
-                {upCount} {lang === "ar" ? "ترقيعي" : "upsell"}
+                <span className="num-ltr">{upCount}</span> {lang === "ar" ? "أعلى" : "upsell"}
               </span>
             )}
           </div>
@@ -231,7 +269,7 @@ function AnchorGroupSection({
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1.5 rounded-lg border transition-all hover:underline"
-            style={{ color: "var(--p3)", borderColor: "rgba(124,58,237,.25)", background: "rgba(124,58,237,.06)" }}
+            style={BRAND_LINK}
           >
             <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
           </a>
@@ -239,21 +277,14 @@ function AnchorGroupSection({
       </div>
 
       {group.anchor.reason && (
-        <div
-          className="rounded-[var(--r12)] px-3 py-2.5 border mb-4"
-          style={{ background: "rgba(251,191,36,.05)", borderColor: "rgba(251,191,36,.2)" }}
-        >
-          <p
-            className="text-xs leading-relaxed"
-            style={{ color: "var(--t)" }}
-            dir={isAr(group.anchor.reason) ? "rtl" : "ltr"}
-          >
+        <div className="analyze-report-anchor-reason">
+          <p style={{ color: "var(--t)" }} dir={isAr(group.anchor.reason) ? "rtl" : "ltr"}>
             {group.anchor.reason}
           </p>
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="analyze-report-product-grid">
         {group.anchor.productUrl || group.anchor.imageUrl ? (
           <div className="analyze-report-anchor-hero">
             <ProductThumb
@@ -261,19 +292,16 @@ function AnchorGroupSection({
               currencySymbol={currencySymbol}
               isHero
               heroLabel={anchorLabel}
+              variant="report"
             />
           </div>
         ) : null}
         {group.recommendations.map((rec, ri) => (
-          <div key={ri} className="flex flex-col gap-1.5 min-w-0">
+          <div key={ri} className="analyze-report-rec-col">
             <RolePill role={rec.role} />
-            <ProductThumb product={rec} currencySymbol={currencySymbol} />
+            <ProductThumb product={rec} currencySymbol={currencySymbol} variant="report" />
             {rec.reason && (
-              <p
-                className="text-[10px] leading-relaxed px-1"
-                style={{ color: "var(--tm)" }}
-                dir={isAr(rec.reason) ? "rtl" : "ltr"}
-              >
+              <p className="analyze-report-rec-reason" style={{ color: "var(--tm)" }} dir={isAr(rec.reason) ? "rtl" : "ltr"}>
                 {rec.reason}
               </p>
             )}
@@ -302,28 +330,43 @@ function CopyLinkButton() {
     });
   }
   return (
-    <Button variant="outline" size="sm" onClick={copy} className="gap-2 border-[var(--b2)] bg-[var(--s1)]">
+    <Button variant="outline" size="sm" onClick={copy} className="analyze-report-copy-btn gap-2 border-[var(--b2)] bg-[var(--s1)]">
       {copied ? <Check className="h-3.5 w-3.5 text-[var(--gr)]" aria-hidden /> : <Copy className="h-3.5 w-3.5" aria-hidden />}
       {copied ? tr.copied : tr.copyLink}
     </Button>
   );
 }
 
-export default function AnalyzeReport({ id }: { id: number }) {
+function isPlausibleShareToken(s: string): boolean {
+  const t = s.trim();
+  return t.length >= 32 && t.length <= 128 && /^[A-Za-z0-9_-]+$/.test(t);
+}
+
+/** Legacy `/report/123` or opaque share token */
+function isValidReportParam(s: string): boolean {
+  const t = s.trim();
+  if (!t) return false;
+  if (/^\d+$/.test(t) && t.length >= 1 && t.length <= 12) return true;
+  return isPlausibleShareToken(t);
+}
+
+export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
   const siteT = useSiteT();
-  const { lang } = useLanguage();
+  const { lang, dir } = useLanguage();
   const tr = siteT[lang].analyze;
+  const ld = siteT[lang].landing;
   const pk = getPageKeywords("/analyze");
   const apiBase = getApiSubmitOrigin();
 
-  const invalidId = !Number.isFinite(id) || id < 1;
+  const invalidToken = !isValidReportParam(shareToken);
 
   const [data, setData] = useState<ReportData | null>(null);
-  const [loading, setLoading] = useState(!invalidId);
+  const [loading, setLoading] = useState(!invalidToken);
   const [errorKind, setErrorKind] = useState<"notfound" | "notready" | null>(null);
+  const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
   useEffect(() => {
-    if (invalidId) {
+    if (invalidToken) {
       setLoading(false);
       return;
     }
@@ -332,7 +375,25 @@ export default function AnalyzeReport({ id }: { id: number }) {
     setLoading(true);
     async function load() {
       try {
-        const res = await fetch(`${apiBase}/api/submit/${id}/status`);
+        let token = shareToken.trim();
+        const looksLegacyNumeric = /^\d+$/.test(token);
+        if (looksLegacyNumeric) {
+          const legacyRes = await fetch(`${apiBase}/api/submit/${token}/status`);
+          if (legacyRes.ok) {
+            const legacyJson = (await legacyRes.json()) as ReportData;
+            if (typeof legacyJson.reportShareToken === "string" && legacyJson.reportShareToken) {
+              token = legacyJson.reportShareToken;
+            }
+          } else if (legacyRes.status === 403) {
+            const body = (await legacyRes.json().catch(() => null)) as { reportShareToken?: string } | null;
+            if (body && typeof body.reportShareToken === "string" && isPlausibleShareToken(body.reportShareToken)) {
+              token = body.reportShareToken;
+              const base = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
+              window.history.replaceState(null, "", `${base}/report/${encodeURIComponent(token)}`);
+            }
+          }
+        }
+        const res = await fetch(`${apiBase}/api/submit/share/${encodeURIComponent(token)}/status`);
         if (!res.ok) throw new Error("notfound");
         const json: ReportData = await res.json();
         if (json.status !== "analyzed") throw new Error("notready");
@@ -345,25 +406,29 @@ export default function AnalyzeReport({ id }: { id: number }) {
       }
     }
     load();
-  }, [id, apiBase, invalidId]);
+  }, [shareToken, apiBase, invalidToken]);
 
-  const canonicalPath = `/report/${id}`;
+  const canonicalPath = `/report/${encodeURIComponent(shareToken.trim())}`;
 
-  if (invalidId) {
+  if (invalidToken) {
     return (
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-        <DsPageBackdrop />
-        <main className="analyze-page-main analyze-page text-center py-20">
-          <p className="text-lg font-semibold mb-4" style={{ color: "var(--pk)" }}>
-            {tr.invalidReportLink}
-          </p>
-          <Link
-            href="/analyze"
-            className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[48px] px-6 no-underline"
-          >
-            {tr.ctaAnalyzeStore}
-          </Link>
-        </main>
+        <div className="analyze-report-shell-inner w-full space-y-5 sm:space-y-6">
+          <DsPageBackdrop />
+          <main className="analyze-page-main analyze-page analyze-report-page analyze-report-page--centered w-full self-stretch text-center">
+            <div className="analyze-report-container analyze-report-state analyze-report-state--invalid">
+              <p className="analyze-report-state__title" style={{ color: "var(--pk)" }}>
+                {tr.invalidReportLink}
+              </p>
+              <Link
+                href="/analyze"
+                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors no-underline"
+              >
+                {tr.ctaAnalyzeStore}
+              </Link>
+            </div>
+          </main>
+        </div>
       </PageShell>
     );
   }
@@ -378,6 +443,7 @@ export default function AnalyzeReport({ id }: { id: number }) {
         canonical={canonicalPath}
         keywordsAr={pk?.keywordsAr}
         keywordsEn={pk?.keywordsEn}
+        noIndex
       />
       <WebPageSchema
         name={lang === "ar" ? siteT.ar.analyze.reportSeoTitle : siteT.en.analyze.reportSeoTitle}
@@ -385,29 +451,38 @@ export default function AnalyzeReport({ id }: { id: number }) {
         url={canonicalPath}
       />
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
-        <DsPageBackdrop />
-        <main className="analyze-page-main analyze-page">
+        <div className="analyze-report-shell-inner w-full space-y-5 sm:space-y-6">
+          <DsPageBackdrop />
+          <main
+            className={`analyze-page-main analyze-page analyze-report-page w-full self-stretch${
+              loading || errorKind ? " analyze-report-page--centered" : ""
+            }`}
+          >
           {loading && (
-            <div className="text-center py-24 flex flex-col items-center gap-4" style={{ color: "var(--tm)" }} role="status" aria-live="polite">
-              <Loader2 className="h-10 w-10 animate-spin" style={{ color: "var(--p3)" }} aria-hidden />
-              <span>{tr.reportLoading}</span>
+            <div className="analyze-report-container analyze-report-state analyze-report-state--loading">
+              <div className="analyze-report-loading" style={{ color: "var(--tm)" }} role="status" aria-live="polite">
+                <Loader2 className="analyze-report-loading__icon animate-spin" style={{ color: "var(--p3)" }} aria-hidden />
+                <span className="analyze-report-loading__text">{tr.reportLoading}</span>
+              </div>
             </div>
           )}
 
           {errorKind && (
-            <div className="text-center py-20 max-w-md mx-auto">
-              <p className="text-lg font-semibold mb-2" style={{ color: "var(--pk)" }}>
-                {tr.reportUnavailable}
-              </p>
-              <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--tm)" }}>
-                {errorKind === "notready" ? tr.reportNotReady : tr.reportUnavailable}
-              </p>
-              <Link
-                href="/analyze"
-                className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[44px] px-5 no-underline text-sm"
-              >
-                {tr.ctaAnalyzeStore}
-              </Link>
+            <div className="analyze-report-container analyze-report-state analyze-report-state--error">
+              <div className="analyze-report-error-panel">
+                <p className="analyze-report-error-panel__title" style={{ color: "var(--pk)" }}>
+                  {tr.reportUnavailable}
+                </p>
+                <p className="analyze-report-error-panel__body" style={{ color: "var(--tm)" }}>
+                  {errorKind === "notready" ? tr.reportNotReady : tr.reportUnavailable}
+                </p>
+                <Link
+                  href="/analyze"
+                  className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors no-underline text-sm"
+                >
+                  {tr.ctaAnalyzeStore}
+                </Link>
+              </div>
             </div>
           )}
 
@@ -417,15 +492,25 @@ export default function AnalyzeReport({ id }: { id: number }) {
             const ts = data.analyzedAt ? formatAnalyzedAt(data.analyzedAt, lang) : null;
 
             return (
-              <div className="space-y-8 sm:space-y-10">
-                {/* Top action bar */}
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div />
-                  <div className="flex flex-wrap items-center justify-end gap-2">
+              <div className="analyze-report-container analyze-report-stack">
+                {/* Toolbar */}
+                <div className="analyze-report-toolbar">
+                  <nav className="analyze-breadcrumb analyze-report-toolbar__nav" aria-label={tr.breadcrumbAnalyze}>
+                    <Link href="/" className="analyze-breadcrumb__a">
+                      {tr.breadcrumbHome}
+                    </Link>
+                    <span className="analyze-breadcrumb__sep" aria-hidden>
+                      <ArrowRight className="h-3.5 w-3.5 opacity-45" />
+                    </span>
+                    <Link href="/analyze" className="analyze-breadcrumb__a">
+                      {tr.breadcrumbAnalyze}
+                    </Link>
+                  </nav>
+                  <div className="analyze-report-toolbar__actions">
                     <CopyLinkButton />
                     <Link
                       href="/analyze"
-                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[40px] px-4 text-sm no-underline"
+                      className="inline-flex items-center justify-center gap-2 min-h-[40px] px-4 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors text-sm no-underline shadow-sm"
                     >
                       <Zap className="h-3.5 w-3.5 shrink-0" aria-hidden />
                       {tr.ctaAnalyzeStore}
@@ -433,91 +518,95 @@ export default function AnalyzeReport({ id }: { id: number }) {
                   </div>
                 </div>
 
-                {/* Header */}
-                <header className="analyze-report-header">
-                  <div className="analyze-report-meta">
-                    <div className="analyze-done-badge">
-                      <div className="analyze-done-badge__glow" aria-hidden />
-                      <div className="analyze-done-badge__icon" aria-hidden>
-                        <CheckCircle2 className="h-4 w-4 shrink-0" />
-                      </div>
-                      <span>{tr.analyzedBadge}</span>
-                      {data.platform ? (
-                        <span
-                          className="text-[11px] font-semibold capitalize px-2 py-0.5 rounded-full ms-1"
-                          style={{ background: "rgba(34,197,94,.12)", color: "rgba(34,197,94,.75)" }}
-                        >
-                          {data.platform}
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <h1
-                      className="text-2xl sm:text-[1.75rem] font-black tracking-tight leading-snug mt-4"
-                      style={{ color: "var(--t)" }}
-                    >
-                      {data.storeName} — {tr.reportTitleSuffix}
-                    </h1>
-
-                    {/* Store URL */}
-                    <a
-                      href={data.storeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="analyze-report-store-url"
-                    >
-                      <Globe className="h-3.5 w-3.5 shrink-0 flex-shrink-0" aria-hidden />
-                      <span className="break-all">{data.storeUrl}</span>
-                      <ExternalLink className="h-3 w-3 shrink-0 flex-shrink-0 opacity-60" aria-hidden />
-                    </a>
-
-                    {/* Analysis timestamp */}
-                    {ts && (
-                      <div className="analyze-report-timestamp">
-                        <div className="analyze-report-timestamp__icon" aria-hidden>
-                          <Calendar className="h-3.5 w-3.5" />
+                {/* Hero: identity + KPIs */}
+                <div className="analyze-report-hero">
+                  <header className="analyze-report-header analyze-report-hero__intro">
+                    <div className="analyze-report-meta">
+                      <div className="analyze-done-badge">
+                        <div className="analyze-done-badge__glow" aria-hidden />
+                        <div className="analyze-done-badge__icon" aria-hidden>
+                          <CheckCircle2 className="h-4 w-4 shrink-0" />
                         </div>
-                        <div className="analyze-report-timestamp__body">
-                          <span className="analyze-report-timestamp__date">{ts.date}</span>
-                          <span className="analyze-report-timestamp__sep" aria-hidden>—</span>
-                          <span className="analyze-report-timestamp__time">
-                            <Clock className="h-3 w-3 shrink-0 inline-block align-[-1px] me-1 opacity-60" aria-hidden />
-                            {ts.time}
+                        <span>{tr.analyzedBadge}</span>
+                        {data.platform ? (
+                          <span
+                            className="text-[11px] font-semibold capitalize px-2 py-0.5 rounded-full ms-1"
+                            style={BRAND_TINT_12}
+                          >
+                            {data.platform}
                           </span>
-                        </div>
+                        ) : null}
                       </div>
-                    )}
-                  </div>
-                </header>
 
-                {/* Stats */}
-                <div className="analyze-sbar analyze-sbar--3" role="presentation">
-                  <div className="analyze-sbi">
-                    <div className="analyze-sbi-icon" style={{ background: "rgba(124,58,237,.1)" }}>
-                      <Package className="h-5 w-5" style={{ color: "var(--p3)" }} aria-hidden />
+                      <h1 className="analyze-report-title" style={{ color: "var(--t)" }}>
+                        {data.storeName} {tr.reportTitleSuffix}
+                      </h1>
+
+                      <div className="analyze-report-hero__meta-row">
+                        <a
+                          href={data.storeUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="analyze-report-store-url analyze-report-store-url--hero"
+                        >
+                          <Globe className="h-3.5 w-3.5 shrink-0 flex-shrink-0" aria-hidden />
+                          <span className="break-all">{data.storeUrl}</span>
+                          <ExternalLink className="h-3 w-3 shrink-0 flex-shrink-0 opacity-60" aria-hidden />
+                        </a>
+                        {ts ? (
+                          <div className="analyze-report-timestamp analyze-report-timestamp--inline">
+                            <div className="analyze-report-timestamp__icon" aria-hidden>
+                              <Calendar className="h-3.5 w-3.5" />
+                            </div>
+                            <div className="analyze-report-timestamp__body">
+                              <span className="analyze-report-timestamp__date">{ts.date}</span>
+                              <span className="analyze-report-timestamp__sep" aria-hidden>
+                                —
+                              </span>
+                              <span className="analyze-report-timestamp__time">
+                                <Clock
+                                  className="h-3 w-3 shrink-0 inline-block align-[-1px] me-1 opacity-60"
+                                  aria-hidden
+                                />
+                                {ts.time}
+                              </span>
+                            </div>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
-                    <p className="analyze-stat-num">{data.productCount}</p>
-                    <p className="analyze-stat-label">{tr.statProductsAnalyzed}</p>
-                  </div>
-                  <div className="analyze-sbi">
-                    <div className="analyze-sbi-icon" style={{ background: "rgba(6,182,212,.1)" }}>
-                      <ShoppingCart className="h-5 w-5" style={{ color: "var(--c)" }} aria-hidden />
+                  </header>
+
+                  <div className="analyze-report-hero__stats" role="presentation">
+                    <div className="analyze-sbar analyze-sbar--3 analyze-sbar--report-hero">
+                      <div className="analyze-sbi">
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_10}>
+                          <Package className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
+                        </div>
+                        <p className="analyze-stat-num num-ltr">{data.productCount}</p>
+                        <p className="analyze-stat-label">{tr.statProductsAnalyzed}</p>
+                      </div>
+                      <div className="analyze-sbi">
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_10}>
+                          <ShoppingCart className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
+                        </div>
+                        <p className="analyze-stat-num num-ltr" style={{ color: BRAND }}>{data.crossSellCount ?? 0}</p>
+                        <p className="analyze-stat-label">{tr.statCrossOpps}</p>
+                      </div>
+                      <div className="analyze-sbi">
+                        <div className="analyze-sbi-icon" style={BRAND_TINT_12}>
+                          <TrendingUp className="h-5 w-5" style={{ color: BRAND }} aria-hidden />
+                        </div>
+                        <p className="analyze-stat-num num-ltr" style={{ color: BRAND }}>{data.upsellCount ?? 0}</p>
+                        <p className="analyze-stat-label">{tr.statUpsellOpps}</p>
+                      </div>
                     </div>
-                    <p className="analyze-stat-num analyze-stat-num--c">{data.crossSellCount ?? 0}</p>
-                    <p className="analyze-stat-label">{tr.statCrossOpps}</p>
-                  </div>
-                  <div className="analyze-sbi">
-                    <div className="analyze-sbi-icon" style={{ background: "rgba(168,85,247,.12)" }}>
-                      <TrendingUp className="h-5 w-5" style={{ color: "var(--p4)" }} aria-hidden />
-                    </div>
-                    <p className="analyze-stat-num analyze-stat-num--p">{data.upsellCount ?? 0}</p>
-                    <p className="analyze-stat-label">{tr.statUpsellOpps}</p>
                   </div>
                 </div>
 
                 {/* AI Summary */}
                 {data.summary && (
-                  <div className="analyze-summary-box">
+                  <div className="analyze-summary-box analyze-summary-box--report">
                     <div className="analyze-summary-label-row">
                       <div className="analyze-summary-label-icon" aria-hidden>
                         <Star className="h-3.5 w-3.5" />
@@ -525,7 +614,7 @@ export default function AnalyzeReport({ id }: { id: number }) {
                       <span className="analyze-summary-label-text">{tr.aiSummaryLabel}</span>
                     </div>
                     <p
-                      className="text-sm leading-relaxed mt-3"
+                      className="analyze-summary-box--report__body"
                       style={{ color: "var(--t)" }}
                       dir={isAr(data.summary) ? "rtl" : "ltr"}
                     >
@@ -536,19 +625,19 @@ export default function AnalyzeReport({ id }: { id: number }) {
 
                 {/* Anchor Groups — full results */}
                 {groups.length > 0 && (
-                  <section aria-labelledby="reco-groups-heading">
-                    <div className="mb-6 analyze-section-head">
-                      <h2 id="reco-groups-heading" className="st" style={{ color: "var(--t)" }}>
+                  <section className="analyze-report-reco-section" aria-labelledby="reco-groups-heading">
+                    <div className="analyze-report-section-head">
+                      <h2 id="reco-groups-heading" className="analyze-report-section-title">
                         {tr.recoExamplesTitle}
                       </h2>
-                      <p className="ssub mt-2" style={{ maxWidth: "42rem" }}>
+                      <p className="analyze-report-section-sub">
                         {tpl(tr.sectionAnchorsSubtitle ?? "{{anchors}} anchor groups · {{recs}} recommendations", {
                           anchors: groups.length,
                           recs: totalRecs,
                         })}
                       </p>
                     </div>
-                    <div className="space-y-4">
+                    <div className="analyze-report-reco-list">
                       {groups.map((group, i) => (
                         <AnchorGroupSection
                           key={i}
@@ -563,33 +652,19 @@ export default function AnalyzeReport({ id }: { id: number }) {
                   </section>
                 )}
 
-                {/* CTA footer */}
-                <div className="analyze-results-cta">
-                  <div className="analyze-cta-badge">
-                    <Zap className="h-3 w-3 shrink-0" aria-hidden />
-                    <span>{lang === "ar" ? "ابدأ الآن مجاناً" : "Start Free Today"}</span>
-                  </div>
-                  <h3 className="analyze-cta-title mt-3" style={{ color: "var(--t)" }}>
-                    {tr.ctaFooterTitle}
-                  </h3>
-                  <p className="ssub tc max-w-lg mx-auto mt-2 mb-0">
-                    {tr.ctaFooterSub}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap items-center mt-5">
-                    <Link
-                      href="/analyze"
-                      className="btn-p btn-p-hero inline-flex items-center justify-center gap-2 min-h-[52px] px-7 text-base no-underline"
-                    >
-                      {tr.ctaAnalyzeStore}
-                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                    </Link>
-                  </div>
-                </div>
+                <PageClosingCta
+                  title={tr.ctaFooterTitle}
+                  description={tr.ctaFooterSub}
+                  buttonLabel={ld.ctaBtn}
+                  onActivate={() => setPlatformModalOpen(true)}
+                />
               </div>
             );
           })()}
         </main>
+        </div>
       </PageShell>
+      <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );
 }

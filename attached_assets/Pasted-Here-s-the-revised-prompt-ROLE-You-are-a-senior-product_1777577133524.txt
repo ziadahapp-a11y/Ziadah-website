@@ -1,0 +1,96 @@
+Here's the revised prompt:
+
+---
+
+**ROLE:** You are a senior product designer and frontend engineer auditing this codebase. Your job is to transform it from a "vibecoded" AI-generated look into a production-grade, professionally designed interface, while preserving the existing fonts and color palette exactly as they are.
+
+**HARD CONSTRAINTS (do not violate):**
+- Do NOT change any fonts, font families, or font imports
+- Do NOT change any color values, hex codes, gradients, or color tokens
+- Do NOT swap the color palette for a "better" one
+- Your job is to fix layout, spacing, hierarchy, components, states, and polish, using the existing typography and colors as fixed inputs
+
+**PHASE 1 - AUDIT (do this first, do not write code yet)**
+
+Walk through the entire codebase and produce a written audit report covering:
+
+1. **Layout and spacing system**
+   - Inconsistent padding, margins, gaps between sections
+   - Containers without max-width constraints or proper breakpoints
+   - Sections that don't follow an 8pt (or 4pt) spacing grid
+   - Vertical rhythm issues between blocks
+   - Misaligned grids and broken column structures
+
+2. **Typography usage (not the fonts themselves)**
+   - How the existing fonts are applied: sizes, weights, line-heights, letter-spacing
+   - Type scale consistency (is h1-h6, body, caption applied predictably?)
+   - Hierarchy actually guiding the eye or just random sizing
+   - Note: keep the font families exactly as they are, only fix how they're used
+
+3. **Color application (not the palette itself)**
+   - How existing colors are applied: are they used consistently for the same purpose
+   - Contrast issues using current colors (flag them, propose using a different existing color from the palette, do not introduce new ones)
+   - Overuse or misuse of accent colors
+   - Note: keep all hex values as they are, only fix where each color is used
+
+4. **Components**
+   - Buttons (states, sizing variants, hierarchy: primary/secondary/ghost)
+   - Forms (input states, labels, error handling, focus rings)
+   - Cards, modals, navigation, footer
+   - Inconsistent border-radius, shadow, and border treatments
+
+5. **Visual signals of "AI vibecoded" look**
+   - Floating blurred blobs in the background
+   - Glassmorphism applied without purpose
+   - Emoji icons instead of a proper icon set
+   - Everything centered with no real layout intent
+   - Default shadcn or v0 styling left untouched
+   - Decorative effects that add noise without meaning
+
+6. **UX issues**
+   - Missing hover, focus, active, disabled states
+   - No loading or empty states
+   - CTAs that aren't clear or competing with each other
+   - Mobile responsiveness gaps
+   - Accessibility (aria labels, semantic HTML, keyboard navigation, focus rings)
+
+7. **Information architecture**
+   - Are sections in the right order for the user's mental model
+   - Too much content fighting for attention in any one section
+   - Is the value prop clear in the first viewport
+
+For each finding, list: file path, line range, the problem, severity (critical/major/minor).
+
+**PHASE 2 - SYSTEM PROPOSAL (within existing fonts and colors)**
+
+Before touching code, propose:
+- A spacing scale (e.g. 4, 8, 12, 16, 24, 32, 48, 64, 96)
+- A type scale that uses ONLY the existing fonts, defining sizes, weights, line-heights, letter-spacing for each level
+- A color usage map that uses ONLY the existing palette, mapping each color to a specific role (background, surface, border, text-primary, text-secondary, accent, success, warning, error). If a role is missing from the current palette, flag it and ask me how to handle it. Do not invent new colors.
+- Border-radius scale
+- Shadow scale (subtle, used purposefully)
+- Component variants list
+
+Present this as a single reference document I approve before any code changes.
+
+**PHASE 3 - REFACTOR (only after I approve phases 1 and 2)**
+
+Refactor the site one section at a time, in this order: nav, hero, then each subsequent section top-to-bottom, then footer. For each section:
+- Show me the before and after
+- Explain what changed and why
+- Confirm no fonts or colors were modified
+- Wait for my approval before moving to the next section
+
+**RULES:**
+- Do not run or modify multiple files in one pass. One section, one file group at a time.
+- Do not invent new content. Keep all copy unless I ask you to rewrite it.
+- Do not add libraries without asking. Justify any new dependency.
+- Do not change fonts or colors under any circumstance, even if you think it would look better. If you believe a color or font change is necessary, stop and ask me.
+- Use real spacing, real hierarchy, real restraint.
+- Match the structural quality of Linear, Vercel, Stripe, Framer, Arc, while keeping my existing fonts and colors intact.
+
+**START WITH PHASE 1 NOW. Output only the audit report. Do not write any code yet.**
+
+---
+
+Want me to also lock down anything else (existing animations, specific components, current copy)?

@@ -18,13 +18,13 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "منتج تكميلي ما بعد الشراء",
       desc: "يعرض منتجاً مكمّلاً مباشراً لما اشتراه العميل للتو — بمنطق 'معظم من اشتروا هذا أضافوا أيضاً...' لتحفيز الطلب الثاني.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⬆️",
       title: "Upsell للطلب القادم",
       desc: "يقترح ترقية أو نسخة أفضل تناسب الطلب التالي — مع عرض خاص محدود المدة لتحفيز العودة.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -40,9 +40,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+48%", label: "معدل الشراء المتكرر", color: "#a855f7" },
+    { value: "+48%", label: "معدل الشراء المتكرر", color: "#8b5cf6" },
     { value: "+26%", label: "قيمة الطلب الثاني", color: "#06b6d4" },
-    { value: "+35%", label: "معدل استخدام كوبون العودة", color: "#10b981" },
+    { value: "+35%", label: "معدل استخدام كوبون العودة", color: "#8b5cf6" },
     { value: "+42%", label: "رضا العميل على المدى البعيد", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -55,7 +55,6 @@ const data: UseCasePageData = {
     ],
     result: "38% من هؤلاء العملاء أضافوا الإكسسوارات فوراً، و22% عادوا خلال 48 ساعة باستخدام الكوبون.",
   },
-  plans: ["الاحترافية", "الأعمال"],
   ctaTitle: "حوّل صفحة الشكر إلى مصدر دخل إضافي",
   ctaDesc: "ابنِ ولاء حقيقي وحفّز الطلبات المتكررة من أولى خطوات العلاقة مع العميل.",
   extraSections: <ThankYouMockup />,
@@ -75,13 +74,13 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Post-Purchase Complementary Product",
       desc: "Shows a directly complementary product to what the customer just bought — with the logic 'Most who bought this also added...' to stimulate the second order.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⬆️",
       title: "Upsell for Next Order",
       desc: "Suggests an upgrade or better version for the next order — with a special limited-time offer to incentivize return.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -97,9 +96,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+48%", label: "Repeat purchase rate", color: "#a855f7" },
+    { value: "+48%", label: "Repeat purchase rate", color: "#8b5cf6" },
     { value: "+26%", label: "Second order value", color: "#06b6d4" },
-    { value: "+35%", label: "Return coupon usage rate", color: "#10b981" },
+    { value: "+35%", label: "Return coupon usage rate", color: "#8b5cf6" },
     { value: "+42%", label: "Long-term customer satisfaction", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -112,7 +111,6 @@ const data: UseCasePageData = {
     ],
     result: "38% of these customers added accessories immediately, and 22% returned within 48 hours using the coupon.",
   },
-  plansEn: ["Professional", "Business"],
   ctaTitleEn: "Turn the thank you page into an additional revenue source",
   ctaDescEn: "Build real loyalty and drive repeat orders from the very first steps of the customer relationship.",
   seo: {

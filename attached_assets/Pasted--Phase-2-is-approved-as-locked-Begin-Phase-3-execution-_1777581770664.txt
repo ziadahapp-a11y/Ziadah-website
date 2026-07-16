@@ -1,0 +1,32 @@
+
+Phase 2 is approved as locked. Begin Phase 3 execution.
+Hard rules for Phase 3, no exceptions:
+
+One step at a time. Execute step 3.0, stop, show me the diff, wait for approval. Do not start 3.1 until I approve 3.0. Same for every step through 3.15.
+Before/after for every step. For each section refactored, show:
+
+Files modified with line ranges
+Key visual changes (describe in words, no screenshots needed)
+Token usage confirmation (which Phase 2 tokens were applied where)
+Confirm no font families changed, no color hex/rgba values changed
+
+
+No new files unless I approve the addition first. Token file (3.0) is the one expected new file. Anything else, ask.
+No new dependencies without justification. Lucide is approved (Phase 2 decision). Anything else, ask.
+If you discover a Phase 2 spec is wrong or incomplete during execution, stop and ask. Do not silently improvise. The system is the contract.
+All Phase 2 token names are canonical. Use them exactly as specified. No renaming during implementation.
+RTL correctness is enforced from step 3.0. Any new code uses logical properties only. Physical properties only enter the codebase via the cleanup pass at 3.14.
+prefers-reduced-motion and :focus-visible are not optional. They land in step 3.1 and apply to everything built after.
+No commit/PR descriptions like "improvements" or "polish". Each commit names the exact step (e.g. "Phase 3.2: Nav refactor - dead code removal, button system migration, ARIA").
+Test on mobile (390px) and desktop (1440px) for every visual change. Note any regressions found before moving to next step.
+
+Execution begins now with Step 3.0: Token file update.
+Deliver:
+
+Complete updated CSS variable / tokens file with every Phase 2 token defined
+Mapping table: which old tokens are replaced/aliased by which new tokens
+List of values being retired (the four hardcoded purples, --tm, rgba(9,0,25,1) inline usages, etc.)
+Confirmation that no existing color hex/rgba changed value, only got renamed or retired
+Confirmation that font families are untouched
+
+After 3.0 is delivered, stop and wait for my approval. Do not touch any component file yet. Do not modify any HTML. Do not run any global find-replace. Token file only.

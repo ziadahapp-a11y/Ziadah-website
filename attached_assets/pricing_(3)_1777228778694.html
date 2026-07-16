@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الباقات السنوية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --card-bg: #ffffff;
+    --border: #ececec;
+    --border-strong: #d4d4d4;
+    --text: #1a1a1a;
+    --text-muted: #6b6b6b;
+    --text-soft: #9a9a9a;
+    --gray-50: #f7f7f6;
+    --check: #16a34a;
+    --check-bg: #dcfce7;
+    --discount-bg: #fef2f2;
+    --discount-text: #dc2626;
+    --strike: #b8b8b8;
+
+    --gold: #b8860b;
+    --gold-deep: #8b6508;
+    --gold-light: #fef3c7;
+    --gold-soft: #fffbeb;
+    --gold-border: #d4a017;
+
+    --ai-bg: #f5f3ff;
+    --ai-border: #ddd6fe;
+    --ai-text: #6d28d9;
+    --ai-bg-gold: #fef3c7;
+    --ai-border-gold: #d4a017;
+    --ai-text-gold: #8b6508;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-gold: 0 12px 32px rgba(184, 134, 11, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 60px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 56px; }
+  .header .eyebrow { font-size: 13px; font-weight: 500; color: var(--text-soft); letter-spacing: 0.05em; margin-bottom: 16px; }
+  .header h1 { font-size: 42px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 12px; }
+  .header p { font-size: 17px; color: var(--text-muted); max-width: 620px; margin: 0 auto; font-weight: 400; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: stretch; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  .card.featured {
+    background: linear-gradient(180deg, var(--gold-soft) 0%, #ffffff 60%);
+    border: 1.5px solid var(--gold-border);
+    box-shadow: var(--shadow-gold);
+    transform: scale(1.02);
+  }
+  .card.featured:hover { transform: scale(1.02) translateY(-2px); }
+
+  .badge-top {
+    position: absolute;
+    top: -12px;
+    right: 24px;
+    background: var(--gold-deep);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    box-shadow: 0 4px 12px rgba(139, 101, 8, 0.25);
+  }
+
+  .plan-name { font-size: 16px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+  .card.featured .plan-name { color: var(--gold-deep); }
+  .plan-target { font-size: 12px; color: var(--text-soft); margin-bottom: 22px; }
+
+  .pricing-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .original-price { font-size: 14px; color: var(--strike); text-decoration: line-through; font-weight: 400; }
+  .discount { background: var(--discount-bg); color: var(--discount-text); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+  .price-main { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .price { font-size: 38px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .currency { font-size: 16px; font-weight: 500; color: var(--text-muted); }
+  .billing { font-size: 13px; color: var(--text-soft); margin-bottom: 6px; }
+  .monthly-equiv { font-size: 12px; color: var(--text-soft); margin-bottom: 20px; }
+
+  .ai-credits {
+    background: var(--ai-bg);
+    border: 1px solid var(--ai-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 22px;
+    font-size: 13px;
+  }
+  .ai-credits .ai-amount {
+    color: var(--ai-text);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .ai-credits .ai-note { font-size: 11px; color: var(--text-soft); line-height: 1.5; }
+  .card.featured .ai-credits { background: var(--ai-bg-gold); border-color: var(--ai-border-gold); }
+  .card.featured .ai-credits .ai-amount { color: var(--ai-text-gold); }
+
+  .divider { height: 1px; background: var(--border); margin: 0 -24px 22px; }
+  .card.featured .divider { background: var(--gold-border); opacity: 0.3; }
+
+  .features-label { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; letter-spacing: 0.02em; }
+
+  .features { list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+  .feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text); line-height: 1.55; }
+  .feature .check {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--check-bg);
+    color: var(--check);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    font-size: 11px;
+  }
+  .feature.exclusive { font-weight: 500; }
+  .feature.exclusive .check { background: var(--gold-light); color: var(--gold-deep); }
+
+  .star { display: inline-block; color: var(--gold-deep); margin-left: 4px; font-size: 11px; vertical-align: middle; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--gold-border);
+  }
+  .section-label.first { margin-top: 0; padding-top: 0; border-top: none; }
+
+  .guarantee {
+    margin-top: 18px;
+    background: #fffaf0;
+    border: 1px dashed var(--gold-border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .guarantee-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold-deep);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .guarantee-content { flex: 1; }
+  .guarantee-title { font-size: 13px; font-weight: 700; color: var(--gold-deep); margin-bottom: 4px; }
+  .guarantee-text { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+  .cta {
+    margin-top: 28px;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: white;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .cta:hover { background: var(--gray-50); border-color: var(--text); }
+  .card.featured .cta { background: var(--gold-deep); color: white; border-color: var(--gold-deep); }
+  .card.featured .cta:hover { background: #6d4f06; border-color: #6d4f06; }
+
+  .footnote { text-align: center; margin-top: 48px; font-size: 13px; color: var(--text-soft); line-height: 1.8; }
+  .footnote .star-fn { color: var(--gold-deep); font-weight: 700; }
+
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .card.featured { transform: none; }
+    .card.featured:hover { transform: translateY(-2px); }
+  }
+  @media (max-width: 600px) {
+    body { padding: 40px 16px; }
+    .header h1 { font-size: 30px; }
+    .grid { grid-template-columns: 1fr; }
+    .price { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="eyebrow">الباقات السنوية</div>
+    <h1>اختر الباقة المناسبة لمتجرك</h1>
+    <p>اقتراحات ومبيعات ومزامنة بلا حدود في كل الباقات. ادفع مقابل القدرات، لا مقابل الاستخدام.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- الأعمال -->
+    <div class="card featured">
+      <div class="badge-top">للمتاجر الكبيرة</div>
+
+      <div class="plan-name">الأعمال السنوية</div>
+      <div class="plan-target">قيمة مخصصة للمنشآت الكبيرة</div>
+
+      <div class="pricing-row">
+        <span class="original-price">24000 ريال</span>
+        <span class="discount">42% خصم</span>
+      </div>
+      <div class="price-main">
+        <span class="price">13904</span>
+        <span class="currency">ر.س</span>
+      </div>
+      <div class="billing">سنوياً</div>
+      <div class="monthly-equiv">ما يعادل 1,159 ر.س شهرياً</div>
+
+      <div class="ai-credits">
+        <div class="ai-amount">
+          <span>✦</span>
+          <span>60,000 نقطة ذكاء اصطناعي مجاناً</span>
+        </div>
+        <div class="ai-note">كل نقطة = منتج يتم شراؤه عن طريق الذكاء الاصطناعي</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-label first">حصري للأعمال</div>
+      <ul class="features">
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات في الصفحة الرئيسية<span class="star">★</span></span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات في صفحة التصنيفات<span class="star">★</span></span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات في صفحة الدفع<span class="star">★</span></span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>إضافة فريق عمل غير محدود<span class="star">★</span></span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>مدير نجاح خاص يدير الحساب نيابة عنك</span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>المراجعة الشهرية الاستراتيجية</span>
+        </li>
+        <li class="feature exclusive">
+          <span class="check">✓</span>
+          <span>دعم تقني مخصص</span>
+        </li>
+
+        <li><div class="section-label">+ كل مزايا الاحتراف</div></li>
+      </ul>
+
+      <div class="guarantee">
+        <div class="guarantee-icon">✦</div>
+        <div class="guarantee-content">
+          <div class="guarantee-title">ضمان زيادة 10 أضعاف</div>
+          <div class="guarantee-text">في حال عدم تحقيق العائد، تحصل على اشتراك سنة إضافية مجاني لباقة الأعمال</div>
+        </div>
+      </div>
+
+      <button class="cta">تواصل مع المبيعات</button>
+    </div>
+
+    <!-- الاحتراف -->
+    <div class="card">
+      <div class="plan-name">الاحترافية السنوية</div>
+      <div class="plan-target">للشركات والمؤسسات</div>
+
+      <div class="pricing-row">
+        <span class="original-price">8244 ريال</span>
+        <span class="discount">16% خصم</span>
+      </div>
+      <div class="price-main">
+        <span class="price">6948</span>
+        <span class="currency">ر.س</span>
+      </div>
+      <div class="billing">سنوياً</div>
+      <div class="monthly-equiv">ما يعادل 579 ر.س شهرياً</div>
+
+      <div class="ai-credits">
+        <div class="ai-amount">
+          <span>✦</span>
+          <span>6,000 نقطة ذكاء اصطناعي مجاناً</span>
+        </div>
+        <div class="ai-note">كل نقطة = منتج يتم شراؤه عن طريق الذكاء الاصطناعي</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="features-label">كل مزايا النمو + المزايا التالية:</div>
+      <ul class="features">
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات بعد الدفع</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات حسب قيمة السلة</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>عرض استبدال المنتجات</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>عروض الوصول للشحن المجاني</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>تحليلات مفصلة لكل مقترح حسب المنتج</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>دعم الثيمات الخاصة</span>
+        </li>
+      </ul>
+
+      <button class="cta">اشترك الآن</button>
+    </div>
+
+    <!-- النمو -->
+    <div class="card">
+      <div class="plan-name">النمو السنوية</div>
+      <div class="plan-target">للتجار الأفراد</div>
+
+      <div class="pricing-row">
+        <span class="original-price">3026 ريال</span>
+        <span class="discount">15% خصم</span>
+      </div>
+      <div class="price-main">
+        <span class="price">2600</span>
+        <span class="currency">ر.س</span>
+      </div>
+      <div class="billing">سنوياً</div>
+      <div class="monthly-equiv">ما يعادل 217 ر.س شهرياً</div>
+
+      <div class="ai-credits">
+        <div class="ai-amount">
+          <span>✦</span>
+          <span>600 نقطة ذكاء اصطناعي مجاناً</span>
+        </div>
+        <div class="ai-note">كل نقطة = منتج يتم شراؤه عن طريق الذكاء الاصطناعي</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="features-label">كل مزايا الانطلاقة + المزايا التالية:</div>
+      <ul class="features">
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات في صفحة السلة</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات بعد إضافة المنتج</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات بعد حذف المنتج</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>عروض الكوبونات</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>إضافة فريق عمل (2)</span>
+        </li>
+      </ul>
+
+      <button class="cta">اشترك الآن</button>
+    </div>
+
+    <!-- الانطلاقة -->
+    <div class="card">
+      <div class="plan-name">الانطلاقة السنوية</div>
+      <div class="plan-target">للمبتدئين والراغبين بالتجربة</div>
+
+      <div class="pricing-row">
+        <span class="original-price">860 ريال</span>
+        <span class="discount">70% خصم</span>
+      </div>
+      <div class="price-main">
+        <span class="price">260</span>
+        <span class="currency">ر.س</span>
+      </div>
+      <div class="billing">سنوياً</div>
+      <div class="monthly-equiv">ما يعادل 22 ر.س شهرياً</div>
+
+      <div class="ai-credits">
+        <div class="ai-amount">
+          <span>✦</span>
+          <span>60 نقطة ذكاء اصطناعي مجاناً</span>
+        </div>
+        <div class="ai-note">كل نقطة = منتج يتم شراؤه عن طريق الذكاء الاصطناعي</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="features-label">المميزات</div>
+      <ul class="features">
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراحات لامحدودة</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>مبيعات لامحدودة</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>اقتراح المنتجات في صفحة المنتج</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>عروض المنتجات</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>عروض الكميات</span>
+        </li>
+        <li class="feature">
+          <span class="check">✓</span>
+          <span>تحليلات عامة</span>
+        </li>
+      </ul>
+
+      <button class="cta">ابدأ الآن</button>
+    </div>
+
+  </div>
+
+  <div class="footnote">
+    <span class="star-fn">★</span> المميزات المحددة بالنجمة حصرية لباقة الأعمال
+    <br>
+    ✦ نقاط الذكاء الاصطناعي تستهلك فقط عند إتمام عملية شراء فعلية عن طريق الاقتراح الذكي
+  </div>
+
+</div>
+</body>
+</html>

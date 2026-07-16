@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import CategoryPageWidget from "../../components/widgets/CategoryPageWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "ترتيب ذكي مخصص",
       desc: "يعيد زيادة ترتيب بطاقات المنتجات بناءً على احتمالية شراء كل عميل — المنتجات الأنسب تظهر أولاً لكل زائر.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "كومبو داخل الكاتالوج",
       desc: "يظهر بطاقات كومبو مدمجة بين المنتجات العادية تجمع منتجين أو أكثر بسعر أقل مما يفكر فيه العميل.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -40,8 +41,8 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#a855f7" },
-    { value: "+33%", label: "معدل إضافة للسلة", color: "#10b981" },
+    { value: "+27%", label: "معدل الانتقال من التصنيف للمنتج", color: "#8b5cf6" },
+    { value: "+33%", label: "معدل إضافة للسلة", color: "#8b5cf6" },
     { value: "+21%", label: "متوسط قيمة الطلب", color: "#06b6d4" },
     { value: "-24%", label: "وقت اتخاذ قرار الشراء", color: "#ec4899" },
   ],
@@ -56,19 +57,17 @@ const data: UseCasePageData = {
     result: "العميل وجد ما يريده في أقل من دقيقتين وأضاف الكومبو للسلة مباشرة.",
   },
   extraSections: (isAr) => (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر صفحة التصنيف المُخصَّصة؟" : "How does the personalized category page look?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يرى عميلك صفحة التصنيف بعد تخصيصها بالذكاء الاصطناعي" : "This is how your customer sees the category page after AI personalization"}</p>
-        <CategoryPageWidget />
-      </div>
-    </section>
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف تظهر صفحة التصنيف المُخصَّصة؟" : "How does the personalized category page look?"}
+      subtitle={
+        isAr
+          ? "هكذا يرى عميلك صفحة التصنيف بعد تخصيصها بالذكاء الاصطناعي"
+          : "This is how your customer sees the category page after AI personalization"
+      }
+      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CategoryPageWidget /> }]}
+    />
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
   ctaDesc: "توجيه ذكي في اللحظة المناسبة = عميل يشتري بدلاً من أن يغادر.",
   heroEn: {
@@ -87,7 +86,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Smart Personalized Ordering",
       desc: "Ziadah reorders product cards based on each customer's purchase probability — the most relevant products appear first for every visitor.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🏷️",
@@ -99,7 +98,7 @@ const data: UseCasePageData = {
       icon: "🎁",
       title: "In-Catalog Combos",
       desc: "Shows embedded combo cards between regular products that bundle two or more items at a price lower than what the customer would expect.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "📊",
@@ -109,8 +108,8 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+27%", label: "Category-to-product click-through rate", color: "#a855f7" },
-    { value: "+33%", label: "Add-to-cart rate", color: "#10b981" },
+    { value: "+27%", label: "Category-to-product click-through rate", color: "#8b5cf6" },
+    { value: "+33%", label: "Add-to-cart rate", color: "#8b5cf6" },
     { value: "+21%", label: "Average order value", color: "#06b6d4" },
     { value: "-24%", label: "Purchase decision time", color: "#ec4899" },
   ],
@@ -124,7 +123,6 @@ const data: UseCasePageData = {
     ],
     result: "The customer found what they wanted in under two minutes and added the combo to cart directly.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Turn category browsing into a purchase decision",
   ctaDescEn: "Smart guidance at the right moment = a customer who buys instead of leaving.",
   seo: {

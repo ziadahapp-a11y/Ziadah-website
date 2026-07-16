@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import BuyMoreSaveMoreWidget from "../../components/widgets/BuyMoreSaveMoreWidget";
 
 const data: UseCasePageData = {
@@ -18,7 +19,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "جدول الشرائح التدريجي",
       desc: "يعرض جدولاً واضحاً: 1 قطعة = 49 ⃁ | 2 قطعة = 44 ⃁ لكل قطعة | 3+ = 39 ⃁ لكل قطعة — العميل يرى الفرق مباشرة.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🔋",
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "حساب التوفير الفعلي",
       desc: "بدلاً من عرض النسبة فقط، يُظهر زيادة المبلغ الفعلي الذي يوفره العميل عند اختيار كمية أكبر — أكثر إقناعاً وأوضح قيمة.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "⏳",
@@ -40,9 +41,9 @@ const data: UseCasePageData = {
     },
   ],
   stats: [
-    { value: "+61%", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#a855f7" },
+    { value: "+61%", label: "ارتفاع معدل الشراء بكميات كبيرة عند عرض الشرائح", color: "#8b5cf6" },
     { value: "+45%", label: "متوسط إيراد الطلب الواحد مع عروض الكميات", color: "#06b6d4" },
-    { value: "+34%", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#10b981" },
+    { value: "+34%", label: "معدل تكرار الشراء لأن المخزون يستنفد بطيئاً", color: "#8b5cf6" },
     { value: "2.8x", label: "متوسط الكمية المشتراة مقارنة بدون عرض الكميات", color: "#f59e0b" },
   ],
   exampleScenario: {
@@ -56,48 +57,55 @@ const data: UseCasePageData = {
     result: "عرض شريط التقدم 'أضف قطعة واحدة ووفّر X ⃁' يرفع معدل اختيار الكميات الأكبر بنسبة 42% مقارنة بجدول الشرائح الثابت — الرسالة الشخصية المباشرة تُحفّز أكثر.",
   },
   extraSections: (isAr) => (
-    <>
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-            <div className="shine"/>
-            <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 20, textAlign: "center" }}>{isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}</h3>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
-              {(isAr ? [
-                { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
-                { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
-                { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
-                { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
-              ] : [
-                { icon: "🔄", type: "Consumable products", examples: "Cleaning, skincare, food" },
-                { icon: "📦", type: "Storable products", examples: "Coffee, supplements, stationery" },
-                { icon: "🎁", type: "Gift & seasonal products", examples: "Chocolate, candles, perfumes" },
-                { icon: "🏭", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
-              ]).map((item, i) => (
-                <div key={i} style={{ padding: "20px 24px", background: "rgba(168,85,247,.05)", border: "1px solid rgba(168,85,247,.12)", borderRadius: 14 }}>
-                  <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
-                  <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 6 }}>{item.type}</div>
-                  <div style={{ fontSize: 12, color: "var(--td)" }}>{item.examples}</div>
-                </div>
-              ))}
+    <UseCaseLiveShowcase
+      isAr={isAr}
+      title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
+      subtitle={
+        isAr ? "هكذا تبدو واجهة اقتراح عروض الكميات كما يراها عميلك فعلياً" : "This is how the volume offer looks to your customer"
+      }
+      tabs={[
+        {
+          labelAr: "📱 مثال حي",
+          labelEn: "📱 Live Demo",
+          content: <BuyMoreSaveMoreWidget />,
+        },
+        {
+          labelAr: "🏷️ مناسب لأي منتج؟",
+          labelEn: "🏷️ Best Product Fits",
+          placement: "below",
+          content: (
+            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+              <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
+                {isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}
+              </h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
+                {(isAr
+                  ? [
+                      { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
+                      { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
+                      { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
+                      { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
+                    ]
+                  : [
+                      { icon: "🔄", type: "Consumable products", examples: "Cleaning, skincare, food" },
+                      { icon: "📦", type: "Storable products", examples: "Coffee, supplements, stationery" },
+                      { icon: "🎁", type: "Gift & seasonal products", examples: "Chocolate, candles, perfumes" },
+                      { icon: "🏭", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
+                    ]
+                ).map((item, i) => (
+                  <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 24px" }}>
+                    <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
+                    <div className="font-bold text-zinc-950" style={{ fontSize: 14, marginBottom: 6 }}>{item.type}</div>
+                    <div className="text-zinc-500" style={{ fontSize: 12 }}>{item.examples}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-            {isAr ? "مثال حي" : "Live Example"}
-          </div>
-          <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}</h3>
-          <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا تبدو واجهة اقتراح عروض الكميات كما يراها عميلك فعلياً" : "This is how the volume offer looks to your customer"}</p>
-          <BuyMoreSaveMoreWidget />
-        </div>
-      </section>
-    </>
+          ),
+        },
+      ]}
+    />
   ),
-  plans: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "فعّل عروض الكميات",
   ctaDesc: "زيادة يُنشئ عروض الكميات تلقائياً ويُحفّز العميل لشراء أكثر بنفس منتجك.",
   heroEn: {
@@ -116,7 +124,7 @@ const data: UseCasePageData = {
       icon: "📊",
       title: "Tiered Pricing Table",
       desc: "Displays a clear table: 1 unit = 49 SAR | 2 units = 44 SAR each | 3+ = 39 SAR each — the customer sees the difference instantly.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "🔋",
@@ -128,7 +136,7 @@ const data: UseCasePageData = {
       icon: "🎯",
       title: "Actual Savings Calculator",
       desc: "Instead of just showing percentages, Ziadah displays the exact amount saved when choosing a larger quantity — more convincing and clearer value.",
-      color: "#10b981",
+      color: "#8b5cf6",
     },
     {
       icon: "⏳",
@@ -138,9 +146,9 @@ const data: UseCasePageData = {
     },
   ],
   statsEn: [
-    { value: "+61%", label: "Increase in bulk purchase rate when tiers are displayed", color: "#a855f7" },
+    { value: "+61%", label: "Increase in bulk purchase rate when tiers are displayed", color: "#8b5cf6" },
     { value: "+45%", label: "Average order revenue with volume offers", color: "#06b6d4" },
-    { value: "+34%", label: "Repeat purchase rate as stock depletes slowly", color: "#10b981" },
+    { value: "+34%", label: "Repeat purchase rate as stock depletes slowly", color: "#8b5cf6" },
     { value: "2.8x", label: "Average quantity purchased vs. without volume offers", color: "#f59e0b" },
   ],
   exampleScenarioEn: {
@@ -153,7 +161,6 @@ const data: UseCasePageData = {
     ],
     result: "Showing a progress bar 'Add one more unit and save X SAR' increases the rate of choosing larger quantities by 42% compared to a static tier table — a direct, personal message motivates more.",
   },
-  plansEn: ["Starter", "Growth", "Professional", "Business"],
   ctaTitleEn: "Activate quantity offers",
   ctaDescEn: "Ziadah automatically generates quantity offers and motivates customers to buy more of your products.",
   seo: {

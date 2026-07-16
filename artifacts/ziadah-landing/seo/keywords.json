@@ -2,6 +2,7 @@
   "keywordResearch": {
     "primaryHighIntent": [
       { "en": "AI ecommerce platform", "ar": "منصة تجارة إلكترونية بالذكاء الاصطناعي" },
+      { "en": "AI ecommerce app", "ar": "تطبيق تجارة إلكترونية بالذكاء الاصطناعي" },
       { "en": "SaaS for online stores", "ar": "برمجية كخدمة للمتاجر الإلكترونية" },
       { "en": "Zid Salla AI app", "ar": "تطبيق ذكاء اصطناعي لزد وسلة" },
       { "en": "personalized product recommendations", "ar": "توصيات منتجات مخصصة" },
@@ -35,8 +36,8 @@
   },
   "pages": {
     "/": {
-      "keywordsAr": "منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، اقتراح منتجات، تسويق منتجات، زيادة مبيعات، متجر إلكتروني السعودية، الخليج",
-      "keywordsEn": "AI ecommerce platform, Zid, Salla, personalized product recommendations, ecommerce marketing, AOV, Saudi Arabia, GCC, SaaS, online store growth"
+      "keywordsAr": "تطبيق تجارة إلكترونية، منصة تجارة إلكترونية، ذكاء اصطناعي، زد، سلة، توصيات مخصصة، اقتراح منتجات، تسويق منتجات، زيادة مبيعات، متجر إلكتروني السعودية، الخليج",
+      "keywordsEn": "AI ecommerce app, AI ecommerce platform, Zid, Salla, personalized product recommendations, ecommerce marketing, AOV, Saudi Arabia, GCC, SaaS, online store growth"
     },
     "/features": {
       "keywordsAr": "خصائص زيادة، أهداف التوصية، البيع المتقاطع، ويدجات المتجر، تخصيص العرض، ذكاء اصطناعي تجارة",
@@ -47,7 +48,7 @@
       "keywordsEn": "ROI calculator, revenue uplift estimate, AI recommendations impact, ecommerce forecasting"
     },
     "/analyze": {
-      "keywordsAr": "تحليل متجر إلكتروني، ذكاء اصطناعي، بيع متقاطع، بيع ترقيعي، زد، سلة، شوبيفاي، توصيات منتجات",
+      "keywordsAr": "تحليل متجر إلكتروني، ذكاء اصطناعي، بيع متقاطع، بيع أعلى، زد، سلة، شوبيفاي، توصيات منتجات",
       "keywordsEn": "store analysis AI, cross-sell upsell insights, Zid Salla Shopify, product recommendations preview"
     },
     "/success-stories": {
@@ -77,6 +78,10 @@
     "/sectors": {
       "keywordsAr": "قطاعات التجارة، زد، سلة، ذكاء اصطناعي، مجال المتجر، أفضل ممارسات",
       "keywordsEn": "ecommerce verticals, Zid, Salla, AI merchandising, industry guide, best practices"
+    },
+    "/zid-apps-comparison": {
+      "keywordsAr": "مقارنة تطبيقات زد، زيادة، نماء، بووست، تاسك اب، رقمي، توصيات منتجات، منصة زد",
+      "keywordsEn": "Zid apps comparison, Ziyada, Namaa, Boost, TaskUp, Raqmi, product recommendations, Zid marketplace"
     }
   }
 }

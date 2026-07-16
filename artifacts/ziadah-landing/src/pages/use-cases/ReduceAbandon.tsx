@@ -1,4 +1,5 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
+import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import ReduceAbandonWidget from "../../components/widgets/ReduceAbandonWidget";
 
 const data: UseCasePageData = {
@@ -30,7 +31,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — العرض الأخير",
       desc: "عند محاولة مغادرة المتجر (حركة الماوس نحو إغلاق التبويب) يظهر Popup بعرض خاص فوري. الفرصة الأخيرة قبل الخسارة.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⏱️",
@@ -41,8 +42,8 @@ const data: UseCasePageData = {
   ],
   stats: [
     { value: "-38%", label: "معدل التخلي عن السلة", color: "#ec4899" },
-    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#10b981" },
-    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#a855f7" },
+    { value: "+31%", label: "العملاء المسترجعون شهرياً", color: "#8b5cf6" },
+    { value: "+18%", label: "معدل إتمام عملية الشراء", color: "#8b5cf6" },
     { value: "+24%", label: "إيرادات الشهر الأول", color: "#06b6d4" },
   ],
   exampleScenario: {
@@ -57,22 +58,20 @@ const data: UseCasePageData = {
   },
   extraSections: (isAr) => (
     <>
+      <UseCaseLiveShowcase
+        isAr={isAr}
+        title={isAr ? "كيف تظهر رسالة الإنقاذ للعميل؟" : "How does the rescue message appear to the customer?"}
+        subtitle={
+          isAr
+            ? "هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً"
+            : "See the abandonment prevention prompt exactly as your customer would"
+        }
+        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ReduceAbandonWidget /> }]}
+      />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "4px 14px", borderRadius: 50, background: "rgba(124,58,237,.08)", border: "1px solid rgba(124,58,237,.2)", color: "#7c3aed", fontSize: 11, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" as const, marginBottom: 16 }}>
-          <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#7c3aed" }}/>
-          {isAr ? "مثال حي" : "Live Example"}
-        </div>
-        <h3 style={{ fontSize: "clamp(20px,2.5vw,30px)", fontWeight: 900, marginBottom: 8 }}>{isAr ? "كيف تظهر رسالة الإنقاذ للعميل؟" : "How does the rescue message appear to the customer?"}</h3>
-        <p style={{ fontSize: 14, color: "var(--tm)", marginBottom: 32, lineHeight: 1.7 }}>{isAr ? "هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً" : "See the abandonment prevention prompt exactly as your customer would"}</p>
-        <ReduceAbandonWidget />
-      </div>
-    </section>
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ background: "var(--s1)", border: "1px solid var(--b1)", borderRadius: 20, padding: "36px 40px", backdropFilter: "blur(24px)" }}>
-          <div className="shine"/>
-          <h3 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
+      <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
+        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px" }}>
+          <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {(isAr ? [
               { cause: "التردد وعدم الحسم", solution: "كوبون مؤقت يخلق سبباً للشراء الآن" },
@@ -86,11 +85,11 @@ const data: UseCasePageData = {
               { cause: "Cart more expensive than expected", solution: "Discount coupon brings price within expectations" },
             ]).map((row, i) => (
               <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 12, alignItems: "center" }}>
-                <div style={{ padding: "12px 16px", background: "rgba(225,29,72,.06)", border: "1px solid rgba(225,29,72,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
+                <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 text-zinc-600" style={{ padding: "12px 16px", fontSize: 13 }}>
                   ✗ {row.cause}
                 </div>
-                <div style={{ width: 28, height: 28, borderRadius: "50%", background: "rgba(124,58,237,.15)", border: "1px solid rgba(124,58,237,.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>→</div>
-                <div style={{ padding: "12px 16px", background: "rgba(16,185,129,.06)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 12, fontSize: 13, color: "var(--tm)" }}>
+                <div className="border-violet-200 bg-violet-50/60 text-violet-700" style={{ width: 28, height: 28, borderRadius: "50%", borderWidth: 1, borderStyle: "solid", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{isAr ? "←" : "→"}</div>
+                <div className="rounded-xl border border-violet-200 bg-violet-50/60 text-violet-700" style={{ padding: "12px 16px", fontSize: 13 }}>
                   ✓ {row.solution}
                 </div>
               </div>
@@ -101,7 +100,6 @@ const data: UseCasePageData = {
     </section>
     </>
   ),
-  plans: ["النمو", "الاحترافية", "الأعمال"],
   ctaTitle: "وقّف النزيف وحوّل المترددين إلى مشترين",
   ctaDesc: "أدوات منع التخلي جاهزة في زيادة — فعّلها بضغطة زر.",
   heroEn: {
@@ -132,7 +130,7 @@ const data: UseCasePageData = {
       icon: "🚪",
       title: "Exit Intent — Last Offer",
       desc: "When attempting to leave the store (mouse moving toward closing the tab), a popup with a special instant offer appears. The last chance before losing the sale.",
-      color: "#a855f7",
+      color: "#8b5cf6",
     },
     {
       icon: "⏱️",
@@ -143,8 +141,8 @@ const data: UseCasePageData = {
   ],
   statsEn: [
     { value: "-38%", label: "Cart abandonment rate", color: "#ec4899" },
-    { value: "+31%", label: "Recovered customers monthly", color: "#10b981" },
-    { value: "+18%", label: "Purchase completion rate", color: "#a855f7" },
+    { value: "+31%", label: "Recovered customers monthly", color: "#8b5cf6" },
+    { value: "+18%", label: "Purchase completion rate", color: "#8b5cf6" },
     { value: "+24%", label: "First month revenue", color: "#06b6d4" },
   ],
   exampleScenarioEn: {
@@ -157,7 +155,6 @@ const data: UseCasePageData = {
     ],
     result: "She completed the purchase at 440 SAR instead of abandoning 380 SAR — recovering the order value and increasing it at the same time.",
   },
-  plansEn: ["Growth", "Professional", "Business"],
   ctaTitleEn: "Stop the bleeding and convert hesitators into buyers",
   ctaDescEn: "Cart abandonment prevention tools are ready in Ziadah — activate them with one click.",
   seo: {

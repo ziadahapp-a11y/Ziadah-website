@@ -1,0 +1,31 @@
+Got it. Updated prompt - Replit makes the calls itself using best practice, no questions back to you:
+
+---
+
+The Phase 2 document is incomplete. Output cut off at section 13 mid-list (3.8 #demo).
+
+Deliver the following to close out Phase 2:
+
+**1. Finish Section 13** (Phase 3 execution order from 3.8 through Final CTA, with rationale for each step).
+
+**2. Resolve all 5 open questions yourself using UI/UX best practice.** Do not ask me. Apply senior product designer judgment and commit to a decision. For each question, state the decision, the reasoning, and how it gets implemented. Use these principles:
+
+- One canonical primary action color across a site - color differentiation between equivalent CTAs creates the inconsistency users feel without consciously naming it
+- Don't add new values to a palette that already has redundancy - retire or reuse before extending
+- Directional arrows that convey sequence follow reading direction in the active locale; decorative arrows can mirror freely
+- Decorative animation that doesn't carry information is removed, not preserved on conditional breakpoints
+- Icon system choice prioritizes neutrality and breadth over personality for a B2B/SaaS context
+
+**3. Resolve the text-secondary vs text-tertiary collision.** `--text-secondary` (0.80 opacity) and `--text-tertiary` (0.72 opacity) differ by 8%. That gap is too narrow to function as visual hierarchy. Pick one to retire or widen the gap to a perceivable distance (recommended: secondary 0.80, tertiary 0.55-0.60). Re-point all existing classes accordingly. List the re-points.
+
+**4. Audit the rest of the document for similar "soft" decisions you deferred** - any place where you wrote "to be decided in Phase 3" or "requires review" or hedged. Resolve every one of them now using best practice. Phase 2 ends as a fully decided system, not a system with pending questions.
+
+**5. Add Section 15: Pricing CTA hierarchy fix.** The audit flagged 4 equally-weighted "ابدأ الآن" buttons + 1 "مقارنة" as choice paralysis. The standard fix: one plan is visually emphasized as the recommended/featured plan, its CTA uses primary variant, the other plans use secondary variant, the "مقارنة" link uses ghost variant. Apply this rule and specify which plan gets featured (typically the middle-tier or highest-value-per-price plan - you decide based on the actual pricing data).
+
+**6. Restate the document as "Phase 2 - Final" and end with "Awaiting approval before Phase 3."**
+
+No questions back to me. Every decision in this document is yours to make. I review the complete locked document and approve or send back specific items.
+
+---
+
+Drop that in. When the final document comes back, paste it here for the Phase 3 refactor prompt.

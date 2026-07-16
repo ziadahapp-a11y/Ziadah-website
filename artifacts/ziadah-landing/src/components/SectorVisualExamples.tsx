@@ -20,7 +20,7 @@ function hexToRgbTuple(hex: string): string {
       .join("");
   }
   const n = parseInt(h, 16);
-  if (Number.isNaN(n) || h.length !== 6) return "124,58,237";
+  if (Number.isNaN(n) || h.length !== 6) return "124, 58, 237";
   const r = (n >> 16) & 255;
   const g = (n >> 8) & 255;
   const b = n & 255;
@@ -60,7 +60,7 @@ function SectorWidgetMiniPreview({
         overflow: "hidden",
         background: "var(--s1)",
         border: `1px solid rgba(${rgb},0.22)`,
-        boxShadow: `0 8px 28px rgba(${rgb},0.12), inset 0 1px 0 rgba(255,255,255,0.06)`,
+        boxShadow: `0 8px 28px rgba(${rgb},0.06), inset 0 1px 0 rgba(255,255,255,0.03)`,
         width: "100%",
         maxWidth: 320,
         margin: "0 auto",
@@ -217,7 +217,7 @@ function SectorScenarioWidgetShowcaseCard({
         backdropFilter: "blur(24px)",
         WebkitBackdropFilter: "blur(24px)",
         border: `1px solid rgba(${rgb},0.3)`,
-        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.1), inset 0px 1px 0px 0px rgba(255,255,255,0.12), 0px 0px 5px 0px rgba(${rgb},0.1)`,
+        boxShadow: `0px 18px 10px 0px rgba(0,0,0,0.05), inset 0px 1px 0px 0px rgba(255,255,255,0.06), 0px 0px 5px 0px rgba(${rgb},0.05)`,
       }}
     >
       <div
@@ -242,12 +242,12 @@ function SectorScenarioWidgetShowcaseCard({
             justifyContent: "center",
             fontSize: 22,
             flexShrink: 0,
-            boxShadow: `0 0 12px rgba(${rgb},.15)`,
+            boxShadow: `0 0 12px rgba(${rgb},.075)`,
           }}
         >
           {icon}
         </div>
-        <div style={{ flex: 1, textAlign: lang === "ar" ? "right" : "left", minWidth: 0 }}>
+        <div style={{ flex: 1, textAlign: "start", minWidth: 0 }}>
           <div
             style={{
               fontSize: 14,
@@ -326,7 +326,7 @@ export default function SectorVisualExamples({
   if (introVariant === "sector") {
     return (
       <div className="sector-viz-root sector-viz-root--widget-style">
-        <p className="sector-viz-lead rv d1" style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
+        <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
           <Editable contentKey={cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub")} label="Sector examples intro" type="text">
             {(() => {
               const k = cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub");
@@ -355,81 +355,78 @@ export default function SectorVisualExamples({
             ))}
           </DraggableMarqueeRow>
         </div>
-        <div className={`gc rv d2 sector-viz-flow-wrap`} style={{ padding: 0, marginTop: 8, overflow: "hidden" }}>
-          <div className="shine" />
-          <div style={{ padding: "var(--card-pad-lg)" }}>
-            <div style={{ textAlign: "center", marginBottom: 28 }}>
-              <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>
-                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
-                  {(() => {
-                    const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
-                    const v = map[k];
-                    return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
-                  })()}
-                </Editable>
-              </div>
-              <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>
-                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
-                  {(() => {
-                    const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
-                    const v = map[k];
-                    return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
-                  })()}
-                </Editable>
-              </h3>
-              <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>
-                <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
-                  {(() => {
-                    const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
-                    const v = map[k];
-                    return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
-                  })()}
-                </Editable>
-              </p>
+        <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 8 }}>
+          <div className="text-center mb-7">
+            <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
+                })()}
+              </Editable>
             </div>
-            <div className="sector-viz-flow-steps">
-              {bundle.flow.map((step, i) => (
-                <Fragment key={i}>
-                  <div className="sector-viz-flow-step">
-                    <div
-                      style={{
-                        width: 52,
-                        height: 52,
-                        borderRadius: 16,
-                        background: "rgba(124,58,237,.12)",
-                        border: "1px solid rgba(124,58,237,.22)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 26,
-                        marginBottom: 12,
-                      }}
-                    >
-                      {step.icon}
-                    </div>
-                    <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
-                      <Editable
-                        contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
-                        label={`Flow step ${i + 1} title`}
-                        type="text"
-                      >
-                        {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
-                      </Editable>
-                    </div>
-                    <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>
-                      <Editable
-                        contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
-                        label={`Flow step ${i + 1} description`}
-                        type="text"
-                      >
-                        {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
-                      </Editable>
-                    </p>
+            <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
+                })()}
+              </Editable>
+            </h3>
+            <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
+              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
+                {(() => {
+                  const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
+                  const v = map[k];
+                  return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
+                })()}
+              </Editable>
+            </p>
+          </div>
+          <div className="sector-viz-flow-steps">
+            {bundle.flow.map((step, i) => (
+              <Fragment key={i}>
+                <div className="sector-viz-flow-step">
+                  <div
+                    className="mb-3"
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 16,
+                      background: "rgba(124, 58, 237,.12)",
+                      border: "1px solid rgba(124, 58, 237,.22)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 26,
+                    }}
+                  >
+                    {step.icon}
                   </div>
-                  {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
-                </Fragment>
-              ))}
-            </div>
+                  <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
+                    <Editable
+                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
+                      label={`Flow step ${i + 1} title`}
+                      type="text"
+                    >
+                      {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
+                    </Editable>
+                  </div>
+                  <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
+                    <Editable
+                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
+                      label={`Flow step ${i + 1} description`}
+                      type="text"
+                    >
+                      {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
+                    </Editable>
+                  </p>
+                </div>
+                {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
+              </Fragment>
+            ))}
           </div>
         </div>
       </div>
@@ -438,7 +435,7 @@ export default function SectorVisualExamples({
 
   return (
     <div className="sector-viz-root">
-      <p className="sector-viz-lead rv d1" style={{ margin: "0 0 20px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
+      <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
         <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionExamplesSub")} label="Sector examples section lead" type="text">
           {(() => {
             const k = cmsKey(lang, "sectorsPage", "sectionExamplesSub");
@@ -458,8 +455,8 @@ export default function SectorVisualExamples({
               onClick={() => jumpTo(i)}
               style={{
                 borderRadius: 999,
-                border: isActive ? "1px solid rgba(124,58,237,.45)" : "1px solid var(--b2)",
-                background: isActive ? "rgba(124,58,237,.14)" : "transparent",
+                border: isActive ? "1px solid rgba(124, 58, 237,.45)" : "1px solid var(--b2)",
+                background: isActive ? "rgba(124, 58, 237,.14)" : "transparent",
                 color: isActive ? "var(--p3)" : "var(--tm)",
                 fontWeight: 700,
                 fontSize: 12,
@@ -481,7 +478,7 @@ export default function SectorVisualExamples({
       </div>
 
       <div className="rv d2" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, color: "var(--td)", fontWeight: 700 }}>
+        <div className="text-zinc-600" style={{ fontSize: 12, fontWeight: 700 }}>
           {progress}
         </div>
         <div style={{ display: "flex", gap: 8 }}>
@@ -509,8 +506,8 @@ export default function SectorVisualExamples({
             disabled={!canMove}
             style={{
               borderRadius: 10,
-              border: "1px solid rgba(124,58,237,.35)",
-              background: "rgba(124,58,237,.12)",
+              border: "1px solid rgba(124, 58, 237,.35)",
+              background: "rgba(124, 58, 237,.12)",
               color: "var(--p3)",
               fontWeight: 700,
               fontSize: 12,
@@ -573,81 +570,78 @@ export default function SectorVisualExamples({
         })}
       </div>
 
-      <div className={`gc rv d2 sector-viz-flow-wrap`} style={{ padding: 0, marginTop: 28, overflow: "hidden" }}>
-        <div className="shine" />
-        <div style={{ padding: "var(--card-pad-lg)" }}>
-          <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, color: "var(--p3)", textTransform: "uppercase" }}>
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
-                })()}
-              </Editable>
-            </div>
-            <h3 style={{ fontSize: "clamp(20px,2.5vw,26px)", fontWeight: 900, margin: "10px 0 8px" }}>
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
-                })()}
-              </Editable>
-            </h3>
-            <p style={{ margin: 0, fontSize: 14, color: "var(--td)" }}>
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
-                })()}
-              </Editable>
-            </p>
+      <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 28 }}>
+        <div className="text-center mb-7">
+          <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
+            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
+              {(() => {
+                const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
+                const v = map[k];
+                return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
+              })()}
+            </Editable>
           </div>
-          <div className="sector-viz-flow-steps">
-            {bundle.flow.map((step, i) => (
-              <Fragment key={i}>
-                <div className="sector-viz-flow-step">
-                  <div
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 16,
-                      background: "rgba(124,58,237,.12)",
-                      border: "1px solid rgba(124,58,237,.22)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 26,
-                      marginBottom: 12,
-                    }}
-                  >
-                    {step.icon}
-                  </div>
-                  <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
-                    <Editable
-                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
-                      label={`Flow step ${i + 1} title`}
-                      type="text"
-                    >
-                      {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
-                    </Editable>
-                  </div>
-                  <p style={{ margin: 0, fontSize: 13, color: "var(--tm)", lineHeight: 1.65 }}>
-                    <Editable
-                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
-                      label={`Flow step ${i + 1} description`}
-                      type="text"
-                    >
-                      {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
-                    </Editable>
-                  </p>
+          <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
+            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
+              {(() => {
+                const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
+                const v = map[k];
+                return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
+              })()}
+            </Editable>
+          </h3>
+          <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
+            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
+              {(() => {
+                const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
+                const v = map[k];
+                return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
+              })()}
+            </Editable>
+          </p>
+        </div>
+        <div className="sector-viz-flow-steps">
+          {bundle.flow.map((step, i) => (
+            <Fragment key={i}>
+              <div className="sector-viz-flow-step">
+                <div
+                  className="mb-3"
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: 16,
+                    background: "rgba(124, 58, 237,.12)",
+                    border: "1px solid rgba(124, 58, 237,.22)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 26,
+                  }}
+                >
+                  {step.icon}
                 </div>
-                {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
-              </Fragment>
-            ))}
-          </div>
+                <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
+                  <Editable
+                    contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
+                    label={`Flow step ${i + 1} title`}
+                    type="text"
+                  >
+                    {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
+                  </Editable>
+                </div>
+                <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
+                  <Editable
+                    contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
+                    label={`Flow step ${i + 1} description`}
+                    type="text"
+                  >
+                    {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
+                  </Editable>
+                </p>
+              </div>
+              {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>
@@ -722,7 +716,7 @@ function ScenarioCard({
             color: "var(--p3)",
           }}
         >
-          <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(124,58,237,.4), transparent)" }} />
+          <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(124, 58, 237,.4), transparent)" }} />
           {tr.vizAiLabel}
           <span style={{ flex: 1, height: 1, background: "linear-gradient(270deg, rgba(6,182,212,.35), transparent)" }} />
         </div>
@@ -755,13 +749,12 @@ function ScenarioCard({
   );
 
   return (
-    <div className={`gc rv ${delayClass} sector-viz-card`} style={{ padding: 0, overflow: "hidden" }}>
-      <div className="shine" />
+    <div className={`rv ${delayClass} sector-viz-card rounded-2xl border border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden`}>
       <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, transparent)` }} />
-      <div style={{ padding: "var(--card-pad-md)" }}>
-        <div style={{ marginBottom: 14 }}>
-          <h3 style={{ fontSize: 17, fontWeight: 900, margin: "0 0 6px", color: "var(--t)" }}>{isAr ? s.titleAr : s.titleEn}</h3>
-          <p style={{ margin: 0, fontSize: 13, color: "var(--td)", lineHeight: 1.55 }}>{isAr ? s.contextAr : s.contextEn}</p>
+      <div className="p-7">
+        <div className="mb-3.5">
+          <h3 className="font-bold text-zinc-950" style={{ fontSize: 17, margin: "0 0 6px" }}>{isAr ? s.titleAr : s.titleEn}</h3>
+          <p className="m-0 text-zinc-600" style={{ fontSize: 13, lineHeight: 1.55 }}>{isAr ? s.contextAr : s.contextEn}</p>
           {s.relatedUseCaseHref ? (
             <button
               type="button"
@@ -771,8 +764,8 @@ function ScenarioCard({
                 fontSize: 12,
                 fontWeight: 800,
                 color: "var(--p3)",
-                background: "rgba(124,58,237,.1)",
-                border: "1px solid rgba(124,58,237,.28)",
+                background: "rgba(124, 58, 237,.1)",
+                border: "1px solid rgba(124, 58, 237,.28)",
                 borderRadius: 999,
                 padding: "6px 12px",
                 cursor: "pointer",
@@ -792,7 +785,7 @@ function ScenarioCard({
             padding: 10,
             background: "linear-gradient(165deg, rgba(255,255,255,.12), rgba(0,0,0,.25))",
             border: "1px solid var(--b1)",
-            boxShadow: "0 28px 60px rgba(0,0,0,.35)",
+            boxShadow: "0 28px 60px rgba(0,0,0,.175)",
           }}
         >
           <div
@@ -847,7 +840,7 @@ function ScenarioCard({
 
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
           <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineEnd: 4 }}>{tr.vizWidgetLabel}</span>
-          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", fontSize: 12, fontWeight: 700, color: "var(--p3)" }}>
+          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(124, 58, 237,.12)", border: "1px solid rgba(124, 58, 237,.25)", fontSize: 12, fontWeight: 700, color: "var(--p3)" }}>
             {isAr ? s.widgetAr : s.widgetEn}
           </span>
           <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineStart: 8, marginInlineEnd: 4 }}>{tr.vizPlacementLabel}</span>
@@ -906,7 +899,7 @@ function ScenarioUiOverlay({
             display: "flex",
             alignItems: "flex-start",
             gap: 10,
-            boxShadow: "0 18px 40px rgba(0,0,0,.45)",
+            boxShadow: "0 18px 40px rgba(0,0,0,.225)",
           }}
         >
           <span style={{ fontSize: 18, lineHeight: 1 }}>✓</span>
@@ -941,7 +934,7 @@ function ScenarioUiOverlay({
         {body ? <div style={{ fontSize: 11, color: "var(--tm)", marginTop: 4, lineHeight: 1.5 }}>{body}</div> : null}
         {typeof pct === "number" ? (
           <div style={{ marginTop: 8, height: 6, borderRadius: 99, background: "rgba(0,0,0,.2)", overflow: "hidden" }}>
-            <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${accent}, #22c55e)` }} />
+            <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${accent}, #8b5cf6)` }} />
           </div>
         ) : null}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginTop: 8 }}>
@@ -979,7 +972,7 @@ function ScenarioUiOverlay({
             background: "var(--bg)",
             borderTop: "1px solid var(--b1)",
             padding: "10px 16px 18px",
-            boxShadow: "0 -16px 40px rgba(0,0,0,.4)",
+            boxShadow: "0 -16px 40px rgba(0,0,0,.2)",
           }}
         >
           <div style={{ width: 42, height: 5, borderRadius: 99, background: "var(--b2)", margin: "4px auto 12px" }} />
@@ -1028,7 +1021,7 @@ function ScenarioUiOverlay({
             background: "var(--bg)",
             border: "1px solid var(--b1)",
             padding: "18px 16px 16px",
-            boxShadow: "0 28px 70px rgba(0,0,0,.55)",
+            boxShadow: "0 28px 70px rgba(0,0,0,.275)",
           }}
         >
           {meta ? <div style={{ fontSize: 10, fontWeight: 800, color: "var(--p3)", marginBottom: 8 }}>{meta}</div> : null}
@@ -1044,8 +1037,8 @@ function ScenarioUiOverlay({
                 textAlign: "center",
                 padding: "10px 12px",
                 borderRadius: 12,
-                background: "rgba(124,58,237,.1)",
-                border: "1px dashed rgba(124,58,237,.35)",
+                background: "rgba(124, 58, 237,.1)",
+                border: "1px dashed rgba(124, 58, 237,.35)",
                 color: "var(--p3)",
                 marginBottom: 12,
               }}

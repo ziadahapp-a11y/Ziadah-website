@@ -8,115 +8,87 @@ import {
 } from "@/data/sectorAiMlContent";
 
 export default function SectorAiMlHighlights() {
-  const { lang, dir } = useLanguage();
+  const { lang } = useLanguage();
   const t = useSiteT();
   const tr = t[lang].sectorsPage;
 
   return (
-    <div id="sector-ai-ml" className="gc rv d1" style={{ padding: 0, marginBottom: 22, scrollMarginTop: 120 }}>
-      <div className="shine" />
-      <div style={{ padding: "22px 24px 26px" }}>
-        <div className="stag" style={{ display: "inline-flex", marginBottom: 10 }}>
-          <span className="stag-dot" />
+    <div
+      id="sector-ai-ml"
+      className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      style={{ marginBottom: 22, scrollMarginTop: 120 }}
+    >
+      <div className="mb-2.5">
+        <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
           {tr.sectorAiSectionTag}
-        </div>
-        <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--p)", marginBottom: 10, marginTop: 0 }}>
-          {tr.sectorAiSectionTitle}
-        </h2>
-        <p style={{ margin: "0 0 18px", fontSize: 14, color: "var(--tm)", lineHeight: 1.75 }}>
-          {tr.sectorAiSectionLead}
+        </span>
+      </div>
+      <h2 className="mb-2.5 text-2xl md:text-3xl font-bold text-zinc-950 leading-tight">
+        {tr.sectorAiSectionTitle}
+      </h2>
+      <p className="mb-[18px] text-sm text-zinc-700 leading-relaxed">
+        {tr.sectorAiSectionLead}
+      </p>
+
+      <div
+        className="grid gap-3"
+        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))" }}
+      >
+        {sectorAiMlBullets.map((b, i) => (
+          <div
+            key={i}
+            className="rounded-2xl border border-zinc-200 bg-violet-50/60 p-4"
+          >
+            <div className="flex items-start gap-2.5">
+              <span className="text-[22px] leading-none" aria-hidden>
+                {b.emoji}
+              </span>
+              <div>
+                <h3 className="mb-2 text-sm md:text-base font-bold text-zinc-950 leading-snug">
+                  {lang === "ar" ? b.titleAr : b.titleEn}
+                </h3>
+                <p className="m-0 text-[13px] text-zinc-600 leading-relaxed">
+                  {lang === "ar" ? b.textAr : b.textEn}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-5 pt-[18px] border-t border-zinc-200">
+        <p className="mb-2.5 text-xs font-bold tracking-wide text-zinc-700 uppercase">
+          {tr.sectorAiDeepenTitle}
         </p>
-
-        <div
-          style={{
-            display: "grid",
-            gap: 12,
-            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
-          }}
-        >
-          {sectorAiMlBullets.map((b, i) => (
-            <div
-              key={i}
-              style={{
-                padding: "14px 16px 16px",
-                borderRadius: 14,
-                border: "1px solid var(--b2)",
-                background: "rgba(124,58,237,.04)",
-              }}
-            >
-              <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                <span style={{ fontSize: 22, lineHeight: 1 }} aria-hidden>
-                  {b.emoji}
-                </span>
-                <div>
-                  <h3 style={{ margin: "0 0 8px", fontSize: 14, fontWeight: 800, color: "var(--t)", lineHeight: 1.35 }}>
-                    {lang === "ar" ? b.titleAr : b.titleEn}
-                  </h3>
-                  <p style={{ margin: 0, fontSize: 13, color: "var(--td)", lineHeight: 1.65 }}>
-                    {lang === "ar" ? b.textAr : b.textEn}
-                  </p>
-                </div>
-              </div>
+        <div className="flex flex-col gap-3.5">
+          <div>
+            <span className="text-xs font-bold text-violet-600">{tr.sectorAiFromBlog} — </span>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {sectorAiMlBlogLinks.map((link) => (
+                <button
+                  key={link.href}
+                  type="button"
+                  onClick={() => navigateTo(link.href)}
+                  className="text-[11px] font-bold px-2.5 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-950 cursor-pointer text-start hover:border-zinc-300 hover:bg-zinc-100 transition-colors"
+                >
+                  {lang === "ar" ? link.labelAr : link.labelEn}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
-
-        <div style={{ marginTop: 20, paddingTop: 18, borderTop: "1px solid var(--b1)" }}>
-          <p style={{ margin: "0 0 10px", fontSize: 12, fontWeight: 700, color: "var(--tm)", textTransform: "uppercase", letterSpacing: 0.5 }}>
-            {tr.sectorAiDeepenTitle}
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--p)" }}>{tr.sectorAiFromBlog} — </span>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
-                {sectorAiMlBlogLinks.map((link) => (
-                  <button
-                    key={link.href}
-                    type="button"
-                    onClick={() => navigateTo(link.href)}
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      padding: "6px 10px",
-                      borderRadius: 999,
-                      border: "1px solid var(--b2)",
-                      background: "var(--s1)",
-                      color: "var(--t)",
-                      cursor: "pointer",
-                      fontFamily: "var(--font)",
-                      textAlign: dir === "rtl" ? "right" : "left",
-                    }}
-                  >
-                    {lang === "ar" ? link.labelAr : link.labelEn}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: "var(--p)" }}>{tr.sectorAiFromSupport} — </span>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
-                {sectorAiMlSupportLinks.map((link) => (
-                  <button
-                    key={link.href}
-                    type="button"
-                    onClick={() => navigateTo(link.href)}
-                    style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      padding: "6px 10px",
-                      borderRadius: 999,
-                      border: "1px solid var(--b2)",
-                      background: "var(--s1)",
-                      color: "var(--t)",
-                      cursor: "pointer",
-                      fontFamily: "var(--font)",
-                      textAlign: dir === "rtl" ? "right" : "left",
-                    }}
-                  >
-                    {lang === "ar" ? link.labelAr : link.labelEn}
-                  </button>
-                ))}
-              </div>
+          </div>
+          <div>
+            <span className="text-xs font-bold text-violet-600">{tr.sectorAiFromSupport} — </span>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {sectorAiMlSupportLinks.map((link) => (
+                <button
+                  key={link.href}
+                  type="button"
+                  onClick={() => navigateTo(link.href)}
+                  className="text-[11px] font-bold px-2.5 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-950 cursor-pointer text-start hover:border-zinc-300 hover:bg-zinc-100 transition-colors"
+                >
+                  {lang === "ar" ? link.labelAr : link.labelEn}
+                </button>
+              ))}
             </div>
           </div>
         </div>

@@ -82,7 +82,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "abayas-fashion": {
     scenarios: [
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "إطقم لونية متناسقة",
         titleEn: "Coordinated color set",
         contextAr: "عميلة تتصفح عباية سوداء مخملية",
@@ -134,7 +134,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "health-fitness": {
     scenarios: [
       {
-        accent: "#10b981",
+        accent: "#8b5cf6",
         titleAr: "مكدس تغذية",
         titleEn: "Nutrition stack",
         contextAr: "مشروب بروتين في السلة",
@@ -202,7 +202,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "كورس ثم مستوى أعلى",
         titleEn: "Course then advanced",
         contextAr: "شراء كورس برمجة مبتدئ",
@@ -217,7 +217,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Post-checkout",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "كوبون لحظي",
         titleEn: "Timely coupon",
         contextAr: "سلة رقمية بدون إتمام",
@@ -253,7 +253,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart / checkout",
       },
       {
-        accent: "#10b981",
+        accent: "#8b5cf6",
         titleAr: "لابتوب + حقيبة",
         titleEn: "Laptop + bag",
         contextAr: "تصفح لابتوب للأعمال",
@@ -319,7 +319,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Product page",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "تغليف هدية",
         titleEn: "Gift wrap",
         contextAr: "قبل الدفع",
@@ -370,7 +370,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "شراء كميات",
         titleEn: "Volume deal",
         contextAr: "كريم مرطّب سريع الاستهلاك",
@@ -420,7 +420,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Product page",
       },
       {
-        accent: "#84cc16",
+        accent: "#a78bfa",
         titleAr: "غداء مكتب",
         titleEn: "Office lunch",
         contextAr: "سلة غداء جماعية",
@@ -440,7 +440,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "home-supplies": {
     scenarios: [
       {
-        accent: "#22c55e",
+        accent: "#8b5cf6",
         titleAr: "نظام تخزين",
         titleEn: "Storage system",
         contextAr: "منظم خزانة في السلة",
@@ -455,7 +455,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#10b981",
+        accent: "#8b5cf6",
         titleAr: "مكنسة + أكياس",
         titleEn: "Vacuum + bags",
         contextAr: "مكنسة كهربائية",
@@ -470,7 +470,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Product page",
       },
       {
-        accent: "#059669",
+        accent: "#6d28d9",
         titleAr: "مطبخ كامل",
         titleEn: "Kitchen bundle",
         contextAr: "أواني طهي",
@@ -490,7 +490,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   "service-design": {
     scenarios: [
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "شعار → هوية",
         titleEn: "Logo → identity",
         contextAr: "شراء باقة شعار",
@@ -505,7 +505,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "موقع + صيانة",
         titleEn: "Site + care",
         contextAr: "تصميم موقع لصفحة واحدة",
@@ -540,7 +540,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
   charities: {
     scenarios: [
       {
-        accent: "#059669",
+        accent: "#6d28d9",
         titleAr: "مشروع مكمّل",
         titleEn: "Related cause",
         contextAr: "تبرع كسوة شتاء",
@@ -555,7 +555,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Donation page",
       },
       {
-        accent: "#10b981",
+        accent: "#8b5cf6",
         titleAr: "زيادة بسيطة",
         titleEn: "Gentle top-up",
         contextAr: "بعد إتمام تبرع",
@@ -570,7 +570,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Thank-you page",
       },
       {
-        accent: "#14b8a6",
+        accent: "#8b5cf6",
         titleAr: "تبرع شهري",
         titleEn: "Monthly giving",
         contextAr: "اهتمام سابق بالتعليم",
@@ -655,7 +655,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         placementEn: "Cart",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "لعب + إضافة رقمية",
         titleEn: "Game + digital add-on",
         contextAr: "بطاقة متجر ألعاب",
@@ -818,7 +818,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/add-to-cart",
       },
       {
-        accent: "#22c55e",
+        accent: "#8b5cf6",
         titleAr: "بانر علوي — الشحن المجاني",
         titleEn: "Top banner — free delivery",
         contextAr: "السلة عند 33 ⃁ والحد 45 ⃁ — يظهر شريط تقدم واقتراح منتج يسد الفجوة.",
@@ -844,7 +844,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/free-shipping",
       },
       {
-        accent: "#a855f7",
+        accent: "#8b5cf6",
         titleAr: "مودال — كوبون قبل المغادرة",
         titleEn: "Modal — exit coupon",
         contextAr: "المستخدم يهم بإغلاق التطبيق مع سلة غير مكتملة — نافذة مركزة بكود قصير المدى.",
@@ -1002,7 +1002,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/related-products",
       },
       {
-        accent: "#14b8a6",
+        accent: "#8b5cf6",
         titleAr: "بانر — نتائج مخصصة",
         titleEn: "Banner — personalized results",
         contextAr: "في نتائج البحث يظهر بانر «مرتّبة حسب اهتمامك» بدل الترتيب الافتراضي فقط.",
@@ -1055,7 +1055,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/addons",
       },
       {
-        accent: "#84cc16",
+        accent: "#a78bfa",
         titleAr: "توست — حفظ للمفضلة",
         titleEn: "Toast — saved to wishlist",
         contextAr: "عند حفظ منتج من بائع جديد يظهر توست بمزامنة مع توصيات لاحقة.",
@@ -1103,7 +1103,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         relatedUseCaseHref: "/use-cases/bundle-deals",
       },
       {
-        accent: "#8b5cf6",
+        accent: "#7c3aed",
         titleAr: "مودال — ترحيب المنصة",
         titleEn: "Modal — platform welcome",
         contextAr: "أول طلب لمستخدم ججل — مودال بكود ترحيب وشروط واضحة.",

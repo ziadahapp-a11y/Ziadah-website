@@ -223,7 +223,7 @@ const VISIBLE_TABS = TAB_ORDER.map((id) => TABS.find((t) => t.id === id)).filter
 function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
   if (row.kind === "arrow") {
     return (
-      <div className="sector-html-uc-arrow sh-en" style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "var(--td)", padding: "4px 0" }}>
+      <div className="sector-html-uc-arrow sh-en flex items-center gap-2 text-xs text-zinc-600 py-1">
         ↓ <span>{isAr ? row.textAr : row.textEn}</span>
       </div>
     );
@@ -232,48 +232,36 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
   const sub = isAr ? row.subAr : row.subEn;
   const tag = row.tagAr && row.tagEn ? (isAr ? row.tagAr : row.tagEn) : undefined;
   const icon = row.icon ?? "📦";
-  const borderO = row.className === "highlight-o" ? "rgba(124,58,237,.35)" : row.className === "highlight-g" ? "rgba(0,212,160,.3)" : "var(--b2)";
+  const borderO = row.className === "highlight-o" ? "rgba(124, 58, 237,.35)" : row.className === "highlight-g" ? "rgba(124, 58, 237,.3)" : "var(--b2)";
   return (
     <div
-      className={`sector-html-ucv-item ${row.className ?? ""}`.trim()}
+      className={`sector-html-ucv-item flex items-center gap-3 px-3.5 py-3 rounded-xl border bg-zinc-50 mb-1 ${row.className ?? ""}`.trim()}
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        padding: "12px 14px",
-        borderRadius: 12,
-        border: `1px solid ${borderO}`,
-        background: "var(--s1)",
-        marginBottom: 4,
+        borderColor: borderO,
         opacity: row.className === "faded" ? 0.45 : 1,
         borderStyle: row.className === "faded" ? "dashed" : "solid",
       }}
     >
-      <div style={{ fontSize: 22 }} aria-hidden>
+      <div className="text-[22px]" aria-hidden>
         {icon}
       </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--t)" }}>{line}</div>
+      <div className="flex-1 min-w-0">
+        <div className="text-[13px] font-bold text-zinc-950">{line}</div>
         {sub ? (
-          <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{sub}</div>
+          <div className="text-[11px] text-zinc-600 mt-0.5">{sub}</div>
         ) : null}
       </div>
       {row.price ? (
-        <span className="sh-en" style={{ fontWeight: 800, color: "var(--p)", fontSize: 13 }}>
+        <span className="sh-en font-extrabold text-violet-600 text-[13px]">
           {row.price}
         </span>
       ) : null}
       {tag ? (
         <span
-          className={`sh-en sector-html-ucv-tag ${row.tagClass ?? ""}`}
+          className="sh-en sector-html-ucv-tag text-[11px] px-2.5 py-[3px] rounded-full border border-zinc-200 whitespace-nowrap"
           style={{
-            fontSize: 11,
-            padding: "3px 10px",
-            borderRadius: 999,
-            border: "1px solid var(--b2)",
-            whiteSpace: "nowrap",
-            background: row.tagClass === "tag-gold" ? "rgba(245,192,48,.12)" : row.tagClass === "tag-g" ? "rgba(0,212,160,.1)" : "rgba(124,58,237,.08)",
-            color: row.tagClass === "tag-gold" ? "#f5c030" : row.tagClass === "tag-g" ? "#00d4a0" : "var(--p)",
+            background: row.tagClass === "tag-gold" ? "rgba(245,192,48,.12)" : row.tagClass === "tag-g" ? "rgba(124, 58, 237,.1)" : "rgba(124, 58, 237,.08)",
+            color: row.tagClass === "tag-gold" ? "#f5c030" : row.tagClass === "tag-g" ? "#7c3aed" : "var(--p)",
           }}
         >
           {tag}
@@ -293,85 +281,69 @@ export default function SectorDeliveryUseCases() {
   const active = VISIBLE_TABS.find((x) => x.id === tab) ?? VISIBLE_TABS[0]!;
 
   return (
-    <div id="section-usecases" className="gc rv d2" style={{ padding: 0, marginBottom: 16, scrollMarginTop: 120 }}>
-      <div className="shine" />
-      <div style={{ padding: "18px 22px 22px" }}>
-        <p className="sh-en" style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--tm)", marginBottom: 8 }}>
-          {isAr ? "أمثلة حية" : "Live examples"}
-        </p>
-        <h2 style={{ fontSize: 17, fontWeight: 800, color: "var(--p)", marginBottom: 6, marginTop: 0 }}>{tr.sectorSectionUseCases}</h2>
-        <p style={{ margin: "0 0 16px", fontSize: 13, color: "var(--td)", lineHeight: 1.6, maxWidth: 560 }}>
-          {isAr ? "أهم السيناريوهات — يمكنك استكشاف الباقي من لوحة زيادة بعد التفعيل." : "Key scenarios — explore the rest in Ziadah after activation."}
-        </p>
+    <div
+      id="section-usecases"
+      className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      style={{ marginBottom: 16, scrollMarginTop: 120 }}
+    >
+      <p className="sh-en mb-2 text-[11px] tracking-[0.12em] uppercase text-zinc-700">
+        {isAr ? "أمثلة حية" : "Live examples"}
+      </p>
+      <h2 className="mb-1.5 text-2xl md:text-3xl font-bold text-zinc-950 leading-tight">{tr.sectorSectionUseCases}</h2>
+      <p className="mb-4 text-[13px] text-zinc-600 leading-relaxed max-w-[560px]">
+        {isAr ? "أهم السيناريوهات — يمكنك استكشاف الباقي من لوحة زيادة بعد التفعيل." : "Key scenarios — explore the rest in Ziadah after activation."}
+      </p>
 
-        <div className="sector-html-uc-tabs">
-          {VISIBLE_TABS.map((x) => (
-            <button
-              key={x.id}
-              type="button"
-              className={`sector-html-uc-tab ${tab === x.id ? "sector-html-uc-tab--active" : ""}`.trim()}
-              onClick={() => setTab(x.id)}
-            >
-              {isAr ? x.labelAr : x.labelEn}
-            </button>
-          ))}
-        </div>
+      <div className="sector-html-uc-tabs">
+        {VISIBLE_TABS.map((x) => (
+          <button
+            key={x.id}
+            type="button"
+            className={`sector-html-uc-tab ${tab === x.id ? "sector-html-uc-tab--active" : ""}`.trim()}
+            onClick={() => setTab(x.id)}
+          >
+            {isAr ? x.labelAr : x.labelEn}
+          </button>
+        ))}
+      </div>
 
-        <div className="sector-html-uc-panel sector-html-uc-panel--active">
+      <div className="sector-html-uc-panel sector-html-uc-panel--active">
+        <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-[18px]">
           <div
+            className="absolute top-0 left-0 right-0 h-0.5"
             style={{
-              background: "var(--s1)",
-              border: "1px solid var(--b2)",
-              borderRadius: 14,
-              padding: "18px 20px",
-              position: "relative",
-              overflow: "hidden",
+              background: "linear-gradient(90deg, var(--p), color-mix(in srgb, var(--p) 60%, #f59e0b), transparent)",
+            }}
+          />
+          <p className="sh-en mb-2 text-[11px] tracking-[0.1em] uppercase text-violet-600">
+            {isAr ? active.badgeAr : active.badgeEn}
+          </p>
+          <h3 className="mb-1 text-base md:text-lg font-bold text-zinc-950 leading-snug">{isAr ? active.titleAr : active.titleEn}</h3>
+          <span className="sh-en block mb-3 text-xs text-violet-600/85">
+            {isAr ? active.subAr : active.subEn}
+          </span>
+          <p className="mb-4 text-sm text-zinc-600 leading-relaxed">{isAr ? active.descAr : active.descEn}</p>
+          <div
+            className="flex items-start gap-3 px-3.5 py-3 rounded-xl"
+            style={{
+              border: "1px solid rgba(124, 58, 237,.2)",
+              background: "rgba(124, 58, 237,.06)",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 2,
-                background: "linear-gradient(90deg, var(--p), color-mix(in srgb, var(--p) 60%, #f59e0b), transparent)",
-              }}
-            />
-            <p className="sh-en" style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--p)", marginBottom: 8 }}>
-              {isAr ? active.badgeAr : active.badgeEn}
-            </p>
-            <h3 style={{ fontSize: 18, fontWeight: 800, margin: "0 0 4px", color: "var(--t)" }}>{isAr ? active.titleAr : active.titleEn}</h3>
-            <span className="sh-en" style={{ fontSize: 12, color: "var(--p)", opacity: 0.85, display: "block", marginBottom: 12 }}>
-              {isAr ? active.subAr : active.subEn}
+            <span className="text-xl" aria-hidden>
+              📊
             </span>
-            <p style={{ fontSize: 14, color: "var(--td)", lineHeight: 1.7, marginBottom: 16 }}>{isAr ? active.descAr : active.descEn}</p>
             <div
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 12,
-                padding: "12px 14px",
-                borderRadius: 12,
-                border: "1px solid rgba(0,212,160,.2)",
-                background: "rgba(0,212,160,.06)",
-              }}
-            >
-              <span style={{ fontSize: 20 }} aria-hidden>
-                📊
-              </span>
-              <div
-                style={{ fontSize: 13, lineHeight: 1.55, color: "var(--t)" }}
-                dangerouslySetInnerHTML={{ __html: isAr ? active.resultAr : active.resultEn }}
-              />
-            </div>
+              className="text-[13px] leading-relaxed text-zinc-950"
+              dangerouslySetInnerHTML={{ __html: isAr ? active.resultAr : active.resultEn }}
+            />
           </div>
+        </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            {active.vis.map((row, i) => (
-              <VisRow key={i} row={row} isAr={isAr} />
-            ))}
-          </div>
+        <div className="flex flex-col gap-1.5">
+          {active.vis.map((row, i) => (
+            <VisRow key={i} row={row} isAr={isAr} />
+          ))}
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
   return (
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto", textAlign: "center" }}>
           <div
             style={{
               display: "inline-flex",
@@ -72,8 +72,8 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
               gap: 7,
               padding: "4px 14px",
               borderRadius: 50,
-              background: "rgba(124,58,237,.08)",
-              border: "1px solid rgba(124,58,237,.2)",
+              background: "rgba(124, 58, 237,.08)",
+              border: "1px solid rgba(124, 58, 237,.2)",
               color: "#7c3aed",
               fontSize: 11,
               fontWeight: 700,
@@ -115,9 +115,9 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                     fontSize: 15,
                     fontWeight: 800,
                     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                    background: active ? "rgba(124,58,237,.22)" : "transparent",
+                    background: active ? "rgba(124, 58, 237,.22)" : "transparent",
                     color: active ? "var(--p4)" : "var(--tm)",
-                    boxShadow: active ? "0 4px 20px rgba(124,58,237,.2)" : "none",
+                    boxShadow: active ? "0 4px 20px rgba(124, 58, 237,.2)" : "none",
                   }}
                 >
                   {key === "noura" ? `👩 ${labels.noura}` : `👨 ${labels.nasser}`}
@@ -162,7 +162,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                 >
                   <div style={{ fontSize: 28, lineHeight: 1 }}>{p.icon}</div>
                   <div style={{ fontSize: 15, fontWeight: 800, color: "var(--t)", lineHeight: 1.35 }}>{p.name}</div>
-                  <div style={{ fontSize: 12, color: "#a855f7", fontWeight: 600, lineHeight: 1.5 }}>{p.reason}</div>
+                  <div style={{ fontSize: 12, color: "#8b5cf6", fontWeight: 600, lineHeight: 1.5 }}>{p.reason}</div>
                   <div style={{ fontSize: 16, fontWeight: 900, color: "var(--p4)", marginTop: "auto" }}>
                     {p.price} {isAr ? "ريال" : "SAR"}
                   </div>
@@ -188,14 +188,14 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
             >
               <span style={{ color: "#06b6d4" }}>{labels.statsSignals}</span>
               <span style={{ opacity: 0.35 }}>|</span>
-              <span style={{ color: "#10b981" }}>{labels.statsLatency}</span>
+              <span style={{ color: "#8b5cf6" }}>{labels.statsLatency}</span>
             </div>
           </div>
         </div>
       </section>
 
       <section style={{ position: "relative", zIndex: 2, padding: "0 var(--page-inline-pad) 60px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
           <div
             className="gc"
             style={{
@@ -232,7 +232,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
                   {labels.soonBullets.map((line, i) => (
                     <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", fontSize: 14, color: "var(--tm)", lineHeight: 1.65 }}>
-                      <span style={{ color: "#10b981", fontWeight: 800, flexShrink: 0 }}>✓</span>
+                      <span style={{ color: "#8b5cf6", fontWeight: 800, flexShrink: 0 }}>✓</span>
                       {line}
                     </li>
                   ))}
@@ -244,7 +244,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                   position: "relative",
                   borderRadius: 16,
                   minHeight: 220,
-                  background: "linear-gradient(145deg, rgba(124,58,237,.08), rgba(6,182,212,.06))",
+                  background: "linear-gradient(145deg, rgba(124, 58, 237,.08), rgba(6,182,212,.06))",
                   border: "1px solid var(--b1)",
                   overflow: "hidden",
                 }}
@@ -257,7 +257,7 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
                     opacity: 0.45,
                     transform: "scale(1.04)",
                     background: `
-                      linear-gradient(180deg, rgba(124,58,237,.25) 0%, transparent 40%),
+                      linear-gradient(180deg, rgba(124, 58, 237,.25) 0%, transparent 40%),
                       repeating-linear-gradient(-12deg, transparent, transparent 8px, rgba(255,255,255,.03) 8px, rgba(255,255,255,.03) 16px)
                     `,
                   }}

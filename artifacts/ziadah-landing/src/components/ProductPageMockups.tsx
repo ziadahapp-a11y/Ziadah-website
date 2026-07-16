@@ -13,9 +13,19 @@ export default function ProductPageMockups() {
   const copy = t[lang].productPageMockups;
 
   return (
-    <section style={{ position: "relative", zIndex: 2, padding: "0 5% 80px" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
+    <div
+      className="sector-html"
+      style={{
+        position: "relative",
+        zIndex: 2,
+        width: "100%",
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: "clamp(28px, 4vw, 40px) var(--page-inline-pad) clamp(40px, 7vw, 72px)",
+        boxSizing: "border-box",
+      }}
+    >
+      <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div
             style={{
               display: "inline-flex",
@@ -23,9 +33,9 @@ export default function ProductPageMockups() {
               gap: 7,
               padding: "4px 14px",
               borderRadius: 50,
-              background: "rgba(168,85,247,.08)",
-              border: "1px solid rgba(168,85,247,.2)",
-              color: "#a855f7",
+              background: "rgba(139, 92, 246,.1)",
+              border: "1px solid rgba(139, 92, 246,.22)",
+              color: "#7c3aed",
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: 1,
@@ -38,8 +48,8 @@ export default function ProductPageMockups() {
                 width: 5,
                 height: 5,
                 borderRadius: "50%",
-                background: "#a855f7",
-                boxShadow: "0 0 7px #a855f7",
+                background: "#8b5cf6",
+                boxShadow: "0 0 7px #8b5cf6",
               }}
             />
             <Editable contentKey={cmsKey(lang, "productPageMockups", "badge")} label="Product mockups badge" type="text">
@@ -77,7 +87,7 @@ export default function ProductPageMockups() {
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
+            flexWrap: "nowrap",
             gap: 32,
             justifyContent: "center",
           }}
@@ -110,7 +120,7 @@ export default function ProductPageMockups() {
                 {copy.cardTitleBuyTogether}
               </Editable>
             }
-            accentColor="#7c3aed"
+            accentColor="#8b5cf6"
             productName={copy.productName}
           >
             <BuyTogetherContent copy={copy} />
@@ -127,7 +137,7 @@ export default function ProductPageMockups() {
                 {copy.cardTitleBundle}
               </Editable>
             }
-            accentColor="#a855f7"
+            accentColor="#7c3aed"
             productName={copy.productName}
           >
             <BundleContent copy={copy} />
@@ -144,14 +154,13 @@ export default function ProductPageMockups() {
                 {copy.cardTitleVolume}
               </Editable>
             }
-            accentColor="#10b981"
+            accentColor="#a78bfa"
             productName={copy.productName}
           >
             <VolumeContent copy={copy} />
           </MockupCard>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }
 
@@ -214,7 +223,7 @@ function MockupCard({
           background: "var(--s1)",
           borderRadius: 44,
           border: "2px solid var(--b1)",
-          boxShadow: `0 0 40px rgba(${colorToRgb(accentColor)},.12), 0 20px 60px rgba(0,0,0,.5)`,
+          boxShadow: `0 0 40px rgba(${colorToRgb(accentColor)},.06), 0 20px 60px rgba(0,0,0,.25)`,
           padding: "14px 10px",
           position: "relative",
           overflow: "hidden",
@@ -356,7 +365,7 @@ function ProductHeader({
             width: "100%",
             height: 90,
             borderRadius: 10,
-            background: `linear-gradient(135deg, rgba(${colorToRgb(accentColor)},.15) 0%, rgba(168,85,247,.1) 100%)`,
+            background: `linear-gradient(135deg, rgba(${colorToRgb(accentColor)},.15) 0%, rgba(139, 92, 246,.1) 100%)`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -615,7 +624,7 @@ function BuyTogetherContent({ copy }: { copy: ProductPageMockupsCopy }) {
                       padding: "1px 5px",
                       borderRadius: 20,
                       background: `rgba(${rgb},.2)`,
-                      color: "#c4b5fd",
+                      color: "#c084fc",
                       fontWeight: 700,
                       flexShrink: 0,
                     }}
@@ -735,11 +744,11 @@ function CrossSellContent({ copy }: { copy: ProductPageMockupsCopy }) {
 function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
   return (
     <>
-      <SectionDivider label={copy.dividerBundle} color="#a855f7" />
+      <SectionDivider label={copy.dividerBundle} color="#8b5cf6" />
       <div
         style={{
-          background: "rgba(168,85,247,.06)",
-          border: "1px solid rgba(168,85,247,.2)",
+          background: "rgba(139, 92, 246,.06)",
+          border: "1px solid rgba(139, 92, 246,.2)",
           borderRadius: 12,
           padding: "10px 10px 8px",
         }}
@@ -758,12 +767,12 @@ function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
               width: 44,
               height: 44,
               borderRadius: 10,
-              background: "rgba(168,85,247,.12)",
+              background: "rgba(139, 92, 246,.12)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 20,
-              border: "1px solid rgba(168,85,247,.2)",
+              border: "1px solid rgba(139, 92, 246,.2)",
             }}
           >
             📿
@@ -774,12 +783,12 @@ function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
               width: 44,
               height: 44,
               borderRadius: 10,
-              background: "rgba(168,85,247,.12)",
+              background: "rgba(139, 92, 246,.12)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 20,
-              border: "1px dashed rgba(168,85,247,.35)",
+              border: "1px dashed rgba(139, 92, 246,.35)",
             }}
           >
             🪬
@@ -813,7 +822,7 @@ function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
               style={{
                 fontSize: 13,
                 fontWeight: 900,
-                color: "#a855f7",
+                color: "#8b5cf6",
               }}
             >
               280 SAR
@@ -837,11 +846,11 @@ function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
             gap: 4,
             padding: "3px 8px",
             borderRadius: 6,
-            background: "rgba(168,85,247,.15)",
-            border: "1px solid rgba(168,85,247,.3)",
+            background: "rgba(139, 92, 246,.15)",
+            border: "1px solid rgba(139, 92, 246,.3)",
             fontSize: 9,
             fontWeight: 800,
-            color: "#a855f7",
+            color: "#8b5cf6",
             marginBottom: 8,
             width: "100%",
             justifyContent: "center",
@@ -850,7 +859,7 @@ function BundleContent({ copy }: { copy: ProductPageMockupsCopy }) {
           <span style={{ fontSize: 9 }}>💰</span> {copy.bundleSave}
         </div>
 
-        <AddToCartBtn color="#a855f7" label={copy.addBundleToCart} full />
+        <AddToCartBtn color="#8b5cf6" label={copy.addBundleToCart} full />
       </div>
     </>
   );
@@ -883,17 +892,17 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
 
   return (
     <>
-      <SectionDivider label={copy.dividerVolume} color="#10b981" />
+      <SectionDivider label={copy.dividerVolume} color="#8b5cf6" />
       <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
         {options.map((opt, i) => (
           <div
             key={i}
             style={{
               background: opt.highlight
-                ? "rgba(16,185,129,.1)"
+                ? "rgba(139, 92, 246,.1)"
                 : "var(--s1)",
               border: opt.highlight
-                ? "1px solid rgba(16,185,129,.35)"
+                ? "1px solid rgba(139, 92, 246,.35)"
                 : "1px solid var(--b1)",
               borderRadius: 10,
               padding: "7px 9px",
@@ -909,7 +918,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                   right: 6,
                   padding: "2px 6px",
                   borderRadius: 4,
-                  background: "#10b981",
+                  background: "#8b5cf6",
                   fontSize: 7,
                   fontWeight: 800,
                   color: "var(--t)",
@@ -931,7 +940,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                   style={{
                     fontSize: 10,
                     fontWeight: 800,
-                    color: opt.highlight ? "#10b981" : "var(--tm)",
+                    color: opt.highlight ? "#8b5cf6" : "var(--tm)",
                     marginBottom: 2,
                   }}
                 >
@@ -942,7 +951,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                     style={{
                       fontSize: 10,
                       fontWeight: 900,
-                      color: opt.highlight ? "#10b981" : "var(--t)",
+                      color: opt.highlight ? "#8b5cf6" : "var(--t)",
                     }}
                   >
                     {opt.price}
@@ -952,10 +961,10 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                       style={{
                         fontSize: 7,
                         fontWeight: 700,
-                        color: "#10b981",
+                        color: "#8b5cf6",
                         padding: "1px 4px",
                         borderRadius: 4,
-                        background: "rgba(16,185,129,.12)",
+                        background: "rgba(139, 92, 246,.12)",
                       }}
                     >
                       {opt.discount}
@@ -982,7 +991,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                   height: 18,
                   borderRadius: "50%",
                   border: opt.highlight
-                    ? "2px solid #10b981"
+                    ? "2px solid #8b5cf6"
                     : "2px solid var(--b2)",
                   display: "flex",
                   alignItems: "center",
@@ -996,7 +1005,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
                       width: 8,
                       height: 8,
                       borderRadius: "50%",
-                      background: "#10b981",
+                      background: "#8b5cf6",
                     }}
                   />
                 )}
@@ -1004,7 +1013,7 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
             </div>
           </div>
         ))}
-        <AddToCartBtn color="#10b981" label={copy.addToCart} full />
+        <AddToCartBtn color="#8b5cf6" label={copy.addToCart} full />
       </div>
     </>
   );
@@ -1012,15 +1021,13 @@ function VolumeContent({ copy }: { copy: ProductPageMockupsCopy }) {
 
 function colorToRgb(color: string): string {
   const map: Record<string, string> = {
-    "#a855f7": "168,85,247",
+    "#8b5cf6": "139, 92, 246",
     "#06b6d4": "6,182,212",
-    "#10b981": "16,185,129",
     "#f59e0b": "245,158,11",
     "#ec4899": "236,72,153",
     "#4f46e5": "79,70,229",
-    "#7c3aed": "124,58,237",
+    "#7c3aed": "124, 58, 237",
     "#e11d48": "225,29,72",
-    "#8b5cf6": "139,92,246",
   };
-  return map[color] || "168,85,247";
+  return map[color] || "139, 92, 246";
 }

@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { LucideIcon } from "lucide-react";
+import {
+  Bike, Store, Shirt, Smartphone, Sparkles,
+  UtensilsCrossed, Dumbbell, Gem, Home, Package,
+  Stethoscope, Award,
+} from "lucide-react";
 import PageShell from "../components/PageShell";
 import { Logo } from "../components/Nav";
 import HeroUseCaseCarousel from "../components/HeroUseCaseCarousel";
@@ -11,10 +17,29 @@ import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { useSiteT } from "@/cms/siteContent";
+import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { scrollToHashElement } from "@/utils/anchorScroll";
+import { navigateTo } from "@/components/PageTransition";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
+import { useMeetingBooking } from "@/components/MeetingBookingProvider";
+import PageClosingCta from "@/components/PageClosingCta";
+
+const SECTOR_LUCIDE_ICONS: Record<string, LucideIcon> = {
+  "delivery-apps":       Bike,
+  "ecommerce-platforms": Store,
+  "abayas-fashion":      Shirt,
+  "electronics":         Smartphone,
+  "beauty-care":         Sparkles,
+  "restaurants-cafes":   UtensilsCrossed,
+  "health-fitness":      Dumbbell,
+  "jewelry":             Gem,
+  "home-supplies":       Home,
+  "digital-products":    Package,
+  "clinics":             Stethoscope,
+  "gold":                Award,
+};
 
 /** عيّنة مختصرة للصفحة الرئيسية — التوصيل والمنصات أولاً ثم أشهر المجالات */
 const SECTOR_TEASER_SLUGS = [
@@ -101,6 +126,193 @@ function SecTag({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ── Live Demo Store Section ────────────────────────────────────
+
+const DEMO_STORE = "https://ky0vcg.zid.store";
+
+/** Inner store frame width inside the bootstrap document (matches phone CSS px). */
+const LIVE_DEMO_MOBILE_INNER_WIDTH = 390;
+
+function escapeHtmlAttrDoubleQuotes(raw: string): string {
+  return raw.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
+}
+
+/**
+ * Zid themes use viewport width=device-width. In some browsers embedded iframes
+ * resolve device-width against the outer page, so (max-width:768px) never wins.
+ * A tiny bootstrap document nests the real store at a fixed width so device-width
+ * matches mobile breakpoints inside the storefront.
+ */
+function liveDemoMobileBootstrapSrcDoc(storeUrl: string): string {
+  const u = new URL(storeUrl);
+  const innerSrc = escapeHtmlAttrDoubleQuotes(u.toString());
+  const w = LIVE_DEMO_MOBILE_INNER_WIDTH;
+  return `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=${w},initial-scale=1"/><style>*{box-sizing:border-box}html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;background:#f8fafc;}iframe{display:block;margin:0 auto;border:0;width:${w}px;height:100%;max-width:100%;min-height:100%;}</style></head><body><iframe src="${innerSrc}" title="store" width="${w}" style="height:100%;min-height:100%" allow="accelerometer; clipboard-write; encrypted-media; gyroscope" referrerpolicy="no-referrer-when-downgrade"></iframe></body></html>`;
+}
+
+const LIVE_TABS_AR = [
+  { id: "home",    label: "🏠 الرئيسية",        url: DEMO_STORE + "/",        desc: "اكتشف اقتراحات المنتجات الذكية على الصفحة الرئيسية" },
+  { id: "product", label: "🛍️ صفحة المنتج",    url: DEMO_STORE + "/products", desc: "شاهد التوصيات الذكية أثناء تصفح المنتج" },
+  { id: "cart",    label: "🛒 صفحة السلة",      url: DEMO_STORE + "/cart",     desc: "جرّب عروض زيادة قبل إتمام الشراء" },
+];
+
+const LIVE_TABS_EN = [
+  { id: "home",    label: "🏠 Home",         url: DEMO_STORE + "/",        desc: "Discover AI product suggestions on the homepage" },
+  { id: "product", label: "🛍️ Product Page", url: DEMO_STORE + "/products", desc: "See smart recommendations while browsing a product" },
+  { id: "cart",    label: "🛒 Cart Page",    url: DEMO_STORE + "/cart",     desc: "Try Ziadah offers before completing checkout" },
+];
+
+function LiveDemoSection({ lang }: { lang: string }) {
+  const isAr = lang === "ar";
+  const tabs = isAr ? LIVE_TABS_AR : LIVE_TABS_EN;
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [viewportMode, setViewportMode] = useState<"desktop" | "mobile">("desktop");
+  const activeTab = tabs[activeIdx];
+  const urlDisplay = activeTab.url.replace(/^https:\/\//, "");
+  const isMobilePreview = viewportMode === "mobile";
+
+  return (
+    <section id="live-demo" className="live-demo-sec landing-white-accent">
+      <div className="wrap">
+        {/* Header */}
+        <div className="tc" style={{ marginBottom: 40 }}>
+          <div className="stag" style={{ margin: "0 auto 18px" }}>
+            <span className="stag-dot" />
+            {isAr ? "المتجر التجريبي" : "Live Demo Store"}
+          </div>
+          <h2 className="st font-semibold">
+            {isAr ? "جرّب زيادة الآن في متجر حقيقي" : "Try Ziadah live in a real store"}
+          </h2>
+          <p className="ssub" style={{ maxWidth: 560, margin: "0 auto" }}>
+            {isAr
+              ? "تصفّح المتجر التجريبي وشاهد كيف تعمل ميزات زيادة على أرض الواقع — دون الحاجة لإنشاء حساب"
+              : "Browse our demo store and see how Ziadah features work in the real world — no account needed"}
+          </p>
+        </div>
+
+        {/* Tab switcher */}
+        <div className="ld-tabs" role="tablist" aria-label={isAr ? "صفحات المتجر التجريبي" : "Demo store pages"}>
+          {tabs.map((tab, i) => (
+            <button
+              key={tab.id}
+              role="tab"
+              aria-selected={activeIdx === i}
+              className={`ld-tab${activeIdx === i ? " ld-tab--on" : ""}`}
+              onClick={() => setActiveIdx(i)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Page description */}
+        <p className="ld-tab-desc">{activeTab.desc}</p>
+
+        {/* Desktop / mobile preview toggle */}
+        <div
+          className="ld-view-toggle"
+          role="group"
+          aria-label={isAr ? "وضع عرض المتجر" : "Store preview mode"}
+          dir="ltr"
+        >
+          <span className="ld-view-toggle-label">{isAr ? "العرض" : "Preview"}</span>
+          <div className="ld-view-switch">
+            <button
+              type="button"
+              className={`ld-view-opt${!isMobilePreview ? " ld-view-opt--active" : ""}`}
+              aria-pressed={!isMobilePreview}
+              onClick={() => setViewportMode("desktop")}
+            >
+              {isAr ? "كمبيوتر" : "Desktop"}
+            </button>
+            <button
+              type="button"
+              className={`ld-view-opt${isMobilePreview ? " ld-view-opt--active" : ""}`}
+              aria-pressed={isMobilePreview}
+              onClick={() => setViewportMode("mobile")}
+            >
+              {isAr ? "جوال" : "Mobile"}
+            </button>
+          </div>
+        </div>
+
+        {/* Browser frame — no .rv: LiveDemoSection re-renders strip IO-added .on from React-controlled classNames */}
+        <div
+          className={`ld-browser${isMobilePreview ? " ld-browser--mobile" : ""}`}
+          role="region"
+          aria-label={isAr ? "المتجر التجريبي" : "Demo store"}
+        >
+          {/* Chrome toolbar */}
+          <div className="ld-toolbar" dir="ltr">
+            <div className="ld-dots" aria-hidden>
+              <span className="ld-dot ld-dot--red" />
+              <span className="ld-dot ld-dot--yellow" />
+              <span className="ld-dot ld-dot--green" />
+            </div>
+            <div className="ld-urlbar" aria-label={isAr ? "عنوان المتجر التجريبي" : "Demo store address"}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden style={{ opacity: .5, flexShrink: 0 }}>
+                <path d="M7 1.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM1 7h12M7 1.5C5.7 3 5 4.9 5 7s.7 4 2 5.5M7 1.5C8.3 3 9 4.9 9 7s-.7 4-2 5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+              </svg>
+              <span className="ld-url-text">{urlDisplay}</span>
+            </div>
+            <a
+              href={activeTab.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ld-open-btn"
+              aria-label={isAr ? "فتح في تبويب جديد" : "Open in new tab"}
+              title={isAr ? "فتح في تبويب جديد" : "Open in new tab"}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M6 2H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V8M9 1h4m0 0v4m0-4L6 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          {/* iframe */}
+          <div className="ld-frame-wrap">
+            <iframe
+              key={`${viewportMode}:${activeTab.id}`}
+              className="ld-frame"
+              title={isAr ? "المتجر التجريبي — زيادة" : "Demo Store — Ziadah"}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope"
+              loading="eager"
+              {...(isMobilePreview
+                ? { srcDoc: liveDemoMobileBootstrapSrcDoc(activeTab.url) }
+                : { src: activeTab.url })}
+            />
+            {/* Fallback overlay if iframe is blocked */}
+            <div className="ld-fallback" aria-hidden>
+              <div className="ld-fallback-inner">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <rect width="40" height="40" rx="12" fill="rgba(124, 58, 237,.15)"/>
+                  <path d="M14 20h12M22 15l5 5-5 5" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <p style={{ margin: "12px 0 4px", fontWeight: 700 }}>
+                  {isAr ? "فتح المتجر التجريبي" : "Open Demo Store"}
+                </p>
+                <a href={activeTab.url} target="_blank" rel="noopener noreferrer" className="ld-fallback-btn">
+                  {isAr ? "اضغط هنا للمتابعة" : "Click here to continue"}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA below frame */}
+        <div className="ld-cta">
+          <a href={DEMO_STORE} target="_blank" rel="noopener noreferrer" className="ld-cta-link">
+            {isAr ? "فتح المتجر التجريبي كاملاً" : "Open full demo store"}
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Demo Flow Section ─────────────────────────────────────────
 
 const DEMO_PHASES_AR = [
@@ -136,13 +348,13 @@ function DemoPhaseIndicator({ lang }: { lang: string }) {
 function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string> }) {
   const isAr = lang === "ar";
   const nasserSigs = [
-    { c: "#a855f7", t: tr.demoMaleSig1 },
+    { c: "#8b5cf6", t: tr.demoMaleSig1 },
     { c: "#06b6d4", t: tr.demoMaleSig2 },
-    { c: "#10b981", t: tr.demoMaleSig3 },
+    { c: "#8b5cf6", t: tr.demoMaleSig3 },
   ];
   const nouraSigs = [
     { c: "#ec4899", t: tr.demoFemaleSig1 },
-    { c: "#a855f7", t: tr.demoFemaleSig2 },
+    { c: "#8b5cf6", t: tr.demoFemaleSig2 },
     { c: "#f59e0b", t: tr.demoFemaleSig3 },
   ];
   return (
@@ -190,8 +402,8 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
             <div className="dfs-engine-ring" />
             <div className="dfs-engine-ring dfs-engine-ring-2" />
             <svg width="38" height="38" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <circle cx="16" cy="16" r="14" fill="rgba(124,58,237,.22)" stroke="rgba(168,85,247,.6)" strokeWidth="1.5" />
-              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(168,85,247,.95)" />
+              <circle cx="16" cy="16" r="14" fill="rgba(124, 58, 237,.22)" stroke="rgba(139, 92, 246,.6)" strokeWidth="1.5" />
+              <path d="M16 7 L11 21 L16 17 L21 21 Z" fill="rgba(139, 92, 246,.95)" />
               <circle cx="16" cy="16" r="2.5" fill="#c084fc" />
             </svg>
             <div className="dfs-engine-lbl">{isAr ? "محرك الذكاء الاصطناعي" : "AI Engine"}</div>
@@ -350,8 +562,8 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
                 <div className="demo-sp">{tr.demoMaleSugg1Price}</div>
               </div>
               <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(168,85,247,.15)" stroke="rgba(168,85,247,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(168,85,247,.5)" /></svg>
+                <div className="demo-si" style={{ background: "rgba(139, 92, 246,.07)", border: "1px solid rgba(139, 92, 246,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="7" width="12" height="6" rx="2" fill="rgba(139, 92, 246,.15)" stroke="rgba(139, 92, 246,.5)" strokeWidth="1" /><circle cx="6.5" cy="10" r="1.2" fill="rgba(139, 92, 246,.5)" /><circle cx="11.5" cy="10" r="1.2" fill="rgba(139, 92, 246,.5)" /></svg>
                 </div>
                 <div className="demo-sb"><div className="demo-sn">{tr.demoMaleSugg2Name}</div><div className="demo-sw">{tr.demoMaleSugg2Sub}</div></div>
                 <div className="demo-sp">{tr.demoMaleSugg2Price}</div>
@@ -378,8 +590,8 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
                 <div className="demo-sp">289 ⃁</div>
               </div>
               <div className="demo-sugg">
-                <div className="demo-si" style={{ background: "rgba(168,85,247,.07)", border: "1px solid rgba(168,85,247,.15)" }}>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(168,85,247,.12)" stroke="rgba(168,85,247,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(168,85,247,.08)" stroke="rgba(168,85,247,.3)" strokeWidth="1" /></svg>
+                <div className="demo-si" style={{ background: "rgba(139, 92, 246,.07)", border: "1px solid rgba(139, 92, 246,.15)" }}>
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="5" y="3" width="8" height="11" rx="2" fill="rgba(139, 92, 246,.12)" stroke="rgba(139, 92, 246,.4)" strokeWidth="1" /><ellipse cx="9" cy="14.5" rx="3" ry="1.5" fill="rgba(139, 92, 246,.08)" stroke="rgba(139, 92, 246,.3)" strokeWidth="1" /></svg>
                 </div>
                 <div className="demo-sb"><div className="demo-sn">{tr.demoFemaleSugg2Name}</div><div className="demo-sw">{tr.demoFemaleSugg2Sub}</div></div>
                 <div className="demo-sp">449 ⃁</div>
@@ -400,8 +612,16 @@ export default function Landing() {
   const tr = t[lang];
   const [, goRoute] = useLangAwareLocation();
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");
+  const [landingTopupOpen, setLandingTopupOpen] = useState<number | null>(null);
+  const [landingTopupSel, setLandingTopupSel] = useState<Record<number, number | null>>({});
+  const toggleLandingTopup = (i: number) => setLandingTopupOpen((prev) => (prev === i ? null : i));
+  const selectLandingTopup = (i: number, idx: number | null) => {
+    setLandingTopupSel((prev) => ({ ...prev, [i]: idx }));
+    setLandingTopupOpen(null);
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const { openMeetingBooking } = useMeetingBooking();
 
   const logosMarqueeTrackRef = useRef<HTMLDivElement>(null);
   const testimonialsMarquee1Ref = useRef<HTMLDivElement>(null);
@@ -491,39 +711,99 @@ export default function Landing() {
   }, []);
 
   const prices = {
-    m: { s: 29, g: 290, p: 790, b: "1,990" },
-    y: { s: 24, g: 249, p: 665, b: "1,332" },
-  };
+    m:         { s: 29,    g: 290,    p: 790,    b: "1,990"  },
+    y:         { s: 24,    g: 249,    p: 666,    b: "1,333"  },
+    yAnnual:   { s: 290,   g: "2,990",p: "7,990",b: "15,990" },
+    yOrig:     { s: "348", g: "3,480",p: "9,480",b: "23,880" },
+    yDisc:     { s: "17%", g: "14%",  p: "16%",  b: "33%"   },
+  } as const;
+
+  const pm = pricingMode;
+  const ld = tr.landing;
+
+  const pricingAiSpark = (
+    <svg
+      className="p-ai-spark-svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden={true}
+    >
+      <path
+        d="M12 1.5l1.35 4.85L18.5 8.5l-4.85 1.35L12 15l-1.65-5.15L5.5 8.5l5.15-1.15L12 1.5z"
+        fill="currentColor"
+        opacity="0.92"
+      />
+      <circle cx="19.5" cy="5.5" r="1.15" fill="currentColor" opacity="0.45" />
+      <circle cx="4.5" cy="17" r="0.85" fill="currentColor" opacity="0.38" />
+    </svg>
+  );
 
   const row1Avatars = ["R", "T", "S", "F", "N", "B"];
   const row1Colors = [
-    "linear-gradient(135deg,#7c3aed,#5b21b6)",
-    "linear-gradient(135deg,#059669,#047857)",
+    "linear-gradient(135deg,#7c3aed,#6d28d9)",
+    "linear-gradient(135deg,#6d28d9,#6d28d9)",
     "linear-gradient(135deg,#ec4899,#be185d)",
     "linear-gradient(135deg,#7c3aed,#4f46e5)",
-    "linear-gradient(135deg,#10b981,#059669)",
+    "linear-gradient(135deg,#8b5cf6,#6d28d9)",
     "linear-gradient(135deg,#06b6d4,#0891b2)",
   ];
   const row2Avatars = ["A", "R", "K", "Q", "K", "Y"];
   const row2Colors = [
-    "linear-gradient(135deg,#a855f7,#7c3aed)",
+    "linear-gradient(135deg,#8b5cf6,#7c3aed)",
     "linear-gradient(135deg,#ec4899,#9333ea)",
     "linear-gradient(135deg,#06b6d4,#0891b2)",
     "linear-gradient(135deg,#4f46e5,#4338ca)",
     "linear-gradient(135deg,#f59e0b,#d97706)",
     "linear-gradient(135deg,#f59e0b,#92400e)",
   ];
+  const testimonialLogos: Record<string, string> = {
+    "روبـن": "https://media.zid.store/6f05584b-ae1f-4f36-98ed-57432e185a35/9113838a-3b34-4692-8658-aee1400ea30c-200x.png",
+    "Honey Dose | عسل هني دوز": "https://media.zid.store/a7ba195c-7619-4cbd-8d69-d9efcbb5b774/86116d0f-ee24-43df-96fe-eb235de88ab1-200x.png",
+    "متجر عبق الغيم للبخور والمسك": "/logos/abaq-alghim.png",
+    "Nahla Oil": "/logos/nahla-oil.svg",
+    "FABIAN": "/logos/fabian.png",
+    "تمدُّد": "https://media.zid.store/3a5300b3-8c91-48b3-973b-4a439491aa54/151fb0f1-8cfc-46c1-ac1d-6fe22805874c-200x.jpg",
+    "Bestclean | بست كلين": "/logos/bestclean.png",
+    "عسل رشوف": "/logos/assal-rashouf.svg",
+    "سكندز": "/logos/scundz.svg",
+    "الجباره": "/logos/aljabarah.svg",
+    "Moknh": "https://cdn.salla.sa/gn8RmxHVzto9BHus8MQBr4ksa8bDrB67f2BN6BJX.jpg",
+    "شركة اثنى عشر كوب المحدودة": "/logos/12cups.png",
+    "كحيلة": "https://media.zid.store/d7a1c023-699a-4a11-9c1d-4ac3de1c541c/ec38bb4f-a97b-4335-af7e-1d01c8df1c2d-200x.png",
+    "منصة التبرع لتحفيظ القران الكريم بجمعية نبأ": "https://media.zid.store/b973b0cb-4869-4bad-9f7f-7605b17db09d/7446c429-507d-4551-a04c-b3edfa8ddd21-200x.jpg",
+    "تكِنو تولز": "https://cdn.salla.sa/ZYlpqp/lwHvlcLqReOzflpUYwi01YkHvBHpThYNPjO2dCsa.png",
+    "skinly": "/logos/skinly.svg",
+    "For Her | فور هر": "/logos/for-her.png",
+    "جمعية القرآن بالزلفي": "https://media.zid.store/56594f92-bddf-4810-851b-bcdf56526fa2/516acbf9-1b79-4301-8031-c6408fe7677d-200x.png",
+    "ZUM": "/logos/zum.png",
+    "جمعية برهان لتحفيظ القران": "https://media.zid.store/e18c120e-c286-43cc-bed1-30006c3015e0/b585e03b-a8d5-4fe9-9317-88c771726a3a-200x.png",
+    "Nutters.sa": "https://media.zid.store/12666468-7385-4e28-bcff-2fc85a98c040/f52b5768-97e0-41b0-bf02-b31ef77ff26b-200x.png",
+    "احتياجات اللياقة \"FitNeeds\"": "https://media.zid.store/2e960427-9ad4-49c9-b85e-847f5cf7af6c/f810143d-457d-4b42-88f5-f5c259a2d10b-200x.png",
+    "rawat": "https://media.zid.store/8518f951-6cf4-412c-8e2a-39f0f6bb6515/988a8efe-3643-4760-a43e-2741d67b0a28-200x.png",
+    "KHOBRAA ALMOJTAMA": "https://media.zid.store/8a5f4b81-ebc0-44bd-9005-126976b57582/8be45245-0e6e-4ea5-96c2-4f58f844cf60-200x.png",
+    "ناتشورال تاتش": "/logos/natural-touch.png",
+    "Jawan": "https://cdn.salla.sa/prQbX/RwjbCA3bojdAGfDYGhnrpx470pi5ZErY3v1pOlTn.jpg",
+    "مس ديزاين | Miss Designs": "https://media.zid.store/1cc0795b-d617-4e97-9a76-574a2a0246d0/e643e12c-f034-4c10-aaac-e02ace451a03-200x.jpg",
+    "Ghalior paris - غاليور باريس": "https://cdn.salla.sa/AzEKGA/MxwEia9PCbIZIiAqYHFDaPCoDJPi5xTcQJI4uGvz.png",
+    "متجر كاف": "https://cdn.files.salla.network/theme/263279303/c97a6a82-0fe2-4744-adbb-70ac4e86ac1c.webp",
+    "Diva202511": "https://cdn.salla.sa/PdrAEK/hI9UPrP9Yxf7vffawFyLaAMb6knMuRTUSOrsGSLz.jpg",
+    "كهرمان": "https://cdn.salla.sa/nWmmm/Dt8hWcCEgS4DiC3iMyUYCthlgnwNzrFbUKoMWS3g.png",
+  };
   const trRow1 = tr.landing.testimonialsRow1 as { text: string; name: string; role: string }[];
   const trRow2 = tr.landing.testimonialsRow2 as { text: string; name: string; role: string }[];
   const testimonialsRow1 = trRow1.map((t, i) => ({
     ...t,
     av: row1Avatars[i % row1Avatars.length],
     col: row1Colors[i % row1Colors.length],
+    logo: testimonialLogos[t.name],
   }));
   const testimonialsRow2 = trRow2.map((t, i) => ({
     ...t,
     av: row2Avatars[i % row2Avatars.length],
     col: row2Colors[i % row2Colors.length],
+    logo: testimonialLogos[t.name],
   }));
   const faqs = tr.landing.faqList as { q: string; a: string }[];
   const pk = getPageKeywords("/");
@@ -559,55 +839,50 @@ export default function Landing() {
       <PageShell>
         {/* CURSOR — ديسكتوب فقط */}
         <div id="zd-cur" className="desktop-only" style={{ width: 10, height: 10, background: "var(--p3)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9999, mixBlendMode: "screen", transition: "width .18s,height .18s,background .18s", top: -999, left: -999 }} />
-        <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(168,85,247,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
+        <div id="zd-curR" className="desktop-only" style={{ width: 36, height: 36, border: "1px solid rgba(139, 92, 246,.4)", borderRadius: "50%", position: "fixed", pointerEvents: "none", zIndex: 9998, transition: "all .3s", top: -999, left: -999 }} />
         {/* NAV */}
         
         {/* HERO */}
-        <section className="hero hero-v2" dir={dir} style={{ alignItems: "center", justifyContent: "center" }}>
+        <section
+          className="hero hero-v2"
+          dir={dir}
+          aria-labelledby="landing-hero-heading"
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
           <div className="hero-grid">
-            <div className="hero-copy-col">
-              <div className="hero-in hero-copy-inner">
-                <div className="hero-mobile-logo">
-                  <Logo />
-                </div>
-                <div className="hbadge">
-                  <span className="hbadge-pill">{tr.landing.aiBadge}</span>
-                  <span className="hbadge-txt">
-                    {tr.landing.aiBadgeText}
-                  </span>
-                </div>
-                <h1 className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
-                  <span className="ht-line1 font-thin">
-                    {tr.landing.heroTitle1}
-                  </span>
-                  {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
-                  <span className="grad font-extrabold hero-title-grad">
-                    {tr.landing.heroTitleGrad}
-                  </span>
-                </h1>
-                <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
-                <div className="hero-ctas">
-                  <button
-                    onClick={() => setPlatformModalOpen(true)}
-                    className="btn-p btn-p-hero"
-                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-                  >
-                    {tr.landing.ctaPrimary}
-                  </button>
-                  <a href="#hiw" className="btn-g btn-g-hero">
-                    {tr.landing.ctaSecondary}
-                  </a>
-                </div>
+            <div className="hero-in hero-copy-inner">
+              <div className="hero-mobile-logo">
+                <Logo />
+              </div>
+              <div className="hbadge hbadge--hero">
+                <span className="hbadge-live" aria-hidden />
+                <span className="hbadge-pill">{tr.landing.aiBadge}</span>
+                <span className="hbadge-txt">{tr.landing.aiBadgeText}</span>
+              </div>
+              <h1 id="landing-hero-heading" className="ht pt-[6px] pb-[6px] mt-[0px] mb-[20px] font-semibold">
+                <span className="ht-line1 font-thin">{tr.landing.heroTitle1}</span>
+                {tr.landing.heroTitleEm && <em>{tr.landing.heroTitleEm}</em>}
+                <span className="grad font-extrabold hero-title-grad">{tr.landing.heroTitleGrad}</span>
+              </h1>
+              <p className="hero-sub" dangerouslySetInnerHTML={{ __html: tr.landing.heroSub }} />
+              <div className="hero-ctas">
+                <button
+                  onClick={() => setPlatformModalOpen(true)}
+                  className="btn-p btn-p-hero"
+                  style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
+                >
+                  {tr.landing.ctaPrimary}
+                </button>
+                <a href="#hiw" className="btn-g btn-g-hero">
+                  {tr.landing.ctaSecondary}
+                </a>
               </div>
             </div>
-            <div className="hero-carousel-col">
-              <HeroUseCaseCarousel />
-            </div>
+            <HeroUseCaseCarousel />
           </div>
         </section>
         {/* LOGOS */}
-        <div className="logos-sec">
-          <p className="logos-lbl rv">{tr.landing.trustLabel}</p>
+        <div className="logos-sec landing-hero-band">
           <div className="landing-sbar-after-hero">
             <div className="sbar sbar-hero">
               <div className="sbi">
@@ -656,7 +931,7 @@ export default function Landing() {
           </div>
         </div>
         {/* BEFORE / AFTER + CALCULATOR */}
-        <section id="why">
+        <section id="why" className="landing-white-accent">
           <div className="wrap" style={{ display: "flex", flexDirection: "column", gap: 40, justifyContent: "flex-start", alignItems: "center" }}>
             <div className="tc" style={{ marginBottom: 0 }}>
               <SecTag>{tr.landing.whyTag}</SecTag>
@@ -682,7 +957,7 @@ export default function Landing() {
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                     <path
                       d="M4 11H18M12 5L18 11L12 17"
-                      stroke="#a855f7"
+                      stroke="#8b5cf6"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -693,8 +968,8 @@ export default function Landing() {
               <GlassCard
                 className="ba-card rv d3"
                 style={{
-                  background: "rgba(88,28,220,.07)",
-                  borderColor: "rgba(124,58,237,.2)",
+                  background: "none",
+                  borderColor: "rgba(124, 58, 237,.2)",
                 }}
               >
                 <div className="ba-lbl ba-lbl-a text-[16px]">{tr.landing.afterLabel}</div>
@@ -740,8 +1015,8 @@ export default function Landing() {
                         width="14"
                         height="20"
                         rx="3"
-                        fill="rgba(124,58,237,.14)"
-                        stroke="rgba(168,85,247,.45)"
+                        fill="rgba(124, 58, 237,.14)"
+                        stroke="rgba(139, 92, 246,.45)"
                         strokeWidth="1.5"
                       />
                       <rect
@@ -750,7 +1025,7 @@ export default function Landing() {
                         width="8"
                         height="2"
                         rx="1"
-                        fill="rgba(168,85,247,.55)"
+                        fill="rgba(139, 92, 246,.55)"
                       />
                       <rect
                         x="12"
@@ -758,19 +1033,19 @@ export default function Landing() {
                         width="5"
                         height="2"
                         rx="1"
-                        fill="rgba(168,85,247,.35)"
+                        fill="rgba(139, 92, 246,.35)"
                       />
                       <circle
                         cx="21"
                         cy="22"
                         r="6"
-                        fill="rgba(16,185,129,.14)"
-                        stroke="rgba(16,185,129,.5)"
+                        fill="rgba(139, 92, 246,.14)"
+                        stroke="rgba(139, 92, 246,.5)"
                         strokeWidth="1.5"
                       />
                       <path
                         d="M18.5 22l1.5 1.5 3-3"
-                        stroke="#10b981"
+                        stroke="#8b5cf6"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -789,14 +1064,14 @@ export default function Landing() {
                         cx="16"
                         cy="13"
                         r="8"
-                        fill="rgba(124,58,237,.12)"
-                        stroke="rgba(168,85,247,.4)"
+                        fill="rgba(124, 58, 237,.12)"
+                        stroke="rgba(139, 92, 246,.4)"
                         strokeWidth="1.5"
                       />
                       <path
                         d="M10 22 C10 17 13 15 16 15 C19 15 22 17 22 22"
-                        fill="rgba(124,58,237,.08)"
-                        stroke="rgba(168,85,247,.35)"
+                        fill="rgba(124, 58, 237,.08)"
+                        stroke="rgba(139, 92, 246,.35)"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                       />
@@ -804,21 +1079,21 @@ export default function Landing() {
                         cx="13"
                         cy="12"
                         r="1.5"
-                        fill="rgba(168,85,247,.7)"
+                        fill="rgba(139, 92, 246,.7)"
                       />
-                      <circle cx="16" cy="12" r="1.5" fill="#a855f7" />
+                      <circle cx="16" cy="12" r="1.5" fill="#8b5cf6" />
                       <circle
                         cx="19"
                         cy="12"
                         r="1.5"
-                        fill="rgba(168,85,247,.7)"
+                        fill="rgba(139, 92, 246,.7)"
                       />
                       <line
                         x1="8"
                         y1="5"
                         x2="11"
                         y2="8"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(139, 92, 246,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -827,7 +1102,7 @@ export default function Landing() {
                         y1="3"
                         x2="16"
                         y2="7"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(139, 92, 246,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -836,7 +1111,7 @@ export default function Landing() {
                         y1="5"
                         x2="21"
                         y2="8"
-                        stroke="rgba(168,85,247,.3)"
+                        stroke="rgba(139, 92, 246,.3)"
                         strokeWidth="1"
                         strokeLinecap="round"
                       />
@@ -856,8 +1131,8 @@ export default function Landing() {
                         width="5"
                         height="8"
                         rx="1.5"
-                        fill="rgba(168,85,247,.25)"
-                        stroke="rgba(168,85,247,.45)"
+                        fill="rgba(139, 92, 246,.25)"
+                        stroke="rgba(139, 92, 246,.45)"
                         strokeWidth="1.2"
                       />
                       <rect
@@ -866,8 +1141,8 @@ export default function Landing() {
                         width="5"
                         height="14"
                         rx="1.5"
-                        fill="rgba(168,85,247,.45)"
-                        stroke="rgba(168,85,247,.6)"
+                        fill="rgba(139, 92, 246,.45)"
+                        stroke="rgba(139, 92, 246,.6)"
                         strokeWidth="1.2"
                       />
                       <rect
@@ -876,8 +1151,8 @@ export default function Landing() {
                         width="5"
                         height="21"
                         rx="1.5"
-                        fill="#a855f7"
-                        stroke="rgba(168,85,247,.7)"
+                        fill="#8b5cf6"
+                        stroke="rgba(139, 92, 246,.7)"
                         strokeWidth="1.2"
                       />
                       <path
@@ -935,7 +1210,10 @@ export default function Landing() {
                           onClick={() => goRoute(`/sectors/${sec!.slug}`)}
                         >
                           <span className="landing-sectors-chip__ico" aria-hidden>
-                            {sec!.icon}
+                            {(() => {
+                              const Icon = SECTOR_LUCIDE_ICONS[sec!.slug];
+                              return Icon ? <Icon size={18} strokeWidth={1.7} /> : sec!.icon;
+                            })()}
                           </span>
                           <span className="landing-sectors-chip__label">{stitle}</span>
                         </button>
@@ -956,6 +1234,10 @@ export default function Landing() {
             </div>
         </section>
         <WidgetsShowcaseSection />
+
+        {/* LIVE DEMO STORE */}
+        <LiveDemoSection lang={lang} />
+
         {/* PERSONALIZATION DEMO */}
         <section id="demo">
           <div className="wrap">
@@ -992,23 +1274,23 @@ export default function Landing() {
                           cx="13"
                           cy="13"
                           r="9"
-                          stroke="rgba(168,85,247,.45)"
+                          stroke="rgba(139, 92, 246,.45)"
                           strokeWidth="1.5"
                         />
                         <circle
                           cx="13"
                           cy="13"
                           r="5"
-                          stroke="rgba(168,85,247,.65)"
+                          stroke="rgba(139, 92, 246,.65)"
                           strokeWidth="1.5"
                         />
-                        <circle cx="13" cy="13" r="2" fill="#a855f7" />
+                        <circle cx="13" cy="13" r="2" fill="#8b5cf6" />
                         <line
                           x1="13"
                           y1="2"
                           x2="13"
                           y2="6"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(139, 92, 246,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1017,7 +1299,7 @@ export default function Landing() {
                           y1="20"
                           x2="13"
                           y2="24"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(139, 92, 246,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1026,7 +1308,7 @@ export default function Landing() {
                           y1="13"
                           x2="6"
                           y2="13"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(139, 92, 246,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1035,7 +1317,7 @@ export default function Landing() {
                           y1="13"
                           x2="24"
                           y2="13"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(139, 92, 246,.4)"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -1133,25 +1415,25 @@ export default function Landing() {
                       width="20"
                       height="20"
                       rx="5"
-                      fill="rgba(124,58,237,.15)"
-                      stroke="rgba(168,85,247,.45)"
+                      fill="rgba(124, 58, 237,.15)"
+                      stroke="rgba(139, 92, 246,.45)"
                       strokeWidth="1.5"
                     />
                     <circle
                       cx="10.5"
                       cy="10.5"
                       r="2"
-                      fill="rgba(168,85,247,.6)"
+                      fill="rgba(139, 92, 246,.6)"
                     />
                     <circle
                       cx="19.5"
                       cy="10.5"
                       r="2"
-                      fill="rgba(168,85,247,.6)"
+                      fill="rgba(139, 92, 246,.6)"
                     />
                     <path
                       d="M10 18 Q15 22 20 18"
-                      stroke="#a855f7"
+                      stroke="#8b5cf6"
                       strokeWidth="1.8"
                       strokeLinecap="round"
                       fill="none"
@@ -1161,7 +1443,7 @@ export default function Landing() {
                       y1="1"
                       x2="15"
                       y2="5"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(139, 92, 246,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1170,7 +1452,7 @@ export default function Landing() {
                       y1="25"
                       x2="15"
                       y2="29"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(139, 92, 246,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1179,7 +1461,7 @@ export default function Landing() {
                       y1="15"
                       x2="5"
                       y2="15"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(139, 92, 246,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1188,7 +1470,7 @@ export default function Landing() {
                       y1="15"
                       x2="29"
                       y2="15"
-                      stroke="rgba(168,85,247,.4)"
+                      stroke="rgba(139, 92, 246,.4)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                     />
@@ -1239,7 +1521,7 @@ export default function Landing() {
           </div>
         </section>
         {/* DETAILED REPORTS */}
-        <section id="reports">
+        <section id="reports" className="landing-white-accent">
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.reportsTag}</SecTag>
@@ -1255,12 +1537,12 @@ export default function Landing() {
               {/* Campaign-level report card */}
               <GlassCard className="rv d1" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(124, 58, 237,.12)", border: "1px solid rgba(124, 58, 237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                      <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(124,58,237,.12)" stroke="rgba(168,85,247,.45)" strokeWidth="1.4"/>
-                      <line x1="7" y1="8" x2="15" y2="8" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
-                      <line x1="7" y1="11" x2="15" y2="11" stroke="rgba(168,85,247,.7)" strokeWidth="1.6" strokeLinecap="round"/>
-                      <line x1="7" y1="14" x2="11" y2="14" stroke="rgba(168,85,247,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                      <rect x="3" y="3" width="16" height="16" rx="3" fill="rgba(124, 58, 237,.12)" stroke="rgba(139, 92, 246,.45)" strokeWidth="1.4"/>
+                      <line x1="7" y1="8" x2="15" y2="8" stroke="rgba(139, 92, 246,.4)" strokeWidth="1.3" strokeLinecap="round"/>
+                      <line x1="7" y1="11" x2="15" y2="11" stroke="rgba(139, 92, 246,.7)" strokeWidth="1.6" strokeLinecap="round"/>
+                      <line x1="7" y1="14" x2="11" y2="14" stroke="rgba(139, 92, 246,.4)" strokeWidth="1.3" strokeLinecap="round"/>
                     </svg>
                   </div>
                   <div>
@@ -1270,41 +1552,41 @@ export default function Landing() {
                 </div>
 
                 {/* Campaign name bar */}
-                <div style={{ padding: "10px 14px", background: "rgba(124,58,237,.06)", border: "1px solid rgba(124,58,237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ padding: "10px 14px", background: "rgba(124, 58, 237,.06)", border: "1px solid rgba(124, 58, 237,.15)", borderRadius: 10, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }}/>
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#8b5cf6", boxShadow: "0 0 6px #8b5cf6" }}/>
                     <span style={{ fontSize: 13, fontWeight: 700 }}>{tr.landing.reportsCampaignName}</span>
                   </div>
-                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(168,85,247,.1)", border: "1px solid rgba(168,85,247,.2)", padding: "2px 10px", borderRadius: 50 }}>{tr.landing.reportsCampaignActive}</span>
+                  <span style={{ fontSize: 11, color: "var(--p4)", fontWeight: 700, background: "rgba(139, 92, 246,.1)", border: "1px solid rgba(139, 92, 246,.2)", padding: "2px 10px", borderRadius: 50 }}>{tr.landing.reportsCampaignActive}</span>
                 </div>
 
                 {/* Stats grid */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   {(tr.landing.reportsCampaignStats as { label: string; value: string; sub?: string; icon: string }[]).map((s, i) => {
-                    const colors = ["#06b6d4", "#a855f7", "#10b981", "#f59e0b"];
+                    const statText = "var(--lv-accent-deep)";
                     return (
-                    <div key={i} style={{ padding: "14px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12 }}>
+                    <div key={i} style={{ padding: "14px 14px", background: "unset", border: "1px solid var(--b1)", borderRadius: 12, color: statText }}>
                       <div style={{ fontSize: 18, marginBottom: 6 }}>{s.icon}</div>
-                      <div style={{ fontSize: 18, fontWeight: 900, color: colors[i], lineHeight: 1 }}>{s.value}</div>
-                      {s.sub && <div style={{ fontSize: 11, color: "var(--td)", marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
-                      <div style={{ fontSize: 11, color: "var(--td)", marginTop: 4 }}>{s.label}</div>
+                      <div style={{ fontSize: 18, fontWeight: 900, color: statText, lineHeight: 1 }}>{s.value}</div>
+                      {s.sub && <div style={{ fontSize: 11, color: statText, marginTop: 2 }}>{tr.landing.reportsRate} {s.sub}</div>}
+                      <div style={{ fontSize: 11, color: statText, marginTop: 4 }}>{s.label}</div>
                     </div>
                   );
                   })}
                 </div>
 
                 {/* Mini trend bar */}
-                <div style={{ marginTop: 16, padding: "12px 14px", background: "rgba(16,185,129,.05)", border: "1px solid rgba(16,185,129,.15)", borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ marginTop: 16, padding: "12px 14px", background: "rgba(139, 92, 246,.05)", border: "1px solid rgba(139, 92, 246,.15)", borderRadius: 10, display: "flex", alignItems: "center", gap: 10 }}>
                   <svg width="56" height="24" viewBox="0 0 56 24" fill="none">
-                    <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                    <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(16,185,129,.08)"/>
+                    <polyline points="2,20 10,16 18,14 26,10 34,8 42,5 54,2" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                    <polygon points="2,20 10,16 18,14 26,10 34,8 42,5 54,2 54,24 2,24" fill="rgba(139, 92, 246,.08)"/>
                   </svg>
-                  <div style={{ fontSize: 12, color: "#10b981", fontWeight: 700 }}>{tr.landing.reportsGrowth}</div>
+                  <div style={{ fontSize: 12, color: "#8b5cf6", fontWeight: 700 }}>{tr.landing.reportsGrowth}</div>
                 </div>
               </GlassCard>
 
               {/* Product-level report card */}
-              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%", color: "rgba(255, 255, 255, 1)" }}>
+              <GlassCard className="rv d2" style={{ padding: "var(--card-pad-lg)", minHeight: "100%" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 44, height: 44, borderRadius: 14, background: "rgba(6,182,212,.1)", border: "1px solid rgba(6,182,212,.22)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -1323,8 +1605,8 @@ export default function Landing() {
                 {/* Product rows */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {(tr.landing.reportsProducts as { name: string; clicks: string; clickRate: string; conv: string; convRate: string; sales: string }[]).map((p, i) => {
-                    const pColors = ["#a855f7", "#06b6d4", "#10b981"];
-                    const pColor = pColors[i] || "#a855f7";
+                    const pColors = ["#8b5cf6", "#06b6d4", "#8b5cf6"];
+                    const pColor = pColors[i] || "#8b5cf6";
                     return (
                     <div key={i} style={{ padding: "12px 14px", background: "var(--s2)", border: "1px solid var(--b1)", borderRadius: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -1332,7 +1614,7 @@ export default function Landing() {
                           <div style={{ width: 6, height: 6, borderRadius: "50%", background: pColor, boxShadow: `0 0 6px ${pColor}`, flexShrink: 0 }}/>
                           <span style={{ fontSize: 13, fontWeight: 700 }}>{p.name}</span>
                         </div>
-                        <span style={{ fontSize: 13, fontWeight: 900, color: "#10b981" }}>{p.sales}</span>
+                        <span style={{ fontSize: 13, fontWeight: 900, color: "#8b5cf6" }}>{p.sales}</span>
                       </div>
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         {[
@@ -1342,7 +1624,7 @@ export default function Landing() {
                           <div key={j} style={{ display: "flex", gap: 4, alignItems: "center" }}>
                             <span style={{ fontSize: 12, color: "var(--td)" }}>{m.l}:</span>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{m.v}</span>
-                            <span style={{ fontSize: 11, color: pColor, background: `rgba(${pColor === "#a855f7" ? "168,85,247" : pColor === "#06b6d4" ? "6,182,212" : "16,185,129"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
+                            <span style={{ fontSize: 11, color: pColor, background: `rgba(${pColor === "#8b5cf6" ? "139, 92, 246" : pColor === "#06b6d4" ? "6,182,212" : "139, 92, 246"},.1)`, padding: "1px 6px", borderRadius: 50 }}>{m.r}</span>
                           </div>
                         ))}
                       </div>
@@ -1351,19 +1633,19 @@ export default function Landing() {
                   })}
                 </div>
 
-                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124,58,237,.05)", border: "1px solid rgba(124,58,237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
+                <div style={{ marginTop: 14, padding: "10px 14px", background: "rgba(124, 58, 237,.05)", border: "1px solid rgba(124, 58, 237,.12)", borderRadius: 10, fontSize: 12, color: "var(--tm)", textAlign: "center" }}>
                   {tr.landing.reportsFooter}
                 </div>
               </GlassCard>
             </div>
 
             {/* Bottom banner */}
-            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, background: "rgba(124,58,237,.05)", borderColor: "rgba(124,58,237,.18)" }}>
-              <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(124,58,237,.12)", border: "1px solid rgba(124,58,237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <GlassCard className="reports-banner rv d3" style={{ marginTop: 16, padding: "28px 36px", display: "flex", alignItems: "center", gap: 24, borderColor: "rgba(124, 58, 237,.18)" }}>
+              <div style={{ width: 52, height: 52, borderRadius: 16, background: "rgba(124, 58, 237,.12)", border: "1px solid rgba(124, 58, 237,.25)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-                  <circle cx="13" cy="13" r="10" fill="rgba(124,58,237,.1)" stroke="rgba(168,85,247,.4)" strokeWidth="1.5"/>
-                  <path d="M13 8v5l3 3" stroke="#a855f7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  <circle cx="13" cy="13" r="1.5" fill="#a855f7"/>
+                  <circle cx="13" cy="13" r="10" fill="rgba(124, 58, 237,.1)" stroke="rgba(139, 92, 246,.4)" strokeWidth="1.5"/>
+                  <path d="M13 8v5l3 3" stroke="#8b5cf6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="13" cy="13" r="1.5" fill="#8b5cf6"/>
                 </svg>
               </div>
               <div style={{ flex: 1 }}>
@@ -1384,7 +1666,11 @@ export default function Landing() {
           </div>
         </section>
         {/* TESTIMONIALS */}
-        <section id="testimonials" style={{ overflowX: "clip", paddingInline: 0 }}>
+        <section
+          id="testimonials"
+          className="landing-white-accent"
+          style={{ overflowX: "clip", paddingInline: 0 }}
+        >
           <div className="wrap">
             <div className="tc" style={{ marginBottom: 56 }}>
               <SecTag>{tr.landing.testimonialsTag}</SecTag>
@@ -1409,7 +1695,29 @@ export default function Landing() {
                       <div className="tc-stars">★★★★★</div>
                       <div className="tc-text">{t.text}</div>
                       <div className="tc-author">
-                        <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
+                        <div
+                          className="tc-av"
+                          style={{ background: t.logo ? "#fff" : t.col, overflow: "hidden" }}
+                        >
+                          {t.logo ? (
+                            <img
+                              src={t.logo}
+                              alt={t.name}
+                              loading="lazy"
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              onError={(e) => {
+                                const img = e.currentTarget;
+                                const parent = img.parentElement;
+                                if (parent) {
+                                  parent.style.background = t.col;
+                                  parent.textContent = t.av;
+                                }
+                              }}
+                            />
+                          ) : (
+                            t.av
+                          )}
+                        </div>
                         <div>
                           <div className="tc-name">{t.name}</div>
                           <div className="tc-role">{t.role}</div>
@@ -1434,7 +1742,29 @@ export default function Landing() {
                       <div className="tc-stars">★★★★★</div>
                       <div className="tc-text">{t.text}</div>
                       <div className="tc-author">
-                        <div className="tc-av" style={{ background: t.col }}>{t.av}</div>
+                        <div
+                          className="tc-av"
+                          style={{ background: t.logo ? "#fff" : t.col, overflow: "hidden" }}
+                        >
+                          {t.logo ? (
+                            <img
+                              src={t.logo}
+                              alt={t.name}
+                              loading="lazy"
+                              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                              onError={(e) => {
+                                const img = e.currentTarget;
+                                const parent = img.parentElement;
+                                if (parent) {
+                                  parent.style.background = t.col;
+                                  parent.textContent = t.av;
+                                }
+                              }}
+                            />
+                          ) : (
+                            t.av
+                          )}
+                        </div>
                         <div>
                           <div className="tc-name">{t.name}</div>
                           <div className="tc-role">{t.role}</div>
@@ -1448,19 +1778,16 @@ export default function Landing() {
           </div>
         </section>
         {/* PRICING */}
-        <section id="pricing">
+        <section id="pricing" className="pricing-sec">
           <div className="wrap">
-            <div className="tc" style={{ marginBottom: 24 }}>
+            <div className="tc pricing-sec__intro">
               <SecTag>{tr.landing.pricingTag}</SecTag>
               <h2 className="st rv d1 font-semibold">{tr.landing.pricingTitle}</h2>
               <p className="ssub rv d2">
                 {tr.landing.pricingSub}
               </p>
             </div>
-            <div
-              style={{ textAlign: "center", marginBottom: 48 }}
-              className="rv d2"
-            >
+            <div className="pricing-sec__toggle rv d2">
               <div className="ptog">
                 <button
                   className={`ptb${pricingMode === "m" ? " on" : ""}`}
@@ -1476,94 +1803,279 @@ export default function Landing() {
                 </button>
               </div>
             </div>
-            <div className="pg">
+            <div className="pg pricing-sec__grid">
               {[
                 {
                   name: tr.landing.planStarter,
                   desc: tr.landing.planStarterDesc,
                   price: prices[pricingMode].s,
+                  origPrice: pricingMode === "y" ? prices.yOrig.s : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.s : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.s : null,
                   feat: false,
                   badge: null,
-                  list: tr.landing.planStarterList as string[],
+                  aiCredit: ld.planStarterCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [...(ld.planStarterFeatures as string[])],
                   cta: tr.landing.subscribeNow,
+                  ctaAction: () => setPlatformModalOpen(true),
                   fill: false,
                 },
                 {
                   name: tr.landing.planGrowth,
                   desc: tr.landing.planGrowthDesc,
                   price: prices[pricingMode].g,
-                  feat: true,
-                  badge: tr.landing.planGrowthBadge,
-                  list: tr.landing.planGrowthList as string[],
+                  origPrice: pricingMode === "y" ? prices.yOrig.g : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.g : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.g : null,
+                  feat: false,
+                  badge: null,
+                  aiCredit: ld.planGrowthCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [
+                    ld.planGrowthIntro,
+                    ...(ld.planGrowthFeatures as string[]),
+                  ],
                   cta: tr.landing.subscribeNow,
-                  fill: true,
+                  ctaAction: () => setPlatformModalOpen(true),
+                  fill: false,
                 },
                 {
                   name: tr.landing.planPro,
                   desc: tr.landing.planProDesc,
                   price: prices[pricingMode].p,
-                  feat: false,
-                  badge: null,
-                  list: tr.landing.planProList as string[],
+                  origPrice: pricingMode === "y" ? prices.yOrig.p : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.p : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.p : null,
+                  feat: true,
+                  badge: tr.landing.planProBadge,
+                  aiCredit: ld.planProCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [ld.planProIntro, ...(ld.planProFeatures as string[])],
                   cta: tr.landing.subscribeNow,
-                  fill: false,
+                  ctaAction: () => setPlatformModalOpen(true),
+                  fill: true,
                 },
                 {
                   name: tr.landing.planBusiness,
                   desc: tr.landing.planBusinessDesc,
                   price: prices[pricingMode].b,
+                  origPrice: pricingMode === "y" ? prices.yOrig.b : null,
+                  discPct: pricingMode === "y" ? prices.yDisc.b : null,
+                  monthlyEquiv: pricingMode === "y" ? prices.yAnnual.b : null,
                   feat: false,
-                  badge: null,
-                  list: [
-                    ...(tr.landing.planBusinessList as string[]),
+                  badge: ld.planBusinessBadge,
+                  aiCredit: ld.planBusinessCredits[pm],
+                  aiNote: ld.planAiFootnote,
+                  features: [
+                    ld.planBusinessIntro,
+                    ...(ld.planBusinessFeatures as string[]),
                     ...(pricingMode === "y"
                       ? [tr.landing.planBusinessGuaranteeAnnual]
                       : []),
                   ],
                   cta: tr.landing.subscribeNow,
+                  ctaAction: () => setPlatformModalOpen(true),
                   fill: false,
                 },
-              ].map((p, i) => (
+              ].map((p, i) => {
+                const lSelTopupIdx = landingTopupSel[i] ?? null;
+                const lSelTopup = lSelTopupIdx != null ? AI_TOPUPS[lSelTopupIdx] : null;
+                const lTopupBase = (pricingMode === "y" && p.monthlyEquiv != null)
+                  ? parsePrice(p.monthlyEquiv as number | string)
+                  : (p.price != null ? parsePrice(p.price as number | string) : null);
+                const lEffectivePrice = lSelTopup != null && lTopupBase != null
+                  ? fmtPrice(lTopupBase + lSelTopup.price)
+                  : p.price;
+                const lPriceLabel = lSelTopup && pricingMode === "y"
+                  ? (lang === "ar" ? "/ سنة" : "/ yr")
+                  : tr.landing.perMonth;
+                const isAr = lang === "ar";
+                return (
                 <GlassCard
                   key={i}
                   className={`pc rv d${i + 1}${p.feat ? " feat" : ""}`}
+                  style={{ zIndex: landingTopupOpen === i ? 20 : undefined }}
                 >
-                  {p.badge && <div className="pc-badge">{p.badge}</div>}
+                  {/* Badge row — always reserves space for alignment */}
+                  <div className="pc-badge-row">
+                    {p.badge
+                      ? <div className="pc-badge">{p.badge}</div>
+                      : <div className="pc-badge-ph" aria-hidden />
+                    }
+                  </div>
+
+                  {/* Plan name + desc */}
                   <div className="p-name">{p.name}</div>
                   <div className="p-desc">{p.desc}</div>
+
+                  {/* Discount row — always reserves space */}
+                  <div className="p-orig-row">
+                    {p.origPrice ? (
+                      <>
+                        <span className="p-orig-price">{p.origPrice} ⃁</span>
+                        <span className="p-disc-badge">{p.discPct} خصم</span>
+                      </>
+                    ) : (
+                      <span className="p-orig-ph" aria-hidden>‎</span>
+                    )}
+                  </div>
+
+                  {/* Price */}
                   <div className="p-price">
                     {p.price != null ? (
                       <>
-                        <span className="p-num">{p.price}</span>
-                        <span className="p-cur">⃁</span>
-                        <span className="p-per">
-                          {tr.landing.perMonth}
+                        <span className="p-price-main">
+                          <span className="p-num">{lEffectivePrice}</span>
+                          <span className="p-cur">⃁</span>
                         </span>
+                        <span className="p-per">{lPriceLabel}</span>
                       </>
                     ) : (
-                      <span
-                        style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}
-                      >
+                      <span style={{ fontSize: 26, fontWeight: 900, lineHeight: 1 }}>
                         {tr.landing.custom}
                       </span>
                     )}
                   </div>
+                  {lSelTopup && lTopupBase != null && (
+                    <div className="pp-price-breakdown">
+                      <span>
+                        {isAr ? (pricingMode === "y" ? "الخطة السنوية" : "الخطة") : (pricingMode === "y" ? "Annual plan" : "Plan")}
+                        : {pricingMode === "y" ? p.monthlyEquiv : p.price} ⃁
+                      </span>
+                      <span className="pp-price-breakdown-sep">+</span>
+                      <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(lSelTopup.price)} ⃁</span>
+                    </div>
+                  )}
+
+                  {/* Annual billing line — hide when topup selected in yearly mode */}
+                  <div className="p-monthly-equiv">
+                    {!lSelTopup && p.monthlyEquiv
+                      ? `${tr.landing.monthlyEquivPrefix} ${p.monthlyEquiv} ${tr.landing.monthlyEquivSuffix}`
+                      : <span aria-hidden>‎</span>
+                    }
+                  </div>
+
                   <hr className="p-hr" />
+
+                  {/* AI credit box */}
+                  <div className="p-ai-box" dir={dir}>
+                    <div className="p-ai-box-inner">
+                      <div className="p-ai-copy">
+                        {pricingAiSpark}
+                        <div className="p-ai-credit">{p.aiCredit}</div>
+                        <div className="p-ai-note">{p.aiNote}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* AI Topup Dropdown */}
+                  <div className="ai-topup">
+                    <button
+                      className={`ai-topup-trigger${landingTopupOpen === i ? " open" : ""}${lSelTopup ? " has-sel" : ""}${p.feat ? " feat" : ""}`}
+                      onClick={() => toggleLandingTopup(i)}
+                    >
+                      <span className="ai-topup-icon" aria-hidden>
+                        <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.5 1L1 8h4.5L4.5 13 10 6H5.5L6.5 1Z" fill="currentColor"/></svg>
+                      </span>
+                      <span className="ai-topup-label">
+                        {lSelTopup
+                          ? `${lSelTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
+                          : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
+                      </span>
+                      {lSelTopup && (
+                        <span className="ai-topup-sel-price">+{fmtPrice(lSelTopup.price)} ⃁</span>
+                      )}
+                      <svg className="ai-topup-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                        <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    {landingTopupOpen === i && (
+                      <div className="ai-topup-list">
+                        <button
+                          className={`ai-topup-opt${lSelTopupIdx == null ? " active" : ""}`}
+                          onClick={() => selectLandingTopup(i, null)}
+                        >
+                          <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
+                          <span>—</span>
+                        </button>
+                        {AI_TOPUPS.map((pkg, ti) => (
+                          <button
+                            key={ti}
+                            className={`ai-topup-opt${lSelTopupIdx === ti ? " active" : ""}`}
+                            onClick={() => selectLandingTopup(i, ti)}
+                          >
+                            <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
+                            <span>+{fmtPrice(pkg.price)} ⃁</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Feature list */}
                   <ul className="p-list">
-                    {p.list.map((l) => (
-                      <li key={l}>{l}</li>
+                    {p.features.map((l, j) => (
+                      <li key={`pf-${i}-${j}`}>{l}</li>
                     ))}
                   </ul>
+
+                  {/* CTA pinned to bottom */}
                   <button
-                      onClick={() => setPlatformModalOpen(true)}
-                      className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
-                      style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
-                    >
-                      {p.cta}
-                    </button>
+                    onClick={p.ctaAction}
+                    className={`pbtn ${p.fill ? "pbtn-fill" : "pbtn-ghost"}`}
+                    style={{ cursor: "pointer", border: "none", fontFamily: "inherit", width: "100%" }}
+                  >
+                    {p.cta}
+                  </button>
                 </GlassCard>
-              ))}
+                );
+              })}
             </div>
+
+            {/* Compare link */}
+            <div className="tc" style={{ marginTop: 36 }}>
+              <button
+                onClick={() => navigateTo("/pricing")}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(124, 58, 237,.1)",
+                  border: "1px solid rgba(124, 58, 237,.28)",
+                  borderRadius: 12,
+                  padding: "11px 28px",
+                  color: "rgba(216,180,254,.9)",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  fontFamily: "var(--font)",
+                  cursor: "pointer",
+                  transition: "all .2s",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124, 58, 237,.2)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124, 58, 237,.5)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.background = "rgba(124, 58, 237,.1)";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(124, 58, 237,.28)";
+                  (e.currentTarget as HTMLButtonElement).style.color = "rgba(216,180,254,.9)";
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="9" y="1" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="1" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.4"/>
+                </svg>
+                {lang === "ar" ? "مقارنة تفصيلية بين الباقات" : "Detailed plan comparison"}
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: lang === "ar" ? "rotate(180deg)" : "none" }}>
+                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
           </div>
         </section>
         {/* HELP CENTER */}
@@ -1599,10 +2111,9 @@ export default function Landing() {
                       <div className="hcb-sub">{tr.landing.faqWhatsappSub}</div>
                     </div>
                   </a>
-                  <a
-                    href="https://calendar.app.google/pjtPBzs9TUPipUEF6"
-                    target="_blank"
-                    rel="noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => openMeetingBooking()}
                     className="hcb hcb-cal"
                   >
                     <div className="hcb-ico hcb-cal">
@@ -1665,21 +2176,21 @@ export default function Landing() {
                       <div>{tr.landing.faqBookMeeting}</div>
                       <div className="hcb-sub">{tr.landing.faqBookMeetingSub}</div>
                     </div>
-                  </a>
+                  </button>
                   <a href="/support" className="hcb hcb-doc">
                     <div className="hcb-ico hcb-doc">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path
                           d="M4 3h6v14H4z"
-                          fill="rgba(168,85,247,.12)"
-                          stroke="rgba(168,85,247,.35)"
+                          fill="rgba(139, 92, 246,.12)"
+                          stroke="rgba(139, 92, 246,.35)"
                           strokeWidth="1.2"
                           strokeLinejoin="round"
                         />
                         <path
                           d="M10 3h6v14h-6z"
-                          fill="rgba(168,85,247,.08)"
-                          stroke="rgba(168,85,247,.3)"
+                          fill="rgba(139, 92, 246,.08)"
+                          stroke="rgba(139, 92, 246,.3)"
                           strokeWidth="1.2"
                           strokeLinejoin="round"
                         />
@@ -1688,7 +2199,7 @@ export default function Landing() {
                           y1="3"
                           x2="10"
                           y2="17"
-                          stroke="rgba(168,85,247,.4)"
+                          stroke="rgba(139, 92, 246,.4)"
                           strokeWidth="1"
                         />
                       </svg>
@@ -1708,8 +2219,8 @@ export default function Landing() {
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
                       style={{
                         background:
-                          openFaq === i ? "rgba(124,58,237,.06)" : "rgba(37, 0, 107, 0.05)",
-                        border: `1px solid ${openFaq === i ? "rgba(124,58,237,.3)" : "var(--b1)"}`,
+                          openFaq === i ? "rgba(124, 58, 237,.06)" : "rgba(37, 0, 107, 0.05)",
+                        border: `1px solid ${openFaq === i ? "rgba(124, 58, 237,.3)" : "var(--b1)"}`,
                         borderRadius: openFaq === i ? "14px 14px 0 0" : "14px",
                       }}
                     >
@@ -1738,10 +2249,10 @@ export default function Landing() {
                       style={{
                         maxHeight: openFaq === i ? 400 : 0,
                         overflow: "hidden",
-                        background: "rgba(124,58,237,.04)",
+                        background: "rgba(124, 58, 237,.04)",
                         border:
                           openFaq === i
-                            ? "1px solid rgba(124,58,237,.15)"
+                            ? "1px solid rgba(124, 58, 237,.15)"
                             : "none",
                         borderTop: "none",
                         borderRadius: "0 0 14px 14px",
@@ -1760,35 +2271,22 @@ export default function Landing() {
             </div>
           </div>
         </section>
-        {/* FINAL CTA */}
-        <section className="cta-sec">
-          <div className="wrap">
-            <GlassCard className="cta-box rv">
-              <div className="cta-glow" />
-              <h2>
-                {tr.landing.ctaTitle.split('\n').map((line: string, i: number) => (
-                  <span key={i}>{line}{i === 0 && <br />}</span>
-                ))}
-              </h2>
-              <p>
-                {tr.landing.ctaDesc}
-              </p>
-              <div className="cta-btns">
-                <button
-                  onClick={() => setPlatformModalOpen(true)}
-                  className="cta-btn cb-zid"
-                  style={{ cursor: "pointer", border: "none", fontFamily: "inherit" }}
-                >
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M9 2L3 10h6l-2 6 8-10H9l2-6z" fill="#fff" />
-                  </svg>
-                  {tr.landing.ctaBtn}
-                </button>
-              </div>
-              <div className="cta-note text-[16px]">{tr.landing.ctaNote}</div>
-            </GlassCard>
-          </div>
-        </section>
+        <PageClosingCta
+          title={
+            <>
+              {tr.landing.ctaTitle.split("\n").map((line: string, i: number) => (
+                <span key={i}>
+                  {line}
+                  {i === 0 && <br />}
+                </span>
+              ))}
+            </>
+          }
+          description={tr.landing.ctaDesc}
+          buttonLabel={tr.landing.ctaBtn}
+          note={tr.landing.ctaNote}
+          onActivate={() => setPlatformModalOpen(true)}
+        />
       </PageShell>
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>

@@ -37,7 +37,7 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
             {label}
           </Editable>
         </span>
-        <span className="hc-slider-value" style={{ color, background: `transparent`, border: `1px solid rgba(${colorRgb},.25)` }}>
+        <span className="hc-slider-value" style={{ color, background: `rgba(${colorRgb},.12)`, border: `1px solid rgba(${colorRgb},.28)` }}>
           {display}
         </span>
       </div>
@@ -45,7 +45,7 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
         <div className="hc-slider-track">
           <div
             className="hc-slider-fill"
-            style={{ width: pct + "%", background: `linear-gradient(90deg, rgba(${colorRgb},.4), ${color})` }}
+            style={{ width: pct + "%", background: color }}
           />
         </div>
         <input
@@ -55,6 +55,8 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
           step={step}
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
+          onInput={(e) => onChange(Number((e.target as HTMLInputElement).value))}
+          aria-label={label}
           className="hc-slider-input"
         />
         <div className="hc-slider-range">
@@ -104,8 +106,8 @@ export default function HomeCalculator() {
       step: 1000,
       onChange: setVisitors,
       display: fmt(visitors),
-      color: "#3b82f6",
-      colorRgb: "59,130,246",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
     {
       label: tr.labelConvRate,
@@ -117,8 +119,8 @@ export default function HomeCalculator() {
       step: 0.1,
       onChange: setConvRate,
       display: fmt(convRate, 1) + "%",
-      color: "#22c55e",
-      colorRgb: "34,197,94",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
     {
       label: tr.labelAOV,
@@ -130,15 +132,15 @@ export default function HomeCalculator() {
       step: 10,
       onChange: setAov,
       display: fmt(aov) + tr.resultCurrency,
-      color: "#a855f7",
-      colorRgb: "168,85,247",
+      color: "#8b5cf6",
+      colorRgb: "139, 92, 246",
     },
   ];
 
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%" }}>
-        <div className="stag rv" style={{ display: "inline-flex", width: "fit-content" }}>
+        <div className="stag rv">
           <span className="stag-dot" />
           <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
             {tr.tag}

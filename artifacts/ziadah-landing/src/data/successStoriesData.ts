@@ -1,6 +1,7 @@
 /** Shared success story catalog (Arabic source + English overlays). */
 
 export type StoryData = {
+  slug: string;
   store: string;
   sector: string;
   logo: string;
@@ -11,14 +12,22 @@ export type StoryData = {
   popupType: string;
   conversions: string;
   sales: string;
+  url?: string;
+  logoUrl?: string;
 };
+
+const favicon = (domain: string) =>
+  `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
 export const stories: StoryData[] = [
   {
+    slug: "ribal",
+    url: "https://ribalpower.sa",
+    logoUrl: favicon("ribalpower.sa"),
     store: "متجر ريبال",
     sector: "مستلزمات التنظيف",
     logo: "ر",
-    color: "linear-gradient(135deg,#7c3aed,#5b21b6)",
+    color: "linear-gradient(135deg,#7c3aed,#6d28d9)",
     accent: "#7c3aed",
     challenge: "استهداف العميل لإتمام طلبه بعرض محفز وبسيط لتقليل السلات المتروكة",
     strategy: "تفعيل نوافذ تسويقية تحفز العميل للطلب عند إضافة منتج للسلة أو بدء الطلب",
@@ -27,6 +36,9 @@ export const stories: StoryData[] = [
     sales: "1,024,379",
   },
   {
+    slug: "zona",
+    url: "https://zonastore.com",
+    logoUrl: favicon("zonastore.com"),
     store: "متجر زونا",
     sector: "منتجات البشرة",
     logo: "ز",
@@ -39,11 +51,14 @@ export const stories: StoryData[] = [
     sales: "224,310",
   },
   {
+    slug: "al-tamimi",
+    url: "https://altamimitex.net",
+    logoUrl: favicon("altamimitex.net"),
     store: "متجر التميمي",
     sector: "الأقمشة الرجالية",
     logo: "ت",
-    color: "linear-gradient(135deg,#0d9488,#134e4a)",
-    accent: "#14b8a6",
+    color: "linear-gradient(135deg,#7c3aed,#134e4a)",
+    accent: "#8b5cf6",
     challenge: "رفع معدل المبيعات للمنتجات الشتوية الجديدة وزيادة حجم السلة الشرائية لكل عميل",
     strategy: "تفعيل حدث إضافة منتج للسلة مع الترويج لمنتجات الموسم عبر نوافذ ذكية تقترح قطعًا إضافية",
     popupType: "Seasonal Upsell",
@@ -51,6 +66,9 @@ export const stories: StoryData[] = [
     sales: "932,517",
   },
   {
+    slug: "best-clean",
+    url: "https://bestcleansa.com",
+    logoUrl: favicon("bestcleansa.com"),
     store: "متجر بست كلين",
     sector: "مستلزمات التنظيف",
     logo: "ب",
@@ -63,11 +81,14 @@ export const stories: StoryData[] = [
     sales: "703,601",
   },
   {
+    slug: "dethar-abayas",
+    url: "https://dethar-abaya.com",
+    logoUrl: favicon("dethar-abaya.com"),
     store: "متجر دثار للعبايات",
     sector: "عبايات الحج واللباس المحتشم",
     logo: "د",
-    color: "linear-gradient(135deg,#059669,#064e3b)",
-    accent: "#059669",
+    color: "linear-gradient(135deg,#6d28d9,#4c1d95)",
+    accent: "#6d28d9",
     challenge: "العديد من الزوار يدخلون الصفحة الرئيسية دون إتمام عملية الشراء",
     strategy: "تفعيل نافذة تسويقية تظهر مباشرة على الصفحة الرئيسية تبرز الخصم وميزة الشحن المجاني",
     popupType: "Homepage Popup",
@@ -75,6 +96,9 @@ export const stories: StoryData[] = [
     sales: "73,763",
   },
   {
+    slug: "close-buy",
+    url: "https://closebuy.sa",
+    logoUrl: favicon("closebuy.sa"),
     store: "متجر كلوس باي",
     sector: "متجر إلكتروني متنوع",
     logo: "ك",
@@ -87,6 +111,9 @@ export const stories: StoryData[] = [
     sales: "543,000",
   },
   {
+    slug: "dukhoon-emaratia",
+    url: "https://dkhoonemirates.com",
+    logoUrl: favicon("dkhoonemirates.com"),
     store: "متجر دخون الإماراتية",
     sector: "العود والبخور",
     logo: "خ",
@@ -99,6 +126,10 @@ export const stories: StoryData[] = [
     sales: "14,139",
   },
   {
+    slug: "moknah",
+    // Low-confidence match — trymoknh.com sells health supplements, may not be the same store. Verify.
+    url: "https://trymoknh.com",
+    logoUrl: favicon("trymoknh.com"),
     store: "متجر مُكنة",
     sector: "منتجات البشرة",
     logo: "م",
@@ -111,6 +142,9 @@ export const stories: StoryData[] = [
     sales: "238,676",
   },
   {
+    slug: "skinly",
+    url: "https://skin-ly.com",
+    logoUrl: favicon("skin-ly.com"),
     store: "متجر skinly",
     sector: "مستحضرات العناية بالبشرة",
     logo: "s",
@@ -123,11 +157,14 @@ export const stories: StoryData[] = [
     sales: "50,641",
   },
   {
+    slug: "fabian",
+    url: "https://fabian.sa",
+    logoUrl: favicon("fabian.sa"),
     store: "متجر فابيان",
     sector: "عطور",
     logo: "ف",
-    color: "linear-gradient(135deg,#a855f7,#7c3aed)",
-    accent: "#a855f7",
+    color: "linear-gradient(135deg,#8b5cf6,#7c3aed)",
+    accent: "#8b5cf6",
     challenge: "العميل يضيف المنتج للسلة لكنه لا يكمل الشراء مما يتسبب في ضياع فرص البيع",
     strategy: "تفعيل نوافذ تسويقية بهدف إضافة منتج للسلة لحفز العميل على إكمال الشراء",
     popupType: "Add to Cart Incentive",
@@ -135,6 +172,9 @@ export const stories: StoryData[] = [
     sales: "136,871",
   },
   {
+    slug: "abaq-alghaim",
+    url: "https://abaqstoresa.com",
+    logoUrl: favicon("abaqstoresa.com"),
     store: "متجر عبق الغيم",
     sector: "عطور",
     logo: "ع",
@@ -147,6 +187,9 @@ export const stories: StoryData[] = [
     sales: "248,816",
   },
   {
+    slug: "honey-duz",
+    url: "https://honeydose.sa",
+    logoUrl: favicon("honeydose.sa"),
     store: "متجر هني دوز",
     sector: "عسل طبيعي",
     logo: "ه",
@@ -159,6 +202,9 @@ export const stories: StoryData[] = [
     sales: "165,650",
   },
   {
+    slug: "quran-society-khamis-mushait",
+    url: "https://nabaa.org.sa",
+    logoUrl: favicon("nabaa.org.sa"),
     store: "جمعية تحفيظ القرآن - خميس مشيط",
     sector: "موقع التبرعات الإلكترونية",
     logo: "ق",
@@ -274,6 +320,10 @@ export const storyEn: Record<
     popupType: "Donation Nudge Popup",
   },
 };
+
+export function findStoryBySlug(slug: string): StoryData | undefined {
+  return stories.find((s) => s.slug === slug);
+}
 
 /** Maps Analyze form industry value → Arabic sector labels used in success stories */
 const INDUSTRY_TO_SECTORS: Record<string, string[]> = {

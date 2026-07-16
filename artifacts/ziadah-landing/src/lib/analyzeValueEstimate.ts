@@ -26,6 +26,17 @@ function meanPositivePrices(prices: number[]): number {
   return ok.reduce((a, b) => a + b, 0) / ok.length;
 }
 
+/** Mean anchor price used for baseline AOV when the user does not supply AOV; mirrors estimate logic. */
+export function deriveCatalogAovFromGroups(groups: AnchorGroupInput[]): number | null {
+  const allRecPrices = groups.flatMap((g) =>
+    g.recommendations.map((r) => r.price).filter((p): p is number => p != null && p > 0),
+  );
+  const anchorPrices = groups.map((g) => g.anchor.price).filter((p): p is number => p != null && p > 0);
+  const pool = anchorPrices.length ? anchorPrices : allRecPrices;
+  if (pool.length === 0) return null;
+  return pool.reduce((a, b) => a + b, 0) / pool.length;
+}
+
 export function estimateAnalyzeOpportunity(
   groups: AnchorGroupInput[],
   monthlyUsers: number | null | undefined,

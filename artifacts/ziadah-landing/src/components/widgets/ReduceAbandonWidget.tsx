@@ -10,7 +10,7 @@ export default function ReduceAbandonWidget() {
   return (
     <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontSize: 10, color: "var(--tm)", marginBottom: 10 }}>{tr.noticeLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 10 }}>{tr.noticeLabel}</div>
 
         <div style={{
           padding: "14px 16px",
@@ -20,7 +20,7 @@ export default function ReduceAbandonWidget() {
           marginBottom: 12,
         }}>
           <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>{tr.discountTitle}</div>
-          <div style={{ fontSize: 9, color: "var(--tm)", marginTop: 3 }}>{tr.discountSub}</div>
+          <div style={{ fontSize: 12, color: "var(--tm)", marginTop: 3 }}>{tr.discountSub}</div>
           <div style={{ fontSize: 13, fontWeight: 900, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
         </div>
 
@@ -30,7 +30,7 @@ export default function ReduceAbandonWidget() {
           alignItems: "center",
           justifyContent: "center",
           marginBottom: 12,
-          fontSize: 11,
+          fontSize: 12,
           color: "#f87171",
           fontWeight: 700,
           padding: "6px 12px",
@@ -45,8 +45,8 @@ export default function ReduceAbandonWidget() {
         <div style={{
           padding: "8px 12px",
           borderRadius: 10,
-          background: "rgba(16,185,129,.08)",
-          border: "1px solid rgba(16,185,129,.2)",
+          background: "rgba(139, 92, 246,.08)",
+          border: "1px solid rgba(139, 92, 246,.2)",
           marginBottom: 12,
           display: "flex",
           gap: 8,
@@ -54,9 +54,9 @@ export default function ReduceAbandonWidget() {
         }}>
           <span style={{ fontSize: 14 }}>🚚</span>
           <div style={{ textAlign: "start", flex: 1 }}>
-            <div style={{ fontSize: 9, fontWeight: 700, color: "#34d399" }}>{tr.shippingLabel}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#8b5cf6" }}>{tr.shippingLabel}</div>
             <div style={{ height: 4, borderRadius: 10, background: "var(--s2)", marginTop: 4, overflow: "hidden" }}>
-              <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#34d399" }} />
+              <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#8b5cf6" }} />
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@ export default function ReduceAbandonWidget() {
         {tr.btnComplete}
       </button>
 
-      <div style={{ textAlign: "center", fontSize: 9, color: "var(--td)" }}>
+      <div style={{ textAlign: "center", fontSize: 12, color: "var(--td)" }}>
         {tr.autoApplyNote}
       </div>
     </UseCaseWidgetPreview>

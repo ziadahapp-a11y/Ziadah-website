@@ -15,6 +15,7 @@ import {
 } from "@workspace/api-zod";
 import { scrapeStore } from "../lib/store-scraper";
 import { analyzeProducts } from "../lib/product-analyzer";
+import { generateReportShareToken } from "../lib/reportShareToken";
 
 const router: IRouter = Router();
 
@@ -44,6 +45,7 @@ router.post("/stores", async (req, res): Promise<void> => {
     name: parsed.data.name,
     url: parsed.data.url,
     status: "pending",
+    reportShareToken: generateReportShareToken(),
   }).returning();
 
   res.status(201).json({

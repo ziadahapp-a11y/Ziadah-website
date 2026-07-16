@@ -7,14 +7,15 @@
 @import "./vision-themes.css";
 
 :root {
-  /* saudi_riyal: glyph for U+20C1 (رمز الريال) — خطوط النظام غالباً بدون هذا الحرف على الجوال */
-  --font-en: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
-  --font-ar: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
-  --font: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
+  /* saudi_riyal: glyph for U+20C1 (رمز الريال) — يجب أن يبقى أخيراً قبل system-ui،
+     لأنه يحتوي أيضاً على رموز للأحرف A/B/C/D فيُخفيها لو جاء أولاً. */
+  --font-en: "Rubik", "Inter", "IBM Plex Sans Arabic", "saudi_riyal", system-ui, sans-serif;
+  --font-ar: "Rubik", "IBM Plex Sans Arabic", "Inter", "saudi_riyal", system-ui, sans-serif;
+  --font: "Rubik", "IBM Plex Sans Arabic", "Inter", "saudi_riyal", system-ui, sans-serif;
 }
 
 html {
-  font-family: "Rubik", "saudi_riyal", "saudi_riyal_bold", system-ui, sans-serif;
+  font-family: "Rubik", "IBM Plex Sans Arabic", "Inter", "saudi_riyal", system-ui, sans-serif;
 }
 
 html {

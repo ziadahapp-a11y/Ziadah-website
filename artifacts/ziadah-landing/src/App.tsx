@@ -1,40 +1,36 @@
-import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
-import { Redirect } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense, useLayoutEffect } from "react";
-import { LanguageProvider, useLanguage } from "@/i18n/LanguageContext";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
-import { CmsAuthProvider } from "@/cms/CmsAuthContext";
-import { useCmsAuth } from "@/cms/CmsAuthContext";
-import { CmsEditorProvider } from "@/cms/CmsEditorContext";
-import { CmsProtected } from "@/cms/components/CmsProtected";
-import { CmsInlineToolbar } from "@/cms/components/CmsInlineToolbar";
-import { CmsInlineEditorPanel } from "@/cms/components/CmsInlineEditorPanel";
-import { CmsFloatingEditableToolbar } from "@/cms/components/CmsFloatingEditableToolbar";
-import { CmsQuickLoginModal } from "@/cms/components/CmsQuickLoginModal";
 import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
+import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
-const Landing = lazy(() => import("@/pages/Landing"));
+const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
+const Landing = lazy(() => import("@/pages/HomeTrackflow"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
+const PricingPage = lazy(() => import("@/pages/PricingPage"));
+const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
+const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
 const Analyze = lazy(() => import("@/pages/Analyze"));
 const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
-const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
 const Privacy = lazy(() => import("@/pages/Privacy"));
 const Terms = lazy(() => import("@/pages/Terms"));
+const ErrorStatus = lazy(() => import("@/pages/ErrorStatus"));
 const Sectors = lazy(() => import("@/pages/Sectors"));
 const EcommerceStoreSectors = lazy(() => import("@/pages/EcommerceStoreSectors"));
 const SectorDetail = lazy(() => import("@/pages/SectorDetail"));
@@ -67,50 +63,32 @@ const UseCasesByPresentation = lazy(() => import("@/pages/use-cases/UseCasesByPr
 const UseCasesByGoal = lazy(() => import("@/pages/use-cases/UseCasesByGoal"));
 const UseCasesByExperience = lazy(() => import("@/pages/use-cases/UseCasesByExperience"));
 
-const CmsLogin = lazy(() => import("@/cms/pages/Login"));
-const CmsDashboard = lazy(() => import("@/cms/pages/Dashboard"));
-const CmsContent = lazy(() => import("@/cms/pages/Content"));
-const CmsPages = lazy(() => import("@/cms/pages/Pages"));
-const CmsMedia = lazy(() => import("@/cms/pages/Media"));
-const CmsUsers = lazy(() => import("@/cms/pages/Users"));
-const CmsAudit = lazy(() => import("@/cms/pages/Audit"));
-const CmsSettings = lazy(() => import("@/cms/pages/Settings"));
-
 const queryClient = new QueryClient();
 
-/** CMS quick-login FAB: dev/preview hosts only — not on production (e.g. ziadah.app). */
-function shouldShowCmsQuickLogin(): boolean {
-  if (import.meta.env.DEV) return true;
-  if (typeof window === "undefined") return false;
-  const h = window.location.hostname;
-  return (
-    h === "localhost" ||
-    h === "127.0.0.1" ||
-    h.endsWith(".replit.dev") ||
-    h.endsWith(".repl.co")
-  );
-}
-
 function ScrollToTop() {
-  const [location] = useLocation();
+  const [location] = useLangAwareLocation();
   useLayoutEffect(() => {
     scrollWindowToTopAfterPaint();
   }, [location]);
   return null;
 }
 
-/** خلفية بسيطة أثناء تحميل أجزاء الصفحات (تقليل حجم الحزمة الأولى) */
+/**
+ * Suspense fallback for lazy route chunks.
+ *
+ * Delay-mounted so fast transitions (already-cached chunks) show nothing — the
+ * blur overlay alone covers them. Only slow loads reveal the branded spinner.
+ */
 function LazyRouteFallback() {
-  const { dir } = useLanguage();
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--page-background)",
-        direction: dir,
-      }}
-      aria-hidden
-    />
+    <div className="route-fallback" role="status" aria-live="polite" aria-busy="true">
+      <div className="route-fallback__ring" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <span className="route-fallback__sr">جارٍ التحميل…</span>
+    </div>
   );
 }
 
@@ -136,19 +114,23 @@ function PublicRoutes() {
           <ErrorStatus />
         </Suspense>
       </Route>
+      <Route path="/success-stories/:slug" component={SuccessStoryDetail} />
       <Route path="/success-stories" component={SuccessStories} />
       <Route path="/support" component={Support} />
       <Route path="/support/article/:id" component={SupportArticle} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
+      <Route path="/pricing" component={PricingPage} />
+      <Route path="/zid-apps-comparison" component={ZidAppsComparison} />
+      <Route path="/affiliate" component={Affiliate} />
       <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
       <Route path="/analyze" component={Analyze} />
-      <Route path="/report/:id">
-        {(params) => (
-          <AnalyzeReport id={parseInt(params.id ?? "", 10)} />
-        )}
+      <Route path="/report/:shareToken">
+        {(params) => <AnalyzeReport shareToken={params.shareToken ?? ""} />}
       </Route>
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
@@ -180,102 +162,34 @@ function PublicRoutes() {
       <Route path="/use-cases/by-presentation" component={UseCasesByPresentation} />
       <Route path="/use-cases/by-goal" component={UseCasesByGoal} />
       <Route path="/use-cases/by-experience" component={UseCasesByExperience} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-function CmsRoutes() {
-  return (
-    <Switch>
-      <Route path="/cms/login" component={CmsLogin} />
-      <Route path="/cms/dashboard">
-        <CmsProtected>
-          <CmsDashboard />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/content">
-        <CmsProtected>
-          <CmsContent />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/pages">
-        <CmsProtected>
-          <CmsPages />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/media">
-        <CmsProtected>
-          <CmsMedia />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/users">
-        <CmsProtected>
-          <CmsUsers />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/audit">
-        <CmsProtected>
-          <CmsAudit />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms/settings">
-        <CmsProtected>
-          <CmsSettings />
-        </CmsProtected>
-      </Route>
-      <Route path="/cms">
-        <Redirect to="/cms/dashboard" />
-      </Route>
-      <Route>
-        <Redirect to="/" />
-      </Route>
-    </Switch>
-  );
-}
-
 function Router() {
-  const [loc] = useLangAwareLocation();
-  const isCms = loc.startsWith("/cms");
   return (
-    <>
-      {isCms ? (
-        <Suspense fallback={<LazyRouteFallback />}>
-          <CmsRoutes />
-        </Suspense>
-      ) : (
-        <PageTransition>
-          <Suspense fallback={<LazyRouteFallback />}>
-            <PublicRoutes />
-          </Suspense>
-        </PageTransition>
-      )}
-    </>
+    <PageTransition>
+      <Suspense fallback={<LazyRouteFallback />}>
+        <PublicRoutes />
+      </Suspense>
+    </PageTransition>
   );
 }
 
 function AppShell() {
-  const [loc] = useLangAwareLocation();
-  const isCms = loc.startsWith("/cms");
-  const { user, loading } = useCmsAuth();
-  const showInlineToolbar =
-    !!user && (user.role === "editor" || user.role === "super_admin");
-  const showQuickLogin =
-    !loading && !user && !isCms && shouldShowCmsQuickLogin();
-
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        تخطي إلى المحتوى الرئيسي
+      </a>
       <ScrollToTop />
-      <CmsInlineToolbar />
-      <CmsInlineEditorPanel />
-      <CmsFloatingEditableToolbar />
-      {showQuickLogin && <CmsQuickLoginModal />}
-      <div style={{ paddingTop: showInlineToolbar ? 48 : 0 }}>
-        {!isCms && <Nav />}
-        <Router />
-        {!isCms && <Footer />}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <Nav />
+        <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
+          <Router />
+        </main>
+        <Footer />
       </div>
     </>
   );
@@ -285,22 +199,20 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <SiteContentProvider>
-          <BlurTransitionProvider>
-            <QueryClientProvider client={queryClient}>
-              <CmsAuthProvider>
-                <CmsEditorProvider>
-                  <WouterRouter
-                    base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                    hook={useLangAwareLocation}
-                  >
-                    <AppShell />
-                  </WouterRouter>
-                </CmsEditorProvider>
-              </CmsAuthProvider>
-            </QueryClientProvider>
-          </BlurTransitionProvider>
-        </SiteContentProvider>
+        <MeetingBookingProvider>
+          <SiteContentProvider>
+            <BlurTransitionProvider>
+              <QueryClientProvider client={queryClient}>
+                <WouterRouter
+                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                  hook={useLangAwareLocation}
+                >
+                  <AppShell />
+                </WouterRouter>
+              </QueryClientProvider>
+            </BlurTransitionProvider>
+          </SiteContentProvider>
+        </MeetingBookingProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

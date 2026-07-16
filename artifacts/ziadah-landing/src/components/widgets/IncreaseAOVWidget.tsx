@@ -15,23 +15,23 @@ export default function IncreaseAOVWidget() {
         <div style={{
           padding: "11px 14px",
           borderRadius: 12,
-          background: "rgba(124,58,237,.12)",
-          border: "1.5px solid rgba(124,58,237,.3)",
+          background: "rgba(124, 58, 237,.12)",
+          border: "1.5px solid rgba(124, 58, 237,.3)",
           marginBottom: 10,
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "var(--t)" }}>{tr.shippingLabel}</span>
-            <span style={{ fontSize: 9, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.shippingLabel}</span>
+            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "var(--s3)", overflow: "hidden", marginBottom: 3 }}>
-            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124,58,237,0.6), rgba(168,85,247,0.5))" }} />
+            <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124, 58, 237,0.6), rgba(139, 92, 246,0.5))" }} />
           </div>
-          <div style={{ fontSize: 9, color: "var(--td)", textAlign: "center" }}>
+          <div style={{ fontSize: 12, color: "var(--td)", textAlign: "center" }}>
             {tr.progressNote}
           </div>
         </div>
 
-        <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
+        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
         {tr.products.map((p, i) => (
           <div key={i} style={{
             display: "flex",
@@ -48,7 +48,7 @@ export default function IncreaseAOVWidget() {
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: "rgba(168,85,247,.12)",
+                background: "rgba(139, 92, 246,.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -56,10 +56,10 @@ export default function IncreaseAOVWidget() {
                 flexShrink: 0,
               }}>{p.emoji}</div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 10, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
                 <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                  <span style={{ fontSize: 11, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</span>
-                  <span style={{ fontSize: 9, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</span>
+                  <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>
                 </div>
               </div>
             </div>
@@ -67,11 +67,11 @@ export default function IncreaseAOVWidget() {
               width: "100%",
               padding: "6px 10px",
               borderRadius: 10,
-              background: "rgba(124,58,237,.25)",
+              background: "rgba(124, 58, 237,.25)",
               color: "#c084fc",
-              fontSize: 10,
+              fontSize: 12,
               fontWeight: 800,
-              border: "1px solid rgba(168,85,247,.3)",
+              border: "1px solid rgba(139, 92, 246,.3)",
               cursor: "pointer",
             }} className="widget-btn-sm">{tr.btnAdd}</button>
           </div>
@@ -79,10 +79,10 @@ export default function IncreaseAOVWidget() {
       </div>
 
       <div style={{
-        fontSize: 10,
-        color: "#34d399",
-        background: "rgba(16,185,129,.1)",
-        border: "1px solid rgba(16,185,129,.25)",
+        fontSize: 12,
+        color: "#8b5cf6",
+        background: "rgba(139, 92, 246,.1)",
+        border: "1px solid rgba(139, 92, 246,.25)",
         borderRadius: 8,
         padding: "6px 10px",
         textAlign: "center",

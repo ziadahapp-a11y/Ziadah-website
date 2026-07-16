@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="ft-brand">
             <div className="ft-logo">
               <img
-                src={lang === "ar" ? "/logo-ar.png" : "/logo-en.png"}
+                src={lang === "ar" ? "/logo-ar.svg" : "/logo-en.svg"}
                 alt={tr.seo.brandLogoAlt}
                 style={{ height: 40, width: "auto" }}
               />
@@ -127,17 +127,17 @@ export default function Footer() {
               {tr.footer.copyright}
             </Editable>
           </div>
-          <div className="ft-links">
-            <span onClick={() => navigateTo("/privacy")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy">
+          <div className="ft-legal">
+            <a href="/privacy">
+              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy Link">
                 {tr.footer.privacy}
               </Editable>
-            </span>
-            <span onClick={() => navigateTo("/terms")} style={{ cursor: "pointer" }}>
-              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms">
+            </a>
+            <a href="/terms">
+              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms Link">
                 {tr.footer.terms}
               </Editable>
-            </span>
+            </a>
           </div>
         </div>
       </div>
