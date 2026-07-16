@@ -3,12 +3,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as esbuild from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { rm } from "node:fs/promises";
+import { rm, mkdir, writeFile } from "node:fs/promises";
 
 globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(artifactDir, "dist");
+const vercelOutputDir = path.resolve(artifactDir, ".vercel/output");
+const vercelFuncDir = path.resolve(vercelOutputDir, "functions/index.func");
 const watchMode = process.argv.includes("--watch");
 
 const buildOptions = {
@@ -107,6 +109,60 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
   },
 };
 
+/**
+ * Emit a Vercel Build Output API directory (.vercel/output) containing the
+ * server bundled as a single Node serverless function. Vercel deploys this
+ * prebuilt output directly and does NOT recompile/type-check the TypeScript
+ * source (its per-file @vercel/node compiler cannot resolve @types/express in
+ * this pnpm monorepo). See https://vercel.com/docs/build-output-api.
+ */
+async function buildVercelOutput() {
+  await rm(vercelOutputDir, { recursive: true, force: true });
+  await mkdir(vercelFuncDir, { recursive: true });
+
+  await esbuild.build({
+    ...buildOptions,
+    entryPoints: [path.resolve(artifactDir, "src/vercel-handler.ts")],
+    outdir: vercelFuncDir,
+    // The serverless function must be self-contained (the .func directory has
+    // no node_modules), so bundle the pure-JS runtime deps the app imports
+    // instead of leaving them external.
+    external: buildOptions.external.filter(
+      (dep) => dep !== "nodemailer" && dep !== "bcrypt",
+    ),
+  });
+
+  await writeFile(
+    path.resolve(vercelFuncDir, ".vc-config.json"),
+    JSON.stringify(
+      {
+        runtime: "nodejs22.x",
+        handler: "vercel-handler.mjs",
+        launcherType: "Nodejs",
+        shouldAddHelpers: false,
+        supportsResponseStreaming: true,
+      },
+      null,
+      2,
+    ),
+  );
+
+  await writeFile(
+    path.resolve(vercelOutputDir, "config.json"),
+    JSON.stringify(
+      {
+        version: 3,
+        routes: [{ src: "/(.*)", dest: "/index" }],
+      },
+      null,
+      2,
+    ),
+  );
+
+  // eslint-disable-next-line no-console
+  console.log("[api-server] Vercel Build Output written → .vercel/output/");
+}
+
 async function main() {
   if (watchMode) {
     const ctx = await esbuild.context(buildOptions);
@@ -116,6 +172,7 @@ async function main() {
   } else {
     await rm(distDir, { recursive: true, force: true });
     await esbuild.build(buildOptions);
+    await buildVercelOutput();
   }
 }
 
