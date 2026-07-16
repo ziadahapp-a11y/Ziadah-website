@@ -8,5 +8,7 @@
   },
   "dependencies": {
     "zod": "catalog:"
-  }
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts"
 }
