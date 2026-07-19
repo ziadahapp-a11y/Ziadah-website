@@ -13,7 +13,7 @@ const repoRoot = path.resolve(artifactDir, "../..");
 const landingDir = path.resolve(artifactDir, "../ziadah-landing");
 const distDir = path.resolve(artifactDir, "dist");
 const vercelOutputDir = path.resolve(artifactDir, ".vercel/output");
-const vercelFuncDir = path.resolve(vercelOutputDir, "functions/index.func");
+const vercelFuncDir = path.resolve(vercelOutputDir, "functions/api.func");
 const vercelStaticDir = path.resolve(vercelOutputDir, "static");
 const watchMode = process.argv.includes("--watch");
 
@@ -180,8 +180,9 @@ async function buildVercelOutput() {
       {
         version: 3,
         routes: [
-          // API requests go to the Express function…
-          { src: "/api/(.*)", dest: "/index" },
+          // API requests go to the Express function (named "api" — NOT
+          // "index", which Vercel would otherwise serve at "/")…
+          { src: "^/api(?:/.*)?$", dest: "/api" },
           // …otherwise serve the SPA's static assets…
           { handle: "filesystem" },
           // …and fall back to the SPA shell for client-side routes.

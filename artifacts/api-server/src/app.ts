@@ -96,10 +96,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (_req, res) => {
-  res.json({ status: "ok", service: "ziadah-api-server" });
-});
-
 app.use("/api", router);
 
 export default app;
