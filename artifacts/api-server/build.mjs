@@ -3,14 +3,18 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as esbuild from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
-import { rm, mkdir, writeFile } from "node:fs/promises";
+import { rm, mkdir, writeFile, cp, access } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
 
 globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(artifactDir, "../..");
+const landingDir = path.resolve(artifactDir, "../ziadah-landing");
 const distDir = path.resolve(artifactDir, "dist");
 const vercelOutputDir = path.resolve(artifactDir, ".vercel/output");
 const vercelFuncDir = path.resolve(vercelOutputDir, "functions/index.func");
+const vercelStaticDir = path.resolve(vercelOutputDir, "static");
 const watchMode = process.argv.includes("--watch");
 
 const buildOptions = {
@@ -110,6 +114,27 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
 };
 
 /**
+ * Build the ziadah-landing SPA and copy it into the Vercel static output so
+ * the same deployment serves the website at "/" and the API at "/api/*"
+ * (same origin — the frontend calls "/api" relatively, no CORS). Skips the
+ * Puppeteer prerender step for a fast, reliable build.
+ */
+async function buildFrontendStatic() {
+  // eslint-disable-next-line no-console
+  console.log("[api-server] building ziadah-landing SPA…");
+  execFileSync(
+    "pnpm",
+    ["--filter", "@workspace/ziadah-landing", "run", "build:spa"],
+    { cwd: repoRoot, stdio: "inherit", env: { ...process.env, NODE_ENV: "production" } },
+  );
+  const builtSpa = path.resolve(landingDir, "dist/public");
+  await access(builtSpa); // fail loudly if the SPA build produced nothing
+  await cp(builtSpa, vercelStaticDir, { recursive: true });
+  // eslint-disable-next-line no-console
+  console.log("[api-server] copied SPA → .vercel/output/static/");
+}
+
+/**
  * Emit a Vercel Build Output API directory (.vercel/output) containing the
  * server bundled as a single Node serverless function. Vercel deploys this
  * prebuilt output directly and does NOT recompile/type-check the TypeScript
@@ -147,12 +172,21 @@ async function buildVercelOutput() {
     ),
   );
 
+  await buildFrontendStatic();
+
   await writeFile(
     path.resolve(vercelOutputDir, "config.json"),
     JSON.stringify(
       {
         version: 3,
-        routes: [{ src: "/(.*)", dest: "/index" }],
+        routes: [
+          // API requests go to the Express function…
+          { src: "/api/(.*)", dest: "/index" },
+          // …otherwise serve the SPA's static assets…
+          { handle: "filesystem" },
+          // …and fall back to the SPA shell for client-side routes.
+          { src: "/(.*)", dest: "/index.html" },
+        ],
       },
       null,
       2,
