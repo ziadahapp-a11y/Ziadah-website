@@ -138,6 +138,11 @@ export default function Footer() {
                 {tr.footer.terms}
               </Editable>
             </a>
+            <a href="/data-deletion">
+              <Editable contentKey={cmsKey(lang, "footer", "dataDeletion")} label="Footer Data Deletion Link">
+                {tr.footer.dataDeletion}
+              </Editable>
+            </a>
           </div>
         </div>
       </div>

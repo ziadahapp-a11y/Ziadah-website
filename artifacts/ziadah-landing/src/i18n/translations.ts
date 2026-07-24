@@ -123,6 +123,7 @@ export const t = {
       copyright: "© 2026 Ziadah. جميع الحقوق محفوظة. شاملة الضريبة.",
       privacy: "سياسة الخصوصية",
       terms: "شروط الاستخدام",
+      dataDeletion: "حذف البيانات",
       sectorLinkEcommerceStores: "المتاجر الإلكترونية",
       sectorLinkDeliveryApps: "تطبيقات التوصيل",
       sectorLinkEcommercePlatforms: "منصات التسوق الإلكترونية",
@@ -142,6 +143,10 @@ export const t = {
       termsDesc:
         "شروط استخدام خدمة زيادة كبرمجية ذكاء اصطناعي للمتاجر على زد وسلة، بما يشمل الاشتراك والفوترة والمسؤوليات.",
       termsH1: "الشروط والأحكام لخدمة زيادة SaaS",
+      dataDeletionTitle: "طلب حذف البيانات — تطبيق زيادة",
+      dataDeletionDesc:
+        "تعليمات حذف بيانات التاجر في تطبيق زيادة: كيف تطلب حذف حسابك وبيانات متجرك، ومدة التنفيذ، بما يتوافق مع معايير Meta وSnapchat وGoogle وTikTok.",
+      dataDeletionH1: "طلب حذف البيانات في تطبيق زيادة",
     },
     successStoriesPage: {
       seoTitle: "قصص نجاح متاجر — زيادة وذكاء اصطناعي للتجارة",
@@ -1327,6 +1332,7 @@ export const t = {
       copyright: "© 2026 Ziadah. All rights reserved. VAT included.",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
+      dataDeletion: "Data Deletion",
       sectorLinkEcommerceStores: "Ecommerce Stores",
       sectorLinkDeliveryApps: "Delivery Apps",
       sectorLinkEcommercePlatforms: "Ecommerce Platforms",
@@ -1346,6 +1352,10 @@ export const t = {
       termsDesc:
         "Legal terms for using Ziadah as AI ecommerce software on Zid and Salla, including billing, subscriptions, and responsibilities.",
       termsH1: "Terms of Service for Ziadah SaaS",
+      dataDeletionTitle: "Data Deletion Request — Ziadah",
+      dataDeletionDesc:
+        "How to request deletion of your Ziadah merchant account and store data, and how long it takes — aligned with the standards required by Meta, Snapchat, Google, and TikTok.",
+      dataDeletionH1: "Data Deletion Request for Ziadah",
     },
     successStoriesPage: {
       seoTitle: "Ecommerce Success Stories — Ziadah AI Results",
