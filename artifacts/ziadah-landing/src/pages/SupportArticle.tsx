@@ -41,13 +41,13 @@ const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
 
 /** Map the category emoji icons to lucide icons (DS uses lucide, never emoji). */
 const CATEGORY_ICON: Record<string, LucideIcon> = {
-  "": Zap,
-  "": Settings,
-  "": Bot,
-  "": CreditCard,
-  "": Wrench,
-  "": Monitor,
-  "": TrendingUp,
+  "⚡": Zap,
+  "⚙️": Settings,
+  "🤖": Bot,
+  "💳": CreditCard,
+  "🔧": Wrench,
+  "🖥️": Monitor,
+  "📈": TrendingUp,
 };
 
 export default function SupportArticle() {

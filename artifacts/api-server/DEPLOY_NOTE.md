@@ -13,3 +13,5 @@ same push (this note) to force a rebuild.
 <!-- deploy trigger: unify navbar login label to "تسجيل الدخول" -->
 
 <!-- deploy trigger: unify blog spelling to "المدوّنة" -->
+
+<!-- deploy trigger: fix SupportArticle CATEGORY_ICON emoji keys -->
