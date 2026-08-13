@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import { useBlurTransition } from "@/components/BlurTransitionProvider";
@@ -554,36 +554,104 @@ function PlatformsDropdown() {
   );
 }
 
-function HelpDropdown() {
-  const t = useSiteT();
-  const { lang } = useLanguage();
-  const tr = t[lang];
-  const helpItems = [
+// Shared contact endpoints — kept in sync with the sister sites' Help menus.
+const ZIADAH_WHATSAPP_URL = "https://wa.me/966544357555";
+const ZIADAH_SUPPORT_EMAIL = "support@ziadah.app";
+
+type HelpNavItem = {
+  label: string;
+  subtitle: string;
+  icon: ReactNode;
+  kind: "route" | "external" | "book";
+  href?: string;
+};
+
+// Canonical Help menu shared across Raasid / Shaa / Ziadah:
+// Support center, Blog, FAQ, WhatsApp, Email, Book a call.
+function getHelpNavItems(tr: Translations[keyof Translations], lang: "ar" | "en"): HelpNavItem[] {
+  return [
     {
+      label: lang === "ar" ? "مركز المساعدة" : "Support center",
+      subtitle: lang === "ar" ? "أدلة وشروحات خطوة بخطوة" : "Guides & step-by-step articles",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1.5a8.5 8.5 0 100 17 8.5 8.5 0 000-17zm0 3a5.5 5.5 0 015.5 5.5c0 .5-.06.98-.18 1.44l-2.6-1.06A2.5 2.5 0 0010 8a2.5 2.5 0 00-2.72 2.38l-2.6 1.06A5.5 5.5 0 0110 4.5zm0 11a5.5 5.5 0 01-4.32-2.1l2.6-1.06A2.5 2.5 0 0010 13.5a2.5 2.5 0 001.72-.66l2.6 1.06A5.5 5.5 0 0110 15.5z" fill="currentColor"/></svg>
       ),
-      label: tr.nav.faq,
-      subtitle: tr.nav.faqSub,
-      href: "/#faq",
-    },
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>
-      ),
-      label: tr.nav.contact,
-      subtitle: tr.nav.contactSub,
+      kind: "route",
       href: "/support",
     },
     {
+      label: tr.nav.blog,
+      subtitle: tr.nav.blogSub,
       icon: (
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor"/></svg>
       ),
-      label: tr.nav.blog,
-      subtitle: tr.nav.blogSub,
+      kind: "route",
       href: "/blog",
     },
+    {
+      label: tr.nav.faq,
+      subtitle: tr.nav.faqSub,
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>
+      ),
+      kind: "route",
+      href: "/#faq",
+    },
+    {
+      label: lang === "ar" ? "واتساب" : "WhatsApp",
+      subtitle: lang === "ar" ? "رد سريع على استفساراتك" : "Fast replies to your questions",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 1.7a8.3 8.3 0 00-7.1 12.6L1.7 18.3l4.1-1.1A8.3 8.3 0 1010 1.7zm0 15a6.7 6.7 0 01-3.4-.93l-.24-.14-2.43.64.65-2.37-.16-.25A6.7 6.7 0 1110 16.7zm3.7-5c-.2-.1-1.2-.6-1.38-.66-.19-.07-.32-.1-.46.1-.14.2-.53.66-.65.8-.12.13-.24.15-.44.05-.2-.1-.85-.31-1.62-1-.6-.53-1-1.19-1.12-1.39-.12-.2-.01-.31.09-.41.09-.09.2-.24.3-.36.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.46-1.1-.63-1.51-.16-.4-.33-.34-.46-.35h-.39c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.66 0 .98.72 1.93.82 2.06.1.13 1.4 2.14 3.4 3 .48.2.85.33 1.14.42.48.15.92.13 1.26.08.39-.06 1.2-.49 1.36-.96.17-.47.17-.87.12-.96-.05-.09-.18-.14-.38-.24z" fill="currentColor"/></svg>
+      ),
+      kind: "external",
+      href: ZIADAH_WHATSAPP_URL,
+    },
+    {
+      label: lang === "ar" ? "البريد الإلكتروني" : "Email",
+      subtitle: ZIADAH_SUPPORT_EMAIL,
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm2 0l6 4 6-4H4zm12 2.2l-6 4-6-4V15h12V7.2z" fill="currentColor"/></svg>
+      ),
+      kind: "external",
+      href: `mailto:${ZIADAH_SUPPORT_EMAIL}`,
+    },
+    {
+      label: lang === "ar" ? "احجز مكالمة" : "Book a call",
+      subtitle: lang === "ar" ? "جلسة تعريفية مجانية" : "Free intro session",
+      icon: (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H8V2H6zM4 8h12v8H4V8z" fill="currentColor"/></svg>
+      ),
+      kind: "book",
+    },
   ];
+}
+
+// Fire a Help item consistently from any (desktop or mobile) renderer.
+function runHelpItem(
+  item: HelpNavItem,
+  openMeetingBooking: (bookingUrl?: string) => void,
+  close: () => void,
+) {
+  if (item.kind === "book") {
+    openMeetingBooking(MEETING_BOOKING_NAV_URL);
+  } else if (item.kind === "external") {
+    window.open(item.href!, "_blank", "noopener,noreferrer");
+  } else if (item.href!.includes("#")) {
+    navigateToHash(item.href!);
+  } else {
+    navigateTo(item.href!);
+  }
+  close();
+}
+
+function HelpDropdown() {
+  const t = useSiteT();
+  const { lang } = useLanguage();
+  const { openMeetingBooking } = useMeetingBooking();
+  const tr = t[lang];
+  const helpItems = getHelpNavItems(tr, lang);
+
+  const activate = (item: HelpNavItem) => runHelpItem(item, openMeetingBooking, () => {});
 
   return (
     <div style={{
@@ -601,11 +669,11 @@ function HelpDropdown() {
           key={item.label}
           role="button"
           tabIndex={0}
-          onClick={() => item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href)}
+          onClick={() => activate(item)}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
+              activate(item);
             }
           }}
           style={{
@@ -922,23 +990,7 @@ function MobileMoreDropdown({
     color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
   };
 
-  const mobileHelpItems = [
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 01-2 0v-1a1 1 0 011-1 1.5 1.5 0 10-1.5-1.5 1 1 0 01-2 0A3.5 3.5 0 1111 9.5z" fill="currentColor"/></svg>,
-      label: tr.nav.faq,
-      href: "/#faq",
-    },
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6l-4 4V4z" fill="currentColor"/></svg>,
-      label: tr.nav.contact,
-      href: "/support",
-    },
-    {
-      icon: <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H4zm1 3h10v2H5V5zm0 4h10v2H5V9zm0 4h6v2H5v-2z" fill="currentColor"/></svg>,
-      label: tr.nav.blog,
-      href: "/blog",
-    },
-  ];
+  const mobileHelpItems = getHelpNavItems(tr, lang);
 
   return (
     <>
@@ -1208,7 +1260,7 @@ function MobileMoreDropdown({
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
-                  <span key={item.label} onClick={() => { item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href); onClose(); }} style={{ ...itemStyle, cursor: "pointer" }}>
+                  <span key={item.label} onClick={() => runHelpItem(item, openMeetingBooking, onClose)} style={{ ...itemStyle, cursor: "pointer" }}>
                     <span style={{ color: "#7c3aed", flexShrink: 0 }}>{item.icon}</span>
                     {item.label}
                   </span>
@@ -1506,7 +1558,7 @@ export default function Nav() {
                 onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
                 <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
-                  {lang === "en" ? "ROI" : tr.nav.calculator}
+                  {lang === "en" ? "Calculator" : tr.nav.calculator}
                 </Editable>
               </span>
             </li>
@@ -1829,10 +1881,7 @@ export default function Nav() {
                 {mobileHelpItems.map((item) => (
                   <span
                     key={item.label}
-                    onClick={() => {
-                      item.href.includes("#") ? navigateToHash(item.href) : navigateTo(item.href);
-                      setMobileOpenDrop(null);
-                    }}
+                    onClick={() => runHelpItem(item, openMeetingBooking, () => setMobileOpenDrop(null))}
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,

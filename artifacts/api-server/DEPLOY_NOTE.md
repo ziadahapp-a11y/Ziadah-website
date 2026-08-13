@@ -15,3 +15,5 @@ same push (this note) to force a rebuild.
 <!-- deploy trigger: unify blog spelling to "المدوّنة" -->
 
 <!-- deploy trigger: fix SupportArticle CATEGORY_ICON emoji keys -->
+
+<!-- deploy trigger: unify navbar Help menu to canonical 6 items (Support center, Blog, FAQ, WhatsApp, Email, Book a call) on desktop + mobile; EN calculator label ROI->Calculator -->
