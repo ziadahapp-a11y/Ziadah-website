@@ -1536,7 +1536,7 @@ export default function Nav() {
                   className="nb nav-cta-outline"
                   style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12, display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  {lang === "ar" ? "دخول" : "Login"}
+                  {lang === "ar" ? "تسجيل الدخول" : "Login"}
                   {chevron(openDrop === "login")}
                 </button>
                 {openDrop === "login" && <LoginDropdown lang={lang} theme={theme} />}
@@ -1965,7 +1965,7 @@ export default function Nav() {
             transition: "opacity .22s ease, transform .22s ease",
           }}>
             {[
-              { key: "login", iconKey: "login" as const, dropKey: "login" as const, label: lang === "ar" ? "دخول" : "Login", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "login" ? null : "login"), active: false, hasDrop: true },
+              { key: "login", iconKey: "login" as const, dropKey: "login" as const, label: lang === "ar" ? "تسجيل الدخول" : "Login", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "login" ? null : "login"), active: false, hasDrop: true },
               { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
               { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
               { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
