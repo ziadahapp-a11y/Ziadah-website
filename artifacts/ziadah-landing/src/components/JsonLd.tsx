@@ -393,7 +393,7 @@ export function ItemListSchema({ posts, name, description }: {
   const data = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: name ?? "مدونة زيادة — مقالات ونصائح التجارة الإلكترونية",
+    name: name ?? "مدوّنة زيادة — مقالات ونصائح التجارة الإلكترونية",
     description: description ?? "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
     url: listUrl,
     inLanguage: lang,

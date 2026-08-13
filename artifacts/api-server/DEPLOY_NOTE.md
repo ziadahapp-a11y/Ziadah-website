@@ -11,3 +11,5 @@ production. Workaround: touch a file under `artifacts/api-server/` in the
 same push (this note) to force a rebuild.
 
 <!-- deploy trigger: unify navbar login label to "تسجيل الدخول" -->
+
+<!-- deploy trigger: unify blog spelling to "المدوّنة" -->
