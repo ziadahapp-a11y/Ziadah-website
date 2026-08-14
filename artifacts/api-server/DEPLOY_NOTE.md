@@ -17,3 +17,5 @@ same push (this note) to force a rebuild.
 <!-- deploy trigger: fix SupportArticle CATEGORY_ICON emoji keys -->
 
 <!-- deploy trigger: unify navbar Help menu to canonical 6 items (Support center, Blog, FAQ, WhatsApp, Email, Book a call) on desktop + mobile; EN calculator label ROI->Calculator -->
+
+<!-- deploy trigger: mobile navbar -> top hamburger (parity with Raasid/Shaa); remove bottom-nav bar; top bar logo+lang+menu; accordion panel -->

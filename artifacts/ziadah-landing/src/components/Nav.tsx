@@ -1362,7 +1362,7 @@ export default function Nav() {
   const runBlur = useBlurTransition();
   const isRtl = lang === "ar";
   const [openDrop, setOpenDrop] = useState<string | null>(null);
-  const [mobileMenu, setMobileMenu] = useState<"menu1" | "menu2">("menu1");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileOpenDrop, setMobileOpenDrop] = useState<"useCases" | "platforms" | "sectors" | "help" | "langTheme" | "login" | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [location] = useLocation();
@@ -1371,7 +1371,21 @@ export default function Nav() {
   useEffect(() => {
     setOpenDrop(null);
     setMobileOpenDrop(null);
+    setMobileMenuOpen(false);
   }, [location]);
+
+  // Lock background scroll while the mobile hamburger panel is open.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previous; };
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileOpenDrop(null);
+  };
 
   const handleHoverStart = (label: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -1742,47 +1756,75 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* MOBILE TOP BAR */}
+      {/* MOBILE TOP BAR (logo + language + hamburger) */}
       <div className="mobile-top-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 900,
         background: "rgba(250, 250, 251,.88)",
         borderBottom: "1px solid #e4e4e7",
         backdropFilter: "blur(32px)",
-        alignItems: "center", justifyContent: "center",
+        alignItems: "center", justifyContent: "space-between",
         height: 52,
-        padding: "0 20px",
+        padding: "0 16px",
         transition: "background .3s, border-color .3s",
       }}>
         <Logo />
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <button
+            type="button"
+            aria-label="Toggle language"
+            onClick={() => runBlur(() => setLang(lang === "ar" ? "en" : "ar"))}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              height: 36, padding: "0 12px", borderRadius: 10,
+              border: "1px solid #e4e4e7", background: "transparent",
+              color: "var(--t)", fontFamily: "var(--font)", fontSize: 13, fontWeight: 600, cursor: "pointer",
+            }}
+          >
+            {lang === "ar" ? "EN" : "عربي"}
+          </button>
+          <button
+            type="button"
+            aria-label={lang === "ar" ? "القائمة" : "Menu"}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => { setMobileMenuOpen((v) => !v); setMobileOpenDrop(null); }}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              width: 38, height: 38, borderRadius: 10,
+              border: "1px solid #e4e4e7", background: "transparent",
+              color: "var(--t)", cursor: "pointer",
+            }}
+          >
+            {mobileMenuOpen ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* MOBILE NAV */}
-      <div className="mobile-nav" style={{
-        position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 900,
-        background: "rgba(255,255,255,.96)",
-        borderTop: "1px solid #e4e4e7",
-        backdropFilter: "blur(32px)", paddingBottom: "env(safe-area-inset-bottom)",
-        transition: "background .3s, border-color .3s",
-      }}>
-        {mobileOpenDrop && (
-          <div style={{
-            position: "fixed",
-            left: 12,
-            right: 12,
-            bottom: "calc(64px + env(safe-area-inset-bottom) + 8px)",
-            zIndex: 920,
-            borderRadius: 16,
-            padding: 8,
-            maxHeight: "48vh",
-            overflowY: "auto",
-            WebkitOverflowScrolling: "touch",
-            touchAction: "pan-y",
-            background: "#fff",
-            border: "1px solid #e4e4e7",
-            backdropFilter: "none",
+      {/* MOBILE MENU PANEL (hamburger) */}
+      {mobileMenuOpen && (
+        <>
+          <div
+            onClick={closeMobileMenu}
+            style={{ position: "fixed", top: 52, left: 0, right: 0, bottom: 0, zIndex: 895, background: "rgba(9,9,11,.35)" }}
+          />
+          <div className="mobile-menu-panel" style={{
+            position: "fixed", top: 52, left: 0, right: 0, zIndex: 899,
+            maxHeight: "calc(100vh - 52px)", overflowY: "auto", WebkitOverflowScrolling: "touch",
+            background: "#fff", borderBottom: "1px solid #e4e4e7",
             boxShadow: "0 16px 48px rgba(9,9,11,.16)",
-            animation: "slideUpDropdown .22s cubic-bezier(.23,1,.32,1)",
+            padding: "12px 14px 20px", display: "flex", flexDirection: "column", gap: 2,
+            animation: "slideDownPanel .2s ease",
           }}>
+            <button type="button" className="mnav-row" onClick={() => { navigateTo("/"); closeMobileMenu(); }}>
+              <span>{tr.nav.home}</span>
+            </button>
+            <button type="button" className="mnav-row" onClick={() => setMobileOpenDrop((p) => p === "useCases" ? null : "useCases")}>
+              <span>{tr.nav.useCases}</span>
+              <svg className={`mnav-chev${mobileOpenDrop === "useCases" ? " open" : ""}`} width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
             {mobileOpenDrop === "useCases" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {useCasesDropdown.sections.map((section) => (
@@ -1810,6 +1852,10 @@ export default function Nav() {
                 ))}
               </div>
             )}
+            <button type="button" className="mnav-row" onClick={() => setMobileOpenDrop((p) => p === "platforms" ? null : "platforms")}>
+              <span>{tr.nav.platforms}</span>
+              <svg className={`mnav-chev${mobileOpenDrop === "platforms" ? " open" : ""}`} width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
             {mobileOpenDrop === "platforms" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {platformItems.map((item) => item.enabled ? (
@@ -1845,6 +1891,10 @@ export default function Nav() {
                 ))}
               </div>
             )}
+            <button type="button" className="mnav-row" onClick={() => setMobileOpenDrop((p) => p === "sectors" ? null : "sectors")}>
+              <span>{tr.nav.sectors}</span>
+              <svg className={`mnav-chev${mobileOpenDrop === "sectors" ? " open" : ""}`} width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
             {mobileOpenDrop === "sectors" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <span
@@ -1876,6 +1926,19 @@ export default function Nav() {
                 ))}
               </div>
             )}
+            <button type="button" className="mnav-row" onClick={() => { navigateTo("/success-stories"); closeMobileMenu(); }}>
+              <span>{tr.nav.successStories}</span>
+            </button>
+            <button type="button" className="mnav-row" onClick={() => { navigateTo("/pricing"); closeMobileMenu(); }}>
+              <span>{tr.nav.pricing}</span>
+            </button>
+            <button type="button" className="mnav-row" onClick={() => { navigateTo("/calculator"); closeMobileMenu(); }}>
+              <span>{tr.nav.calculator}</span>
+            </button>
+            <button type="button" className="mnav-row" onClick={() => setMobileOpenDrop((p) => p === "help" ? null : "help")}>
+              <span>{tr.nav.help}</span>
+              <svg className={`mnav-chev${mobileOpenDrop === "help" ? " open" : ""}`} width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
             {mobileOpenDrop === "help" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 {mobileHelpItems.map((item) => (
@@ -1896,6 +1959,10 @@ export default function Nav() {
                 ))}
               </div>
             )}
+            <button type="button" className="mnav-row" onClick={() => setMobileOpenDrop((p) => p === "login" ? null : "login")}>
+              <span>{lang === "ar" ? "تسجيل الدخول" : "Login"}</span>
+              <svg className={`mnav-chev${mobileOpenDrop === "login" ? " open" : ""}`} width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
             {mobileOpenDrop === "login" && (
               <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                 <a
@@ -1930,128 +1997,36 @@ export default function Nav() {
                 </a>
               </div>
             )}
-            {mobileOpenDrop === "langTheme" && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    runBlur(() => setLang(lang === "ar" ? "en" : "ar"));
-                    setMobileOpenDrop(null);
-                  }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    padding: "10px 12px",
-                    borderRadius: 10,
-                    background: "#f9fafb",
-                    border: "1px solid #e4e4e7",
-                    color: "var(--t)",
-                    fontSize: 13,
-                    fontWeight: 500,
-                    cursor: "pointer",
-                    fontFamily: "var(--font)",
-                  }}
-                >
-                  <span>{lang === "ar" ? "اللغة" : "Language"}</span>
-                  <span>{lang === "ar" ? "EN" : "عربي"}</span>
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        <div style={{ position: "relative", overflow: "hidden", height: 64 }}>
-          <div style={{
-            position: "absolute", inset: 0, display: "flex",
-            opacity: mobileMenu === "menu1" ? 1 : 0,
-            transform: mobileMenu === "menu1" ? "translateX(0)" : (isRtl ? "translateX(18px)" : "translateX(-18px)"),
-            pointerEvents: mobileMenu === "menu1" ? "auto" : "none",
-            transition: "opacity .22s ease, transform .22s ease",
-          }}>
-            {[
-              { key: "home", iconKey: "home" as const, label: tr.nav.home, cmsContentKey: cmsKey(lang, "nav", "home"), action: () => { setMobileOpenDrop(null); navigateTo("/"); }, active: location === "/" },
-              { key: "solutions", iconKey: "useCases" as const, dropKey: "useCases" as const, label: tr.nav.useCases, cmsContentKey: cmsKey(lang, "nav", "useCases"), action: () => setMobileOpenDrop((prev) => prev === "useCases" ? null : "useCases"), active: location.startsWith("/use-cases/"), hasDrop: true },
-              { key: "calculator", iconKey: "calculator" as const, label: tr.nav.calculator, cmsContentKey: cmsKey(lang, "nav", "calculator"), action: () => { setMobileOpenDrop(null); navigateTo("/calculator"); }, active: location === "/calculator" },
-              { key: "platforms", iconKey: "platforms" as const, dropKey: "platforms" as const, label: tr.nav.platforms, cmsContentKey: cmsKey(lang, "nav", "platforms"), action: () => setMobileOpenDrop((prev) => prev === "platforms" ? null : "platforms"), active: false, hasDrop: true },
-              { key: "pricing", iconKey: "pricing" as const, label: tr.nav.pricing, cmsContentKey: cmsKey(lang, "nav", "pricing"), action: () => { setMobileOpenDrop(null); navigateTo("/pricing"); }, active: false },
-              { key: "langTheme", iconKey: "langTheme" as const, label: lang === "ar" ? "EN" : "عربي", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); runBlur(() => setLang(lang === "ar" ? "en" : "ar")); }, active: false },
-              { key: "more", iconKey: "more" as const, label: tr.nav.more, cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu2"); }, active: false },
-            ].map((item) => {
-              const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
-              const accent = item.active || dropOpen;
-              return (
+            {/* CTAs */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, paddingTop: 14, borderTop: "1px solid #e4e4e7" }}>
               <button
                 type="button"
-                key={item.key}
-                onClick={item.action}
+                onClick={() => { closeMobileMenu(); openMeetingBooking(MEETING_BOOKING_NAV_URL); }}
                 style={{
-                  flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
-                  justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#7c3aed" : "var(--tm)",
-                  fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
-                  transition: "color .2s",
-                  WebkitTapHighlightColor: "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  height: 46, borderRadius: 12, cursor: "pointer",
+                  background: "transparent", border: "1px solid #e4e4e7",
+                  color: "var(--t)", fontFamily: "var(--font)", fontSize: 15, fontWeight: 600,
                 }}
               >
-                <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, minHeight: 26 }}>
-                  <MobileNavIcon name={item.iconKey} size={20} />
-                </span>
-                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, width: "fit-content" }}>
-                  <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
-                    {item.label}
-                  </Editable>
-                </span>
+                {tr.nav.bookMeeting}
               </button>
-            );})}
-          </div>
-
-          <div style={{
-            position: "absolute", inset: 0, display: "flex",
-            opacity: mobileMenu === "menu2" ? 1 : 0,
-            transform: mobileMenu === "menu2" ? "translateX(0)" : (isRtl ? "translateX(-18px)" : "translateX(18px)"),
-            pointerEvents: mobileMenu === "menu2" ? "auto" : "none",
-            transition: "opacity .22s ease, transform .22s ease",
-          }}>
-            {[
-              { key: "login", iconKey: "login" as const, dropKey: "login" as const, label: lang === "ar" ? "تسجيل الدخول" : "Login", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => setMobileOpenDrop((prev) => prev === "login" ? null : "login"), active: false, hasDrop: true },
-              { key: "stories", iconKey: "successStories" as const, label: tr.nav.successStories, cmsContentKey: cmsKey(lang, "nav", "successStories"), action: () => { setMobileOpenDrop(null); navigateTo("/success-stories"); }, active: location === "/success-stories" },
-              { key: "help", iconKey: "help" as const, dropKey: "help" as const, label: tr.nav.help, cmsContentKey: cmsKey(lang, "nav", "help"), action: () => setMobileOpenDrop((prev) => prev === "help" ? null : "help"), active: false, hasDrop: true },
-              { key: "meeting", iconKey: "meeting" as const, label: tr.nav.bookMeeting, cmsContentKey: cmsKey(lang, "nav", "bookMeeting"), action: () => { setMobileOpenDrop(null); openMeetingBooking(MEETING_BOOKING_NAV_URL); }, active: false },
-              { key: "startNow", iconKey: "startNow" as const, label: tr.nav.startNow, cmsContentKey: cmsKey(lang, "nav", "startNow"), action: () => { setMobileOpenDrop(null); setPlatformModalOpen(true); }, active: false },
-              { key: "sectors", iconKey: "sectors" as const, dropKey: "sectors" as const, label: tr.nav.sectors, cmsContentKey: cmsKey(lang, "nav", "sectors"), action: () => setMobileOpenDrop((prev) => prev === "sectors" ? null : "sectors"), active: location === "/sectors" || location.startsWith("/sectors/"), hasDrop: true },
-              { key: "back", iconKey: "back" as const, label: lang === "ar" ? "رجوع" : "Back", cmsContentKey: cmsKey(lang, "nav", "more"), action: () => { setMobileOpenDrop(null); setMobileMenu("menu1"); }, active: false },
-            ].map((item) => {
-              const dropOpen = !!(item.hasDrop && item.dropKey != null && mobileOpenDrop === item.dropKey);
-              const accent = item.active || dropOpen;
-              const iconName = item.key === "back" ? (isRtl ? "backRtl" : "back") : item.iconKey;
-              return (
               <button
                 type="button"
-                key={item.key}
-                onClick={item.action}
+                onClick={() => { closeMobileMenu(); setPlatformModalOpen(true); }}
                 style={{
-                  flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "center",
-                  justifyContent: "center", gap: 3, background: "none", border: "none",
-                  color: accent ? "#7c3aed" : "var(--tm)",
-                  fontFamily: "var(--font)", fontSize: 11, fontWeight: 500, cursor: "pointer",
-                  transition: "color .2s",
-                  WebkitTapHighlightColor: "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  height: 46, borderRadius: 12, cursor: "pointer",
+                  background: "#7c3aed", border: "1px solid #7c3aed",
+                  color: "#fff", fontFamily: "var(--font)", fontSize: 15, fontWeight: 700,
                 }}
               >
-                <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, minHeight: 26 }}>
-                  <MobileNavIcon name={iconName} size={20} />
-                </span>
-                <span style={{ whiteSpace: "normal", textAlign: "center", lineHeight: 1.05, width: "fit-content" }}>
-                  <Editable allowClickThrough contentKey={item.cmsContentKey} label={item.label}>
-                    {item.label}
-                  </Editable>
-                </span>
+                {tr.nav.startNow}
               </button>
-            );})}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

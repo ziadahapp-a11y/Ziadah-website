@@ -2896,23 +2896,29 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .mobile-top-bar{display:none;}
 .hero-mobile-logo{display:none;}
 
-/* ── NAV: شريط سفلي + قائمة لمس — حتى 1024px (تابلت / نوافذ ضيقة) ── */
+/* ── NAV: شريط علوي + قائمة همبرغر — حتى 1024px (تابلت / نوافذ ضيقة) ── */
 @media(max-width:1024px){
   .desktop-nav{display:none!important;}
-  .mobile-top-bar{display:none!important;}
-  .hero-mobile-logo{display:flex;justify-content:center;margin-bottom:28px;}
-  .mobile-nav{display:block;}
-  /* Buttons only: labeling spans inherit this. Do not target .mobile-nav span — that
-     overrode inline font-size on the riyal (U+20C1) icon glyph with !important. */
-  .mobile-nav button{
-    font-size:11px!important;
-  }
-  .mobile-nav svg{
-    width:20px!important;height:20px!important;
-  }
-  body{padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));padding-top:0;}
-  html{scroll-padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px));}
+  .mobile-top-bar{display:flex!important;}
+  .mobile-nav{display:none!important;}
+  body{padding-top:calc(52px + env(safe-area-inset-top, 0px));padding-bottom:0;}
+  html{scroll-padding-top:calc(60px + env(safe-area-inset-top, 0px));}
 }
+
+/* Mobile hamburger panel rows */
+@keyframes slideDownPanel{
+  from{opacity:0;transform:translateY(-8px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.mobile-menu-panel .mnav-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  width:100%;padding:13px 14px;border-radius:12px;
+  background:transparent;border:none;cursor:pointer;text-align:start;
+  color:var(--t);font-family:var(--font);font-size:15px;font-weight:600;
+}
+.mobile-menu-panel .mnav-row:active{background:rgba(124,58,237,.10);}
+.mnav-chev{transition:transform .2s;flex-shrink:0;color:#a1a1aa;}
+.mnav-chev.open{transform:rotate(180deg);}
 
 @media(max-width:768px){
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}
