@@ -42,6 +42,8 @@ import {
 import { goals, presentations, placements as activities } from "@/lib/features-data";
 import { featureHref } from "@/lib/features-data";
 import { navigateTo } from "@/components/PageTransition";
+import { Section as DsSection, SectionHead, MediaSlot } from "@/sections";
+import { CapabilityStack } from "@/components/art/CapabilityStack";
 
 
 
@@ -151,6 +153,27 @@ export default function Features() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════════ THE SHAPE ══════════════════
+          The whole registry at a glance, above the tabs — the three kinds
+          compose in one direction, and a merchant who reads that once knows
+          what the tabs below are dividing. */}
+      <DsSection family="grey">
+        <SectionHead
+          center
+          size="md"
+          kicker={isAr ? "الشكل" : "The shape"}
+          title={isAr ? "هدف، شكل عرض، ومكان يظهر فيه" : "A goal, a shape, and a place it appears"}
+          lead={
+            isAr
+              ? "كل خاصية في زيادة تجيب على واحد من ثلاثة أسئلة: ما الرقم الذي ترفعه، وكيف تبدو للمشتري، وأين تظهر له."
+              : "Every Ziadah capability answers one of three questions: which number it raises, how it looks to the shopper, and where it appears."
+          }
+        />
+        <MediaSlot className="media-slot--screen media-slot--fit">
+          <CapabilityStack />
+        </MediaSlot>
+      </DsSection>
 
       {/* ══════════════════ GOALS ══════════════════ */}
       {activeTab === "goals" && (
