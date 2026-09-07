@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Rocket, ArrowDown, CheckCircle2, BarChart3, Package, Zap } from "lucide-react";
 import PageShell from "./PageShell";
-import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 import PlatformModal from "./PlatformModal";
 import PageClosingCta from "./PageClosingCta";
 import SEO from "./SEO";
@@ -100,10 +99,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const ctaTitle = isEn && data.ctaTitleEn ? data.ctaTitleEn : data.ctaTitle;
   const ctaDesc = isEn && data.ctaDescEn ? data.ctaDescEn : data.ctaDesc;
   const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
-
-  useLayoutEffect(() => {
-    scrollWindowToTopAfterPaint();
-  }, []);
 
   /* scroll-reveal observer */
   useEffect(() => {

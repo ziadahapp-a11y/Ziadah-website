@@ -1,6 +1,6 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { lazy, Suspense, useLayoutEffect } from "react";
+import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
 import Footer from "@/components/Footer";
@@ -8,9 +8,10 @@ import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { MotionProvider, useScrollTriggerRefresh } from "@/motion/MotionProvider";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { Analytics } from "@/components/Analytics";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import "./index.css";
-import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
@@ -72,14 +73,6 @@ const queryClient = new QueryClient();
 function RouteMotionSync() {
   const [location] = useLangAwareLocation();
   useScrollTriggerRefresh(location);
-  return null;
-}
-
-function ScrollToTop() {
-  const [location] = useLangAwareLocation();
-  useLayoutEffect(() => {
-    scrollWindowToTopAfterPaint();
-  }, [location]);
   return null;
 }
 
@@ -192,6 +185,7 @@ function AppShell() {
       </a>
       <ScrollToTop />
       <RouteMotionSync />
+      <Analytics />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Nav />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
