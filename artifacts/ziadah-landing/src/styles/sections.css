@@ -2256,7 +2256,12 @@ a.plat-item-link:hover {
   font-weight: 500;
   white-space: nowrap;
 }
-.plat-status--certified {
+/* Named for the status the data actually carries. It was `--certified`, which
+   matched no markup — the list emits `plat-status--{status}` and the statuses
+   are `connected` and `planned` — so the live pill fell back to the unstyled
+   base. "Certified" is also the one word `platforms-data` says must not be
+   used about a connector. */
+.plat-status--connected {
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(100%, var(--ink-floor, 0%)), transparent);
   color: var(--color-primary, #ffffff);
 }

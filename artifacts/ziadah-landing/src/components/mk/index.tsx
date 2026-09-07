@@ -26,6 +26,23 @@ const VARIANT_ALIAS: Record<string, BtnVariant> = {
 };
 
 /**
+ * The CLASS each variant emits, which is not always the variant's own name.
+ *
+ * `invert` collides with Tailwind's `invert` filter utility, and a utility
+ * always beats the components layer — so `.button.invert` was painted through
+ * `filter: invert(1)`: the deep violet ground came out lime and the white
+ * label came out black. The variant keeps its name in the API; only the class
+ * changes, to match the `is-*` convention the same stylesheet already uses for
+ * sizes.
+ */
+const VARIANT_CLASS: Record<BtnVariant, string> = {
+  primary: "primary",
+  secondary: "secondary",
+  tertiary: "tertiary",
+  invert: "is-invert",
+};
+
+/**
  * The button's class contract. Height is explicit (4.2rem, 5.6rem large), the
  * variant sets four custom properties and nothing else, and every hover state
  * lives behind `@media (hover: hover)` in CSS.
@@ -41,7 +58,7 @@ export function mkBtn(
 ): string {
   return cn(
     "button",
-    VARIANT_ALIAS[variant] ?? "primary",
+    VARIANT_CLASS[VARIANT_ALIAS[variant] ?? "primary"],
     size === "lg" && "is-large",
     size === "xl" && "is-xl",
     (size === "sm" || size === "small") && "is-small",

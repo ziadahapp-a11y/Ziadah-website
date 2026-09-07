@@ -363,7 +363,7 @@ html.no-scroll { overflow: hidden; }
 /* MEASURED: tertiary draws its edge with an ::after outline, not a border, so
    the control keeps exactly the same box as its solid siblings. */
 .button.tertiary::after { outline: 0.15rem solid var(--button-text-color); outline-offset: -0.15rem; }
-.button.invert {
+.button.is-invert {
   /* A fixed hue rather than the section's own ink. On a dark hero the inverted
      control was ink-on-ink — the same pair as the body text around it — so the
      primary action carried no more weight than a paragraph. `#480086` is the

@@ -29,12 +29,12 @@ import { useEnterOnce, useScrollActive } from "./scroll";
    dark ground with light type, in the same family. */
 
 /* TWO families, not five. The reference carried five because it changed hue
-   as you scrolled; Shaaa is blue on white, so `green`, `purple` and `orange`
-   were defined-but-unreachable - no section named them, and their triples
-   were the last hard-coded warm hexes in the codebase. Removed. Status
+   as you scrolled; Ziadah is violet on white, so `green`, `purple` and
+   `orange` were defined-but-unreachable - no section named them, and their
+   triples were the last hard-coded warm hexes in the codebase. Removed. Status
    colours (success, error, warning) are their own tokens in `index.css` and
    are not a section family. */
-export type Family = "blue" | "grey";
+export type Family = "violet" | "grey";
 
 const FAMILIES: Record<
   Family,
@@ -47,16 +47,15 @@ const FAMILIES: Record<
   // (qa/results/contrast-floors.md). A measured step above its family's
   // floor is untouched; one below it is lifted to exactly the floor and no
   // further - the smallest step that passes.
-  /* THE BRAND FAMILY. These are Shaa's own colours, read off its own logo:
-     `#1A63FF` and `#000B24` are the two fills in `public/logo.svg`, and
-     `#0041CC` is the fill in `logo-en.svg`. `light` is the one derived value -
-     the brand blue mixed 82% into white - and it is derived rather than picked
-     so the light ground stays the same hue as the mark.
+  /* THE BRAND FAMILY. `base` is the violet the site already runs on; `light`
+     and `dark` are read off Ziadah's own mark (`public/logo-ar.svg`), so the
+     ground and the ink stay the same hue as the logo rather than being picked
+     to look adjacent to it.
 
-     The pair carries 15.18:1 at full strength, which is the widest headroom
-     the palette has ever had; that is why the muted tier survives on blue
-     where it did not on the reference's orange (see D-05). */
-  blue:   { base: "#1A63FF", light: "#D6E3FF", dark: "#000B24", floor: "63%", floorInv: "57%" },
+     The pair carries 14.38:1 at full strength, which is why the muted tier
+     survives on violet: the floors below are the smallest ink opacity that
+     still reaches 4.5:1 on this pair, computed the same way as grey's. */
+  violet: { base: "#7c3aed", light: "#eedaff", dark: "#1f0236", floor: "64%", floorInv: "59%" },
   grey:   { base: "#c8ceda", light: "#f7f9fc", dark: "#0a0a0a", floor: "60%", floorInv: "51%" },
 };
 

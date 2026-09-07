@@ -26,8 +26,8 @@ import { themeVars, type Family } from "@/sections";
    dealt a TONE of it - pale blue, navy, or the neutral canvas - and the grid
    still reads as a set rather than twenty identical boxes. */
 const CYCLE: { family: Family; invert: boolean }[] = [
-  { family: "blue", invert: false },
-  { family: "blue", invert: true },
+  { family: "violet", invert: false },
+  { family: "violet", invert: true },
   { family: "grey", invert: true },
 ];
 
