@@ -1,17 +1,15 @@
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import type { SectorVisualBundle } from "@/data/sectorVisuals";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function SectorHubPlaybook({
   bundle,
-  sectorSlug,
 }: {
   bundle: SectorVisualBundle;
-  sectorSlug: string;
 }) {
   const { lang } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang].sectorsPage;
 
   return (
@@ -31,7 +29,7 @@ export default function SectorHubPlaybook({
 
       <div id="section-examples" className="scroll-mt-[120px]">
         <h3 className="mb-3.5 text-base md:text-lg font-bold text-violet-600 leading-snug">{tr.sectorHubExamplesEmbedTitle}</h3>
-        <SectorVisualExamples bundle={bundle} introVariant="sector" sectorSlug={sectorSlug} />
+        <SectorVisualExamples bundle={bundle} introVariant="sector" />
       </div>
     </section>
   );

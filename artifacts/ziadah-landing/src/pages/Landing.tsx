@@ -16,7 +16,6 @@ import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema, HowToSchema, FAQS
 import WidgetsShowcaseSection from "../components/WidgetsShowcaseSection";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
-import { useSiteT } from "@/cms/siteContent";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { scrollToHashElement } from "@/utils/anchorScroll";
 import { navigateTo } from "@/components/PageTransition";
@@ -25,6 +24,7 @@ import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import PageClosingCta from "@/components/PageClosingCta";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_LUCIDE_ICONS: Record<string, LucideIcon> = {
   "delivery-apps":       Bike,
@@ -608,7 +608,7 @@ function DemoFlowSection({ lang, tr }: { lang: string; tr: Record<string, string
 
 export default function Landing() {
   const { lang, dir } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang];
   const [, goRoute] = useLangAwareLocation();
   const [pricingMode, setPricingMode] = useState<"m" | "y">("y");

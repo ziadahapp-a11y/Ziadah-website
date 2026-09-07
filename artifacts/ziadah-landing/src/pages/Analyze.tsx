@@ -40,7 +40,6 @@ import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { getApiSubmitOrigin } from "@/lib/apiSubmitOrigin";
 import PlatformModal from "@/components/PlatformModal";
@@ -55,6 +54,7 @@ import {
 } from "@/lib/analyzeValueEstimate";
 import { cn } from "@/lib/utils";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
+import { t as siteTranslations } from "@/i18n/translations";
 
 /** Stored `value` is English (API); labels are single-locale (no bilingual strings). */
 const INDUSTRY_OPTIONS = [
@@ -148,7 +148,7 @@ function parsePositiveFloatInput(s: string): number | null {
 
 function RolePill({ role }: { role: string }) {
   const { lang } = useLanguage();
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const tr = siteT[lang].analyze;
   if (role === "cross_sell")
     return (
@@ -746,7 +746,7 @@ function AnalyzeSuccessStoryCard({
 function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
   const [copied, setCopied] = useState(false);
   const { lang } = useLanguage();
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const tr = siteT[lang].analyze;
   const base = window.location.origin + (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
   const url = `${base}/report/${encodeURIComponent(reportShareToken)}`;
@@ -785,7 +785,7 @@ function CopyReportButton({ reportShareToken }: { reportShareToken: string }) {
 }
 
 export default function Analyze() {
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const { lang } = useLanguage();
   const isArabic = lang === "ar";
   const tr = siteT[lang].analyze;

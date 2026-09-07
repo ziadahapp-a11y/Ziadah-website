@@ -1,14 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { AddonsDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.addons, demo),
@@ -29,16 +27,8 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
 
   return (
     <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "addons", "title")} label="Add-ons title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "addons", "subtitle")} label="Add-ons subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
-      }
+      title={tr.title}
+      subtitle={tr.subtitle}
     >
       <div style={{ marginBottom: 10 }}>
         <div

@@ -1,14 +1,12 @@
 import { useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { ProductSwapDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.productSwap, demo),
@@ -18,16 +16,8 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
 
   return (
     <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "title")} label="Product swap title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "subtitle")} label="Product swap subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
-      }
+      title={tr.title}
+      subtitle={tr.subtitle}
     >
       <div>
         <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>

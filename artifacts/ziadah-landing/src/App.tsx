@@ -8,7 +8,6 @@ import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
-import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
 import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
@@ -202,18 +201,16 @@ function App() {
     <ThemeProvider>
       <LanguageProvider>
         <MeetingBookingProvider>
-          <SiteContentProvider>
-            <BlurTransitionProvider>
-              <QueryClientProvider client={queryClient}>
-                <WouterRouter
-                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                  hook={useLangAwareLocation}
-                >
-                  <AppShell />
-                </WouterRouter>
-              </QueryClientProvider>
-            </BlurTransitionProvider>
-          </SiteContentProvider>
+          <BlurTransitionProvider>
+            <QueryClientProvider client={queryClient}>
+              <WouterRouter
+                base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+                hook={useLangAwareLocation}
+              >
+                <AppShell />
+              </WouterRouter>
+            </QueryClientProvider>
+          </BlurTransitionProvider>
         </MeetingBookingProvider>
       </LanguageProvider>
     </ThemeProvider>

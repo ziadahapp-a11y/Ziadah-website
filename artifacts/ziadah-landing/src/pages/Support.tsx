@@ -19,16 +19,16 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteT } from "../cms/siteContent";
 import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function Support() {
   const { lang, isAr } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tx = t[lang].support;
   const navTr = t[lang].nav;
   const pc = t[lang].pageClosingCta;

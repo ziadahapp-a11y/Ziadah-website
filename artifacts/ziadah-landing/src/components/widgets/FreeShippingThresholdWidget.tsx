@@ -1,14 +1,12 @@
 import { useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { FreeShippingDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShippingDemo }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.freeShipping, demo),
@@ -19,16 +17,8 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
 
   return (
     <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "freeShipping", "title")} label="Free shipping title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "freeShipping", "subtitle")} label="Free shipping subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
-      }
+      title={tr.title}
+      subtitle={tr.subtitle}
     >
       <div style={{ marginBottom: 12 }}>
         <div style={{

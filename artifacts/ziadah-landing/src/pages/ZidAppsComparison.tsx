@@ -4,13 +4,13 @@ import PageShell from "@/components/PageShell";
 import SEO from "@/components/SEO";
 import { BreadcrumbSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { Eyebrow } from "@/components/trackflow";
 import "./zid-apps-comparison.css";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type Bilingual = { ar: string; en: string };
 
@@ -333,7 +333,7 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
 }
 
 export default function ZidAppsComparison() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
   const pk = getPageKeywords("/zid-apps-comparison");

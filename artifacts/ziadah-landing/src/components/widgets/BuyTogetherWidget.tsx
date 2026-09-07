@@ -1,14 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { BuyTogetherDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.buyTogether, demo),
@@ -29,16 +27,8 @@ export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) 
 
   return (
     <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "buyTogether", "title")} label="Buy together title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "buyTogether", "subtitle")} label="Buy together subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
-      }
+      title={tr.title}
+      subtitle={tr.subtitle}
     >
       <div style={{ marginBottom: 10 }}>
         <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>

@@ -8,8 +8,8 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function fmtLocale(n: number, locale: string, decimals = 0): string {
   return n.toLocaleString(locale, {
@@ -84,7 +84,7 @@ function SliderCard({
 }
 
 export default function Calculator() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang].calculator;
   const ld = t[lang].landing;

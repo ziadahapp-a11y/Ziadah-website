@@ -1,12 +1,10 @@
 import { Fragment, useMemo, useState, type CSSProperties } from "react";
-import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { Translations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
 import type { SectorScenarioOverlayKind, SectorVisualBundle, SectorVisualScenario } from "@/data/sectorVisuals";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type SectorPageT = Translations["sectorsPage"];
 
@@ -291,23 +289,13 @@ function SectorScenarioWidgetShowcaseCard({
 export default function SectorVisualExamples({
   bundle,
   introVariant = "default",
-  sectorSlug = "",
 }: {
   bundle: SectorVisualBundle;
   introVariant?: "default" | "sector";
-  /** Sector id for `ar.sectorVisual.<slug>.*` content keys (from route). */
-  sectorSlug?: string;
 }) {
-  const t = useSiteT();
-  const map = useSiteContentMap();
+  const t = siteTranslations;
   const { lang, isAr, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
-  const svText = (parts: string[], fallback: string) => {
-    if (!sectorSlug) return fallback;
-    const k = cmsKey(lang, "sectorVisual", sectorSlug, ...parts);
-    const v = map[k];
-    return v !== undefined && v !== "" ? v : fallback;
-  };
   const [activeIndex, setActiveIndex] = useState(0);
   const safeIndex = Math.min(activeIndex, bundle.scenarios.length - 1);
   const activeScenario = bundle.scenarios[safeIndex];
@@ -327,13 +315,7 @@ export default function SectorVisualExamples({
     return (
       <div className="sector-viz-root sector-viz-root--widget-style">
         <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
-          <Editable contentKey={cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub")} label="Sector examples intro" type="text">
-            {(() => {
-              const k = cmsKey(lang, "sectorsPage", "sectorHubExamplesEmbedSub");
-              const v = map[k];
-              return v !== undefined && v !== "" ? v : tr.sectorHubExamplesEmbedSub;
-            })()}
-          </Editable>
+          {tr.sectorHubExamplesEmbedSub}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 28 }}>
           <DraggableMarqueeRow directionClass="marquee-rtl" duration="36s">
@@ -358,31 +340,13 @@ export default function SectorVisualExamples({
         <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 8 }}>
           <div className="text-center mb-7">
             <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
-                })()}
-              </Editable>
+              {tr.sectionFlowTag}
             </div>
             <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
-                })()}
-              </Editable>
+              {tr.sectionFlowTitle}
             </h3>
             <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
-              <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
-                {(() => {
-                  const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
-                  const v = map[k];
-                  return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
-                })()}
-              </Editable>
+              {tr.sectionFlowSub}
             </p>
           </div>
           <div className="sector-viz-flow-steps">
@@ -406,22 +370,10 @@ export default function SectorVisualExamples({
                     {step.icon}
                   </div>
                   <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
-                    <Editable
-                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
-                      label={`Flow step ${i + 1} title`}
-                      type="text"
-                    >
-                      {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
-                    </Editable>
+                    {isAr ? step.titleAr : step.titleEn}
                   </div>
                   <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
-                    <Editable
-                      contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
-                      label={`Flow step ${i + 1} description`}
-                      type="text"
-                    >
-                      {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
-                    </Editable>
+                    {isAr ? step.descAr : step.descEn}
                   </p>
                 </div>
                 {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}
@@ -436,13 +388,7 @@ export default function SectorVisualExamples({
   return (
     <div className="sector-viz-root">
       <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
-        <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionExamplesSub")} label="Sector examples section lead" type="text">
-          {(() => {
-            const k = cmsKey(lang, "sectorsPage", "sectionExamplesSub");
-            const v = map[k];
-            return v !== undefined && v !== "" ? v : tr.sectionExamplesSub;
-          })()}
-        </Editable>
+        {tr.sectionExamplesSub}
       </p>
 
       <div className="rv d1" style={{ marginBottom: 14, display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -465,13 +411,7 @@ export default function SectorVisualExamples({
                 cursor: "pointer",
               }}
             >
-              <Editable
-                contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "scenarios", String(i), "title")}
-                label={`Scenario ${i + 1} title`}
-                type="text"
-              >
-                {svText(["scenarios", String(i), "title"], isAr ? s.titleAr : s.titleEn)}
-              </Editable>
+              {isAr ? s.titleAr : s.titleEn}
             </button>
           );
         })}
@@ -557,13 +497,7 @@ export default function SectorVisualExamples({
                 <span style={{ fontSize: 20 }}>{s.suggested[0]?.emoji ?? "✨"}</span>
               </div>
               <div style={{ padding: "9px 10px", fontSize: 12, fontWeight: 700, color: isActive ? "var(--p3)" : "var(--tm)" }}>
-                <Editable
-                  contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "scenarios", String(i), "widget")}
-                  label={`Scenario ${i + 1} widget label`}
-                  type="text"
-                >
-                  {svText(["scenarios", String(i), "widget"], isAr ? s.widgetAr : s.widgetEn)}
-                </Editable>
+                {isAr ? s.widgetAr : s.widgetEn}
               </div>
             </button>
           );
@@ -573,31 +507,13 @@ export default function SectorVisualExamples({
       <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 28 }}>
         <div className="text-center mb-7">
           <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
-            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTag")} label="Flow tag" type="text">
-              {(() => {
-                const k = cmsKey(lang, "sectorsPage", "sectionFlowTag");
-                const v = map[k];
-                return v !== undefined && v !== "" ? v : tr.sectionFlowTag;
-              })()}
-            </Editable>
+            {tr.sectionFlowTag}
           </div>
           <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
-            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowTitle")} label="Flow title" type="text">
-              {(() => {
-                const k = cmsKey(lang, "sectorsPage", "sectionFlowTitle");
-                const v = map[k];
-                return v !== undefined && v !== "" ? v : tr.sectionFlowTitle;
-              })()}
-            </Editable>
+            {tr.sectionFlowTitle}
           </h3>
           <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
-            <Editable contentKey={cmsKey(lang, "sectorsPage", "sectionFlowSub")} label="Flow subtitle" type="text">
-              {(() => {
-                const k = cmsKey(lang, "sectorsPage", "sectionFlowSub");
-                const v = map[k];
-                return v !== undefined && v !== "" ? v : tr.sectionFlowSub;
-              })()}
-            </Editable>
+            {tr.sectionFlowSub}
           </p>
         </div>
         <div className="sector-viz-flow-steps">
@@ -621,22 +537,10 @@ export default function SectorVisualExamples({
                   {step.icon}
                 </div>
                 <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
-                  <Editable
-                    contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "title")}
-                    label={`Flow step ${i + 1} title`}
-                    type="text"
-                  >
-                    {svText(["flow", String(i), "title"], isAr ? step.titleAr : step.titleEn)}
-                  </Editable>
+                  {isAr ? step.titleAr : step.titleEn}
                 </div>
                 <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
-                  <Editable
-                    contentKey={cmsKey(lang, "sectorVisual", sectorSlug, "flow", String(i), "desc")}
-                    label={`Flow step ${i + 1} description`}
-                    type="text"
-                  >
-                    {svText(["flow", String(i), "desc"], isAr ? step.descAr : step.descEn)}
-                  </Editable>
+                  {isAr ? step.descAr : step.descEn}
                 </p>
               </div>
               {i < bundle.flow.length - 1 && <div className="sector-viz-flow-arrow" aria-hidden />}

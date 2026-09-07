@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit } from "@/data/sectorPageTypes";
 import PlatformModal from "@/components/PlatformModal";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type Part = "top" | "ai" | "bottom" | "foot";
 
@@ -11,7 +11,7 @@ function isWhySplit(w: SectorWhyCard): w is SectorWhyCardSplit {
 }
 
 export default function SectorPageRichSections({ rich, part }: { rich: SectorPageRich; part: Part }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].sectorsPage;
   const isAr = lang === "ar";

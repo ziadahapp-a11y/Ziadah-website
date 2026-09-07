@@ -7,15 +7,15 @@ import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { sectors } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const EXCLUDED_SLUGS = new Set(["delivery-apps", "ecommerce-platforms"]);
 
 export default function EcommerceStoreSectors() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
   const ArrowCTA = isAr ? ArrowLeft : ArrowRight;

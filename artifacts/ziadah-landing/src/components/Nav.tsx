@@ -3,19 +3,17 @@ import { useLocation } from "wouter";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import { useBlurTransition } from "@/components/BlurTransitionProvider";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
 import { useMeetingBooking } from "./MeetingBookingProvider";
 import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
+import { t as siteTranslations } from "@/i18n/translations";
 
 
 export const Logo = () => {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const logoSrc = lang === "ar" ? "/logo-ar.svg" : "/logo-en.svg";
@@ -219,7 +217,7 @@ function getSallaPlatformAppNavItems(tr: Translations): PlatformAppNavItem[] {
 }
 
 function PlatformAppNavItemList({ items }: { items: PlatformAppNavItem[] }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const rowHover = (el: HTMLElement, on: boolean) => {
@@ -331,7 +329,7 @@ function ComparisonAppsGroupedDropdown({
   zidItems: PlatformAppNavItem[];
   sallaItems: PlatformAppNavItem[];
 }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const panelStyle: React.CSSProperties = {
@@ -392,7 +390,7 @@ const USE_CASE_SECTION_ICONS: Record<string, string> = {
 };
 
 function UseCasesMegaMenu() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const useCasesDropdown = getUseCasesDropdown(tr);
@@ -482,7 +480,7 @@ function UseCasesMegaMenu() {
 }
 
 function PlatformsDropdown() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -645,7 +643,7 @@ function runHelpItem(
 }
 
 function HelpDropdown() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const { openMeetingBooking } = useMeetingBooking();
   const tr = t[lang];
@@ -939,7 +937,7 @@ function MobileMoreDropdown({
   onStartNow?: () => void;
   initialOpenSection?: string | null;
 }) {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -1157,9 +1155,7 @@ function MobileMoreDropdown({
               textTransform: "uppercase", fontFamily: "var(--font)",
             }}
           >
-            <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
-              {tr.nav.comparisonNav}
-            </Editable>
+            {tr.nav.comparisonNav}
             <span style={{ fontSize: 10, color: "#71717a", transition: "transform .25s", transform: openSection === "comparisonApps" ? "rotate(180deg)" : "rotate(0deg)" }}>▼</span>
           </button>
           <div style={{
@@ -1181,9 +1177,7 @@ function MobileMoreDropdown({
                       }}
                       style={{ ...subLinkStyle, cursor: "pointer" }}
                     >
-                      <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "zidAppsComparison")} label="Nav Zid apps comparison">
-                        {item.label}
-                      </Editable>
+                      {item.label}
                     </span>
                   ) : null,
                 )}
@@ -1214,13 +1208,7 @@ function MobileMoreDropdown({
                         fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                       }}
                     >
-                      <Editable
-                        allowClickThrough
-                        contentKey={cmsKey(lang, "nav", "sallaAppsNavItem1")}
-                        label="Nav Salla slot 1"
-                      >
-                        {item.label}
-                      </Editable>
+                      {item.label}
                       <span style={{ fontSize: 10, color: "#71717a", background: "#f4f4f5", padding: "2px 8px", borderRadius: 20 }}>{tr.nav.comingSoon}</span>
                     </div>
                   ),
@@ -1354,7 +1342,7 @@ function MobileMoreDropdown({
 }
 
 export default function Nav() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
@@ -1497,18 +1485,14 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
-                  {tr.nav.home}
-                </Editable>
+                {tr.nav.home}
               </span>
             </li>
 
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
-                    {tr.nav.useCases}
-                  </Editable>{" "}
+                  {tr.nav.useCases}{" "}
                   {chevron(openDrop === "usecases")}
                 </button>
                 {openDrop === "usecases" && <UseCasesMegaMenu />}
@@ -1526,18 +1510,14 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/success-stories") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
-                  {tr.nav.successStories}
-                </Editable>
+                {tr.nav.successStories}
               </span>
             </li>
 
             <li style={{ ...navLinkLiStyle, justifyContent: "flex-start" }}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors" || location === "/sectors" || location.startsWith("/sectors/"))}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
-                    {tr.nav.sectors}
-                  </Editable>{" "}
+                  {tr.nav.sectors}{" "}
                   {chevron(openDrop === "sectors")}
                 </button>
                 {openDrop === "sectors" && <SectorsDropdown />}
@@ -1554,9 +1534,7 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--tm)"}
               >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
-                  {tr.nav.pricing}
-                </Editable>
+                {tr.nav.pricing}
               </span>
             </li>
 
@@ -1571,18 +1549,14 @@ export default function Nav() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "var(--t)"}
                 onMouseLeave={e => { if (location !== "/calculator") (e.currentTarget as HTMLElement).style.color = "var(--tm)"; }}
               >
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
-                  {lang === "en" ? "Calculator" : tr.nav.calculator}
-                </Editable>
+                {lang === "en" ? "Calculator" : tr.nav.calculator}
               </span>
             </li>
 
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
-                    {tr.nav.help}
-                  </Editable>{" "}
+                  {tr.nav.help}{" "}
                   {chevron(openDrop === "help")}
                 </button>
                 {openDrop === "help" && (
@@ -1614,14 +1588,10 @@ export default function Nav() {
               onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
               style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12 }}
             >
-              <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "bookMeeting")} label="Nav Book Meeting">
-                {tr.nav.bookMeeting}
-              </Editable>
+              {tr.nav.bookMeeting}
             </button>
             <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
-              <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "startNow")} label="Nav Start Now">
-                {tr.nav.startNow}
-              </Editable>
+              {tr.nav.startNow}
             </button>
           </div>
         </div>
@@ -1637,17 +1607,13 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "home")} label="Nav Home">
-                  {tr.nav.home}
-                </Editable>
+                {tr.nav.home}
               </span>
             </li>
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("usecases2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "usecases2")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "useCases")} label="Nav Use Cases">
-                    {tr.nav.useCases}
-                  </Editable>{" "}
+                  {tr.nav.useCases}{" "}
                   {chevron(openDrop === "usecases2")}
                 </button>
                 {openDrop === "usecases2" && <UseCasesMegaMenu />}
@@ -1661,17 +1627,13 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/success-stories" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "successStories")} label="Nav Success Stories">
-                  {tr.nav.successStories}
-                </Editable>
+                {tr.nav.successStories}
               </span>
             </li>
             <li style={{ ...navLinkLiStyle, justifyContent: "flex-start" }}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("sectors2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "sectors2" || location === "/sectors" || location.startsWith("/sectors/"))}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "sectors")} label="Nav Sectors">
-                    {tr.nav.sectors}
-                  </Editable>{" "}
+                  {tr.nav.sectors}{" "}
                   {chevron(openDrop === "sectors2")}
                 </button>
                 {openDrop === "sectors2" && <SectorsDropdown />}
@@ -1680,9 +1642,7 @@ export default function Nav() {
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("platforms2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "platforms2")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "platforms")} label="Nav Platforms">
-                    {tr.nav.platforms}
-                  </Editable>{" "}
+                  {tr.nav.platforms}{" "}
                   {chevron(openDrop === "platforms2")}
                 </button>
                 {openDrop === "platforms2" && <PlatformsDropdown />}
@@ -1691,9 +1651,7 @@ export default function Nav() {
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("comparisonNav2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "comparisonNav2" || location === "/zid-apps-comparison")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "comparisonNav")} label="Nav Comparison">
-                    {tr.nav.comparisonNav}
-                  </Editable>{" "}
+                  {tr.nav.comparisonNav}{" "}
                   {chevron(openDrop === "comparisonNav2")}
                 </button>
                 {openDrop === "comparisonNav2" && (
@@ -1708,9 +1666,7 @@ export default function Nav() {
                 fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
                 textDecoration: "none", transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "pricing")} label="Nav Pricing">
-                  {tr.nav.pricing}
-                </Editable>
+                {tr.nav.pricing}
               </span>
             </li>
             <li style={navLinkLiStyle}>
@@ -1721,9 +1677,7 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/calculator" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "calculator")} label="Nav Calculator">
-                  {tr.nav.calculator}
-                </Editable>
+                {tr.nav.calculator}
               </span>
             </li>
             <li style={navLinkLiStyle}>
@@ -1734,17 +1688,13 @@ export default function Nav() {
                 textDecoration: "none", background: location === "/analyze" ? "rgba(124, 58, 237,.1)" : "transparent",
                 transition: "all .2s", cursor: "pointer",
               }}>
-                <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "analyze")} label="Nav Analyze">
-                  {tr.nav.analyze}
-                </Editable>
+                {tr.nav.analyze}
               </span>
             </li>
             <li style={navLinkLiStyle}>
               <DropdownWrapper onHoverStart={() => handleHoverStart("help2")} onHoverEnd={handleHoverEnd}>
                 <button type="button" style={navBtnStyle(openDrop === "help2")}>
-                  <Editable allowClickThrough contentKey={cmsKey(lang, "nav", "help")} label="Nav Help">
-                    {tr.nav.help}
-                  </Editable>{" "}
+                  {tr.nav.help}{" "}
                   {chevron(openDrop === "help2")}
                 </button>
                 {openDrop === "help2" && (

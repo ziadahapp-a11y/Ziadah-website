@@ -5,9 +5,9 @@ import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const sections = {
   ar: [
@@ -95,7 +95,7 @@ const gridStyle: CSSProperties = {
 };
 
 export default function Terms() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const pc = tr.pageClosingCta;

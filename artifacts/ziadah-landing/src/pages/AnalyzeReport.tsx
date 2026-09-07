@@ -24,10 +24,10 @@ import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
 import { WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { getApiSubmitOrigin } from "@/lib/apiSubmitOrigin";
 import { t as staticSiteTranslations } from "@/i18n/translations";
+import { t as siteTranslations } from "@/i18n/translations";
 
 /**
  * Brand-accent inline styles, all derived from the canonical brand token
@@ -117,7 +117,7 @@ function formatAnalyzedAt(iso: string, lang: string): { date: string; time: stri
 
 function RolePill({ role }: { role: string }) {
   const { lang } = useLanguage();
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const tr = siteT[lang].analyze;
   if (role === "cross_sell")
     return (
@@ -321,7 +321,7 @@ function tpl(s: string, vars: Record<string, string | number>): string {
 function CopyLinkButton() {
   const [copied, setCopied] = useState(false);
   const { lang } = useLanguage();
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const tr = siteT[lang].analyze;
   function copy() {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -351,7 +351,7 @@ function isValidReportParam(s: string): boolean {
 }
 
 export default function AnalyzeReport({ shareToken }: { shareToken: string }) {
-  const siteT = useSiteT();
+  const siteT = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = siteT[lang].analyze;
   const ld = siteT[lang].landing;

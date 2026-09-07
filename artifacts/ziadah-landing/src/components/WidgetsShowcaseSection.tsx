@@ -3,8 +3,8 @@ import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
 import { buildWidgetShowcaseItems, type WidgetShowcaseKind } from "@/components/WidgetShowcaseCard";
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const KIND_TO_URL: Record<WidgetShowcaseKind, string> = {
   volume: "/use-cases/buy-more-save-more",
@@ -29,7 +29,7 @@ export default function WidgetsShowcaseSection({
   sectorSlug?: string;
 }) {
   const { lang, dir } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang];
   const sectorTr = tr.sectorsPage;
   const showSectorEmbed = variant === "sector";

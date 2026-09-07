@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function RemoveFromCartWidget() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].widgets.removeFromCart;
 

@@ -9,7 +9,7 @@ import {
 } from "react";
 import { buildWidgetShowcaseItems } from "@/components/WidgetShowcaseCard";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const HERO_WIDGET_BREAKPOINT = "(max-width: 960px)";
 const AUTO_INTERVAL_MS = 5500;
@@ -52,7 +52,7 @@ function usePrefersReducedMotion() {
  */
 export default function HeroUseCaseCarousel() {
   const { lang } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang];
   const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
 

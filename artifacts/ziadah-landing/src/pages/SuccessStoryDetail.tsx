@@ -22,12 +22,12 @@ import PageClosingCta from "@/components/PageClosingCta";
 import SEO from "@/components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { findStoryBySlug, storyEn, stories } from "@/data/successStoriesData";
 import { getStoryArticle } from "@/data/successStoriesArticles";
 import { navigateTo } from "@/components/PageTransition";
 import NotFound from "@/pages/not-found";
 import { Section, Eyebrow, Card, StatCard } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function splitParagraphs(text: string): string[] {
   return text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
@@ -61,7 +61,7 @@ const SECTOR_ICONS: Record<string, LucideIcon> = {
 
 export default function SuccessStoryDetail() {
   const params = useParams<{ slug: string }>();
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, isAr, dir } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);

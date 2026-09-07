@@ -1,14 +1,12 @@
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiTiktok } from "react-icons/si";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function Footer() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang];
   const footerSectorLinks = [
@@ -30,9 +28,7 @@ export default function Footer() {
               />
             </div>
             <p className="ft-desc">
-              <Editable contentKey={cmsKey(lang, "footer", "tagline")} label="Footer Tagline">
-                {tr.footer.tagline}
-              </Editable>
+              {tr.footer.tagline}
             </p>
             <div className="ft-soc">
               <a href="https://x.com/ZiadahApp" target="_blank" rel="noreferrer" className="ftsi" aria-label="X">
@@ -51,97 +47,62 @@ export default function Footer() {
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={cmsKey(lang, "nav", "useCases")} label="Footer Use Cases Heading">
-                {tr.nav.useCases}
-              </Editable>
+              {tr.nav.useCases}
             </h4>
             <a href="/use-cases/by-pages">
-              <Editable contentKey={cmsKey(lang, "nav", "useCaseByPage")} label="Footer Nav Use Case By Page">
-                {tr.nav.useCaseByPage}
-              </Editable>
+              {tr.nav.useCaseByPage}
             </a>
             <a href="/use-cases/by-activity">
-              <Editable contentKey={cmsKey(lang, "nav", "useCaseByActivity")} label="Footer Nav Use Case By Activity">
-                {tr.nav.useCaseByActivity}
-              </Editable>
+              {tr.nav.useCaseByActivity}
             </a>
             <a href="/use-cases/by-presentation">
-              <Editable contentKey={cmsKey(lang, "nav", "useCaseByPresentation")} label="Footer Nav Use Case By Presentation">
-                {tr.nav.useCaseByPresentation}
-              </Editable>
+              {tr.nav.useCaseByPresentation}
             </a>
             <a href="/use-cases/by-goal">
-              <Editable contentKey={cmsKey(lang, "nav", "useCaseByGoal")} label="Footer Nav Use Case By Goal">
-                {tr.nav.useCaseByGoal}
-              </Editable>
+              {tr.nav.useCaseByGoal}
             </a>
             <a href="/use-cases/by-experience">
-              <Editable contentKey={cmsKey(lang, "nav", "useCaseByExperience")} label="Footer Nav Use Case By Experience">
-                {tr.nav.useCaseByExperience}
-              </Editable>
+              {tr.nav.useCaseByExperience}
             </a>
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={cmsKey(lang, "nav", "sectors")} label="Footer Sectors Heading">
-                {tr.nav.sectors}
-              </Editable>
+              {tr.nav.sectors}
             </h4>
             {footerSectorLinks.map((sector) => (
               <a key={sector.href} href={sector.href}>
-                <Editable
-                  contentKey={cmsKey(lang, "footer", sector.labelKey)}
-                  label={tr.footer[sector.labelKey]}
-                >
-                  {tr.footer[sector.labelKey]}
-                </Editable>
+                {tr.footer[sector.labelKey]}
               </a>
             ))}
           </div>
           <div className="ft-col">
             <h4>
-              <Editable contentKey={cmsKey(lang, "nav", "help")} label="Footer Help Heading">
-                {tr.nav.help}
-              </Editable>
+              {tr.nav.help}
             </h4>
             <a href="/#faq">
-              <Editable contentKey={cmsKey(lang, "nav", "faq")} label="Footer FAQ">
-                {tr.nav.faq}
-              </Editable>
+              {tr.nav.faq}
             </a>
             <a href="/support">
-              <Editable contentKey={cmsKey(lang, "footer", "helpCenterLink")} label="Footer Help Center">
-                {tr.footer.helpCenterLink}
-              </Editable>
+              {tr.footer.helpCenterLink}
             </a>
             <a href="/blog">
-              <Editable contentKey={cmsKey(lang, "nav", "blog")} label="Footer Blog">
-                {tr.nav.blog}
-              </Editable>
+              {tr.nav.blog}
             </a>
           </div>
         </div>
         <div className="ft-bot">
           <div className="ft-copy">
-            <Editable contentKey={cmsKey(lang, "footer", "copyright")} label="Footer Copyright">
-              {tr.footer.copyright}
-            </Editable>
+            {tr.footer.copyright}
           </div>
           <div className="ft-legal">
             <a href="/privacy">
-              <Editable contentKey={cmsKey(lang, "footer", "privacy")} label="Footer Privacy Link">
-                {tr.footer.privacy}
-              </Editable>
+              {tr.footer.privacy}
             </a>
             <a href="/terms">
-              <Editable contentKey={cmsKey(lang, "footer", "terms")} label="Footer Terms Link">
-                {tr.footer.terms}
-              </Editable>
+              {tr.footer.terms}
             </a>
             <a href="/data-deletion">
-              <Editable contentKey={cmsKey(lang, "footer", "dataDeletion")} label="Footer Data Deletion Link">
-                {tr.footer.dataDeletion}
-              </Editable>
+              {tr.footer.dataDeletion}
             </a>
           </div>
         </div>

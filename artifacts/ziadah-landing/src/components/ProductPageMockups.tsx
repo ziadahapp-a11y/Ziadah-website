@@ -1,14 +1,12 @@
 import { useState, type ReactNode } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import type { Translations } from "@/i18n/translations";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type ProductPageMockupsCopy = Translations["productPageMockups"];
 
 export default function ProductPageMockups() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const copy = t[lang].productPageMockups;
 
@@ -52,9 +50,7 @@ export default function ProductPageMockups() {
                 boxShadow: "0 0 7px #8b5cf6",
               }}
             />
-            <Editable contentKey={cmsKey(lang, "productPageMockups", "badge")} label="Product mockups badge" type="text">
-              {copy.badge}
-            </Editable>
+            {copy.badge}
           </div>
           <h2
             className="rv"
@@ -65,9 +61,7 @@ export default function ProductPageMockups() {
               marginBottom: 14,
             }}
           >
-            <Editable contentKey={cmsKey(lang, "productPageMockups", "title")} label="Product mockups title" type="text">
-              {copy.title}
-            </Editable>
+            {copy.title}
           </h2>
           <p
             style={{
@@ -78,9 +72,7 @@ export default function ProductPageMockups() {
               lineHeight: 1.8,
             }}
           >
-            <Editable contentKey={cmsKey(lang, "productPageMockups", "subtitle")} label="Product mockups subtitle" type="text">
-              {copy.subtitle}
-            </Editable>
+            {copy.subtitle}
           </p>
         </div>
 
@@ -93,16 +85,8 @@ export default function ProductPageMockups() {
           }}
         >
           <MockupCard
-            label={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "labelCrossSell")} label="Cross-sell label" type="text">
-                {copy.labelCrossSell}
-              </Editable>
-            }
-            title={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "cardTitleCrossSell")} label="Cross-sell card title" type="text">
-                {copy.cardTitleCrossSell}
-              </Editable>
-            }
+            label={copy.labelCrossSell}
+            title={copy.cardTitleCrossSell}
             accentColor="#06b6d4"
             productName={copy.productName}
           >
@@ -110,16 +94,8 @@ export default function ProductPageMockups() {
           </MockupCard>
 
           <MockupCard
-            label={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "labelBuyTogether")} label="Buy together label" type="text">
-                {copy.labelBuyTogether}
-              </Editable>
-            }
-            title={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "cardTitleBuyTogether")} label="Buy together card title" type="text">
-                {copy.cardTitleBuyTogether}
-              </Editable>
-            }
+            label={copy.labelBuyTogether}
+            title={copy.cardTitleBuyTogether}
             accentColor="#8b5cf6"
             productName={copy.productName}
           >
@@ -127,16 +103,8 @@ export default function ProductPageMockups() {
           </MockupCard>
 
           <MockupCard
-            label={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "labelBundle")} label="Bundle label" type="text">
-                {copy.labelBundle}
-              </Editable>
-            }
-            title={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "cardTitleBundle")} label="Bundle card title" type="text">
-                {copy.cardTitleBundle}
-              </Editable>
-            }
+            label={copy.labelBundle}
+            title={copy.cardTitleBundle}
             accentColor="#7c3aed"
             productName={copy.productName}
           >
@@ -144,16 +112,8 @@ export default function ProductPageMockups() {
           </MockupCard>
 
           <MockupCard
-            label={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "labelVolume")} label="Volume label" type="text">
-                {copy.labelVolume}
-              </Editable>
-            }
-            title={
-              <Editable contentKey={cmsKey(lang, "productPageMockups", "cardTitleVolume")} label="Volume card title" type="text">
-                {copy.cardTitleVolume}
-              </Editable>
-            }
+            label={copy.labelVolume}
+            title={copy.cardTitleVolume}
             accentColor="#a78bfa"
             productName={copy.productName}
           >

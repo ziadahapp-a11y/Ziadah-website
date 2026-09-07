@@ -6,11 +6,11 @@ import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteT } from "../cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { stories, storyEn, type StoryData } from "@/data/successStoriesData";
 import { navigateTo } from "@/components/PageTransition";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_NAME_EN: Record<string, string> = {
   "الكل": "All",
@@ -125,7 +125,7 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
 }
 
 export default function SuccessStories() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, isAr, dir } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const pk = getPageKeywords("/success-stories");

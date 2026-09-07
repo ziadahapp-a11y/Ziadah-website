@@ -33,9 +33,9 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, SupportArticleSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "../cms/siteContent";
-import { useSupportArticleFields } from "../cms/useSupportArticleFields";
+import { useSupportArticleFields } from "@/hooks/useSupportArticleFields";
 import { Section, PrimaryButton } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
 
@@ -51,7 +51,7 @@ const CATEGORY_ICON: Record<string, LucideIcon> = {
 };
 
 export default function SupportArticle() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].support;
   const pc = t[lang].pageClosingCta;
@@ -61,17 +61,16 @@ export default function SupportArticle() {
   const article = id ? getArticleById(id) : undefined;
   const category = article ? getCategoryById(article.categoryId) : undefined;
   const cmsFields = useSupportArticleFields(article ?? FALLBACK_SUPPORT_ARTICLE);
-  const cmsMap = useSiteContentMap();
   const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
 
   const siblingTitle = (a: FullArticle) =>
     isAr
-      ? cmsMap[`support.${a.id}.title`] ?? a.title
-      : cmsMap[`support.${a.id}.titleEn`] ?? a.titleEn ?? a.title;
+      ? a.title
+      : a.titleEn ?? a.title;
   const siblingTime = (a: FullArticle) =>
     isAr
-      ? cmsMap[`support.${a.id}.time`] ?? a.time
-      : cmsMap[`support.${a.id}.timeEn`] ?? a.timeEn ?? a.time;
+      ? a.time
+      : a.timeEn ?? a.time;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -111,10 +110,10 @@ export default function SupportArticle() {
   return (
     <>
     <SEO
-      titleAr={`${cmsMap[`${baseKey}.title`] ?? article.title} — ${titleSuffixAr}`}
-      titleEn={`${cmsMap[`${baseKey}.titleEn`] ?? article.titleEn ?? article.title} — ${titleSuffixEn}`}
-      descriptionAr={cmsMap[`${baseKey}.desc`] ?? article.desc}
-      descriptionEn={cmsMap[`${baseKey}.descEn`] ?? article.descEn ?? article.desc}
+      titleAr={`${article.title} — ${titleSuffixAr}`}
+      titleEn={`${article.titleEn ?? article.title} — ${titleSuffixEn}`}
+      descriptionAr={article.desc}
+      descriptionEn={article.descEn ?? article.desc}
       canonical={`/support/article/${article.id}`}
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}

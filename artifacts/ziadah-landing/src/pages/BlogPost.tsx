@@ -13,11 +13,11 @@ import SEO from "../components/SEO";
 import { ArticleSchema, BreadcrumbSchema } from "../components/JsonLd";
 import { absolutePageUrl } from "@/seo/meta";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "../cms/siteContent";
-import { useBlogPostFields } from "@/cms/useBlogPostFields";
+import { useBlogPostFields } from "@/hooks/useBlogPostFields";
 import CustomerProfileDemo from "../components/CustomerProfileDemo";
 import { toWesternDigits } from "@/utils/westernDigits";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function renderContent(content: string) {
   const lines = content.trim().split("\n");
@@ -397,7 +397,7 @@ function formatInline(text: string): React.ReactNode {
 }
 
 export default function BlogPost() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].blog;
   const pc = t[lang].pageClosingCta;
@@ -407,7 +407,6 @@ export default function BlogPost() {
   const params = useParams<{ slug: string }>();
   const post = blogPosts.find((p) => p.slug === params.slug);
   const fields = useBlogPostFields(post ?? blogPosts[0]);
-  const cmsMap = useSiteContentMap();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -458,14 +457,14 @@ export default function BlogPost() {
   const arNums = (s: string) => (isAr ? toWesternDigits(s) : s);
   const getRelatedTitle = (p: typeof blogPosts[0]) => {
     const raw = isAr
-      ? cmsMap[`blog.${p.slug}.title`] ?? p.title
-      : cmsMap[`blog.${p.slug}.titleEn`] ?? p.titleEn ?? p.title;
+      ? p.title
+      : p.titleEn ?? p.title;
     return arNums(raw);
   };
   const getRelatedReadTime = (p: typeof blogPosts[0]) => {
     const raw = isAr
-      ? cmsMap[`blog.${p.slug}.readTime`] ?? p.readTime
-      : cmsMap[`blog.${p.slug}.readTimeEn`] ?? p.readTimeEn ?? p.readTime;
+      ? p.readTime
+      : p.readTimeEn ?? p.readTime;
     return arNums(raw);
   };
 
@@ -475,10 +474,10 @@ export default function BlogPost() {
   return (
     <>
     <SEO
-      titleAr={cmsMap[`blog.${post.slug}.title`] ?? post.title}
-      titleEn={cmsMap[`blog.${post.slug}.titleEn`] ?? post.titleEn ?? post.title}
-      descriptionAr={cmsMap[`blog.${post.slug}.summary`] ?? post.summary}
-      descriptionEn={cmsMap[`blog.${post.slug}.summaryEn`] ?? post.summaryEn ?? post.summary}
+      titleAr={post.title}
+      titleEn={post.titleEn ?? post.title}
+      descriptionAr={post.summary}
+      descriptionEn={post.summaryEn ?? post.summary}
       canonical={`/blog/${post.slug}`}
       type="article"
       publishDate={post.publishDateIso}

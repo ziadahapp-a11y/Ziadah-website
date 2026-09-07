@@ -9,10 +9,8 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import { planLabelsForUseCasePath } from "@/data/useCasePlans";
 import { BreadcrumbSchema } from "./JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import { DefaultUseCaseHeroPhone } from "@/components/UseCasePagesShowcase";
+import { t as siteTranslations } from "@/i18n/translations";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
 export interface UseCaseHero {
@@ -82,7 +80,7 @@ export interface UseCasePageData {
 export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const [scrollProg, setScrollProg] = useState(0);
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const isEn = lang === "en";
@@ -102,19 +100,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const ctaTitle = isEn && data.ctaTitleEn ? data.ctaTitleEn : data.ctaTitle;
   const ctaDesc = isEn && data.ctaDescEn ? data.ctaDescEn : data.ctaDesc;
   const pageKw = data.seo?.canonical ? getPageKeywords(data.seo.canonical) : getPageKeywords("/use-cases");
-
-  const map = useSiteContentMap();
-  const slug = data.seo?.canonical?.match(/\/use-cases\/([^/?#]+)/)?.[1] ?? "page";
-  const ucKey = (...parts: string[]) => cmsKey(lang, "useCasePage", slug, ...parts);
-  const cv = (parts: string[], fallback: string) => {
-    const key = ucKey(...parts);
-    const v = map[key];
-    return v !== undefined && v !== "" ? v : fallback;
-  };
-  const gv = (key: string, fallback: string) => {
-    const v = map[key];
-    return v !== undefined && v !== "" ? v : fallback;
-  };
 
   useLayoutEffect(() => {
     scrollWindowToTopAfterPaint();
@@ -169,14 +154,14 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     ...(data.extraSections ? [{ id: "uc-showcase", ar: "الأدوات", en: "Tools" }] : []),
   ];
 
-  /* ─── CMS helpers ─── */
-  const activateNow = gv(cmsKey(lang, "useCaseLayout", "activateNow"), tr.useCaseLayout.activateNow);
-  const ctaNote     = gv(cmsKey(lang, "useCaseLayout", "ctaNote"),     tr.useCaseLayout.ctaNote);
-  const reportsTag  = gv(cmsKey(lang, "useCaseLayout", "reportsTag"),  tr.useCaseLayout.reportsTag);
-  const reportsTitle= gv(cmsKey(lang, "useCaseLayout", "reportsTitle"),tr.useCaseLayout.reportsTitle);
-  const reportsDesc = gv(cmsKey(lang, "useCaseLayout", "reportsDesc"), tr.useCaseLayout.reportsDesc);
-  const exampleLabel= gv(cmsKey(lang, "useCaseLayout", "exampleLabel"),tr.useCaseLayout.exampleLabel);
-  const availableIn = gv(cmsKey(lang, "useCaseLayout", "availableIn"), tr.useCaseLayout.availableIn);
+  /* ─── shared labels ─── */
+  const activateNow = tr.useCaseLayout.activateNow;
+  const ctaNote     = tr.useCaseLayout.ctaNote;
+  const reportsTag  = tr.useCaseLayout.reportsTag;
+  const reportsTitle= tr.useCaseLayout.reportsTitle;
+  const reportsDesc = tr.useCaseLayout.reportsDesc;
+  const exampleLabel= tr.useCaseLayout.exampleLabel;
+  const availableIn = tr.useCaseLayout.availableIn;
 
   const gridStyle = {
     backgroundImage:
@@ -223,29 +208,21 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
                   </span>
                   <span className="text-xs font-semibold text-violet-700">
-                    <Editable contentKey={ucKey("hero", "tag")} label="Tag" type="text">
-                      {cv(["hero", "tag"], hero.tag)}
-                    </Editable>
+                    {hero.tag}
                   </span>
                 </div>
 
                 <div className="inline-flex items-center gap-2 mb-5 text-sm font-bold text-violet-700">
                   <span className="text-lg leading-none">{hero.icon}</span>
-                  <Editable contentKey={ucKey("hero", "tagline")} label="Tagline" type="text">
-                    {cv(["hero", "tagline"], hero.tagline)}
-                  </Editable>
+                  {hero.tagline}
                 </div>
 
                 <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]">
-                  <Editable contentKey={ucKey("hero", "title")} label="Title" type="text">
-                    {cv(["hero", "title"], hero.title)}
-                  </Editable>
+                  {hero.title}
                 </h1>
 
                 <p className="text-lg text-zinc-600 max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                  <Editable contentKey={ucKey("hero", "subtitle")} label="Subtitle" type="text">
-                    {cv(["hero", "subtitle"], hero.subtitle)}
-                  </Editable>
+                  {hero.subtitle}
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
@@ -255,9 +232,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-base h-12 px-7 rounded-md bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
                   >
                     <Rocket className="w-4 h-4" />
-                    <Editable contentKey={ucKey("activateNow")} label="Activate CTA" type="text">
-                      {activateNow}
-                    </Editable>
+                    {activateNow}
                   </button>
                   <button
                     type="button"
@@ -308,28 +283,20 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-zinc-950 mb-5 leading-tight">
-                <Editable contentKey={ucKey("whatWeDoTitle")} label="What we do title" type="text">
-                  {cv(["whatWeDoTitle"], whatWeDoTitle)}
-                </Editable>
+                {whatWeDoTitle}
               </h2>
               <p className="text-base md:text-lg text-zinc-600 leading-relaxed max-w-3xl">
-                <Editable contentKey={ucKey("whatWeDoDesc")} label="What we do desc" type="text">
-                  {cv(["whatWeDoDesc"], whatWeDoDesc)}
-                </Editable>
+                {whatWeDoDesc}
               </p>
 
               <div id="uc-stats" className="scroll-mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
                 {stats.map((s, i) => (
                   <div key={i} className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-zinc-50/60 p-6 text-center`}>
                     <div className="text-3xl md:text-4xl font-extrabold num-ltr" style={{ color: s.color || "#6d28d9" }}>
-                      <Editable contentKey={ucKey("stats", String(i), "value")} label={`Stat ${i + 1}`} type="text">
-                        {cv(["stats", String(i), "value"], s.value)}
-                      </Editable>
+                      {s.value}
                     </div>
                     <div className="mt-1.5 text-sm text-zinc-600">
-                      <Editable contentKey={ucKey("stats", String(i), "label")} label={`Stat ${i + 1} label`} type="text">
-                        {cv(["stats", String(i), "label"], s.label)}
-                      </Editable>
+                      {s.label}
                     </div>
                   </div>
                 ))}
@@ -343,9 +310,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           <div className="container mx-auto max-w-6xl">
             <div className="text-center mb-14">
               <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 leading-tight">
-                <Editable contentKey={ucKey("strategyTitle")} label="Strategy title" type="text">
-                  {cv(["strategyTitle"], strategyTitle)}
-                </Editable>
+                {strategyTitle}
               </h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -362,14 +327,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     {s.icon}
                   </div>
                   <p className="text-lg font-bold text-zinc-950 mb-2.5 leading-snug">
-                    <Editable contentKey={ucKey("strategies", String(i), "title")} label={`Strategy ${i + 1}`} type="text">
-                      {cv(["strategies", String(i), "title"], s.title)}
-                    </Editable>
+                    {s.title}
                   </p>
                   <p className="text-sm text-zinc-600 leading-relaxed">
-                    <Editable contentKey={ucKey("strategies", String(i), "desc")} label={`Strategy ${i + 1} desc`} type="text">
-                      {cv(["strategies", String(i), "desc"], s.desc)}
-                    </Editable>
+                    {s.desc}
                   </p>
                 </div>
               ))}
@@ -384,15 +345,11 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               <div className="rv rounded-2xl border border-zinc-200 bg-white p-8 md:p-12 shadow-card">
                 <div className="mb-5">
                   <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
-                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "exampleLabel")} label="Example label" type="text">
-                      {exampleLabel}
-                    </Editable>
+                    {exampleLabel}
                   </span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-8 leading-snug">
-                  <Editable contentKey={ucKey("exampleScenario", "title")} label="Example title" type="text">
-                    {cv(["exampleScenario", "title"], exampleScenario.title)}
-                  </Editable>
+                  {exampleScenario.title}
                 </h3>
                 <div className="grid lg:grid-cols-[1fr_320px] gap-8 lg:gap-10 items-start">
                   <div className="flex flex-col gap-3">
@@ -402,9 +359,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                           {i + 1}
                         </div>
                         <p className="text-sm text-zinc-700 leading-relaxed pt-0.5">
-                          <Editable contentKey={ucKey("exampleScenario", "steps", String(i))} label={`Step ${i + 1}`} type="text">
-                            {cv(["exampleScenario", "steps", String(i)], step)}
-                          </Editable>
+                          {step}
                         </p>
                       </div>
                     ))}
@@ -413,9 +368,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     <div className="rounded-2xl border border-violet-200 bg-violet-50/60 p-7">
                       <CheckCircle2 className="w-8 h-8 text-violet-600 mb-3" />
                       <p className="text-base font-bold text-violet-700 leading-relaxed">
-                        <Editable contentKey={ucKey("exampleScenario", "result")} label="Result" type="text">
-                          {cv(["exampleScenario", "result"], exampleScenario.result)}
-                        </Editable>
+                        {exampleScenario.result}
                       </p>
                     </div>
                   </div>
@@ -431,9 +384,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <div className="container mx-auto max-w-4xl text-center">
               <div className="mb-7">
                 <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
-                  <Editable contentKey={cmsKey(lang, "useCaseLayout", "availableIn")} label="Available in" type="text">
-                    {availableIn}
-                  </Editable>
+                  {availableIn}
                 </span>
               </div>
               <div className="flex flex-wrap gap-2.5 justify-center">
@@ -443,9 +394,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-zinc-200 text-sm font-bold text-zinc-800 shadow-card"
                   >
                     <CheckCircle2 className="w-4 h-4 text-violet-600" />
-                    <Editable contentKey={ucKey("plans", String(i))} label={`Plan ${i + 1}`} type="text">
-                      {cv(["plans", String(i)], plan)}
-                    </Editable>
+                    {plan}
                   </div>
                 ))}
               </div>
@@ -461,20 +410,14 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 <div>
                   <div className="mb-4">
                     <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
-                      <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTag")} label="Reports tag" type="text">
-                        {reportsTag}
-                      </Editable>
+                      {reportsTag}
                     </span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-3 leading-snug">
-                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsTitle")} label="Reports title" type="text">
-                      {reportsTitle}
-                    </Editable>
+                    {reportsTitle}
                   </h3>
                   <p className="text-base text-zinc-600 leading-relaxed">
-                    <Editable contentKey={cmsKey(lang, "useCaseLayout", "reportsDesc")} label="Reports desc" type="richtext">
-                      {reportsDesc}
-                    </Editable>
+                    {reportsDesc}
                   </p>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -494,14 +437,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                       </div>
                       <div>
                         <div className="text-sm font-bold text-zinc-950">
-                          <Editable contentKey={cmsKey(lang, "useCaseLayout", item.labelKey)} label={item.labelKey} type="text">
-                            {gv(cmsKey(lang, "useCaseLayout", item.labelKey), tr.useCaseLayout[item.labelKey])}
-                          </Editable>
+                          {tr.useCaseLayout[item.labelKey]}
                         </div>
                         <div className="text-xs text-zinc-500 mt-0.5">
-                          <Editable contentKey={cmsKey(lang, "useCaseLayout", item.subKey)} label={item.subKey} type="text">
-                            {gv(cmsKey(lang, "useCaseLayout", item.subKey), tr.useCaseLayout[item.subKey])}
-                          </Editable>
+                          {tr.useCaseLayout[item.subKey]}
                         </div>
                       </div>
                     </div>
@@ -521,26 +460,10 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
         {/* ══════════════════ CTA ══════════════════ */}
         <PageClosingCta
-          title={
-            <Editable contentKey={ucKey("ctaTitle")} label="CTA title" type="text">
-              {cv(["ctaTitle"], ctaTitle)}
-            </Editable>
-          }
-          description={
-            <Editable contentKey={ucKey("ctaDesc")} label="CTA desc" type="text">
-              {cv(["ctaDesc"], ctaDesc)}
-            </Editable>
-          }
-          buttonLabel={
-            <Editable contentKey={cmsKey(lang, "useCaseLayout", "activateNow")} label="Activate CTA" type="text">
-              {activateNow}
-            </Editable>
-          }
-          note={
-            <Editable contentKey={cmsKey(lang, "useCaseLayout", "ctaNote")} label="CTA note" type="text">
-              {ctaNote}
-            </Editable>
-          }
+          title={ctaTitle}
+          description={ctaDesc}
+          buttonLabel={activateNow}
+          note={ctaNote}
           onActivate={() => setPlatformModalOpen(true)}
         />
       </PageShell>

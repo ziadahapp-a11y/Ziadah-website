@@ -8,7 +8,6 @@ import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
@@ -22,6 +21,7 @@ import SectorHtmlHero from "@/components/SectorHtmlHero";
 import SectorDeliveryUseCases from "@/components/SectorDeliveryUseCases";
 import { getSectorPageRich } from "@/data/sectorPageRich";
 import "@/styles/sectorHtmlPage.css";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_SLUGS_WITH_PLATFORM_HUB = new Set(["delivery-apps", "ecommerce-platforms"]);
 
@@ -56,7 +56,7 @@ function SectionBlock({
 }
 
 export default function SectorDetail() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
   const params = useParams<{ slug: string }>();
@@ -378,7 +378,7 @@ export default function SectorDetail() {
           </SectionBlock>
           ) : null}
 
-          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} sectorSlug={sector.slug} /> : null}
+          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
           {showPlatformHub && !visualBundle && !(htmlPlaybook && SECTOR_SLUGS_WITH_PLATFORM_HUB.has(sector.slug)) ? (
             <>
               <LandingSolutionsMatrix variant="sector" />
@@ -393,7 +393,7 @@ export default function SectorDetail() {
               style={{ marginBottom: 20, scrollMarginTop: 120 }}
             >
               <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-5 leading-tight">{tr.sectionExamples}</h2>
-              <SectorVisualExamples bundle={visualBundle} sectorSlug={sector.slug} />
+              <SectorVisualExamples bundle={visualBundle} />
             </div>
           ) : null}
           {!showPlatformHub && !visualBundle ? (

@@ -8,7 +8,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import PageShell from "@/components/PageShell";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
@@ -16,6 +15,7 @@ import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -129,7 +129,7 @@ function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
 
 export default function PricingPage() {
   const { lang } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const [mode, setMode] = useState<"m" | "y">("y");
   const [open, setOpen] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))

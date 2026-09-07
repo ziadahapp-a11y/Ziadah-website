@@ -3,8 +3,8 @@ import { useCasesSolutionsMatrix, type SolutionMatrixGroup } from "@/data/useCas
 import { getUseCaseBlurb } from "@/data/useCaseSolutionBlurbs";
 import { getMatrixGroupSummary } from "@/data/solutionMatrixGroupSummaries";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { navigateTo } from "@/components/PageTransition";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type MatrixVariant = "landing" | "sector";
 
@@ -127,7 +127,7 @@ function MatrixGroupPanel({
 
 export default function LandingSolutionsMatrix({ variant = "landing" }: { variant?: MatrixVariant }) {
   const { lang, dir } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang];
   const nav = tr.nav as unknown as Record<string, string>;
   const lr = tr.landing;

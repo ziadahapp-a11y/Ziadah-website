@@ -8,9 +8,9 @@ import PageClosingCta from "../components/PageClosingCta";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "../cms/siteContent";
 import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
 import { Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
@@ -32,8 +32,7 @@ function getInitialFilters() {
 }
 
 export default function Blog() {
-  const t = useSiteT();
-  const cmsMap = useSiteContentMap();
+  const t = siteTranslations;
   const { lang, isAr } = useLanguage();
   const tx = t[lang].blog;
   const pc = t[lang].pageClosingCta;
@@ -96,20 +95,20 @@ export default function Blog() {
 
   const getTitle = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.title`] ?? p.title
-      : cmsMap[`blog.${p.slug}.titleEn`] ?? p.titleEn ?? p.title;
+      ? p.title
+      : p.titleEn ?? p.title;
   const getSummary = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.summary`] ?? p.summary
-      : cmsMap[`blog.${p.slug}.summaryEn`] ?? p.summaryEn ?? p.summary;
+      ? p.summary
+      : p.summaryEn ?? p.summary;
   const getReadTime = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.readTime`] ?? p.readTime
-      : cmsMap[`blog.${p.slug}.readTimeEn`] ?? p.readTimeEn ?? p.readTime;
+      ? p.readTime
+      : p.readTimeEn ?? p.readTime;
   const getPublishDate = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.publishDate`] ?? p.publishDate
-      : cmsMap[`blog.${p.slug}.publishDateEn`] ?? p.publishDateEn ?? p.publishDate;
+      ? p.publishDate
+      : p.publishDateEn ?? p.publishDate;
 
   const filtered = blogPosts.filter((post) => {
     const matchCat =

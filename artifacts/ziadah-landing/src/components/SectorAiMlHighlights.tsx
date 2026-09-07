@@ -1,5 +1,5 @@
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
+import { t as siteTranslations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
 import {
   sectorAiMlBlogLinks,
@@ -9,7 +9,7 @@ import {
 
 export default function SectorAiMlHighlights() {
   const { lang } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang].sectorsPage;
 
   return (

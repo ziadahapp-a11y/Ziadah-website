@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSiteT } from "@/cms/siteContent";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type TabId = "food" | "addons" | "bundle" | "grocery" | "pharmacy" | "rescue" | "freeship";
 
@@ -272,7 +272,7 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
 }
 
 export default function SectorDeliveryUseCases() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].sectorsPage;
   const isAr = lang === "ar";

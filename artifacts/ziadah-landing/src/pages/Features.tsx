@@ -7,7 +7,6 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteT } from "../cms/siteContent";
 import { Section } from "@/components/trackflow";
 import {
   ShoppingCart,
@@ -104,7 +103,6 @@ const usecases: {
 export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const t = useSiteT();
   const { lang, isAr, dir } = useLanguage();
   const ft = t[lang].features;
   const ld = t[lang].landing;

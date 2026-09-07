@@ -5,11 +5,11 @@ import RelatedProductsWidget from "../../components/widgets/RelatedProductsWidge
 import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import { PageHeroPhone } from "../../components/UseCasePagesShowcase";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function CartHeroContent() {
   const { lang, dir } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang].widgets.cartHeroPhone;
 
   return (

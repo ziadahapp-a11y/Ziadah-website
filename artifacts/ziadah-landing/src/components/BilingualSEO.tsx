@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useCMSContent } from "@/cms/siteContent";
 import {
   SITE_URL,
   SITE_NAME,
@@ -55,15 +54,10 @@ export default function BilingualSEO({
   noIndex = false,
 }: BilingualSEOProps) {
   const { lang } = useLanguage();
-  const cmsTitleAr = useCMSContent("ar.landing.seoTitle", DEFAULTS.ar.title);
-  const cmsTitleEn = useCMSContent("en.landing.seoTitle", DEFAULTS.en.title);
-  const cmsDescAr = useCMSContent("ar.landing.seoDesc", DEFAULTS.ar.description);
-  const cmsDescEn = useCMSContent("en.landing.seoDesc", DEFAULTS.en.description);
-
-  const resolvedTitleAr = titleAr ?? cmsTitleAr;
-  const resolvedTitleEn = titleEn ?? cmsTitleEn;
-  const resolvedDescAr = descriptionAr ?? cmsDescAr;
-  const resolvedDescEn = descriptionEn ?? cmsDescEn;
+  const resolvedTitleAr = titleAr ?? DEFAULTS.ar.title;
+  const resolvedTitleEn = titleEn ?? DEFAULTS.en.title;
+  const resolvedDescAr = descriptionAr ?? DEFAULTS.ar.description;
+  const resolvedDescEn = descriptionEn ?? DEFAULTS.en.description;
 
   const rawTitleSegment = lang === "ar" ? resolvedTitleAr : resolvedTitleEn;
   const alreadyBranded = /ziadah|زيادة/i.test(rawTitleSegment);
