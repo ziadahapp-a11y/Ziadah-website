@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Rocket, ArrowDown, CheckCircle2, BarChart3, Package, Zap } from "lucide-react";
 import PlatformModal from "./PlatformModal";
 import { navigateTo } from "./PageTransition";
+import { PageRail, PageProgress } from "./PageRail";
+import { getMotionRuntime, scrollToTarget } from "@/motion/runtime";
+import { getAnchorScrollTopOffset } from "@/utils/anchorScroll";
 import SEO from "./SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { planLabelsForUseCasePath } from "@/data/useCasePlans";
@@ -150,8 +153,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  /* The hero's own jump. Routed through the motion runtime for the same
+     reason the rail is: a bare smooth `scrollIntoView` animates against
+     Lenis. */
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) scrollToTarget(getMotionRuntime(), el, -getAnchorScrollTopOffset());
+  };
 
   /* quick-nav items */
   const quickNav = [
@@ -193,13 +201,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
       )}
 
       <div className="page" dir={dir}>
-        {/* Read progress. Its own element rather than a section property: it
-            reports the whole document, not the band it happens to sit in. */}
-        <div
-          className="uc-progress"
-          style={{ transform: `scaleX(${scrollProg / 100})` }}
-          aria-hidden="true"
-        />
+        <PageProgress value={scrollProg} />
 
         <HeroSplit
           family="violet"
@@ -226,18 +228,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           media={data.heroVisual ?? <DefaultUseCaseHeroPhone hero={hero} stats={stats} />}
         />
 
-        {/* The page's own contents, as a rail. It sits under the header rather
-            than at the viewport top, so `--header-dynamic-height` is what
-            positions it — nothing here may hard-code a pixel offset. */}
-        <nav className="uc-rail" aria-label={isEn ? "On this page" : "في هذه الصفحة"}>
-          <Shell className="uc-rail-inner">
-            {quickNav.map((q) => (
-              <button key={q.id} type="button" className="uc-rail-link" onClick={() => scrollTo(q.id)}>
-                {isEn ? q.en : q.ar}
-              </button>
-            ))}
-          </Shell>
-        </nav>
+        <PageRail items={quickNav} />
 
         <Section id="uc-what" family="grey">
           <Shell width="narrow">

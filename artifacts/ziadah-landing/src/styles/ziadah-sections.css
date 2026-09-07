@@ -179,3 +179,167 @@
 .uc-report-text { display: grid; gap: 0.2rem; min-width: 0; }
 .uc-report-label { font-size: 1.5rem; font-weight: 500; color: var(--ink); }
 .uc-report-sub { font-size: 1.3rem; line-height: 1.4; color: var(--ink-muted); }
+
+/* ---------- SECTOR PLAYBOOK -------------------------------------------
+   `SectorDetail` renders sixteen sector pages as a stack of blocks under a
+   shared rail. A block is the card anatomy from the system — 8% tint of the
+   section's own ink, card radius — rather than a hard-coded white panel with
+   a zinc border, so it reads correctly whichever family the page is on. */
+.sector-block {
+  margin-bottom: 2rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  /* Cleared by the rail above it, which is itself header-offset. */
+  scroll-margin-top: calc(var(--header-dynamic-height) + 8rem);
+}
+@media screen and (min-width: 768px) { .sector-block { padding: 3.6rem; } }
+.sector-block > .t-eyebrow { margin-bottom: 1.2rem; }
+.sector-block > .section-head-title--md { margin-bottom: 2rem; }
+
+/* The sector's own evidence, in the hero: what its orders look like beside
+   what Ziadah suggests against them. Two columns at every width above a
+   phone — the pairing IS the point, so they must not stack apart. */
+.sector-hero-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  max-width: 64rem;
+  margin: 4rem auto 0;
+  text-align: start;
+}
+@media screen and (max-width: 499px) { .sector-hero-cols { grid-template-columns: minmax(0, 1fr); } }
+.sector-hero-col {
+  padding: 2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface-2);
+}
+.sector-hero-lines {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+/* The sector phone. A merchant recognises their own order screen, so the
+   anatomy is a real one: an app bar, the order rows, and Ziadah's suggestions
+   set apart beneath them. Written against the section's tokens rather than a
+   zinc/violet pair, so it reads on whichever family the hero carries. */
+.sector-phone-wrap { position: relative; display: flex; justify-content: center; width: 100%; }
+.sector-phone {
+  width: 100%;
+  max-width: 34rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-block);
+  background: var(--general-white);
+  overflow: hidden;
+  box-shadow: 0 2.4rem 6rem -1.2rem rgb(0 0 0 / 0.16);
+}
+.sector-phone-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.6rem;
+  border-block-end: 0.1rem solid var(--general-gray-light);
+  background: var(--general-white-off);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--general-black);
+}
+.sector-phone-bar > :last-child { font-size: 1.2rem; color: var(--general-gray-mid); }
+.sector-phone-body { display: grid; gap: 1rem; padding: 1.6rem; }
+.sector-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 0.1rem solid var(--general-gray-light);
+  border-radius: 1.2rem;
+  background: var(--general-white);
+  font-size: 1.4rem;
+  color: var(--general-black);
+}
+.sector-phone-name { flex: 1; min-width: 0; font-weight: 500; }
+.sector-phone-price { font-weight: 500; }
+.sector-phone-recs {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+  padding: 1.2rem;
+  border: 0.1rem solid color-mix(in srgb, var(--ziadah-violet) 28%, transparent);
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--ziadah-violet-pale) 55%, transparent);
+}
+.sector-phone-recs-label {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ziadah-violet-dark);
+}
+.sector-phone-row--rec { padding: 0.8rem 1rem; font-size: 1.3rem; }
+.sector-phone-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background: var(--general-black);
+  color: var(--general-white);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+/* The two floating tags sit on the phone's corners. Logical properties, so
+   they swap ends with the document direction rather than staying pinned. */
+.sector-phone-tag {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border: 0.1rem solid var(--general-gray-light);
+  border-radius: 9999px;
+  background: var(--general-white);
+  box-shadow: 0 0.8rem 2.4rem -0.8rem rgb(0 0 0 / 0.18);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--general-gray-dark);
+  white-space: nowrap;
+}
+.sector-phone-tag::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--ziadah-violet);
+}
+.sector-phone-tag--start { inset-block-start: -1.2rem; inset-inline-start: 0; }
+.sector-phone-tag--end { inset-block-end: -1.2rem; inset-inline-end: 0; }
+.sector-phone-tag--end::before { background: var(--warning); }
+
+/* An accent run inside a headline. Not `text-brand`: the ramp resolves that
+   to `--color-secondary`, which is the ink the rest of the headline already
+   uses, so the accent was invisible. Stated at both ends of the family
+   because the brand violet reads on the pale ground and its pale tint reads
+   on the dark one — display type, so 3:1 is the bar and both clear it. */
+.hero-accent { color: var(--ziadah-violet); }
+[data-invert] .hero-accent { color: var(--ziadah-violet-pale); }
+
+/* The read-more row at the foot of a card. `.card-foot` is the system's slot;
+   this is what goes in it when the card is a destination. */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ziadah-violet);
+}
+[data-invert] .card-cta { color: var(--ziadah-violet-pale); }
