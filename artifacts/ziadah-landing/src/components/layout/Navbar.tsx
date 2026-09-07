@@ -13,6 +13,7 @@ import {
   Newspaper,
   Calculator,
   Scale,
+  Info,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
@@ -115,6 +116,12 @@ export function Navbar() {
   }));
 
   const helpItems: HelpItem[] = [
+    {
+      label: t("عن زيادة", "About Ziadah"),
+      sub: t("ما هو زيادة، وما ليس", "What Ziadah is, and what it is not"),
+      Icon: Info,
+      onClick: () => go("/about"),
+    },
     {
       label: t("مركز المساعدة", "Support center"),
       sub: t("أدلة وشروحات خطوة بخطوة", "Guides & step-by-step articles"),
@@ -244,7 +251,7 @@ export function Navbar() {
                         {item.label}
                       </button>
                     ))}
-                    <button className="mega-link" onClick={() => go("/use-cases/by-pages")}>
+                    <button className="mega-link" onClick={() => go("/use-cases")}>
                       {t("كل الحلول", "All solutions")}
                     </button>
                   </div>
@@ -476,7 +483,7 @@ export function Navbar() {
                     ))}
                   </div>
                 ))}
-                <button className="mob-row" onClick={() => go("/use-cases/by-pages")} tabIndex={subTab}>
+                <button className="mob-row" onClick={() => go("/use-cases")} tabIndex={subTab}>
                   {t("كل الحلول", "All solutions")}
                 </button>
               </>

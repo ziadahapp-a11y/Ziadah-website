@@ -36,6 +36,7 @@ export function Footer() {
     {
       title: tr.nav.useCases,
       links: [
+        { to: "/use-cases", label: t("كل الحلول", "All solutions") },
         { to: "/use-cases/by-pages", label: tr.nav.useCaseByPage },
         { to: "/use-cases/by-activity", label: tr.nav.useCaseByActivity },
         { to: "/use-cases/by-presentation", label: tr.nav.useCaseByPresentation },
@@ -57,6 +58,8 @@ export function Footer() {
         { to: "/calculator", label: tr.nav.calculator },
         { to: "/zid-apps-comparison", label: tr.nav.comparisonNav },
         { to: "/success-stories", label: tr.nav.successStories },
+        { to: "/platforms", label: tr.nav.platforms },
+        { to: "/about", label: t("عن زيادة", "About Ziadah") },
       ],
     },
     {

@@ -22,6 +22,7 @@ const Features = lazy(() => import("@/pages/Features"));
 const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const Platforms = lazy(() => import("@/pages/Platforms"));
 const UseCases = lazy(() => import("@/pages/UseCases"));
+const About = lazy(() => import("@/pages/About"));
 const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
 const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
@@ -130,6 +131,7 @@ function PublicRoutes() {
       <Route path="/pricing" component={PricingPage} />
       <Route path="/platforms" component={Platforms} />
       <Route path="/use-cases" component={UseCases} />
+      <Route path="/about" component={About} />
       <Route path="/zid-apps-comparison" component={ZidAppsComparison} />
       <Route path="/affiliate" component={Affiliate} />
       <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
