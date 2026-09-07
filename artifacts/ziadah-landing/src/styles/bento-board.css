@@ -1,0 +1,977 @@
+/* =====================================================================
+   BENTO BOARD  -  the homepage's editorial grid.
+
+   The homepage used to be three ported scroll scenes: a headline, a phone and
+   a four-tile grid all living in the same 100svh box, separated only by
+   `z-index` and a transform timeline. Measured at 390x844 the phone crossed
+   the lede, the tiles crossed the phone, and slices of the 5.6rem headline
+   showed through the gaps between tiles. Nothing was clipped by a bug; the
+   composition simply had no room.
+
+   What replaces it is a real grid. Two columns, each a stack of cards, with
+   the row rhythm offset between them so the board reads as a composition
+   rather than as a table. A card is one of exactly two things:
+
+     media    - a Ziadah product surface fills the card edge to edge, with the
+                caption on a scrim at the foot
+     heading  - a display line, optionally with one support line and a mark
+
+   Below 1025 the columns dissolve (`display: contents`) and the cards
+   interleave into one column in authored order - left, right, left, right -
+   so the mobile page keeps the board's alternation instead of reading the
+   whole left column and then the whole right one.
+
+   Nothing here is traced from another site. The two-variant idea is a common
+   bento pattern; the geometry, the type scale, the tones and every surface
+   inside a media card are Ziadah's own tokens.
+   ===================================================================== */
+
+.bboard {
+  display: grid;
+  /* `minmax(0, 1fr)`, never `1fr`: an implicit track floors at its items'
+     min-content width, and a media card holds a product surface that does not
+     want to shrink. This is the sixth place in this codebase that needs it. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.6rem;
+  width: 100%;
+  align-items: start;
+}
+.bboard-col {
+  display: grid;
+  gap: 1.6rem;
+  /* The offset that makes the two stacks read as one composition: the right
+     column starts a third of a short card lower, so no two cards in the board
+     share a top edge. */
+  align-content: start;
+}
+@media screen and (min-width: 1025px) {
+  .bboard-col--right { margin-block-start: 8rem; }
+}
+@media screen and (max-width: 1024px) {
+  .bboard { grid-template-columns: minmax(0, 1fr); }
+  /* The columns stop being boxes and their cards become items of the board
+     itself, so `order` can interleave them. */
+  .bboard-col { display: contents; }
+}
+
+/* ---------- the card ------------------------------------------------- */
+.bcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3.2rem;
+  overflow: hidden;
+  isolation: isolate;
+  min-width: 0;
+}
+
+/* Two tones, both drawn from the brand pair the section already stamps. A
+   board alternates them so the grid carries its own light/dark rhythm instead
+   of being one wall of identical tiles. */
+.bcard--ink {
+  /* A blue-cast ink rather than the neutral black-mid: on a board whose other
+     two faces are Ziadah pale-blue and white, a neutral dark card read as a
+     third, unrelated palette. #340061 sits between --ziadah-ink (#1f0236) and
+     --ziadah-violet-dark (#480086), so the dark face belongs to the same family
+     as everything around it. */
+  background: #340061;
+  color: var(--general-white);
+  --bcard-hair: #ffffff1f;
+  --bcard-mute: #ffffff9e;
+}
+.bcard--pale {
+  background: var(--ziadah-violet-pale);
+  color: var(--general-black);
+  --bcard-hair: rgb(10 10 10 / 0.12);
+  --bcard-mute: rgb(10 10 10 / 0.62);
+}
+.bcard--white {
+  background: var(--general-white);
+  color: var(--general-black);
+  --bcard-hair: rgb(10 10 10 / 0.1);
+  --bcard-mute: rgb(10 10 10 / 0.62);
+}
+
+/* Heights are the board's rhythm, so they are explicit rather than emergent.
+   `min-height` only - a card always grows for its own content. */
+.bcard--tall  { min-height: 52rem; }
+.bcard--short { min-height: 30rem; }
+@media screen and (max-width: 1024px) {
+  .bcard--tall  { min-height: 44rem; }
+  .bcard--short { min-height: 26rem; }
+}
+@media screen and (max-width: 767px) {
+  .bcard--tall  { min-height: 38rem; }
+  .bcard--short { min-height: 22rem; }
+  .bcard { border-radius: 2.4rem; }
+}
+
+/* ---------- heading variant ------------------------------------------ */
+.bcard--heading {
+  justify-content: space-between;
+  gap: 2.4rem;
+  padding: 3.2rem;
+}
+@media screen and (max-width: 767px) { .bcard--heading { padding: 2.4rem; } }
+
+.bcard-mark {
+  display: grid;
+  place-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 1.6rem;
+  flex: none;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.bcard-mark svg { width: 2.2rem; height: 2.2rem; }
+
+.bcard-body { display: flex; flex-direction: column; gap: 1.2rem; }
+.bcard-title {
+  font-size: 3.2rem;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+[dir="rtl"] .bcard-title { line-height: 1.4; letter-spacing: 0; }
+@media screen and (max-width: 767px) { .bcard-title { font-size: 2.4rem; } }
+
+.bcard-support {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--bcard-mute);
+}
+
+/* ---------- media variant -------------------------------------------- */
+/* The stage is a FLOW child that absorbs the card's free space, and the
+   caption is its sibling below. It was an absolute layer over a scrim first,
+   which is prettier and wrong: a surface taller than the card's free space had
+   nowhere to go and was cut by the card - the same defect, one layer down, as
+   the scenes this board replaced. A flow child cannot overlap its sibling and
+   cannot be cut by it.
+   The stage carries a faint wash so the media region still reads as its own
+   plate rather than as loose parts sitting on the card. */
+.bcard--media { justify-content: flex-start; }
+
+.bcard-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 3.2rem 3.2rem 0;
+  pointer-events: none;
+}
+@media screen and (max-width: 767px) { .bcard-stage { padding: 2.4rem 2.4rem 0; } }
+.bcard-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, color-mix(in srgb, currentColor 5%, transparent), transparent 88%);
+  pointer-events: none;
+}
+
+.bcard-caption {
+  position: relative;
+  padding: 2.8rem 3.2rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+@media screen and (max-width: 767px) { .bcard-caption { padding: 2.4rem; } }
+
+.bcard-caption .bcard-title { font-size: 2.8rem; }
+@media screen and (max-width: 767px) { .bcard-caption .bcard-title { font-size: 2.2rem; } }
+
+/* ---------- the section head above a board --------------------------- */
+/* One dominant element per section: the head is the argument, the board is the
+   evidence. The head is a two-column block at >=1025 so the display line and
+   its lede sit side by side rather than stacking into a tall wall of type. */
+.bhead {
+  display: grid;
+  gap: 2.4rem 6.4rem;
+  margin-block-end: 4.8rem;
+  align-items: end;
+}
+@media screen and (min-width: 1025px) {
+  .bhead { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+}
+.bhead-title {
+  font-size: 6.4rem;
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+[dir="rtl"] .bhead-title { line-height: 1.24; letter-spacing: 0; }
+@media screen and (max-width: 1024px) { .bhead-title { font-size: 4.8rem; } }
+@media screen and (max-width: 767px)  { .bhead-title { font-size: 3.6rem; } }
+
+.bhead-lede {
+  font-size: 1.8rem;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 52rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(76%, var(--ink-floor, 0%)), transparent);
+}
+@media screen and (max-width: 767px) { .bhead-lede { font-size: 1.6rem; } }
+
+.bhead-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1.6rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(72%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .bhead-eyebrow { letter-spacing: 0; text-transform: none; }
+.bhead-eyebrow::before {
+  content: "";
+  width: 2.4rem;
+  height: 0.1rem;
+  background: currentColor;
+  flex: none;
+}
+
+/* ---------- the board section shell ---------------------------------- */
+.bsection { padding-block: 12rem; }
+@media screen and (max-width: 1024px) { .bsection { padding-block: 9rem; } }
+@media screen and (max-width: 767px)  { .bsection { padding-block: 6.4rem; } }
+.bsection[data-family] { background: var(--color-primary); color: var(--color-secondary); }
+
+/* A single trailing row of compact tiles under a board - the "and these too"
+   line. Four across at >=1025, two at tablet, one on a phone. */
+.bstrip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin-block-start: 1.6rem;
+}
+@media screen and (max-width: 1024px) { .bstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bstrip .bcard--short { min-height: 24rem; }
+/* Two across on a phone, not four stacked slabs: these are a SET, and a set
+   read one item per screen stops being one. The pair keeps the strip to two
+   screens instead of four and the titles are short enough to hold. */
+@media screen and (max-width: 767px) {
+  .bstrip .bcard--short { min-height: 17rem; }
+  .bstrip .bcard--heading { padding: 2rem; gap: 1.6rem; }
+  .bstrip .bcard-mark { width: 3.6rem; height: 3.6rem; border-radius: 1.2rem; }
+  .bstrip .bcard-mark svg { width: 1.8rem; height: 1.8rem; }
+}
+.bstrip .bcard-title { font-size: 2.2rem; }
+@media screen and (max-width: 767px) { .bstrip .bcard-title { font-size: 1.7rem; } }
+@media screen and (max-width: 767px) { .bstrip .bcard-support { font-size: 1.3rem; } }
+
+/* ---------- enter ----------------------------------------------------- */
+/* The scene timeline is gone; what is left is one entrance per card, which is
+   the only motion the board has. Reduced motion lands on the end state. */
+/* Inverted, matching `[data-reveal]` in system.css: the hidden start state
+   applies only once the motion runtime has confirmed it is live. No JS, a
+   thrown error, or a stylesheet that loads before the runtime => the board
+   renders. A board is the section's whole content; it may never depend on a
+   script to become visible. */
+html[data-motion-ready] .bcard { opacity: 0; transform: translateY(2.4rem); }
+html[data-motion-ready] .bboard[data-revealed] .bcard,
+html[data-motion-ready] .bstrip[data-revealed] .bcard {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity calc(var(--motion) * 0.6s) var(--ease-out-quint) var(--bcard-delay, 0s),
+    transform calc(var(--motion) * 0.6s) var(--ease-out-quint) var(--bcard-delay, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion-ready] .bcard { opacity: 1; transform: none; transition: none; }
+}
+
+/* =====================================================================
+   BOARD ART  -  the product surfaces that fill a media card.
+
+   One vocabulary, two grounds. A surface never names a colour: it reads
+   `--bart-face` / `--bart-hair` / `--bart-mute` / `--bart-accent`, which the
+   card's tone sets. That is why the same wallet panel reads correctly on the
+   near-black card and on the pale-blue one.
+
+   The accent is chosen per tone for contrast, not for taste: the brand blue
+   is 3.04:1 on `#1b1b1b` and 4.32:1 on `#eedaff`, so neither ground can carry
+   it as TEXT. On ink the accent text is the brand's pale end (13.1:1); on pale
+   it is the brand's dark end (6.10:1). As a FILL under white text the brand
+   blue is 5.66:1 and is used directly on both.
+   ===================================================================== */
+.bcard--ink {
+  --bart-face: rgb(255 255 255 / 0.06);
+  --bart-hair: rgb(255 255 255 / 0.1);
+  --bart-mute: rgb(255 255 255 / 0.62);
+  --bart-accent: var(--ziadah-violet-pale);
+  --bart-shadow: none;
+}
+.bcard--pale {
+  --bart-face: rgb(255 255 255 / 0.72);
+  --bart-hair: rgb(0 11 36 / 0.1);
+  --bart-mute: rgb(10 10 10 / 0.62);
+  --bart-accent: var(--ziadah-violet-dark);
+  --bart-shadow: 0 2.4rem 6rem -2.4rem rgb(0 11 36 / 0.35);
+}
+.bcard--white {
+  --bart-face: var(--general-white-off);
+  --bart-hair: rgb(0 11 36 / 0.1);
+  --bart-mute: rgb(10 10 10 / 0.62);
+  --bart-accent: var(--ziadah-violet-dark);
+  --bart-shadow: 0 2.4rem 6rem -2.4rem rgb(0 11 36 / 0.25);
+}
+
+.bart {
+  width: 100%;
+  max-width: 42rem;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2rem;
+  border-radius: 2.4rem;
+  border: 0.1rem solid var(--bart-hair);
+  background: var(--bart-face);
+  box-shadow: var(--bart-shadow);
+  font-size: 1.3rem;
+  line-height: 1.45;
+  overflow: hidden;
+}
+@media screen and (max-width: 767px) { .bart { padding: 1.6rem; border-radius: 2rem; } }
+
+.bart-head { display: flex; align-items: center; gap: 0.8rem; margin-block-end: 0.4rem; }
+.bart-dot { flex: none; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--ziadah-violet); }
+.bart-head-title { font-size: 1.4rem; font-weight: 500; }
+.bart-badge {
+  margin-inline-start: auto;
+  flex: none;
+  padding: 0.2rem 0.9rem;
+  border-radius: 9999px;
+  border: 0.1rem solid var(--bart-hair);
+  font-size: 1.1rem;
+  color: var(--bart-mute);
+}
+[dir="rtl"] .bart-badge { margin-inline-start: auto; }
+
+.bart-label { font-size: 1.2rem; color: var(--bart-mute); margin: 0; }
+.bart-label--sub { margin-block-start: 1.2rem; }
+.bart-fig { font-size: 3.2rem; line-height: 1.1; font-weight: 400; margin: 0; }
+.bart-foot { font-size: 1.2rem; color: var(--bart-mute); margin: auto 0 0; padding-block-start: 1.2rem; }
+
+.bart-cta {
+  margin-block-start: 0.8rem;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 9999px;
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.bart-rows { display: grid; gap: 0.8rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.bart-rows--tight { gap: 0.6rem; }
+.bart-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 1.4rem;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+  min-width: 0;
+}
+.bart-row--flat { justify-content: space-between; }
+.bart-grow { flex: 1 1 auto; min-width: 0; }
+.bart-row-mark { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 0.8rem; background: color-mix(in srgb, var(--ziadah-violet) 45%, transparent); }
+.bart-row-text { display: grid; flex: 1 1 auto; min-width: 0; }
+.bart-row-name { font-size: 1.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bart-row-when { font-size: 1.1rem; color: var(--bart-mute); }
+.bart-row-amt { font-size: 1.3rem; font-weight: 500; white-space: nowrap; flex: none; }
+.bart-row-ico { flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; color: var(--bart-accent); }
+.bart-row-svg { width: 1.6rem; height: 1.6rem; }
+
+.bart-toggle {
+  flex: none;
+  width: 3.2rem; height: 1.8rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, currentColor 18%, transparent);
+  position: relative;
+}
+.bart-toggle::after {
+  content: "";
+  position: absolute;
+  inset-block: 0.3rem;
+  inset-inline-start: 0.3rem;
+  width: 1.2rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
+.bart-toggle.is-on { background: var(--ziadah-violet); }
+.bart-toggle.is-on::after { inset-inline-start: auto; inset-inline-end: 0.3rem; background: var(--general-white); opacity: 1; }
+
+/* cashback - the worked example under the rule */
+.bart-result {
+  display: flex; align-items: center; gap: 1.2rem;
+  margin-block-start: auto;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1.4rem;
+  background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent);
+}
+.bart-arrow { flex: 1 1 auto; height: 0.1rem; background: var(--bart-hair); min-width: 1.6rem; }
+.bart-result-amt { font-size: 1.8rem; font-weight: 500; color: var(--bart-accent); }
+
+/* referral - two people and the link between them */
+.bart-chain { display: flex; align-items: flex-start; gap: 0.8rem; padding-block: 1.2rem 0.4rem; }
+.bart-node { display: grid; justify-items: center; gap: 0.6rem; flex: none; width: 6.4rem; }
+.bart-node-label { font-size: 1.1rem; color: var(--bart-mute); text-align: center; }
+.bart-avatar { width: 3.2rem; height: 3.2rem; border-radius: 50%; background: color-mix(in srgb, currentColor 16%, transparent); }
+.bart-avatar--on { background: var(--ziadah-violet); }
+.bart-chain-link { flex: 1 1 auto; min-width: 0; display: grid; justify-items: center; gap: 0.6rem; padding-block-start: 1.5rem; }
+.bart-chain-rail { width: 100%; height: 0.2rem; background: var(--bart-hair); }
+.bart-chain-chip {
+  padding: 0.2rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent);
+  color: var(--bart-accent);
+  white-space: nowrap;
+}
+
+/* tiers - a four-rung ladder */
+.bart-ladder { display: grid; gap: 1.2rem; align-content: center; flex: 1 1 auto; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.bart-step { display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); align-items: center; gap: 1.2rem; }
+.bart-step-name { font-size: 1.2rem; color: var(--bart-mute); }
+.bart-step.is-on .bart-step-name { color: inherit; font-weight: 500; }
+.bart-step-rail { height: 0.8rem; border-radius: 9999px; background: color-mix(in srgb, currentColor 12%, transparent); overflow: hidden; }
+.bart-step-fill { display: block; height: 100%; border-radius: inherit; background: color-mix(in srgb, var(--ziadah-violet) 40%, transparent); }
+.bart-step.is-on .bart-step-fill { background: var(--ziadah-violet); }
+
+/* setup - three steps, two done */
+.bart-steps { display: grid; gap: 1.2rem; align-content: center; flex: 1 1 auto; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.bart-stepline { display: flex; align-items: center; gap: 1rem; }
+.bart-tick {
+  flex: none; width: 2rem; height: 2rem; border-radius: 50%;
+  border: 0.15rem solid var(--bart-hair);
+  position: relative;
+}
+.bart-stepline.is-done .bart-tick { background: var(--ziadah-violet); border-color: var(--ziadah-violet); }
+.bart-stepline.is-done .bart-tick::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.6rem; top: 0.35rem;
+  width: 0.45rem; height: 0.9rem;
+  border: 0.15rem solid var(--general-white);
+  border-block-start: 0; border-inline-start: 0;
+  transform: rotate(45deg);
+}
+
+/* analytics - a seven-column chart on the panel's baseline */
+.bart-bars { display: flex; align-items: flex-end; gap: 0.8rem; flex: 1 1 auto; min-height: 9rem; margin-block-start: 0.8rem; }
+.bart-bar { flex: 1 1 0; min-width: 0; border-radius: 0.6rem 0.6rem 0 0; background: color-mix(in srgb, currentColor 14%, transparent); }
+.bart-bar.is-on { background: var(--ziadah-violet); }
+
+.bsection-foot { display: flex; justify-content: center; margin-block-start: 4.8rem; }
+
+/* =====================================================================
+   HOMEPAGE HERO  -  a composition with cells.
+   ===================================================================== */
+.hero-home {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary);
+  color: var(--color-secondary);
+}
+/* The hero opts out of the page's header offset - it paints its own ground
+   behind the fixed header - and then clears the header itself, with room to
+   spare. Written at the same specificity as
+   `.page > section:first-of-type.no-header-offset { padding-top: 0 }` in
+   sections.css (0,3,1) so it ties and wins on import order; a plain
+   `.hero-home` rule loses and the eyebrow lands under the logo, which is
+   exactly what the first render did. */
+.page > section.hero-home.no-header-offset {
+  padding-block: calc(var(--header-dynamic-height) + 7rem) 12rem;
+}
+@media screen and (max-width: 1024px) {
+  .page > section.hero-home.no-header-offset { padding-block: calc(var(--header-dynamic-height) + 5rem) 8rem; }
+}
+@media screen and (max-width: 767px) {
+  .page > section.hero-home.no-header-offset { padding-block: calc(var(--header-dynamic-height) + 3.2rem) 6.4rem; }
+}
+
+/* Two soft fields, both from the brand blue. Decorative. */
+.hero-home-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 50rem at 78% 18%, color-mix(in srgb, var(--ziadah-violet) 34%, transparent), transparent 70%),
+    radial-gradient(48rem 40rem at 8% 86%, color-mix(in srgb, var(--ziadah-violet) 16%, transparent), transparent 72%);
+}
+[dir="rtl"] .hero-home-field {
+  background:
+    radial-gradient(60rem 50rem at 22% 18%, color-mix(in srgb, var(--ziadah-violet) 34%, transparent), transparent 70%),
+    radial-gradient(48rem 40rem at 92% 86%, color-mix(in srgb, var(--ziadah-violet) 16%, transparent), transparent 72%);
+}
+
+.hero-home-inner {
+  position: relative;
+  display: grid;
+  gap: 6.4rem;
+  align-items: center;
+}
+@media screen and (min-width: 1025px) {
+  .hero-home-inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 8rem; }
+}
+@media screen and (max-width: 767px) { .hero-home-inner { gap: 4.8rem; } }
+
+.hero-home-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 2.4rem; min-width: 0; }
+@media screen and (max-width: 1024px) { .hero-home-copy { align-items: center; text-align: center; } }
+
+.hero-home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary) max(78%, var(--ink-floor, 0%)), transparent);
+}
+.hero-home-eyebrow::before { content: ""; width: 2.4rem; height: 0.1rem; background: currentColor; flex: none; }
+@media screen and (max-width: 1024px) { .hero-home-eyebrow::before { display: none; } }
+
+.hero-home-title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 8.8rem;
+  line-height: 1;
+  /* Bold. At 8.8rem the 400 weight read as a light display face beside the 700
+     headings further down the page, so the largest type on the site was also
+     the thinnest. */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* `max-width: 100%` KEPT deliberately. This is a flex column whose items are
+     the headline lines; without it a long line makes the flex item wider than
+     the hero column instead of wrapping, which is what put the old headline
+     outside its own grid cell. */
+  max-width: 100%;
+  min-width: 0;
+}
+/* DOCUMENTED DEVIATION D-02: a 100% display line-height clips Arabic
+   ascenders and diacritics, so the display role takes one per-script step. */
+[dir="rtl"] .hero-home-title { line-height: 1.2; letter-spacing: 0; }
+.hero-home-line { display: block; max-width: 100%; min-width: 0; }
+@media screen and (max-width: 1439px) { .hero-home-title { font-size: 7.6rem; } }
+@media screen and (max-width: 1024px) { .hero-home-title { font-size: 6.8rem; } }
+@media screen and (max-width: 767px)  { .hero-home-title { font-size: 5.2rem; } }
+@media screen and (max-width: 380px)  { .hero-home-title { font-size: 4.4rem; } }
+
+.hero-home-lede {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.65;
+  max-width: 46rem;
+  color: color-mix(in srgb, var(--color-secondary) max(82%, var(--ink-floor, 0%)), transparent);
+}
+@media screen and (max-width: 767px) { .hero-home-lede { font-size: 1.7rem; } }
+
+.hero-home-actions { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+@media screen and (max-width: 1024px) { .hero-home-actions { justify-content: center; } }
+
+.hero-home-note {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  font-size: 1.4rem;
+  color: color-mix(in srgb, var(--color-secondary) max(76%, var(--ink-floor, 0%)), transparent);
+}
+.hero-home-note-ico { width: 1.6rem; height: 1.6rem; flex: none; }
+
+/* ---------- the stage ------------------------------------------------- */
+.hero-home-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2.4rem;
+  min-width: 0;
+}
+/* The inline padding is the chips' gutter. It exists so a chip can be
+   absolutely placed OUTSIDE the device rather than on top of it - which is
+   the failure this hero replaces. */
+@media screen and (min-width: 1025px) { .hero-home-stage { padding-inline: 11rem; } }
+
+.hero-home-glow {
+  position: absolute;
+  /* Vertically it may run past the stage - the section clips it and the
+     falloff reads better - but NOT horizontally: at 768-1024 the stage is the
+     full column and a -4% inline inset put 30-39px of the glow outside it,
+     which the element-overflow detector reads as a layout escape. */
+  inset: -8% 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--ziadah-violet) 30%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* The frame is the device's width and the chips' positioning context. On
+   mobile it is a two-row stack; at >=1025 the chips leave the flow and the
+   frame's box is the device's box. */
+.hero-home-frame {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+  width: min(30rem, 100%);
+}
+@media screen and (max-width: 767px) { .hero-home-frame { width: min(27rem, 100%); } }
+
+/* No aspect ratio: the frame is as tall as the wallet screen inside it. An
+   authored ratio is a promise about content height that the content does not
+   keep, and the phone loses a row wherever the ratio is short. */
+.hero-home-device { width: 100%; }
+
+
+/* ---------- the chips ------------------------------------------------- */
+/* Below 1025 they are a normal row under the device. Above it they move into
+   the stage's gutters. Two states, no shared geometry. */
+.hero-home-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+.hero-home-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--general-white) 10%, transparent);
+  border: 0.1rem solid color-mix(in srgb, var(--general-white) 16%, transparent);
+  backdrop-filter: blur(1.2rem);
+  white-space: nowrap;
+}
+.hero-home-chip-label { font-size: 1.3rem; color: color-mix(in srgb, var(--color-secondary) max(78%, var(--ink-floor, 0%)), transparent); }
+.hero-home-chip-amt { font-size: 1.5rem; font-weight: 500; color: var(--ziadah-violet-pale); }
+
+/* At >=1025 the chips hang off the device's own edges - close enough to read
+   as attached to it, far enough out that neither can touch the screen. The
+   stage's 9rem inline padding is what makes that possible: the chip sits in
+   the gutter the padding reserves, so an overlap is a geometry impossibility
+   rather than a tuned offset. */
+@media screen and (min-width: 1025px) {
+  .hero-home-chips { display: block; }
+  .hero-home-chip { position: absolute; }
+  /* 3.2rem is the device's own bezel: a 0.8rem border plus 2.4rem of padding.
+     Anchoring a chip's inner edge at `100% - 3.2rem` lands it exactly on the
+     boundary of the screen content and not one pixel further, so a chip
+     overlaps the FRAME and can never cover a row, a figure or the button.
+     Written from the frame's real geometry rather than nudged until it
+     looked clear. */
+  .hero-home-chip--a { inset-inline-end: calc(100% - 3.2rem); top: 16%; }
+  .hero-home-chip--b { inset-inline-start: calc(100% - 3.2rem); bottom: 20%; }
+}
+
+/* ---------- enter ----------------------------------------------------- */
+html[data-motion-ready] .hero-home-inner > * { opacity: 0; transform: translateY(2rem); }
+html[data-motion-ready] .hero-home-inner[data-revealed] > * {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity calc(var(--motion) * 0.7s) var(--ease-out-quint),
+    transform calc(var(--motion) * 0.7s) var(--ease-out-quint);
+}
+html[data-motion-ready] .hero-home-inner[data-revealed] > *:nth-child(2) { transition-delay: 120ms; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion-ready] .hero-home-inner > * { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---------- the systems board's last beat ----------------------------- */
+.bsection-layers { margin-block-start: 8rem; }
+@media screen and (max-width: 767px) { .bsection-layers { margin-block-start: 5.6rem; } }
+.bsection-subhead {
+  font-size: 3.2rem;
+  line-height: 1.2;
+  font-weight: 400;
+  margin: 0 0 3.2rem;
+  text-align: center;
+}
+[dir="rtl"] .bsection-subhead { line-height: 1.4; }
+@media screen and (max-width: 767px) { .bsection-subhead { font-size: 2.4rem; margin-block-end: 2.4rem; } }
+
+/* =====================================================================
+   THE CLOSING BAND
+
+   One statement and the two paths out. Not cards: a path is a full-width
+   row with a rule under it, which is what a list of two destinations wants
+   to be. Three would still be a list; four would be a grid, and that is the
+   line this section exists on the far side of.
+   ===================================================================== */
+.closing {
+  background: var(--color-primary);
+  color: var(--color-secondary);
+  padding-block: 12rem;
+}
+@media screen and (max-width: 1024px) { .closing { padding-block: 9rem; } }
+@media screen and (max-width: 767px)  { .closing { padding-block: 6.4rem; } }
+
+.closing-inner { display: grid; gap: 6.4rem; align-items: start; }
+@media screen and (min-width: 1025px) {
+  .closing-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8rem; }
+}
+@media screen and (max-width: 767px) { .closing-inner { gap: 4.8rem; } }
+
+.closing-lead { display: flex; flex-direction: column; align-items: flex-start; gap: 2.4rem; }
+/* 6.4rem, not 8. The page's own argument is the hero's h1; a closing head at
+   the same tier reads as a second page opening, and the proportion detector
+   agreed - 80px over 282 characters with no art. */
+.closing-title {
+  font-size: 6.4rem;
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+[dir="rtl"] .closing-title { line-height: 1.2; letter-spacing: 0; }
+@media screen and (max-width: 1024px) { .closing-title { font-size: 5.2rem; } }
+@media screen and (max-width: 767px)  { .closing-title { font-size: 4rem; } }
+.closing-lede {
+  font-size: 1.8rem;
+  line-height: 1.7;
+  max-width: 44rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-secondary) max(80%, var(--ink-floor, 0%)), transparent);
+}
+
+.closing-paths { list-style: none; margin: 0; padding: 0; display: grid; }
+.closing-path {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4rem;
+  padding-block: 3.2rem;
+  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary) 18%, transparent);
+  color: inherit;
+  text-decoration: none;
+}
+.closing-paths li:last-child .closing-path {
+  border-block-end: 0.1rem solid color-mix(in srgb, var(--color-secondary) 18%, transparent);
+}
+.closing-path-text { display: grid; gap: 0.8rem; flex: 1 1 auto; min-width: 0; }
+.closing-path-title { font-size: 2.4rem; line-height: 1.3; }
+@media screen and (max-width: 767px) { .closing-path-title { font-size: 2rem; } }
+.closing-path-body {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary) max(76%, var(--ink-floor, 0%)), transparent);
+}
+.closing-path-ico {
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-block-start: 0.4rem;
+  transition: transform calc(var(--motion) * 0.25s) var(--ease-out-quint);
+}
+/* An arrow that points OUT of the page in LTR points the same way out of an
+   RTL page only if it is mirrored. */
+[dir="rtl"] .closing-path-ico { transform: scaleX(-1); }
+@media (hover: hover) {
+  .closing-path:hover .closing-path-ico { transform: translate(0.4rem, -0.4rem); }
+  [dir="rtl"] .closing-path:hover .closing-path-ico { transform: scaleX(-1) translate(0.4rem, -0.4rem); }
+}
+.closing-path:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.4rem; border-radius: 0.4rem; }
+
+/* =====================================================================
+   ASSET SLOTS
+
+   A slot with its asset present is just an image; the sizing lives on the
+   composition that owns it. A slot WITHOUT its asset renders nothing in
+   production - see `AssetSlot.tsx` for why that is safe rather than lazy -
+   and an outline in development so open slots stay visible while composing.
+   ===================================================================== */
+.asset-slot { display: block; max-width: 100%; height: auto; pointer-events: none; user-select: none; }
+
+.asset-slot--open {
+  display: grid;
+  place-items: center;
+  min-height: 8rem;
+  border: 0.2rem dashed color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 1.6rem;
+  opacity: 0.5;
+}
+.asset-slot-id {
+  font-family: ui-monospace, monospace;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.8rem;
+}
+
+/* ---------- the hero's brand field and 3D layer ----------------------- */
+/* The motif sits behind the device and in front of the ground: it is the
+   composition's connective tissue, not a background texture. Opacity is low
+   enough that the wallet screen stays the brightest thing in the frame -
+   the product is the hero, and the geometry supports it. */
+/* Clamped to the stage. `ZiadahCluster` opens the cluster inside its own
+   viewBox, so the field reads wide without the element being wider than its
+   parent - which the matrix caught the first version doing, 57 times. */
+.hero-home-motif {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+  pointer-events: none;
+}
+@media screen and (max-width: 767px) { .hero-home-motif { opacity: 0.18; } }
+
+.hero-home-art { position: relative; z-index: 1; width: 100%; max-width: 16rem; margin-inline: auto; }
+@media screen and (min-width: 1025px) {
+  .hero-home-art { position: absolute; max-width: min(24rem, 40%); inset-inline-end: -8%; top: -2%; }
+}
+@media screen and (max-width: 1024px) { .hero-home-art { max-width: 13rem; margin-block-start: 1.6rem; } }
+
+.hero-home-frame { z-index: 2; }
+
+/* ---------- /about: the brand field ---------------------------------- */
+/* The one place the modular geometry is the SUBJECT rather than the
+   connective tissue. It sits under the hero's lede at full opacity, because
+   on a brand page the mark earns the room. */
+.about-brandfield {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  margin-block-start: 4.8rem;
+  min-height: 26rem;
+}
+@media screen and (max-width: 767px) { .about-brandfield { min-height: 20rem; margin-block-start: 3.2rem; } }
+
+.about-motif { width: min(46rem, 92%); aspect-ratio: 1; opacity: 0.9; }
+@media screen and (max-width: 767px) { .about-motif { width: min(30rem, 88%); } }
+
+.about-art {
+  position: absolute;
+  inset-inline-end: 4%;
+  bottom: 0;
+  width: min(18rem, 26%);
+}
+@media screen and (max-width: 767px) { .about-art { width: 11rem; inset-inline-end: 0; } }
+
+/* ---------- THE GROUND LAYER ----------------------------------------
+   `ArtGround`. Every rule here exists to make the layer unable to change
+   the page: it is absolutely positioned inside a box the layout already
+   sized, it clips itself, and it takes no pointer events. A ground that can
+   push a diagram is not a ground.
+
+   Strength is deliberately low and stated once per variant rather than per
+   page, so no page can quietly turn its ground into a subject. The diagrams
+   these sit behind - SectorSignature, EcosystemGraph, SupportMap - draw with
+   `var(--color-secondary)` at 22%..100%; a ground above ~18% starts competing
+   with the 22% tier and the drawing loses its faintest strokes. */
+.artground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.artground-motif {
+  position: absolute;
+  display: block;
+  /* The central diamond defaults to brand blue so the mark reads as Ziadah
+     wherever it is a SUBJECT. As a ground it must not: a brand-blue core at
+     11% is invisible on navy and a second brand mark on white. */
+  --motif-core: currentColor;
+}
+
+.artground-art {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* A diagram slot. The motif sits off-centre so the figure - which is centred
+   in the same box - is never read through the densest part of the mark. */
+.artground--slot .artground-motif {
+  inset-inline-start: -14%;
+  top: -10%;
+  width: 78%;
+  aspect-ratio: 1;
+  opacity: 0.15;
+}
+.artground--slot .artground-art {
+  inset-inline-end: 4%;
+  bottom: 4%;
+  width: 26%;
+  opacity: 0.9;
+}
+
+/* A lede hero. The headline block is centred, so the ground opens wide and
+   low: the mark reads at the edges of the column rather than behind the
+   words. Contrast is measured on the text, and text over an 11% mark on navy
+   is unchanged to two decimal places - but the rule that matters is that the
+   ground never sits at full strength under a text run. */
+.artground--hero .artground-motif {
+  /* PHYSICAL `left`, deliberately. `inset-inline-start: 50%` under RTL is
+     `right: 50%`, which puts the element's RIGHT edge on the centre line; the
+     `-50%` translate then drags it a further half-width away, landing the mark
+     entirely in the leading half of the hero. Centring is the one placement
+     that has no start/end sense, so it uses the physical property. The
+     off-centre grounds below stay logical, because those SHOULD mirror. */
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(120rem, 130%);
+  aspect-ratio: 1;
+  opacity: 0.11;
+}
+.artground--hero .artground-art {
+  inset-inline-end: 3%;
+  bottom: 6%;
+  width: min(22rem, 18%);
+  opacity: 0.85;
+}
+
+/* A compact page. One corner, small, and nothing else - the help centre is a
+   place people arrive at with a problem, and decoration there is a cost. */
+.artground--watermark .artground-motif {
+  inset-inline-end: -6%;
+  bottom: -22%;
+  width: min(46rem, 38%);
+  aspect-ratio: 1;
+  opacity: 0.13;
+}
+.artground--watermark .artground-art { display: none; }
+
+/* Below 768 the ground gets quieter, not smaller: a phone reads the same ink
+   at a third of the width, so the same opacity is a heavier mark. */
+@media screen and (max-width: 767px) {
+  /* The slot ground stops hanging past the slot's start edge on a phone.
+     MEASURED: the slot is 358px inside a 390px viewport with a 16px page
+     gutter, so a -14% offset puts the motif's box 34px outside the viewport
+     (40px at 430, where the slot is 398px). Nothing PAINTS out there - the
+     layer clips itself - but a contained composition inside a card has no
+     reason for its box to leave the screen, and the mark's densest corner was
+     landing under the card's own rounded edge. A full-bleed hero ground is a
+     different case and keeps its bleed. */
+  .artground--slot .artground-motif { inset-inline-start: 0; width: 92%; opacity: 0.12; }
+  .artground--slot .artground-art { width: 32%; }
+  .artground--hero .artground-motif { width: 150%; opacity: 0.09; }
+  .artground--hero .artground-art { width: 12rem; bottom: 2%; }
+  .artground--watermark .artground-motif { width: 60%; opacity: 0.1; }
+}
+
+/* The layer is behind everything the page put in the same box. Stated on the
+   siblings rather than with a negative z-index on the ground, because a
+   negative index escapes the stacking context and lands the mark behind the
+   section background instead. */
+.media-slot > .sig,
+.hero-split--lede .hero-container { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .artground-motif { transition: opacity 200ms ease; }
+}

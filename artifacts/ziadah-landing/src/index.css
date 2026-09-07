@@ -9,6 +9,28 @@
    import when flattened. Regenerate with `node scripts/fetch-fonts.mjs`. */
 @import "./fonts.css";
 
+/* ── The design system's component + section layers ─────────────────────────
+   Ported from shaa-website-replit (claude/website-motionkit-rebuild-weittl).
+
+   Imported into Tailwind's `components` layer so utility classes written in
+   JSX keep winning over `.btn`/`.card` defaults: the load-order contract is
+   declared here, once, instead of being patched with `!important` at call
+   sites.
+
+   The legacy rules below in this file are UNLAYERED, so they still win over
+   these on the pages that have not been migrated yet. That is deliberate for
+   the duration of the migration — a legacy page keeps rendering exactly as it
+   did, and a rule only stops applying when the page that needed it is
+   rewritten onto the system. Eight class names are defined on both sides
+   (`hero`, `hero-sub`, `calc-grid`, `faq-list`, `is-active`, `skip-link`,
+   `num-ltr`, `container`); on those, legacy wins until its owner migrates. */
+@import "./styles/system.css" layer(components);
+/* The section library — named compositions built from those primitives. */
+@import "./styles/sections.css" layer(components);
+@import "./styles/home-scenes.css" layer(components);
+@import "./styles/bento-board.css" layer(components);
+@import "./styles/product-visual.css" layer(components);
+
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
    shadcn @theme tokens + elevate system + signature utilities.
@@ -4450,6 +4472,109 @@ section#live-demo.landing-white-accent .ssub {
 }
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }}
+
+/* ── Section-aware colour ramp ──────────────────────────────────────────────
+   Ported with the rest of the design system. Token NAMES are Tailwind's, so
+   existing colour utilities in JSX keep compiling; what changed is what they
+   RESOLVE to. The `brand` and `ink` ramps no longer name a fixed hue — they
+   resolve through the SECTION's own triple, so `text-brand` inside a dark
+   band is pale and the same class on the light page is ink. That is the
+   system's rule stated as tokens: colour is a page property, not a
+   component's.
+
+   `@theme inline` matters here: it emits `var(--color-brand)` at the use site
+   rather than resolving at build time, which is what lets the value change
+   per section. */
+@theme inline {
+  /* Brand — resolves to whichever family the current section stamped. */
+  /* TEXT reads the section's ink. `--color` is the family base, a mid-tone
+     the capture uses for shapes (`.shapeBack { color: var(--color) }`) and
+     never for type - using it as a text colour puts #baf24a on #e5ffc3. */
+  --color-brand: var(--color-secondary, var(--general-black));
+  --color-brand-hover: var(--color-secondary, var(--general-black));
+  --color-brand-text: var(--color-secondary, var(--general-black));
+  --color-brand-bright: var(--color-secondary, var(--general-black));
+  --color-brand-light: var(--color-primary, var(--general-white));
+  /* TEXT, despite the name: every call site is `text-brand-pale`. Pointing
+     it at `--color-primary` painted the ink in the section's own ground
+     colour - exactly 1:1. It reads the ink like the rest of the ramp. */
+  --color-brand-pale: var(--color-secondary, var(--general-black));
+  --color-brand-deep: var(--color-secondary, var(--general-black));
+  --color-brand-border: color-mix(in srgb, var(--color-secondary, #07000c) 24%, transparent);
+  --color-brand-muted: color-mix(in srgb, var(--color-secondary, #07000c) 14%, transparent);
+  --color-brand-soft: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+
+  /* Neutral — ONE ink at MEASURED opacities.
+
+     The capture has no second grey ramp anywhere. Muted text inherits
+     `--color-secondary` and drops opacity, and every step below is a value
+     that actually appears in the ported modules:
+
+       0.85  faqAnswer
+       0.75  gridCardBody, listBody
+       0.6   listIndex
+       0.5   breadcrumb separator
+       0.2   inactive scrollable-list row, hairline rule
+       0.08  gridCard ground tint
+
+     `color-mix(X n%, transparent)` over an opaque ground composites
+     identically to `opacity: n` on X, so these tokens are the same mechanism
+     expressed as a colour - which is what the Tailwind bridge needs, since a
+     `--color-*` token cannot carry an opacity. Components that own their own
+     rule use `opacity` directly, as measured.
+
+     An earlier version invented a 92/78/66/62/52 ramp. Those numbers appear
+     nowhere in the capture and are gone. */
+  /* The MEASURED opacity steps, floored per family. One ink, several
+     opacities (CORRECTION A) - but the same opacity is not the same contrast
+     on every pair: 0.6 gives 5.22:1 on blue/inv and 2.91:1 on orange. Each
+     step is written at its measured value and lifted only where the family's
+     own pair cannot carry it, by `--ink-floor`, which `themeVars` stamps
+     beside the triple. `max()` means the measured number is what applies
+     wherever it passes. See docs/DEVIATIONS.md D-05 for the floor table. */
+  --color-ink: var(--color-secondary, var(--general-black));
+  --color-ink-deep: var(--color-secondary, var(--general-black));
+  --color-ink-strong: color-mix(in srgb, var(--color-secondary, #07000c) max(85%, var(--ink-floor, 0%)), transparent);
+  --color-ink-soft: color-mix(in srgb, var(--color-secondary, #07000c) max(75%, var(--ink-floor, 0%)), transparent);
+  --color-ink-muted: color-mix(in srgb, var(--color-secondary, #07000c) max(75%, var(--ink-floor, 0%)), transparent);
+  --color-ink-subtle: color-mix(in srgb, var(--color-secondary, #07000c) max(60%, var(--ink-floor, 0%)), transparent);
+  --color-ink-faint: color-mix(in srgb, var(--color-secondary, #07000c) max(50%, var(--ink-floor, 0%)), transparent);
+  --color-line-strong: color-mix(in srgb, var(--color-secondary, #07000c) 20%, transparent);
+  --color-line: color-mix(in srgb, var(--color-secondary, #07000c) 20%, transparent);
+  --color-surface-muted: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+  --color-surface-subtle: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+
+  /* Status — the reference carries two, plus a value up/down pair. The
+     `warning` ramp has its own pair (see above); it is not a section family
+     and no section can be grounded in it. */
+  --color-warning-subtle: color-mix(in srgb, var(--warning) 12%, transparent);
+  --color-warning-soft: color-mix(in srgb, var(--warning) 20%, transparent);
+  --color-warning-border: color-mix(in srgb, var(--warning) 40%, transparent);
+  --color-warning-pale: var(--status-warning-ink);
+  --color-warning: var(--warning);
+  --color-warning-strong: var(--status-warning-ink);
+  --color-warning-mid: var(--status-warning-ink);
+  --color-warning-text: var(--status-warning-ink);
+  --color-warning-dark: var(--status-warning-ink);
+  --color-warning-deep: var(--status-warning-ink);
+
+  /* Status — error. */
+  --color-error-subtle: color-mix(in srgb, var(--error) 10%, transparent);
+  --color-error-soft: color-mix(in srgb, var(--error) 18%, transparent);
+  --color-error-border: color-mix(in srgb, var(--error) 36%, transparent);
+  --color-error-light: var(--status-error-ink);
+  --color-error: var(--error);
+  --color-error-strong: var(--status-error-ink);
+  --color-error-text: var(--status-error-ink);
+
+  --color-danger-subtle: color-mix(in srgb, var(--error) 10%, transparent);
+  --color-danger-border: color-mix(in srgb, var(--error) 36%, transparent);
+  --color-danger-pale: var(--status-error-ink);
+  --color-danger-light: var(--status-error-ink);
+  --color-danger: var(--error);
+  --color-danger-strong: var(--status-error-ink);
+}
+
 /* ── Scroll ownership ────────────────────────────────────────────────────────
    Native smooth scrolling is the fallback. When Lenis is driving the page it
    sets `data-lenis` on <html>; the two must never both animate the same
