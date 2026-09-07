@@ -8,7 +8,8 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Section, Eyebrow } from "@/components/trackflow";
+import { Section } from "@/components/trackflow";
+import { HeroLede } from "@/sections";
 import { t as siteTranslations } from "@/i18n/translations";
 
 function fmtLocale(n: number, locale: string, decimals = 0): string {
@@ -183,11 +184,6 @@ export default function Calculator() {
     { Icon: ArrowUpRight, label: tr.aovIncrease, value: "+" + fmtCur(r.aovIncrease), sub: tr.perOrder },
   ];
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -208,20 +204,7 @@ export default function Calculator() {
       />
       <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
         {/* ══════════════════ HERO ══════════════════ */}
-        <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl text-center">
-            <div className="rv mb-4">
-              <Eyebrow>{tr.tag}</Eyebrow>
-            </div>
-            <h1 className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
-              {tr.title}
-            </h1>
-            <p className="rv d2 text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-              {tr.subtitle}
-            </p>
-          </div>
-        </section>
+        <HeroLede compact family="grey" eyebrow={tr.tag} title={tr.title} body={tr.subtitle} />
 
         {/* ══════════════════ CALCULATOR ══════════════════ */}
         <Section band="muted" containerClassName="max-w-6xl">

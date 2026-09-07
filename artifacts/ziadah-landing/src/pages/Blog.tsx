@@ -3,13 +3,13 @@ import { t } from "@/i18n/translations";
 import { blogPosts, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
+import { HeroLede } from "@/sections";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
-import { Eyebrow } from "@/components/trackflow";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const legacyCategoryMap: Record<string, string> = {
@@ -155,33 +155,27 @@ export default function Blog() {
     />
 
       {/* HERO */}
-      <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 px-4">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-3xl text-center">
-          <div className="rv mb-4">
-            <Eyebrow>{tx.tag}</Eyebrow>
-          </div>
-          <h1 className="rv d1 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.05]">
-            {tx.heroTitle}
-          </h1>
-          <p className="rv d2 text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-9 leading-relaxed">
-            {tx.heroSub}
-          </p>
-
-          {/* Search */}
-          <div className="rv d3 relative max-w-xl mx-auto">
-            <input
-              type="search"
-              autoComplete="off"
-              value={search}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder={tx.searchPlaceholder}
-              className="w-full h-12 rounded-full border border-zinc-300 bg-white ps-5 pe-12 text-[15px] text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-violet-500/20 transition-colors"
-            />
-            <Search className="absolute end-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-zinc-400 pointer-events-none" />
-          </div>
+      <HeroLede
+        compact
+        family="grey"
+        eyebrow={tx.tag}
+        title={tx.heroTitle}
+        body={tx.heroSub}
+      >
+        {/* Search. An index opener hands the reader its contents, so the search
+            belongs inside the hero rather than in a band under it. */}
+        <div className="hero-search">
+          <input
+            type="search"
+            autoComplete="off"
+            value={search}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder={tx.searchPlaceholder}
+            className="hero-search-input"
+          />
+          <Search className="hero-search-ico" aria-hidden="true" />
         </div>
-      </section>
+      </HeroLede>
 
       {/* CATEGORY FILTER */}
       <section className="px-4 pb-12">

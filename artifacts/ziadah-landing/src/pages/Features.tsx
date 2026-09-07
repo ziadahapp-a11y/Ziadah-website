@@ -42,7 +42,7 @@ import {
 import { goals, presentations, placements as activities } from "@/lib/features-data";
 import { featureHref } from "@/lib/features-data";
 import { navigateTo } from "@/components/PageTransition";
-import { Section as DsSection, SectionHead, MediaSlot } from "@/sections";
+import { Section as DsSection, SectionHead, MediaSlot, HeroLede } from "@/sections";
 import { CapabilityStack } from "@/components/art/CapabilityStack";
 
 
@@ -71,7 +71,7 @@ const usecases: {
 export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const { lang, isAr, dir } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const ft = t[lang].features;
   const ld = t[lang].landing;
   const pk = getPageKeywords("/features");
@@ -84,11 +84,6 @@ export default function Features() {
     return () => obs.disconnect();
   }, [activeTab]);
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   const tabs = [
     { id: "goals" as const, label: ft.tabGoals },
@@ -118,41 +113,30 @@ export default function Features() {
     <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "#09090b" }}>
 
       {/* ══════════════════ HERO ══════════════════ */}
-      <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-6 rv">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-            </span>
-            <span className="text-xs font-semibold text-violet-700">{ft.heroTag}</span>
-          </div>
-          <h1
-            className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]"
-            dangerouslySetInnerHTML={{ __html: ft.heroTitle }}
-          />
-          <p className="rv d2 text-lg text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed">{ft.heroSub}</p>
-
-          {/* Tabs */}
-          <div className="rv d3 inline-flex flex-wrap justify-center gap-1.5 p-1.5 rounded-2xl bg-zinc-50 border border-zinc-200">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-5 py-2.5 rounded-xl text-sm font-bold transition-colors ${
-                  activeTab === tab.id
-                    ? "bg-zinc-950 text-white"
-                    : "text-zinc-600 hover:bg-zinc-100"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+      <HeroLede
+        family="violet"
+        eyebrow={ft.heroTag}
+        title={<span dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />}
+        body={ft.heroSub}
+      >
+        {/* The four tabs are the registry's own divisions, so they belong in
+            the hero: the page hands the reader its contents before it starts
+            listing them. */}
+        <div className="hero-tabs" role="tablist" aria-label={isAr ? "أقسام الخصائص" : "Capability groups"}>
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className="hero-tab"
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </section>
+      </HeroLede>
 
       {/* ══════════════════ THE SHAPE ══════════════════
           The whole registry at a glance, above the tabs — the three kinds

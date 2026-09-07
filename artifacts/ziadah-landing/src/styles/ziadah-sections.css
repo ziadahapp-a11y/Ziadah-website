@@ -343,3 +343,156 @@
   color: var(--ziadah-violet);
 }
 [data-invert] .card-cta { color: var(--ziadah-violet-pale); }
+
+/* Search inside an index hero. The system's own directory opener puts search
+   in the hero rather than in a band under it, so an index hands the reader
+   its contents rather than a headline. */
+.hero-search { position: relative; max-width: 52rem; margin: 3.2rem auto 0; }
+.hero-search-input {
+  width: 100%;
+  height: 4.8rem;
+  padding-inline: 2rem 4.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  background: var(--general-white);
+  color: var(--general-black);
+  font: inherit;
+  font-size: 1.5rem;
+}
+.hero-search-input::placeholder { color: var(--general-gray-mid); }
+.hero-search-input:focus-visible {
+  outline: 0.2rem solid var(--ziadah-violet);
+  outline-offset: 0.2rem;
+  border-color: transparent;
+}
+.hero-search-ico {
+  position: absolute;
+  inset-inline-end: 1.8rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--general-gray-mid);
+  pointer-events: none;
+}
+
+/* Support's search adds two things Blog's does not: a clear button on the
+   leading side, and a results panel that opens under the field. Both live with
+   the field rather than in the page, so the hero stays one block. */
+.hero-search-clear {
+  position: absolute;
+  inset-inline-start: 1.6rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--general-gray-mid);
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.hero-search-clear:hover { background: var(--surface-2); color: var(--ink); }
+.hero-search-clear svg { width: 1.6rem; height: 1.6rem; }
+.hero-search-input.is-clearable { padding-inline-start: 4.8rem; }
+
+.hero-search-results {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+  margin: 1.2rem auto 0;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-3, 1.6rem);
+  background: var(--general-white);
+  text-align: start;
+  box-shadow: 0 1.6rem 4rem rgb(0 0 0 / 8%);
+}
+.hero-search-count {
+  padding: 1.2rem 2rem;
+  border-block-end: 0.1rem solid var(--line);
+  color: var(--ink-muted);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero-search-hit {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.6rem 2rem;
+  border-block-end: 0.1rem solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--dur-2) var(--ease-out);
+}
+.hero-search-hit:last-child { border-block-end: 0; }
+.hero-search-hit:hover { background: var(--surface-2); }
+.hero-search-hit-title { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+.hero-search-hit-meta { margin-block-start: 0.2rem; font-size: 1.2rem; color: var(--ink-muted); }
+.hero-search-hit-ico { flex: none; width: 1.6rem; height: 1.6rem; margin-block-start: 0.4rem; color: var(--general-gray-mid); }
+.hero-search-empty { padding: 2.4rem 2rem; color: var(--ink-muted); font-size: 1.4rem; text-align: center; }
+
+/* A headline with a quieter second line under it. It is one h1, so the split
+   is typographic rather than two elements pretending to be a heading. */
+.hero-title-sub {
+  display: block;
+  margin-block-start: 1.2rem;
+  font-size: 0.4em;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+/* Stats inside a hero already sit under a lede, so they need less air above
+   them than the same row does when it opens its own section. */
+.hero-stats { margin-top: 3.2rem; }
+
+/* A segmented control in a hero: the page's own contents as a row of chips,
+   one of them the current view. It reads as a filter rather than as buttons,
+   so the selected chip inverts and the rest stay quiet. */
+.hero-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-block-start: 3.2rem;
+}
+.hero-tab {
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  padding: 0.9rem 2rem;
+  background: none;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color var(--dur-2) var(--ease-out),
+              border-color var(--dur-2) var(--ease-out),
+              background var(--dur-2) var(--ease-out);
+}
+@media (hover: hover) {
+  .hero-tab:hover { color: var(--ink); border-color: var(--ink); }
+}
+.hero-tab:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+.hero-tab[aria-selected="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+/* A chip can carry a second, quieter piece of information - the saving a
+   yearly plan buys. It rides inside the chip so the pair reads as one control. */
+.hero-tab-note {
+  margin-inline-start: 0.8rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 9999px;
+  background: var(--surface-2);
+  color: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+}
+.hero-tab[aria-selected="true"] .hero-tab-note { background: rgb(255 255 255 / 18%); }

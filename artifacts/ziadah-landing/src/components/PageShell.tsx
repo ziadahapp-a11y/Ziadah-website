@@ -1,7 +1,15 @@
 import { ReactNode, CSSProperties } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-/** غلاف الصفحة: خلفية الصفحة الرئيسية + `landing-shell` للتكديس مع المحتوى. */
+/**
+ * The page wrapper.
+ *
+ * `page` is the design system's own page class, so a page wrapped here gets
+ * the system's stacking and rhythm; `landing-shell` stays beside it for the
+ * legacy rules still scoped to it. The inline background and colour are gone:
+ * a page's ground is the first section's, and forcing `--page-background`
+ * here painted over a section that had stamped its own.
+ */
 export default function PageShell({
   children,
   className,
@@ -15,16 +23,8 @@ export default function PageShell({
 
   return (
     <div
-      className={`landing-shell min-h-screen-dvh${className ? ` ${className}` : ""}`}
-      style={{
-        background: "var(--page-background)",
-        fontFamily: "var(--font)",
-        direction: dir,
-        color: "var(--t)",
-        position: "relative",
-        transition: "var(--theme-transition)",
-        ...style,
-      }}
+      className={`page landing-shell min-h-screen-dvh${className ? ` ${className}` : ""}`}
+      style={{ direction: dir, position: "relative", ...style }}
     >
       {children}
     </div>

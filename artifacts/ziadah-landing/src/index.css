@@ -1101,6 +1101,14 @@ h2.st{font-size:var(--type-h2,clamp(30px,3.5vw,44px));font-weight:600;letter-spa
 
 #gp{background-color:rgba(250, 250, 251, 1);padding-block:0;padding-bottom:120px;}
 
+/* `.landing-shell` is a centring flex column, and a flex child shrinks to its
+   content unless it says `width: 100%` — which is why the ids just below had to
+   be patched back to full width one at a time. Every design-system section is
+   full-bleed by contract: it paints its own ground edge to edge. So a page that
+   carries the system's `page` class flows as blocks instead, and the shrink
+   never happens in the first place. Unlayered, so it beats the rule below. */
+.page.landing-shell { display: block; }
+
 /* ── LANDING: page shell (solid background via --page-background on .landing-shell) ── */
 .landing-shell{position:relative;z-index:1;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;width:100%;box-sizing:border-box;touch-action:auto;}
 /* Full-bleed sections (flex children default to shrink-to-content with align-items:center) */

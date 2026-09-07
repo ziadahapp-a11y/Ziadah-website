@@ -10,7 +10,6 @@ import {
   ExternalLink,
   Play,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import PageShell from "../components/PageShell";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
@@ -22,6 +21,7 @@ import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
+import { HeroLede } from "@/sections";
 import { t as siteTranslations } from "@/i18n/translations";
 
 export default function Support() {
@@ -73,11 +73,6 @@ export default function Support() {
     v6: { title: "Success Stories from Saudi Merchants", description: "Real experiences from merchants who achieved amazing results with Ziadah", category: "Success Stories" },
   };
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -94,95 +89,73 @@ export default function Support() {
     <PageShell className="relative overflow-x-clip bg-white support-page" style={{ background: "#fff" }}>
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-20 pb-24 md:pt-28 md:pb-28 px-4 border-b border-zinc-200">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-3xl text-center">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-5">
-            <Eyebrow>{tx.tag}</Eyebrow>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]"
-          >
-            {tx.heroTitle}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg md:text-xl text-zinc-600 max-w-xl mx-auto mb-10 leading-relaxed"
-          >
-            {tx.heroSub}
-          </motion.p>
-
-          {/* Search */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="relative max-w-xl mx-auto"
-          >
-            <Search className="absolute top-1/2 -translate-y-1/2 end-4 w-5 h-5 text-zinc-400 pointer-events-none" />
-            <input
-              type="search"
-              autoComplete="off"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder={tx.searchPlaceholder}
-              className={`w-full h-14 rounded-2xl border border-zinc-200 bg-white text-zinc-950 text-base shadow-card placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 transition-colors pe-14 ${search.trim() ? "ps-12" : "ps-5"}`}
-            />
-            {!!search && (
-              <button
-                type="button"
-                aria-label={isAr ? "مسح البحث" : "Clear search"}
-                onClick={() => setSearch("")}
-                className="absolute top-1/2 -translate-y-1/2 start-4 w-6 h-6 flex items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </motion.div>
-
-          {/* Search Results Dropdown */}
-          {search.trim() && (
-            <div className="relative max-w-xl mx-auto mt-3 rounded-2xl border border-zinc-200 bg-white shadow-card-lg overflow-hidden text-start z-20">
-              {searchResults.length > 0 ? (
-                <>
-                  <div className="px-5 py-3 text-xs font-bold tracking-widest text-zinc-400 uppercase border-b border-zinc-100">
-                    <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
-                  </div>
-                  {searchResults.map((a, i) => (
-                    <a
-                      key={i}
-                      href={`/support/article/${a.id}`}
-                      className="flex items-start gap-3 px-5 py-4 cursor-pointer hover:bg-zinc-50 border-b border-zinc-100 last:border-b-0 transition-colors"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(`/support/article/${a.id}`);
-                        setSearch("");
-                      }}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-bold text-zinc-950">{getArticleTitle(a)}</div>
-                        <div className="text-xs text-zinc-500 mt-0.5">
-                          {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
-                        </div>
-                      </div>
-                      <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 mt-1 ${isAr ? "rotate-180" : ""}`} />
-                    </a>
-                  ))}
-                </>
-              ) : (
-                <div className="px-5 py-6 text-sm text-zinc-500 text-center">
-                  {tx.noResults} «{search}»
-                </div>
-              )}
-            </div>
+      <HeroLede
+        compact
+        family="grey"
+        eyebrow={tx.tag}
+        title={tx.heroTitle}
+        body={tx.heroSub}
+      >
+        {/* The search is the help centre's front door, so it sits in the hero
+            rather than in a band under it, and its results open in place. */}
+        <div className="hero-search">
+          <input
+            type="search"
+            autoComplete="off"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder={tx.searchPlaceholder}
+            className={`hero-search-input${search.trim() ? " is-clearable" : ""}`}
+          />
+          <Search className="hero-search-ico" aria-hidden="true" />
+          {!!search && (
+            <button
+              type="button"
+              aria-label={isAr ? "مسح البحث" : "Clear search"}
+              onClick={() => setSearch("")}
+              className="hero-search-clear"
+            >
+              <X aria-hidden="true" />
+            </button>
           )}
         </div>
-      </section>
+
+        {search.trim() && (
+          <div className="hero-search-results">
+            {searchResults.length > 0 ? (
+              <>
+                <div className="hero-search-count">
+                  <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
+                </div>
+                {searchResults.map((a, i) => (
+                  <a
+                    key={i}
+                    href={`/support/article/${a.id}`}
+                    className="hero-search-hit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/support/article/${a.id}`);
+                      setSearch("");
+                    }}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="hero-search-hit-title">{getArticleTitle(a)}</div>
+                      <div className="hero-search-hit-meta">
+                        {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
+                      </div>
+                    </div>
+                    <ChevronRight className={`hero-search-hit-ico${isAr ? " rotate-180" : ""}`} aria-hidden="true" />
+                  </a>
+                ))}
+              </>
+            ) : (
+              <div className="hero-search-empty">
+                {tx.noResults} «{search}»
+              </div>
+            )}
+          </div>
+        )}
+      </HeroLede>
 
       {/* ─── QUICK LINKS ─── */}
       <Section band="white">

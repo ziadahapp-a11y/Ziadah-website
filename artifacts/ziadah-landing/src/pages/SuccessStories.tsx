@@ -10,6 +10,7 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import { stories, storyEn, type StoryData } from "@/data/successStoriesData";
 import { navigateTo } from "@/components/PageTransition";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { HeroLede } from "@/sections";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_NAME_EN: Record<string, string> = {
@@ -126,7 +127,7 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
 
 export default function SuccessStories() {
   const t = siteTranslations;
-  const { lang, isAr, dir } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const pk = getPageKeywords("/success-stories");
   const [activeSector, setActiveSector] = useState("الكل");
@@ -177,11 +178,6 @@ export default function SuccessStories() {
 
   const SectorChevron = isAr ? ChevronRight : ChevronLeft;
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -202,44 +198,37 @@ export default function SuccessStories() {
       />
       <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
         {/* ══════════════════ HERO ══════════════════ */}
-        <section dir={dir} className="relative pt-20 pb-20 md:pt-28 md:pb-24 px-4 border-b border-zinc-200">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-              </span>
-              <span className="text-xs font-semibold text-violet-700">{sx.heroTag}</span>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
+        <HeroLede
+          family="violet"
+          eyebrow={sx.heroTag}
+          title={
+            <>
               {sx.heroH1Gradient}
-              <span className="block text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-500 mt-3">
-                {sx.heroH1Sub}
-              </span>
-            </h1>
-
-            <p className="text-lg text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed">{sx.heroLead}</p>
-
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-2xl mx-auto">
-              {(isAr ? [
-                ["13", "قصة نجاح موثقة"],
-                ["192K+", "عملية تحويل"],
-                ["4.6M+", "ريال مبيعات"],
-              ] : [
-                ["13", "Verified Stories"],
-                ["192K+", "Conversions"],
-                ["4.6M+", "SAR in Sales"],
-              ]).map(([v, l]) => (
-                <div key={l} className="rounded-2xl border border-zinc-200 bg-white p-5 text-center shadow-card">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-zinc-950 num-ltr">{v}</div>
-                  <div className="mt-1.5 text-xs sm:text-sm text-zinc-600 font-semibold">{l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+              <span className="hero-title-sub">{sx.heroH1Sub}</span>
+            </>
+          }
+          body={sx.heroLead}
+        >
+          {/* The three numbers are this page's claim, so they read as the
+              system's stat row rather than as three cards competing with the
+              headline above them. */}
+          <ul className="uc-stats hero-stats">
+            {(isAr ? [
+              ["13", "قصة نجاح موثقة"],
+              ["192K+", "عملية تحويل"],
+              ["4.6M+", "ريال مبيعات"],
+            ] : [
+              ["13", "Verified Stories"],
+              ["192K+", "Conversions"],
+              ["4.6M+", "SAR in Sales"],
+            ]).map(([v, l]) => (
+              <li key={l} className="uc-stat">
+                <span className="uc-stat-value num-ltr">{v}</span>
+                <span className="uc-stat-label">{l}</span>
+              </li>
+            ))}
+          </ul>
+        </HeroLede>
 
         {/* ══════════════════ STICKY SECTOR FILTER ══════════════════ */}
         <nav

@@ -1,12 +1,11 @@
 import { useState, type CSSProperties } from "react";
-import PageShell from "../components/PageShell";
+import { LegalPage } from "@/sections";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getPageKeywords } from "@/seo/page-keywords";
-import { Eyebrow } from "@/components/trackflow";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const sections = {
@@ -88,11 +87,6 @@ const sections = {
   ],
 };
 
-const gridStyle: CSSProperties = {
-  backgroundImage:
-    "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-  backgroundSize: "48px 48px",
-};
 
 export default function Terms() {
   const t = siteTranslations;
@@ -117,46 +111,18 @@ export default function Terms() {
         keywordsEn={pk?.keywordsEn}
       />
       <BreadcrumbSchema items={[{ name: isEn ? "Home" : "الرئيسية", url: "/" }, { name: isEn ? "Terms & Conditions" : "الشروط والأحكام", url: "/terms" }]} />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "#09090b" }}>
-        {/* HERO */}
-        <section dir={dir} className="relative pt-24 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl text-center">
-            <div className="mb-4">
-              <Eyebrow>{isEn ? "Legal" : "قانوني"}</Eyebrow>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.08]">
-              {tr.legalPages.termsH1}
-            </h1>
-            <p className="text-sm text-zinc-500 num-ltr">
-              {isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}
-            </p>
-          </div>
-        </section>
-
-        {/* DOCUMENT */}
-        <section dir={dir} className="py-24 px-4 bg-white">
-          <div className="container mx-auto max-w-3xl">
-            <div className="flex flex-col gap-12">
-              {content.map((s, i) => (
-                <div key={i}>
-                  <h2 className="text-xl md:text-2xl font-bold text-zinc-950 mb-3 leading-snug">
-                    {s.title}
-                  </h2>
-                  <p className="text-base text-zinc-700 leading-relaxed">{s.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <PageClosingCta
-          title={pc.legalTitle}
-          description={pc.legalDesc}
-          buttonLabel={ld.ctaBtn}
-          onActivate={() => setPlatformModalOpen(true)}
-        />
-      </PageShell>
+      <LegalPage
+        family="grey"
+        title={tr.legalPages.termsH1}
+        lede={isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}
+        clauses={content.map((s, i) => ({ key: `${i}`, title: s.title, body: <p>{s.body}</p> }))}
+      />
+      <PageClosingCta
+        title={pc.legalTitle}
+        description={pc.legalDesc}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

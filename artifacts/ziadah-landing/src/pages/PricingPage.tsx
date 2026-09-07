@@ -15,6 +15,8 @@ import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { Section, Eyebrow } from "@/components/trackflow";
+import { HeroLede, Section as DsSection } from "@/sections";
+import { Shell } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 
 type PlanKey = "s" | "g" | "p" | "b";
@@ -158,11 +160,6 @@ export default function PricingPage() {
   const pc = t[lang].pageClosingCta;
   const dir = isAr ? "rtl" : "ltr";
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   const plans: {
     key: PlanKey;
@@ -241,57 +238,33 @@ export default function PricingPage() {
       <PageShell className="pp-root relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
         <div dir={dir}>
           {/* ══════════════════ HERO + PLAN CARDS ══════════════════ */}
-          <section className="relative pt-20 pb-24 md:pt-24 px-4">
-            <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-            {/* Soft green brand glow behind the hero — symmetric, RTL-safe */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[460px] w-[760px] max-w-full -translate-x-1/2 rounded-full bg-violet-500/10 blur-[130px]"
-            />
-            <div className="container mx-auto relative max-w-6xl">
-              <div className="text-center mb-12">
-                <Eyebrow className="mb-4">{isAr ? "الأسعار" : "Pricing"}</Eyebrow>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.05]">
-                  {isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
-                </h1>
-                <p className="text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-                  {isAr
-                    ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
-                    : "Unlimited suggestions & sales in all plans · VAT included"}
-                </p>
-              </div>
+          <HeroLede
+            compact
+            family="grey"
+            eyebrow={isAr ? "الأسعار" : "Pricing"}
+            title={isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
+            body={
+              isAr
+                ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
+                : "Unlimited suggestions & sales in all plans · VAT included"
+            }
+          >
+            {/* Monthly against yearly changes every number in the grid below,
+                so the switch belongs with the headline rather than floating
+                above the cards it governs. */}
+            <div className="hero-tabs" role="tablist" aria-label={isAr ? "دورة الفوترة" : "Billing cycle"}>
+              <button type="button" role="tab" aria-selected={mode === "m"} className="hero-tab" onClick={() => setMode("m")}>
+                {isAr ? "شهري" : "Monthly"}
+              </button>
+              <button type="button" role="tab" aria-selected={mode === "y"} className="hero-tab" onClick={() => setMode("y")}>
+                {isAr ? "سنوي" : "Yearly"}
+                <span className="hero-tab-note">{isAr ? "وفّر حتى 33٪" : "Save up to 33%"}</span>
+              </button>
+            </div>
+          </HeroLede>
 
-              {/* Billing toggle */}
-              <div className="flex justify-center mb-12">
-                <div className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-white p-1 shadow-card">
-                  <button
-                    type="button"
-                    className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                      mode === "m"
-                        ? "bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-sm shadow-violet-600/30"
-                        : "text-zinc-600 hover:text-zinc-950"
-                    }`}
-                    onClick={() => setMode("m")}
-                  >
-                    {isAr ? "شهري" : "Monthly"}
-                  </button>
-                  <button
-                    type="button"
-                    className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                      mode === "y"
-                      ? "bg-gradient-to-r from-violet-600 to-violet-700 text-white shadow-sm shadow-violet-600/30"
-                      : "text-zinc-600 hover:text-zinc-950"
-                    }`}
-                    onClick={() => setMode("y")}
-                  >
-                    {isAr ? "سنوي" : "Yearly"}
-                    <span className="rounded-full bg-violet-100 border border-violet-200 px-2 py-0.5 text-[10px] font-bold text-violet-700">
-                      {isAr ? "وفّر حتى 33٪" : "Save up to 33%"}
-                    </span>
-                  </button>
-                </div>
-              </div>
-
+          <DsSection family="grey" flushTop>
+            <Shell width="wide">
               {/* Plan Cards */}
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
                 {plans.map((plan) => {
@@ -500,8 +473,8 @@ export default function PricingPage() {
                   );
                 })}
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* ══════════════════ FEATURE COMPARISON ══════════════════ */}
           <Section band="muted" containerClassName="max-w-6xl">
