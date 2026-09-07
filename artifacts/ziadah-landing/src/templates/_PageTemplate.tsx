@@ -7,9 +7,10 @@
  * 3. عدّل canonical ليطابق مسار الصفحة
  * 4. أضف مفاتيح الترجمة في translations.ts تحت كلا القسمين ar/en
  * 5. أضف الصفحة في App.tsx (أو router)
+ *
+ * الهيدر والفوتر يُركّبان مرة واحدة في App.tsx — لا تُضِفهما هنا.
  */
 
-import Nav from "../components/Nav";
 import StandardPage from "../components/StandardPage";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useTheme } from "../ThemeContext";
@@ -30,9 +31,6 @@ export default function MyPage() {
       canonical="/my-page"
     >
       {/* الخلفية تُطبَّق تلقائياً عبر StandardPage (نفس الصفحة الرئيسية). */}
-
-      {/* ── NAVIGATION ── */}
-      <Nav />
 
       {/* ── HERO / محتوى رئيسي ── */}
       <section className="page-hero-viewport page-hero-viewport--center" style={{ position: "relative", zIndex: 2 }}>

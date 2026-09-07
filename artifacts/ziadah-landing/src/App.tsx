@@ -3,8 +3,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { ThemeProvider } from "@/ThemeContext";
-import Footer from "@/components/Footer";
-import Nav from "@/components/Nav";
+import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { MotionProvider, useScrollTriggerRefresh } from "@/motion/MotionProvider";
@@ -187,7 +187,7 @@ function AppShell() {
       <RouteMotionSync />
       <Analytics />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <Nav />
+        <Navbar />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
           <Router />
         </main>

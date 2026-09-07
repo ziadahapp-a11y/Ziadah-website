@@ -1024,7 +1024,12 @@ section{
   transform:translateY(-3px);
 }
 .uc-demo-product-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-sm),1fr));align-items:stretch;}
-img,video,canvas,svg{max-width:100%;height:auto;}
+/* A reset belongs in @layer base, not in the unlayered origin: unlayered
+   rules beat every layered one, so `height:auto` here was overriding the
+   design system's own sized media (`.header-logo` rendered at its intrinsic
+   162px instead of 3.4rem). Layering it keeps the reset and lets a component
+   or a utility state a size. */
+@layer base { img,video,canvas,svg{max-width:100%;height:auto;} }
 .gc,.wrap,.landing-shell,main,section{min-width:0;}
 @media(max-width:640px){
   :root{
@@ -4574,6 +4579,15 @@ section#live-demo.landing-white-accent .ssub {
   --color-danger: var(--error);
   --color-danger-strong: var(--status-error-ink);
 }
+
+/* ── Header mark ────────────────────────────────────────────────────────────
+   `.site-header` flips `data-theme` from its own hit test on the ground it is
+   over. Its controls follow because they read the neutral pair; the logo is a
+   two-tone raster and cannot, so both variants ship and this picks one. Only
+   one is ever laid out, so the bar's width does not change with the swap. */
+.header-logo--inv { display: none; }
+.site-header[data-theme="dark"] .header-logo--ink { display: none; }
+.site-header[data-theme="dark"] .header-logo--inv { display: block; }
 
 /* ── Scroll ownership ────────────────────────────────────────────────────────
    Native smooth scrolling is the fallback. When Lenis is driving the page it
