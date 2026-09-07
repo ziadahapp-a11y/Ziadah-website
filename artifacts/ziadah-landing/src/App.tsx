@@ -23,6 +23,7 @@ const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const Platforms = lazy(() => import("@/pages/Platforms"));
 const UseCases = lazy(() => import("@/pages/UseCases"));
 const About = lazy(() => import("@/pages/About"));
+const FeatureProductPage = lazy(() => import("@/pages/FeatureProductPage"));
 const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
 const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
@@ -128,6 +129,9 @@ function PublicRoutes() {
       <Route path="/data-deletion" component={DataDeletion} />
       <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
+      <Route path="/features/:slug">
+        {(params) => <FeatureProductPage slug={params.slug ?? ""} />}
+      </Route>
       <Route path="/pricing" component={PricingPage} />
       <Route path="/platforms" component={Platforms} />
       <Route path="/use-cases" component={UseCases} />

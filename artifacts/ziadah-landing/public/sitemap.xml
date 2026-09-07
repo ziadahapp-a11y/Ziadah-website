@@ -580,6 +580,348 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.ziadah.app/features/more-products</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/more-products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/more-products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/more-products" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/more-products</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/more-products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/more-products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/more-products" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/quantity-offers</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/quantity-offers" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/quantity-offers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/quantity-offers" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/quantity-offers</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/quantity-offers" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/quantity-offers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/quantity-offers" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/product-swap</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/product-swap" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/product-swap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/product-swap" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/product-swap</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/product-swap" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/product-swap" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/product-swap" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/cart-value</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/cart-value" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/cart-value" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/cart-value" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/cart-value</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/cart-value" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/cart-value" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/cart-value" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/discount-code</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/discount-code" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/discount-code" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/discount-code" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/discount-code</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/discount-code" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/discount-code" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/discount-code" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/related-products</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/related-products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/related-products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/related-products" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/related-products</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/related-products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/related-products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/related-products" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/add-ons</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/add-ons" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/add-ons" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/add-ons" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/add-ons</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/add-ons" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/add-ons" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/add-ons" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/bought-together</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/bought-together" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/bought-together" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/bought-together" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/bought-together</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/bought-together" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/bought-together" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/bought-together" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/combo</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/combo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/combo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/combo" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/combo</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/combo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/combo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/combo" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/buy-more-save-more</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/buy-more-save-more" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/buy-more-save-more" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/buy-more-save-more" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/buy-more-save-more</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/buy-more-save-more" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/buy-more-save-more" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/buy-more-save-more" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/product-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/product-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/product-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/product-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/product-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/product-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/product-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/product-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/category-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/category-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/category-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/category-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/category-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/category-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/category-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/category-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/cart-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/cart-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/cart-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/cart-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/cart-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/cart-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/cart-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/cart-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/checkout-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/checkout-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/checkout-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/checkout-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/checkout-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/checkout-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/checkout-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/checkout-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/thank-you-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/thank-you-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/thank-you-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/thank-you-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/thank-you-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/thank-you-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/thank-you-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/thank-you-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/exit-intent</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/exit-intent" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/exit-intent" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/exit-intent" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/exit-intent</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/exit-intent" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/exit-intent" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/exit-intent" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/home-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/home-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/home-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/home-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/home-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/home-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/home-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/home-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/search-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/search-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/search-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/search-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/search-page</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/search-page" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/search-page" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/search-page" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/features/smart-popup</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/smart-popup" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/smart-popup" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/smart-popup" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/features/smart-popup</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/features/smart-popup" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/features/smart-popup" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/features/smart-popup" />
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.ziadah.app/use-cases/product-page</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/use-cases/product-page" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/use-cases/product-page" />
