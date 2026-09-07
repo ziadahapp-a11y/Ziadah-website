@@ -546,3 +546,7 @@
   --button-text-color: #480086;
   --button-text-color-hover: var(--general-white);
 }
+
+/* The subject card in a story hero: it sits under the lede rather than in the
+   band below, because it is who the story is about. */
+.story-card { margin-block-start: 3.2rem; }

@@ -26,7 +26,9 @@ import { findStoryBySlug, storyEn, stories } from "@/data/successStoriesData";
 import { getStoryArticle } from "@/data/successStoriesArticles";
 import { navigateTo } from "@/components/PageTransition";
 import NotFound from "@/pages/not-found";
-import { Section, Eyebrow, Card, StatCard } from "@/components/trackflow";
+import { Section, Card, StatCard } from "@/components/trackflow";
+import { HeroLede } from "@/sections";
+import { Button as MkButton } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 
 function splitParagraphs(text: string): string[] {
@@ -62,7 +64,7 @@ const SECTOR_ICONS: Record<string, LucideIcon> = {
 export default function SuccessStoryDetail() {
   const params = useParams<{ slug: string }>();
   const t = siteTranslations;
-  const { lang, isAr, dir } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
 
@@ -95,11 +97,6 @@ export default function SuccessStoryDetail() {
 
   const BackArrow = isAr ? ArrowRight : ArrowLeft;
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   // Numbered article sections, rendered in order with a leading counter chip.
   const articleSections: { heading: string; body: React.ReactNode }[] = [];
@@ -193,32 +190,30 @@ export default function SuccessStoryDetail() {
       <WebPageSchema name={seoTitle} description={seoDesc} url={canonical} />
       <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
         {/* ══════════════════ HERO ══════════════════ */}
-        <section dir={dir} className="relative pt-24 pb-12 px-4 border-b border-zinc-200">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl">
-            <button
-              type="button"
-              onClick={() => navigateTo("/success-stories")}
-              className="inline-flex items-center gap-2 mb-8 text-sm font-semibold text-zinc-600 hover:text-zinc-950 transition-colors"
-            >
-              <BackArrow className="w-4 h-4" aria-hidden />
-              <span>{isAr ? "كل قصص النجاح" : "All success stories"}</span>
-            </button>
-
-            <div className="mb-6">
-              <Eyebrow className="inline-flex items-center gap-2">
-                {SectorIcon && <SectorIcon className="w-3.5 h-3.5 text-violet-600" aria-hidden />}
-                {displaySector}
-              </Eyebrow>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
-              {displayStore}
-            </h1>
-
-            <p className="text-lg md:text-xl text-zinc-600 leading-relaxed mb-8">{leadText}</p>
-
-            <Card animate={false} className="flex flex-wrap items-center gap-4 p-5">
+        <HeroLede
+          compact
+          center={false}
+          family="grey"
+          eyebrow={
+            <>
+              {SectorIcon && <SectorIcon className="w-3.5 h-3.5" aria-hidden="true" />}
+              {displaySector}
+            </>
+          }
+          title={displayStore}
+          body={leadText}
+          actions={
+            /* The way back to the index. On a detail page that IS the hero's
+               action - there is nothing else to do here but read on. */
+            <MkButton variant="tertiary" onClick={() => navigateTo("/success-stories")}>
+              <BackArrow className="w-4 h-4" aria-hidden="true" />
+              <span className="ms-2">{isAr ? "كل قصص النجاح" : "All success stories"}</span>
+            </MkButton>
+          }
+        >
+          {/* The store's own card: who this story is about, where it sits in
+              the run, and a way through to the shop itself. */}
+          <Card animate={false} className="story-card flex flex-wrap items-center gap-4 p-5">
               {story.logoUrl ? (
                 <div className="shrink-0 w-12 h-12 rounded-xl border border-zinc-200 bg-white p-1.5 flex items-center justify-center overflow-hidden">
                   <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
@@ -247,9 +242,8 @@ export default function SuccessStoryDetail() {
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden />
                 </a>
               )}
-            </Card>
-          </div>
-        </section>
+          </Card>
+        </HeroLede>
 
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
         <Section containerClassName="max-w-3xl">

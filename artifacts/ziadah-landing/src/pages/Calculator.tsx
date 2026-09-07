@@ -8,8 +8,8 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Section } from "@/components/trackflow";
-import { HeroLede } from "@/sections";
+import { HeroLede, Section as DsSection } from "@/sections";
+import { Shell } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 
 function fmtLocale(n: number, locale: string, decimals = 0): string {
@@ -206,12 +206,13 @@ export default function Calculator() {
         {/* ══════════════════ HERO ══════════════════ */}
         <HeroLede compact family="grey" eyebrow={tr.tag} title={tr.title} body={tr.subtitle} />
 
-        {/* ══════════════════ CALCULATOR ══════════════════ */}
-        <Section band="muted" containerClassName="max-w-6xl">
-            <div className="rv rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
-              <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none" />
-              <div className="relative p-7 md:p-10 lg:p-12" dir={dir}>
+        {/* ══════════════════ CALCULATOR ══════════════════
+            The dark panel this painted by hand is what an inverted section
+            already is, and the home page's copy of this calculator now says so
+            too - so the two read as the same thing in the same colours. */}
+        <DsSection family="violet" invert>
+          <Shell width="wide">
+              <div className="rv" dir={dir}>
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                   {/* left: controls */}
                   <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
@@ -324,8 +325,8 @@ export default function Calculator() {
                   </div>
                 </div>
               </div>
-            </div>
-        </Section>
+          </Shell>
+        </DsSection>
 
         <PageClosingCta
           title={tr.closingTitle}
