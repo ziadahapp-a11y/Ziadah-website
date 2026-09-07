@@ -13,11 +13,9 @@
 
 import StandardPage from "../components/StandardPage";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useTheme } from "../ThemeContext";
 
 export default function MyPage() {
   const { lang, isAr } = useLanguage();
-  const { theme } = useTheme();
 
   // TODO: أضف مفاتيح هذه الصفحة في translations.ts تحت t.ar.myPage و t.en.myPage
   // const tx = t[lang].myPage;
@@ -37,7 +35,6 @@ export default function MyPage() {
         <div className="wrap">
           {/* TODO: أضف محتوى الصفحة هنا */}
           {/* استخدم CSS variables للألوان لضمان دعم الموود: var(--bg), var(--t), var(--tm), var(--s1) */}
-          {/* theme === "dark" | "light" — يمكنك استخدامه للمنطق الشرطي */}
           <h1 style={{ fontSize: "clamp(36px,5vw,64px)", fontWeight: 900, color: "var(--t)" }}>
             {isAr ? "عنوان الصفحة" : "Page Title"}
           </h1>

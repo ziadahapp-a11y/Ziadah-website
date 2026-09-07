@@ -9,7 +9,6 @@
  */
 
 import { useLanguage } from "../i18n/LanguageContext";
-import { useTheme } from "../ThemeContext";
 
 interface MySectionProps {
   // TODO: أضف الخصائص التي يحتاجها القسم
@@ -17,7 +16,6 @@ interface MySectionProps {
 
 export default function MySection(_props: MySectionProps) {
   const { lang, isAr } = useLanguage();
-  const { theme } = useTheme();
 
   // TODO: أضف مفاتيح هذا القسم في translations.ts تحت t.ar.mySection و t.en.mySection
   // const tx = t[lang].mySection;
@@ -61,7 +59,6 @@ export default function MySection(_props: MySectionProps) {
           - var(--s1)  : خلفية كرت خفيفة
           - var(--b1)  : حدود خفيفة
           - var(--p)   : اللون الأساسي
-          theme === "dark" | "light" — للمنطق الشرطي عند الحاجة
         */}
         <div
           className="rv d3"

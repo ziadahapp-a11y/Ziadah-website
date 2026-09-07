@@ -597,8 +597,6 @@ th.h-12{
 
 .gc{background:var(--glass-bg);border:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-radius:var(--r20);box-shadow:var(--glass-shadow);position:relative;overflow:hidden;}
 .gc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124, 58, 237,.12),transparent 58%);pointer-events:none;}
-[data-theme="light"] .gc::before{background:linear-gradient(135deg,rgba(124, 58, 237,.14),rgba(192, 132, 252,.06) 45%,transparent 62%);}
-[data-theme="light"] .gc:hover{border-color:rgba(124, 58, 237,.42);box-shadow:var(--glass-shadow-hover);}
 .gc:hover{border-color:rgba(124, 58, 237,.35);box-shadow:var(--glass-shadow-hover);transform:translateY(-1px);}
 .gc-lift:hover{transform:translateY(-4px);}
 .shine{position:absolute;inset:0;pointer-events:none;background:none;opacity:0;transition:opacity .3s;}
@@ -641,7 +639,20 @@ section{
    previous `clamp(16px, 4vw, 40px)`. */
 .tc{text-align:center;}.tc .ssub{margin:0 auto;}
 
-/* ── Card grids: fluid columns, consistent gaps (replaces many fixed repeat(N{display:grid;max-width:1200px;margin:0 auto;gap:var(--card-gap);grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));align-items:stretch;}
+/* ── Card grids: fluid columns, consistent gaps ── */
+/* The comment that used to head this block was never closed: a selector and a
+   rule body got glued onto the end of it, taking its terminator with them, and
+   the next comment terminator in the file was thirty-seven lines down. So
+   everything between was commented out and had been dead since the line was
+   written: `.sector-playbook-wrap`, the whole `.sector-viz-` flow layout, and
+   two grid rules. The rule body that was glued on had no recoverable selector
+   (it never had one in history), so it is dropped rather than guessed at;
+   `.sector-viz-scenarios` just below is the same shape and is the one this
+   section was describing.
+
+   `.reports-grid` and `.blog-cards-grid` match no markup any more, so they go
+   with it - a class that has been dead since it was written and matches
+   nothing today is not worth reviving. */
 .sector-playbook-wrap{
   border-radius:22px;
   border:1px solid var(--b2);
@@ -676,11 +687,8 @@ section{
     border-radius:2px;
   }}
 .sector-viz-flow-step{text-align:center;display:flex;flex-direction:column;align-items:center;}
-.reports-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));align-items:stretch;}
-.blog-cards-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-lg),1fr));align-items:stretch;}
 /* Blog card cover: dark fade for emoji/badge contrast; light mode uses a soft bottom veil */
 .blog-cover-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 38%,rgba(250, 250, 251,.88) 100%);}
-[data-theme="light"] .blog-cover-overlay{background:linear-gradient(to bottom,transparent 52%,rgba(255,255,255,.92) 100%);}
 
 /* Blog listing & related-post cards */
 .blog-card-link{
@@ -744,7 +752,6 @@ section{
   transition:transform .42s cubic-bezier(.22,1,.36,1);
   filter:drop-shadow(0 14px 28px rgba(0,0,0,.35));
 }
-[data-theme="light"] .blog-card__icon-wrap{filter:drop-shadow(0 10px 22px rgba(30,27,58,.22));}
 .blog-card.gc:hover .blog-card__icon-wrap{transform:scale(1.08) translateY(-2px);}
 .blog-card__badge{
   position:absolute;
@@ -760,7 +767,6 @@ section{
   -webkit-backdrop-filter:saturate(1.35) blur(14px);
   box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 12px 32px rgba(250, 250, 251,.38);
 }
-[data-theme="light"] .blog-card__badge{box-shadow:0 1px 0 rgba(255,255,255,.52) inset,0 10px 24px rgba(30,27,58,.12);}
 .blog-card__body{
   flex:1;
   padding:clamp(18px,3.2vw,26px) clamp(18px,3vw,28px) clamp(20px,3.5vw,28px);
@@ -843,25 +849,14 @@ section{
   font-weight:600;
 }
 
-/* Editorial marketing heroes — white slab (pricing / landing-white-accent family): blog, support{
-  --blog-hero-deep:#0a0a0b;
-  --blog-hero-mid:#7c3aed;
-  isolation:isolate;
-  overflow:hidden;
-  background:#fff;
-  color:var(--blog-hero-deep);
-  border-bottom:1px solid rgba(124, 58, 237,.12);
-  box-shadow:0 20px 48px rgba(124, 58, 237,.06);
-}
-.blog-page-hero .stag,
-.support-page-hero .stag{
-  background:rgba(124, 58, 237,.1);
-  border:1px solid rgba(124, 58, 237,.26);
-  color:var(--blog-hero-mid);
-  font-weight:700;
-}
-.blog-page-hero .stag-dot,
-.support-page-hero .stag-dot{background:var(--blog-hero-mid);}
+/* Editorial marketing heroes — white slab, for blog and support.
+
+   The same unterminated-comment bug as the card-grid block above: the selector
+   list was glued onto the end of the comment instead of following its
+   terminator, so the white-slab rule and the two `.stag` rules under it were
+   commented out and never applied. They are gone rather than restored - both
+   heroes are `HeroLede` now, and neither `.blog-page-hero` nor
+   `.support-page-hero` appears in any markup. */
 /* Dark-shell legacy quick-links; Support contact strip uses `.support-quick-card`. */
 .support-cards-grid .gc.support-card-priority:not(.support-quick-card){
   border:none;
@@ -908,14 +903,6 @@ section{
 }
 .landing-shell.support-page .ds-page-atmos,
 .landing-shell.blog-white-shell .ds-page-atmos{display:none!important;}
-/* Blog listing hero keeps solid white; omit decorative green/cyan washes */
-.landing-shell.blog-white-shell .blog-page-hero::before,
-.landing-shell.blog-white-shell .blog-page-hero::after{opacity:0!important;}
-.landing-shell.support-page .support-page-hero::before{
-  opacity:.38;
-  height:min(480px,62vh);
-}
-.landing-shell.support-page .support-page-hero::after{opacity:.32;}
 .landing-shell.support-page section.cta-sec.landing-white-accent,
 .landing-shell.blog-white-shell section.cta-sec.landing-white-accent{
   background:#fff!important;
@@ -3542,12 +3529,6 @@ section#faq .gc.hc-left:hover{
     -webkit-backdrop-filter .34s cubic-bezier(0.4,0,0.2,1),
     background .26s ease;
 }
-[data-theme="light"] .blur-t-overlay{
-  background:rgba(255,255,255,.18);
-}
-[data-theme="light"] .blur-t-overlay--active{
-  background:rgba(255,255,255,.28);
-}
 @media (prefers-reduced-motion: reduce){
   .blur-t-overlay,
   .blur-t-overlay--active{
@@ -3606,16 +3587,6 @@ section#faq .gc.hc-left:hover{
   margin:-1px;padding:0;overflow:hidden;
   clip:rect(0,0,0,0);
   white-space:nowrap;border:0;
-}
-[data-theme="light"] .route-fallback__ring span{
-  border-top-color:rgba(124, 58, 237,.9);
-  border-right-color:rgba(139, 92, 246,.55);
-}
-[data-theme="light"] .route-fallback__ring span:nth-child(2){
-  border-top-color:rgba(9, 9, 11,.55);
-}
-[data-theme="light"] .route-fallback__ring span:nth-child(3){
-  border-top-color:rgba(9, 9, 11,.4);
 }
 @keyframes route-fb-spin{ to{ transform:rotate(360deg); } }
 @keyframes route-fb-in{ to{ opacity:1; } }

@@ -2,7 +2,6 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
-import { ThemeProvider } from "@/ThemeContext";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import PageTransition from "@/components/PageTransition";
@@ -209,12 +208,11 @@ function AppShell() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        {/* One Lenis instance for the whole app, mounted above the router so
-            route changes never rebuild the scroll system — only the
-            per-element triggers below it are. */}
-        <MotionProvider>
+    <LanguageProvider>
+      {/* One Lenis instance for the whole app, mounted above the router so
+          route changes never rebuild the scroll system — only the
+          per-element triggers below it are. */}
+      <MotionProvider>
         <BlurTransitionProvider>
           <QueryClientProvider client={queryClient}>
             <WouterRouter
@@ -225,9 +223,8 @@ function App() {
             </WouterRouter>
           </QueryClientProvider>
         </BlurTransitionProvider>
-        </MotionProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+      </MotionProvider>
+    </LanguageProvider>
   );
 }
 
