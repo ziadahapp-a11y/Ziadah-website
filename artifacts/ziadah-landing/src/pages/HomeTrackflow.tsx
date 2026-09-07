@@ -50,6 +50,8 @@ import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorsBriefSection from "@/components/SectorsBriefSection";
 import PlatformModal from "@/components/PlatformModal";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema } from "@/components/JsonLd";
+import { HeroSplit, Section as DsSection, SectionHead, CtaSection } from "@/sections";
+import { Button as MkButton, Shell } from "@/components/mk";
 
 const ZID_APP_URL = "https://apps.zid.sa/application/1826";
 const ENGINE_ICON = "/favicon-icon.png";
@@ -1264,11 +1266,6 @@ export default function HomeTrackflow() {
     },
   ];
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -1284,135 +1281,65 @@ export default function HomeTrackflow() {
       <WebSiteSchema />
       <div className="tf-home flex flex-col w-full bg-white" dir={isAr ? "rtl" : "ltr"} style={{ minHeight: "100vh" }}>
           {/* HERO */}
-          <section className="relative pt-20 pb-24 md:pt-28 md:pb-32 px-4">
-            <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-
-            <div className="container mx-auto relative max-w-7xl mb-[1px] mt-[0px]">
-              <div className="grid lg:grid-cols-[1.85fr_1fr] gap-14 lg:gap-10 items-center">
-                {/* LEFT — copy */}
-                <div className="text-center lg:text-start">
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-7"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-violet-600" />
-                    <span className="text-xs font-semibold text-violet-700">
-                      {t({ ar: "منصة اقتراح المنتجات بالذكاء الاصطناعي", en: "The AI product-recommendation platform" })}
-                    </span>
-                  </motion.div>
-
-                  <motion.h1
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.05 }}
-                    className="font-extrabold tracking-tight text-zinc-950 mb-7 text-[40px]"
-                  >
-                    {isAr ? (
-                      <>
-                        <span className="font-light">زيادة متوسط قيمة طلباتك</span>
-                        <br />
-                        باقتراح منتجات بالذكاء الاصطناعي
-                        <br />
-                        مخصصة لكل عميل في متجرك
-                      </>
-                    ) : (
-                      <>Raise your average order value and sales by up to <span className="whitespace-nowrap">35%</span></>
-                    )}
-                  </motion.h1>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto lg:mx-0 mb-9 leading-relaxed"
-                  >
-                    {t({
-                      ar: "أغلب زوّار متجرك يشترون منتج واحد ويطلعون. زيادة تعرض لكل عميل المنتجات المناسبة له — في صفحة المنتج، السلة، والدفع — فيضيف أكثر، ويرتفع متوسط قيمة الطلب ومبيعاتك بدون أي إنفاق إعلاني إضافي.",
-                      en: "Most of your visitors buy one item and leave. Ziadah shows each shopper the products that fit them — on the product page, cart, and checkout — so they add more, and your average order value and sales climb with no extra ad spend.",
-                    })}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.15 }}
-                    className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3"
-                  >
-                    <Button
-                      size="lg"
-                      onClick={() => setPlatformOpen(true)}
-                      className="w-full sm:w-auto text-base h-12 px-7 bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
-                      data-testid="hero-start-trial"
-                    >
-                      {t({ ar: "فعّل الآن", en: "Activate now" })}
-                      <ArrowCTA className="ms-1 w-4 h-4" />
-                    </Button>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.25 }}
-                    className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 mt-7 text-sm text-zinc-600"
-                  >
-                    {trustItems.map((item) => (
-                      <span key={item.label} className="flex items-center gap-1.5">
-                        <CheckCircle2 className="w-4 h-4 text-violet-600" />
-                        {item.label}
-                      </span>
-                    ))}
-                  </motion.div>
-                </div>
-
-                {/* RIGHT — AI engine analyzes shoppers → personalized recommendations */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.25 }}
-                  className="relative w-full mt-6 lg:mt-0"
-                >
-                  <div className="absolute inset-x-0 -top-10 bottom-0 -z-10 bg-gradient-to-tr from-violet-500/25 via-violet-500/15 to-violet-500/15 blur-[90px] rounded-[45%] pointer-events-none" />
-
-                  <DemoFlowSection isAr={isAr} />
-                </motion.div>
-              </div>
-            </div>
-          </section>
-
+          <HeroSplit
+            compact
+            family="violet"
+            eyebrow={
+              <>
+                <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                {t({ ar: "منصة اقتراح المنتجات بالذكاء الاصطناعي", en: "The AI product-recommendation platform" })}
+              </>
+            }
+            title={
+              isAr ? (
+                <>
+                  <span className="hero-title-lead">زيادة متوسط قيمة طلباتك</span>
+                  باقتراح منتجات بالذكاء الاصطناعي مخصصة لكل عميل في متجرك
+                </>
+              ) : (
+                <>Raise your average order value and sales by up to <span className="whitespace-nowrap">35%</span></>
+              )
+            }
+            body={t({
+              ar: "أغلب زوّار متجرك يشترون منتج واحد ويطلعون. زيادة تعرض لكل عميل المنتجات المناسبة له — في صفحة المنتج، السلة، والدفع — فيضيف أكثر، ويرتفع متوسط قيمة الطلب ومبيعاتك بدون أي إنفاق إعلاني إضافي.",
+              en: "Most of your visitors buy one item and leave. Ziadah shows each shopper the products that fit them — on the product page, cart, and checkout — so they add more, and your average order value and sales climb with no extra ad spend.",
+            })}
+            actions={
+              <MkButton size="lg" onClick={() => setPlatformOpen(true)} data-testid="hero-start-trial">
+                {t({ ar: "فعّل الآن", en: "Activate now" })}
+                <ArrowCTA className="ms-1 w-4 h-4" />
+              </MkButton>
+            }
+            note={trustItems.map((item) => (
+              <span key={item.label}>
+                <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
+                {item.label}
+              </span>
+            ))}
+            media={<DemoFlowSection isAr={isAr} />}
+          />
           {/* PROOF — aggregate stats + merchant logo marquee */}
-          <section className="pb-20 px-4">
-            <div className="container mx-auto max-w-6xl">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-                {stats.map((s, i) => (
-                  <motion.div
-                    key={s.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-                    className="rounded-2xl bg-gradient-to-br from-violet-50 to-white border border-violet-100 ring-1 ring-violet-500/5 p-5 sm:p-6 text-center"
-                  >
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-violet-600 num-ltr">
-                      {s.value}
-                    </div>
-                    <div className="mt-1.5 text-xs sm:text-sm font-semibold text-zinc-500">{s.label}</div>
-                  </motion.div>
+          <DsSection family="grey" flushTop>
+            <Shell width="wide">
+              {/* Four numbers are the page's first evidence, so they carry the
+                  display tier rather than sitting in four gradient cards that
+                  compete with the hero above them. */}
+              <ul className="uc-stats hero-stats">
+                {stats.map((s) => (
+                  <li key={s.label} className="uc-stat">
+                    <span className="uc-stat-value num-ltr">{s.value}</span>
+                    <span className="uc-stat-label">{s.label}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <p className="text-center text-xs text-zinc-400 mt-4">
+              <p className="hero-caption">
                 {t({ ar: "أرقام تراكمية عبر +1,500 متجر يستخدم زيادة منذ الإطلاق.", en: "Cumulative figures across 1,500+ stores using Ziadah since launch." })}
               </p>
 
-              <div className="flex items-center justify-center gap-2.5 mt-12 mb-6">
-                <span className="h-px w-8 bg-gradient-to-r from-transparent to-zinc-300" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
-                  {t({ ar: "متاجر تثق بزيادة", en: "Stores that trust Ziadah" })}
-                </span>
-                <span className="h-px w-8 bg-gradient-to-l from-transparent to-zinc-300" />
-              </div>
+              <p className="t-eyebrow marquee-kicker">
+                {t({ ar: "متاجر تثق بزيادة", en: "Stores that trust Ziadah" })}
+              </p>
 
               <div className="logos-mask marquee-row">
                 <div
@@ -1440,20 +1367,21 @@ export default function HomeTrackflow() {
                   ))}
                 </div>
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
-          {/* THE PROBLEM — Ziadah's framed problem→solution story */}
-          <section className="py-24 px-4 bg-black">
-            <div className="container mx-auto max-w-xl">
-              <div className="text-center mb-9">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-400 uppercase mb-3">
-                  {t({ ar: "القصة باختصار", en: "The story, briefly" })}
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
-                  {t({ ar: "وين تروح مبيعاتك كل يوم؟", en: "Where do your sales go every day?" })}
-                </h2>
-              </div>
+          {/* THE PROBLEM — Ziadah's framed problem→solution story.
+              Inverted rather than `bg-black`: the section stamps its own ground
+              and its own ink, so the heading no longer needs a hardcoded white
+              forced through `WebkitTextFillColor` to survive a legacy rule. */}
+          <DsSection family="violet" invert>
+            <SectionHead
+              center
+              size="md"
+              kicker={t({ ar: "القصة باختصار", en: "The story, briefly" })}
+              title={t({ ar: "وين تروح مبيعاتك كل يوم؟", en: "Where do your sales go every day?" })}
+            />
+            <Shell width="narrow">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -1590,36 +1518,30 @@ export default function HomeTrackflow() {
                   })()}
                 </div>
               </motion.div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
-          {/* CALCULATOR */}
-          <section id="calculator" className="py-24 px-4 scroll-mt-20">
-            <div className="container mx-auto max-w-6xl">
-              <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative">
-                <div className="absolute inset-0 bg-grid-dark opacity-50 pointer-events-none" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none" />
-                <div className="relative p-7 md:p-10 lg:p-12">
-                  <span className="inline-block text-xs font-bold tracking-widest text-violet-400 uppercase mb-4">
-                    {t({ ar: "حاسبة", en: "Calculator" })}
-                  </span>
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
-                    {t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
-                  </h2>
-                  <p className="text-base md:text-lg text-zinc-300 leading-relaxed mb-3 max-w-2xl">
-                    {t({
-                      ar: "حرّك زوارك ومعدّل التحويل ومتوسط قيمة الطلب، وشوف كم يضيف لك رفع متوسط الطلب — كل شهر.",
-                      en: "Adjust your visitors, conversion rate, and average order value to see how much a higher AOV adds — every month.",
-                    })}
-                  </p>
-                  <p className="text-sm text-zinc-500 leading-relaxed max-w-2xl">
+          {/* CALCULATOR.
+              The dark panel this painted by hand - a `mockup-card` with a grid
+              overlay, a blur glow and a white forced through
+              `WebkitTextFillColor` - was reproducing what an inverted section
+              already does, in one block's colours rather than the section's. */}
+          <DsSection id="calculator" family="violet" invert>
+            <SectionHead
+              kicker={t({ ar: "حاسبة", en: "Calculator" })}
+              title={t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
+              lead={t({
+                ar: "حرّك زوارك ومعدّل التحويل ومتوسط قيمة الطلب، وشوف كم يضيف لك رفع متوسط الطلب — كل شهر.",
+                en: "Adjust your visitors, conversion rate, and average order value to see how much a higher AOV adds — every month.",
+              })}
+            />
+            <Shell width="wide">
+                  <p className="hero-caption calc-basis">
                     {t({
                       ar: "بناءً على متاجر تستخدم زيادة، نفترض أن ~20٪ من الطلبات تقبل الاقتراح فترتفع قيمتها ~30٪.",
                       en: "Based on stores using Ziadah, we assume ~20% of orders accept the suggestion, lifting their value ~30%.",
                     })}
                   </p>
-
-                  <div className="h-px bg-white/10 my-8 lg:my-10" />
 
                   <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
                     {/* left: controls */}
@@ -1688,7 +1610,7 @@ export default function HomeTrackflow() {
 
                         {/* connector: flows from "without" into the elevated "with Ziadah" card */}
                         <div
-                          className="hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-violet-500 text-white shadow-[0_0_0_5px_rgba(9,9,11,1),0_0_20px_rgba(139,92,246,0.6)]"
+                          className="calc-connector hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
                           style={{ insetInlineStart: "50%" }}
                           aria-hidden="true"
                         >
@@ -1815,29 +1737,21 @@ export default function HomeTrackflow() {
                       </Button>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* ANALOGY — static shelf vs. smart salesperson */}
-          <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {t({ ar: "فكّر فيها كذا", en: "Think of it this way" })}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
-                  {t({ ar: "رفّ ثابت، ولا بائع يعرف كل عميل؟", en: "A static shelf, or a salesperson who knows every customer?" })}
-                </h2>
-                <p className="text-lg text-zinc-600 max-w-2xl mx-auto leading-relaxed">
-                  {t({
-                    ar: "المتجر العادي يعرض نفس المنتجات للجميع. زيادة تشتغل مثل بائع محترف — يعرف كل عميل ويقترح له الصح.",
-                    en: "An ordinary store shows the same products to everyone. Ziadah works like an expert salesperson — it knows each customer and suggests the right thing.",
-                  })}
-                </p>
-              </div>
-
+          <DsSection family="grey">
+            <SectionHead
+              center
+              kicker={t({ ar: "فكّر فيها كذا", en: "Think of it this way" })}
+              title={t({ ar: "رفّ ثابت، ولا بائع يعرف كل عميل؟", en: "A static shelf, or a salesperson who knows every customer?" })}
+              lead={t({
+                ar: "المتجر العادي يعرض نفس المنتجات للجميع. زيادة تشتغل مثل بائع محترف — يعرف كل عميل ويقترح له الصح.",
+                en: "An ordinary store shows the same products to everyone. Ziadah works like an expert salesperson — it knows each customer and suggests the right thing.",
+              })}
+            />
+            <Shell width="wide">
               <div className="grid md:grid-cols-2 gap-5 mb-10">
                 {/* static shelf */}
                 <div className="rounded-2xl border-2 border-rose-200 bg-white p-7 md:p-8 relative">
@@ -1919,30 +1833,26 @@ export default function HomeTrackflow() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* 3-WAY COMPARISON */}
-          <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center mb-12">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-200 mb-4">
-                  <HelpCircle className="w-3.5 h-3.5 text-amber-700" />
-                  <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">
-                    {t({ ar: "السؤال اللي يسأله كل تاجر", en: "The question every merchant asks" })}
-                  </span>
-                </div>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
-                  {t({ ar: "100 عميل أضافوا للسلّة اليوم. كم وحدة منهم أضاف منتج إضافي؟", en: "100 customers added to cart today. How many added an extra item?" })}
-                </h2>
-                <p className="text-lg text-zinc-600 max-w-3xl mx-auto leading-relaxed">
-                  {t({
-                    ar: "ثلاث حالات: متجر بلا اقتراحات، متجر باقتراحات عامة، ومتجر يستخدم زيادة. كم تكسب في كل حالة.",
-                    en: "Three scenarios: a store with no recommendations, one with generic recommendations, and one using Ziadah. What you gain in each.",
-                  })}
-                </p>
-              </div>
-
+          <DsSection family="grey">
+            <SectionHead
+              center
+              kicker={
+                <>
+                  <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
+                  {t({ ar: "السؤال اللي يسأله كل تاجر", en: "The question every merchant asks" })}
+                </>
+              }
+              title={t({ ar: "100 عميل أضافوا للسلّة اليوم. كم وحدة منهم أضاف منتج إضافي؟", en: "100 customers added to cart today. How many added an extra item?" })}
+              lead={t({
+                ar: "ثلاث حالات: متجر بلا اقتراحات، متجر باقتراحات عامة، ومتجر يستخدم زيادة. كم تكسب في كل حالة.",
+                en: "Three scenarios: a store with no recommendations, one with generic recommendations, and one using Ziadah. What you gain in each.",
+              })}
+            />
+            <Shell width="wide">
               <div className="grid md:grid-cols-3 gap-4">
                 {[
                   {
@@ -2102,27 +2012,21 @@ export default function HomeTrackflow() {
                   {t({ ar: "ودجتات جاهزة، أمثلة حقيقية، وأماكن عرض لكل صفحة.", en: "Ready-made widgets, real examples, and placements for every page." })}
                 </p>
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* 4 PILLARS */}
-          <section className="py-24 px-4">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center mb-14">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {t({ ar: "وش تسوّي زيادة بالضبط", en: "What Ziadah actually does" })}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
-                  {t({ ar: "أربع وظائف، شرح بسيط، وأمثلة حقيقية", en: "Four jobs, plain language, real examples" })}
-                </h2>
-                <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
-                  {t({
-                    ar: "خلف الستار، زيادة تسوّي أربعة أشياء — كل وحدة منها ترفع سلّة عميلك ومبيعاتك.",
-                    en: "Under the hood, Ziadah does four things — each one grows your customer's cart and your sales.",
-                  })}
-                </p>
-              </div>
-
+          <DsSection family="violet">
+            <SectionHead
+              center
+              kicker={t({ ar: "وش تسوّي زيادة بالضبط", en: "What Ziadah actually does" })}
+              title={t({ ar: "أربع وظائف، شرح بسيط، وأمثلة حقيقية", en: "Four jobs, plain language, real examples" })}
+              lead={t({
+                ar: "خلف الستار، زيادة تسوّي أربعة أشياء — كل وحدة منها ترفع سلّة عميلك ومبيعاتك.",
+                en: "Under the hood, Ziadah does four things — each one grows your customer's cart and your sales.",
+              })}
+            />
+            <Shell width="wide">
               <div className="grid md:grid-cols-2 gap-5">
                 {[
                   {
@@ -2199,27 +2103,21 @@ export default function HomeTrackflow() {
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* HOW IT WORKS — interactive 4-step */}
-          <section id="steps" className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center mb-14">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {t({ ar: "كيف تشتغل زيادة", en: "How Ziadah works" })}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
-                  {t({ ar: "من التفعيل إلى نمو المبيعات في 4 خطوات", en: "From activation to growing sales in 4 steps" })}
-                </h2>
-                <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
-                  {t({
-                    ar: "فعّل على زد أو سلة، اختر أماكن العرض، وخلّ الذكاء يقترح ويُحسّن لكل عميل.",
-                    en: "Activate on Zid or Salla, pick your placements, and let the AI recommend and optimize for each shopper.",
-                  })}
-                </p>
-              </div>
-
+          <DsSection id="steps" family="grey">
+            <SectionHead
+              center
+              kicker={t({ ar: "كيف تشتغل زيادة", en: "How Ziadah works" })}
+              title={t({ ar: "من التفعيل إلى نمو المبيعات في 4 خطوات", en: "From activation to growing sales in 4 steps" })}
+              lead={t({
+                ar: "فعّل على زد أو سلة، اختر أماكن العرض، وخلّ الذكاء يقترح ويُحسّن لكل عميل.",
+                en: "Activate on Zid or Salla, pick your placements, and let the AI recommend and optimize for each shopper.",
+              })}
+            />
+            <Shell width="wide">
               <div className="grid lg:grid-cols-5 gap-10 lg:gap-12 items-start">
                 {/* LEFT — live preview */}
                 <div className="lg:col-span-2 order-2 lg:order-1 lg:sticky lg:top-24">
@@ -2375,12 +2273,12 @@ export default function HomeTrackflow() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* PLACEMENTS + STORES */}
-          <section className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200">
-            <div className="container mx-auto max-w-6xl">
+          <DsSection family="violet">
+            <Shell width="wide">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-card">
                   <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-3">
@@ -2433,8 +2331,8 @@ export default function HomeTrackflow() {
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* USE-CASE WIDGETS SHOWCASE */}
           <WidgetsShowcaseSection />
@@ -2443,23 +2341,15 @@ export default function HomeTrackflow() {
           <SectorsBriefSection />
 
           {/* TESTIMONIALS — آراء التجار: verified merchant reviews, two marquees */}
-          <section
-            id="testimonials"
-            className="py-24 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20 overflow-x-clip"
-          >
-            <div className="container mx-auto max-w-6xl px-4">
-              <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {translations[lang].landing.testimonialsTag}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
-                  {translations[lang].landing.testimonialsTitle}
-                </h2>
-                <p className="text-lg text-zinc-600">
-                  {translations[lang].landing.testimonialsSub}
-                </p>
-              </div>
-            </div>
+          {/* The two marquees run edge to edge, so they sit outside a `Shell`
+              while the head keeps the section's own measure. */}
+          <DsSection id="testimonials" family="grey" className="overflow-x-clip">
+            <SectionHead
+              center
+              kicker={translations[lang].landing.testimonialsTag}
+              title={translations[lang].landing.testimonialsTitle}
+              lead={translations[lang].landing.testimonialsSub}
+            />
 
             {[
               { ref: testimonialsMarquee1Ref, data: testimonialsRow1, dir: "marquee-rtl", mb: "mb-5" },
@@ -2523,24 +2413,18 @@ export default function HomeTrackflow() {
                 </div>
               </div>
             ))}
-          </section>
+          </DsSection>
 
           {/* PRICING TEASER */}
-          <section id="pricing" className="py-24 px-4 scroll-mt-20">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {t({ ar: "الأسعار", en: "Pricing" })}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
-                  {t({ ar: "خطط بسيطة وشفافة", en: "Simple, transparent plans" })}
-                </h2>
-                <p className="text-lg text-zinc-600">
-                  {t({ ar: "اقتراحات ومبيعات غير محدودة في كل الباقات — شاملة الضريبة، وتجربة مجانية 7 أيام.", en: "Unlimited suggestions & sales on every plan — VAT-inclusive, with a 7-day free trial." })}
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+          <DsSection id="pricing" family="violet">
+            <SectionHead
+              center
+              kicker={t({ ar: "الأسعار", en: "Pricing" })}
+              title={t({ ar: "خطط بسيطة وشفافة", en: "Simple, transparent plans" })}
+              lead={t({ ar: "اقتراحات ومبيعات غير محدودة في كل الباقات — شاملة الضريبة، وتجربة مجانية 7 أيام.", en: "Unlimited suggestions & sales on every plan — VAT-inclusive, with a 7-day free trial." })}
+            />
+            <Shell width="wide">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
                 {pricingPlans.map((plan) => (
                   <div
                     key={plan.name}
@@ -2580,24 +2464,18 @@ export default function HomeTrackflow() {
                   </div>
                 ))}
               </div>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
           {/* FAQ */}
-          <section id="faq" className="py-24 px-4 bg-zinc-50/60 border-y border-zinc-200 scroll-mt-20">
-            <div className="container mx-auto max-w-3xl">
-              <div className="text-center mb-12">
-                <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-4">
-                  {t({ ar: "أسئلة شائعة", en: "FAQ" })}
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4">
-                  {t({ ar: "أسئلة يسألها التجار", en: "Questions merchants ask" })}
-                </h2>
-                <p className="text-lg text-zinc-600">
-                  {t({ ar: "كل اللي تحتاج تعرفه قبل ما تفعّل زيادة على متجرك.", en: "Everything you need to know before activating Ziadah on your store." })}
-                </p>
-              </div>
-
+          <DsSection id="faq" family="grey">
+            <SectionHead
+              center
+              kicker={t({ ar: "أسئلة شائعة", en: "FAQ" })}
+              title={t({ ar: "أسئلة يسألها التجار", en: "Questions merchants ask" })}
+              lead={t({ ar: "كل اللي تحتاج تعرفه قبل ما تفعّل زيادة على متجرك.", en: "Everything you need to know before activating Ziadah on your store." })}
+            />
+            <Shell width="narrow">
               <Accordion type="single" collapsible className="space-y-3">
                 {faqs.map((f, i) => (
                   <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-zinc-200 bg-white px-5 shadow-card data-[state=open]:border-zinc-300">
@@ -2608,53 +2486,32 @@ export default function HomeTrackflow() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
-          </section>
+            </Shell>
+          </DsSection>
 
-          {/* FINAL CTA */}
-          <section className="py-24 px-4 bg-white border-t border-zinc-200">
-            <div className="container mx-auto max-w-4xl">
-              <div className="rounded-3xl mockup-card overflow-hidden shadow-card-lg relative p-10 md:p-14 text-center">
-                <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] bg-violet-500/20 blur-[100px] rounded-full pointer-events-none" />
-                <div className="relative">
-                  <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 leading-tight" style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
-                    {t({ ar: "جاهز ترفع متوسط طلبك ومبيعاتك؟", en: "Ready to raise your order value and sales?" })}
-                  </h2>
-                  <p className="text-base md:text-lg text-zinc-400 mb-8 max-w-xl mx-auto">
-                    {t({
-                      ar: "فعّل زيادة الآن على زد أو سلة، وخلّ كل عميل يشوف المنتج اللي يناسبه.",
-                      en: "Activate Ziadah now on Zid or Salla, and let every customer see the product that fits them.",
-                    })}
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Button
-                      size="lg"
-                      onClick={() => setPlatformOpen(true)}
-                      className="text-base h-12 px-8 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold"
-                    >
-                      {t({ ar: "فعّل الآن", en: "Activate now" })}
-                      <ArrowCTA className="ms-1 w-4 h-4" />
-                    </Button>
-                  </div>
-                  <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-8 text-xs text-zinc-400">
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
-                      {t({ ar: "تجربة مجانية 7 أيام", en: "7-day free trial" })}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
-                      {t({ ar: "تركيب بنقرة وحدة", en: "One-click install" })}
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-violet-400" />
-                      {t({ ar: "دعم بالعربية", en: "Arabic support" })}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* FINAL CTA.
+              The dark panel, the grid overlay, the blur glow and the white
+              forced through `WebkitTextFillColor` were all reproducing what an
+              inverted section already does - so it is one now. */}
+          <CtaSection
+            family="violet"
+            title={t({ ar: "جاهز ترفع متوسط طلبك ومبيعاتك؟", en: "Ready to raise your order value and sales?" })}
+            body={t({
+              ar: "فعّل زيادة الآن على زد أو سلة، وخلّ كل عميل يشوف المنتج اللي يناسبه.",
+              en: "Activate Ziadah now on Zid or Salla, and let every customer see the product that fits them.",
+            })}
+            primary={{
+              label: (
+                <>
+                  {t({ ar: "فعّل الآن", en: "Activate now" })}
+                  <ArrowCTA className="ms-1 w-4 h-4" />
+                </>
+              ),
+              onClick: () => setPlatformOpen(true),
+              testId: "home-final-cta",
+            }}
+            note={trustItems.map((item) => item.label).join(" · ")}
+          />
         </div>
       <PlatformModal open={platformOpen} onClose={() => setPlatformOpen(false)} />
     </>

@@ -105,6 +105,7 @@ export function HeroSplit({
   family,
   invert,
   tall,
+  compact,
   className,
   id,
 }: {
@@ -117,6 +118,14 @@ export function HeroSplit({
   family?: Family;
   invert?: boolean;
   tall?: boolean;
+  /**
+   * The display tier is measured off the reference's own hero, whose authored
+   * lines run five to ten characters. A hero whose headline is a full sentence
+   * - which Ziadah's Arabic hero is - overflows that tier and wraps to six
+   * lines. `compact` is the same step `HeroLede` already uses for the same
+   * reason, exposed here so a split hero can reach for it too.
+   */
+  compact?: boolean;
   className?: string;
   id?: string;
 }) {
@@ -132,7 +141,7 @@ export function HeroSplit({
             <div className="hero-block-text">
               <div className="hero-text-a">
                 {eyebrow ? <p className="t-eyebrow">{eyebrow}</p> : null}
-                <h1 className="hero-title">{title}</h1>
+                <h1 className={cn("hero-title", compact && "hero-title--compact")}>{title}</h1>
               </div>
               <div className="hero-text-b">
                 {body ? <p className="hero-body" data-hero-el>{body}</p> : null}

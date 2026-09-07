@@ -511,3 +511,38 @@
   line-height: 1.5;
   text-align: center;
 }
+
+/* A headline whose first line is the setup and whose rest is the claim. The
+   lead is lighter and sits on its own line, so the sentence reads as one
+   thought rather than as two headings. */
+.hero-title-lead { display: block; font-weight: 300; }
+
+/* The label over a logo marquee. It is a kicker, not a heading: it names what
+   is scrolling past rather than making a claim about it. */
+.marquee-kicker { margin-block: 6.4rem 2.4rem; text-align: center; }
+
+/* The assumption a calculator's numbers rest on. It is a caption about the
+   controls below it, so it sits with them rather than in the section head. */
+.calc-basis { max-width: 60rem; margin-inline: 0; margin-block-end: 4rem; text-align: start; }
+
+/* The badge that sits in the gap between the calculator's two cards. Its ring
+   is the section's own ground, so it reads as a cutout in the gap; it used to
+   hardcode the near-black of the panel this section no longer paints, which
+   left a black disc on the violet. */
+.calc-connector {
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  box-shadow: 0 0 0 0.5rem var(--surface), 0 0 2rem rgb(139 92 246 / 60%);
+}
+
+/* The inverted control is a fixed `#480086`, chosen because no section ground
+   uses it. That holds for the grey family, whose inverted ground is near-black
+   - but the violet family grounds on `--ziadah-ink` (#1f0236), the same hue two
+   steps darker, and the control sank into it. On that ground it takes the
+   neutral pair, which is what every other inverted button already does. */
+[data-family="violet"][data-invert] .button.is-invert {
+  --button-color: var(--general-white);
+  --button-color-hover: #480086;
+  --button-text-color: #480086;
+  --button-text-color-hover: var(--general-white);
+}
