@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Rocket, ArrowDown, CheckCircle2, BarChart3, Package, Zap } from "lucide-react";
 import PlatformModal from "./PlatformModal";
+import { navigateTo } from "./PageTransition";
 import SEO from "./SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { planLabelsForUseCasePath } from "@/data/useCasePlans";
@@ -29,6 +30,13 @@ export interface StrategyCard {
   title: string;
   desc: string;
   color: string;
+  /**
+   * Where the card goes, when it names a page rather than describing a
+   * technique. The five `by-*` indexes list solutions that each have their
+   * own page; before this they were unclickable cards naming a destination
+   * the reader then had to find in the menu.
+   */
+  href?: string;
 }
 export interface ExampleScenario {
   title: string;
@@ -263,6 +271,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 icon: <span aria-hidden="true">{s.icon}</span>,
                 title: s.title,
                 body: s.desc,
+                onClick: s.href ? () => navigateTo(s.href!) : undefined,
               }))}
             />
           </Shell>
