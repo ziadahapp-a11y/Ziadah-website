@@ -18,6 +18,238 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 @custom-variant dark (&:is(.dark *));
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAYER 1 — FOUNDATION
+   Ported from the Shaa design system (shaa-website-replit, branch
+   claude/website-motionkit-rebuild-weittl), which measured it off a captured
+   reference. The ARCHITECTURE is adopted verbatim; the hues are Ziadah's own.
+
+   The load-bearing idea: the root font size is viewport-proportional at
+   desktop, so one rem scale drives type, spacing and layout together and the
+   whole composition scales with the window instead of stepping at
+   breakpoints. Three tiers, and mobile is deliberately FIXED, not fluid.
+
+   `innerWidth / rootFontSize` = 144 at >=1025, 83.4 at 768-1024, and a fixed
+   10px below 768. The 1025 boundary is a real step down (12.28px -> 7.12px)
+   because the grid also halves from 16 columns to 8 there: the type gets
+   smaller as the columns get wider. That is the measured behaviour.
+
+   Re-rooting from 16px to 10px would otherwise shrink every existing rem in
+   this repo by 37.5%. Two things prevent that: the ~80 authored rem literals
+   were multiplied by 1.6 in the same commit, and Tailwind's own scale is
+   re-pointed below so `text-base`, `p-6` and friends keep their pixel sizes
+   at 1440 while becoming viewport-proportional everywhere else.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* The content container, declared as a UTILITY so it overrides the one
+   Tailwind ships rather than losing to it.
+
+   The gutter is taken out of `width`, not applied as padding, so a child with
+   its own background paints edge to edge inside the content box instead of
+   under a transparent gutter. The cap is a desktop-tier rule only:
+   `max-width` is `none` below 1025. */
+@utility container {
+  width: calc(100% - var(--page-padding-x) * 2);
+  max-width: var(--container-max, none);
+  margin-inline: auto;
+
+  @media screen and (min-width: 1025px) {
+    max-width: var(--container-max, var(--site-container-max-width));
+  }
+}
+
+/* Tailwind 4.1 keeps emitting its own `.container` breakpoint caps (40rem …
+   96rem) even when `@utility container` redefines the utility, and those caps
+   sort AFTER the rule above because they carry larger min-widths. At a 10px
+   root they evaluate to 400–960px, which would cap the page at 800px on a
+   1440 viewport. These two rules are unlayered, so they beat every layered
+   utility and make the design system's container the authority. Set
+   `--container-max` on an ancestor to narrow it deliberately. */
+.container { max-width: var(--container-max, none); }
+@media screen and (min-width: 1025px) {
+  .container { max-width: var(--container-max, var(--site-container-max-width)); }
+}
+
+html {
+  font-size: 10px;                                  /* < 768  — fixed */
+  -webkit-font-smoothing: antialiased;
+}
+@media screen and (min-width: 768px)  { html { font-size: 1.19904vw; } }   /* 100vw / 83.4 */
+@media screen and (min-width: 1025px) { html { font-size: 0.694444vw; } }  /* 100vw / 144 */
+@media screen and (min-width: 1920px) { html { font-size: 13.3333px; } }   /* cap */
+
+:root {
+  /* ---- layout ---- */
+  --site-container-max-width: 1920px;
+  --page-padding-x: 1.6rem;
+  --columns-count: 16;
+
+  /* The header switches height at 768, not 1025. `--header-dynamic-height` is
+     ADDITIVE — the header plus whatever announcement bars are stacked above it
+     — so every sticky offset re-seats itself when the bar is toggled. Nothing
+     downstream may hard-code a pixel offset. */
+  --header-desktop: 9.8rem;
+  --header-mobile: 8.3rem;
+  --header-height: var(--header-mobile);
+  --header-banner-height: 0rem;
+  --header-dynamic-height: calc(var(--header-height) + var(--header-banner-height));
+
+  /* ---- motion ----
+     `--motion` is a scalar, not a boolean: durations are multiplied by it, so
+     reduced-motion collapses every transition to zero through one token. */
+  --motion: 1;
+  --motion-speed: 0.55s;
+  --motion-speed-slow: 0.75s;
+  --spring-ease: cubic-bezier(0.4, 1.35, 0.5, 1);
+  --spring-ease-duration: calc(var(--motion) * 0.5s);
+  --ease-out-quint: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* ---- shape ----
+     1.6rem is the card radius everywhere, 3.2rem the large block and the
+     pinned figure, 4.8rem the device frame, 10rem the pill. */
+  --radius-card: 1.6rem;
+  --radius-block: 3.2rem;
+  --radius-media: 1.6rem;
+  --radius-device: 4.8rem;
+  --button-radius: 10rem;
+
+  /* ---- neutrals ---- */
+  --general-white: #fff;
+  --general-white-off: #f8f7fc;
+  --general-black: #07000c;
+  --general-black-mid: #1b1b1b;
+  --general-black-light: #242628;
+  --general-gray-light: #ece9f3;
+  --general-gray: #cac6d6;
+  --general-gray-mid: #a5a1b3;
+  --general-gray-dark: #3b3745;
+
+  /* ---- ZIADAH BRAND ----
+     Read off Ziadah's own artwork rather than chosen: `#9821FF`, `#480086`
+     and `#1F0236` are the fills in `public/logo-ar.svg`, and `#EEDAFF` is its
+     pale tint. `--ziadah-violet` stays `#7c3aed` — the hue the existing ~150
+     components already use — so the brand does not shift under the refactor.
+
+     White is the canvas and violet is the brand. Everything else is an
+     accent. */
+  --ziadah-violet:       #7c3aed;
+  --ziadah-violet-bright:#9821ff;
+  --ziadah-violet-dark:  #480086;
+  --ziadah-ink:          #1f0236;
+  --ziadah-violet-pale:  #eedaff;
+
+  /* ---- colour families ----
+     A family is a {base, light, dark} triple; the PAGE picks one, sections
+     inherit it and choose which end of the pair is the ground. Two families:
+     `violet` is Ziadah's brand triple and `grey` is the white canvas.
+
+     This is the whole palette. Nothing else may name a colour: a component
+     reads `--color-primary` / `--color-secondary` / `--color` with a
+     fallback, and the section stamps the triple inline. */
+  --violet:        var(--ziadah-violet);
+  --violet-light:  var(--ziadah-violet-pale);
+  --violet-dark:   var(--ziadah-ink);
+  --grey:          #cac6d6;   --grey-light:   #f8f7fc;   --grey-dark:   #07000c;
+
+  /* Section default, used only until a section stamps its own triple. */
+  --color: var(--grey);
+  --color-primary: var(--general-white);
+  --color-secondary: var(--general-black);
+  /* Chrome outside any section sits on the grey family's light ground, so it
+     takes the grey family's floor. */
+  --ink-floor: 60%;
+
+  /* ---- surface-relative roles ----
+     Six tokens that describe a position on whatever surface a component is
+     sitting on, not a fixed colour. `.on-ink` re-points all six, so a card, a
+     rule or a caption reads correctly on the light page and on a dark band
+     without either one being restyled. */
+  --surface:    var(--color-primary);
+  --surface-2:  color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  --surface-3:  rgba(127, 127, 127, 0.18);
+  --ink:        var(--color-secondary);
+  --ink-muted:  color-mix(in srgb, var(--color-secondary) 75%, transparent);
+  --line:       color-mix(in srgb, var(--color-secondary) 20%, transparent);
+
+  /* ---- type steps ----
+     Three named steps for the places that ask for a size by name rather than
+     by role (a dialog title, a group heading). Everything else uses the type
+     roles in `styles/system.css`. */
+  --type-2: 2.4rem;
+  --type-1: 3.2rem;
+  --type-display: 4rem;
+
+  /* ---- semantic ---- */
+  /* Section rhythm: 6.4rem 0, and 7.4rem 0 11.6rem at the desktop tier. */
+  --section-space: 6.4rem;
+  --section-space-bottom: 6.4rem;
+
+  /* ---- status ink ----
+     The TEXT role of each status family, kept behind one indirection so a
+     section can re-point it. `@theme inline` substitutes a token's DEFINITION
+     at the use site, so overriding `--color-error-text` on a section is dead
+     code — the utility already emitted `var(--error)`. `:root` keeps the hue;
+     a `[data-family]` scope swaps in the section ink. */
+  --status-error-ink: var(--error);
+  --status-warning-ink: var(--warning-dark);
+  --status-success-ink: var(--success);
+
+  --success: #457a39;
+  --error: #dc2626;
+  /* A status colour, NOT a brand family: chosen for contrast on a pale ground
+     rather than inherited from a palette. */
+  --warning: #b45309;
+  --warning-dark: #7c2d12;
+  --value-increase: #457a39;
+  --value-decrease: #e50000;
+}
+
+@media screen and (min-width: 1025px) {
+  :root { --section-space: 7.4rem; --section-space-bottom: 11.6rem; }
+  :root { --type-2: 2.8rem; --type-1: 4rem; --type-display: 5.6rem; }
+  :root { --page-padding-x: 2.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { :root { --motion: 0; } }
+@media screen and (min-width: 768px)    { :root { --header-height: var(--header-desktop); } }
+
+/* ── Tailwind scale, re-based on the reference's measured steps ─────────────
+   The document root is 10px, so every rem-based Tailwind utility in the repo
+   would otherwise render at 62.5% of its old size. The ramp is re-pointed at
+   the measured type steps — 1.2 / 1.6 / 2 / 2.4 / 3.2 / 4.8 / 6.4 / 10.4 /
+   12rem — which at a 1440 viewport lands each utility on the pixel size it had
+   before. That is what makes the existing markup inherit the new scale instead
+   of fighting it.
+
+   `--spacing: 0.4rem` keeps the 4px step, which at this root is the
+   reference's own rhythm: `p-6` = 2.4rem, exactly the measured card padding. */
+@theme {
+  --spacing: 0.4rem;
+
+  --text-xs: 1.2rem;    --text-xs--line-height: 1.5;
+  --text-sm: 1.4rem;    --text-sm--line-height: 1.5;
+  --text-base: 1.6rem;  --text-base--line-height: 1.4;
+  --text-lg: 1.8rem;    --text-lg--line-height: 1.5;
+  --text-xl: 2rem;      --text-xl--line-height: 1.4;
+  --text-2xl: 2.4rem;   --text-2xl--line-height: 1.33;
+  --text-3xl: 3.2rem;   --text-3xl--line-height: 1.25;
+  --text-4xl: 4rem;     --text-4xl--line-height: 1.1;
+  --text-5xl: 4.8rem;   --text-5xl--line-height: 1;
+  --text-6xl: 6.4rem;   --text-6xl--line-height: 1;
+  --text-7xl: 8rem;     --text-7xl--line-height: 1;
+  --text-8xl: 10.4rem;  --text-8xl--line-height: 1;
+  --text-9xl: 12rem;    --text-9xl--line-height: 1;
+
+  /* Radii are the reference's: 1.6rem is the card, 3.2rem the large block. */
+  --radius-xs: 0.4rem;
+  --radius-sm: 0.8rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 1.6rem;
+  --radius-xl: 2.4rem;
+  --radius-2xl: 3.2rem;
+  --radius-3xl: 4.8rem;
+}
+
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -113,7 +345,7 @@
   --app-font-sans: 'Rubik', 'IBM Plex Sans Arabic', 'Inter', 'saudi_riyal', system-ui, sans-serif;
   --app-font-serif: Georgia, 'saudi_riyal', serif;
   --app-font-mono: 'JetBrains Mono', Menlo, 'saudi_riyal', monospace;
-  --radius: 1rem;
+  --radius: 1.6rem;
 
   /* Automatically computed opaque borders (intensity via --opaque-button-border-intensity) */
   --primary-border: hsl(var(--primary));
@@ -244,6 +476,9 @@ body{
   min-height:100svh;
   min-height:100dvh;
   height:auto;
+  /* The document root is 10px, so anything carrying no size class would
+     otherwise render at 10px. 1.6rem is the design system's body step. */
+  font-size:1.6rem;
   background:var(--page-background);
   color:var(--t);
   overflow-x:hidden;
@@ -373,17 +608,12 @@ section{
   }}
 .wrap{max-width:1200px;margin:0 auto;}
 
-/* ONE central horizontal-padding + centering system. Tailwind v4 dropped v3's
-   container `center`/`padding` config, so the built-in `.container` ships with
-   NO padding and NO centering — which is why every section had to hand-roll px-4.
-   Re-adding them here (the documented v4 pattern) extends the built-in container:
-   responsive max-widths stay; every `.container` now auto-centers and gets fluid
-   horizontal padding (16px on mobile → 40px on desktop). New sections inherit it
-   for free — no manual px-4 needed. */
-@utility container {
-  margin-inline: auto;
-  padding-inline: clamp(16px, 4vw, 40px);
-}
+/* The horizontal-padding + centering system now lives in the foundation layer
+   above, as the design system's `@utility container`: it takes the gutter out
+   of `width` rather than adding padding, so a child with its own background
+   paints edge to edge inside the content box. The gutter itself is
+   `--page-padding-x` (1.6rem, 2.4rem at the desktop tier) instead of the
+   previous `clamp(16px, 4vw, 40px)`. */
 .tc{text-align:center;}.tc .ssub{margin:0 auto;}
 
 /* ── Card grids: fluid columns, consistent gaps (replaces many fixed repeat(N{display:grid;max-width:1200px;margin:0 auto;gap:var(--card-gap);grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));align-items:stretch;}
@@ -3137,7 +3367,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   width:100%;
 }
 .landing-sectors-sub{
-  max-width:34rem;
+  max-width:54.4rem;
   margin-inline:auto;
   margin-bottom:0;
   font-size:clamp(15px,1.75vw,17px);
@@ -4157,9 +4387,9 @@ section#live-demo.landing-white-accent .ssub {
   z-index: auto;
   overflow-x: visible;
   /* override the global `section{ padding-left/right: …!important }` (line ~1223)
-     and restore the page's intended px-4 (1rem) gutters; vertical stays on py-* */
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+     and restore the page's intended px-4 (1.6rem) gutters; vertical stays on py-* */
+  padding-left: 1.6rem !important;
+  padding-right: 1.6rem !important;
 }
 .tf-home :is(h1, h2, h3, h4, h5, h6, p, span, a, em, strong, li, small, button) {
   -webkit-text-fill-color: currentColor;
@@ -4220,3 +4450,9 @@ section#live-demo.landing-white-accent .ssub {
 }
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }}
+/* ── Scroll ownership ────────────────────────────────────────────────────────
+   Native smooth scrolling is the fallback. When Lenis is driving the page it
+   sets `data-lenis` on <html>; the two must never both animate the same
+   scroll, or anchor jumps fight each other. */
+html[data-lenis] { scroll-behavior: auto; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

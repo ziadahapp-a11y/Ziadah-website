@@ -274,7 +274,7 @@ export default function SuccessStoryDetail() {
                 {isAr ? "الخلاصة" : "Key Takeaway"}
               </h2>
               <div className="relative rounded-2xl border border-violet-200 bg-violet-50/60 p-7 md:p-8 ps-14 md:ps-16">
-                <Quote className="absolute top-6 w-7 h-7 text-violet-500/60" aria-hidden style={{ insetInlineStart: "1.25rem" }} />
+                <Quote className="absolute top-6 w-7 h-7 text-violet-500/60" aria-hidden style={{ insetInlineStart: "2rem" }} />
                 <p className="text-base md:text-lg font-semibold text-violet-800 leading-relaxed">
                   {article.takeaway}
                 </p>

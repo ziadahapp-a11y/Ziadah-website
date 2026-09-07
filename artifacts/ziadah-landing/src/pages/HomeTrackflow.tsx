@@ -244,7 +244,7 @@ function HeroOffer({ engineLabel }: { engineLabel: string }) {
   return (
     <div className="relative w-full mx-auto">
       {/* soft violet glow behind the widget */}
-      <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-violet-500/20 blur-3xl pointer-events-none" />
+      <div className="absolute -inset-6 -z-10 rounded-[4rem] bg-violet-500/20 blur-3xl pointer-events-none" />
       <div className="rounded-3xl border border-white/10 bg-[#0b0f14] p-3 shadow-2xl shadow-violet-950/40">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {/* LEFT — buy more, save more tiers */}
