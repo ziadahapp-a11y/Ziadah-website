@@ -1,7 +1,12 @@
-/* Zid apps comparison page — scroll chrome & subtle interactions */
+/* Zid apps comparison page - scroll chrome & subtle interactions.
+
+   The accent here was a green that belonged to no Ziadah surface: the table
+   highlighted the Ziadah column in one brand while the page around it ran in
+   another. It is the violet family now, so the column the page is arguing for
+   is marked in the colour the rest of the site uses to mean "ours". */
 .zi-compare-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(22 163 74 / 0.35) rgba(22 163 74 / 0.06);
+  scrollbar-color: rgba(124 58 237 / 0.35) rgba(124 58 237 / 0.06);
 }
 
 .zi-compare-scroll::-webkit-scrollbar {
@@ -10,19 +15,19 @@
 }
 
 .zi-compare-scroll::-webkit-scrollbar-track {
-  background: rgba(22 163 74 / 0.05);
+  background: rgba(124 58 237 / 0.05);
   border-radius: 9px;
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(22 163 74 / 0.45), rgba(21 128 61 / 0.35));
+  background: linear-gradient(180deg, rgba(124 58 237 / 0.45), rgba(72 0 134 / 0.35));
   border-radius: 9px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(22 163 74 / 0.55), rgba(21 128 61 / 0.45));
+  background: linear-gradient(180deg, rgba(124 58 237 / 0.55), rgba(72 0 134 / 0.45));
   background-clip: padding-box;
 }
 

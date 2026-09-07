@@ -448,8 +448,12 @@
   color: var(--ink-muted);
 }
 /* Stats inside a hero already sit under a lede, so they need less air above
-   them than the same row does when it opens its own section. */
-.hero-stats { margin-top: 3.2rem; }
+   them than the same row does when it opens its own section - and a narrower
+   column floor, so a run of four stays one row rather than breaking to 3 + 1. */
+.hero-stats {
+  margin-top: 3.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
 
 /* A segmented control in a hero: the page's own contents as a row of chips,
    one of them the current view. It reads as a filter rather than as buttons,
@@ -496,3 +500,14 @@
   font-weight: 700;
 }
 .hero-tab[aria-selected="true"] .hero-tab-note { background: rgb(255 255 255 / 18%); }
+/* `.hero-note` is a flex row of note ITEMS - the trust line under a split
+   hero's buttons. A single sentence is not that: it is one caption, and
+   putting it in a flex row makes each wrapped line its own item. So it gets
+   its own class rather than borrowing one that means something else. */
+.hero-caption {
+  margin-block-start: 1.6rem;
+  color: var(--ink-muted);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+}

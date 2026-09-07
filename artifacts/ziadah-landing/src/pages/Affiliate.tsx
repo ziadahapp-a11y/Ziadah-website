@@ -25,6 +25,8 @@ import {
   CtaSection,
 } from "@/components/trackflow";
 import { Button } from "@/components/ui/button";
+import { Button as MkButton } from "@/components/mk";
+import { HeroLede } from "@/sections";
 
 const WA_LINK =
   "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
@@ -191,11 +193,6 @@ export default function Affiliate() {
 
   const riyal = isAr ? "⃁" : "SAR";
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
@@ -214,75 +211,32 @@ export default function Affiliate() {
       <div className="aff-root" dir={dir}>
 
         {/* ══════════ HERO ══════════ */}
-        <section className="relative pt-20 pb-24 md:pt-28 md:pb-28 px-4">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-4xl text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-7"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-              </span>
-              <span className="text-xs font-semibold text-violet-700">{c.tag}</span>
-            </motion.div>
+        <HeroLede
+          family="violet"
+          eyebrow={c.tag}
+          title={c.heroTitle}
+          body={c.heroDesc}
+          actions={
+            <MkButton as="a" href={WA_LINK} target="_blank" rel="noreferrer" size="lg">
+              <WaIcon size={20} />
+              <span className="ms-2">{c.ctaMain}</span>
+            </MkButton>
+          }
+        >
+          <p className="hero-caption">{c.ctaSub}</p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.05 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-7 leading-[1.05]"
-            >
-              {c.heroTitle}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-9 leading-relaxed"
-            >
-              {c.heroDesc}
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="flex flex-col items-center"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="text-base h-12 px-7 bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
-              >
-                <a href={WA_LINK} target="_blank" rel="noreferrer">
-                  <WaIcon size={20} />
-                  <span className="ms-2">{c.ctaMain}</span>
-                </a>
-              </Button>
-              <p className="mt-3 text-sm text-zinc-500">{c.ctaSub}</p>
-            </motion.div>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-14">
-              {c.stats.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.5, delay: i * 0.08, ease: "easeOut" }}
-                >
-                  <StatCard value={s.val} label={s.label} />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+          {/* The four numbers are what a partner is being asked to believe, so
+              they open the page with the offer rather than sitting in cards
+              under it. */}
+          <ul className="uc-stats hero-stats">
+            {c.stats.map((st, i) => (
+              <li key={i} className="uc-stat">
+                <span className="uc-stat-value num-ltr">{st.val}</span>
+                <span className="uc-stat-label">{st.label}</span>
+              </li>
+            ))}
+          </ul>
+        </HeroLede>
 
         {/* ══════════ HOW IT WORKS ══════════ */}
         <Section band="muted">
