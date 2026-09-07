@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
+import { MotionProvider, useScrollTriggerRefresh } from "@/motion/MotionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
@@ -61,6 +62,18 @@ const UseCasesByGoal = lazy(() => import("@/pages/use-cases/UseCasesByGoal"));
 const UseCasesByExperience = lazy(() => import("@/pages/use-cases/UseCasesByExperience"));
 
 const queryClient = new QueryClient();
+
+/**
+ * ScrollTrigger caches every trigger's start/end pixel positions per document.
+ * A route change swaps the document under it, so the whole set has to be
+ * re-measured — otherwise reveals on the new page fire at the old page's
+ * scroll offsets.
+ */
+function RouteMotionSync() {
+  const [location] = useLangAwareLocation();
+  useScrollTriggerRefresh(location);
+  return null;
+}
 
 function ScrollToTop() {
   const [location] = useLangAwareLocation();
@@ -178,6 +191,7 @@ function AppShell() {
         تخطي إلى المحتوى الرئيسي
       </a>
       <ScrollToTop />
+      <RouteMotionSync />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Nav />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
@@ -193,6 +207,10 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
+        {/* One Lenis instance for the whole app, mounted above the router so
+            route changes never rebuild the scroll system — only the
+            per-element triggers below it are. */}
+        <MotionProvider>
         <BlurTransitionProvider>
           <QueryClientProvider client={queryClient}>
             <WouterRouter
@@ -203,6 +221,7 @@ function App() {
             </WouterRouter>
           </QueryClientProvider>
         </BlurTransitionProvider>
+        </MotionProvider>
       </LanguageProvider>
     </ThemeProvider>
   );
