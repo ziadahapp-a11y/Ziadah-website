@@ -71,3 +71,111 @@
   line-height: 1.4;
   color: color-mix(in srgb, var(--color-secondary) max(60%, var(--ink-floor, 0%)), transparent);
 }
+
+/* ---------- USE-CASE PLAYBOOK -----------------------------------------
+   The shared layout behind the twenty-one `/use-cases/*` pages. The source
+   design system has no equivalent — its industry pages are lists of cases,
+   not a per-case playbook — so these are Ziadah's, written against the same
+   tokens. */
+
+/* Read progress. Fixed to the viewport, under the header's stacking context,
+   and scaled from a transform so it never triggers layout while scrolling. */
+.uc-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 0.3rem;
+  z-index: calc(var(--z-header) - 1);
+  transform-origin: left center;
+  background: var(--ziadah-violet);
+  pointer-events: none;
+}
+[dir="rtl"] .uc-progress { transform-origin: right center; }
+
+/* The page's own contents. It sits under the header, so the offset is
+   token-derived: nothing here hard-codes a pixel. */
+.uc-rail {
+  position: sticky;
+  top: var(--header-dynamic-height);
+  z-index: 20;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(1.2rem);
+  border-block-end: 0.1rem solid var(--line);
+}
+.uc-rail-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  padding-block: 1.2rem;
+}
+.uc-rail-link {
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  padding: 0.6rem 1.6rem;
+  background: none;
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint),
+              border-color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) {
+  .uc-rail-link:hover { color: var(--ink); border-color: var(--ink); }
+}
+.uc-rail-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+/* The numbers are this section's argument, so they carry the display tier
+   rather than sitting in cards that compete with the heading above them. */
+.uc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  gap: 3.2rem 2.4rem;
+  margin-top: 4.8rem;
+  list-style: none;
+  padding: 0;
+}
+.uc-stat { display: grid; gap: 0.8rem; }
+.uc-stat-value {
+  font-size: var(--type-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.uc-stat-label { font-size: 1.6rem; line-height: 1.5; color: var(--ink-muted); }
+
+/* Heading beside its evidence. One column below the desktop tier, because
+   two 34rem columns in a narrow shell are two cramped columns. */
+.uc-split { display: grid; gap: 4.8rem; align-items: start; }
+@media screen and (min-width: 1025px) {
+  .uc-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6.4rem; }
+  .uc-split .section-head { margin-bottom: 0; }
+}
+
+.uc-report-list { display: grid; gap: 1.2rem; list-style: none; margin: 0; padding: 0; }
+.uc-report {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface-2);
+}
+.uc-report-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  color: var(--ink);
+}
+.uc-report-text { display: grid; gap: 0.2rem; min-width: 0; }
+.uc-report-label { font-size: 1.5rem; font-weight: 500; color: var(--ink); }
+.uc-report-sub { font-size: 1.3rem; line-height: 1.4; color: var(--ink-muted); }
