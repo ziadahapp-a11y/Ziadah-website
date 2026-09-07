@@ -1,0 +1,73 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ZIADAH ADDITIONS TO THE SECTION VOCABULARY
+
+   The five files this sits beside are ports, kept byte-comparable with their
+   source so a future sync stays a diff. Anything Ziadah needs that the source
+   has no equivalent for goes here instead, written against the same tokens
+   and the same conventions: colour only through the section's triple, every
+   hover state behind `@media (hover: hover)`, and durations multiplied by
+   `--motion` so reduced-motion collapses them.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ---------- SOLUTION INDEX GRID ---------------------------------------
+   The five `by-*` groupings, side by side. The source's own catalogue is a
+   single flat list; Ziadah's solutions are grouped four ways over the same
+   twenty-one pages, so the grouping has to be visible rather than flattened
+   away. Four columns at the desktop tier, two at tablet, one on a phone —
+   the same steps `.footer-groups` uses, so the two read as one system. */
+.ucx-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+}
+@media screen and (max-width: 1024px) { .ucx-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 767px)  { .ucx-groups { grid-template-columns: minmax(0, 1fr); } }
+
+.ucx-group { min-width: 0; }
+
+.ucx-group-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1.6rem;
+  color: var(--ink);
+}
+
+.ucx-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ucx-group-link {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  /* The rows were lines of text — navigation targets under the 24px WCAG
+     2.5.8 minimum. The block padding grows the hit area without moving the
+     text. */
+  padding: 0.6rem 0;
+  text-align: start;
+  overflow-wrap: break-word;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) {
+  .ucx-group-link:hover { color: var(--ink); }
+}
+.ucx-group-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+.ucx-group-desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-secondary) max(60%, var(--ink-floor, 0%)), transparent);
+}

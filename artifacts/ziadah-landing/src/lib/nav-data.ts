@@ -13,6 +13,7 @@
  */
 import type { t as translations } from "@/i18n/translations";
 import { sectors } from "@/data/sectors";
+import { useCasesSolutionsMatrix } from "@/data/useCasesSolutionsMatrix";
 
 type Tree = (typeof translations)["ar"];
 
@@ -45,55 +46,25 @@ export const WHATSAPP_SUPPORT_URL = "https://wa.me/966544357555";
 export const SUPPORT_EMAIL = "support@ziadah.app";
 
 /**
- * Solutions, grouped the four ways a merchant actually shops for them: by the
- * page they show on, by what the widget does, by how it is presented, and by
- * the number it is meant to move.
+ * Solutions, grouped the five ways a merchant actually shops for them: by the
+ * page they show on, by what the widget does, by how it is presented, by the
+ * number it is meant to move, and by the experience it builds.
+ *
+ * Read from `useCasesSolutionsMatrix`, which the `/use-cases` hub and the
+ * five `by-*` index pages render too — so the header, the hub and the indexes
+ * cannot disagree about which solutions exist or where they live. Only the
+ * labels are resolved here, against the current language's tree.
  */
 export function solutionGroups(tr: Tree): NavGroup[] {
-  const n = tr.nav;
-  return [
-    {
-      title: n.useCaseByPage,
-      items: [
-        { label: n.productPage, href: "/use-cases/product-page" },
-        { label: n.cartPage, href: "/use-cases/cart" },
-        { label: n.checkoutPage, href: "/use-cases/checkout" },
-        { label: n.thankYouPage, href: "/use-cases/thank-you" },
-        { label: n.homePage, href: "/use-cases/home" },
-        { label: n.categoryPage, href: "/use-cases/category" },
-        { label: n.allPages, href: "/use-cases/all-pages" },
-      ],
-    },
-    {
-      title: n.useCaseByActivity,
-      items: [
-        { label: n.crossSell, href: "/use-cases/cross-sell", desc: n.crossSellSub },
-        { label: n.upsell, href: "/use-cases/upsell", desc: n.upsellSub },
-        { label: n.addToCart, href: "/use-cases/add-to-cart", desc: n.addToCartSub },
-        { label: n.removeFromCart, href: "/use-cases/remove-from-cart", desc: n.removeFromCartSub },
-      ],
-    },
-    {
-      title: n.useCaseByPresentation,
-      items: [
-        { label: n.relatedProducts, href: "/use-cases/related-products", desc: n.relatedProductsSub },
-        { label: n.addons, href: "/use-cases/addons", desc: n.addonsSub },
-        { label: n.buyTogether, href: "/use-cases/buy-together", desc: n.buyTogetherSub },
-        { label: n.bundleDeals, href: "/use-cases/bundle-deals", desc: n.bundleDealsSub },
-        { label: n.buyMoreSaveMore, href: "/use-cases/buy-more-save-more", desc: n.buyMoreSaveMoreSub },
-      ],
-    },
-    {
-      title: n.useCaseByGoal,
-      items: [
-        { label: n.goalMoreCartItems, href: "/use-cases/more-cart-items" },
-        { label: n.goalProductSwap, href: "/use-cases/upsell" },
-        { label: n.goalQuantityOffers, href: "/use-cases/buy-more-save-more" },
-        { label: n.goalFreeShippingDisplay, href: "/use-cases/free-shipping" },
-        { label: n.goalDiscountCoupon, href: "/use-cases/discount-coupon" },
-      ],
-    },
-  ];
+  const n = tr.nav as Record<string, string>;
+  return useCasesSolutionsMatrix.map((group) => ({
+    title: n[group.titleKey],
+    items: group.entries.map((e) => ({
+      label: n[e.titleKey],
+      href: e.href,
+      desc: e.subKey ? n[e.subKey] : undefined,
+    })),
+  }));
 }
 
 /**

@@ -30,6 +30,9 @@
 @import "./styles/home-scenes.css" layer(components);
 @import "./styles/bento-board.css" layer(components);
 @import "./styles/product-visual.css" layer(components);
+/* Ziadah's own additions to that vocabulary, kept out of the ported files so
+   those stay byte-comparable with their source. */
+@import "./styles/ziadah-sections.css" layer(components);
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
