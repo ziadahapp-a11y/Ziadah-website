@@ -7,7 +7,6 @@ import {
   Mail,
   Lightbulb,
   MessageCircle,
-  CalendarClock,
   ExternalLink,
   Play,
 } from "lucide-react";
@@ -22,7 +21,6 @@ import { useLanguage } from "../i18n/LanguageContext";
 import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
 import { t as siteTranslations } from "@/i18n/translations";
 
@@ -38,7 +36,6 @@ export default function Support() {
   const [search, setSearch] = useState("");
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const { openMeetingBooking } = useMeetingBooking();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,12 +58,8 @@ export default function Support() {
   const getArticleDesc = (a: { desc: string; descEn?: string }) => isAr ? a.desc : (a.descEn || a.desc);
   const getArticleTime = (a: { time: string; timeEn?: string }) => isAr ? a.time : (a.timeEn || a.time);
 
-  const quickLinks: (
-    | { label: string; href: string; icon: string; desc: string; ext: true }
-    | { label: string; icon: string; desc: string; meeting: true }
-  )[] = [
+  const quickLinks: { label: string; href: string; icon: string; desc: string; ext: true }[] = [
     { label: tx.quickTalkSupport, href: "https://api.whatsapp.com/send/?phone=966510131856", icon: "💬", desc: tx.quickTalkSupportDesc, ext: true },
-    { label: tx.quickBookMeeting, icon: "📅", desc: tx.quickBookMeetingDesc, meeting: true },
     { label: tx.quickZidDash, href: "https://web.ziadah.app/", icon: "🔗", desc: tx.quickZidDashDesc, ext: true },
     { label: tx.quickSallaDash, href: "https://dashboard.ziadah.app/", icon: "🔗", desc: tx.quickSallaDashDesc, ext: true },
   ];
@@ -221,7 +214,7 @@ export default function Support() {
             </div>
           </button>
           {quickLinks.map(l => {
-            const Icon = "meeting" in l ? CalendarClock : l.icon === "💬" ? MessageCircle : ExternalLink;
+            const Icon = l.icon === "💬" ? MessageCircle : ExternalLink;
             const inner = (
               <>
                 <span className="w-11 h-11 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0">
@@ -233,16 +226,7 @@ export default function Support() {
                 </div>
               </>
             );
-            return "meeting" in l ? (
-              <button
-                key={l.label}
-                type="button"
-                onClick={() => openMeetingBooking()}
-                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
-              >
-                {inner}
-              </button>
-            ) : (
+            return (
               <a
                 key={l.label}
                 href={l.href}

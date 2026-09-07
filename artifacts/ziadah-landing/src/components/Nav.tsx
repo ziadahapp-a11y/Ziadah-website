@@ -6,8 +6,6 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { Translations } from "@/i18n/translations";
 import { useTheme } from "@/ThemeContext";
 import PlatformModal from "./PlatformModal";
-import { useMeetingBooking } from "./MeetingBookingProvider";
-import { MEETING_BOOKING_NAV_URL } from "@/config/meetingBooking";
 import { platformSallaLogoSrc, platformZidLogoSrc } from "@/utils/platformAsset";
 import { t as siteTranslations } from "@/i18n/translations";
 
@@ -560,7 +558,7 @@ type HelpNavItem = {
   label: string;
   subtitle: string;
   icon: ReactNode;
-  kind: "route" | "external" | "book";
+  kind: "route" | "external";
   href?: string;
 };
 
@@ -613,26 +611,12 @@ function getHelpNavItems(tr: Translations[keyof Translations], lang: "ar" | "en"
       kind: "external",
       href: `mailto:${ZIADAH_SUPPORT_EMAIL}`,
     },
-    {
-      label: lang === "ar" ? "احجز مكالمة" : "Book a call",
-      subtitle: lang === "ar" ? "جلسة تعريفية مجانية" : "Free intro session",
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H8V2H6zM4 8h12v8H4V8z" fill="currentColor"/></svg>
-      ),
-      kind: "book",
-    },
   ];
 }
 
 // Fire a Help item consistently from any (desktop or mobile) renderer.
-function runHelpItem(
-  item: HelpNavItem,
-  openMeetingBooking: (bookingUrl?: string) => void,
-  close: () => void,
-) {
-  if (item.kind === "book") {
-    openMeetingBooking(MEETING_BOOKING_NAV_URL);
-  } else if (item.kind === "external") {
+function runHelpItem(item: HelpNavItem, close: () => void) {
+  if (item.kind === "external") {
     window.open(item.href!, "_blank", "noopener,noreferrer");
   } else if (item.href!.includes("#")) {
     navigateToHash(item.href!);
@@ -645,11 +629,10 @@ function runHelpItem(
 function HelpDropdown() {
   const t = siteTranslations;
   const { lang } = useLanguage();
-  const { openMeetingBooking } = useMeetingBooking();
   const tr = t[lang];
   const helpItems = getHelpNavItems(tr, lang);
 
-  const activate = (item: HelpNavItem) => runHelpItem(item, openMeetingBooking, () => {});
+  const activate = (item: HelpNavItem) => runHelpItem(item, () => {});
 
   return (
     <div style={{
@@ -941,7 +924,6 @@ function MobileMoreDropdown({
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
-  const { openMeetingBooking } = useMeetingBooking();
   const useCasesDropdown = getUseCasesDropdown(tr);
   const platformItems = getPlatformItems(tr);
   const zidPlatformAppNavItems = getZidPlatformAppNavItems(tr);
@@ -1248,7 +1230,7 @@ function MobileMoreDropdown({
                   textDecoration: "none", color: "var(--t)", fontSize: 13, fontWeight: 500, fontFamily: "var(--font)",
                 };
                 return (
-                  <span key={item.label} onClick={() => runHelpItem(item, openMeetingBooking, onClose)} style={{ ...itemStyle, cursor: "pointer" }}>
+                  <span key={item.label} onClick={() => runHelpItem(item, onClose)} style={{ ...itemStyle, cursor: "pointer" }}>
                     <span style={{ color: "#7c3aed", flexShrink: 0 }}>{item.icon}</span>
                     {item.label}
                   </span>
@@ -1266,10 +1248,6 @@ function MobileMoreDropdown({
           <span onClick={() => { navigateTo("/calculator"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
             {tr.nav.calculator}
-          </span>
-          <span onClick={() => { navigateTo("/analyze"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
-            {tr.nav.analyze}
           </span>
           <span onClick={() => { navigateTo("/pricing"); onClose(); }} style={{ ...directLinkStyle, cursor: "pointer", margin: 0 }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
@@ -1309,21 +1287,6 @@ function MobileMoreDropdown({
         </div>
 
         <div style={{ display: "flex", gap: 8, marginBottom: 10, marginTop: 4 }}>
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              openMeetingBooking(MEETING_BOOKING_NAV_URL);
-            }}
-            style={{
-              flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
-              border: "1px solid #e4e4e7", background: "transparent",
-              color: "var(--t)", fontSize: 14, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font)",
-              cursor: "pointer",
-            }}
-          >
-            {tr.nav.bookMeeting}
-          </button>
           <button type="button" onClick={() => { onClose(); onStartNow?.(); }} style={{
             flex: 1, display: "block", textAlign: "center", padding: "12px 16px", borderRadius: 12,
             background: "var(--p)", color: "#fff", fontSize: 14, fontWeight: 700,
@@ -1346,7 +1309,6 @@ export default function Nav() {
   const { lang, setLang } = useLanguage();
   const tr = t[lang];
   const { theme } = useTheme();
-  const { openMeetingBooking } = useMeetingBooking();
   const runBlur = useBlurTransition();
   const isRtl = lang === "ar";
   const [openDrop, setOpenDrop] = useState<string | null>(null);
@@ -1582,14 +1544,6 @@ export default function Nav() {
                 {openDrop === "login" && <LoginDropdown lang={lang} theme={theme} />}
               </DropdownWrapper>
             </div>
-            <button
-              type="button"
-              className="nb nav-cta-outline"
-              onClick={() => openMeetingBooking(MEETING_BOOKING_NAV_URL)}
-              style={{ cursor: "pointer", fontFamily: "var(--font)", fontSize: 12 }}
-            >
-              {tr.nav.bookMeeting}
-            </button>
             <button type="button" onClick={() => setPlatformModalOpen(true)} className="nb nav-cta-fill" style={{ cursor: "pointer", border: "none", fontFamily: "var(--font)" }}>
               {tr.nav.startNow}
             </button>
@@ -1678,17 +1632,6 @@ export default function Nav() {
                 transition: "all .2s", cursor: "pointer",
               }}>
                 {tr.nav.calculator}
-              </span>
-            </li>
-            <li style={navLinkLiStyle}>
-              <span onClick={() => navigateTo("/analyze")} style={{
-                display: "flex", alignItems: "center", justifyContent: "center", padding: "8px 14px", borderRadius: 10,
-                color: location === "/analyze" ? "var(--t)" : "var(--tm)",
-                fontFamily: "var(--font)", fontSize: 14, fontWeight: 500,
-                textDecoration: "none", background: location === "/analyze" ? "rgba(124, 58, 237,.1)" : "transparent",
-                transition: "all .2s", cursor: "pointer",
-              }}>
-                {tr.nav.analyze}
               </span>
             </li>
             <li style={navLinkLiStyle}>
@@ -1894,7 +1837,7 @@ export default function Nav() {
                 {mobileHelpItems.map((item) => (
                   <span
                     key={item.label}
-                    onClick={() => runHelpItem(item, openMeetingBooking, () => setMobileOpenDrop(null))}
+                    onClick={() => runHelpItem(item, () => setMobileOpenDrop(null))}
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       padding: "10px 12px", borderRadius: 10,
@@ -1949,18 +1892,6 @@ export default function Nav() {
             )}
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10, paddingTop: 14, borderTop: "1px solid #e4e4e7" }}>
-              <button
-                type="button"
-                onClick={() => { closeMobileMenu(); openMeetingBooking(MEETING_BOOKING_NAV_URL); }}
-                style={{
-                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  height: 46, borderRadius: 12, cursor: "pointer",
-                  background: "transparent", border: "1px solid #e4e4e7",
-                  color: "var(--t)", fontFamily: "var(--font)", fontSize: 15, fontWeight: 600,
-                }}
-              >
-                {tr.nav.bookMeeting}
-              </button>
               <button
                 type="button"
                 onClick={() => { closeMobileMenu(); setPlatformModalOpen(true); }}

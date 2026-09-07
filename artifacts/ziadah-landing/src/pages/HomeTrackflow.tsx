@@ -12,7 +12,6 @@ import {
 import {
   ArrowLeft,
   ArrowRight,
-  CalendarClock,
   CheckCircle2,
   XCircle,
   Sparkles,
@@ -46,7 +45,6 @@ import {
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
 import { t as translations } from "@/i18n/translations";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import SEO from "@/components/SEO";
 import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorsBriefSection from "@/components/SectorsBriefSection";
@@ -868,7 +866,6 @@ export default function HomeTrackflow() {
     return v[lang];
   }
   const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
-  const { openMeetingBooking } = useMeetingBooking();
   const [visitors, setVisitors] = useState(50000);
   const [convRate, setConvRate] = useState(2.5);
   const [aov, setAov] = useState(250);
@@ -1351,16 +1348,6 @@ export default function HomeTrackflow() {
                     >
                       {t({ ar: "فعّل الآن", en: "Activate now" })}
                       <ArrowCTA className="ms-1 w-4 h-4" />
-                    </Button>
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      onClick={() => openMeetingBooking()}
-                      className="w-full sm:w-auto text-base h-12 px-7 border-zinc-300 text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors"
-                      data-testid="hero-book-call"
-                    >
-                      <CalendarClock className="me-1 w-4 h-4" />
-                      {t({ ar: "احجز عرض", en: "Book a demo" })}
                     </Button>
                   </motion.div>
 

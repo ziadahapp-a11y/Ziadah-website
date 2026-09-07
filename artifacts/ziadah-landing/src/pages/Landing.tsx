@@ -22,7 +22,6 @@ import { navigateTo } from "@/components/PageTransition";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
 import PageClosingCta from "@/components/PageClosingCta";
 import { t as siteTranslations } from "@/i18n/translations";
 
@@ -621,7 +620,6 @@ export default function Landing() {
   };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const { openMeetingBooking } = useMeetingBooking();
 
   const logosMarqueeTrackRef = useRef<HTMLDivElement>(null);
   const testimonialsMarquee1Ref = useRef<HTMLDivElement>(null);
@@ -2111,72 +2109,6 @@ export default function Landing() {
                       <div className="hcb-sub">{tr.landing.faqWhatsappSub}</div>
                     </div>
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => openMeetingBooking()}
-                    className="hcb hcb-cal"
-                  >
-                    <div className="hcb-ico hcb-cal">
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <rect
-                          x="3"
-                          y="4"
-                          width="14"
-                          height="13"
-                          rx="2"
-                          fill="rgba(6,182,212,.12)"
-                          stroke="rgba(6,182,212,.4)"
-                          strokeWidth="1.2"
-                        />
-                        <line
-                          x1="3"
-                          y1="8"
-                          x2="17"
-                          y2="8"
-                          stroke="rgba(6,182,212,.35)"
-                          strokeWidth="1"
-                        />
-                        <line
-                          x1="7"
-                          y1="2"
-                          x2="7"
-                          y2="6"
-                          stroke="rgba(6,182,212,.5)"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                        />
-                        <line
-                          x1="13"
-                          y1="2"
-                          x2="13"
-                          y2="6"
-                          stroke="rgba(6,182,212,.5)"
-                          strokeWidth="1.2"
-                          strokeLinecap="round"
-                        />
-                        <rect
-                          x="6"
-                          y="10"
-                          width="3"
-                          height="2.5"
-                          rx=".5"
-                          fill="rgba(6,182,212,.3)"
-                        />
-                        <rect
-                          x="11"
-                          y="10"
-                          width="3"
-                          height="2.5"
-                          rx=".5"
-                          fill="rgba(6,182,212,.3)"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <div>{tr.landing.faqBookMeeting}</div>
-                      <div className="hcb-sub">{tr.landing.faqBookMeetingSub}</div>
-                    </div>
-                  </button>
                   <a href="/support" className="hcb hcb-doc">
                     <div className="hcb-ico hcb-doc">
                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">

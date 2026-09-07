@@ -10,7 +10,6 @@ import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
 import "./index.css";
 import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
-import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
@@ -22,8 +21,6 @@ const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
 const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
-const Analyze = lazy(() => import("@/pages/Analyze"));
-const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -129,10 +126,6 @@ function PublicRoutes() {
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
-      <Route path="/analyze" component={Analyze} />
-      <Route path="/report/:shareToken">
-        {(params) => <AnalyzeReport shareToken={params.shareToken ?? ""} />}
-      </Route>
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
       <Route path="/use-cases/thank-you" component={ThankYouPage} />
@@ -200,18 +193,16 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <MeetingBookingProvider>
-          <BlurTransitionProvider>
-            <QueryClientProvider client={queryClient}>
-              <WouterRouter
-                base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                hook={useLangAwareLocation}
-              >
-                <AppShell />
-              </WouterRouter>
-            </QueryClientProvider>
-          </BlurTransitionProvider>
-        </MeetingBookingProvider>
+        <BlurTransitionProvider>
+          <QueryClientProvider client={queryClient}>
+            <WouterRouter
+              base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+              hook={useLangAwareLocation}
+            >
+              <AppShell />
+            </WouterRouter>
+          </QueryClientProvider>
+        </BlurTransitionProvider>
       </LanguageProvider>
     </ThemeProvider>
   );

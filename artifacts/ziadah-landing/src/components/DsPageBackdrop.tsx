@@ -1,5 +1,5 @@
 /**
- * Soft brand-green/cyan atmosphere behind marketing pages (same family as Analyze).
+ * Soft brand-green/cyan atmosphere behind marketing pages.
  * Place once inside PageShell; keep section content at z-index ≥ 1.
  */
 export default function DsPageBackdrop() {
