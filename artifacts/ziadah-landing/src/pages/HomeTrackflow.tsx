@@ -1979,7 +1979,20 @@ export default function HomeTrackflow() {
                                 {i + 1}
                               </span>
                             </div>
-                            <div className="flex-1 pt-0.5">
+                            {/* The text column takes a measure. These rows are
+                                full-width in a three-of-five column, so the
+                                body ran 100 characters per line at every
+                                desktop width - the whole block, not just the
+                                paragraph, so the stat pill stays beside its
+                                title rather than floating off to the far
+                                edge.
+
+                                `rem`, not `ch`: `ch` on this wrapper resolves
+                                against ITS font-size, not the paragraph's, and
+                                the two differ. These sizes hold a constant
+                                1.41x of the root across every tier, so a rem
+                                measure holds a constant line length. */}
+                            <div className="flex-1 pt-0.5 max-w-[53rem]">
                               <div className="flex items-center justify-between gap-3 mb-1">
                                 <h3 className="text-base font-bold text-zinc-950">{s.title}</h3>
                                 <span className="shrink-0 text-[11px] font-bold text-violet-600 num-ltr bg-violet-50 border border-violet-100 rounded-full px-2 py-0.5">{s.stat}</span>

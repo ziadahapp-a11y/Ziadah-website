@@ -2278,11 +2278,15 @@ a.plat-item-link:hover {
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
 }
-.plat-what { font-size: 1.6rem; line-height: 1.5; }
+/* Both of these are prose in a full-width card, so both take a measure - 114
+   and 130 characters per line without one. `ch` holds across the tiers here
+   because the type and the box are both rem. */
+.plat-what { max-inline-size: 68ch; font-size: 1.6rem; line-height: 1.5; }
 .plat-reads {
   display: flex;
   gap: 0.8rem;
   flex-wrap: wrap;
+  max-inline-size: 68ch;
   font-size: 1.4rem;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(72%, var(--ink-floor, 0%)), transparent);
 }
@@ -2488,6 +2492,11 @@ a.plat-item-link:hover {
 .about-not-item {
   position: relative;
   padding-inline-start: 2.8rem;
+  /* A measure, in `ch`, because this is prose. Both the type and the box are
+     rem here, so the ratio holds across the viewport tiers - which is exactly
+     why it was 133 characters per line at EVERY desktop width rather than
+     only at the wide end. */
+  max-inline-size: 68ch;
   font-size: 1.8rem;
   line-height: 1.6;
 }
@@ -2526,6 +2535,8 @@ a.plat-item-link:hover {
 .about-principle-h { font-size: 2.4rem; line-height: 1.4; font-weight: 500; }
 @media screen and (max-width: 767px) { .about-principle-h { font-size: 2rem; } }
 .about-principle-b {
+  /* 161 characters per line without this - the longest measure on the site. */
+  max-inline-size: 68ch;
   font-size: 1.6rem;
   line-height: 1.6;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(78%, var(--ink-floor, 0%)), transparent);
