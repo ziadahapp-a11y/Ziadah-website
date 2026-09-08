@@ -788,6 +788,21 @@ html.no-scroll { overflow: hidden; }
    with the groups laid out inside it - so the panel is as tall as its tallest
    COLUMN rather than as tall as one runaway list. */
 .mega--groups { grid-template-columns: minmax(0, 1fr); }
+
+/* The promoted row: four solutions across, above the groups and separated
+   from them, so the panel answers the common ask before it starts
+   classifying. Four across rather than the default two, because these are
+   peers of each other, not a two-column list. */
+.mega-cards--promoted {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  padding-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 0.1rem solid var(--general-gray-light);
+}
+@media screen and (max-width: 1279px) {
+  .mega-cards--promoted { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .mega-groups {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

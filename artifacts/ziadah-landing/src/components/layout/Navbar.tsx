@@ -124,6 +124,25 @@ export function Navbar() {
     solutions.filter((g) => g.hubHref === "/use-cases/by-goal"),
   ].filter((col) => col.length > 0);
 
+  /* Four promoted solutions, above the groups. Named here rather than derived,
+     because promotion is an editorial decision: these are the four a merchant
+     arrives asking for, and the panel should answer before it starts
+     classifying. The previous cards were whichever entries happened to carry a
+     description, which is not a decision at all.
+
+     Looked up by href so a promoted card cannot name a destination the matrix
+     does not have, and so its label and description stay the matrix's. */
+  const PROMOTED = [
+    "/use-cases/cross-sell",
+    "/use-cases/upsell",
+    "/use-cases/add-to-cart",
+    "/use-cases/related-products",
+  ];
+  const solutionItems = solutions.flatMap((g) => g.items);
+  const solutionCards = PROMOTED.map((href) =>
+    solutionItems.find((i) => i.href === href),
+  ).filter((i): i is NavLink => Boolean(i));
+
   const platforms = PLATFORMS.map((p) => ({
     name: tr.nav[p.key],
     href: p.href,
@@ -258,6 +277,11 @@ export function Navbar() {
                   role="region"
                   aria-label={drillLabel.solutions}
                 >
+                  {/* The four a merchant arrives asking for, answered before
+                      the panel starts classifying. */}
+                  <div className="mega-cards mega-cards--promoted">
+                    {solutionCards.map(megaCard)}
+                  </div>
                   <div className="mega-groups">
                     {solutionColumns.map((column, i) => (
                       <div key={i} className="mega-column">
