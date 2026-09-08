@@ -1286,7 +1286,10 @@ export default function HomeTrackflow() {
       <div className="tf-home page w-full" dir={isAr ? "rtl" : "ltr"}>
           {/* HERO */}
           <HeroSplit
-            compact
+            /* Arabic is four words now and takes the full display tier; the
+               English claim is ten and still needs the compact step, which is
+               the same script adaptation `.hero-title` already documents. */
+            compact={!isAr}
             family="violet"
             eyebrow={
               <>
@@ -1294,19 +1297,24 @@ export default function HomeTrackflow() {
                 {t({ ar: "منصة اقتراح المنتجات بالذكاء الاصطناعي", en: "The AI product-recommendation platform" })}
               </>
             }
-            title={
-              isAr ? (
-                <>
-                  <span className="hero-title-lead">زيادة متوسط قيمة طلباتك</span>
-                  باقتراح منتجات بالذكاء الاصطناعي مخصصة لكل عميل في متجرك
-                </>
-              ) : (
+            /* The headline is the CLAIM and nothing else. It used to carry the
+               mechanism too - "باقتراح منتجات بالذكاء الاصطناعي مخصصة لكل عميل
+               في متجرك" - which made it a paragraph set in display type: four
+               lines that pushed the demo below the fold and left the reader
+               with no single thing to take away.
+
+               The mechanism is the body's job, and the body already stated it
+               in its own words; the only idea the dropped clause held that the
+               body did not was the AI itself, so the body says that now. */
+            title={t<ReactNode>({
+              ar: "زيادة متوسط قيمة طلباتك",
+              en: (
                 <>Raise your average order value and sales by up to <span className="whitespace-nowrap">35%</span></>
-              )
-            }
+              ),
+            })}
             body={t({
-              ar: "أغلب زوّار متجرك يشترون منتج واحد ويطلعون. زيادة تعرض لكل عميل المنتجات المناسبة له — في صفحة المنتج، السلة، والدفع — فيضيف أكثر، ويرتفع متوسط قيمة الطلب ومبيعاتك بدون أي إنفاق إعلاني إضافي.",
-              en: "Most of your visitors buy one item and leave. Ziadah shows each shopper the products that fit them — on the product page, cart, and checkout — so they add more, and your average order value and sales climb with no extra ad spend.",
+              ar: "أغلب زوّار متجرك يشترون منتج واحد ويطلعون. زيادة تستخدم الذكاء الاصطناعي لتعرض لكل عميل المنتجات المناسبة له — في صفحة المنتج، السلة، والدفع — فيضيف أكثر، ويرتفع متوسط قيمة الطلب ومبيعاتك بدون أي إنفاق إعلاني إضافي.",
+              en: "Most of your visitors buy one item and leave. Ziadah uses AI to show each shopper the products that fit them — on the product page, cart, and checkout — so they add more, and your average order value and sales climb with no extra ad spend.",
             })}
             actions={
               <MkButton size="lg" onClick={() => setPlatformOpen(true)} data-testid="hero-start-trial">

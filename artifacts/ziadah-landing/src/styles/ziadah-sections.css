@@ -512,10 +512,6 @@
   text-align: center;
 }
 
-/* A headline whose first line is the setup and whose rest is the claim. The
-   lead is lighter and sits on its own line, so the sentence reads as one
-   thought rather than as two headings. */
-.hero-title-lead { display: block; font-weight: 300; }
 
 /* The label over a logo marquee. It is a kicker, not a heading: it names what
    is scrolling past rather than making a claim about it. */

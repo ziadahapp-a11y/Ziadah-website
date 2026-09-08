@@ -1040,7 +1040,10 @@ section:not(.section):not(.hero-split){
     --card-pad-md:18px 15px;
     --card-pad-lg:20px 16px;
   }
-  section{
+  /* Scoped away from the design system's sections for the same reason as the
+     desktop rule above: this is unlayered and `!important`, so it was the last
+     word on every section's gutters at the mobile tier, system or not. */
+  section:not(.section):not(.hero-split){
     padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px))!important;
     padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px))!important;
   }
@@ -3294,7 +3297,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   h2,h2.st{font-size:clamp(20px,6vw,30px);}
   h3{font-size:clamp(16px,5vw,22px);}
   .ssub{font-size:13px;}
-  section{padding-block:40px;}
+  section:not(.section):not(.hero-split){padding-block:40px;}
 
   .ptog{flex-wrap:wrap;justify-content:center;max-width:100%;row-gap:6px;}
   .ptb{padding:8px 18px;font-size:13px;}
