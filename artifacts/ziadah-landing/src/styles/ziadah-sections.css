@@ -552,3 +552,26 @@
    inside it (an FAQ list, a quoted thread) ran the full width with its
    content stranded at one edge. This is a measure, not a container. */
 .measure-read { max-width: 68rem; margin-inline: auto; }
+
+/* ---------- THE HERO'S LIVE DEMO ---------------------------------------
+   A px box, deliberately, and the one place on the site that is.
+
+   Every other box here is `rem`, because the root font size is
+   viewport-proportional and `rem` is how a layout tracks it. This widget is
+   the exception: its type is hard-coded in px (`text-[11px]`, `text-[9px]`),
+   so a rem box would scale away from its own contents - which is exactly what
+   `max-w-sm` did, resolving to 240px at 1440 and 171px at 1025 for a widget
+   whose labels need about 400.
+
+   Either the type becomes rem or the box becomes px. The box is one rule; the
+   type is forty. */
+.hero-demo { width: 100%; max-width: 440px; }
+
+/* And the slot gets out of its way. `.hero-media` caps itself at 21rem / 28rem
+   / 50.5rem, which are the same rem-against-a-10px-root values - 210px at a
+   390 viewport - so below the desktop tier the slot was doing the squeezing
+   even after the widget stopped. The system already does exactly this for
+   `.media-slot--screen`, which is the same situation: a child that states its
+   own size does not want the slot's. */
+.hero-col-media:has(.hero-demo),
+.hero-media:has(.hero-demo) { max-width: none; }

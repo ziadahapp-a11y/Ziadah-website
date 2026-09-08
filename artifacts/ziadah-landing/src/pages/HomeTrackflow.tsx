@@ -481,7 +481,13 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
   ];
 
   return (
-    <div className="relative w-full max-w-sm mx-auto lg:me-0 lg:ms-auto">
+    /* `hero-demo` rather than `max-w-sm`. Tailwind's `max-w-sm` is 24rem
+       against an assumed 16px root; this site's root is viewport-proportional
+       - about 10px at 1440 and 7.1px at 1025 - so the box resolved to 240px
+       and 171px while the type inside it stayed hard-coded in px. The widget
+       was being squeezed to a third of its column with eight truncated
+       labels. Its width is stated in px for the same reason its type is. */
+    <div className="hero-demo relative w-full mx-auto lg:me-0 lg:ms-auto">
       <div className="rounded-3xl border border-violet-100 bg-white p-4 sm:p-5 shadow-[0_24px_60px_-24px_rgba(124, 58, 237,0.35)] ring-1 ring-violet-500/5">
         {/* header */}
         <div className="flex items-center justify-between">
@@ -779,7 +785,11 @@ function DemoFlowSection({ isAr }: { isAr: boolean }) {
 // the badge is on its "building the offer" step) to reinforce the sync.
 function ArrowDownFlow({ active = false }: { active?: boolean }) {
   return (
-    <div className="relative h-6 w-px my-0.5" aria-hidden="true">
+    /* `mx-auto`: this is a 1px-wide element, so without it the connector
+       pinned itself to the inline start of the flow and read as a stray mark
+       at the edge of the card rather than as the line the dashes above it
+       converge into. */
+    <div className="relative mx-auto h-6 w-px my-0.5" aria-hidden="true">
       <div
         className="absolute inset-0 w-px mx-auto bg-gradient-to-b from-violet-300 to-violet-200/10 transition-opacity"
         style={{ opacity: active ? 1 : 0.6 }}
