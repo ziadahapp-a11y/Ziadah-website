@@ -131,7 +131,7 @@ export default function SupportArticle() {
     />
     <PageShell className="bg-white" style={{ background: "#fff" }}>
 
-      <Section band="white" className="!pt-16 md:!pt-20 !pb-20" containerClassName="max-w-3xl">
+      <Section band="white" className="!pt-16 md:!pt-20 !pb-20" containerClassName="measure-read">
         <article dir={dir}>
 
           {/* Breadcrumb */}

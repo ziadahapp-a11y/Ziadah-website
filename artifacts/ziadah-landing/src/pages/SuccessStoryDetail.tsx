@@ -246,7 +246,7 @@ export default function SuccessStoryDetail() {
         </HeroLede>
 
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
-        <Section containerClassName="max-w-3xl">
+        <Section containerClassName="measure-read">
           {articleSections.map((s, i) => (
             <div key={i} className={i > 0 ? "mt-16 pt-16 border-t border-zinc-200" : ""}>
               <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">

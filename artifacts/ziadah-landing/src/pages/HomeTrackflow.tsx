@@ -1841,14 +1841,20 @@ export default function HomeTrackflow() {
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none transition-opacity duration-500" />
                     <div className="relative p-6 md:p-7">
                       {/* app top-bar */}
-                      <div className="flex items-center justify-between mb-5">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
-                          <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
-                          <span className="ms-2 text-[10px] font-bold tracking-wide text-zinc-500">{t({ ar: "زيادة · معاينة", en: "Ziadah · Preview" })}</span>
+                      {/* `min-w-0` + `truncate` on the label and `shrink-0` on
+                          the pill. The row is px-typed inside a rem-sized box,
+                          so at a 10px root the padding shrank while the text
+                          did not and the bar overflowed its own card - 22px at
+                          390, 13px at 1025. The label is the part that can
+                          give; the status pill is not. */}
+                      <div className="flex items-center justify-between gap-2 mb-5">
+                        <div className="flex min-w-0 items-center gap-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15 shrink-0" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15 shrink-0" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-white/15 shrink-0" />
+                          <span className="ms-2 truncate text-[10px] font-bold tracking-wide text-zinc-500">{t({ ar: "زيادة · معاينة", en: "Ziadah · Preview" })}</span>
                         </div>
-                        <span className="flex items-center gap-1.5 rounded-full bg-violet-500/10 border border-violet-400/20 px-2 py-1">
+                        <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-violet-500/10 border border-violet-400/20 px-2 py-1">
                           <span className="relative flex w-1.5 h-1.5">
                             <span className="absolute inline-flex w-full h-full rounded-full bg-violet-400 opacity-75 animate-ping" />
                             <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-violet-400" />

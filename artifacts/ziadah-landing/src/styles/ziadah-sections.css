@@ -547,11 +547,29 @@
    band below, because it is who the story is about. */
 .story-card { margin-block-start: 3.2rem; }
 
-/* A reading column. `container--narrow` is 120rem - narrow relative to the
-   site's 1920px container, not to a line of text - so a single-column block
-   inside it (an FAQ list, a quoted thread) ran the full width with its
-   content stranded at one edge. This is a measure, not a container. */
-.measure-read { max-width: 68rem; margin-inline: auto; }
+/* A reading column, in `ch` - the one unit that is a measure rather than a
+   width. `container--narrow` is 120rem, narrow relative to the site's 1920px
+   container and not to a line of text, and a `max-w-3xl` set on `.container`
+   loses to the utility's own `max-width` entirely. Article bodies were running
+   at 1248px: 156 characters per line on a blog post, 139 on a story, 108 on a
+   support article, against a readable range of 45 to 90.
+
+   `ch` rather than `rem` because these bodies render at 16px while the root is
+   7 to 13px depending on the viewport tier - a rem measure would track the
+   root and drift away from the text it is supposed to be measuring. It also
+   sets `--container-max`, which is the hook `@utility container` reads, so the
+   class works whether it lands on the container or an ancestor of it. */
+.measure-read {
+  /* `min()` of the two, because neither alone holds at every tier. `ch`
+     resolves against the CONTAINER's font-size, which is rem-scaled, while
+     these bodies render at a fixed 16px - so at 1920 the container's `ch` grew
+     to 13.5px and 68 of them came to 921px, which is 115 characters of 16px
+     text. The px ceiling is the same reasoning as `.hero-demo`: a px-typed
+     body wants a px bound. */
+  --container-max: min(68ch, 740px);
+  max-width: min(68ch, 740px);
+  margin-inline: auto;
+}
 
 /* ---------- THE HERO'S LIVE DEMO ---------------------------------------
    A px box, deliberately, and the one place on the site that is.

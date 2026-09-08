@@ -540,7 +540,7 @@ export default function BlogPost() {
       </section>
 
       {/* ARTICLE */}
-      <Section band="white" containerClassName="max-w-3xl" className="!pt-12 !pb-20">
+      <Section band="white" containerClassName="measure-read" className="!pt-12 !pb-20">
         <div>
           {/* Breadcrumb */}
           <nav className="flex flex-wrap items-center gap-1.5 text-[13px] text-zinc-500 pb-5">

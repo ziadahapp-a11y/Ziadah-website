@@ -99,7 +99,11 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-bold text-zinc-950 leading-snug mb-1 truncate">{storeLabel}</h3>
+          {/* Two lines, not one. `truncate` was cutting 142px off the longest
+              store names at the tablet tier - "جمعية تحفيظ القرآن - خميس
+              مشيط" lost more than half of itself - and a merchant's name is
+              the one thing on this card that must survive. */}
+          <h3 className="text-base font-bold text-zinc-950 leading-snug mb-1 line-clamp-2">{storeLabel}</h3>
           <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500">
             <span aria-hidden>{SECTOR_ICONS[s.sector] || "◆"}</span>
             {sectorLabel}
