@@ -1391,7 +1391,7 @@ export default function HomeTrackflow() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="rounded-2xl border border-white/10 bg-black overflow-hidden"
+                className="measure-read rounded-2xl border border-white/10 bg-black overflow-hidden"
               >
                 <div className="flex items-center justify-between px-5 py-3 md:px-7 border-b border-white/10">
                   <span className="text-sm font-bold text-zinc-400">{t({ ar: "سلسلة تغريدات", en: "Thread" })}</span>
@@ -1525,321 +1525,14 @@ export default function HomeTrackflow() {
             </Shell>
           </DsSection>
 
-          {/* CALCULATOR.
-              The dark panel this painted by hand - a `mockup-card` with a grid
-              overlay, a blur glow and a white forced through
-              `WebkitTextFillColor` - was reproducing what an inverted section
-              already does, in one block's colours rather than the section's. */}
-          <DsSection id="calculator" family="violet" invert>
-            <SectionHead
-              kicker={t({ ar: "حاسبة", en: "Calculator" })}
-              title={t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
-              lead={t({
-                ar: "حرّك زوارك ومعدّل التحويل ومتوسط قيمة الطلب، وشوف كم يضيف لك رفع متوسط الطلب — كل شهر.",
-                en: "Adjust your visitors, conversion rate, and average order value to see how much a higher AOV adds — every month.",
-              })}
-            />
-            <Shell width="wide">
-                  <p className="hero-caption calc-basis">
-                    {t({
-                      ar: "بناءً على متاجر تستخدم زيادة، نفترض أن ~20٪ من الطلبات تقبل الاقتراح فترتفع قيمتها ~30٪.",
-                      en: "Based on stores using Ziadah, we assume ~20% of orders accept the suggestion, lifting their value ~30%.",
-                    })}
-                  </p>
-
-                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-                    {/* left: controls */}
-                    <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
-                      {calcSliders.map((s) => (
-                        <CalcSliderCard key={s.label} {...s} dir={isAr ? "rtl" : "ltr"} />
-                      ))}
-                    </div>
-
-                    {/* right: results */}
-                    <div className="flex flex-col gap-5" style={{ unicodeBidi: "isolate" }}>
-                      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* without recommendations */}
-                        <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6 transition-colors">
-                          <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-5">
-                            {t({ ar: "بدون اقتراحات", en: "Without recommendations" })}
-                          </div>
-                          <div className="space-y-4">
-                            <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={Math.round(r.orders)}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
-                                >
-                                  {fmtN(Math.round(r.orders))}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                            <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب", en: "Avg. order" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={aov}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
-                                >
-                                  {fmtCur(aov)}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                            <div className="pt-3 border-t border-white/10">
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={Math.round(r.baseRevenue)}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
-                                >
-                                  {fmtCur(r.baseRevenue)}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* connector: flows from "without" into the elevated "with Ziadah" card */}
-                        <div
-                          className="calc-connector hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
-                          style={{ insetInlineStart: "50%" }}
-                          aria-hidden="true"
-                        >
-                          <ArrowCTA className="w-4 h-4" />
-                        </div>
-
-                        {/* with Ziadah */}
-                        <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.14] to-transparent border border-violet-500/40 p-6 shadow-[0_0_40px_-10px_rgba(139,92,246,0.35)] sm:scale-[1.02]">
-                          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
-                            <span className="relative flex h-1.5 w-1.5">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
-                            </span>
-                            {t({ ar: "مع زيادة", en: "With Ziadah" })}
-                          </div>
-                          <div className="space-y-4">
-                            <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={Math.round(r.orders)}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-violet-300 num-ltr"
-                                >
-                                  {fmtN(Math.round(r.orders))}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                            <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب الفعلي", en: "Effective avg. order" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={Math.round(r.effectiveAov)}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="num-ltr flex items-center gap-2 flex-wrap"
-                                >
-                                  <span className="text-xl font-extrabold text-violet-300">
-                                    {fmtCur(r.effectiveAov)}
-                                  </span>
-                                  <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
-                                    +{fmtCur(r.aovIncrease)}
-                                  </span>
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                            <div className="pt-3 border-t border-violet-500/20">
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={Math.round(r.newRevenue)}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-violet-300 num-ltr"
-                                >
-                                  {fmtCur(r.newRevenue)}
-                                </motion.div>
-                              </AnimatePresence>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* impact summary */}
-                      <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
-                        <div
-                          className="hidden sm:block absolute -top-3 start-1/2 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-violet-500/50 to-transparent"
-                          aria-hidden="true"
-                        />
-                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
-                          <BarChart3 className="w-4 h-4" />
-                          {t({ ar: "ملخّص الأثر", en: "Impact summary" })}
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                          {calcImpactStats.map((s, i) => (
-                            <motion.div
-                              key={s.label}
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: i * 0.05, duration: 0.3 }}
-                              className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center transition-colors hover:bg-white/[0.07] hover:border-violet-500/30"
-                            >
-                              <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
-                              <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
-                              <AnimatePresence mode="popLayout" initial={false}>
-                                <motion.div
-                                  key={s.value}
-                                  initial={{ opacity: 0, y: -6 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: 6 }}
-                                  transition={{ duration: 0.2 }}
-                                  className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight"
-                                >
-                                  {s.value}
-                                </motion.div>
-                              </AnimatePresence>
-                              <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* disclaimer */}
-                      <div className="rounded-xl bg-white/[0.03] border border-white/10 px-5 py-4 text-xs text-zinc-400 leading-relaxed">
-                        {t({
-                          ar: "تقدير متحفّظ؛ النتائج الفعلية تختلف حسب القطاع وحجم الكتالوج وسلوك العملاء.",
-                          en: "Conservative estimate; actual results vary by sector, catalog size, and shopper behavior.",
-                        })}
-                      </div>
-
-                      {/* CTA */}
-                      <Button
-                        onClick={() => setPlatformOpen(true)}
-                        className="w-full h-12 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold"
-                      >
-                        {t({ ar: "فعّل الآن", en: "Activate now" })}
-                      </Button>
-                    </div>
-                  </div>
-            </Shell>
-          </DsSection>
-
-          {/* ANALOGY — static shelf vs. smart salesperson */}
-          <DsSection family="grey">
-            <SectionHead
-              center
-              kicker={t({ ar: "فكّر فيها كذا", en: "Think of it this way" })}
-              title={t({ ar: "رفّ ثابت، ولا بائع يعرف كل عميل؟", en: "A static shelf, or a salesperson who knows every customer?" })}
-              lead={t({
-                ar: "المتجر العادي يعرض نفس المنتجات للجميع. زيادة تشتغل مثل بائع محترف — يعرف كل عميل ويقترح له الصح.",
-                en: "An ordinary store shows the same products to everyone. Ziadah works like an expert salesperson — it knows each customer and suggests the right thing.",
-              })}
-            />
-            <Shell width="wide">
-              <div className="grid md:grid-cols-2 gap-5 mb-10">
-                {/* static shelf */}
-                <div className="rounded-2xl border-2 border-rose-200 bg-white p-7 md:p-8 relative">
-                  <div className="absolute top-5 end-5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-[10px] font-bold tracking-widest uppercase">
-                    <XCircle className="w-3 h-3" />
-                    {t({ ar: "متجر عادي", en: "Ordinary store" })}
-                  </div>
-                  <div className="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center mb-5">
-                    <Package className="w-6 h-6 text-rose-600" />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-zinc-950 mb-3">
-                    {t({ ar: "رفّ ثابت", en: "A static shelf" })}
-                  </h3>
-                  <p className="text-zinc-700 leading-relaxed mb-5">
-                    {t({
-                      ar: "كل زائر يشوف نفس قائمة المنتجات، بنفس الترتيب. ما في أحد يربط بين ما يبيه العميل وما يكمّله — فيشتري قطعة وحدة ويطلع.",
-                      en: "Every visitor sees the same product list in the same order. Nothing connects what the customer wants to what completes it — so they buy one item and leave.",
-                    })}
-                  </p>
-                  <div className="space-y-2.5 text-sm">
-                    {[
-                      t({ ar: "نفس المنتجات للجميع", en: "Same products for everyone" }),
-                      t({ ar: "منتجات ممتازة مدفونة في الكتالوج", en: "Great products buried in the catalog" }),
-                      t({ ar: "سلّة صغيرة ومتوسط طلب منخفض", en: "Small carts, low average order value" }),
-                    ].map((p) => (
-                      <div key={p} className="flex items-start gap-2 text-zinc-700">
-                        <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                        <span>{p}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-5 border-t border-zinc-100 flex items-center justify-between">
-                    <span className="text-xs text-zinc-500">
-                      {t({ ar: "من كل 100 سلّة، فيها منتج إضافي", en: "Out of every 100 carts, with an add-on" })}
-                    </span>
-                    <span className="text-2xl font-extrabold text-rose-600 num-ltr">8</span>
-                  </div>
-                </div>
-
-                {/* smart salesperson */}
-                <div className="rounded-2xl mockup-card overflow-hidden shadow-card-lg relative p-7 md:p-8">
-                  <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-violet-500/15 blur-[100px] rounded-full pointer-events-none" />
-                  <div className="relative">
-                    <div className="absolute top-0 end-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-500/15 border border-violet-500/30 text-violet-300 text-[10px] font-bold tracking-widest uppercase">
-                      <CheckCircle2 className="w-3 h-3" />
-                      {t({ ar: "مع زيادة", en: "With Ziadah" })}
-                    </div>
-                    <div className="w-12 h-12 rounded-xl bg-violet-500/15 border border-violet-500/30 flex items-center justify-center mb-5">
-                      <Wand2 className="w-6 h-6 text-violet-300" />
-                    </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-3">
-                      {t({ ar: "بائع يعرف كل عميل", en: "A salesperson who knows every customer" })}
-                    </h3>
-                    <p className="text-zinc-300 leading-relaxed mb-5">
-                      {t({
-                        ar: "زيادة تقرأ سلوك كل عميل وتقترح له المنتج اللي يكمّل طلبه — في اللحظة الصح ومكان العرض الصح. مثل بائع يعرف الكتالوج وكل زبون.",
-                        en: "Ziadah reads each customer's behavior and suggests the item that completes their order — at the right moment and placement. Like a salesperson who knows the catalog and every shopper.",
-                      })}
-                    </p>
-                    <div className="space-y-2.5 text-sm">
-                      {[
-                        t({ ar: "اقتراح شخصي لكل عميل", en: "Personalized for each customer" }),
-                        t({ ar: "يبرز المنتجات اللي تُشترى معاً", en: "Surfaces frequently-bought-together items" }),
-                        t({ ar: "سلّة أكبر ومتوسط طلب أعلى", en: "Bigger carts, higher average order value" }),
-                      ].map((p) => (
-                        <div key={p} className="flex items-start gap-2 text-zinc-300">
-                          <CheckCircle2 className="w-4 h-4 text-violet-400 shrink-0 mt-0.5" />
-                          <span>{p}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between">
-                      <span className="text-xs text-zinc-400">
-                        {t({ ar: "من كل 100 سلّة, فيها منتج إضافي", en: "Out of every 100 carts, with an add-on" })}
-                      </span>
-                      <span className="text-2xl font-extrabold text-violet-300 num-ltr">34</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Shell>
-          </DsSection>
-
+          {/* The static-shelf / smart-salesperson analogy used to sit here.
+              It made the same argument as the comparison below with the same
+              numbers - 8 carts in 100 without recommendations, 34 with Ziadah -
+              as a two-card version of that section's three-card one. Two
+              sections restating one claim, 875px apart, read as the page
+              repeating itself rather than as it building. The three-way keeps
+              it, because it also holds the middle case: generic
+              recommendations at 18. */}
           {/* 3-WAY COMPARISON */}
           <DsSection family="grey">
             <SectionHead
@@ -2419,6 +2112,225 @@ export default function HomeTrackflow() {
             ))}
           </DsSection>
 
+          {/* CALCULATOR.
+              The dark panel this painted by hand - a `mockup-card` with a grid
+              overlay, a blur glow and a white forced through
+              `WebkitTextFillColor` - was reproducing what an inverted section
+              already does, in one block's colours rather than the section's. */}
+          <DsSection id="calculator" family="violet" invert>
+            <SectionHead
+              kicker={t({ ar: "حاسبة", en: "Calculator" })}
+              title={t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
+              lead={t({
+                ar: "حرّك زوارك ومعدّل التحويل ومتوسط قيمة الطلب، وشوف كم يضيف لك رفع متوسط الطلب — كل شهر.",
+                en: "Adjust your visitors, conversion rate, and average order value to see how much a higher AOV adds — every month.",
+              })}
+            />
+            <Shell width="wide">
+                  <p className="hero-caption calc-basis">
+                    {t({
+                      ar: "بناءً على متاجر تستخدم زيادة، نفترض أن ~20٪ من الطلبات تقبل الاقتراح فترتفع قيمتها ~30٪.",
+                      en: "Based on stores using Ziadah, we assume ~20% of orders accept the suggestion, lifting their value ~30%.",
+                    })}
+                  </p>
+
+                  <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                    {/* left: controls */}
+                    <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
+                      {calcSliders.map((s) => (
+                        <CalcSliderCard key={s.label} {...s} dir={isAr ? "rtl" : "ltr"} />
+                      ))}
+                    </div>
+
+                    {/* right: results */}
+                    <div className="flex flex-col gap-5" style={{ unicodeBidi: "isolate" }}>
+                      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* without recommendations */}
+                        <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6 transition-colors">
+                          <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-5">
+                            {t({ ar: "بدون اقتراحات", en: "Without recommendations" })}
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.orders)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtN(Math.round(r.orders))}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                            <div>
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب", en: "Avg. order" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={aov}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtCur(aov)}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                            <div className="pt-3 border-t border-white/10">
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.baseRevenue)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-white num-ltr"
+                                >
+                                  {fmtCur(r.baseRevenue)}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* connector: flows from "without" into the elevated "with Ziadah" card */}
+                        <div
+                          className="calc-connector hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
+                          style={{ insetInlineStart: "50%" }}
+                          aria-hidden="true"
+                        >
+                          <ArrowCTA className="w-4 h-4" />
+                        </div>
+
+                        {/* with Ziadah */}
+                        <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.14] to-transparent border border-violet-500/40 p-6 shadow-[0_0_40px_-10px_rgba(139,92,246,0.35)] sm:scale-[1.02]">
+                          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
+                            <span className="relative flex h-1.5 w-1.5">
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
+                              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
+                            </span>
+                            {t({ ar: "مع زيادة", en: "With Ziadah" })}
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.orders)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                >
+                                  {fmtN(Math.round(r.orders))}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                            <div>
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب الفعلي", en: "Effective avg. order" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.effectiveAov)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="num-ltr flex items-center gap-2 flex-wrap"
+                                >
+                                  <span className="text-xl font-extrabold text-violet-300">
+                                    {fmtCur(r.effectiveAov)}
+                                  </span>
+                                  <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
+                                    +{fmtCur(r.aovIncrease)}
+                                  </span>
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                            <div className="pt-3 border-t border-violet-500/20">
+                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={Math.round(r.newRevenue)}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                >
+                                  {fmtCur(r.newRevenue)}
+                                </motion.div>
+                              </AnimatePresence>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* impact summary */}
+                      <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                        <div
+                          className="hidden sm:block absolute -top-3 start-1/2 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-violet-500/50 to-transparent"
+                          aria-hidden="true"
+                        />
+                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
+                          <BarChart3 className="w-4 h-4" />
+                          {t({ ar: "ملخّص الأثر", en: "Impact summary" })}
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          {calcImpactStats.map((s, i) => (
+                            <motion.div
+                              key={s.label}
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.05, duration: 0.3 }}
+                              className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center transition-colors hover:bg-white/[0.07] hover:border-violet-500/30"
+                            >
+                              <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
+                              <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
+                              <AnimatePresence mode="popLayout" initial={false}>
+                                <motion.div
+                                  key={s.value}
+                                  initial={{ opacity: 0, y: -6 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  exit={{ opacity: 0, y: 6 }}
+                                  transition={{ duration: 0.2 }}
+                                  className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight"
+                                >
+                                  {s.value}
+                                </motion.div>
+                              </AnimatePresence>
+                              <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* disclaimer */}
+                      <div className="rounded-xl bg-white/[0.03] border border-white/10 px-5 py-4 text-xs text-zinc-400 leading-relaxed">
+                        {t({
+                          ar: "تقدير متحفّظ؛ النتائج الفعلية تختلف حسب القطاع وحجم الكتالوج وسلوك العملاء.",
+                          en: "Conservative estimate; actual results vary by sector, catalog size, and shopper behavior.",
+                        })}
+                      </div>
+
+                      {/* CTA */}
+                      <Button
+                        onClick={() => setPlatformOpen(true)}
+                        className="w-full h-12 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold"
+                      >
+                        {t({ ar: "فعّل الآن", en: "Activate now" })}
+                      </Button>
+                    </div>
+                  </div>
+            </Shell>
+          </DsSection>
+
           {/* PRICING TEASER */}
           <DsSection id="pricing" family="violet">
             <SectionHead
@@ -2480,7 +2392,7 @@ export default function HomeTrackflow() {
               lead={t({ ar: "كل اللي تحتاج تعرفه قبل ما تفعّل زيادة على متجرك.", en: "Everything you need to know before activating Ziadah on your store." })}
             />
             <Shell width="narrow">
-              <Accordion type="single" collapsible className="space-y-3">
+              <Accordion type="single" collapsible className="measure-read space-y-3">
                 {faqs.map((f, i) => (
                   <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-zinc-200 bg-white px-5 shadow-card data-[state=open]:border-zinc-300">
                     <AccordionTrigger className="text-start text-base md:text-lg font-semibold text-zinc-950 hover:no-underline py-5">

@@ -9,6 +9,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t as staticT } from "@/i18n/translations";
 import { sectors } from "@/data/sectors";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
+import { Section as DsSection, SectionHead } from "@/sections";
+import { Button as MkButton, Shell } from "@/components/mk";
 
 const SECTOR_LUCIDE_ICONS: Record<string, LucideIcon> = {
   "delivery-apps":       Bike,
@@ -41,20 +43,11 @@ const SECTOR_TEASER_SLUGS = [
   "gold",
 ] as const;
 
-function SecTag({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="stag rv">
-      <span className="stag-dot" />
-      {children}
-    </div>
-  );
-}
-
 export default function SectorsBriefSection() {
   const { lang, dir } = useLanguage();
   const tr = staticT[lang];
   const [, goRoute] = useLangAwareLocation();
-  const rootRef = useRef<HTMLElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   // Reveal `.rv` elements on scroll — mirrors the observer on the original landing page.
   useEffect(() => {
@@ -72,15 +65,21 @@ export default function SectorsBriefSection() {
     return () => obs.disconnect();
   }, []);
 
+  /* On the design system rather than beside it. The panel this used to paint -
+     its own ground, its own head out of the legacy `.tc / .st / .ssub`
+     classes - was one of two bands on the home page that broke the colour
+     rhythm around them. The chips and the CTA are the section's own content
+     and keep their styling. */
   return (
-    <section ref={rootRef} id="sectors" className="landing-sectors-section">
-      <div className="landing-sectors-panel rv d1">
-        <div className="landing-sectors-panel__inner">
-          <div className="tc landing-sectors-head">
-            <SecTag>{tr.landing.sectorsTag}</SecTag>
-            <h2 className="st rv d1 landing-sectors-title">{tr.landing.sectorsTitle}</h2>
-            <p className="ssub rv d2 landing-sectors-sub">{tr.landing.sectorsBriefSub}</p>
-          </div>
+    <DsSection id="sectors" family="violet">
+      <div ref={rootRef}>
+        <SectionHead
+          center
+          kicker={tr.landing.sectorsTag}
+          title={tr.landing.sectorsTitle}
+          lead={tr.landing.sectorsBriefSub}
+        />
+        <Shell width="wide">
           <div className="landing-sectors-grid">
             {SECTOR_TEASER_SLUGS.map((slug) => sectors.find((s) => s.slug === slug))
               .filter(Boolean)
@@ -106,17 +105,10 @@ export default function SectorsBriefSection() {
               })}
           </div>
           <div className="tc landing-sectors-cta">
-            <button
-              type="button"
-              onClick={() => goRoute("/sectors")}
-              className="btn-p"
-              style={{ cursor: "pointer", fontFamily: "var(--font)", border: "none" }}
-            >
-              {tr.landing.sectorsCta}
-            </button>
+            <MkButton onClick={() => goRoute("/sectors")}>{tr.landing.sectorsCta}</MkButton>
           </div>
-        </div>
+        </Shell>
       </div>
-    </section>
+    </DsSection>
   );
 }

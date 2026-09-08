@@ -5,6 +5,7 @@ import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
+import { Section as DsSection, SectionHead } from "@/sections";
 
 const KIND_TO_URL: Record<WidgetShowcaseKind, string> = {
   volume: "/use-cases/buy-more-save-more",
@@ -153,31 +154,26 @@ export default function WidgetsShowcaseSection({
     );
   };
 
+  /* On the design system rather than beside it. This used to paint its own
+     ground, its own 80px padding and its own head out of the legacy `.tc /
+     .stag / .st / .ssub` classes, which made it one of two bands on the home
+     page that broke the colour rhythm around them.
+
+     The marquees stay outside the `Shell` because they run edge to edge; only
+     the head takes the section's measure. */
   return (
-    <section
+    <DsSection
       id="widgets-showcase"
-      style={{
-        position: "relative",
-        zIndex: 2,
-        padding: showSectorEmbed ? "36px 0 28px" : "80px 0",
-        background: "rgba(250, 250, 251, 1)",
-        scrollMarginTop: 120,
-      }}
+      family="grey"
+      tight={showSectorEmbed}
+      className="overflow-x-clip"
     >
-      <div style={{ maxWidth: 1300, margin: "0 auto", paddingInline: showSectorEmbed ? "24px" : "5%" }}>
-        <div className="tc" style={{ marginBottom: showSectorEmbed ? 36 : 56 }}>
-          <div className="stag rv on">
-            <span className="stag-dot" />
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTag : tr.landing.widgetsTag}
-          </div>
-          <h2 className="st rv on d1 font-semibold" style={{ marginTop: showSectorEmbed ? 10 : undefined }}>
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTitle : tr.landing.widgetsTitle}
-          </h2>
-          <p className="ssub rv on d2" style={{ marginTop: showSectorEmbed ? 8 : undefined }}>
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedSub : tr.landing.widgetsSubtitle}
-          </p>
-        </div>
-      </div>
+      <SectionHead
+        center
+        kicker={showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTag : tr.landing.widgetsTag}
+        title={showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTitle : tr.landing.widgetsTitle}
+        lead={showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedSub : tr.landing.widgetsSubtitle}
+      />
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
         <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
           {[0, 1, 2].map((seg) => (
@@ -194,6 +190,6 @@ export default function WidgetsShowcaseSection({
           ))}
         </DraggableMarqueeRow>
       </div>
-    </section>
+    </DsSection>
   );
 }
