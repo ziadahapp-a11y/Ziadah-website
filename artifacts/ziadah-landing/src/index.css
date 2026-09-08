@@ -3482,10 +3482,18 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   }}
 
 /* ── Anchor sections (روابط داخلية: هوامش مع شريط علوي ثابت أو شريط سفلي فقط) ── */
+/* The `background-color` that used to sit here is gone. This rule is
+   UNLAYERED and carries ID specificity, so it beat `[data-family]` in
+   `@layer components` and painted both anchored bands `#fafafb` no matter
+   which family the section stamped - the pricing band asked for the violet
+   pale ground and got near-white, and so did the FAQ. Measured at 1440:
+   `--color-primary` resolved to `#eedaff` on `#pricing` while its computed
+   background was `rgb(250, 250, 251)`.
+   Fifth instance of this bug class in this rebuild; the offset is what the
+   rule is for, so only the offset is left. */
 #pricing,
 #faq{
   scroll-margin-top:120px;
-  background-color:rgba(250, 250, 251, 1);
 }
 section#faq .gc.hc-left{
   border-color:rgba(0,0,0,0);

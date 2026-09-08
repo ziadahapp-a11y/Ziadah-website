@@ -594,6 +594,30 @@
 .hero-col-media:has(.hero-demo),
 .hero-media:has(.hero-demo) { max-width: none; }
 
+/* ---------- THE HOME PAGE'S STEP FIGURES -------------------------------
+   The figure column is a SQUARE - `.slist-figure-stack` carries
+   `aspect-ratio: 1 / 1`, so at 1440 its seven-of-sixteen column is 564px wide
+   and 564px tall - and `.stepfig` is `height: 100%`, sized for a full product
+   screen. Ziadah's four step screens are lists of three to six rows: measured
+   at 1440 their content ran 240-300px, so each one filled half its box and
+   painted the other half as a black slab.
+
+   The panel is content-sized here instead. `.slist-figure-item` already
+   centres its child both ways, so a 300px panel sits in the middle of the
+   square rather than being stretched to it, and the square still holds the
+   stack's height steady as the rows cross-fade.
+
+   `--items-image-height` is deliberately NOT overridden: it drives the sticky
+   column's `top` offset, where 55.8rem is within six pixels of the real
+   square and any other value pushes the panel off centre.
+
+   Scoped to this instance - `/features` and the sector journeys carry full
+   product screens and want the stretch. */
+/* `align-self`, not just `height: auto`: the panel's parent `.slist-figure`
+   is a grid with the default `align-items: stretch`, which sizes the item
+   before the item's own height is consulted. */
+.home-steps .stepfig { height: auto; align-self: center; }
+
 /* ---------- SECTION FURNITURE -------------------------------------------
    Two things that recur under a grid and had been hand-painted with Tailwind
    greys every time they appeared: the footnote that qualifies a set of
