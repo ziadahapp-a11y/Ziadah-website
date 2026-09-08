@@ -593,3 +593,24 @@
    own size does not want the slot's. */
 .hero-col-media:has(.hero-demo),
 .hero-media:has(.hero-demo) { max-width: none; }
+
+/* ---------- A NOTE ON UNITS --------------------------------------------
+   Three bugs in this file's history came from one confusion, so it is worth
+   stating once.
+
+   The root font size here is viewport-proportional - roughly 7px at 1025,
+   10px at 1440, 13px at 1920 - while Tailwind's `rem` utilities are authored
+   against an assumed 16px root. A `max-w-sm` is therefore 240px here, not
+   384px. That is harmless where the type inside is `rem` too, because both
+   ends scale together; it is a bug wherever the content has a fixed size.
+
+   So: match the unit of a box to the unit of what it holds.
+
+   - px type wants a px box (`.hero-demo`).
+   - A reading measure wants `ch`, which tracks the font it is measuring -
+     but `ch` resolves against the element it is SET on, so putting it on a
+     wrapper whose children are a different size measures the wrong thing
+     (`.measure-read` pairs it with a px ceiling for exactly that reason).
+   - rem type in a rem box needs nothing.
+
+   ---------------------------------------------------------------------- */
