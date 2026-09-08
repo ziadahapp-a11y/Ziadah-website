@@ -4,12 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
@@ -41,6 +35,7 @@ import {
   Truck,
   Coins,
   ArrowUpRight,
+  ChevronDown,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useMarqueeShiftSync } from "@/hooks/useMarqueeShiftSync";
@@ -842,12 +837,10 @@ function CalcSliderCard({
   );
 
   return (
-    <div className="rounded-xl bg-white/[0.04] border border-white/10 p-5">
-      <div className="flex items-center justify-between gap-3 mb-4">
-        <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400">{label}</span>
-        <span className="num-ltr rounded-md bg-violet-500/15 border border-violet-500/30 px-3 py-1 text-sm font-extrabold text-violet-300">
-          {formatDisplay(value)}
-        </span>
+    <div className="card card--short gap-[1.6rem]">
+      <div className="card-head">
+        <span className="card-eyebrow">{label}</span>
+        <span className="pill pill--live num-ltr">{formatDisplay(value)}</span>
       </div>
       <Slider
         dir={dir}
@@ -857,9 +850,8 @@ function CalcSliderCard({
         value={[value]}
         aria-label={label}
         onValueChange={(v) => apply(v[0])}
-        className="[&>span:first-child]:h-2 [&>span:first-child]:bg-white/20 [&>span:first-child>span]:bg-violet-500 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-violet-400 [&_[role=slider]]:bg-white [&_[role=slider]]:shadow-[0_0_0_4px_rgba(139, 92, 246,0.25)]"
       />
-      <div className="num-ltr mt-3 flex justify-between text-[11px] text-zinc-500">
+      <div className="card-eyebrow num-ltr flex justify-between">
         <span>{formatTick(min)}</span>
         <span>{formatTick(max)}</span>
       </div>
@@ -1568,66 +1560,54 @@ export default function HomeTrackflow() {
               })}
             />
             <Shell width="wide">
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-3 gap-[1.6rem]">
                 {[
                   {
                     key: "none",
                     Icon: Package,
                     label: t({ ar: "بلا اقتراحات", en: "No recommendations" }),
-                    badge: "bg-zinc-100 border-zinc-300 text-zinc-700",
-                    border: "border-zinc-300",
-                    dotColor: "bg-zinc-300",
+                    dot: "color-mix(in srgb, var(--color-secondary) 55%, transparent)",
                     visible: 8,
                     visibleLabel: t({ ar: "8٪ من السلال فيها منتج إضافي", en: "8% of carts add an extra item" }),
                     impact: t({ ar: "−مبيعات كثيرة ضايعة شهرياً", en: "−lots of sales left on the table" }),
-                    impactColor: "text-rose-600",
                     lines: [
                       t({ ar: "كل عميل يشوف نفس المنتجات", en: "Every shopper sees the same products" }),
                       t({ ar: "متوسط قيمة الطلب منخفض", en: "Low average order value" }),
                       t({ ar: "منتجات ممتازة ما حد يشوفها", en: "Great products go unseen" }),
                     ],
                     verdict: t({ ar: "تترك مبيعات على الطاولة", en: "Leaving sales on the table" }),
-                    verdictColor: "text-zinc-700 bg-zinc-100 border-zinc-200",
                     featured: false,
                   },
                   {
                     key: "generic",
                     Icon: LayoutGrid,
                     label: t({ ar: "اقتراحات عامة", en: "Generic recommendations" }),
-                    badge: "bg-amber-100 border-amber-200 text-amber-700",
-                    border: "border-amber-300",
-                    dotColor: "bg-amber-400",
+                    dot: "#a3620a",
                     visible: 18,
                     visibleLabel: t({ ar: "18٪ من السلال فيها منتج إضافي", en: "18% of carts add an extra item" }),
                     impact: t({ ar: "+بعض الإيراد، لكن غير شخصي", en: "+some revenue, but impersonal" }),
-                    impactColor: "text-amber-700",
                     lines: [
                       t({ ar: "نفس «الأكثر مبيعاً» للجميع", en: "Same best-sellers for everyone" }),
                       t({ ar: "اقتراحات ما تناسب كل عميل", en: "Suggestions don't fit each shopper" }),
                       t({ ar: "نمو محدود في قيمة الطلب", en: "Limited lift in order value" }),
                     ],
                     verdict: t({ ar: "أحسن من لا شيء، لكن أقل من الممكن", en: "Better than nothing, below potential" }),
-                    verdictColor: "text-amber-700 bg-amber-100 border-amber-200",
                     featured: false,
                   },
                   {
                     key: "ziadah",
                     Icon: Wand2,
                     label: t({ ar: "مع زيادة (ذكاء اصطناعي)", en: "With Ziadah (AI)" }),
-                    badge: "bg-violet-100 border-violet-200 text-violet-700",
-                    border: "border-violet-400",
-                    dotColor: "bg-violet-500",
+                    dot: "var(--ziadah-violet)",
                     visible: 34,
                     visibleLabel: t({ ar: "34٪ من السلال فيها منتج إضافي", en: "34% of carts add an extra item" }),
                     impact: t({ ar: "+35٪ متوسط نمو قيمة الطلب", en: "+35% avg order-value lift" }),
-                    impactColor: "text-violet-600",
                     lines: [
                       t({ ar: "اقتراح شخصي لكل عميل", en: "Personalized for each shopper" }),
                       t({ ar: "يبرز المنتجات اللي تُشترى معاً", en: "Surfaces bought-together items" }),
                       t({ ar: "متوسط طلب أعلى · إيراد أكثر", en: "Higher AOV · more revenue" }),
                     ],
                     verdict: t({ ar: "كل عميل يشوف ما يناسبه فعلاً", en: "Every shopper sees what truly fits" }),
-                    verdictColor: "text-violet-700 bg-violet-100 border-violet-200",
                     featured: true,
                   },
                 ].map((sc, i) => (
@@ -1637,93 +1617,100 @@ export default function HomeTrackflow() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.06 }}
-                    className={`relative rounded-2xl border-2 ${sc.border} bg-white p-6 ${sc.featured ? "shadow-card-lg" : "shadow-card"}`}
+                    className={`card ${sc.featured ? "card--accent" : ""}`}
                   >
-                    {sc.featured && (
-                      <div className="absolute -top-3 start-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-violet-600 text-white text-[10px] font-bold tracking-widest uppercase whitespace-nowrap">
-                        {t({ ar: "الأعلى أثراً", en: "Best impact" })}
+                    {/* The system's card has no ring and no shadow, so the
+                        featured column is marked by its ground and by a pill
+                        on the head row. The float above the card edge is gone
+                        because `.card` clips its own overflow. */}
+                    <div className="card-head">
+                      <span className="card-eyebrow inline-flex items-center gap-1.5">
+                        <sc.Icon className="w-3 h-3" aria-hidden="true" />
+                        {sc.label}
+                      </span>
+                      {sc.featured && (
+                        <span className="pill pill--live">{t({ ar: "الأعلى أثراً", en: "Best impact" })}</span>
+                      )}
+                    </div>
+
+                    <div>
+                      {/* The hundred-dot grid is square, so left uncapped it
+                          takes its own width in height too - 380px of dots per
+                          card at 1440, three times over. Capped, it reads as a
+                          figure inside the card rather than as the card. */}
+                      <div className="grid grid-cols-10 gap-1 max-w-[26rem]" aria-hidden="true">
+                        {Array.from({ length: 100 }).map((_, idx) => (
+                          <div
+                            key={idx}
+                            className="aspect-square rounded-sm"
+                            style={{
+                              background: idx < sc.visible ? sc.dot : "color-mix(in srgb, var(--color-secondary) 12%, transparent)",
+                            }}
+                          />
+                        ))}
                       </div>
-                    )}
-                    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-bold tracking-widest uppercase mb-4 ${sc.badge}`}>
-                      <sc.Icon className="w-3 h-3" />
-                      {sc.label}
+                      <p className="card-eyebrow mt-3">{sc.visibleLabel}</p>
                     </div>
 
-                    <div className="grid grid-cols-10 gap-1 mb-3" aria-hidden="true">
-                      {Array.from({ length: 100 }).map((_, idx) => (
-                        <div key={idx} className={`aspect-square rounded-sm ${idx < sc.visible ? sc.dotColor : "bg-zinc-200"}`} />
-                      ))}
-                    </div>
-                    <div className="text-xs text-zinc-600 mb-5">{sc.visibleLabel}</div>
+                    <p className="card-title" style={{ color: sc.dot }}>
+                      {sc.impact}
+                    </p>
 
-                    <div className={`text-2xl md:text-3xl font-extrabold ${sc.impactColor} mb-4`}>{sc.impact}</div>
-
-                    <ul className="space-y-2 mb-5 text-sm">
+                    <ul className="flex flex-col gap-2">
                       {sc.lines.map((line) => (
-                        <li key={line} className="flex items-start gap-2 text-zinc-700">
+                        <li key={line} className="card-body-text flex items-start gap-2">
                           {sc.key === "ziadah" ? (
-                            <CheckCircle2 className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 shrink-0 mt-1" style={{ color: sc.dot }} aria-hidden="true" />
                           ) : (
-                            <XCircle className={`w-4 h-4 shrink-0 mt-0.5 ${sc.key === "generic" ? "text-amber-500" : "text-zinc-400"}`} />
+                            <XCircle className="w-4 h-4 shrink-0 mt-1 opacity-50" aria-hidden="true" />
                           )}
                           <span>{line}</span>
                         </li>
                       ))}
                     </ul>
 
-                    <div className={`px-3.5 py-2.5 rounded-lg border text-xs font-semibold ${sc.verdictColor}`}>{sc.verdict}</div>
+                    <p className="card-eyebrow card-foot">{sc.verdict}</p>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="mt-7 rounded-2xl border border-zinc-200 bg-white p-5 md:p-6 shadow-card">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-center md:text-start">
-                  <div className="flex items-center gap-3 justify-center md:justify-start">
-                    <TrendingDown className="w-7 h-7 text-rose-500 shrink-0" />
+              {/* The three headline numbers, as one strip under the grid
+                  rather than a fourth white panel. `card--flat` keeps the
+                  ground and drops the cell height floor. */}
+              <div className="card card--flat mt-[1.6rem] grid grid-cols-1 md:grid-cols-3 gap-[2rem]">
+                {[
+                  { Icon: TrendingDown, value: "8 / 100", label: t({ ar: "سلال فيها منتج إضافي بدون اقتراحات", en: "carts with an add-on, no recommendations" }) },
+                  { Icon: Activity, value: t({ ar: "دقائق", en: "minutes" }), label: t({ ar: "حتى يبدأ الذكاء يقترح في متجرك", en: "until the AI starts recommending" }) },
+                  { Icon: TrendingUp, value: "+15–35%", label: t({ ar: "متوسط نمو قيمة الطلب مع زيادة", en: "average AOV lift with Ziadah" }) },
+                ].map((m) => (
+                  <div key={m.label} className="flex items-center gap-3">
+                    <m.Icon className="w-7 h-7 shrink-0 opacity-60" aria-hidden="true" />
                     <div>
-                      <div className="text-2xl font-extrabold text-zinc-950 num-ltr">8 / 100</div>
-                      <div className="text-xs text-zinc-600">
-                        {t({ ar: "سلال فيها منتج إضافي بدون اقتراحات", en: "carts with an add-on, no recommendations" })}
-                      </div>
+                      <p className="t-head-2 num-ltr">{m.value}</p>
+                      <p className="card-eyebrow">{m.label}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 justify-center md:justify-start md:border-x md:border-zinc-200 md:px-5">
-                    <Activity className="w-7 h-7 text-zinc-500 shrink-0" />
-                    <div>
-                      <div className="text-2xl font-extrabold text-zinc-950 num-ltr">{t({ ar: "دقائق", en: "minutes" })}</div>
-                      <div className="text-xs text-zinc-600">
-                        {t({ ar: "حتى يبدأ الذكاء يقترح في متجرك", en: "until the AI starts recommending" })}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 justify-center md:justify-start">
-                    <TrendingUp className="w-7 h-7 text-violet-500 shrink-0" />
-                    <div>
-                      <div className="text-2xl font-extrabold text-zinc-950 num-ltr">+15–35%</div>
-                      <div className="text-xs text-zinc-600">
-                        {t({ ar: "متوسط نمو قيمة الطلب مع زيادة", en: "average AOV lift with Ziadah" })}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              <p className="text-center text-xs text-zinc-400 mt-4">
+              <p className="section-note">
                 {t({
                   ar: "تقديرات داخلية بناءً على متاجر تستخدم زيادة؛ تختلف حسب القطاع وحجم الكتالوج.",
                   en: "Internal estimates based on stores using Ziadah; vary by sector and catalog size.",
                 })}
               </p>
 
-              <div className="text-center mt-10">
-                <Link
+              <div className="section-actions">
+                <MkButton
+                  as={Link}
                   href="/features"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white font-semibold text-sm transition-colors"
+                  variant="primary"
+                  size="lg"
+                  data-testid="home-all-features"
                 >
                   {t({ ar: "شوف كل الودجتات والمميزات", en: "See all widgets and features" })}
-                  <ArrowCTA className="w-4 h-4" />
-                </Link>
-                <p className="text-xs text-zinc-500 mt-3">
+                </MkButton>
+                <p className="section-note !mt-0">
                   {t({ ar: "ودجتات جاهزة، أمثلة حقيقية، وأماكن عرض لكل صفحة.", en: "Ready-made widgets, real examples, and placements for every page." })}
                 </p>
               </div>
@@ -1742,7 +1729,7 @@ export default function HomeTrackflow() {
               })}
             />
             <Shell width="wide">
-              <div className="grid md:grid-cols-2 gap-5">
+              <div className="cards-grid cards-grid--2">
                 {[
                   {
                     num: "01",
@@ -1802,19 +1789,20 @@ export default function HomeTrackflow() {
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+                    className="card"
                   >
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase num-ltr">{p.num}</span>
-                      <div className="w-10 h-10 rounded-lg bg-zinc-950 flex items-center justify-center">
-                        <p.Icon className="w-5 h-5 text-white" />
-                      </div>
+                    <div className="card-head">
+                      <span className="card-ico">
+                        <p.Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                      <span className="card-eyebrow num-ltr">{p.num}</span>
                     </div>
-                    <h3 className="text-lg md:text-xl font-bold text-zinc-950 mb-3 leading-snug">{p.title}</h3>
-                    <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">{p.desc}</p>
-                    <div className="rounded-lg bg-zinc-50 border border-zinc-200 p-3.5">
-                      <p className="text-xs md:text-sm text-zinc-700 leading-relaxed">{p.example}</p>
-                    </div>
+                    <h3 className="card-title">{p.title}</h3>
+                    <p className="card-body-text">{p.desc}</p>
+                    {/* The worked example is the card's own second surface:
+                        one more tint step of the section ink, not a grey box
+                        with a border. */}
+                    <p className="card-inset">{p.example}</p>
                   </motion.div>
                 ))}
               </div>
@@ -1955,7 +1943,13 @@ export default function HomeTrackflow() {
                 {/* RIGHT — timeline */}
                 <div className="lg:col-span-3 order-1 lg:order-2">
                   <div className="relative">
-                    <div className="absolute top-7 bottom-7 start-7 w-px bg-gradient-to-b from-zinc-200 via-zinc-200 to-transparent" />
+                    {/* The rail behind the rows takes the section ink, not a fixed zinc,
+                        so it survives on either end of the family. */}
+                    <div
+                      className="absolute top-7 bottom-7 start-[7.8rem] w-px"
+                      style={{ background: "linear-gradient(to bottom, color-mix(in srgb, var(--color-secondary) 18%, transparent), transparent)" }}
+                      aria-hidden="true"
+                    />
                     <div className="space-y-3">
                       {steps.map((s, i) => {
                         const isActive = i === activeStep;
@@ -1969,16 +1963,27 @@ export default function HomeTrackflow() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.08 }}
-                            className={`relative w-full text-start flex items-start gap-4 rounded-2xl border bg-white p-5 transition-all ${
-                              isActive ? "border-violet-300 shadow-card-lg ring-1 ring-violet-200" : "border-zinc-100 shadow-card hover:shadow-card-lg hover:border-zinc-200"
-                            }`}
+                            className="card card--short card--pick card--clickable flex-row items-start gap-4"
+                            data-active={isActive ? "true" : "false"}
+                            aria-pressed={isActive}
                           >
-                            <div className={`relative w-14 h-14 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isActive ? "bg-violet-600" : "bg-zinc-950"}`}>
-                              <s.Icon className="w-5 h-5 text-white" />
-                              <span className={`absolute -top-1.5 ${isAr ? "-left-1.5" : "-right-1.5"} w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center num-ltr ring-2 ring-white transition-colors ${isActive ? "bg-zinc-950" : "bg-violet-600"}`}>
-                                {i + 1}
-                              </span>
-                            </div>
+                            {/* The step number is its own numeral beside the
+                                tile, not a badge floating off the tile's
+                                corner: `.card` clips its own overflow, so the
+                                old ring badge lost half of itself. */}
+                            <span className="card-eyebrow num-ltr pt-[1.4rem]">
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <span
+                              className="card-ico"
+                              style={
+                                isActive
+                                  ? { background: "var(--ziadah-violet)", color: "var(--general-white)" }
+                                  : undefined
+                              }
+                            >
+                              <s.Icon className="w-5 h-5" aria-hidden="true" />
+                            </span>
                             {/* The text column takes a measure. These rows are
                                 full-width in a three-of-five column, so the
                                 body ran 100 characters per line at every
@@ -1992,13 +1997,13 @@ export default function HomeTrackflow() {
                                 the two differ. These sizes hold a constant
                                 1.41x of the root across every tier, so a rem
                                 measure holds a constant line length. */}
-                            <div className="flex-1 pt-0.5 max-w-[53rem]">
-                              <div className="flex items-center justify-between gap-3 mb-1">
-                                <h3 className="text-base font-bold text-zinc-950">{s.title}</h3>
-                                <span className="shrink-0 text-[11px] font-bold text-violet-600 num-ltr bg-violet-50 border border-violet-100 rounded-full px-2 py-0.5">{s.stat}</span>
+                            <div className="flex-1 min-w-0 max-w-[53rem] flex flex-col gap-1">
+                              <div className="card-head">
+                                <h3 className="t-sm-med">{s.title}</h3>
+                                <span className="pill pill--soon num-ltr">{s.stat}</span>
                               </div>
-                              <p className="text-sm text-zinc-600 leading-relaxed mb-0.5">{s.desc}</p>
-                              <span className="text-[11px] text-zinc-400 num-ltr">{s.statLabel}</span>
+                              <p className="card-body-text">{s.desc}</p>
+                              <span className="card-eyebrow num-ltr">{s.statLabel}</span>
                             </div>
                           </motion.button>
                         );
@@ -2013,53 +2018,47 @@ export default function HomeTrackflow() {
           {/* PLACEMENTS + STORES */}
           <DsSection family="violet">
             <Shell width="wide">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-card">
-                  <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-3">
-                    {t({ ar: "أماكن العرض", en: "Placements" })}
-                  </span>
-                  <h3 className="text-2xl font-bold text-zinc-950 mb-6">
+              <div className="cards-grid cards-grid--2">
+                <div className="card">
+                  <span className="card-eyebrow">{t({ ar: "أماكن العرض", en: "Placements" })}</span>
+                  <h3 className="card-title">
                     {t({ ar: "اقتراحات في كل صفحة مهمة", en: "Recommendations on every page that matters" })}
                   </h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-[0.8rem]">
                     {placements.map((c) => (
-                      <div key={c.name.en} className="flex items-center gap-3 px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-colors">
-                        <div className="w-10 h-10 rounded-md bg-white border border-zinc-200 flex items-center justify-center">
-                          <c.Icon className="w-5 h-5" style={{ color: c.color }} />
-                        </div>
-                        <div>
-                          <div className="text-sm font-bold text-zinc-950">{isAr ? c.name.ar : c.name.en}</div>
-                          <div className="text-[10px] text-zinc-500">{t({ ar: "ودجت جاهز", en: "Ready widget" })}</div>
-                        </div>
+                      <div key={c.name.en} className="card-inset !mt-0 flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-md flex items-center justify-center shrink-0" style={{ background: "var(--surface)" }}>
+                          <c.Icon className="w-5 h-5" style={{ color: c.color }} aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block t-sm-med truncate">{isAr ? c.name.ar : c.name.en}</span>
+                          <span className="card-eyebrow">{t({ ar: "ودجت جاهز", en: "Ready widget" })}</span>
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-zinc-200 bg-white p-8 shadow-card">
-                  <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase mb-3">
-                    {t({ ar: "منصات التجارة", en: "E-commerce platforms" })}
-                  </span>
-                  <h3 className="text-2xl font-bold text-zinc-950 mb-6">
+                <div className="card">
+                  <span className="card-eyebrow">{t({ ar: "منصات التجارة", en: "E-commerce platforms" })}</span>
+                  <h3 className="card-title">
                     {t({ ar: "اربط متجرك بنقرة وحدة", en: "Connect your store in one click" })}
                   </h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-[0.8rem]">
                     {storePlatforms.map((s) => (
-                      <div key={s.brand} className="flex items-center gap-3 px-4 py-3 rounded-lg bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-colors">
-                        <div className="w-10 h-10 rounded-md bg-white border border-zinc-200 flex items-center justify-center">
-                          <Store className="w-5 h-5" style={{ color: s.color }} />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-zinc-950">{s.name}</span>
-                            {s.soon && (
-                              <span className="text-[9px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded-full">
-                                {t({ ar: "قريباً", en: "Soon" })}
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-[10px] text-zinc-500">{s.soon ? t({ ar: "قريباً", en: "Coming soon" }) : t({ ar: "متاح الآن", en: "Available now" })}</div>
-                        </div>
+                      <div key={s.brand} className="card-inset !mt-0 flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-md flex items-center justify-center shrink-0" style={{ background: "var(--surface)" }}>
+                          <Store className="w-5 h-5" style={{ color: s.color }} aria-hidden="true" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center gap-2">
+                            <span className="t-sm-med truncate">{s.name}</span>
+                            {s.soon && <span className="pill pill--soon">{t({ ar: "قريباً", en: "Soon" })}</span>}
+                          </span>
+                          <span className="card-eyebrow">
+                            {s.soon ? t({ ar: "قريباً", en: "Coming soon" }) : t({ ar: "متاح الآن", en: "Available now" })}
+                          </span>
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -2101,17 +2100,20 @@ export default function HomeTrackflow() {
                         <div
                           key={`${seg}-${i}`}
                           dir={isAr ? "rtl" : "ltr"}
-                          className="shrink-0 w-[280px] sm:w-[320px] me-4 flex flex-col rounded-2xl border border-zinc-200 bg-white p-5 shadow-card text-start"
+                          className="card card--short shrink-0 w-[280px] sm:w-[320px] me-4 gap-[1.2rem]"
                         >
-                          <div className="flex gap-0.5 mb-3" dir="ltr">
+                          <div className="flex gap-0.5" dir="ltr">
                             {Array.from({ length: 5 }).map((_, s) => (
-                              <Star key={s} className="w-3.5 h-3.5 fill-violet-500 text-violet-500" aria-hidden="true" />
+                              <Star
+                                key={s}
+                                className="w-3.5 h-3.5"
+                                style={{ fill: "var(--ziadah-violet)", color: "var(--ziadah-violet)" }}
+                                aria-hidden="true"
+                              />
                             ))}
                           </div>
-                          <p className="flex-1 text-sm leading-relaxed text-zinc-700 mb-4 line-clamp-5">
-                            {t.text}
-                          </p>
-                          <div className="flex items-center gap-2.5 mt-auto">
+                          <p className="card-body-text flex-1 line-clamp-5">{t.text}</p>
+                          <div className="card-foot justify-start">
                             <div
                               className="w-9 h-9 rounded-full shrink-0 flex items-center justify-center overflow-hidden text-xs font-extrabold text-white"
                               style={{ background: t.logo ? "#fff" : t.col }}
@@ -2136,8 +2138,8 @@ export default function HomeTrackflow() {
                               )}
                             </div>
                             <div className="min-w-0">
-                              <div className="text-sm font-bold text-zinc-900 truncate">{t.name}</div>
-                              <div className="text-xs text-zinc-500 truncate">{t.role}</div>
+                              <div className="t-sm-med truncate">{t.name}</div>
+                              <div className="card-eyebrow truncate">{t.role}</div>
                             </div>
                           </div>
                         </div>
@@ -2181,15 +2183,19 @@ export default function HomeTrackflow() {
 
                     {/* right: results */}
                     <div className="flex flex-col gap-5" style={{ unicodeBidi: "isolate" }}>
-                      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* The connector sits in the gap between the two cards, so the
+                            gap has to be wide enough to hold it - a 2rem disc
+                            plus its 0.5rem masking ring. At `gap-4` it
+                            overhung both cards and clipped a label. */}
+                      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-[3.2rem]">
                         {/* without recommendations */}
-                        <div className="rounded-2xl bg-white/[0.04] border border-white/10 p-6 transition-colors">
-                          <div className="text-xs font-semibold uppercase tracking-widest text-zinc-400 mb-5">
+                        <div className="card card--short">
+                          <div className="card-eyebrow">
                             {t({ ar: "بدون اقتراحات", en: "Without recommendations" })}
                           </div>
-                          <div className="space-y-4">
+                          <div className="flex flex-col gap-[1.6rem]">
                             <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
+                              <div className="card-eyebrow">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={Math.round(r.orders)}
@@ -2197,14 +2203,14 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {fmtN(Math.round(r.orders))}
                                 </motion.div>
                               </AnimatePresence>
                             </div>
                             <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب", en: "Avg. order" })}</div>
+                              <div className="card-eyebrow">{t({ ar: "متوسط الطلب", en: "Avg. order" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={aov}
@@ -2212,14 +2218,14 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {fmtCur(aov)}
                                 </motion.div>
                               </AnimatePresence>
                             </div>
-                            <div className="pt-3 border-t border-white/10">
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
+                            <div className="card-rule">
+                              <div className="card-eyebrow">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={Math.round(r.baseRevenue)}
@@ -2227,7 +2233,7 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-white num-ltr"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {fmtCur(r.baseRevenue)}
                                 </motion.div>
@@ -2238,25 +2244,30 @@ export default function HomeTrackflow() {
 
                         {/* connector: flows from "without" into the elevated "with Ziadah" card */}
                         <div
-                          className="calc-connector hidden sm:flex absolute top-1/2 start-1/2 z-10 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full"
-                          style={{ insetInlineStart: "50%" }}
+                          /* `-translate-x-1/2` is NOT direction-aware: paired
+                             with `inset-inline-start: 50%` it centred the disc
+                             in LTR and pushed it a full width off-centre in
+                             RTL, where it landed on the card's own labels. The
+                             offset belongs in the logical inset. */
+                          className="calc-connector hidden sm:flex absolute top-1/2 z-10 h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full"
+                          style={{ insetInlineStart: "calc(50% - 1rem)" }}
                           aria-hidden="true"
                         >
                           <ArrowCTA className="w-4 h-4" />
                         </div>
 
                         {/* with Ziadah */}
-                        <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.14] to-transparent border border-violet-500/40 p-6 shadow-[0_0_40px_-10px_rgba(139,92,246,0.35)] sm:scale-[1.02]">
-                          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-5">
+                        <div className="card card--short card--accent">
+                          <div className="card-eyebrow flex items-center gap-2">
                             <span className="relative flex h-1.5 w-1.5">
                               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
                               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-400" />
                             </span>
                             {t({ ar: "مع زيادة", en: "With Ziadah" })}
                           </div>
-                          <div className="space-y-4">
+                          <div className="flex flex-col gap-[1.6rem]">
                             <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
+                              <div className="card-eyebrow">{t({ ar: "الطلبات شهرياً", en: "Monthly orders" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={Math.round(r.orders)}
@@ -2264,14 +2275,14 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {fmtN(Math.round(r.orders))}
                                 </motion.div>
                               </AnimatePresence>
                             </div>
                             <div>
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "متوسط الطلب الفعلي", en: "Effective avg. order" })}</div>
+                              <div className="card-eyebrow">{t({ ar: "متوسط الطلب الفعلي", en: "Effective avg. order" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={Math.round(r.effectiveAov)}
@@ -2281,17 +2292,17 @@ export default function HomeTrackflow() {
                                   transition={{ duration: 0.2 }}
                                   className="num-ltr flex items-center gap-2 flex-wrap"
                                 >
-                                  <span className="text-xl font-extrabold text-violet-300">
+                                  <span className="t-head-2">
                                     {fmtCur(r.effectiveAov)}
                                   </span>
-                                  <span className="rounded-md bg-violet-500/18 border border-violet-500/35 px-1.5 py-0.5 text-[11px] font-extrabold text-violet-300">
+                                  <span className="pill pill--live">
                                     +{fmtCur(r.aovIncrease)}
                                   </span>
                                 </motion.div>
                               </AnimatePresence>
                             </div>
-                            <div className="pt-3 border-t border-violet-500/20">
-                              <div className="text-[11px] text-zinc-500 mb-1">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
+                            <div className="card-rule">
+                              <div className="card-eyebrow">{t({ ar: "الإيراد شهرياً", en: "Monthly revenue" })}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={Math.round(r.newRevenue)}
@@ -2299,7 +2310,7 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl font-extrabold text-violet-300 num-ltr"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {fmtCur(r.newRevenue)}
                                 </motion.div>
@@ -2310,26 +2321,26 @@ export default function HomeTrackflow() {
                       </div>
 
                       {/* impact summary */}
-                      <div className="relative rounded-2xl bg-gradient-to-br from-violet-500/[0.08] to-transparent border border-violet-500/20 p-6 md:p-7">
+                      <div className="card card--short">
                         <div
                           className="hidden sm:block absolute -top-3 start-1/2 h-6 w-px -translate-x-1/2 bg-gradient-to-b from-violet-500/50 to-transparent"
                           aria-hidden="true"
                         />
-                        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-violet-300 mb-6">
+                        <div className="card-eyebrow flex items-center gap-2">
                           <BarChart3 className="w-4 h-4" />
                           {t({ ar: "ملخّص الأثر", en: "Impact summary" })}
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-[0.8rem]">
                           {calcImpactStats.map((s, i) => (
                             <motion.div
                               key={s.label}
                               initial={{ opacity: 0, y: 8 }}
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: i * 0.05, duration: 0.3 }}
-                              className="rounded-xl bg-white/[0.05] border border-white/10 p-4 text-center transition-colors hover:bg-white/[0.07] hover:border-violet-500/30"
+                              className="card-inset !mt-0 text-center"
                             >
-                              <s.Icon className="w-4 h-4 text-violet-400 mx-auto mb-2" />
-                              <div className="text-[11px] font-semibold text-zinc-500 mb-1.5">{s.label}</div>
+                              <s.Icon className="w-4 h-4 mx-auto mb-2 opacity-70" aria-hidden="true" />
+                              <div className="card-eyebrow">{s.label}</div>
                               <AnimatePresence mode="popLayout" initial={false}>
                                 <motion.div
                                   key={s.value}
@@ -2337,19 +2348,19 @@ export default function HomeTrackflow() {
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: 6 }}
                                   transition={{ duration: 0.2 }}
-                                  className="text-xl md:text-2xl font-extrabold text-violet-300 num-ltr leading-tight"
+                                  className="t-head-2 num-ltr"
                                 >
                                   {s.value}
                                 </motion.div>
                               </AnimatePresence>
-                              <div className="text-[11px] text-zinc-500 mt-1">{s.sub}</div>
+                              <div className="card-eyebrow">{s.sub}</div>
                             </motion.div>
                           ))}
                         </div>
                       </div>
 
                       {/* disclaimer */}
-                      <div className="rounded-xl bg-white/[0.03] border border-white/10 px-5 py-4 text-xs text-zinc-400 leading-relaxed">
+                      <div className="card-inset !mt-0">
                         {t({
                           ar: "تقدير متحفّظ؛ النتائج الفعلية تختلف حسب القطاع وحجم الكتالوج وسلوك العملاء.",
                           en: "Conservative estimate; actual results vary by sector, catalog size, and shopper behavior.",
@@ -2357,12 +2368,9 @@ export default function HomeTrackflow() {
                       </div>
 
                       {/* CTA */}
-                      <Button
-                        onClick={() => setPlatformOpen(true)}
-                        className="w-full h-12 bg-white text-zinc-950 hover:bg-zinc-100 font-semibold"
-                      >
+                      <MkButton variant="invert" size="lg" block onClick={() => setPlatformOpen(true)}>
                         {t({ ar: "فعّل الآن", en: "Activate now" })}
-                      </Button>
+                      </MkButton>
                     </div>
                   </div>
             </Shell>
@@ -2377,43 +2385,34 @@ export default function HomeTrackflow() {
               lead={t({ ar: "اقتراحات ومبيعات غير محدودة في كل الباقات — شاملة الضريبة، وتجربة مجانية 7 أيام.", en: "Unlimited suggestions & sales on every plan — VAT-inclusive, with a 7-day free trial." })}
             />
             <Shell width="wide">
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {/* The system's own price vocabulary. The highlighted plan
+                  carries `.on-ink`, which re-points the colour triple for the
+                  whole card, so nothing inside it restates a colour - the old
+                  version branched on `plan.popular` in eight places. */}
+              <div className="price-grid price-grid--4">
                 {pricingPlans.map((plan) => (
-                  <div
-                    key={plan.name}
-                    className={`relative rounded-2xl p-6 flex flex-col ${plan.popular ? "mockup-card shadow-card-lg" : "bg-white border border-zinc-200 shadow-card"}`}
-                  >
+                  <div key={plan.name} className={`price-card${plan.popular ? " is-flipped" : ""}`}>
                     {plan.popular && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-violet-600 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        {t({ ar: "الأكثر اختياراً", en: "Most popular" })}
-                      </div>
+                      <span className="price-flag">{t({ ar: "الأكثر اختياراً", en: "Most popular" })}</span>
                     )}
-                    <h3 className={`text-lg font-bold mb-3 ${plan.popular ? "text-white" : "text-zinc-950"}`}>{plan.name}</h3>
-                    <div className="flex items-baseline gap-2 mb-5">
-                      <span className={`text-4xl font-bold num-ltr ${plan.popular ? "text-white" : "text-zinc-950"}`}>
-                        {plan.price.toLocaleString("en-US")}
-                        <span className="text-base font-semibold align-middle ms-1 opacity-70">{riyal}</span>
-                      </span>
-                      <span className={`text-sm ${plan.popular ? "text-zinc-400" : "text-zinc-500"}`}>{t({ ar: "/شهرياً", en: "/mo" })}</span>
-                    </div>
-                    <div className={`text-sm mb-6 ${plan.popular ? "text-zinc-300" : "text-zinc-700"}`}>
-                      <span className={`font-semibold ${plan.popular ? "text-white" : "text-zinc-950"}`}>{plan.orders}</span>
-                    </div>
-                    <Button
-                      onClick={() => setPlatformOpen(true)}
-                      className={`w-full ${plan.popular ? "bg-white text-zinc-950 hover:bg-zinc-100 font-semibold" : "bg-zinc-950 text-white hover:bg-zinc-800"}`}
-                    >
+                    <h3 className="price-name">{plan.name}</h3>
+                    <p className="t-display-3 num-ltr">
+                      {plan.price.toLocaleString("en-US")}
+                      <span className="t-body-18 align-middle ms-1 opacity-70">{riyal}</span>
+                      <span className="price-note ms-2">{t({ ar: "/شهرياً", en: "/mo" })}</span>
+                    </p>
+                    <p className="price-note">{plan.orders}</p>
+                    <MkButton variant="primary" block onClick={() => setPlatformOpen(true)}>
                       {t({ ar: "فعّل الآن", en: "Activate now" })}
-                    </Button>
-
-                    <div className={`flex-1 space-y-3 pt-6 mt-6 border-t ${plan.popular ? "border-white/10" : "border-zinc-100"}`}>
+                    </MkButton>
+                    <ul className="price-list">
                       {planFeatures.map((feature) => (
-                        <div key={feature} className="flex items-center gap-2.5">
-                          <CheckCircle2 className={`w-4 h-4 shrink-0 ${plan.popular ? "text-violet-400" : "text-violet-600"}`} />
-                          <span className={`text-sm ${plan.popular ? "text-zinc-300" : "text-zinc-700"}`}>{feature}</span>
-                        </div>
+                        <li key={feature}>
+                          <CheckCircle2 className="w-4 h-4 shrink-0 mt-1" aria-hidden="true" />
+                          <span>{feature}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 ))}
               </div>
@@ -2429,16 +2428,21 @@ export default function HomeTrackflow() {
               lead={t({ ar: "كل اللي تحتاج تعرفه قبل ما تفعّل زيادة على متجرك.", en: "Everything you need to know before activating Ziadah on your store." })}
             />
             <Shell width="narrow">
-              <Accordion type="single" collapsible className="measure-read space-y-3">
+              {/* The system's FAQ is a rule-separated list of native
+                  `<details>`, not a stack of white panels. `FaqBlock` itself
+                  is not used here because it renders its own bare heading and
+                  this band wants the kicker/title/lead head. */}
+              <div className="faq-list measure-read">
                 {faqs.map((f, i) => (
-                  <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-zinc-200 bg-white px-5 shadow-card data-[state=open]:border-zinc-300">
-                    <AccordionTrigger className="text-start text-base md:text-lg font-semibold text-zinc-950 hover:no-underline py-5">
-                      {f.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-zinc-600 leading-relaxed text-sm md:text-base pb-5">{f.a}</AccordionContent>
-                  </AccordionItem>
+                  <details key={i} className="faq-item">
+                    <summary className="faq-summary">
+                      <h3 className="!font-medium">{f.q}</h3>
+                      <ChevronDown className="faq-icon" aria-hidden="true" />
+                    </summary>
+                    <div className="faq-answer">{f.a}</div>
+                  </details>
                 ))}
-              </Accordion>
+              </div>
             </Shell>
           </DsSection>
 

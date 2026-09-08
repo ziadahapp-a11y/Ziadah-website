@@ -594,6 +594,111 @@
 .hero-col-media:has(.hero-demo),
 .hero-media:has(.hero-demo) { max-width: none; }
 
+/* ---------- SECTION FURNITURE -------------------------------------------
+   Two things that recur under a grid and had been hand-painted with Tailwind
+   greys every time they appeared: the footnote that qualifies a set of
+   numbers, and the centred action row that closes a band. Both take the
+   section's own ink rather than a fixed zinc, which is the whole point of
+   moving them here. */
+.section-note {
+  margin-block-start: 2.4rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+.section-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-block-start: 4.8rem;
+  text-align: center;
+}
+
+/* ---------- CARD VARIANTS ----------------------------------------------
+   The system's card is one flat tint of the section's own ink, with no
+   border, no ring and no shadow. Two things the home page needs and the
+   reference never had to express, added as variants rather than as a second
+   card anatomy.
+
+   `--accent` is a card the section singles out - the recommended plan, the
+   winning column of a comparison. Emphasis has to be carried by the ground,
+   because the ground is the only thing a card in this system has: a second
+   tint step of the same ink, not a new colour and not a ring.
+
+   `--flat` is a card that is a full-width strip under a grid rather than a
+   cell in it. It keeps the ground and drops the height floor, which exists
+   to equalise a row of cells and means nothing to a single strip. */
+.card--accent { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent); }
+.card--flat { min-height: 0; gap: 0; }
+
+/* The sliders. The Radix primitive's parts were being coloured
+   with a long chain of arbitrary-variant Tailwind selectors carrying fixed
+   whites and violets, which meant the control could only ever read on the one
+   dark ground it was authored against. Named here, in the section's own ink,
+   so it works on either end of the family. */
+.slider-track { height: 0.8rem; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 20%, transparent); }
+.slider-range { background: currentColor; }
+.slider-thumb {
+  width: 2rem;
+  height: 2rem;
+  border: 0.2rem solid var(--color-primary, var(--general-white));
+  background: var(--color-secondary, var(--general-black));
+  box-shadow: 0 0 0 0.4rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 25%, transparent);
+}
+
+/* A control inside a block that flipped to the family's other end. The system
+   has this scope for a section that inverts (`[data-family][data-invert]`) but
+   not for a single block that flips inside a section, which is what a
+   highlighted price card is - so `.button.primary` kept painting itself black
+   on the dark violet it had just been dropped onto. Both ends move together,
+   the same way the section-level scope does it. */
+.is-flipped .button.primary,
+.is-flipped .button.secondary {
+  --button-color: var(--color-secondary, var(--general-white));
+  --button-color-hover: var(--color-primary, var(--general-black));
+  --button-text-color: var(--color-primary, var(--general-black));
+  --button-text-color-hover: var(--color-secondary, var(--general-white));
+}
+
+/* Four plans, not the reference's three. Same breakpoints as `.cards-grid--4`
+   so a price grid and a card grid step together down the page. */
+.price-grid--4 { grid-template-columns: minmax(0, 1fr); }
+@media screen and (min-width: 610px)  { .price-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (min-width: 1025px) { .price-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* A hairline INSIDE a card, separating a readout's last row from the rest.
+   Same ink as everything else the card paints with. */
+.card-rule {
+  padding-top: 1.2rem;
+  border-top: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+}
+
+/* A panel INSIDE a card - a worked example, a quote, a small readout. The
+   card is already one 8% tint of the section ink, so the inset is a second
+   step of the same ink rather than a grey box with a border. It also takes
+   `margin-top: auto`, so a row of cards lines its insets up along the bottom
+   the way `.card-foot` does. */
+.card-inset {
+  margin-top: auto;
+  padding: 1.6rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+
+/* A card that is also a button or a link target. The system's own hover is a
+   scale-down on `.card--clickable`; these carry it plus the ground step, so a
+   pressed/selected state reads without a ring. */
+.card--pick { cursor: pointer; text-align: start; border: 0; font: inherit; color: inherit; width: 100%; }
+.card--pick[aria-pressed="true"], .card--pick[data-active="true"] {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent);
+}
+.card--pick:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.3rem; }
+
 /* ---------- A NOTE ON UNITS --------------------------------------------
    Three bugs in this file's history came from one confusion, so it is worth
    stating once.
