@@ -127,7 +127,7 @@ export default function SuccessStoryDetail() {
           <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4">{article.mechanism}</p>
         )}
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
-          <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+          <span className="card-eyebrow">
             {isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}
           </span>
           <span className="inline-flex items-center rounded-full border border-violet-200 bg-violet-100 px-3.5 py-1.5 text-sm font-bold text-violet-700">
@@ -148,7 +148,7 @@ export default function SuccessStoryDetail() {
           <StatCard
             value={story.conversions}
             label={
-              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+              <span className="card-eyebrow">
                 {isAr ? "التحويلات" : "Conversions"}
               </span>
             }
@@ -161,7 +161,7 @@ export default function SuccessStoryDetail() {
               </>
             }
             label={
-              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+              <span className="card-eyebrow">
                 {isAr ? "إجمالي المبيعات" : "Total sales"}
               </span>
             }
@@ -188,7 +188,10 @@ export default function SuccessStoryDetail() {
         ]}
       />
       <WebPageSchema name={seoTitle} description={seoDesc} url={canonical} />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+      {/* The forced `#fff` is gone: a page's ground is its first section's, and
+          painting white here put a white slab under every band that had
+          stamped its own family. */}
+      <PageShell className="relative overflow-x-clip">
         {/* ══════════════════ HERO ══════════════════ */}
         <HeroLede
           compact
@@ -215,7 +218,7 @@ export default function SuccessStoryDetail() {
               the run, and a way through to the shop itself. */}
           <Card animate={false} className="story-card flex flex-wrap items-center gap-4 p-5">
               {story.logoUrl ? (
-                <div className="shrink-0 w-12 h-12 rounded-xl border border-zinc-200 bg-white p-1.5 flex items-center justify-center overflow-hidden">
+                <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
                   <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
                 </div>
               ) : (
@@ -225,7 +228,7 @@ export default function SuccessStoryDetail() {
               )}
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-bold text-zinc-950 truncate">{displayStore}</div>
-                <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase num-ltr">
+                <div className="card-eyebrow num-ltr">
                   {isAr
                     ? `قصة ${String(storyIndex + 1).padStart(2, "0")} من ${String(total).padStart(2, "0")}`
                     : `Story ${String(storyIndex + 1).padStart(2, "0")} of ${String(total).padStart(2, "0")}`}

@@ -357,7 +357,12 @@
 .card-title--spaced { margin-bottom: 1.2rem; }
 .card-body-text { font-size: 1.6rem; line-height: 1.5; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }
 .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; margin-top: auto; }
-.card-eyebrow { font-size: 1.2rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent); }
+/* 66%, not 60%. The floor was computed against the section ground under two
+   8% card tints, which is the deepest nesting the reference has; this site
+   puts an eyebrow inside a `.card-inset` inside a `.card`, one step deeper,
+   and measured 4.29:1 there at 12px on the grey family. 66% clears 4.5:1 at
+   that depth and is still visibly the muted tier. */
+.card-eyebrow { font-size: 1.2rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent); }
 [dir="rtl"] .card-eyebrow { text-transform: none; letter-spacing: 0; }
 .card-ico {
   flex: none;

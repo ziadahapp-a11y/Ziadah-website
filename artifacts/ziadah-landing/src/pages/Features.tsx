@@ -7,7 +7,6 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { Section } from "@/components/trackflow";
 import {
   ShoppingCart,
   Package,
@@ -43,6 +42,7 @@ import { goals, presentations, placements as activities } from "@/lib/features-d
 import { featureHref } from "@/lib/features-data";
 import { navigateTo } from "@/components/PageTransition";
 import { Section as DsSection, SectionHead, MediaSlot, HeroLede } from "@/sections";
+import { Shell } from "@/components/mk";
 import { CapabilityStack } from "@/components/art/CapabilityStack";
 
 
@@ -161,21 +161,23 @@ export default function Features() {
 
       {/* ══════════════════ GOALS ══════════════════ */}
       {activeTab === "goals" && (
-        <Section containerClassName="max-w-6xl flex flex-col gap-6">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="flex flex-col gap-[1.6rem]">
             {goals.map((g, i) => {
               const boost = isAr ? g.boost : g.boostEn;
               return (
                 <div
                   key={g.id}
-                  className={`rv d${(i % 2) + 1} rounded-2xl border border-zinc-200 bg-white p-7 md:p-8 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 2) + 1} card card--short`}
                 >
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                      <g.Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2.5 mb-1">
-                        <h3 className="text-xl font-bold text-zinc-950">
+                  <div className="card-head items-start">
+                    <span className="card-ico">
+                      <g.Icon className="w-6 h-6" aria-hidden="true" />
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className="flex flex-wrap items-center gap-2.5">
+                        <h3 className="card-title !w-auto">
                           <button
                             type="button"
                             className="text-start hover:underline"
@@ -184,54 +186,58 @@ export default function Features() {
                             {isAr ? g.title : g.titleEn}
                           </button>
                         </h3>
-                        <span className="px-2.5 py-0.5 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
+                        <span className="pill pill--soon">
                           {ft.goalLabel} <span className="num-ltr">#{g.id}</span>
                         </span>
-                      </div>
-                      <div className="text-sm text-zinc-500">{isAr ? g.subtitle : g.subtitleEn}</div>
-                    </div>
+                      </span>
+                      <span className="card-body-text">{isAr ? g.subtitle : g.subtitleEn}</span>
+                    </span>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-5">
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.descLabel}</div>
-                      <p className="text-sm text-zinc-600 leading-relaxed">{isAr ? g.desc : g.descEn}</p>
+                      <div className="card-eyebrow mb-2">{ft.descLabel}</div>
+                      <p className="card-body-text">{isAr ? g.desc : g.descEn}</p>
                     </div>
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.whenLabel}</div>
-                      <p className="text-sm text-zinc-600 leading-relaxed">{isAr ? g.when : g.whenEn}</p>
-                      <div className="mt-3 rounded-lg bg-zinc-50 border border-zinc-200 p-3.5 text-sm text-zinc-700 leading-relaxed">
-                        <span className="font-bold text-violet-600">{ft.exampleLabel}</span>{isAr ? g.example : g.exampleEn}
-                      </div>
+                      <div className="card-eyebrow mb-2">{ft.whenLabel}</div>
+                      <p className="card-body-text">{isAr ? g.when : g.whenEn}</p>
+                      <p className="card-inset !mt-3">
+                        <span className="font-bold">{ft.exampleLabel}</span>{isAr ? g.example : g.exampleEn}
+                      </p>
                     </div>
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.expectedResult}</div>
-                      <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-5 text-center">
-                        <div className="text-3xl font-extrabold text-violet-600 num-ltr">{boost.split(" ")[0]}</div>
-                        <div className="text-xs text-zinc-500 mt-1.5">{boost.substring(boost.indexOf(" ") + 1)}</div>
+                      <div className="card-eyebrow mb-2">{ft.expectedResult}</div>
+                      <div className="card-inset !mt-0 text-center">
+                        <div className="t-head-1 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{boost.split(" ")[0]}</div>
+                        <div className="card-eyebrow mt-1.5">{boost.substring(boost.indexOf(" ") + 1)}</div>
                       </div>
                     </div>
                   </div>
                 </div>
               );
             })}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ PRESENTATIONS ══════════════════ */}
       {activeTab === "presentations" && (
-        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="cards-grid">
             {presentations.map((p, i) => (
               <div
                 key={isAr ? p.title : p.titleEn}
-                className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                className={`rv d${(i % 3) + 1} card`}
               >
-                <div className="flex items-center gap-3.5 mb-5">
-                  <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                    <p.Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-zinc-950">
+                <div className="card-head">
+                  <span className="card-ico">
+                    <p.Icon className="w-6 h-6" aria-hidden="true" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block t-head-2">
                       <button
                         type="button"
                         className="text-start hover:underline"
@@ -239,37 +245,40 @@ export default function Features() {
                       >
                         {isAr ? p.title : p.titleEn}
                       </button>
-                    </div>
-                    <div className="text-xs text-zinc-500 mt-0.5">{ft.presentationLabel} <span className="num-ltr">#{i + 1}</span></div>
-                  </div>
+                    </span>
+                    <span className="card-eyebrow">{ft.presentationLabel} <span className="num-ltr">#{i + 1}</span></span>
+                  </span>
                 </div>
-                <p className="text-sm text-zinc-600 leading-relaxed mb-5">{isAr ? p.desc : p.descEn}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <p className="card-body-text">{isAr ? p.desc : p.descEn}</p>
+                <div className="flex flex-wrap gap-2">
                   {(isAr ? p.positions : p.positionsEn).map(pos => (
-                    <span key={pos} className="px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-600">{pos}</span>
+                    <span key={pos} className="tag">{pos}</span>
                   ))}
                 </div>
-                <div className="text-xs font-bold text-violet-600">{ft.bestFor}{isAr ? p.best : p.bestEn}</div>
+                <div className="card-eyebrow card-foot">{ft.bestFor}{isAr ? p.best : p.bestEn}</div>
               </div>
             ))}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ ACTIVITIES ══════════════════ */}
       {activeTab === "activities" && (
-        <Section containerClassName="max-w-6xl">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+            <div className="cards-grid">
               {activities.map((a, i) => (
                 <div
                   key={a.num}
-                  className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 3) + 1} card`}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 shrink-0 rounded-lg bg-zinc-950 flex items-center justify-center">
-                      <a.Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-base font-bold text-zinc-950">
+                  <div className="card-head">
+                    <span className="card-ico">
+                      <a.Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className="block t-sm-med">
                         <button
                           type="button"
                           className="text-start hover:underline"
@@ -277,24 +286,24 @@ export default function Features() {
                         >
                           {isAr ? a.title : a.titleEn}
                         </button>
-                      </div>
-                      <div className="text-[11px] font-bold text-violet-600">{ft.activityLabel} <span className="num-ltr">{a.num}</span></div>
-                    </div>
+                      </span>
+                      <span className="card-eyebrow">{ft.activityLabel} <span className="num-ltr">{a.num}</span></span>
+                    </span>
                   </div>
-                  <p className="text-sm text-zinc-600 leading-relaxed mb-4">{isAr ? a.desc : a.descEn}</p>
-                  <div className="mb-4">
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2">{ft.availableTactics}</div>
+                  <p className="card-body-text">{isAr ? a.desc : a.descEn}</p>
+                  <div>
+                    <div className="card-eyebrow mb-2">{ft.availableTactics}</div>
                     <div className="flex flex-wrap gap-1.5">
                       {(isAr ? a.tactics : a.tacticsEn).map(tc => (
-                        <span key={tc} className="px-2.5 py-1 rounded-full bg-violet-50 border border-violet-100 text-[11px] font-medium text-violet-700">{tc}</span>
+                        <span key={tc} className="tag">{tc}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2">{ft.availablePlans}</div>
+                    <div className="card-eyebrow mb-2">{ft.availablePlans}</div>
                     <div className="flex flex-wrap gap-1.5">
                       {(isAr ? a.avail : a.availEn).map(pkg => (
-                        <span key={pkg} className="px-2.5 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-[11px] font-medium text-zinc-600">{pkg}</span>
+                        <span key={pkg} className="tag">{pkg}</span>
                       ))}
                     </div>
                   </div>
@@ -303,59 +312,72 @@ export default function Features() {
             </div>
 
             {/* Journey map */}
-            <div className="rv mt-10 rounded-2xl border border-zinc-200 bg-white p-7 md:p-10 shadow-card">
-              <div className="text-center mb-8">
-                <div className="text-lg md:text-xl font-bold text-zinc-950">{ft.journeyMapTitle}</div>
-                <div className="text-sm text-zinc-500 mt-1.5">{ft.journeyMapSub}</div>
+            <div className="rv card card--short mt-10">
+              <div className="text-center">
+                <div className="t-head-2">{ft.journeyMapTitle}</div>
+                <div className="card-eyebrow mt-1.5">{ft.journeyMapSub}</div>
               </div>
               <div className="flex items-center overflow-x-auto pb-2">
                 {activities.map((a, i) => (
                   <div key={a.num} className="flex items-center shrink-0">
                     <div className="text-center px-2">
-                      <div className="w-12 h-12 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center mx-auto mb-2">
-                        <a.Icon className="w-5 h-5 text-violet-600" />
-                      </div>
-                      <div className="text-[11px] font-bold text-zinc-700 whitespace-nowrap max-w-[80px] text-center mx-auto truncate">{isAr ? a.title : a.titleEn}</div>
+                      <span className="card-ico mx-auto mb-2">
+                        <a.Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                      <div className="card-eyebrow whitespace-nowrap max-w-[80px] mx-auto truncate">{isAr ? a.title : a.titleEn}</div>
                     </div>
-                    {i < activities.length - 1 && <div className="w-8 h-px bg-gradient-to-r from-violet-300 to-violet-100 shrink-0" />}
+                    {i < activities.length - 1 && (
+                      <span
+                        className="w-8 h-px shrink-0"
+                        style={{ background: "color-mix(in srgb, var(--color-secondary) 20%, transparent)" }}
+                        aria-hidden="true"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
             </div>
-        </Section>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ USE CASES ══════════════════ */}
       {activeTab === "usecases" && (
-        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="cards-grid">
             {usecases.map((u, i) => {
               const result = isAr ? u.result : u.resultEn;
               return (
                 <div
                   key={isAr ? u.sector : u.sectorEn}
-                  className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 3) + 1} card`}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                        <u.Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <div className="text-lg font-bold text-zinc-950">{isAr ? u.sector : u.sectorEn}</div>
-                        <div className="text-xs text-zinc-500 mt-0.5">{isAr ? u.stores : u.storesEn}</div>
-                      </div>
-                    </div>
-                    <div className="shrink-0 text-center rounded-xl border border-violet-200 bg-violet-50/60 px-3.5 py-2.5">
-                      <div className="text-xl font-extrabold text-violet-600 num-ltr">{result.split(" ")[0]}</div>
-                      <div className="text-[11px] text-zinc-500 mt-0.5 whitespace-nowrap">{result.substring(result.indexOf(" ") + 1)}</div>
-                    </div>
+                  <div className="card-head items-start">
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="card-ico">
+                        <u.Icon className="w-6 h-6" aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block t-head-2">{isAr ? u.sector : u.sectorEn}</span>
+                        <span className="card-eyebrow">{isAr ? u.stores : u.storesEn}</span>
+                      </span>
+                    </span>
+                    <span className="card-inset !mt-0 shrink-0 text-center !py-2.5 !px-3.5">
+                      <span className="block t-head-2 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{result.split(" ")[0]}</span>
+                      <span className="card-eyebrow whitespace-nowrap">{result.substring(result.indexOf(" ") + 1)}</span>
+                    </span>
                   </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2.5">{ft.bestStrategies}</div>
+                  <div className="card-foot flex-col items-stretch">
+                    <div className="card-eyebrow mb-2.5">{ft.bestStrategies}</div>
                     <div className="flex flex-col gap-2">
                       {(isAr ? u.strategies : u.strategiesEn).map(s => (
-                        <div key={s} className="flex items-center gap-2 text-sm text-zinc-700">
-                          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />
+                        <div key={s} className="card-body-text flex items-center gap-2">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: "var(--ziadah-violet)" }}
+                            aria-hidden="true"
+                          />
                           {s}
                         </div>
                       ))}
@@ -364,7 +386,9 @@ export default function Features() {
                 </div>
               );
             })}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       <PageClosingCta

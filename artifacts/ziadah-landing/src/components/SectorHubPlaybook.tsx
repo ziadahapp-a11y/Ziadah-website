@@ -15,7 +15,7 @@ export default function SectorHubPlaybook({
   return (
     <section
       id="sector-store-playbook"
-      className="sector-playbook-wrap rv d2 relative z-[2] rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      className="sector-playbook-wrap rv d2 relative z-[2] sector-block"
       style={{ marginBottom: 28, scrollMarginTop: 120 }}
     >
       <div className="mb-3">

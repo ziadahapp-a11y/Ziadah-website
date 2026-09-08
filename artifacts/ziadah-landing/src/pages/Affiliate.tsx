@@ -17,16 +17,8 @@ import PageShell from "../components/PageShell";
 import BilingualSEO from "../components/BilingualSEO";
 import { FAQSchema, AffiliatePageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import {
-  Section,
-  SectionHeading,
-  Card,
-  StatCard,
-  CtaSection,
-} from "@/components/trackflow";
-import { Button } from "@/components/ui/button";
-import { Button as MkButton } from "@/components/mk";
-import { HeroLede } from "@/sections";
+import { Button as MkButton, Shell } from "@/components/mk";
+import { HeroLede, Section, SectionHead, CtaSection } from "@/sections";
 
 const WA_LINK =
   "https://api.whatsapp.com/send/?phone=966510131856&text=%D8%A3%D9%87%D9%84%D8%A7%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A3%D9%86%D8%B6%D9%85%20%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D8%B1%D8%A7%D9%83%D8%A9%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%A7%D8%AF%D8%A9";
@@ -171,7 +163,6 @@ export default function Affiliate() {
   const isAr = lang === "ar";
   const dir = isAr ? "rtl" : "ltr";
 
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [stores, setStores] = useState(5);
   const [planIdx, setPlanIdx] = useState(1);
 
@@ -191,7 +182,10 @@ export default function Affiliate() {
   const monthly = yourComm / 12;
   const clientSave = totalAnnual * 0.1;
 
-  const riyal = isAr ? "⃁" : "SAR";
+  /* The official SAR glyph (U+20C1) is not covered by the loaded font, so it
+     rendered as a tofu box beside every figure on this page. The site uses
+     the text abbreviation everywhere else for exactly that reason. */
+  const riyal = isAr ? "ر.س" : "SAR";
 
 
   return (
@@ -239,61 +233,64 @@ export default function Affiliate() {
         </HeroLede>
 
         {/* ══════════ HOW IT WORKS ══════════ */}
-        <Section band="muted">
-          <SectionHeading eyebrow={c.howTag} title={c.howTitle} />
-          <div className="grid md:grid-cols-3 gap-5">
-            {c.howSteps.map((step, i) => {
-              const Icon = HOW_ICONS[i];
-              return (
-                <Card key={i}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase num-ltr">
-                      {step.num}
-                    </span>
-                    <div className="w-10 h-10 rounded-lg bg-zinc-950 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-white" />
+        <Section family="grey">
+          <SectionHead center kicker={c.howTag} title={c.howTitle} />
+          <Shell width="wide">
+            <div className="cards-grid">
+              {c.howSteps.map((step, i) => {
+                const Icon = HOW_ICONS[i];
+                return (
+                  <div key={i} className="card">
+                    <div className="card-head">
+                      <span className="card-ico">
+                        <Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                      <span className="card-eyebrow num-ltr">{step.num}</span>
                     </div>
+                    <h3 className="card-title">{step.title}</h3>
+                    <p className="card-body-text">{step.desc}</p>
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold text-zinc-950 mb-3 leading-snug">{step.title}</h3>
-                  <p className="text-sm md:text-base text-zinc-600 leading-relaxed">{step.desc}</p>
-                </Card>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </Shell>
         </Section>
 
         {/* ══════════ BENEFITS ══════════ */}
-        <Section band="white">
-          <SectionHeading eyebrow={c.benefitsTag} title={c.benefitsTitle} />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {c.benefits.map((b, i) => {
-              const Icon = BENEFIT_ICONS[i];
-              return (
-                <Card key={i}>
-                  <div className="w-11 h-11 rounded-xl bg-violet-100 border border-violet-200 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-violet-600" />
+        <Section family="violet">
+          <SectionHead center kicker={c.benefitsTag} title={c.benefitsTitle} />
+          <Shell width="wide">
+            <div className="cards-grid">
+              {c.benefits.map((b, i) => {
+                const Icon = BENEFIT_ICONS[i];
+                return (
+                  <div key={i} className="card">
+                    <span className="card-ico">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <h3 className="card-title">{b.title}</h3>
+                    <p className="card-body-text">{b.desc}</p>
                   </div>
-                  <h3 className="text-lg font-bold text-zinc-950 mb-2.5 leading-snug">{b.title}</h3>
-                  <p className="text-sm text-zinc-600 leading-relaxed">{b.desc}</p>
-                </Card>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          </Shell>
         </Section>
 
         {/* ══════════ CALCULATOR ══════════ */}
-        <Section band="muted">
-          <SectionHeading eyebrow={c.calcTag} title={c.calcTitle} subtitle={c.calcDesc} />
+        <Section family="grey">
+          <SectionHead center kicker={c.calcTag} title={c.calcTitle} lead={c.calcDesc} />
 
-          <div className="rounded-2xl border border-zinc-200 bg-white p-7 md:p-10 shadow-card">
+          <Shell width="wide">
+          <div className="card">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
               {/* Controls */}
               <div className="flex flex-col gap-7">
                 {/* Stores slider */}
                 <div>
-                  <label className="flex items-center justify-between gap-3 mb-4 text-sm font-bold text-zinc-950">
-                    <span>{c.calcStores}</span>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-violet-100 border border-violet-200 text-xs font-bold text-violet-700 num-ltr">
+                  <label className="card-head mb-4">
+                    <span className="t-sm-med">{c.calcStores}</span>
+                    <span className="pill pill--live num-ltr">
                       {isAr ? fmt(stores) + " متجر" : stores + " stores"}
                     </span>
                   </label>
@@ -305,7 +302,7 @@ export default function Affiliate() {
                     onChange={(e) => setStores(Number(e.target.value))}
                     className="aff-slider w-full accent-violet-600"
                   />
-                  <div className="flex items-center justify-between mt-2 text-xs text-zinc-400 num-ltr">
+                  <div className="card-eyebrow num-ltr flex items-center justify-between mt-2">
                     <span>1</span>
                     <span>50</span>
                   </div>
@@ -313,21 +310,19 @@ export default function Affiliate() {
 
                 {/* Plan selector */}
                 <div>
-                  <label className="block mb-4 text-sm font-bold text-zinc-950">{c.calcPlan}</label>
+                  <label className="block mb-4 t-sm-med">{c.calcPlan}</label>
                   <div className="grid grid-cols-2 gap-2.5">
                     {PLANS.map((p, i) => (
                       <button
                         key={i}
                         type="button"
                         onClick={() => setPlanIdx(i)}
-                        className={`flex flex-col items-start gap-1 rounded-xl border p-3.5 text-start transition-all ${
-                          planIdx === i
-                            ? "border-violet-500 bg-violet-50 ring-1 ring-violet-500/20"
-                            : "border-zinc-200 bg-white hover:border-zinc-300"
-                        }`}
+                        className="card-inset !mt-0 card--pick flex flex-col items-start gap-1"
+                        data-active={planIdx === i ? "true" : "false"}
+                        aria-pressed={planIdx === i}
                       >
-                        <span className="text-sm font-bold text-zinc-950">{isAr ? p.keyAr : p.keyEn}</span>
-                        <span className="text-xs text-zinc-500 num-ltr">
+                        <span className="t-sm-med">{isAr ? p.keyAr : p.keyEn}</span>
+                        <span className="card-eyebrow num-ltr">
                           {fmt(p.annual)} {riyal}
                         </span>
                       </button>
@@ -338,92 +333,81 @@ export default function Affiliate() {
 
               {/* Results */}
               <div className="flex flex-col gap-3">
-                <div className="rounded-2xl mockup-card overflow-hidden shadow-card-lg relative p-6 text-center">
-                  <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[140px] bg-violet-500/20 blur-[80px] rounded-full pointer-events-none" />
-                  <div className="relative">
-                    <div className="text-sm text-zinc-400 mb-1.5">{c.calcYourComm}*</div>
-                    <div className="text-4xl md:text-5xl font-extrabold text-white num-ltr">
-                      {fmt(yourComm)} <span className="text-base font-semibold text-zinc-400">{riyal}</span>
-                    </div>
+                {/* The headline figure flips to the family's other end, which
+                    is how the system makes a block read as raised. The version
+                    this replaces was a `mockup-card` with a grid overlay and a
+                    blur glow - a dark panel painted by hand, in one block's
+                    colours rather than the section's. */}
+                <div className="card card--short is-flipped text-center">
+                  <div className="card-eyebrow">{c.calcYourComm}*</div>
+                  <div className="t-display-3 num-ltr">
+                    {fmt(yourComm)} <span className="t-body-18 opacity-70">{riyal}</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
-                    <span className="text-sm text-zinc-600">{c.calcMonthlyComm}</span>
-                    <span className="text-base font-bold text-zinc-950 num-ltr">
-                      {fmt(Math.round(monthly))} {riyal}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
-                    <span className="text-sm text-zinc-600">{c.calcAnnualTotal}</span>
-                    <span className="text-base font-bold text-zinc-950 num-ltr">
-                      {fmt(totalAnnual)} {riyal}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between rounded-xl border border-violet-200 bg-violet-50/60 p-4">
-                    <span className="text-sm text-violet-700">{c.calcClientSave}</span>
-                    <span className="text-base font-bold text-violet-700 num-ltr">
-                      {fmt(clientSave)} {riyal}
-                    </span>
-                  </div>
+                  {[
+                    { k: "m", label: c.calcMonthlyComm, value: `${fmt(Math.round(monthly))} ${riyal}` },
+                    { k: "a", label: c.calcAnnualTotal, value: `${fmt(totalAnnual)} ${riyal}` },
+                    { k: "s", label: c.calcClientSave, value: `${fmt(clientSave)} ${riyal}` },
+                  ].map((row) => (
+                    <div key={row.k} className="card-inset !mt-0 flex items-center justify-between gap-3">
+                      <span>{row.label}</span>
+                      <span className="t-sm-med num-ltr">{row.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            <p className="mt-6 text-xs text-zinc-400 text-center">
+            <p className="section-note">
               {isAr
                 ? "* العمولة محسوبة على سعر الاشتراك غير شامل ضريبة القيمة المضافة."
                 : "* Commission is calculated on the subscription price excluding VAT."}
             </p>
           </div>
+          </Shell>
         </Section>
 
         {/* ══════════ FAQ ══════════ */}
-        <Section band="white" containerClassName="max-w-3xl">
-          <SectionHeading eyebrow={c.faqTag} title={c.faqTitle} />
-          <div className="flex flex-col gap-3">
-            {c.faqs.map((faq, i) => {
-              const open = openFaq === i;
-              return (
-                <div
-                  key={i}
-                  className={`rounded-2xl border bg-white transition-colors ${
-                    open ? "border-zinc-300 shadow-card" : "border-zinc-200 hover:border-zinc-300"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between gap-4 p-5 text-start"
-                    onClick={() => setOpenFaq(open ? null : i)}
-                    aria-expanded={open}
-                  >
-                    <span className="text-base font-bold text-zinc-950">{faq.q}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 shrink-0 text-zinc-400 transition-transform ${open ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {open && <div className="px-5 pb-5 text-sm text-zinc-600 leading-relaxed">{faq.a}</div>}
-                </div>
-              );
-            })}
-          </div>
+        {/* The system's FAQ is a rule-separated list of native `<details>`,
+            not a stack of bordered white panels with a JS open state. The
+            disclosure is the browser's, so keyboard and screen-reader
+            behaviour comes for free. */}
+        <Section family="violet">
+          <SectionHead center kicker={c.faqTag} title={c.faqTitle} />
+          <Shell width="narrow">
+            <div className="faq-list measure-read">
+              {c.faqs.map((faq, i) => (
+                <details key={i} className="faq-item">
+                  <summary className="faq-summary">
+                    <h3 className="!font-medium">{faq.q}</h3>
+                    <ChevronDown className="faq-icon" aria-hidden="true" />
+                  </summary>
+                  <div className="faq-answer">{faq.a}</div>
+                </details>
+              ))}
+            </div>
+          </Shell>
         </Section>
 
         {/* ══════════ FINAL CTA ══════════ */}
-        <CtaSection title={c.finalTitle} subtitle={c.finalDesc}>
-          <Button
-            asChild
-            size="lg"
-            className="bg-white text-zinc-950 hover:bg-zinc-100 font-semibold transition-colors"
-          >
-            <a href={WA_LINK} target="_blank" rel="noreferrer">
-              <WaIcon size={22} />
-              <span className="ms-2">{c.ctaMain}</span>
-            </a>
-          </Button>
-        </CtaSection>
+        <CtaSection
+          family="violet"
+          invert
+          title={c.finalTitle}
+          body={c.finalDesc}
+          primary={{
+            label: (
+              <>
+                <WaIcon size={22} />
+                <span className="ms-2">{c.ctaMain}</span>
+              </>
+            ),
+            onClick: () => window.open(WA_LINK, "_blank", "noopener,noreferrer"),
+            testId: "affiliate-whatsapp",
+          }}
+        />
 
       </div>
     </PageShell>

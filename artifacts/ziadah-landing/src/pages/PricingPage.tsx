@@ -156,6 +156,12 @@ export default function PricingPage() {
   }, []);
 
   const isAr = lang === "ar";
+
+  /* The official SAR glyph (U+20C1) is not covered by the loaded font and
+
+     rendered as a tofu box beside every figure on this page. */
+
+  const riyal = isAr ? "ر.س" : "SAR";
   const ld = t[lang].landing;
   const pc = t[lang].pageClosingCta;
   const dir = isAr ? "rtl" : "ltr";
@@ -281,38 +287,36 @@ export default function PricingPage() {
                   return (
                     <div
                       key={plan.key}
-                      className={`relative flex flex-col rounded-2xl p-6 ${
-                        featured
-                          ? "mockup-card overflow-visible ring-1 ring-violet-500/40 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.45),0_0_50px_-8px_rgba(124, 58, 237,0.55)]"
-                          : "bg-white border border-zinc-200 shadow-card hover:border-violet-200 hover:shadow-card-lg transition-all"
-                      }`}
+                      /* The system's price card: one tint of the section ink,
+                         and the featured plan flips its whole colour triple
+                         with `.is-flipped` rather than being a hand-painted
+                         `mockup-card` with a violet ring and two shadows. The
+                         card keeps `overflow: visible` for the badge that
+                         floats above its top edge. */
+                      className={`price-card !overflow-visible${featured ? " is-flipped" : ""}`}
                       style={{ zIndex: topupOpen[plan.key] ? 20 : undefined }}
                     >
                       {/* "Most popular" badge for the featured (dark) plan */}
                       {featured && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500 to-violet-600 px-3 py-1 text-xs font-bold text-white shadow-lg shadow-violet-600/40 whitespace-nowrap">
-                          {isAr ? "الأكثر اختياراً" : "Most popular"}
-                        </div>
+                        <span className="price-flag">{isAr ? "الأكثر اختياراً" : "Most popular"}</span>
                       )}
                       {/* Non-featured plan badge (e.g. Business) */}
                       {!featured && plan.badge && (
-                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900 px-3 py-1 text-xs font-bold text-white shadow-md whitespace-nowrap">
-                          {plan.badge}
-                        </div>
+                        <span className="price-flag">{plan.badge}</span>
                       )}
 
-                      <h3 className={`text-lg font-bold mb-1.5 ${featured ? "text-white" : "text-zinc-950"}`}>
+                      <h3 className="price-name mb-1.5">
                         {plan.name}
                       </h3>
-                      <p className={`text-sm mb-5 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>{plan.desc}</p>
+                      <p className="price-note mb-5">{plan.desc}</p>
 
                       {/* Discount row */}
                       {mode === "y" && (
                         <div className="flex items-center gap-2 mb-2">
-                          <span className={`num-ltr text-sm line-through ${featured ? "text-zinc-500" : "text-zinc-400"}`}>
-                            {plan.yOrig} ⃁
+                          <span className="card-eyebrow num-ltr line-through">
+                            {plan.yOrig} {riyal}
                           </span>
-                          <span className="rounded-full bg-violet-100 border border-violet-200 px-2 py-0.5 text-[10px] font-bold text-violet-700">
+                          <span className="tag">
                             {plan.yDisc} {isAr ? "خصم" : "off"}
                           </span>
                         </div>
@@ -320,26 +324,26 @@ export default function PricingPage() {
 
                       {/* Price */}
                       <div className="flex items-baseline gap-1.5 mb-1">
-                        <span className={`num-ltr text-4xl font-extrabold ${featured ? "text-white" : "text-zinc-950"}`}>
+                        <span className="t-display-3 num-ltr">
                           {displayPrice}
                         </span>
-                        <span className={`text-2xl font-bold ${featured ? "text-zinc-300" : "text-zinc-700"}`}>⃁</span>
-                        <span className={`text-sm ${featured ? "text-zinc-400" : "text-zinc-500"}`}>{priceLabel}</span>
+                        <span className="t-head-2 opacity-70">{riyal}</span>
+                        <span className="price-note">{priceLabel}</span>
                       </div>
 
                       {selTopup && (
-                        <div className={`flex flex-wrap items-center gap-1.5 text-[11px] mb-3 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                        <div className="card-eyebrow flex flex-wrap items-center gap-1.5 mb-3">
                           <span>
                             {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
-                            : {topupBase} ⃁
+                            : {topupBase} {riyal}
                           </span>
                           <span className="font-bold">+</span>
-                          <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} ⃁</span>
+                          <span>{isAr ? "نقاط" : "Points"}: {fmtPrice(selTopup.price)} {riyal}</span>
                         </div>
                       )}
 
                       {mode === "y" && !selTopup && (
-                        <div className={`text-xs mb-3 ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                        <div className="card-eyebrow mb-3">
                           {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
                         </div>
                       )}
@@ -395,22 +399,18 @@ export default function PricingPage() {
                       <div className="relative mt-3">
                         <button
                           type="button"
-                          className={`flex w-full items-center gap-2 rounded-lg border px-3 py-2.5 text-xs font-semibold transition-colors ${
-                            featured
-                              ? "border-white/15 bg-white/[0.04] text-zinc-200 hover:border-white/25"
-                              : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300"
-                          } ${topupSel[plan.key] != null ? (featured ? "border-violet-400/40" : "border-violet-300") : ""}`}
+                          className={`topup-trigger${topupSel[plan.key] != null ? " is-set" : ""}`}
                           onClick={() => toggleTopup(plan.key)}
                         >
-                          <Zap className={`w-3.5 h-3.5 shrink-0 ${featured ? "text-violet-300" : "text-violet-600"}`} />
+                          <Zap className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--ziadah-violet)" }} aria-hidden="true" />
                           <span className="flex-1 text-start truncate">
                             {selTopup
                               ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
                               : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
                           </span>
                           {selTopup && (
-                            <span className={`num-ltr font-bold ${featured ? "text-violet-300" : "text-violet-600"}`}>
-                              +{fmtPrice(selTopup.price)} ⃁
+                            <span className="num-ltr font-bold">
+                              +{fmtPrice(selTopup.price)} {riyal}
                             </span>
                           )}
                           <ChevronDown
@@ -419,15 +419,11 @@ export default function PricingPage() {
                         </button>
                         {topupOpen[plan.key] && (
                           <div
-                            className={`absolute inset-x-0 top-full z-30 mt-1.5 overflow-hidden rounded-lg border shadow-card-lg ${
-                              featured ? "border-white/15 bg-zinc-900" : "border-zinc-200 bg-white"
-                            }`}
+                            className="topup-menu"
                           >
                             <button
                               type="button"
-                              className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors ${
-                                featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
-                              } ${topupSel[plan.key] == null ? (featured ? "bg-white/[0.06]" : "bg-zinc-50") : ""}`}
+                              className={`topup-item${topupSel[plan.key] == null ? " is-on" : ""}`}
                               onClick={() => selectTopup(plan.key, null)}
                             >
                               <span>{isAr ? "بدون نقاط إضافية" : "No extra points"}</span>
@@ -437,13 +433,11 @@ export default function PricingPage() {
                               <button
                                 key={ti}
                                 type="button"
-                                className={`flex w-full items-center justify-between px-3 py-2.5 text-xs font-semibold transition-colors ${
-                                  featured ? "text-zinc-300 hover:bg-white/[0.06]" : "text-zinc-700 hover:bg-zinc-50"
-                                } ${topupSel[plan.key] === ti ? (featured ? "bg-violet-500/15 text-violet-300" : "bg-violet-50 text-violet-700") : ""}`}
+                                className={`topup-item${topupSel[plan.key] === ti ? " is-on" : ""}`}
                                 onClick={() => selectTopup(plan.key, ti)}
                               >
                                 <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
-                                <span>+{fmtPrice(pkg.price)} ⃁</span>
+                                <span>+{fmtPrice(pkg.price)} {riyal}</span>
                               </button>
                             ))}
                           </div>
@@ -451,19 +445,19 @@ export default function PricingPage() {
                       </div>
 
                       {/* Feature list */}
-                      <div className={`flex-1 space-y-3 pt-6 mt-6 border-t ${featured ? "border-white/10" : "border-zinc-100"}`}>
+                      <div className="flex-1 space-y-3 card-rule mt-6">
                         {plan.featIntro && (
-                          <p className={`text-xs font-semibold ${featured ? "text-zinc-400" : "text-zinc-500"}`}>
+                          <p className="card-eyebrow">
                             {plan.featIntro}
                           </p>
                         )}
                         {plan.features.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5">
-                            <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${featured ? "text-violet-400" : "text-violet-600"}`} />
-                            <span className={`text-sm ${featured ? "text-zinc-300" : "text-zinc-700"}`}>
+                            <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+                            <span className="card-body-text">
                               {f.replace(" ★", "")}
                               {f.includes("★") && (
-                                <span className={`ms-1 ${featured ? "text-violet-300" : "text-violet-600"}`}>★</span>
+                                <span className="ms-1">★</span>
                               )}
                             </span>
                           </div>
@@ -519,7 +513,7 @@ export default function PricingPage() {
                       </div>
                       <div className={`mt-0.5 text-xs num-ltr ${plan.featured ? "text-violet-100" : "text-zinc-500"}`}>
                         {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
-                        <span>⃁/{isAr ? "شهر" : "mo"}</span>
+                        <span>{riyal}/{isAr ? "شهر" : "mo"}</span>
                       </div>
                     </div>
                   ))}

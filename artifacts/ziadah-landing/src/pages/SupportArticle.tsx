@@ -301,11 +301,11 @@ export default function SupportArticle() {
                         e.preventDefault();
                         navigateTo(`/support/article/${s.id}`);
                       }}
-                      className="flex items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-white p-5 text-start hover:border-zinc-300 hover:shadow-card transition-all"
+                      className="card card--short card--clickable flex-row items-center justify-between gap-4"
                     >
                       <div>
                         <div className="text-sm font-bold text-zinc-950">{siblingTitle(s)}</div>
-                        <div className="text-xs text-zinc-500 mt-1"><span className="num-ltr">{siblingTime(s)}</span> {tx.readSuffix}</div>
+                        <div className="card-eyebrow mt-1"><span className="num-ltr">{siblingTime(s)}</span> {tx.readSuffix}</div>
                       </div>
                       <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 ${isAr ? "rotate-180" : ""}`} />
                     </a>

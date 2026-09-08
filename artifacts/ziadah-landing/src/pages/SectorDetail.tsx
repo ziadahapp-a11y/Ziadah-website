@@ -338,7 +338,7 @@ export default function SectorDetail() {
           {!showPlatformHub && visualBundle ? (
             <div
               id="section-examples"
-              className="rv d3 rounded-2xl border border-zinc-200 bg-white p-7 md:p-9 shadow-card"
+              className="rv d3 sector-block"
               style={{ marginBottom: 20, scrollMarginTop: 120 }}
             >
               <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-5 leading-tight">{tr.sectionExamples}</h2>

@@ -9,8 +9,8 @@ import { useLanguage } from "../i18n/LanguageContext";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { stories, storyEn, type StoryData } from "@/data/successStoriesData";
 import { navigateTo } from "@/components/PageTransition";
-import { Section, Eyebrow } from "@/components/trackflow";
-import { HeroLede } from "@/sections";
+import { HeroLede, Section, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_NAME_EN: Record<string, string> = {
@@ -81,7 +81,7 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
   return (
     <a
       href={`/success-stories/${s.slug}`}
-      className="group flex flex-col gap-5 text-start rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all"
+      className="card card--short card--clickable"
       onClick={(e) => {
         e.preventDefault();
         navigateTo(`/success-stories/${s.slug}`);
@@ -89,41 +89,41 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
       aria-label={isAr ? `اقرأ قصة ${s.store}` : `Read ${storeLabel} story`}
     >
       <div className="flex items-center gap-3.5 min-w-0">
+        {/* The logo keeps a white plate: a merchant's mark is a supplied
+            asset drawn for a white ground, and tinting the plate to the
+            section would put half of them on a colour they were never cut
+            for. The initial fallback takes the section's ink. */}
         {s.logoUrl ? (
-          <div className="shrink-0 w-12 h-12 rounded-xl border border-zinc-200 bg-white p-1.5 flex items-center justify-center overflow-hidden">
+          <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
             <img src={s.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
           </div>
         ) : (
-          <div className="shrink-0 w-12 h-12 rounded-xl bg-zinc-950 text-white text-lg font-bold flex items-center justify-center">
-            {s.logo}
-          </div>
+          <div className="card-ico shrink-0 text-lg font-bold">{s.logo}</div>
         )}
         <div className="flex-1 min-w-0">
           {/* Two lines, not one. `truncate` was cutting 142px off the longest
               store names at the tablet tier - "جمعية تحفيظ القرآن - خميس
               مشيط" lost more than half of itself - and a merchant's name is
               the one thing on this card that must survive. */}
-          <h3 className="text-base font-bold text-zinc-950 leading-snug mb-1 line-clamp-2">{storeLabel}</h3>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500">
+          <h3 className="t-sm-med line-clamp-2">{storeLabel}</h3>
+          <span className="card-eyebrow inline-flex items-center gap-1.5">
             <span aria-hidden>{SECTOR_ICONS[s.sector] || "◆"}</span>
             {sectorLabel}
           </span>
         </div>
       </div>
 
-      <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
-        <div className="text-[10px] font-bold tracking-widest text-zinc-500 uppercase mb-1.5">
-          {isAr ? "إجمالي المبيعات" : "Total sales"}
-        </div>
-        <div className="text-2xl font-extrabold text-zinc-950 num-ltr">
+      <div className="card-inset">
+        <div className="card-eyebrow">{isAr ? "إجمالي المبيعات" : "Total sales"}</div>
+        <div className="card-title num-ltr">
           {s.sales}
-          <span className="ms-1.5 text-sm font-bold text-zinc-500">{isAr ? "ر.س" : "SAR"}</span>
+          <span className="ms-1.5 t-sm-med">{isAr ? "ر.س" : "SAR"}</span>
         </div>
       </div>
 
-      <div className="flex items-center justify-between pt-1 text-sm font-bold text-violet-600 border-t border-zinc-100">
+      <div className="card-cta card-foot">
         <span>{isAr ? "اقرأ القصة كاملة" : "Read full story"}</span>
-        <Arrow className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5" aria-hidden />
+        <Arrow className="card-arrow w-4 h-4" aria-hidden />
       </div>
     </a>
   );
@@ -200,7 +200,10 @@ export default function SuccessStories() {
         description={sx.seoDesc}
         url="/success-stories"
       />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+      {/* The forced `#fff` is gone. A page's ground is its first section's,
+          and painting white here put a white slab under every band that had
+          stamped its own family. */}
+      <PageShell className="relative overflow-x-clip">
         {/* ══════════════════ HERO ══════════════════ */}
         <HeroLede
           family="violet"
@@ -235,11 +238,11 @@ export default function SuccessStories() {
         </HeroLede>
 
         {/* ══════════════════ STICKY SECTOR FILTER ══════════════════ */}
-        <nav
-          className="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-zinc-200"
-          aria-label={isAr ? "تصفية حسب القطاع" : "Filter by sector"}
-        >
-          <div className="container mx-auto max-w-6xl px-4 py-3">
+        {/* The filter is chrome, not a band: it sticks across sections of
+            different families, so it takes the neutral surface roles rather
+            than any one section's pair. */}
+        <nav className="sector-filter" aria-label={isAr ? "تصفية حسب القطاع" : "Filter by sector"}>
+          <div className="container">
             <div
               ref={filterRef}
               className="flex gap-2 flex-wrap justify-center max-md:flex-nowrap max-md:justify-start max-md:overflow-x-auto"
@@ -251,19 +254,12 @@ export default function SuccessStories() {
                     key={sector}
                     type="button"
                     onClick={() => handleSectorChange(sector)}
-                    className={`inline-flex items-center gap-2 rounded-full text-xs font-bold px-3.5 py-2 whitespace-nowrap transition-colors ${
-                      active
-                        ? "bg-zinc-950 text-white border border-zinc-950"
-                        : "border border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 hover:bg-zinc-50"
-                    }`}
+                    className="chip gap-2"
+                    aria-pressed={active}
                   >
                     <span aria-hidden>{SECTOR_ICONS[sector] || "◆"}</span>
                     <span>{sectorDisplay(sector)}</span>
-                    <span className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-md text-[11px] font-extrabold num-ltr ${
-                      active ? "bg-white/20 text-white" : "bg-violet-100 text-violet-700"
-                    }`}>
-                      {sectorCounts[sector] || 0}
-                    </span>
+                    <span className="chip-count num-ltr">{sectorCounts[sector] || 0}</span>
                   </button>
                 );
               })}
@@ -272,7 +268,8 @@ export default function SuccessStories() {
         </nav>
 
         {/* ══════════════════ STORY GRID ══════════════════ */}
-        <Section containerClassName="max-w-6xl">
+        <Section family="grey">
+          <Shell width="wide">
             {activeSector !== "الكل" && (
               <div className="flex flex-wrap items-center gap-3 mb-8">
                 <div className="text-sm text-zinc-600">
@@ -300,22 +297,19 @@ export default function SuccessStories() {
                 <BriefStoryCard key={s.slug} s={s} isAr={isAr} />
               ))}
             </div>
+          </Shell>
         </Section>
 
         {/* ══════════════════ BY SECTOR ══════════════════ */}
-        <Section band="muted" containerClassName="max-w-6xl">
-            <div className="text-center mb-14">
-              <div className="mb-4">
-                <Eyebrow>{isAr ? "حسب القطاع" : "By Sector"}</Eyebrow>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 mb-4 leading-tight">
-                {isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}
-              </h2>
-              <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
-                {isAr ? "زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك" : "Ziadah works with all types of stores — discover the results in your industry"}
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <Section family="violet">
+          <SectionHead
+            center
+            kicker={isAr ? "حسب القطاع" : "By Sector"}
+            title={isAr ? "نجاح في كل قطاع" : "Success in Every Sector"}
+            lead={isAr ? "زيادة يعمل مع جميع أنواع المتاجر — اكتشف النتائج في مجالك" : "Ziadah works with all types of stores — discover the results in your industry"}
+          />
+          <Shell width="wide">
+            <div className="cards-grid">
               {(isAr ? sectors : sectorsEn).map(s => {
                 const sectorArName = s.nameAr;
                 const count = stories.filter(st => st.sector === sectorArName).length;
@@ -327,23 +321,24 @@ export default function SuccessStories() {
                       handleSectorChange(sectorArName);
                       window.scrollTo({ top: 520, behavior: "smooth" });
                     }}
-                    className="group flex items-center gap-4 text-start rounded-2xl border border-zinc-200 bg-white p-5 hover:border-zinc-300 hover:shadow-card transition-all"
+                    className="card card--short card--pick card--clickable flex-row items-center gap-4"
                   >
-                    <div className="text-4xl leading-none shrink-0" aria-hidden>{s.icon}</div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-[15px] text-zinc-950 mb-1">{isAr ? s.nameAr : s.name}</div>
-                      <div className="text-xs text-zinc-500 mb-1.5">{s.stores} · {s.avg}</div>
+                    <span className="text-4xl leading-none shrink-0" aria-hidden>{s.icon}</span>
+                    <span className="flex-1 min-w-0 flex flex-col gap-1">
+                      <span className="t-sm-med">{isAr ? s.nameAr : s.name}</span>
+                      <span className="card-eyebrow">{s.stores} · {s.avg}</span>
                       {count > 0 && (
-                        <div className="inline-flex items-center gap-1 text-[11px] font-bold text-violet-700 bg-violet-50 border border-violet-100 px-2.5 py-0.5 rounded-md num-ltr">
+                        <span className="pill pill--soon num-ltr self-start !ms-0">
                           {count} {isAr ? "قصة نجاح" : (count === 1 ? "success story" : "success stories")}
-                        </div>
+                        </span>
                       )}
-                    </div>
-                    <SectorChevron className="w-4 h-4 text-zinc-300 shrink-0 transition-colors group-hover:text-violet-600" aria-hidden />
+                    </span>
+                    <SectorChevron className="card-arrow w-4 h-4 shrink-0 opacity-50" aria-hidden />
                   </button>
                 );
               })}
             </div>
+          </Shell>
         </Section>
 
         <PageClosingCta

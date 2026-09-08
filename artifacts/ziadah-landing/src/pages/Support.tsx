@@ -20,7 +20,8 @@ import { useLanguage } from "../i18n/LanguageContext";
 import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
-import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
+import { Section, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
 import { HeroLede } from "@/sections";
 import { t as siteTranslations } from "@/i18n/translations";
 
@@ -158,45 +159,46 @@ export default function Support() {
       </HeroLede>
 
       {/* ─── QUICK LINKS ─── */}
-      <Section band="white">
-        <SectionHeading eyebrow={tx.tag} title={tx.contactSupport} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <Section family="violet">
+        <SectionHead center kicker={tx.tag} title={tx.contactSupport} />
+        <Shell width="wide">
+        <div className="cards-grid">
           <a
             href="mailto:support@ziadah.app"
-            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+            className="rv card card--short card--clickable flex-row items-center gap-4"
           >
-            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
-              <Mail className="w-5 h-5 text-white" />
+            <span className="card-ico">
+              <Mail className="w-5 h-5" aria-hidden="true" />
             </span>
-            <div className="flex-1 min-w-0">
-              <div className="text-base font-bold text-zinc-950">{navTr.email}</div>
-              <div className="text-sm text-zinc-600 mt-0.5">{navTr.emailSub}</div>
-            </div>
+            <span className="flex-1 min-w-0">
+              <span className="block t-sm-med">{navTr.email}</span>
+              <span className="card-body-text">{navTr.emailSub}</span>
+            </span>
           </a>
           <button
             type="button"
             onClick={() => setFeatureModalOpen(true)}
-            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+            className="rv card card--short card--clickable flex-row items-center gap-4"
           >
-            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
-              <Lightbulb className="w-5 h-5 text-white" />
+            <span className="card-ico">
+              <Lightbulb className="w-5 h-5" aria-hidden="true" />
             </span>
-            <div className="flex-1 min-w-0">
-              <div className="text-base font-bold text-zinc-950">{navTr.featureRequest}</div>
-              <div className="text-sm text-zinc-600 mt-0.5">{navTr.featureRequestSub}</div>
-            </div>
+            <span className="flex-1 min-w-0">
+              <span className="block t-sm-med">{navTr.featureRequest}</span>
+              <span className="card-body-text">{navTr.featureRequestSub}</span>
+            </span>
           </button>
           {quickLinks.map(l => {
             const Icon = l.icon === "💬" ? MessageCircle : ExternalLink;
             const inner = (
               <>
-                <span className="w-11 h-11 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5 text-zinc-700" />
+                <span className="card-ico">
+                  <Icon className="w-5 h-5" aria-hidden="true" />
                 </span>
-                <div className="flex-1 min-w-0">
-                  <div className="text-base font-bold text-zinc-950">{l.label}</div>
-                  <div className="text-sm text-zinc-600 mt-0.5">{l.desc}</div>
-                </div>
+                <span className="flex-1 min-w-0">
+                  <span className="block t-sm-med">{l.label}</span>
+                  <span className="card-body-text">{l.desc}</span>
+                </span>
               </>
             );
             return (
@@ -205,17 +207,19 @@ export default function Support() {
                 href={l.href}
                 target="_blank"
                 rel="noreferrer"
-                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+                className="rv card card--short card--clickable flex-row items-center gap-4"
               >
                 {inner}
               </a>
             );
           })}
         </div>
+        </Shell>
       </Section>
 
       {/* ─── CATEGORIES + ARTICLES ─── */}
-      <Section band="muted">
+      <Section family="grey">
+        <Shell width="wide">
         {/* mobile category pills */}
         <div className="rv flex gap-2 overflow-x-auto pb-2 mb-8 lg:hidden">
           {categories.map((c) => (
@@ -223,15 +227,12 @@ export default function Support() {
               key={c.id}
               type="button"
               onClick={() => setActiveCategory(c.id)}
-              className={`shrink-0 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-colors ${
-                activeCategory === c.id
-                  ? "bg-zinc-950 text-white border-zinc-950"
-                  : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300"
-              }`}
+              className="chip shrink-0 gap-2"
+              aria-pressed={activeCategory === c.id}
             >
               <span aria-hidden>{c.icon}</span>
               {getCatLabel(c)}
-              <span className="text-xs opacity-70 num-ltr">{c.articles.length}</span>
+              <span className="chip-count num-ltr">{c.articles.length}</span>
             </button>
           ))}
         </div>
@@ -239,19 +240,18 @@ export default function Support() {
         <div className="grid lg:grid-cols-[260px_1fr] gap-8">
           {/* sidebar */}
           <aside className="hidden lg:block">
-            <div className="rv rounded-2xl border border-zinc-200 bg-white p-3 shadow-card sticky top-24">
+            <div className="rv card card--short !p-3 sticky top-24">
               {categories.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setActiveCategory(c.id)}
-                  className={`w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-start transition-colors ${
-                    activeCategory === c.id ? "bg-zinc-950 text-white" : "text-zinc-700 hover:bg-zinc-50"
-                  }`}
+                  className="cat-link"
+                  aria-pressed={activeCategory === c.id}
                 >
                   <span className="text-lg" aria-hidden>{c.icon}</span>
-                  <span className="flex-1 text-sm font-bold">{getCatLabel(c)}</span>
-                  <span className={`text-xs num-ltr ${activeCategory === c.id ? "text-zinc-300" : "text-zinc-400"}`}>{c.articles.length}</span>
+                  <span className="flex-1 t-sm-med">{getCatLabel(c)}</span>
+                  <span className="card-eyebrow num-ltr">{c.articles.length}</span>
                 </button>
               ))}
             </div>
@@ -261,8 +261,8 @@ export default function Support() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl" aria-hidden>{activeCat.icon}</span>
-              <h2 className="text-xl md:text-2xl font-bold text-zinc-950">{getCatLabel(activeCat)}</h2>
-              <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-xs font-bold text-zinc-600 num-ltr">
+              <h2 className="t-head-1">{getCatLabel(activeCat)}</h2>
+              <span className="pill pill--soon num-ltr">
                 {activeCat.articles.length} {tx.articleCount}
               </span>
             </div>
@@ -276,55 +276,53 @@ export default function Support() {
                     e.preventDefault();
                     navigateTo(`/support/article/${a.id}`);
                   }}
-                  className="rounded-2xl border border-zinc-200 bg-white p-6 cursor-pointer hover:border-zinc-300 hover:shadow-card transition-all flex flex-col gap-3.5"
+                  className="card card--short card--clickable"
                 >
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold num-ltr shrink-0"
-                    style={{
-                      background: `${activeCat.color}1c`,
-                      border: `1px solid ${activeCat.color}44`,
-                      color: activeCat.color,
-                    }}
+                  <span
+                    className="card-ico !w-9 !h-9 !rounded-lg text-sm font-bold num-ltr"
+                    style={{ background: `${activeCat.color}22`, color: activeCat.color }}
                   >
                     {i + 1}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{getArticleTitle(a)}</div>
-                    <div className="text-sm text-zinc-600 leading-relaxed">{getArticleDesc(a)}</div>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-zinc-500">
-                    <Clock className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block t-sm-med mb-1.5">{getArticleTitle(a)}</span>
+                    <span className="card-body-text">{getArticleDesc(a)}</span>
+                  </span>
+                  <span className="card-eyebrow card-foot justify-start gap-1.5">
+                    <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                     {getArticleTime(a)} {tx.readSuffix}
-                    <ChevronRight className={`w-4 h-4 ms-auto text-zinc-300 ${isAr ? "rotate-180" : ""}`} />
-                  </div>
+                    <ChevronRight className={`card-arrow w-4 h-4 ms-auto opacity-50 ${isAr ? "rotate-180" : ""}`} aria-hidden="true" />
+                  </span>
                 </a>
               ))}
             </div>
           </div>
         </div>
+        </Shell>
       </Section>
 
       {/* ─── VIDEO LIBRARY ─── */}
-      <Section band="white">
+      <Section family="violet">
+        <Shell width="wide">
         <div className="flex items-end justify-between gap-4 flex-wrap mb-12">
           <div>
-            <Eyebrow className="mb-3">{tx.videoTag}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-bold text-zinc-950 mb-2 leading-tight">{tx.videoTitle}</h2>
-            <p className="text-lg text-zinc-600">{tx.videoSub}</p>
+            <p className="t-eyebrow mb-3">{tx.videoTag}</p>
+            <h2 className="section-head-title--md mb-2">{tx.videoTitle}</h2>
+            <p className="section-lead">{tx.videoSub}</p>
           </div>
-          <span className="inline-flex items-center rounded-full bg-violet-100 border border-violet-200 px-4 py-1.5 text-xs font-bold text-violet-700">
-            {tx.videoComingSoon}
-          </span>
+          <span className="pill pill--soon">{tx.videoComingSoon}</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="cards-grid">
           {videoLibrary.map((v) => {
             const vEn = videoTitlesEn[v.id];
             const vTitle = isAr ? v.title : (vEn?.title || v.title);
             const vDesc = isAr ? v.description : (vEn?.description || v.description);
             const vCat = isAr ? v.category : (vEn?.category || v.category);
             return (
-              <div key={v.id} className="rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all flex flex-col">
+              <div key={v.id} className="card card--short !p-0 overflow-hidden">
+                {/* The thumbnail stays a dark plate: it stands in for a video
+                    still, which is a picture and not a card. */}
                 <div className="relative aspect-video mockup-card flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
                   <div className="relative w-14 h-14 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
@@ -333,21 +331,25 @@ export default function Support() {
                   <span className="absolute bottom-2.5 start-2.5 rounded-md bg-black/60 backdrop-blur px-2.5 py-1 text-[11px] font-bold text-white num-ltr">
                     {v.duration}
                   </span>
-                  <span className="absolute top-2.5 end-2.5 rounded-full bg-violet-500/90 px-3 py-1 text-[10px] font-bold text-zinc-950">
+                  {/* White on the brand violet, not near-black: `#7c3aed` at 90%
+                      over a dark still gave 3.92:1 behind 10px type. White on
+                      the same ground is 5.6:1. */}
+                  <span className="absolute top-2.5 end-2.5 rounded-full px-3 py-1 text-[10px] font-bold" style={{ background: "var(--ziadah-violet)", color: "var(--general-white)" }}>
                     {vCat}
                   </span>
                   <span className="absolute top-2.5 start-2.5 rounded-full bg-white/15 backdrop-blur px-2.5 py-1 text-[10px] font-bold text-white">
                     {tx.videoSoonLabel}
                   </span>
                 </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{vTitle}</div>
-                  <div className="text-sm text-zinc-600 leading-relaxed">{vDesc}</div>
+                <div className="p-5 flex-1 flex flex-col gap-1.5">
+                  <div className="t-sm-med">{vTitle}</div>
+                  <div className="card-body-text">{vDesc}</div>
                 </div>
               </div>
             );
           })}
         </div>
+        </Shell>
       </Section>
 
       {/* ─── ACTIVATION CTA (same shell as home) ─── */}

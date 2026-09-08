@@ -337,7 +337,7 @@ export default function SectorVisualExamples({
             ))}
           </DraggableMarqueeRow>
         </div>
-        <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 8 }}>
+        <div className="rv d2 sector-viz-flow-wrap sector-block overflow-hidden" style={{ marginTop: 8 }}>
           <div className="text-center mb-7">
             <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
               {tr.sectionFlowTag}
@@ -504,7 +504,7 @@ export default function SectorVisualExamples({
         })}
       </div>
 
-      <div className="rv d2 sector-viz-flow-wrap rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden" style={{ marginTop: 28 }}>
+      <div className="rv d2 sector-viz-flow-wrap sector-block overflow-hidden" style={{ marginTop: 28 }}>
         <div className="text-center mb-7">
           <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
             {tr.sectionFlowTag}

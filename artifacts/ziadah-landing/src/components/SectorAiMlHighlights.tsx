@@ -15,7 +15,7 @@ export default function SectorAiMlHighlights() {
   return (
     <div
       id="sector-ai-ml"
-      className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      className="rv d1 sector-block"
       style={{ marginBottom: 22, scrollMarginTop: 120 }}
     >
       <div className="mb-2.5">

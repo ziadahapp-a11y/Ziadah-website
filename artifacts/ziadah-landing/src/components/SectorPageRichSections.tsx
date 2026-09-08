@@ -37,7 +37,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     if (html) {
       return (
         <>
-          <div id="section-why" className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+          <div id="section-why" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
             <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
             <div className="sector-html-why-grid">
                 {rich.whyCards.map((w, i) => (
@@ -65,7 +65,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     return (
       <>
-        <div id="section-why" className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+        <div id="section-why" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
           <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}>
             {rich.whyCards.map((w, i) => (
@@ -154,7 +154,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     if (html && rich.aiCompactPoints) {
       return (
-        <div id="sector-ai-context" className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+        <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
           <div className="sector-html-ai-layout sector-html-ai-layout--compact">
             <div className="sector-html-ai-vis sector-html-ai-vis--profileonly">{profileCard}</div>
@@ -180,7 +180,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
       const sigLines = isAr ? rich.aiSignalsAr ?? [] : rich.aiSignalsEn ?? [];
 
       return (
-        <div id="sector-ai-context" className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+        <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
           <div className="sector-html-ai-layout">
             <div>
@@ -227,7 +227,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     const sig = isAr ? rich.aiSignalsAr : rich.aiSignalsEn;
 
     return (
-      <div id="sector-ai-context" className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+      <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
         <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
         <div className="mb-4 px-4 py-3.5 rounded-xl" style={{ border: "1px solid var(--b2)", background: "rgba(124, 58, 237,.04)" }}>
           <div className="text-xs font-extrabold text-zinc-700 mb-2">{tr.sectorAiProfile}</div>
@@ -442,7 +442,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     if (html) {
       return (
-        <div id="section-metrics" className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-4" style={{ scrollMarginTop: 120 }}>
+        <div id="section-metrics" className="rv d2 sector-block mb-4" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-4 mt-0">{tr.sectorSectionMetrics}</h2>
           {trackingBlockHtml}
           {dashboardBlock}
@@ -452,12 +452,12 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     return (
       <>
-        <div id="section-tracking" className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+        <div id="section-tracking" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionTracking}</h2>
           {trackingBlockPlain}
         </div>
 
-        <div id="section-analytics" className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5" style={{ scrollMarginTop: 120 }}>
+        <div id="section-analytics" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAnalytics}</h2>
           {analyticsBlockFull}
         </div>
@@ -468,7 +468,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   if (part === "foot") {
     return (
       <>
-        <div id="section-sector-cta" className="rv d1 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all mb-5 text-center" style={{ scrollMarginTop: 120 }}>
+        <div id="section-sector-cta" className="rv d1 sector-block mb-5 text-center" style={{ scrollMarginTop: 120 }}>
           <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-2.5 mt-0">{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
           <p className="mt-0 mx-auto mb-5 text-[15px] text-zinc-700 leading-[1.75] max-w-[560px]">{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
           <div className="sector-html-cta-row justify-center">

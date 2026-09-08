@@ -188,9 +188,13 @@
 .sector-block {
   margin-bottom: 2rem;
   padding: 2.8rem;
-  border: 0.1rem solid var(--line);
+  border: 0;
   border-radius: var(--radius-card);
-  background: var(--surface);
+  /* `--surface` is the section's GROUND, so on a page that never stamps a
+     family it resolves to white and the block was white on white, read only
+     by its border. The card's own tint is what separates a card from the
+     ground it sits on, here as everywhere else. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
   /* Cleared by the rail above it, which is itself header-offset. */
   scroll-margin-top: calc(var(--header-dynamic-height) + 8rem);
 }
@@ -617,6 +621,163 @@
    is a grid with the default `align-items: stretch`, which sizes the item
    before the item's own height is consulted. */
 .home-steps .stepfig { height: auto; align-self: center; }
+
+/* ---------- THE STICKY SECTOR FILTER ------------------------------------
+   Chrome, not a band. It sticks across sections of different families, so it
+   cannot take any one section's pair - it takes the neutral surface roles the
+   header takes, and its chips are the system's own `.chip`. The version this
+   replaces painted `bg-white/85` with a zinc hairline and hand-rolled two
+   pressed states out of zinc and violet utilities. */
+.sector-filter {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding-block: 1.2rem;
+  background: color-mix(in srgb, var(--general-white) 85%, transparent);
+  backdrop-filter: blur(1.2rem);
+  border-bottom: 0.1rem solid var(--general-gray-light, rgb(10 10 10 / 8%));
+}
+.sector-filter .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+/* Below the tablet tier the row scrolls sideways instead of stacking into
+   four rows of chips that push the grid off the first screen. */
+@media screen and (max-width: 767px) {
+  .sector-filter .container {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .sector-filter .container::-webkit-scrollbar { display: none; }
+}
+/* The count that rides inside a chip. It inverts with the chip, so it is
+   written from the chip's own pair rather than from a fixed violet. */
+.chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding-inline: 0.6rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* A link in a vertical category list - the support centre's sidebar. It is a
+   list row rather than a card, so it takes the ink at two strengths and the
+   pressed state is the section's own inversion. The version this replaces
+   painted `bg-zinc-950 text-white` for the active row and `hover:bg-zinc-50`
+   for the rest, neither of which survives a family change. */
+.cat-link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  border: 0;
+  border-radius: 1.2rem;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .cat-link:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+}
+.cat-link[aria-pressed="true"] {
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+}
+.cat-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+
+/* A small label in a wrapping row - the placements a presentation supports,
+   the plans a capability is on, the tactics available at a placement. It is
+   NOT `.pill`, which is a status badge that rides beside a title and inverts;
+   a tag is a quiet item in a set, so it takes one tint step of the section's
+   ink and nothing else. Every call site used to hand-roll it out of
+   `bg-zinc-50 border border-zinc-200` or `bg-violet-50 border-violet-100`,
+   which meant the same label read as two different things on one page. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ---------- THE AI-POINTS TOP-UP PICKER --------------------------------
+   A select on a price card. It sat inside a card that can flip its whole
+   colour triple, so every one of its five states was written twice - once in
+   zinc for the light card and once in white-over-black for the flipped one -
+   and the two never quite matched. Written once here against the card's own
+   pair, which is what `.is-flipped` re-points. */
+.topup-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .topup-trigger:hover { border-color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 30%, transparent); }
+}
+.topup-trigger.is-set { border-color: var(--ziadah-violet); }
+.topup-trigger:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+/* The menu is a raised surface, so it takes the card's GROUND rather than a
+   tint of the ink - a tint is translucent, and the rows behind it showed
+   through the open menu. */
+.topup-menu {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 30;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+  border-radius: 1rem;
+  background: var(--color-primary, var(--general-white));
+}
+.topup-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .topup-item:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+}
+.topup-item.is-on { background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent); }
+.topup-item:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
 
 /* ---------- SECTION FURNITURE -------------------------------------------
    Two things that recur under a grid and had been hand-painted with Tailwind

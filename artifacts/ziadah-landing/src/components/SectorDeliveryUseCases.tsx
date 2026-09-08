@@ -283,7 +283,7 @@ export default function SectorDeliveryUseCases() {
   return (
     <div
       id="section-usecases"
-      className="rv d2 rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      className="rv d2 sector-block"
       style={{ marginBottom: 16, scrollMarginTop: 120 }}
     >
       <p className="sh-en mb-2 text-[11px] tracking-[0.12em] uppercase text-zinc-700">

@@ -399,11 +399,11 @@ export default function ZidAppsComparison() {
                 overflowY: "auto",
                 maxHeight: "min(75vh, calc(100vh - 200px))",
                 WebkitOverflowScrolling: "touch",
-                borderRadius: 16,
-                border: "1px solid #e4e4e7",
-                boxShadow:
-                  "0 4px 6px rgba(24, 24, 27, 0.03), 0 20px 50px rgba(24, 24, 27, 0.06)",
-                background: "#ffffff",
+                /* The system's card ground rather than a white panel with a
+                   zinc border and two shadows: the table is a card, and a card
+                   is one tint of the section's own ink. */
+                borderRadius: "var(--radius-card, 1.6rem)",
+                background: "color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent)",
                 padding: "clamp(6px, 1.5vw, 14px)",
               }}
             >

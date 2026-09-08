@@ -117,7 +117,18 @@ export function SectionHeading({
   );
 }
 
-/** Standard bordered white card with hover lift. */
+/**
+ * The card, on the design system.
+ *
+ * This used to be `rounded-2xl border border-zinc-200 bg-white p-7` with a
+ * shadow on hover, and it is the single largest source of white cards left on
+ * the site: every page still importing this module renders it, so converting
+ * it here converts all of them at once rather than one call site at a time.
+ *
+ * `.card` grounds itself in one 8% tint of the section's own ink, so a card in
+ * a violet band is violet and a card in a grey band is grey, with no border,
+ * no ring and no shadow - and the hover is the system's own scale-down.
+ */
 export function Card({
   children,
   className = "",
@@ -131,7 +142,7 @@ export function Card({
   animate?: boolean;
   style?: CSSProperties;
 }) {
-  const cls = `rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all ${className}`;
+  const cls = `card card--short card--clickable ${className}`;
   if (!animate) {
     const Tag = as;
     return (
@@ -171,21 +182,21 @@ export function FeatureCard({
 }) {
   return (
     <Card className={className}>
-      <div className="flex items-center gap-3 mb-4">
-        {num && <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase num-ltr">{num}</span>}
-        {Icon && (
-          <div className="w-10 h-10 rounded-lg bg-zinc-950 flex items-center justify-center">
-            <Icon className="w-5 h-5 text-white" />
-          </div>
-        )}
-      </div>
-      <h3 className="text-lg md:text-xl font-bold text-zinc-950 mb-3 leading-snug">{title}</h3>
-      <p className="text-sm md:text-base text-zinc-600 leading-relaxed mb-4">{desc}</p>
-      {example && (
-        <div className="rounded-lg bg-zinc-50 border border-zinc-200 p-3.5">
-          <p className="text-xs md:text-sm text-zinc-700 leading-relaxed">{example}</p>
+      {(num || Icon) && (
+        <div className="card-head">
+          {Icon ? (
+            <span className="card-ico">
+              <Icon className="w-5 h-5" aria-hidden="true" />
+            </span>
+          ) : (
+            <span aria-hidden="true" />
+          )}
+          {num && <span className="card-eyebrow num-ltr">{num}</span>}
         </div>
       )}
+      <h3 className="card-title">{title}</h3>
+      <p className="card-body-text">{desc}</p>
+      {example && <p className="card-inset">{example}</p>}
     </Card>
   );
 }
@@ -193,9 +204,9 @@ export function FeatureCard({
 /** Stat callout — big number + label. */
 export function StatCard({ value, label, className = "" }: { value: ReactNode; label: ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl border border-zinc-200 bg-white p-6 text-center shadow-card ${className}`}>
-      <div className="text-3xl md:text-4xl font-extrabold text-zinc-950 num-ltr">{value}</div>
-      <div className="mt-1.5 text-sm text-zinc-600">{label}</div>
+    <div className={`card card--short items-center text-center ${className}`}>
+      <div className="t-display-3 num-ltr">{value}</div>
+      <div className="card-eyebrow">{label}</div>
     </div>
   );
 }
