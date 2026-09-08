@@ -177,6 +177,12 @@
     height: 100%;
     display: grid;
     grid-template-columns: repeat(16, minmax(0, 1fr));
+    /* `align-items` defaults to stretch, which makes the text column as tall
+       as the media column beside it. With a media slot that is an aspect box
+       that is harmless; with a live widget that is 825px tall it left the
+       headline floating at the top of an 828px box. The two columns are peers
+       and should be centred against each other. */
+    align-items: center;
     gap: 1.6rem;
     padding: 0;
   }
@@ -185,7 +191,10 @@
   .hero-col-text {
     display: flex;
     align-items: center;
-    padding-top: 7.6rem;
+    /* No top padding. It existed to push the text down inside a column that
+       STRETCHED to the media's full height; now that the two columns are
+       centred against each other, the column is only as tall as its content
+       and the padding was 76px of dead space above the eyebrow. */
     padding-inline-start: 3.2rem;
     grid-column: 1 / span 8;
   }

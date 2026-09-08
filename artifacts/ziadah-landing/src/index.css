@@ -604,8 +604,19 @@ th.h-12{
 /* Use case "what we do" card (dark): lighter fill, lighter blur */
 .uc-what-card.gc{background:rgba(250, 250, 251,.2);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
 
-/* ── LAYOUT (mobile-first: compact vertical rhythm by default) ── */
-section{
+/* ── LAYOUT (mobile-first: compact vertical rhythm by default) ──
+
+   Scoped away from the design system's own sections. This is an UNLAYERED
+   element rule and `.section` / `.hero-split` are layered, so this was
+   beating them everywhere: the system's section rhythm never applied, and on
+   `.hero-split` - whose vertical spacing is carried by `.hero-container`'s
+   margins, the top one being the header clearance - it added 152px on top,
+   which is why a hero holding 829px of content between 250px of margins
+   measured 1231px on a 1000px viewport.
+
+   The legacy pages that still need it keep it; a system section is now
+   spaced by the system. */
+section:not(.section):not(.hero-split){
   position:relative;
   z-index:2;
   width:100%;
@@ -617,14 +628,14 @@ section{
 }
 /* تابلت / آيباد: إيقاع أقصر من الديسكتوب لتقليل الفراغ العمودي */
 @media(min-width:769px) and (max-width:1024px){
-  section{
+  section:not(.section):not(.hero-split){
     padding-block:clamp(52px, 6vw, 72px);
     padding-left:max(4%, env(safe-area-inset-left, 0px));
     padding-right:max(4%, env(safe-area-inset-right, 0px));
   }
 }
 @media(min-width:1025px){
-  section{
+  section:not(.section):not(.hero-split){
     padding-block:76px;
     padding-left:max(5%, env(safe-area-inset-left, 0px));
     padding-right:max(5%, env(safe-area-inset-right, 0px));
@@ -4385,21 +4396,19 @@ section#live-demo.landing-white-accent .ssub {
 .ai-topup { overflow: visible; }
 
 /* ════════════════════════════════════════════════════════════════════════
-   TrackFlow homepage (src/pages/HomeTrackflow.tsx) — isolation layer.
-   The page is pure Tailwind and must NOT inherit ziadah's legacy global
-   element rules (section{} padding/position/z-index, heading text-fill, etc).
-   Scope a reset under .tf-home so those globals can't bleed in.
+   Home page (src/pages/HomeTrackflow.tsx).
+
+   This used to be an ISOLATION layer: the page was pure Tailwind and was
+   walled off from the legacy global element rules, including a
+   `padding-left/right: 1.6rem !important` that restored its own gutters.
+
+   The page is on the design system now, so the wall was keeping out the very
+   rules it should be following: measured at 1440, a home section got 16px of
+   inline padding where every other page's section got 72px, and the home page
+   ran 56px closer to the edge than the rest of the site. What is left is the
+   page's own typeface and colour, and nothing that fights the system.
    ════════════════════════════════════════════════════════════════════════ */
 .tf-home { width: 100%; color: #0a0a0b; }
-.tf-home section {
-  position: static;
-  z-index: auto;
-  overflow-x: visible;
-  /* override the global `section{ padding-left/right: …!important }` (line ~1223)
-     and restore the page's intended px-4 (1.6rem) gutters; vertical stays on py-* */
-  padding-left: 1.6rem !important;
-  padding-right: 1.6rem !important;
-}
 .tf-home :is(h1, h2, h3, h4, h5, h6, p, span, a, em, strong, li, small, button) {
   -webkit-text-fill-color: currentColor;
 }

@@ -1279,7 +1279,11 @@ export default function HomeTrackflow() {
       <OrganizationSchema />
       <SoftwareAppSchema />
       <WebSiteSchema />
-      <div className="tf-home flex flex-col w-full bg-white" dir={isAr ? "rtl" : "ltr"} style={{ minHeight: "100vh" }}>
+      {/* `page` is the design system's own page class: it is what makes the
+          first section clear the header by padding rather than by luck, and
+          what gives every section below it the system's rhythm. The home page
+          used to opt out of it. */}
+      <div className="tf-home page w-full" dir={isAr ? "rtl" : "ltr"}>
           {/* HERO */}
           <HeroSplit
             compact

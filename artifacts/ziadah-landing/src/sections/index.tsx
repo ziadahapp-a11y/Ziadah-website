@@ -132,7 +132,11 @@ export function HeroSplit({
   return (
     <section
       id={id}
-      className={cn("hero-split", tall && "is-tall", className)}
+      /* `no-header-offset` is the system's own opt-out, and this hero needs
+         it: `.hero-container` already clears the header with a margin of
+         `--header-dynamic-height + 7rem`, so letting `.page > section
+         :first-of-type` add the header height again counts it twice. */
+      className={cn("hero-split no-header-offset", tall && "is-tall", className)}
       {...sectionTheme(family, invert)}
     >
       <Shell className="hero-container">
@@ -208,7 +212,12 @@ export function HeroLede({
        which carries a media column. A lede hero is text only, so that floor
        gave a 900px box to ~340px of content. It gets its own, shorter floor. */
     <section
-      className={cn("hero-split hero-split--lede", compact && "hero-split--compact", className)}
+      /* Same reason as `HeroSplit`: the container carries the clearance. */
+      className={cn(
+        "hero-split hero-split--lede no-header-offset",
+        compact && "hero-split--compact",
+        className,
+      )}
       {...sectionTheme(family, invert)}
     >
       {ground}
