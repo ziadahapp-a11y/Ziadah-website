@@ -685,7 +685,18 @@ html.no-scroll { overflow: hidden; }
 @media screen and (max-width: 1024px) { .mega { display: none; } }
 .mega--single { grid-template-columns: minmax(0, 1fr); }
 
-.mega-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+/* `align-content: start` is load-bearing. `.mega` is a grid, so this column
+   stretches to the height of whichever sibling is tallest, and a grid that
+   stretches spreads its ROWS: the solutions panel measured three 235px rows
+   holding 90px of card each, because the link column beside it was 722px.
+   Packing the rows to the top means a short card column stays short and the
+   space falls at the bottom of the panel where it belongs. */
+.mega-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 0.8rem;
+}
 /* MEASURED: `display: block`, padding 1.6rem, radius 1.6rem. */
 .mega-card {
   display: block;
@@ -766,6 +777,84 @@ html.no-scroll { overflow: hidden; }
 @media (hover: hover) {
   .mega-card:hover { background: var(--general-white-off); }
   .mega-link:hover { background: var(--general-white-off); color: var(--general-black); }
+}
+
+/* ---------- MEGA PANEL: GROUPED COLUMNS ----------------------------------
+   The solutions panel carries twenty-two destinations across five groupings.
+   The two-column `cards + more` anatomy cannot hold that: it promoted six
+   entries on an accident of the data and buried sixteen in one flat list.
+
+   This variant drops the 2fr/1fr split and gives the panel a single track,
+   with the groups laid out inside it - so the panel is as tall as its tallest
+   COLUMN rather than as tall as one runaway list. */
+.mega--groups { grid-template-columns: minmax(0, 1fr); }
+.mega-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 2.4rem 1.6rem;
+}
+/* A column can hold more than one group - `by-experience` has a single entry
+   and rides under `by-activity` rather than opening a column for one link. */
+.mega-column { display: flex; flex-direction: column; gap: 2.4rem; min-width: 0; }
+.mega-group { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+
+/* The heading IS the group's index page, so it is a control, not a label: it
+   takes the link's own box so the column reads as one aligned stack, and
+   carries the panel's full ink to sit above the links under it. */
+.mega-group-title {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 1rem;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--general-black);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.mega-group-title:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+@media (hover: hover) { .mega-group-title:hover { background: var(--general-white-off); } }
+
+/* The catch-all, on its own row under the groups: it is not a sixth grouping,
+   it is the way past all five, so a rule separates it from them rather than
+   leaving it to read as an orphaned entry of whichever column it sits under. */
+.mega-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  align-self: start;
+  margin-top: 1.6rem;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 1rem;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--general-black);
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.mega-all:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+@media (hover: hover) { .mega-all:hover { background: var(--general-white-off); } }
+/* The rule spans the panel, so it is drawn by the grid row rather than by the
+   control, which is only as wide as its label. */
+.mega--groups .mega-groups { padding-bottom: 1.6rem; border-bottom: 0.1rem solid var(--general-gray-light, rgb(10 10 10 / 8%)); }
+/* The caret is a chevron rotated into an arrow, pointing the way the reader
+   reads - so it flips with direction rather than pointing out of the panel. */
+.mega-all-caret { width: 1.6rem; height: 1.6rem; transform: rotate(-90deg); }
+[dir="rtl"] .mega-all-caret { transform: rotate(90deg); }
+
+/* Five groups do not fit four columns at the narrow desktop tier. */
+@media screen and (max-width: 1279px) {
+  .mega-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* MEASURED: a small caps badge, pink ground. */

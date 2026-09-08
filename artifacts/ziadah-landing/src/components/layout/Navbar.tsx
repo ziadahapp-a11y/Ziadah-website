@@ -31,6 +31,7 @@ import {
   sectorEntries,
   solutionGroups,
   type NavLink,
+  type NavGroup,
 } from "@/lib/nav-data";
 
 /* The site header, on the design system's architecture.
@@ -98,16 +99,30 @@ export function Navbar() {
 
   const solutions = solutionGroups(tr);
   const sectors = sectorEntries(lang);
-  /* Flattened for the mega panel, which shows cards then a "more" column
-     rather than the four grouped columns the mobile drill-down keeps.
 
-     A card is a title over a description, so the six that get one are the six
-     solutions that HAVE a description — the by-activity and by-presentation
-     entries. The page and goal entries are single labels; they read correctly
-     as links and would render as half-empty cards. */
-  const solutionItems = solutions.flatMap((g) => g.items);
-  const solutionCards = solutionItems.filter((i) => i.desc).slice(0, 6);
-  const solutionMore = solutionItems.filter((i) => !solutionCards.includes(i));
+  /* The solutions panel keeps the five groupings the matrix already states,
+     the same ones the mobile drill-down shows and the five `by-*` index pages
+     render.
+
+     It used to flatten them: six of the twenty-two entries became cards -
+     chosen by which ones happened to carry a description, which is an
+     accident of the data rather than an editorial decision - and the other
+     sixteen fell into one undifferentiated "More" column. That column was the
+     tallest thing in the panel, and since the panel is a grid, the card half
+     stretched to match it: three rows of 235px holding 90px of card.
+
+     Grouped columns fix both. Every entry is reachable at the same weight, a
+     merchant reads the axis they are shopping by, and the columns are of
+     comparable height so nothing stretches. `experience` holds a single entry,
+     so it rides under `activity` rather than opening a column of its own. */
+  const solutionColumns: NavGroup[][] = [
+    solutions.filter((g) => g.hubHref === "/use-cases/by-pages"),
+    solutions.filter(
+      (g) => g.hubHref === "/use-cases/by-activity" || g.hubHref === "/use-cases/by-experience",
+    ),
+    solutions.filter((g) => g.hubHref === "/use-cases/by-presentation"),
+    solutions.filter((g) => g.hubHref === "/use-cases/by-goal"),
+  ].filter((col) => col.length > 0);
 
   const platforms = PLATFORMS.map((p) => ({
     name: tr.nav[p.key],
@@ -238,23 +253,44 @@ export function Navbar() {
                   {tr.nav.useCases}
                   <ChevronDown className="nav-caret" aria-hidden="true" />
                 </button>
-                <div {...menu.panelProps("solutions")} role="region" aria-label={drillLabel.solutions}>
-                  <div className="mega-cards">{solutionCards.map(megaCard)}</div>
-                  <div className="mega-links">
-                    <p className="mega-heading">{t("المزيد", "More")}</p>
-                    {solutionMore.map((item) => (
-                      <button
-                        key={item.href + item.label}
-                        className="mega-link"
-                        onClick={() => go(item.href)}
-                      >
-                        {item.label}
-                      </button>
+                <div
+                  {...menu.panelProps("solutions", "mega--groups")}
+                  role="region"
+                  aria-label={drillLabel.solutions}
+                >
+                  <div className="mega-groups">
+                    {solutionColumns.map((column, i) => (
+                      <div key={i} className="mega-column">
+                        {column.map((group) => (
+                          <div key={group.hubHref} className="mega-group">
+                            {/* The heading is the group's own index page. Every
+                                grouping has one and nothing in the header
+                                reached them before, so a heading a reader
+                                could not follow is now the way in. */}
+                            <button
+                              className="mega-group-title"
+                              onClick={() => go(group.hubHref)}
+                            >
+                              {group.title}
+                            </button>
+                            {group.items.map((item) => (
+                              <button
+                                key={group.hubHref + item.href + item.label}
+                                className="mega-link"
+                                onClick={() => go(item.href)}
+                              >
+                                {item.label}
+                              </button>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
                     ))}
-                    <button className="mega-link" onClick={() => go("/use-cases")}>
-                      {t("كل الحلول", "All solutions")}
-                    </button>
                   </div>
+                  <button className="mega-all" onClick={() => go("/use-cases")}>
+                    {t("كل الحلول", "All solutions")}
+                    <ChevronDown className="mega-all-caret" aria-hidden="true" />
+                  </button>
                 </div>
               </li>
 

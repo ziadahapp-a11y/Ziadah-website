@@ -26,6 +26,12 @@ export type NavLink = {
 
 export type NavGroup = {
   title: string;
+  /**
+   * The group's own index page. Every grouping in the matrix has one - the
+   * five `by-*` pages - and until now nothing in the header linked to them,
+   * so a grouping was a heading a reader could not follow.
+   */
+  hubHref: string;
   items: NavLink[];
 };
 
@@ -59,6 +65,7 @@ export function solutionGroups(tr: Tree): NavGroup[] {
   const n = tr.nav as Record<string, string>;
   return useCasesSolutionsMatrix.map((group) => ({
     title: n[group.titleKey],
+    hubHref: group.hubHref,
     items: group.entries.map((e) => ({
       label: n[e.titleKey],
       href: e.href,
