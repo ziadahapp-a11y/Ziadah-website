@@ -22,7 +22,8 @@ const replitDevHost =
 /** Single `.env` at monorepo root (DATABASE_URL, VITE_*, etc.). */
 const envDir = path.resolve(import.meta.dirname, "../..");
 
-/** Phase 5: forward `/api/*` to the API server in dev so `fetch("/api/content")` works with empty VITE_API_BASE_URL. */
+/** Forward `/api/*` to the API server in dev so `fetch("/api/feature-request")`
+    works with an empty VITE_API_BASE_URL. */
 const apiProxyTarget =
   process.env.API_SERVER_PROXY_TARGET ?? "http://127.0.0.1:8080";
 
