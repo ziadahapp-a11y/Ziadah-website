@@ -1,94 +1,71 @@
-import { useState, useEffect, useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { BuyTogetherDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
-import { ProductThumb } from "./ProductThumb";
+import { WidgetShell, ProductList, CheckRow, WidgetButton, WidgetTag, Totals, Price } from "./kit";
 
+/**
+ * "اشتروا مع بعض": the product being viewed, plus what ships with it, as one
+ * togglable set with a running total.
+ *
+ * The invented rating line is gone - every product in this demo carried the
+ * same 4.9 - and the tag that marks the product the shopper is already on
+ * reads as a tag rather than as a third violet box.
+ */
 export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) {
   const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.buyTogether, demo),
-    [t, lang, demo],
-  );
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.buyTogether, demo), [t, lang, demo]);
+  const currency = tr.currency.trim();
 
-  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
+  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map((i) => i.checked));
+  useEffect(() => setChecked(tr.items.map((i) => i.checked)), [tr.items]);
+  const toggle = (idx: number) => setChecked((p) => p.map((c, i) => (i === idx ? !c : c)));
 
-  useEffect(() => {
-    setChecked(tr.items.map(item => item.checked));
-  }, [tr.items]);
-
-  const toggle = (idx: number) => {
-    setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
-  };
-
-  const total = tr.items.reduce((s, p, i) => checked[i] ? s + p.price : s, 0);
+  const total = tr.items.reduce((s, p, i) => (checked[i] ? s + p.price : s), 0);
+  const picked = checked.filter(Boolean).length;
 
   return (
-    <UseCaseWidgetPreview
+    <WidgetShell
       title={tr.title}
-      subtitle={tr.subtitle}
+      subtitle={tr.descLabel}
+      footer={
+        /* The label used to end in a dangling "—" with the total appended by
+           the caller, so dropping the total left the button reading
+           "اشترِ الطقم كاملاً — ر.س". The label is a whole sentence now and
+           the total rides beside it, which is where a store puts it. */
+        <WidgetButton block>
+          {tr.btnBuy}
+          <span className="wk-btn-num">
+            <bdi>{total}</bdi> {currency}
+          </span>
+        </WidgetButton>
+      }
     >
-      <div style={{ marginBottom: 10 }}>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {tr.items.map((p, i) => (
-            <div key={i} onClick={() => toggle(i)} style={{
-              display: "flex",
-              gap: 10,
-              padding: "10px",
-              borderRadius: 12,
-              background: checked[i] ? "linear-gradient(135deg, rgba(124, 58, 237,.2), rgba(124, 58, 237,.08))" : "rgba(255,255,255,0.04)",
-              border: checked[i] ? "1.5px solid rgba(139, 92, 246,.48)" : "1.5px solid rgba(255,255,255,0.09)",
-              alignItems: "center",
-              cursor: "pointer",
-              transition: "all .22s ease",
-              backdropFilter: "blur(10px)",
-              WebkitBackdropFilter: "blur(10px)",
-            }}>
-              <div style={{
-                width: 18,
-                height: 18,
-                borderRadius: 5,
-                background: checked[i] ? "rgba(124, 58, 237,0.5)" : "var(--b1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                transition: "all .2s ease",
-              }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
-              </div>
-              <ProductThumb emoji={p.emoji} size={36} radius={8} />
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
-                <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                <div style={{ display: "flex", gap: 5, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "var(--t)" }}>{tr.currency}{p.price}</span>
-                  {p.originalPrice && <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.originalPrice}</span>}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <button style={{
-        width: "100%",
-        padding: "10px",
-        borderRadius: 12,
-        background: "rgba(124, 58, 237,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        color: "currentColor",
-        fontSize: 14,
-        fontWeight: 800,
-        border: "1px solid rgba(124, 58, 237,0.2)",
-        cursor: "pointer",
-      }} className="widget-btn">
-        {tr.btnBuy}{total}
-      </button>
-    </UseCaseWidgetPreview>
+      <ProductList>
+        {tr.items.map((p, i) => (
+          <CheckRow
+            key={i}
+            name={p.name}
+            price={String(p.price)}
+            was={p.originalPrice ? String(p.originalPrice) : undefined}
+            currency={currency}
+            tag={p.tag ? <WidgetTag>{p.tag}</WidgetTag> : undefined}
+            checked={!!checked[i]}
+            onToggle={() => toggle(i)}
+          />
+        ))}
+      </ProductList>
+      <Totals
+        rows={[
+          {
+            k: `${picked} / ${tr.items.length}`,
+            v: <Price value={String(total)} currency={currency} size={16} />,
+            total: true,
+          },
+        ]}
+      />
+    </WidgetShell>
   );
 }

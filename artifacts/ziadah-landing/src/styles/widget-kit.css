@@ -1,0 +1,340 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE STOREFRONT PREVIEW KIT
+
+   The previews used to paint themselves from the LEGACY token layer - `--s1`,
+   `--b1`, `--t`, `--td` - every one of which is a violet mix defined per page
+   in `index.css`. That is why a preview was violet on a violet band and
+   violet again on a grey one: it was not reading the section at all.
+
+   Everything here is written from the section triple, like the rest of the
+   site. A preview is a card on whatever band it lands on, and the ONE colour
+   it spends is the brand violet, on the button.
+
+   The type is PX on purpose. A preview is a picture of a phone-sized
+   storefront: its scale is fixed by the device it depicts, not by the
+   viewport, and rem type would have the 12px labels of a product card growing
+   to 17px at 1920 inside a 320px frame.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.wk {
+  width: 100%;
+  margin-inline: auto;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  background: var(--color-primary, #fff);
+  color: var(--color-secondary, #0a0a0a);
+  font-family: var(--font, inherit);
+  overflow: hidden;
+}
+
+/* The heading the old shell accepted and never rendered. */
+.wk-head {
+  padding: 14px 16px 0;
+}
+.wk-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.wk-sub {
+  margin: 3px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 62%, transparent);
+}
+
+.wk-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.wk-foot {
+  padding: 12px 16px;
+  border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+}
+
+/* ── THE LIST ───────────────────────────────────────────────────────────
+   Hairlines, not boxes. Five bordered boxes read as five unrelated things;
+   a list with rules between the rows reads as one list. */
+.wk-list { display: flex; flex-direction: column; }
+.wk-list > .wk-row + .wk-row {
+  border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 9%, transparent);
+}
+
+.wk-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  min-width: 0;
+}
+.wk-row:first-child { padding-top: 0; }
+.wk-row:last-child { padding-bottom: 0; }
+
+/* The one product the widget is pointing at. A tint and an inline rule, not a
+   border on all four sides - the row is still part of the list. */
+.wk-row.is-sel {
+  padding-inline: 10px;
+  margin-inline: -10px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ziadah-violet) 9%, transparent);
+  box-shadow: inset 2px 0 0 0 var(--ziadah-violet);
+}
+[dir="rtl"] .wk-row.is-sel { box-shadow: inset -2px 0 0 0 var(--ziadah-violet); }
+
+.wk-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+
+/* Regular weight, two lines, then ellipsis. A product name is not a headline;
+   bolding it was what made the row read as a stack of shouted labels. */
+.wk-name {
+  font-size: 12.5px;
+  font-weight: 400;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wk-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+
+/* ── PRICE ──────────────────────────────────────────────────────────────
+   The largest thing on the row, because it is what the shopper scans for. It
+   used to be 12px, the same size as the product name and the rating beside
+   it, so the row had no focal point at all. */
+.wk-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.wk-cur {
+  font-size: 0.72em;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 60%, transparent);
+}
+.wk-was {
+  font-size: 0.78em;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 45%, transparent);
+}
+
+/* ── TAGS ───────────────────────────────────────────────────────────────
+   One per row at most. `save` is the only one that earns a colour, because a
+   saving is the one fact worth pulling the eye. */
+.wk-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.wk-tag--neutral {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 70%, transparent);
+}
+.wk-tag--brand {
+  background: color-mix(in srgb, var(--ziadah-violet) 12%, transparent);
+  color: var(--ziadah-violet);
+}
+/* Deliberately the one non-brand colour in the kit. A saving is money, and
+   money is not the brand's accent - a merchant reads green as "in my favour"
+   faster than they read violet as anything. */
+.wk-tag--save { background: rgb(16 122 87 / 12%); color: #0f7a57; }
+
+/* ── BUTTON ─────────────────────────────────────────────────────────────
+   ONE solid primary. The previews used to put a pale violet ghost on every
+   row - `rgba(124,58,237,.12)` on a `.2` border - so nothing read as the
+   action and the whole card read as disabled. */
+.wk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  padding-inline: 14px;
+  border: 0;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.18s ease;
+}
+.wk-btn.is-block { width: 100%; }
+.wk-btn--primary { background: var(--ziadah-violet); color: #fff; }
+.wk-btn--ghost {
+  height: 30px;
+  padding-inline: 12px;
+  font-size: 12px;
+  background: transparent;
+  color: var(--color-secondary, #0a0a0a);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
+}
+@media (hover: hover) {
+  .wk-btn--primary:hover { filter: brightness(1.08); }
+  .wk-btn--ghost:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent); }
+}
+.wk-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* ── SMALL PARTS shared by the non-list widgets ─────────────────────── */
+
+/* A labelled line of running text - "أضف 45 ر.س للشحن المجاني". */
+.wk-note {
+  font-size: 12px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 68%, transparent);
+}
+.wk-note strong { font-weight: 600; color: var(--color-secondary, #0a0a0a); }
+
+/* The progress bar the threshold widgets use. */
+.wk-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  overflow: hidden;
+}
+.wk-bar-fill { height: 100%; border-radius: 999px; background: var(--ziadah-violet); }
+
+/* A row of key/value, for the totals block. */
+.wk-kv { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 12px; }
+.wk-kv-k { color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 62%, transparent); }
+.wk-kv--total { padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent); }
+.wk-kv--total .wk-kv-k { color: inherit; font-weight: 600; }
+
+/* A step/quantity ladder, for the buy-more widgets. */
+.wk-tiers { display: flex; flex-direction: column; gap: 6px; }
+.wk-tier {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 12px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.wk-tier.is-sel {
+  background: color-mix(in srgb, var(--ziadah-violet) 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ziadah-violet) 34%, transparent);
+}
+
+/* ── SELECTABLE ROW ─────────────────────────────────────────────────── */
+.wk-check { cursor: pointer; }
+.wk-check.is-on { background: color-mix(in srgb, var(--ziadah-violet) 7%, transparent); }
+.wk-check.is-on,
+.wk-row.is-sel { border-radius: 10px; }
+.wk-box {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  border-radius: 5px;
+  accent-color: var(--ziadah-violet);
+  cursor: pointer;
+}
+
+/* ── COUPON CODE ────────────────────────────────────────────────────── */
+.wk-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px dashed color-mix(in srgb, var(--color-secondary, #0a0a0a) 28%, transparent);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
+}
+.wk-code-val {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+.wk-hint {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 58%, transparent);
+}
+
+.wk-totals { display: flex; flex-direction: column; gap: 6px; }
+.wk-meter { display: flex; flex-direction: column; gap: 6px; }
+
+/* The one number a coupon card exists to show. */
+.wk-amount {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ziadah-violet);
+}
+
+/* The reassurance list under a checkout offer. Facts in a list read as facts;
+   the same three lines in tinted pills read as decoration. */
+.wk-facts { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.wk-facts li {
+  position: relative;
+  padding-inline-start: 15px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 72%, transparent);
+}
+.wk-facts li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 3px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--ziadah-violet);
+}
+
+/* The status line of a simulated action. It replaces three separate
+   compositions - a 36px emoji, then a green tick, then a card - that made the
+   widget jump layout twice while a reader watched it. */
+.wk-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0f7a57;
+}
+.wk-status.is-busy { color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 62%, transparent); }
+.wk-status-ico { width: 14px; height: 14px; flex: none; }
+.wk-spin { animation: wk-spin calc(var(--motion, 1) * 900ms) linear infinite; }
+@keyframes wk-spin { to { transform: rotate(360deg); } }
+
+/* The way out of an offer. A store makes "remove anyway" a quiet text link,
+   not a second button competing with the one it is trying to avoid. */
+.wk-link {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 11.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 55%, transparent);
+  cursor: pointer;
+}
+
+/* A running total riding on a button label. */
+.wk-btn-num {
+  padding-inline-start: 8px;
+  margin-inline-start: 8px;
+  border-inline-start: 1px solid rgb(255 255 255 / 35%);
+  font-weight: 700;
+}

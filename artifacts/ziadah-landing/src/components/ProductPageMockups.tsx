@@ -464,7 +464,6 @@ function BuyTogetherContent({ copy }: { copy: ProductPageMockupsCopy }) {
     {
       emoji: "📿",
       name: copy.productName,
-      reviews: copy.buyTogetherReviews1,
       price: prices[0],
       orig: originalPrices[0],
       tag: copy.buyTogetherTagThis,
@@ -472,7 +471,6 @@ function BuyTogetherContent({ copy }: { copy: ProductPageMockupsCopy }) {
     {
       emoji: "🪔",
       name: copy.buyTogetherItem2Name,
-      reviews: copy.buyTogetherReviews2,
       price: prices[1],
       orig: originalPrices[1],
       tag: null as string | null,
@@ -592,9 +590,6 @@ function BuyTogetherContent({ copy }: { copy: ProductPageMockupsCopy }) {
                     {p.tag}
                   </span>
                 )}
-              </div>
-              <div style={{ fontSize: 7, color: "#f59e0b", marginTop: 1 }}>
-                {p.reviews}
               </div>
               <div
                 style={{

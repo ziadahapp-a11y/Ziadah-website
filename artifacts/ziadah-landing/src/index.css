@@ -33,6 +33,7 @@
 /* Ziadah's own additions to that vocabulary, kept out of the ported files so
    those stay byte-comparable with their source. */
 @import "./styles/ziadah-sections.css" layer(components);
+@import "./styles/widget-kit.css" layer(components);
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
@@ -2597,24 +2598,12 @@ section.cta-sec.landing-white-accent .cta-note{color:var(--lv-accent-mid)!import
   outline: 3px solid rgba(124, 58, 237, 0.55);
   outline-offset: 4px;
 }
-/* Showcase card overrides — white widget chrome with green/black content for max readability */
-#widgets-showcase .widget-creatify-card{
-  /* Widget preview shell */
-  --uc-preview-bg: #ffffff;
-  --uc-preview-border: 1px solid rgba(124, 58, 237, 0.18);
-  --uc-preview-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  --uc-preview-blur: none;
-  --uc-preview-body-bg: transparent;
-  --uc-preview-body-blur: none;
-  /* Light theme override for widget content (text / surfaces / borders) */
-  --t: #0b0b1f;
-  --td: #4b4b66;
-  --tm: #6b6b88;
-  --s1: rgba(124, 58, 237, 0.05);
-  --b1: rgba(124, 58, 237, 0.18);
-  --b2: rgba(124, 58, 237, 0.4);
-  --p3: rgb(124, 58, 237);
-}
+/* The showcase card used to hand the preview a whole private palette here -
+   `--uc-preview-bg/-border/-shadow/-blur` for the old shell, and `--t --td
+   --tm --s1 --b1 --b2 --p3` for the widget bodies. Every one of those is dead:
+   the shell that read the first set is deleted, and the widget kit reads the
+   section triple like the rest of the site instead of a legacy violet mix. A
+   preview is now correct on any band without the page telling it what to be. */
 /* The two overrides that used to sit here are GONE, and the reason they
    existed is gone with them.
 

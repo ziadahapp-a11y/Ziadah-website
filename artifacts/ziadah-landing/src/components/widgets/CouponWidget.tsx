@@ -1,78 +1,29 @@
 import { useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { CouponDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
+import { WidgetShell, CouponCode, WidgetButton, WidgetTag, WidgetHint } from "./kit";
 
+/**
+ * The coupon. The discount is the largest thing on the card and the code
+ * reads as a code - monospaced inside a dashed frame, the way every store
+ * renders one - instead of as another violet pill among violet pills.
+ */
 export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
   const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.coupon, demo),
-    [t, lang, demo],
-  );
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.coupon, demo), [t, lang, demo]);
 
   return (
-    <UseCaseWidgetPreview
+    <WidgetShell
       title={tr.title}
-      subtitle={tr.subtitle}
+      subtitle={tr.discountSub}
+      footer={<WidgetButton block>{tr.btnCopy}</WidgetButton>}
     >
-      <div style={{ textAlign: "center", marginBottom: 14 }}>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 12 }}>{tr.descLabel}</div>
-        <div style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "14px 24px",
-          borderRadius: 14,
-          border: "2px dashed rgba(139, 92, 246,.6)",
-          background: "rgba(124, 58, 237,.1)",
-          marginBottom: 12,
-        }}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "currentColor", lineHeight: 1 }}>{tr.discountAmount}</div>
-            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
-          </div>
-          <div style={{ width: 1, height: 40, background: "rgba(139, 92, 246,.3)" }} />
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", letterSpacing: "1px" }}>{tr.couponCode}</div>
-            <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.freeShipping}</div>
-          </div>
-        </div>
-        <div style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: 14,
-          fontSize: 12,
-          color: "#f87171",
-          fontWeight: 600,
-        }}>
-          <span>⏱️</span>
-          <span>{tr.expiresLabel}</span>
-        </div>
-      </div>
-      <button style={{
-        width: "100%",
-        padding: "11px",
-        borderRadius: 12,
-        background: "rgba(124, 58, 237,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        color: "currentColor",
-        fontSize: 14,
-        fontWeight: 800,
-        border: "1px solid rgba(124, 58, 237,0.2)",
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 6,
-      }} className="widget-btn">
-        {tr.btnCopy}
-      </button>
-    </UseCaseWidgetPreview>
+      <p className="wk-amount">{tr.discountAmount}</p>
+      <CouponCode code={tr.couponCode} action={<WidgetTag tone="save">{tr.freeShipping}</WidgetTag>} />
+      <WidgetHint>{tr.expiresLabel}</WidgetHint>
+    </WidgetShell>
   );
 }

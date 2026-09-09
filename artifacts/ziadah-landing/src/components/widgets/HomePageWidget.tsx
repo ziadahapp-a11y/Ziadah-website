@@ -1,96 +1,40 @@
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
-import { ProductThumb } from "./ProductThumb";
+import {
+  WidgetShell, ProductList, ProductRow, WidgetButton, WidgetHint, WidgetTag,
+} from "./kit";
 
+/**
+ * The returning-shopper block: what they left behind, then what is selling in
+ * the categories they browse. Two lists, one heading each, one solid action.
+ */
 export default function HomePageWidget() {
   const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].widgets.homePage;
+  const currency = tr.currency.trim();
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
-      <div style={{ marginBottom: 10 }}>
-        <div style={{
-          padding: "10px 12px",
-          borderRadius: 12,
-          background: "rgba(124, 58, 237,.12)",
-          border: "1.5px solid rgba(124, 58, 237,.3)",
-          marginBottom: 10,
-        }}>
-          <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 5 }}>{tr.leftLastVisit}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-              <div style={{
-                width: 36,
-                height: 36,
-                borderRadius: 8,
-                background: "rgba(139, 92, 246,.2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 18,
-                flexShrink: 0,
-              }}>👟</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
-                <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.productPrice}</span>
-                  <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
-                </div>
-              </div>
-            </div>
-            <button style={{
-              width: "100%",
-              padding: "7px 10px",
-              borderRadius: 10,
-              background: "rgba(124, 58, 237,0.12)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              color: "currentColor",
-              fontSize: 12,
-              fontWeight: 800,
-              border: "1px solid rgba(124, 58, 237,0.2)",
-              cursor: "pointer",
-            }} className="widget-btn-sm">{tr.btnAdd}</button>
-          </div>
-        </div>
-
-        <div style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          padding: "6px 10px",
-          borderRadius: 8,
-          background: "rgba(239,68,68,.08)",
-          border: "1px solid rgba(239,68,68,.2)",
-          marginBottom: 10,
-        }}>
-          <span style={{ fontSize: 12 }}>⏱️</span>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 12, color: "#f87171", fontWeight: 700 }}>{tr.offerExpires}</div>
-            <div style={{ fontSize: 12, fontWeight: 900, color: "var(--t)" }}>{tr.offerCountdown}</div>
-          </div>
-        </div>
-
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 7 }}>{tr.topSellersLabel}</div>
-        <div style={{ display: "flex", gap: 7 }}>
-          {tr.miniProducts.map((p, i) => (
-            <div key={i} style={{
-              flex: 1,
-              padding: "8px",
-              borderRadius: 10,
-              background: "var(--s1)",
-              border: "1.5px solid var(--b1)",
-              textAlign: "center",
-            }}>
-              <ProductThumb emoji={p.emoji} size={34} radius={8} className="mx-auto mb-[3px]" />
-              <div style={{ fontSize: 12, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.currency}{p.price}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </UseCaseWidgetPreview>
+    <WidgetShell
+      title={tr.title}
+      subtitle={tr.subtitle}
+      footer={<WidgetButton block>{tr.btnAdd}</WidgetButton>}
+    >
+      <WidgetHint>{tr.leftLastVisit}</WidgetHint>
+      <ProductRow
+        name={tr.productName}
+        price={tr.productPrice}
+        was={tr.productOrigPrice}
+        currency=""
+        selected
+        badge={<WidgetTag tone="brand">{`${tr.offerExpires} ${tr.offerCountdown}`}</WidgetTag>}
+      />
+      <WidgetHint>{tr.topSellersLabel}</WidgetHint>
+      <ProductList>
+        {tr.miniProducts.map((p, i) => (
+          <ProductRow key={i} name={p.name} price={p.price} currency={currency} />
+        ))}
+      </ProductList>
+    </WidgetShell>
   );
 }

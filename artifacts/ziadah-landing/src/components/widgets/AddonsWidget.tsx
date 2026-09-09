@@ -1,103 +1,57 @@
-import { useState, useEffect, useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { AddonsDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
-import { ProductThumb } from "./ProductThumb";
+import { WidgetShell, ProductList, CheckRow, WidgetButton, Totals, Price } from "./kit";
 
+/**
+ * Add-ons: a checklist whose total moves as the shopper ticks items.
+ *
+ * The state used to be unreadable - a checked row was a violet box with a
+ * violet border and a violet checkbox, so "selected" and "the widget's accent
+ * colour" were the same thing. The checkbox carries the state now and the row
+ * only tints behind it.
+ */
 export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
   const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.addons, demo),
-    [t, lang, demo],
-  );
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.addons, demo), [t, lang, demo]);
+  const currency = tr.currency.trim();
 
-  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
+  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map((i) => i.checked));
+  useEffect(() => setChecked(tr.items.map((i) => i.checked)), [tr.items]);
+  const toggle = (idx: number) => setChecked((p) => p.map((c, i) => (i === idx ? !c : c)));
 
-  useEffect(() => {
-    setChecked(tr.items.map(item => item.checked));
-  }, [tr.items]);
-
-  const toggle = (idx: number) => {
-    setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
-  };
-
-  const total = tr.items.reduce((s, a, i) => checked[i] ? s + a.price : s, 0);
+  const total = tr.items.reduce((s, a, i) => (checked[i] ? s + a.price : s), 0);
 
   return (
-    <UseCaseWidgetPreview
+    <WidgetShell
       title={tr.title}
-      subtitle={tr.subtitle}
+      subtitle={tr.descLabel}
+      footer={<WidgetButton block>{tr.btnAdd}</WidgetButton>}
     >
-      <div style={{ marginBottom: 10 }}>
-        <div
-          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[8px] text-[12px]">{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {tr.items.map((a, i) => (
-            <div key={i} onClick={() => toggle(i)} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 9,
-              padding: "8px 10px",
-              borderRadius: 10,
-              background: checked[i] ? "rgba(124, 58, 237,.15)" : "var(--s1)",
-              border: checked[i] ? "1.5px solid rgba(124, 58, 237,.4)" : "1.5px solid var(--b1)",
-              cursor: "pointer",
-              transition: "all .2s ease",
-            }}>
-              <div style={{
-                width: 17,
-                height: 17,
-                borderRadius: 5,
-                background: checked[i] ? "rgba(124, 58, 237,0.5)" : "var(--b1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                transition: "all .2s ease",
-              }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
-              </div>
-              <ProductThumb emoji={a.emoji} size={26} radius={6} />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "currentColor" : "var(--tm)" }}>{a.name}</div>
-              </div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "currentColor" : "var(--td)" }}>+{a.price}{tr.currency}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={{
-        padding: "8px 12px",
-        borderRadius: 10,
-        background: "rgba(124, 58, 237,.1)",
-        border: "1px solid rgba(124, 58, 237,.25)",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 10,
-      }}>
-        <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.totalLabel}</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "currentColor" }}>+{total}{tr.currency}</span>
-      </div>
-      <button style={{
-        width: "100%",
-        padding: "9px",
-        borderRadius: 10,
-        background: "rgba(124, 58, 237,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        color: "currentColor",
-        fontSize: 14,
-        fontWeight: 800,
-        border: "1px solid rgba(124, 58, 237,0.2)",
-        cursor: "pointer",
-      }} className="widget-btn">
-        {tr.btnAdd}
-      </button>
-    </UseCaseWidgetPreview>
+      <ProductList>
+        {tr.items.map((a, i) => (
+          <CheckRow
+            key={i}
+            name={a.name}
+            price={String(a.price)}
+            currency={currency}
+            checked={!!checked[i]}
+            onToggle={() => toggle(i)}
+          />
+        ))}
+      </ProductList>
+      <Totals
+        rows={[
+          {
+            k: tr.totalLabel,
+            v: <Price value={String(total)} currency={currency} size={16} />,
+            total: true,
+          },
+        ]}
+      />
+    </WidgetShell>
   );
 }

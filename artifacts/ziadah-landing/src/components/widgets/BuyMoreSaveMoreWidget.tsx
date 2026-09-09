@@ -1,10 +1,16 @@
 import { useMemo, useState } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { BuyMoreSaveMoreDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
+import { WidgetShell, WidgetButton, WidgetTag, WidgetHint } from "./kit";
 
+/**
+ * The quantity ladder. It is a set of options the shopper picks between, so it
+ * behaves like one: the tiers are selectable and exactly one is active. The
+ * old version drew three static violet boxes and highlighted the last with a
+ * fourth shade of the same violet.
+ */
 export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMoreDemo }) {
   const t = siteTranslations;
   const { lang } = useLanguage();
@@ -12,82 +18,35 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
     () => mergeShowcaseDemo(t[lang].widgets.buyMoreSaveMore, demo),
     [t, lang, demo],
   );
-
-  const [selected, setSelected] = useState(1);
+  const [picked, setPicked] = useState(tr.options.length - 1);
 
   return (
-    <UseCaseWidgetPreview
-      title={tr.title}
-      subtitle={tr.subtitle}
-    >
-      <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}>{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {tr.options.map((opt, i) => {
-            const isSelected = i === selected;
-            return (
-              <div key={i} onClick={() => setSelected(i)} style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "9px 12px",
-                borderRadius: 12,
-                background: isSelected ? "rgba(124, 58, 237,.18)" : "var(--s1)",
-                border: isSelected ? "1.5px solid rgba(139, 92, 246,.5)" : "1.5px solid var(--b1)",
-                cursor: "pointer",
-                transition: "all .2s ease",
-              }}>
-                <div style={{
-                  width: 16,
-                  height: 16,
-                  borderRadius: "50%",
-                  border: isSelected ? "none" : "1.5px solid var(--b2)",
-                  background: isSelected ? "rgba(124, 58, 237,0.5)" : "transparent",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  transition: "all .2s ease",
-                }}>
-                  {isSelected && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{opt.qty}</div>
-                  <div style={{ fontSize: 12, color: "var(--td)" }}>{opt.label}</div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 3 }}>
-                  {opt.badge && (
-                    <div style={{
-                      fontSize: 12,
-                      fontWeight: 800,
-                      padding: "2px 7px",
-                      borderRadius: 20,
-                      background: "rgba(124, 58, 237,0.5)",
-                      color: "var(--t)",
-                    }}>{opt.badge}</div>
-                  )}
-                  {opt.origPrice && (
-                    <div style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{opt.origPrice}</div>
-                  )}
-                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "currentColor" : "var(--t)" }}>{opt.price}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+    <WidgetShell title={tr.title} subtitle={tr.descLabel}>
+      <div className="wk-tiers">
+        {tr.options.map((o, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`wk-tier${i === picked ? " is-sel" : ""}`}
+            aria-pressed={i === picked}
+            onClick={() => setPicked(i)}
+          >
+            <span className="wk-meta">
+              <strong>{o.qty}</strong>
+              <span className="wk-kv-k">{o.label}</span>
+            </span>
+            <span className="wk-meta">
+              {o.badge ? <WidgetTag tone="save">{o.badge}</WidgetTag> : null}
+              <span className="wk-price" style={{ fontSize: 13 }}>
+                <bdi>{o.price}</bdi>
+                {o.origPrice ? <s className="wk-was">{o.origPrice}</s> : null}
+              </span>
+            </span>
+          </button>
+        ))}
       </div>
-      <div style={{
-        fontSize: 12,
-        color: "#8b5cf6",
-        background: "rgba(139, 92, 246,.1)",
-        border: "1px solid rgba(139, 92, 246,.25)",
-        borderRadius: 8,
-        padding: "6px 10px",
-        textAlign: "center",
-        fontWeight: 700,
-      }}>
-        {tr.freeShippingNote}
-      </div>
-    </UseCaseWidgetPreview>
+      <WidgetHint>{tr.freeShippingNote}</WidgetHint>
+      <WidgetButton block>{t[lang].widgets.relatedProducts.btnAdd}</WidgetButton>
+    </WidgetShell>
   );
 }

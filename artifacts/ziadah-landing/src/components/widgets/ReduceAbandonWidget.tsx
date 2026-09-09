@@ -1,87 +1,26 @@
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { WidgetShell, CouponCode, WidgetButton, WidgetHint, WidgetTag } from "./kit";
 
+/**
+ * The cart-recovery offer. The discount leads, the code is a code, and the
+ * two qualifying lines sit under it as captions rather than as further boxes.
+ */
 export default function ReduceAbandonWidget() {
   const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].widgets.reduceAbandon;
 
   return (
-    <UseCaseWidgetPreview title={tr.title} subtitle={tr.subtitle}>
-      <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontSize: 12, color: "var(--tm)", marginBottom: 10 }}>{tr.noticeLabel}</div>
-
-        <div style={{
-          padding: "14px 16px",
-          borderRadius: 14,
-          background: "rgba(236,72,153,.1)",
-          border: "1.5px dashed rgba(236,72,153,.5)",
-          marginBottom: 12,
-        }}>
-          <div style={{ fontSize: 26, fontWeight: 900, color: "#f9a8d4", lineHeight: 1 }}>{tr.discountTitle}</div>
-          <div style={{ fontSize: 12, color: "var(--tm)", marginTop: 3 }}>{tr.discountSub}</div>
-          <div style={{ fontSize: 13, fontWeight: 900, color: "var(--t)", letterSpacing: 1, marginTop: 6 }}>{tr.couponCode}</div>
-        </div>
-
-        <div style={{
-          display: "flex",
-          gap: 4,
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: 12,
-          fontSize: 12,
-          color: "#f87171",
-          fontWeight: 700,
-          padding: "6px 12px",
-          borderRadius: 8,
-          background: "rgba(239,68,68,.08)",
-          border: "1px solid rgba(239,68,68,.2)",
-        }}>
-          <span>⏱️</span>
-          <span>{tr.expiresLabel}</span>
-        </div>
-
-        <div style={{
-          padding: "8px 12px",
-          borderRadius: 10,
-          background: "rgba(139, 92, 246,.08)",
-          border: "1px solid rgba(139, 92, 246,.2)",
-          marginBottom: 12,
-          display: "flex",
-          gap: 8,
-          alignItems: "center",
-        }}>
-          <span style={{ fontSize: 14 }}>🚚</span>
-          <div style={{ textAlign: "start", flex: 1 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: "#8b5cf6" }}>{tr.shippingLabel}</div>
-            <div style={{ height: 4, borderRadius: 10, background: "var(--s2)", marginTop: 4, overflow: "hidden" }}>
-              <div style={{ height: "100%", width: "80%", borderRadius: 10, background: "#8b5cf6" }} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button style={{
-        width: "100%",
-        padding: "10px",
-        borderRadius: 12,
-        background: "rgba(236,72,153,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        color: "#f472b6",
-        fontSize: 14,
-        fontWeight: 800,
-        border: "1px solid rgba(236,72,153,0.2)",
-        cursor: "pointer",
-        marginBottom: 6,
-      }} className="widget-btn">
-        {tr.btnComplete}
-      </button>
-
-      <div style={{ textAlign: "center", fontSize: 12, color: "var(--td)" }}>
-        {tr.autoApplyNote}
-      </div>
-    </UseCaseWidgetPreview>
+    <WidgetShell
+      title={tr.noticeLabel}
+      subtitle={tr.discountSub}
+      footer={<WidgetButton block>{tr.btnComplete}</WidgetButton>}
+    >
+      <p className="wk-amount">{tr.discountTitle}</p>
+      <CouponCode code={tr.couponCode} action={<WidgetTag>{tr.expiresLabel}</WidgetTag>} />
+      <WidgetHint>{tr.shippingLabel}</WidgetHint>
+      <WidgetHint>{tr.autoApplyNote}</WidgetHint>
+    </WidgetShell>
   );
 }
