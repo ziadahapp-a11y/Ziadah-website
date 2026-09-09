@@ -1243,3 +1243,65 @@
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 28%, transparent);
 }
 .cmp-val { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+
+/* The rest of the article vocabulary, added for the blog body. Same reasoning
+   as `.article-prose` above - px type in a px-measured column, ink from the
+   section - applied to the pieces a blog post has and a support article does
+   not: a lede, a sub-heading, a figure, and a markdown table. All of it used
+   to be inline styles carrying #09090b, #7c3aed, #3f3f46 and #e4e4e7. */
+.article-h3 {
+  margin-block-start: 28px;
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-prose strong { font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.article-bold { font-size: 15px; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+
+/* The post's standfirst. The one place a violet rule earns its keep, because
+   it marks the boundary between the summary and the article proper. */
+.article-lede {
+  padding: 20px 22px;
+  border-radius: 16px;
+  border-inline-start: 4px solid var(--ziadah-violet);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.article-figure { margin: 32px auto; max-width: 320px; text-align: center; }
+.article-figure img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.article-figcaption {
+  margin-block-start: 12px;
+  font-size: 13px;
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+
+/* A markdown table. It scrolls inside its own box rather than pushing the
+   page sideways - the column is 740px and a four-column table is not. */
+.article-table-wrap { overflow-x: auto; }
+.article-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: start; }
+.article-table th {
+  padding: 10px 16px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-table td {
+  padding: 10px 16px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.article-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
+}

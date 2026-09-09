@@ -2,7 +2,7 @@
  * ZIADAH — LEGACY token bridge (do not extend).
  *
  * This is NOT a second design system. The single design system is TrackFlow
- * (see src/components/trackflow/DESIGN_SYSTEM.md). This file only keeps the old
+ * (see the deleted `trackflow` module's DESIGN_SYSTEM.md). This file only keeps the old
  * .gc/.btn-p/landing-* CSS alive while it is phased out, and its brand tokens
  * have been re-pointed to the one violet brand color (--brand: #7c3aed).
  *

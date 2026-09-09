@@ -8,7 +8,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
  * stays a diff. It is a thin read of Ziadah's `LanguageContext` - the single
  * source of the active language - and not a second language store.
  *
- * The same helper existed as `useT` inside `@/components/trackflow`, bundled
+ * The same helper existed as `useT` inside the old `trackflow` module, bundled
  * with that module's legacy band and card primitives. Importing a translation
  * helper should not drag a design system in with it, so it lives here.
  */
