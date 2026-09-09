@@ -19,16 +19,16 @@ export default function SectorHubPlaybook({
       style={{ marginBottom: 28, scrollMarginTop: 120 }}
     >
       <div className="mb-3">
-        <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
+        <span className="t-eyebrow">
           {tr.sectorHubPlaybookTag}
         </span>
       </div>
-      <p className="mb-5 text-sm text-zinc-700 leading-relaxed max-w-[720px]">
+      <p className="sector-card-text mb-5 max-w-[72rem]">
         {tr.sectorHubPlaybookLead}
       </p>
 
       <div id="section-examples" className="scroll-mt-[120px]">
-        <h3 className="mb-3.5 text-base md:text-lg font-bold text-violet-600 leading-snug">{tr.sectorHubExamplesEmbedTitle}</h3>
+        <h3 className="sector-card-title mb-4">{tr.sectorHubExamplesEmbedTitle}</h3>
         <SectorVisualExamples bundle={bundle} introVariant="sector" />
       </div>
     </section>

@@ -1305,3 +1305,39 @@
 .article-table tbody tr:nth-child(odd) td {
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
 }
+
+/* A bullet or numbered run inside a `.sector-block`. These were
+   `text-zinc-600` lists - readable on the white slab the sector pages used to
+   paint, invisible the moment a band stamps a family. */
+.sector-list {
+  margin: 0;
+  padding-inline-start: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.sector-list > li + li { margin-block-start: 1rem; }
+.sector-list--sm { font-size: 1.4rem; }
+
+/* The playbook cards. A card is an 8% tint of the section's own ink here as
+   everywhere else, not a white panel with a zinc border and a drop shadow. */
+.sector-card {
+  padding: 2rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+}
+.sector-card-title { margin: 0; font-size: 1.6rem; font-weight: 700; line-height: 1.35; color: var(--color-secondary, #0a0a0a); }
+.sector-card-text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+/* The sector's own read on its market: a quote-weight block, marked by a rule
+   rather than tinted zinc-50. */
+.sector-experience {
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  border-inline-start: 0.4rem solid var(--ziadah-violet);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}

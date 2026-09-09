@@ -664,10 +664,12 @@ section:not(.section):not(.hero-split){
    `.reports-grid` and `.blog-cards-grid` match no markup any more, so they go
    with it - a class that has been dead since it was written and matches
    nothing today is not worth reviving. */
+/* `.sector-block` already gives this its radius and its tint from the
+   section's own ink. What was left here was a 1px border and a 48px drop
+   shadow - the two things the design system does not put on a card, and the
+   only remaining shadow on a sector page outside the phone mockups. */
 .sector-playbook-wrap{
   border-radius:22px;
-  border:1px solid var(--b2);
-  box-shadow:0 24px 48px rgba(0,0,0,.12);
 }
 
 .sector-viz-root--widget-style .interactive-marquee{margin-inline:-8px;}
