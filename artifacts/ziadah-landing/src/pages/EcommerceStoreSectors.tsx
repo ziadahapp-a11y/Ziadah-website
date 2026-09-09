@@ -3,14 +3,12 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Shell } from "@/components/mk";
 import { HeroLede, Section as DsSection, CardsGrid, CtaSection } from "@/sections";
 import PlatformModal from "@/components/PlatformModal";
-import PageClosingCta from "@/components/PageClosingCta";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { sectors } from "@/data/sectors";
 import { navigateTo } from "@/components/PageTransition";
-import { Section, Eyebrow } from "@/components/trackflow";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const EXCLUDED_SLUGS = new Set(["delivery-apps", "ecommerce-platforms"]);
@@ -66,9 +64,13 @@ export default function EcommerceStoreSectors() {
         url="/sectors/ecommerce-stores"
       />
       <div className="page" dir={dir}>
+        {/* Dark, then grey, then pale - the same light/dark step every other
+            page opens with. It used to run grey hero into a violet band into a
+            violet CTA, so the last two read as one long pale block. */}
         <HeroLede
           compact
-          family="grey"
+          family="violet"
+          invert
           eyebrow={lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
           title={lang === "ar" ? "المتاجر الإلكترونية" : "Ecommerce Stores"}
           body={
@@ -78,7 +80,7 @@ export default function EcommerceStoreSectors() {
           }
         />
 
-        <DsSection family="violet">
+        <DsSection family="grey">
           <Shell>
             <CardsGrid
               cards={ecommerceSectors.map((sector) => ({

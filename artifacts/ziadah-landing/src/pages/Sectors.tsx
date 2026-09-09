@@ -3,13 +3,11 @@ import { ShoppingBag, Bike, Puzzle, ArrowRight, ArrowLeft } from "lucide-react";
 import { Shell } from "@/components/mk";
 import { HeroLede, Section as DsSection, CardsGrid, CtaSection } from "@/sections";
 import PlatformModal from "@/components/PlatformModal";
-import PageClosingCta from "@/components/PageClosingCta";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { navigateTo } from "@/components/PageTransition";
-import { Section, Eyebrow } from "@/components/trackflow";
 import { t as siteTranslations } from "@/i18n/translations";
 
 export default function Sectors() {
@@ -94,9 +92,11 @@ export default function Sectors() {
         url="/sectors"
       />
       <div className="page" dir={dir}>
+        {/* Dark, then grey, then pale, as on its sibling index pages. */}
         <HeroLede
           compact
-          family="grey"
+          family="violet"
+          invert
           eyebrow={lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
           title={lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
           body={
@@ -106,7 +106,7 @@ export default function Sectors() {
           }
         />
 
-        <DsSection family="violet">
+        <DsSection family="grey">
           <Shell>
             <CardsGrid
               cards={sectorBuckets.map((bucket) => {

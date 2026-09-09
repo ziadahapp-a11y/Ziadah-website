@@ -26,7 +26,8 @@ import { findStoryBySlug, storyEn, stories } from "@/data/successStoriesData";
 import { getStoryArticle } from "@/data/successStoriesArticles";
 import { navigateTo } from "@/components/PageTransition";
 import NotFound from "@/pages/not-found";
-import { Section, Card, StatCard } from "@/components/trackflow";
+import { Section, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
 import { HeroLede } from "@/sections";
 import { Button as MkButton } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
@@ -142,31 +143,23 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {article?.resultsContext && (
-          <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-6">{article.resultsContext}</p>
+          <p className="section-lead mb-6">{article.resultsContext}</p>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <StatCard
-            value={story.conversions}
-            label={
-              <span className="card-eyebrow">
-                {isAr ? "التحويلات" : "Conversions"}
-              </span>
-            }
-          />
-          <StatCard
-            value={
-              <>
-                {story.sales}
-                <span className="ms-1.5 text-base font-bold text-zinc-500">{isAr ? "ر.س" : "SAR"}</span>
-              </>
-            }
-            label={
-              <span className="card-eyebrow">
-                {isAr ? "إجمالي المبيعات" : "Total sales"}
-              </span>
-            }
-          />
-        </div>
+        {/* Two numbers are a stat pair, not two cards. This is the system's
+            own stat row - the same one the hero and the use-case pages use. */}
+        <ul className="uc-stats">
+          <li className="uc-stat">
+            <span className="uc-stat-value num-ltr">{story.conversions}</span>
+            <span className="uc-stat-label">{isAr ? "التحويلات" : "Conversions"}</span>
+          </li>
+          <li className="uc-stat">
+            <span className="uc-stat-value num-ltr">
+              {story.sales}
+              <span className="ms-1.5 t-body-18 opacity-70">{isAr ? "ر.س" : "SAR"}</span>
+            </span>
+            <span className="uc-stat-label">{isAr ? "إجمالي المبيعات" : "Total sales"}</span>
+          </li>
+        </ul>
       </>
     ),
   });
@@ -216,7 +209,7 @@ export default function SuccessStoryDetail() {
         >
           {/* The store's own card: who this story is about, where it sits in
               the run, and a way through to the shop itself. */}
-          <Card animate={false} className="story-card flex flex-wrap items-center gap-4 p-5">
+          <div className="card card--short story-card flex-row flex-wrap items-center gap-4">
               {story.logoUrl ? (
                 <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
                   <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
@@ -227,7 +220,7 @@ export default function SuccessStoryDetail() {
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-bold text-zinc-950 truncate">{displayStore}</div>
+                <div className="t-sm-med truncate">{displayStore}</div>
                 <div className="card-eyebrow num-ltr">
                   {isAr
                     ? `قصة ${String(storyIndex + 1).padStart(2, "0")} من ${String(total).padStart(2, "0")}`
@@ -239,23 +232,23 @@ export default function SuccessStoryDetail() {
                   href={story.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100 transition-colors"
+                  className="button tertiary is-small"
                 >
                   <span>{isAr ? "زيارة المتجر" : "Visit store"}</span>
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden />
                 </a>
               )}
-          </Card>
+          </div>
         </HeroLede>
 
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
-        <Section containerClassName="measure-read">
+        <Section family="grey">
+          <Shell width="narrow">
+          <div className="measure-read">
           {articleSections.map((s, i) => (
-            <div key={i} className={i > 0 ? "mt-16 pt-16 border-t border-zinc-200" : ""}>
-              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+            <div key={i} className={i > 0 ? "article-step" : ""}>
+              <h2 className="section-head-title--sm flex items-center gap-4 mb-6">
+                <span className="article-step-num num-ltr">{String(i + 1).padStart(2, "0")}</span>
                 {s.heading}
               </h2>
               {s.body}
@@ -263,21 +256,23 @@ export default function SuccessStoryDetail() {
           ))}
 
           {article?.takeaway && (
-            <div className="mt-16 pt-16 border-t border-zinc-200">
-              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
+            <div className="article-step">
+              <h2 className="section-head-title--sm flex items-center gap-4 mb-6">
+                <span className="article-step-num num-ltr">
                   {String(articleSections.length + 1).padStart(2, "0")}
                 </span>
                 {isAr ? "الخلاصة" : "Key Takeaway"}
               </h2>
-              <div className="relative rounded-2xl border border-violet-200 bg-violet-50/60 p-7 md:p-8 ps-14 md:ps-16">
-                <Quote className="absolute top-6 w-7 h-7 text-violet-500/60" aria-hidden style={{ insetInlineStart: "2rem" }} />
-                <p className="text-base md:text-lg font-semibold text-violet-800 leading-relaxed">
-                  {article.takeaway}
-                </p>
+              {/* The closing quote is a card with a mark, not a violet-tinted
+                  box with a violet border and violet type on it. */}
+              <div className="card card--short article-quote">
+                <Quote className="article-quote-mark" aria-hidden="true" />
+                <p className="t-body-18">{article.takeaway}</p>
               </div>
             </div>
           )}
+          </div>
+          </Shell>
         </Section>
 
         <PageClosingCta

@@ -862,6 +862,51 @@
   padding: 1.8rem 2.2rem 2.2rem;
 }
 
+/* ---------- A NUMBERED ARTICLE ------------------------------------------
+   The success stories and the support articles run as numbered steps with a
+   rule between them. Both used to hand-paint that: `mt-16 pt-16 border-t
+   border-zinc-200` for the rule and a `bg-zinc-950 text-white` chip for the
+   number, neither of which survives a family change. */
+.article-step {
+  margin-block-start: 6.4rem;
+  padding-block-start: 6.4rem;
+  border-top: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.article-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 4.4rem;
+  height: 3.6rem;
+  padding-inline: 1rem;
+  border-radius: 1rem;
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* The closing quote. A card with a mark in its gutter rather than a violet
+   box with a violet border and violet type inside it. */
+.article-quote {
+  position: relative;
+  padding-inline-start: 7.2rem;
+}
+.article-quote-mark {
+  position: absolute;
+  top: 2.4rem;
+  inset-inline-start: 2.4rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  color: var(--ziadah-violet);
+  opacity: 0.6;
+}
+@media screen and (max-width: 767px) {
+  .article-quote { padding-inline-start: 2.4rem; padding-block-start: 6.4rem; }
+  .article-quote-mark { top: 2.4rem; inset-inline-start: 2.4rem; }
+}
+
 /* ---------- SECTION FURNITURE -------------------------------------------
    Two things that recur under a grid and had been hand-painted with Tailwind
    greys every time they appeared: the footnote that qualifies a set of
@@ -987,3 +1032,116 @@
    - rem type in a rem box needs nothing.
 
    ---------------------------------------------------------------------- */
+
+/* ---------- HELP-ARTICLE PROSE -----------------------------------------
+   The support article body was Tailwind zinc type on a hard white slab, with
+   violet and amber callouts painted with fixed hexes. That could only ever
+   read on white: the band's own family did nothing, and flipping the section
+   left dark ink on dark ground.
+
+   The type here stays in PX on purpose. `.measure-read` sizes the reading
+   column against a 16px body (see its own note); rem type would grow to
+   ~23px at 1920 inside a 740px column, which is 33 characters on a line. A
+   px-typed column wants px boxes around it, so the whole block is px - the
+   one place in this stylesheet where that is deliberate rather than a bug.
+   Only the INK moved onto the section, which is what makes the band's family
+   matter again. */
+.article-prose {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(80%, var(--ink-floor, 0%)), transparent);
+}
+.article-prose > * + * { margin-block-start: 20px; }
+
+.article-h2 {
+  margin-block-start: 32px;
+  padding-block-end: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-p { font-size: 16px; line-height: 1.9; }
+@media screen and (min-width: 768px) {
+  .article-h2 { font-size: 25px; }
+  .article-p { font-size: 17px; }
+}
+
+/* A numbered run of steps. The chip is the same shape as `.article-step-num`
+   at the prose's own scale, so a support article and a success story number
+   things the same way. */
+.article-ol { display: flex; flex-direction: column; gap: 10px; }
+.article-ol-row { display: flex; gap: 14px; align-items: flex-start; }
+.article-ol-num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+  font-size: 14px;
+  font-weight: 700;
+}
+.article-ol-row p { font-size: 15px; line-height: 1.65; margin: 0; padding-block-start: 2px; }
+
+/* An unordered run. One step of the section's own ink instead of a zinc box
+   with a zinc border. */
+.article-ul { display: flex; flex-direction: column; gap: 8px; }
+.article-ul-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.article-ul-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-block-start: 8px;
+  border-radius: 999px;
+  background: var(--ziadah-violet);
+}
+.article-ul-row p { font-size: 15px; line-height: 1.65; margin: 0; }
+
+/* Tip and caution. Marked by a rule in the gutter and an icon rather than a
+   tinted box, so the only fixed colour left is the tone of the rule itself -
+   and a caution has to stay legible as a caution, which is why it keeps an
+   amber rather than borrowing the section's ink. */
+.article-note {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border-inline-start: 3px solid var(--note-tone, var(--ziadah-violet));
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.article-note--warn { --note-tone: #b45309; }
+.article-note-ico { flex: none; width: 20px; height: 20px; color: var(--note-tone, var(--ziadah-violet)); }
+.article-note-label {
+  margin-block-end: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--note-tone, var(--ziadah-violet));
+}
+[dir="rtl"] .article-note-label { letter-spacing: 0; text-transform: none; }
+.article-note p { font-size: 15px; line-height: 1.65; margin: 0; }
+
+/* The row that closes the body, and the run of siblings under it. */
+.article-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block-start: 48px;
+  padding-block-start: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.article-related { display: flex; flex-direction: column; gap: 12px; margin-block-start: 20px; }
