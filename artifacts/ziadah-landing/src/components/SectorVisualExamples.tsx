@@ -5,6 +5,9 @@ import { navigateTo } from "@/components/PageTransition";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
 import type { SectorScenarioOverlayKind, SectorVisualBundle, SectorVisualScenario } from "@/data/sectorVisuals";
 import { t as siteTranslations } from "@/i18n/translations";
+import {
+  PhoneFrame, WidgetShell, ProductList, ProductRow, WidgetButton, WidgetHint,
+} from "@/components/widgets/kit";
 
 type SectorPageT = Translations["sectorsPage"];
 
@@ -40,146 +43,46 @@ function SectorWidgetMiniPreview({
   s,
   tr,
   isAr,
-  rgb,
+  accent,
 }: {
   s: SectorVisualScenario;
   tr: SectorPageT;
   isAr: boolean;
-  rgb: string;
+  /** The SECTOR's colour, spent once. See the note in the parent. */
+  accent: string;
 }) {
-  const main = s.main;
-  const accent = s.accent;
-  const kind = s.overlayKind;
-
+  const cur = isAr ? "ر.س" : "SAR";
+  const name = (p: { nameAr: string; nameEn: string }) => (isAr ? p.nameAr : p.nameEn);
   return (
-    <div
-      style={{
-        borderRadius: 16,
-        overflow: "hidden",
-        background: "var(--s1)",
-        border: `1px solid rgba(${rgb},0.22)`,
-        boxShadow: `0 8px 28px rgba(${rgb},0.06), inset 0 1px 0 rgba(255,255,255,0.03)`,
-        width: "100%",
-        maxWidth: 320,
-        margin: "0 auto",
-      }}
-    >
-      <div
-        style={{
-          padding: "9px 12px",
-          background: `linear-gradient(135deg, rgba(${rgb},0.14) 0%, rgba(${rgb},0.03) 100%)`,
-          borderBottom: `1px solid rgba(${rgb},0.12)`,
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-        }}
+    <PhoneFrame accent={accent} label={isAr ? s.widgetAr : s.widgetEn} width={300}>
+      <WidgetShell
+        title={isAr ? s.placementAr : s.placementEn}
+        footer={
+          s.overlayPrimaryAr || s.overlayPrimaryEn ? (
+            <WidgetButton block>{isAr ? s.overlayPrimaryAr : s.overlayPrimaryEn}</WidgetButton>
+          ) : undefined
+        }
       >
-        <div style={{ display: "flex", gap: 4 }}>
-          <div style={{ width: 7, height: 7, borderRadius: "50%", background: `rgba(${rgb},0.45)` }} />
-          <div style={{ width: 7, height: 7, borderRadius: "50%", background: `rgba(${rgb},0.35)` }} />
-          <div style={{ width: 7, height: 7, borderRadius: "50%", background: `rgba(${rgb},0.25)` }} />
-        </div>
-        <div style={{ flex: 1, textAlign: "center", minWidth: 0 }}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: "var(--t)", letterSpacing: 0.2 }}>
-            {isAr ? s.widgetAr : s.widgetEn}
-          </div>
-          <div style={{ fontSize: 9, color: "var(--tm)", marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-            {isAr ? s.placementAr : s.placementEn}
-          </div>
-        </div>
-        <div style={{ width: 24 }} />
-      </div>
-      <div style={{ padding: 10, direction: isAr ? "rtl" : "ltr" }}>
-        <div style={{ fontSize: 9, fontWeight: 800, color: "var(--td)", marginBottom: 6 }}>{tr.vizMainLabel}</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            padding: "8px 10px",
-            borderRadius: 11,
-            background: "rgba(0,0,0,.06)",
-            border: `1px solid ${accent}40`,
-          }}
-        >
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
-              background: `linear-gradient(145deg, ${accent}35, rgba(0,0,0,.08))`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 20,
-              flexShrink: 0,
-            }}
-          >
-            {main.emoji}
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 11, fontWeight: 800, lineHeight: 1.3, color: "var(--t)" }}>{isAr ? main.nameAr : main.nameEn}</div>
-            {main.price ? (
-              <div style={{ fontSize: 11, fontWeight: 800, color: accent, marginTop: 2 }}>{main.price}</div>
-            ) : null}
-          </div>
-        </div>
-        <div
-          style={{
-            margin: "10px 0 6px",
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            fontSize: 9,
-            fontWeight: 800,
-            color: `rgba(${rgb},1)`,
-          }}
-        >
-          <span style={{ flex: 1, height: 1, background: `linear-gradient(90deg, rgba(${rgb},.4), transparent)` }} />
-          {tr.vizAiLabel}
-          <span style={{ flex: 1, height: 1, background: `linear-gradient(270deg, rgba(6,182,212,.35), transparent)` }} />
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          {s.suggested.map((p, j) => (
-            <div
-              key={j}
-              style={{
-                padding: "7px 8px",
-                borderRadius: 10,
-                background: "rgba(6,182,212,.07)",
-                border: "1px solid rgba(6,182,212,.2)",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              <span style={{ fontSize: 18 }}>{p.emoji}</span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 10, fontWeight: 700, color: "var(--tm)", lineHeight: 1.3 }}>{isAr ? p.nameAr : p.nameEn}</div>
-                <div style={{ fontSize: 10, fontWeight: 800, color: "#06b6d4", marginTop: 2 }}>{p.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        {kind ? (
-          <div
-            style={{
-              marginTop: 10,
-              padding: "6px 8px",
-              borderRadius: 8,
-              background: `rgba(${rgb},0.09)`,
-              border: `1px dashed rgba(${rgb},0.28)`,
-              fontSize: 9,
-              fontWeight: 800,
-              color: "var(--tm)",
-              textAlign: "center",
-            }}
-          >
-            {tr.vizWidgetLabel}: {isAr ? s.widgetAr : s.widgetEn} · {overlayKindShort(kind, isAr)}
-          </div>
+        <WidgetHint>{tr.vizMainLabel}</WidgetHint>
+        <ProductRow name={name(s.main)} price={s.main.price} currency={cur} />
+        {s.suggested.length ? (
+          <>
+            <WidgetHint>{isAr ? "يقترح زيادة" : "Ziadah suggests"}</WidgetHint>
+            <ProductList>
+              {s.suggested.slice(0, 3).map((sg, i) => (
+                <ProductRow
+                  key={i}
+                  name={name(sg)}
+                  price={sg.price}
+                  currency={cur}
+                  selected={i === 0}
+                />
+              ))}
+            </ProductList>
+          </>
         ) : null}
-      </div>
-    </div>
+      </WidgetShell>
+    </PhoneFrame>
   );
 }
 
@@ -196,7 +99,11 @@ function SectorScenarioWidgetShowcaseCard({
   lang: string;
   dir: "rtl" | "ltr";
 }) {
-  const rgb = hexToRgbTuple(s.accent);
+  /* ONE accent per SECTOR, not one per scenario. Each scenario carried its
+     own hex, so a single sector card showed a gold price beside a cyan price
+     beside a violet chip - four brands in one picture. */
+  const accent = s.accent;
+  const rgb = hexToRgbTuple(accent);
   const title = isAr ? s.titleAr : s.titleEn;
   const desc = isAr ? s.contextAr : s.contextEn;
   const icon = s.main.emoji;
@@ -261,7 +168,7 @@ function SectorScenarioWidgetShowcaseCard({
           <div style={{ fontSize: 11, color: "var(--tm)", lineHeight: 1.5, marginTop: 4 }}>{desc}</div>
         </div>
       </div>
-      <SectorWidgetMiniPreview s={s} tr={tr} isAr={isAr} rgb={rgb} />
+      <SectorWidgetMiniPreview s={s} tr={tr} isAr={isAr} accent={accent} />
       {s.relatedUseCaseHref ? (
         <button
           type="button"
@@ -566,404 +473,36 @@ function ScenarioCard({
   onOpenUseCase: (path: string) => void;
 }) {
   const s = scenario;
-  const main = s.main;
+  /* ONE accent for the card, the sector's own. This used to draw a gold
+     price beside a cyan price beside a violet chip, under a gold-to-cyan
+     gradient rule, inside a grey phone whose rows were grey on grey - four
+     brands in one picture, and the one surface that should have been bright
+     was the dullest thing on the page. */
   const accent = s.accent;
-  const overlayKind = s.overlayKind;
-  const hasOverlay = !!overlayKind;
-
-  const screenBody = (
-    <>
-      <div style={{ padding: 12 }}>
-        <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.8, color: "var(--td)", marginBottom: 8 }}>{tr.vizMainLabel}</div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            padding: "10px 12px",
-            borderRadius: 12,
-            background: "rgba(0,0,0,.2)",
-            border: `1px solid ${accent}33`,
-          }}
-        >
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 12,
-              background: `linear-gradient(145deg, ${accent}33, rgba(0,0,0,.3))`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 24,
-              flexShrink: 0,
-            }}
-          >
-            {main.emoji}
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: 14, fontWeight: 800, lineHeight: 1.3, color: "var(--t)" }}>{isAr ? main.nameAr : main.nameEn}</div>
-            {main.price ? (
-              <div style={{ fontSize: 13, fontWeight: 800, color: accent, marginTop: 4 }}>{main.price}</div>
-            ) : null}
-          </div>
-        </div>
-
-        <div
-          style={{
-            margin: "14px 0 10px",
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
-            fontSize: 11,
-            fontWeight: 800,
-            color: "var(--p3)",
-          }}
-        >
-          <span style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(124, 58, 237,.4), transparent)" }} />
-          {tr.vizAiLabel}
-          <span style={{ flex: 1, height: 1, background: "linear-gradient(270deg, rgba(6,182,212,.35), transparent)" }} />
-        </div>
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {s.suggested.map((p, j) => (
-            <div
-              key={j}
-              style={{
-                flex: "1 1 140px",
-                minWidth: 120,
-                padding: "10px 10px",
-                borderRadius: 12,
-                background: "rgba(6,182,212,.06)",
-                border: "1px solid rgba(6,182,212,.2)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <span style={{ fontSize: 20 }}>{p.emoji}</span>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.35, color: "var(--tm)" }}>{isAr ? p.nameAr : p.nameEn}</div>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: "#06b6d4", marginTop: 4 }}>{p.price}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
 
   return (
-    <div className={`rv ${delayClass} sector-viz-card sector-card !p-0 overflow-hidden`}>
-      <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, transparent)` }} />
-      <div className="p-7">
-        <div className="mb-3.5">
-          <h3 className="sector-card-title" style={{ fontSize: 17, margin: "0 0 6px" }}>{isAr ? s.titleAr : s.titleEn}</h3>
-          <p className="sector-card-text" style={{ fontSize: 13, lineHeight: 1.55 }}>{isAr ? s.contextAr : s.contextEn}</p>
-          {s.relatedUseCaseHref ? (
-            <button
-              type="button"
-              onClick={() => onOpenUseCase(s.relatedUseCaseHref!)}
-              style={{
-                marginTop: 10,
-                fontSize: 12,
-                fontWeight: 800,
-                color: "var(--p3)",
-                background: "rgba(124, 58, 237,.1)",
-                border: "1px solid rgba(124, 58, 237,.28)",
-                borderRadius: 999,
-                padding: "6px 12px",
-                cursor: "pointer",
-                fontFamily: "var(--font)",
-              }}
-            >
-              {tr.sectorVisualUseCaseCta} →
-            </button>
-          ) : null}
-        </div>
+    <div className={`rv ${delayClass} sector-viz-card sector-card`}>
+      <div className="svx-head">
+        <h3 className="sector-card-title">{isAr ? s.titleAr : s.titleEn}</h3>
+        <p className="sector-card-text">{isAr ? s.contextAr : s.contextEn}</p>
+        {s.relatedUseCaseHref ? (
+          <button type="button" className="chip is-small" onClick={() => onOpenUseCase(s.relatedUseCaseHref!)}>
+            {isAr ? "افتح الحل" : "Open the solution"}
+          </button>
+        ) : null}
+      </div>
 
-        <div
-          style={{
-            maxWidth: 400,
-            margin: "0 auto 14px",
-            borderRadius: 28,
-            padding: 10,
-            background: "linear-gradient(165deg, rgba(255,255,255,.12), rgba(0,0,0,.25))",
-            border: "1px solid var(--b1)",
-            boxShadow: "0 28px 60px rgba(0,0,0,.175)",
-          }}
-        >
-          <div
-            style={{
-              position: "relative",
-              borderRadius: 22,
-              overflow: "hidden",
-              minHeight: 400,
-              background: "var(--s1)",
-              border: "1px solid var(--b1)",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 3,
-                background: `linear-gradient(90deg, ${accent}, #06b6d4)`,
-                opacity: 0.85,
-              }}
-            />
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "10px 12px",
-                borderBottom: "1px solid var(--b1)",
-                background: "rgba(0,0,0,.08)",
-                gap: 8,
-              }}
-            >
-              <span style={{ fontSize: 11, fontWeight: 800, color: "var(--td)", fontVariantNumeric: "tabular-nums", flexShrink: 0 }}>9:41</span>
-              <span style={{ fontSize: 12, fontWeight: 800, color: "var(--t)", flex: 1, textAlign: "center", minWidth: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{tr.mockStoreBar}</span>
-              <span style={{ fontSize: 12, fontWeight: 800, color: accent, flexShrink: 0 }}>{tr.mockCartBadge}</span>
-            </div>
-            <div
-              style={{
-                transition: "opacity .25s ease, filter .25s ease",
-                opacity: hasOverlay && overlayKind !== "banner" ? 0.32 : hasOverlay && overlayKind === "banner" ? 0.55 : 1,
-                filter: hasOverlay && overlayKind !== "banner" ? "blur(0.6px)" : hasOverlay && overlayKind === "banner" ? "blur(0.3px)" : "none",
-                pointerEvents: hasOverlay && (overlayKind === "modal" || overlayKind === "sheet") ? "none" : "auto",
-              }}
-            >
-              {screenBody}
-            </div>
-            {hasOverlay ? <ScenarioUiOverlay kind={overlayKind as SectorScenarioOverlayKind} scenario={s} isAr={isAr} accent={accent} /> : null}
-          </div>
-        </div>
+      <div className="svx-stage">
+        <SectorWidgetMiniPreview s={s} tr={tr} isAr={isAr} accent={accent} />
+      </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
-          <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineEnd: 4 }}>{tr.vizWidgetLabel}</span>
-          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(124, 58, 237,.12)", border: "1px solid rgba(124, 58, 237,.25)", fontSize: 12, fontWeight: 700, color: "var(--p3)" }}>
-            {isAr ? s.widgetAr : s.widgetEn}
-          </span>
-          <span style={{ fontSize: 10, fontWeight: 800, color: "var(--td)", marginInlineStart: 8, marginInlineEnd: 4 }}>{tr.vizPlacementLabel}</span>
-          <span style={{ padding: "4px 12px", borderRadius: 50, background: "rgba(6,182,212,.08)", border: "1px solid rgba(6,182,212,.22)", fontSize: 12, fontWeight: 700, color: "#06b6d4" }}>
-            {isAr ? s.placementAr : s.placementEn}
-          </span>
-        </div>
+      <div className="svx-meta">
+        <span className="card-eyebrow">{tr.vizWidgetLabel}</span>
+        <span className="wk-tag wk-tag--neutral">{isAr ? s.widgetAr : s.widgetEn}</span>
+        <span className="card-eyebrow">{tr.vizPlacementLabel}</span>
+        <span className="wk-tag wk-tag--neutral">{isAr ? s.placementAr : s.placementEn}</span>
       </div>
     </div>
   );
 }
 
-function ScenarioUiOverlay({
-  kind,
-  scenario,
-  isAr,
-  accent,
-}: {
-  kind: SectorScenarioOverlayKind;
-  scenario: SectorVisualScenario;
-  isAr: boolean;
-  accent: string;
-}) {
-  const s = scenario;
-  const title = isAr ? s.overlayTitleAr : s.overlayTitleEn;
-  const body = isAr ? s.overlayBodyAr : s.overlayBodyEn;
-  const primary = isAr ? s.overlayPrimaryAr : s.overlayPrimaryEn;
-  const secondary = isAr ? s.overlaySecondaryAr : s.overlaySecondaryEn;
-  const meta = isAr ? s.overlayMetaAr : s.overlayMetaEn;
-  const code = s.overlayCode;
-  const pct = s.overlayProgressPct;
-
-  const btnBase: CSSProperties = {
-    flex: 1,
-    borderRadius: 12,
-    fontWeight: 800,
-    fontSize: 12,
-    padding: "10px 12px",
-    cursor: "pointer",
-    fontFamily: "var(--font)",
-    border: "1px solid var(--b2)",
-  };
-
-  if (kind === "toast") {
-    return (
-      <div style={{ position: "absolute", top: 14, left: 12, right: 12, zIndex: 4, pointerEvents: "none" }}>
-        <div
-          style={{
-            margin: "0 auto",
-            maxWidth: 340,
-            padding: "11px 14px",
-            borderRadius: 14,
-            background: "rgba(15,23,42,.94)",
-            border: "1px solid rgba(255,255,255,.14)",
-            color: "#f8fafc",
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 10,
-            boxShadow: "0 18px 40px rgba(0,0,0,.225)",
-          }}
-        >
-          <span style={{ fontSize: 18, lineHeight: 1 }}>✓</span>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            {title ? <div style={{ fontWeight: 900, fontSize: 13, marginBottom: 4 }}>{title}</div> : null}
-            {body ? <div style={{ fontSize: 12, lineHeight: 1.55, opacity: 0.92 }}>{body}</div> : null}
-            {meta ? <div style={{ fontSize: 10, marginTop: 8, opacity: 0.75, fontWeight: 700 }}>{meta}</div> : null}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (kind === "banner") {
-    return (
-      <div
-        style={{
-          position: "absolute",
-          top: 46,
-          left: 0,
-          right: 0,
-          zIndex: 3,
-          padding: "10px 12px 12px",
-          background: `linear-gradient(180deg, ${accent}26, rgba(0,0,0,.15))`,
-          borderBottom: "1px solid var(--b1)",
-          backdropFilter: "blur(6px)",
-        }}
-      >
-        {title ? (
-          <div style={{ fontSize: 13, fontWeight: 900, color: "var(--t)", lineHeight: 1.35 }}>{title}</div>
-        ) : null}
-        {body ? <div style={{ fontSize: 11, color: "var(--tm)", marginTop: 4, lineHeight: 1.5 }}>{body}</div> : null}
-        {typeof pct === "number" ? (
-          <div style={{ marginTop: 8, height: 6, borderRadius: 99, background: "rgba(0,0,0,.2)", overflow: "hidden" }}>
-            <div style={{ width: `${Math.min(100, Math.max(0, pct))}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${accent}, #8b5cf6)` }} />
-          </div>
-        ) : null}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, marginTop: 8 }}>
-          {meta ? <span style={{ fontSize: 10, fontWeight: 800, color: "var(--p3)" }}>{meta}</span> : <span />}
-          {primary ? (
-            <button type="button" style={{ ...btnBase, flex: "0 0 auto", padding: "7px 14px", background: accent, color: "#fff", border: "none" }}>
-              {primary}
-            </button>
-          ) : null}
-        </div>
-      </div>
-    );
-  }
-
-  if (kind === "sheet") {
-    return (
-      <>
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(0,0,0,.48)",
-            zIndex: 3,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 4,
-            borderTopLeftRadius: 22,
-            borderTopRightRadius: 22,
-            background: "var(--bg)",
-            borderTop: "1px solid var(--b1)",
-            padding: "10px 16px 18px",
-            boxShadow: "0 -16px 40px rgba(0,0,0,.2)",
-          }}
-        >
-          <div style={{ width: 42, height: 5, borderRadius: 99, background: "var(--b2)", margin: "4px auto 12px" }} />
-          {meta ? (
-            <div style={{ fontSize: 10, fontWeight: 800, color: "var(--p3)", textTransform: "uppercase", letterSpacing: 0.6, marginBottom: 8 }}>{meta}</div>
-          ) : null}
-          {title ? <div style={{ fontSize: 16, fontWeight: 900, color: "var(--t)", marginBottom: 8 }}>{title}</div> : null}
-          {body ? <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6, marginBottom: 14 }}>{body}</div> : null}
-          <div style={{ display: "flex", gap: 8 }}>
-            {secondary ? (
-              <button type="button" style={{ ...btnBase, background: "transparent", color: "var(--tm)" }}>
-                {secondary}
-              </button>
-            ) : null}
-            {primary ? (
-              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#7c3aed)`, color: "#fff", border: "none" }}>
-                {primary}
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  /* modal */
-  return (
-    <>
-      <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.55)", zIndex: 3 }} />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 4,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 16,
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            maxWidth: 300,
-            borderRadius: 18,
-            background: "var(--bg)",
-            border: "1px solid var(--b1)",
-            padding: "18px 16px 16px",
-            boxShadow: "0 28px 70px rgba(0,0,0,.275)",
-          }}
-        >
-          {meta ? <div style={{ fontSize: 10, fontWeight: 800, color: "var(--p3)", marginBottom: 8 }}>{meta}</div> : null}
-          {title ? <div style={{ fontSize: 16, fontWeight: 900, color: "var(--t)", lineHeight: 1.35, marginBottom: 8 }}>{title}</div> : null}
-          {body ? <div style={{ fontSize: 13, color: "var(--td)", lineHeight: 1.6, marginBottom: 12 }}>{body}</div> : null}
-          {code ? (
-            <div
-              style={{
-                fontFamily: "ui-monospace, monospace",
-                fontSize: 15,
-                fontWeight: 900,
-                letterSpacing: 2,
-                textAlign: "center",
-                padding: "10px 12px",
-                borderRadius: 12,
-                background: "rgba(124, 58, 237,.1)",
-                border: "1px dashed rgba(124, 58, 237,.35)",
-                color: "var(--p3)",
-                marginBottom: 12,
-              }}
-            >
-              {code}
-            </div>
-          ) : null}
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {primary ? (
-              <button type="button" style={{ ...btnBase, background: `linear-gradient(135deg,${accent},#7c3aed)`, color: "#fff", border: "none", width: "100%" }}>
-                {primary}
-              </button>
-            ) : null}
-            {secondary ? (
-              <button type="button" style={{ ...btnBase, background: "transparent", color: "var(--tm)", width: "100%" }}>
-                {secondary}
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
