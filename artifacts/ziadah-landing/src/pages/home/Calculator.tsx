@@ -79,7 +79,20 @@ function CalcSliderCard({
   );
 }
 
-export function Calculator({ onActivate }: { onActivate?: () => void }) {
+export function Calculator({
+  onActivate,
+  invert = true,
+}: {
+  onActivate?: () => void;
+  /**
+   * The home page runs this band dark, between a pale widgets band and a pale
+   * pricing band. The standalone `/calculator` page runs it pale, because
+   * there it sits between a dark hero and the dark closing CTA and three dark
+   * bands in a row is one long dark block. Everything inside is written from
+   * the section's own pair, so the flip costs nothing.
+   */
+  invert?: boolean;
+}) {
   const { lang } = useLanguage();
   const t = useT();
   const isAr = lang === "ar";
@@ -164,7 +177,7 @@ export function Calculator({ onActivate }: { onActivate?: () => void }) {
   ];
 
   return (
-      <Section id="calculator" family="violet" invert>
+      <Section id="calculator" family="violet" invert={invert}>
         <SectionHead
           kicker={t({ ar: "حاسبة", en: "Calculator" })}
           title={t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}

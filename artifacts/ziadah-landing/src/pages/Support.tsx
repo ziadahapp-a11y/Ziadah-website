@@ -87,7 +87,7 @@ export default function Support() {
       keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
-    <PageShell className="relative overflow-x-clip bg-white support-page" style={{ background: "#fff" }}>
+    <PageShell className="relative overflow-x-clip support-page">
 
       {/* ─── HERO ─── */}
       <HeroLede

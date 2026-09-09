@@ -189,7 +189,7 @@ export default function Affiliate() {
 
 
   return (
-    <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+    <PageShell className="relative overflow-x-clip">
       <BilingualSEO
         titleAr={AR.seoTitle}
         titleEn={EN.seoTitle}

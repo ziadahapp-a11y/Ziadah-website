@@ -895,12 +895,15 @@ section:not(.section):not(.hero-split){
   color:var(--p4);
 }
 
-/* ── Support page — white canvas + light UI (Support.tsx / PageShell.support-page) ──
-   ── Blog (index + articles) — same canvas (Blog.tsx, BlogPost.tsx / blog-white-shell) ── */
-.landing-shell.support-page,
-.landing-shell.blog-white-shell{
-  --page-background:#fff;
-  background:#fff!important;
+/* ── Support page — light UI for the legacy widget tokens (PageShell.support-page)
+   The `blog-white-shell` half of this block is gone: the blog index and the
+   blog post are both rebuilt on the section vocabulary, so nothing carries
+   that class any more. What is left here is NOT a white canvas. Every band on
+   /support stamps its own family, so painting the shell white only put a hard
+   slab in the gaps between them; the rule keeps the light values for the
+   legacy `--t/--tm/--td/--b1/--b2` tokens that the page's remaining widgets
+   read, because those default to the dark theme and would be invisible. */
+.landing-shell.support-page{
   color:#0a0a0b;
   --t:#0a0a0b;
   --tm:rgba(9, 9, 11,.72);
@@ -908,23 +911,7 @@ section:not(.section):not(.hero-split){
   --b1:rgba(124, 58, 237,.12);
   --b2:rgba(124, 58, 237,.2);
 }
-.landing-shell.blog-white-shell{
-  /* Category filter chips use --s1; dark theme token is invisible on white */
-  --s1:rgba(124, 58, 237,.045);
-}
-.landing-shell.support-page .ds-page-atmos,
-.landing-shell.blog-white-shell .ds-page-atmos{display:none!important;}
-.landing-shell.support-page section.cta-sec.landing-white-accent,
-.landing-shell.blog-white-shell section.cta-sec.landing-white-accent{
-  background:#fff!important;
-  background-color:#fff!important;
-  box-shadow:none;
-  border-top:1px solid rgba(124, 58, 237,.08);
-}
-.landing-shell.support-page section.cta-sec.landing-white-accent .cta-box.gc,
-.landing-shell.blog-white-shell section.cta-sec.landing-white-accent .cta-box.gc{
-  box-shadow:0 16px 48px rgba(124, 58, 237,.1),0 1px 0 rgba(255,255,255,.95) inset!important;
-}
+.landing-shell.support-page .ds-page-atmos{display:none!important;}
 .support-section--contact .support-quick-card.gc{
   position:relative;
   display:flex!important;
