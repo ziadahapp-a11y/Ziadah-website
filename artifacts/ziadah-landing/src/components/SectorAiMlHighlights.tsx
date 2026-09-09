@@ -19,14 +19,14 @@ export default function SectorAiMlHighlights() {
       style={{ marginBottom: 22, scrollMarginTop: 120 }}
     >
       <div className="mb-2.5">
-        <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
+        <span className="t-eyebrow">
           {tr.sectorAiSectionTag}
         </span>
       </div>
-      <h2 className="mb-2.5 text-2xl md:text-3xl font-bold text-zinc-950 leading-tight">
+      <h2 className="section-head-title--sm mb-2.5">
         {tr.sectorAiSectionTitle}
       </h2>
-      <p className="mb-[18px] text-sm text-zinc-700 leading-relaxed">
+      <p className="sector-card-text mb-[1.8rem]">
         {tr.sectorAiSectionLead}
       </p>
 
@@ -37,17 +37,17 @@ export default function SectorAiMlHighlights() {
         {sectorAiMlBullets.map((b, i) => (
           <div
             key={i}
-            className="rounded-2xl border border-zinc-200 bg-violet-50/60 p-4"
+            className="sector-card"
           >
             <div className="flex items-start gap-2.5">
               <span className="text-[22px] leading-none" aria-hidden>
                 {b.emoji}
               </span>
               <div>
-                <h3 className="mb-2 text-sm md:text-base font-bold text-zinc-950 leading-snug">
+                <h3 className="sector-card-title mb-2">
                   {lang === "ar" ? b.titleAr : b.titleEn}
                 </h3>
-                <p className="m-0 text-[13px] text-zinc-600 leading-relaxed">
+                <p className="sector-card-text">
                   {lang === "ar" ? b.textAr : b.textEn}
                 </p>
               </div>
@@ -56,20 +56,20 @@ export default function SectorAiMlHighlights() {
         ))}
       </div>
 
-      <div className="mt-5 pt-[18px] border-t border-zinc-200">
-        <p className="mb-2.5 text-xs font-bold tracking-wide text-zinc-700 uppercase">
+      <div className="card-rule mt-5">
+        <p className="card-eyebrow mb-2.5">
           {tr.sectorAiDeepenTitle}
         </p>
         <div className="flex flex-col gap-3.5">
           <div>
-            <span className="text-xs font-bold text-violet-600">{tr.sectorAiFromBlog} — </span>
+            <span className="card-eyebrow">{tr.sectorAiFromBlog} — </span>
             <div className="flex flex-wrap gap-2 mt-2">
               {sectorAiMlBlogLinks.map((link) => (
                 <button
                   key={link.href}
                   type="button"
                   onClick={() => navigateTo(link.href)}
-                  className="text-[11px] font-bold px-2.5 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-950 cursor-pointer text-start hover:border-zinc-300 hover:bg-zinc-100 transition-colors"
+                  className="chip is-small text-start"
                 >
                   {lang === "ar" ? link.labelAr : link.labelEn}
                 </button>
@@ -77,14 +77,14 @@ export default function SectorAiMlHighlights() {
             </div>
           </div>
           <div>
-            <span className="text-xs font-bold text-violet-600">{tr.sectorAiFromSupport} — </span>
+            <span className="card-eyebrow">{tr.sectorAiFromSupport} — </span>
             <div className="flex flex-wrap gap-2 mt-2">
               {sectorAiMlSupportLinks.map((link) => (
                 <button
                   key={link.href}
                   type="button"
                   onClick={() => navigateTo(link.href)}
-                  className="text-[11px] font-bold px-2.5 py-1.5 rounded-full border border-zinc-200 bg-zinc-50 text-zinc-950 cursor-pointer text-start hover:border-zinc-300 hover:bg-zinc-100 transition-colors"
+                  className="chip is-small text-start"
                 >
                   {lang === "ar" ? link.labelAr : link.labelEn}
                 </button>

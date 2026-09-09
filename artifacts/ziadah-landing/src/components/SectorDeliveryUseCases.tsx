@@ -286,11 +286,11 @@ export default function SectorDeliveryUseCases() {
       className="rv d2 sector-block"
       style={{ marginBottom: 16, scrollMarginTop: 120 }}
     >
-      <p className="sh-en mb-2 text-[11px] tracking-[0.12em] uppercase text-zinc-700">
+      <p className="sh-en card-eyebrow mb-2">
         {isAr ? "أمثلة حية" : "Live examples"}
       </p>
-      <h2 className="mb-1.5 text-2xl md:text-3xl font-bold text-zinc-950 leading-tight">{tr.sectorSectionUseCases}</h2>
-      <p className="mb-4 text-[13px] text-zinc-600 leading-relaxed max-w-[560px]">
+      <h2 className="section-head-title--sm mb-1.5">{tr.sectorSectionUseCases}</h2>
+      <p className="sector-card-text mb-4 max-w-[56rem]">
         {isAr ? "أهم السيناريوهات — يمكنك استكشاف الباقي من لوحة زيادة بعد التفعيل." : "Key scenarios — explore the rest in Ziadah after activation."}
       </p>
 
@@ -308,7 +308,7 @@ export default function SectorDeliveryUseCases() {
       </div>
 
       <div className="sector-html-uc-panel sector-html-uc-panel--active">
-        <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 px-5 py-[18px]">
+        <div className="sector-card relative overflow-hidden">
           <div
             className="absolute top-0 left-0 right-0 h-0.5"
             style={{
@@ -318,11 +318,11 @@ export default function SectorDeliveryUseCases() {
           <p className="sh-en mb-2 text-[11px] tracking-[0.1em] uppercase text-violet-600">
             {isAr ? active.badgeAr : active.badgeEn}
           </p>
-          <h3 className="mb-1 text-base md:text-lg font-bold text-zinc-950 leading-snug">{isAr ? active.titleAr : active.titleEn}</h3>
+          <h3 className="sector-card-title mb-1">{isAr ? active.titleAr : active.titleEn}</h3>
           <span className="sh-en block mb-3 text-xs text-violet-600/85">
             {isAr ? active.subAr : active.subEn}
           </span>
-          <p className="mb-4 text-sm text-zinc-600 leading-relaxed">{isAr ? active.descAr : active.descEn}</p>
+          <p className="sector-card-text mb-4">{isAr ? active.descAr : active.descEn}</p>
           <div
             className="flex items-start gap-3 px-3.5 py-3 rounded-xl"
             style={{
@@ -334,7 +334,7 @@ export default function SectorDeliveryUseCases() {
               📊
             </span>
             <div
-              className="text-[13px] leading-relaxed text-zinc-950"
+              className="text-[1.3rem] leading-relaxed"
               dangerouslySetInnerHTML={{ __html: isAr ? active.resultAr : active.resultEn }}
             />
           </div>

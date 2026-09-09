@@ -38,7 +38,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
       return (
         <>
           <div id="section-why" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-            <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
+            <h2 className="section-head-title--sm mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
             <div className="sector-html-why-grid">
                 {rich.whyCards.map((w, i) => (
                   <div key={i} className="sector-html-wcard">
@@ -51,7 +51,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                         <p className="sector-html-wc-line">{isAr ? w.lineAr : w.lineEn}</p>
                       </>
                     ) : (
-                      <p className="sector-html-wc-desc text-zinc-600 m-0 text-[13px] leading-[1.65]">
+                      <p className="sector-html-wc-desc m-0 text-[13px] leading-[1.65]">
                         {isAr ? w.textAr : w.textEn}
                       </p>
                     )}
@@ -66,17 +66,17 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     return (
       <>
         <div id="section-why" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
+          <h2 className="section-head-title--sm mb-3.5 mt-0">{tr.sectorSectionWhy}</h2>
           <div className="grid gap-3" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}>
             {rich.whyCards.map((w, i) => (
-              <div key={i} className="rv flex items-start gap-2.5 rounded-2xl border border-zinc-200 bg-white p-4 hover:border-zinc-300 hover:shadow-card transition-all">
+              <div key={i} className="rv sector-card flex items-start gap-2.5">
                 <span className="text-xl leading-tight" aria-hidden>
                   {w.emoji}
                 </span>
-                <div className="m-0 text-sm text-zinc-600 leading-[1.65]">
+                <div className="sector-card-text">
                   {isWhySplit(w) ? (
                     <>
-                      <div className="font-extrabold mb-1 text-zinc-950">{isAr ? w.titleAr : w.titleEn}</div>
+                      <div className="sector-card-title mb-1">{isAr ? w.titleAr : w.titleEn}</div>
                       <div>{isAr ? w.lineAr : w.lineEn}</div>
                     </>
                   ) : (
@@ -155,7 +155,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     if (html && rich.aiCompactPoints) {
       return (
         <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
+          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
           <div className="sector-html-ai-layout sector-html-ai-layout--compact">
             <div className="sector-html-ai-vis sector-html-ai-vis--profileonly">{profileCard}</div>
             <div className="sector-html-ai-compact-col">
@@ -181,7 +181,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
       return (
         <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
+          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
           <div className="sector-html-ai-layout">
             <div>
               {layers.map((layer, i) => (
@@ -228,14 +228,14 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     return (
       <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-        <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
+        <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
         <div className="mb-4 px-4 py-3.5 rounded-xl" style={{ border: "1px solid var(--b2)", background: "rgba(124, 58, 237,.04)" }}>
-          <div className="text-xs font-extrabold text-zinc-700 mb-2">{tr.sectorAiProfile}</div>
-          <p className="m-0 text-sm text-zinc-950 leading-[1.65]">{isAr ? rich.aiProfileTagsAr : rich.aiProfileTagsEn}</p>
+          <div className="card-eyebrow mb-2">{tr.sectorAiProfile}</div>
+          <p className="sector-card-text">{isAr ? rich.aiProfileTagsAr : rich.aiProfileTagsEn}</p>
         </div>
         <div className="mb-4">
-          <div className="text-xs font-extrabold text-zinc-700 mb-2">{tr.sectorAiRecs}</div>
-          <ul className="m-0 ps-5 text-zinc-600 text-sm leading-[1.7]">
+          <div className="card-eyebrow mb-2">{tr.sectorAiRecs}</div>
+          <ul className="sector-list sector-list--sm">
             {(isAr ? rich.aiRecsAr : rich.aiRecsEn).map((line, i) => (
               <li key={i} className="mb-1.5">
                 {line}
@@ -245,8 +245,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         </div>
         {sig && sig.length > 0 ? (
           <div>
-            <div className="text-xs font-extrabold text-zinc-700 mb-2">{tr.sectorAiSignals}</div>
-            <ul className="m-0 ps-5 text-zinc-600 text-sm leading-[1.7]">
+            <div className="card-eyebrow mb-2">{tr.sectorAiSignals}</div>
+            <ul className="sector-list sector-list--sm">
               {sig.map((line, i) => (
                 <li key={i} className="mb-1.5">
                   {line}
@@ -346,7 +346,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     const dashboardBlock =
       html && rich.analyticBarPcts ? (
         <div ref={barsRef} className="flex flex-col gap-3.5">
-          <p className="text-xs font-extrabold text-zinc-700 mb-1 mt-0">{tr.sectorAnalyticsKpis}</p>
+          <p className="card-eyebrow mb-1 mt-0">{tr.sectorAnalyticsKpis}</p>
           <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
             {rich.analyticKpis.map((k, i) => (
               <div
@@ -425,9 +425,9 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
 
     const analyticsBlockFull = (
       <>
-        <p className="text-xs font-extrabold text-zinc-700 mb-2 mt-0">{tr.sectorAnalyticsNarrative}</p>
+        <p className="card-eyebrow mb-2 mt-0">{tr.sectorAnalyticsNarrative}</p>
         {linesAr && linesEn ? (
-          <ul className="mt-0 mx-0 mb-3.5 ps-[18px] text-zinc-600 leading-[1.65] text-[13px]">
+          <ul className="sector-list sector-list--sm mt-0 mx-0 mb-3.5">
             {(isAr ? linesAr : linesEn).map((line, i) => (
               <li key={i} className="mb-1.5">
                 {line}
@@ -435,7 +435,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
             ))}
           </ul>
         ) : null}
-        <p className="text-xs font-extrabold text-zinc-700 mb-2">{tr.sectorAnalyticsKpis}</p>
+        <p className="card-eyebrow mb-2">{tr.sectorAnalyticsKpis}</p>
         {dashboardBlock}
       </>
     );
@@ -443,7 +443,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     if (html) {
       return (
         <div id="section-metrics" className="rv d2 sector-block mb-4" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-4 mt-0">{tr.sectorSectionMetrics}</h2>
+          <h2 className="section-head-title--sm mb-4 mt-0">{tr.sectorSectionMetrics}</h2>
           {trackingBlockHtml}
           {dashboardBlock}
         </div>
@@ -453,12 +453,12 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     return (
       <>
         <div id="section-tracking" className="rv d2 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionTracking}</h2>
+          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionTracking}</h2>
           {trackingBlockPlain}
         </div>
 
         <div id="section-analytics" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-3 mt-0">{tr.sectorSectionAnalytics}</h2>
+          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAnalytics}</h2>
           {analyticsBlockFull}
         </div>
       </>
@@ -469,8 +469,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
     return (
       <>
         <div id="section-sector-cta" className="rv d1 sector-block mb-5 text-center" style={{ scrollMarginTop: 120 }}>
-          <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 leading-tight mb-2.5 mt-0">{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
-          <p className="mt-0 mx-auto mb-5 text-[15px] text-zinc-700 leading-[1.75] max-w-[560px]">{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
+          <h2 className="section-head-title--sm mb-2.5 mt-0">{isAr ? rich.ctaHeadlineAr : rich.ctaHeadlineEn}</h2>
+          <p className="sector-card-text mt-0 mx-auto mb-5 max-w-[56rem]">{isAr ? rich.ctaSubAr : rich.ctaSubEn}</p>
           <div className="sector-html-cta-row justify-center">
             <button
               type="button"

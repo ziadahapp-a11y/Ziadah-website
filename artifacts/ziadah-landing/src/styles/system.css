@@ -1328,6 +1328,9 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
 @media (hover: hover) { .chip:hover { background: rgb(127 127 127 / 0.14); color: var(--color-secondary, var(--general-black)); } }
 .chip[aria-pressed="true"] { background: var(--color-secondary, var(--general-black)); color: var(--color-primary, var(--general-white)); }
 .chip:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+/* A chip used as a small inline tag rather than a filter control. Same ink and
+   the same pressed state, at the size the surrounding body copy sets. */
+.chip.is-small { height: 3rem; padding-inline: 1.2rem; font-size: 1.3rem; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
 
 /* =====================================================================
    SITE FOOTER - the reference's measured architecture (spec/06-footer.md).

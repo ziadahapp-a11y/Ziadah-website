@@ -314,7 +314,7 @@ export default function SectorVisualExamples({
   if (introVariant === "sector") {
     return (
       <div className="sector-viz-root sector-viz-root--widget-style">
-        <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
+        <p className="sector-viz-lead rv d1 sector-card-text" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
           {tr.sectorHubExamplesEmbedSub}
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 28 }}>
@@ -339,13 +339,13 @@ export default function SectorVisualExamples({
         </div>
         <div className="rv d2 sector-viz-flow-wrap sector-block overflow-hidden" style={{ marginTop: 8 }}>
           <div className="text-center mb-7">
-            <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
+            <div className="t-eyebrow">
               {tr.sectionFlowTag}
             </div>
-            <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
+            <h3 className="sector-card-title" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
               {tr.sectionFlowTitle}
             </h3>
-            <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
+            <p className="sector-card-text" style={{ fontSize: 14 }}>
               {tr.sectionFlowSub}
             </p>
           </div>
@@ -369,10 +369,10 @@ export default function SectorVisualExamples({
                   >
                     {step.icon}
                   </div>
-                  <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
+                  <div className="sector-card-title mb-2" style={{ fontSize: 15 }}>
                     {isAr ? step.titleAr : step.titleEn}
                   </div>
-                  <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
+                  <p className="sector-card-text" style={{ fontSize: 13, lineHeight: 1.65 }}>
                     {isAr ? step.descAr : step.descEn}
                   </p>
                 </div>
@@ -387,7 +387,7 @@ export default function SectorVisualExamples({
 
   return (
     <div className="sector-viz-root">
-      <p className="sector-viz-lead rv d1 text-zinc-700" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
+      <p className="sector-viz-lead rv d1 sector-card-text" style={{ margin: "0 0 20px", fontSize: 14, lineHeight: 1.75 }}>
         {tr.sectionExamplesSub}
       </p>
 
@@ -418,7 +418,7 @@ export default function SectorVisualExamples({
       </div>
 
       <div className="rv d2" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-        <div className="text-zinc-600" style={{ fontSize: 12, fontWeight: 700 }}>
+        <div className="sector-card-text" style={{ fontSize: 12, fontWeight: 700 }}>
           {progress}
         </div>
         <div style={{ display: "flex", gap: 8 }}>
@@ -506,13 +506,13 @@ export default function SectorVisualExamples({
 
       <div className="rv d2 sector-viz-flow-wrap sector-block overflow-hidden" style={{ marginTop: 28 }}>
         <div className="text-center mb-7">
-          <div className="text-xs font-bold tracking-widest text-violet-600 uppercase">
+          <div className="t-eyebrow">
             {tr.sectionFlowTag}
           </div>
-          <h3 className="font-bold text-zinc-950" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
+          <h3 className="sector-card-title" style={{ fontSize: "clamp(20px,2.5vw,26px)", margin: "10px 0 8px" }}>
             {tr.sectionFlowTitle}
           </h3>
-          <p className="m-0 text-zinc-600" style={{ fontSize: 14 }}>
+          <p className="sector-card-text" style={{ fontSize: 14 }}>
             {tr.sectionFlowSub}
           </p>
         </div>
@@ -536,10 +536,10 @@ export default function SectorVisualExamples({
                 >
                   {step.icon}
                 </div>
-                <div className="font-bold text-zinc-950 mb-2" style={{ fontSize: 15 }}>
+                <div className="sector-card-title mb-2" style={{ fontSize: 15 }}>
                   {isAr ? step.titleAr : step.titleEn}
                 </div>
-                <p className="m-0 text-zinc-700" style={{ fontSize: 13, lineHeight: 1.65 }}>
+                <p className="sector-card-text" style={{ fontSize: 13, lineHeight: 1.65 }}>
                   {isAr ? step.descAr : step.descEn}
                 </p>
               </div>
@@ -653,12 +653,12 @@ function ScenarioCard({
   );
 
   return (
-    <div className={`rv ${delayClass} sector-viz-card rounded-2xl border border-zinc-200 bg-white hover:border-zinc-300 hover:shadow-card transition-all overflow-hidden`}>
+    <div className={`rv ${delayClass} sector-viz-card sector-card !p-0 overflow-hidden`}>
       <div style={{ height: 4, background: `linear-gradient(90deg, ${accent}, transparent)` }} />
       <div className="p-7">
         <div className="mb-3.5">
-          <h3 className="font-bold text-zinc-950" style={{ fontSize: 17, margin: "0 0 6px" }}>{isAr ? s.titleAr : s.titleEn}</h3>
-          <p className="m-0 text-zinc-600" style={{ fontSize: 13, lineHeight: 1.55 }}>{isAr ? s.contextAr : s.contextEn}</p>
+          <h3 className="sector-card-title" style={{ fontSize: 17, margin: "0 0 6px" }}>{isAr ? s.titleAr : s.titleEn}</h3>
+          <p className="sector-card-text" style={{ fontSize: 13, lineHeight: 1.55 }}>{isAr ? s.contextAr : s.contextEn}</p>
           {s.relatedUseCaseHref ? (
             <button
               type="button"
