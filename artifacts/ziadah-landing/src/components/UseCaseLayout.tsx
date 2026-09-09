@@ -315,7 +315,13 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </Section>
         ) : null}
 
-        <Section family="grey">
+        {/* Violet, not grey. This used to be the THIRD grey band in a row -
+            the example, the plans strip and this - across all twenty-one
+            use-case routes, so the bottom half of every one of them read as
+            one long pale block. The plans strip above is `flushTop` and
+            deliberately continuous with the example it qualifies; this is a
+            separate argument and takes a separate ground. */}
+        <Section family="violet">
           <Shell>
             <div className="uc-split">
               <SectionHead size="md" kicker={reportsTag} title={reportsTitle} lead={reportsDesc} />

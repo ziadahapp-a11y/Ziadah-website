@@ -154,9 +154,13 @@ export default function Blog() {
     />
 
       {/* HERO */}
+      {/* Dark, matching the blog POST page: the index and the article it
+          leads to now open the same way, and the catalogue below keeps the
+          grey it needs to read as a page of cards. */}
       <HeroLede
         compact
-        family="grey"
+        family="violet"
+        invert
         eyebrow={tx.tag}
         title={tx.heroTitle}
         body={tx.heroSub}

@@ -82,9 +82,13 @@ export default function UseCases() {
       />
 
       <div className="page">
+        {/* Dark, like every other index on the site. It was grey over a grey
+            band, so the opener and the situations grid read as one long pale
+            block with a headline floating in it. */}
         <HeroLede
           compact
-          family="grey"
+          family="violet"
+          invert
           eyebrow={tr.nav.useCases}
           title={t("ابدأ من الموقف، لا من الأداة", "Start from the situation, not the tool")}
           body={t(
