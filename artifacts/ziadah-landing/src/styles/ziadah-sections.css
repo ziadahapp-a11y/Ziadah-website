@@ -1145,3 +1145,101 @@
   border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
 }
 .article-related { display: flex; flex-direction: column; gap: 12px; margin-block-start: 20px; }
+
+/* ---------- THE PLAN COMPARISON TABLE ----------------------------------
+   The last trackflow band on the site. It was a white card with zinc rules,
+   a `bg-white/95` sticky header, violet-600 and violet-50 column washes and
+   zinc-900 cell values - a table that could only exist on white, on a page
+   whose bands each stamp their own family.
+
+   Everything below is written from the section's own pair. The one colour
+   that stays absolute is the featured column's tint, because "this is the
+   plan we are pointing at" is the table's single piece of emphasis and it has
+   to survive a flip. */
+.cmp-table {
+  border-radius: 2rem;
+  overflow: hidden;
+  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
+}
+.cmp-head,
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .cmp-head,
+  .cmp-row { grid-template-columns: 1.6fr repeat(4, 1fr); }
+}
+/* The header rides the scroll, so it needs an opaque ground of its own -
+   the section's primary, not a hardcoded translucent white. */
+.cmp-head {
+  position: sticky;
+  /* Under the site header, not under the viewport edge - at `top: 0` the nav
+     bar floated over the plan names as soon as the table was scrolled. */
+  top: var(--header-dynamic-height);
+  z-index: 2;
+  align-items: stretch;
+  background: var(--color-primary, var(--general-white));
+  border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.cmp-col { padding: 1.6rem 1.2rem; text-align: center; }
+.cmp-col-name { font-size: 1.5rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.cmp-col-price {
+  margin-block-start: 0.4rem;
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(65%, var(--ink-floor, 0%)), transparent);
+}
+/* The plan being recommended. A tint plus a rule on either side, so it reads
+   as one column running the height of the table rather than four separate
+   violet boxes. */
+.cmp-col--featured,
+.cmp-cell--featured {
+  /* The section's own ink, not a violet tint: on the violet band this table
+     sits on, violet-on-violet was invisible. A step of the section's ink
+     reads as emphasis on either family. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 9%, transparent);
+  box-shadow:
+    0.1rem 0 0 0 color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent) inset,
+    -0.1rem 0 0 0 color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent) inset;
+}
+
+.cmp-group { border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent); }
+.cmp-group:last-child { border-bottom: 0; }
+.cmp-group-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.4rem 1.8rem;
+  text-align: start;
+  border-inline-start: 0.3rem solid var(--ziadah-violet);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, transparent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+  cursor: pointer;
+  transition: background var(--dur-fast, 0.2s) var(--ease, ease);
+}
+.cmp-group-btn:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 9%, transparent); }
+.cmp-group-caret { flex: none; width: 1.6rem; height: 1.6rem; color: var(--ziadah-violet); transition: transform var(--dur-fast, 0.2s) var(--ease, ease); }
+.cmp-group-btn[aria-expanded="true"] .cmp-group-caret { transform: rotate(180deg); }
+
+.cmp-row--alt { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 3%, transparent); }
+.cmp-feat {
+  padding: 1.2rem 1.8rem;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(78%, var(--ink-floor, 0%)), transparent);
+}
+.cmp-cell { padding: 1.2rem; text-align: center; }
+.cmp-yes { display: inline-block; width: 1.8rem; height: 1.8rem; color: var(--ziadah-violet); }
+.cmp-no {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 28%, transparent);
+}
+.cmp-val { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }

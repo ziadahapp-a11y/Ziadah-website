@@ -14,8 +14,7 @@ import PageClosingCta from "@/components/PageClosingCta";
 import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
-import { Section, Eyebrow } from "@/components/trackflow";
-import { HeroLede, Section as DsSection } from "@/sections";
+import { HeroLede, Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pricing-data";
@@ -113,21 +112,14 @@ const FEATURE_GROUPS: CategoryGroup[] = [
   },
 ];
 
-/** Renders one comparison-table cell. Featured plan keeps the dark-card treatment. */
-function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
-  if (val === true)
-    return (
-      <Check
-        className={`mx-auto w-[18px] h-[18px] ${featured ? "text-violet-600" : "text-violet-500"}`}
-        strokeWidth={2.5}
-        aria-hidden
-      />
-    );
-  if (val === false || val === null)
-    return <Minus className={`mx-auto w-4 h-4 ${featured ? "text-violet-300" : "text-zinc-300"}`} aria-hidden />;
-  return (
-    <span className={`text-sm font-bold num-ltr ${featured ? "text-violet-700" : "text-zinc-900"}`}>{val}</span>
-  );
+/* One comparison-table cell. The featured plan used to recolour every glyph
+   inside it - a violet-600 check against a violet-500 one, which nobody can
+   tell apart. The column's own tint carries that emphasis now, so the glyph
+   only has to say yes, no, or how many. */
+function CellVal({ val }: { val: FeatureVal }) {
+  if (val === true) return <Check className="cmp-yes" strokeWidth={2.5} aria-hidden />;
+  if (val === false || val === null) return <Minus className="cmp-no" aria-hidden />;
+  return <span className="cmp-val num-ltr">{val}</span>;
 }
 
 export default function PricingPage() {
@@ -187,7 +179,7 @@ export default function PricingPage() {
       />
       <PricingPageSchema />
 
-      <PageShell className="pp-root relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+      <PageShell className="pp-root relative overflow-x-clip">
         <div dir={dir}>
           {/* ══════════════════ HERO + PLAN CARDS ══════════════════ */}
           <HeroLede
@@ -416,26 +408,27 @@ export default function PricingPage() {
             </Shell>
           </DsSection>
 
-          {/* ══════════════════ FEATURE COMPARISON ══════════════════ */}
-          <Section band="muted" containerClassName="max-w-6xl">
-              <div className="text-center mb-12">
-                <Eyebrow className="mb-4">{isAr ? "مقارنة الخصائص" : "Feature Comparison"}</Eyebrow>
-                <h2 className="text-3xl md:text-5xl font-bold text-zinc-950 leading-tight">
-                  {isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}
-                </h2>
-              </div>
+          {/* ══════════════════ FEATURE COMPARISON ══════════════════
+              Pale violet between the grey plan band and the dark violet
+              close, so the page steps grey → violet → deep violet instead of
+              running two pale bands together. */}
+          <DsSection family="violet">
+            <Shell width="wide">
+              <SectionHead
+                center
+                kicker={isAr ? "مقارنة الخصائص" : "Feature Comparison"}
+                title={isAr ? "ماذا يشمل كل باقة؟" : "What's included in each plan?"}
+              />
 
-              {/* Mobile plan selector — hidden on desktop */}
+              {/* Below the tablet tier the table shows one plan at a time -
+                  five columns on a phone is five unreadable columns. */}
               <div className="md:hidden flex flex-wrap justify-center gap-2 mb-6">
                 {plans.map((plan, i) => (
                   <button
                     key={plan.key}
                     type="button"
-                    className={`rounded-full border px-3.5 py-2 text-xs font-bold transition-colors ${
-                      mobilePlanIdx === i
-                        ? "border-violet-600 bg-violet-600 text-white shadow-sm shadow-violet-600/30"
-                        : "border-zinc-200 bg-white text-zinc-700 hover:border-violet-300"
-                    }`}
+                    className="chip"
+                    aria-pressed={mobilePlanIdx === i}
                     onClick={() => setMobilePlanIdx(i)}
                   >
                     {plan.name}
@@ -443,21 +436,18 @@ export default function PricingPage() {
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-zinc-200 bg-white shadow-card overflow-hidden">
-                {/* Sticky header */}
-                <div className="sticky top-0 z-10 grid grid-cols-2 md:grid-cols-5 items-stretch border-b border-zinc-200 bg-white/95 backdrop-blur">
+              <div className="cmp-table">
+                <div className="cmp-head">
                   <div className="hidden md:block" />
                   {plans.map((plan, i) => (
                     <div
                       key={plan.key}
-                      className={`p-4 text-center ${plan.featured ? "bg-violet-600 border-x border-violet-600" : ""} ${
-                        mobilePlanIdx === i ? "" : "hidden md:block"
+                      className={`cmp-col${plan.featured ? " cmp-col--featured" : ""}${
+                        mobilePlanIdx === i ? "" : " hidden md:block"
                       }`}
                     >
-                      <div className={`text-sm font-bold ${plan.featured ? "text-white" : "text-zinc-950"}`}>
-                        {plan.name}
-                      </div>
-                      <div className={`mt-0.5 text-xs num-ltr ${plan.featured ? "text-violet-100" : "text-zinc-500"}`}>
+                      <div className="cmp-col-name">{plan.name}</div>
+                      <div className="cmp-col-price num-ltr">
                         {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
                         <span>{riyal}/{isAr ? "شهر" : "mo"}</span>
                       </div>
@@ -465,40 +455,34 @@ export default function PricingPage() {
                   ))}
                 </div>
 
-                {/* Feature groups */}
                 {FEATURE_GROUPS.map((group) => {
                   const isOpen = open[group.arTitle] !== false;
                   const title = isAr ? group.arTitle : group.enTitle;
                   return (
-                    <div key={group.arTitle} className="border-b border-zinc-100 last:border-b-0">
+                    <div key={group.arTitle} className="cmp-group">
                       <button
                         type="button"
-                        className="flex w-full items-center justify-between border-s-2 border-violet-500 bg-zinc-50/80 px-4 py-3.5 text-start transition-colors hover:bg-violet-50"
+                        className="cmp-group-btn"
                         onClick={() => toggleGroup(group.arTitle)}
                         aria-expanded={isOpen}
                       >
-                        <span className="text-sm font-bold text-zinc-950">{title}</span>
-                        <ChevronDown
-                          className={`w-4 h-4 text-violet-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                        />
+                        <span>{title}</span>
+                        <ChevronDown className="cmp-group-caret" aria-hidden="true" />
                       </button>
 
                       {isOpen && (
                         <div>
                           {group.features.map((feat, fi) => (
-                            <div
-                              key={fi}
-                              className={`grid grid-cols-2 md:grid-cols-5 items-center ${fi % 2 === 1 ? "bg-zinc-50/40" : ""}`}
-                            >
-                              <div className="px-4 py-3 text-sm text-zinc-700">{isAr ? feat.ar : feat.en}</div>
+                            <div key={fi} className={`cmp-row${fi % 2 === 1 ? " cmp-row--alt" : ""}`}>
+                              <div className="cmp-feat">{isAr ? feat.ar : feat.en}</div>
                               {plans.map((plan, i) => (
                                 <div
                                   key={plan.key}
-                                  className={`px-4 py-3 text-center ${plan.featured ? "bg-violet-50 border-x border-violet-200" : ""} ${
-                                    mobilePlanIdx === i ? "" : "hidden md:block"
+                                  className={`cmp-cell${plan.featured ? " cmp-cell--featured" : ""}${
+                                    mobilePlanIdx === i ? "" : " hidden md:block"
                                   }`}
                                 >
-                                  <CellVal val={feat[plan.key]} featured={plan.featured} />
+                                  <CellVal val={feat[plan.key]} />
                                 </div>
                               ))}
                             </div>
@@ -510,13 +494,13 @@ export default function PricingPage() {
                 })}
               </div>
 
-              {/* Footnote */}
-              <p className="mt-6 text-center text-xs text-zinc-500 leading-relaxed max-w-3xl mx-auto">
+              <p className="section-note">
                 {isAr
                   ? "★ المميزات المحددة بالنجمة حصرية لباقة الأعمال · نقاط الذكاء الاصطناعي تُستهلك فقط عند إتمام شراء فعلي عبر الاقتراح الذكي"
                   : "★ Star features are exclusive to the Business plan · AI points are only consumed when a purchase is completed via a smart suggestion"}
               </p>
-        </Section>
+            </Shell>
+          </DsSection>
 
           <PageClosingCta
             title={pc.pricingTitle}
