@@ -24,6 +24,7 @@ import { Section, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { HeroLede } from "@/sections";
 import { t as siteTranslations } from "@/i18n/translations";
+import { supportCategoryIcon } from "@/lib/support-icons";
 
 export default function Support() {
   const { lang, isAr } = useLanguage();
@@ -230,7 +231,7 @@ export default function Support() {
               className="chip shrink-0 gap-2"
               aria-pressed={activeCategory === c.id}
             >
-              <span aria-hidden>{c.icon}</span>
+              {(() => { const I = supportCategoryIcon(c.icon); return <I className="w-4 h-4" aria-hidden="true" />; })()}
               {getCatLabel(c)}
               <span className="chip-count num-ltr">{c.articles.length}</span>
             </button>
@@ -249,7 +250,7 @@ export default function Support() {
                   className="cat-link"
                   aria-pressed={activeCategory === c.id}
                 >
-                  <span className="text-lg" aria-hidden>{c.icon}</span>
+                  {(() => { const I = supportCategoryIcon(c.icon); return <I className="w-4 h-4 shrink-0" aria-hidden="true" />; })()}
                   <span className="flex-1 t-sm-med">{getCatLabel(c)}</span>
                   <span className="card-eyebrow num-ltr">{c.articles.length}</span>
                 </button>

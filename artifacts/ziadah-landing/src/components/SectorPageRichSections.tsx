@@ -42,9 +42,11 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
             <div className="sector-html-why-grid">
                 {rich.whyCards.map((w, i) => (
                   <div key={i} className="sector-html-wcard">
-                    <div className="sector-html-wc-icon" aria-hidden>
-                      {w.emoji}
-                    </div>
+                    {/* `w.emoji` is deliberately unread. It was a decorative
+                        category marker - 🧩 🤖 📊 🎛️ - on a card that already
+                        carries a title and a line, so it added nothing except
+                        the one visual tell this pass exists to remove. The
+                        field stays in the data; nothing renders it. */}
                     {isWhySplit(w) ? (
                       <>
                         <div className="sector-html-wc-title">{isAr ? w.titleAr : w.titleEn}</div>

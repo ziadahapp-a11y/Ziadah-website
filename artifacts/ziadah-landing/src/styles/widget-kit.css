@@ -449,3 +449,9 @@
 .svx-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
 .svx-stage { display: flex; justify-content: center; padding-block: 2.4rem; }
 .svx-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; }
+
+/* The personalisation demo: two profiles, one strip that changes between
+   them. The tabs used to be violet-glowing pills with 👩 and 👨 on them. */
+.cpd-tabs { display: flex; justify-content: center; gap: 0.8rem; margin-block-end: 3.2rem; }
+.cpd-stage { display: flex; justify-content: center; }
+.cpd-stage > .wk { max-width: 42rem; }

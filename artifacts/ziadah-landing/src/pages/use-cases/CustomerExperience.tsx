@@ -86,11 +86,11 @@ const data: UseCasePageData = {
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
         <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-          <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 28px", overflow: "hidden" }}>
-            <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 8, textAlign: "center" }}>
+          <div className="sector-card" style={{ overflow: "hidden" }}>
+            <h3 className="section-head-title--sm" style={{ marginBottom: 8, textAlign: "center" }}>
               {isAr ? "مقارنة سريعة" : "Quick comparison"}
             </h3>
-            <p className="text-zinc-600" style={{ fontSize: 14, textAlign: "center", marginBottom: 24, lineHeight: 1.7 }}>
+            <p className="sector-card-text" style={{ textAlign: "center", marginBottom: 24 }}>
               {isAr
                 ? "لماذا التوصيات التقليدية تتوقف مبكراً بينما محرك زيادة يستمر بالتعلم؟"
                 : "Why traditional recommendations plateau while Ziadah's engine keeps learning."}

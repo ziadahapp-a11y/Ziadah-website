@@ -70,7 +70,7 @@ const data: UseCasePageData = {
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10">
+        <div className="sector-card">
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16 }}>
             {(isAr ? [

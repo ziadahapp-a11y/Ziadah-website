@@ -76,7 +76,7 @@ const data: UseCasePageData = {
           labelEn: "⚖️ vs Bundle Deals",
           placement: "below",
           content: (
-            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+            <div className="sector-card" style={{ width: "100%" }}>
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>
                 {isAr ? "الفرق بين 'الشراء معاً' و'عروض الحزم'" : "'Bought Together' vs. Bundle Deals"}
               </h3>

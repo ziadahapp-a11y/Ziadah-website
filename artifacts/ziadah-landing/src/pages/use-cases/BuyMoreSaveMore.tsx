@@ -74,7 +74,7 @@ const data: UseCasePageData = {
           labelEn: "🏷️ Best Product Fits",
           placement: "below",
           content: (
-            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+            <div className="sector-card" style={{ width: "100%" }}>
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
                 {isAr ? "أي المنتجات تستفيد أكثر من عروض الكميات؟" : "Which products benefit most from volume offers?"}
               </h3>

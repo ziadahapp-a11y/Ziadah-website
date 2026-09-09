@@ -76,7 +76,7 @@ const data: UseCasePageData = {
           labelEn: "📍 Where It Appears",
           placement: "below",
           content: (
-            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px", width: "100%" }}>
+            <div className="sector-card" style={{ padding: "36px 40px", width: "100%" }}>
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>
                 {isAr ? "أين تظهر 'منتجات ذات صلة'؟" : "Where do 'Related Products' appear?"}
               </h3>

@@ -34,22 +34,13 @@ import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, SupportArticleSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
 import { useSupportArticleFields } from "@/hooks/useSupportArticleFields";
+import { supportCategoryIcon } from "@/lib/support-icons";
 import { HeroLede, Section } from "@/sections";
 import { Shell, Button as MkButton } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
 
-/** Map the category emoji icons to lucide icons (DS uses lucide, never emoji). */
-const CATEGORY_ICON: Record<string, LucideIcon> = {
-  "⚡": Zap,
-  "⚙️": Settings,
-  "🤖": Bot,
-  "💳": CreditCard,
-  "🔧": Wrench,
-  "🖥️": Monitor,
-  "📈": TrendingUp,
-};
 
 export default function SupportArticle() {
   const t = siteTranslations;
@@ -104,7 +95,7 @@ export default function SupportArticle() {
   const articleDesc = cmsFields.desc;
   const articleTime = cmsFields.time;
   const catLabel = getCatLabel(category);
-  const CategoryIcon = CATEGORY_ICON[category.icon] ?? BookOpen;
+  const CategoryIcon = supportCategoryIcon(category.icon);
   const pk = getPageKeywords("/support");
   const titleSuffixAr = "مركز مساعدة زيادة";
   const titleSuffixEn = "Ziadah Help Center";

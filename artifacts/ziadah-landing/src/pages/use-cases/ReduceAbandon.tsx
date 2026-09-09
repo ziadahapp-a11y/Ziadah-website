@@ -70,7 +70,7 @@ const data: UseCasePageData = {
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px" }}>
+        <div className="sector-card" style={{ padding: "36px 40px" }}>
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "أسباب التخلي — وحل زيادة لكل سبب" : "Abandonment reasons — and Ziadah's solution for each"}</h3>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {(isAr ? [

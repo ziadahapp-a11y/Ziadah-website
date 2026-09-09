@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Rocket, ArrowDown, Plus } from "lucide-react";
+import { Rocket, ArrowDown } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich } from "@/data/sectorPageTypes";
 import PlatformModal from "@/components/PlatformModal";
 import { Button } from "@/components/mk";
 import { HeroSplit } from "@/sections";
+import {
+  PhoneFrame, WidgetShell, ProductList, ProductRow, WidgetHint,
+} from "@/components/widgets/kit";
 
 type Props = {
   rich: SectorPageRich;
@@ -14,10 +17,24 @@ type Props = {
 };
 
 
-/** Splits "🍔 Burger — 25 SAR" style lines into icon / name / price. */
+/**
+ * Splits an order line into name and price.
+ *
+ * The data writes these two different ways and only one of them has a
+ * separator: English is "🍝 Creamy pasta — 58 SAR", Arabic is
+ * "🍝 باستا كريمية 58ر.س" with no dash at all. Matching only on the dash left
+ * every Arabic row with its price inside the name and an empty price beside
+ * it, which is what the first pass shipped.
+ *
+ * So: drop the leading emoji (the kit draws a tile from the name), then take
+ * the trailing number as the price whether or not a dash announces it, and
+ * strip the unit so the preview can state it in the reader's own language.
+ */
 function splitLine(text: string) {
-  const m = text.match(/^(\S+)\s+(.+?)\s*[—–]\s*(.+)$/);
-  return m ? { icon: m[1], name: m[2], price: m[3] } : { icon: "", name: text, price: "" };
+  const noIcon = text.replace(/^\s*\p{Extended_Pictographic}[\uFE0F\u200D]*\s*/u, "").trim();
+  const m = noIcon.match(/^(.*?)\s*(?:[—–-]\s*)?([\d][\d,.]*)\s*(?:SAR|ر\.?\s?س)?\s*$/iu);
+  if (m && m[1].trim()) return { name: m[1].trim(), price: m[2] };
+  return { name: noIcon, price: "" };
 }
 
 /**
@@ -40,6 +57,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
   const ft2 = isAr ? rich.heroFloatTag2Ar : rich.heroFloatTag2En;
   const phoneBar = isAr ? rich.heroPhoneBarAr ?? "تطبيق التوصيل" : rich.heroPhoneBarEn ?? "Delivery app";
   const primaryCta = rich.heroPrimaryCtaTargetId ?? "section-why";
+  const cur = isAr ? "ر.س" : "SAR";
 
   return (
     <>
@@ -82,50 +100,42 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
           </>
         }
         media={
-          /* The phone is the sector's evidence: its real orders, and what
-             Ziadah suggests against them. Kept as-is — it is the one thing on
-             the page that shows rather than tells. */
-          <div dir={dir} className="sector-phone-wrap">
-            {ft1 ? <span className="sector-phone-tag sector-phone-tag--start">{ft1}</span> : null}
-
-            <div className="sector-phone">
-              <div className="sector-phone-bar">
-                <span>{phoneBar}</span>
-                <span className="num-ltr">12:34</span>
-              </div>
-              <div className="sector-phone-body">
-                {rich.phoneOrders.map((line, i) => {
-                  const s = splitLine(isAr ? line.ar : line.en);
-                  return (
-                    <div key={i} className="sector-phone-row">
-                      <span aria-hidden="true">{s.icon}</span>
-                      <span className="sector-phone-name">{s.name}</span>
-                      {s.price ? <span className="sector-phone-price num-ltr">{s.price}</span> : null}
-                    </div>
-                  );
-                })}
-
-                <div className="sector-phone-recs">
-                  <p className="sector-phone-recs-label">{isAr ? "زيادة يقترح" : "Ziadah suggests"}</p>
-                  {rich.phoneRecs.map((line, i) => {
-                    const s = splitLine(isAr ? line.ar : line.en);
+          /* The sector's evidence: its real orders, and what Ziadah suggests
+             against them. On the kit's neutral phone now - it used to be a
+             frame with a gold-to-cyan gradient strip holding white rows with
+             an emoji where the product photo goes and "25 SAR" on an Arabic
+             page. Nineteen to forty-three emoji per sector page came from
+             here. */
+          <div dir={dir} className="ucp-stage">
+            {ft1 ? <p className="ucp-float ucp-float--1">{ft1}</p> : null}
+            <PhoneFrame label={phoneBar} width={300}>
+              <WidgetShell title={isAr ? "طلب العميل" : "The customer's order"}>
+                <ProductList>
+                  {rich.phoneOrders.map((line, i) => {
+                    const o = splitLine(isAr ? line.ar : line.en);
                     return (
-                      <div key={i} className="sector-phone-row sector-phone-row--rec">
-                        <span aria-hidden="true">{s.icon}</span>
-                        <span className="sector-phone-name">{s.name}</span>
-                        {s.price ? <span className="sector-phone-price num-ltr">{s.price}</span> : null}
-                        <span className="sector-phone-add">
-                          <Plus className="w-3 h-3" aria-hidden="true" />
-                          {isAr ? "أضف" : "Add"}
-                        </span>
-                      </div>
+                      <ProductRow key={i} name={o.name} price={o.price} currency={cur} />
                     );
                   })}
-                </div>
-              </div>
-            </div>
-
-            {ft2 ? <span className="sector-phone-tag sector-phone-tag--end">{ft2}</span> : null}
+                </ProductList>
+                <WidgetHint>{isAr ? "زيادة يقترح" : "Ziadah suggests"}</WidgetHint>
+                <ProductList>
+                  {rich.phoneRecs.map((line, i) => {
+                    const o = splitLine(isAr ? line.ar : line.en);
+                    return (
+                      <ProductRow
+                        key={i}
+                        name={o.name}
+                        price={o.price}
+                        currency={cur}
+                        selected={i === 0}
+                      />
+                    );
+                  })}
+                </ProductList>
+              </WidgetShell>
+            </PhoneFrame>
+            {ft2 ? <p className="ucp-float ucp-float--2">{ft2}</p> : null}
           </div>
         }
       />

@@ -24,6 +24,13 @@ import { analytics } from "@/lib/analytics";
  * linking straight to the page that handles it. The five indexes are still
  * here, below, for anyone who does think in the taxonomy.
  */
+/* The scenario lines are written "🌿 عناية: عميلة تشتري شامبو → …" - a
+   category emoji before the sector name that repeats what the words say. It
+   is dropped at render rather than edited out of 23 data files. */
+function stripLeadIcon(text: string) {
+  return text.replace(/^\s*\p{Extended_Pictographic}[\uFE0F\u200D]*\s*/u, "");
+}
+
 export default function UseCases() {
   const { lang } = useLanguage();
   const tr = siteTranslations[lang];
@@ -153,7 +160,7 @@ export default function UseCases() {
                   {/* The scenario's own title is the situation, in one line. */}
                   <p className="ucx-problem">{scenario.title}</p>
                   {/* Its first step is what Ziadah does about it. */}
-                  {scenario.steps[1] ? <p className="ucx-mech">{scenario.steps[1]}</p> : null}
+                  {scenario.steps[1] ? <p className="ucx-mech">{stripLeadIcon(scenario.steps[1])}</p> : null}
                   <p className="uc-outcome">
                     <button type="button" className="uc-tool" onClick={() => go(s.href)}>
                       {t("افتح الحل", "Open the solution")}
