@@ -8,7 +8,7 @@ const PhoneTopBar = () => (
     padding: "8px 0 12px", borderBottom: "1px solid var(--b1)", marginBottom: 12,
   }}>
     <span style={{ fontSize: 13, color: "var(--tm)", fontWeight: 700 }}>ملخص الطلب</span>
-    <span style={{ fontSize: 13, color: "var(--t)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
+    <span style={{ fontSize: 13, color: "var(--t)", fontWeight: 700 }}>61.60 ر.س سعودي</span>
   </div>
 );
 
@@ -40,12 +40,12 @@ const ProductCard = ({
       <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ⃁</span>
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ر.س</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ر.س</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ر.س</span>
       )}
       {discount && (
         <span style={{
@@ -88,9 +88,9 @@ const AddToCartRow = ({
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{name}</div>
       <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--t)" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--t)" }}>{price} ر.س</span>
         {originalPrice && (
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ر.س</span>
         )}
         {discount && (
           <span style={{
@@ -125,7 +125,7 @@ const Phone1Content = () => (
     }}>
       <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
       <div style={{ fontSize: 10, color: "rgba(255,255,255,.85)", marginBottom: 8 }}>
-        باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
+        باقي لك 145 ر.س للشحن المجاني، ضيف المنتجات.
       </div>
       <div style={{ background: "var(--s3)", borderRadius: 99, height: 5, overflow: "hidden" }}>
         <div style={{ width: "30%", height: "100%", background: "#fff", borderRadius: 99 }} />
@@ -151,7 +151,7 @@ const Phone2Content = () => (
     <PhoneTopBar />
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
     <ShippingRow method="مجاني" time="" highlighted />
-    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
+    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ر.س سعودي" />
     <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
       لا تنسَ تضيفها بعرض خاص لك الآن
     </div>
@@ -161,7 +161,7 @@ const Phone2Content = () => (
       borderRadius: 12, padding: "10px 14px", marginBottom: 12,
     }}>
       <span style={{ fontSize: 22, fontWeight: 900, color: "#8b5cf6" }}>30</span>
-      <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
+      <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>ر.س شحن مجاني ✓</span>
     </div>
     <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="🧣" />
     <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="📿" />
@@ -250,14 +250,14 @@ const data: UseCasePageData = {
     { value: "+41%", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
   ],
   exampleScenario: {
-    title: "عميل عند الدفع بطلب قيمته 55 ⃁",
+    title: "عميل عند الدفع بطلب قيمته 55 ر.س",
     steps: [
-      "العميل في صفحة الدفع بطلب بقيمة 55 ⃁ وعتبة الشحن المجاني 200 ⃁.",
-      "يكتشف زيادة أن الفجوة 145 ⃁ — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
-      "يظهر منتجان بسعر 45 و100 ⃁ معاً — مجموعهما 145 ⃁ بالضبط — مع خانة اختيار سهلة.",
+      "العميل في صفحة الدفع بطلب بقيمة 55 ر.س وعتبة الشحن المجاني 200 ر.س.",
+      "يكتشف زيادة أن الفجوة 145 ر.س — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
+      "يظهر منتجان بسعر 45 و100 ر.س معاً — مجموعهما 145 ر.س بالضبط — مع خانة اختيار سهلة.",
       "العميل يضيف المنتجين بنقرتين ويحصل على شحن مجاني كمكافأة.",
     ],
-    result: "الطلب ارتفع من 55 إلى 200 ⃁ والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
+    result: "الطلب ارتفع من 55 إلى 200 ر.س والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
   },
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",

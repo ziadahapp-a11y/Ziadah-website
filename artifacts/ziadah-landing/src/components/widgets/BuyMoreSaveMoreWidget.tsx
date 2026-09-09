@@ -69,7 +69,7 @@ export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMore
                   {opt.origPrice && (
                     <div style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{opt.origPrice}</div>
                   )}
-                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "#c084fc" : "var(--t)" }}>{opt.price}</div>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "currentColor" : "var(--t)" }}>{opt.price}</div>
                 </div>
               </div>
             );

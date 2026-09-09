@@ -94,7 +94,7 @@ export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) 
           background: "rgba(124, 58, 237,0.12)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
-          color: "#c084fc",
+          color: "currentColor",
           fontSize: 14,
           fontWeight: 800,
           border: "1px solid rgba(124, 58, 237,0.2)",

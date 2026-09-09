@@ -2626,18 +2626,19 @@ section.cta-sec.landing-white-accent .cta-note{color:var(--lv-accent-mid)!import
   --b2: rgba(124, 58, 237, 0.4);
   --p3: rgb(124, 58, 237);
 }
-/* Hardcoded light-green price/CTA text reads poorly on white — darken it */
-#widgets-showcase .widget-creatify-card [style*="color: rgb(192, 132, 252)"]{
-  color: rgb(109, 40, 217) !important;
-}
-#widgets-showcase .widget-creatify-card .widget-btn,
-#widgets-showcase .widget-creatify-card .widget-btn-sm{
-  background: rgba(124, 58, 237, 0.10) !important;
-  color: rgb(109, 40, 217) !important;
-  border-color: rgba(124, 58, 237, 0.28) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
+/* The two overrides that used to sit here are GONE, and the reason they
+   existed is gone with them.
+
+   Each of the 16 widget files painted its controls inline with a translucent
+   violet fill and a `#c084fc` label - a dark-mode violet, unreadable once the
+   preview stage became the near-white a real storefront is. These rules
+   patched the symptom from outside, with an ID and `!important`, by flattening
+   every control to one pale lavender chip. That is why a widget preview had no
+   primary action: the patch could not tell the "add to cart" button from the
+   per-row add, so it made them identical.
+
+   The inline colours are removed at source now and `.widget-btn` /
+   `.widget-btn-sm` own the look, so an override here would only beat the fix. */
 /* اتجاه المحتوى يتبع لغة الصفحة؛ المسار .marquee-track يبقى ltr لحركة التمرير فقط */
 .tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-inline-end:16px;}
 html[dir="rtl"] .tc-card-slim{direction:rtl;}
@@ -3350,10 +3351,35 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 
 /* ── Widget Buttons ── */
-.widget-btn{transition:filter .2s ease,transform .2s ease,box-shadow .2s ease;position:relative;overflow:hidden;font-size:11px!important;padding:7px 10px!important;}
+/* ---------- THE WIDGET PREVIEWS' CONTROLS ------------------------------
+   These classes used to carry only the hover animation while each of the 16
+   widget files painted the control inline: a translucent violet fill, a
+   violet hairline and a `#c084fc` label. That hue is a DARK-mode violet -
+   readable on the near-black shell the previews were first drawn on, and
+   3:1 or worse now that the stage is the near-white a real storefront is.
+   Between them the 32 inline copies also meant every control in a preview
+   was the same weight, so a widget had no primary action, just a wall of
+   lavender.
+
+   Two controls now, and they read as a storefront's: ONE solid brand button
+   per widget, and a quiet neutral one for the per-row add. */
+.widget-btn{
+  transition:filter .2s ease,transform .2s ease,box-shadow .2s ease;
+  position:relative;overflow:hidden;
+  font-size:11px!important;padding:7px 10px!important;
+  background:var(--ziadah-violet)!important;
+  color:var(--general-white)!important;
+  border:0!important;
+}
 .widget-btn:hover{filter:brightness(1.25);transform:translateY(-1px);box-shadow:0 4px 16px rgba(124, 58, 237,.35);}
 .widget-btn:active{filter:brightness(0.9);transform:translateY(0) scale(0.97);box-shadow:none;}
-.widget-btn-sm{transition:filter .2s ease,transform .2s ease;font-size:10px!important;padding:4px 9px!important;}
+.widget-btn-sm{
+  transition:filter .2s ease,transform .2s ease;
+  font-size:10px!important;padding:4px 9px!important;
+  background:transparent!important;
+  color:var(--ziadah-violet)!important;
+  border:1px solid color-mix(in srgb, var(--ziadah-violet) 40%, transparent)!important;
+}
 .widget-btn-sm:hover{filter:brightness(1.3);transform:scale(1.05);}
 .widget-btn-sm:active{filter:brightness(0.85);transform:scale(0.95);}
 

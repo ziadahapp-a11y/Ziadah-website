@@ -4,6 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { AddonsDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
   const t = siteTranslations;
@@ -60,11 +61,11 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
               }}>
                 {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
               </div>
-              <span style={{ fontSize: 14 }}>{a.emoji}</span>
+              <ProductThumb emoji={a.emoji} size={26} radius={6} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "currentColor" : "var(--tm)" }}>{a.name}</div>
               </div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "currentColor" : "var(--td)" }}>+{a.price}{tr.currency}</div>
             </div>
           ))}
         </div>
@@ -80,7 +81,7 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
         marginBottom: 10,
       }}>
         <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.totalLabel}</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total}{tr.currency}</span>
+        <span style={{ fontSize: 13, fontWeight: 800, color: "currentColor" }}>+{total}{tr.currency}</span>
       </div>
       <button style={{
         width: "100%",
@@ -89,7 +90,7 @@ export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
         background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#c084fc",
+        color: "currentColor",
         fontSize: 14,
         fontWeight: 800,
         border: "1px solid rgba(124, 58, 237,0.2)",

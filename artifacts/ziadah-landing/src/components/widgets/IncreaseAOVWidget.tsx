@@ -1,6 +1,7 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function IncreaseAOVWidget() {
   const t = siteTranslations;
@@ -21,7 +22,7 @@ export default function IncreaseAOVWidget() {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.shippingLabel}</span>
-            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
+            <span style={{ fontSize: 12, color: "currentColor", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{ height: 6, borderRadius: 10, background: "var(--s3)", overflow: "hidden", marginBottom: 3 }}>
             <div style={{ height: "100%", width: `${progress}%`, borderRadius: 10, background: "linear-gradient(90deg, rgba(124, 58, 237,0.6), rgba(139, 92, 246,0.5))" }} />
@@ -44,21 +45,11 @@ export default function IncreaseAOVWidget() {
             marginBottom: 6,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-              <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "rgba(139, 92, 246,.12)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 16,
-                flexShrink: 0,
-              }}>{p.emoji}</div>
+              <ProductThumb emoji={p.emoji} size={32} radius={8} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
                 <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.currency}{p.price}</span>
                   <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>
                 </div>
               </div>
@@ -68,7 +59,7 @@ export default function IncreaseAOVWidget() {
               padding: "6px 10px",
               borderRadius: 10,
               background: "rgba(124, 58, 237,.25)",
-              color: "#c084fc",
+              color: "currentColor",
               fontSize: 12,
               fontWeight: 800,
               border: "1px solid rgba(139, 92, 246,.3)",

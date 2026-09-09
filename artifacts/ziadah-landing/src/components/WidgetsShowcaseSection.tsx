@@ -66,12 +66,13 @@ export default function WidgetsShowcaseSection({
           flexShrink: 0,
           display: "flex",
           flexDirection: "column",
-          background: "#ffffff",
-          borderRadius: 24,
-          border: "1px solid rgb(228 228 231)" /* zinc-200 — design-system card border */,
+          /* The card is the section's own: one tint of its ink, no border and
+             no shadow. It was a white panel with a zinc border and an
+             elevation shadow, on a section that had already stamped a
+             family. */
+          background: "color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent)",
+          borderRadius: "var(--radius-card, 1.6rem)",
           overflow: "hidden",
-          // design-system .shadow-card (light SaaS elevation, not the old heavy dark drop)
-          boxShadow: "0 1px 2px rgba(0,0,0,0.02), 0 8px 24px -8px rgba(0,0,0,0.04)",
           textDecoration: "none",
           color: "inherit",
           cursor: "pointer",
@@ -89,26 +90,14 @@ export default function WidgetsShowcaseSection({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // Light SaaS surface with only a faint wash of the widget's hue —
-            // keeps per-widget colour identity while reading as a clean white card.
-            background: `linear-gradient(180deg, rgba(${rgb},0.07) 0%, rgba(${rgb},0.025) 55%, #ffffff 100%)`,
-            borderBottom: "1px solid rgb(244 244 245)" /* zinc-100 divider to footer */,
+            /* The stage is a STOREFRONT, so it is the flat near-white a real
+               store page is - not a wash of the widget's own hue. Twelve cards
+               each washed a different pastel was the loudest thing on the
+               band and the surest sign the previews were decorated rather
+               than screenshotted. */
+            background: "var(--general-white)",
           }}
         >
-          {/* single soft corner glow for depth — far lighter than the old saturated blobs */}
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: "-26%",
-              insetInlineEnd: "-20%",
-              width: "60%",
-              height: "60%",
-              background: `radial-gradient(circle at 50% 50%, rgba(${rgb},0.16) 0%, transparent 70%)`,
-              filter: "blur(30px)",
-              pointerEvents: "none",
-            }}
-          />
           <div
             style={{
               position: "relative",
@@ -120,35 +109,14 @@ export default function WidgetsShowcaseSection({
             {item.widget}
           </div>
         </div>
+        {/* The caption takes the section's ink, so it reads on either end of
+            the family. It was zinc-950 over zinc-600 on a forced white. */}
         <div
-          style={{
-            padding: "18px 22px 22px",
-            textAlign: dir === "rtl" ? "right" : "left",
-            background: "#ffffff",
-          }}
+          className="wshow-caption"
+          style={{ textAlign: dir === "rtl" ? "right" : "left" }}
         >
-          <div
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: "rgb(9 9 11)" /* zinc-950 */,
-              letterSpacing: "-0.5px",
-              lineHeight: 1.2,
-            }}
-          >
-            {item.label}
-          </div>
-          <div
-            style={{
-              marginTop: 6,
-              fontSize: 13,
-              fontWeight: 400,
-              color: "rgb(82 82 91)" /* zinc-600 */,
-              lineHeight: 1.5,
-            }}
-          >
-            {item.desc}
-          </div>
+          <div className="card-title !text-[2rem]">{item.label}</div>
+          <div className="card-body-text">{item.desc}</div>
         </div>
       </a>
     );

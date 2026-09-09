@@ -1,6 +1,7 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function BundleDealsWidget() {
   const t = siteTranslations;
@@ -22,17 +23,7 @@ export default function BundleDealsWidget() {
               background: "var(--s1)",
               border: "1.5px solid var(--b1)",
             }}>
-              <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "rgba(139, 92, 246,.15)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 16,
-                flexShrink: 0,
-              }}>{item.emoji}</div>
+              <ProductThumb emoji={item.emoji} size={32} radius={8} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{item.name}</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -77,12 +68,12 @@ export default function BundleDealsWidget() {
             padding: "3px 10px",
             borderRadius: 20,
             background: "rgba(124, 58, 237,0.3)",
-            color: "#c084fc",
+            color: "currentColor",
           }}>{tr.saveBadge}</div>
         </div>
         <div style={{ textAlign: "start" }}>
           <div style={{ fontSize: 12, color: "var(--tm)" }}>{tr.bundlePriceLabel}</div>
-          <div style={{ fontSize: 16, fontWeight: 900, color: "#c084fc" }}>{tr.bundlePrice}</div>
+          <div style={{ fontSize: 16, fontWeight: 900, color: "currentColor" }}>{tr.bundlePrice}</div>
         </div>
       </div>
 
@@ -93,7 +84,7 @@ export default function BundleDealsWidget() {
         background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#c084fc",
+        color: "currentColor",
         fontSize: 14,
         fontWeight: 800,
         border: "1px solid rgba(124, 58, 237,0.2)",

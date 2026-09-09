@@ -1,6 +1,7 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 type ProductLayout = "column" | "row";
 
@@ -56,24 +57,14 @@ export default function CrossSellWidget({
                 flexDirection: rowProducts ? "column" : "row",
                 textAlign: rowProducts ? "center" : undefined,
               }}>
-                <div style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 8,
-                  background: "rgba(124, 58, 237,.15)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 16,
-                  flexShrink: 0,
-                }}>{s.emoji}</div>
+                <ProductThumb emoji={s.emoji} size={32} radius={8} />
                 <div style={{ flex: rowProducts ? undefined : 1, width: rowProducts ? "100%" : undefined, minWidth: 0 }}>
                   <div style={{ fontSize: rowProducts ? 11 : 12, fontWeight: 600, color: "var(--t)", lineHeight: 1.35 }}>{s.name}</div>
                   {s.badge && (
                     <div style={{ fontSize: 12, padding: "1px 6px", borderRadius: 20, background: "rgba(6,182,212,.2)", color: "#06b6d4", fontWeight: 700, display: "inline-block", marginTop: 2 }}>{s.badge}</div>
                   )}
                   <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                    <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{s.price}</span>
+                    <span style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.currency}{s.price}</span>
                     {s.origPrice && <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{s.origPrice}</span>}
                   </div>
                 </div>
@@ -83,7 +74,7 @@ export default function CrossSellWidget({
                 padding: "6px 10px",
                 borderRadius: 10,
                 background: "rgba(124, 58, 237,.25)",
-                color: "#c084fc",
+                color: "currentColor",
                 fontSize: 12,
                 fontWeight: 800,
                 border: "1px solid rgba(139, 92, 246,.3)",
@@ -100,7 +91,7 @@ export default function CrossSellWidget({
         background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#c084fc",
+        color: "currentColor",
         fontSize: 14,
         fontWeight: 800,
         border: "1px solid rgba(124, 58, 237,0.2)",

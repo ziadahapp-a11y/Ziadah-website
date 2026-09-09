@@ -1,6 +1,7 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function HomePageWidget() {
   const t = siteTranslations;
@@ -34,7 +35,7 @@ export default function HomePageWidget() {
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.productName}</div>
                 <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.productPrice}</span>
+                  <span style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.productPrice}</span>
                   <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.productOrigPrice}</span>
                 </div>
               </div>
@@ -46,7 +47,7 @@ export default function HomePageWidget() {
               background: "rgba(124, 58, 237,0.12)",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
-              color: "#c084fc",
+              color: "currentColor",
               fontSize: 12,
               fontWeight: 800,
               border: "1px solid rgba(124, 58, 237,0.2)",
@@ -83,9 +84,9 @@ export default function HomePageWidget() {
               border: "1.5px solid var(--b1)",
               textAlign: "center",
             }}>
-              <div style={{ fontSize: 20, marginBottom: 3 }}>{p.emoji}</div>
+              <ProductThumb emoji={p.emoji} size={34} radius={8} className="mx-auto mb-[3px]" />
               <div style={{ fontSize: 12, color: "var(--t)", fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+              <div style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.currency}{p.price}</div>
             </div>
           ))}
         </div>

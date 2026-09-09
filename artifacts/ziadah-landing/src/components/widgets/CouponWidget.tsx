@@ -31,7 +31,7 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
           marginBottom: 12,
         }}>
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 28, fontWeight: 900, color: "#c084fc", lineHeight: 1 }}>{tr.discountAmount}</div>
+            <div style={{ fontSize: 28, fontWeight: 900, color: "currentColor", lineHeight: 1 }}>{tr.discountAmount}</div>
             <div style={{ fontSize: 12, color: "var(--td)", marginTop: 2 }}>{tr.discountSub}</div>
           </div>
           <div style={{ width: 1, height: 40, background: "rgba(139, 92, 246,.3)" }} />
@@ -61,7 +61,7 @@ export default function CouponWidget({ demo }: { demo?: CouponDemo }) {
         background: "rgba(124, 58, 237,0.12)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        color: "#c084fc",
+        color: "currentColor",
         fontSize: 14,
         fontWeight: 800,
         border: "1px solid rgba(124, 58, 237,0.2)",

@@ -828,6 +828,40 @@
 .review-avatar.has-logo { background: var(--general-white); }
 .review-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+/* ---------- THE WIDGET PREVIEWS' PRODUCT THUMBNAIL ----------------------
+   A photo frame, not a brand chip. It sits on the store's own neutral rather
+   than the violet tint every thumbnail used to carry - a product photo in a
+   real storefront is on the store's background, and washing all of them
+   violet is what made the previews read as a template rather than as a
+   screenshot.
+
+   The silhouette is deliberately quiet: it stands in for a photograph, so it
+   should not compete with the product name beside it. */
+.pthumb {
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--pthumb-bg, rgb(127 127 127 / 12%));
+  color: var(--pthumb-ink, rgb(127 127 127 / 72%));
+  box-shadow: inset 0 0 0 0.1rem rgb(127 127 127 / 14%);
+}
+/* Inside a dark widget shell the same two roles flip, and the grey stays
+   grey - it is a neutral in both, which is the point of using one. */
+.wshell--dark .pthumb,
+.mockup-card .pthumb {
+  --pthumb-bg: rgb(255 255 255 / 10%);
+  --pthumb-ink: rgb(255 255 255 / 62%);
+}
+
+/* The caption under a widget preview. */
+.wshow-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.8rem 2.2rem 2.2rem;
+}
+
 /* ---------- SECTION FURNITURE -------------------------------------------
    Two things that recur under a grid and had been hand-painted with Tailwind
    greys every time they appeared: the footnote that qualifies a set of

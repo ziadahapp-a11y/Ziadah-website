@@ -26,8 +26,8 @@ const nasserProfile = {
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [
-    { label: "متوسط مشترياته", labelEn: "Avg. Order", value: "261 ⃁", valueEn: "261 SAR" },
-    { label: "سلته الحالية", labelEn: "Current Cart", value: "24 ⃁", valueEn: "24 SAR" },
+    { label: "متوسط مشترياته", labelEn: "Avg. Order", value: "261 SAR", valueEn: "261 SAR" },
+    { label: "سلته الحالية", labelEn: "Current Cart", value: "24 SAR", valueEn: "24 SAR" },
     { label: "وقت الشراء", labelEn: "Shopping Time", value: "7:20م", valueEn: "7:20 PM" },
     { label: "يوم الشراء", labelEn: "Shopping Day", value: "الأحد", valueEn: "Sunday" },
   ],
@@ -416,7 +416,7 @@ export default function CustomerProfileDemo() {
                           flexShrink: 0,
                         }}
                       >
-                        {prod.price} ⃁
+                        {prod.price} ر.س
                       </div>
                     </div>
                   ))}

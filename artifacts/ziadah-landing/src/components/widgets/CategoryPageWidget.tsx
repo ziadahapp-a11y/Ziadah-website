@@ -1,6 +1,7 @@
 import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function CategoryPageWidget() {
   const t = siteTranslations;
@@ -21,7 +22,7 @@ export default function CategoryPageWidget() {
           border: "1px solid rgba(124, 58, 237,.2)",
         }}>
           <span style={{ fontSize: 12 }}>🎯</span>
-          <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.sortedLabel}</span>
+          <span style={{ fontSize: 12, color: "currentColor", fontWeight: 700 }}>{tr.sortedLabel}</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
@@ -36,17 +37,7 @@ export default function CategoryPageWidget() {
               border: p.hot ? "1.5px solid rgba(139, 92, 246,.4)" : "1.5px solid var(--b1)",
             }}>
               <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                <div style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  background: p.hot ? "rgba(139, 92, 246,.2)" : "var(--s2)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 18,
-                  flexShrink: 0,
-                }}>{p.emoji}</div>
+                <ProductThumb emoji={p.emoji} size={36} radius={10} />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{p.name}</div>
                   {p.badge && (
@@ -55,14 +46,14 @@ export default function CategoryPageWidget() {
                       padding: "1px 6px",
                       borderRadius: 20,
                       background: p.hot ? "rgba(139, 92, 246,.25)" : "rgba(6,182,212,.2)",
-                      color: p.hot ? "#c084fc" : "#06b6d4",
+                      color: p.hot ? "currentColor" : "#06b6d4",
                       fontWeight: 700,
                       display: "inline-block",
                       marginTop: 2,
                     }}>{p.badge}</div>
                   )}
                   <div style={{ display: "flex", gap: 4, alignItems: "center", marginTop: 2 }}>
-                    <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "#c084fc" : "var(--t)" }}>{tr.currency}{p.price}</span>
+                    <span style={{ fontSize: 12, fontWeight: 800, color: p.hot ? "currentColor" : "var(--t)" }}>{tr.currency}{p.price}</span>
                     {p.origPrice && <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.currency}{p.origPrice}</span>}
                   </div>
                 </div>
@@ -72,7 +63,7 @@ export default function CategoryPageWidget() {
                 padding: "7px 10px",
                 borderRadius: 10,
                 background: p.hot ? "rgba(124, 58, 237,0.2)" : "var(--s2)",
-                color: p.hot ? "#c084fc" : "var(--t)",
+                color: p.hot ? "currentColor" : "var(--t)",
                 fontSize: 12,
                 fontWeight: 800,
                 border: p.hot ? "1px solid rgba(124, 58, 237,0.2)" : "1px solid var(--b1)",

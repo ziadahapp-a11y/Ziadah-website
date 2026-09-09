@@ -4,6 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { FreeShippingDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductThumb } from "./ProductThumb";
 
 export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShippingDemo }) {
   const t = siteTranslations;
@@ -30,7 +31,7 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
             <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
-            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
+            <span style={{ fontSize: 12, color: "currentColor", fontWeight: 700 }}>{tr.remainingLabel}</span>
           </div>
           <div style={{
             height: 7,
@@ -63,20 +64,10 @@ export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShipp
               background: "var(--s1)",
               border: "1.5px solid var(--b1)",
             }}>
-              <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "rgba(245,158,11,.12)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 16,
-                flexShrink: 0,
-              }}>{p.emoji}</div>
+              <ProductThumb emoji={p.emoji} size={32} radius={8} />
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: "currentColor" }}>{tr.currency}{p.price}</div>
               </div>
               <div style={{
                 width: 20,

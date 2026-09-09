@@ -107,7 +107,7 @@ export default function AddToCartWidget() {
                     {tr.suggestedName}
                   </div>
                   <div style={{ fontSize: 12, color: "var(--td)" }}>{tr.suggestedSub}</div>
-                  <div style={{ fontSize: 12, fontWeight: 900, color: "#c084fc", marginTop: 3 }}>{tr.suggestedPrice}</div>
+                  <div style={{ fontSize: 12, fontWeight: 900, color: "currentColor", marginTop: 3 }}>{tr.suggestedPrice}</div>
                 </div>
               </div>
               <button style={{
@@ -116,7 +116,7 @@ export default function AddToCartWidget() {
                 background: "rgba(124, 58, 237,0.12)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                color: "#c084fc", fontSize: 12, fontWeight: 800,
+                color: "currentColor", fontSize: 12, fontWeight: 800,
                 border: "1px solid rgba(124, 58, 237,0.2)", cursor: "pointer",
               }}>
                 {tr.btnAdd}

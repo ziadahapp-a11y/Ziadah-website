@@ -92,7 +92,7 @@ export default function Calculator() {
   const pk = getPageKeywords("/calculator");
   const isAr = lang === "ar";
   const numLocale = lang === "ar" ? "ar-SA-u-nu-latn" : "en-US";
-  const currencySuffix = lang === "ar" ? " ⃁" : " SAR";
+  const currencySuffix = lang === "ar" ? " SAR" : " SAR";
   const fmtN = (n: number, decimals = 0) => fmtLocale(n, numLocale, decimals);
   const fmtCur = (n: number) => fmtLocale(Math.round(n), numLocale) + currencySuffix;
   const fmtP = (n: number, decimals = 1) => "+" + fmtLocale(n, numLocale, decimals) + "%";
