@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "الصفحة الرئيسية",
     subtitle: "أول ما يراه العميل في متجرك — انطباع أول ذكي يُرحّب بكل زائر بتجربة مخصصة بناءً على تاريخه وسلوكه.",
     tagline: "كل عميل يرى متجراً مختلفاً مصمماً له شخصياً",
-    icon: "🏠",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في الصفحة الرئيسية؟",
   whatWeDoDesc:
@@ -16,7 +16,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في الصفحة الرئيسية",
   strategies: [
     {
-      icon: "🔄",
+      icon: "",
       title: "استكمل ما تركته",
       desc: "للعميل العائد يعرض المنتجات التي تصفّحها في آخر زيارة مع رسالة 'ما زلت مهتماً؟' تختصر عليه وقت البحث.",
       color: "#8b5cf6",
@@ -28,13 +28,13 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "حزم Combo موفّرة",
       desc: "يعرض حزماً مدروسة من المنتجات المكمّلة بسعر إجمالي منخفض. مثالية للعملاء الذين لم يقرروا بعد ماذا يريدون.",
       color: "#8b5cf6",
     },
     {
-      icon: "🕐",
+      icon: "",
       title: "عروض محدودة الوقت",
       desc: "يضع عدادات عكسية وعروضاً مؤقتة في أعلى الصفحة بناءً على عادات الشراء — يخلق إلحاحاً حقيقياً وليس مصطنعاً.",
       color: "#06b6d4",
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
           ? "هكذا يستقبل عميلك العائد الصفحة الرئيسية المُصمَّمة خصيصاً له"
           : "This is how your returning customer is greeted by a home page designed just for them"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <HomePageWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <HomePageWidget /> }]}
     />
   ),
   ctaTitle: "اجعل كل زائر يشعر أن المتجر بُني له",
@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     title: "Home Page",
     subtitle: "The first thing the customer sees in your store — a smart first impression that welcomes every visitor with a personalized experience based on their history and behavior.",
     tagline: "Every customer sees a different store designed personally for them",
-    icon: "🏠",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the home page?",
   whatWeDoDescEn:
@@ -83,7 +83,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the home page",
   strategiesEn: [
     {
-      icon: "🔄",
+      icon: "",
       title: "Continue Where You Left Off",
       desc: "For returning customers, shows products they browsed in their last visit with a 'Still interested?' message that saves them search time.",
       color: "#8b5cf6",
@@ -95,13 +95,13 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Money-Saving Combo Bundles",
       desc: "Displays curated bundles of complementary products at a lower total price. Perfect for customers who haven't decided what they want yet.",
       color: "#8b5cf6",
     },
     {
-      icon: "🕐",
+      icon: "",
       title: "Limited-Time Offers",
       desc: "Places countdown timers and temporary offers at the top of the page based on buying habits — creates real urgency, not manufactured.",
       color: "#06b6d4",

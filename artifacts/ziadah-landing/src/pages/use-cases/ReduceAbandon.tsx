@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "تقليل التخلي عن السلة",
     subtitle: "70% من العملاء يضعون منتجات في سلتهم ولا يكملون الشراء — زيادة يحوّل هؤلاء 'المترددين' إلى مشترين فعليين.",
     tagline: "7 من كل 10 عملاء يمكن إنقاذهم",
-    icon: "🛡️",
+    icon: "",
   },
   whatWeDoTitle: "لماذا التخلي عن السلة مشكلة كبيرة؟",
   whatWeDoDesc:
@@ -16,19 +16,19 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة لمنع التخلي عن السلة",
   strategies: [
     {
-      icon: "🏷️",
+      icon: "",
       title: "كوبون الإنقاذ المؤقت",
       desc: "بعد X دقيقة في السلة بدون تقدم، يظهر كوبون خصم 5-15% لمدة 15 دقيقة. الإلحاح الحقيقي يدفع ثلث المترددين للإتمام.",
       color: "#ec4899",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "مؤشر الشحن المجاني",
       desc: "شريط ملوّن يُظهر للعميل كم تبقّى للوصول لعتبة الشحن المجاني — حافز بصري يدفعه لإضافة منتج بدلاً من المغادرة.",
       color: "#06b6d4",
     },
     {
-      icon: "🚪",
+      icon: "",
       title: "Exit Intent — العرض الأخير",
       desc: "عند محاولة مغادرة المتجر (حركة الماوس نحو إغلاق التبويب) يظهر Popup بعرض خاص فوري. الفرصة الأخيرة قبل الخسارة.",
       color: "#8b5cf6",
@@ -66,7 +66,7 @@ const data: UseCasePageData = {
             ? "هكذا يبدو اقتراح منع التخلي كما يراه عميلك فعلياً"
             : "See the abandonment prevention prompt exactly as your customer would"
         }
-        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ReduceAbandonWidget /> }]}
+        tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <ReduceAbandonWidget /> }]}
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
@@ -107,7 +107,7 @@ const data: UseCasePageData = {
     title: "Reduce Cart Abandonment",
     subtitle: "70% of customers add products to their cart but don't complete the purchase — Ziadah converts these 'hesitators' into actual buyers.",
     tagline: "7 out of 10 customers can be saved",
-    icon: "🛡️",
+    icon: "",
   },
   whatWeDoTitleEn: "Why is cart abandonment a major problem?",
   whatWeDoDescEn:
@@ -115,19 +115,19 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies to prevent cart abandonment",
   strategiesEn: [
     {
-      icon: "🏷️",
+      icon: "",
       title: "Timed Rescue Coupon",
       desc: "After X minutes in the cart without progress, a 5-15% discount coupon appears for 15 minutes. Real urgency pushes a third of hesitators to complete.",
       color: "#ec4899",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "Free Shipping Indicator",
       desc: "A colored bar shows the customer how much is left to reach the free shipping threshold — a visual incentive that pushes them to add a product instead of leaving.",
       color: "#06b6d4",
     },
     {
-      icon: "🚪",
+      icon: "",
       title: "Exit Intent — Last Offer",
       desc: "When attempting to leave the store (mouse moving toward closing the tab), a popup with a special instant offer appears. The last chance before losing the sale.",
       color: "#8b5cf6",

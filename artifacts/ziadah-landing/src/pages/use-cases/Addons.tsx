@@ -22,19 +22,19 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "اقتراح مخصص لكل منتج",
       desc: "كل منتج له قائمة إضافات مُعدّة خصيصاً له — لا قوائم عامة. زيادة يتعلم من بيانات الطلبات أي الإضافات تُقبل أكثر مع هذا المنتج تحديداً.",
       color: "#06b6d4",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "إبراز قيمة الإضافة",
       desc: "لكل إضافة يُعرض سعرها بوضوح مع رسالة قيمة مختصرة — 'احمِ هاتفك' أو 'أكمل طقمك' — تجعل الاختيار منطقياً وسهلاً.",
       color: "#8b5cf6",
     },
     {
-      icon: "📍",
+      icon: "",
       title: "عرض في اللحظة المناسبة",
       desc: "تظهر قائمة Add-ons عند إضافة المنتج للسلة أو في صفحة المنتج — في اللحظة التي يكون فيها العميل في ذهنية الشراء.",
       color: "#f59e0b",
@@ -65,13 +65,13 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <AddonsWidget />,
         },
         {
-          labelAr: "💡 لماذا يعمل؟",
-          labelEn: "💡 Why It Works",
+          labelAr: "لماذا يعمل؟",
+          labelEn: "Why It Works",
           placement: "below",
           content: (
             <div className="sector-card" style={{ width: "100%" }}>
@@ -133,19 +133,19 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Product-Specific Suggestions",
       desc: "Each product has a custom add-on list tailored specifically to it — no generic lists. Ziadah learns from order data which add-ons are most accepted with each specific product.",
       color: "#06b6d4",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "Highlight Add-on Value",
       desc: "Each add-on displays its price clearly with a brief value message — 'Protect your phone' or 'Complete your set' — making the choice logical and easy.",
       color: "#8b5cf6",
     },
     {
-      icon: "📍",
+      icon: "",
       title: "Right Moment Display",
       desc: "The add-on list appears when adding the product to cart or on the product page — at the moment when the customer is in a buying mindset.",
       color: "#f59e0b",

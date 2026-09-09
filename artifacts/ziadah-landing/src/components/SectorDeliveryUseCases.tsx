@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
+import { ProductTile } from "@/components/widgets/kit";
 
 type TabId = "food" | "addons" | "bundle" | "grocery" | "pharmacy" | "rescue" | "freeship";
 
@@ -231,22 +232,21 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
   const line = isAr ? row.lineAr : row.lineEn;
   const sub = isAr ? row.subAr : row.subEn;
   const tag = row.tagAr && row.tagEn ? (isAr ? row.tagAr : row.tagEn) : undefined;
-  const icon = row.icon ?? "";
   const borderO = row.className === "highlight-o" ? "rgba(124, 58, 237,.35)" : row.className === "highlight-g" ? "rgba(124, 58, 237,.3)" : "var(--b2)";
   return (
     <div
-      className={`sector-html-ucv-item flex items-center gap-3 px-3.5 py-3 rounded-xl border bg-zinc-50 mb-1 ${row.className ?? ""}`.trim()}
+      className={`sector-html-ucv-item flex items-center gap-3 px-3.5 py-3 rounded-xl border mb-1 ${row.className ?? ""}`.trim()}
       style={{
         borderColor: borderO,
         opacity: row.className === "faded" ? 0.45 : 1,
         borderStyle: row.className === "faded" ? "dashed" : "solid",
       }}
     >
-      <div className="text-[22px]" aria-hidden>
-        {icon}
-      </div>
+      {/* The kit's drawn tile, from the product's own name. `row.icon` was
+          the emoji standing in for its photo. */}
+      <ProductTile name={line} size={34} radius={8} />
       <div className="flex-1 min-w-0">
-        <div className="text-[13px] font-bold text-zinc-950">{line}</div>
+        <div className="text-[13px] font-bold">{line}</div>
         {sub ? (
           <div className="text-[11px] text-zinc-600 mt-0.5">{sub}</div>
         ) : null}

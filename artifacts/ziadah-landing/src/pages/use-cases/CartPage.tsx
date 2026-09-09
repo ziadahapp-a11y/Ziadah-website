@@ -63,7 +63,7 @@ const data: UseCasePageData = {
     title: "صفحة السلة",
     subtitle: "آخر فرصة ذهبية قبل الدفع — العميل مستعد للشراء، وأي توصية ذكية في هذه اللحظة ترفع قيمة الطلب مباشرة.",
     tagline: "العميل أمام السلة = الوقت المثالي للزيادة",
-    icon: "🛒",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة السلة؟",
   whatWeDoDesc:
@@ -71,7 +71,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة السلة",
   strategies: [
     {
-      icon: "🛒",
+      icon: "",
       title: "اشتروا مع بعض (BTAT)",
       desc: "يعرض المنتجات التي اشتراها آلاف العملاء مع نفس المنتجات الموجودة في السلة. اجتماعي، موثوق، وفعّال جداً.",
       color: "#8b5cf6",
@@ -83,13 +83,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "أكمل للشحن المجاني",
       desc: "يحسب زيادة الفجوة بين قيمة السلة وعتبة الشحن المجاني ويقترح منتجاً بالقيمة الناقصة تماماً. حافز قوي يقبله العملاء بسعادة.",
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "كوبون خصم للمترددين",
       desc: "إذا قضى العميل وقتاً طويلاً في السلة دون إتمام، يظهر له كوبون مؤقت (10 إلى 15 دقيقة) يدفعه للشراء الآن.",
       color: "#ec4899",
@@ -112,7 +112,7 @@ const data: UseCasePageData = {
     result: "الطلب ارتفع من 170 إلى 202 ر.س والعميل شعر أنه هو من استفاد من الصفقة.",
   },
   heroVisual: (
-    <PageHeroPhone float1="-38% تخلي عن السلة" float2="🚚 أكمل للشحن المجاني">
+    <PageHeroPhone float1="-38% تخلي عن السلة" float2="أكمل للشحن المجاني">
       <CartHeroContent />
     </PageHeroPhone>
   ),
@@ -127,18 +127,18 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "🏷️ قسيمة الخصم",
-          labelEn: "🏷️ Discount Coupon",
+          labelAr: "قسيمة الخصم",
+          labelEn: "Discount Coupon",
           content: <CouponWidget />,
         },
         {
-          labelAr: "🚚 شريط الشحن المجاني",
-          labelEn: "🚚 Free Shipping Bar",
+          labelAr: "شريط الشحن المجاني",
+          labelEn: "Free Shipping Bar",
           content: <FreeShippingThresholdWidget />,
         },
         {
-          labelAr: "🛍️ منتجات ذات صلة",
-          labelEn: "🛍️ Related Products",
+          labelAr: "منتجات ذات صلة",
+          labelEn: "Related Products",
           content: <RelatedProductsWidget />,
         },
       ]}
@@ -151,7 +151,7 @@ const data: UseCasePageData = {
     title: "Cart Page",
     subtitle: "The last golden opportunity before checkout — the customer is ready to buy, and any smart recommendation at this moment directly increases order value.",
     tagline: "Customer at the cart = the perfect time to boost",
-    icon: "🛒",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the cart page?",
   whatWeDoDescEn:
@@ -159,7 +159,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the cart page",
   strategiesEn: [
     {
-      icon: "🛒",
+      icon: "",
       title: "Bought Together (BTAT)",
       desc: "Shows products that thousands of customers have bought with the same items in the cart. Social, trustworthy, and highly effective.",
       color: "#8b5cf6",
@@ -171,13 +171,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "Complete for Free Shipping",
       desc: "Ziadah calculates the gap between cart value and the free shipping threshold and suggests a product at exactly the missing amount. A powerful incentive customers happily accept.",
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "Discount Coupon for Hesitators",
       desc: "If the customer spends too long in the cart without completing, a timed coupon (10-15 minutes) appears to push them to buy now.",
       color: "#ec4899",

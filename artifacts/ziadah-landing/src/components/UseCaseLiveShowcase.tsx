@@ -76,8 +76,7 @@ export default function UseCaseLiveShowcase({
                     className="chip is-small gap-1.5"
                     aria-pressed={isAct}
                   >
-                    {tab.icon && <span>{tab.icon}</span>}
-                    {isAr ? tab.labelAr : tab.labelEn}
+                                        {isAr ? tab.labelAr : tab.labelEn}
                   </button>
                 );
               })}

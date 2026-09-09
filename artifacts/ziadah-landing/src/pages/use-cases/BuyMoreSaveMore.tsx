@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "عروض الكميات",
     subtitle: "حفّز العميل على شراء كميات أكبر من نفس المنتج بعروض تدريجية واضحة — كلما زادت الكمية زاد التوفير.",
     tagline: "نفس المنتج، كميات أكثر، ربح أعلى",
-    icon: "📦",
+    icon: "",
   },
   whatWeDoTitle: "ما هو عرض 'اشترِ أكثر ووفّر أكثر' وكيف يعمل في زيادة؟",
   whatWeDoDesc:
@@ -16,19 +16,19 @@ const data: UseCasePageData = {
   strategyTitle: "أساليب عرض عروض الكميات في زيادة",
   strategies: [
     {
-      icon: "📊",
+      icon: "",
       title: "جدول الشرائح التدريجي",
       desc: "يعرض جدولاً واضحاً: 1 قطعة = 49 ر.س | 2 قطعة = 44 ر.س لكل قطعة | 3+ = 39 ر.س لكل قطعة — العميل يرى الفرق مباشرة.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔋",
+      icon: "",
       title: "شريط التقدم نحو التوفير",
       desc: "يعرض شريطاً بصرياً يُظهر للعميل كم تبقى لتصل للشريحة التالية — 'أضف قطعة واحدة ووفّر 30 ر.س إضافية'.",
       color: "#06b6d4",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "حساب التوفير الفعلي",
       desc: "بدلاً من عرض النسبة فقط، يُظهر زيادة المبلغ الفعلي الذي يوفره العميل عند اختيار كمية أكبر — أكثر إقناعاً وأوضح قيمة.",
       color: "#8b5cf6",
@@ -65,13 +65,13 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <BuyMoreSaveMoreWidget />,
         },
         {
-          labelAr: "🏷️ مناسب لأي منتج؟",
-          labelEn: "🏷️ Best Product Fits",
+          labelAr: "مناسب لأي منتج؟",
+          labelEn: "Best Product Fits",
           placement: "below",
           content: (
             <div className="sector-card" style={{ width: "100%" }}>
@@ -81,16 +81,16 @@ const data: UseCasePageData = {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
                 {(isAr
                   ? [
-                      { icon: "🔄", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
-                      { icon: "📦", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
-                      { icon: "🎁", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
-                      { icon: "🏭", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
+                      { icon: "", type: "المنتجات الاستهلاكية", examples: "تنظيف، عناية، طعام" },
+                      { icon: "", type: "المنتجات القابلة للتخزين", examples: "قهوة، مكملات، قرطاسية" },
+                      { icon: "", type: "منتجات الهدايا والمواسم", examples: "شوكولاتة، شمع، عطور" },
+                      { icon: "", type: "منتجات التجار والمحلات", examples: "مستلزمات، أدوات، مواد" },
                     ]
                   : [
-                      { icon: "🔄", type: "Consumable products", examples: "Cleaning, skincare, food" },
-                      { icon: "📦", type: "Storable products", examples: "Coffee, supplements, stationery" },
-                      { icon: "🎁", type: "Gift & seasonal products", examples: "Chocolate, candles, perfumes" },
-                      { icon: "🏭", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
+                      { icon: "", type: "Consumable products", examples: "Cleaning, skincare, food" },
+                      { icon: "", type: "Storable products", examples: "Coffee, supplements, stationery" },
+                      { icon: "", type: "Gift & seasonal products", examples: "Chocolate, candles, perfumes" },
+                      { icon: "", type: "Wholesale & business products", examples: "Supplies, tools, materials" },
                     ]
                 ).map((item, i) => (
                   <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 24px" }}>
@@ -113,7 +113,7 @@ const data: UseCasePageData = {
     title: "Quantity Offers",
     subtitle: "Motivate customers to buy larger quantities of the same product with clear tiered offers — the more they buy, the more they save.",
     tagline: "Same product, bigger quantities, higher profit",
-    icon: "📦",
+    icon: "",
   },
   whatWeDoTitleEn: "What is 'Buy More, Save More' and how does it work in Ziadah?",
   whatWeDoDescEn:
@@ -121,19 +121,19 @@ const data: UseCasePageData = {
   strategyTitleEn: "Volume Offer Display Methods in Ziadah",
   strategiesEn: [
     {
-      icon: "📊",
+      icon: "",
       title: "Tiered Pricing Table",
       desc: "Displays a clear table: 1 unit = 49 SAR | 2 units = 44 SAR each | 3+ = 39 SAR each — the customer sees the difference instantly.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔋",
+      icon: "",
       title: "Savings Progress Bar",
       desc: "Shows a visual bar indicating how close the customer is to the next tier — 'Add one more unit and save an extra 30 SAR'.",
       color: "#06b6d4",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Actual Savings Calculator",
       desc: "Instead of just showing percentages, Ziadah displays the exact amount saved when choosing a larger quantity — more convincing and clearer value.",
       color: "#8b5cf6",

@@ -14,6 +14,7 @@ import { DefaultUseCaseHeroPhone } from "@/components/UseCasePagesShowcase";
 import { t as siteTranslations } from "@/i18n/translations";
 import { Button, Shell } from "@/components/mk";
 import { HeroSplit, Section, SectionHead, CardsGrid, CtaSection } from "@/sections";
+import { stripLeadIcon } from "@/lib/strip-icon";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
 export interface UseCaseHero {
@@ -207,7 +208,8 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           family="violet"
           eyebrow={
             <>
-              <span aria-hidden="true">{hero.icon}</span> {hero.tag}
+              {/* `hero.icon` is an emoji; the eyebrow says the same thing in words. */}
+              {hero.tag}
             </>
           }
           title={hero.title}
@@ -259,7 +261,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             <CardsGrid
               cards={strategies.map((s) => ({
                 key: s.title,
-                icon: <span aria-hidden="true">{s.icon}</span>,
                 title: s.title,
                 body: s.desc,
                 onClick: s.href ? () => navigateTo(s.href!) : undefined,
@@ -282,7 +283,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
                 {exampleScenario.steps.map((step, i) => (
                   <li key={i} className="uc-item">
                     <span className="uc-n num-ltr" aria-hidden="true">{i + 1}</span>
-                    <p className="uc-body">{step}</p>
+                    <p className="uc-body">{stripLeadIcon(step)}</p>
                   </li>
                 ))}
               </ol>

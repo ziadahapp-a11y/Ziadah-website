@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "الشراء معاً",
     subtitle: "اجمع منتجات مُكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً — بثقة بيانات الطلبات الفعلية وتصميم يُبرز التوافق.",
     tagline: "الطقم الكامل يُباع أفضل من كل قطعة بمفردها",
-    icon: "🤝",
+    icon: "",
   },
   whatWeDoTitle: "ما هو عرض 'الشراء معاً' وكيف يعمل في زيادة؟",
   whatWeDoDesc:
@@ -16,25 +16,25 @@ const data: UseCasePageData = {
   strategyTitle: "آليات عرض 'الشراء معاً' في زيادة",
   strategies: [
     {
-      icon: "📈",
+      icon: "",
       title: "تحليل الارتباط الفعلي",
       desc: "يحلل زيادة آلاف الطلبات لاستخراج أكثر المنتجات ارتباطاً بالشراء المشترك — لا اجتهادات يدوية، بل بيانات حقيقية من متجرك.",
       color: "#8b5cf6",
     },
     {
-      icon: "🖱️",
+      icon: "",
       title: "إضافة الكل بنقرة",
       desc: "زر 'أضف الكل للسلة' يضيف جميع منتجات المجموعة دفعة واحدة — يُقلّل الاحتكاك ويُعجّل القرار.",
       color: "#06b6d4",
     },
     {
-      icon: "💬",
+      icon: "",
       title: "رسالة اجتماعية موثوقة",
       desc: "يُرفق العرض بجملة بناءً على بيانات حقيقية مثل 'عملاء اشتروا هذا اشتروا أيضاً...' — تبني ثقة وتُسرّع القرار.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎨",
+      icon: "",
       title: "عرض بصري تركيبي",
       desc: "تُعرض المنتجات بصورة مجتمعة أو شبكة بطاقات تُوضّح التكامل، مع توضيح السعر الإجمالي إذا اختار العميل الطقم كاملاً.",
       color: "#f59e0b",
@@ -67,8 +67,8 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <BuyTogetherWidget />,
         },
         {
@@ -82,7 +82,7 @@ const data: UseCasePageData = {
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
                 <div className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "24px 28px" }}>
-                  <div className="text-violet-600" style={{ fontSize: 17, fontWeight: 800, marginBottom: 12 }}>{isAr ? "🤝 الشراء معاً" : "🤝 Bought Together"}</div>
+                  <div className="text-violet-600" style={{ fontSize: 17, fontWeight: 800, marginBottom: 12 }}>{isAr ? "الشراء معاً" : "Bought Together"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["مبني على بيانات الارتباط الفعلي", "كل منتج يحتفظ بسعره المستقل", "يُظهر الإجمالي بدون خصم إلزامي", "مناسب لأي نوع من المنتجات"]
@@ -121,7 +121,7 @@ const data: UseCasePageData = {
     title: "Frequently Bought Together",
     subtitle: "Bundle complementary products in a single offer that convinces customers to buy the complete set — backed by real order data and a design that highlights compatibility.",
     tagline: "The complete set sells better than each item alone",
-    icon: "🤝",
+    icon: "",
   },
   whatWeDoTitleEn: "What is 'Frequently Bought Together' and how does it work in Ziadah?",
   whatWeDoDescEn:
@@ -129,25 +129,25 @@ const data: UseCasePageData = {
   strategyTitleEn: "'Frequently Bought Together' display methods in Ziadah",
   strategiesEn: [
     {
-      icon: "📈",
+      icon: "",
       title: "Real Association Analysis",
       desc: "Ziadah analyzes thousands of orders to extract the most frequently co-purchased products — no manual guesswork, just real data from your store.",
       color: "#8b5cf6",
     },
     {
-      icon: "🖱️",
+      icon: "",
       title: "One-Click Add All",
       desc: "An 'Add All to Cart' button adds all group products at once — reducing friction and speeding up the decision.",
       color: "#06b6d4",
     },
     {
-      icon: "💬",
+      icon: "",
       title: "Trusted Social Proof",
       desc: "The offer includes a data-backed message like 'Customers who bought this also bought...' — building trust and accelerating the decision.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎨",
+      icon: "",
       title: "Visual Composite Display",
       desc: "Products are shown as a group image or card grid highlighting compatibility, with the total price displayed if the customer chooses the complete set.",
       color: "#f59e0b",

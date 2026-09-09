@@ -16,13 +16,13 @@ const data: UseCasePageData = {
   strategyTitle: "أساليب البيع البديل في زيادة",
   strategies: [
     {
-      icon: "🏆",
+      icon: "",
       title: "الفئة الأعلى — القيمة الأوضح",
       desc: "يعرض النسخة المتميزة مع جدول مقارنة واضح يُبرز الفروقات الحقيقية. العميل يرى لماذا يستحق الفارق في السعر.",
       color: "#8b5cf6",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "الحجم الأكبر — التكلفة أقل",
       desc: "للمنتجات الاستهلاكية يعرض الحجم الأكبر مع حساب التكلفة لكل وحدة. العميل يدرك أن الأكبر أوفر — فيختاره.",
       color: "#06b6d4",
@@ -34,7 +34,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "الموديل الأحدث",
       desc: "للإلكترونيات والتقنية، يقارن بين الموديل الذي يشاهده العميل والأحدث — مع إبراز المزايا الجديدة بأسلوب واضح.",
       color: "#f59e0b",
@@ -66,7 +66,7 @@ const data: UseCasePageData = {
             ? "هكذا تبدو واجهة اقتراح الاستبدال كما يراها عميلك فعلياً"
             : "This is how the upgrade suggestion looks to your customer"
         }
-        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ProductSwapWidget /> }]}
+        tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <ProductSwapWidget /> }]}
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
@@ -114,13 +114,13 @@ const data: UseCasePageData = {
   strategyTitleEn: "Upselling methods in Ziadah",
   strategiesEn: [
     {
-      icon: "🏆",
+      icon: "",
       title: "Higher Tier — Clearer Value",
       desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
       color: "#8b5cf6",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "Bigger Size — Lower Cost",
       desc: "For consumable products, shows the larger size with per-unit cost calculated. The customer realizes bigger is cheaper — and chooses it.",
       color: "#06b6d4",
@@ -132,7 +132,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "Newer Model",
       desc: "For electronics and tech, compares the model being viewed with the latest one — highlighting new features in a clear format.",
       color: "#f59e0b",

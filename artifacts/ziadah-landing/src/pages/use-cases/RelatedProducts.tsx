@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "منتجات ذات صلة",
     subtitle: "اعرض لكل عميل المنتجات الأقرب لاهتمامه — زر الإضافة جاهز مع كل اقتراح، من النقر إلى السلة بثانيتين.",
     tagline: "عميل يرى ما يريد يشتري بلا تفكير",
-    icon: "🔎",
+    icon: "",
   },
   whatWeDoTitle: "ما هي طريقة عرض 'منتجات ذات صلة' وكيف تعمل في زيادة؟",
   whatWeDoDesc:
@@ -16,25 +16,25 @@ const data: UseCasePageData = {
   strategyTitle: "آليات العرض في 'منتجات ذات صلة' بزيادة",
   strategies: [
     {
-      icon: "🤖",
+      icon: "",
       title: "توصيات مخصصة لكل عميل",
       desc: "بناءً على ملف العميل ومشترياته السابقة وتصفحه الحالي، يختار زيادة المنتجات التي تناسبه هو تحديداً — لا قائمة عامة للجميع.",
       color: "#8b5cf6",
     },
     {
-      icon: "🛒",
+      icon: "",
       title: "زر الإضافة المباشر",
       desc: "كل بطاقة منتج مزودة بزر 'أضف إلى السلة' يعمل فورياً دون مغادرة الصفحة الحالية — يقلل الاحتكاك ويرفع معدل التحويل.",
       color: "#06b6d4",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "ترتيب ذكي بالأولوية",
       desc: "المنتجات لا تظهر عشوائياً — يرتبها زيادة حسب احتمالية الشراء لهذا العميل، فيظهر الأعلى ربحاً والأكثر صلة أولاً.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "تحديث ديناميكي",
       desc: "تتحدث القائمة المعروضة في الوقت الفعلي مع تغيّر سلوك العميل أو عند إضافته منتجاً للسلة — لا تكرار ولا قائمة ثابتة.",
       color: "#f59e0b",
@@ -67,13 +67,13 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <RelatedProductsWidget />,
         },
         {
-          labelAr: "📍 أين تظهر؟",
-          labelEn: "📍 Where It Appears",
+          labelAr: "أين تظهر؟",
+          labelEn: "Where It Appears",
           placement: "below",
           content: (
             <div className="sector-card" style={{ padding: "36px 40px", width: "100%" }}>
@@ -83,16 +83,16 @@ const data: UseCasePageData = {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16 }}>
                 {(isAr
                   ? [
-                      { place: "📄 صفحة المنتج", note: "أسفل الوصف أو في الشريط الجانبي" },
-                      { place: "🛒 صفحة السلة", note: "قبل الدفع لزيادة قيمة الطلب" },
-                      { place: "🏠 الصفحة الرئيسية", note: "بناءً على آخر تصفح للعميل" },
-                      { place: "🏷️ صفحة التصنيف", note: "بين المنتجات أو في الشريط الجانبي" },
+                      { place: "صفحة المنتج", note: "أسفل الوصف أو في الشريط الجانبي" },
+                      { place: "صفحة السلة", note: "قبل الدفع لزيادة قيمة الطلب" },
+                      { place: "الصفحة الرئيسية", note: "بناءً على آخر تصفح للعميل" },
+                      { place: "صفحة التصنيف", note: "بين المنتجات أو في الشريط الجانبي" },
                     ]
                   : [
-                      { place: "📄 Product Page", note: "Below the description or in the sidebar" },
-                      { place: "🛒 Cart Page", note: "Before checkout to increase order value" },
-                      { place: "🏠 Home Page", note: "Based on the customer's recent browsing" },
-                      { place: "🏷️ Category Page", note: "Between products or in the sidebar" },
+                      { place: "Product Page", note: "Below the description or in the sidebar" },
+                      { place: "Cart Page", note: "Before checkout to increase order value" },
+                      { place: "Home Page", note: "Based on the customer's recent browsing" },
+                      { place: "Category Page", note: "Between products or in the sidebar" },
                     ]
                 ).map((item, i) => (
                   <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 24px", textAlign: "center" }}>
@@ -114,7 +114,7 @@ const data: UseCasePageData = {
     title: "Related Products",
     subtitle: "Show each customer the products closest to their interests — an add-to-cart button ready with every suggestion, from click to cart in two seconds.",
     tagline: "A customer who sees what they want buys without thinking",
-    icon: "🔎",
+    icon: "",
   },
   whatWeDoTitleEn: "What is the 'Related Products' display and how does it work in Ziadah?",
   whatWeDoDescEn:
@@ -122,25 +122,25 @@ const data: UseCasePageData = {
   strategyTitleEn: "Related Products display methods in Ziadah",
   strategiesEn: [
     {
-      icon: "🤖",
+      icon: "",
       title: "Personalized recommendations",
       desc: "Based on the customer's profile, past purchases, and current browsing, Ziadah selects products suited specifically to them — not a generic list for everyone.",
       color: "#8b5cf6",
     },
     {
-      icon: "🛒",
+      icon: "",
       title: "Direct Add Button",
       desc: "Every product card features an instant 'Add to Cart' button that works without leaving the current page — reducing friction and boosting conversion.",
       color: "#06b6d4",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "Smart Priority Ordering",
       desc: "Products don't appear randomly — Ziadah ranks them by purchase probability for this customer, showing the most relevant and profitable ones first.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "Dynamic Updates",
       desc: "The displayed list updates in real-time as the customer's behavior changes or when they add a product to cart — no repetition, no static list.",
       color: "#f59e0b",

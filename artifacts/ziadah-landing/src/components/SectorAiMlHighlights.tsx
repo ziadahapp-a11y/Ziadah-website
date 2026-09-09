@@ -40,9 +40,6 @@ export default function SectorAiMlHighlights() {
             className="sector-card"
           >
             <div className="flex items-start gap-2.5">
-              <span className="text-[22px] leading-none" aria-hidden>
-                {b.emoji}
-              </span>
               <div>
                 <h3 className="sector-card-title mb-2">
                   {lang === "ar" ? b.titleAr : b.titleEn}

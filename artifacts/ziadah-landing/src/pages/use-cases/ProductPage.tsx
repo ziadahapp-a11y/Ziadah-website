@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "صفحة المنتج",
     subtitle: "أعلى نقطة تأثير في رحلة العميل — في اللحظة التي يتأمل فيها المنتج تبدأ محرك زيادة باقتراح ما يكمّل تجربته ويرفع قيمة طلبه.",
     tagline: "من يزور صفحة منتج يُشتري له أكثر",
-    icon: "📄",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة المنتج؟",
   whatWeDoDesc:
@@ -16,7 +16,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة المنتج",
   strategies: [
     {
-      icon: "🔗",
+      icon: "",
       title: "منتجات ذات صلة",
       desc: "يحلل الذكاء الاصطناعي سلوك العملاء المشابهين ويعرض المنتجات التي يشترونها معاً في أغلب الأحيان. الأكثر تأثيراً لأنها تعكس اهتمامات حقيقية.",
       color: "#8b5cf6",
@@ -34,7 +34,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "حزم Combo ذكية",
       desc: "يجمّع منتجات متكاملة في حزمة بسعر مخفوض، يظهر التوفير بوضوح ليحفّز العميل على أخذ الطقم الكامل دفعة واحدة.",
       color: "#f59e0b",
@@ -59,7 +59,7 @@ const data: UseCasePageData = {
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
   heroVisual: (
-    <PageHeroPhone float1="📈 +42% متوسط الطلب" float2="🛒 توصيات تلقائية">
+    <PageHeroPhone float1="+42% متوسط الطلب" float2="توصيات تلقائية">
       <ProductPageMockup />
     </PageHeroPhone>
   ),
@@ -69,7 +69,7 @@ const data: UseCasePageData = {
     title: "Product Page",
     subtitle: "The highest impact point in the customer journey — at the moment they're examining a product, Ziadah's engine starts suggesting what completes their experience and increases order value.",
     tagline: "Whoever visits a product page buys more",
-    icon: "📄",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the product page?",
   whatWeDoDescEn:
@@ -77,7 +77,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the product page",
   strategiesEn: [
     {
-      icon: "🔗",
+      icon: "",
       title: "Related Products",
       desc: "AI analyzes similar customers' behavior and displays products they most frequently buy together. Most impactful because it reflects real interests.",
       color: "#8b5cf6",
@@ -95,7 +95,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Smart Combo Bundles",
       desc: "Combines complementary products in a discounted bundle, clearly showing savings to encourage the customer to take the complete set at once.",
       color: "#f59e0b",

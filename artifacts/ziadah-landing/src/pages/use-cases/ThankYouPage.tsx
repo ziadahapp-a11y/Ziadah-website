@@ -7,7 +7,7 @@ const data: UseCasePageData = {
     title: "صفحة الشكر",
     subtitle: "بعد إتمام الشراء مباشرة — العميل في أعلى حالات الرضا والانفتاح. هذه اللحظة الذهبية لاقتراح منتج يكمل تجربته أو دعوته للطلب مجدداً.",
     tagline: "الراضي عن شرائه أكثر عميل مستعد للشراء مرة ثانية",
-    icon: "🎉",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة الشكر؟",
   whatWeDoDesc:
@@ -15,7 +15,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة الشكر",
   strategies: [
     {
-      icon: "🎯",
+      icon: "",
       title: "منتج تكميلي ما بعد الشراء",
       desc: "يعرض منتجاً مكمّلاً مباشراً لما اشتراه العميل للتو — بمنطق 'معظم من اشتروا هذا أضافوا أيضاً...' لتحفيز الطلب الثاني.",
       color: "#8b5cf6",
@@ -27,7 +27,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "كوبون الشراء التالي",
       desc: "يمنح العميل كوبون خصم لطلبه القادم مع مدة محدودة (24-48 ساعة) لخلق شعور بالعجلة وإعادته للمتجر.",
       color: "#f59e0b",
@@ -63,7 +63,7 @@ const data: UseCasePageData = {
     title: "Thank You Page",
     subtitle: "Right after completing the purchase — the customer is at peak satisfaction and openness. This golden moment is perfect for suggesting a complementary product or inviting them to order again.",
     tagline: "A satisfied buyer is the most ready customer to buy again",
-    icon: "🎉",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the thank you page?",
   whatWeDoDescEn:
@@ -71,7 +71,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the thank you page",
   strategiesEn: [
     {
-      icon: "🎯",
+      icon: "",
       title: "Post-Purchase Complementary Product",
       desc: "Shows a directly complementary product to what the customer just bought — with the logic 'Most who bought this also added...' to stimulate the second order.",
       color: "#8b5cf6",
@@ -83,7 +83,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "Next Purchase Coupon",
       desc: "Gives the customer a discount coupon for their next order with a limited time window (24-48 hours) to create urgency and bring them back.",
       color: "#f59e0b",

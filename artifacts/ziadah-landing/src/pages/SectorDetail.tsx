@@ -267,9 +267,6 @@ export default function SectorDetail() {
                     className={`rv d${(i % 3) + 1} sector-card`}
                   >
                     <div className="flex items-start gap-2.5 mb-3">
-                      <span className="text-2xl leading-none" aria-hidden>
-                        {card.emoji}
-                      </span>
                       <h3 className="sector-card-title">
                         {lang === "ar" ? card.titleAr : card.titleEn}
                       </h3>
@@ -307,9 +304,6 @@ export default function SectorDetail() {
                     key={i}
                     className={`rv d${(i % 3) + 1} sector-card flex items-start gap-3`}
                   >
-                    <span className="text-2xl leading-none shrink-0" aria-hidden>
-                      {hc.emoji}
-                    </span>
                     <p className="sector-card-text">
                       {lang === "ar" ? hc.bodyAr : hc.bodyEn}
                     </p>
@@ -380,9 +374,6 @@ export default function SectorDetail() {
                       key={i}
                       className={`rv d${(i % 3) + 1} sector-card flex items-start gap-2.5`}
                     >
-                      <span className="text-lg leading-snug shrink-0" aria-hidden>
-                        {bc.emoji}
-                      </span>
                       <p className="sector-card-text">
                         {lang === "ar" ? bc.textAr : bc.textEn}
                       </p>

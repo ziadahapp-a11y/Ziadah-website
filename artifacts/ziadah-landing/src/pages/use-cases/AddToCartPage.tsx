@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "إضافة للسلة",
     subtitle: "اللحظة التي يضغط فيها العميل 'أضف للسلة' هي فرصة ذهبية — نية الشراء في أعلى مستوياتها وزيادة يستغلها لعرض توصية مكمّلة ترفع قيمة الطلب فوراً.",
     tagline: "لحظة الإضافة = أعلى نية شرائية",
-    icon: "🛍️",
+    icon: "",
   },
   whatWeDoTitle: "كيف يستغل زيادة لحظة الإضافة للسلة؟",
   whatWeDoDesc:
@@ -22,19 +22,19 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🤝",
+      icon: "",
       title: "مبدأ 'اشتروا مع بعض'",
       desc: "يعرض زيادة المنتجات التي اشتراها عملاء آخرون مع نفس المنتج فعلياً. الدليل الاجتماعي يرفع معدل القبول بشكل ملحوظ.",
       color: "#06b6d4",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "توصية أحادية بدون إرباك",
       desc: "عرض منتج واحد فقط لحظة الإضافة — لا قائمة تُربك العميل. التركيز على خيار واحد يرفع معدل التحويل بشكل كبير.",
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "تخصيص بالذكاء الاصطناعي",
       desc: "زيادة يحلل سلوك العميل وتاريخه وقيمة السلة الحالية ليختار الاقتراح الأنسب — ليس مجرد منتج عشوائي مرتبط.",
       color: "#f59e0b",
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
           ? "محاكاة تفاعلية — شاهد ردة فعل زيادة بمجرد ضغط العميل على الإضافة"
           : "Interactive simulation — see Ziadah's response the moment a customer clicks add to cart"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <AddToCartWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <AddToCartWidget /> }]}
     />
   ),
   ctaTitle: "حوّل كل إضافة للسلة إلى فرصة بيع إضافية",
@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     title: "Add to Cart",
     subtitle: "The moment the customer clicks 'Add to Cart' is a golden opportunity — purchase intent is at its peak and Ziadah seizes it to show a complementary recommendation that instantly increases order value.",
     tagline: "The moment of adding = peak purchase intent",
-    icon: "🛍️",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah leverage the add-to-cart moment?",
   whatWeDoDescEn:
@@ -89,19 +89,19 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🤝",
+      icon: "",
       title: "'Bought Together' Principle",
       desc: "Ziadah shows products that other customers actually bought with the same product. Social proof significantly increases acceptance rates.",
       color: "#06b6d4",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Single Recommendation, No Overwhelm",
       desc: "Showing just one product at the add-to-cart moment — no list to overwhelm the customer. Focusing on a single option significantly increases conversion rate.",
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "AI-Powered Personalization",
       desc: "Ziadah analyzes customer behavior, history, and current cart value to choose the most suitable suggestion — not just a random related product.",
       color: "#f59e0b",

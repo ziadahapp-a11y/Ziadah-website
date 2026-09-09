@@ -406,7 +406,7 @@ function UseCaseRow({
               className="sector-html-btn sector-html-btn--fire"
               onClick={onActivate}
             >
-              🚀 {activateLabel}
+              {activateLabel}
             </button>
             <button
               type="button"

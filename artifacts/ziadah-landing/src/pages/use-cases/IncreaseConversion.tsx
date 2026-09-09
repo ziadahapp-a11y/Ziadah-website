@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "رفع معدل التحويل",
     subtitle: "معدل التحويل (CVR) هو النسبة المئوية من زوار متجرك الذين يُتمّون الشراء — رفعه يعني ربح أكثر بنفس عدد الزوار.",
     tagline: "كل 1% في CVR = آلاف ر.س شهرياً",
-    icon: "📈",
+    icon: "",
   },
   whatWeDoTitle: "لماذا معدل التحويل أكثر أهمية من عدد الزوار؟",
   whatWeDoDesc:
@@ -16,7 +16,7 @@ const data: UseCasePageData = {
   strategyTitle: "كيف يرفع زيادة معدل التحويل؟",
   strategies: [
     {
-      icon: "🎯",
+      icon: "",
       title: "تجربة مخصصة = قرار أسرع",
       desc: "كل عميل يرى المنتجات الأنسب له فور وصوله. لا تشتت، لا بحث طويل — مسار مباشر من الوصول للشراء يقلل وقت الاتخاذ.",
       color: "#8b5cf6",
@@ -28,13 +28,13 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "تحفيز الشراء الأول",
       desc: "للزوار الجدد الذين لم يشتروا بعد: يقدم كوبون خاص للطلب الأول أو عرضاً مؤقتاً يقنعهم بتجربة المتجر.",
       color: "#8b5cf6",
     },
     {
-      icon: "📱",
+      icon: "",
       title: "تحسين تجربة الموبايل",
       desc: "أكثر من 70% من تصفح المتاجر يأتي من الهاتف. زيادة يُحسّن ظهور التوصيات ويجعلها سهلة التفاعل على الشاشات الصغيرة.",
       color: "#06b6d4",
@@ -66,7 +66,7 @@ const data: UseCasePageData = {
             ? "هكذا يبدو اقتراح رفع التحويل كما يراه عميلك الجديد"
             : "This is how the conversion boost looks to your new customer"
         }
-        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <IncreaseConversionWidget /> }]}
+        tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <IncreaseConversionWidget /> }]}
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
@@ -74,19 +74,19 @@ const data: UseCasePageData = {
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 24, textAlign: "center" }}>{isAr ? "العوامل التي ترفع معدل التحويل" : "Factors that increase conversion rate"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 16 }}>
             {(isAr ? [
-              { icon: "🎯", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#8b5cf6" },
-              { icon: "🤝", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
+              { icon: "", title: "التخصيص", desc: "كل عميل يرى محتوى مناسباً له يختصر رحلة الشراء", color: "#8b5cf6" },
+              { icon: "", title: "الثقة", desc: "آراء حقيقية وإثبات اجتماعي يزيل التردد", color: "#06b6d4" },
               { icon: "⚡", title: "الإلحاح", desc: "عروض محدودة الوقت وعدادات توقيت تحفّز الشراء الآن", color: "#f59e0b" },
-              { icon: "💎", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#8b5cf6" },
-              { icon: "🔄", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
-              { icon: "📱", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
+              { icon: "", title: "القيمة الواضحة", desc: "إظهار التوفير والفوائد بشكل صريح بدون غموض", color: "#8b5cf6" },
+              { icon: "", title: "البساطة", desc: "مسار شراء سلس بلا عقبات يقلل الاحتكاك", color: "#ec4899" },
+              { icon: "", title: "التوافق مع الموبايل", desc: "تجربة سلسة على جميع الأجهزة والشاشات", color: "#4f46e5" },
             ] : [
-              { icon: "🎯", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#8b5cf6" },
-              { icon: "🤝", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
+              { icon: "", title: "Personalization", desc: "Each customer sees relevant content that shortens the buying journey", color: "#8b5cf6" },
+              { icon: "", title: "Trust", desc: "Real reviews and social proof remove hesitation", color: "#06b6d4" },
               { icon: "⚡", title: "Urgency", desc: "Time-limited offers and countdown timers motivate buying now", color: "#f59e0b" },
-              { icon: "💎", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#8b5cf6" },
-              { icon: "🔄", title: "Simplicity", desc: "Smooth buying path without obstacles reduces friction", color: "#ec4899" },
-              { icon: "📱", title: "Mobile Compatibility", desc: "Seamless experience across all devices and screens", color: "#4f46e5" },
+              { icon: "", title: "Clear Value", desc: "Showing savings and benefits explicitly without ambiguity", color: "#8b5cf6" },
+              { icon: "", title: "Simplicity", desc: "Smooth buying path without obstacles reduces friction", color: "#ec4899" },
+              { icon: "", title: "Mobile Compatibility", desc: "Seamless experience across all devices and screens", color: "#4f46e5" },
             ]).map((item, i) => (
               <div key={i} className="rounded-xl border border-zinc-200 bg-zinc-50/60" style={{ padding: "20px 20px" }}>
                 <div style={{ fontSize: 26, marginBottom: 10 }}>{item.icon}</div>
@@ -107,7 +107,7 @@ const data: UseCasePageData = {
     title: "Increase Conversion Rate",
     subtitle: "Conversion rate (CVR) is the percentage of your store visitors who complete a purchase — increasing it means earning more with the same number of visitors.",
     tagline: "Every 1% in CVR = thousands of SAR monthly",
-    icon: "📈",
+    icon: "",
   },
   whatWeDoTitleEn: "Why is conversion rate more important than visitor count?",
   whatWeDoDescEn:
@@ -115,7 +115,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "How does Ziadah increase conversion rate?",
   strategiesEn: [
     {
-      icon: "🎯",
+      icon: "",
       title: "Personalized Experience = Faster Decision",
       desc: "Every customer sees the most relevant products upon arrival. No distraction, no long searches — a direct path from arrival to purchase that shortens decision time.",
       color: "#8b5cf6",
@@ -127,13 +127,13 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "First Purchase Incentive",
       desc: "For new visitors who haven't purchased yet: offers a special coupon for their first order or a time-limited deal to convince them to try the store.",
       color: "#8b5cf6",
     },
     {
-      icon: "📱",
+      icon: "",
       title: "Mobile Experience Optimization",
       desc: "Over 70% of store browsing comes from phones. Ziadah optimizes recommendation display and makes them easy to interact with on small screens.",
       color: "#06b6d4",

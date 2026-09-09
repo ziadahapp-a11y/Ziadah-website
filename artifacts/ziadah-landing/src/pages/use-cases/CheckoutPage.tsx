@@ -163,9 +163,9 @@ const Phone2Content = () => (
       <span style={{ fontSize: 22, fontWeight: 900, color: "#8b5cf6" }}>30</span>
       <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>ر.س شحن مجاني ✓</span>
     </div>
-    <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="🧣" />
-    <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="📿" />
-    <AddToCartRow name="سبحة بكلايت بلون أحمر" reviews="6984" price="200" image="📿" />
+    <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="" />
+    <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="" />
+    <AddToCartRow name="سبحة بكلايت بلون أحمر" reviews="6984" price="200" image="" />
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
       <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
       <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
@@ -191,7 +191,7 @@ function CheckoutMockup() {
         {
           labelAr: "أكمل للشحن المجاني",
           labelEn: "Complete for Free Shipping",
-          icon: "🚚",
+          icon: "",
           content: <Phone1Content />,
         },
         {
@@ -211,7 +211,7 @@ const data: UseCasePageData = {
     title: "صفحة الدفع",
     subtitle: "اللحظة الأخيرة قبل اكتمال الطلب — وهي ذهبية. زيادة يوظّفها لزيادة قيمة الطلب بعروض ذكية تشجع العميل على الإضافة قبل الدفع.",
     tagline: "آخر توصية قبل الدفع = أعلى عائد بأقل جهد",
-    icon: "💳",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة الدفع؟",
   whatWeDoDesc:
@@ -219,7 +219,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة الدفع",
   strategies: [
     {
-      icon: "🚚",
+      icon: "",
       title: "أكمل للشحن المجاني",
       desc: "يحسب زيادة الفجوة بين قيمة الطلب وعتبة الشحن المجاني ويقترح منتجات بالقيمة الناقصة تماماً مع شريط تقدم مرئي يحفّز العميل على الإضافة.",
       color: "#7c3aed",
@@ -231,7 +231,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "عروض وقت الدفع",
       desc: "يطلق زيادة عروضاً مؤقتة حصرية تظهر فقط في صفحة الدفع، تخلق إلحاحاً طبيعياً يجعل العميل يضيف قبل فوات الأوان.",
       color: "#f59e0b",
@@ -267,7 +267,7 @@ const data: UseCasePageData = {
     title: "Checkout Page",
     subtitle: "The last moment before the order is complete — and it's golden. Ziadah leverages it to increase order value with smart offers that encourage customers to add before paying.",
     tagline: "Last recommendation before payment = highest return with least effort",
-    icon: "💳",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the checkout page?",
   whatWeDoDescEn:
@@ -275,7 +275,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the checkout page",
   strategiesEn: [
     {
-      icon: "🚚",
+      icon: "",
       title: "Complete for Free Shipping",
       desc: "Ziadah calculates the gap between order value and free shipping threshold and suggests products at exactly the missing value with a visual progress bar motivating the customer to add.",
       color: "#7c3aed",
@@ -287,7 +287,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Checkout-Time Offers",
       desc: "Ziadah launches timed exclusive offers that appear only on the checkout page, creating natural urgency that makes the customer add before it's too late.",
       color: "#f59e0b",

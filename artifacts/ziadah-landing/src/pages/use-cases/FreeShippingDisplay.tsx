@@ -9,7 +9,7 @@ const data: UseCasePageData = {
     subtitle:
       "يُظهر للعميل كم تبقّى حتى يصل لعتبة الشحن المجاني — مع منتجات مقترحة تسدّ الفجوة بالقيمة المناسبة. دافع واضح يُشجّع على إضافة منتج بدلاً من المغادرة.",
     tagline: "شريط تقدّم + اقتراحات = تخطّي عتبة الشحن بسهولة",
-    icon: "🚚",
+    icon: "",
   },
   whatWeDoTitle: "لماذا عرض الشحن المجاني يغيّر السلوك؟",
   whatWeDoDesc:
@@ -17,19 +17,19 @@ const data: UseCasePageData = {
   strategyTitle: "كيف يُنفَّذ عرض الشحن المجاني في زيادة؟",
   strategies: [
     {
-      icon: "📊",
+      icon: "",
       title: "شريط التقدّم",
       desc: "يُظهر نسبة المبلغ المحقق من عتبة الشحن المجاني — واضح ومباشر.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "تطابق قيمة الفجوة",
       desc: "يقترح منتجات قريبة من المبلغ المتبقي ليُسهّل إتمام العتبة دون تجاوز كبير.",
       color: "#06b6d4",
     },
     {
-      icon: "🧩",
+      icon: "",
       title: "صلة بالسلة",
       desc: "الاقتراحات مرتبطة بما في السلة أو بتصنيفات يهتم بها العميل — لا عشوائية.",
       color: "#8b5cf6",
@@ -61,7 +61,7 @@ const data: UseCasePageData = {
       isAr={isAr}
       title={isAr ? "كيف يُعرض الشحن المجاني للعميل؟" : "How does the free-shipping prompt look?"}
       subtitle={isAr ? "شريط تقدّم واقتراحات تسدّ الفجوة" : "Progress bar + gap-closing suggestions"}
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <FreeShippingThresholdWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <FreeShippingThresholdWidget /> }]}
     />
   ),
   ctaTitle: "فعّل عرض الشحن المجاني",
@@ -72,7 +72,7 @@ const data: UseCasePageData = {
     subtitle:
       "Shows how much is left until the free shipping threshold — with suggested products that close the gap. A clear incentive to add instead of leave.",
     tagline: "Progress bar + suggestions = easier threshold crossing",
-    icon: "🚚",
+    icon: "",
   },
   whatWeDoTitleEn: "Why does free shipping messaging change behavior?",
   whatWeDoDescEn:
@@ -80,19 +80,19 @@ const data: UseCasePageData = {
   strategyTitleEn: "How Ziadah implements free shipping display",
   strategiesEn: [
     {
-      icon: "📊",
+      icon: "",
       title: "Progress bar",
       desc: "Shows how much of the free shipping threshold is already covered — clear and direct.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Gap matching",
       desc: "Suggests products close to the remaining amount so the threshold is easy to hit without overspending.",
       color: "#06b6d4",
     },
     {
-      icon: "🧩",
+      icon: "",
       title: "Cart relevance",
       desc: "Suggestions tied to what’s in the cart or categories the customer cares about — not random picks.",
       color: "#8b5cf6",

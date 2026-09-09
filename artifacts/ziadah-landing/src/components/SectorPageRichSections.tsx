@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit } from "@/data/sectorPageTypes";
 import PlatformModal from "@/components/PlatformModal";
 import { t as siteTranslations } from "@/i18n/translations";
+import { stripLeadIcon } from "@/lib/strip-icon";
 
 type Part = "top" | "ai" | "bottom" | "foot";
 
@@ -108,19 +109,14 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div
           className="absolute top-0 left-0 right-0 h-0.5"
           style={{
-            background: "linear-gradient(90deg, var(--p), color-mix(in srgb, var(--p) 70%, #f59e0b), #f59e0b)",
+            background: "var(--ziadah-violet)",
           }}
         />
         <div className="flex items-center gap-3 mb-3.5">
-          <div
-            className="w-[42px] h-[42px] rounded-full flex items-center justify-center text-xl"
-            style={{
-              background: "linear-gradient(135deg, var(--p), color-mix(in srgb, var(--p) 70%, #f59e0b))",
-            }}
-            aria-hidden
-          >
-            👤
-          </div>
+          {/* The avatar was a 👤 on a violet-to-amber gradient disc. A customer
+              profile panel does not need a picture of a person to say it is
+              about a person, and the gradient was the only place on this card
+              carrying a second hue. */}
           <div>
             <div className="text-sm font-extrabold text-zinc-950">{isAr ? "ملف العميل الذكي" : "Smart customer profile"}</div>
             <div className="sh-en text-[11px] text-zinc-600">
@@ -146,7 +142,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
         <div className="flex flex-col gap-2">
           {recLines.map((r, ri) => (
             <div key={ri} className="sector-html-pc-rec">
-              <span className="flex-1 text-xs font-bold text-zinc-950 leading-[1.35]">{r.name}</span>
+              <span className="flex-1 text-xs font-bold leading-[1.35]">{stripLeadIcon(r.name)}</span>
               {r.pct ? <span className="sector-html-pcr-match sh-en">{r.pct}</span> : null}
             </div>
           ))}
@@ -479,7 +475,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
               className="sector-html-btn sector-html-btn--fire"
               onClick={() => setPlatformModalOpen(true)}
             >
-              🚀 {isAr ? "فعّل الآن" : "Activate Now"}
+              {isAr ? "فعّل الآن" : "Activate Now"}
             </button>
           </div>
         </div>

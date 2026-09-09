@@ -34,7 +34,7 @@ const data: UseCasePageData = {
   strategyTitle: "أركان التخصيص في زيادة",
   strategies: [
     {
-      icon: "🪪",
+      icon: "",
       title: "طبقة الهوية الكاملة",
       desc: "بناء ملف زائر غني: مصدر الزيارة، الجهاز، المنطقة، تاريخ التصفح والشراء — أساس لا يُبنى التوصية بدونه.",
       color: "#8b5cf6",
@@ -46,19 +46,19 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🧠",
+      icon: "",
       title: "ذاكرة تراكمية",
       desc: "المشتريات السابقة، المنتجات التي شاهدها دون شراء، العودات المتكررة، وأوقات النشاط المفضلة — كلها تغذي النموذج مع الوقت.",
       color: "#8b5cf6",
     },
     {
-      icon: "👥",
+      icon: "",
       title: "ذكاء المجتمع",
       desc: "أنماط مستخرجة من عملاء يشبهون هذا الزائر في السلوك والاهتمام — توصيات مدعومة بسلوك حقيقي لا بتخمين.",
       color: "#f59e0b",
     },
     {
-      icon: "🌙",
+      icon: "",
       title: "السياق الزمني والموسمي",
       desc: "رمضان، ما قبل العيد، الجمعة السوداء، نهاية الأسبوع، وساعات الذروة — تُرجّح المنتجات والعروض المناسبة للحظة.",
       color: "#ec4899",
@@ -189,7 +189,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "The pillars of personalization in Ziadah",
   strategiesEn: [
     {
-      icon: "🪪",
+      icon: "",
       title: "Full identity layer",
       desc: "A rich visitor profile: traffic source, device, region, browsing and purchase history — the foundation recommendations are built on.",
       color: "#8b5cf6",
@@ -201,19 +201,19 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🧠",
+      icon: "",
       title: "Cumulative memory",
       desc: "Past purchases, viewed-not-bought products, repeat visits, and preferred activity windows — all feeding the model over time.",
       color: "#8b5cf6",
     },
     {
-      icon: "👥",
+      icon: "",
       title: "Community intelligence",
       desc: "Patterns from customers who behave like this visitor — recommendations grounded in real cohort behavior, not guesswork.",
       color: "#f59e0b",
     },
     {
-      icon: "🌙",
+      icon: "",
       title: "Temporal & seasonal context",
       desc: "Ramadan, pre-Eid, Black Friday, weekends, peak hours — boosting the products and offers that fit the moment.",
       color: "#ec4899",

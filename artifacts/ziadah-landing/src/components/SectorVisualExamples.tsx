@@ -6,7 +6,7 @@ import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
 import type { SectorScenarioOverlayKind, SectorVisualBundle, SectorVisualScenario } from "@/data/sectorVisuals";
 import { t as siteTranslations } from "@/i18n/translations";
 import {
-  PhoneFrame, WidgetShell, ProductList, ProductRow, WidgetButton, WidgetHint,
+  PhoneFrame, WidgetShell, ProductList, ProductRow, WidgetButton, WidgetHint, ProductTile,
 } from "@/components/widgets/kit";
 
 type SectorPageT = Translations["sectorsPage"];
@@ -106,7 +106,6 @@ function SectorScenarioWidgetShowcaseCard({
   const rgb = hexToRgbTuple(accent);
   const title = isAr ? s.titleAr : s.titleEn;
   const desc = isAr ? s.contextAr : s.contextEn;
-  const icon = s.main.emoji;
 
   return (
     <div
@@ -135,23 +134,7 @@ function SectorScenarioWidgetShowcaseCard({
           padding: "4px 0",
         }}
       >
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 14,
-            background: `rgba(${rgb},.12)`,
-            border: `1px solid rgba(${rgb},.28)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 22,
-            flexShrink: 0,
-            boxShadow: `0 0 12px rgba(${rgb},.075)`,
-          }}
-        >
-          {icon}
-        </div>
+        <ProductTile name={isAr ? s.main.nameAr : s.main.nameEn} size={44} radius={12} />
         <div style={{ flex: 1, textAlign: "start", minWidth: 0 }}>
           <div
             style={{
@@ -260,22 +243,11 @@ export default function SectorVisualExamples({
             {bundle.flow.map((step, i) => (
               <Fragment key={i}>
                 <div className="sector-viz-flow-step">
-                  <div
-                    className="mb-3"
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 16,
-                      background: "rgba(124, 58, 237,.12)",
-                      border: "1px solid rgba(124, 58, 237,.22)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: 26,
-                    }}
-                  >
-                    {step.icon}
-                  </div>
+                  {/* A NUMBER, not a 🧠. This is an ordered three-step flow,
+                      so the step's own position is the only marker it needs -
+                      and stripping the emoji had left an empty violet tile,
+                      which is worse than the emoji was. */}
+                  <span className="svx-step-num num-ltr" aria-hidden="true">{i + 1}</span>
                   <div className="sector-card-title mb-2" style={{ fontSize: 15 }}>
                     {isAr ? step.titleAr : step.titleEn}
                   </div>
@@ -393,15 +365,25 @@ export default function SectorVisualExamples({
               <div
                 style={{
                   height: 74,
-                  background: `linear-gradient(135deg, ${s.accent}44, rgba(6,182,212,.2))`,
+                  /* One tint of the sector's own colour. It was an accent-to-
+                     cyan gradient, which is the second hue this component
+                     spent everywhere. */
+                  background: `color-mix(in srgb, ${s.accent} 12%, transparent)`,
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "space-between",
+                  gap: 8,
                   padding: "10px 12px",
                 }}
               >
-                <span style={{ fontSize: 24 }}>{s.main.emoji}</span>
-                <span style={{ fontSize: 20 }}>{s.suggested[0]?.emoji ?? "✨"}</span>
+                {/* The two products, as tiles. They were the two emoji. */}
+                <ProductTile name={isAr ? s.main.nameAr : s.main.nameEn} size={30} radius={8} />
+                {s.suggested[0] ? (
+                  <ProductTile
+                    name={isAr ? s.suggested[0].nameAr : s.suggested[0].nameEn}
+                    size={26}
+                    radius={7}
+                  />
+                ) : null}
               </div>
               <div style={{ padding: "9px 10px", fontSize: 12, fontWeight: 700, color: isActive ? "var(--p3)" : "var(--tm)" }}>
                 {isAr ? s.widgetAr : s.widgetEn}
@@ -427,22 +409,7 @@ export default function SectorVisualExamples({
           {bundle.flow.map((step, i) => (
             <Fragment key={i}>
               <div className="sector-viz-flow-step">
-                <div
-                  className="mb-3"
-                  style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 16,
-                    background: "rgba(124, 58, 237,.12)",
-                    border: "1px solid rgba(124, 58, 237,.22)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 26,
-                  }}
-                >
-                  {step.icon}
-                </div>
+                <span className="svx-step-num num-ltr" aria-hidden="true">{i + 1}</span>
                 <div className="sector-card-title mb-2" style={{ fontSize: 15 }}>
                   {isAr ? step.titleAr : step.titleEn}
                 </div>

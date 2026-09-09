@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "زيادة متوسط السلة",
     subtitle: "رفع AOV (Average Order Value) يعني أنك تكسب أكثر من نفس العدد من الزوار — بدون زيادة تكاليف التسويق.",
     tagline: "نفس العدد من العملاء، إيرادات أكثر",
-    icon: "💰",
+    icon: "",
   },
   whatWeDoTitle: "لماذا متوسط قيمة الطلب هو المقياس الأهم؟",
   whatWeDoDesc:
@@ -16,13 +16,13 @@ const data: UseCasePageData = {
   strategyTitle: "5 استراتيجيات زيادة لرفع متوسط الطلب",
   strategies: [
     {
-      icon: "🎁",
+      icon: "",
       title: "حزم Combo بسعر خاص",
       desc: "يجمّع منتجات مكمّلة بخصم 15-25% على سعر المجموع. العميل يحصل على قيمة أعلى ويدفع أكثر — فوز للطرفين.",
       color: "#8b5cf6",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "عتبة الشحن المجاني",
       desc: "يحسب الفجوة بين قيمة السلة وعتبة الشحن المجاني ويقترح منتجاً بالقيمة الناقصة. دافع قوي وطبيعي.",
       color: "#06b6d4",
@@ -34,13 +34,13 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "اشتر أكثر ووفّر أكثر",
       desc: "جدول خصم تصاعدي يحفّز الشراء بكمية أكبر. مثالي للمنتجات الاستهلاكية: مشروبات، مكملات غذائية، عناية.",
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "عروض مؤقتة بعد السلة",
       desc: "يظهر بعد إضافة المنتج للسلة عرضاً محدود الوقت على منتج مكمّل — يخلق إلحاحاً ويرفع قيمة الطلب الواحد.",
       color: "#ec4899",
@@ -71,7 +71,7 @@ const data: UseCasePageData = {
           ? "هكذا يبدو اقتراح رفع متوسط الطلب كما يراه عميلك فعلياً"
           : "This is how the AOV-boosting suggestion looks to your customer"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <IncreaseAOVWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <IncreaseAOVWidget /> }]}
     />
   ),
   ctaTitle: "ارفع متوسط سلتك بـ 20% في الشهر الأول",
@@ -81,7 +81,7 @@ const data: UseCasePageData = {
     title: "Increase Average Order Value",
     subtitle: "Increasing AOV (Average Order Value) means you earn more from the same number of visitors — without increasing marketing costs.",
     tagline: "Same number of customers, more revenue",
-    icon: "💰",
+    icon: "",
   },
   whatWeDoTitleEn: "Why is Average Order Value the most important metric?",
   whatWeDoDescEn:
@@ -89,13 +89,13 @@ const data: UseCasePageData = {
   strategyTitleEn: "5 Ziadah strategies to increase average order value",
   strategiesEn: [
     {
-      icon: "🎁",
+      icon: "",
       title: "Combo Bundles at Special Prices",
       desc: "Combines complementary products at a 15-25% discount on the total. The customer gets higher value and pays more — a win for both sides.",
       color: "#8b5cf6",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "Free Shipping Threshold",
       desc: "Calculates the gap between cart value and the free shipping threshold and suggests a product at exactly the missing amount. A strong and natural incentive.",
       color: "#06b6d4",
@@ -107,13 +107,13 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "Buy More, Save More",
       desc: "A progressive discount table that incentivizes buying larger quantities. Ideal for consumable products: beverages, supplements, skincare.",
       color: "#f59e0b",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "Post-Cart Timed Offers",
       desc: "Appears after adding a product to cart with a time-limited offer on a complementary item — creates urgency and increases single order value.",
       color: "#ec4899",
