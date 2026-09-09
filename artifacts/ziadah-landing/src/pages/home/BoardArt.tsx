@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { useT } from "@/lib/i18n";
-import { useLanguage } from "@/i18n/LanguageContext";
-import { t as translations } from "@/i18n/translations";
 import { placements } from "@/lib/features-data";
 
 /**
@@ -47,7 +45,6 @@ function Panel({
 
 export function BoardArt({ surface }: { surface: string }) {
   const t = useT();
-  const { lang } = useLanguage();
   /* The official SAR glyph (U+20C1) is not reliably covered by the loaded
      font, so the abbreviation is used everywhere on the site. */
   const sar = t({ ar: "ر.س", en: "SAR" });
@@ -216,37 +213,6 @@ export function BoardArt({ surface }: { surface: string }) {
           </p>
         </Panel>
       );
-
-    /* ---- what merchants said, verbatim ------------------------------- */
-    /* The same reviews the marquee used to run, read from the same place in
-       `translations`, so a review cannot exist here and nowhere else. Three
-       of them, static: at board scale a marquee is a moving thing inside a
-       still composition, and the board is the composition. */
-    case "reviews": {
-      const rows = (
-        translations[lang].landing.testimonialsRow1 as { text: string; name: string; role: string }[]
-      )
-        .filter((r) => r.text.length > 40)
-        .slice(0, 3);
-      return (
-        <Panel title={t({ ar: "آراء التجار", en: "What merchants say" })}>
-          <ul className="bart-rows">
-            {rows.map((r) => (
-              <li key={r.name} className="bart-row">
-                <span className="bart-row-mark" />
-                <span className="bart-row-text">
-                  <span className="bart-row-name">{r.text}</span>
-                  <span className="bart-row-when">{r.name}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="bart-foot">
-            {t({ ar: "تقييمات موثّقة من متجر تطبيقات زد", en: "Verified reviews from the Zid app market" })}
-          </p>
-        </Panel>
-      );
-    }
 
     default:
       return null;

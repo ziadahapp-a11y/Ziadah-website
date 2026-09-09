@@ -9,6 +9,7 @@ import { CoreSystems, Trust } from "./home/CoreSystems";
 import { HowItWorks } from "./home/HowItWorks";
 import { Calculator } from "./home/Calculator";
 import { Pricing } from "./home/Pricing";
+import { Testimonials } from "./home/Testimonials";
 import { HomeFaq } from "./home/Faq";
 import { BlockGrid, Disclaimer } from "./home/BlockGrid";
 
@@ -36,6 +37,7 @@ import { BlockGrid, Disclaimer } from "./home/BlockGrid";
  *   trust         VISUAL + TEXT   dark, the record and what the connector reads
  *   sectors       TEXT            where it takes shape
  *   how-it-works  VISUAL          four steps beside a pinned figure
+ *   reviews       TEXT            the merchants, in their own words
  *   calculator    DATA            the merchant puts their own numbers in
  *   pricing       DATA            plans
  *   faq           TEXT
@@ -44,9 +46,14 @@ import { BlockGrid, Disclaimer } from "./home/BlockGrid";
  * FOUR BANDS WERE FOLDED, TWO WERE CUT.
  *
  * Folded: the four pillars and the placements pair into the systems board;
- * the aggregate stats, the merchant-logo marquee and the testimonial reviews
- * into the trust board. Each was a full band restating something a card can
- * hold, and the board is what gives a card a size.
+ * the aggregate stats and the merchant-logo marquee into the trust board.
+ * Each was a full band restating something a card can hold, and the board is
+ * what gives a card a size.
+ *
+ * The reviews were folded too, and folding them was wrong: a tile reading
+ * "verified merchant reviews" states that reviews exist without showing one,
+ * and they are the only words on the page not written by us. They have their
+ * own band again, on the system's card.
  *
  * Cut: the X-thread mockup and the hundred-dot three-way comparison. Both
  * argued that a store showing everyone the same products leaves money on the
@@ -84,6 +91,7 @@ export default function HomeTrackflow() {
         <Trust />
         <SectorsBriefSection />
         <HowItWorks />
+        <Testimonials />
         <Calculator onActivate={openPlatforms} />
         <Pricing onActivate={openPlatforms} />
         <HomeFaq />

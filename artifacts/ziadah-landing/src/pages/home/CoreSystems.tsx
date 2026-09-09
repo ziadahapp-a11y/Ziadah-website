@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "wouter";
-import { CreditCard, FileText, FolderTree, Headphones, PartyPopper, Plug, ShieldCheck, ShoppingCart, Timer } from "lucide-react";
+import { BadgeCheck, CreditCard, FileText, FolderTree, Headphones, Plug, ShieldCheck, ShoppingCart, Timer } from "lucide-react";
 import { Button } from "@/components/mk";
 import { useT } from "@/lib/i18n";
 import { sectionTheme } from "@/sections";
@@ -152,11 +152,10 @@ export function CoreSystems() {
  * connector reads, because a recommendation engine reads a store's catalogue
  * and its buying behaviour and that deserves a card rather than a footnote.
  *
- * WHAT THIS REPLACES. The proof band (four stats and a logo marquee), the
- * testimonials band (two marquees of identical cards) and the platform half
- * of the placements band. Three light bands making one point, now one dark
- * one - which is also what gives the page its hard light/dark step in the
- * middle instead of a run of pale violet.
+ * WHAT THIS REPLACES. The proof band (four stats and a logo marquee) and the
+ * platform half of the placements band. Two light bands making one point, now
+ * one dark one - which is also what gives the page its hard light/dark step
+ * in the middle instead of a run of pale violet.
  */
 export function Trust() {
   const t = useT();
@@ -214,9 +213,12 @@ export function Trust() {
   ];
 
   const strip: BoardTile[] = [
-    { key: "reviews", variant: "heading", tone: "ink", size: "short", Icon: PartyPopper,
-      title: t({ ar: "تقييمات موثّقة من التجار", en: "Verified merchant reviews" }),
-      support: t({ ar: "في متجر تطبيقات زد", en: "On the Zid app market" }) },
+    /* NOT a reviews tile. The reviews have their own band now, and a tile
+       saying they exist beside a band showing them is the same claim twice.
+       This says the thing the page states nowhere else. */
+    { key: "independent", variant: "heading", tone: "ink", size: "short", Icon: BadgeCheck,
+      title: t({ ar: "منتج مستقل", en: "An independent product" }),
+      support: t({ ar: "غير تابع لأي منصة ولا معتمد منها", en: "Not owned or endorsed by any platform" }) },
     { key: "support", variant: "heading", tone: "ink", size: "short", Icon: Headphones,
       title: t({ ar: "دعم بالعربية", en: "Support in Arabic" }),
       support: t({ ar: "فريق مختص، لا رد آلي", en: "A specialist team, not an auto-reply" }) },

@@ -779,6 +779,49 @@
 .topup-item.is-on { background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent); }
 .topup-item:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
 
+/* ---------- MERCHANT REVIEWS -------------------------------------------
+   The two marquee rows and the card that rides in them. The card itself is
+   the system's `.card`; what is named here is only the geometry a marquee
+   needs - a fixed width and no shrinking - plus the two bits a review has
+   that no other card does: a rating row and a merchant avatar. */
+.review-row + .review-row { margin-block-start: 1.6rem; }
+
+/* `rem`, not `px`. The card holds `rem` type, so a `px` box would hold its
+   width while the text inside it grew - at 1920 a 320px card would be
+   carrying type sized for a 13.3px root. Both ends scale together now. */
+.review-card {
+  flex: none;
+  width: 28rem;
+  margin-inline-end: 1.6rem;
+  gap: 1.2rem;
+}
+@media screen and (min-width: 640px) { .review-card { width: 32rem; } }
+
+.review-stars { display: flex; gap: 0.2rem; }
+.review-star {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: var(--ziadah-violet);
+  color: var(--ziadah-violet);
+}
+
+.review-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+/* A supplied mark keeps the white plate it was drawn for. */
+.review-avatar.has-logo { background: var(--general-white); }
+.review-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
 /* ---------- SECTION FURNITURE -------------------------------------------
    Two things that recur under a grid and had been hand-painted with Tailwind
    greys every time they appeared: the footnote that qualifies a set of
