@@ -886,7 +886,12 @@
   padding: 2.4rem;
   border: 0;
   border-radius: var(--radius-card);
-  background: var(--general-white-off);
+  /* Was a fixed `--general-white-off`. That is the ground of a light band, not
+     a card, so the moment a related grid sat on any other family the cards
+     came back white - which is what happened when the product page moved its
+     related band off grey. A card is a tint of the section's own ink here as
+     everywhere else. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
   color: var(--general-black);
   font: inherit;
   font-size: 2rem;
