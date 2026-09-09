@@ -1312,7 +1312,11 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
   border: 0;
   border-radius: 9999px;
   background: none;
-  color: var(--general-gray-dark);
+  /* Was a fixed `--general-gray-dark`. That is correct on the light filter
+     rail this was written for and unreadable everywhere else - on the ink
+     price card it came out dark grey on black. Written from the section's own
+     ink, a chip reads on either end of either family. */
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
   font: inherit;
   font-size: 1.6rem;
   font-weight: 500;
@@ -1321,8 +1325,8 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
   transition: background-color calc(var(--motion) * var(--motion-speed)) ease,
               color calc(var(--motion) * var(--motion-speed)) ease;
 }
-@media (hover: hover) { .chip:hover { background: rgb(127 127 127 / 0.14); color: var(--general-black); } }
-.chip[aria-pressed="true"] { background: var(--general-black); color: var(--general-white); }
+@media (hover: hover) { .chip:hover { background: rgb(127 127 127 / 0.14); color: var(--color-secondary, var(--general-black)); } }
+.chip[aria-pressed="true"] { background: var(--color-secondary, var(--general-black)); color: var(--color-primary, var(--general-white)); }
 .chip:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
 
 /* =====================================================================

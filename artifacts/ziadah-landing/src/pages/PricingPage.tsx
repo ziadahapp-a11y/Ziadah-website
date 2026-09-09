@@ -15,7 +15,7 @@ import BilingualSEO from "@/components/BilingualSEO";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { HeroLede, Section as DsSection, SectionHead } from "@/sections";
-import { Shell } from "@/components/mk";
+import { Shell, Button as MkButton } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
 import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pricing-data";
 
@@ -286,44 +286,34 @@ export default function PricingPage() {
                         </div>
                       )}
 
-                      {/* CTA */}
+                      {/* CTA. The home page's pricing band uses the system's
+                          own button here; this page was hand-rolling one with
+                          a violet gradient and a `shadow-violet-900/40` drop
+                          shadow, which is neither the system's primary nor
+                          anything else on the site. */}
                       <div className="mt-2 mb-5">
                         {plan.key === "b" ? (
-                          <a
+                          <MkButton
+                            as="a"
+                            block
                             href="https://wa.me/966544357555"
                             target="_blank"
                             rel="noreferrer"
-                            className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
-                              featured
-                                ? "bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-900/40 hover:from-violet-400 hover:to-violet-500"
-                                : "bg-zinc-950 text-white hover:bg-zinc-800"
-                            }`}
                           >
                             {isAr ? "تواصل معنا" : "Contact Us"}
-                          </a>
+                          </MkButton>
                         ) : (
-                          <button
-                            type="button"
-                            className={`inline-flex w-full items-center justify-center rounded-md h-11 px-5 text-sm font-semibold transition-colors ${
-                              featured
-                                ? "bg-gradient-to-r from-violet-500 to-violet-600 text-white shadow-lg shadow-violet-900/40 hover:from-violet-400 hover:to-violet-500"
-                                : "bg-zinc-950 text-white hover:bg-zinc-800"
-                            }`}
-                            onClick={() => setPlatformModalOpen(true)}
-                          >
+                          <MkButton block onClick={() => setPlatformModalOpen(true)}>
                             {isAr ? "ابدأ الآن" : "Get Started"}
-                          </button>
+                          </MkButton>
                         )}
                       </div>
 
                       {/* AI Points chip */}
-                      <div
-                        className={`inline-flex items-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold ${
-                          featured
-                            ? "bg-violet-500/15 border border-violet-500/30 text-violet-300"
-                            : "bg-violet-50 border border-violet-100 text-violet-700"
-                        }`}
-                      >
+                      {/* The points allowance. One chip, taking the card's own
+                          ink, rather than two hard-coded violet palettes
+                          switched on whether the card happens to be featured. */}
+                      <div className="chip self-start">
                         <Sparkles className="w-3.5 h-3.5 shrink-0" />
                         <span className="num-ltr font-bold">{mode === "m" ? plan.aiPoints : plan.aiPointsY}</span>
                         <span className="opacity-80">

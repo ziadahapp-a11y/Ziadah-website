@@ -68,6 +68,7 @@ export default function SuccessStoryDetail() {
   const { lang, isAr } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   const slug = params.slug ?? "";
   const story = findStoryBySlug(slug);
@@ -104,7 +105,7 @@ export default function SuccessStoryDetail() {
   if (article?.sectorContext) {
     articleSections.push({
       heading: isAr ? "عن القطاع" : "About the Sector",
-      body: <p className="text-base md:text-lg text-zinc-600 leading-relaxed">{article.sectorContext}</p>,
+      body: <p className="article-p">{article.sectorContext}</p>,
     });
   }
   articleSections.push({
@@ -112,7 +113,7 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {challengeParas.map((p, i) => (
-          <p key={i} className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4 last:mb-0">{p}</p>
+          <p key={i} className="article-p mb-4 last:mb-0">{p}</p>
         ))}
       </>
     ),
@@ -122,16 +123,16 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {strategyParas.map((p, i) => (
-          <p key={i} className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4">{p}</p>
+          <p key={i} className="article-p mb-4">{p}</p>
         ))}
         {article?.mechanism && (
-          <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4">{article.mechanism}</p>
+          <p className="article-p mb-4">{article.mechanism}</p>
         )}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
+        <div className="card-inset mt-6 flex flex-wrap items-center justify-between gap-3">
           <span className="card-eyebrow">
             {isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}
           </span>
-          <span className="inline-flex items-center rounded-full border border-violet-200 bg-violet-100 px-3.5 py-1.5 text-sm font-bold text-violet-700">
+          <span className="chip">
             {displayPopupType}
           </span>
         </div>
@@ -189,7 +190,11 @@ export default function SuccessStoryDetail() {
         <HeroLede
           compact
           center={false}
-          family="grey"
+          /* Dark, like the support article and the blog post. All three are
+             the same shape - a header over a long grey reading column - so
+             they open the same way. */
+          family="violet"
+          invert
           eyebrow={
             <>
               {SectorIcon && <SectorIcon className="w-3.5 h-3.5" aria-hidden="true" />}
@@ -210,9 +215,19 @@ export default function SuccessStoryDetail() {
           {/* The store's own card: who this story is about, where it sits in
               the run, and a way through to the shop itself. */}
           <div className="card card--short story-card flex-row flex-wrap items-center gap-4">
-              {story.logoUrl ? (
+              {/* The logo is fetched from Google's favicon service. The
+                  absent-logo fallback only fired when the story had no URL at
+                  all, so a blocked or failed fetch left a broken-image glyph
+                  in the card; `onError` now drops to the same initial tile. */}
+              {story.logoUrl && !logoFailed ? (
                 <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
-                  <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
+                  <img
+                    src={story.logoUrl}
+                    alt=""
+                    loading="lazy"
+                    className="w-full h-full object-contain"
+                    onError={() => setLogoFailed(true)}
+                  />
                 </div>
               ) : (
                 <div className="shrink-0 w-12 h-12 rounded-xl text-white text-lg font-bold flex items-center justify-center" style={{ background: story.color }}>
@@ -244,7 +259,7 @@ export default function SuccessStoryDetail() {
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
         <Section family="grey">
           <Shell width="narrow">
-          <div className="measure-read">
+          <div className="measure-read article-prose">
           {articleSections.map((s, i) => (
             <div key={i} className={i > 0 ? "article-step" : ""}>
               <h2 className="section-head-title--sm flex items-center gap-4 mb-6">

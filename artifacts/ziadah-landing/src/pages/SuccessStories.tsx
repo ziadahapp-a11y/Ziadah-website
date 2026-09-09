@@ -77,6 +77,10 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
   const sectorLabel = isAr ? s.sector : (en?.sector || SECTOR_NAME_EN[s.sector] || s.sector);
   const storeLabel = isAr ? s.store : (en?.store || s.store);
   const Arrow = isAr ? ArrowLeft : ArrowRight;
+  /* Google's favicon service can be blocked or simply miss a domain. The
+     absent-logo fallback only fired when a story had no URL at all, so a
+     failed fetch left a broken-image glyph on the card. */
+  const [logoFailed, setLogoFailed] = useState(false);
 
   return (
     <a
@@ -93,9 +97,15 @@ function BriefStoryCard({ s, isAr }: { s: StoryData; isAr: boolean }) {
             asset drawn for a white ground, and tinting the plate to the
             section would put half of them on a colour they were never cut
             for. The initial fallback takes the section's ink. */}
-        {s.logoUrl ? (
+        {s.logoUrl && !logoFailed ? (
           <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
-            <img src={s.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
+            <img
+              src={s.logoUrl}
+              alt=""
+              loading="lazy"
+              className="w-full h-full object-contain"
+              onError={() => setLogoFailed(true)}
+            />
           </div>
         ) : (
           <div className="card-ico shrink-0 text-lg font-bold">{s.logo}</div>
@@ -272,17 +282,17 @@ export default function SuccessStories() {
           <Shell width="wide">
             {activeSector !== "الكل" && (
               <div className="flex flex-wrap items-center gap-3 mb-8">
-                <div className="text-sm text-zinc-600">
+                <div className="sector-card-text">
                   {isAr ? (
-                    <>عرض <span className="font-extrabold text-violet-600 num-ltr">{filteredStories.length}</span> قصة في قطاع{" "}<span className="font-bold text-zinc-950">{activeSector}</span></>
+                    <>عرض <span className="font-bold num-ltr">{filteredStories.length}</span> قصة في قطاع{" "}<span className="font-bold">{activeSector}</span></>
                   ) : (
-                    <>Showing <span className="font-extrabold text-violet-600 num-ltr">{filteredStories.length}</span> {filteredStories.length === 1 ? "story" : "stories"} in{" "}<span className="font-bold text-zinc-950">{SECTOR_NAME_EN[activeSector] || activeSector}</span></>
+                    <>Showing <span className="font-bold num-ltr">{filteredStories.length}</span> {filteredStories.length === 1 ? "story" : "stories"} in{" "}<span className="font-bold">{SECTOR_NAME_EN[activeSector] || activeSector}</span></>
                   )}
                 </div>
                 <button
                   type="button"
                   onClick={() => handleSectorChange("الكل")}
-                  className="text-xs font-bold text-violet-700 bg-violet-50 border border-violet-200 rounded-lg px-3 py-1.5 hover:bg-violet-100 transition-colors"
+                  className="chip"
                 >
                   {isAr ? "عرض الكل" : "Show All"}
                 </button>
