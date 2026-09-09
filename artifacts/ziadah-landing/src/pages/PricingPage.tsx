@@ -18,6 +18,7 @@ import { Section, Eyebrow } from "@/components/trackflow";
 import { HeroLede, Section as DsSection } from "@/sections";
 import { Shell } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
+import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pricing-data";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -132,7 +133,7 @@ function CellVal({ val, featured }: { val: FeatureVal; featured: boolean }) {
 export default function PricingPage() {
   const { lang } = useLanguage();
   const t = siteTranslations;
-  const [mode, setMode] = useState<"m" | "y">("y");
+  const [mode, setMode] = useState<BillingMode>("y");
   const [open, setOpen] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(FEATURE_GROUPS.map((g) => [g.arTitle, true]))
   );
@@ -167,63 +168,8 @@ export default function PricingPage() {
   const dir = isAr ? "rtl" : "ltr";
 
 
-  const plans: {
-    key: PlanKey;
-    name: string;
-    desc: string;
-    mPrice: string | number;
-    yPrice: string | number;
-    yAnnual: string | number;
-    yOrig: string;
-    yDisc: string;
-    badge: string | null;
-    featured: boolean;
-    featIntro: string | null;
-    features: string[];
-    aiPoints: string;
-    aiPointsY: string;
-  }[] = [
-    {
-      key: "s",
-      name: isAr ? "الانطلاقة" : "Starter",
-      desc: isAr ? "للمبتدئين والراغبين بالتجربة" : "For beginners",
-      mPrice: 29, yPrice: 24, yAnnual: 290, yOrig: "348", yDisc: "17%",
-      badge: null, featured: false,
-      featIntro: null,
-      features: ld.planStarterFeatures as string[],
-      aiPoints: "5", aiPointsY: "60",
-    },
-    {
-      key: "g",
-      name: isAr ? "النمو" : "Growth",
-      desc: isAr ? "للتجار الأفراد" : "For individual merchants",
-      mPrice: 290, yPrice: 249, yAnnual: "2,990", yOrig: "3,480", yDisc: "14%",
-      badge: null, featured: false,
-      featIntro: ld.planGrowthIntro as string,
-      features: ld.planGrowthFeatures as string[],
-      aiPoints: "50", aiPointsY: "600",
-    },
-    {
-      key: "p",
-      name: isAr ? "الاحترافية" : "Professional",
-      desc: isAr ? "للشركات والمؤسسات" : "For companies",
-      mPrice: 790, yPrice: 666, yAnnual: "7,990", yOrig: "9,480", yDisc: "16%",
-      badge: isAr ? "الأكثر طلباً" : "Most Popular", featured: true,
-      featIntro: ld.planProIntro as string,
-      features: ld.planProFeatures as string[],
-      aiPoints: "500", aiPointsY: "6,000",
-    },
-    {
-      key: "b",
-      name: isAr ? "الأعمال" : "Business",
-      desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
-      mPrice: "1,990", yPrice: "1,333", yAnnual: "15,990", yOrig: "23,880", yDisc: "33%",
-      badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores", featured: false,
-      featIntro: ld.planBusinessIntro as string,
-      features: ld.planBusinessFeatures as string[],
-      aiPoints: "5,000", aiPointsY: "60,000",
-    },
-  ];
+  /* One table, shared with the home page's pricing band. */
+  const plans = usePricingPlans();
 
   const toggleGroup = (title: string) =>
     setOpen((prev) => ({ ...prev, [title]: !prev[title] }));
@@ -264,7 +210,7 @@ export default function PricingPage() {
               </button>
               <button type="button" role="tab" aria-selected={mode === "y"} className="hero-tab" onClick={() => setMode("y")}>
                 {isAr ? "سنوي" : "Yearly"}
-                <span className="hero-tab-note">{isAr ? "وفّر حتى 33٪" : "Save up to 33%"}</span>
+                <span className="hero-tab-note">{isAr ? `وفّر حتى ${maxAnnualDiscount(plans)}` : `Save up to ${maxAnnualDiscount(plans)}`}</span>
               </button>
             </div>
           </HeroLede>
