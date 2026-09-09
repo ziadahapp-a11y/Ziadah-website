@@ -3,13 +3,14 @@ import { t } from "@/i18n/translations";
 import { blogPosts, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
-import { HeroLede } from "@/sections";
+import { HeroLede, Section as DsSection } from "@/sections";
+import { Shell } from "@/components/mk";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
+import { Clock, Search } from "lucide-react";
 import { t as siteTranslations } from "@/i18n/translations";
 
 const legacyCategoryMap: Record<string, string> = {
@@ -41,7 +42,6 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState(initial.cat);
   const [search, setSearch] = useState(initial.search);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
 
   function updateUrl(cat: string, searchVal: string) {
     // Preserve unrelated params (e.g. `mode=dark|light`) while updating blog filters.
@@ -138,8 +138,7 @@ export default function Blog() {
       canonical="/blog"
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
-      className="relative overflow-x-clip bg-white"
-      style={{ background: "#fff", color: "#09090b" }}
+      className="relative overflow-x-clip"
     >
     <>
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
@@ -172,48 +171,48 @@ export default function Blog() {
         </div>
       </HeroLede>
 
-      {/* CATEGORY FILTER */}
-      <section className="px-4 pb-12">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-wrap gap-2.5 justify-center">
-            {categories.map((cat) => {
-              const active = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => handleCategoryChange(cat.id)}
-                  className={`rounded-full px-5 py-2.5 text-sm transition-colors border ${
-                    active
-                      ? "bg-zinc-950 border-zinc-950 text-white font-bold"
-                      : "bg-white border-zinc-200 text-zinc-700 font-semibold hover:border-zinc-300 hover:bg-zinc-50"
-                  }`}
-                >
-                  {getCatLabel(cat)}
-                </button>
-              );
-            })}
-          </div>
+      {/* CATEGORY FILTER
+          The same sticky chip rail the success-story index uses, so the two
+          catalogues filter the same way. It used to be a row of hand-painted
+          zinc pills: white ground, zinc border, zinc-950 when active. */}
+      <nav className="sector-filter" aria-label={tx.tag}>
+        <div className="container">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              className="chip"
+              aria-pressed={activeCategory === cat.id}
+              onClick={() => handleCategoryChange(cat.id)}
+            >
+              {getCatLabel(cat)}
+            </button>
+          ))}
         </div>
-      </section>
+      </nav>
 
-      {/* BLOG GRID */}
-      <section className="px-4 pb-24">
-        <div className="container mx-auto max-w-6xl">
+      {/* BLOG GRID
+          The covers are gone. Forty cards each carried a random pastel
+          gradient behind one big emoji - no two posts sharing a palette, no
+          emoji naming its post, and the whole page reading as a colour swatch
+          rather than an index. What a reader picks a post on is its category,
+          its headline, its standfirst and how long it takes, so that is what
+          the card carries. The link stays a real `<a href>`: this is the page
+          a crawler walks the blog from. */}
+      <DsSection family="grey">
+        <Shell>
           {filtered.length === 0 ? (
-            <div className="text-center py-20 text-zinc-500 text-base">
-              {tx.noResults}
-            </div>
+            <p className="section-note">{tx.noResults}</p>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="cards-grid">
               {filtered.map((post) => {
-                const catObj = categories.find(c => c.id === post.category);
+                const catObj = categories.find((c) => c.id === post.category);
                 const catDisplay = catObj ? getCatLabel(catObj) : post.category;
                 return (
                   <a
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className="rv group block rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all"
+                    className="rv card card--clickable"
                     onClick={(e) => {
                       if (
                         e.defaultPrevented ||
@@ -229,42 +228,25 @@ export default function Blog() {
                       navigateTo(`/blog/${post.slug}`);
                     }}
                   >
-                    <article className="flex flex-col h-full">
-                      <div
-                        className="relative flex items-center justify-center h-44 border-b border-zinc-200"
-                        style={{ background: post.coverGradient }}
-                      >
-                        <span className="text-5xl drop-shadow-sm" aria-hidden>
-                          {post.coverIcon}
-                        </span>
-                        <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
-                          {catDisplay}
-                        </span>
-                      </div>
-                      <div className="flex flex-col flex-1 p-6">
-                        <h2 className="text-lg font-bold text-zinc-950 leading-snug mb-2.5 line-clamp-2 group-hover:text-zinc-700 transition-colors">
-                          {getTitle(post)}
-                        </h2>
-                        <p className="text-sm text-zinc-600 leading-relaxed mb-5 line-clamp-3">
-                          {getSummary(post)}
-                        </p>
-                        <div className="mt-auto flex items-center justify-between text-xs text-zinc-500">
-                          <span className="inline-flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5" />
-                            <span className="num-ltr">{getReadTime(post)}</span> {tx.readSuffix}
-                          </span>
-                          <span className="num-ltr">{getPublishDate(post)}</span>
-                          <ArrowCTA className="w-4 h-4 text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      </div>
-                    </article>
+                    <div>
+                      <p className="card-eyebrow">{catDisplay}</p>
+                      <h2 className="card-title mt-6 card-title--spaced">{getTitle(post)}</h2>
+                      <p className="card-body-text">{getSummary(post)}</p>
+                    </div>
+                    <div className="card-foot">
+                      <span className="card-cta">
+                        <Clock className="w-4 h-4" aria-hidden="true" />
+                        {getReadTime(post)} {tx.readSuffix}
+                      </span>
+                      <span className="card-eyebrow">{getPublishDate(post)}</span>
+                    </div>
                   </a>
                 );
               })}
             </div>
           )}
-        </div>
-      </section>
+        </Shell>
+      </DsSection>
       <PageClosingCta
         title={pc.blogIndexTitle}
         description={pc.blogIndexDesc}
