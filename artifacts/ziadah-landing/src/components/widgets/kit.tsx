@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 /**
@@ -329,6 +329,50 @@ export function ProgressMeter({ pct, note }: { pct: number; note?: ReactNode }) 
         <div className="wk-bar-fill" style={{ width: `${w}%` }} />
       </div>
       {note ? <p className="wk-note">{note}</p> : null}
+    </div>
+  );
+}
+
+/* ── THE PHONE FRAME ────────────────────────────────────────────────────
+   A storefront preview shown ON a device, for the pages whose argument is
+   "this is what your shopper sees". The frame is INFORMATION - it says the
+   surface is a phone in a customer's hand - so it stays; what was wrong was
+   everything painted onto it.
+
+   What is gone: a gold-to-cyan gradient strip across the top of the shell, a
+   coloured glow behind the device, a status bar with a fake battery, and a
+   body whose own rows were grey text on grey. A device frame is a neutral
+   bezel around a bright screen, and the screen is where the colour goes.
+*/
+export function PhoneFrame({
+  children,
+  label,
+  accent,
+  width = 300,
+}: {
+  children: ReactNode;
+  /** The store's own name in the phone's title bar, if the demo has one. */
+  label?: ReactNode;
+  /**
+   * The ONE colour this preview is allowed. Sector demos set it so a gold
+   * shop reads gold; everything else in the frame takes the band's ink. It
+   * used to be four colours at once - a gold price, a cyan price, a violet
+   * chip and a gold-to-cyan rule - which reads as four brands, not one store.
+   */
+  accent?: string;
+  width?: number;
+}) {
+  const { isAr } = useLanguage();
+  return (
+    <div
+      className="wk-phone"
+      dir={isAr ? "rtl" : "ltr"}
+      style={{ width, ...(accent ? { ["--wk-accent" as string]: accent } : {}) } as CSSProperties}
+    >
+      <div className="wk-phone-screen">
+        {label ? <div className="wk-phone-bar">{label}</div> : null}
+        <div className="wk-phone-body">{children}</div>
+      </div>
     </div>
   );
 }

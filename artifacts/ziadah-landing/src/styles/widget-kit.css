@@ -338,3 +338,76 @@
   border-inline-start: 1px solid rgb(255 255 255 / 35%);
   font-weight: 700;
 }
+
+/* ── THE PHONE FRAME ────────────────────────────────────────────────────
+   A neutral bezel around a bright screen. The old one carried a gold-to-cyan
+   gradient strip, a coloured glow, and a fake status bar with a battery
+   glyph; the screen inside it was grey rows on a grey body, so the one place
+   that should have been bright was the dullest thing on the page. */
+.wk-phone {
+  --wk-accent: var(--ziadah-violet);
+  flex: none;
+  padding: 8px;
+  border-radius: 30px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+}
+.wk-phone-screen {
+  border-radius: 23px;
+  overflow: hidden;
+  /* The screen is the bright thing. Always. */
+  background: var(--general-white, #fff);
+  color: #0a0a0b;
+}
+.wk-phone-bar {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgb(10 10 11 / 8%);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgb(10 10 11 / 62%);
+}
+.wk-phone-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+/* Inside a phone the kit reads the SCREEN, not the band: a storefront is
+   white whatever colour the marketing page behind it happens to be. */
+.wk-phone-screen .wk {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.wk-phone-screen .wk-body { padding: 0; }
+.wk-phone-screen .wk-head { padding: 0 0 2px; }
+.wk-phone-screen .wk-foot { padding: 10px 0 0; }
+.wk-phone-screen { --color-secondary: #0a0a0b; --color-primary: #fff; }
+
+/* The sector's own colour, spent once. */
+.wk-phone .wk-btn--primary { background: var(--wk-accent); }
+.wk-phone .wk-bar-fill { background: var(--wk-accent); }
+.wk-phone .wk-row.is-sel {
+  background: color-mix(in srgb, var(--wk-accent) 10%, transparent);
+  box-shadow: inset 2px 0 0 0 var(--wk-accent);
+}
+[dir="rtl"] .wk-phone .wk-row.is-sel { box-shadow: inset -2px 0 0 0 var(--wk-accent); }
+.wk-phone .wk-tag--brand {
+  background: color-mix(in srgb, var(--wk-accent) 12%, transparent);
+  color: color-mix(in srgb, var(--wk-accent) 78%, #000);
+}
+.wk-phone .wk-amount { color: var(--wk-accent); }
+
+/* ── THE PRODUCT-PAGE MOCKUP GRID ───────────────────────────────────────
+   Four placements side by side. The captions sit UNDER the phones rather
+   than as glowing pills above them, so the row reads as four figures in one
+   set instead of four separate advertisements. */
+.ppm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 4.8rem 3.2rem;
+  justify-items: center;
+}
+/* The four screens are naturally different heights, which left the captions
+   on four different lines. A shared floor lines them up without stretching
+   any screen's own content. */
+.ppm-item { display: grid; grid-template-rows: auto auto; justify-items: center; gap: 1.6rem; margin: 0; }
+.ppm-item > .wk-phone { align-self: end; }
+@media screen and (min-width: 768px) { .ppm-item > .wk-phone { min-height: 34rem; } }
+.ppm-cap { display: flex; flex-direction: column; gap: 0.4rem; text-align: center; max-width: 30rem; }
