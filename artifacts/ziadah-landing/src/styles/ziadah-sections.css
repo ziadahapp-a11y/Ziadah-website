@@ -1341,3 +1341,74 @@
   border-inline-start: 0.4rem solid var(--ziadah-violet);
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
 }
+
+/* ---------- THE CATALOGUE, COMPOSED UNDER A HERO -----------------------
+   `CatalogueIndex` is the reference's whole page, so its own styles assume
+   the page ground. Ziadah composes it under a lede hero (deviation D-09), on
+   a band that stamps a family, so the three fixed colours in that block are
+   re-stated here from the section's pair. Without this the subnav rule and
+   the card frame are a fixed near-white that only reads on white. */
+/* No padding of its own: it renders inside a `Section`, which already carries
+   the band rhythm. Both together left a 220px hole under the hero. */
+.cat-section { display: block; }
+.cat-section .cat-subnav {
+  padding-block: 0 3.2rem;
+  border-bottom-color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.cat-section .cat-subnav button {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-subnav [aria-current="page"] { color: var(--color-secondary, var(--general-black)); }
+.cat-section .cat-card-media {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+}
+/* The card itself. The reference's catalogue card is bare text under an
+   image; with the image gone it needs the card's own ground to read as one
+   target rather than three loose lines. */
+.cat-section .cat-card {
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  cursor: pointer;
+  transition: transform calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) { .cat-section .cat-card:hover { transform: scale(0.985); } }
+.cat-section .cat-card:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+.cat-section .cat-card-cat {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-card-title { font-size: 2rem; line-height: 1.35; font-weight: 500; }
+.cat-section .cat-card-excerpt {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-card-date {
+  margin-block-start: auto;
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-pagination { display: flex; justify-content: center; gap: 0.8rem; }
+.cat-section .cat-pagination button {
+  min-width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+  cursor: pointer;
+}
+.cat-section .cat-pagination [aria-current="page"] {
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+}
+/* The featured opener is a card, so the template's bare `.cat-featured`
+   padding would double the card's own. */
+.cat-section .cat-featured { padding-block: 0 4.8rem; }
+/* The reference's featured headline is 6.4rem against short English titles.
+   Ziadah's are full Arabic sentences, and at that tier one ran three lines
+   and 300px tall inside its own card. */
+.cat-section .cat-featured-title { font-size: 4rem; line-height: 1.3; }
+@media screen and (max-width: 767px) { .cat-section .cat-featured-title { font-size: 2.8rem; } }
+.cat-featured-card { text-align: start; }

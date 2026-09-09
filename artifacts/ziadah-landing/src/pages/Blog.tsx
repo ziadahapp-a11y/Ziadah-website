@@ -3,8 +3,7 @@ import { t } from "@/i18n/translations";
 import { blogPosts, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
-import { HeroLede, Section as DsSection } from "@/sections";
-import { Shell } from "@/components/mk";
+import { HeroLede, Section as DsSection, CatalogueIndex } from "@/sections";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { getPageKeywords } from "@/seo/page-keywords";
@@ -125,6 +124,12 @@ export default function Blog() {
   });
 
   const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
+  const catLabelOf = (p: typeof blogPosts[0]) => {
+    const c = categories.find((x) => x.id === p.category);
+    return c ? getCatLabel(c) : p.category;
+  };
+  /* The newest post leads the catalogue; the rest paginate under it. */
+  const [featuredPost, ...rest] = filtered;
   const pk = getPageKeywords("/blog");
 
 
@@ -171,81 +176,64 @@ export default function Blog() {
         </div>
       </HeroLede>
 
-      {/* CATEGORY FILTER
-          The same sticky chip rail the success-story index uses, so the two
-          catalogues filter the same way. It used to be a row of hand-painted
-          zinc pills: white ground, zinc border, zinc-950 when active. */}
-      <nav className="sector-filter" aria-label={tx.tag}>
-        <div className="container">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              type="button"
-              className="chip"
-              aria-pressed={activeCategory === cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-            >
-              {getCatLabel(cat)}
-            </button>
-          ))}
-        </div>
-      </nav>
+      {/* ══════════════════ THE CATALOGUE ══════════════════
+          The reference's catalogue template, which had never been wired up
+          here. What it brings over the flat grid this replaces:
 
-      {/* BLOG GRID
-          The covers are gone. Forty cards each carried a random pastel
-          gradient behind one big emoji - no two posts sharing a palette, no
-          emoji naming its post, and the whole page reading as a colour swatch
-          rather than an index. What a reader picks a post on is its category,
-          its headline, its standfirst and how long it takes, so that is what
-          the card carries. The link stays a real `<a href>`: this is the page
-          a crawler walks the blog from. */}
+          - PAGINATION. Forty cards rendered on one page made /blog 6,931px
+            tall; the template shows ten and a page rail, which is what keeps
+            a listing at its measured height instead of growing with the
+            archive.
+          - A FEATURED opener, so the newest post leads rather than sitting
+            fourth in a uniform grid.
+          - The category filter as the template's own sub-nav.
+
+          It renders `bare` (deviation D-09): the reference's catalogue IS its
+          page, and Ziadah opens with a lede hero carrying a search box the
+          reference has no equivalent for. */}
       <DsSection family="grey">
-        <Shell>
-          {filtered.length === 0 ? (
-            <p className="section-note">{tx.noResults}</p>
-          ) : (
-            <div className="cards-grid">
-              {filtered.map((post) => {
-                const catObj = categories.find((c) => c.id === post.category);
-                const catDisplay = catObj ? getCatLabel(catObj) : post.category;
-                return (
-                  <a
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="rv card card--clickable"
-                    onClick={(e) => {
-                      if (
-                        e.defaultPrevented ||
-                        e.ctrlKey ||
-                        e.metaKey ||
-                        e.shiftKey ||
-                        e.altKey ||
-                        e.button !== 0
-                      ) {
-                        return;
-                      }
-                      e.preventDefault();
-                      navigateTo(`/blog/${post.slug}`);
-                    }}
-                  >
-                    <div>
-                      <p className="card-eyebrow">{catDisplay}</p>
-                      <h2 className="card-title mt-6 card-title--spaced">{getTitle(post)}</h2>
-                      <p className="card-body-text">{getSummary(post)}</p>
-                    </div>
-                    <div className="card-foot">
-                      <span className="card-cta">
-                        <Clock className="w-4 h-4" aria-hidden="true" />
-                        {getReadTime(post)} {tx.readSuffix}
-                      </span>
-                      <span className="card-eyebrow">{getPublishDate(post)}</span>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
-          )}
-        </Shell>
+        <CatalogueIndex
+          bare
+          title={tx.heroTitle}
+          subNav={categories.map((cat) => ({ key: cat.id, label: getCatLabel(cat) }))}
+          current={activeCategory}
+          onNav={handleCategoryChange}
+          featured={
+            featuredPost ? (
+              <a
+                href={`/blog/${featuredPost.slug}`}
+                className="card card--clickable cat-featured-card"
+                onClick={(e) => {
+                  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                  e.preventDefault();
+                  navigateTo(`/blog/${featuredPost.slug}`);
+                }}
+              >
+                <p className="card-eyebrow">{catLabelOf(featuredPost)}</p>
+                <h2 className="cat-featured-title mt-6">{getTitle(featuredPost)}</h2>
+                <p className="card-body-text mt-6">{getSummary(featuredPost)}</p>
+                <div className="card-foot">
+                  <span className="card-cta">
+                    <Clock className="w-4 h-4" aria-hidden="true" />
+                    {getReadTime(featuredPost)} {tx.readSuffix}
+                  </span>
+                  <span className="card-eyebrow">{getPublishDate(featuredPost)}</span>
+                </div>
+              </a>
+            ) : null
+          }
+          cards={rest.map((post) => ({
+            key: post.slug,
+            category: catLabelOf(post),
+            title: getTitle(post),
+            excerpt: getSummary(post),
+            meta: `${getReadTime(post)} ${tx.readSuffix} · ${getPublishDate(post)}`,
+            onClick: () => navigateTo(`/blog/${post.slug}`),
+          }))}
+          footer={
+            filtered.length === 0 ? <p className="section-note">{tx.noResults}</p> : null
+          }
+        />
       </DsSection>
       <PageClosingCta
         title={pc.blogIndexTitle}

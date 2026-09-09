@@ -723,6 +723,7 @@ export function CatalogueIndex({
   footer,
   perPage = 10,
   title,
+  bare,
 }: {
   subNav?: { key: string; label: ReactNode }[];
   current?: string;
@@ -735,6 +736,13 @@ export function CatalogueIndex({
      one page of ten and a pagination rail, which is what keeps the section at
      its measured height instead of growing with the archive. */
   perPage?: number;
+  /* DOCUMENTED DEVIATION D-09: the reference's catalogue IS its page, so the
+     template owns the `.page` wrapper. Ziadah's blog opens with a lede hero
+     carrying a search box the reference has no equivalent for, and nesting a
+     second `.page` re-applies the header clearance to the catalogue's first
+     child. `bare` drops the wrapper so the catalogue can compose under a hero;
+     the default is still the reference's own markup. */
+  bare?: boolean;
   /* DOCUMENTED DEVIATION D-08: the reference's listing template renders no
      `h1` at all - its first heading is the featured block's `h2`. That leaves
      the page with no document outline root, which the width sweep flags. The
@@ -746,8 +754,11 @@ export function CatalogueIndex({
   const pages = Math.max(1, Math.ceil(cards.length / perPage));
   const safePage = Math.min(page, pages - 1);
   const shown = cards.slice(safePage * perPage, safePage * perPage + perPage);
+  const Wrapper = bare
+    ? ({ children }: { children: ReactNode }) => <section className="cat-section">{children}</section>
+    : ({ children }: { children: ReactNode }) => <div className="page">{children}</div>;
   return (
-    <div className="page">
+    <Wrapper>
       <Shell>
         {title ? <h1 className="sr-only">{title}</h1> : null}
         {subNav && subNav.length > 0 ? (
@@ -789,9 +800,16 @@ export function CatalogueIndex({
                   }
                 }}
               >
-                <div className="cat-card-media" aria-hidden="true" data-art-slot="catalogue-card">
-                  {c.media}
-                </div>
+                {/* Only when there IS media. The reference's catalogue always
+                    carries an image, so its template renders the frame
+                    unconditionally; Ziadah's blog deliberately has none since
+                    the gradient-and-emoji covers were removed, and an empty
+                    16:9 grey box per card is worse than no frame at all. */}
+                {c.media ? (
+                  <div className="cat-card-media" aria-hidden="true" data-art-slot="catalogue-card">
+                    {c.media}
+                  </div>
+                ) : null}
                 {c.category ? <span className="cat-card-cat">{c.category}</span> : null}
                 <h3 className="cat-card-title">{c.title}</h3>
                 {c.excerpt ? <p className="cat-card-excerpt">{c.excerpt}</p> : null}
@@ -821,7 +839,7 @@ export function CatalogueIndex({
 
         {footer}
       </Shell>
-    </div>
+    </Wrapper>
   );
 }
 
