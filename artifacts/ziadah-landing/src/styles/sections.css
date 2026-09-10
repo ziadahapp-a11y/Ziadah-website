@@ -105,7 +105,10 @@
 }
 
 [data-family][data-invert] {
-  --surface-2: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  /* HAND SET. A fixed violet rather than a step of the section's own
+     secondary, so inverted surfaces read the same on both families instead
+     of following the band they sit in. */
+  --surface-2: color-mix(in srgb, #421c62 68%, transparent);
 }
 
 .section--surface { --color-primary: var(--general-white-off); background-color: var(--color-primary); }
@@ -289,7 +292,7 @@
 .hero-title .line > span { display: block; }
 
 /* MEASURED: 1.8rem/144.444%, and 2rem/140% capped at 53rem from 1025 up. */
-.hero-body { font-size: 1.8rem; line-height: 1.44444; margin-top: 2rem; }
+.hero-body { font-size: 1.8rem; line-height: 1.44444; margin-top: 2rem; text-align: center; }
 @media screen and (min-width: 768px)  { .hero-body { margin-top: 0; } }
 /* The desktop step-up is gone: the lede keeps the 1.8rem body size, runs to
    the width of its column rather than a 53rem measure, and sits on the gap
@@ -566,7 +569,7 @@
 .block-heading-m { font-size: 4.8rem; line-height: 1; font-weight: 700; letter-spacing: -0.015em; min-width: 0; max-width: 100%; }
 @media screen and (max-width: 767px) { .block-heading-m { font-size: 3.2rem; } }
 [dir="rtl"] .block-heading-m { line-height: 1.22; letter-spacing: 0; }
-.block-body { font-size: 2.4rem; line-height: 1.5; max-width: 52rem; margin-inline: auto; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }
+.block-body { font-size: 2.4rem; line-height: 1.5; max-width: 92rem; margin-inline: auto; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }
 [dir="rtl"] .block-body { line-height: 1.85; }
 
 

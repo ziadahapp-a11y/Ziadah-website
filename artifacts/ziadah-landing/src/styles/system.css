@@ -184,7 +184,10 @@ html.no-scroll { overflow: hidden; }
 .section {
   position: relative;
   padding-block: var(--section-space) var(--section-space-bottom);
-  background-color: var(--color-primary, var(--general-white));
+  /* HAND SET. A flat pale violet ground for every band, in place of the
+     section's own `--color-primary`. This overrides the per-section colour
+     triple: a band can still set its own primary, but it will not paint it. */
+  background-color: #f9f2ff;
   color: var(--color-secondary, var(--general-black));
 }
 /* A section is a coloured BAND: it spans the viewport and owns no gutter, so

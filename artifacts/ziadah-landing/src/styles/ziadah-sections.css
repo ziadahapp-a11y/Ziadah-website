@@ -1173,10 +1173,11 @@
    plan we are pointing at" is the table's single piece of emphasis and it has
    to survive a flip. */
 .cmp-table {
-  border-radius: 2rem;
-  overflow: hidden;
-  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
+  /* HAND SET. No frame and no clip: the table sits on the band as a plain
+     white slab. `overflow: hidden` is off, so the 6rem radius no longer
+     clips the head or the first and last rows. */
+  border-radius: 6rem;
+  background: color-mix(in srgb, hsl(0deg 0% 100%) 100%, transparent);
 }
 .cmp-head,
 .cmp-row {
@@ -1197,7 +1198,7 @@
   top: var(--header-dynamic-height);
   z-index: 2;
   align-items: stretch;
-  background: var(--color-primary, var(--general-white));
+  background: #ffffff;
   border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
 }
 .cmp-col { padding: 1.6rem 1.2rem; text-align: center; }
@@ -1207,18 +1208,13 @@
   font-size: 1.3rem;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(65%, var(--ink-floor, 0%)), transparent);
 }
-/* The plan being recommended. A tint plus a rule on either side, so it reads
-   as one column running the height of the table rather than four separate
-   violet boxes. */
+/* The plan being recommended. It used to carry a tint plus a rule on either
+   side; both are off now, so the column is a hook with nothing painted. */
 .cmp-col--featured,
 .cmp-cell--featured {
-  /* The section's own ink, not a violet tint: on the violet band this table
-     sits on, violet-on-violet was invisible. A step of the section's ink
-     reads as emphasis on either family. */
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 9%, transparent);
-  box-shadow:
-    0.1rem 0 0 0 color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent) inset,
-    -0.1rem 0 0 0 color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent) inset;
+  /* HAND SET. Both the tint and the inset rules are off, so the featured
+     column carries no emphasis of its own and reads like any other column.
+     The selector is kept so the hook is still there to paint. */
 }
 
 .cmp-group { border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent); }
@@ -1232,7 +1228,8 @@
   padding: 1.4rem 1.8rem;
   text-align: start;
   border-inline-start: 0.3rem solid var(--ziadah-violet);
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, transparent);
+  /* HAND SET. A fixed light violet, not a step of the section's ink. */
+  background: color-mix(in srgb, #d197ff 86%, transparent);
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-secondary, #0a0a0a);
