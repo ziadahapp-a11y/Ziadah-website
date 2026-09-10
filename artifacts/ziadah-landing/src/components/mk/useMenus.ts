@@ -9,6 +9,26 @@ import { useMotion } from "@/motion/MotionProvider";
 const DESKTOP_MIN = 1025; // matches the CSS breakpoint that reveals .nav-row
 const HOVER_CLOSE_DELAY = 120;
 
+/* MEASURED. The panel is centred at `max-width: 96rem`, so on a wide viewport
+   it ends well short of the trigger that opens it: at 1440 the "الحلول" button
+   spans x 1184-1271 while its panel spans 240-1200. Seventy-one pixels of the
+   trigger have NO panel beneath them.
+   The CSS bridges - `.mega::before` and the trigger's `::after` - are 19px
+   tall, so they carry the pointer from the button (bottom 70) to the panel top
+   (88) and no further. A pointer that moves down before it moves left leaves
+   both bridges at y≈90 over empty page, the close timer runs, and the menu
+   shuts while the user is still aiming at it. Straight down closed at (1227,96)
+   and a slow drift at (1205,92); only a fast diagonal survived, and only
+   because it beat the timer.
+   A taller CSS bridge would fix the aim and break the page: it is a child of
+   the trigger, so `closest("[data-menu-item]")` in the outside-click handler
+   would swallow every click in the strip it covers.
+   So the corridor is geometry, not an element. Nothing is painted, nothing
+   intercepts a click, and the pointer keeps the menu open while it is
+   plausibly travelling toward the panel. */
+const TRAVERSE_DEPTH = 140;
+const SAFE_PAD = 8;
+
 export type MegaMenu = {
   openKey: string | null;
   /** Props for the <ul data-menu-root> that wraps the nav items. */
@@ -80,6 +100,56 @@ export function useMegaMenu(): MegaMenu {
     [],
   );
 
+  /* The corridor. While a panel is open the pointer is tracked against three
+     boxes: the panel, its trigger, and the band between them - which spans the
+     full width of BOTH so it covers the slivers either side of the panel where
+     the trigger overhangs it. Inside any of them the close timer is cancelled;
+     outside all of them it is armed. */
+  useEffect(() => {
+    if (!openKey) return;
+    if (typeof window === "undefined" || window.innerWidth < DESKTOP_MIN) return;
+
+    const armClose = () => {
+      if (hoverTimer.current) return;
+      hoverTimer.current = setTimeout(() => {
+        hoverTimer.current = null;
+        setOpenKey((cur) => (cur === openKey ? null : cur));
+      }, HOVER_CLOSE_DELAY);
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const trigger = triggers.current.get(openKey)?.getBoundingClientRect();
+      const panel = panels.current.get(openKey)?.getBoundingClientRect();
+      if (!trigger || !panel) return;
+
+      const { clientX: x, clientY: y } = e;
+      const within = (l: number, t: number, r: number, b: number) =>
+        x >= l - SAFE_PAD && x <= r + SAFE_PAD && y >= t - SAFE_PAD && y <= b + SAFE_PAD;
+
+      const safe =
+        within(panel.left, panel.top, panel.right, panel.bottom) ||
+        within(trigger.left, trigger.top, trigger.right, trigger.bottom) ||
+        within(
+          Math.min(trigger.left, panel.left),
+          trigger.bottom,
+          Math.max(trigger.right, panel.right),
+          panel.top + TRAVERSE_DEPTH,
+        );
+
+      if (safe) {
+        if (hoverTimer.current) {
+          clearTimeout(hoverTimer.current);
+          hoverTimer.current = null;
+        }
+      } else {
+        armClose();
+      }
+    };
+
+    document.addEventListener("pointermove", onMove);
+    return () => document.removeEventListener("pointermove", onMove);
+  }, [openKey]);
+
   return {
     openKey,
     rootProps: {
@@ -104,6 +174,7 @@ export function useMegaMenu(): MegaMenu {
         // trigger and the panel doesn't close it.
         if (hoverTimer.current) clearTimeout(hoverTimer.current);
         hoverTimer.current = setTimeout(() => {
+          hoverTimer.current = null;
           setOpenKey((cur) => (cur === key ? null : cur));
         }, HOVER_CLOSE_DELAY);
       },
