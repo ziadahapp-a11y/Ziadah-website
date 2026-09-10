@@ -138,7 +138,14 @@
   background-color: var(--color-primary, var(--general-white));
 }
 @media screen and (min-width: 768px)  { .hero-split { padding-bottom: 0; } }
-@media screen and (min-width: 1025px) { .hero-split { min-height: 100vh; } }
+/* MEASURED, and then dropped. The floor used to be a full viewport, but the
+   heroes that carry it hold a text column of ~400rem and a media column of
+   ~410-470, so `/use-cases/by-pages` was a 478px composition sitting in a
+   900px box with a quarter of the band left as empty ground below the fold.
+   A hero is as tall as what it holds. 62vh is a floor, not a target - the
+   same one the text-only hero uses - and the media column clears it on every
+   page that has one, so in practice the height now comes from the content. */
+@media screen and (min-width: 1025px) { .hero-split { min-height: 62vh; } }
 /* Text-only hero: a heading, a line and maybe a field. The measured
    full-viewport floor belongs to the hero that carries a media column. */
 @media screen and (min-width: 1025px) { .hero-split--lede { min-height: 62vh; } }
@@ -315,6 +322,44 @@
 .cards-grid { display: grid; gap: 1.6rem; grid-template-columns: minmax(0, 1fr); }
 @media screen and (min-width: 768px)  { .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media screen and (min-width: 1025px) { .cards-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ---------- THE ORPHAN ROW --------------------------------------------
+   A three-up grid holding seven cards ends with one card and two card-widths
+   of nothing, which is the single most visible layout fault on this site:
+   `/use-cases/by-pages` (7), `/support` (5), `/success-stories` (10) and
+   `/blog` (11) all do it.
+
+   The fix is to lay the row out on SIX tracks and let a card span two of
+   them, so three cards still make a row - and then, when the last row would
+   be short, widen the cards that are in it until they fill it. The maths is
+   exact rather than approximate: with six equal tracks of width W and gap g,
+   a row of three two-track cards measures 6W + 5g, and so does a row of two
+   three-track cards, and so does one six-track card. No leftover, no
+   centring, and the grid keeps a straight edge on both sides.
+
+   `:has(> :last-child:nth-child(3n+1))` is a count query: it is true only
+   when the child count leaves a remainder of one over three. */
+@media screen and (min-width: 1025px) {
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4) {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4) > * { grid-column: span 2; }
+  /* one card left over -> it takes the whole row */
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4):has(> :last-child:nth-child(3n + 1))
+    > :last-child { grid-column: span 6; }
+  /* two left over -> they split the row in half */
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4):has(> :last-child:nth-child(3n + 2))
+    > :nth-last-child(-n + 2) { grid-column: span 3; }
+}
+/* The same trick one breakpoint down, where the grid is two-up. */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4) > * { grid-column: span 2; }
+  .cards-grid:not(.cards-grid--2):not(.cards-grid--4):has(> :last-child:nth-child(2n + 1))
+    > :last-child { grid-column: span 4; }
+}
 .cards-grid--2 { grid-template-columns: minmax(0, 1fr); }
 .cards-grid--2:has(> :only-child) { max-width: 52rem; margin-inline: auto; }
 @media screen and (min-width: 768px) { .cards-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -1675,6 +1720,19 @@
 .cat-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3.2rem 1.6rem; padding: 4.8rem 0; }
 @media screen and (min-width: 768px)  { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
 @media screen and (min-width: 1025px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+/* Same six-track orphan fix as `.cards-grid`; `/blog` carries eleven posts,
+   which is exactly the count that leaves one card alone on the last row. */
+@media screen and (min-width: 1025px) {
+  .cat-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .cat-grid > * { grid-column: span 2; }
+  .cat-grid:has(> :last-child:nth-child(3n + 1)) > :last-child { grid-column: span 6; }
+  .cat-grid:has(> :last-child:nth-child(3n + 2)) > :nth-last-child(-n + 2) { grid-column: span 3; }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cat-grid > * { grid-column: span 2; }
+  .cat-grid:has(> :last-child:nth-child(2n + 1)) > :last-child { grid-column: span 4; }
+}
 
 .cat-card { display: flex; flex-direction: column; gap: 1.6rem; text-align: start; }
 .cat-card-media {
@@ -2076,6 +2134,10 @@
 }
 .uc-n {
   flex: none;
+  /* The digits are proportional, so "1" measured 6px and "2" measured 9px and
+     every case body started at a slightly different indent down the list. A
+     fixed gutter squares the left edge. */
+  inline-size: 1.6rem;
   font-size: 1.4rem;
   font-weight: 500;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
@@ -2464,6 +2526,19 @@ a.plat-item-link:hover {
 .ucx-list { display: grid; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
 @media screen and (min-width: 768px)  { .ucx-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media screen and (min-width: 1280px) { .ucx-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* `/use-cases` lists twenty-three cases: 23 % 3 = 2, so the last row was two
+   cards and a hole. Six tracks, same as everywhere else. */
+@media screen and (min-width: 1280px) {
+  .ucx-list { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .ucx-list > * { grid-column: span 2; }
+  .ucx-list:has(> :last-child:nth-child(3n + 1)) > :last-child { grid-column: span 6; }
+  .ucx-list:has(> :last-child:nth-child(3n + 2)) > :nth-last-child(-n + 2) { grid-column: span 3; }
+}
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .ucx-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .ucx-list > * { grid-column: span 2; }
+  .ucx-list:has(> :last-child:nth-child(2n + 1)) > :last-child { grid-column: span 4; }
+}
 .ucx-item {
   display: flex;
   flex-direction: column;
@@ -3306,7 +3381,13 @@ a.plat-item-link:hover {
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
 }
 .cstack-live { display: grid; gap: 1rem; list-style: none; margin: 0; padding: 0; }
-@media screen and (min-width: 640px) { .cstack-live { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (min-width: 640px) {
+  /* Four tracks read as two-up, and let an odd last item widen to the row
+     instead of sitting next to a hole. `/features` carries five. */
+  .cstack-live { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cstack-live > * { grid-column: span 2; }
+  .cstack-live:has(> :last-child:nth-child(2n + 1)) > :last-child { grid-column: span 4; }
+}
 .cstack-card {
   display: flex;
   align-items: center;

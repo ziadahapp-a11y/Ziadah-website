@@ -22,6 +22,12 @@
 }
 @media screen and (max-width: 1024px) { .ucx-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media screen and (max-width: 767px)  { .ucx-groups { grid-template-columns: minmax(0, 1fr); } }
+/* Five groups against four columns leaves the fifth alone on its own row, and
+   the orphan rule that closes that on the card grids was tried here and made
+   it worse: these groups are lists of text links, not filled boxes, so a
+   short row reads as a directory continuing rather than as a hole, while a
+   group stretched across the full width reads as a heading with nothing under
+   it. Left as measured. */
 
 .ucx-group { min-width: 0; }
 
@@ -1412,3 +1418,21 @@
 .cat-section .cat-featured-title { font-size: 4rem; line-height: 1.3; }
 @media screen and (max-width: 767px) { .cat-section .cat-featured-title { font-size: 2.8rem; } }
 .cat-featured-card { text-align: start; }
+
+/* ---------- THE STORIES GRID ------------------------------------------
+   Same six-track orphan scheme as `.cards-grid`, on `/success-stories`,
+   where thirteen stories over three columns left one card alone. Three
+   cards span two tracks each and fill the row exactly; a short last row
+   widens until it does the same. */
+.stories-grid { display: grid; gap: 1.6rem; grid-template-columns: minmax(0, 1fr); }
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+  .stories-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stories-grid > * { grid-column: span 2; }
+  .stories-grid:has(> :last-child:nth-child(2n + 1)) > :last-child { grid-column: span 4; }
+}
+@media screen and (min-width: 1025px) {
+  .stories-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .stories-grid > * { grid-column: span 2; }
+  .stories-grid:has(> :last-child:nth-child(3n + 1)) > :last-child { grid-column: span 6; }
+  .stories-grid:has(> :last-child:nth-child(3n + 2)) > :nth-last-child(-n + 2) { grid-column: span 3; }
+}

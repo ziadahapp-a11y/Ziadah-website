@@ -57,7 +57,11 @@ function CalcSliderCard({
   );
 
   return (
-    <div className="card card--short gap-[1.6rem]">
+    /* `justify-center` matters once the card stretches: `.card` pushes its
+       parts apart with `space-between`, so a stretched slider card left the
+       label at the top and the ticks at the bottom with a hole in the middle.
+       The control stays a block in the centre of whatever height it gets. */
+    <div className="card card--short gap-[1.6rem] justify-center">
       <div className="card-head">
         <span className="card-eyebrow">{label}</span>
         <span className="pill pill--live num-ltr">{formatDisplay(value)}</span>
@@ -194,9 +198,16 @@ export function Calculator({
                 })}
               </p>
 
-              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+              {/* `items-start` left the two columns 264px apart at the bottom of
+                  the band, which reads as a broken half rather than as a
+                  sidebar. They stretch to one height and the sliders share the
+                  difference between them. */}
+              <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
                 {/* left: controls */}
-                <div className="flex flex-col gap-4" style={{ unicodeBidi: "isolate" }}>
+                <div
+                  className="flex flex-col gap-4 [&>*]:flex-1"
+                  style={{ unicodeBidi: "isolate" }}
+                >
                   {calcSliders.map((s) => (
                     <CalcSliderCard key={s.label} {...s} dir={isAr ? "rtl" : "ltr"} />
                   ))}

@@ -778,14 +778,18 @@ export function CatalogueIndex({
 
         {featured ? <section className="cat-featured">{featured}</section> : null}
 
+        {/* The cards are `h3`. Without a level between them and the page
+            `h1` the outline skips a level, so the grid names itself - the
+            heading is for the outline and for a screen reader, not for the
+            silhouette.
+
+            It sits OUTSIDE the grid on purpose. A `sr-only` heading is still a
+            grid child, so the count queries that close the orphan row counted
+            it as a card and shifted every remainder by one. */}
+        <h2 id="cat-grid-heading" className="sr-only">
+          {title ?? "Articles"}
+        </h2>
         <section className="cat-grid" aria-labelledby="cat-grid-heading">
-          {/* The cards are `h3`. Without a level between them and the page
-              `h1` the outline skips a level, so the grid names itself - the
-              heading is for the outline and for a screen reader, not for the
-              silhouette. */}
-          <h2 id="cat-grid-heading" className="sr-only">
-            {title ?? "Articles"}
-          </h2>
           {shown.map((c) => (
             <Reveal key={c.key}>
               <article

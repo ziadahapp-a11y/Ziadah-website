@@ -299,7 +299,12 @@ export default function SuccessStories() {
               </div>
             )}
             <div
-              className={`stories-fade-v2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-200 ${
+              /* `stories-grid` replaces the Tailwind `sm:grid-cols-2
+                 lg:grid-cols-3` pair: thirteen stories over three columns left
+                 the last row one card wide with two card-widths of empty
+                 ground, and the orphan rule that closes it has to live in CSS
+                 next to the track definition. */
+              className={`stories-fade-v2 stories-grid transition-all duration-200 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
               }`}
             >
