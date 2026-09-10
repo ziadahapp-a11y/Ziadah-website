@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { productImage } from "@/lib/product-images";
 
 /**
  * THE STOREFRONT PREVIEW KIT.
@@ -57,6 +58,42 @@ export function ProductTile({
   size?: number;
   radius?: number;
 }) {
+  /* A photograph where one exists. The catalogue is being shot a sector at a
+     time, so most names still have none, and those keep the colour field below
+     - which is why this is a lookup and not a required prop.
+
+     The shots are cut-outs on white, and the card is white too, so a bare
+     photo would have no edge and the row would lose its rhythm. The hairline
+     gives the tile back its silhouette. */
+  const src = productImage(name);
+  if (src) {
+    return (
+      <span
+        aria-hidden="true"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius,
+          flex: "none",
+          display: "block",
+          overflow: "hidden",
+          background: "#fff",
+          boxShadow: "inset 0 0 0 1px rgba(10, 10, 10, 0.1)",
+        }}
+      >
+        <img
+          src={src}
+          alt=""
+          width={size}
+          height={size}
+          loading="lazy"
+          decoding="async"
+          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        />
+      </span>
+    );
+  }
+
   const h = hueOf(name);
   return (
     <span
