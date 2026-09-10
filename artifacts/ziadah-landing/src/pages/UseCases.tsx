@@ -99,7 +99,7 @@ export default function UseCases() {
         />
 
         <Section family="grey">
-          <SectionHead
+          <SectionHead center
             size="md"
             kicker={t("المواقف", "Situations")}
             title={t("اختر ما يشبه وضعك", "Pick the one that matches yours")}
@@ -168,7 +168,7 @@ export default function UseCases() {
 
         {/* The taxonomy, for anyone who does think in it. */}
         <Section family="violet">
-          <SectionHead
+          <SectionHead center
             size="md"
             kicker={t("الفهارس", "Indexes")}
             title={t("أو تصفّح حسب التصنيف", "Or browse by grouping")}

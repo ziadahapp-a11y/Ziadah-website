@@ -182,7 +182,7 @@ export function Calculator({
 
   return (
       <Section id="calculator" family="violet" invert={invert}>
-        <SectionHead
+        <SectionHead center
           kicker={t({ ar: "حاسبة", en: "Calculator" })}
           title={t({ ar: "احسب إيرادك الإضافي مع زيادة", en: "Calculate your extra revenue with Ziadah" })}
           lead={t({

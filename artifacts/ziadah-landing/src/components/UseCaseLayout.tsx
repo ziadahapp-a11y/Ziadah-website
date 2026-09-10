@@ -234,7 +234,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
         <Section id="uc-what" family="grey">
           <Shell width="narrow">
-            <SectionHead
+            <SectionHead center
               size="md"
               kicker={isEn ? "How it works" : "كيف يعمل"}
               title={whatWeDoTitle}
@@ -272,7 +272,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         {exampleScenario ? (
           <Section id="uc-example" family="grey">
             <Shell width="narrow">
-              <SectionHead
+              <SectionHead center
                 size="md"
                 kicker={exampleLabel}
                 title={exampleScenario.title}
@@ -325,6 +325,9 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
         <Section family="violet">
           <Shell>
             <div className="uc-split">
+              {/* The one band head on the site that stays start-aligned: it is
+                  one half of a two-column split, so centring it inside its
+                  column would point it at nothing. */}
               <SectionHead size="md" kicker={reportsTag} title={reportsTitle} lead={reportsDesc} />
               <ul className="uc-report-list">
                 {(

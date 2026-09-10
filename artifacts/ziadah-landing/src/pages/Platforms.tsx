@@ -109,7 +109,7 @@ export default function Platforms() {
         </Section>
 
         <Section family="grey">
-          <SectionHead
+          <SectionHead center
             size="md"
             kicker={t("الموصّلات", "Connectors")}
             title={t(
@@ -171,7 +171,7 @@ export default function Platforms() {
 
         <Section family="violet">
           <Shell width="narrow">
-            <SectionHead
+            <SectionHead center
               size="sm"
               kicker={t("الحدود", "The boundary")}
               title={t(

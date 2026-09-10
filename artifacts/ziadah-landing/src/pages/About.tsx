@@ -119,7 +119,7 @@ export default function About() {
 
         <Section family="grey">
           <Shell width="narrow">
-            <SectionHead
+            <SectionHead center
               size="md"
               kicker={t("الفكرة", "The idea")}
               title={t(
@@ -136,7 +136,7 @@ export default function About() {
 
         <Section family="grey" flushTop>
           <Shell width="narrow">
-            <SectionHead
+            <SectionHead center
               size="sm"
               kicker={t("ما ليس", "What it is not")}
               title={t("ثلاثة أشياء يُساء فهمها كثيراً", "Three things that get misread")}
@@ -152,7 +152,7 @@ export default function About() {
         </Section>
 
         <Section family="violet">
-          <SectionHead
+          <SectionHead center
             kicker={t("المبادئ", "Principles")}
             title={t("كيف نكتب ما تقرأه هنا", "How we write what you read here")}
           />
@@ -173,7 +173,7 @@ export default function About() {
         </Section>
 
         <Section family="grey">
-          <SectionHead
+          <SectionHead center
             size="md"
             kicker={t("أين نعمل", "Where we run")}
             title={t("الموصّلات، بصراحة", "The connectors, plainly")}
