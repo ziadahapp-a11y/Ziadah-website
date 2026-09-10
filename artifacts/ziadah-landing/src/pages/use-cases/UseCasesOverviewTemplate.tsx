@@ -55,7 +55,12 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ctaDescEn: "Pick the best page to start improving your store.",
       seo: { title: "الحلول حسب الصفحات — زيادة", titleEn: "Solutions by Page — Ziadah", description: "صفحة عامة لحلول زيادة حسب صفحات المتجر.", descriptionEn: "General overview of Ziadah solutions by store pages.", canonical: "/use-cases/by-pages" },
       heroVisual: (
-        <PageHeroPhone float1="+32% متوسط السلة" float2="اشترِ أكثر ووفّر">
+        <PageHeroPhone
+          float1="+32% متوسط السلة"
+          float2="اشترِ أكثر ووفّر"
+          float1En="+32% average cart"
+          float2En="Buy more, save more"
+        >
           <ProductPageMockup />
         </PageHeroPhone>
       ),

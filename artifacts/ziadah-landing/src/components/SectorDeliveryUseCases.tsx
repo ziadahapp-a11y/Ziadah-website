@@ -151,7 +151,7 @@ const TABS: TabDef[] = [
     vis: [
       { kind: "row", lineAr: "مياه معدنية 1.5ل — واحدة", lineEn: "1.5L water — one", subAr: "السلة الحالية", subEn: "Current cart", price: "4 ر.س" },
       { kind: "arrow", textAr: "عرض كمية فوري", textEn: "Instant quantity offer" },
-      { kind: "row", className: "highlight-o", lineAr: "3 عبوات — وفّر 15%", lineEn: "3 bottles — save 15%", subAr: "10.2 ر.س بدل 12 ر.س", subEn: "10.2 ر.س instead of 12", tagAr: "-15%", tagEn: "-15%", tagClass: "tag-gold" },
+      { kind: "row", className: "highlight-o", lineAr: "3 عبوات — وفّر 15%", lineEn: "3 bottles — save 15%", subAr: "10.2 ر.س بدل 12 ر.س", subEn: "10.2 SAR instead of 12", tagAr: "-15%", tagEn: "-15%", tagClass: "tag-gold" },
     ],
   },
   {
@@ -192,7 +192,7 @@ const TABS: TabDef[] = [
     vis: [
       { kind: "row", className: "faded", lineAr: "ستيك لحم ممتاز", lineEn: "Premium steak", subAr: "❌ بصدد الحذف", subEn: "❌ About to remove", price: "89 ر.س" },
       { kind: "arrow", textAr: "زيادة يعترض فوراً", textEn: "Ziadah intercepts instantly" },
-      { kind: "row", className: "highlight-g", lineAr: "دجاج مشوي — مواصفات قريبة", lineEn: "Grilled chicken — similar specs", subAr: "✅ وفّر 35 ر.س — تقييم 4.8", subEn: "✅ Save 35 ر.س — 4.8★", price: "54 ر.س" },
+      { kind: "row", className: "highlight-g", lineAr: "دجاج مشوي — مواصفات قريبة", lineEn: "Grilled chicken — similar specs", subAr: "✅ وفّر 35 ر.س — تقييم 4.8", subEn: "✅ Save 35 SAR — 4.8★", price: "54 ر.س" },
     ],
   },
   {
@@ -206,11 +206,11 @@ const TABS: TabDef[] = [
     subAr: "تجاوز عتبة الشحن",
     subEn: "Crossing the free-delivery threshold",
     descAr: "سلة 41 ر.س والحد 50 — اقتراح عنصر 9 ر.س يلغي رسوم التوصيل.",
-    descEn: "Cart at 41 ر.س, threshold 50 — a 9 ر.س item clears the delivery fee.",
+    descEn: "Cart at 41 SAR, threshold 50 — a 9 SAR item clears the delivery fee.",
     resultAr: "الأثر: <strong>متوسط الطلب +15%</strong> — رابح للعميل وللمتجر",
     resultEn: "Impact: <strong>AOV +15%</strong> — win-win for shopper and store",
     vis: [
-      { kind: "row", lineAr: "السلة — 41 ر.س", lineEn: "Cart — 41 ر.س", subAr: "⚠أضف 9 ر.س للشحن المجاني", subEn: "⚠Add 9 ر.س for free delivery", tagAr: "9 ر.س", tagEn: "9 ر.س left", tagClass: "tag-o" },
+      { kind: "row", lineAr: "السلة — 41 ر.س", lineEn: "Cart — 41 SAR", subAr: "⚠أضف 9 ر.س للشحن المجاني", subEn: "⚠Add 9 SAR for free delivery", tagAr: "9 ر.س", tagEn: "9 SAR left", tagClass: "tag-o" },
       { kind: "arrow", textAr: "زيادة يقترح", textEn: "Ziadah suggests" },
       { kind: "row", className: "highlight-g", lineAr: "عصير طبيعي صغير", lineEn: "Small natural juice", subAr: "✅ يكسر حد الشحن المجاني", subEn: "✅ Breaks free-shipping threshold", price: "9 ر.س" },
     ],
@@ -252,8 +252,11 @@ function VisRow({ row, isAr }: { row: VisRowDef; isAr: boolean }) {
         ) : null}
       </div>
       {row.price ? (
+        /* Every price in this file is written "<number> ر.س". The number is
+           the datum and the unit is the reader's language, so the unit is
+           swapped here rather than duplicated across sixteen rows. */
         <span className="sh-en font-extrabold text-violet-600 text-[13px]">
-          {row.price}
+          {isAr ? row.price : row.price.replace("ر.س", "SAR")}
         </span>
       ) : null}
       {tag ? (

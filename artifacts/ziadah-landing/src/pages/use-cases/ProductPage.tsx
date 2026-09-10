@@ -59,7 +59,12 @@ const data: UseCasePageData = {
   ctaTitle: "ارفع مبيعات صفحة المنتج اليوم",
   ctaDesc: "فعّل زيادة بضغطة زر واحدة وشاهد الفرق خلال أول أسبوع.",
   heroVisual: (
-    <PageHeroPhone float1="+42% متوسط الطلب" float2="توصيات تلقائية">
+    <PageHeroPhone
+      float1="+42% متوسط الطلب"
+      float2="توصيات تلقائية"
+      float1En="+42% average order"
+      float2En="Automatic suggestions"
+    >
       <ProductPageMockup />
     </PageHeroPhone>
   ),

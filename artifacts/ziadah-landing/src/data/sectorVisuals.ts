@@ -8,6 +8,10 @@ export type SectorMiniProduct = {
       English currency, and once the preview started supplying the unit the
       row printed it twice. */
   price: string;
+  /** Only where `price` is a WORD rather than a number - "مجموعة", "مجاناً",
+      "142 نتيجة". A number needs no translation and carries none; a word did,
+      and printed Arabic on the English page until this existed. */
+  priceEn?: string;
   emoji: string;
 };
 
@@ -228,7 +232,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         contextEn: "Digital cart abandoned",
         main: { nameAr: "كتاب PDF", nameEn: "PDF ebook", price: "49", emoji: "📚" },
         suggested: [
-          { nameAr: "خصم 10% — 20 دقيقة", nameEn: "10% off — 20 min", price: "كوبون", emoji: "🏷️" },
+          { nameAr: "خصم 10% — 20 دقيقة", nameEn: "10% off — 20 min", price: "كوبون", priceEn: "Coupon", emoji: "🏷️" },
         ],
         widgetAr: "كوبون خصم",
         widgetEn: "Discount coupon",
@@ -381,7 +385,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         contextEn: "Fast-moving moisturizer",
         main: { nameAr: "كريم 200مل", nameEn: "Cream 200ml", price: "89", emoji: "✨" },
         suggested: [
-          { nameAr: "اشترِ 2 ووفّر 15%", nameEn: "Buy 2 save 15%", price: "عرض", emoji: "📦" },
+          { nameAr: "اشترِ 2 ووفّر 15%", nameEn: "Buy 2 save 15%", price: "عرض", priceEn: "Offer", emoji: "📦" },
         ],
         widgetAr: "اشتر أكثر",
         widgetEn: "Buy more save more",
@@ -581,7 +585,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         contextEn: "Past interest in education",
         main: { nameAr: "كفالة طالب", nameEn: "Student sponsorship", price: "300", emoji: "📚" },
         suggested: [
-          { nameAr: "اشتراك شهري أقل ضغطاً", nameEn: "Softer monthly plan", price: "/شهر", emoji: "📅" },
+          { nameAr: "اشتراك شهري أقل ضغطاً", nameEn: "Softer monthly plan", price: "/شهر", priceEn: "/mo", emoji: "📅" },
         ],
         widgetAr: "اشتراك",
         widgetEn: "Subscription",
@@ -631,7 +635,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         contextEn: "Care package purchase",
         main: { nameAr: "باقة تبييض منزلي", nameEn: "Home whitening kit", price: "350", emoji: "😁" },
         suggested: [
-          { nameAr: "موعد فحص بعد 6 أشهر", nameEn: "6-month recall slot", price: "مجاناً", emoji: "📅" },
+          { nameAr: "موعد فحص بعد 6 أشهر", nameEn: "6-month recall slot", price: "مجاناً", priceEn: "Free", emoji: "📅" },
         ],
         widgetAr: "Upsell خدمة",
         widgetEn: "Service upsell",
@@ -1011,7 +1015,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         titleEn: "Banner — personalized results",
         contextAr: "في نتائج البحث يظهر بانر «مرتّبة حسب اهتمامك» بدل الترتيب الافتراضي فقط.",
         contextEn: "Search results show a “sorted for you” banner beyond default ranking.",
-        main: { nameAr: "بحث: كرسي مكتب مريح", nameEn: 'Search: ergonomic desk chair', price: "142 نتيجة", emoji: "🔎" },
+        main: { nameAr: "بحث: كرسي مكتب مريح", nameEn: 'Search: ergonomic desk chair', price: "142 نتيجة", priceEn: "142 results", emoji: "🔎" },
         suggested: [
           { nameAr: "كرسي شبكي — تقييم 4.8", nameEn: "Mesh chair — 4.8 rating", price: "899", emoji: "🪑" },
           { nameAr: "مسند ظهر قطني", nameEn: "Lumbar cushion add-on", price: "79", emoji: "☁️" },
@@ -1085,7 +1089,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         titleEn: "Modal — multi-seller bundle",
         contextAr: "سلة فيها مكونات مكتب من 3 بائعين — مودال يوضح التجميع والتوفير.",
         contextEn: "Cart mixes 3 sellers for a desk setup — modal explains bundle value.",
-        main: { nameAr: "مكتب + كرسي + إضاءة", nameEn: "Desk + chair + lamp", price: "مجموعة", emoji: "🖥️" },
+        main: { nameAr: "مكتب + كرسي + إضاءة", nameEn: "Desk + chair + lamp", price: "مجموعة", priceEn: "Bundle", emoji: "🖥️" },
         suggested: [
           { nameAr: "وفّر 8٪ مقابل الشراء المنفصل", nameEn: "Save 8% vs separate buys", price: "−312", emoji: "💰" },
         ],

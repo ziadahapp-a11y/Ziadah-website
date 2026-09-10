@@ -39,25 +39,37 @@ interface ShowcaseCase {
 /* ─── phone inner content components ─── */
 
 
+/* The six phone mockups below used to be hardcoded Arabic with a
+   `const cur = "ر.س"` at the top of each one, which meant every English
+   use-case page rendered an Arabic storefront: Arabic product names, Arabic
+   buttons, an Arabic currency, and the letter tiles that derive from a product
+   name coming out as ز / ط / ح. They read their language now.
+
+   The products are the same goods in both languages, not a different demo per
+   locale: an English reader should see the store an Arabic reader sees. */
+
 /* ── PRODUCT PAGE ── */
 export function ProductPageMockup() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
+  const tiers = [
+    { q: isAr ? "قطعة واحدة" : "One piece", p: "200", off: null as string | null, best: false },
+    { q: isAr ? "قطعتان" : "Two pieces", p: "320", off: isAr ? "خصم 20%" : "20% off", best: false },
+    { q: isAr ? "3 قطع" : "3 pieces", p: "420", off: isAr ? "خصم 30%" : "30% off", best: true },
+  ];
   return (
     <WidgetShell
-      title="مسبحة باكليت حمراء"
-      subtitle="اشترِ أكثر ووفّر أكثر"
-      footer={<WidgetButton block>أضف للسلة</WidgetButton>}
+      title={isAr ? "مسبحة باكليت حمراء" : "Red bakelite prayer beads"}
+      subtitle={isAr ? "اشترِ أكثر ووفّر أكثر" : "Buy more, save more"}
+      footer={<WidgetButton block>{isAr ? "أضف للسلة" : "Add to cart"}</WidgetButton>}
     >
       <div className="wk-tiers">
-        {[
-          { q: "قطعة واحدة", p: "200", off: null as string | null, best: false },
-          { q: "قطعتان", p: "320", off: "خصم 20%", best: false },
-          { q: "3 قطع", p: "420", off: "خصم 30%", best: true },
-        ].map((t, i) => (
+        {tiers.map((t, i) => (
           <div key={i} className={`wk-tier${t.best ? "is-sel" : ""}`}>
             <span className="wk-meta">
               <strong>{t.q}</strong>
-              {t.best ? <WidgetTag tone="save">أفضل قيمة</WidgetTag> : null}
+              {t.best ? <WidgetTag tone="save">{isAr ? "أفضل قيمة" : "Best value"}</WidgetTag> : null}
             </span>
             <span className="wk-meta">
               {t.off ? <WidgetTag>{t.off}</WidgetTag> : null}
@@ -72,21 +84,23 @@ export function ProductPageMockup() {
 
 /* ── CART PAGE ── */
 function CartPageContent() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
   return (
     <WidgetShell
-      title="سلتك (منتجان)"
-      footer={<WidgetButton block>إتمام الطلب</WidgetButton>}
+      title={isAr ? "سلتك (منتجان)" : "Your cart (2 items)"}
+      footer={<WidgetButton block>{isAr ? "إتمام الطلب" : "Checkout"}</WidgetButton>}
     >
       <ProductList>
-        <ProductRow name="مسبحة باكليت" price="200" currency={cur} />
-        <ProductRow name="بخور عود أصيل" price="95" currency={cur} />
+        <ProductRow name={isAr ? "مسبحة باكليت" : "Bakelite prayer beads"} price="200" currency={cur} />
+        <ProductRow name={isAr ? "بخور عود أصيل" : "Pure oud incense"} price="95" currency={cur} />
       </ProductList>
-      <ProgressMeter pct={84} note="أضف 55 ر.س للشحن المجاني" />
-      <WidgetHint>منتجات ذات صلة</WidgetHint>
+      <ProgressMeter pct={84} note={isAr ? "أضف 55 ر.س للشحن المجاني" : "Add 55 SAR for free shipping"} />
+      <WidgetHint>{isAr ? "منتجات ذات صلة" : "Related products"}</WidgetHint>
       <ProductList>
-        <ProductRow name="زيت بخور" price="75" currency={cur} />
-        <ProductRow name="حقيبة هدية" price="35" currency={cur} />
+        <ProductRow name={isAr ? "زيت بخور" : "Incense oil"} price="75" currency={cur} />
+        <ProductRow name={isAr ? "حقيبة هدية" : "Gift bag"} price="35" currency={cur} />
       </ProductList>
     </WidgetShell>
   );
@@ -94,16 +108,18 @@ function CartPageContent() {
 
 /* ── CHECKOUT PAGE ── */
 function CheckoutPageContent() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
   return (
     <WidgetShell
-      title="ملخص الطلب"
-      subtitle="أضف قبل إتمام الطلب"
-      footer={<WidgetButton block>إتمام الطلب الآن</WidgetButton>}
+      title={isAr ? "ملخص الطلب" : "Order summary"}
+      subtitle={isAr ? "أضف قبل إتمام الطلب" : "Add before you finish"}
+      footer={<WidgetButton block>{isAr ? "إتمام الطلب الآن" : "Complete order"}</WidgetButton>}
     >
       <ProductList>
-        <ProductRow name="تغليف هدية فاخر" price="15" currency={cur} />
-        <ProductRow name="ضمان إضافي سنة" price="25" currency={cur} />
+        <ProductRow name={isAr ? "تغليف هدية فاخر" : "Premium gift wrap"} price="15" currency={cur} />
+        <ProductRow name={isAr ? "ضمان إضافي سنة" : "One extra year of warranty"} price="25" currency={cur} />
       </ProductList>
     </WidgetShell>
   );
@@ -111,36 +127,40 @@ function CheckoutPageContent() {
 
 /* ── THANK YOU PAGE ── */
 function ThankYouPageContent() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
   return (
     <WidgetShell
-      title="تم تأكيد طلبك"
-      subtitle="رقم الطلب ZD-4821"
-      footer={<WidgetButton block>اطلب مجدداً</WidgetButton>}
+      title={isAr ? "تم تأكيد طلبك" : "Your order is confirmed"}
+      subtitle={isAr ? "رقم الطلب ZD-4821" : "Order ZD-4821"}
+      footer={<WidgetButton block>{isAr ? "اطلب مجدداً" : "Order again"}</WidgetButton>}
     >
-      <WidgetHint>قد يعجبك أيضاً</WidgetHint>
+      <WidgetHint>{isAr ? "قد يعجبك أيضاً" : "You might also like"}</WidgetHint>
       <ProductList>
-        <ProductRow name="بخور فاخر" price="85" currency={cur} />
-        <ProductRow name="زيت أرجان طبيعي" price="120" currency={cur} />
+        <ProductRow name={isAr ? "بخور فاخر" : "Premium incense"} price="85" currency={cur} />
+        <ProductRow name={isAr ? "زيت أرجان طبيعي" : "Natural argan oil"} price="120" currency={cur} />
       </ProductList>
-      <Totals rows={[{ k: "رصيد نقاطك", v: <strong>580</strong>, total: true }]} />
+      <Totals rows={[{ k: isAr ? "رصيد نقاطك" : "Your points balance", v: <strong>580</strong>, total: true }]} />
     </WidgetShell>
   );
 }
 
 /* ── HOME PAGE ── */
 function HomePageContent() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
   return (
     <WidgetShell
-      title="مرحباً عمر"
-      subtitle="مقترح لك بناءً على مشترياتك"
-      footer={<WidgetButton block>تصفّح المقترحات</WidgetButton>}
+      title={isAr ? "مرحباً عمر" : "Welcome back, Omar"}
+      subtitle={isAr ? "مقترح لك بناءً على مشترياتك" : "Picked from what you have bought"}
+      footer={<WidgetButton block>{isAr ? "تصفّح المقترحات" : "Browse suggestions"}</WidgetButton>}
     >
       <ProductList>
-        <ProductRow name="زيت بخور" price="75" currency={cur} />
-        <ProductRow name="طقم هدايا" price="150" currency={cur} />
-        <ProductRow name="حرز فضة" price="90" currency={cur} />
+        <ProductRow name={isAr ? "زيت بخور" : "Incense oil"} price="75" currency={cur} />
+        <ProductRow name={isAr ? "طقم هدايا" : "Gift set"} price="150" currency={cur} />
+        <ProductRow name={isAr ? "حرز فضة" : "Silver amulet"} price="90" currency={cur} />
       </ProductList>
     </WidgetShell>
   );
@@ -148,14 +168,16 @@ function HomePageContent() {
 
 /* ── CATEGORY PAGE ── */
 function CategoryPageContent() {
-  const cur = "ر.س";
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const cur = isAr ? "ر.س" : "SAR";
   return (
     <WidgetShell
-      title="تكمّل بعضها — اشترِ معاً"
-      subtitle="مسبحة + بخور معاً"
+      title={isAr ? "تكمّل بعضها — اشترِ معاً" : "They go together, buy as one"}
+      subtitle={isAr ? "مسبحة + بخور معاً" : "Prayer beads + incense"}
       footer={
         <WidgetButton block>
-          أضف الطقم
+          {isAr ? "أضف الطقم" : "Add the set"}
           <span className="wk-btn-num">
             <bdi>385</bdi> {cur}
           </span>
@@ -163,10 +185,10 @@ function CategoryPageContent() {
       }
     >
       <ProductList>
-        <ProductRow name="مسبحة كهرمان" price="320" currency={cur} selected />
-        <ProductRow name="حرز فضة" price="180" currency={cur} />
-        <ProductRow name="سجادة صلاة" price="95" currency={cur} />
-        <ProductRow name="بخور عربي" price="65" currency={cur} />
+        <ProductRow name={isAr ? "مسبحة كهرمان" : "Amber prayer beads"} price="320" currency={cur} selected />
+        <ProductRow name={isAr ? "حرز فضة" : "Silver amulet"} price="180" currency={cur} />
+        <ProductRow name={isAr ? "سجادة صلاة" : "Prayer rug"} price="95" currency={cur} />
+        <ProductRow name={isAr ? "بخور عربي" : "Arabic incense"} price="65" currency={cur} />
       </ProductList>
     </WidgetShell>
   );
@@ -174,16 +196,16 @@ function CategoryPageContent() {
 
 /* ── ALL PAGES ── */
 function AllPagesContent() {
-  const pages = [
-    "الصفحة الرئيسية",
-    "صفحة التصنيف",
-    "صفحة المنتج",
-    "السلة",
-    "الدفع",
-    "صفحة الشكر",
-  ];
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const pages = isAr
+    ? ["الصفحة الرئيسية", "صفحة التصنيف", "صفحة المنتج", "السلة", "الدفع", "صفحة الشكر"]
+    : ["Home page", "Category page", "Product page", "Cart", "Checkout", "Thank-you page"];
   return (
-    <WidgetShell title="منطق واحد — تغطية كاملة" subtitle="نفس المحرّك على كل صفحة">
+    <WidgetShell
+      title={isAr ? "منطق واحد — تغطية كاملة" : "One engine, every page"}
+      subtitle={isAr ? "نفس المحرّك على كل صفحة" : "The same logic wherever they land"}
+    >
       <ul className="wk-facts">
         {pages.map((x) => (
           <li key={x}>{x}</li>
@@ -192,6 +214,7 @@ function AllPagesContent() {
     </WidgetShell>
   );
 }
+
 
 /* ─────────────────────────────────────────────────────────────────
    CASE DATA
@@ -454,11 +477,23 @@ export function PageHeroPhone({
   children,
   float1,
   float2,
+  float1En,
+  float2En,
 }: {
   children: React.ReactNode;
   float1?: string;
   float2?: string;
+  /* The floats are supplied from static `heroVisual` JSX inside plain data
+     objects, which have no hook to read the language from. The component reads
+     it instead, and falls back to the Arabic when a caller has no English -
+     visible Arabic beats an empty caption. */
+  float1En?: string;
+  float2En?: string;
 }) {
+  const { lang } = useLanguage();
+  const isAr = lang === "ar";
+  const f1 = isAr ? float1 : float1En ?? float1;
+  const f2 = isAr ? float2 : float2En ?? float2;
   /* The frame is the kit's now. What it used to be: `.sector-html-phone`,
      which carries a gold-to-cyan gradient strip across its top edge and a
      coloured glow behind the device, wrapping a body whose own rows were grey
@@ -467,9 +502,9 @@ export function PageHeroPhone({
      pills with a coloured dot. */
   return (
     <div className="ucp-stage">
-      {float1 ? <p className="ucp-float ucp-float--1">{float1}</p> : null}
+      {f1 ? <p className="ucp-float ucp-float--1">{f1}</p> : null}
       <PhoneFrame>{children}</PhoneFrame>
-      {float2 ? <p className="ucp-float ucp-float--2">{float2}</p> : null}
+      {f2 ? <p className="ucp-float ucp-float--2">{f2}</p> : null}
     </div>
   );
 }

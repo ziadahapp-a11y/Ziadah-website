@@ -53,6 +53,10 @@ function SectorWidgetMiniPreview({
 }) {
   const cur = isAr ? "ر.س" : "SAR";
   const name = (p: { nameAr: string; nameEn: string }) => (isAr ? p.nameAr : p.nameEn);
+  /* `price` is usually a bare number and needs no second copy. Where it is a
+     word - "مجموعة", "142 نتيجة" - the datum carries `priceEn` and the English
+     page uses it instead of printing the Arabic. */
+  const price = (p: { price: string; priceEn?: string }) => (isAr ? p.price : p.priceEn ?? p.price);
   return (
     <PhoneFrame accent={accent} label={isAr ? s.widgetAr : s.widgetEn} width={300}>
       <WidgetShell
@@ -64,7 +68,7 @@ function SectorWidgetMiniPreview({
         }
       >
         <WidgetHint>{tr.vizMainLabel}</WidgetHint>
-        <ProductRow name={name(s.main)} price={s.main.price} currency={cur} />
+        <ProductRow name={name(s.main)} price={price(s.main)} currency={cur} />
         {s.suggested.length ? (
           <>
             <WidgetHint>{isAr ? "يقترح زيادة" : "Ziadah suggests"}</WidgetHint>
@@ -73,7 +77,7 @@ function SectorWidgetMiniPreview({
                 <ProductRow
                   key={i}
                   name={name(sg)}
-                  price={sg.price}
+                  price={price(sg)}
                   currency={cur}
                   selected={i === 0}
                 />

@@ -5,18 +5,21 @@ import { WidgetShell, ProductList, ProductRow, WidgetTag } from "@/components/wi
 
 type Profile = "noura" | "nasser";
 
+/* The demo's whole argument is that the SAME strip changes per visitor, so
+   both profiles carry both languages: an English reader has to be able to read
+   the reason line, which is the part that makes the point. */
 const nouraItems = [
-  { name: "عطر رمضان الخاص", reason: "جاءت من إعلان رمضان", price: 289 },
-  { name: "طقم عناية بالبشرة", reason: "تصفحت كريمات البشرة", price: 199 },
-  { name: "هدية رمضانية فاخرة", reason: "شائع جداً هذا الموسم", price: 159 },
-  { name: "بخور عود", reason: "مكمل للعطور", price: 99 },
+  { name: "عطر رمضان الخاص", nameEn: "Ramadan special perfume", reason: "جاءت من إعلان رمضان", reasonEn: "Arrived from the Ramadan ad", price: 289 },
+  { name: "طقم عناية بالبشرة", nameEn: "Skincare set", reason: "تصفحت كريمات البشرة", reasonEn: "Browsed face creams", price: 199 },
+  { name: "هدية رمضانية فاخرة", nameEn: "Premium Ramadan gift", reason: "شائع جداً هذا الموسم", reasonEn: "Very popular this season", price: 159 },
+  { name: "بخور عود", nameEn: "Oud incense", reason: "مكمل للعطور", reasonEn: "Goes with the perfumes", price: 99 },
 ];
 
 const nasserItems = [
-  { name: "سماعات لاسلكية", reason: "أكملها مع هاتفه الجديد", price: 249 },
-  { name: "بروتين رياضي", reason: "يناسب نمطه الرياضي", price: 149 },
-  { name: "ساعة ذكية", reason: "تكمل ساعته القديمة", price: 399 },
-  { name: "تي شيرت برو", reason: "اشترى نفس اللون قبلاً", price: 89 },
+  { name: "سماعات لاسلكية", nameEn: "Wireless earbuds", reason: "أكملها مع هاتفه الجديد", reasonEn: "Completes his new phone", price: 249 },
+  { name: "بروتين رياضي", nameEn: "Sports protein", reason: "يناسب نمطه الرياضي", reasonEn: "Fits how he trains", price: 149 },
+  { name: "ساعة ذكية", nameEn: "Smart watch", reason: "تكمل ساعته القديمة", reasonEn: "Replaces his older watch", price: 399 },
+  { name: "تي شيرت برو", nameEn: "Pro tee", reason: "اشترى نفس اللون قبلاً", reasonEn: "Bought the same colour before", price: 89 },
 ];
 
 export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean }) {
@@ -78,10 +81,10 @@ export default function CustomerPersonalizationDemo({ isAr }: { isAr: boolean })
               {items.map((p) => (
                 <ProductRow
                   key={p.name}
-                  name={p.name}
+                  name={isAr ? p.name : p.nameEn}
                   price={String(p.price)}
                   currency={cur}
-                  badge={<WidgetTag>{p.reason}</WidgetTag>}
+                  badge={<WidgetTag>{isAr ? p.reason : p.reasonEn}</WidgetTag>}
                 />
               ))}
             </ProductList>

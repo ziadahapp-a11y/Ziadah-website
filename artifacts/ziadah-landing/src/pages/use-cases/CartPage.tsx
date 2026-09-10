@@ -112,7 +112,12 @@ const data: UseCasePageData = {
     result: "الطلب ارتفع من 170 إلى 202 ر.س والعميل شعر أنه هو من استفاد من الصفقة.",
   },
   heroVisual: (
-    <PageHeroPhone float1="-38% تخلي عن السلة" float2="أكمل للشحن المجاني">
+    <PageHeroPhone
+      float1="-38% تخلي عن السلة"
+      float2="أكمل للشحن المجاني"
+      float1En="-38% cart abandonment"
+      float2En="Reach free shipping"
+    >
       <CartHeroContent />
     </PageHeroPhone>
   ),
