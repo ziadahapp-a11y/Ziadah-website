@@ -12,8 +12,10 @@ import {
   LifeBuoy,
   Newspaper,
   Calculator,
+  CalendarDays,
   Scale,
   Info,
+  Youtube,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
@@ -26,8 +28,10 @@ import { useHeaderScrolled } from "@/motion/components";
 import {
   DASHBOARDS,
   PLATFORMS,
+  MEETING_BOOKING_URL,
   SUPPORT_EMAIL,
   WHATSAPP_SUPPORT_URL,
+  YOUTUBE_URL,
   sectorEntries,
   solutionGroups,
   type NavLink,
@@ -181,10 +185,22 @@ export function Navbar() {
       onClick: () => go("/zid-apps-comparison"),
     },
     {
+      label: t("احجز اجتماع", "Book a meeting"),
+      sub: t("جولة مباشرة على زيادة في متجرك", "A live walkthrough of Ziadah in your store"),
+      Icon: CalendarDays,
+      href: MEETING_BOOKING_URL,
+    },
+    {
       label: t("واتساب", "WhatsApp"),
       sub: t("رد سريع على استفساراتك", "Fast replies to your questions"),
       Icon: MessageCircle,
       href: WHATSAPP_SUPPORT_URL,
+    },
+    {
+      label: t("قناة يوتيوب", "YouTube channel"),
+      sub: t("شروحات مصوّرة خطوة بخطوة", "Step-by-step video walkthroughs"),
+      Icon: Youtube,
+      href: YOUTUBE_URL,
     },
     {
       label: t("البريد الإلكتروني", "Email"),

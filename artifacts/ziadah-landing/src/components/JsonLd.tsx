@@ -26,10 +26,18 @@ export function OrganizationSchema() {
     url: "https://www.ziadah.app",
     logo: "https://www.ziadah.app/logo-en.svg",
     description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
+    /* These are the entity's profiles as far as a search engine is concerned,
+       so they have to be the accounts that actually exist. All three were
+       stale and none matched the footer: `twitter.com/ziadah_app` against
+       `x.com/ZiadahApp`, `instagram.com/ziadah.app` against
+       `instagram.com/ziadahapp`, `linkedin.com/company/ziadah` against
+       `.../ziadahapp`. Aligned with the footer, which is the live list. */
     sameAs: [
-      "https://twitter.com/ziadah_app",
-      "https://www.instagram.com/ziadah.app",
-      "https://www.linkedin.com/company/ziadah"
+      "https://x.com/ZiadahApp",
+      "https://www.instagram.com/ziadahapp",
+      "https://linkedin.com/company/ziadahapp",
+      "https://www.tiktok.com/@ziadahapp",
+      "https://www.youtube.com/@ziadahapp"
     ],
     contactPoint: {
       "@type": "ContactPoint",

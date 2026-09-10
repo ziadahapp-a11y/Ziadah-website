@@ -50,6 +50,9 @@ export const DASHBOARDS = [
 
 export const WHATSAPP_SUPPORT_URL = "https://wa.me/966544357555";
 export const SUPPORT_EMAIL = "support@ziadah.app";
+export const YOUTUBE_URL = "https://www.youtube.com/@ziadahapp";
+/** A merchant books a live walkthrough here rather than writing in first. */
+export const MEETING_BOOKING_URL = "https://calendar.app.google/PHiuLc9ofgqw4XXk6";
 
 /**
  * Solutions, grouped the five ways a merchant actually shops for them: by the

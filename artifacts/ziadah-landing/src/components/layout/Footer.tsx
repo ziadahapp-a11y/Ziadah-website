@@ -1,10 +1,16 @@
 import { FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { SiTiktok } from "react-icons/si";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
-import { SUPPORT_EMAIL, WHATSAPP_SUPPORT_URL, sectorEntries } from "@/lib/nav-data";
+import {
+  MEETING_BOOKING_URL,
+  SUPPORT_EMAIL,
+  WHATSAPP_SUPPORT_URL,
+  YOUTUBE_URL,
+  sectorEntries,
+} from "@/lib/nav-data";
 
 /**
  * The site footer, on the design system's measured architecture:
@@ -76,6 +82,7 @@ export function Footer() {
     { href: "https://x.com/ZiadahApp", label: "X", Icon: FaXTwitter },
     { href: "https://linkedin.com/company/ziadahapp", label: "LinkedIn", Icon: FaLinkedinIn },
     { href: "https://www.tiktok.com/@ziadahapp", label: "TikTok", Icon: SiTiktok },
+    { href: YOUTUBE_URL, label: "YouTube", Icon: FaYoutube },
     { href: "https://www.instagram.com/ziadahapp", label: "Instagram", Icon: FaInstagram },
   ];
 
@@ -126,6 +133,9 @@ export function Footer() {
             </a>
             <a href={href("/data-deletion")} onClick={go("/data-deletion")}>
               {tr.footer.dataDeletion}
+            </a>
+            <a href={MEETING_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+              {t("احجز اجتماع", "Book a meeting")}
             </a>
             <a href={WHATSAPP_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
               {t("واتساب", "WhatsApp")}
