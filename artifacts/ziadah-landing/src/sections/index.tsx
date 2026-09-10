@@ -330,7 +330,7 @@ export function SectionHead({
           {title}
         </Heading>
       ) : null}
-      {lead ? <p className="hero-body lg:!max-w-[68rem]">{lead}</p> : null}
+      {lead ? <p className="hero-body lg:!max-w-[78rem]">{lead}</p> : null}
       {children}
     </header>
   );

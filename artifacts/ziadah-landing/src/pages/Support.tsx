@@ -281,7 +281,14 @@ export default function Support() {
                 >
                   <span
                     className="card-ico !w-9 !h-9 !rounded-lg text-sm font-bold num-ltr"
-                    style={{ background: `${activeCat.color}22`, color: activeCat.color }}
+                    /* The numeral is the category's own hue, which at full
+                       strength measures 4.23:1 on the card - under AA. Mixed
+                       78% with black it keeps the hue and clears 4.5:1 on both
+                       the white card and its own 13% tile. */
+                    style={{
+                      background: `${activeCat.color}22`,
+                      color: `color-mix(in srgb, ${activeCat.color} 78%, #000)`,
+                    }}
                   >
                     {i + 1}
                   </span>

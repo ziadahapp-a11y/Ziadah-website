@@ -143,7 +143,10 @@
   list-style: none;
   padding: 0;
 }
-.uc-stat { display: grid; gap: 0.8rem; }
+/* `space-evenly` so the value and its label share the tile's height rather
+   than stacking at the top of it - the stats row is four tiles of one height
+   and the shortest label was leaving a hole under it. */
+.uc-stat { display: grid; gap: 0.8rem; justify-content: space-evenly; }
 .uc-stat-value {
   font-size: var(--type-display);
   font-weight: 700;
@@ -167,7 +170,8 @@
   align-items: center;
   gap: 1.6rem;
   padding: 1.6rem;
-  border: 0.1rem solid var(--line);
+  /* No border. The row already separates from the band by its own ground;
+     a hairline on top of that draws the box instead of the content. */
   border-radius: var(--radius-card);
   background: var(--surface-2);
 }
@@ -707,6 +711,12 @@
 .cat-link[aria-pressed="true"] {
   background: var(--color-secondary, var(--general-black));
   color: var(--color-primary, var(--general-white));
+}
+/* The count inside a selected row is a `.card-eyebrow`, which paints itself
+   from the BAND's ink - so on the selected row it was the row's own dark
+   ground written in dark ink, 1.00:1. It takes the row's ink instead. */
+.cat-link[aria-pressed="true"] .card-eyebrow {
+  color: color-mix(in srgb, var(--color-primary, var(--general-white)) 78%, transparent);
 }
 .cat-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
 

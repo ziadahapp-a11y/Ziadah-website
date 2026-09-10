@@ -87,11 +87,25 @@
   background-color: var(--color-primary);
   color: var(--color-secondary);
   --surface: var(--color-primary);
-  --surface-2: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  /* The panel surface is WHITE, not a tint of the band's ink. A tinted panel
+     on a tinted band reads as one soft mass; a white panel on the violet
+     ground reads as a card sitting on a page, which is the separation this
+     pass is for.
+
+     It stays white only while the band is light. The comment above records
+     what happens otherwise: an absolute near-white surface inside a `#190066`
+     section left light-blue ink on white at 1.15:1. So the inverted band keeps
+     the 8% tint of its own (light) ink, which is the same idea - a panel one
+     step off the ground - expressed for a dark ground. */
+  --surface-2: var(--general-white);
   --surface-3: rgba(127, 127, 127, 0.18);
   --ink: var(--color-secondary);
   --ink-muted: color-mix(in srgb, var(--color-secondary) 75%, transparent);
   --line: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+}
+
+[data-family][data-invert] {
+  --surface-2: color-mix(in srgb, var(--color-secondary) 8%, transparent);
 }
 
 .section--surface { --color-primary: var(--general-white-off); background-color: var(--color-primary); }
@@ -277,7 +291,10 @@
 /* MEASURED: 1.8rem/144.444%, and 2rem/140% capped at 53rem from 1025 up. */
 .hero-body { font-size: 1.8rem; line-height: 1.44444; margin-top: 2rem; }
 @media screen and (min-width: 768px)  { .hero-body { margin-top: 0; } }
-@media screen and (min-width: 1025px) { .hero-body { font-size: 2rem; line-height: 1.4; max-width: 53rem; margin-top: 2.2rem; } }
+/* The desktop step-up is gone: the lede keeps the 1.8rem body size, runs to
+   the width of its column rather than a 53rem measure, and sits on the gap
+   the block above already gives it instead of adding 2.2rem of its own. */
+@media screen and (min-width: 1025px) { .hero-body { line-height: 1.4; } }
 [dir="rtl"] .hero-body { line-height: 1.85; }
 
 .hero-buttons { display: flex; flex-wrap: wrap; gap: 1.6rem; margin-top: 1.6rem; }
@@ -383,9 +400,18 @@
   min-height: 24rem;
   padding: 2.4rem;
   border-radius: var(--radius-card);
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  /* White, for the reason given on `--surface-2` above: a card has to read as
+     an object ON the band, and an 8% tint of the band's own ink does not. The
+     inverted band keeps the tint, because a white card there would put the
+     band's light ink on white. */
+  background: var(--general-white);
   text-align: start;
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+[data-invert] .card,
+.is-flipped .card,
+.on-ink .card {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
 }
 .card--short { min-height: 0; }
 .card--tall  { min-height: 46.5rem; }
