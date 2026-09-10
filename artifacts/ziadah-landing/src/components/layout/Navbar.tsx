@@ -250,7 +250,11 @@ export function Navbar() {
             {/* The header is transparent and runs a hit test on whatever is
                 painted under it, flipping its ink on a dark ground. The mark
                 is a two-tone raster, not a currentColor glyph, so it cannot
-                follow — both variants ship and CSS picks by that same state. */}
+                follow - both variants ship and CSS picks by that same state.
+
+                The inverted variant was pointed at `logo-light`, whose ink is
+                violet on transparent, so the mark went dark-on-dark on every
+                dark band. It now points at the white artwork. */}
             <img
               src={isAr ? "/logo-ar.svg" : "/logo-en.svg"}
               alt=""
@@ -258,7 +262,7 @@ export function Navbar() {
               className="header-logo header-logo--ink"
             />
             <img
-              src={isAr ? "/logo-light-ar.png" : "/logo-light.png"}
+              src={isAr ? "/logo-white-ar.png" : "/logo-white-en.png"}
               alt=""
               aria-hidden="true"
               className="header-logo header-logo--inv"
