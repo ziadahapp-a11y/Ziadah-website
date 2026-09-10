@@ -416,7 +416,7 @@ export default function CustomerProfileDemo() {
                           flexShrink: 0,
                         }}
                       >
-                        {prod.price} ر.س
+                        {prod.price} {isAr ? "ر.س" : "SAR"}
                       </div>
                     </div>
                   ))}
