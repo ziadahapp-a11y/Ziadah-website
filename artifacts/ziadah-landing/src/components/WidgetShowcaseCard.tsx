@@ -7,6 +7,7 @@ import CouponWidget from "@/components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "@/components/widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "@/components/widgets/ProductSwapWidget";
 import type { SectorShowcaseDemoBundle } from "@/data/sectorWidgetShowcaseDemos";
+import type { WidgetLabel } from "@/i18n/translations";
 
 export type WidgetShowcaseKind =
   | "volume"
@@ -17,10 +18,8 @@ export type WidgetShowcaseKind =
   | "shipping"
   | "swap";
 
-export type WidgetShowcaseItemData = {
+export type WidgetShowcaseItemData = WidgetLabel & {
   icon: string;
-  label: string;
-  desc: string;
   widget: ReactNode;
   rgb: string;
   /** يحدد شكل البطاقة (رأس + إيقاع) — يطابق ترتيب الويدجت في القالب */
@@ -55,14 +54,16 @@ function widgetElements(demos?: SectorShowcaseDemoBundle) {
 
 /** نفس عناصر قسم #widgets-showcase — للصفحة الرئيسية أو صفحة القطاع (مع عيّنات القطاع). */
 export function buildWidgetShowcaseItems(
-  widgetLabels: { label: string; desc: string }[],
+  widgetLabels: WidgetLabel[],
   sectorDemos?: SectorShowcaseDemoBundle,
 ): WidgetShowcaseItemData[] {
   const els = widgetElements(sectorDemos);
+  /* The whole label is spread, not just `label` and `desc`: the home page's
+     use-case rows read `whenToUse`, `goal`, `example` and `note` off the same
+     item the marquee card reads its caption off, so the two never drift. */
   return widgetLabels.map((wl, idx) => ({
+    ...wl,
     icon: WIDGET_ICONS[idx] ?? "📦",
-    label: wl.label,
-    desc: wl.desc,
     widget: els[idx],
     rgb: WIDGET_RGBS[idx] ?? WIDGET_RGBS[0]!,
     kind: WIDGET_KINDS[idx % WIDGET_KINDS.length]!,

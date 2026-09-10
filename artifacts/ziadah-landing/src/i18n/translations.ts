@@ -1,3 +1,14 @@
+/** One row of the home page's use-case band. `note` is a caveat the row prints
+    under the example, and only the coupon has one. */
+export type WidgetLabel = {
+  label: string;
+  desc: string;
+  whenToUse: string;
+  goal: string;
+  example: string;
+  note?: string;
+};
+
 export const t = {
   ar: {
     nav: {
@@ -362,6 +373,11 @@ export const t = {
       widgetsTag: "أمثلة حية",
       widgetsTitle: "حالات الاستخدام في متجرك",
       widgetsSubtitle: "هكذا تظهر التوصيات الذكية لعملائك على زد وسلة — دون تغيير تصميم واجهتك",
+      /* The three terms each use-case row labels its facts with. */
+      widgetRowWhen: "متى تستخدمها",
+      widgetRowGoal: "الهدف",
+      widgetRowExample: "مثال",
+      widgetRowLink: "اعرف أكثر",
       personTag: "التخصيص الذكي",
       personTitle: "كل عميل يحصل على تجربة مصممة له",
       personSub: "زيادة يعرف من هو عميلك ويعرض له المنتجات المناسبة تلقائياً",
@@ -400,15 +416,62 @@ export const t = {
       demoFemaleShelf2: "عطر",
       demoFemaleShelf3: "كريم",
       demoFemaleShelf4: "مرطب",
+      /* ORDER IS STRUCTURAL. The array index maps to a widget component in
+         `widgetElements()`; the home page reads it in a different order for
+         display. Do not reorder - reorder `ROW_ORDER` in
+         `WidgetsShowcaseSection` instead. */
       widgetLabels: [
-        { label: "عروض الكميات", desc: "تحفيز العميل على شراء كميات أكبر بعروض تدريجية واضحة" },
-        { label: "الشراء معاً", desc: "اجمع منتجات مكمّلة في عرض واحد يُقنع العميل باقتناء الطقم كاملاً" },
-        { label: "إضافات مكملة", desc: "اعرض إضافات وظيفية تكمّل منتجك الأساسي بنظام اختيار متعدد" },
-        { label: "منتجات ذات صلة", desc: "اقترح لكل عميل المنتجات الأقرب لاهتمامه بزر إضافة مباشر" },
-        { label: "قسيمة خصم", desc: "كود خصم تلقائي للعملاء المترددين يدفعهم للشراء الآن" },
-        { label: "الوصول للشحن المجاني", desc: "اقترح منتجات تسد الفجوة للشحن المجاني لرفع قيمة الطلب" },
-        { label: "استبدال المنتج (Upsell)", desc: "اقترح نسخة أفضل من المنتج بطريقة تُبرز القيمة لا مجرد السعر" },
-      ] as { label: string; desc: string }[],
+        {
+          label: "عروض الكميات",
+          desc: "حفّز العميل على شراء كمية أكبر مقابل سعر أفضل.",
+          whenToUse: "للمنتجات التي يُعقل شراء أكثر من وحدة منها، خاصة الاستهلاكية والمتكررة.",
+          goal: "رفع عدد القطع في الطلب وقيمة السلة.",
+          example: "قطعة بالسعر العادي، 3 قطع بخصم، 5 قطع بخصم أكبر.",
+        },
+        {
+          label: "الشراء معاً",
+          desc: "اجمع منتجات متوافقة في طقم واحد وشجّع العميل على شرائها معاً.",
+          whenToUse: "حين تُستخدم عدة منتجات أو تُشترى معاً في العادة.",
+          goal: "تكبير السلة ورفع متوسط قيمة الطلب مع تبسيط قرار الشراء.",
+          example: "كاميرا + بطاقة ذاكرة + حقيبة كاميرا.",
+        },
+        {
+          label: "إضافات مكملة",
+          desc: "اقترح ملحقات أو منتجات إضافية تكمّل المنتج الأساسي.",
+          whenToUse: "حين يكون للمنتج الأساسي ملحقات مفيدة تُستخدم معه بشكل طبيعي.",
+          goal: "زيادة عدد القطع في الطلب ورفع متوسط قيمة الطلب مع قيمة إضافية للعميل.",
+          example: "العميل يشتري هاتفاً، فتُقترح له جراب أو شاحن أو واقي شاشة.",
+        },
+        {
+          label: "منتجات ذات صلة",
+          desc: "اقترح منتجات مرتبطة أو مشابهة للمنتج الذي يتصفحه العميل الآن.",
+          whenToUse: "حين يتصفّح العميل منتجاً ونريد مساعدته على اكتشاف خيارات أخرى مناسبة.",
+          goal: "تحسين اكتشاف المنتجات ومساعدة العميل على الوصول للمنتج الصحيح ورفع معدل التحويل.",
+          example: "العميل يتصفّح حذاء جري، فتُقترح له أحذية جري أخرى أو منتجات رياضية مناسبة.",
+        },
+        {
+          label: "قسيمة خصم",
+          desc: "قدّم حافزاً حين تظهر إشارات على تردد العميل في إتمام الشراء.",
+          whenToUse: "لعملاء محددين أو لحظات بعينها: تردد في الشراء، احتمال ترك السلة، أو حملة موجّهة.",
+          goal: "رفع معدل التحويل وتقليل ترك السلة.",
+          example: "«خصم 30 ر.س إذا أتممت طلبك الآن.»",
+          note: "لا تُعرض القسيمة بشكل دائم لكل عميل. هي حافز تحويل مشروط يظهر عند الحاجة فقط.",
+        },
+        {
+          label: "الوصول للشحن المجاني",
+          desc: "اقترح منتجات تساعد العميل على بلوغ الحد الأدنى للشحن المجاني.",
+          whenToUse: "حين تقترب قيمة سلة العميل من عتبة الشحن المجاني.",
+          goal: "رفع متوسط قيمة الطلب وتقليل ترك الدفع بسبب رسوم الشحن.",
+          example: "«باقي لك 25 ر.س للشحن المجاني»، ثم تُعرض منتجات في حدود هذا المبلغ.",
+        },
+        {
+          label: "استبدال المنتج (Upsell)",
+          desc: "اقترح نسخة أفضل أو أعلى قيمة من المنتج الذي يفكر فيه العميل.",
+          whenToUse: "حين توجد نسخة أعلى أو باقة أفضل تقدّم قيمة إضافية واضحة.",
+          goal: "رفع متوسط قيمة الطلب والإيراد بترقية اختيار العميل بدل إضافة منتج آخر.",
+          example: "العميل يختار الباقة الأساسية، فتُقترح له باقة برو مع بيان واضح للمزايا الإضافية.",
+        },
+      ] as WidgetLabel[],
       goalsTag: "الأهداف وطرق العرض",
       goalsTitle: "زيادة يختار الأنسب لكل عميل تلقائياً",
       goalsSub: "يحدد الأهداف وطرق العرض المناسبة ويعرضها للعميل مباشرة",
@@ -1426,6 +1489,10 @@ export const t = {
       widgetsTag: "Live Examples",
       widgetsTitle: "Use cases in your store",
       widgetsSubtitle: "How smart recommendations appear on Zid and Salla without redesigning your theme",
+      widgetRowWhen: "When to use it",
+      widgetRowGoal: "Goal",
+      widgetRowExample: "Example",
+      widgetRowLink: "Read more",
       personTag: "Smart Personalization",
       personTitle: "Every Customer Gets an Experience Designed for Them",
       personSub: "Ziadah knows who your customer is and automatically shows them the right products",
@@ -1464,15 +1531,60 @@ export const t = {
       demoFemaleShelf2: "Perfume",
       demoFemaleShelf3: "Cream",
       demoFemaleShelf4: "Moisturizer",
+      /* Same order as `t.ar.landing.widgetLabels`, and structural for the same
+         reason. See the note there. */
       widgetLabels: [
-        { label: "Quantity Offers", desc: "Motivate customers to buy more with clear tiered offers" },
-        { label: "Buy Together", desc: "Bundle complementary products into a single compelling offer" },
-        { label: "Add-ons", desc: "Show functional add-ons that complement the main product" },
-        { label: "Related Products", desc: "Suggest the most relevant products with a direct add button" },
-        { label: "Coupon", desc: "Automatic discount code for hesitant customers to buy now" },
-        { label: "Free Shipping Threshold", desc: "Suggest products that close the gap for free shipping" },
-        { label: "Product Swap (Upsell)", desc: "Suggest a better version highlighting value, not just price" },
-      ] as { label: string; desc: string }[],
+        {
+          label: "Quantity Discounts",
+          desc: "Get a shopper to buy a larger quantity in exchange for a better price.",
+          whenToUse: "On products where buying several units is reasonable, especially consumables and repeat purchases.",
+          goal: "More units per order, and a larger cart.",
+          example: "One at full price, three at a discount, five at a bigger one.",
+        },
+        {
+          label: "Frequently Bought Together",
+          desc: "Group compatible products and sell them as a set.",
+          whenToUse: "When several products are commonly used or bought together.",
+          goal: "A bigger basket and a higher average order value, with one decision instead of three.",
+          example: "Camera + memory card + camera bag.",
+        },
+        {
+          label: "Complementary Add-ons",
+          desc: "Offer the accessories that go with the main product.",
+          whenToUse: "When the main product has accessories that naturally belong with it.",
+          goal: "More items per order and a higher average order value, with real added value for the shopper.",
+          example: "Someone buys a phone, so a case, a charger or a screen protector follows it.",
+        },
+        {
+          label: "Related Products",
+          desc: "Show products related or similar to the one being viewed.",
+          whenToUse: "While a shopper is on a product page and could use help finding other relevant options.",
+          goal: "Better product discovery, the right product found sooner, and a higher conversion rate.",
+          example: "Someone is looking at running shoes, so other running shoes and sports products follow.",
+        },
+        {
+          label: "Discount Coupon",
+          desc: "Offer an incentive when a shopper looks like they may not finish.",
+          whenToUse: "For selected shoppers or specific moments: hesitation, cart-abandonment risk, a targeted campaign.",
+          goal: "A higher conversion rate and less abandonment.",
+          example: "\u201cGet 30 SAR off if you complete your order now.\u201d",
+          note: "The coupon is not permanent and is not for everyone. It is a conditional incentive that fires only when it should.",
+        },
+        {
+          label: "Free Shipping Threshold",
+          desc: "Suggest what closes the gap to the free-shipping minimum.",
+          whenToUse: "When the cart is close to the free-shipping threshold.",
+          goal: "A higher average order value, and fewer checkouts abandoned over shipping.",
+          example: "\u201cYou are 25 SAR from free shipping,\u201d then products in that range.",
+        },
+        {
+          label: "Product Upgrade (Upsell)",
+          desc: "Offer the better version of what the shopper is already considering.",
+          whenToUse: "When a premium version or higher tier gives clear extra value.",
+          goal: "A higher average order value by upgrading the choice rather than adding another item.",
+          example: "Someone picks the Basic plan, so Pro is offered with the extra benefits spelled out.",
+        },
+      ] as WidgetLabel[],
       goalsTag: "Goals & Display Types",
       goalsTitle: "Ziadah Automatically Picks the Best Option for Each Customer",
       goalsSub: "It determines the right goals and display methods and presents them directly to the customer",

@@ -54,7 +54,7 @@ export default function HeroUseCaseCarousel() {
   const { lang } = useLanguage();
   const t = siteTranslations;
   const tr = t[lang];
-  const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
+  const wLabels = tr.landing.widgetLabels;
 
   const isNarrow = useHeroWidgetCarouselLayout();
   const prefersReducedMotion = usePrefersReducedMotion();

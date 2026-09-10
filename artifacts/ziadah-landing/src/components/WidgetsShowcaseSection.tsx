@@ -1,11 +1,29 @@
 import { useMemo } from "react";
 import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
+import UseCaseRow from "@/components/UseCaseRow";
 import { buildWidgetShowcaseItems, type WidgetShowcaseKind } from "@/components/WidgetShowcaseCard";
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
 import { Section as DsSection, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
+
+/* READING ORDER, not data order. `widgetLabels` is indexed against
+   `widgetElements()` and cannot be reordered; this is the order a merchant
+   meets the seven in, which runs from the lightest ask to the heaviest:
+   discover, then complete, then bundle, then buy more, then close a shipping
+   gap, then upgrade - and the coupon last, because it is the only one that
+   costs margin. */
+const ROW_ORDER: WidgetShowcaseKind[] = [
+  "related",
+  "addons",
+  "bundle",
+  "volume",
+  "shipping",
+  "swap",
+  "coupon",
+];
 
 const KIND_TO_URL: Record<WidgetShowcaseKind, string> = {
   volume: "/use-cases/buy-more-save-more",
@@ -40,13 +58,25 @@ export default function WidgetsShowcaseSection({
     [showSectorEmbed, sectorSlug, lang],
   );
 
-  const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
+  const wLabels = tr.landing.widgetLabels;
   const allWidgets = useMemo(
     () => buildWidgetShowcaseItems(wLabels, sectorDemos),
     [wLabels, sectorDemos],
   );
   const row1 = allWidgets.slice(0, 4);
   const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
+
+  /* The seven, once each, in reading order. The marquee showed twenty-four
+     cards for these seven - three looped copies of each row, and the second
+     row re-added the first three to fill its width - so the same offer slid
+     past four times and no two use cases could be told apart. */
+  const rows = useMemo(
+    () =>
+      ROW_ORDER.map((kind) => allWidgets.find((w) => w.kind === kind)).filter(
+        (w): w is (typeof allWidgets)[number] => Boolean(w),
+      ),
+    [allWidgets],
+  );
 
   const renderCard = (item: (typeof allWidgets)[0], key: number) => {
     const rgb = item.rgb;
@@ -134,7 +164,10 @@ export default function WidgetsShowcaseSection({
       id="widgets-showcase"
       family="grey"
       tight={showSectorEmbed}
-      className="overflow-x-clip"
+      /* Only the marquee needs the clip - it runs a track wider than the
+         viewport on purpose. The rows fit their column, and clipping them
+         would cut a focus ring at the section edge. */
+      className={showSectorEmbed ? "overflow-x-clip" : undefined}
     >
       <SectionHead
         center
@@ -142,22 +175,55 @@ export default function WidgetsShowcaseSection({
         title={showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTitle : tr.landing.widgetsTitle}
         lead={showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedSub : tr.landing.widgetsSubtitle}
       />
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
-          {[0, 1, 2].map((seg) => (
-            <div key={seg} className="marquee-segment">
-              {row1.map((item, i) => renderCard(item, seg * 100 + i))}
-            </div>
-          ))}
-        </DraggableMarqueeRow>
-        <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
-          {[0, 1, 2].map((seg) => (
-            <div key={seg} className="marquee-segment">
-              {row2.map((item, i) => renderCard(item, seg * 100 + i))}
-            </div>
-          ))}
-        </DraggableMarqueeRow>
-      </div>
+      {/* The sector pages keep the marquee. It is compact, it is where the
+          sector-themed demo products earn their place, and seven full-width
+          rows on top of an already long sector page would bury the rest of
+          it. The home page is where a merchant is deciding what this is, so
+          the home page gets the rows. */}
+      {showSectorEmbed ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
+            {[0, 1, 2].map((seg) => (
+              <div key={seg} className="marquee-segment">
+                {row1.map((item, i) => renderCard(item, seg * 100 + i))}
+              </div>
+            ))}
+          </DraggableMarqueeRow>
+          <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
+            {[0, 1, 2].map((seg) => (
+              <div key={seg} className="marquee-segment">
+                {row2.map((item, i) => renderCard(item, seg * 100 + i))}
+              </div>
+            ))}
+          </DraggableMarqueeRow>
+        </div>
+      ) : (
+        <Shell>
+          <div className="ucrow-list">
+            {rows.map((item, i) => (
+              <UseCaseRow
+                key={item.kind}
+                title={item.label}
+                description={item.desc}
+                whenToUse={item.whenToUse}
+                goal={item.goal}
+                example={item.example}
+                note={item.note}
+                preview={item.widget}
+                reverse={i % 2 === 1}
+                href={KIND_TO_URL[item.kind]}
+                hrefLabel={tr.landing.widgetRowLink}
+                onNavigate={navigateTo}
+                labels={{
+                  whenToUse: tr.landing.widgetRowWhen,
+                  goal: tr.landing.widgetRowGoal,
+                  example: tr.landing.widgetRowExample,
+                }}
+              />
+            ))}
+          </div>
+        </Shell>
+      )}
     </DsSection>
   );
 }
