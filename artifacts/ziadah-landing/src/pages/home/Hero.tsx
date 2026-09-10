@@ -34,7 +34,7 @@ export function Hero() {
   const { ref, entered } = useEnterOnce<HTMLDivElement>();
 
   const lines = t({
-    ar: ["كل عميل", "يشوف", "اللي يناسبه"],
+    ar: ["كل عميل يشوف", "", "اللي يناسبه"],
     en: ["Every shopper", "sees what", "actually fits"],
   });
 
@@ -59,8 +59,8 @@ export function Hero() {
             })}
           </p>
           <h1 className="hero-home-title">
-            {lines.map((l) => (
-              <span key={l} className="hero-home-line">
+            {lines.map((l, i) => (
+              <span key={i} className="hero-home-line">
                 {l}
               </span>
             ))}

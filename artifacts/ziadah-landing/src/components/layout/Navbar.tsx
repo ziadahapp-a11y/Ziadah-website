@@ -474,6 +474,22 @@ export function Navbar() {
               <Globe className="w-4 h-4" aria-hidden="true" />
               {isAr ? "EN" : "ع"}
             </Button>
+            {/* The booking link sits beside the primary action rather than
+                inside it: a merchant who wants a walkthrough before signing up
+                should not have to open a menu to find one. Desktop only - the
+                mobile drawer already carries it. */}
+            <Button
+              as="a"
+              variant="tertiary"
+              className="btn-desktop-only"
+              href={MEETING_BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="nav-meeting"
+            >
+              <CalendarDays className="w-4 h-4" aria-hidden="true" />
+              {t("احجز اجتماع", "Book a meeting")}
+            </Button>
             <Button variant="primary" onClick={startNow} data-testid="nav-start">
               {tr.nav.startNow}
             </Button>
