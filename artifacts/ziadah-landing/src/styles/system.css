@@ -938,7 +938,8 @@ html.no-scroll { overflow: hidden; }
   color: var(--general-black);
   display: flex;
   flex-direction: column;
-  padding: var(--header-mobile) var(--page-padding-x) 3.2rem;
+  /* The top strip is a ROW now, not padding. See `.mob-close-bar`. */
+  padding: 0 var(--page-padding-x) 3.2rem;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
@@ -957,13 +958,42 @@ html.no-scroll .announce { display: none; }
    (`.is-mobile-nav-open .main_btn-download-wrapper { display: none }`) and keeps
    only the mark and the toggle. The CTA is in the panel foot. */
 html.no-scroll .header-actions .button { display: none; }
-/* MEASURED: the panel ground is light, so the reference forces the header ink
-   black while it is open (`.is-mobile-nav-open .main_sec-layer-logo svg { color:
-   var(--general-black) }`). Without this the theme probe keeps reading the dark
-   section BEHIND the panel and the close control is white on white - the only
-   way out of the panel, invisible. */
+/* The reference lets its header show through the open panel and uses the toggle
+   itself as the close control, forcing the header ink black so it stays legible
+   on the light panel ground. Ziadah cannot: `.mob-nav` sits at
+   `var(--z-dropdown)` and the header at 100, so the panel paints OVER the
+   toggle and `elementFromPoint` at its centre returns the panel. The toggle
+   still flips to `aria-expanded="true"` and an "close menu" label, and is still
+   unreachable. The panel carries its own close control instead - see
+   `.mob-close`. This rule stays for the ink of anything else that does show
+   through. */
 html.no-scroll .site-header,
 html.no-scroll .site-header[data-theme="dark"] { color: var(--general-black); }
+
+/* The panel's top strip. It is the height of the header it covers, so the rows
+   below start where they would have if the header were visible, and it holds
+   the only way out of the panel that is not Escape or a link. */
+.mob-close-bar {
+  flex: none;
+  height: var(--header-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.mob-close {
+  width: 4.3rem;
+  height: 4.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.mob-close svg { width: 2rem; height: 2rem; }
 @media screen and (min-width: 1025px) { .mob-nav { display: none; } }
 
 /* The drill-down track: levels park off-stage and the track clips them. */

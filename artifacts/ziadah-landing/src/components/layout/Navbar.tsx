@@ -16,6 +16,7 @@ import {
   Scale,
   Info,
   Youtube,
+  X,
 } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
@@ -523,6 +524,25 @@ export function Navbar() {
         ref={drawer.drawerRef as React.RefObject<HTMLDivElement>}
         aria-label={t("قائمة الجوال", "Mobile menu")}
       >
+        {/* The panel's own close control. The header's toggle already flips to
+            an X and a "close menu" label, but the panel paints over it - it is
+            at `var(--z-dropdown)` and the header is at 100 - so on a phone the
+            only ways out were Escape, which a touch user does not have, and
+            picking a link. This sits in the strip the panel leaves for the
+            header, which is where the toggle it replaces would have been. */}
+        <div className="mob-close-bar">
+          <button
+            type="button"
+            className="mob-close"
+            onClick={drawer.close}
+            aria-label={t("إغلاق القائمة", "Close menu")}
+            aria-controls="mobile-nav"
+            data-testid="nav-drawer-close"
+          >
+            <X aria-hidden="true" />
+          </button>
+        </div>
+
         <div className="mob-track">
           <nav
             className={`mob-level${drill ? " mob-level--out" : ""}`}

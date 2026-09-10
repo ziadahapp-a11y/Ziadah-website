@@ -3137,14 +3137,22 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 .mobile-top-bar{display:none;}
 .hero-mobile-logo{display:none;}
 
-/* ── NAV: شريط علوي + قائمة همبرغر — حتى 1024px (تابلت / نوافذ ضيقة) ── */
-@media(max-width:1024px){
-  .desktop-nav{display:none!important;}
-  .mobile-top-bar{display:flex!important;}
-  .mobile-nav{display:none!important;}
-  body{padding-top:calc(52px + env(safe-area-inset-top, 0px));padding-bottom:0;}
-  html{scroll-padding-top:calc(60px + env(safe-area-inset-top, 0px));}
-}
+/* ── ANCHOR OFFSET UNDER THE FIXED HEADER ──
+   WHAT THIS REPLACED. A block of the pre-W1.7 navbar: `.desktop-nav`,
+   `.mobile-top-bar` and `.mobile-nav` were hidden or shown here, and none of
+   the three is rendered any more. Those rules selected nothing, so they were
+   invisible - but the same block also carried
+   `body { padding-top: calc(52px + safe-area) }`, which is not class-scoped
+   and kept firing. It pushed every page down 52px under a TRANSPARENT fixed
+   header, so the white body showed through above the first band and the white
+   logo went white-on-white across its top half.
+
+   The header offset is the first section's job (`.page > section:first-of-type`
+   in sections.css), not the body's. What is left here is the one thing the
+   body cannot do for itself: land an anchor target below the header instead of
+   under it. It reads the real header height rather than the 60px guess it
+   used to carry, against a header measuring 83px. */
+html{scroll-padding-top:calc(var(--header-dynamic-height) + env(safe-area-inset-top, 0px));}
 
 /* Mobile hamburger panel rows */
 @keyframes slideDownPanel{
