@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const nasserProducts = [
-  { emoji: "🎧", name: "إير بودز برو", nameEn: "AirPods Pro", price: "249", reason: "أكملها مع آيفون 17", reasonEn: "Pairs with iPhone 17" },
+  { emoji: "🎧", name: "سماعات لاسلكية", nameEn: "Wireless earbuds", price: "249", reason: "أكملها مع هاتفه الجديد", reasonEn: "Pairs with his new phone" },
   { emoji: "💪", name: "بروتين رياضي", nameEn: "Sports Protein", price: "149", reason: "يناسب نمطه الرياضي", reasonEn: "Matches his sporty lifestyle" },
   { emoji: "⌚", name: "ساعة ذكية", nameEn: "Smart Watch", price: "399", reason: "تكمل ساعته القديمة", reasonEn: "Upgrades his old watch" },
   { emoji: "🎽", name: "تي شيرت برو", nameEn: "Pro T-Shirt", price: "89", reason: "اشترى نفس اللون قبلاً", reasonEn: "Bought same color before" },
@@ -22,7 +22,7 @@ const nasserProfile = {
   labelEn: "Returning Customer",
   tags: [
     { text: "ذكر", textEn: "Male", color: "#6366f1" },
-    { text: "آيفون 17", textEn: "iPhone 17", color: "#7c3aed" },
+    { text: "هاتف ذكي", textEn: "Smartphone", color: "#7c3aed" },
     { text: "رياضي", textEn: "Sporty", color: "#06b6d4" },
   ],
   stats: [
@@ -33,8 +33,8 @@ const nasserProfile = {
   ],
   payment: "يستخدم تابي",
   paymentEn: "Uses Tabby (BNPL)",
-  purchases: ["مطارة", "إير بودز", "شنطة", "كاب", "شماغ", "سبحة", "كريم وجه", "تي شيرت أسود", "عسل", "قهوة 250 ج", "خاتم", "ساعة"],
-  purchasesEn: ["Thermos", "AirPods", "Bag", "Cap", "Shemagh", "Prayer beads", "Face cream", "Black T-shirt", "Honey", "Ground coffee 250g", "Ring", "Watch"],
+  purchases: ["مطارة", "سماعات", "شنطة", "كاب", "شماغ", "سبحة", "كريم وجه", "تي شيرت أسود", "عسل", "قهوة 250 ج", "خاتم", "ساعة"],
+  purchasesEn: ["Thermos", "Earbuds", "Bag", "Cap", "Shemagh", "Prayer beads", "Face cream", "Black T-shirt", "Honey", "Ground coffee 250g", "Ring", "Watch"],
   color: "#6366f1",
   products: nasserProducts,
 };

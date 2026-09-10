@@ -664,7 +664,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         titleEn: "Game + digital add-on",
         contextAr: "بطاقة متجر ألعاب",
         contextEn: "Game store card",
-        main: { nameAr: "بطاقة PlayStation", nameEn: "PlayStation card", price: "100", emoji: "🎮" },
+        main: { nameAr: "بطاقة ألعاب رقمية", nameEn: "Digital gaming card", price: "100", emoji: "🎮" },
         suggested: [
           { nameAr: "اشتراك شهر إضافي", nameEn: "Extra month sub", price: "40", emoji: "➕" },
         ],

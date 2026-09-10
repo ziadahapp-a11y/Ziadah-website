@@ -48,7 +48,7 @@ const data: UseCasePageData = {
   exampleScenario: {
     title: "عميل اشترى هاتفاً جديداً",
     steps: [
-      "العميل أتم شراء هاتف Galaxy بسعر 1800 ر.س.",
+      "العميل أتم شراء هاتف ذكي بسعر 1800 ر.س.",
       "تظهر له صفحة شكر مخصصة من زيادة بدلاً من الصفحة الجامدة المعتادة.",
       "يظهر له: 'عملاء اشتروا هذا الهاتف أضافوا أيضاً → واقي شاشة + غلاف + سماعة بلوتوث بحزمة 280 ر.س'.",
       "يظهر أيضاً كوبون 15% خصم لأي طلب خلال 48 ساعة القادمة.",
@@ -104,7 +104,7 @@ const data: UseCasePageData = {
   exampleScenarioEn: {
     title: "A customer who bought a new phone",
     steps: [
-      "The customer completed a Galaxy phone purchase at 1,800 SAR.",
+      "The customer completed a smartphone purchase at 1,800 SAR.",
       "A personalized thank you page from Ziadah appears instead of the usual static page.",
       "Shown: 'Customers who bought this phone also added → screen protector + case + Bluetooth earbuds as a bundle for 280 SAR'.",
       "Also shown: a 15% coupon for any order within the next 48 hours.",

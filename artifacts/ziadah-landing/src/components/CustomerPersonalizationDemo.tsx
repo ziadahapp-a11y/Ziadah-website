@@ -13,7 +13,7 @@ const nouraItems = [
 ];
 
 const nasserItems = [
-  { name: "إير بودز برو", reason: "أكملها مع آيفون 17", price: 249 },
+  { name: "سماعات لاسلكية", reason: "أكملها مع هاتفه الجديد", price: 249 },
   { name: "بروتين رياضي", reason: "يناسب نمطه الرياضي", price: 149 },
   { name: "ساعة ذكية", reason: "تكمل ساعته القديمة", price: 399 },
   { name: "تي شيرت برو", reason: "اشترى نفس اللون قبلاً", price: 89 },

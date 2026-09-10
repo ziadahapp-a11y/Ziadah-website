@@ -307,7 +307,7 @@ export const landingUseCaseScenarios: LandingUseCaseScenario[] = [
     steps: [
       "نورة دخلت من إعلان رمضان على تجميل: المحرك يرفع أوزان العطور والهدايا الموسمية ويخفّض إلكترونيات الرياضة.",
       "تمرّرت طويلاً على كريمات البشرة وكبّرت صورة طقم عناية — تُسجَّل كإشارات نية قوية قبل الشراء.",
-      "ناصر زار من بحث عن «آيفون»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
+      "ناصر زار من بحث عن «هاتف ذكي»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
       "لناصر تظهر إكمالات تقنية ولياقة؛ لنورة تظهر عطور رمضان وبخور يكمّل سلّة العناية — من نفس المحرك، بمنطق مختلف.",
     ],
     result: "في deployments مشابهة: ارتفع متوسط قيمة الطلب بين 18% و34% في أول ستة أسابيع، ووصل معدل التحويل إلى ضعف أو ثلاثة أضعاف في فئات مختارة — دون ساعات إعداد أسبوعية من التاجر.",
@@ -317,7 +317,7 @@ export const landingUseCaseScenarios: LandingUseCaseScenario[] = [
     steps: [
       "Noura arrived from a Ramadan beauty ad: the engine raises weights for seasonal perfumes and gifts and de-emphasizes sports electronics.",
       "She lingered on skincare creams and zoomed a care set — logged as strong pre-purchase intent signals.",
-      "Nasser came from an iPhone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
+      "Nasser came from a smartphone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
       "Nasser sees tech and fitness complements; Noura sees Ramadan scents and incense that complete a care basket — same engine, different logic.",
     ],
     result: "In comparable deployments: AOV rose between 18% and 34% in the first six weeks, and conversion reached 2–3× in selected categories — without weekly manual setup from the merchant.",
@@ -607,7 +607,7 @@ export const landingUseCaseScenarios: LandingUseCaseScenario[] = [
     scenario: {
     title: "عميل اشترى هاتفاً جديداً",
     steps: [
-      "العميل أتم شراء هاتف Galaxy بسعر 1800 ر.س.",
+      "العميل أتم شراء هاتف ذكي بسعر 1800 ر.س.",
       "تظهر له صفحة شكر مخصصة من زيادة بدلاً من الصفحة الجامدة المعتادة.",
       "يظهر له: 'عملاء اشتروا هذا الهاتف أضافوا أيضاً → واقي شاشة + غلاف + سماعة بلوتوث بحزمة 280 ر.س'.",
       "يظهر أيضاً كوبون 15% خصم لأي طلب خلال 48 ساعة القادمة.",
@@ -617,7 +617,7 @@ export const landingUseCaseScenarios: LandingUseCaseScenario[] = [
     scenarioEn: {
     title: "A customer who bought a new phone",
     steps: [
-      "The customer completed a Galaxy phone purchase at 1,800 SAR.",
+      "The customer completed a smartphone purchase at 1,800 SAR.",
       "A personalized thank you page from Ziadah appears instead of the usual static page.",
       "Shown: 'Customers who bought this phone also added → screen protector + case + Bluetooth earbuds as a bundle for 280 SAR'.",
       "Also shown: a 15% coupon for any order within the next 48 hours.",

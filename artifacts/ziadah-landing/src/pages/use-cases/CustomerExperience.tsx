@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     steps: [
       "نورة دخلت من إعلان رمضان على تجميل: المحرك يرفع أوزان العطور والهدايا الموسمية ويخفّض إلكترونيات الرياضة.",
       "تمرّرت طويلاً على كريمات البشرة وكبّرت صورة طقم عناية — تُسجَّل كإشارات نية قوية قبل الشراء.",
-      "ناصر زار من بحث عن «آيفون»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
+      "ناصر زار من بحث عن «هاتف ذكي»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
       "لناصر تظهر إكمالات تقنية ولياقة؛ لنورة تظهر عطور رمضان وبخور يكمّل سلّة العناية — من نفس المحرك، بمنطق مختلف.",
     ],
     result: "في deployments مشابهة: ارتفع متوسط قيمة الطلب بين 18% و34% في أول ستة أسابيع، ووصل معدل التحويل إلى ضعف أو ثلاثة أضعاف في فئات مختارة — دون ساعات إعداد أسبوعية من التاجر.",
@@ -230,7 +230,7 @@ const data: UseCasePageData = {
     steps: [
       "Noura arrived from a Ramadan beauty ad: the engine raises weights for seasonal perfumes and gifts and de-emphasizes sports electronics.",
       "She lingered on skincare creams and zoomed a care set — logged as strong pre-purchase intent signals.",
-      "Nasser came from an iPhone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
+      "Nasser came from a smartphone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
       "Nasser sees tech and fitness complements; Noura sees Ramadan scents and incense that complete a care basket — same engine, different logic.",
     ],
     result: "In comparable deployments: AOV rose between 18% and 34% in the first six weeks, and conversion reached 2–3× in selected categories — without weekly manual setup from the merchant.",
