@@ -109,7 +109,7 @@
 /* ---------- heading variant ------------------------------------------ */
 .bcard--heading {
   justify-content: space-between;
-  gap: 2.4rem;
+  gap: 1.4rem;
   padding: 3.2rem;
 }
 @media screen and (max-width: 767px) { .bcard--heading { padding: 2.4rem; } }
@@ -178,6 +178,9 @@
   padding: 2.8rem 3.2rem 3.2rem;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-evenly;
   gap: 0.8rem;
 }
 @media screen and (max-width: 767px) { .bcard-caption { padding: 2.4rem; } }
@@ -190,7 +193,8 @@
    evidence. The head is a two-column block at >=1025 so the display line and
    its lede sit side by side rather than stacking into a tall wall of type. */
 .bhead {
-  display: grid;
+  display: block;
+  text-align: center;
   gap: 2.4rem 6.4rem;
   margin-block-end: 4.8rem;
   align-items: end;
@@ -212,8 +216,7 @@
 .bhead-lede {
   font-size: 1.8rem;
   line-height: 1.7;
-  margin: 0;
-  max-width: 52rem;
+  margin: 17px;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(76%, var(--ink-floor, 0%)), transparent);
 }
 @media screen and (max-width: 767px) { .bhead-lede { font-size: 1.6rem; } }
@@ -536,6 +539,7 @@ html[data-motion-ready] .bstrip[data-revealed] .bcard {
   align-items: center;
   gap: 0.8rem;
   margin: 0;
+  padding-top: 70px;
   font-size: 1.4rem;
   font-weight: 500;
   color: color-mix(in srgb, var(--color-secondary) max(78%, var(--ink-floor, 0%)), transparent);
