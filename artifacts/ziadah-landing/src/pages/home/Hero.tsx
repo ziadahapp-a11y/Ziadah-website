@@ -73,7 +73,7 @@ export function Hero() {
           </p>
           <div className="hero-home-actions">
             <Button as={Link} href="/features" variant="secondary" size="lg" data-testid="hero-features">
-              {t({ ar: "شوف الودجتات", en: "See the widgets" })}
+              {t({ ar: "شوف حالات الاستخدام", en: "See the use cases" })}
             </Button>
             <Button as={Link} href="/calculator" variant="tertiary" size="lg" data-testid="hero-calculator">
               {t({ ar: "احسب أثرها على متجرك", en: "Calculate the impact" })}

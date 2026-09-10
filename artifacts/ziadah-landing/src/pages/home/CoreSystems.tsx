@@ -138,7 +138,7 @@ export function CoreSystems() {
 
         <div className="bsection-foot">
           <Button as={Link} href="/features" variant="primary" size="lg" data-testid="systems-all-features">
-            {t({ ar: "شوف كل الودجتات والمميزات", en: "See every widget and feature" })}
+            {t({ ar: "شوف كل حالات الاستخدام والمميزات", en: "See every use case and feature" })}
           </Button>
         </div>
       </div>

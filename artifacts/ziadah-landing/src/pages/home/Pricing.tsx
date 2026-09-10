@@ -35,7 +35,7 @@ export function Pricing({ onActivate }: { onActivate?: () => void }) {
 
   const planFeatures = [
     t({ ar: "اقتراحات ومبيعات غير محدودة", en: "Unlimited suggestions & sales" }),
-    t({ ar: "كل الودجتات وأماكن العرض", en: "All widgets & placements" }),
+    t({ ar: "كل حالات الاستخدام وأماكن العرض", en: "All use cases & placements" }),
     t({ ar: "تجربة مجانية 7 أيام", en: "7-day free trial" }),
     t({ ar: "دعم عربي ولوحة بالعربي", en: "Arabic support & dashboard" }),
   ];
