@@ -1339,11 +1339,6 @@ h2.st{font-size:var(--type-h2,clamp(30px,3.5vw,44px));font-weight:600;letter-spa
       0 0 40px color-mix(in srgb,var(--bg-section-alt) 55%,transparent),
       0 0 18px color-mix(in srgb,#fafafb 42%,transparent);
   }
-  .hero.hero-v2 .hero-grid > .hero-in.hero-copy-inner .hero-mobile-logo{
-    filter:drop-shadow(0 0 36px color-mix(in srgb,var(--bg-section-alt) 70%,transparent))
-      drop-shadow(0 0 14px color-mix(in srgb,#fafafb 45%,transparent));
-    opacity:0.96;
-  }
 }
 /* فوق طبقة hero-carousel-marquee-wrap::before (z-index:2) */
 @media (min-width: 961px){
@@ -3085,58 +3080,9 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .uc-what-card{padding:var(--card-pad-lg)!important;}
 }
 .nav-cta-outline{background:unset!important;background-color:unset!important;border:none!important;color:var(--tm)!important;border-radius:10px!important;font-size:12px!important;white-space:nowrap;padding:5px 10px!important;transition:background-color var(--duration-fast,160ms) var(--ease-standard),color var(--duration-fast,160ms) var(--ease-standard)!important;}
-.nav-ctas > button.nav-cta-outline{margin:5px 10px!important;}
 .nav-cta-outline:hover{background:var(--s2)!important;background-color:var(--s2)!important;color:var(--text-primary)!important;}
 .nav-cta-fill{background:#7c3aed!important;border:1px solid rgba(124, 58, 237,.4)!important;color:#fff!important;border-radius:10px!important;font-size:12px!important;font-weight:700!important;white-space:nowrap;padding:5px 10px!important;box-shadow:0 2px 16px rgba(124, 58, 237,.3);transition:background-color var(--duration-fast,160ms) var(--ease-standard),transform var(--duration-instant,80ms) var(--ease-standard),box-shadow var(--duration-fast,160ms) var(--ease-standard)!important;}
 .nav-cta-fill:hover{background:#6d28d9!important;transform:translateY(-1px);box-shadow:0 4px 24px rgba(124, 58, 237,.45)!important;}
-/* PageTransition يضع pointer-events:none على الغلاف أثناء الأنيميشن — يجب إعادة التفعيل للتنقل */
-.desktop-nav,
-.mobile-nav,
-.mobile-top-bar{
-  pointer-events:auto;
-}
-.mobile-nav{display:none;}
-/* Desktop nav: flex container, full viewport width (no 1200px cap) */
-.desktop-nav{
-  display:flex;
-  flex-direction:column;
-  max-width:none;
-  width:100%;
-  box-sizing:border-box;
-}
-/* Desktop nav: inline list items flex-centered (matches design preview) */
-.nav-links-inline>li{display:flex;justify-content:center;align-items:center;}
-
-@keyframes slideUpDropdown{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes megaMenuIn{
-  from{opacity:0;transform:translateX(-50%) translateY(10px) scale(.98);}
-  to{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
-}
-
-/* Use cases mega menu — always one row of 5 columns */
-.use-cases-mega-menu{
-  display:grid;
-  gap:10px 12px;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-}
-.use-cases-mega-menu .use-cases-mega-menu__col{
-  min-width:0;
-}
-
-/* ── MEDIUM DESKTOP NAV (1025-1280px): compact single-row ── */
-@media(min-width:1025px) and (max-width:1280px){
-  .desktop-nav{padding:0 14px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:100%!important;}
-  .nav-links-inline li button,.nav-links-inline li span{font-size:12.5px!important;padding:6px 10px!important;}
-  .nav-ctas a{font-size:12px!important;padding:7px 13px!important;}
-  .nav-top-row{height:52px!important;}
-}
-
-.mobile-top-bar{display:none;}
-.hero-mobile-logo{display:none;}
-
 /* ── ANCHOR OFFSET UNDER THE FIXED HEADER ──
    WHAT THIS REPLACED. A block of the pre-W1.7 navbar: `.desktop-nav`,
    `.mobile-top-bar` and `.mobile-nav` were hidden or shown here, and none of
@@ -3153,21 +3099,6 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
    under it. It reads the real header height rather than the 60px guess it
    used to carry, against a header measuring 83px. */
 html{scroll-padding-top:calc(var(--header-dynamic-height) + env(safe-area-inset-top, 0px));}
-
-/* Mobile hamburger panel rows */
-@keyframes slideDownPanel{
-  from{opacity:0;transform:translateY(-8px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.mobile-menu-panel .mnav-row{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  width:100%;padding:13px 14px;border-radius:12px;
-  background:transparent;border:none;cursor:pointer;text-align:start;
-  color:var(--t);font-family:var(--font);font-size:15px;font-weight:600;
-}
-.mobile-menu-panel .mnav-row:active{background:rgba(124,58,237,.10);}
-.mnav-chev{transition:transform .2s;flex-shrink:0;color:#a1a1aa;}
-.mnav-chev.open{transform:rotate(180deg);}
 
 @media(max-width:768px){
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}

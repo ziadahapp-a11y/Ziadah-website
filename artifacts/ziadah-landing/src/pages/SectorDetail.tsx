@@ -17,8 +17,6 @@ import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { navigateTo } from "@/components/PageTransition";
-import LandingSolutionsMatrix from "@/components/LandingSolutionsMatrix";
-import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorHubPlaybook from "@/components/SectorHubPlaybook";
 import SectorPageRichSections from "@/components/SectorPageRichSections";
@@ -320,13 +318,14 @@ export default function SectorDetail() {
           </SectionBlock>
           ) : null}
 
+          {/* `showPlatformHub` is true only for `delivery-apps` and
+              `ecommerce-platforms`, and `sectorVisuals.ts` carries a bundle for
+              both, so the fallback that used to sit here -
+              `showPlatformHub && !visualBundle` - could never be true. It
+              rendered `LandingSolutionsMatrix` and the widget marquee on zero
+              routes. Both are gone; the playbook below is what these two
+              sectors have always actually shown. */}
           {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
-          {showPlatformHub && !visualBundle && !(htmlPlaybook && SECTOR_SLUGS_WITH_PLATFORM_HUB.has(sector.slug)) ? (
-            <>
-              <LandingSolutionsMatrix variant="sector" />
-              <WidgetsShowcaseSection variant="sector" sectorSlug={sector.slug} />
-            </>
-          ) : null}
 
           {!showPlatformHub && visualBundle ? (
             <div
