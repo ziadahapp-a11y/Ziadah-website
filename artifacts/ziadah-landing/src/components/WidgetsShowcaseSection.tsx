@@ -50,7 +50,10 @@ export default function WidgetsShowcaseSection() {
   const tr = t[lang];
 
   const wLabels = tr.landing.widgetLabels;
-  const allWidgets = useMemo(() => buildWidgetShowcaseItems(wLabels), [wLabels]);
+  /* GRID, not the list the kit defaults to. The rows give a preview a whole
+     column, and two products side by side fill it where a stack of full-width
+     rows leaves the card tall and half empty. */
+  const allWidgets = useMemo(() => buildWidgetShowcaseItems(wLabels, undefined, "grid"), [wLabels]);
 
   /* The seven, once each, in reading order. The marquee showed twenty-four
      cards for these seven - three looped copies of each row, and the second
