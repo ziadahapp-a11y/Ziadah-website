@@ -28,8 +28,8 @@ export const electronicsRich: SectorPageRich = {
     {
       titleAr: "منظومة الجهاز",
       titleEn: "Device ecosystem",
-      descAr: "Apple أو غيره — التوصية تحترم الموديل.",
-      descEn: "Apple or else — suggestions respect the model.",
+      descAr: "أي نظام تشغيل — التوصية تحترم الموديل.",
+      descEn: "Any platform — suggestions respect the model.",
     },
     {
       titleAr: "ترقية بالمواصفات",
@@ -77,11 +77,11 @@ export const electronicsRich: SectorPageRich = {
   heroSubAr: "زيادة يربط كل جهاز بملحقاته الدقيقة ويعرض الترقية بفارق سعر منطقي وتبرير واضح",
   heroSubEn: "Ziadah links every device to its precise accessories and shows upgrades with a rational price gap",
   phoneOrders: [
-    { ar: "📱 iPhone 15 Pro 4299ر.س", en: "📱 iPhone 15 Pro — 4,299 SAR" },
-    { ar: "💻 MacBook Air M3 5499ر.س", en: "💻 MacBook Air M3 — 5,499 SAR" },
+    { ar: "📱 هاتف ذكي رائد 4299ر.س", en: "📱 Flagship smartphone — 4,299 SAR" },
+    { ar: "💻 لابتوب نحيف 13 بوصة 5499ر.س", en: "💻 Thin 13-inch laptop — 5,499 SAR" },
   ],
   phoneRecs: [
-    { ar: "🎧 AirPods Pro 699ر.س", en: "🎧 AirPods Pro — 699 SAR" },
+    { ar: "🎧 سماعات لاسلكية بعزل ضوضاء 699ر.س", en: "🎧 Noise-cancelling earbuds — 699 SAR" },
     { ar: "🛡️ كفر مغناطيسي 89ر.س", en: "🛡️ MagSafe case — 89 SAR" },
   ],
   audienceOwnerAr: "للمتجر: تقليل الإرجاع بتوافق SKU/MODEL ورفع الهامش بالـ Bundle الإنتاجية.",
@@ -96,11 +96,11 @@ export const electronicsRich: SectorPageRich = {
     { emoji: "🚚", textAr: "يغلق فجوة الشحن المجاني بملحقات صغيرة ذات قيمة.", textEn: "Closes free-shipping gaps with small, useful add-ons." },
     { emoji: "📊", textAr: "تقارير تبين أي Bundle وأي Upsell يتحول أكثر لكل فئة جهاز.", textEn: "Reports on bundle and upsell performance by device family." },
   ],
-  aiProfileTagsAr: "ذكر • 25-40 | الرياض | نظام Apple | إنتاجية | مستعد للترقية",
-  aiProfileTagsEn: "Male • 25–40 | Riyadh | Apple ecosystem | Productivity | Upgrade-ready",
-  aiRecsAr: ["🎧 AirPods Pro — متوافق 100% مع الجهاز 97%", "💼 حقيبة MacBook — الأكثر شراء مع هذا الجهاز 92%", "⌚ Apple Watch — من نفس المنظومة 85%"],
-  aiRecsEn: ["🎧 AirPods Pro — 100% device match 97%", "💼 MacBook bag — top co-buy 92%", "⌚ Apple Watch — same ecosystem 85%"],
-  aiSignalsAr: ["📱 الجهاز المشاهد (موديل، مواصفات، سنة)", "🔗 المنظومة (Apple/Samsung/Windows)", "💰 النطاق السعري (جاهز للترقية؟)", "🛒 الملحقات المضافة سابقاً"],
+  aiProfileTagsAr: "ذكر • 25-40 | الرياض | منظومة واحدة | إنتاجية | مستعد للترقية",
+  aiProfileTagsEn: "Male • 25–40 | Riyadh | Single ecosystem | Productivity | Upgrade-ready",
+  aiRecsAr: ["🎧 سماعات لاسلكية — متوافق 100% مع الجهاز 97%", "💼 حقيبة لابتوب — الأكثر شراء مع هذا الجهاز 92%", "⌚ ساعة ذكية — من نفس المنظومة 85%"],
+  aiRecsEn: ["🎧 Wireless earbuds — 100% device match 97%", "💼 Laptop bag — top co-buy 92%", "⌚ Smart watch — same ecosystem 85%"],
+  aiSignalsAr: ["📱 الجهاز المشاهد (موديل، مواصفات، سنة)", "🔗 المنظومة (نظام التشغيل)", "💰 النطاق السعري (جاهز للترقية؟)", "🛒 الملحقات المضافة سابقاً"],
   aiSignalsEn: ["📱 Device viewed (model, specs, year)", "🔗 Ecosystem", "💰 Price readiness for upgrade", "🛒 Prior accessories"],
   analyticLinesAr: [
     "معدل إرفاق الملحقات لكل موديل.",
@@ -123,7 +123,7 @@ export const electronicsRich: SectorPageRich = {
     { ar: "استرداد 28%", en: "28% rescue" },
   ],
   featureHowAr: [
-    "هاتف Apple → AirPods + Apple Watch من نفس المنظومة",
+    "هاتف ذكي → سماعات لاسلكية + ساعة ذكية من نفس المنظومة",
     "هاتف 256GB → 512GB \"+200ر.س لضعف التخزين\" — مبرر بالمواصفات",
     "إضافة لابتوب → حقيبة + ماوس + واقي شاشة يظهرون فوراً",
     "لابتوب + شاشة خارجية + ماوس — Bundle إنتاجية كاملة",
@@ -136,7 +136,7 @@ export const electronicsRich: SectorPageRich = {
     "توصيات مبنية على المنظومة والموديل والنطاق السعري",
   ],
   featureHowEn: [
-    "iPhone → AirPods + Watch same ecosystem",
+    "Smartphone → earbuds + watch, same ecosystem",
     "256GB → 512GB “+200 SAR for 2× storage” — spec-led",
     "Laptop add → bag + mouse + screen protector",
     "Laptop + external monitor + mouse bundle",

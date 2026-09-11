@@ -2,7 +2,7 @@
  * ZIADAH — LEGACY token bridge (do not extend).
  *
  * This is NOT a second design system. The single design system is TrackFlow
- * (see src/components/trackflow/DESIGN_SYSTEM.md). This file only keeps the old
+ * (see the deleted `trackflow` module's DESIGN_SYSTEM.md). This file only keeps the old
  * .gc/.btn-p/landing-* CSS alive while it is phased out, and its brand tokens
  * have been re-pointed to the one violet brand color (--brand: #7c3aed).
  *
@@ -144,12 +144,16 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SECTION G — DARK THEME (default)
-   All values identical to previous file. No hex/rgba changed.
-   New semantic tokens added as aliases below each group.
+   SECTION G — THE PALETTE
+
+   This block used to be titled "DARK THEME (default)" and to answer to
+   `[data-theme="dark"]` as well as `:root`. Both were wrong: the values below
+   are a white page with near-black text, and nothing ever set that attribute
+   to anything but "dark", so the alias only ever duplicated `:root`. The site
+   has one palette and inverts per SECTION, through the design system's colour
+   triple, not per document.
    ═══════════════════════════════════════════════════════════════ */
-:root,
-[data-theme="dark"] {
+:root {
 
   /* ── Page backgrounds ──
      Adstellar-inspired light SaaS: pure white page, faint zinc-50 alt bands. */

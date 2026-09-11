@@ -7,6 +7,8 @@ import CouponWidget from "@/components/widgets/CouponWidget";
 import FreeShippingThresholdWidget from "@/components/widgets/FreeShippingThresholdWidget";
 import ProductSwapWidget from "@/components/widgets/ProductSwapWidget";
 import type { SectorShowcaseDemoBundle } from "@/data/sectorWidgetShowcaseDemos";
+import type { ProductShape } from "@/components/widgets/kit";
+import type { WidgetLabel } from "@/i18n/translations";
 
 export type WidgetShowcaseKind =
   | "volume"
@@ -17,10 +19,8 @@ export type WidgetShowcaseKind =
   | "shipping"
   | "swap";
 
-export type WidgetShowcaseItemData = {
+export type WidgetShowcaseItemData = WidgetLabel & {
   icon: string;
-  label: string;
-  desc: string;
   widget: ReactNode;
   rgb: string;
   /** يحدد شكل البطاقة (رأس + إيقاع) — يطابق ترتيب الويدجت في القالب */
@@ -41,28 +41,46 @@ const WIDGET_KINDS: WidgetShowcaseKind[] = [
   "swap",
 ];
 
-function widgetElements(demos?: SectorShowcaseDemoBundle) {
+/** The kinds that HAVE a product collection, and so can take a shape.
+    Quantity is a ladder of tiers and the coupon is an amount and a code;
+    neither has products to lay out, in the Figma file or here. */
+export const SHAPED_KINDS: ReadonlySet<WidgetShowcaseKind> = new Set([
+  "related",
+  "addons",
+  "bundle",
+  "shipping",
+  "swap",
+]);
+
+/** Resolves the shape for one kind. The caller decides; the default is the
+    file's list. */
+export type ShapeFor = (kind: WidgetShowcaseKind) => ProductShape;
+
+function widgetElements(demos?: SectorShowcaseDemoBundle, shapeFor: ShapeFor = () => "list") {
   return [
     <BuyMoreSaveMoreWidget key="bmsm" demo={demos?.buyMoreSaveMore} />,
-    <BuyTogetherWidget key="bt" demo={demos?.buyTogether} />,
-    <AddonsWidget key="ad" demo={demos?.addons} />,
-    <RelatedProductsWidget key="rp" demo={demos?.relatedProducts} />,
+    <BuyTogetherWidget key="bt" demo={demos?.buyTogether} shape={shapeFor("bundle")} />,
+    <AddonsWidget key="ad" demo={demos?.addons} shape={shapeFor("addons")} />,
+    <RelatedProductsWidget key="rp" demo={demos?.relatedProducts} shape={shapeFor("related")} />,
     <CouponWidget key="cp" demo={demos?.coupon} />,
-    <FreeShippingThresholdWidget key="fs" demo={demos?.freeShipping} />,
-    <ProductSwapWidget key="ps" demo={demos?.productSwap} />,
+    <FreeShippingThresholdWidget key="fs" demo={demos?.freeShipping} shape={shapeFor("shipping")} />,
+    <ProductSwapWidget key="ps" demo={demos?.productSwap} shape={shapeFor("swap")} />,
   ];
 }
 
 /** نفس عناصر قسم #widgets-showcase — للصفحة الرئيسية أو صفحة القطاع (مع عيّنات القطاع). */
 export function buildWidgetShowcaseItems(
-  widgetLabels: { label: string; desc: string }[],
+  widgetLabels: WidgetLabel[],
   sectorDemos?: SectorShowcaseDemoBundle,
+  shapeFor?: ShapeFor,
 ): WidgetShowcaseItemData[] {
-  const els = widgetElements(sectorDemos);
+  const els = widgetElements(sectorDemos, shapeFor);
+  /* The whole label is spread, not just `label` and `desc`: the home page's
+     use-case rows read `whenToUse`, `goal`, `example` and `note` off the same
+     item the marquee card reads its caption off, so the two never drift. */
   return widgetLabels.map((wl, idx) => ({
+    ...wl,
     icon: WIDGET_ICONS[idx] ?? "📦",
-    label: wl.label,
-    desc: wl.desc,
     widget: els[idx],
     rgb: WIDGET_RGBS[idx] ?? WIDGET_RGBS[0]!,
     kind: WIDGET_KINDS[idx % WIDGET_KINDS.length]!,

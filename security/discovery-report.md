@@ -3,6 +3,13 @@
 Date: 2026-03-27  
 Scope: Full workspace discovery pass before hardening changes.
 
+> **Note added after the fact.** The CMS this audit hardened has since been
+> removed: `artifacts/ziadah-landing/src/cms/`, the `/api/cms/*` routes, their
+> JWT and cookie session, the media upload path and the `cms_*` tables are all
+> gone, along with the Analyze store-analysis surface. Findings below that name
+> those files are a record of what was fixed at the time, not a description of
+> code that still exists.
+
 ## 1) Frontend structure (React)
 
 Primary frontend app: `artifacts/ziadah-landing`

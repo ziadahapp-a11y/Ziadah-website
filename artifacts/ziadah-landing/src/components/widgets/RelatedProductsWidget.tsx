@@ -1,85 +1,96 @@
 import { useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { RelatedProductsDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import {
+  WidgetShell,
+  ProductCollection,
+  ProductCard,
+  WidgetButton,
+  StatCard,
+  CartCheckoutRow,
+  DismissRow,
+  type ProductShape,
+  type CampaignStyle,
+} from "./kit";
 
-export default function RelatedProductsWidget({ demo }: { demo?: RelatedProductsDemo }) {
-  const t = useSiteT();
+/**
+ * "منتجات ذات صلة" as a storefront actually renders it: a heading, a short
+ * list of products separated by hairlines, and ONE add-to-cart underneath.
+ *
+ * It used to be two lavender boxes with lavender borders, each holding a name,
+ * an amber rating and a price all at 12px, over a full-width pale-violet ghost
+ * button repeated per product. The rating is gone with the rest of them - it
+ * was invented, and every product in the demo data carried a 4.6-plus score.
+ */
+export default function RelatedProductsWidget({
+  demo,
+  shape = "list",
+  style = "embedded",
+}: {
+  demo?: RelatedProductsDemo;
+  /** Which of the file's three product shapes to render in. */
+  shape?: ProductShape;
+  style?: CampaignStyle;
+}) {
+  const t = siteTranslations;
   const { lang } = useLanguage();
+  const isAr = lang === "ar";
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.relatedProducts, demo),
     [t, lang, demo],
   );
+  const currency = tr.currency.trim();
 
+  /* The file's sheet closes on three rows: what the cart stands at, the way
+     out, and the opt-out. They are the same three on every product type, so
+     they are built here once and passed as the shell's footer. */
   return (
-    <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "relatedProducts", "title")} label="Related products title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "relatedProducts", "subtitle")} label="Related products subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
+    <WidgetShell
+      title={tr.title}
+      subtitle={tr.subtitle}
+      style={style}
+      dismissible={style !== "embedded"}
+      footer={
+        <>
+          <WidgetButton block>{tr.btnAdd}</WidgetButton>
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${"1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <div style={{ marginBottom: 10 }}>
-        <div
-          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[5px] text-[12px]">{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {tr.products.map((p, i) => (
-            <div key={i} style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              padding: "10px",
-              borderRadius: 12,
-              background: "var(--s1)",
-              border: "1.5px solid var(--b1)",
-            }}>
-              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                <div style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 10,
-                  background: "rgba(124, 58, 237,.15)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 20,
-                  flexShrink: 0,
-                }}>{p.emoji}</div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)", lineHeight: 1.3 }}>{p.name}</div>
-                  <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 1 }}>{p.reviews}</div>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc", marginTop: 2 }}>{tr.currency}{p.price}</div>
-                </div>
-              </div>
-              <button style={{
-                width: "100%",
-                padding: "7px 12px",
-                borderRadius: 10,
-                background: "rgba(124, 58, 237,0.12)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                color: "#c084fc",
-                fontSize: 12,
-                fontWeight: 800,
-                border: "1px solid rgba(124, 58, 237,0.2)",
-                cursor: "pointer",
-              }} className="widget-btn-sm">
-                {tr.btnAdd}
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </UseCaseWidgetPreview>
+      <StatCard
+        value={`250 ${currency}`}
+        label={isAr ? "رصيد التوفير" : "Pricing balance"}
+        benefits={[
+          isAr ? "شحن مجاني" : "Free shipping",
+          isAr ? "الدفع عند الاستلام" : "Cash on delivery",
+        ]}
+      />
+      <ProductCollection shape={shape}>
+        {tr.products.map((p, i) => (
+          <ProductCard
+            key={i}
+            name={p.name}
+            price={p.price}
+            currency={currency}
+            tag={tr.descLabel}
+            rating="4.95"
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            discount={i === 0 ? ("50%") : undefined}
+            favourite={shape !== "list"}
+            action={<WidgetButton block>{isAr ? "أضف" : "Add"}</WidgetButton>}
+          />
+        ))}
+      </ProductCollection>
+    </WidgetShell>
   );
 }

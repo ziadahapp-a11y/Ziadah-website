@@ -1,13 +1,12 @@
 import { useState, type CSSProperties } from "react";
-import PageShell from "../components/PageShell";
+import { LegalPage } from "@/sections";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import SEO from "../components/SEO";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
-import { Eyebrow } from "@/components/trackflow";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const SUPPORT_EMAIL = "support@ziadah.app";
 
@@ -113,14 +112,9 @@ const sections: { ar: Section[]; en: Section[] } = {
   ],
 };
 
-const gridStyle: CSSProperties = {
-  backgroundImage:
-    "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-  backgroundSize: "48px 48px",
-};
 
 export default function DataDeletion() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang];
   const pc = tr.pageClosingCta;
@@ -149,65 +143,18 @@ export default function DataDeletion() {
           { name: isEn ? "Data Deletion" : "حذف البيانات", url: "/data-deletion" },
         ]}
       />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "#09090b" }}>
-        {/* HERO */}
-        <section dir={dir} className="relative pt-24 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl text-center">
-            <div className="mb-4">
-              <Eyebrow>{isEn ? "Legal" : "قانوني"}</Eyebrow>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-4 leading-[1.08]">
-              {tr.legalPages.dataDeletionH1}
-            </h1>
-            <p className="text-sm text-zinc-500 num-ltr">
-              {isEn ? "Last updated: 2026" : "آخر تحديث: 2026"}
-            </p>
-          </div>
-        </section>
-
-        {/* DOCUMENT */}
-        <section dir={dir} className="py-24 px-4 bg-white">
-          <div className="container mx-auto max-w-3xl">
-            {/* Intro */}
-            <p className="text-base text-zinc-700 leading-relaxed mb-12">{introText}</p>
-
-            {/* How to request deletion — highlighted steps */}
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 md:p-8 mb-12">
-              <h2 className="text-xl md:text-2xl font-bold text-zinc-950 mb-6 leading-snug">
-                {isEn ? "How to request deletion" : "كيف تطلب حذف بياناتك"}
-              </h2>
-              <div className="flex flex-col gap-6">
-                {methodList.map((m, i) => (
-                  <div key={i}>
-                    <h3 className="text-base md:text-lg font-bold text-zinc-900 mb-2">{m.title}</h3>
-                    <p className="text-base text-zinc-700 leading-relaxed">{m.body}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Detail sections */}
-            <div className="flex flex-col gap-12">
-              {content.map((s, i) => (
-                <div key={i}>
-                  <h2 className="text-xl md:text-2xl font-bold text-zinc-950 mb-3 leading-snug">
-                    {s.title}
-                  </h2>
-                  <p className="text-base text-zinc-700 leading-relaxed">{s.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <PageClosingCta
-          title={pc.legalTitle}
-          description={pc.legalDesc}
-          buttonLabel={ld.ctaBtn}
-          onActivate={() => setPlatformModalOpen(true)}
-        />
-      </PageShell>
+      <LegalPage
+        family="grey"
+        title={tr.legalPages.dataDeletionH1}
+        lede={isEn ? "Last updated: 2025" : "آخر تحديث: 2025"}
+        clauses={content.map((s, i) => ({ key: `${i}`, title: s.title, body: <p>{s.body}</p> }))}
+      />
+      <PageClosingCta
+        title={pc.legalTitle}
+        description={pc.legalDesc}
+        buttonLabel={ld.ctaBtn}
+        onActivate={() => setPlatformModalOpen(true)}
+      />
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />
     </>
   );

@@ -499,7 +499,7 @@ export const categories: Category[] = [
           { type: "paragraph", text: "تعرض منتجات إضافية بسعر منخفض يمكن إضافتها بنقرة واحدة دون مغادرة الصفحة. ممتاز لرفع قيمة السلة بطريقة لا تشعر العميل بالضغط." },
           { type: "list", items: [
             "الأفضل لـ: صفحة المنتج وصفحة السلة",
-            "مثال: يضيف عميل \"جوال\" → يرى \"واقي شاشة بـ 15 ⃁\" و\"كفر جوال بـ 20 ⃁\"",
+            "مثال: يضيف عميل \"جوال\" → يرى \"واقي شاشة بـ 15 ر.س\" و\"كفر جوال بـ 20 ر.س\"",
             "نقطة قوة: عملية التحويل عالية لأن السعر منخفض والقيمة واضحة"
           ]},
           { type: "heading", text: "3. الحزم (Combo / Bundle)" },
@@ -513,14 +513,14 @@ export const categories: Category[] = [
           { type: "paragraph", text: "يقترح للعميل بديلاً أفضل وأغلى من المنتج الذي يشاهده. يعمل على زيادة قيمة السلة من خلال رفع مستوى المنتج." },
           { type: "list", items: [
             "الأفضل لـ: صفحة المنتج",
-            "مثال: يشاهد عميل \"قهوة عادية\" → يرى \"قهوة بريميوم بفرق 30 ⃁ فقط\"",
+            "مثال: يشاهد عميل \"قهوة عادية\" → يرى \"قهوة بريميوم بفرق 30 ر.س فقط\"",
             "نقطة قوة: فعّال جداً في متاجر الإلكترونيات والموضة"
           ]},
           { type: "heading", text: "5. الكوبونات الذكية (Smart Coupons)" },
           { type: "paragraph", text: "تقدم كوبون خصم مشروط بشراء قيمة معينة أو منتجات محددة. يستخدم لاسترداد العملاء المترددين ورفع قيمة السلة بشكل مباشر." },
           { type: "list", items: [
             "الأفضل لـ: صفحة السلة وصفحة الشكر",
-            "مثال: \"أضف 50 ⃁ للسلة واحصل على خصم 10% على طلبك\"",
+            "مثال: \"أضف 50 ر.س للسلة واحصل على خصم 10% على طلبك\"",
             "نقطة قوة: يخلق شعوراً بالإلحاح ويحفز على إتمام الشراء"
           ]},
           { type: "tip", text: "ابدأ بـ \"منتجات ذات صلة\" ثم \"Add-ons\" - هاتان الطريقتان تعطيان النتائج الأسرع للمتاجر الجديدة على زيادة." },
@@ -580,7 +580,7 @@ export const categories: Category[] = [
           { type: "paragraph", text: "الكوبون العادي: رمز ثابت يضعه التاجر يدوياً ويوزعه على الجميع. الكوبون الذكي في زيادة: يظهر تلقائياً لعميل محدد في لحظة محددة بناءً على قيمة سلته وسلوكه في المتجر." },
           { type: "heading", text: "أنواع شروط الكوبون" },
           { type: "list", items: [
-            "شرط قيمة السلة: \"اصرف أكثر من 200 ⃁ واحصل على خصم 15%\"",
+            "شرط قيمة السلة: \"اصرف أكثر من 200 ر.س واحصل على خصم 15%\"",
             "شرط الكمية: \"اشتر 3 قطع أو أكثر واحصل على القطعة الرابعة مجاناً\"",
             "شرط الفئة: \"أضف منتجاً من فئة العطور واحصل على خصم 10% على السلة\"",
             "شرط الوقت: \"خصم 20% في آخر 30 دقيقة قبل التخلي عن السلة\""
@@ -692,7 +692,7 @@ export const categories: Category[] = [
             "العميل المتكرر: سبق له الشراء - يرى منتجات مكملة لمشترياته السابقة",
             "العميل بالموقع: عملاء من مدينة أو منطقة معينة",
             "العميل بالجهاز: عملاء الجوال يرون تصميماً مختلفاً عن عملاء الديسكتوب",
-            "العميل بحجم السلة: عملاء سلتهم فوق 300 ⃁ يرون عروضاً مختلفة"
+            "العميل بحجم السلة: عملاء سلتهم فوق 300 ر.س يرون عروضاً مختلفة"
           ]},
           { type: "heading", text: "بناء قاعدة استهداف خطوة بخطوة" },
           { type: "numbered", items: [
@@ -1928,6 +1928,24 @@ export const categories: Category[] = [
           { type: "paragraph", text: "إذا كنت تدير أكثر من متجر (على زد أو سلة)، يمكنك التبديل بينها من القائمة المنسدلة في أعلى يمين الشاشة. كل متجر له بياناته وإعداداته المستقلة." },
           { type: "tip", text: "نصيحة: اضغط على أيقونة الجرس في الشريط العلوي لتفعيل إشعارات الأداء — ستصلك تنبيهات عند وصول اقتراح معين لحد معين من المبيعات." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Ziadah dashboard is where everything is run, from building campaigns and widgets to watching performance and setting up your store. It is meant to be quick to use with no technical background." },
+          { type: "heading", text: "Home" },
+          { type: "paragraph", text: "Signing in lands you on Home, which gives you an immediate read on the store: total revenue Ziadah generated, how many orders included a recommendation, and the conversion rate against last week." },
+          { type: "heading", text: "The sidebar" },
+          { type: "list", items: [
+            "Home - overall performance and the headline numbers",
+            "Widgets - build and manage every widget (recommendation campaigns)",
+            "Analytics - detailed reports on revenue, clicks and conversions",
+            "Settings - store, currency, language and team",
+            "Support - a fast route to the help centre and WhatsApp",
+          ]},
+          { type: "heading", text: "The performance bar" },
+          { type: "paragraph", text: "A bar across the top of the dashboard always shows extra revenue today, the orders that included a recommendation, and what share of total sales the extra revenue represents. It updates in real time." },
+          { type: "heading", text: "Switching store and platform" },
+          { type: "paragraph", text: "If you run more than one store on Zid or Salla, switch between them from the dropdown at the top of the screen. Each store keeps its own data and its own settings." },
+          { type: "tip", text: "Tip: click the bell in the top bar to turn on performance alerts. You will be notified when a widget crosses a sales threshold you set." },
+        ],
       },
       {
         id: "dashboard-widgets",
@@ -1967,6 +1985,35 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "يمكنك تشغيل عدة اقتراحات في نفس الصفحة. لكن احرص على عدم الإفراط — أفضل نتائج تأتي من 1-2 اقتراح فقط في كل صفحة." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Widgets are the heart of Ziadah. Each one is a smart element that appears in your store at the right moment and suggests the products or offers that raise the value of the order." },
+          { type: "heading", text: "The widget types" },
+          { type: "list", items: [
+            "Buy More Save More - tiered discounts by quantity",
+            "Buy Together - products that complete each other at a combined price",
+            "Add-ons - small optional extras beside the main product",
+            "Related Products - items similar to what the shopper is looking at",
+            "Bundle Deals - a package of products at a set price",
+            "Cross-Sell - a cart-page suggestion for complementary products",
+            "Coupon Widget - a smart coupon that unlocks on a cart condition",
+          ]},
+          { type: "heading", text: "Creating a widget" },
+          { type: "numbered", items: [
+            "In the sidebar, open \"Widgets\" and click \"+ New widget\"",
+            "Pick the widget type you want",
+            "Choose where it appears: product page, category page, cart, or home",
+            "Select the products or categories it runs on",
+            "Set the copy, the colours and the layout (row, column or card)",
+            "Hit \"Preview\" to check the look, then \"Publish\" to put it live",
+          ]},
+          { type: "heading", text: "Widget states" },
+          { type: "list", items: [
+            "Active - running and visible to shoppers",
+            "Paused - saved but hidden for now",
+            "Draft - not published yet",
+          ]},
+          { type: "tip", text: "You can run several widgets on one page, but do not overdo it. The best results come from one or two per page." },
+        ],
       },
       {
         id: "dashboard-buy-more-save-more",
@@ -1997,6 +2044,27 @@ export const categories: Category[] = [
             "تفعيل عداد \"المخزون المتبقي\" لخلق الإلحاح",
           ]},
           { type: "tip", text: "الخصومات التدريجية تعمل بشكل ممتاز مع المنتجات الاستهلاكية (عطور، مستلزمات العناية، طعام). ابدأ بثلاثة مستويات فقط — أكثر من ذلك قد يُرهق العميل." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Buy More Save More widget shows the shopper a plain table: buy 2 for 10% off, 3 for 15%, 5 for 25%. It lifts the average quantity per order by 30-45%." },
+          { type: "heading", text: "Setting the discount tiers" },
+          { type: "numbered", items: [
+            "Pick Buy More Save More from the widget list",
+            "Click \"+ Add tier\" to add a new band",
+            "For each band set the minimum quantity and the discount, as a percentage or a fixed amount",
+            "Up to five tiers are available on Growth and above",
+            "Set the widget heading and the nudge line, something like \"Save more when you buy more\"",
+            "Choose the page: product or category",
+            "Hit \"Publish\"",
+          ]},
+          { type: "heading", text: "Advanced settings" },
+          { type: "list", items: [
+            "Apply to specific products, a whole category, or the entire store",
+            "Set an end date for the offer, which is useful for a season",
+            "Hide the discount on the product card and show it only inside the widget",
+            "Turn on the \"stock left\" counter to create urgency",
+          ]},
+          { type: "tip", text: "Tiered discounts work well on consumables: perfume, personal care, food. Start with three tiers. More than that tends to stall the decision." },
         ],
       },
       {
@@ -2029,6 +2097,27 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "بعد أسبوع من تشغيل الاقتراح بالوضع التلقائي، راجع التحليلات لترى أي تركيبة حققت أعلى نسبة تحويل — يمكنك بعدها تثبيتها يدوياً للمنتجات الأكثر مبيعاً." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Buy Together widget puts two or three products in one place with a single \"Add all to cart\" button. The AI picks the combination from what shoppers actually buy together." },
+          { type: "heading", text: "Setting it up" },
+          { type: "numbered", items: [
+            "Pick the Buy Together widget",
+            "Choose the mode: automatic (AI) or manual",
+            "On automatic, the AI picks the best combination itself",
+            "On manual, choose the products you want tied together, two to four of them",
+            "Decide whether the set carries a discount, and how much",
+            "Set the block heading, something like \"Frequently bought together\"",
+            "Choose where it appears: the product page",
+          ]},
+          { type: "heading", text: "Getting good results" },
+          { type: "list", items: [
+            "Pick products that work together: shoes and socks, a device and its charger, perfume and body lotion",
+            "A discount between 5% and 15% converts best",
+            "Avoid pairing across a big price gap, a 10 SAR item next to a 500 SAR one",
+            "Use good photography. The widget shows the images prominently",
+          ]},
+          { type: "tip", text: "After a week on automatic, check Analytics to see which combination converted best. You can then pin it manually for your top sellers." },
+        ],
       },
       {
         id: "dashboard-addons",
@@ -2058,6 +2147,26 @@ export const categories: Category[] = [
             "اضغط \"نشر\"",
           ]},
           { type: "tip", text: "لا تضع أكثر من 4-5 إضافات في اقتراح واحد. كلما قل عدد الخيارات، ارتفعت نسبة الاختيار. الإضافات الأقل من 15% من سعر المنتج الأصلي تُضاف بنسبة أعلى بكثير." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Add-ons widget puts a short list of checkboxes next to the add-to-cart button. The idea comes from the drive-through: \"do you want fries with that?\" It is simple enough that the shopper does not have to think about it." },
+          { type: "heading", text: "What add-ons look like in practice" },
+          { type: "list", items: [
+            "Appliances: an extended warranty, a carry case, a spare charger",
+            "Fashion: name embroidery, premium gift wrap",
+            "Perfume: a matching body splash, the gift set box",
+            "Electronics: home installation, a protective case, a screen protector",
+          ]},
+          { type: "heading", text: "Setting it up" },
+          { type: "numbered", items: [
+            "Pick the Add-ons widget and choose the product or category it applies to",
+            "Click \"+ Add option\" and give it a name and a price",
+            "Choose the pricing: a fixed amount, or a percentage of the product price",
+            "Drag the options into order, most wanted at the top",
+            "Decide whether the shopper can pick more than one",
+            "Hit \"Publish\"",
+          ]},
+          { type: "tip", text: "Keep it to four or five options. The fewer the choices, the higher the take-up. An add-on under 15% of the product price is accepted far more often." },
         ],
       },
       {
@@ -2092,6 +2201,29 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "الوضع التلقائي بالذكاء الاصطناعي يحقق نتائج أفضل بعد جمع بيانات كافية (عادةً 200+ زيارة). في البداية استخدم \"بحسب الفئة\" ثم انتقل للوضع التلقائي لاحقاً." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Related Products widget sits at the bottom of the product page or in the sidebar and shows similar products by category, by tag, or by what other shoppers looked at after this one." },
+          { type: "heading", text: "Modes" },
+          { type: "list", items: [
+            "Automatic (AI): reads browsing behaviour and picks what fits each shopper",
+            "By category: products from the same category",
+            "By tag: products that share particular tags",
+            "Manual: you choose what to link",
+          ]},
+          { type: "heading", text: "Layout" },
+          { type: "list", items: [
+            "A horizontal scroll strip, which suits the bottom of a product page",
+            "A grid, which suits the home page or a category page",
+            "Between 3 and 12 products",
+          ]},
+          { type: "heading", text: "Advanced settings" },
+          { type: "list", items: [
+            "Hide out-of-stock products automatically",
+            "Show a \"best seller\" badge on your standout products",
+            "Filter by price range, for instance never show something more than twice the price of the current product",
+          ]},
+          { type: "tip", text: "The automatic mode gets better once it has data, usually around 200 visits. Start on \"by category\" and move to automatic later." },
+        ],
       },
       {
         id: "dashboard-bundle-deals",
@@ -2123,6 +2255,27 @@ export const categories: Category[] = [
           ]},
           { type: "tip", text: "اعرض نسبة التوفير بوضوح — \"وفّر 45 ﷼\" أو \"خصم 20%\" — هذا يرفع التحويل بشكل ملحوظ. الحزم التي توفّر أكثر من 15% تُضاف للسلة بمعدل ضعف الحزم الأصغر خصماً." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "A bundle differs from Buy Together in that it is one fixed package at one combined price. The AI presents it as its own clear card rather than as a list of suggestions." },
+          { type: "heading", text: "When to use a bundle" },
+          { type: "list", items: [
+            "To clear particular stock quickly",
+            "For a season or a holiday: a Mother's Day bundle, a Ramadan bundle",
+            "To launch a new product alongside one that already sells",
+            "To lift the average order value inside one category",
+          ]},
+          { type: "heading", text: "Creating one" },
+          { type: "numbered", items: [
+            "Open \"Bundle Deals\" and click \"+ New bundle\"",
+            "Name it, something like \"The complete travel kit\"",
+            "Add between two and six products",
+            "Set the total price. The saving is calculated for you",
+            "Choose a cover image, or let the system assemble one from the product photos",
+            "Choose where it appears and which products trigger it",
+            "Hit \"Publish\"",
+          ]},
+          { type: "tip", text: "State the saving plainly, \"Save 45 SAR\" or \"20% off\". A bundle that saves more than 15% is added to the cart at roughly twice the rate of one that saves less." },
+        ],
       },
       {
         id: "dashboard-cross-sell",
@@ -2151,6 +2304,25 @@ export const categories: Category[] = [
             "اضغط \"نشر\"",
           ]},
           { type: "tip", text: "المنتجات المقترحة في Cross-Sell يجب أن تكون أرخص من متوسط ما في السلة. اقتراح منتج بـ 20 ﷼ لعميل لديه سلة بـ 200 ﷼ يُضاف بنسبة 40% أعلى من اقتراح منتج بـ 150 ﷼." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The Cross-Sell widget appears on the cart or checkout page and suggests products that complete what is already in the cart. It is one of the best moments to suggest anything, because the shopper has already decided to buy." },
+          { type: "heading", text: "How it differs from the other widgets" },
+          { type: "list", items: [
+            "Buy Together appears on the product page, before anything is in the cart",
+            "Cross-Sell appears in the cart or at checkout, after the decision to buy",
+            "Cross-Sell converts better because of that timing",
+          ]},
+          { type: "heading", text: "Setting it up" },
+          { type: "numbered", items: [
+            "Pick the Cross-Sell widget",
+            "Choose where it appears: cart, checkout, or both",
+            "Choose the mode: automatic (AI) or manual rules",
+            "On manual rules, write them as \"if product X is in the cart, suggest Y\"",
+            "Set a price ceiling for what may be suggested, so nothing costs more than the cart",
+            "Hit \"Publish\"",
+          ]},
+          { type: "tip", text: "What you cross-sell should be cheaper than the average of what is already in the cart. A 20 SAR suggestion against a 200 SAR cart is added about 40% more often than a 150 SAR one." },
         ],
       },
       {
@@ -2182,6 +2354,27 @@ export const categories: Category[] = [
             "حدد مكان الظهور: أعلى السلة أو بار علوي ثابت في كل الصفحات",
           ]},
           { type: "tip", text: "الشريط التقدمي يرفع نسبة الإضافة للسلة بنسبة 25-35%. لأن الانسان طبيعياً يريد إكمال ما بدأ — نفس مبدأ جمع النقاط في برامج الولاء." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "The smart coupon widget shows a nudge with a progress bar, so the shopper can see how far they are from the discount. For example: \"Add 30 SAR and get 15% off.\"" },
+          { type: "heading", text: "Coupon types" },
+          { type: "list", items: [
+            "A fixed amount: \"Get 20 SAR off an order of 150 SAR\"",
+            "A percentage: \"Get 15% off an order of 200 SAR\"",
+            "Free shipping: \"Add 50 SAR to the cart for free shipping\"",
+            "A free gift: a product added free above a set spend",
+          ]},
+          { type: "heading", text: "Setting it up" },
+          { type: "numbered", items: [
+            "Pick the coupon widget",
+            "Choose the incentive: discount, free shipping or gift",
+            "Set the cart minimum that unlocks it",
+            "Set the discount amount, or pick the gift product",
+            "Write the nudge, something like \"You are one step from your discount\"",
+            "Turn on the progress bar so the remaining distance is visible",
+            "Choose where it appears: the top of the cart, or a fixed bar across every page",
+          ]},
+          { type: "tip", text: "The progress bar lifts add-to-cart by 25-35%, for the same reason a loyalty punch card works: people finish what they have started." },
         ],
       },
       {
@@ -2215,6 +2408,29 @@ export const categories: Category[] = [
           { type: "heading", text: "تصدير التقارير" },
           { type: "paragraph", text: "يمكنك تصدير أي تقرير بصيغة Excel أو PDF من خلال زر \"تصدير\" في أعلى يمين الجدول. يمكنك أيضاً جدولة إرسال التقرير تلقائياً لبريدك الإلكتروني أسبوعياً أو شهرياً." },
           { type: "tip", text: "ركّز على مؤشر \"الإيرادات الإضافية لكل 1000 ظهور\" لتعرف أي الاقتراحات الأكثر كفاءة. الاقتراح الذي يولّد إيرادات أعلى مع نفس عدد المشاهدات هو الأجدر بالتوسيع." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Analytics gives you the full picture of what each widget does in your store, from views and clicks through to the revenue it actually produced." },
+          { type: "heading", text: "The headline numbers" },
+          { type: "list", items: [
+            "Extra revenue: what Ziadah added on top of your normal sales",
+            "Conversion rate: how many people who saw a widget added to the cart, over everyone who saw it",
+            "Click-through rate: how many clicked a widget, over everyone who saw it",
+            "Average order value: the average of orders that included a Ziadah recommendation",
+            "Return on investment: the extra revenue against what the subscription costs",
+          ]},
+          { type: "heading", text: "The per-widget report" },
+          { type: "paragraph", text: "The analytics view compares each widget on its own. The table gives you the widget name, views, clicks, add-to-carts, and the revenue it generated." },
+          { type: "heading", text: "Filtering" },
+          { type: "list", items: [
+            "By period: the last 7, 30 or 90 days, or a custom range",
+            "By product or category, to see what the widgets did on one item",
+            "By widget type, to compare Bundle Deals against Cross-Sell",
+            "By device: phone against desktop",
+          ]},
+          { type: "heading", text: "Exporting" },
+          { type: "paragraph", text: "Any report exports to Excel or PDF from the \"Export\" button above the table. You can also schedule it to arrive in your inbox weekly or monthly." },
+          { type: "tip", text: "Watch \"extra revenue per 1,000 impressions\" to see which widget is actually efficient. The one earning more from the same number of views is the one worth expanding." },
         ],
       },
       {
@@ -2252,6 +2468,32 @@ export const categories: Category[] = [
           { type: "paragraph", text: "من قسم الإعدادات > التكاملات يمكنك مراجعة حالة الربط مع منصة زد أو سلة، وتحديث صلاحيات الوصول، أو إلغاء الربط إذا أردت نقل التطبيق." },
           { type: "warning", text: "تحذير: إلغاء ربط المتجر سيوقف جميع الاقتراحات فوراً. إذا كنت تريد فقط إيقاف مؤقت، استخدم وضع \"إيقاف مؤقت\" من لوحة الاقتراحات بدلاً من إلغاء الربط." },
         ],
+        sectionsEn: [
+          { type: "paragraph", text: "Settings is where you shape how Ziadah works with your store, and where you control permissions and preferences." },
+          { type: "heading", text: "Store settings" },
+          { type: "list", items: [
+            "Store name and logo, which appear on some PDF reports",
+            "The default currency reports are shown in",
+            "Time zone, which matters for daily performance reports to be accurate",
+            "Interface language: Arabic or English",
+          ]},
+          { type: "heading", text: "Your team" },
+          { type: "paragraph", text: "You can invite team members, store managers and marketers, into the dashboard with a defined level of access:" },
+          { type: "list", items: [
+            "Admin: full access to everything, billing included",
+            "Editor: can build and change widgets, but sees no invoices",
+            "Viewer: reads the reports and changes nothing",
+          ]},
+          { type: "heading", text: "Notifications" },
+          { type: "list", items: [
+            "Email: a weekly report, plus performance alerts",
+            "WhatsApp: when a revenue target is hit",
+            "Subscription expiry: 7 days and 3 days before it lapses",
+          ]},
+          { type: "heading", text: "Connecting and disconnecting the store" },
+          { type: "paragraph", text: "Settings > Integrations shows the state of the connection to Zid or Salla, lets you refresh access permissions, and lets you disconnect if you are moving the app." },
+          { type: "warning", text: "Warning: disconnecting stops every widget immediately. If you only want a pause, use \"Paused\" on the widgets themselves rather than disconnecting the store." },
+        ],
       },
       {
         id: "dashboard-targeting",
@@ -2284,6 +2526,29 @@ export const categories: Category[] = [
           { type: "heading", text: "اختبار A/B" },
           { type: "paragraph", text: "من إعدادات الاقتراح يمكنك تفعيل اختبار A/B: نصف العملاء يرون الإصدار A والنصف الآخر يرون الإصدار B. بعد أسبوعين يُعلن النظام الفائز تلقائياً ويطبقه على الجميع." },
           { type: "tip", text: "ابدأ باختبار A/B على عنصر واحد فقط في كل مرة: العنوان، أو موضع الاقتراح، أو نسبة الخصم. اختبار أكثر من متغير في وقت واحد يصعّب معرفة سبب التغيير في الأداء." },
+        ],
+        sectionsEn: [
+          { type: "paragraph", text: "Personalization is the strongest thing Ziadah does. Rather than showing every shopper the same suggestion, the AI reads each visitor separately and shows what fits them." },
+          { type: "heading", text: "What the AI reads" },
+          { type: "list", items: [
+            "The products they looked at, this visit and earlier ones",
+            "What they have added to a cart or bought before",
+            "Device, phone or desktop, and location",
+            "Time of day and season",
+            "What similar shoppers did, which is collaborative filtering",
+          ]},
+          { type: "heading", text: "Manual targeting rules" },
+          { type: "paragraph", text: "You can add rules of your own that decide who sees a widget:" },
+          { type: "list", items: [
+            "Show it only to shoppers in a particular region",
+            "Hide it from anyone who has already bought the product",
+            "Show it only when the cart is above a set amount",
+            "Show it only to first-time visitors",
+            "Hide it on phone, or on desktop",
+          ]},
+          { type: "heading", text: "A/B testing" },
+          { type: "paragraph", text: "A widget's settings let you run an A/B test: half your shoppers see version A and half see version B. After two weeks the system calls the winner and rolls it out to everyone." },
+          { type: "tip", text: "Test one thing at a time: the heading, or the placement, or the discount. Changing several at once leaves you unable to say what moved the number." },
         ],
       },
     ],
@@ -2381,7 +2646,7 @@ export const categories: Category[] = [
           { type: "paragraph", text: "للمنتجات الاستهلاكية المتكررة (قهوة، شاي، مكسرات)، اقترح حجماً أكبر أو عدداً أكبر بخصم تدريجي." },
           { type: "list", items: [
             "استخدم طريقة عرض \"Buy More Save More\"",
-            "مثال: \"كيلو مقابل 50 ⃁، أو 3 كيلو مقابل 130 ⃁\"",
+            "مثال: \"كيلو مقابل 50 ر.س، أو 3 كيلو مقابل 130 ر.س\"",
             "هذا يرفع قيمة السلة ويقلل تكرار الشراء لصالحك ولصالح العميل"
           ]},
           { type: "heading", text: "استراتيجية 3: تكملة الطلب" },
@@ -2566,9 +2831,9 @@ export const categories: Category[] = [
           { type: "heading", text: "الجمعة السوداء وسايبر مانداي" },
           { type: "paragraph", text: "فرصة ذهبية لاستخدام الكوبونات الذكية. اعرض خصومات تتصاعد بزيادة قيمة السلة - كلما أضاف العميل أكثر، كلما حصل على خصم أكبر." },
           { type: "list", items: [
-            "سلة 200 ⃁ → خصم 10%",
-            "سلة 400 ⃁ → خصم 15%",
-            "سلة 600 ⃁ → خصم 20%"
+            "سلة 200 ر.س → خصم 10%",
+            "سلة 400 ر.س → خصم 15%",
+            "سلة 600 ر.س → خصم 20%"
           ]},
           { type: "heading", text: "العيد الوطني وعيد الفطر وعيد الأضحى" },
           { type: "paragraph", text: "هذه المناسبات مثالية لتوصيات هدايا \"طقم متكامل\" بتغليف مميز. الحزم الجاهزة كهدايا لها معدل تحويل أعلى بكثير من المنتجات الفردية." },
@@ -2618,7 +2883,7 @@ export const categories: Category[] = [
             "الطريقة الدقيقة: استخدام اختبار A/B مع مجموعة لا ترى التوصيات"
           ]},
           { type: "heading", text: "مثال عملي" },
-          { type: "paragraph", text: "متجر لديه 300 طلب شهري بمتوسط 250 ⃁ → إجمالي 75,000 ⃁. بعد زيادة، المتوسط ارتفع لـ 320 ⃁ → إجمالي 96,000 ⃁. الإيراد الإضافي = 21,000 ⃁. إذا كان الاشتراك 1,000 ⃁ شهرياً، فالـ ROI = (21,000 - 1,000) / 1,000 × 100 = 2000%" },
+          { type: "paragraph", text: "متجر لديه 300 طلب شهري بمتوسط 250 ر.س → إجمالي 75,000 ر.س. بعد زيادة، المتوسط ارتفع لـ 320 ر.س → إجمالي 96,000 ر.س. الإيراد الإضافي = 21,000 ر.س. إذا كان الاشتراك 1,000 ر.س شهرياً، فالـ ROI = (21,000 - 1,000) / 1,000 × 100 = 2000%" },
           { type: "heading", text: "مؤشرات المتجر الناجح مع زيادة" },
           { type: "list", items: [
             "ROI إيجابي بعد شهر: علامة صحة جيدة",

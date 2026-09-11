@@ -61,7 +61,7 @@
   padding: 7px 18px;
   border-radius: 999px;
   margin-bottom: 18px;
-  font-size: 0.78rem;
+  font-size: 1.248rem;
   font-family: var(--sh-en);
   color: var(--sh-accent);
   letter-spacing: 0.04em;
@@ -92,7 +92,11 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  /* `stretch` so a two-line heading keeps one left edge instead of centring
+     each line against the other, and `space-around` so the lines share the
+     height the heading is given. */
+  align-items: stretch;
+  align-content: space-around;
   gap: 20px;
   font-size: 60px;
   font-weight: 900;
@@ -134,11 +138,13 @@
   background-image: none;
   -webkit-background-clip: unset;
   background-clip: unset;
-  color: rgba(255, 255, 255, 1);
+  /* Deep violet ink. It was white, which only worked on the dark sector hero
+     and vanished the moment the same heading ran on a light band. */
+  color: #33097e;
 }
 
 .sector-html-hero-sub {
-  font-size: 1.02rem;
+  font-size: 1.632rem;
   color: var(--td);
   margin: 0 0 28px;
   max-width: 520px;
@@ -158,7 +164,7 @@
   gap: 8px;
   padding: 13px 26px;
   border-radius: 999px;
-  font-size: 0.88rem;
+  font-size: 1.408rem;
   font-weight: 600;
   font-family: var(--sh-en);
   cursor: pointer;
@@ -205,7 +211,7 @@
   border: 1px solid var(--sh-border2);
   border-radius: 999px;
   padding: 7px 14px;
-  font-size: max(12px, 0.72rem);
+  font-size: max(12px, 1.152rem);
   font-family: var(--sh-en);
   display: flex;
   align-items: center;
@@ -255,11 +261,12 @@
 }
 
 .sector-html-phone {
-  background: var(--s1);
-  border: 1px solid var(--sh-border2);
+  /* No bezel ground and no bezel border: the screen inside already carries
+     its own frame, so the outer box was a second frame around the first. What
+     is left is the violet halo that places the device on the band. */
   border-radius: 28px;
   padding: 4px;
-  box-shadow: 0 0 48px color-mix(in srgb, var(--p) 7%, transparent), 0 28px 60px rgba(0, 0, 0, 0.225);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--p) 30%, transparent);
   position: relative;
   overflow: hidden;
 }
@@ -314,7 +321,7 @@
 }
 
 .sector-html-pb-app {
-  font-size: max(12px, 0.72rem);
+  font-size: max(12px, 1.152rem);
   font-weight: 700;
   font-family: var(--sh-en);
   color: var(--sh-accent);
@@ -325,11 +332,11 @@
 
 .sector-html-pb-app::before {
   content: "🛵";
-  font-size: 0.85rem;
+  font-size: 1.36rem;
 }
 
 .sector-html-pb-time {
-  font-size: max(12px, 0.68rem);
+  font-size: max(12px, 1.088rem);
   font-family: var(--sh-en);
   color: var(--td);
 }
@@ -351,19 +358,19 @@
 }
 
 .sector-html-or-icon {
-  font-size: 1.15rem;
+  font-size: 1.84rem;
   flex-shrink: 0;
 }
 
 .sector-html-or-name {
-  font-size: 0.82rem;
+  font-size: 1.312rem;
   font-weight: 600;
   flex: 1;
   color: var(--t);
 }
 
 .sector-html-or-price {
-  font-size: 0.76rem;
+  font-size: 1.216rem;
   font-family: var(--sh-en);
   font-weight: 700;
   color: var(--sh-accent);
@@ -382,7 +389,7 @@
 }
 
 .sector-html-rb-head {
-  font-size: max(12px, 0.62rem);
+  font-size: max(12px, 0.992rem);
   font-family: var(--sh-en);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -417,7 +424,7 @@
   border: none;
   border-radius: 999px;
   padding: 4px 10px;
-  font-size: max(12px, 0.64rem);
+  font-size: max(12px, 1.024rem);
   font-family: var(--sh-en);
   font-weight: 600;
   cursor: default;
@@ -471,12 +478,12 @@
 }
 
 .sector-html-aud-emoji {
-  font-size: 2.2rem;
+  font-size: 3.52rem;
   margin-bottom: 12px;
 }
 
 .sector-html-aud-who {
-  font-size: max(12px, 0.66rem);
+  font-size: max(12px, 1.056rem);
   font-family: var(--sh-en);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -492,7 +499,7 @@
 }
 
 .sector-html-aud-title {
-  font-size: 1.12rem;
+  font-size: 1.792rem;
   font-weight: 800;
   margin: 0 0 10px;
   color: var(--t);
@@ -501,7 +508,7 @@
 
 .sector-html-aud-desc {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 1.408rem;
   color: var(--td);
   line-height: 1.65;
 }
@@ -533,7 +540,7 @@
 }
 
 .sector-html-wc-icon {
-  font-size: 1.35rem;
+  font-size: 2.16rem;
   margin-bottom: 10px;
 }
 
@@ -580,14 +587,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.76rem;
+  font-size: 1.216rem;
   font-weight: 700;
   font-family: var(--sh-en);
   color: #fff;
 }
 
 .sector-html-al-title {
-  font-size: 0.92rem;
+  font-size: 1.472rem;
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--t);
@@ -595,7 +602,7 @@
 
 .sector-html-al-en {
   font-family: var(--sh-en);
-  font-size: max(12px, 0.66rem);
+  font-size: max(12px, 1.056rem);
   color: var(--sh-accent);
   margin-bottom: 6px;
   display: block;
@@ -603,7 +610,7 @@
 
 .sector-html-al-desc {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   color: var(--td);
   line-height: 1.58;
 }
@@ -618,7 +625,7 @@
 
 .sector-html-pc-recs-label,
 .sector-html-sc-head {
-  font-size: max(12px, 0.64rem);
+  font-size: max(12px, 1.024rem);
   font-family: var(--sh-en);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -637,7 +644,7 @@
 }
 
 .sector-html-pcr-match {
-  font-size: max(12px, 0.65rem);
+  font-size: max(12px, 1.04rem);
   font-family: var(--sh-en);
   color: var(--sh-green);
   font-weight: 700;
@@ -677,7 +684,7 @@
 }
 
 .sector-html-kpiv {
-  font-size: 1.45rem;
+  font-size: 2.32rem;
   font-weight: 800;
   font-family: var(--sh-en);
   background: linear-gradient(135deg, var(--sh-accent), var(--sh-gold));
@@ -687,13 +694,13 @@
 }
 
 .sector-html-kpil {
-  font-size: max(12px, 0.66rem);
+  font-size: max(12px, 1.056rem);
   color: var(--td);
   margin-top: 2px;
 }
 
 .sector-html-kpid {
-  font-size: max(12px, 0.64rem);
+  font-size: max(12px, 1.024rem);
   font-family: var(--sh-en);
   color: var(--sh-green);
   margin-top: 4px;
@@ -713,7 +720,7 @@
 
 .sector-html-b-lbl {
   width: 56px;
-  font-size: max(12px, 0.65rem);
+  font-size: max(12px, 1.04rem);
   color: var(--td);
   font-family: var(--sh-en);
   flex-shrink: 0;
@@ -759,7 +766,7 @@
 }
 
 .sector-html-b-val {
-  font-size: max(12px, 0.65rem);
+  font-size: max(12px, 1.04rem);
   font-family: var(--sh-en);
   font-weight: 700;
   color: var(--sh-accent);
@@ -771,12 +778,12 @@
 .sector-html-ftable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;
+  font-size: 1.312rem;
 }
 
 .sector-html-ftable th {
   padding: 11px 12px;
-  font-size: max(12px, 0.68rem);
+  font-size: max(12px, 1.088rem);
   font-family: var(--sh-en);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -803,7 +810,7 @@
 
 .sector-html-ft-en {
   font-family: var(--sh-en);
-  font-size: max(12px, 0.65rem);
+  font-size: max(12px, 1.04rem);
   color: var(--td);
   display: block;
   margin-top: 2px;
@@ -811,7 +818,7 @@
 
 .sector-html-fp {
   display: inline-block;
-  font-size: max(12px, 0.62rem);
+  font-size: max(12px, 0.992rem);
   font-family: var(--sh-en);
   padding: 3px 8px;
   border-radius: 999px;
@@ -823,7 +830,7 @@
 
 .sector-html-chk {
   color: var(--sh-green);
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: 700;
   text-align: center;
 }
@@ -842,7 +849,7 @@
   color: var(--td);
   padding: 8px 16px;
   border-radius: 999px;
-  font-size: 0.78rem;
+  font-size: 1.248rem;
   cursor: pointer;
   font-family: var(--sh-en);
   transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
@@ -929,7 +936,7 @@
   border: 1px solid color-mix(in srgb, var(--p) 18%, transparent);
   border-radius: 100px;
   padding: 7px 14px;
-  font-size: 0.78rem;
+  font-size: 1.248rem;
   color: var(--td);
   transition: border-color 0.25s ease, color 0.25s ease;
 }
@@ -941,7 +948,7 @@
 
 /* Why — title + line */
 .sector-html-wc-title {
-  font-size: 0.95rem;
+  font-size: 1.52rem;
   font-weight: 800;
   margin: 0 0 6px;
   color: var(--t);
@@ -950,7 +957,7 @@
 
 .sector-html-wc-line {
   margin: 0;
-  font-size: 0.82rem;
+  font-size: 1.312rem;
   color: var(--td);
   line-height: 1.55;
 }
@@ -1007,14 +1014,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 700;
   font-family: var(--sh-en);
   color: #fff;
 }
 
 .sector-html-ap-title {
-  font-size: 0.9rem;
+  font-size: 1.44rem;
   font-weight: 700;
   margin: 0 0 4px;
   color: var(--t);
@@ -1022,7 +1029,7 @@
 
 .sector-html-ap-desc {
   margin: 0;
-  font-size: 0.8rem;
+  font-size: 1.28rem;
   color: var(--td);
   line-height: 1.55;
 }
@@ -1040,7 +1047,7 @@
   border: 1px solid var(--sh-border);
   border-radius: 100px;
   padding: 11px 24px;
-  font-size: 0.82rem;
+  font-size: 1.312rem;
   font-family: var(--sh-en);
   color: var(--sh-accent);
   cursor: pointer;
@@ -1076,7 +1083,7 @@
 }
 
 .sector-qt-num {
-  font-size: 1.35rem;
+  font-size: 2.16rem;
   font-weight: 800;
   font-family: var(--sh-en);
   background: linear-gradient(135deg, var(--p), var(--sh-gold));
@@ -1086,7 +1093,7 @@
 }
 
 .sector-qt-text {
-  font-size: 0.82rem;
+  font-size: 1.312rem;
   color: var(--td);
   line-height: 1.5;
 }
@@ -1149,7 +1156,7 @@
   }
 
   .sector-html-hero-h {
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-size: clamp(2.56rem, 5vw, 4.16rem);
   }
 
   .sector-html-hero-sub {
@@ -1162,7 +1169,7 @@
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .sector-html-hero-h {
-    font-size: clamp(1.45rem, 6vw, 2rem);
+    font-size: clamp(2.32rem, 6vw, 3.2rem);
   }
 
   /* Phone wrap: add vertical room for floating tags & limit width */
@@ -1174,7 +1181,7 @@
 
   /* Floating tags: smaller, no negative side overflow */
   .sector-html-ftag {
-    font-size: max(12px, 0.62rem);
+    font-size: max(12px, 0.992rem);
     padding: 5px 10px;
     gap: 5px;
   }
@@ -1195,16 +1202,16 @@
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 480px) {
   .sector-html-hero-h {
-    font-size: clamp(1.3rem, 7vw, 1.75rem);
+    font-size: clamp(2.08rem, 7vw, 2.8rem);
     line-height: 1.15;
   }
 
   .sector-html-hero-sub {
-    font-size: 0.92rem;
+    font-size: 1.472rem;
   }
 
   .sector-html-badge {
-    font-size: max(12px, 0.7rem);
+    font-size: max(12px, 1.12rem);
     padding: 6px 14px;
   }
 
@@ -1217,7 +1224,7 @@
 
   /* Floating tags: even more compact, anchor to phone corners */
   .sector-html-ftag {
-    font-size: max(12px, 0.56rem);
+    font-size: max(12px, 0.896rem);
     padding: 4px 8px;
     gap: 4px;
     max-width: calc(50vw - 20px);
@@ -1247,7 +1254,7 @@
   .sector-html-btn {
     width: 100%;
     padding: 12px 20px;
-    font-size: 0.84rem;
+    font-size: 1.344rem;
   }
 
   /* Audience cards stacked */
@@ -1427,58 +1434,75 @@ section#uc-showcase,
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   TrackFlow unification — re-skin all bespoke sector content to the
-   single light SaaS design system (zinc text/borders, white cards,
-   violet accent). Scoped to the sector article so it never leaks.
+   THE SECTOR ARTICLE ON THE DESIGN SYSTEM.
+
+   This block used to unify the article to a light SaaS look with fixed
+   values: zinc-950 headings, zinc-600 body, zinc-200 borders, white cards
+   and two drop shadows. Measured at 1440 on /sectors/abayas-fashion that
+   was 18 white cards - the single largest count on the site after the home
+   page - and the article sits directly under `.page` rather than inside a
+   themed band, so those cards were white on white and read only by their
+   shadow.
+
+   Every value here is surface-relative now: the article's ink is the
+   section ink and a card is the same 8% tint of it that `.card` uses, so
+   the sixteen sector pages read as the rest of the site rather than as a
+   light theme sitting inside it. No card carries a border or a shadow -
+   the system's card has neither, and the tint is what separates it.
+
+   Scoped to the sector article, as before, so it never leaks.
    ════════════════════════════════════════════════════════════════════ */
 .landing-shell .sector-html,
 .landing-shell .sector-html--compact {
-  --t: #09090b;   /* zinc-950 — headings / strong */
-  --td: #52525b;  /* zinc-600 — body */
-  --tm: #3f3f46;  /* zinc-700 — secondary */
-  --p: #7c3aed;   /* violet-600 — accent (unchanged) */
-  --b1: #e4e4e7;  /* zinc-200 */
-  --b2: #d4d4d8;  /* zinc-300 */
-  --s1: #fafafa;  /* zinc-50 surface */
-  --bg: #ffffff;
-  --glass-bg: #ffffff;
-  --glass-border: 1px solid #e4e4e7;
+  --t:  var(--color-secondary, #0a0a0a);
+  --td: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+  --tm: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(85%, var(--ink-floor, 0%)), transparent);
+  --p:  var(--ziadah-violet);
+  --b1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  --b2: color-mix(in srgb, var(--color-secondary, #0a0a0a) 20%, transparent);
+  --s1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  --bg: transparent;
+  --glass-bg: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  --glass-border: 0;
   --glass-blur: none;
-  --glass-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 10px 30px rgba(9, 9, 11, 0.05);
-  --glass-shadow-hover: 0 1px 2px rgba(9, 9, 11, 0.05), 0 16px 38px rgba(9, 9, 11, 0.08);
-  --r20: 1rem;
+  --glass-shadow: none;
+  --glass-shadow-hover: none;
+  --r20: 1.6rem;
 }
 
-/* Glass cards → flat TrackFlow cards */
+/* Glass cards → the system's card: one tint of the section ink, no border,
+   no shadow. The hover is the system's own scale-down rather than a second,
+   heavier shadow. */
 .landing-shell .sector-html .gc {
-  border-radius: 1rem;
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 10px 30px rgba(9, 9, 11, 0.05);
+  border-radius: var(--radius-card, 1.6rem);
+  background: var(--s1);
+  border: 0;
+  box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .landing-shell .sector-html .gc::before {
   display: none;
 }
-.landing-shell .sector-html .gc:hover {
-  border-color: #d4d4d8;
-  transform: none;
-  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.05), 0 16px 38px rgba(9, 9, 11, 0.08);
+@media (hover: hover) {
+  .landing-shell .sector-html .gc:hover { transform: scale(0.98); box-shadow: none; }
 }
 
-/* Bespoke surfaces (why cards, AI cards, dashboards, pills) → white zinc */
+/* The bespoke surfaces - why cards, AI points, layers, tag pills - take the
+   same tint. They used to be forced to `#ffffff` here, which is what made
+   them invisible against the page's own white ground. */
 .landing-shell .sector-html .sector-html-wcard,
 .landing-shell .sector-html .sector-html-tpill,
 .landing-shell .sector-html .sector-html-ai-point,
 .landing-shell .sector-html .sector-html-ai-layer {
-  background: #ffffff;
-  border-color: #e4e4e7;
+  background: var(--s1);
+  border-color: transparent;
 }
 
 /* Section headings inside the bespoke layout → TrackFlow heading scale */
 .landing-shell .sector-html h2 {
-  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
+  font-size: clamp(2.4rem, 2.6vw, 3rem);
   font-weight: 700;
   color: #09090b;
   line-height: 1.2;

@@ -1,17 +1,16 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { lazy, Suspense, useLayoutEffect } from "react";
+import { lazy, Suspense } from "react";
 import { LanguageProvider } from "@/i18n/LanguageContext";
-import { ThemeProvider } from "@/ThemeContext";
-import Footer from "@/components/Footer";
-import Nav from "@/components/Nav";
+import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
 import PageTransition from "@/components/PageTransition";
 import { BlurTransitionProvider } from "@/components/BlurTransitionProvider";
+import { MotionProvider, useScrollTriggerRefresh } from "@/motion/MotionProvider";
+import { ScrollToTop } from "@/components/ScrollToTop";
+import { Analytics } from "@/components/Analytics";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
-import { SiteContentProvider } from "@/cms/siteContent";
 import "./index.css";
-import { scrollWindowToTopAfterPaint } from "@/utils/scrollToTop";
-import { MeetingBookingProvider } from "@/components/MeetingBookingProvider";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
@@ -20,11 +19,13 @@ const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
 const PricingPage = lazy(() => import("@/pages/PricingPage"));
+const Platforms = lazy(() => import("@/pages/Platforms"));
+const UseCases = lazy(() => import("@/pages/UseCases"));
+const About = lazy(() => import("@/pages/About"));
+const FeatureProductPage = lazy(() => import("@/pages/FeatureProductPage"));
 const ZidAppsComparison = lazy(() => import("@/pages/ZidAppsComparison"));
 const Affiliate = lazy(() => import("@/pages/Affiliate"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
-const Analyze = lazy(() => import("@/pages/Analyze"));
-const AnalyzeReport = lazy(() => import("@/pages/AnalyzeReport"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
 const NotFound = lazy(() => import("@/pages/not-found"));
@@ -66,11 +67,15 @@ const UseCasesByExperience = lazy(() => import("@/pages/use-cases/UseCasesByExpe
 
 const queryClient = new QueryClient();
 
-function ScrollToTop() {
+/**
+ * ScrollTrigger caches every trigger's start/end pixel positions per document.
+ * A route change swaps the document under it, so the whole set has to be
+ * re-measured — otherwise reveals on the new page fire at the old page's
+ * scroll offsets.
+ */
+function RouteMotionSync() {
   const [location] = useLangAwareLocation();
-  useLayoutEffect(() => {
-    scrollWindowToTopAfterPaint();
-  }, [location]);
+  useScrollTriggerRefresh(location);
   return null;
 }
 
@@ -123,17 +128,19 @@ function PublicRoutes() {
       <Route path="/data-deletion" component={DataDeletion} />
       <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
+      <Route path="/features/:slug">
+        {(params) => <FeatureProductPage slug={params.slug ?? ""} />}
+      </Route>
       <Route path="/pricing" component={PricingPage} />
+      <Route path="/platforms" component={Platforms} />
+      <Route path="/use-cases" component={UseCases} />
+      <Route path="/about" component={About} />
       <Route path="/zid-apps-comparison" component={ZidAppsComparison} />
       <Route path="/affiliate" component={Affiliate} />
       <Route path="/sectors/ecommerce-stores" component={EcommerceStoreSectors} />
       <Route path="/sectors/:slug" component={SectorDetail} />
       <Route path="/sectors" component={Sectors} />
       <Route path="/calculator" component={Calculator} />
-      <Route path="/analyze" component={Analyze} />
-      <Route path="/report/:shareToken">
-        {(params) => <AnalyzeReport shareToken={params.shareToken ?? ""} />}
-      </Route>
       <Route path="/use-cases/product-page" component={ProductPage} />
       <Route path="/use-cases/cart" component={CartPage} />
       <Route path="/use-cases/thank-you" component={ThankYouPage} />
@@ -186,8 +193,10 @@ function AppShell() {
         تخطي إلى المحتوى الرئيسي
       </a>
       <ScrollToTop />
+      <RouteMotionSync />
+      <Analytics />
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <Nav />
+        <Navbar />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
           <Router />
         </main>
@@ -199,24 +208,23 @@ function AppShell() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <MeetingBookingProvider>
-          <SiteContentProvider>
-            <BlurTransitionProvider>
-              <QueryClientProvider client={queryClient}>
-                <WouterRouter
-                  base={import.meta.env.BASE_URL.replace(/\/$/, "")}
-                  hook={useLangAwareLocation}
-                >
-                  <AppShell />
-                </WouterRouter>
-              </QueryClientProvider>
-            </BlurTransitionProvider>
-          </SiteContentProvider>
-        </MeetingBookingProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      {/* One Lenis instance for the whole app, mounted above the router so
+          route changes never rebuild the scroll system — only the
+          per-element triggers below it are. */}
+      <MotionProvider>
+        <BlurTransitionProvider>
+          <QueryClientProvider client={queryClient}>
+            <WouterRouter
+              base={import.meta.env.BASE_URL.replace(/\/$/, "")}
+              hook={useLangAwareLocation}
+            >
+              <AppShell />
+            </WouterRouter>
+          </QueryClientProvider>
+        </BlurTransitionProvider>
+      </MotionProvider>
+    </LanguageProvider>
   );
 }
 

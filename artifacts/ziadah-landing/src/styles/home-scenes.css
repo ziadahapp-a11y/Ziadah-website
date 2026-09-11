@@ -1,0 +1,385 @@
+/* =====================================================================
+   HOMEPAGE BLOCKS
+
+   What remains of the ported scene stylesheets after the three scroll scenes
+   were replaced by the bento boards in `bento-board.css`. The scene runways,
+   the sticky wrappers, the shared bento tile and the fixed pagination rail
+   are gone; what is kept is the product art and the static blocks that were
+   never part of the collision - the customer wallet device, the block grid,
+   the proof cards, the calculator, pricing, the how-it-works figures and the
+   feature screens.
+   ===================================================================== */
+
+/* The customer wallet device. 4.8rem radius, `--general-black-light` body on a
+   `--general-black-mid` border. FIXED dark on every section, as the
+   reference's is - reading the section pair made it a bright empty slab on
+   the green hero. */
+.device {
+  width: 100%;
+  /* Content-driven, not a fixed box. It was `height: 100%` inside a box with
+     an authored aspect ratio; at 390 the ratio came out 30px shorter than the
+     wallet screen needs and the last activity row was cut off by the frame's
+     own `overflow: hidden`. A screen that is as tall as its screen cannot be
+     cut at any width. */
+  height: auto;
+  border-radius: 4.8rem;
+  background: var(--general-black-light);
+  border: 0.8rem solid var(--general-black-mid);
+  overflow: hidden;
+  padding: 2.4rem;
+  color: var(--general-white);
+  display: flex;
+}
+.device-screen { display: flex; flex-direction: column; width: 100%; gap: 0; }
+.device-topbar { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 3.2rem; }
+.device-dot { width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--ziadah-violet); }
+.device-title { font-size: 1.4rem; font-weight: 500; }
+.device-label {
+  font-size: 1.2rem;
+  color: color-mix(in srgb, var(--general-white) 60%, transparent);
+  margin-bottom: 0.4rem;
+}
+.device-label--sub { margin-top: 2.4rem; }
+.device-balance { font-size: 4rem; line-height: 1.1; font-weight: 400; margin-bottom: 1.6rem; }
+.device-cta {
+  text-align: center;
+  padding: 1.2rem;
+  border-radius: 10rem;
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.device-rows { display: grid; gap: 0.8rem; margin-top: 0.8rem; }
+.device-row {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--general-white) 6%, transparent);
+}
+.device-row-mark { width: 2.4rem; height: 2.4rem; border-radius: 0.8rem; background: color-mix(in srgb, var(--ziadah-violet) 45%, transparent); flex: none; }
+.device-row-text { display: grid; flex: 1; min-width: 0; }
+.device-row-label { font-size: 1.3rem; }
+.device-row-when { font-size: 1.1rem; color: color-mix(in srgb, var(--general-white) 60%, transparent); }
+.device-row-amount { font-size: 1.3rem; font-weight: 500; }
+
+/* ---------- scene 4: disclaimer -------------------------------------- */
+/* MEASURED height (not min-height) 14 / 11 / 9rem. */
+.home-disclaimer {
+  background: var(--general-white);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  /* DOCUMENTED DEVIATION D-01: the captured `--general-gray-mid` is 2.39:1. */
+  color: var(--general-gray-dark);
+  height: 14rem;
+  display: flex;
+  align-items: center;
+  white-space: pre-line;
+}
+@media screen and (max-width: 1024px) { .home-disclaimer { height: 11rem; } }
+@media screen and (max-width: 767px)  { .home-disclaimer { height: 9rem; } }
+
+
+/* ---------- ROI calculator, inside the pinned scrollable-list column -----
+   The panel reads the section's own pair like every other block; nothing here
+   names a colour. Sizes follow the measured type roles. */
+.calc-panel { display: flex; flex-direction: column; gap: 0; width: 100%; }
+
+.calc-label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+  margin-bottom: 0.8rem;
+}
+[dir="rtl"] .calc-label { text-transform: none; letter-spacing: 0; }
+.calc-label--sub { margin-top: 3.2rem; }
+
+.calc-figure {
+  font-size: 6.4rem;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--color-secondary);
+  margin-bottom: 2.4rem;
+}
+@media screen and (max-width: 767px) { .calc-figure { font-size: 4rem; } }
+[dir="rtl"] .calc-figure { line-height: 1.28; }
+
+.calc-slider { margin-bottom: 0.8rem; }
+
+.calc-bars { display: grid; gap: 1.6rem; }
+.calc-bar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.calc-bar-value { font-weight: 500; color: var(--color-secondary); }
+.calc-bar-track {
+  height: 0.8rem;
+  border-radius: 10rem;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+}
+.calc-bar-fill { height: 100%; border-radius: 10rem; transition: width calc(var(--motion) * 0.4s) var(--ease-out-quint); }
+/* The three bars are one ink at three weights, not three hues - the palette
+   has no semantic ramp for "worse / better", and a hue here would not survive
+   the section families. */
+.calc-bar-fill--none   { background: color-mix(in srgb, var(--color-secondary) 30%, transparent); }
+.calc-bar-fill--coupon { background: color-mix(in srgb, var(--color-secondary) 55%, transparent); }
+.calc-bar-fill--shaa   { background: var(--color); }
+
+.calc-result { margin-top: auto; padding-top: 3.2rem; }
+.calc-result-head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+/* The tiles fit themselves to their content instead of counting on a
+   breakpoint. MEASURED, and the reason a breakpoint was the wrong tool: the
+   width a tile needs is not constant in rem, because the fluid root and the
+   type scale move independently. A tile must hold 14.95rem at 390 but 17.8rem
+   at 1024, where the panel is squeezed into the sticky side column (404px) yet
+   the root makes the figure LARGER than at 1280 - 39.3px against 28.4px. Two
+   fixed columns left each tile 85-114px of inner width for a 134-179px number,
+   so the figure broke out of its tile everywhere from 768 to 1024, and again at
+   390 and below once the panel became visible on phones.
+   `auto-fit` with an 18rem floor goes two-up only where two tiles genuinely
+   fit and drops to one otherwise; verified at 1600/1440/1280/1024/900/768/700/
+   640/530/430/390/360 with no overflow at any of them. `min(100%, 18rem)`
+   keeps the floor from exceeding the container itself. */
+.calc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+.calc-stat {
+  padding: 2rem;
+  border-radius: var(--radius-card, 1.6rem);
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.calc-stat-num { font-size: 3.2rem; line-height: 1.1; font-weight: 400; color: var(--color-secondary); }
+@media screen and (max-width: 767px) { .calc-stat-num { font-size: 2.4rem; } }
+
+/* ---------- pricing, on the reference's measured card anatomy -----------
+   MEASURED CardsGrid: 16px gap, card `justify-content: space-between`, the
+   card painted as a flat 8% tint of the section's own ink with the measured
+   1.6rem card radius. Four plans instead of the reference's three, on the
+   same gap and the same card. */
+.price-bullets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  margin-bottom: 4rem;
+}
+@media screen and (max-width: 767px) { .price-bullets { grid-template-columns: minmax(0, 1fr); } }
+.price-bullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 2rem;
+  border-radius: var(--radius-card, 1.6rem);
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.price-bullet-icon { display: grid; place-items: center; width: 4rem; height: 4rem; flex: none;
+  border-radius: 1.2rem; color: var(--color); background: color-mix(in srgb, var(--color) 12%, transparent); }
+.price-bullet-glyph { width: 2rem; height: 2rem; }
+.price-bullet-title { font-size: 1.6rem; font-weight: 500; margin-bottom: 0.4rem; }
+.price-bullet-desc {
+  font-size: 1.4rem; line-height: 1.5;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .price-bullet-desc { line-height: 1.9; }
+
+.price-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6rem; }
+@media screen and (max-width: 1024px) { .price-grid { grid-template-columns: repeat(2, 1fr); } }
+@media screen and (max-width: 767px)  { .price-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.4rem;
+  padding: 2.4rem;
+  border-radius: var(--radius-card, 1.6rem);
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.price-badge {
+  position: absolute;
+  top: 0; inset-inline-start: 2.4rem;
+  transform: translateY(-50%);
+  padding: 0.4rem 1.2rem;
+  border-radius: 10rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+.price-name { font-size: 2.4rem; line-height: 1.33; font-weight: 500; margin-bottom: 0.8rem; }
+.price-desc {
+  font-size: 1.4rem; line-height: 1.5; margin-bottom: 1.6rem;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .price-desc { line-height: 1.9; }
+.price-commission {
+  font-size: 1.4rem; font-weight: 500;
+  padding: 1.2rem;
+  border-radius: var(--radius-card, 1.6rem);
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  margin-bottom: 2rem;
+}
+.price-features { display: grid; gap: 0.8rem; font-size: 1.4rem; line-height: 1.5; }
+.price-features li { display: flex; align-items: flex-start; gap: 0.8rem; }
+[dir="rtl"] .price-features { line-height: 1.9; }
+
+/* ---------- how-it-works step screens ---------------------------------
+   Real Ziadah UI inside the reference's measured figure box. Every colour is
+   the section's own pair; nothing is named here. */
+.stepfig {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+  padding: 2.4rem;
+  border-radius: var(--radius-media, 3.2rem);
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+.stepfig-title { font-size: 1.4rem; font-weight: 500; opacity: 0.75; }
+.stepfig-rows { display: grid; gap: 0.8rem; }
+.stepfig-row {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  font-size: 1.4rem;
+}
+.stepfig-row-label { flex: 1; min-width: 0; }
+.stepfig-dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; flex: none;
+  background: color-mix(in srgb, var(--color-primary) 35%, transparent); }
+.stepfig-dot.is-live { background: var(--color); }
+.stepfig-state { font-size: 1.2rem; opacity: 0.75; }
+.stepfig-state.is-live { opacity: 1; color: var(--color); }
+
+/* `1fr` has an automatic minimum of min-content, so at 320 the two tiles were
+   30px wider than the figure that holds them and were clipped by its radius
+   box. Same bug as the footer, `.secscreen-rows` and `.media-slot`. */
+.stepfig-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.stepfig-tile {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+  padding: 1.2rem 1.6rem; border-radius: 1.6rem; font-size: 1.3rem;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+.stepfig-tile-label { min-width: 0; }
+.stepfig-switch {
+  width: 2.8rem; height: 1.6rem; border-radius: 10rem; flex: none; position: relative;
+  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+.stepfig-switch.is-on { background: var(--color); }
+.stepfig-switch::after {
+  content: ""; position: absolute; top: 0.2rem; inset-inline-start: 0.2rem;
+  width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--color-secondary);
+}
+.stepfig-switch.is-on::after { inset-inline-start: auto; inset-inline-end: 0.2rem; }
+
+.stepfig-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
+.stepfig-stat {
+  display: grid; gap: 0.4rem; padding: 1.6rem; border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+.stepfig-stat-label { font-size: 1.2rem; opacity: 0.75; }
+.stepfig-stat-num { font-size: 2.4rem; line-height: 1.1; }
+.stepfig-chart {
+  display: flex; align-items: flex-end; gap: 0.8rem;
+  height: 10rem; padding: 1.6rem; border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+.stepfig-bar { flex: 1; border-radius: 0.4rem 0.4rem 0 0; background: var(--color); }
+
+/* The step screen fills the measured figure box. */
+.stepfig { height: 100%; justify-content: flex-start; }
+
+/* ---------- product-page figure ---------------------------------------
+   The feature's own UI inside the reference's measured figure box. */
+/* `.is-flipped` re-points the WHOLE triple, so the feature's own mockup - which
+   is arbitrary markup reading `--color-secondary` through the brand utilities -
+   lands on the opposite end and stays visible. Setting `background` and `color`
+   by hand left the chips the same colour as the box they sat on. */
+.feature-figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 1.6rem;
+  height: 100%;
+  padding: 2.4rem;
+  border-radius: var(--radius-media, 3.2rem);
+  overflow: hidden;
+}
+.feature-figure-title { font-size: 1.4rem; font-weight: 500; color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent); }
+.feature-figure-body { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 0; }
+
+/* ---------- feature product screen ------------------------------------ */
+.fscreen-head { display: flex; align-items: center; gap: 0.8rem; }
+.fscreen-dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--color); flex: none; }
+.fscreen-title { font-size: 1.4rem; font-weight: 500; flex: 1; min-width: 0; }
+.fscreen-badge {
+  font-size: 1.1rem; padding: 0.2rem 0.8rem; border-radius: 10rem;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+}
+.fscreen-headline {
+  display: grid; gap: 0.4rem; padding: 2rem;
+  border-radius: 1.6rem;
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.fscreen-headline-label {
+  font-size: 1.2rem;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.fscreen-headline-value { font-size: 3.2rem; line-height: 1.1; }
+/* The row this figure belongs to, called out on the screen so the list's
+   cross-fade actually changes something as rows activate. */
+.fscreen-focus {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.6rem 2rem;
+  border-radius: 1.6rem;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+.fscreen-focus-label { font-size: 1.2rem; opacity: 0.8; }
+.fscreen-focus-value { font-size: 1.8rem; line-height: 1.4; font-weight: 500; }
+
+.fscreen-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+/* The figure is a ~60rem square. `margin-top: auto` pinned these to the
+   bottom and left a 25rem hole through the middle of the screen - a smaller
+   empty rectangle inside the art itself. The screen distributes its blocks
+   instead, so the whole box carries interface. */
+.fscreen-label {
+  font-size: 1.2rem;
+  margin: 0;
+  color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.fscreen-rows { display: grid; gap: 0.8rem; }
+/* The chevron points the way OUT of the row, which in an RTL screen is the
+   other way. */
+.fscreen-row-go { width: 1.6rem; height: 1.6rem; flex: none; opacity: 0.5; }
+[dir="ltr"] .fscreen-row-go { transform: scaleX(-1); }
+.fscreen-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  padding: 1.2rem 1.6rem; border-radius: 1.6rem; font-size: 1.3rem;
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.fscreen-row-value { color: color-mix(in srgb, var(--color-secondary) max(75%, var(--ink-floor, 0%)), transparent); }
+
+.programs-foot { display: flex; justify-content: center; margin-top: 4rem; }

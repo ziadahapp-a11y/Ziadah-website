@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "@/components/PageShell";
+import { PageRail, PageProgress } from "@/components/PageRail";
+import { HeroLede, Section as DsSection } from "@/sections";
+import { Shell, Button as MkButton } from "@/components/mk";
+import { getMotionRuntime, scrollToTarget } from "@/motion/runtime";
+import { getAnchorScrollTopOffset } from "@/utils/anchorScroll";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { navigateTo } from "@/components/PageTransition";
-import LandingSolutionsMatrix from "@/components/LandingSolutionsMatrix";
-import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorHubPlaybook from "@/components/SectorHubPlaybook";
 import SectorPageRichSections from "@/components/SectorPageRichSections";
@@ -22,6 +24,7 @@ import SectorHtmlHero from "@/components/SectorHtmlHero";
 import SectorDeliveryUseCases from "@/components/SectorDeliveryUseCases";
 import { getSectorPageRich } from "@/data/sectorPageRich";
 import "@/styles/sectorHtmlPage.css";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const SECTOR_SLUGS_WITH_PLATFORM_HUB = new Set(["delivery-apps", "ecommerce-platforms"]);
 
@@ -39,24 +42,16 @@ function SectionBlock({
   sectionId?: string;
 }) {
   return (
-    <section
-      id={sectionId}
-      className={`rv ${delayClass} rounded-2xl border border-zinc-200 bg-white p-7 md:p-9 shadow-card`}
-      style={{ marginBottom: 20, scrollMarginTop: 120 }}
-    >
-      {eyebrow && (
-        <div className="mb-3">
-          <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">{eyebrow}</span>
-        </div>
-      )}
-      <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-5 leading-tight">{title}</h2>
+    <section id={sectionId} className={`rv ${delayClass} sector-block`}>
+      {eyebrow ? <p className="t-eyebrow">{eyebrow}</p> : null}
+      <h2 className="section-head-title--md">{title}</h2>
       {children}
     </section>
   );
 }
 
 export default function SectorDetail() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const tr = t[lang].sectorsPage;
   const params = useParams<{ slug: string }>();
@@ -98,19 +93,17 @@ export default function SectorDetail() {
 
   if (!sector) {
     return (
-      <PageShell className="bg-white" style={{ background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="text-center px-4">
-          <h1 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-3">{tr.notFoundTitle}</h1>
-          <p className="text-zinc-600 mb-6 max-w-md mx-auto leading-relaxed">{tr.notFoundDesc}</p>
-          <button
-            type="button"
-            onClick={() => navigateTo("/sectors")}
-            className="inline-flex items-center justify-center h-12 px-7 rounded-md bg-zinc-950 hover:bg-zinc-800 text-white font-semibold transition-colors"
-          >
-            {tr.notFoundBtn}
-          </button>
-        </div>
-      </PageShell>
+      <div className="page">
+        <DsSection family="grey" className="min-h-[70vh] flex items-center">
+          <Shell width="narrow">
+            <div className="text-center">
+              <h1 className="section-head-title--sm mb-4">{tr.notFoundTitle}</h1>
+              <p className="t-body-18 mb-8">{tr.notFoundDesc}</p>
+              <MkButton onClick={() => navigateTo("/sectors")}>{tr.notFoundBtn}</MkButton>
+            </div>
+          </Shell>
+        </DsSection>
+      </div>
     );
   }
 
@@ -167,9 +160,14 @@ export default function SectorDetail() {
         : ([{ id: "section-best", labelAr: "أفضل الممارسات", labelEn: "Best Practices" }] as const)),
   ] as const;
 
+  /* `quickSections` carries `labelAr`/`labelEn`; the shared rail speaks
+     `ar`/`en`. Mapped here rather than renaming the section list, which the
+     hero's own jump links also read. */
+  const railItems = quickSections.map((q) => ({ id: q.id, ar: q.labelAr, en: q.labelEn }));
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) scrollToTarget(getMotionRuntime(), el, -getAnchorScrollTopOffset());
   };
 
   return (
@@ -192,103 +190,51 @@ export default function SectorDetail() {
         ]}
       />
       <WebPageSchema name={pageTitle} description={seoDesc} url={`/sectors/${sector.slug}`} />
-      <PageShell className="relative overflow-x-clip bg-white text-zinc-950" style={{ background: "#fff" }}>
+      <PageShell className="relative overflow-x-clip">
 
         {htmlPlaybook && pageRich ? (
           <>
-            <div className="sector-html-prog" style={{ width: `${scrollProg}%` }} aria-hidden />
+            <PageProgress value={scrollProg} />
             <div className="sector-html">
               <SectorHtmlHero rich={pageRich} sectorTitle={title} sectorsBreadcrumb={tr.breadcrumbSectors} onScrollTo={scrollToSection} />
-              <nav
-                className="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-zinc-200"
-                aria-label={lang === "ar" ? "أقسام هذه الصفحة" : "Sections on this page"}
-              >
-                <div className="container mx-auto max-w-6xl px-4 py-3 flex flex-wrap gap-2 justify-center">
-                  {quickSections.map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => scrollToSection(item.id)}
-                      className="rounded-full border border-zinc-200 bg-white text-zinc-700 text-xs font-bold px-3.5 py-2 hover:border-zinc-300 hover:bg-zinc-50 transition-colors"
-                    >
-                      {lang === "ar" ? item.labelAr : item.labelEn}
-                    </button>
-                  ))}
-                </div>
-              </nav>
+              <PageRail items={railItems} />
             </div>
           </>
         ) : (
           <>
-            <section
-              dir={dir}
-              className="relative pt-40 pb-16 md:pt-48 md:pb-20 px-4 border-b border-zinc-200 text-center"
+            <HeroLede
+              family="violet"
+              eyebrow={
+                <>
+                  <span aria-hidden="true">{sector.icon}</span> {tr.breadcrumbSectors}
+                </>
+              }
+              title={pageRich ? (lang === "ar" ? pageRich.heroHeadlineAr : pageRich.heroHeadlineEn) : title}
+              body={pageRich ? (lang === "ar" ? pageRich.heroSubAr : pageRich.heroSubEn) : tagline}
             >
-              <div
-                className="absolute inset-0 bg-grid-fade opacity-60 -z-10"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-                  backgroundSize: "48px 48px",
-                }}
-              />
-              <div className="container mx-auto max-w-3xl flex flex-col items-center pt-[120px] pb-[120px]">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-6">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-                  </span>
-                  <span className="text-xs font-semibold text-violet-700">{tr.breadcrumbSectors}</span>
+              {pageRich ? (
+                /* The two columns are the sector's own evidence — what its
+                   orders look like, and what Ziadah suggests against them —
+                   so they sit inside the hero rather than in a band below it. */
+                <div dir={dir} className="sector-hero-cols">
+                  {[
+                    { label: tr.sectorPhoneOrders, lines: pageRich.phoneOrders },
+                    { label: tr.sectorPhoneRecs, lines: pageRich.phoneRecs },
+                  ].map((col) => (
+                    <div key={col.label} className="sector-hero-col">
+                      <p className="t-eyebrow">{col.label}</p>
+                      <ul className="sector-hero-lines">
+                        {col.lines.map((line, i) => (
+                          <li key={i}>{lang === "ar" ? line.ar : line.en}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                 </div>
-                <div className="text-5xl mb-5" aria-hidden>
-                  {sector.icon}
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
-                  {pageRich ? (lang === "ar" ? pageRich.heroHeadlineAr : pageRich.heroHeadlineEn) : title}
-                </h1>
-                <p className="text-lg text-zinc-600 max-w-2xl mb-8 leading-relaxed">
-                  {pageRich ? (lang === "ar" ? pageRich.heroSubAr : pageRich.heroSubEn) : tagline}
-                </p>
+              ) : null}
+            </HeroLede>
 
-                {pageRich ? (
-                  <div dir={dir} className="w-full max-w-md grid grid-cols-2 gap-4 text-start">
-                    {[
-                      { label: tr.sectorPhoneOrders, lines: pageRich.phoneOrders },
-                      { label: tr.sectorPhoneRecs, lines: pageRich.phoneRecs },
-                    ].map((col, ci) => (
-                      <div key={ci} className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-card">
-                        <div className="text-[11px] font-bold uppercase tracking-wide text-violet-600 mb-2.5">{col.label}</div>
-                        <div className="space-y-1.5">
-                          {col.lines.map((line, i) => (
-                            <div key={i} className="text-[13px] font-semibold text-zinc-700 leading-snug">
-                              {lang === "ar" ? line.ar : line.en}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            </section>
-
-            <nav
-              className="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-zinc-200"
-              aria-label={lang === "ar" ? "أقسام هذه الصفحة" : "Sections on this page"}
-            >
-              <div className="container mx-auto max-w-6xl px-4 py-3 flex flex-wrap gap-2 justify-center">
-                {quickSections.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => scrollToSection(item.id)}
-                    className="rounded-full border border-zinc-200 bg-white text-zinc-700 text-xs font-bold px-3.5 py-2 hover:border-zinc-300 hover:bg-zinc-50 transition-colors"
-                  >
-                    {lang === "ar" ? item.labelAr : item.labelEn}
-                  </button>
-                ))}
-              </div>
-            </nav>
+            <PageRail items={railItems} />
           </>
         )}
 
@@ -316,17 +262,14 @@ export default function SectorDetail() {
                 {sector.howToPhaseCards.map((card, i) => (
                   <div
                     key={i}
-                    className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-5 hover:border-zinc-300 hover:shadow-card transition-all`}
+                    className={`rv d${(i % 3) + 1} sector-card`}
                   >
                     <div className="flex items-start gap-2.5 mb-3">
-                      <span className="text-2xl leading-none" aria-hidden>
-                        {card.emoji}
-                      </span>
-                      <h3 className="m-0 text-base font-extrabold text-zinc-950 leading-snug">
+                      <h3 className="sector-card-title">
                         {lang === "ar" ? card.titleAr : card.titleEn}
                       </h3>
                     </div>
-                    <ul className="m-0 ps-5 list-disc text-sm text-zinc-600 leading-relaxed space-y-2">
+                    <ul className="sector-list sector-list--sm">
                       {(slim ? (lang === "ar" ? card.bulletsAr : card.bulletsEn).slice(0, 2) : lang === "ar" ? card.bulletsAr : card.bulletsEn).map((b, j) => (
                         <li key={j}>{b}</li>
                       ))}
@@ -335,7 +278,7 @@ export default function SectorDetail() {
                 ))}
               </div>
             ) : (
-              <ol className="m-0 ps-5 list-decimal text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
+              <ol className="sector-list">
                 {howTo.map((line, i) => (
                   <li key={i}>{line}</li>
                 ))}
@@ -357,19 +300,16 @@ export default function SectorDetail() {
                 {sector.helpCards.map((hc, i) => (
                   <div
                     key={i}
-                    className={`rv d${(i % 3) + 1} flex items-start gap-3 rounded-2xl border border-zinc-200 bg-white p-4 hover:border-zinc-300 hover:shadow-card transition-all`}
+                    className={`rv d${(i % 3) + 1} sector-card flex items-start gap-3`}
                   >
-                    <span className="text-2xl leading-none shrink-0" aria-hidden>
-                      {hc.emoji}
-                    </span>
-                    <p className="m-0 text-sm text-zinc-600 leading-relaxed">
+                    <p className="sector-card-text">
                       {lang === "ar" ? hc.bodyAr : hc.bodyEn}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
+              <ul className="sector-list">
                 {helps.map((line, i) => (
                   <li key={i}>{line}</li>
                 ))}
@@ -378,27 +318,28 @@ export default function SectorDetail() {
           </SectionBlock>
           ) : null}
 
-          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} sectorSlug={sector.slug} /> : null}
-          {showPlatformHub && !visualBundle && !(htmlPlaybook && SECTOR_SLUGS_WITH_PLATFORM_HUB.has(sector.slug)) ? (
-            <>
-              <LandingSolutionsMatrix variant="sector" />
-              <WidgetsShowcaseSection variant="sector" sectorSlug={sector.slug} />
-            </>
-          ) : null}
+          {/* `showPlatformHub` is true only for `delivery-apps` and
+              `ecommerce-platforms`, and `sectorVisuals.ts` carries a bundle for
+              both, so the fallback that used to sit here -
+              `showPlatformHub && !visualBundle` - could never be true. It
+              rendered `LandingSolutionsMatrix` and the widget marquee on zero
+              routes. Both are gone; the playbook below is what these two
+              sectors have always actually shown. */}
+          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
 
           {!showPlatformHub && visualBundle ? (
             <div
               id="section-examples"
-              className="rv d3 rounded-2xl border border-zinc-200 bg-white p-7 md:p-9 shadow-card"
+              className="rv d3 sector-block"
               style={{ marginBottom: 20, scrollMarginTop: 120 }}
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-5 leading-tight">{tr.sectionExamples}</h2>
-              <SectorVisualExamples bundle={visualBundle} sectorSlug={sector.slug} />
+              <h2 className="section-head-title--sm mb-5">{tr.sectionExamples}</h2>
+              <SectorVisualExamples bundle={visualBundle} />
             </div>
           ) : null}
           {!showPlatformHub && !visualBundle ? (
             <SectionBlock title={tr.sectionExamples} delayClass="d3" sectionId="section-examples">
-              <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
+              <ul className="sector-list">
                 {(lang === "ar" ? sector.examplesAr : sector.examplesEn).map((line, i) => (
                   <li key={i}>{line}</li>
                 ))}
@@ -409,11 +350,11 @@ export default function SectorDetail() {
           {!slim ? (
             <SectionBlock title={tr.sectionExperience} delayClass="d1" sectionId="section-experience">
               {sector.useCardLayout ? (
-                <div className="rv rounded-2xl border border-zinc-200 border-s-4 border-s-violet-500 bg-zinc-50/60 p-6">
-                  <p className="m-0 text-[15px] text-zinc-700 leading-loose">{experience}</p>
+                <div className="rv sector-experience">
+                  <p className="sector-card-text">{experience}</p>
                 </div>
               ) : (
-                <p className="m-0 text-[15px] text-zinc-700 leading-loose">{experience}</p>
+                <p className="sector-card-text">{experience}</p>
               )}
             </SectionBlock>
           ) : null}
@@ -430,19 +371,16 @@ export default function SectorDetail() {
                   {sector.bestCards.map((bc, i) => (
                     <div
                       key={i}
-                      className={`rv d${(i % 3) + 1} flex items-start gap-2.5 rounded-2xl border border-zinc-200 bg-white p-4 hover:border-zinc-300 hover:shadow-card transition-all`}
+                      className={`rv d${(i % 3) + 1} sector-card flex items-start gap-2.5`}
                     >
-                      <span className="text-lg leading-snug shrink-0" aria-hidden>
-                        {bc.emoji}
-                      </span>
-                      <p className="m-0 text-sm text-zinc-600 leading-relaxed">
+                      <p className="sector-card-text">
                         {lang === "ar" ? bc.textAr : bc.textEn}
                       </p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <ul className="m-0 ps-5 list-disc text-[15px] text-zinc-600 leading-relaxed space-y-2.5">
+                <ul className="sector-list">
                   {best.map((line, i) => (
                     <li key={i}>{line}</li>
                   ))}
@@ -454,13 +392,10 @@ export default function SectorDetail() {
           {pageRich ? <SectorPageRichSections rich={pageRich} part="foot" /> : null}
 
           <div className="rv d2 text-center mt-8">
-            <button
-              type="button"
-              onClick={() => navigateTo("/sectors")}
-              className="inline-flex items-center gap-2 h-11 px-6 rounded-md border border-zinc-300 text-zinc-950 hover:bg-zinc-100 font-semibold text-sm transition-colors"
-            >
-              <span aria-hidden>{dir === "rtl" ? "→" : "←"}</span> {tr.breadcrumbSectors}
-            </button>
+            <MkButton variant="tertiary" onClick={() => navigateTo("/sectors")}>
+              <span aria-hidden>{dir === "rtl" ? "→" : "←"}</span>
+              <span className="ms-2">{tr.breadcrumbSectors}</span>
+            </MkButton>
           </div>
         </article>
         <PageClosingCta

@@ -1,0 +1,1569 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   ZIADAH ADDITIONS TO THE SECTION VOCABULARY
+
+   The five files this sits beside are ports, kept byte-comparable with their
+   source so a future sync stays a diff. Anything Ziadah needs that the source
+   has no equivalent for goes here instead, written against the same tokens
+   and the same conventions: colour only through the section's triple, every
+   hover state behind `@media (hover: hover)`, and durations multiplied by
+   `--motion` so reduced-motion collapses them.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ---------- SOLUTION INDEX GRID ---------------------------------------
+   The five `by-*` groupings, side by side. The source's own catalogue is a
+   single flat list; Ziadah's solutions are grouped four ways over the same
+   twenty-one pages, so the grouping has to be visible rather than flattened
+   away. Four columns at the desktop tier, two at tablet, one on a phone —
+   the same steps `.footer-groups` uses, so the two read as one system. */
+.ucx-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+}
+@media screen and (max-width: 1024px) { .ucx-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 767px)  { .ucx-groups { grid-template-columns: minmax(0, 1fr); } }
+/* Five groups against four columns leaves the fifth alone on its own row, and
+   the orphan rule that closes that on the card grids was tried here and made
+   it worse: these groups are lists of text links, not filled boxes, so a
+   short row reads as a directory continuing rather than as a hole, while a
+   group stretched across the full width reads as a heading with nothing under
+   it. Left as measured. */
+
+.ucx-group { min-width: 0; }
+
+.ucx-group-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 1.6rem;
+  color: var(--ink);
+}
+
+.ucx-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ucx-group-link {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  /* The rows were lines of text — navigation targets under the 24px WCAG
+     2.5.8 minimum. The block padding grows the hit area without moving the
+     text. */
+  padding: 0.6rem 0;
+  text-align: start;
+  overflow-wrap: break-word;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) {
+  .ucx-group-link:hover { color: var(--ink); }
+}
+.ucx-group-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+.ucx-group-desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-secondary) max(60%, var(--ink-floor, 0%)), transparent);
+}
+
+/* ---------- USE-CASE PLAYBOOK -----------------------------------------
+   The shared layout behind the twenty-one `/use-cases/*` pages. The source
+   design system has no equivalent — its industry pages are lists of cases,
+   not a per-case playbook — so these are Ziadah's, written against the same
+   tokens. */
+
+/* Read progress. Fixed to the viewport, under the header's stacking context,
+   and scaled from a transform so it never triggers layout while scrolling. */
+.uc-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 0.3rem;
+  z-index: calc(var(--z-header) - 1);
+  transform-origin: left center;
+  background: var(--ziadah-violet);
+  pointer-events: none;
+}
+[dir="rtl"] .uc-progress { transform-origin: right center; }
+
+/* The page's own contents. It sits under the header, so the offset is
+   token-derived: nothing here hard-codes a pixel. */
+.uc-rail {
+  position: sticky;
+  top: var(--header-dynamic-height);
+  z-index: 20;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(1.2rem);
+  border-block-end: 0.1rem solid var(--line);
+}
+.uc-rail-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  padding-block: 1.2rem;
+}
+.uc-rail-link {
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  padding: 0.6rem 1.6rem;
+  background: none;
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint),
+              border-color calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) {
+  .uc-rail-link:hover { color: var(--ink); border-color: var(--ink); }
+}
+.uc-rail-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+/* The numbers are this section's argument, so they carry the display tier
+   rather than sitting in cards that compete with the heading above them. */
+.uc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  gap: 3.2rem 2.4rem;
+  margin-top: 4.8rem;
+  list-style: none;
+  padding: 0;
+}
+/* `space-evenly` so the value and its label share the tile's height rather
+   than stacking at the top of it - the stats row is four tiles of one height
+   and the shortest label was leaving a hole under it. */
+.uc-stat { display: grid; gap: 0.8rem; justify-content: space-evenly; }
+.uc-stat-value {
+  font-size: var(--type-display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.uc-stat-label { font-size: 1.6rem; line-height: 1.5; color: var(--ink-muted); }
+
+/* Heading beside its evidence. One column below the desktop tier, because
+   two 34rem columns in a narrow shell are two cramped columns. */
+.uc-split { display: grid; gap: 4.8rem; align-items: start; }
+@media screen and (min-width: 1025px) {
+  .uc-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 6.4rem; }
+  .uc-split .section-head { margin-bottom: 0; }
+}
+
+.uc-report-list { display: grid; gap: 1.2rem; list-style: none; margin: 0; padding: 0; }
+.uc-report {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  /* No border. The row already separates from the band by its own ground;
+     a hairline on top of that draws the box instead of the content. */
+  border-radius: var(--radius-card);
+  background: var(--surface-2);
+}
+.uc-report-ico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  color: var(--ink);
+}
+.uc-report-text { display: grid; gap: 0.2rem; min-width: 0; }
+.uc-report-label { font-size: 1.5rem; font-weight: 500; color: var(--ink); }
+.uc-report-sub { font-size: 1.3rem; line-height: 1.4; color: var(--ink-muted); }
+
+/* ---------- SECTOR PLAYBOOK -------------------------------------------
+   `SectorDetail` renders sixteen sector pages as a stack of blocks under a
+   shared rail. A block is the card anatomy from the system — 8% tint of the
+   section's own ink, card radius — rather than a hard-coded white panel with
+   a zinc border, so it reads correctly whichever family the page is on. */
+.sector-block {
+  margin-bottom: 2rem;
+  padding: 2.8rem;
+  border: 0;
+  border-radius: var(--radius-card);
+  /* `--surface` is the section's GROUND, so on a page that never stamps a
+     family it resolves to white and the block was white on white, read only
+     by its border. The card's own tint is what separates a card from the
+     ground it sits on, here as everywhere else. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  /* Cleared by the rail above it, which is itself header-offset. */
+  scroll-margin-top: calc(var(--header-dynamic-height) + 8rem);
+}
+@media screen and (min-width: 768px) { .sector-block { padding: 3.6rem; } }
+.sector-block > .t-eyebrow { margin-bottom: 1.2rem; }
+.sector-block > .section-head-title--md { margin-bottom: 2rem; }
+
+/* The sector's own evidence, in the hero: what its orders look like beside
+   what Ziadah suggests against them. Two columns at every width above a
+   phone — the pairing IS the point, so they must not stack apart. */
+.sector-hero-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  max-width: 64rem;
+  margin: 4rem auto 0;
+  text-align: start;
+}
+@media screen and (max-width: 499px) { .sector-hero-cols { grid-template-columns: minmax(0, 1fr); } }
+.sector-hero-col {
+  padding: 2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface-2);
+}
+.sector-hero-lines {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--ink-muted);
+}
+
+/* The sector phone. A merchant recognises their own order screen, so the
+   anatomy is a real one: an app bar, the order rows, and Ziadah's suggestions
+   set apart beneath them. Written against the section's tokens rather than a
+   zinc/violet pair, so it reads on whichever family the hero carries. */
+.sector-phone-wrap { position: relative; display: flex; justify-content: center; width: 100%; }
+.sector-phone {
+  width: 100%;
+  max-width: 34rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-block);
+  background: var(--general-white);
+  overflow: hidden;
+  box-shadow: 0 2.4rem 6rem -1.2rem rgb(0 0 0 / 0.16);
+}
+.sector-phone-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.6rem;
+  border-block-end: 0.1rem solid var(--general-gray-light);
+  background: var(--general-white-off);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--general-black);
+}
+.sector-phone-bar > :last-child { font-size: 1.2rem; color: var(--general-gray-mid); }
+.sector-phone-body { display: grid; gap: 1rem; padding: 1.6rem; }
+.sector-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 0.1rem solid var(--general-gray-light);
+  border-radius: 1.2rem;
+  background: var(--general-white);
+  font-size: 1.4rem;
+  color: var(--general-black);
+}
+.sector-phone-name { flex: 1; min-width: 0; font-weight: 500; }
+.sector-phone-price { font-weight: 500; }
+.sector-phone-recs {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+  padding: 1.2rem;
+  border: 0.1rem solid color-mix(in srgb, var(--ziadah-violet) 28%, transparent);
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--ziadah-violet-pale) 55%, transparent);
+}
+.sector-phone-recs-label {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ziadah-violet-dark);
+}
+.sector-phone-row--rec { padding: 0.8rem 1rem; font-size: 1.3rem; }
+.sector-phone-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  background: var(--general-black);
+  color: var(--general-white);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+/* The two floating tags sit on the phone's corners. Logical properties, so
+   they swap ends with the document direction rather than staying pinned. */
+.sector-phone-tag {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border: 0.1rem solid var(--general-gray-light);
+  border-radius: 9999px;
+  background: var(--general-white);
+  box-shadow: 0 0.8rem 2.4rem -0.8rem rgb(0 0 0 / 0.18);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--general-gray-dark);
+  white-space: nowrap;
+}
+.sector-phone-tag::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--ziadah-violet);
+}
+.sector-phone-tag--start { inset-block-start: -1.2rem; inset-inline-start: 0; }
+.sector-phone-tag--end { inset-block-end: -1.2rem; inset-inline-end: 0; }
+.sector-phone-tag--end::before { background: var(--warning); }
+
+/* An accent run inside a headline. Not `text-brand`: the ramp resolves that
+   to `--color-secondary`, which is the ink the rest of the headline already
+   uses, so the accent was invisible. Stated at both ends of the family
+   because the brand violet reads on the pale ground and its pale tint reads
+   on the dark one — display type, so 3:1 is the bar and both clear it. */
+.hero-accent { color: var(--ziadah-violet); }
+[data-invert] .hero-accent { color: var(--ziadah-violet-pale); }
+
+/* The read-more row at the foot of a card. `.card-foot` is the system's slot;
+   this is what goes in it when the card is a destination. */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--ziadah-violet);
+}
+[data-invert] .card-cta { color: var(--ziadah-violet-pale); }
+
+/* Search inside an index hero. The system's own directory opener puts search
+   in the hero rather than in a band under it, so an index hands the reader
+   its contents rather than a headline. */
+.hero-search { position: relative; max-width: 52rem; margin: 3.2rem auto 0; }
+.hero-search-input {
+  width: 100%;
+  height: 4.8rem;
+  padding-inline: 2rem 4.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  background: var(--general-white);
+  color: var(--general-black);
+  font: inherit;
+  font-size: 1.5rem;
+}
+.hero-search-input::placeholder { color: var(--general-gray-mid); }
+.hero-search-input:focus-visible {
+  outline: 0.2rem solid var(--ziadah-violet);
+  outline-offset: 0.2rem;
+  border-color: transparent;
+}
+.hero-search-ico {
+  position: absolute;
+  inset-inline-end: 1.8rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--general-gray-mid);
+  pointer-events: none;
+}
+
+/* Support's search adds two things Blog's does not: a clear button on the
+   leading side, and a results panel that opens under the field. Both live with
+   the field rather than in the page, so the hero stays one block. */
+.hero-search-clear {
+  position: absolute;
+  inset-inline-start: 1.6rem;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--general-gray-mid);
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.hero-search-clear:hover { background: var(--surface-2); color: var(--ink); }
+.hero-search-clear svg { width: 1.6rem; height: 1.6rem; }
+.hero-search-input.is-clearable { padding-inline-start: 4.8rem; }
+
+.hero-search-results {
+  position: relative;
+  z-index: 2;
+  max-width: 52rem;
+  margin: 1.2rem auto 0;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-3, 1.6rem);
+  background: var(--general-white);
+  text-align: start;
+  box-shadow: 0 1.6rem 4rem rgb(0 0 0 / 8%);
+}
+.hero-search-count {
+  padding: 1.2rem 2rem;
+  border-block-end: 0.1rem solid var(--line);
+  color: var(--ink-muted);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero-search-hit {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.6rem 2rem;
+  border-block-end: 0.1rem solid var(--line);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--dur-2) var(--ease-out);
+}
+.hero-search-hit:last-child { border-block-end: 0; }
+.hero-search-hit:hover { background: var(--surface-2); }
+.hero-search-hit-title { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+.hero-search-hit-meta { margin-block-start: 0.2rem; font-size: 1.2rem; color: var(--ink-muted); }
+.hero-search-hit-ico { flex: none; width: 1.6rem; height: 1.6rem; margin-block-start: 0.4rem; color: var(--general-gray-mid); }
+.hero-search-empty { padding: 2.4rem 2rem; color: var(--ink-muted); font-size: 1.4rem; text-align: center; }
+
+/* A headline with a quieter second line under it. It is one h1, so the split
+   is typographic rather than two elements pretending to be a heading. */
+.hero-title-sub {
+  display: block;
+  margin-block-start: 1.2rem;
+  font-size: 0.4em;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+/* Stats inside a hero already sit under a lede, so they need less air above
+   them than the same row does when it opens its own section - and a narrower
+   column floor, so a run of four stays one row rather than breaking to 3 + 1. */
+.hero-stats {
+  margin-top: 3.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+/* A segmented control in a hero: the page's own contents as a row of chips,
+   one of them the current view. It reads as a filter rather than as buttons,
+   so the selected chip inverts and the rest stay quiet. */
+.hero-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-block-start: 3.2rem;
+}
+.hero-tab {
+  border: 0.1rem solid var(--line);
+  border-radius: 9999px;
+  padding: 0.9rem 2rem;
+  background: none;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color var(--dur-2) var(--ease-out),
+              border-color var(--dur-2) var(--ease-out),
+              background var(--dur-2) var(--ease-out);
+}
+@media (hover: hover) {
+  .hero-tab:hover { color: var(--ink); border-color: var(--ink); }
+}
+.hero-tab:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+.hero-tab[aria-selected="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+/* A chip can carry a second, quieter piece of information - the saving a
+   yearly plan buys. It rides inside the chip so the pair reads as one control. */
+/* A tab row that sits directly above a price grid needs to clear the flag on
+   the highlighted card, which hangs 1.3rem above the card's own top edge.
+   Measured: at the default `3.2rem` top margin and no bottom one, "الأكثر
+   اختياراً" landed on the annual tab. */
+.hero-tabs--spaced { margin-block-end: 4.8rem; }
+
+.hero-tab-note {
+  margin-inline-start: 0.8rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 9999px;
+  background: var(--surface-2);
+  color: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+}
+.hero-tab[aria-selected="true"] .hero-tab-note { background: rgb(255 255 255 / 18%); }
+/* `.hero-note` is a flex row of note ITEMS - the trust line under a split
+   hero's buttons. A single sentence is not that: it is one caption, and
+   putting it in a flex row makes each wrapped line its own item. So it gets
+   its own class rather than borrowing one that means something else. */
+.hero-caption {
+  margin-block-start: 1.6rem;
+  color: var(--ink-muted);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+/* The label over a logo marquee. It is a kicker, not a heading: it names what
+   is scrolling past rather than making a claim about it. */
+.marquee-kicker { margin-block: 6.4rem 2.4rem; text-align: center; }
+
+/* The assumption a calculator's numbers rest on. It is a caption about the
+   controls below it, so it sits with them rather than in the section head. */
+.calc-basis { max-width: 60rem; margin-inline: 0; margin-block-end: 4rem; text-align: start; }
+
+/* The badge that sits in the gap between the calculator's two cards. Its ring
+   is the section's own ground, so it reads as a cutout in the gap; it used to
+   hardcode the near-black of the panel this section no longer paints, which
+   left a black disc on the violet. */
+.calc-connector {
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  box-shadow: 0 0 0 0.5rem var(--surface), 0 0 2rem rgb(139 92 246 / 60%);
+}
+
+/* The inverted control is a fixed `#480086`, chosen because no section ground
+   uses it. That holds for the grey family, whose inverted ground is near-black
+   - but the violet family grounds on `--ziadah-ink` (#1f0236), the same hue two
+   steps darker, and the control sank into it. On that ground it takes the
+   neutral pair, which is what every other inverted button already does. */
+[data-family="violet"][data-invert] .button.is-invert {
+  --button-color: var(--general-white);
+  --button-color-hover: #480086;
+  --button-text-color: #480086;
+  --button-text-color-hover: var(--general-white);
+}
+
+/* The subject card in a story hero: it sits under the lede rather than in the
+   band below, because it is who the story is about. */
+.story-card { margin-block-start: 3.2rem; }
+
+/* A reading column, in `ch` - the one unit that is a measure rather than a
+   width. `container--narrow` is 120rem, narrow relative to the site's 1920px
+   container and not to a line of text, and a `max-w-3xl` set on `.container`
+   loses to the utility's own `max-width` entirely. Article bodies were running
+   at 1248px: 156 characters per line on a blog post, 139 on a story, 108 on a
+   support article, against a readable range of 45 to 90.
+
+   `ch` rather than `rem` because these bodies render at 16px while the root is
+   7 to 13px depending on the viewport tier - a rem measure would track the
+   root and drift away from the text it is supposed to be measuring. It also
+   sets `--container-max`, which is the hook `@utility container` reads, so the
+   class works whether it lands on the container or an ancestor of it. */
+.measure-read {
+  /* `min()` of the two, because neither alone holds at every tier. `ch`
+     resolves against the CONTAINER's font-size, which is rem-scaled, while
+     these bodies render at a fixed 16px - so at 1920 the container's `ch` grew
+     to 13.5px and 68 of them came to 921px, which is 115 characters of 16px
+     text. The px ceiling is the same reasoning as `.hero-demo`: a px-typed
+     body wants a px bound. */
+  --container-max: min(68ch, 740px);
+  max-width: min(68ch, 740px);
+  margin-inline: auto;
+}
+
+/* ---------- THE HERO'S LIVE DEMO ---------------------------------------
+   A px box, deliberately, and the one place on the site that is.
+
+   Every other box here is `rem`, because the root font size is
+   viewport-proportional and `rem` is how a layout tracks it. This widget is
+   the exception: its type is hard-coded in px (`text-[11px]`, `text-[9px]`),
+   so a rem box would scale away from its own contents - which is exactly what
+   `max-w-sm` did, resolving to 240px at 1440 and 171px at 1025 for a widget
+   whose labels need about 400.
+
+   Either the type becomes rem or the box becomes px. The box is one rule; the
+   type is forty. */
+.hero-demo { width: 100%; max-width: 440px; }
+
+/* And the slot gets out of its way. `.hero-media` caps itself at 21rem / 28rem
+   / 50.5rem, which are the same rem-against-a-10px-root values - 210px at a
+   390 viewport - so below the desktop tier the slot was doing the squeezing
+   even after the widget stopped. The system already does exactly this for
+   `.media-slot--screen`, which is the same situation: a child that states its
+   own size does not want the slot's. */
+.hero-col-media:has(.hero-demo),
+.hero-media:has(.hero-demo) { max-width: none; }
+
+/* ---------- THE HOME PAGE'S STEP FIGURES -------------------------------
+   The figure column is a SQUARE - `.slist-figure-stack` carries
+   `aspect-ratio: 1 / 1`, so at 1440 its seven-of-sixteen column is 564px wide
+   and 564px tall - and `.stepfig` is `height: 100%`, sized for a full product
+   screen. Ziadah's four step screens are lists of three to six rows: measured
+   at 1440 their content ran 240-300px, so each one filled half its box and
+   painted the other half as a black slab.
+
+   The panel is content-sized here instead. `.slist-figure-item` already
+   centres its child both ways, so a 300px panel sits in the middle of the
+   square rather than being stretched to it, and the square still holds the
+   stack's height steady as the rows cross-fade.
+
+   `--items-image-height` is deliberately NOT overridden: it drives the sticky
+   column's `top` offset, where 55.8rem is within six pixels of the real
+   square and any other value pushes the panel off centre.
+
+   Scoped to this instance - `/features` and the sector journeys carry full
+   product screens and want the stretch. */
+/* `align-self`, not just `height: auto`: the panel's parent `.slist-figure`
+   is a grid with the default `align-items: stretch`, which sizes the item
+   before the item's own height is consulted. */
+.home-steps .stepfig { height: auto; align-self: center; }
+
+/* ---------- THE STICKY SECTOR FILTER ------------------------------------
+   Chrome, not a band. It sticks across sections of different families, so it
+   cannot take any one section's pair - it takes the neutral surface roles the
+   header takes, and its chips are the system's own `.chip`. The version this
+   replaces painted `bg-white/85` with a zinc hairline and hand-rolled two
+   pressed states out of zinc and violet utilities. */
+.sector-filter {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding-block: 1.2rem;
+  background: color-mix(in srgb, var(--general-white) 85%, transparent);
+  backdrop-filter: blur(1.2rem);
+  border-bottom: 0.1rem solid var(--general-gray-light, rgb(10 10 10 / 8%));
+}
+.sector-filter .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+/* Below the tablet tier the row scrolls sideways instead of stacking into
+   four rows of chips that push the grid off the first screen. */
+@media screen and (max-width: 767px) {
+  .sector-filter .container {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .sector-filter .container::-webkit-scrollbar { display: none; }
+}
+/* The count that rides inside a chip. It inverts with the chip, so it is
+   written from the chip's own pair rather than from a fixed violet. */
+.chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding-inline: 0.6rem;
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* A link in a vertical category list - the support centre's sidebar. It is a
+   list row rather than a card, so it takes the ink at two strengths and the
+   pressed state is the section's own inversion. The version this replaces
+   painted `bg-zinc-950 text-white` for the active row and `hover:bg-zinc-50`
+   for the rest, neither of which survives a family change. */
+.cat-link {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  border: 0;
+  border-radius: 1.2rem;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .cat-link:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+}
+.cat-link[aria-pressed="true"] {
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+}
+/* The count inside a selected row is a `.card-eyebrow`, which paints itself
+   from the BAND's ink - so on the selected row it was the row's own dark
+   ground written in dark ink, 1.00:1. It takes the row's ink instead. */
+.cat-link[aria-pressed="true"] .card-eyebrow {
+  color: color-mix(in srgb, var(--color-primary, var(--general-white)) 78%, transparent);
+}
+.cat-link:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+
+/* A small label in a wrapping row - the placements a presentation supports,
+   the plans a capability is on, the tactics available at a placement. It is
+   NOT `.pill`, which is a status badge that rides beside a title and inverts;
+   a tag is a quiet item in a set, so it takes one tint step of the section's
+   ink and nothing else. Every call site used to hand-roll it out of
+   `bg-zinc-50 border border-zinc-200` or `bg-violet-50 border-violet-100`,
+   which meant the same label read as two different things on one page. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ---------- THE AI-POINTS TOP-UP PICKER --------------------------------
+   A select on a price card. It sat inside a card that can flip its whole
+   colour triple, so every one of its five states was written twice - once in
+   zinc for the light card and once in white-over-black for the flipped one -
+   and the two never quite matched. Written once here against the card's own
+   pair, which is what `.is-flipped` re-points. */
+.topup-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .topup-trigger:hover { border-color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 30%, transparent); }
+}
+.topup-trigger.is-set { border-color: var(--ziadah-violet); }
+.topup-trigger:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+
+/* The menu is a raised surface, so it takes the card's GROUND rather than a
+   tint of the ink - a tint is translucent, and the rows behind it showed
+   through the open menu. */
+.topup-menu {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 30;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  border: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+  border-radius: 1rem;
+  background: var(--color-primary, var(--general-white));
+}
+.topup-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .topup-item:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+}
+.topup-item.is-on { background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent); }
+.topup-item:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+
+/* ---------- MERCHANT REVIEWS -------------------------------------------
+   The two marquee rows and the card that rides in them. The card itself is
+   the system's `.card`; what is named here is only the geometry a marquee
+   needs - a fixed width and no shrinking - plus the two bits a review has
+   that no other card does: a rating row and a merchant avatar. */
+.review-row + .review-row { margin-block-start: 1.6rem; }
+
+/* `rem`, not `px`. The card holds `rem` type, so a `px` box would hold its
+   width while the text inside it grew - at 1920 a 320px card would be
+   carrying type sized for a 13.3px root. Both ends scale together now. */
+.review-card {
+  flex: none;
+  width: 28rem;
+  margin-inline-end: 1.6rem;
+  gap: 1.2rem;
+}
+@media screen and (min-width: 640px) { .review-card { width: 32rem; } }
+
+.review-stars { display: flex; gap: 0.2rem; }
+.review-star {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: var(--ziadah-violet);
+  color: var(--ziadah-violet);
+}
+
+.review-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: var(--ziadah-violet);
+  color: var(--general-white);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+/* A supplied mark keeps the white plate it was drawn for. */
+.review-avatar.has-logo { background: var(--general-white); }
+.review-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- THE WIDGET PREVIEWS' PRODUCT THUMBNAIL ----------------------
+   A photo frame, not a brand chip. It sits on the store's own neutral rather
+   than the violet tint every thumbnail used to carry - a product photo in a
+   real storefront is on the store's background, and washing all of them
+   violet is what made the previews read as a template rather than as a
+   screenshot.
+
+   The silhouette is deliberately quiet: it stands in for a photograph, so it
+   should not compete with the product name beside it. */
+.pthumb {
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--pthumb-bg, rgb(127 127 127 / 12%));
+  color: var(--pthumb-ink, rgb(127 127 127 / 72%));
+  box-shadow: inset 0 0 0 0.1rem rgb(127 127 127 / 14%);
+}
+/* Inside a dark widget shell the same two roles flip, and the grey stays
+   grey - it is a neutral in both, which is the point of using one. */
+.wshell--dark .pthumb,
+.mockup-card .pthumb {
+  --pthumb-bg: rgb(255 255 255 / 10%);
+  --pthumb-ink: rgb(255 255 255 / 62%);
+}
+
+/* The caption under a widget preview. */
+.wshow-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.8rem 2.2rem 2.2rem;
+}
+
+/* ---------- USE-CASE ROWS ------------------------------------------------
+   The home page's use-case band. One row per use case, copy beside preview,
+   alternating which side the preview takes.
+
+   MOBILE FIRST, AND THE STACK ORDER IS THE POINT. A phone gets one column with
+   the copy first and the preview under it: the preview is a storefront widget
+   at its real size and means nothing until you have been told what it is. The
+   two-column split and the alternation only start at 1025, where both fit
+   side by side. */
+.ucrow-list {
+  display: grid;
+  gap: 4.8rem;
+}
+.ucrow {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  align-items: start;
+}
+/* A hairline between rows rather than a card around each one: the rows are one
+   list, and seven boxes on a band that already has a ground reads as seven
+   things rather than seven parts of one. */
+.ucrow-list > .ucrow + .ucrow {
+  padding-block-start: 4.8rem;
+  border-block-start: 0.1rem solid var(--line);
+}
+
+.ucrow-copy { min-width: 0; }
+.ucrow-title {
+  font-size: 3.2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+[dir="rtl"] .ucrow-title { letter-spacing: 0; line-height: 1.35; }
+.ucrow-desc {
+  margin: 1.2rem 0 0;
+  font-size: 1.8rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+
+.ucrow-facts { display: grid; gap: 1.2rem; margin: 2.4rem 0 0; }
+.ucrow-fact { display: grid; gap: 0.4rem; }
+/* The term, not a heading: 66% is the floor that clears 4.5:1 at this size on
+   both families, the same figure `.card-eyebrow` is set from. */
+.ucrow-fact-k {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+/* Arabic has no letter case, and tracking out an Arabic word breaks the joins. */
+[dir="rtl"] .ucrow-fact-k { text-transform: none; letter-spacing: 0; }
+.ucrow-fact-v {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-secondary, #0a0a0a);
+}
+
+.ucrow-note {
+  margin: 2rem 0 0;
+  padding: 1.4rem 1.8rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+
+.ucrow-link {
+  display: inline-block;
+  margin-block-start: 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-secondary, #0a0a0a);
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+.ucrow-link:hover { text-decoration-thickness: 0.2rem; }
+
+/* The preview's ground. Flat near-white, because the widget inside it is
+   pretending to be on a store page and a store page is not tinted. */
+.ucrow-stage {
+  width: 100%;
+  min-width: 0;
+  border-radius: var(--radius-card);
+  background: var(--general-white);
+  padding: 2.4rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The widgets are built at a fixed pixel width. The stage caps them so a
+   narrow phone cannot push one past the viewport, which is the whole reason
+   this band used to need `overflow-x: clip` on the section. */
+.ucrow-stage-inner { width: 100%; max-width: 42rem; }
+/* `WidgetShell` hard-codes `max-width: 320` as an INLINE style, sized for the
+   320px marquee card these previews used to live in. A row gives them a whole
+   column, and at 320 in it the preview reads as a thumbnail of the thing
+   rather than the thing. Only an `!important` beats an inline style; the cap
+   above is what actually bounds them. */
+.ucrow-stage-inner > .wk { max-width: none !important; }
+
+@media screen and (min-width: 1025px) {
+  .ucrow-list { gap: 6.4rem; }
+  .ucrow-list > .ucrow + .ucrow { padding-block-start: 6.4rem; }
+  .ucrow {
+    flex-direction: row;
+    align-items: center;
+    gap: 6.4rem;
+  }
+  /* `row-reverse`, not `order`: it swaps the painted sides and leaves the DOM
+     order alone, so the copy is still read before the preview it explains. It
+     is direction-relative too, so Arabic needs no mirrored rule. */
+  .ucrow--reverse { flex-direction: row-reverse; }
+  .ucrow-copy { flex: 1 1 0; }
+  .ucrow-stage { flex: 1 1 0; padding: 3.2rem; }
+  .ucrow-title { font-size: 3.6rem; }
+}
+
+/* ---------- A NUMBERED ARTICLE ------------------------------------------
+   The success stories and the support articles run as numbered steps with a
+   rule between them. Both used to hand-paint that: `mt-16 pt-16 border-t
+   border-zinc-200` for the rule and a `bg-zinc-950 text-white` chip for the
+   number, neither of which survives a family change. */
+.article-step {
+  margin-block-start: 6.4rem;
+  padding-block-start: 6.4rem;
+  border-top: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.article-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 4.4rem;
+  height: 3.6rem;
+  padding-inline: 1rem;
+  border-radius: 1rem;
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* The closing quote. A card with a mark in its gutter rather than a violet
+   box with a violet border and violet type inside it. */
+.article-quote {
+  position: relative;
+  padding-inline-start: 7.2rem;
+}
+.article-quote-mark {
+  position: absolute;
+  top: 2.4rem;
+  inset-inline-start: 2.4rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  color: var(--ziadah-violet);
+  opacity: 0.6;
+}
+@media screen and (max-width: 767px) {
+  .article-quote { padding-inline-start: 2.4rem; padding-block-start: 6.4rem; }
+  .article-quote-mark { top: 2.4rem; inset-inline-start: 2.4rem; }
+}
+
+/* ---------- SECTION FURNITURE -------------------------------------------
+   Two things that recur under a grid and had been hand-painted with Tailwind
+   greys every time they appeared: the footnote that qualifies a set of
+   numbers, and the centred action row that closes a band. Both take the
+   section's own ink rather than a fixed zinc, which is the whole point of
+   moving them here. */
+.section-note {
+  margin-block-start: 2.4rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  text-align: center;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+.section-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-block-start: 4.8rem;
+  text-align: center;
+}
+
+/* ---------- CARD VARIANTS ----------------------------------------------
+   The system's card is one flat tint of the section's own ink, with no
+   border, no ring and no shadow. Two things the home page needs and the
+   reference never had to express, added as variants rather than as a second
+   card anatomy.
+
+   `--accent` is a card the section singles out - the recommended plan, the
+   winning column of a comparison. Emphasis has to be carried by the ground,
+   because the ground is the only thing a card in this system has: a second
+   tint step of the same ink, not a new colour and not a ring.
+
+   `--flat` is a card that is a full-width strip under a grid rather than a
+   cell in it. It keeps the ground and drops the height floor, which exists
+   to equalise a row of cells and means nothing to a single strip. */
+.card--accent { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent); }
+.card--flat { min-height: 0; gap: 0; }
+
+/* The sliders. The Radix primitive's parts were being coloured
+   with a long chain of arbitrary-variant Tailwind selectors carrying fixed
+   whites and violets, which meant the control could only ever read on the one
+   dark ground it was authored against. Named here, in the section's own ink,
+   so it works on either end of the family. */
+.slider-track { height: 0.8rem; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 20%, transparent); }
+.slider-range { background: currentColor; }
+.slider-thumb {
+  width: 2rem;
+  height: 2rem;
+  border: 0.2rem solid var(--color-primary, var(--general-white));
+  background: var(--color-secondary, var(--general-black));
+  box-shadow: 0 0 0 0.4rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 25%, transparent);
+}
+
+/* A control inside a block that flipped to the family's other end. The system
+   has this scope for a section that inverts (`[data-family][data-invert]`) but
+   not for a single block that flips inside a section, which is what a
+   highlighted price card is - so `.button.primary` kept painting itself black
+   on the dark violet it had just been dropped onto. Both ends move together,
+   the same way the section-level scope does it. */
+.is-flipped .button.primary,
+.is-flipped .button.secondary {
+  --button-color: var(--color-secondary, var(--general-white));
+  --button-color-hover: var(--color-primary, var(--general-black));
+  --button-text-color: var(--color-primary, var(--general-black));
+  --button-text-color-hover: var(--color-secondary, var(--general-white));
+}
+
+/* Four plans, not the reference's three. Same breakpoints as `.cards-grid--4`
+   so a price grid and a card grid step together down the page. */
+.price-grid--4 { grid-template-columns: minmax(0, 1fr); }
+@media screen and (min-width: 610px)  { .price-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (min-width: 1025px) { .price-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* A hairline INSIDE a card, separating a readout's last row from the rest.
+   Same ink as everything else the card paints with. */
+.card-rule {
+  padding-top: 1.2rem;
+  border-top: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 15%, transparent);
+}
+
+/* A panel INSIDE a card - a worked example, a quote, a small readout. The
+   card is already one 8% tint of the section ink, so the inset is a second
+   step of the same ink rather than a grey box with a border. It also takes
+   `margin-top: auto`, so a row of cards lines its insets up along the bottom
+   the way `.card-foot` does. */
+.card-inset {
+  margin-top: auto;
+  padding: 1.6rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+
+/* A card that is also a button or a link target. The system's own hover is a
+   scale-down on `.card--clickable`; these carry it plus the ground step, so a
+   pressed/selected state reads without a ring. */
+.card--pick { cursor: pointer; text-align: start; border: 0; font: inherit; color: inherit; width: 100%; }
+.card--pick[aria-pressed="true"], .card--pick[data-active="true"] {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent);
+}
+.card--pick:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.3rem; }
+
+/* ---------- A NOTE ON UNITS --------------------------------------------
+   Three bugs in this file's history came from one confusion, so it is worth
+   stating once.
+
+   The root font size here is viewport-proportional - roughly 7px at 1025,
+   10px at 1440, 13px at 1920 - while Tailwind's `rem` utilities are authored
+   against an assumed 16px root. A `max-w-sm` is therefore 240px here, not
+   384px. That is harmless where the type inside is `rem` too, because both
+   ends scale together; it is a bug wherever the content has a fixed size.
+
+   So: match the unit of a box to the unit of what it holds.
+
+   - px type wants a px box (`.hero-demo`).
+   - A reading measure wants `ch`, which tracks the font it is measuring -
+     but `ch` resolves against the element it is SET on, so putting it on a
+     wrapper whose children are a different size measures the wrong thing
+     (`.measure-read` pairs it with a px ceiling for exactly that reason).
+   - rem type in a rem box needs nothing.
+
+   ---------------------------------------------------------------------- */
+
+/* ---------- HELP-ARTICLE PROSE -----------------------------------------
+   The support article body was Tailwind zinc type on a hard white slab, with
+   violet and amber callouts painted with fixed hexes. That could only ever
+   read on white: the band's own family did nothing, and flipping the section
+   left dark ink on dark ground.
+
+   The type here stays in PX on purpose. `.measure-read` sizes the reading
+   column against a 16px body (see its own note); rem type would grow to
+   ~23px at 1920 inside a 740px column, which is 33 characters on a line. A
+   px-typed column wants px boxes around it, so the whole block is px - the
+   one place in this stylesheet where that is deliberate rather than a bug.
+   Only the INK moved onto the section, which is what makes the band's family
+   matter again. */
+.article-prose {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(80%, var(--ink-floor, 0%)), transparent);
+}
+.article-prose > * + * { margin-block-start: 20px; }
+
+.article-h2 {
+  margin-block-start: 32px;
+  padding-block-end: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+  font-size: 21px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-p { font-size: 16px; line-height: 1.9; }
+@media screen and (min-width: 768px) {
+  .article-h2 { font-size: 25px; }
+  .article-p { font-size: 17px; }
+}
+
+/* A numbered run of steps. The chip is the same shape as `.article-step-num`
+   at the prose's own scale, so a support article and a success story number
+   things the same way. */
+.article-ol { display: flex; flex-direction: column; gap: 10px; }
+.article-ol-row { display: flex; gap: 14px; align-items: flex-start; }
+.article-ol-num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+  font-size: 14px;
+  font-weight: 700;
+}
+.article-ol-row p { font-size: 15px; line-height: 1.65; margin: 0; padding-block-start: 2px; }
+
+/* An unordered run. One step of the section's own ink instead of a zinc box
+   with a zinc border. */
+.article-ul { display: flex; flex-direction: column; gap: 8px; }
+.article-ul-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.article-ul-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-block-start: 8px;
+  border-radius: 999px;
+  background: var(--ziadah-violet);
+}
+.article-ul-row p { font-size: 15px; line-height: 1.65; margin: 0; }
+
+/* Tip and caution. Marked by a rule in the gutter and an icon rather than a
+   tinted box, so the only fixed colour left is the tone of the rule itself -
+   and a caution has to stay legible as a caution, which is why it keeps an
+   amber rather than borrowing the section's ink. */
+.article-note {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border-inline-start: 3px solid var(--note-tone, var(--ziadah-violet));
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.article-note--warn { --note-tone: #b45309; }
+.article-note-ico { flex: none; width: 20px; height: 20px; color: var(--note-tone, var(--ziadah-violet)); }
+.article-note-label {
+  margin-block-end: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--note-tone, var(--ziadah-violet));
+}
+[dir="rtl"] .article-note-label { letter-spacing: 0; text-transform: none; }
+.article-note p { font-size: 15px; line-height: 1.65; margin: 0; }
+
+/* The row that closes the body, and the run of siblings under it. */
+.article-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-block-start: 48px;
+  padding-block-start: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.article-related { display: flex; flex-direction: column; gap: 12px; margin-block-start: 20px; }
+
+/* ---------- THE PLAN COMPARISON TABLE ----------------------------------
+   The last trackflow band on the site. It was a white card with zinc rules,
+   a `bg-white/95` sticky header, violet-600 and violet-50 column washes and
+   zinc-900 cell values - a table that could only exist on white, on a page
+   whose bands each stamp their own family.
+
+   Everything below is written from the section's own pair. The one colour
+   that stays absolute is the featured column's tint, because "this is the
+   plan we are pointing at" is the table's single piece of emphasis and it has
+   to survive a flip. */
+.cmp-table {
+  /* HAND SET. No frame and no clip: the table sits on the band as a plain
+     white slab. `overflow: hidden` is off, so the 6rem radius no longer
+     clips the head or the first and last rows. */
+  border-radius: 6rem;
+  background: color-mix(in srgb, hsl(0deg 0% 100%) 100%, transparent);
+}
+.cmp-head,
+.cmp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+@media screen and (min-width: 768px) {
+  .cmp-head,
+  .cmp-row { grid-template-columns: 1.6fr repeat(4, 1fr); }
+}
+/* The header rides the scroll, so it needs an opaque ground of its own -
+   the section's primary, not a hardcoded translucent white. */
+.cmp-head {
+  position: sticky;
+  /* Under the site header, not under the viewport edge - at `top: 0` the nav
+     bar floated over the plan names as soon as the table was scrolled. */
+  top: var(--header-dynamic-height);
+  z-index: 2;
+  align-items: stretch;
+  background: #ffffff;
+  border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.cmp-col { padding: 1.6rem 1.2rem; text-align: center; }
+.cmp-col-name { font-size: 1.5rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.cmp-col-price {
+  margin-block-start: 0.4rem;
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(65%, var(--ink-floor, 0%)), transparent);
+}
+/* The plan being recommended. It used to carry a tint plus a rule on either
+   side; both are off now, so the column is a hook with nothing painted. */
+.cmp-col--featured,
+.cmp-cell--featured {
+  /* HAND SET. Both the tint and the inset rules are off, so the featured
+     column carries no emphasis of its own and reads like any other column.
+     The selector is kept so the hook is still there to paint. */
+}
+
+.cmp-group { border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent); }
+.cmp-group:last-child { border-bottom: 0; }
+.cmp-group-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 1.4rem 1.8rem;
+  text-align: start;
+  border-inline-start: 0.3rem solid var(--ziadah-violet);
+  /* HAND SET. A fixed light violet, not a step of the section's ink. */
+  background: color-mix(in srgb, #d197ff 86%, transparent);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+  cursor: pointer;
+  transition: background var(--dur-fast, 0.2s) var(--ease, ease);
+}
+.cmp-group-btn:hover { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 9%, transparent); }
+.cmp-group-caret { flex: none; width: 1.6rem; height: 1.6rem; color: var(--ziadah-violet); transition: transform var(--dur-fast, 0.2s) var(--ease, ease); }
+.cmp-group-btn[aria-expanded="true"] .cmp-group-caret { transform: rotate(180deg); }
+
+.cmp-row--alt { background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 3%, transparent); }
+.cmp-feat {
+  padding: 1.2rem 1.8rem;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(78%, var(--ink-floor, 0%)), transparent);
+}
+.cmp-cell { padding: 1.2rem; text-align: center; }
+.cmp-yes { display: inline-block; width: 1.8rem; height: 1.8rem; color: var(--ziadah-violet); }
+.cmp-no {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 28%, transparent);
+}
+.cmp-val { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+
+/* The rest of the article vocabulary, added for the blog body. Same reasoning
+   as `.article-prose` above - px type in a px-measured column, ink from the
+   section - applied to the pieces a blog post has and a support article does
+   not: a lede, a sub-heading, a figure, and a markdown table. All of it used
+   to be inline styles carrying #09090b, #7c3aed, #3f3f46 and #e4e4e7. */
+.article-h3 {
+  margin-block-start: 28px;
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-prose strong { font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.article-bold { font-size: 15px; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+
+/* The post's standfirst. The one place a violet rule earns its keep, because
+   it marks the boundary between the summary and the article proper. */
+.article-lede {
+  padding: 20px 22px;
+  border-radius: 16px;
+  border-inline-start: 4px solid var(--ziadah-violet);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.article-figure { margin: 32px auto; max-width: 320px; text-align: center; }
+.article-figure img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.article-figcaption {
+  margin-block-start: 12px;
+  font-size: 13px;
+  font-style: italic;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+
+/* A markdown table. It scrolls inside its own box rather than pushing the
+   page sideways - the column is 740px and a four-column table is not. */
+.article-table-wrap { overflow-x: auto; }
+.article-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: start; }
+.article-table th {
+  padding: 10px 16px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}
+.article-table td {
+  padding: 10px 16px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.article-table tbody tr:nth-child(odd) td {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, transparent);
+}
+
+/* A bullet or numbered run inside a `.sector-block`. These were
+   `text-zinc-600` lists - readable on the white slab the sector pages used to
+   paint, invisible the moment a band stamps a family. */
+.sector-list {
+  margin: 0;
+  padding-inline-start: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.sector-list > li + li { margin-block-start: 1rem; }
+.sector-list--sm { font-size: 1.4rem; }
+
+/* The playbook cards. A card is an 8% tint of the section's own ink here as
+   everywhere else, not a white panel with a zinc border and a drop shadow. */
+.sector-card {
+  padding: 2rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+}
+.sector-card-title { margin: 0; font-size: 1.6rem; font-weight: 700; line-height: 1.35; color: var(--color-secondary, #0a0a0a); }
+.sector-card-text {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+/* The sector's own read on its market: a quote-weight block, marked by a rule
+   rather than tinted zinc-50. */
+.sector-experience {
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  border-inline-start: 0.4rem solid var(--ziadah-violet);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+
+/* ---------- THE CATALOGUE, COMPOSED UNDER A HERO -----------------------
+   `CatalogueIndex` is the reference's whole page, so its own styles assume
+   the page ground. Ziadah composes it under a lede hero (deviation D-09), on
+   a band that stamps a family, so the three fixed colours in that block are
+   re-stated here from the section's pair. Without this the subnav rule and
+   the card frame are a fixed near-white that only reads on white. */
+/* No padding of its own: it renders inside a `Section`, which already carries
+   the band rhythm. Both together left a 220px hole under the hero. */
+.cat-section { display: block; }
+.cat-section .cat-subnav {
+  padding-block: 0 3.2rem;
+  border-bottom-color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
+}
+.cat-section .cat-subnav button {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-subnav [aria-current="page"] { color: var(--color-secondary, var(--general-black)); }
+.cat-section .cat-card-media {
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+}
+/* The card itself. The reference's catalogue card is bare text under an
+   image; with the image gone it needs the card's own ground to read as one
+   target rather than three loose lines. */
+.cat-section .cat-card {
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  cursor: pointer;
+  transition: transform calc(var(--motion) * var(--motion-speed)) var(--ease-out-quint);
+}
+@media (hover: hover) { .cat-section .cat-card:hover { transform: scale(0.985); } }
+.cat-section .cat-card:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+.cat-section .cat-card-cat {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-card-title { font-size: 2rem; line-height: 1.35; font-weight: 500; }
+.cat-section .cat-card-excerpt {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-card-date {
+  margin-block-start: auto;
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+}
+.cat-section .cat-pagination { display: flex; justify-content: center; gap: 0.8rem; }
+.cat-section .cat-pagination button {
+  min-width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+  cursor: pointer;
+}
+.cat-section .cat-pagination [aria-current="page"] {
+  background: var(--color-secondary, var(--general-black));
+  color: var(--color-primary, var(--general-white));
+}
+/* The featured opener is a card, so the template's bare `.cat-featured`
+   padding would double the card's own. */
+.cat-section .cat-featured { padding-block: 0 4.8rem; }
+/* The reference's featured headline is 6.4rem against short English titles.
+   Ziadah's are full Arabic sentences, and at that tier one ran three lines
+   and 300px tall inside its own card. */
+.cat-section .cat-featured-title { font-size: 4rem; line-height: 1.3; }
+@media screen and (max-width: 767px) { .cat-section .cat-featured-title { font-size: 2.8rem; } }
+.cat-featured-card { text-align: start; }
+
+/* ---------- THE STORIES GRID ------------------------------------------
+   Same six-track orphan scheme as `.cards-grid`, on `/success-stories`,
+   where thirteen stories over three columns left one card alone. Three
+   cards span two tracks each and fill the row exactly; a short last row
+   widens until it does the same. */
+.stories-grid { display: grid; gap: 1.6rem; grid-template-columns: minmax(0, 1fr); }
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+  .stories-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stories-grid > * { grid-column: span 2; }
+  .stories-grid:has(> :last-child:nth-child(2n + 1)) > :last-child { grid-column: span 4; }
+}
+@media screen and (min-width: 1025px) {
+  .stories-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .stories-grid > * { grid-column: span 2; }
+  .stories-grid:has(> :last-child:nth-child(3n + 1)) > :last-child { grid-column: span 6; }
+  .stories-grid:has(> :last-child:nth-child(3n + 2)) > :nth-last-child(-n + 2) { grid-column: span 3; }
+}

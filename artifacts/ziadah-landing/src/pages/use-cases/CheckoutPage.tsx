@@ -2,15 +2,23 @@ import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import { useLanguage } from "@/i18n/LanguageContext";
 import UseCaseLiveShowcase from "@/components/UseCaseLiveShowcase";
 
-const PhoneTopBar = () => (
-  <div style={{
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "8px 0 12px", borderBottom: "1px solid var(--b1)", marginBottom: 12,
-  }}>
-    <span style={{ fontSize: 13, color: "var(--tm)", fontWeight: 700 }}>ملخص الطلب</span>
-    <span style={{ fontSize: 13, color: "var(--t)", fontWeight: 700 }}>61.60 ⃁ سعودي</span>
-  </div>
-);
+/* The two phone mockups below are a storefront checkout drawn in inline
+   styles. Every string in them used to be Arabic, so the English use-case page
+   rendered an Arabic checkout. They read the language now. */
+const useAr = () => useLanguage().lang === "ar";
+
+const PhoneTopBar = () => {
+  const isAr = useAr();
+  return (
+    <div style={{
+      display: "flex", justifyContent: "space-between", alignItems: "center",
+      padding: "8px 0 12px", borderBottom: "1px solid var(--b1)", marginBottom: 12,
+    }}>
+      <span style={{ fontSize: 13, color: "var(--tm)", fontWeight: 700 }}>{isAr ? "ملخص الطلب" : "Order summary"}</span>
+      <span style={{ fontSize: 13, color: "var(--t)", fontWeight: 700 }}>{isAr ? "61.60 ر.س سعودي" : "61.60 SAR"}</span>
+    </div>
+  );
+};
 
 const ShippingRow = ({ method, time, price, highlighted }: { method: string; time: string; price?: string; highlighted?: boolean }) => (
   <div style={{
@@ -30,22 +38,25 @@ const ProductCard = ({
   name, reviews, price, originalPrice, discount, checked,
 }: {
   name: string; reviews: string; price: string; originalPrice?: string; discount?: string; checked?: boolean;
-}) => (
+}) => {
+  const isAr = useAr();
+  const cur = isAr ? "ر.س" : "SAR";
+  return (
   <div style={{
     display: "flex", justifyContent: "space-between", alignItems: "center",
     padding: "10px 0", borderBottom: "1px solid var(--b1)",
   }}>
     <div style={{ flex: 1, paddingInlineStart: 8 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 3 }}>{name}</div>
-      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 · {reviews} {isAr ? "مراجعة" : "reviews"}</div>
       {originalPrice && (
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ⃁</span>
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} {cur}</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} {cur}</span>
         </div>
       )}
       {!originalPrice && (
-        <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "#8b5cf6" }}>{price} {cur}</span>
       )}
       {discount && (
         <span style={{
@@ -67,13 +78,17 @@ const ProductCard = ({
       </div>
     )}
   </div>
-);
+  );
+};
 
 const AddToCartRow = ({
   name, reviews, price, originalPrice, discount, image,
 }: {
   name: string; reviews: string; price: string; originalPrice?: string; discount?: string; image: string;
-}) => (
+}) => {
+  const isAr = useAr();
+  const cur = isAr ? "ر.س" : "SAR";
+  return (
   <div style={{
     display: "flex", alignItems: "center", gap: 8, padding: "8px 0",
     borderBottom: "1px solid var(--b1)",
@@ -86,11 +101,11 @@ const AddToCartRow = ({
     </div>
     <div style={{ flex: 1 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: "var(--t)", marginBottom: 2 }}>{name}</div>
-      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 {reviews} مراجعة</div>
+      <div style={{ fontSize: 10, color: "var(--td)", marginBottom: 3 }}>⭐ 4.95 · {reviews} {isAr ? "مراجعة" : "reviews"}</div>
       <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--t)" }}>{price} ⃁</span>
+        <span style={{ fontSize: 11, fontWeight: 800, color: "var(--t)" }}>{price} {cur}</span>
         {originalPrice && (
-          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} ⃁</span>
+          <span style={{ fontSize: 10, textDecoration: "line-through", color: "var(--td)" }}>{originalPrice} {cur}</span>
         )}
         {discount && (
           <span style={{
@@ -107,53 +122,63 @@ const AddToCartRow = ({
       fontSize: 10, fontWeight: 700, borderRadius: 8, padding: "7px 10px",
       cursor: "pointer", flexShrink: 0, whiteSpace: "nowrap",
     }}>
-      أضف للسلة
+      {isAr ? "أضف للسلة" : "Add to cart"}
     </button>
   </div>
-);
+  );
+};
 
-const Phone1Content = () => (
+const Phone1Content = () => {
+  const isAr = useAr();
+  return (
   <>
     <PhoneTopBar />
     <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>
-      طريقة الشحن
+      {isAr ? "طريقة الشحن" : "Shipping method"}
     </div>
-    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" />
+    <ShippingRow method={isAr ? "دي اتش ال" : "DHL"} time={isAr ? "التسليم من 4 إلى 8 يناير" : "Delivery 4-8 January"} />
     <div style={{
       background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
       borderRadius: 14, padding: "12px 14px", margin: "12px 0",
     }}>
-      <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>خل الشحن مجاني 🚚</div>
+      <div style={{ fontSize: 12, fontWeight: 900, color: "#fff", marginBottom: 4 }}>{isAr ? "خل الشحن مجاني 🚚" : "Make the shipping free 🚚"}</div>
       <div style={{ fontSize: 10, color: "rgba(255,255,255,.85)", marginBottom: 8 }}>
-        باقي لك 145 ⃁ للشحن المجاني، ضيف المنتجات.
+        {isAr ? "باقي لك 145 ر.س للشحن المجاني، ضيف المنتجات." : "145 SAR to go for free shipping. Add a little more."}
       </div>
       <div style={{ background: "var(--s3)", borderRadius: 99, height: 5, overflow: "hidden" }}>
         <div style={{ width: "30%", height: "100%", background: "#fff", borderRadius: 99 }} />
       </div>
     </div>
-    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>منتجات مقترحة</div>
-    <ProductCard name="سلسلة ذهبية بحجر ياقوت" reviews="4681" price="45" checked={true} />
-    <ProductCard name="حلق ذهب بحجر ياقوت" reviews="4681" price="100" checked={true} />
+    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 4 }}>{isAr ? "منتجات مقترحة" : "Suggested products"}</div>
+    <ProductCard name={isAr ? "سلسلة ذهبية بحجر ياقوت" : "Gold chain with a ruby"} reviews="4681" price="45" checked={true} />
+    <ProductCard name={isAr ? "حلق ذهب بحجر ياقوت" : "Gold ruby earrings"} reviews="4681" price="100" checked={true} />
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
-      <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
-      <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>{isAr ? "الدفع" : "Payment"}</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>{isAr ? "تعديل" : "Edit"}</span>
     </div>
     <div style={{
       background: "var(--s2)", border: "1px solid var(--b1)",
       borderRadius: 14, padding: "12px 0", textAlign: "center",
       fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
-    }}>ادفع الآن</div>
+    }}>{isAr ? "ادفع الآن" : "Pay now"}</div>
   </>
-);
+  );
+};
 
-const Phone2Content = () => (
+const Phone2Content = () => {
+  const isAr = useAr();
+  return (
   <>
     <PhoneTopBar />
-    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>طريقة الشحن</div>
-    <ShippingRow method="مجاني" time="" highlighted />
-    <ShippingRow method="دي اتش ال" time="التسليم من 4 إلى 8 يناير" price="56 ⃁ سعودي" />
+    <div style={{ fontSize: 10, fontWeight: 700, color: "var(--td)", marginBottom: 6 }}>{isAr ? "طريقة الشحن" : "Shipping method"}</div>
+    <ShippingRow method={isAr ? "مجاني" : "Free"} time="" highlighted />
+    <ShippingRow
+      method={isAr ? "دي اتش ال" : "DHL"}
+      time={isAr ? "التسليم من 4 إلى 8 يناير" : "Delivery 4-8 January"}
+      price={isAr ? "56 ر.س سعودي" : "56 SAR"}
+    />
     <div style={{ textAlign: "center", color: "#7c3aed", fontSize: 11, fontWeight: 900, margin: "12px 0 8px" }}>
-      لا تنسَ تضيفها بعرض خاص لك الآن
+      {isAr ? "لا تنسَ تضيفها بعرض خاص لك الآن" : "Do not forget these, at a price only you get right now"}
     </div>
     <div style={{
       display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -161,22 +186,30 @@ const Phone2Content = () => (
       borderRadius: 12, padding: "10px 14px", marginBottom: 12,
     }}>
       <span style={{ fontSize: 22, fontWeight: 900, color: "#8b5cf6" }}>30</span>
-      <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>⃁ شحن مجاني ✓</span>
+      <span style={{ fontSize: 11, color: "#8b5cf6", fontWeight: 700 }}>{isAr ? "ر.س شحن مجاني ✓" : "SAR to free shipping ✓"}</span>
     </div>
-    <AddToCartRow name="شماغ الجنادرية كلاسيك رجالي" reviews="6984" price="241" originalPrice="345" discount="وفر 20%" image="🧣" />
-    <AddToCartRow name="سبحة بكلايت بلون أزرق" reviews="6984" price="200" image="📿" />
-    <AddToCartRow name="سبحة بكلايت بلون أحمر" reviews="6984" price="200" image="📿" />
+    <AddToCartRow
+      name={isAr ? "شماغ الجنادرية كلاسيك رجالي" : "Al Janadriyah classic men's shemagh"}
+      reviews="6984"
+      price="241"
+      originalPrice="345"
+      discount={isAr ? "وفر 20%" : "Save 20%"}
+      image=""
+    />
+    <AddToCartRow name={isAr ? "سبحة بكلايت بلون أزرق" : "Blue bakelite prayer beads"} reviews="6984" price="200" image="" />
+    <AddToCartRow name={isAr ? "سبحة بكلايت بلون أحمر" : "Red bakelite prayer beads"} reviews="6984" price="200" image="" />
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 10, paddingBottom: 4 }}>
-      <span style={{ fontSize: 11, color: "var(--td)" }}>الدفع</span>
-      <span style={{ fontSize: 11, color: "var(--td)" }}>تعديل</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>{isAr ? "الدفع" : "Payment"}</span>
+      <span style={{ fontSize: 11, color: "var(--td)" }}>{isAr ? "تعديل" : "Edit"}</span>
     </div>
     <div style={{
       background: "var(--s2)", border: "1px solid var(--b1)",
       borderRadius: 14, padding: "12px 0", textAlign: "center",
       fontSize: 14, fontWeight: 900, color: "var(--t)", marginTop: 8,
-    }}>ادفع الآن</div>
+    }}>{isAr ? "ادفع الآن" : "Pay now"}</div>
   </>
-);
+  );
+};
 
 function CheckoutMockup() {
   const { lang } = useLanguage();
@@ -191,7 +224,7 @@ function CheckoutMockup() {
         {
           labelAr: "أكمل للشحن المجاني",
           labelEn: "Complete for Free Shipping",
-          icon: "🚚",
+          icon: "",
           content: <Phone1Content />,
         },
         {
@@ -211,7 +244,7 @@ const data: UseCasePageData = {
     title: "صفحة الدفع",
     subtitle: "اللحظة الأخيرة قبل اكتمال الطلب — وهي ذهبية. زيادة يوظّفها لزيادة قيمة الطلب بعروض ذكية تشجع العميل على الإضافة قبل الدفع.",
     tagline: "آخر توصية قبل الدفع = أعلى عائد بأقل جهد",
-    icon: "💳",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة الدفع؟",
   whatWeDoDesc:
@@ -219,7 +252,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة الدفع",
   strategies: [
     {
-      icon: "🚚",
+      icon: "",
       title: "أكمل للشحن المجاني",
       desc: "يحسب زيادة الفجوة بين قيمة الطلب وعتبة الشحن المجاني ويقترح منتجات بالقيمة الناقصة تماماً مع شريط تقدم مرئي يحفّز العميل على الإضافة.",
       color: "#7c3aed",
@@ -231,7 +264,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "عروض وقت الدفع",
       desc: "يطلق زيادة عروضاً مؤقتة حصرية تظهر فقط في صفحة الدفع، تخلق إلحاحاً طبيعياً يجعل العميل يضيف قبل فوات الأوان.",
       color: "#f59e0b",
@@ -250,14 +283,14 @@ const data: UseCasePageData = {
     { value: "+41%", label: "الطلبات تتجاوز عتبة الشحن", color: "#06b6d4" },
   ],
   exampleScenario: {
-    title: "عميل عند الدفع بطلب قيمته 55 ⃁",
+    title: "عميل عند الدفع بطلب قيمته 55 ر.س",
     steps: [
-      "العميل في صفحة الدفع بطلب بقيمة 55 ⃁ وعتبة الشحن المجاني 200 ⃁.",
-      "يكتشف زيادة أن الفجوة 145 ⃁ — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
-      "يظهر منتجان بسعر 45 و100 ⃁ معاً — مجموعهما 145 ⃁ بالضبط — مع خانة اختيار سهلة.",
+      "العميل في صفحة الدفع بطلب بقيمة 55 ر.س وعتبة الشحن المجاني 200 ر.س.",
+      "يكتشف زيادة أن الفجوة 145 ر.س — ويعرض شريط 'أكمل للشحن المجاني' مع منتجات مقترحة.",
+      "يظهر منتجان بسعر 45 و100 ر.س معاً — مجموعهما 145 ر.س بالضبط — مع خانة اختيار سهلة.",
       "العميل يضيف المنتجين بنقرتين ويحصل على شحن مجاني كمكافأة.",
     ],
-    result: "الطلب ارتفع من 55 إلى 200 ⃁ والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
+    result: "الطلب ارتفع من 55 إلى 200 ر.س والعميل شعر أن القرار كان لصالحه — لأنه وفّر تكلفة الشحن.",
   },
   ctaTitle: "حوّل صفحة الدفع إلى فرصة مبيعات ذكية",
   ctaDesc: "فعّل زيادة وشاهد قيمة طلباتك ترتفع مع كل عملية دفع.",
@@ -267,7 +300,7 @@ const data: UseCasePageData = {
     title: "Checkout Page",
     subtitle: "The last moment before the order is complete — and it's golden. Ziadah leverages it to increase order value with smart offers that encourage customers to add before paying.",
     tagline: "Last recommendation before payment = highest return with least effort",
-    icon: "💳",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the checkout page?",
   whatWeDoDescEn:
@@ -275,7 +308,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the checkout page",
   strategiesEn: [
     {
-      icon: "🚚",
+      icon: "",
       title: "Complete for Free Shipping",
       desc: "Ziadah calculates the gap between order value and free shipping threshold and suggests products at exactly the missing value with a visual progress bar motivating the customer to add.",
       color: "#7c3aed",
@@ -287,7 +320,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Checkout-Time Offers",
       desc: "Ziadah launches timed exclusive offers that appear only on the checkout page, creating natural urgency that makes the customer add before it's too late.",
       color: "#f59e0b",

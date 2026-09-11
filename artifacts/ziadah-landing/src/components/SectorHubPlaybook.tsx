@@ -1,37 +1,35 @@
 import SectorVisualExamples from "@/components/SectorVisualExamples";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import type { SectorVisualBundle } from "@/data/sectorVisuals";
+import { t as siteTranslations } from "@/i18n/translations";
 
 export default function SectorHubPlaybook({
   bundle,
-  sectorSlug,
 }: {
   bundle: SectorVisualBundle;
-  sectorSlug: string;
 }) {
   const { lang } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tr = t[lang].sectorsPage;
 
   return (
     <section
       id="sector-store-playbook"
-      className="sector-playbook-wrap rv d2 relative z-[2] rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all"
+      className="sector-playbook-wrap rv d2 relative z-[2] sector-block"
       style={{ marginBottom: 28, scrollMarginTop: 120 }}
     >
       <div className="mb-3">
-        <span className="inline-block text-xs font-bold tracking-widest text-violet-600 uppercase">
+        <span className="t-eyebrow">
           {tr.sectorHubPlaybookTag}
         </span>
       </div>
-      <p className="mb-5 text-sm text-zinc-700 leading-relaxed max-w-[720px]">
+      <p className="sector-card-text mb-5 max-w-[72rem]">
         {tr.sectorHubPlaybookLead}
       </p>
 
       <div id="section-examples" className="scroll-mt-[120px]">
-        <h3 className="mb-3.5 text-base md:text-lg font-bold text-violet-600 leading-snug">{tr.sectorHubExamplesEmbedTitle}</h3>
-        <SectorVisualExamples bundle={bundle} introVariant="sector" sectorSlug={sectorSlug} />
+        <h3 className="sector-card-title mb-4">{tr.sectorHubExamplesEmbedTitle}</h3>
+        <SectorVisualExamples bundle={bundle} introVariant="sector" />
       </div>
     </section>
   );

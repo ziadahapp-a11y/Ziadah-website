@@ -1,0 +1,1488 @@
+/* =====================================================================
+   Design system — foundation + chrome
+
+   A port of the reverse-engineered reference's measured CSS
+   (`app/globals.css`, `components/Button.module.css`,
+   `components/Header.module.css`, `components/Footer.module.css`).
+   Values marked MEASURED are the reference's own; nothing here is invented.
+
+   Three rules the whole layer obeys:
+
+   1. **Colour is a page property.** No component hard-codes a colour. Each
+      reads `--color-primary` / `--color-secondary` / `--color` with a
+      fallback, and the page stamps the triple per section.
+   2. **Every offset is token-derived.** Sticky tops are expressed in
+      `--header-height` / `--header-dynamic-height`, never in pixels.
+   3. **Logical properties throughout.** The reference was measured on an LTR
+      site; this one is Arabic-first and flips to LTR on /en. Direction is
+      adapted, not mechanically mirrored.
+
+   Imported into Tailwind's `components` layer, so utilities in JSX still win.
+   No `!important` anywhere.
+   ===================================================================== */
+
+/* ---------- BASE -----------------------------------------------------
+   MEASURED: body is 2rem, 2.4rem from 768 up. This is the reference's
+   loudest single signature — its copy is large — and it is what makes the
+   whole composition read at the right scale. */
+/* ---------- LAYERS ---------------------------------------------------
+   One ordered scale, stated once. A component names the band it belongs to
+   instead of inventing a number, which is why nothing in this codebase needs
+   a 999999: the ordering is a fact of the system, not of the component.
+
+     base      the page ground
+     content   anything lifted inside its own section
+     sticky    in-page sticky chrome (the CTA rail)
+     header    the fixed chrome band - announcement bar and header
+     dropdown  panels the header opens over the page
+     modal     things that take the whole screen, and the skip link
+     toast     transient messages above everything
+
+   Every layer owner also isolates, so a number only ever competes with its
+   own siblings. */
+:root {
+  --z-base: 0;
+  --z-content: 1;
+  --z-sticky: 10;
+  --z-header: 100;
+  --z-dropdown: 110;
+  --z-modal: 200;
+  --z-toast: 300;
+}
+
+/* `overflow-x: clip` lived here and hid every horizontal overflow the site
+   had, including from the audit that measures `scrollWidth`. Removed: an
+   element wider than the viewport is a bug to fix at its own cause, and the
+   only way to see one is to let it push the document. */
+html { overscroll-behavior-y: none; }
+body {
+  font-size: 2rem;
+  line-height: 1.5;
+  color: var(--general-black);
+  background: var(--general-white);
+}
+@media screen and (min-width: 768px) { body { font-size: 2.4rem; } }
+
+img, video, canvas, svg { display: block; max-width: 100%; }
+
+/* MEASURED: the mobile panel locks the page with a class on <html>. */
+html.no-scroll { overflow: hidden; }
+
+.skip-link {
+  position: fixed;
+  top: -60px;
+  inset-inline-start: 1.2rem;
+  z-index: var(--z-modal);
+  background: var(--general-black);
+  color: var(--general-white);
+  padding: 1rem 1.6rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: top calc(var(--motion) * 0.2s) var(--ease-out-quint);
+}
+.skip-link:focus { top: 1.2rem; }
+
+/* ---------- CONTAINER ------------------------------------------------
+   Declared as a Tailwind UTILITY in `index.css`: Tailwind ships its own
+   `.container`, and the utilities layer always beats components, so
+   redefining it here would silently lose. Overriding the utility is the
+   sanctioned resolution; `!important` is not.
+
+   `--container-max` is the one knob it reads, so a modifier only sets a
+   custom property and never fights the utility over `max-width`. */
+.container--narrow { --container-max: 120rem; }
+
+/* ---------- COLUMN GRID ----------------------------------------------
+   MEASURED: 8 columns below 1025, 16 at 1025+; the gap halves below 768.
+
+   Named `.layout-grid`, NOT `.grid`: Tailwind ships `.grid` as a display
+   utility, and a component rule of that name would stamp this template onto
+   every `className="grid"` in the codebase. */
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+@media screen and (min-width: 768px)  { .layout-grid { gap: 1.6rem; } }
+@media screen and (min-width: 1025px) { .layout-grid { grid-template-columns: repeat(16, minmax(0, 1fr)); } }
+
+/* The span vocabulary the reference actually uses, ranked by frequency.
+   `col-measure` is the dominant reading width: one column of margin each
+   side — 2/span 6 of 8 at tablet, 2/span 14 of 16 at desktop. */
+.col-full    { grid-column: 1 / -1; }
+.col-measure { grid-column: 1 / -1; }
+.col-half-a  { grid-column: 1 / -1; }
+.col-half-b  { grid-column: 1 / -1; }
+.col-major   { grid-column: 1 / -1; }
+.col-minor   { grid-column: 1 / -1; }
+@media screen and (min-width: 768px) {
+  .col-measure { grid-column: 2 / span 6; }
+  .col-half-a  { grid-column: 1 / span 4; }
+  .col-half-b  { grid-column: 5 / span 4; }
+  .col-major   { grid-column: 1 / span 5; }
+  .col-minor   { grid-column: 6 / span 3; }
+}
+@media screen and (min-width: 1025px) {
+  .col-measure { grid-column: 2 / span 14; }
+  .col-half-a  { grid-column: 1 / span 8; }
+  .col-half-b  { grid-column: 9 / span 8; }
+  .col-major   { grid-column: 2 / span 7; }
+  .col-minor   { grid-column: 11 / span 5; }
+}
+
+/* ---------- TYPE ROLES -----------------------------------------------
+   MEASURED, verbatim: 12 / 10.4 / 4.8rem display, 3.2 / 2.4rem heads,
+   2.4rem body, 1.6 / 1.2rem small. Mobile drops to 5.6 / 4.8 / 3.2 / 2.4.
+
+   The reference's display face is caps-only Latin at `line-height: 1`.
+   Arabic diacritics collide at that leading, so the RTL branch raises it
+   rather than copying the number — the size is the reference's, the leading
+   is this script's. */
+.t-display-1 { font-size: 12rem;   line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.t-display-2 { font-size: 10.4rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.t-display-3 { font-size: 4.8rem;  line-height: 1; font-weight: 700; letter-spacing: -0.015em; }
+.t-head-1    { font-size: 3.2rem;  line-height: 1.25; font-weight: 600; }
+.t-head-2    { font-size: 2.4rem;  line-height: 1.33; font-weight: 600; }
+.t-body      { font-size: 2.4rem;  line-height: 1.5; }
+.t-body-18   { font-size: 1.8rem;  line-height: 1.5; }
+.t-sm        { font-size: 1.6rem;  line-height: 1.4; }
+.t-sm-med    { font-size: 1.6rem;  line-height: 1.5; font-weight: 500; }
+.t-xs        { font-size: 1.2rem;  line-height: 1.5; }
+
+@media screen and (max-width: 767px) {
+  .t-display-1 { font-size: 5.6rem; }
+  .t-display-2 { font-size: 4.8rem; }
+  .t-display-3 { font-size: 3.2rem; }
+  .t-head-1    { font-size: 2.4rem; }
+}
+
+[dir="rtl"] .t-display-1,
+[dir="rtl"] .t-display-2,
+[dir="rtl"] .t-display-3 { line-height: 1.22; letter-spacing: 0; }
+[dir="rtl"] .t-head-1 { line-height: 1.45; }
+[dir="rtl"] .t-head-2 { line-height: 1.5; }
+[dir="rtl"] .t-body   { line-height: 1.85; }
+
+/* The eyebrow above a hero or section title. MEASURED 1.2 / 1.6 / 1.8rem. */
+.t-eyebrow {
+  display: block;
+  margin-bottom: 1.6rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@media screen and (min-width: 768px)  { .t-eyebrow { font-size: 1.6rem; } }
+@media screen and (min-width: 1025px) { .t-eyebrow { margin-bottom: 2.4rem; font-size: 1.8rem; } }
+/* Arabic has no letter case; tracking out an Arabic word breaks the joins. */
+[dir="rtl"] .t-eyebrow { text-transform: none; letter-spacing: 0; }
+
+/* ---------- SECTION --------------------------------------------------
+   MEASURED: 6.4rem 0, and 7.4rem 0 11.6rem at the desktop tier. Every
+   section paints the page's colour triple and nothing else. */
+.section {
+  position: relative;
+  padding-block: var(--section-space) var(--section-space-bottom);
+  /* HAND SET. A flat pale violet ground for every band, in place of the
+     section's own `--color-primary`. This overrides the per-section colour
+     triple: a band can still set its own primary, but it will not paint it. */
+  background-color: #f9f2ff;
+  color: var(--color-secondary, var(--general-black));
+}
+/* A section is a coloured BAND: it spans the viewport and owns no gutter, so
+   the gutter is the container's job. Most sections wrap their content in
+   `<Shell>` (`.container`) and get it; a bare child ran edge to edge.
+
+   Measured across eight routes at three widths: 44 elements - headings, list
+   rows, cards - touching the viewport edge with no gutter at all, most of the
+   industry-page template among them. Any direct child that is not already a
+   container now gets the same box the container would have given it. */
+.section > *:not(.container) {
+  width: calc(100% - var(--page-padding-x) * 2);
+  max-width: var(--container-max, none);
+  margin-inline: auto;
+}
+@media screen and (min-width: 1025px) {
+  .section > *:not(.container) {
+    max-width: var(--container-max, var(--site-container-max-width));
+  }
+}
+
+.section--tight { padding-block: 4.8rem; }
+.section--flush-top { padding-block-start: 0; }
+.section--flush-bottom { padding-block-end: 0; }
+
+.section-head { margin-bottom: 4.8rem; }
+.section-head--center { text-align: center; margin-inline: auto; max-width: 76rem; }
+.section-head > * + * { margin-top: 1.6rem; }
+
+/* ---------- BUTTONS --------------------------------------------------
+   MEASURED, verbatim. Four custom properties and one skeleton; heights are
+   explicit (4.2 / 5.6 / 7.2rem), never padding-derived, so every control in a
+   row shares one height.
+
+   The label is TWO stacked layers inside a clipping holder: the resting label
+   translates out by -210% (-250% large) while the hover copy rises from
+   +100%. Both the pointer and keyboard paths drive the same swap. */
+.button {
+  --button-color: var(--general-black);
+  --button-color-hover: var(--general-white);
+  --button-text-color: var(--general-white);
+  --button-text-color-hover: var(--general-black);
+  --spring-duration: calc(var(--motion) * var(--motion-speed-slow));
+  --bg-duration: calc(var(--motion) * var(--motion-speed));
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: auto;
+  border: 0;
+  padding: 0;
+  border-radius: var(--button-radius);
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--button-color);
+  /* The ink lives on `.button-text` because the two-layer hover swap needs
+     each layer coloured separately. A button built with `mkBtn()` renders its
+     label as a bare child, with no `.button-text` around it - so it inherited
+     the SECTION'S ink instead: on a blue section that put #1f0236 on the
+     black fill, measured at 1.01:1. Completely unreadable, on nine
+     `mkBtn` call sites. The colour belongs on the control; the layers still
+     override it. */
+  color: var(--button-text-color);
+  /* MEASURED: clips the scaling ::before to the pill on Safari. */
+  mask-image: radial-gradient(white, black);
+}
+.button::after,
+.button::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  border-radius: var(--button-radius);
+}
+.button::before {
+  z-index: 1;
+  inset: 0;
+  transform: scale(0);
+  opacity: 0;
+  background: var(--button-color-hover);
+  box-shadow: inset 0 0 0 1px var(--button-color-hover);
+}
+.button::after { z-index: 3; inset: 0; }
+
+/* The clipping box. MEASURED heights. */
+.button-holder {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 4.2rem;
+  padding: 1.6rem 2.4rem 1.5rem;
+  border-radius: var(--button-radius);
+  font-size: 1.4rem;
+}
+.button.is-large .button-holder { height: 5.6rem; padding: 2.3rem 3rem; font-size: 1.6rem; }
+.button.is-xl .button-holder    { height: 7.2rem; padding: 3.1rem 4rem; font-size: 1.6rem; }
+.button.is-small .button-holder { height: 3.4rem; padding-inline: 1.6rem; font-size: 1.3rem; }
+.button.is-block { width: 100%; }
+.button.is-icon .button-holder  { width: 4.2rem; padding-inline: 0; }
+
+.button-label,
+.button-hover-label {
+  z-index: 2;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  transition: transform var(--spring-ease-duration) var(--spring-ease);
+}
+.button-hover-label {
+  position: absolute;
+  inset-inline-start: 0;
+  transform: translateY(100%);
+  padding: inherit;
+  opacity: 1;
+  transition: transform var(--spring-ease-duration) var(--spring-ease),
+              opacity calc(var(--spring-ease-duration) * 0.5) var(--spring-ease);
+}
+/* MEASURED: the large variants park their hover layer at opacity 0. */
+.button.is-large .button-hover-label,
+.button.is-xl .button-hover-label { opacity: 0; }
+
+/* An inline-flex row, not a block: the global `svg { display: block }` reset
+   would otherwise break an icon onto its own line inside a label. */
+.button-text {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--button-text-color);
+}
+.button-hover-label .button-text { color: var(--button-text-color-hover); }
+
+/* focus-visible drives the same swap, so keyboard users get it everywhere. */
+.button:focus-visible::before { transform: scale(1.03); opacity: 1; }
+.button:focus-visible .button-label { transform: translateY(-210%); }
+.button:focus-visible.is-large .button-label,
+.button:focus-visible.is-xl .button-label { transform: translateY(-250%); }
+.button:focus-visible .button-hover-label { transform: translateY(0); opacity: 1; }
+.button:focus-visible::after { outline: 0.2rem solid var(--button-color); outline-offset: 0.3rem; }
+
+.button.is-disabled,
+.button:disabled,
+.button[aria-disabled="true"] { pointer-events: none; cursor: unset; opacity: 0.3; }
+
+/* MEASURED variant token sets, verbatim. The reference names the neutral pair
+   here and picks the VARIANT per instance rather than re-tinting the control,
+   so a section on a dark ground takes `secondary` and one on a light ground
+   takes `primary`. */
+.button.primary {
+  --button-color: var(--general-black);
+  --button-color-hover: var(--general-white);
+  --button-text-color: var(--general-white);
+  --button-text-color-hover: var(--general-black);
+}
+.button.secondary {
+  --button-color: var(--general-black);
+  --button-color-hover: var(--general-white);
+  --button-text-color: var(--general-white);
+  --button-text-color-hover: var(--general-black);
+}
+.button.tertiary {
+  --button-color: transparent;
+  --button-color-hover: var(--color-secondary, var(--general-black));
+  --button-text-color: var(--color-secondary, var(--general-black));
+  --button-text-color-hover: var(--color-primary, var(--general-white));
+}
+/* MEASURED: tertiary draws its edge with an ::after outline, not a border, so
+   the control keeps exactly the same box as its solid siblings. */
+.button.tertiary::after { outline: 0.15rem solid var(--button-text-color); outline-offset: -0.15rem; }
+.button.is-invert {
+  /* A fixed hue rather than the section's own ink. On a dark hero the inverted
+     control was ink-on-ink — the same pair as the body text around it — so the
+     primary action carried no more weight than a paragraph. `#480086` is the
+     deep violet from `public/logo-ar.svg`, and it is the one hue in play that
+     no section ground uses (the violet family grounds on `--ziadah-ink` and
+     `--ziadah-violet-pale`), so the control reads as the thing to press
+     wherever it lands.
+
+     THE TEXT IS FIXED TOO, and that is the point. It was `--color-primary` —
+     the section's own ground — which is dark only where the section is
+     inverted, so on a light section the label came out white-on-violet in one
+     place and violet-on-violet in another. A fixed background needs a fixed
+     foreground: white on `#480086` is 12.9:1 and cannot depend on which
+     section it lands in. Hover still follows the section, because there both
+     ends move together. */
+  --button-color: #480086;
+  --button-color-hover: var(--color-primary, var(--general-white));
+  --button-text-color: var(--general-white);
+  --button-text-color-hover: var(--color-secondary, var(--general-black));
+}
+
+/* A section on the dark end of its family swaps the neutral pair, so a control
+   always reads against the ground it is standing on. This is the reference's
+   own per-instance variant choice expressed once as a scope, rather than every
+   call site having to know which end of the family it landed on. */
+[data-family][data-invert] .button.primary,
+[data-family][data-invert] .button.secondary {
+  --button-color: var(--general-white);
+  --button-color-hover: var(--general-black);
+  --button-text-color: var(--general-black);
+  --button-text-color-hover: var(--general-white);
+}
+[data-family][data-invert] .button.tertiary {
+  --button-color: transparent;
+  --button-color-hover: var(--general-white);
+  --button-text-color: var(--color-secondary, var(--general-white));
+  --button-text-color-hover: var(--general-black);
+}
+
+/* MEASURED: hover lives behind the capability query. Ungated `:hover` latches
+   on a touch device after a tap. */
+@media (hover: hover) {
+  .button:hover::before {
+    transform: scale(1.03);
+    opacity: 1;
+    transition: transform var(--bg-duration) cubic-bezier(0.4, 1.35, 0.5, 0.97),
+                opacity calc(var(--bg-duration) * 0.5) cubic-bezier(0.4, 1.35, 0.5, 0.97);
+  }
+  .button:hover .button-label { transform: translateY(-210%); }
+  .button:hover.is-large .button-label,
+  .button:hover.is-xl .button-label { transform: translateY(-250%); }
+  .button:hover .button-hover-label {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform var(--spring-ease-duration) var(--spring-ease),
+                opacity calc(var(--spring-ease-duration) * 0.5) var(--spring-ease)
+                  calc(var(--spring-duration) * 0.15);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button::before, .button-label, .button-hover-label { transition: none; }
+}
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .button:hover .button-label,
+  .button:hover.is-large .button-label { transform: none; }
+  .button:hover .button-hover-label { transform: translateY(100%); opacity: 0; }
+}
+
+/* An inline text link with a travelling arrow. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+.link-arrow svg { transition: transform calc(var(--motion) * 0.3s) var(--spring-ease); }
+@media (hover: hover) {
+  .link-arrow:hover svg { transform: translateX(0.4rem); }
+  [dir="rtl"] .link-arrow:hover svg { transform: translateX(-0.4rem); }
+}
+.link-arrow:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.4rem; }
+
+/* ---------- HEADER ---------------------------------------------------
+   MEASURED: fixed, transparent over every section, on the `--z-header` band,
+   height of 4.2rem. Its ink follows the section beneath it — `data-theme`
+   flips it — and it paints a backdrop only once scrolled. */
+.site-header {
+  position: fixed;
+  /* The header owns its stacking context outright, so its panels compete only
+     with each other and no section can reach over it by out-numbering it. */
+  isolation: isolate;
+  inset-inline: 0;
+  top: var(--header-banner-height, 0rem);
+  height: var(--header-height);
+  z-index: var(--z-header);
+  background: transparent;
+  pointer-events: none;
+  color: var(--general-black);
+  transition: color calc(var(--motion) * var(--motion-speed)) ease,
+              background calc(var(--motion) * 0.4s) var(--ease-out-quint),
+              box-shadow calc(var(--motion) * 0.4s) var(--ease-out-quint);
+}
+.site-header > * { pointer-events: auto; }
+.site-header[data-theme="dark"] { color: var(--general-white); }
+/* The header sits outside every section, so it gets no triple of its own. When
+   the hit test says it is over a dark ground its controls swap ends of the
+   neutral pair - the same "pick the variant that reads against the ground"
+   rule the reference applies per instance, expressed once as a scope. */
+.site-header[data-theme="dark"] .button.primary,
+.site-header[data-theme="dark"] .button.secondary {
+  --button-color: var(--general-white);
+  --button-color-hover: var(--general-black);
+  --button-text-color: var(--general-black);
+  --button-text-color-hover: var(--general-white);
+}
+.site-header[data-theme="dark"] .button.tertiary {
+  --button-color: transparent;
+  --button-color-hover: var(--general-white);
+  --button-text-color: var(--general-white);
+  --button-text-color-hover: var(--general-black);
+}
+/* The reference header stays `background: transparent` at every scroll
+   position, and copying that here had a measurable cost: at 33 of 61 sampled
+   scroll positions across four routes, PAGE TEXT PASSED DIRECTLY UNDER THE
+   HEADER'S OWN NAV TEXT with nothing between the two runs. The z-order was
+   right; the legibility was not.
+
+   An 84% white blurred bar was tried before and reverted, correctly - it put a
+   light band across the dark hero. The fix is neither: past 12px the header
+   paints THE SECTION'S OWN GROUND, stamped by the same theme detector that
+   flips its ink (`--header-ground`). The bar is the colour of whatever is
+   behind it, so nothing reads as a band; it simply stops being see-through.
+   Over the hero, before any scroll, it stays fully transparent. */
+.site-header[data-scrolled] {
+  background: var(--header-ground, var(--general-white));
+}
+
+.header-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+@media screen and (max-width: 1280px) { .header-bar { gap: 1.6rem; } }
+@media screen and (max-width: 410px) { .header-bar { gap: 1.2rem; } }
+/* At the narrowest tier the English CTA plus the language chip plus the toggle
+   overran the row by 20px. The controls tighten rather than the row spilling. */
+@media screen and (max-width: 430px) {
+  .header-actions { gap: 0.2rem; }
+  .header-actions .button-holder { padding-inline: 1.2rem; font-size: 1.3rem; }
+}
+@media screen and (max-width: 360px) {
+  .header-actions .button-holder { padding-inline: 1rem; }
+}
+@media screen and (max-width: 360px) { .header-bar { gap: 0.8rem; } }
+
+.header-brand { display: flex; align-items: center; flex: none; color: inherit; }
+/* The mark is inline SVG so its wordmark can follow the header's ink; the two
+   dots keep the brand blue at every scroll position. */
+.header-logo { height: 3.4rem; width: auto; display: block; }
+@media screen and (max-width: 360px) { .header-logo { height: 2.8rem; } }
+
+/* MEASURED: a flexible spacer absorbs the slack; the button cluster never
+   shrinks below its intrinsic width. */
+.header-spacer { flex: 1 1 auto; min-width: 0; }
+.header-actions { display: flex; align-items: center; gap: 0.3rem; flex: none; }
+/* MEASURED: the reference's language switcher is `display: none` below 1025 and
+   reappears inside the open mobile panel. */
+.lang-desktop-only { display: none; }
+@media screen and (min-width: 1025px) { .lang-desktop-only { display: inline-flex; } }
+
+.nav-row { display: none; align-items: center; gap: 0.4rem; list-style: none; margin: 0; padding: 0; }
+@media screen and (min-width: 1025px) { .nav-row { display: flex; } }
+
+/* MEASURED: pill triggers, 4.2rem tall, 1.6rem side padding, 1.6rem/500. */
+.nav-trigger {
+  height: 4.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.6rem;
+  border: 0;
+  border-radius: 9999px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.nav-caret {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  transition: transform calc(var(--motion) * var(--motion-speed)) var(--spring-ease);
+}
+.nav-trigger[aria-expanded="true"] .nav-caret { transform: rotate(180deg); }
+.nav-trigger:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+/* The measured 1.6rem trigger padding was set for the reference's THREE
+   triggers. This nav carries seven, and with the English wordmark (194px
+   against Arabic's 82) the row overran its container by 8-12px at EVERY
+   desktop width - the button cluster was pushed past the viewport edge. The
+   trigger padding tightens below the widest tier instead of the row
+   overflowing. */
+/* Six triggers in the row, against the reference's three, and the English
+   wordmark is 194px to Arabic's 82. The padding tightens by tier so the row
+   fits at every desktop width in both languages rather than spilling into the
+   button cluster.
+
+   The القطاعات trigger carries "and use cases" so the row states WHO it is for
+   and HOW they use it. Below 1440 the row needs that width back and the
+   qualifier is the part a reader can lose - the panel and the mobile drill
+   level still carry the full label. */
+.nav-qualifier { white-space: nowrap; }
+@media screen and (max-width: 1439px) { .nav-qualifier { display: none; } }
+@media screen and (max-width: 1600px) { .nav-trigger { padding: 0 1.2rem; } }
+@media screen and (max-width: 1280px) { .nav-trigger { padding: 0 1rem; gap: 0.4rem; } }
+@media (hover: hover) {
+  .nav-trigger:hover,
+  .nav-trigger[aria-expanded="true"] { background: rgb(127 127 127 / 0.18); }
+}
+
+/* ---------- MEGA MENU ------------------------------------------------
+   MEASURED: a floating panel, max-width 96rem, radius 2.4rem, 2fr 1fr, sitting
+   1rem above the header's bottom edge. Not a full-bleed bar. */
+.mega {
+  position: absolute;
+  top: calc(var(--header-height) - 1rem);
+  inset-inline: var(--page-padding-x);
+  max-width: 96rem;
+  margin-inline: auto;
+  z-index: var(--z-dropdown);
+  padding: 2.4rem;
+  border-radius: 2.4rem;
+  background: var(--general-white);
+  color: var(--general-black);
+  box-shadow: 0 2rem 6rem rgb(10 10 10 / 0.12);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.4rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.8rem);
+  transition: opacity calc(var(--motion) * var(--motion-speed)) ease,
+              transform calc(var(--motion) * var(--motion-speed)) var(--spring-ease),
+              visibility 0s linear calc(var(--motion) * var(--motion-speed));
+}
+.mega.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+
+/* THE HOVER BRIDGE.
+   MEASURED: the trigger's bottom edge is at 69.98px and the panel's top at
+   79.98px - a 10px strip belonging to neither. The panel is a DOM child of the
+   nav item, so moving ONTO it never fires `mouseleave`; but crossing that strip
+   does, and at a human pace (a step every 40ms) the panel closed at y=76 and
+   only came back at y=87 once the pointer landed on it. Pausing in the strip,
+   or travelling diagonally toward a card on the far side, left it shut.
+   `1.9rem` is measured, not guessed. The gap is the distance from the trigger's
+   bottom to the panel's top, and it is 1.83rem at EVERY desktop width - 13px at
+   1025, 18.3px at 1440, 24.4px at 1920 - because both ends scale with the fluid
+   root. 1.9rem covers it with about 0.7px to spare, which overlaps the trigger
+   row by less than a pixel and leaves sibling triggers hoverable.
+   (A first attempt used 1rem, reasoning from the `- 1rem` in the panel's own
+   `top`. That covered barely half the gap: the trigger does not reach the
+   header's full height, so the offset in the calc is not the gap.)
+   `position: absolute` is load-bearing: `.mega` is a grid, and a static
+   pseudo-element would become a grid ITEM and take a track. */
+.mega::before {
+  content: "";
+  position: absolute;
+  top: -1.9rem;
+  /* Spans the viewport, not just the panel. The panel is centred under a 96rem
+     cap while the triggers sit at the edges of a much wider header, so at 1025,
+     1280 and 1920 the trigger is horizontally OUTSIDE the panel and a straight
+     drop from it never lands on a panel-width bridge - measured closing at
+     y=67..77 and y=84..92. The band between the nav row and the panel holds no
+     interactive content, so bridging all of it is safe, and it only exists
+     while a panel is open. */
+  inset-inline: -50vw;
+  height: 1.9rem;
+}
+/* The panel bridge alone is not enough, because the panel is centred under a
+   96rem cap while the triggers sit at the edge of a much wider header. MEASURED:
+   the crossing survives at 1440 and 1600 - where the trigger happens to fall
+   just inside the panel's span - and fails at 1025, 1280 and 1920, where the
+   trigger is outside it entirely and the drop lands in the strip the panel does
+   not reach. So the nav item bridges its OWN column too, which is where the
+   pointer actually starts. `:has()` scopes it to the item whose panel is open,
+   so a closed item never puts an invisible strip under the header. */
+@media screen and (min-width: 1025px) {
+  /* On the TRIGGER, not on the `<li>`. Making the item `position: relative`
+     turned it into the panel's containing block - `.mega` is absolutely
+     positioned and had been resolving against the header - so the panel
+     collapsed onto the trigger's own box and every pointer test failed at every
+     width. The button is a SIBLING of the panel, never an ancestor, so it can
+     be positioned freely.
+     `:has()` scopes the strip to the item whose panel is open, so a closed item
+     never leaves an invisible band under the header. */
+  .nav-row > li[data-menu-item] > .nav-trigger { position: relative; }
+  .nav-row > li[data-menu-item]:has(.mega.is-open) > .nav-trigger::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    height: 1.9rem;
+  }
+}
+/* Below the desktop tier the panel is replaced by the drill-down. `display:
+   none` rather than `visibility: hidden` — the latter keeps it in flow and it
+   contributes to scrollWidth. */
+@media screen and (max-width: 1024px) { .mega { display: none; } }
+.mega--single { grid-template-columns: minmax(0, 1fr); }
+
+/* `align-content: start` is load-bearing. `.mega` is a grid, so this column
+   stretches to the height of whichever sibling is tallest, and a grid that
+   stretches spreads its ROWS: the solutions panel measured three 235px rows
+   holding 90px of card each, because the link column beside it was 722px.
+   Packing the rows to the top means a short card column stays short and the
+   space falls at the bottom of the panel where it belongs. */
+.mega-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  gap: 0.8rem;
+}
+/* MEASURED: `display: block`, padding 1.6rem, radius 1.6rem. */
+.mega-card {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  padding: 1.6rem;
+  border: 0;
+  border-radius: 1.6rem;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+/* MEASURED: `display: block`. The badge and the platform mark sit inline in the
+   line box, the way the reference's own `.badge` does. */
+.mega-card-title { display: block; font-size: 1.8rem; font-weight: 500; color: var(--general-black); }
+.mega-card-desc {
+  /* MEASURED: the reference description is one line, two at most (an explicit
+     <br> in `Perps` and `Card`). Clamped to that, so a longer Ziadah sentence
+     cannot wrap the card to double the measured height. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-top: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--general-gray-dark);
+}
+/* MEASURED: the reference card carries no icon. The grey 3.2rem tile that stood
+   here cost 4.39rem of the text column (title measured 21.61rem against the
+   reference's 26.00rem). What remains is the brand mark on the platform cards,
+   inline at the title's own size, because there the logo IS the row's identity. */
+.mega-logo {
+  display: inline-block;
+  vertical-align: -0.3rem;
+  width: 2rem;
+  height: 2rem;
+  margin-inline-end: 0.8rem;
+  color: var(--general-black);
+}
+
+.mega-links { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.mega-heading {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  /* DOCUMENTED DEVIATION D-01, same reason as the footer legal row. */
+  color: var(--general-gray-dark);
+  padding: 0.8rem 1.2rem;
+}
+[dir="rtl"] .mega-heading { text-transform: none; letter-spacing: 0; }
+/* MEASURED: `display: block`. The badge is inline, as `.badge` is on the
+   reference's own links. */
+.mega-link {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 1rem;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--general-gray-dark);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease,
+              color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.mega-link:focus-visible,
+.mega-card:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+@media (hover: hover) {
+  .mega-card:hover { background: var(--general-white-off); }
+  .mega-link:hover { background: var(--general-white-off); color: var(--general-black); }
+}
+
+/* ---------- MEGA PANEL: GROUPED COLUMNS ----------------------------------
+   The solutions panel carries twenty-two destinations across five groupings.
+   The two-column `cards + more` anatomy cannot hold that: it promoted six
+   entries on an accident of the data and buried sixteen in one flat list.
+
+   This variant drops the 2fr/1fr split and gives the panel a single track,
+   with the groups laid out inside it - so the panel is as tall as its tallest
+   COLUMN rather than as tall as one runaway list. */
+.mega--groups { grid-template-columns: minmax(0, 1fr); }
+
+/* The promoted row: four solutions across, above the groups and separated
+   from them, so the panel answers the common ask before it starts
+   classifying. Four across rather than the default two, because these are
+   peers of each other, not a two-column list. */
+.mega-cards--promoted {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  padding-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+  border-bottom: 0.1rem solid var(--general-gray-light);
+}
+@media screen and (max-width: 1279px) {
+  .mega-cards--promoted { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.mega-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  gap: 2.4rem 1.6rem;
+}
+/* A column can hold more than one group - `by-experience` has a single entry
+   and rides under `by-activity` rather than opening a column for one link. */
+.mega-column { display: flex; flex-direction: column; gap: 2.4rem; min-width: 0; }
+.mega-group { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+
+/* The heading IS the group's index page, so it is a control, not a label: it
+   takes the link's own box so the column reads as one aligned stack, and
+   carries the panel's full ink to sit above the links under it. */
+.mega-group-title {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin-bottom: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 1rem;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--general-black);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.mega-group-title:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+@media (hover: hover) { .mega-group-title:hover { background: var(--general-white-off); } }
+
+/* The catch-all, on its own row under the groups: it is not a sixth grouping,
+   it is the way past all five, so a rule separates it from them rather than
+   leaving it to read as an orphaned entry of whichever column it sits under. */
+.mega-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  align-self: start;
+  margin-top: 1.6rem;
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 1rem;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--general-black);
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
+}
+.mega-all:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+@media (hover: hover) { .mega-all:hover { background: var(--general-white-off); } }
+/* The rule spans the panel, so it is drawn by the grid row rather than by the
+   control, which is only as wide as its label. */
+.mega--groups .mega-groups { padding-bottom: 1.6rem; border-bottom: 0.1rem solid var(--general-gray-light, rgb(10 10 10 / 8%)); }
+/* The caret is a chevron rotated into an arrow, pointing the way the reader
+   reads - so it flips with direction rather than pointing out of the panel. */
+.mega-all-caret { width: 1.6rem; height: 1.6rem; transform: rotate(-90deg); }
+[dir="rtl"] .mega-all-caret { transform: rotate(90deg); }
+
+/* Five groups do not fit four columns at the narrow desktop tier. */
+@media screen and (max-width: 1279px) {
+  .mega-groups { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* MEASURED: a small caps badge, pink ground. */
+.pill {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-inline-start: 0.6rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+/* The badge takes the family's own pair, so it reads on either ground. */
+.pill--live { color: var(--color-primary, var(--general-white)); background: var(--color-secondary, var(--general-black)); }
+.pill--soon { color: var(--color-secondary, var(--general-black)); background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 20%, transparent); }
+
+/* ---------- MOBILE NAV -----------------------------------------------
+   MEASURED: a two-bar hamburger that counter-rotates into an X (the first bar
+   delayed), and a full-viewport panel whose levels slide horizontally on a
+   clipped track — a drill-down, not an accordion. */
+.nav-toggle {
+  width: 4.3rem;
+  height: 4.3rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: inherit;
+  cursor: pointer;
+}
+@media screen and (min-width: 1025px) { .nav-toggle { display: none; } }
+/* MEASURED on the running reference: the rendered bar is 1.6rem, not the 1.8rem
+   the module's later rule implies - `.hamburger span { width: 1.6rem }` outranks
+   `.hamburgerInner { width: 1.8rem }` on the wrapper, and the bars are 100% of it. */
+.nav-toggle-inner { display: flex; flex-direction: column; gap: 0.4rem; width: 1.6rem; }
+.nav-toggle-inner span {
+  display: block;
+  width: 100%;
+  height: 0.15rem;
+  background: currentColor;
+  border-radius: 1px;
+  transition: transform calc(var(--motion) * 0.5s) cubic-bezier(0.58, 0.01, 0.03, 0.99);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-inner { gap: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-inner span:first-child {
+  transform: rotate(135deg);
+  transition-delay: calc(var(--motion) * 0.1s);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-inner span:nth-child(2) { transform: rotate(45deg); }
+
+.mob-nav {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dropdown);
+  background: var(--general-white);
+  color: var(--general-black);
+  display: flex;
+  flex-direction: column;
+  /* The top strip is a ROW now, not padding. See `.mob-close-bar`. */
+  padding: 0 var(--page-padding-x) 3.2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity calc(var(--motion) * 0.15s) ease calc(var(--motion) * 0.125s),
+              visibility 0s linear calc(var(--motion) * 0.275s);
+}
+.mob-nav.is-open { opacity: 1; visibility: visible; transition-delay: calc(var(--motion) * 0.125s), 0s; }
+/* The reference's own toast bar shows through its open panel, but its panel foot
+   is empty, so nothing is covered. Ziadah's foot holds the language switcher and
+   the primary CTA, and at 390 the sticky bar lands on top of them - an
+   unreachable control. The overlays stand down while the panel is open. */
+html.no-scroll .announce { display: none; }
+/* MEASURED: with the panel open the reference hides the bar's download button
+   (`.is-mobile-nav-open .main_btn-download-wrapper { display: none }`) and keeps
+   only the mark and the toggle. The CTA is in the panel foot. */
+html.no-scroll .header-actions .button { display: none; }
+/* The reference lets its header show through the open panel and uses the toggle
+   itself as the close control, forcing the header ink black so it stays legible
+   on the light panel ground. Ziadah cannot: `.mob-nav` sits at
+   `var(--z-dropdown)` and the header at 100, so the panel paints OVER the
+   toggle and `elementFromPoint` at its centre returns the panel. The toggle
+   still flips to `aria-expanded="true"` and an "close menu" label, and is still
+   unreachable. The panel carries its own close control instead - see
+   `.mob-close`. This rule stays for the ink of anything else that does show
+   through. */
+html.no-scroll .site-header,
+html.no-scroll .site-header[data-theme="dark"] { color: var(--general-black); }
+
+/* The panel's top strip. It is the height of the header it covers, so the rows
+   below start where they would have if the header were visible, and it holds
+   the only way out of the panel that is not Escape or a link. */
+.mob-close-bar {
+  flex: none;
+  height: var(--header-mobile);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.mob-close {
+  width: 4.3rem;
+  height: 4.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.mob-close svg { width: 2rem; height: 2rem; }
+@media screen and (min-width: 1025px) { .mob-nav { display: none; } }
+
+/* The drill-down track: levels park off-stage and the track clips them. */
+.mob-track { position: relative; flex: 1; overflow-x: hidden; }
+.mob-level {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: transform calc(var(--motion) * 0.3s) var(--spring-ease),
+              opacity calc(var(--motion) * 0.3s) ease;
+}
+/* Mirrored for RTL: "forward" is toward the inline start. */
+.mob-level--out { transform: translateX(-30%); opacity: 0; pointer-events: none; }
+.mob-level--in  { transform: translateX(100%); opacity: 0; pointer-events: none; }
+[dir="rtl"] .mob-level--out { transform: translateX(30%); }
+[dir="rtl"] .mob-level--in  { transform: translateX(-100%); }
+
+.mob-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  width: 100%;
+  padding: 2rem 0;
+  border: 0;
+  border-bottom: 0.1rem solid var(--general-gray-light);
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 2.4rem;
+  font-weight: 500;
+  text-align: start;
+  cursor: pointer;
+}
+.mob-row svg { width: 1.4rem; height: 1.4rem; flex: none; }
+[dir="rtl"] .mob-row > svg:last-child { transform: scaleX(-1); }
+/* MEASURED: the reference sub row is a block of title + description, not a
+   space-between flex row; the badge sits inline. */
+.mob-sub {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--general-gray-dark);
+  padding: 1.4rem 0;
+}
+/* Same clamp as the mega card: the reference description is one line, two at most. */
+.mob-sub-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 1.4rem;
+  color: var(--general-gray-mid);
+  margin-top: 0.4rem;
+}
+
+.mob-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  align-self: flex-start;
+  margin-bottom: 1.6rem;
+  /* MEASURED: 0.8rem 1.6rem 0.8rem 1.2rem - tighter on the chevron side. */
+  padding-block: 0.8rem;
+  padding-inline: 1.2rem 1.6rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--general-gray-light);
+  color: var(--general-black);
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mob-back svg { width: 1.2rem; height: 1.2rem; }
+/* MEASURED: `padding-top: 2.4rem; display: flex; gap: 1.2rem; align-items: center`
+   - ONE row. The reference's secondary destinations are rows in the list above;
+   only the language switcher and the primary CTA sit here. */
+.mob-foot { padding-top: 2.4rem; display: flex; gap: 1.2rem; align-items: center; }
+.mob-foot .button { flex: 1 1 auto; min-width: 0; }
+.mob-foot .button.tertiary { flex: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mob-nav, .mob-level, .nav-toggle-inner span, .mega { transition: none; }
+}
+
+/* ---------- FOOTER ---------------------------------------------------
+   MEASURED: white ground, `padding-block: 8rem 4rem`, 4/2/1 column groups,
+   hairline separators, links 1.6rem in gray-dark. */
+.footer {
+  background: var(--general-white);
+  color: var(--general-black);
+  /* The floating updates pill is fixed 2.4rem from the bottom, so the last
+     row of the page reserves room for it rather than being covered. */
+  padding-block: 8rem 9rem;
+}
+.footer-brand { display: grid; gap: 2rem; justify-items: start; padding-bottom: 4.8rem; }
+.footer-brand img { height: 4rem; width: auto; }
+.footer-blurb { max-width: 52rem; font-size: 1.6rem; line-height: 1.5; color: var(--general-gray-dark); }
+
+.footer-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+  padding-bottom: 6.4rem;
+}
+@media screen and (max-width: 1024px) { .footer-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 767px)  { .footer-groups { grid-template-columns: minmax(0, 1fr); } }
+
+.footer-h {
+  overflow-wrap: break-word;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 1.6rem;
+}
+/* The rows carry 0.6rem of block padding each for the hit area, so the
+   gap drops by the same 1.2rem the padding adds and the rhythm is unchanged. */
+.footer-list { display: flex; flex-direction: column; gap: 0; }
+.footer-list a,
+.footer-list button {
+  overflow-wrap: break-word;
+  min-width: 0;
+  border: 0;
+  /* The rows were 22px-tall lines of text - navigation targets below the 24px
+     WCAG 2.5.8 minimum. The block padding grows the hit area without moving
+     the text; the list gap drops by the same amount, so the rhythm holds. */
+  padding: 0.6rem 0;
+  background: none;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: start;
+  color: var(--general-gray-dark);
+  cursor: pointer;
+  transition: color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) {
+  .footer-list a:hover, .footer-list button:hover { color: var(--general-black); }
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem 2.4rem;
+  padding-top: 3.2rem;
+  border-top: 0.1rem solid var(--general-gray-light);
+  font-size: 1.4rem;
+  /* DOCUMENTED DEVIATION - see docs/DEVIATIONS.md D-01.
+     Measured: var(--general-gray-mid) #a1a8b7 on white = 2.39:1, below the
+     4.5:1 AA floor for 14px body text. Raised to the next value on the
+     measured neutral ramp, which is the smallest step that passes. */
+  color: var(--general-gray-dark);
+}
+.footer-legal a, .footer-legal button {
+  border: 0; padding: 0; background: none; font: inherit; color: inherit; cursor: pointer;
+}
+@media (hover: hover) { .footer-legal a:hover, .footer-legal button:hover { color: var(--general-black); } }
+.footer-copy { margin-inline-start: auto; }
+@media screen and (max-width: 767px) { .footer-copy { margin-inline-start: 0; width: 100%; } }
+
+/* ---------- ANNOUNCEMENT BAR -----------------------------------------
+   The reference's `updates-bar` is a floating pill pinned to the BOTTOM of the
+   viewport on the fixed-chrome band, ahead of the header. This bar carries a real
+   CTA rather than a dismissible headline, so it keeps the measured anatomy
+   (fixed pill, 1.2rem radius, white ground, mono label) and is docked at the
+   bottom exactly as measured, leaving the top edge to the transparent header. */
+.announce {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 2.4rem;
+  z-index: var(--z-header);
+  background: transparent;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease-out-quint), transform 0.25s var(--ease-out-quint);
+}
+/* Stood down while the page's closing band is on screen: a floating pill over
+   the one action the page is asking for is the worst place it can be. */
+.announce[data-yielded] { opacity: 0; transform: translateY(1.2rem); pointer-events: none; }
+.announce[data-yielded] .announce-inner { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .announce { transition: none; } }
+.announce-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 0.6rem 0.6rem 0.6rem 1.6rem;
+  border-radius: 1.2rem;
+  background: var(--general-white);
+  color: var(--general-black);
+  box-shadow: 0 1rem 3rem rgb(10 10 10 / 0.18);
+  pointer-events: auto;
+  overflow: hidden;
+}
+[dir="rtl"] .announce-inner { padding: 0.6rem 1.6rem 0.6rem 0.6rem; }
+.announce-label {
+  flex: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+[dir="rtl"] .announce-label { text-transform: none; letter-spacing: 0; }
+.announce-title {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--general-gray-dark);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Below 610 the title is dropped for width - which leaves a pill carrying a
+   "NEW" label and a button, docked above a sticky CTA bar that carries the
+   same button. Measured at 430 and below: the title renders 0px, the pill is
+   166px of duplicate CTA, and the two together take 130px of an 860px
+   viewport. An announcement with no announcement in it is not one, so the
+   whole pill goes at the width where its message no longer fits. */
+@media screen and (max-width: 610px) { .announce { display: none; } }
+.announce-close {
+  flex: none;
+  /* The floor is ABSOLUTE. The root font size is fluid, so a 2.4rem square is
+     23.6px at 1440 and 22px at 768 - under WCAG 2.5.8 AA at exactly the widths
+     where a finger is most likely to be doing the tapping. Fifth site in this
+     branch to need it; the rem is the size, the px is the floor. */
+  width: 2.8rem;
+  height: 2.8rem;
+  min-width: 24px;
+  min-height: 24px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--general-gray-dark);
+  cursor: pointer;
+}
+@media (hover: hover) { .announce-close:hover { background: var(--general-gray-light); color: var(--general-black); } }
+
+
+/* ---------- REVEAL ---------------------------------------------------
+   Inverted from the usual pattern on purpose: the hidden start state applies
+   only once the motion runtime has confirmed it is live. No JS, no libraries,
+   or a thrown error => everything renders. */
+html[data-motion-ready] [data-reveal] { opacity: 0; }
+
+/* ---------- FORMS ---------------------------------------------------- */
+.field { display: grid; gap: 0.8rem; margin-bottom: 2rem; }
+.field > label { font-size: 1.4rem; font-weight: 500; }
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  height: 4.8rem;
+  padding: 0 2rem;
+  border: 0.1rem solid var(--general-gray);
+  border-radius: 9999px;
+  background: var(--general-white);
+  color: inherit;
+  font: inherit;
+  font-size: 1.6rem;
+}
+.field textarea { height: auto; min-height: 12rem; padding: 1.6rem 2rem; border-radius: 1.6rem; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: var(--general-gray-mid); }
+.field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible {
+  outline: 0.2rem solid var(--general-black);
+  outline-offset: 0.2rem;
+  border-color: transparent;
+}
+.select-wrap { position: relative; }
+.select-wrap select { appearance: none; padding-inline-end: 4rem; }
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 2rem;
+  top: 50%;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-inline-end: 2px solid var(--general-gray-mid);
+  border-bottom: 2px solid var(--general-gray-mid);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.field-msg {
+  font-size: 1.4rem;
+  color: var(--color-error-text);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height calc(var(--motion) * 0.3s) var(--ease-out-quint),
+              opacity calc(var(--motion) * 0.3s) var(--ease-out-quint);
+}
+.field.is-invalid input, .field.is-invalid textarea, .field.is-invalid select { border-color: var(--error); }
+.field.is-invalid .field-msg { max-height: 6rem; opacity: 1; }
+.field.is-valid input, .field.is-valid textarea, .field.is-valid select { border-color: var(--success); }
+.form-error {
+  padding: 1.2rem 1.6rem;
+  border-radius: 1.2rem;
+  border: 0.1rem solid color-mix(in oklab, var(--error) 35%, transparent);
+  background: color-mix(in oklab, var(--error) 8%, transparent);
+  color: var(--color-error-text);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.form-card {
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+}
+
+.search-field { position: relative; }
+.search-field input {
+  width: 100%;
+  height: 5.6rem;
+  padding-inline: 5.6rem 2.4rem;
+  border: 0.1rem solid var(--general-gray);
+  border-radius: 9999px;
+  background: var(--general-white);
+  font: inherit;
+  font-size: 1.6rem;
+}
+.search-field input:focus-visible {
+  outline: 0.2rem solid var(--general-black);
+  outline-offset: 0.2rem;
+  border-color: transparent;
+}
+.search-field .search-icon {
+  position: absolute;
+  inset-inline-start: 2.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--general-gray-mid);
+  pointer-events: none;
+}
+
+/* MEASURED: the news sub-nav is a scrolling row of text links with a hairline
+   rule under it — not a row of filled chips. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 4.2rem;
+  padding-inline: 1.6rem;
+  border: 0;
+  border-radius: 9999px;
+  background: none;
+  /* Was a fixed `--general-gray-dark`. That is correct on the light filter
+     rail this was written for and unreadable everywhere else - on the ink
+     price card it came out dark grey on black. Written from the section's own
+     ink, a chip reads on either end of either family. */
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color calc(var(--motion) * var(--motion-speed)) ease,
+              color calc(var(--motion) * var(--motion-speed)) ease;
+}
+@media (hover: hover) { .chip:hover { background: rgb(127 127 127 / 0.14); color: var(--color-secondary, var(--general-black)); } }
+.chip[aria-pressed="true"] { background: var(--color-secondary, var(--general-black)); color: var(--color-primary, var(--general-white)); }
+.chip:focus-visible { outline: 0.2rem solid currentColor; outline-offset: 0.2rem; }
+/* A chip used as a small inline tag rather than a filter control. Same ink and
+   the same pressed state, at the size the surrounding body copy sets. */
+.chip.is-small { height: 3rem; padding-inline: 1.2rem; font-size: 1.3rem; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+
+/* =====================================================================
+   SITE FOOTER - the reference's measured architecture (spec/06-footer.md).
+   Four link groups, a subscribe block, a four-column SEO link farm and a
+   legal bar. White ground, black ink. It sits OUTSIDE `.page`, so it is not
+   part of the measured document height.
+   ===================================================================== */
+.site-footer {
+  background: var(--general-white);
+  color: var(--general-black);
+  padding-block: 8rem 4rem;
+}
+
+.footer-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+  padding-bottom: 6.4rem;
+}
+@media screen and (max-width: 1024px) { .footer-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 767px)  { .footer-groups { grid-template-columns: minmax(0, 1fr); } }
+
+.footer-group-title {
+  overflow-wrap: break-word;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 1.6rem;
+}
+/* The rows carry 0.6rem of block padding each for the hit area, so the
+   gap drops by the same 1.2rem the padding adds and the rhythm is unchanged. */
+.footer-list { display: flex; flex-direction: column; gap: 0; }
+.footer-link {
+  overflow-wrap: break-word;
+  min-width: 0;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--general-gray-dark);
+  text-align: start;
+  transition: color calc(var(--motion) * 0.2s) var(--ease-out-quint);
+}
+@media (hover: hover) { .footer-link:hover { color: var(--general-black); } }
+
+.footer-subscribe { padding-block: 4.8rem; border-top: 0.1rem solid var(--general-gray-light); }
+.footer-subscribe-row { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 1.6rem; }
+.footer-input {
+  flex: 1 1 28rem;
+  /* A flex item floors at its MIN-CONTENT width unless min-width is cleared.
+     An input's min-content comes from its default character count times the
+     font's average advance, and IBM Plex Sans Arabic is wider than the
+     reference's face: measured at 320px the input floored at 359px inside a
+     288px track and pushed the page 55px sideways. The reference's own CSS
+     uses `min-width: 0` in 18 places for exactly this; the flex basis is
+     unchanged. */
+  min-width: 0;
+  height: 4.8rem;
+  padding: 0 2rem;
+  border-radius: 9999px;
+  border: 0.1rem solid var(--general-gray);
+  background: var(--general-white);
+  color: var(--general-black);
+  font: inherit;
+  font-size: 1.6rem;
+}
+.footer-input::placeholder { color: var(--general-gray-dark); }
+.footer-input:focus-visible { outline: 0.2rem solid var(--general-black); outline-offset: 0.2rem; }
+.footer-consent {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  max-width: 80rem;
+  /* DOCUMENTED DEVIATION D-01: the captured `--general-gray-mid` is 2.39:1. */
+  color: var(--general-gray-dark);
+}
+[dir="rtl"] .footer-consent { line-height: 1.9; }
+
+.footer-seo {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+  padding-block: 4.8rem;
+  border-top: 0.1rem solid var(--general-gray-light);
+}
+@media screen and (max-width: 1024px) { .footer-seo { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media screen and (max-width: 767px)  { .footer-seo { grid-template-columns: minmax(0, 1fr); } }
+.footer-seo-link {
+  overflow-wrap: break-word;
+  min-width: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+  /* DOCUMENTED DEVIATION D-01. */
+  color: var(--general-gray-dark);
+}
+
+.footer-legal-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem 2.4rem;
+  padding-top: 3.2rem;
+  border-top: 0.1rem solid var(--general-gray-light);
+  font-size: 1.4rem;
+  /* DOCUMENTED DEVIATION D-01. */
+  color: var(--general-gray-dark);
+}
+/* Same treatment as the footer lists: the legal row was four 21px-tall
+   targets. The padding buys the height and the row gap gives it back. */
+.footer-legal-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 2.4rem; }
+/* 24 CSS PX, not 2.4rem. The root font-size is fluid, so a rem minimum
+   shrinks with the viewport - at 768 this computed to 22.1px and the target
+   fell under the WCAG 2.5.8 floor. A fingertip does not scale with the
+   viewport, so this one measurement is absolute on purpose. */
+.footer-legal-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 0.2rem;
+}
+.footer-copy { margin-inline-start: auto; }
+@media screen and (max-width: 767px) { .footer-copy { margin-inline-start: 0; width: 100%; } }

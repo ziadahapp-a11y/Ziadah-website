@@ -1,118 +1,108 @@
 import { useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { ProductSwapDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import {
+  WidgetShell,
+  ProductCollection,
+  ProductCard,
+  WidgetButton,
+  StatCard,
+  SummaryBar,
+  CartCheckoutRow,
+  DismissRow,
+  type ProductShape,
+  type CampaignStyle,
+} from "./kit";
 
-export default function ProductSwapWidget({ demo }: { demo?: ProductSwapDemo }) {
-  const t = useSiteT();
+/**
+ * The upsell: one product, the better version of what the shopper is looking
+ * at. A single row, the old price struck through beside the new one, and the
+ * saving as the only coloured thing on the card.
+ */
+export default function ProductSwapWidget({
+  demo,
+  shape = "list",
+  style = "embedded",
+}: {
+  demo?: ProductSwapDemo;
+  shape?: ProductShape;
+  style?: CampaignStyle;
+}) {
+  const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.productSwap, demo),
-    [t, lang, demo],
-  );
-  const productEmoji = (tr as { productEmoji?: string }).productEmoji ?? "🎧";
+  const isAr = lang === "ar";
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.productSwap, demo), [t, lang, demo]);
+  const rel = t[lang].widgets.relatedProducts;
+  const currency = rel.currency.trim();
+
+  /* The file's "Replace Added Product": the item already in the cart is shown
+     MUTED and labelled as added, and the alternatives beside it carry the
+     action. The comparison is the point, so the cart item stays on screen
+     rather than being replaced by its own upgrade. */
+  const inCart = { name: tr.productName, price: tr.newPrice, was: tr.origPrice };
+  const alternatives = rel.products.slice(0, 2);
 
   return (
-    <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "title")} label="Product swap title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "productSwap", "subtitle")} label="Product swap subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
+    <WidgetShell
+      title={tr.title}
+      subtitle={tr.descLabel}
+      style={style}
+      dismissible={style !== "embedded"}
+      footer={
+        <>
+          <SummaryBar
+            label={isAr ? "الإجمالي (1)" : "Total items (1)"}
+            was={tr.origPrice}
+            now={tr.newPrice}
+            save={tr.saveBadge}
+          />
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${"1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <div>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 10 }}>{tr.descLabel}</div>
-        <div style={{
-          padding: "12px",
-          borderRadius: 14,
-          background: "rgba(124, 58, 237,.1)",
-          border: "1.5px solid rgba(124, 58, 237,.3)",
-          marginBottom: 12,
-        }}>
-          <div style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 5,
-            padding: "2px 10px",
-            borderRadius: 20,
-            background: "rgba(139, 92, 246,.12)",
-            border: "1px solid rgba(139, 92, 246,.3)",
-            fontSize: 12,
-            fontWeight: 700,
-            color: "#8b5cf6",
-            marginBottom: 10,
-          }}>
-            {tr.specialOfferBadge}
-          </div>
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: 12,
-              background: "rgba(124, 58, 237,.15)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 30,
-              flexShrink: 0,
-            }}>{productEmoji}</div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "var(--t)", lineHeight: 1.35 }}>{tr.productName}</div>
-              <div style={{ fontSize: 12, color: "#f59e0b", marginTop: 3 }}>{tr.reviews}</div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px 6px", alignItems: "center", marginTop: 6 }}>
-                <span style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{tr.origPrice}</span>
-                <span style={{ fontSize: 15, fontWeight: 900, color: "var(--t)" }}>{tr.newPrice}</span>
-                <span style={{
-                  fontSize: 12,
-                  padding: "2px 7px",
-                  borderRadius: 20,
-                  background: "rgba(139, 92, 246,.15)",
-                  color: "#8b5cf6",
-                  fontWeight: 700,
-                  whiteSpace: "nowrap",
-                }}>{tr.saveBadge}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{
-          display: "flex",
-          gap: 6,
-          alignItems: "center",
-          marginBottom: 12,
-          padding: "7px 10px",
-          borderRadius: 10,
-          background: "rgba(139, 92, 246,.08)",
-          border: "1px solid rgba(139, 92, 246,.2)",
-        }}>
-          <span style={{ color: "#8b5cf6", fontSize: 12 }}>✓</span>
-          <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.warrantyNote}</span>
-        </div>
-        <button style={{
-          width: "100%",
-          padding: "10px",
-          borderRadius: 12,
-          background: "rgba(124, 58, 237,0.12)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          color: "#c084fc",
-          fontSize: 14,
-          fontWeight: 800,
-          border: "1px solid rgba(124, 58, 237,0.2)",
-          cursor: "pointer",
-        }} className="widget-btn">
-          {tr.btnUpgrade}
-        </button>
-      </div>
-    </UseCaseWidgetPreview>
+      <StatCard
+        value={`250 ${currency}`}
+        label={isAr ? "رصيد التوفير" : "Pricing balance"}
+        benefits={[isAr ? "ضمان سنة" : "1-year warranty", isAr ? "شحن مجاني" : "Free shipping"]}
+      />
+      <ProductCollection shape={shape}>
+        <ProductCard
+          name={inCart.name}
+          price={inCart.price}
+          was={inCart.was}
+          currency=""
+          rating="4.95"
+          reviews={isAr ? "21 تقييماً" : "21 reviews"}
+          discount={"50%"}
+          selected
+          action={
+            <WidgetButton block variant="muted">
+              {isAr ? "مُضاف" : "Added"}
+            </WidgetButton>
+          }
+        />
+        {alternatives.map((p, i) => (
+          <ProductCard
+            key={i}
+            name={p.name}
+            price={p.price}
+            currency={currency}
+            rating="4.95"
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            action={<WidgetButton block>{tr.btnUpgrade}</WidgetButton>}
+          />
+        ))}
+      </ProductCollection>
+    </WidgetShell>
   );
 }

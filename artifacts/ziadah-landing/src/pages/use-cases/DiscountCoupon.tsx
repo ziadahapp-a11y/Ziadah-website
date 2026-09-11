@@ -9,7 +9,7 @@ const data: UseCasePageData = {
     subtitle:
       "كوبونات ذكية تظهر في اللحظة المناسبة — مؤقتة ومحدودة بشروط واضحة — لتحفيز العميل المتردد على إتمام الشراء. ليست مجرد رمز ثابت؛ بل عرض مرتبط بسلوك وقيمة السلة.",
     tagline: "خصم في الوقت الصح = إتمام بدل إلغاء",
-    icon: "🏷️",
+    icon: "",
   },
   whatWeDoTitle: "ما الفرق بين قسيمة عادية وقسيمة ذكية في زيادة؟",
   whatWeDoDesc:
@@ -23,19 +23,19 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "شرط قيمة السلة",
       desc: "مثلاً: خصم عند تجاوز مبلغ معين — يُشجّع على رفع قيمة الطلب.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "تفعيل حسب السلوك",
       desc: "تظهر عند تردد أو عند مغادرة الصفحة — حسب ما يُناسب متجرك.",
       color: "#06b6d4",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "دمج مع الشحن",
       desc: "أحياناً تُقترن القسيمة بشحن مجاني أو عرض تكميلي — رسالة واحدة أكثر إقناعاً.",
       color: "#8b5cf6",
@@ -61,7 +61,7 @@ const data: UseCasePageData = {
       isAr={isAr}
       title={isAr ? "كيف تظهر قسيمة الخصم للعميل؟" : "How does the coupon appear to customers?"}
       subtitle={isAr ? "واجهة كوبون واضحة مع عداد زمني" : "Clear coupon UI with a countdown"}
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CouponWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <CouponWidget /> }]}
     />
   ),
   ctaTitle: "فعّل قسيمة الخصم الذكية",
@@ -72,7 +72,7 @@ const data: UseCasePageData = {
     subtitle:
       "Smart coupons that appear at the right moment — time-limited with clear conditions — to nudge hesitant customers to complete checkout. Not a static code for everyone; an offer tied to behavior and cart value.",
     tagline: "The right discount at the right time = completion instead of abandonment",
-    icon: "🏷️",
+    icon: "",
   },
   whatWeDoTitleEn: "What’s the difference between a regular coupon and a Ziadah smart coupon?",
   whatWeDoDescEn:
@@ -86,19 +86,19 @@ const data: UseCasePageData = {
       color: "#f59e0b",
     },
     {
-      icon: "💰",
+      icon: "",
       title: "Cart value condition",
       desc: "E.g. discount after crossing a threshold — encourages higher order value.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Behavior-triggered",
       desc: "Shown on hesitation or exit intent — depending on what fits your store.",
       color: "#06b6d4",
     },
     {
-      icon: "🚚",
+      icon: "",
       title: "Pair with shipping",
       desc: "Sometimes combined with free shipping or a complementary offer — one stronger message.",
       color: "#8b5cf6",

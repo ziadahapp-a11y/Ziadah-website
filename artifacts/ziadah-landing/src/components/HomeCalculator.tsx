@@ -2,9 +2,7 @@ import { useState, useCallback } from "react";
 import { navigateTo } from "@/components/PageTransition";
 import PlatformModal from "@/components/PlatformModal";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function fmt(n: number, decimals = 0): string {
   return n.toLocaleString("en-US", {
@@ -33,9 +31,7 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
     <div className="hc-slider-row">
       <div className="hc-slider-header">
         <span className="hc-slider-label">
-          <Editable contentKey={cmsKey(lang, "homeCalculator", labelKey)} label={label} type="text">
-            {label}
-          </Editable>
+          {label}
         </span>
         <span className="hc-slider-value" style={{ color, background: `rgba(${colorRgb},.12)`, border: `1px solid rgba(${colorRgb},.28)` }}>
           {display}
@@ -69,7 +65,7 @@ function HomeSlider({ label, labelKey, lang, value, min, max, step, onChange, di
 }
 
 export default function HomeCalculator() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang } = useLanguage();
   const tr = t[lang].homeCalculator;
 
@@ -142,14 +138,10 @@ export default function HomeCalculator() {
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0, width: "100%" }}>
         <div className="stag rv">
           <span className="stag-dot" />
-          <Editable contentKey={cmsKey(lang, "homeCalculator", "tag")} label="Home calculator tag" type="text">
-            {tr.tag}
-          </Editable>
+          {tr.tag}
         </div>
         <p className="ssub rv d2" style={{ margin: 0 }}>
-          <Editable contentKey={cmsKey(lang, "homeCalculator", "subtitle")} label="Home calculator subtitle" type="text">
-            {tr.subtitle}
-          </Editable>
+          {tr.subtitle}
         </p>
       </div>
       <div className="hc-card rv d2" style={{ width: "100%" }}>
@@ -162,22 +154,16 @@ export default function HomeCalculator() {
           <div className="hc-result">
             <div className="hc-result-inner">
               <div className="hc-result-label">
-                <Editable contentKey={cmsKey(lang, "homeCalculator", "resultLabel")} label="Result label" type="text">
-                  {tr.resultLabel}
-                </Editable>
+                {tr.resultLabel}
               </div>
               <div className="hc-result-amount">
                 {fmt(Math.round(addRevenue))}
                 <span className="hc-result-currency">
-                  <Editable contentKey={cmsKey(lang, "homeCalculator", "resultCurrency")} label="Currency suffix" type="text">
-                    {tr.resultCurrency}
-                  </Editable>
+                  {tr.resultCurrency}
                 </span>
               </div>
               <div className="hc-result-note">
-                <Editable contentKey={cmsKey(lang, "homeCalculator", "resultNote")} label="Result note" type="text">
-                  {tr.resultNote}
-                </Editable>
+                {tr.resultNote}
               </div>
               <div className="hc-result-ctas">
                 <span
@@ -185,18 +171,14 @@ export default function HomeCalculator() {
                   className="hc-btn-primary"
                   style={{ cursor: "pointer" }}
                 >
-                  <Editable contentKey={cmsKey(lang, "homeCalculator", "btnDetailed")} label="Detailed calculator CTA" type="text">
-                    {tr.btnDetailed}
-                  </Editable>
+                  {tr.btnDetailed}
                 </span>
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
                   className="hc-btn-secondary"
                 >
-                  <Editable contentKey={cmsKey(lang, "homeCalculator", "btnStart")} label="Start CTA" type="text">
-                    {tr.btnStart}
-                  </Editable>
+                  {tr.btnStart}
                 </button>
               </div>
             </div>

@@ -22,12 +22,15 @@ import PageClosingCta from "@/components/PageClosingCta";
 import SEO from "@/components/SEO";
 import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { findStoryBySlug, storyEn, stories } from "@/data/successStoriesData";
 import { getStoryArticle } from "@/data/successStoriesArticles";
 import { navigateTo } from "@/components/PageTransition";
 import NotFound from "@/pages/not-found";
-import { Section, Eyebrow, Card, StatCard } from "@/components/trackflow";
+import { Section, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
+import { HeroLede } from "@/sections";
+import { Button as MkButton } from "@/components/mk";
+import { t as siteTranslations } from "@/i18n/translations";
 
 function splitParagraphs(text: string): string[] {
   return text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
@@ -61,10 +64,11 @@ const SECTOR_ICONS: Record<string, LucideIcon> = {
 
 export default function SuccessStoryDetail() {
   const params = useParams<{ slug: string }>();
-  const t = useSiteT();
-  const { lang, isAr, dir } = useLanguage();
+  const t = siteTranslations;
+  const { lang, isAr } = useLanguage();
   const sx = t[lang].successStoriesPage;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   const slug = params.slug ?? "";
   const story = findStoryBySlug(slug);
@@ -95,18 +99,13 @@ export default function SuccessStoryDetail() {
 
   const BackArrow = isAr ? ArrowRight : ArrowLeft;
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   // Numbered article sections, rendered in order with a leading counter chip.
   const articleSections: { heading: string; body: React.ReactNode }[] = [];
   if (article?.sectorContext) {
     articleSections.push({
       heading: isAr ? "عن القطاع" : "About the Sector",
-      body: <p className="text-base md:text-lg text-zinc-600 leading-relaxed">{article.sectorContext}</p>,
+      body: <p className="article-p">{article.sectorContext}</p>,
     });
   }
   articleSections.push({
@@ -114,7 +113,7 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {challengeParas.map((p, i) => (
-          <p key={i} className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4 last:mb-0">{p}</p>
+          <p key={i} className="article-p mb-4 last:mb-0">{p}</p>
         ))}
       </>
     ),
@@ -124,16 +123,16 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {strategyParas.map((p, i) => (
-          <p key={i} className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4">{p}</p>
+          <p key={i} className="article-p mb-4">{p}</p>
         ))}
         {article?.mechanism && (
-          <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-4">{article.mechanism}</p>
+          <p className="article-p mb-4">{article.mechanism}</p>
         )}
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50/60 p-4">
-          <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
+        <div className="card-inset mt-6 flex flex-wrap items-center justify-between gap-3">
+          <span className="card-eyebrow">
             {isAr ? "نوع النافذة التسويقية" : "Marketing popup type"}
           </span>
-          <span className="inline-flex items-center rounded-full border border-violet-200 bg-violet-100 px-3.5 py-1.5 text-sm font-bold text-violet-700">
+          <span className="chip">
             {displayPopupType}
           </span>
         </div>
@@ -145,31 +144,23 @@ export default function SuccessStoryDetail() {
     body: (
       <>
         {article?.resultsContext && (
-          <p className="text-base md:text-lg text-zinc-600 leading-relaxed mb-6">{article.resultsContext}</p>
+          <p className="section-lead mb-6">{article.resultsContext}</p>
         )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <StatCard
-            value={story.conversions}
-            label={
-              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
-                {isAr ? "التحويلات" : "Conversions"}
-              </span>
-            }
-          />
-          <StatCard
-            value={
-              <>
-                {story.sales}
-                <span className="ms-1.5 text-base font-bold text-zinc-500">{isAr ? "ر.س" : "SAR"}</span>
-              </>
-            }
-            label={
-              <span className="text-xs font-bold tracking-widest text-zinc-500 uppercase">
-                {isAr ? "إجمالي المبيعات" : "Total sales"}
-              </span>
-            }
-          />
-        </div>
+        {/* Two numbers are a stat pair, not two cards. This is the system's
+            own stat row - the same one the hero and the use-case pages use. */}
+        <ul className="uc-stats">
+          <li className="uc-stat">
+            <span className="uc-stat-value num-ltr">{story.conversions}</span>
+            <span className="uc-stat-label">{isAr ? "التحويلات" : "Conversions"}</span>
+          </li>
+          <li className="uc-stat">
+            <span className="uc-stat-value num-ltr">
+              {story.sales}
+              <span className="ms-1.5 t-body-18 opacity-70">{isAr ? "ر.س" : "SAR"}</span>
+            </span>
+            <span className="uc-stat-label">{isAr ? "إجمالي المبيعات" : "Total sales"}</span>
+          </li>
+        </ul>
       </>
     ),
   });
@@ -191,37 +182,52 @@ export default function SuccessStoryDetail() {
         ]}
       />
       <WebPageSchema name={seoTitle} description={seoDesc} url={canonical} />
-      <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff" }}>
+      {/* The forced `#fff` is gone: a page's ground is its first section's, and
+          painting white here put a white slab under every band that had
+          stamped its own family. */}
+      <PageShell className="relative overflow-x-clip">
         {/* ══════════════════ HERO ══════════════════ */}
-        <section dir={dir} className="relative pt-24 pb-12 px-4 border-b border-zinc-200">
-          <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-          <div className="container mx-auto relative max-w-3xl">
-            <button
-              type="button"
-              onClick={() => navigateTo("/success-stories")}
-              className="inline-flex items-center gap-2 mb-8 text-sm font-semibold text-zinc-600 hover:text-zinc-950 transition-colors"
-            >
-              <BackArrow className="w-4 h-4" aria-hidden />
-              <span>{isAr ? "كل قصص النجاح" : "All success stories"}</span>
-            </button>
-
-            <div className="mb-6">
-              <Eyebrow className="inline-flex items-center gap-2">
-                {SectorIcon && <SectorIcon className="w-3.5 h-3.5 text-violet-600" aria-hidden />}
-                {displaySector}
-              </Eyebrow>
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.08]">
-              {displayStore}
-            </h1>
-
-            <p className="text-lg md:text-xl text-zinc-600 leading-relaxed mb-8">{leadText}</p>
-
-            <Card animate={false} className="flex flex-wrap items-center gap-4 p-5">
-              {story.logoUrl ? (
-                <div className="shrink-0 w-12 h-12 rounded-xl border border-zinc-200 bg-white p-1.5 flex items-center justify-center overflow-hidden">
-                  <img src={story.logoUrl} alt="" loading="lazy" className="w-full h-full object-contain" />
+        <HeroLede
+          compact
+          center={false}
+          /* Dark, like the support article and the blog post. All three are
+             the same shape - a header over a long grey reading column - so
+             they open the same way. */
+          family="violet"
+          invert
+          eyebrow={
+            <>
+              {SectorIcon && <SectorIcon className="w-3.5 h-3.5" aria-hidden="true" />}
+              {displaySector}
+            </>
+          }
+          title={displayStore}
+          body={leadText}
+          actions={
+            /* The way back to the index. On a detail page that IS the hero's
+               action - there is nothing else to do here but read on. */
+            <MkButton variant="tertiary" onClick={() => navigateTo("/success-stories")}>
+              <BackArrow className="w-4 h-4" aria-hidden="true" />
+              <span className="ms-2">{isAr ? "كل قصص النجاح" : "All success stories"}</span>
+            </MkButton>
+          }
+        >
+          {/* The store's own card: who this story is about, where it sits in
+              the run, and a way through to the shop itself. */}
+          <div className="card card--short story-card flex-row flex-wrap items-center gap-4">
+              {/* The logo is fetched from Google's favicon service. The
+                  absent-logo fallback only fired when the story had no URL at
+                  all, so a blocked or failed fetch left a broken-image glyph
+                  in the card; `onError` now drops to the same initial tile. */}
+              {story.logoUrl && !logoFailed ? (
+                <div className="shrink-0 w-12 h-12 rounded-xl p-1.5 flex items-center justify-center overflow-hidden bg-[var(--general-white)]">
+                  <img
+                    src={story.logoUrl}
+                    alt=""
+                    loading="lazy"
+                    className="w-full h-full object-contain"
+                    onError={() => setLogoFailed(true)}
+                  />
                 </div>
               ) : (
                 <div className="shrink-0 w-12 h-12 rounded-xl text-white text-lg font-bold flex items-center justify-center" style={{ background: story.color }}>
@@ -229,8 +235,8 @@ export default function SuccessStoryDetail() {
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-bold text-zinc-950 truncate">{displayStore}</div>
-                <div className="text-[11px] font-bold tracking-widest text-zinc-500 uppercase num-ltr">
+                <div className="t-sm-med truncate">{displayStore}</div>
+                <div className="card-eyebrow num-ltr">
                   {isAr
                     ? `قصة ${String(storyIndex + 1).padStart(2, "0")} من ${String(total).padStart(2, "0")}`
                     : `Story ${String(storyIndex + 1).padStart(2, "0")} of ${String(total).padStart(2, "0")}`}
@@ -241,24 +247,23 @@ export default function SuccessStoryDetail() {
                   href={story.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100 transition-colors"
+                  className="button tertiary is-small"
                 >
                   <span>{isAr ? "زيارة المتجر" : "Visit store"}</span>
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden />
                 </a>
               )}
-            </Card>
           </div>
-        </section>
+        </HeroLede>
 
         {/* ══════════════════ ARTICLE BODY ══════════════════ */}
-        <Section containerClassName="max-w-3xl">
+        <Section family="grey">
+          <Shell width="narrow">
+          <div className="measure-read article-prose">
           {articleSections.map((s, i) => (
-            <div key={i} className={i > 0 ? "mt-16 pt-16 border-t border-zinc-200" : ""}>
-              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+            <div key={i} className={i > 0 ? "article-step" : ""}>
+              <h2 className="section-head-title--sm flex items-center gap-4 mb-6">
+                <span className="article-step-num num-ltr">{String(i + 1).padStart(2, "0")}</span>
                 {s.heading}
               </h2>
               {s.body}
@@ -266,21 +271,23 @@ export default function SuccessStoryDetail() {
           ))}
 
           {article?.takeaway && (
-            <div className="mt-16 pt-16 border-t border-zinc-200">
-              <h2 className="flex items-center gap-4 text-2xl md:text-3xl font-bold text-zinc-950 mb-6 leading-snug">
-                <span className="inline-flex items-center justify-center min-w-[44px] h-9 px-2.5 rounded-lg bg-zinc-950 text-white text-sm font-extrabold num-ltr">
+            <div className="article-step">
+              <h2 className="section-head-title--sm flex items-center gap-4 mb-6">
+                <span className="article-step-num num-ltr">
                   {String(articleSections.length + 1).padStart(2, "0")}
                 </span>
                 {isAr ? "الخلاصة" : "Key Takeaway"}
               </h2>
-              <div className="relative rounded-2xl border border-violet-200 bg-violet-50/60 p-7 md:p-8 ps-14 md:ps-16">
-                <Quote className="absolute top-6 w-7 h-7 text-violet-500/60" aria-hidden style={{ insetInlineStart: "1.25rem" }} />
-                <p className="text-base md:text-lg font-semibold text-violet-800 leading-relaxed">
-                  {article.takeaway}
-                </p>
+              {/* The closing quote is a card with a mark, not a violet-tinted
+                  box with a violet border and violet type on it. */}
+              <div className="card card--short article-quote">
+                <Quote className="article-quote-mark" aria-hidden="true" />
+                <p className="t-body-18">{article.takeaway}</p>
               </div>
             </div>
           )}
+          </div>
+          </Shell>
         </Section>
 
         <PageClosingCta

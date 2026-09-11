@@ -8,13 +8,13 @@ function ThankYouPhoneScrollContent() {
   const products = isEn
     ? [
         { name: "Smart Sports Watch", rating: "4.95", reviews: 128, oldPrice: "299", newPrice: "149", discount: "50%", icon: "⌚" },
-        { name: "Wireless Bluetooth Earbuds", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%", icon: "🎧" },
-        { name: "Multi-purpose Gym Bag", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%", icon: "🎒" },
+        { name: "Wireless Bluetooth Earbuds", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%", icon: "" },
+        { name: "Multi-purpose Gym Bag", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%", icon: "" },
       ]
     : [
         { name: "ساعة رياضية ذكية", rating: "4.95", reviews: 128, oldPrice: "299", newPrice: "149", discount: "50%", icon: "⌚" },
-        { name: "سماعات بلوتوث لاسلكية", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%", icon: "🎧" },
-        { name: "حقيبة رياضية متعددة الاستخدام", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%", icon: "🎒" },
+        { name: "سماعات بلوتوث لاسلكية", rating: "4.95", reviews: 94, oldPrice: "199", newPrice: "99", discount: "50%", icon: "" },
+        { name: "حقيبة رياضية متعددة الاستخدام", rating: "4.95", reviews: 211, oldPrice: "179", newPrice: "89", discount: "50%", icon: "" },
       ];
 
   const t = {
@@ -252,7 +252,7 @@ export default function ThankYouMockup() {
       badge={t.badge}
       title={t.heading}
       subtitle={t.sub}
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ThankYouPhoneScrollContent /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <ThankYouPhoneScrollContent /> }]}
     />
   );
 }

@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "عروض الحزم",
     subtitle: "اجمع منتجين أو أكثر بسعر مخفوض في حزمة واحدة — العميل يربح توفيراً حقيقياً والمتجر يرفع قيمة الطلب دفعة واحدة.",
     tagline: "الحزمة تُقنع بالقيمة قبل أن تُقنع بالسعر",
-    icon: "🎁",
+    icon: "",
   },
   whatWeDoTitle: "ما هي عروض الحزم وكيف يبنيها زيادة؟",
   whatWeDoDesc:
@@ -16,25 +16,25 @@ const data: UseCasePageData = {
   strategyTitle: "أنواع عروض الحزم في زيادة",
   strategies: [
     {
-      icon: "🧩",
+      icon: "",
       title: "حزمة التكامل الوظيفي",
       desc: "منتجان أو ثلاثة تُكمّل بعضها وظيفياً في طقم متكامل — الهاتف مع الغلاف والشاشة، أو مجموعة العناية الكاملة.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "حزمة الهدية",
       desc: "مجموعة منتجات مُختارة بأسلوب 'صندوق هدية' مع إبراز القيمة الإجمالية والخصم المطبق — تُحفّز في المواسم وأوقات الهدايا.",
       color: "#06b6d4",
     },
     {
-      icon: "🍽️",
+      icon: "",
       title: "حزمة الوجبة الكاملة",
       desc: "للمطاعم والمنتجات الغذائية: جمع الرئيسي والمرافق والمشروب في وجبة بسعر موحد أقل من الأفراد.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔢",
+      icon: "",
       title: "حزمة الكمية (Pack)",
       desc: "بيع عدد محدد من نفس المنتج كحزمة واحدة بسعر أقل من المفرد — يُناسب المنتجات الاستهلاكية والتسهيل على التجار.",
       color: "#f59e0b",
@@ -49,10 +49,10 @@ const data: UseCasePageData = {
   exampleScenario: {
     title: "أمثلة تطبيقية من قطاعات متنوعة",
     steps: [
-      "💄 تجميل: حزمة 'روتين الصباح' = غسول + سيروم + مرطب بـ 199 ⃁ بدلاً من 249 ⃁ (توفير 50 ⃁) — عرض واضح يقنع بالقيمة.",
-      "💻 إلكترونيات: حزمة 'الإنتاجية' = لابتوب + ماوس + حقيبة بـ 1899 ⃁ بدلاً من 2150 ⃁ — التوفير الكبير يُبرر القرار الفوري.",
-      "🍔 مطعم: وجبة عائلية = 4 برغر + 4 مشروبات + بطاطس كبيرة بـ 119 ⃁ بدلاً من 148 ⃁ — يُناسب قرارات العائلة السريعة.",
-      "🧴 رعاية شعر: حزمة 'شعر صحي' = شامبو + بلسم + ماسك أسبوعي بـ 89 ⃁ بدلاً من 112 ⃁ — توفير 23 ⃁ يُقنع العميلة بالطقم الكامل.",
+      "💄 تجميل: حزمة 'روتين الصباح' = غسول + سيروم + مرطب بـ 199 ر.س بدلاً من 249 ر.س (توفير 50 ر.س) — عرض واضح يقنع بالقيمة.",
+      "💻 إلكترونيات: حزمة 'الإنتاجية' = لابتوب + ماوس + حقيبة بـ 1899 ر.س بدلاً من 2150 ر.س — التوفير الكبير يُبرر القرار الفوري.",
+      "🍔 مطعم: وجبة عائلية = 4 برغر + 4 مشروبات + بطاطس كبيرة بـ 119 ر.س بدلاً من 148 ر.س — يُناسب قرارات العائلة السريعة.",
+      "🧴 رعاية شعر: حزمة 'شعر صحي' = شامبو + بلسم + ماسك أسبوعي بـ 89 ر.س بدلاً من 112 ر.س — توفير 23 ر.س يُقنع العميلة بالطقم الكامل.",
     ],
     result: "العميل الذي يرى التوفير بوضوح (المبلغ وليس النسبة فقط) يتحول إلى المشتري بنسبة 52% — الشفافية في الخصم هي المحرك الأقوى لقرار الشراء.",
   },
@@ -65,16 +65,16 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <BundleDealsWidget />,
         },
         {
-          labelAr: "🧮 كيف يحسب الخصم؟",
-          labelEn: "🧮 How Discount Works",
+          labelAr: "كيف يحسب الخصم؟",
+          labelEn: "How Discount Works",
           placement: "below",
           content: (
-            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+            <div className="sector-card" style={{ width: "100%" }}>
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
                 {isAr ? "كيف يحسب زيادة نسبة خصم الحزمة المثلى؟" : "How does Ziadah calculate the optimal bundle discount?"}
               </h3>
@@ -113,7 +113,7 @@ const data: UseCasePageData = {
     title: "Bundle Deals",
     subtitle: "Combine two or more products at a discounted price in a single bundle — the customer gains real savings and the store increases order value in one go.",
     tagline: "Bundles convince with value before they convince with price",
-    icon: "🎁",
+    icon: "",
   },
   whatWeDoTitleEn: "What are bundle deals and how does Ziadah build them?",
   whatWeDoDescEn:
@@ -121,25 +121,25 @@ const data: UseCasePageData = {
   strategyTitleEn: "Types of bundle deals in Ziadah",
   strategiesEn: [
     {
-      icon: "🧩",
+      icon: "",
       title: "Functional Complement Bundle",
       desc: "Two or three products that functionally complete each other in one set — a phone with case and screen protector, or a complete skincare routine.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Gift Bundle",
       desc: "A curated product collection styled as a 'gift box' highlighting total value and applied discount — drives purchases during holidays and gift-giving occasions.",
       color: "#06b6d4",
     },
     {
-      icon: "🍽️",
+      icon: "",
       title: "Complete Meal Bundle",
       desc: "For restaurants and food products: combining the main dish, sides, and drink in a meal at a unified price lower than individual items.",
       color: "#8b5cf6",
     },
     {
-      icon: "🔢",
+      icon: "",
       title: "Quantity Pack",
       desc: "Selling a set number of the same product as a single pack at a lower price than buying individually — ideal for consumables and wholesale buyers.",
       color: "#f59e0b",

@@ -53,14 +53,14 @@ export default function UseCaseLiveShowcase({
         style={{ maxWidth: 1200, alignItems: "center" }}
       >
         <div className="sector-html-hero-copy text-start">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-4">
-            <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
-            <span className="text-xs font-bold uppercase tracking-wide text-violet-700">{badge ?? defaultBadge}</span>
+          <div className="chip is-small gap-2 mb-4">
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--ziadah-violet)" }} />
+            <span className="font-bold">{badge ?? defaultBadge}</span>
           </div>
-          <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-zinc-950 leading-tight" style={{ marginBottom: 8 }}>
+          <h3 className="section-head-title--sm" style={{ marginBottom: 8 }}>
             {title}
           </h3>
-          <p className="text-base text-zinc-600 leading-relaxed" style={{ marginBottom: single ? 0 : 20 }}>
+          <p className="sector-card-text" style={{ marginBottom: single ? 0 : 20 }}>
             {subtitle}
           </p>
 
@@ -73,14 +73,10 @@ export default function UseCaseLiveShowcase({
                     key={i}
                     type="button"
                     onClick={() => setActive(i)}
-                    className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-bold transition-colors ${
-                      isAct
-                        ? "bg-zinc-950 text-white border border-transparent"
-                        : "bg-white text-zinc-700 border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50"
-                    }`}
+                    className="chip is-small gap-1.5"
+                    aria-pressed={isAct}
                   >
-                    {tab.icon && <span>{tab.icon}</span>}
-                    {isAr ? tab.labelAr : tab.labelEn}
+                                        {isAr ? tab.labelAr : tab.labelEn}
                   </button>
                 );
               })}

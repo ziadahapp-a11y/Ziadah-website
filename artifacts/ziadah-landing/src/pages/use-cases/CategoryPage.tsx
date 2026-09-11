@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "صفحة التصنيف",
     subtitle: "العميل في مرحلة المقارنة والتصفح — فرصة ذهبية لتوجيهه نحو المنتجات الأعلى قيمة والأكثر ملاءمة لاهتماماته.",
     tagline: "توجيه ذكي قبل قرار الشراء",
-    icon: "📁",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة التصنيف؟",
   whatWeDoDesc:
@@ -16,25 +16,25 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة التصنيف",
   strategies: [
     {
-      icon: "🎯",
+      icon: "",
       title: "ترتيب ذكي مخصص",
       desc: "يعيد زيادة ترتيب بطاقات المنتجات بناءً على احتمالية شراء كل عميل — المنتجات الأنسب تظهر أولاً لكل زائر.",
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "شارات الثقة",
       desc: "يضع شارات 'الأكثر مبيعاً' و'اختيار محرر' و'ينتهي قريباً' على المنتجات المناسبة لدفع قرار الشراء.",
       color: "#f59e0b",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "كومبو داخل الكاتالوج",
       desc: "يظهر بطاقات كومبو مدمجة بين المنتجات العادية تجمع منتجين أو أكثر بسعر أقل مما يفكر فيه العميل.",
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "فلتر 'قد تعجبك'",
       desc: "يضيف قسماً مميزاً يجمع المنتجات التي تتطابق مع اهتمامات العميل المستنتجة من سلوكه السابق.",
       color: "#06b6d4",
@@ -50,7 +50,7 @@ const data: UseCasePageData = {
     title: "عميل يتصفح تصنيف 'أجهزة الصوت'",
     steps: [
       "يفتح العميل تصنيف أجهزة الصوت ويرى 40 منتجاً.",
-      "زيادة يعرف من تاريخه أنه مهتم بالجودة وعنده ميزانية متوسطة (سبق أن اشترى منتجات بين 300-600 ⃁).",
+      "زيادة يعرف من تاريخه أنه مهتم بالجودة وعنده ميزانية متوسطة (سبق أن اشترى منتجات بين 300-600 ر.س).",
       "يُعيد ترتيب المنتجات: السماعات في نطاق ميزانيته تظهر أولاً، مع شارة 'الأكثر مبيعاً هذا الأسبوع' على أحدها.",
       "يظهر بطاقة كومبو: 'سماعة + حامل + كابل شحن بخصم 15%'.",
     ],
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
           ? "هكذا يرى عميلك صفحة التصنيف بعد تخصيصها بالذكاء الاصطناعي"
           : "This is how your customer sees the category page after AI personalization"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CategoryPageWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <CategoryPageWidget /> }]}
     />
   ),
   ctaTitle: "حوّل تصفح التصنيف إلى قرار شراء",
@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     title: "Category Page",
     subtitle: "The customer is in comparison and browsing mode — a golden opportunity to guide them toward the highest-value and most relevant products for their interests.",
     tagline: "Smart guidance before the purchase decision",
-    icon: "📁",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the category page?",
   whatWeDoDescEn:
@@ -83,25 +83,25 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the category page",
   strategiesEn: [
     {
-      icon: "🎯",
+      icon: "",
       title: "Smart Personalized Ordering",
       desc: "Ziadah reorders product cards based on each customer's purchase probability — the most relevant products appear first for every visitor.",
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "Trust Badges",
       desc: "Places 'Best Seller', 'Editor's Pick', and 'Ending Soon' badges on appropriate products to drive purchase decisions.",
       color: "#f59e0b",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "In-Catalog Combos",
       desc: "Shows embedded combo cards between regular products that bundle two or more items at a price lower than what the customer would expect.",
       color: "#8b5cf6",
     },
     {
-      icon: "📊",
+      icon: "",
       title: "'You Might Like' Filter",
       desc: "Adds a featured section that collects products matching the customer's interests inferred from their previous behavior.",
       color: "#06b6d4",

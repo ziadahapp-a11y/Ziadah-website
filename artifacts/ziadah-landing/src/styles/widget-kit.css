@@ -1,0 +1,837 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE STOREFRONT PREVIEW KIT
+
+   The previews used to paint themselves from the LEGACY token layer - `--s1`,
+   `--b1`, `--t`, `--td` - every one of which is a violet mix defined per page
+   in `index.css`. That is why a preview was violet on a violet band and
+   violet again on a grey one: it was not reading the section at all.
+
+   Everything here is written from the section triple, like the rest of the
+   site. A preview is a card on whatever band it lands on, and the ONE colour
+   it spends is the brand violet, on the button.
+
+   The type is PX on purpose. A preview is a picture of a phone-sized
+   storefront: its scale is fixed by the device it depicts, not by the
+   viewport, and rem type would have the 12px labels of a product card growing
+   to 17px at 1920 inside a 320px frame.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── THE FIGMA TOKENS, RESOLVED ONTO THE SECTION ────────────────────────
+   Every structural value below is the Figma file's ("Milestone 2.1 -
+   Storefront Design", node 333:1396). Every COLOUR is the site's, by
+   decision: the sheet keeps reading `--color-primary` / `--color-secondary`
+   so a preview still belongs to the band it lands on, and the brand violet
+   stays `--ziadah-violet` (#7c3aed) rather than the file's #8700ff, which
+   would have made the widgets a different purple from the other ~150 usages.
+
+   The two semantic hues the file introduces have no site token, so they are
+   declared here and nowhere else: a green for a benefit and a red for a
+   saving. */
+.wk {
+  --wk-ink: var(--color-secondary, #0a0a0a);
+  --wk-ground: var(--color-primary, #fff);
+  --wk-panel: color-mix(in srgb, var(--wk-ink) 4%, var(--wk-ground));
+  --wk-stage: color-mix(in srgb, var(--wk-ink) 3%, var(--wk-ground));
+  --wk-muted: color-mix(in srgb, var(--wk-ink) 55%, transparent);
+  --wk-brand: var(--ziadah-violet, #7c3aed);
+  --wk-good: #2e7d4f;
+  --wk-warn: #b82e2e;
+  /* MEASURED off the file: 4px 4px 8px at 8%. Mirrored for RTL so the card
+     is lit from the same side as the reader's start edge. */
+  --wk-lift: 4px 4px 8px rgba(0, 0, 0, 0.08);
+
+  width: 100%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* 24px, 20/12 padding. The old sheet was 16px with a hairline border. */
+  border-radius: 24px;
+  padding: 20px 12px;
+  background: var(--wk-ground);
+  color: var(--wk-ink);
+  font-family: var(--font, inherit);
+  position: relative;
+  overflow: hidden;
+}
+[dir="rtl"] .wk { --wk-lift: -4px 4px 8px rgba(0, 0, 0, 0.08); }
+
+/* ── HEAD ─────────────────────────────────────────────────────────────── */
+.wk-head { padding-inline: 8px; display: flex; flex-direction: column; gap: 4px; }
+.wk-title { margin: 0; font-size: 20px; line-height: 24px; font-weight: 500; }
+.wk-sub {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: color-mix(in srgb, var(--wk-ink) 60%, transparent);
+}
+/* The dismiss affordance the file puts in the sheet's top corner. */
+.wk-close {
+  position: absolute;
+  inset-block-start: 24px;
+  inset-inline-end: 24px;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: var(--wk-muted);
+  cursor: pointer;
+}
+.wk-close svg { width: 100%; height: 100%; }
+
+.wk-body { display: flex; flex-direction: column; gap: 12px; }
+.wk-foot { display: flex; flex-direction: column; gap: 12px; }
+
+/* ── STAT CARD ─────────────────────────────────────────────────────────
+   The benefit strip: a value, its label, and the guarantees that come with
+   it. Green because it is the one place the sheet states a gain. */
+.wk-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wk-good) 8%, transparent);
+}
+.wk-stat-main { display: flex; align-items: center; gap: 12px; }
+.wk-stat-ico {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--wk-ground);
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.08));
+  color: var(--wk-good);
+}
+.wk-stat-ico svg { width: 20px; height: 20px; }
+.wk-stat-body { flex: 1 0 0; min-width: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.wk-stat-val { margin: 0; font-size: 20px; line-height: 24px; }
+.wk-stat-lab { margin: 4px 0 0; font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk-stat-badges { display: flex; align-items: center; gap: 16px; }
+.wk-stat-badge { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; color: var(--wk-muted); }
+.wk-stat-badge svg { width: 20px; height: 20px; color: var(--wk-good); }
+.wk-stat-badge span { font-size: 10px; line-height: 14px; font-weight: 500; white-space: nowrap; }
+.wk-stat-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: 500;
+  color: var(--wk-muted);
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.wk-stat-copy svg { width: 14px; height: 14px; }
+
+/* ── THE COLLECTION, IN THREE SHAPES ───────────────────────────────────
+   One element, three layouts, exactly as the file's "Product Shape"
+   section defines them. `list` stacks full-width rows; `grid` is two
+   columns; `carousel` is a single scrolling track of fixed-width cards. */
+.wk-collection { display: flex; flex-direction: column; gap: 12px; }
+.wk-collection[data-shape="grid"] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.wk-collection[data-shape="carousel"] {
+  flex-direction: row;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* The track runs past the sheet on purpose - that is what says "there is
+     more". The negative margin lets it bleed to the sheet's edge while the
+     padding keeps the first card off it. */
+  margin-inline: -12px;
+  padding-inline: 12px;
+  scrollbar-width: none;
+}
+.wk-collection[data-shape="carousel"]::-webkit-scrollbar { display: none; }
+.wk-collection[data-shape="carousel"] > .wk-card { flex: none; width: 164px; scroll-snap-align: start; }
+
+/* ── THE PRODUCT CARD ──────────────────────────────────────────────────
+   MEASURED: 8px radius, the 4/4/8 lift, a 120px image on the leading edge
+   in `list` and a 126px-tall image above the body in `grid` and `carousel`.
+   The body sits on the panel tint in every shape. */
+.wk-card {
+  position: relative;
+  display: flex;
+  border-radius: 8px;
+  background: var(--wk-panel);
+  box-shadow: var(--wk-lift);
+  overflow: hidden;
+  min-width: 0;
+}
+.wk-collection[data-shape="list"] > .wk-card { flex-direction: row; align-items: stretch; min-height: 120px; }
+.wk-collection[data-shape="grid"] > .wk-card,
+.wk-collection[data-shape="carousel"] > .wk-card { flex-direction: column; }
+
+/* NOT a grid. `place-items: center` on a grid container also stretches an
+   absolutely positioned child to the centred area, which blew the discount
+   flag up to the full size of the image. */
+.wk-card-img {
+  position: relative;
+  flex: none;
+  overflow: hidden;
+  background: var(--wk-stage);
+}
+.wk-collection[data-shape="list"] > .wk-card > .wk-card-img { width: 120px; }
+.wk-collection[data-shape="grid"] > .wk-card > .wk-card-img,
+.wk-collection[data-shape="carousel"] > .wk-card > .wk-card-img { width: 100%; height: 126px; }
+.wk-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The tile falls back to the drawn initial when a product has no photograph
+   yet, so it has to fill the same box. */
+/* The tile only. `.wk-sale` and `.wk-fav` are spans in this same box, and a
+   bare `> span` stretched the discount flag over the whole photograph. */
+.wk-card-img > span:not(.wk-sale):not(.wk-fav) {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+
+/* The discount flag: a chip hanging off the image's top edge, rounded at the
+   bottom only, outlined in the brand. */
+.wk-sale {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 6px 6px;
+  border: 1px solid var(--wk-brand);
+  border-block-start: 0;
+  border-end-start-radius: 20px;
+  border-end-end-radius: 20px;
+  background: var(--wk-ink);
+  color: var(--wk-ground);
+  font-weight: 500;
+  line-height: 1;
+}
+.wk-sale b { font-size: 10px; line-height: 14px; font-weight: 500; }
+.wk-sale span { font-size: 8px; line-height: 12px; }
+
+.wk-fav {
+  position: absolute;
+  inset-block-start: 6px;
+  inset-inline-end: 6px;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  border-radius: 40px;
+  background: color-mix(in srgb, var(--wk-ink) 20%, transparent);
+  color: var(--wk-ground);
+  cursor: pointer;
+}
+.wk-fav svg { width: 16px; height: 16px; }
+
+.wk-card-body {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px;
+  background: var(--wk-panel);
+}
+.wk-collection[data-shape="list"] > .wk-card > .wk-card-body { justify-content: space-between; }
+.wk-card-meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+/* In the list shape the price and the action share the card's last row; in
+   grid and carousel the action is a full-width pill under everything. That is
+   the one structural difference between the three shapes' cards. */
+.wk-card-foot { display: flex; flex-direction: column; gap: 8px; }
+.wk-card-foot .wk-btn { width: 100%; }
+.wk-collection[data-shape="list"] > .wk-card .wk-card-foot {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.wk-collection[data-shape="list"] > .wk-card .wk-card-foot .wk-btn { width: auto; }
+
+.wk-tag {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--wk-brand) 12%, transparent);
+  color: var(--wk-brand);
+  font-size: 8px;
+  line-height: 12px;
+}
+.wk-tag--neutral { background: color-mix(in srgb, var(--wk-ink) 8%, transparent); color: var(--wk-muted); }
+.wk-tag--brand { background: color-mix(in srgb, var(--wk-brand) 12%, transparent); color: var(--wk-brand); }
+.wk-tag--save {
+  background: color-mix(in srgb, var(--wk-warn) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--wk-warn) 20%, transparent);
+  color: var(--wk-warn);
+}
+
+.wk-name {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--wk-ink) 86%, transparent);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.wk-rating { display: flex; align-items: center; gap: 8px; }
+.wk-rating-score { display: flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wk-ink) 80%, transparent); }
+.wk-rating-score svg { width: 16px; height: 16px; color: #f5a623; }
+.wk-reviews { font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wk-ink) 40%, transparent); }
+
+.wk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wk-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--wk-ink) 92%, transparent);
+}
+.wk-cur { font-size: 0.75em; font-weight: 400; }
+.wk-was {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  text-decoration: line-through;
+  color: color-mix(in srgb, var(--wk-ink) 40%, transparent);
+}
+
+/* ── BUTTONS ──────────────────────────────────────────────────────────
+   The file's button is a 100px pill: black ground, white label, 12px. */
+.wk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.wk-btn.is-block { width: 100%; }
+.wk-btn--primary { background: var(--wk-ink); color: var(--wk-ground); }
+.wk-btn--ghost {
+  background: color-mix(in srgb, var(--wk-brand) 8%, transparent);
+  color: var(--wk-brand);
+}
+.wk-btn:disabled { opacity: 0.5; cursor: default; }
+.wk-btn-num { font-weight: 400; opacity: 0.85; }
+
+/* ── THE SHEET'S CLOSING ROWS ─────────────────────────────────────────
+   A summary of what the sheet adds, then the commit, then the way out.
+   All three are full-width bars at the foot of every widget in the file. */
+.wk-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wk-brand) 8%, transparent);
+}
+.wk-summary-k { font-size: 16px; line-height: 24px; font-weight: 500; }
+.wk-summary-v { display: flex; align-items: center; gap: 12px; }
+.wk-summary-was { font-size: 12px; line-height: 16px; text-decoration: line-through; color: color-mix(in srgb, var(--wk-ink) 60%, transparent); }
+.wk-summary-now { font-size: 16px; line-height: 20px; color: var(--wk-brand); }
+.wk-save {
+  padding: 6px 8px;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--wk-warn) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--wk-warn) 20%, transparent);
+  color: var(--wk-warn);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+}
+.wk-addall {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--wk-ink);
+  color: var(--wk-ground);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.wk-addall svg { width: 24px; height: 24px; }
+
+.wk-cartrow { display: flex; align-items: stretch; gap: 12px; }
+.wk-cart,
+.wk-checkout {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 0;
+  border-radius: 20px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+}
+.wk-cart { padding: 8px; background: color-mix(in srgb, var(--wk-brand) 8%, transparent); }
+.wk-cart b { font-size: 14px; font-weight: 500; }
+.wk-cart span { font-size: 16px; color: var(--wk-brand); }
+.wk-checkout { padding: 8px 12px; background: var(--wk-ink); color: var(--wk-ground); font-size: 16px; }
+.wk-checkout svg { width: 20px; height: 20px; flex: none; }
+
+.wk-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: 8px;
+}
+.wk-dismiss-opt { display: flex; align-items: center; gap: 12px; font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wk-ink) 60%, transparent); }
+.wk-dismiss-opt svg { width: 20px; height: 20px; flex: none; }
+.wk-skip {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--wk-brand);
+  cursor: pointer;
+}
+
+/* ── THE OLDER PRIMITIVES, KEPT ───────────────────────────────────────
+   Twelve widgets still build on these. They are restated on the new tokens
+   so a sheet is one design whichever generation of primitive it uses. */
+.wk-list { display: flex; flex-direction: column; gap: 8px; }
+.wk-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--wk-panel);
+  min-width: 0;
+}
+.wk-row.is-sel { outline: 1px solid color-mix(in srgb, var(--wk-brand) 40%, transparent); }
+.wk-row-main { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+
+.wk-check { cursor: pointer; }
+.wk-check.is-on { background: color-mix(in srgb, var(--wk-brand) 8%, transparent); }
+.wk-box {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin: 0;
+  border: 1.5px solid color-mix(in srgb, var(--wk-ink) 30%, transparent);
+  border-radius: 4px;
+  background: var(--wk-ground);
+  cursor: pointer;
+  position: relative;
+}
+.wk-box:checked { background: var(--wk-brand); border-color: var(--wk-brand); }
+.wk-box:checked::after {
+  content: "";
+  position: absolute;
+  inset: 3px 4px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.wk-tiers { display: flex; flex-direction: column; gap: 8px; }
+.wk-tier {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--wk-ink) 10%, transparent);
+  border-radius: 8px;
+  background: var(--wk-panel);
+  font-family: inherit;
+  font-size: 13px;
+  color: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+.wk-tier.is-sel { border-color: var(--wk-brand); background: color-mix(in srgb, var(--wk-brand) 8%, transparent); }
+.wk-tier strong { font-weight: 500; }
+
+.wk-totals { display: flex; flex-direction: column; gap: 6px; }
+.wk-kv { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; }
+.wk-kv-k { color: var(--wk-muted); }
+.wk-kv--total { padding-top: 8px; border-top: 1px solid color-mix(in srgb, var(--wk-ink) 10%, transparent); }
+.wk-kv--total .wk-kv-k { color: inherit; font-weight: 500; }
+
+.wk-meter { display: flex; flex-direction: column; gap: 8px; }
+.wk-bar { height: 6px; border-radius: 99px; background: color-mix(in srgb, var(--wk-ink) 10%, transparent); overflow: hidden; }
+.wk-bar-fill { height: 100%; border-radius: 99px; background: var(--wk-brand); }
+.wk-note { margin: 0; font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk-note strong { font-weight: 500; color: var(--wk-ink); }
+.wk-hint { margin: 0; font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+
+.wk-amount { margin: 0; font-size: 28px; line-height: 1.1; font-weight: 500; color: var(--wk-brand); }
+.wk-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px dashed color-mix(in srgb, var(--wk-ink) 25%, transparent);
+  border-radius: 8px;
+  background: var(--wk-panel);
+}
+.wk-code-val { font-size: 14px; font-weight: 600; letter-spacing: 0.08em; }
+
+.wk-facts { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.wk-facts li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--wk-muted); }
+.wk-facts li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--wk-brand); flex: none; }
+
+.wk-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--wk-muted); }
+.wk-status.is-busy { color: var(--wk-brand); }
+.wk-status-ico { width: 14px; height: 14px; flex: none; }
+.wk-spin { animation: wk-spin 0.9s linear infinite; }
+@keyframes wk-spin { to { transform: rotate(360deg); } }
+.wk-link { border: 0; background: none; padding: 0; font-family: inherit; font-size: 13px; color: var(--wk-brand); cursor: pointer; }
+
+/* ── THE DEAL ROW ─────────────────────────────────────────────────────
+   The file's Quantity section: tiers as RADIO rows, not buttons in a strip.
+   Each states its own saving and its own perk, and the chosen one opens to
+   show the per-item option pickers and the commit. */
+.wk-deals { display: flex; flex-direction: column; gap: 12px; }
+.wk-deal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--wk-panel);
+  text-align: start;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.wk-deal.is-sel { border-color: color-mix(in srgb, var(--wk-brand) 45%, transparent); background: var(--wk-ground); }
+.wk-deal-main { display: flex; align-items: flex-start; gap: 12px; }
+/* The radio is drawn, not an input: a preview is a picture of a storefront
+   and a native radio would inherit the visitor's platform styling. */
+.wk-radio {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-block-start: 2px;
+  border: 2px solid color-mix(in srgb, var(--wk-brand) 60%, transparent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.wk-deal.is-sel .wk-radio::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--wk-brand);
+}
+.wk-deal-body { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.wk-deal-name { font-size: 14px; line-height: 20px; font-weight: 600; }
+.wk-deal-sub { font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk-deal-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: end; }
+.wk-deal-perk { font-size: 11px; line-height: 14px; color: var(--wk-good); }
+.wk-pct {
+  /* "-20%" is one LTR token. Without isolation the leading minus is a neutral
+     character and RTL reorders it to the end, printing "20%-". */
+  direction: ltr;
+  unicode-bidi: isolate;
+  padding: 2px 8px;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--wk-warn) 10%, transparent);
+  color: var(--wk-warn);
+  font-size: 11px;
+  line-height: 16px;
+}
+/* The picker the chosen tier reveals. Drawn, for the same reason as the
+   radio: a native select is the visitor's OS, not the merchant's store. */
+.wk-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wk-ink) 6%, transparent);
+  font-size: 12px;
+  color: var(--wk-muted);
+}
+.wk-select svg { width: 16px; height: 16px; flex: none; }
+
+/* ── THE PROMO BANNER ─────────────────────────────────────────────────
+   Free Shipping's own block: the one place in the kit that spends a
+   gradient, because it is the one block that is an OFFER rather than a
+   product. Ink to brand, so it still belongs to the section. */
+.wk-promo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--wk-ink) 42%, var(--wk-brand) 140%);
+  color: var(--wk-ground);
+}
+.wk-promo-main { display: flex; align-items: center; gap: 12px; }
+.wk-promo-ico {
+  flex: none;
+  display: flex;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--wk-ground);
+  color: var(--wk-brand);
+}
+.wk-promo-ico svg { width: 20px; height: 20px; }
+.wk-promo-title { margin: 0; font-size: 16px; line-height: 22px; font-weight: 500; }
+.wk-promo-sub { margin: 2px 0 0; font-size: 12px; line-height: 16px; opacity: 0.78; }
+.wk-promo .wk-btn { background: var(--wk-ground); color: var(--wk-brand); }
+
+/* ── THE MILESTONE TRACKER ────────────────────────────────────────────
+   Cart Value: a rail of rewards with the reached ones filled. The rail is
+   one track behind the dots rather than a segment per gap, so the fill can
+   run past a dot without the seams showing. */
+.wk-milestones { display: flex; flex-direction: column; gap: 10px; }
+.wk-milestone-note { margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--wk-brand); }
+.wk-milestone-rail { position: relative; display: flex; justify-content: space-between; gap: 8px; }
+.wk-milestone-rail::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 7px;
+  inset-inline: 8px;
+  height: 3px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--wk-ink) 12%, transparent);
+}
+.wk-milestone {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+  color: var(--wk-muted);
+}
+.wk-milestone-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--wk-ink) 16%, transparent);
+  display: grid;
+  place-items: center;
+  color: transparent;
+}
+.wk-milestone.is-done .wk-milestone-dot { background: var(--wk-good); color: #fff; }
+.wk-milestone.is-done { color: var(--wk-ink); }
+.wk-milestone-dot svg { width: 10px; height: 10px; }
+
+/* The cart-value panel the tracker sits in. */
+.wk-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--wk-brand) 8%, transparent);
+}
+
+/* "Added": the product already in the cart. Muted, so the eye goes to the
+   alternatives that can still be acted on. */
+.wk-btn--muted {
+  background: color-mix(in srgb, var(--wk-ink) 45%, transparent);
+  color: var(--wk-ground);
+}
+/* The card the widget is pointing at. */
+.wk-card.is-sel { outline: 1px solid color-mix(in srgb, var(--wk-brand) 45%, transparent); outline-offset: -1px; }
+.wk-card-check {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--wk-brand);
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.wk-card-check svg { width: 12px; height: 12px; }
+
+/* ── CAMPAIGN STYLES ──────────────────────────────────────────────────
+   The file's "Campaign Styles" section: the same sheet, presented five
+   ways. `embedded` is the sheet on the page; the other four put it on a
+   scrim, and the scrim is what makes it read as an interruption. */
+.wk-frame { position: relative; border-radius: 24px; overflow: hidden; }
+.wk-frame[data-style="embedded"] { background: none; }
+.wk-frame:not([data-style="embedded"]) {
+  display: flex;
+  background: color-mix(in srgb, #000 80%, transparent);
+  padding: 16px;
+  min-height: 420px;
+}
+.wk-frame[data-style="popup"] { align-items: center; justify-content: center; }
+.wk-frame[data-style="bottom-sheet"] { align-items: flex-end; padding: 0; }
+.wk-frame[data-style="bottom-sheet"] > .wk {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  padding-block-end: 28px;
+}
+/* A grab handle, because a sheet that can be dragged has to say so. */
+.wk-frame[data-style="bottom-sheet"] > .wk::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 4px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--wk-ink) 18%, transparent);
+}
+.wk-frame[data-style="left-sheet"] { align-items: stretch; justify-content: flex-start; padding: 0; }
+.wk-frame[data-style="right-sheet"] { align-items: stretch; justify-content: flex-end; padding: 0; }
+.wk-frame[data-style="left-sheet"] > .wk,
+.wk-frame[data-style="right-sheet"] > .wk {
+  max-width: 300px;
+  border-radius: 0;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+.wk-frame[data-style="left-sheet"] > .wk { border-start-end-radius: 24px; border-end-end-radius: 24px; }
+.wk-frame[data-style="right-sheet"] > .wk { border-start-start-radius: 24px; border-end-start-radius: 24px; }
+
+/* ── THE PHONE FRAME ──────────────────────────────────────────────────
+   Unchanged in structure; it carries its own dark ground, so the sheet
+   inside it flips to the light end of the pair. */
+.wk-phone {
+  --color-secondary: #f7f7fb;
+  --color-primary: #101015;
+  width: 100%;
+  border-radius: 28px;
+  padding: 8px;
+  background: #101015;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+}
+.wk-phone-screen { border-radius: 22px; overflow: hidden; background: #101015; }
+.wk-phone-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px 6px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.wk-phone-body { padding: 8px; display: flex; flex-direction: column; gap: 10px; }
+.wk-phone .wk { box-shadow: none; }
+
+   than as glowing pills above them, so the row reads as four figures in one
+   set instead of four separate advertisements. */
+.ppm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 4.8rem 3.2rem;
+  justify-items: center;
+}
+/* The four screens are naturally different heights, which left the captions
+   on four different lines. A shared floor lines them up without stretching
+   any screen's own content. */
+.ppm-item { display: grid; grid-template-rows: auto auto; justify-items: center; gap: 1.6rem; margin: 0; }
+.ppm-item > .wk-phone { align-self: end; }
+@media screen and (min-width: 768px) { .ppm-item > .wk-phone { min-height: 34rem; } }
+.ppm-cap { display: flex; flex-direction: column; gap: 0.4rem; text-align: center; max-width: 30rem; }
+
+/* ── THE USE-CASE HERO STAGE ────────────────────────────────────────────
+   A phone with a stated number floating either side of it. The tags used to
+   be glowing pills with a coloured dot, in two different colours; they are
+   captions now, which is what a stated number is. */
+.ucp-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-block: 3.2rem;
+}
+.ucp-float {
+  position: absolute;
+  z-index: 2;
+  max-width: 18rem;
+  margin: 0;
+  padding: 0.8rem 1.4rem;
+  border-radius: 1rem;
+  background: var(--color-primary, #fff);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-secondary, #0a0a0a);
+}
+.ucp-float--1 { inset-block-start: 0; inset-inline-start: 0; }
+.ucp-float--2 { inset-block-end: 0; inset-inline-end: 0; }
+@media screen and (max-width: 767px) {
+  .ucp-float { position: static; max-width: none; }
+  .ucp-stage { flex-direction: column; align-items: center; gap: 1.2rem; padding-block: 0; }
+}
+
+/* ── THE SECTOR SCENARIO CARD ───────────────────────────────────────────
+   A worked example for one sector: what the shopper is looking at, the phone
+   showing what Ziadah does about it, and the widget and placement it used. */
+.svx-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+.svx-stage { display: flex; justify-content: center; padding-block: 2.4rem; }
+.svx-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem; }
+
+/* The personalisation demo: two profiles, one strip that changes between
+   them. The tabs used to be violet-glowing pills with 👩 and 👨 on them. */
+.cpd-tabs { display: flex; justify-content: center; gap: 0.8rem; margin-block-end: 3.2rem; }
+.cpd-stage { display: flex; justify-content: center; }
+.cpd-stage > .wk { max-width: 42rem; }
+
+/* The ordered step marker in a sector flow. */
+.svx-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-block-end: 1.2rem;
+  border-radius: 1.4rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-secondary, #0a0a0a);
+}

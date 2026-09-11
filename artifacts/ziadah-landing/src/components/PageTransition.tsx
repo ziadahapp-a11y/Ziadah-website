@@ -12,7 +12,7 @@ let _directNavigate: ((path: string) => void) | null = null;
 
 /** يبدأ تحميل شُرَح الصفحة مبكراً أثناء خروج الصفحة الحالية (يقلّل وميض Suspense) */
 const ROUTE_PRELOADS: Record<string, () => Promise<unknown>> = {
-  "/": () => import("@/pages/Landing"),
+  "/": () => import("@/pages/HomeTrackflow"),
   "/success-stories": () => import("@/pages/SuccessStories"),
   "/support": () => import("@/pages/Support"),
   "/features": () => import("@/pages/Features"),

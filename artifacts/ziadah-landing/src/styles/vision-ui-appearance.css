@@ -36,13 +36,19 @@ td {
   text-align: start;
 }
 
+/* No `color` here on purpose. This rule matches every heading DIRECTLY, and a
+   direct rule beats an inherited one whatever the layer, so setting a colour
+   here overrode the ink a design-system section stamps on itself — an
+   inverted hero rendered its own h1 in near-black on a near-black ground.
+   Headings now inherit, which on a legacy page is `body { color: var(--t) }`
+   and `--t` is the same `#0a0a0b` `--text-primary` was: no visual change
+   there, and a themed section finally controls its own headings. */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: var(--text-primary);
   font-weight: 700;
   letter-spacing: -0.3px;
 }

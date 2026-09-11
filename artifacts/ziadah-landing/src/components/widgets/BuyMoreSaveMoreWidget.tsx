@@ -1,103 +1,89 @@
 import { useMemo, useState } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { BuyMoreSaveMoreDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import {
+  WidgetShell,
+  WidgetButton,
+  DealRow,
+  CartCheckoutRow,
+  DismissRow,
+  type CampaignStyle,
+} from "./kit";
 
-export default function BuyMoreSaveMoreWidget({ demo }: { demo?: BuyMoreSaveMoreDemo }) {
-  const t = useSiteT();
+/**
+ * The quantity ladder. It is a set of options the shopper picks between, so it
+ * behaves like one: the tiers are selectable and exactly one is active. The
+ * old version drew three static violet boxes and highlighted the last with a
+ * fourth shade of the same violet.
+ */
+export default function BuyMoreSaveMoreWidget({
+  demo,
+  style = "embedded",
+}: {
+  demo?: BuyMoreSaveMoreDemo;
+  style?: CampaignStyle;
+}) {
+  const t = siteTranslations;
   const { lang } = useLanguage();
+  const isAr = lang === "ar";
   const tr = useMemo(
     () => mergeShowcaseDemo(t[lang].widgets.buyMoreSaveMore, demo),
     [t, lang, demo],
   );
+  const [picked, setPicked] = useState(tr.options.length - 1);
+  const currency = t[lang].widgets.relatedProducts.currency.trim();
 
-  const [selected, setSelected] = useState(1);
-
+  /* The file draws the tiers as RADIO rows, not as buttons in a strip: each
+     one carries its own saving and its own perk, and the chosen row opens to
+     the per-item pickers and the commit. The old version was three static
+     boxes with the last one shaded. */
   return (
-    <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "buyMoreSaveMore", "title")} label="Buy more save more title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "buyMoreSaveMore", "subtitle")} label="Buy more save more subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
+    <WidgetShell
+      title={tr.title}
+      subtitle={tr.descLabel}
+      style={style}
+      dismissible={style !== "embedded"}
+      footer={
+        <>
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${"1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}>{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {tr.options.map((opt, i) => {
-            const isSelected = i === selected;
-            return (
-              <div key={i} onClick={() => setSelected(i)} style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                padding: "9px 12px",
-                borderRadius: 12,
-                background: isSelected ? "rgba(124, 58, 237,.18)" : "var(--s1)",
-                border: isSelected ? "1.5px solid rgba(139, 92, 246,.5)" : "1.5px solid var(--b1)",
-                cursor: "pointer",
-                transition: "all .2s ease",
-              }}>
-                <div style={{
-                  width: 16,
-                  height: 16,
-                  borderRadius: "50%",
-                  border: isSelected ? "none" : "1.5px solid var(--b2)",
-                  background: isSelected ? "rgba(124, 58, 237,0.5)" : "transparent",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  transition: "all .2s ease",
-                }}>
-                  {isSelected && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{opt.qty}</div>
-                  <div style={{ fontSize: 12, color: "var(--td)" }}>{opt.label}</div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 3 }}>
-                  {opt.badge && (
-                    <div style={{
-                      fontSize: 12,
-                      fontWeight: 800,
-                      padding: "2px 7px",
-                      borderRadius: 20,
-                      background: "rgba(124, 58, 237,0.5)",
-                      color: "var(--t)",
-                    }}>{opt.badge}</div>
-                  )}
-                  {opt.origPrice && (
-                    <div style={{ fontSize: 12, color: "var(--td)", textDecoration: "line-through" }}>{opt.origPrice}</div>
-                  )}
-                  <div style={{ fontSize: 13, fontWeight: 800, color: isSelected ? "#c084fc" : "var(--t)" }}>{opt.price}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      <div className="wk-deals">
+        {tr.options.map((o, i) => (
+          <DealRow
+            key={i}
+            name={o.qty}
+            sub={o.label}
+            price={o.price}
+            was={o.origPrice ?? undefined}
+            currency=""
+            percent={o.badge ?? undefined}
+            perk={i === tr.options.length - 1 ? tr.freeShippingNote : undefined}
+            selected={i === picked}
+            onClick={() => setPicked(i)}
+            options={
+              i === picked
+                ? [
+                    isAr ? "اختر خيارات المنتج الأول" : "Choose options for item 1",
+                    isAr ? "اختر خيارات المنتج الثاني" : "Choose options for item 2",
+                  ]
+                : undefined
+            }
+            action={<WidgetButton block>{t[lang].widgets.relatedProducts.btnAdd}</WidgetButton>}
+          />
+        ))}
       </div>
-      <div style={{
-        fontSize: 12,
-        color: "#8b5cf6",
-        background: "rgba(139, 92, 246,.1)",
-        border: "1px solid rgba(139, 92, 246,.25)",
-        borderRadius: 8,
-        padding: "6px 10px",
-        textAlign: "center",
-        fontWeight: 700,
-      }}>
-        {tr.freeShippingNote}
-      </div>
-    </UseCaseWidgetPreview>
+    </WidgetShell>
   );
 }

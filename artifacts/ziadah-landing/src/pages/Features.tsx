@@ -7,8 +7,6 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { SoftwareAppSchema, BreadcrumbSchema, WebPageSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteT } from "../cms/siteContent";
-import { Section } from "@/components/trackflow";
 import {
   ShoppingCart,
   Package,
@@ -38,48 +36,17 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-/* ─────────────────────────── data ─────────────────────────── */
+/* The data these render lives in `lib/features-data`, so a capability can
+   also have a page of its own at `/features/:slug`. */
+import { goals, presentations, placements as activities } from "@/lib/features-data";
+import { featureHref } from "@/lib/features-data";
+import { navigateTo } from "@/components/PageTransition";
+import { Section as DsSection, SectionHead, MediaSlot, HeroLede } from "@/sections";
+import { Shell } from "@/components/mk";
+import { CapabilityStack } from "@/components/art/CapabilityStack";
 
-const goals = [
-  { id: 1, Icon: ShoppingCart, title: "إضافة المزيد من المنتجات", titleEn: "Add More Products", subtitle: "زيادة عدد المنتجات في كل طلب", subtitleEn: "Increase the number of products per order", color: "#8b5cf6", desc: "يقترح الذكاء الاصطناعي منتجات إضافية مرتبطة بما في سلة العميل أو ما يتصفحه. الهدف زيادة عدد المنتجات لا قيمتها فقط.", descEn: "AI suggests additional products related to what's in the customer's cart or what they're browsing. The goal is to increase product count, not just value.", when: "الأنسب عندما يكون متجرك يبيع منتجات صغيرة مكملة بأسعار منخفضة.", whenEn: "Best when your store sells small complementary products at low prices.", example: "عميل اشترى شامبو → يُقترح عليه بلسم الشعر + ماسك الشعر.", exampleEn: "Customer bought shampoo → suggested conditioner + hair mask.", boost: "+28% متوسط المنتجات في السلة", boostEn: "+28% average products in cart" },
-  { id: 2, Icon: Package, title: "عرض الكميات (Buy X Get Y)", titleEn: "Quantity Offers (Buy X Get Y)", subtitle: "تحفيز الشراء بكميات أكبر", subtitleEn: "Encourage buying in larger quantities", color: "#06b6d4", desc: "يعرض النظام خصوماً تدريجية عند شراء كميات أكبر: اشتر 2 واحصل على خصم 10%، اشتر 3 وخصم 20%. يحفز زيادة الكمية لنفس المنتج.", descEn: "The system offers tiered discounts for larger quantities: buy 2 get 10% off, buy 3 get 20% off. Encourages buying more of the same product.", when: "مثالي للمنتجات القابلة للاستهلاك: العطور، المواد الغذائية، مستحضرات التجميل.", whenEn: "Ideal for consumable products: perfumes, food items, cosmetics.", example: "عميل في صفحة مشروب البروتين → يظهر له: 'اشتر 3 واحصل على خصم 15%'.", exampleEn: "Customer on protein drink page → sees: 'Buy 3 and get 15% off'.", boost: "+35% في الكمية المطلوبة", boostEn: "+35% in ordered quantity" },
-  { id: 3, Icon: TrendingUp, title: "استبدال المنتج (Upsell)", titleEn: "Product Swap (Upsell)", subtitle: "عرض بديل أعلى قيمة وجودة", subtitleEn: "Show a higher-value, higher-quality alternative", color: "#8b5cf6", desc: "يقترح النظام نسخة أفضل أو أعلى جودة من المنتج الذي يشاهده العميل. يرفع قيمة الطلب ويقدم تجربة أفضل للعميل.", descEn: "The system suggests a better or higher-quality version of the product the customer is viewing. Raises order value and delivers a better experience.", when: "مفيد جداً عندما يكون لديك فئات متعددة من المنتج: أساسي ومتميز وبريميوم.", whenEn: "Very useful when you have multiple product tiers: basic, premium, and elite.", example: "عميل في صفحة سماعة بسعر 100 ⃁ → يظهر له سماعة بسعر 180 ⃁ بمزايا أفضل.", exampleEn: "Customer on a SAR 100 headphone page → shown a SAR 180 headphone with better features.", boost: "+41% في متوسط قيمة الطلب", boostEn: "+41% in average order value" },
-  { id: 4, Icon: Banknote, title: "زيادة قيمة السلة", titleEn: "Increase Cart Value", subtitle: "رفع المبلغ الإجمالي لتجاوز عتبة معينة", subtitleEn: "Raise total amount to cross a specific threshold", color: "#f59e0b", desc: "يعرض منتجات إضافية مختارة ذكياً لمساعدة العميل على تجاوز عتبة الشحن المجاني أو الخصم. 'أضف 30 ⃁ للحصول على شحن مجاني'.", descEn: "Shows smartly selected additional products to help the customer cross the free shipping or discount threshold. 'Add SAR 30 for free shipping'.", when: "ممتاز عندما يكون لديك عتبة للشحن المجاني أو خصم على الطلبات الكبيرة.", whenEn: "Excellent when you have a free shipping threshold or discount on large orders.", example: "سلة بقيمة 170 ⃁ → يقترح منتج بـ35 ⃁ لتصل لـ200 وتحصل على شحن مجاني.", exampleEn: "Cart at SAR 170 → suggests a SAR 35 product to reach 200 and get free shipping.", boost: "+22% من الطلبات تتجاوز عتبة الشحن", boostEn: "+22% of orders exceed shipping threshold" },
-  { id: 5, Icon: Tag, title: "إعطاء كود خصم", titleEn: "Discount Code", subtitle: "تحفيز إتمام الشراء بعرض خاص", subtitleEn: "Motivate purchase completion with a special offer", color: "#ec4899", desc: "يولد الذكاء الاصطناعي كوبوناً مخصصاً في اللحظة المناسبة لإقناع العميل المتردد على إتمام الشراء. الكوبون مؤقت ومحدود.", descEn: "AI generates a personalized coupon at the right moment to convince hesitant customers to complete their purchase. The coupon is temporary and limited.", when: "فعّال جداً عند exit intent أو عندما يقضي العميل وقتاً طويلاً في السلة دون شراء.", whenEn: "Very effective on exit intent or when a customer spends too long in the cart without buying.", example: "عميل في السلة منذ 4 دقائق → يظهر له 'خصم 10% لمدة 15 دقيقة فقط'.", exampleEn: "Customer in cart for 4 minutes → sees '10% off for 15 minutes only'.", boost: "-38% في معدل التخلي عن السلة", boostEn: "-38% in cart abandonment rate" },
-];
 
-const presentations: {
-  Icon: LucideIcon;
-  title: string; titleEn: string; color: string;
-  desc: string; descEn: string;
-  positions: string[]; positionsEn: string[];
-  best: string; bestEn: string;
-}[] = [
-  { Icon: Link2, title: "منتجات ذات صلة", titleEn: "Related Products", color: "#8b5cf6", desc: "يحلل الذكاء الاصطناعي ما يتصفحه العميل وسلوكه السابق ويقترح منتجات مرتبطة بالموضوع. الأقوى في التأثير لأنه يعكس اهتمامات العميل الحقيقية.", descEn: "AI analyzes customer browsing and past behavior to suggest related products. Most impactful as it reflects the customer's real interests.", positions: ["صفحة المنتج", "الصفحة الرئيسية", "صفحة البحث"], positionsEn: ["Product Page", "Home Page", "Search Page"], best: "متاجر الأزياء، الإلكترونيات", bestEn: "Fashion stores, Electronics" },
-  { Icon: Plus, title: "إضافات (Add-ons)", titleEn: "Add-ons", color: "#06b6d4", desc: "يقترح منتجات تكمل المنتج الأساسي وتضيف قيمة وظيفية له. عرض طبيعي ومنطقي يشعر العميل أنه يحصل على تجربة أكمل.", descEn: "Suggests products that complement the main product and add functional value. A natural, logical display that makes customers feel they're getting a more complete experience.", positions: ["صفحة المنتج", "السلة", "الدفع"], positionsEn: ["Product Page", "Cart", "Checkout"], best: "الإلكترونيات، الرياضة، العناية", bestEn: "Electronics, Sports, Beauty" },
-  { Icon: ShoppingCart, title: "اشتروا مع بعض (BTAT)", titleEn: "Bought Together (BTAT)", color: "#8b5cf6", desc: "يستند على بيانات تاريخية من آلاف الطلبات ليعرف أي المنتجات يُشترى مجتمعة. 'عملاء اشتروا هذا أيضاً اشتروا...' - اجتماعي وموثوق.", descEn: "Based on historical data from thousands of orders to identify which products are bought together. 'Customers who bought this also bought...' — social and trustworthy.", positions: ["صفحة المنتج", "السلة"], positionsEn: ["Product Page", "Cart"], best: "الطعام، الأزياء، المنزل", bestEn: "Food, Fashion, Home" },
-  { Icon: Gift, title: "Combo (حزم ذكية)", titleEn: "Combo (Smart Bundles)", color: "#f59e0b", desc: "يُجمّع منتجين أو أكثر بسعر حزمة خاص يوفر على العميل ويرفع قيمة طلبه. قوي جداً للمنتجات المتكاملة مثل الروتين الكامل أو الطقم الكامل.", descEn: "Bundles two or more products at a special package price that saves the customer money and raises order value. Very powerful for complementary products like full routines or complete sets.", positions: ["صفحة المنتج", "الصفحة الرئيسية", "صفحة الفئة"], positionsEn: ["Product Page", "Home Page", "Category Page"], best: "العناية، الأزياء، الغذاء", bestEn: "Beauty, Fashion, Food" },
-  { Icon: BarChart3, title: "اشتر أكثر ووفر أكثر", titleEn: "Buy More Save More", color: "#ec4899", desc: "يعرض جدولاً تصاعدياً للخصم مع ازدياد الكمية. يحفز العميل على الشراء أكثر ليستفيد من الخصم الأعلى. فعّال للمنتجات الاستهلاكية.", descEn: "Displays a progressive discount table as quantity increases. Motivates customers to buy more to benefit from higher discounts. Effective for consumable products.", positions: ["صفحة المنتج", "السلة", "Popup"], positionsEn: ["Product Page", "Cart", "Popup"], best: "المواد الغذائية، التجميل", bestEn: "Food products, Cosmetics" },
-];
 
-const activities: {
-  num: string;
-  Icon: LucideIcon;
-  title: string; titleEn: string;
-  desc: string; descEn: string;
-  avail: string[]; availEn: string[];
-  tactics: string[]; tacticsEn: string[];
-}[] = [
-  { num: "1", Icon: FileText, title: "صفحة المنتج", titleEn: "Product Page", desc: "الاقتراح يظهر أسفل أو بجانب المنتج الرئيسي. أعلى معدل ظهور - العميل في مرحلة الاهتمام والتفكير.", descEn: "Suggestions appear below or beside the main product. Highest impression rate — the customer is in the interest and consideration stage.", avail: ["الانطلاقة", "النمو", "الاحترافية", "الأعمال"], availEn: ["Starter", "Growth", "Professional", "Business"], tactics: ["منتجات ذات صلة", "Add-ons", "Upsell", "Combo"], tacticsEn: ["Related Products", "Add-ons", "Upsell", "Combo"] },
-  { num: "2", Icon: FolderTree, title: "صفحة الفئة", titleEn: "Category Page", desc: "يظهر بين بطاقات المنتجات. يستهدف العميل وهو يتصفح ويقارن - فرصة ذهبية للتوجيه الذكي.", descEn: "Appears between product cards. Targets customers as they browse and compare — a golden opportunity for smart guidance.", avail: ["النمو", "الاحترافية", "الأعمال"], availEn: ["Growth", "Professional", "Business"], tactics: ["منتجات ذات صلة", "Combo", "اشتر أكثر"], tacticsEn: ["Related Products", "Combo", "Buy More"] },
-  { num: "3", Icon: ShoppingCart, title: "صفحة السلة", titleEn: "Cart Page", desc: "آخر فرصة قبل الدفع لإضافة منتجات. العميل جاهز للشراء - الاقتراح هنا يرفع قيمة الطلب بشكل مباشر.", descEn: "Last chance before checkout to add products. The customer is ready to buy — suggestions here directly increase order value.", avail: ["النمو", "الاحترافية", "الأعمال"], availEn: ["Growth", "Professional", "Business"], tactics: ["BTAT", "Add-ons", "كوبون", "زيادة القيمة"], tacticsEn: ["BTAT", "Add-ons", "Coupon", "Value Boost"] },
-  { num: "4", Icon: CreditCard, title: "صفحة الدفع (Checkout)", titleEn: "Checkout Page", desc: "اقتراحات خفيفة الوزن في صفحة الدفع لا تشتت التركيز لكنها تضيف قيمة. تحويل عالي لأن العميل ملتزم بالشراء.", descEn: "Lightweight suggestions on the checkout page that don't distract but add value. High conversion because the customer is committed to buying.", avail: ["الاحترافية", "الأعمال"], availEn: ["Professional", "Business"], tactics: ["Add-ons صغيرة", "منتج مكمل واحد"], tacticsEn: ["Small Add-ons", "One complementary product"] },
-  { num: "5", Icon: PartyPopper, title: "صفحة الشكر (Post-Purchase)", titleEn: "Thank You Page (Post-Purchase)", desc: "بعد إتمام الشراء مباشرة. العميل راضٍ ومتحمس - أفضل وقت لعرض منتج تكميلي أو دعوته للشراء مرة أخرى.", descEn: "Right after purchase completion. The customer is satisfied and excited — best time to show a complementary product or invite them to buy again.", avail: ["الاحترافية", "الأعمال"], availEn: ["Professional", "Business"], tactics: ["منتج تكميلي", "Upsell للطلب التالي"], tacticsEn: ["Complementary product", "Upsell for next order"] },
-  { num: "6", Icon: DoorOpen, title: "نافذة Exit Intent", titleEn: "Exit Intent Popup", desc: "تظهر عند محاولة العميل مغادرة المتجر. الفرصة الأخيرة لإقناعه بالبقاء والشراء.", descEn: "Appears when the customer tries to leave the store. The last chance to convince them to stay and buy.", avail: ["النمو", "الاحترافية", "الأعمال"], availEn: ["Growth", "Professional", "Business"], tactics: ["كوبون خصم", "عرض محدود الوقت"], tacticsEn: ["Discount coupon", "Limited-time offer"] },
-  { num: "7", Icon: Home, title: "الصفحة الرئيسية", titleEn: "Home Page", desc: "يرحّب بالعميل العائد باقتراحات مبنية على آخر زيارته. تجربة مخصصة من أول لحظة في المتجر.", descEn: "Welcomes returning customers with suggestions based on their last visit. A personalized experience from the very first moment in the store.", avail: ["النمو", "الاحترافية", "الأعمال"], availEn: ["Growth", "Professional", "Business"], tactics: ["منتجات ذات صلة", "Combo", "المشتريات السابقة"], tacticsEn: ["Related Products", "Combo", "Past Purchases"] },
-  { num: "8", Icon: Search, title: "صفحة البحث", titleEn: "Search Page", desc: "عندما يبحث العميل عن منتج محدد، يظهر له في نتائج البحث توصيات ذكية تكمل بحثه.", descEn: "When a customer searches for a specific product, smart recommendations appear in the search results to complement their search.", avail: ["النمو", "الاحترافية", "الأعمال"], availEn: ["Growth", "Professional", "Business"], tactics: ["منتجات ذات صلة", "بدائل أفضل"], tacticsEn: ["Related Products", "Better alternatives"] },
-  { num: "9", Icon: Megaphone, title: "Popup ذكي", titleEn: "Smart Popup", desc: "يظهر في الوقت المناسب بناءً على سلوك العميل. قوي لكن يُستخدم بحكمة لتجنب الإزعاج.", descEn: "Appears at the right time based on customer behavior. Powerful but used wisely to avoid annoyance.", avail: ["الاحترافية", "الأعمال"], availEn: ["Professional", "Business"], tactics: ["عرض محدود", "Combo خاص", "كوبون"], tacticsEn: ["Limited offer", "Special Combo", "Coupon"] },
-];
 
 const usecases: {
   sector: string; sectorEn: string;
@@ -104,8 +71,7 @@ const usecases: {
 export default function Features() {
   const [activeTab, setActiveTab] = useState<"goals" | "presentations" | "activities" | "usecases">("goals");
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const t = useSiteT();
-  const { lang, isAr, dir } = useLanguage();
+  const { lang, isAr } = useLanguage();
   const ft = t[lang].features;
   const ld = t[lang].landing;
   const pk = getPageKeywords("/features");
@@ -118,11 +84,6 @@ export default function Features() {
     return () => obs.disconnect();
   }, [activeTab]);
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   const tabs = [
     { id: "goals" as const, label: ft.tabGoals },
@@ -152,154 +113,197 @@ export default function Features() {
     <PageShell className="relative overflow-x-clip bg-white" style={{ background: "#fff", color: "#09090b" }}>
 
       {/* ══════════════════ HERO ══════════════════ */}
-      <section dir={dir} className="relative pt-20 pb-16 md:pt-28 md:pb-20 px-4 border-b border-zinc-200">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100 border border-violet-200 mb-6 rv">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
-            </span>
-            <span className="text-xs font-semibold text-violet-700">{ft.heroTag}</span>
-          </div>
-          <h1
-            className="rv d1 text-4xl sm:text-5xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]"
-            dangerouslySetInnerHTML={{ __html: ft.heroTitle }}
-          />
-          <p className="rv d2 text-lg text-zinc-600 max-w-2xl mx-auto mb-10 leading-relaxed">{ft.heroSub}</p>
-
-          {/* Tabs */}
-          <div className="rv d3 inline-flex flex-wrap justify-center gap-1.5 p-1.5 rounded-2xl bg-zinc-50 border border-zinc-200">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-5 py-2.5 rounded-xl text-sm font-bold transition-colors ${
-                  activeTab === tab.id
-                    ? "bg-zinc-950 text-white"
-                    : "text-zinc-600 hover:bg-zinc-100"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+      <HeroLede
+        family="violet"
+        eyebrow={ft.heroTag}
+        title={<span dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />}
+        body={ft.heroSub}
+      >
+        {/* The four tabs are the registry's own divisions, so they belong in
+            the hero: the page hands the reader its contents before it starts
+            listing them. */}
+        <div className="hero-tabs" role="tablist" aria-label={isAr ? "أقسام الخصائص" : "Capability groups"}>
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className="hero-tab"
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
-      </section>
+      </HeroLede>
+
+      {/* ══════════════════ THE SHAPE ══════════════════
+          The whole registry at a glance, above the tabs — the three kinds
+          compose in one direction, and a merchant who reads that once knows
+          what the tabs below are dividing. */}
+      <DsSection family="grey">
+        <SectionHead
+          center
+          size="md"
+          kicker={isAr ? "الشكل" : "The shape"}
+          title={isAr ? "هدف، شكل عرض، ومكان يظهر فيه" : "A goal, a shape, and a place it appears"}
+          lead={
+            isAr
+              ? "كل خاصية في زيادة تجيب على واحد من ثلاثة أسئلة: ما الرقم الذي ترفعه، وكيف تبدو للمشتري، وأين تظهر له."
+              : "Every Ziadah capability answers one of three questions: which number it raises, how it looks to the shopper, and where it appears."
+          }
+        />
+        <MediaSlot className="media-slot--screen media-slot--fit">
+          <CapabilityStack />
+        </MediaSlot>
+      </DsSection>
 
       {/* ══════════════════ GOALS ══════════════════ */}
       {activeTab === "goals" && (
-        <Section containerClassName="max-w-6xl flex flex-col gap-6">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="flex flex-col gap-[1.6rem]">
             {goals.map((g, i) => {
               const boost = isAr ? g.boost : g.boostEn;
               return (
                 <div
                   key={g.id}
-                  className={`rv d${(i % 2) + 1} rounded-2xl border border-zinc-200 bg-white p-7 md:p-8 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 2) + 1} card card--short`}
                 >
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                      <g.Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2.5 mb-1">
-                        <h3 className="text-xl font-bold text-zinc-950">{isAr ? g.title : g.titleEn}</h3>
-                        <span className="px-2.5 py-0.5 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
+                  <div className="card-head items-start">
+                    <span className="card-ico">
+                      <g.Icon className="w-6 h-6" aria-hidden="true" />
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className="flex flex-wrap items-center gap-2.5">
+                        <h3 className="card-title !w-auto">
+                          <button
+                            type="button"
+                            className="text-start hover:underline"
+                            onClick={() => navigateTo(featureHref(g))}
+                          >
+                            {isAr ? g.title : g.titleEn}
+                          </button>
+                        </h3>
+                        <span className="pill pill--soon">
                           {ft.goalLabel} <span className="num-ltr">#{g.id}</span>
                         </span>
-                      </div>
-                      <div className="text-sm text-zinc-500">{isAr ? g.subtitle : g.subtitleEn}</div>
-                    </div>
+                      </span>
+                      <span className="card-body-text">{isAr ? g.subtitle : g.subtitleEn}</span>
+                    </span>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-5">
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.descLabel}</div>
-                      <p className="text-sm text-zinc-600 leading-relaxed">{isAr ? g.desc : g.descEn}</p>
+                      <div className="card-eyebrow mb-2">{ft.descLabel}</div>
+                      <p className="card-body-text">{isAr ? g.desc : g.descEn}</p>
                     </div>
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.whenLabel}</div>
-                      <p className="text-sm text-zinc-600 leading-relaxed">{isAr ? g.when : g.whenEn}</p>
-                      <div className="mt-3 rounded-lg bg-zinc-50 border border-zinc-200 p-3.5 text-sm text-zinc-700 leading-relaxed">
-                        <span className="font-bold text-violet-600">{ft.exampleLabel}</span>{isAr ? g.example : g.exampleEn}
-                      </div>
+                      <div className="card-eyebrow mb-2">{ft.whenLabel}</div>
+                      <p className="card-body-text">{isAr ? g.when : g.whenEn}</p>
+                      <p className="card-inset !mt-3">
+                        <span className="font-bold">{ft.exampleLabel}</span>{isAr ? g.example : g.exampleEn}
+                      </p>
                     </div>
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-2">{ft.expectedResult}</div>
-                      <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-5 text-center">
-                        <div className="text-3xl font-extrabold text-violet-600 num-ltr">{boost.split(" ")[0]}</div>
-                        <div className="text-xs text-zinc-500 mt-1.5">{boost.substring(boost.indexOf(" ") + 1)}</div>
+                      <div className="card-eyebrow mb-2">{ft.expectedResult}</div>
+                      <div className="card-inset !mt-0 text-center">
+                        <div className="t-head-1 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{boost.split(" ")[0]}</div>
+                        <div className="card-eyebrow mt-1.5">{boost.substring(boost.indexOf(" ") + 1)}</div>
                       </div>
                     </div>
                   </div>
                 </div>
               );
             })}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ PRESENTATIONS ══════════════════ */}
       {activeTab === "presentations" && (
-        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="cards-grid">
             {presentations.map((p, i) => (
               <div
                 key={isAr ? p.title : p.titleEn}
-                className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                className={`rv d${(i % 3) + 1} card`}
               >
-                <div className="flex items-center gap-3.5 mb-5">
-                  <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                    <p.Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-zinc-950">{isAr ? p.title : p.titleEn}</div>
-                    <div className="text-xs text-zinc-500 mt-0.5">{ft.presentationLabel} <span className="num-ltr">#{i + 1}</span></div>
-                  </div>
+                <div className="card-head">
+                  <span className="card-ico">
+                    <p.Icon className="w-6 h-6" aria-hidden="true" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block t-head-2">
+                      <button
+                        type="button"
+                        className="text-start hover:underline"
+                        onClick={() => navigateTo(featureHref(p))}
+                      >
+                        {isAr ? p.title : p.titleEn}
+                      </button>
+                    </span>
+                    <span className="card-eyebrow">{ft.presentationLabel} <span className="num-ltr">#{i + 1}</span></span>
+                  </span>
                 </div>
-                <p className="text-sm text-zinc-600 leading-relaxed mb-5">{isAr ? p.desc : p.descEn}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <p className="card-body-text">{isAr ? p.desc : p.descEn}</p>
+                <div className="flex flex-wrap gap-2">
                   {(isAr ? p.positions : p.positionsEn).map(pos => (
-                    <span key={pos} className="px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-medium text-zinc-600">{pos}</span>
+                    <span key={pos} className="tag">{pos}</span>
                   ))}
                 </div>
-                <div className="text-xs font-bold text-violet-600">{ft.bestFor}{isAr ? p.best : p.bestEn}</div>
+                <div className="card-eyebrow card-foot">{ft.bestFor}{isAr ? p.best : p.bestEn}</div>
               </div>
             ))}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ ACTIVITIES ══════════════════ */}
       {activeTab === "activities" && (
-        <Section containerClassName="max-w-6xl">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+            <div className="cards-grid">
               {activities.map((a, i) => (
                 <div
                   key={a.num}
-                  className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 3) + 1} card`}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-11 h-11 shrink-0 rounded-lg bg-zinc-950 flex items-center justify-center">
-                      <a.Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-base font-bold text-zinc-950">{isAr ? a.title : a.titleEn}</div>
-                      <div className="text-[11px] font-bold text-violet-600">{ft.activityLabel} <span className="num-ltr">{a.num}</span></div>
-                    </div>
+                  <div className="card-head">
+                    <span className="card-ico">
+                      <a.Icon className="w-5 h-5" aria-hidden="true" />
+                    </span>
+                    <span className="flex-1 min-w-0">
+                      <span className="block t-sm-med">
+                        <button
+                          type="button"
+                          className="text-start hover:underline"
+                          onClick={() => navigateTo(featureHref(a))}
+                        >
+                          {isAr ? a.title : a.titleEn}
+                        </button>
+                      </span>
+                      <span className="card-eyebrow">{ft.activityLabel} <span className="num-ltr">{a.num}</span></span>
+                    </span>
                   </div>
-                  <p className="text-sm text-zinc-600 leading-relaxed mb-4">{isAr ? a.desc : a.descEn}</p>
-                  <div className="mb-4">
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2">{ft.availableTactics}</div>
+                  <p className="card-body-text">{isAr ? a.desc : a.descEn}</p>
+                  <div>
+                    <div className="card-eyebrow mb-2">{ft.availableTactics}</div>
                     <div className="flex flex-wrap gap-1.5">
                       {(isAr ? a.tactics : a.tacticsEn).map(tc => (
-                        <span key={tc} className="px-2.5 py-1 rounded-full bg-violet-50 border border-violet-100 text-[11px] font-medium text-violet-700">{tc}</span>
+                        <span key={tc} className="tag">{tc}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2">{ft.availablePlans}</div>
+                    <div className="card-eyebrow mb-2">{ft.availablePlans}</div>
                     <div className="flex flex-wrap gap-1.5">
                       {(isAr ? a.avail : a.availEn).map(pkg => (
-                        <span key={pkg} className="px-2.5 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-[11px] font-medium text-zinc-600">{pkg}</span>
+                        <span key={pkg} className="tag">{pkg}</span>
                       ))}
                     </div>
                   </div>
@@ -308,59 +312,72 @@ export default function Features() {
             </div>
 
             {/* Journey map */}
-            <div className="rv mt-10 rounded-2xl border border-zinc-200 bg-white p-7 md:p-10 shadow-card">
-              <div className="text-center mb-8">
-                <div className="text-lg md:text-xl font-bold text-zinc-950">{ft.journeyMapTitle}</div>
-                <div className="text-sm text-zinc-500 mt-1.5">{ft.journeyMapSub}</div>
+            <div className="rv card card--short mt-10">
+              <div className="text-center">
+                <div className="t-head-2">{ft.journeyMapTitle}</div>
+                <div className="card-eyebrow mt-1.5">{ft.journeyMapSub}</div>
               </div>
               <div className="flex items-center overflow-x-auto pb-2">
                 {activities.map((a, i) => (
                   <div key={a.num} className="flex items-center shrink-0">
                     <div className="text-center px-2">
-                      <div className="w-12 h-12 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center mx-auto mb-2">
-                        <a.Icon className="w-5 h-5 text-violet-600" />
-                      </div>
-                      <div className="text-[11px] font-bold text-zinc-700 whitespace-nowrap max-w-[80px] text-center mx-auto truncate">{isAr ? a.title : a.titleEn}</div>
+                      <span className="card-ico mx-auto mb-2">
+                        <a.Icon className="w-5 h-5" aria-hidden="true" />
+                      </span>
+                      <div className="card-eyebrow whitespace-nowrap max-w-[80px] mx-auto truncate">{isAr ? a.title : a.titleEn}</div>
                     </div>
-                    {i < activities.length - 1 && <div className="w-8 h-px bg-gradient-to-r from-violet-300 to-violet-100 shrink-0" />}
+                    {i < activities.length - 1 && (
+                      <span
+                        className="w-8 h-px shrink-0"
+                        style={{ background: "color-mix(in srgb, var(--color-secondary) 20%, transparent)" }}
+                        aria-hidden="true"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
             </div>
-        </Section>
+          </Shell>
+        </DsSection>
       )}
 
       {/* ══════════════════ USE CASES ══════════════════ */}
       {activeTab === "usecases" && (
-        <Section containerClassName="max-w-6xl grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <DsSection family="violet">
+          <Shell width="wide">
+          <div className="cards-grid">
             {usecases.map((u, i) => {
               const result = isAr ? u.result : u.resultEn;
               return (
                 <div
                   key={isAr ? u.sector : u.sectorEn}
-                  className={`rv d${(i % 3) + 1} rounded-2xl border border-zinc-200 bg-white p-7 hover:border-zinc-300 hover:shadow-card transition-all`}
+                  className={`rv d${(i % 3) + 1} card`}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 shrink-0 rounded-xl bg-zinc-950 flex items-center justify-center">
-                        <u.Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <div className="text-lg font-bold text-zinc-950">{isAr ? u.sector : u.sectorEn}</div>
-                        <div className="text-xs text-zinc-500 mt-0.5">{isAr ? u.stores : u.storesEn}</div>
-                      </div>
-                    </div>
-                    <div className="shrink-0 text-center rounded-xl border border-violet-200 bg-violet-50/60 px-3.5 py-2.5">
-                      <div className="text-xl font-extrabold text-violet-600 num-ltr">{result.split(" ")[0]}</div>
-                      <div className="text-[11px] text-zinc-500 mt-0.5 whitespace-nowrap">{result.substring(result.indexOf(" ") + 1)}</div>
-                    </div>
+                  <div className="card-head items-start">
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="card-ico">
+                        <u.Icon className="w-6 h-6" aria-hidden="true" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block t-head-2">{isAr ? u.sector : u.sectorEn}</span>
+                        <span className="card-eyebrow">{isAr ? u.stores : u.storesEn}</span>
+                      </span>
+                    </span>
+                    <span className="card-inset !mt-0 shrink-0 text-center !py-2.5 !px-3.5">
+                      <span className="block t-head-2 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{result.split(" ")[0]}</span>
+                      <span className="card-eyebrow whitespace-nowrap">{result.substring(result.indexOf(" ") + 1)}</span>
+                    </span>
                   </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-zinc-500 mb-2.5">{ft.bestStrategies}</div>
+                  <div className="card-foot flex-col items-stretch">
+                    <div className="card-eyebrow mb-2.5">{ft.bestStrategies}</div>
                     <div className="flex flex-col gap-2">
                       {(isAr ? u.strategies : u.strategiesEn).map(s => (
-                        <div key={s} className="flex items-center gap-2 text-sm text-zinc-700">
-                          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />
+                        <div key={s} className="card-body-text flex items-center gap-2">
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ background: "var(--ziadah-violet)" }}
+                            aria-hidden="true"
+                          />
                           {s}
                         </div>
                       ))}
@@ -369,7 +386,9 @@ export default function Features() {
                 </div>
               );
             })}
-        </Section>
+          </div>
+          </Shell>
+        </DsSection>
       )}
 
       <PageClosingCta

@@ -1,112 +1,111 @@
-import { useState, useEffect, useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { AddonsDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import {
+  WidgetShell,
+  ProductCollection,
+  ProductCard,
+  WidgetButton,
+  StatCard,
+  SummaryBar,
+  AddAllBar,
+  CartCheckoutRow,
+  DismissRow,
+  type ProductShape,
+  type CampaignStyle,
+} from "./kit";
 
-export default function AddonsWidget({ demo }: { demo?: AddonsDemo }) {
-  const t = useSiteT();
+/**
+ * Add-ons: a checklist whose total moves as the shopper ticks items.
+ *
+ * The state used to be unreadable - a checked row was a violet box with a
+ * violet border and a violet checkbox, so "selected" and "the widget's accent
+ * colour" were the same thing. The checkbox carries the state now and the row
+ * only tints behind it.
+ */
+export default function AddonsWidget({
+  demo,
+  shape = "list",
+  style = "embedded",
+}: {
+  demo?: AddonsDemo;
+  shape?: ProductShape;
+  style?: CampaignStyle;
+}) {
+  const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.addons, demo),
-    [t, lang, demo],
-  );
+  const isAr = lang === "ar";
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.addons, demo), [t, lang, demo]);
+  const currency = tr.currency.trim();
 
-  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map(item => item.checked));
+  const [checked, setChecked] = useState<boolean[]>(() => tr.items.map((i) => i.checked));
+  useEffect(() => setChecked(tr.items.map((i) => i.checked)), [tr.items]);
+  const toggle = (idx: number) => setChecked((p) => p.map((c, i) => (i === idx ? !c : c)));
 
-  useEffect(() => {
-    setChecked(tr.items.map(item => item.checked));
-  }, [tr.items]);
+  const total = tr.items.reduce((s, p, i) => (checked[i] ? s + p.price : s), 0);
+  const picked = checked.filter(Boolean).length;
 
-  const toggle = (idx: number) => {
-    setChecked(prev => prev.map((c, i) => i === idx ? !c : c));
-  };
-
-  const total = tr.items.reduce((s, a, i) => checked[i] ? s + a.price : s, 0);
-
+  /* Add-ons are products in the file, not checklist lines: the same card the other types use, with the action carrying the chosen state. */
   return (
-    <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "addons", "title")} label="Add-ons title" type="text">
-          {tr.title}
-        </Editable>
-      }
-      subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "addons", "subtitle")} label="Add-ons subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
+    <WidgetShell
+      title={tr.title}
+      subtitle={tr.descLabel}
+      style={style}
+      dismissible={style !== "embedded"}
+      footer={
+        <>
+          <SummaryBar
+            label={isAr ? `الإجمالي (${picked})` : `Total items (${picked})`}
+            now={`${total} ${currency}`}
+            save={isAr ? "وفر 20%" : "Save 20%"}
+          />
+          <AddAllBar>{isAr ? "أضف الكل" : "Add all"}</AddAllBar>
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${"1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <div style={{ marginBottom: 10 }}>
-        <div
-          style={{ fontSize: 12, color: "var(--td)", marginBottom: 8 }}
-          className="mt-[8px] text-[12px]">{tr.descLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {tr.items.map((a, i) => (
-            <div key={i} onClick={() => toggle(i)} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 9,
-              padding: "8px 10px",
-              borderRadius: 10,
-              background: checked[i] ? "rgba(124, 58, 237,.15)" : "var(--s1)",
-              border: checked[i] ? "1.5px solid rgba(124, 58, 237,.4)" : "1.5px solid var(--b1)",
-              cursor: "pointer",
-              transition: "all .2s ease",
-            }}>
-              <div style={{
-                width: 17,
-                height: 17,
-                borderRadius: 5,
-                background: checked[i] ? "rgba(124, 58, 237,0.5)" : "var(--b1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                transition: "all .2s ease",
-              }}>
-                {checked[i] && <span style={{ color: "#fff", fontSize: 12, fontWeight: 900 }}>✓</span>}
-              </div>
-              <span style={{ fontSize: 14 }}>{a.emoji}</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: checked[i] ? "#c084fc" : "var(--tm)" }}>{a.name}</div>
-              </div>
-              <div style={{ fontSize: 12, fontWeight: 800, color: checked[i] ? "#c084fc" : "var(--td)" }}>+{a.price}{tr.currency}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div style={{
-        padding: "8px 12px",
-        borderRadius: 10,
-        background: "rgba(124, 58, 237,.1)",
-        border: "1px solid rgba(124, 58, 237,.25)",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 10,
-      }}>
-        <span style={{ fontSize: 12, color: "var(--tm)" }}>{tr.totalLabel}</span>
-        <span style={{ fontSize: 13, fontWeight: 800, color: "#c084fc" }}>+{total}{tr.currency}</span>
-      </div>
-      <button style={{
-        width: "100%",
-        padding: "9px",
-        borderRadius: 10,
-        background: "rgba(124, 58, 237,0.12)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        color: "#c084fc",
-        fontSize: 14,
-        fontWeight: 800,
-        border: "1px solid rgba(124, 58, 237,0.2)",
-        cursor: "pointer",
-      }} className="widget-btn">
-        {tr.btnAdd}
-      </button>
-    </UseCaseWidgetPreview>
+      <StatCard
+        value={`250 ${currency}`}
+        label={isAr ? "رصيد التوفير" : "Pricing balance"}
+        benefits={[
+          isAr ? "شحن مجاني" : "Free shipping",
+          isAr ? "الدفع عند الاستلام" : "Cash on delivery",
+        ]}
+      />
+      <ProductCollection shape={shape}>
+        {tr.items.map((p, i) => (
+          <ProductCard
+            key={i}
+            name={p.name}
+            price={String(p.price)}
+            currency={currency}
+            rating="4.95"
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            checked={checked[i]}
+            selected={checked[i]}
+            favourite={shape !== "list"}
+            action={
+              <WidgetButton
+                block
+                variant={checked[i] ? "muted" : "primary"}
+                onClick={() => toggle(i)}
+              >
+                {checked[i] ? (isAr ? "مُضاف" : "Added") : isAr ? "أضف" : "Add"}
+              </WidgetButton>
+            }
+          />
+        ))}
+      </ProductCollection>
+    </WidgetShell>
   );
 }

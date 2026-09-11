@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "الحذف من السلة",
     subtitle: "عندما يحاول العميل حذف منتج فإنه لم يتخلَّ عن الرغبة — بل وجد عائقاً. زيادة يتدخل بذكاء قبل أن يخسر المتجر البيع: يعرض خصماً مؤقتاً أو بديلاً أوفر يُبقي العميل في رحلة الشراء.",
     tagline: "محاولة الحذف = إشارة استغاثة يلتقطها زيادة",
-    icon: "🛡️",
+    icon: "",
   },
   whatWeDoTitle: "كيف يمنع زيادة خسارة العميل لحظة الحذف؟",
   whatWeDoDesc:
@@ -16,25 +16,25 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة لإنقاذ البيع لحظة الحذف",
   strategies: [
     {
-      icon: "🔥",
+      icon: "",
       title: "خصم احتجازي مؤقت",
       desc: "حين يضغط العميل 'حذف' يظهر له خصم فوري بنسبة 10 إلى 20% لمدة محدودة (10 دقائق). الضغط الزمني يحوّل القرار من 'الحذف' إلى 'الشراء الآن'.",
       color: "#ec4899",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "عرض بديل أوفر",
       desc: "إذا كان السعر هو العائق، يقترح زيادة منتجاً مشابهاً بسعر أقل — يُبقي العميل في التجربة ويُبقي المتجر يكسب بيعاً بدلاً من لا شيء.",
       color: "#7c3aed",
     },
     {
-      icon: "💬",
+      icon: "",
       title: "تذكير بالقيمة والمزايا",
       desc: "أحياناً العميل ينسى لماذا اختار المنتج. زيادة يُذكّره بأبرز مزاياه وتقييمات العملاء الأخرى لإعادة شحن القرار بالثقة.",
       color: "#06b6d4",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "خيار 'احفظ لوقت لاحق'",
       desc: "بدلاً من الحذف النهائي، يعرض زيادة خيار الحفظ في القائمة المفضلة — العميل لا يخسر المنتج والمتجر يحتفظ بنية الشراء ليُذكّره بها لاحقاً.",
       color: "#8b5cf6",
@@ -49,12 +49,12 @@ const data: UseCasePageData = {
   exampleScenario: {
     title: "عميل أراد حذف حذاء رياضي",
     steps: [
-      "أضاف العميل حذاء رياضي بـ 280 ⃁ لكنه تردد وضغط 'حذف'.",
-      "رصد زيادة المحاولة فوراً وعرض: 'قبل أن تحذفه — خصم 15% خاص لك الآن: السعر 238 ⃁ لمدة 9 دقائق فقط'.",
+      "أضاف العميل حذاء رياضي بـ 280 ر.س لكنه تردد وضغط 'حذف'.",
+      "رصد زيادة المحاولة فوراً وعرض: 'قبل أن تحذفه — خصم 15% خاص لك الآن: السعر 238 ر.س لمدة 9 دقائق فقط'.",
       "ظهر العرض بتصميم واضح مع عداد تنازلي يُشعر العميل بالحاجة للقرار الفوري.",
       "العميل اختار الاستفادة من الخصم وأتمّ الشراء بدلاً من الحذف.",
     ],
-    result: "بيع بـ 238 ⃁ بدلاً من خسارة 280 ⃁ كاملاً — المتجر احتفظ بالعميل وحقق إيراداً لم يكن ليحدث لولا التدخل الذكي.",
+    result: "بيع بـ 238 ر.س بدلاً من خسارة 280 ر.س كاملاً — المتجر احتفظ بالعميل وحقق إيراداً لم يكن ليحدث لولا التدخل الذكي.",
   },
   extraSections: (isAr) => (
     <UseCaseLiveShowcase
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
           ? "محاكاة تفاعلية — شاهد نافذة الاحتجاز الذكية تظهر قبل اختفاء المنتج"
           : "Interactive simulation — watch the smart retention popup appear before the product disappears"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <RemoveFromCartWidget /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <RemoveFromCartWidget /> }]}
     />
   ),
   ctaTitle: "أوقف خسارة المبيعات قبل أن تحدث",
@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     title: "Remove from Cart",
     subtitle: "When a customer tries to remove a product, they haven't given up on wanting it — they found an obstacle. Ziadah intervenes smartly before the store loses the sale: offering a timed discount or a more affordable alternative to keep the customer in the buying journey.",
     tagline: "A removal attempt = a distress signal Ziadah catches",
-    icon: "🛡️",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah prevent losing the customer at the removal moment?",
   whatWeDoDescEn:
@@ -83,25 +83,25 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies to save the sale at the removal moment",
   strategiesEn: [
     {
-      icon: "🔥",
+      icon: "",
       title: "Timed Retention Discount",
       desc: "When the customer clicks 'Remove', an instant 10-20% discount appears for a limited time (10 minutes). Time pressure converts the decision from 'remove' to 'buy now'.",
       color: "#ec4899",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "More Affordable Alternative",
       desc: "If price is the obstacle, Ziadah suggests a similar product at a lower price — keeping the customer in the experience and earning a sale instead of nothing.",
       color: "#7c3aed",
     },
     {
-      icon: "💬",
+      icon: "",
       title: "Value and Benefits Reminder",
       desc: "Sometimes the customer forgets why they chose the product. Ziadah reminds them of its key features and other customer reviews to recharge the decision with confidence.",
       color: "#06b6d4",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "'Save for Later' Option",
       desc: "Instead of permanent deletion, Ziadah offers a save-to-wishlist option — the customer doesn't lose the product and the store retains purchase intent to remind them later.",
       color: "#8b5cf6",

@@ -9,6 +9,32 @@
    import when flattened. Regenerate with `node scripts/fetch-fonts.mjs`. */
 @import "./fonts.css";
 
+/* ── The design system's component + section layers ─────────────────────────
+   Ported from shaa-website-replit (claude/website-motionkit-rebuild-weittl).
+
+   Imported into Tailwind's `components` layer so utility classes written in
+   JSX keep winning over `.btn`/`.card` defaults: the load-order contract is
+   declared here, once, instead of being patched with `!important` at call
+   sites.
+
+   The legacy rules below in this file are UNLAYERED, so they still win over
+   these on the pages that have not been migrated yet. That is deliberate for
+   the duration of the migration — a legacy page keeps rendering exactly as it
+   did, and a rule only stops applying when the page that needed it is
+   rewritten onto the system. Eight class names are defined on both sides
+   (`hero`, `hero-sub`, `calc-grid`, `faq-list`, `is-active`, `skip-link`,
+   `num-ltr`, `container`); on those, legacy wins until its owner migrates. */
+@import "./styles/system.css" layer(components);
+/* The section library — named compositions built from those primitives. */
+@import "./styles/sections.css" layer(components);
+@import "./styles/home-scenes.css" layer(components);
+@import "./styles/bento-board.css" layer(components);
+@import "./styles/product-visual.css" layer(components);
+/* Ziadah's own additions to that vocabulary, kept out of the ported files so
+   those stay byte-comparable with their source. */
+@import "./styles/ziadah-sections.css" layer(components);
+@import "./styles/widget-kit.css" layer(components);
+
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
    shadcn @theme tokens + elevate system + signature utilities.
@@ -17,6 +43,238 @@
    black CTAs, zinc hairline borders, 16px radius, soft diffuse shadows.
    ═══════════════════════════════════════════════════════════════════════════ */
 @custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LAYER 1 — FOUNDATION
+   Ported from the Shaa design system (shaa-website-replit, branch
+   claude/website-motionkit-rebuild-weittl), which measured it off a captured
+   reference. The ARCHITECTURE is adopted verbatim; the hues are Ziadah's own.
+
+   The load-bearing idea: the root font size is viewport-proportional at
+   desktop, so one rem scale drives type, spacing and layout together and the
+   whole composition scales with the window instead of stepping at
+   breakpoints. Three tiers, and mobile is deliberately FIXED, not fluid.
+
+   `innerWidth / rootFontSize` = 144 at >=1025, 83.4 at 768-1024, and a fixed
+   10px below 768. The 1025 boundary is a real step down (12.28px -> 7.12px)
+   because the grid also halves from 16 columns to 8 there: the type gets
+   smaller as the columns get wider. That is the measured behaviour.
+
+   Re-rooting from 16px to 10px would otherwise shrink every existing rem in
+   this repo by 37.5%. Two things prevent that: the ~80 authored rem literals
+   were multiplied by 1.6 in the same commit, and Tailwind's own scale is
+   re-pointed below so `text-base`, `p-6` and friends keep their pixel sizes
+   at 1440 while becoming viewport-proportional everywhere else.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* The content container, declared as a UTILITY so it overrides the one
+   Tailwind ships rather than losing to it.
+
+   The gutter is taken out of `width`, not applied as padding, so a child with
+   its own background paints edge to edge inside the content box instead of
+   under a transparent gutter. The cap is a desktop-tier rule only:
+   `max-width` is `none` below 1025. */
+@utility container {
+  width: calc(100% - var(--page-padding-x) * 2);
+  max-width: var(--container-max, none);
+  margin-inline: auto;
+
+  @media screen and (min-width: 1025px) {
+    max-width: var(--container-max, var(--site-container-max-width));
+  }
+}
+
+/* Tailwind 4.1 keeps emitting its own `.container` breakpoint caps (40rem …
+   96rem) even when `@utility container` redefines the utility, and those caps
+   sort AFTER the rule above because they carry larger min-widths. At a 10px
+   root they evaluate to 400–960px, which would cap the page at 800px on a
+   1440 viewport. These two rules are unlayered, so they beat every layered
+   utility and make the design system's container the authority. Set
+   `--container-max` on an ancestor to narrow it deliberately. */
+.container { max-width: var(--container-max, none); }
+@media screen and (min-width: 1025px) {
+  .container { max-width: var(--container-max, var(--site-container-max-width)); }
+}
+
+html {
+  font-size: 10px;                                  /* < 768  — fixed */
+  -webkit-font-smoothing: antialiased;
+}
+@media screen and (min-width: 768px)  { html { font-size: 1.19904vw; } }   /* 100vw / 83.4 */
+@media screen and (min-width: 1025px) { html { font-size: 0.694444vw; } }  /* 100vw / 144 */
+@media screen and (min-width: 1920px) { html { font-size: 13.3333px; } }   /* cap */
+
+:root {
+  /* ---- layout ---- */
+  --site-container-max-width: 1920px;
+  --page-padding-x: 1.6rem;
+  --columns-count: 16;
+
+  /* The header switches height at 768, not 1025. `--header-dynamic-height` is
+     ADDITIVE — the header plus whatever announcement bars are stacked above it
+     — so every sticky offset re-seats itself when the bar is toggled. Nothing
+     downstream may hard-code a pixel offset. */
+  --header-desktop: 9.8rem;
+  --header-mobile: 8.3rem;
+  --header-height: var(--header-mobile);
+  --header-banner-height: 0rem;
+  --header-dynamic-height: calc(var(--header-height) + var(--header-banner-height));
+
+  /* ---- motion ----
+     `--motion` is a scalar, not a boolean: durations are multiplied by it, so
+     reduced-motion collapses every transition to zero through one token. */
+  --motion: 1;
+  --motion-speed: 0.55s;
+  --motion-speed-slow: 0.75s;
+  --spring-ease: cubic-bezier(0.4, 1.35, 0.5, 1);
+  --spring-ease-duration: calc(var(--motion) * 0.5s);
+  --ease-out-quint: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* ---- shape ----
+     1.6rem is the card radius everywhere, 3.2rem the large block and the
+     pinned figure, 4.8rem the device frame, 10rem the pill. */
+  --radius-card: 1.6rem;
+  --radius-block: 3.2rem;
+  --radius-media: 1.6rem;
+  --radius-device: 4.8rem;
+  --button-radius: 10rem;
+
+  /* ---- neutrals ---- */
+  --general-white: #fff;
+  --general-white-off: #f8f7fc;
+  --general-black: #07000c;
+  --general-black-mid: #1b1b1b;
+  --general-black-light: #242628;
+  --general-gray-light: #ece9f3;
+  --general-gray: #cac6d6;
+  --general-gray-mid: #a5a1b3;
+  --general-gray-dark: #3b3745;
+
+  /* ---- ZIADAH BRAND ----
+     Read off Ziadah's own artwork rather than chosen: `#9821FF`, `#480086`
+     and `#1F0236` are the fills in `public/logo-ar.svg`, and `#EEDAFF` is its
+     pale tint. `--ziadah-violet` stays `#7c3aed` — the hue the existing ~150
+     components already use — so the brand does not shift under the refactor.
+
+     White is the canvas and violet is the brand. Everything else is an
+     accent. */
+  --ziadah-violet:       #7c3aed;
+  --ziadah-violet-bright:#9821ff;
+  --ziadah-violet-dark:  #480086;
+  --ziadah-ink:          #1f0236;
+  --ziadah-violet-pale:  #eedaff;
+
+  /* ---- colour families ----
+     A family is a {base, light, dark} triple; the PAGE picks one, sections
+     inherit it and choose which end of the pair is the ground. Two families:
+     `violet` is Ziadah's brand triple and `grey` is the white canvas.
+
+     This is the whole palette. Nothing else may name a colour: a component
+     reads `--color-primary` / `--color-secondary` / `--color` with a
+     fallback, and the section stamps the triple inline. */
+  --violet:        var(--ziadah-violet);
+  --violet-light:  var(--ziadah-violet-pale);
+  --violet-dark:   var(--ziadah-ink);
+  --grey:          #cac6d6;   --grey-light:   #f8f7fc;   --grey-dark:   #07000c;
+
+  /* Section default, used only until a section stamps its own triple. */
+  --color: var(--grey);
+  --color-primary: var(--general-white);
+  --color-secondary: var(--general-black);
+  /* Chrome outside any section sits on the grey family's light ground, so it
+     takes the grey family's floor. */
+  --ink-floor: 60%;
+
+  /* ---- surface-relative roles ----
+     Six tokens that describe a position on whatever surface a component is
+     sitting on, not a fixed colour. `.on-ink` re-points all six, so a card, a
+     rule or a caption reads correctly on the light page and on a dark band
+     without either one being restyled. */
+  --surface:    var(--color-primary);
+  --surface-2:  color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  --surface-3:  rgba(127, 127, 127, 0.18);
+  --ink:        var(--color-secondary);
+  --ink-muted:  color-mix(in srgb, var(--color-secondary) 75%, transparent);
+  --line:       color-mix(in srgb, var(--color-secondary) 20%, transparent);
+
+  /* ---- type steps ----
+     Three named steps for the places that ask for a size by name rather than
+     by role (a dialog title, a group heading). Everything else uses the type
+     roles in `styles/system.css`. */
+  --type-2: 2.4rem;
+  --type-1: 3.2rem;
+  --type-display: 4rem;
+
+  /* ---- semantic ---- */
+  /* Section rhythm: 6.4rem 0, and 7.4rem 0 11.6rem at the desktop tier. */
+  --section-space: 6.4rem;
+  --section-space-bottom: 6.4rem;
+
+  /* ---- status ink ----
+     The TEXT role of each status family, kept behind one indirection so a
+     section can re-point it. `@theme inline` substitutes a token's DEFINITION
+     at the use site, so overriding `--color-error-text` on a section is dead
+     code — the utility already emitted `var(--error)`. `:root` keeps the hue;
+     a `[data-family]` scope swaps in the section ink. */
+  --status-error-ink: var(--error);
+  --status-warning-ink: var(--warning-dark);
+  --status-success-ink: var(--success);
+
+  --success: #457a39;
+  --error: #dc2626;
+  /* A status colour, NOT a brand family: chosen for contrast on a pale ground
+     rather than inherited from a palette. */
+  --warning: #b45309;
+  --warning-dark: #7c2d12;
+  --value-increase: #457a39;
+  --value-decrease: #e50000;
+}
+
+@media screen and (min-width: 1025px) {
+  :root { --section-space: 7.4rem; --section-space-bottom: 11.6rem; }
+  :root { --type-2: 2.8rem; --type-1: 4rem; --type-display: 5.6rem; }
+  :root { --page-padding-x: 2.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { :root { --motion: 0; } }
+@media screen and (min-width: 768px)    { :root { --header-height: var(--header-desktop); } }
+
+/* ── Tailwind scale, re-based on the reference's measured steps ─────────────
+   The document root is 10px, so every rem-based Tailwind utility in the repo
+   would otherwise render at 62.5% of its old size. The ramp is re-pointed at
+   the measured type steps — 1.2 / 1.6 / 2 / 2.4 / 3.2 / 4.8 / 6.4 / 10.4 /
+   12rem — which at a 1440 viewport lands each utility on the pixel size it had
+   before. That is what makes the existing markup inherit the new scale instead
+   of fighting it.
+
+   `--spacing: 0.4rem` keeps the 4px step, which at this root is the
+   reference's own rhythm: `p-6` = 2.4rem, exactly the measured card padding. */
+@theme {
+  --spacing: 0.4rem;
+
+  --text-xs: 1.2rem;    --text-xs--line-height: 1.5;
+  --text-sm: 1.4rem;    --text-sm--line-height: 1.5;
+  --text-base: 1.6rem;  --text-base--line-height: 1.4;
+  --text-lg: 1.8rem;    --text-lg--line-height: 1.5;
+  --text-xl: 2rem;      --text-xl--line-height: 1.4;
+  --text-2xl: 2.4rem;   --text-2xl--line-height: 1.33;
+  --text-3xl: 3.2rem;   --text-3xl--line-height: 1.25;
+  --text-4xl: 4rem;     --text-4xl--line-height: 1.1;
+  --text-5xl: 4.8rem;   --text-5xl--line-height: 1;
+  --text-6xl: 6.4rem;   --text-6xl--line-height: 1;
+  --text-7xl: 8rem;     --text-7xl--line-height: 1;
+  --text-8xl: 10.4rem;  --text-8xl--line-height: 1;
+  --text-9xl: 12rem;    --text-9xl--line-height: 1;
+
+  /* Radii are the reference's: 1.6rem is the card, 3.2rem the large block. */
+  --radius-xs: 0.4rem;
+  --radius-sm: 0.8rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 1.6rem;
+  --radius-xl: 2.4rem;
+  --radius-2xl: 3.2rem;
+  --radius-3xl: 4.8rem;
+}
 
 @theme inline {
   --color-background: hsl(var(--background));
@@ -113,7 +371,7 @@
   --app-font-sans: 'Rubik', 'IBM Plex Sans Arabic', 'Inter', 'saudi_riyal', system-ui, sans-serif;
   --app-font-serif: Georgia, 'saudi_riyal', serif;
   --app-font-mono: 'JetBrains Mono', Menlo, 'saudi_riyal', monospace;
-  --radius: 1rem;
+  --radius: 1.6rem;
 
   /* Automatically computed opaque borders (intensity via --opaque-button-border-intensity) */
   --primary-border: hsl(var(--primary));
@@ -244,6 +502,9 @@ body{
   min-height:100svh;
   min-height:100dvh;
   height:auto;
+  /* The document root is 10px, so anything carrying no size class would
+     otherwise render at 10px. 1.6rem is the design system's body step. */
+  font-size:1.6rem;
   background:var(--page-background);
   color:var(--t);
   overflow-x:hidden;
@@ -325,7 +586,6 @@ th.h-12{
 .o3{width:900px;height:700px;background:radial-gradient(circle,rgba(124, 58, 237,.18) 0%,rgba(124, 58, 237,.04) 50%,transparent 70%);bottom:-280px;right:10%;animation:oc 32s ease-in-out infinite alternate;}
 .o4{width:650px;height:550px;background:radial-gradient(circle,rgba(236,72,153,.09) 0%,transparent 70%);top:38%;left:3%;animation:od 24s ease-in-out infinite alternate;}
 
-
 @keyframes oa{from{transform:translate(0,0) scale(1)}to{transform:translate(-100px,80px) scale(1.1)}}
 @keyframes ob{from{transform:translate(0,0) scale(1)}to{transform:translate(80px,-100px) scale(1.12)}}
 @keyframes oc{from{transform:translate(0,0) scale(1)}to{transform:translate(-80px,-80px) scale(1.08)}}
@@ -334,13 +594,10 @@ th.h-12{
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size:256px;}
 
-
 /* ── GLASS (Vision UI — زجاج) ── */
 
 .gc{background:var(--glass-bg);border:var(--glass-border);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-radius:var(--r20);box-shadow:var(--glass-shadow);position:relative;overflow:hidden;}
 .gc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124, 58, 237,.12),transparent 58%);pointer-events:none;}
-[data-theme="light"] .gc::before{background:linear-gradient(135deg,rgba(124, 58, 237,.14),rgba(192, 132, 252,.06) 45%,transparent 62%);}
-[data-theme="light"] .gc:hover{border-color:rgba(124, 58, 237,.42);box-shadow:var(--glass-shadow-hover);}
 .gc:hover{border-color:rgba(124, 58, 237,.35);box-shadow:var(--glass-shadow-hover);transform:translateY(-1px);}
 .gc-lift:hover{transform:translateY(-4px);}
 .shine{position:absolute;inset:0;pointer-events:none;background:none;opacity:0;transition:opacity .3s;}
@@ -348,9 +605,19 @@ th.h-12{
 /* Use case "what we do" card (dark): lighter fill, lighter blur */
 .uc-what-card.gc{background:rgba(250, 250, 251,.2);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
 
+/* ── LAYOUT (mobile-first: compact vertical rhythm by default) ──
 
-/* ── LAYOUT (mobile-first: compact vertical rhythm by default) ── */
-section{
+   Scoped away from the design system's own sections. This is an UNLAYERED
+   element rule and `.section` / `.hero-split` are layered, so this was
+   beating them everywhere: the system's section rhythm never applied, and on
+   `.hero-split` - whose vertical spacing is carried by `.hero-container`'s
+   margins, the top one being the header clearance - it added 152px on top,
+   which is why a hero holding 829px of content between 250px of margins
+   measured 1231px on a 1000px viewport.
+
+   The legacy pages that still need it keep it; a system section is now
+   spaced by the system. */
+section:not(.section):not(.hero-split){
   position:relative;
   z-index:2;
   width:100%;
@@ -362,40 +629,49 @@ section{
 }
 /* تابلت / آيباد: إيقاع أقصر من الديسكتوب لتقليل الفراغ العمودي */
 @media(min-width:769px) and (max-width:1024px){
-  section{
+  section:not(.section):not(.hero-split){
     padding-block:clamp(52px, 6vw, 72px);
     padding-left:max(4%, env(safe-area-inset-left, 0px));
     padding-right:max(4%, env(safe-area-inset-right, 0px));
   }
 }
 @media(min-width:1025px){
-  section{
+  section:not(.section):not(.hero-split){
     padding-block:76px;
     padding-left:max(5%, env(safe-area-inset-left, 0px));
     padding-right:max(5%, env(safe-area-inset-right, 0px));
   }}
 .wrap{max-width:1200px;margin:0 auto;}
 
-/* ONE central horizontal-padding + centering system. Tailwind v4 dropped v3's
-   container `center`/`padding` config, so the built-in `.container` ships with
-   NO padding and NO centering — which is why every section had to hand-roll px-4.
-   Re-adding them here (the documented v4 pattern) extends the built-in container:
-   responsive max-widths stay; every `.container` now auto-centers and gets fluid
-   horizontal padding (16px on mobile → 40px on desktop). New sections inherit it
-   for free — no manual px-4 needed. */
-@utility container {
-  margin-inline: auto;
-  padding-inline: clamp(16px, 4vw, 40px);
-}
+/* The horizontal-padding + centering system now lives in the foundation layer
+   above, as the design system's `@utility container`: it takes the gutter out
+   of `width` rather than adding padding, so a child with its own background
+   paints edge to edge inside the content box. The gutter itself is
+   `--page-padding-x` (1.6rem, 2.4rem at the desktop tier) instead of the
+   previous `clamp(16px, 4vw, 40px)`. */
 .tc{text-align:center;}.tc .ssub{margin:0 auto;}
 
-/* ── Card grids: fluid columns, consistent gaps (replaces many fixed repeat(N{display:grid;max-width:1200px;margin:0 auto;gap:var(--card-gap);grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));align-items:stretch;}
+/* ── Card grids: fluid columns, consistent gaps ── */
+/* The comment that used to head this block was never closed: a selector and a
+   rule body got glued onto the end of it, taking its terminator with them, and
+   the next comment terminator in the file was thirty-seven lines down. So
+   everything between was commented out and had been dead since the line was
+   written: `.sector-playbook-wrap`, the whole `.sector-viz-` flow layout, and
+   two grid rules. The rule body that was glued on had no recoverable selector
+   (it never had one in history), so it is dropped rather than guessed at;
+   `.sector-viz-scenarios` just below is the same shape and is the one this
+   section was describing.
+
+   `.reports-grid` and `.blog-cards-grid` match no markup any more, so they go
+   with it - a class that has been dead since it was written and matches
+   nothing today is not worth reviving. */
+/* `.sector-block` already gives this its radius and its tint from the
+   section's own ink. What was left here was a 1px border and a 48px drop
+   shadow - the two things the design system does not put on a card, and the
+   only remaining shadow on a sector page outside the phone mockups. */
 .sector-playbook-wrap{
   border-radius:22px;
-  border:1px solid var(--b2);
-  box-shadow:0 24px 48px rgba(0,0,0,.12);
 }
-
 
 .sector-viz-root--widget-style .interactive-marquee{margin-inline:-8px;}
 @media(min-width:900px){
@@ -425,11 +701,8 @@ section{
     border-radius:2px;
   }}
 .sector-viz-flow-step{text-align:center;display:flex;flex-direction:column;align-items:center;}
-.reports-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fit,minmax(var(--card-min-xl),1fr));align-items:stretch;}
-.blog-cards-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-lg),1fr));align-items:stretch;}
 /* Blog card cover: dark fade for emoji/badge contrast; light mode uses a soft bottom veil */
 .blog-cover-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,transparent 38%,rgba(250, 250, 251,.88) 100%);}
-[data-theme="light"] .blog-cover-overlay{background:linear-gradient(to bottom,transparent 52%,rgba(255,255,255,.92) 100%);}
 
 /* Blog listing & related-post cards */
 .blog-card-link{
@@ -493,7 +766,6 @@ section{
   transition:transform .42s cubic-bezier(.22,1,.36,1);
   filter:drop-shadow(0 14px 28px rgba(0,0,0,.35));
 }
-[data-theme="light"] .blog-card__icon-wrap{filter:drop-shadow(0 10px 22px rgba(30,27,58,.22));}
 .blog-card.gc:hover .blog-card__icon-wrap{transform:scale(1.08) translateY(-2px);}
 .blog-card__badge{
   position:absolute;
@@ -509,7 +781,6 @@ section{
   -webkit-backdrop-filter:saturate(1.35) blur(14px);
   box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 12px 32px rgba(250, 250, 251,.38);
 }
-[data-theme="light"] .blog-card__badge{box-shadow:0 1px 0 rgba(255,255,255,.52) inset,0 10px 24px rgba(30,27,58,.12);}
 .blog-card__body{
   flex:1;
   padding:clamp(18px,3.2vw,26px) clamp(18px,3vw,28px) clamp(20px,3.5vw,28px);
@@ -592,25 +863,14 @@ section{
   font-weight:600;
 }
 
-/* Editorial marketing heroes — white slab (pricing / landing-white-accent family): blog, support{
-  --blog-hero-deep:#0a0a0b;
-  --blog-hero-mid:#7c3aed;
-  isolation:isolate;
-  overflow:hidden;
-  background:#fff;
-  color:var(--blog-hero-deep);
-  border-bottom:1px solid rgba(124, 58, 237,.12);
-  box-shadow:0 20px 48px rgba(124, 58, 237,.06);
-}
-.blog-page-hero .stag,
-.support-page-hero .stag{
-  background:rgba(124, 58, 237,.1);
-  border:1px solid rgba(124, 58, 237,.26);
-  color:var(--blog-hero-mid);
-  font-weight:700;
-}
-.blog-page-hero .stag-dot,
-.support-page-hero .stag-dot{background:var(--blog-hero-mid);}
+/* Editorial marketing heroes — white slab, for blog and support.
+
+   The same unterminated-comment bug as the card-grid block above: the selector
+   list was glued onto the end of the comment instead of following its
+   terminator, so the white-slab rule and the two `.stag` rules under it were
+   commented out and never applied. They are gone rather than restored - both
+   heroes are `HeroLede` now, and neither `.blog-page-hero` nor
+   `.support-page-hero` appears in any markup. */
 /* Dark-shell legacy quick-links; Support contact strip uses `.support-quick-card`. */
 .support-cards-grid .gc.support-card-priority:not(.support-quick-card){
   border:none;
@@ -638,12 +898,15 @@ section{
   color:var(--p4);
 }
 
-/* ── Support page — white canvas + light UI (Support.tsx / PageShell.support-page) ──
-   ── Blog (index + articles) — same canvas (Blog.tsx, BlogPost.tsx / blog-white-shell) ── */
-.landing-shell.support-page,
-.landing-shell.blog-white-shell{
-  --page-background:#fff;
-  background:#fff!important;
+/* ── Support page — light UI for the legacy widget tokens (PageShell.support-page)
+   The `blog-white-shell` half of this block is gone: the blog index and the
+   blog post are both rebuilt on the section vocabulary, so nothing carries
+   that class any more. What is left here is NOT a white canvas. Every band on
+   /support stamps its own family, so painting the shell white only put a hard
+   slab in the gaps between them; the rule keeps the light values for the
+   legacy `--t/--tm/--td/--b1/--b2` tokens that the page's remaining widgets
+   read, because those default to the dark theme and would be invisible. */
+.landing-shell.support-page{
   color:#0a0a0b;
   --t:#0a0a0b;
   --tm:rgba(9, 9, 11,.72);
@@ -651,31 +914,7 @@ section{
   --b1:rgba(124, 58, 237,.12);
   --b2:rgba(124, 58, 237,.2);
 }
-.landing-shell.blog-white-shell{
-  /* Category filter chips use --s1; dark theme token is invisible on white */
-  --s1:rgba(124, 58, 237,.045);
-}
-.landing-shell.support-page .ds-page-atmos,
-.landing-shell.blog-white-shell .ds-page-atmos{display:none!important;}
-/* Blog listing hero keeps solid white; omit decorative green/cyan washes */
-.landing-shell.blog-white-shell .blog-page-hero::before,
-.landing-shell.blog-white-shell .blog-page-hero::after{opacity:0!important;}
-.landing-shell.support-page .support-page-hero::before{
-  opacity:.38;
-  height:min(480px,62vh);
-}
-.landing-shell.support-page .support-page-hero::after{opacity:.32;}
-.landing-shell.support-page section.cta-sec.landing-white-accent,
-.landing-shell.blog-white-shell section.cta-sec.landing-white-accent{
-  background:#fff!important;
-  background-color:#fff!important;
-  box-shadow:none;
-  border-top:1px solid rgba(124, 58, 237,.08);
-}
-.landing-shell.support-page section.cta-sec.landing-white-accent .cta-box.gc,
-.landing-shell.blog-white-shell section.cta-sec.landing-white-accent .cta-box.gc{
-  box-shadow:0 16px 48px rgba(124, 58, 237,.1),0 1px 0 rgba(255,255,255,.95) inset!important;
-}
+.landing-shell.support-page .ds-page-atmos{display:none!important;}
 .support-section--contact .support-quick-card.gc{
   position:relative;
   display:flex!important;
@@ -776,7 +1015,12 @@ section{
   transform:translateY(-3px);
 }
 .uc-demo-product-grid{display:grid;gap:var(--card-gap);grid-template-columns:repeat(auto-fill,minmax(var(--card-min-sm),1fr));align-items:stretch;}
-img,video,canvas,svg{max-width:100%;height:auto;}
+/* A reset belongs in @layer base, not in the unlayered origin: unlayered
+   rules beat every layered one, so `height:auto` here was overriding the
+   design system's own sized media (`.header-logo` rendered at its intrinsic
+   162px instead of 3.4rem). Layering it keeps the reset and lets a component
+   or a utility state a size. */
+@layer base { img,video,canvas,svg{max-width:100%;height:auto;} }
 .gc,.wrap,.landing-shell,main,section{min-width:0;}
 @media(max-width:640px){
   :root{
@@ -786,7 +1030,10 @@ img,video,canvas,svg{max-width:100%;height:auto;}
     --card-pad-md:18px 15px;
     --card-pad-lg:20px 16px;
   }
-  section{
+  /* Scoped away from the design system's sections for the same reason as the
+     desktop rule above: this is unlayered and `!important`, so it was the last
+     word on every section's gutters at the mobile tier, system or not. */
+  section:not(.section):not(.hero-split){
     padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px))!important;
     padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px))!important;
   }
@@ -844,6 +1091,14 @@ h2.st{font-size:var(--type-h2,clamp(30px,3.5vw,44px));font-weight:600;letter-spa
 /* ── FLOATING USE-CASE CARDS (removed — floating-cards-layer deleted) ── */
 
 #gp{background-color:rgba(250, 250, 251, 1);padding-block:0;padding-bottom:120px;}
+
+/* `.landing-shell` is a centring flex column, and a flex child shrinks to its
+   content unless it says `width: 100%` — which is why the ids just below had to
+   be patched back to full width one at a time. Every design-system section is
+   full-bleed by contract: it paints its own ground edge to edge. So a page that
+   carries the system's `page` class flows as blocks instead, and the shrink
+   never happens in the first place. Unlayered, so it beats the rule below. */
+.page.landing-shell { display: block; }
 
 /* ── LANDING: page shell (solid background via --page-background on .landing-shell) ── */
 .landing-shell{position:relative;z-index:1;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;width:100%;box-sizing:border-box;touch-action:auto;}
@@ -1083,11 +1338,6 @@ h2.st{font-size:var(--type-h2,clamp(30px,3.5vw,44px));font-weight:600;letter-spa
     text-shadow:
       0 0 40px color-mix(in srgb,var(--bg-section-alt) 55%,transparent),
       0 0 18px color-mix(in srgb,#fafafb 42%,transparent);
-  }
-  .hero.hero-v2 .hero-grid > .hero-in.hero-copy-inner .hero-mobile-logo{
-    filter:drop-shadow(0 0 36px color-mix(in srgb,var(--bg-section-alt) 70%,transparent))
-      drop-shadow(0 0 14px color-mix(in srgb,#fafafb 45%,transparent));
-    opacity:0.96;
   }
 }
 /* فوق طبقة hero-carousel-marquee-wrap::before (z-index:2) */
@@ -1414,7 +1664,6 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
   padding-bottom:20px;
 }
 
-
 .hero-sub{font-size:var(--type-lead,clamp(16px,1.5vw,18px));color:var(--text-secondary);max-width:620px;margin:0 auto 40px;line-height:1.88;animation:fup .9s ease .3s both;}
 .hero-sub strong{color:var(--text-1);font-weight:700;}
 .hero-ctas{display:flex;gap:12px;justify-content:center;flex-direction:row;flex-wrap:nowrap;width:fit-content;height:fit-content;margin-bottom:64px;animation:fup .9s ease .45s both;}
@@ -1424,7 +1673,6 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
 
 .btn-g{padding:13px 32px;border-radius:var(--r12);background:rgba(124, 58, 237,.08);color:rgba(248,240,255,1);font-family:inherit;font-size:var(--type-label,14px);font-weight:600;border:1px solid rgba(124, 58, 237,.25);cursor:pointer;text-decoration:none;width:fit-content;height:fit-content;transition:border-color var(--duration-fast,160ms) var(--ease-standard),background-color var(--duration-fast,160ms) var(--ease-standard),color var(--duration-fast,160ms) var(--ease-standard),transform var(--duration-instant,80ms) var(--ease-standard);}
 .btn-g:hover{border-color:rgba(124, 58, 237,.45);color:var(--brand-2);transform:translateY(-1px);background:rgba(124, 58, 237,.12);}
-
 
 .sbar{display:grid;grid-template-columns:1fr 1fr;background:rgba(57,0,143,.08);border:1px solid rgba(124, 58, 237,.18);border-radius:22px;overflow:hidden;backdrop-filter:blur(28px);max-width:640px;margin:0 auto;animation:fup .9s ease .6s both;}
 .sbi{padding:30px 22px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;border-inline-end:none;border-bottom:none;}
@@ -2345,36 +2593,25 @@ section.cta-sec.landing-white-accent .cta-note{color:var(--lv-accent-mid)!import
   outline: 3px solid rgba(124, 58, 237, 0.55);
   outline-offset: 4px;
 }
-/* Showcase card overrides — white widget chrome with green/black content for max readability */
-#widgets-showcase .widget-creatify-card{
-  /* Widget preview shell */
-  --uc-preview-bg: #ffffff;
-  --uc-preview-border: 1px solid rgba(124, 58, 237, 0.18);
-  --uc-preview-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  --uc-preview-blur: none;
-  --uc-preview-body-bg: transparent;
-  --uc-preview-body-blur: none;
-  /* Light theme override for widget content (text / surfaces / borders) */
-  --t: #0b0b1f;
-  --td: #4b4b66;
-  --tm: #6b6b88;
-  --s1: rgba(124, 58, 237, 0.05);
-  --b1: rgba(124, 58, 237, 0.18);
-  --b2: rgba(124, 58, 237, 0.4);
-  --p3: rgb(124, 58, 237);
-}
-/* Hardcoded light-green price/CTA text reads poorly on white — darken it */
-#widgets-showcase .widget-creatify-card [style*="color: rgb(192, 132, 252)"]{
-  color: rgb(109, 40, 217) !important;
-}
-#widgets-showcase .widget-creatify-card .widget-btn,
-#widgets-showcase .widget-creatify-card .widget-btn-sm{
-  background: rgba(124, 58, 237, 0.10) !important;
-  color: rgb(109, 40, 217) !important;
-  border-color: rgba(124, 58, 237, 0.28) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
+/* The showcase card used to hand the preview a whole private palette here -
+   `--uc-preview-bg/-border/-shadow/-blur` for the old shell, and `--t --td
+   --tm --s1 --b1 --b2 --p3` for the widget bodies. Every one of those is dead:
+   the shell that read the first set is deleted, and the widget kit reads the
+   section triple like the rest of the site instead of a legacy violet mix. A
+   preview is now correct on any band without the page telling it what to be. */
+/* The two overrides that used to sit here are GONE, and the reason they
+   existed is gone with them.
+
+   Each of the 16 widget files painted its controls inline with a translucent
+   violet fill and a `#c084fc` label - a dark-mode violet, unreadable once the
+   preview stage became the near-white a real storefront is. These rules
+   patched the symptom from outside, with an ID and `!important`, by flattening
+   every control to one pale lavender chip. That is why a widget preview had no
+   primary action: the patch could not tell the "add to cart" button from the
+   per-row add, so it made them identical.
+
+   The inline colours are removed at source now and `.widget-btn` /
+   `.widget-btn-sm` own the look, so an override here would only beat the fix. */
 /* اتجاه المحتوى يتبع لغة الصفحة؛ المسار .marquee-track يبقى ltr لحركة التمرير فقط */
 .tc-card-slim{padding:22px 24px;display:flex;flex-direction:column;width:320px;flex-shrink:0;margin-inline-end:16px;}
 html[dir="rtl"] .tc-card-slim{direction:rtl;}
@@ -2807,7 +3044,6 @@ html[dir="ltr"] .tc-card-slim{direction:ltr;}
 .cta-box.gc:hover{box-shadow:none;}
 .cta-box .shine{background:rgba(37,0,107,.2);background-image:none;width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;}
 
-
 /* ── FOOTER ── */
 footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-index:2;background-color:rgba(250, 250, 251,1);}
 .ft-top{display:flex;gap:48px;margin-bottom:48px;flex-wrap:wrap;}
@@ -2844,81 +3080,25 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   .uc-what-card{padding:var(--card-pad-lg)!important;}
 }
 .nav-cta-outline{background:unset!important;background-color:unset!important;border:none!important;color:var(--tm)!important;border-radius:10px!important;font-size:12px!important;white-space:nowrap;padding:5px 10px!important;transition:background-color var(--duration-fast,160ms) var(--ease-standard),color var(--duration-fast,160ms) var(--ease-standard)!important;}
-.nav-ctas > button.nav-cta-outline{margin:5px 10px!important;}
 .nav-cta-outline:hover{background:var(--s2)!important;background-color:var(--s2)!important;color:var(--text-primary)!important;}
 .nav-cta-fill{background:#7c3aed!important;border:1px solid rgba(124, 58, 237,.4)!important;color:#fff!important;border-radius:10px!important;font-size:12px!important;font-weight:700!important;white-space:nowrap;padding:5px 10px!important;box-shadow:0 2px 16px rgba(124, 58, 237,.3);transition:background-color var(--duration-fast,160ms) var(--ease-standard),transform var(--duration-instant,80ms) var(--ease-standard),box-shadow var(--duration-fast,160ms) var(--ease-standard)!important;}
 .nav-cta-fill:hover{background:#6d28d9!important;transform:translateY(-1px);box-shadow:0 4px 24px rgba(124, 58, 237,.45)!important;}
-/* PageTransition يضع pointer-events:none على الغلاف أثناء الأنيميشن — يجب إعادة التفعيل للتنقل */
-.desktop-nav,
-.mobile-nav,
-.mobile-top-bar{
-  pointer-events:auto;
-}
-.mobile-nav{display:none;}
-/* Desktop nav: flex container, full viewport width (no 1200px cap) */
-.desktop-nav{
-  display:flex;
-  flex-direction:column;
-  max-width:none;
-  width:100%;
-  box-sizing:border-box;
-}
-/* Desktop nav: inline list items flex-centered (matches design preview) */
-.nav-links-inline>li{display:flex;justify-content:center;align-items:center;}
+/* ── ANCHOR OFFSET UNDER THE FIXED HEADER ──
+   WHAT THIS REPLACED. A block of the pre-W1.7 navbar: `.desktop-nav`,
+   `.mobile-top-bar` and `.mobile-nav` were hidden or shown here, and none of
+   the three is rendered any more. Those rules selected nothing, so they were
+   invisible - but the same block also carried
+   `body { padding-top: calc(52px + safe-area) }`, which is not class-scoped
+   and kept firing. It pushed every page down 52px under a TRANSPARENT fixed
+   header, so the white body showed through above the first band and the white
+   logo went white-on-white across its top half.
 
-@keyframes slideUpDropdown{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-@keyframes megaMenuIn{
-  from{opacity:0;transform:translateX(-50%) translateY(10px) scale(.98);}
-  to{opacity:1;transform:translateX(-50%) translateY(0) scale(1);}
-}
-
-/* Use cases mega menu — always one row of 5 columns */
-.use-cases-mega-menu{
-  display:grid;
-  gap:10px 12px;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-}
-.use-cases-mega-menu .use-cases-mega-menu__col{
-  min-width:0;
-}
-
-/* ── MEDIUM DESKTOP NAV (1025-1280px): compact single-row ── */
-@media(min-width:1025px) and (max-width:1280px){
-  .desktop-nav{padding:0 14px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;width:100%!important;}
-  .nav-links-inline li button,.nav-links-inline li span{font-size:12.5px!important;padding:6px 10px!important;}
-  .nav-ctas a{font-size:12px!important;padding:7px 13px!important;}
-  .nav-top-row{height:52px!important;}
-}
-
-.mobile-top-bar{display:none;}
-.hero-mobile-logo{display:none;}
-
-/* ── NAV: شريط علوي + قائمة همبرغر — حتى 1024px (تابلت / نوافذ ضيقة) ── */
-@media(max-width:1024px){
-  .desktop-nav{display:none!important;}
-  .mobile-top-bar{display:flex!important;}
-  .mobile-nav{display:none!important;}
-  body{padding-top:calc(52px + env(safe-area-inset-top, 0px));padding-bottom:0;}
-  html{scroll-padding-top:calc(60px + env(safe-area-inset-top, 0px));}
-}
-
-/* Mobile hamburger panel rows */
-@keyframes slideDownPanel{
-  from{opacity:0;transform:translateY(-8px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.mobile-menu-panel .mnav-row{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  width:100%;padding:13px 14px;border-radius:12px;
-  background:transparent;border:none;cursor:pointer;text-align:start;
-  color:var(--t);font-family:var(--font);font-size:15px;font-weight:600;
-}
-.mobile-menu-panel .mnav-row:active{background:rgba(124,58,237,.10);}
-.mnav-chev{transition:transform .2s;flex-shrink:0;color:#a1a1aa;}
-.mnav-chev.open{transform:rotate(180deg);}
+   The header offset is the first section's job (`.page > section:first-of-type`
+   in sections.css), not the body's. What is left here is the one thing the
+   body cannot do for itself: land an anchor target below the header instead of
+   under it. It reads the real header height rather than the 60px guess it
+   used to carry, against a header measuring 83px. */
+html{scroll-padding-top:calc(var(--header-dynamic-height) + env(safe-area-inset-top, 0px));}
 
 @media(max-width:768px){
   .ba-grid{grid-template-columns:1fr;}.ba-arrow-wrap{display:none;}
@@ -3035,7 +3215,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   h2,h2.st{font-size:clamp(20px,6vw,30px);}
   h3{font-size:clamp(16px,5vw,22px);}
   .ssub{font-size:13px;}
-  section{padding-block:40px;}
+  section:not(.section):not(.hero-split){padding-block:40px;}
 
   .ptog{flex-wrap:wrap;justify-content:center;max-width:100%;row-gap:6px;}
   .ptb{padding:8px 18px;font-size:13px;}
@@ -3088,10 +3268,35 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
 }
 
 /* ── Widget Buttons ── */
-.widget-btn{transition:filter .2s ease,transform .2s ease,box-shadow .2s ease;position:relative;overflow:hidden;font-size:11px!important;padding:7px 10px!important;}
+/* ---------- THE WIDGET PREVIEWS' CONTROLS ------------------------------
+   These classes used to carry only the hover animation while each of the 16
+   widget files painted the control inline: a translucent violet fill, a
+   violet hairline and a `#c084fc` label. That hue is a DARK-mode violet -
+   readable on the near-black shell the previews were first drawn on, and
+   3:1 or worse now that the stage is the near-white a real storefront is.
+   Between them the 32 inline copies also meant every control in a preview
+   was the same weight, so a widget had no primary action, just a wall of
+   lavender.
+
+   Two controls now, and they read as a storefront's: ONE solid brand button
+   per widget, and a quiet neutral one for the per-row add. */
+.widget-btn{
+  transition:filter .2s ease,transform .2s ease,box-shadow .2s ease;
+  position:relative;overflow:hidden;
+  font-size:11px!important;padding:7px 10px!important;
+  background:var(--ziadah-violet)!important;
+  color:var(--general-white)!important;
+  border:0!important;
+}
 .widget-btn:hover{filter:brightness(1.25);transform:translateY(-1px);box-shadow:0 4px 16px rgba(124, 58, 237,.35);}
 .widget-btn:active{filter:brightness(0.9);transform:translateY(0) scale(0.97);box-shadow:none;}
-.widget-btn-sm{transition:filter .2s ease,transform .2s ease;font-size:10px!important;padding:4px 9px!important;}
+.widget-btn-sm{
+  transition:filter .2s ease,transform .2s ease;
+  font-size:10px!important;padding:4px 9px!important;
+  background:transparent!important;
+  color:var(--ziadah-violet)!important;
+  border:1px solid color-mix(in srgb, var(--ziadah-violet) 40%, transparent)!important;
+}
 .widget-btn-sm:hover{filter:brightness(1.3);transform:scale(1.05);}
 .widget-btn-sm:active{filter:brightness(0.85);transform:scale(0.95);}
 
@@ -3144,7 +3349,7 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   width:100%;
 }
 .landing-sectors-sub{
-  max-width:34rem;
+  max-width:54.4rem;
   margin-inline:auto;
   margin-bottom:0;
   font-size:clamp(15px,1.75vw,17px);
@@ -3178,7 +3383,6 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   text-align:start;
   transition:background .2s,border-color .2s,transform .18s ease,box-shadow .2s ease;
 }
-
 
 .landing-sectors-chip{
   background:rgba(152,92,255,.04);
@@ -3221,10 +3425,18 @@ footer{padding:52px 5% 36px;border-top:1px solid var(--b1);position:relative;z-i
   }}
 
 /* ── Anchor sections (روابط داخلية: هوامش مع شريط علوي ثابت أو شريط سفلي فقط) ── */
+/* The `background-color` that used to sit here is gone. This rule is
+   UNLAYERED and carries ID specificity, so it beat `[data-family]` in
+   `@layer components` and painted both anchored bands `#fafafb` no matter
+   which family the section stamped - the pricing band asked for the violet
+   pale ground and got near-white, and so did the FAQ. Measured at 1440:
+   `--color-primary` resolved to `#eedaff` on `#pricing` while its computed
+   background was `rgb(250, 250, 251)`.
+   Fifth instance of this bug class in this rebuild; the offset is what the
+   rule is for, so only the offset is left. */
 #pricing,
 #faq{
   scroll-margin-top:120px;
-  background-color:rgba(250, 250, 251, 1);
 }
 section#faq .gc.hc-left{
   border-color:rgba(0,0,0,0);
@@ -3270,7 +3482,6 @@ section#faq .gc.hc-left:hover{
     background .28s ease;
 }
 
-
 .blur-t-overlay--active{
   opacity:1;
   pointer-events:none;
@@ -3282,12 +3493,6 @@ section#faq .gc.hc-left:hover{
     backdrop-filter .34s cubic-bezier(0.4,0,0.2,1),
     -webkit-backdrop-filter .34s cubic-bezier(0.4,0,0.2,1),
     background .26s ease;
-}
-[data-theme="light"] .blur-t-overlay{
-  background:rgba(255,255,255,.18);
-}
-[data-theme="light"] .blur-t-overlay--active{
-  background:rgba(255,255,255,.28);
 }
 @media (prefers-reduced-motion: reduce){
   .blur-t-overlay,
@@ -3348,16 +3553,6 @@ section#faq .gc.hc-left:hover{
   clip:rect(0,0,0,0);
   white-space:nowrap;border:0;
 }
-[data-theme="light"] .route-fallback__ring span{
-  border-top-color:rgba(124, 58, 237,.9);
-  border-right-color:rgba(139, 92, 246,.55);
-}
-[data-theme="light"] .route-fallback__ring span:nth-child(2){
-  border-top-color:rgba(9, 9, 11,.55);
-}
-[data-theme="light"] .route-fallback__ring span:nth-child(3){
-  border-top-color:rgba(9, 9, 11,.4);
-}
 @keyframes route-fb-spin{ to{ transform:rotate(360deg); } }
 @keyframes route-fb-in{ to{ opacity:1; } }
 @media (prefers-reduced-motion: reduce){
@@ -3381,55 +3576,39 @@ section#faq .gc.hc-left:hover{
 
 /* Cursor: smooth warm background transition */
 
-
 /* Cursor: section dividers use warm tone changes, not harsh lines */
-
 
 /* Cursor: heading colors */
 
-
 /* Cursor: warm section heading style — compressed, engineered */
-
 
 /* Cursor: ssub body text — warm muted tone */
 
-
 /* Cursor: pill buttons (tags, filters) — warm cream with full-pill radius */
-
 
 /* Cursor: pricing toggle pill container */
 
-
 /* Cursor: step label and connector line */
-
 
 /* Cursor: how-it-works icon box */
 
-
 /* Cursor: ba-arrow circle */
 
-
 /* Cursor: logos label */
-
 
 /* Cursor: pricing plan cards — see .pp-root / .pp-root .gc.pp-card in PRICING PAGE section */
 
 /* Cursor: pricing card – featured */
 
-
 /* Cursor: warm platform modal */
-
 
 /* Cursor: warm bg-wrap — no orbs in light mode */
 
-
 /* Cursor: noise texture is very subtle in light (Cursor site uses none) */
-
 
 /* Cursor: support sidebar/help center light */
 
-/* ── Design system page shell: atmosphere + width (Analyze + marketing pages) ── */
-.analyze-atmos,
+/* ── Design system page shell: atmosphere + width (marketing pages) ── */
 .ds-page-atmos{
   position:absolute;
   inset:0;
@@ -3457,31 +3636,7 @@ section#faq .gc.hc-left:hover{
   bottom:8%;
   inset-inline-start:-80px;
 }
-.analyze-page-main{
-  position:relative;
-  z-index:2;
-  margin-inline:auto;
-  padding-top:calc(env(safe-area-inset-top, 0px) + var(--page-article-pt));
-  padding-bottom:clamp(56px,9vw,100px);
-  padding-left:max(var(--page-inline-pad), env(safe-area-inset-left, 0px));
-  padding-right:max(var(--page-inline-pad), env(safe-area-inset-right, 0px));
-}
-/* Marketing flows (Analyze tool): match Calculator / Features hero inset */
-.analyze-page-main.analyze-page-main--marketing{
-  padding-top:calc(env(safe-area-inset-top, 0px) + var(--page-hero-pt));
-  padding-left:max(20px, env(safe-area-inset-left, 0px));
-  padding-right:max(20px, env(safe-area-inset-right, 0px));
-  overflow:hidden;
-}
-.analyze-page-main{
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  margin-inline:0;
-  width:100%;
-  max-width:100%;
-}
+
 /* Legal / long-form: glass document panel */
 .ds-legal-doc.gc{
   max-width:800px;
@@ -3489,1273 +3644,13 @@ section#faq .gc.hc-left:hover{
   padding:clamp(22px,4vw,40px) clamp(18px,3.5vw,36px);
   border-radius:var(--r20);
 }
-.analyze-form-card.gc{
-  padding:20px;
-  box-sizing:content-box;
-  border-radius:var(--r20);
-  box-shadow:none;
-}
-/* Analyze marketing form card: full width in column, side inset, allow popovers past glass clip */
-.gc.gc-lift.analyze-form-card{
-  box-sizing:border-box;
-  width:100%;
-  justify-content:flex-start;
-  align-items:center;
-  height:fit-content;
-  overflow:visible;
-  margin-inline:20px;
-}
-.analyze-form-card.gc:hover{
-  box-shadow:none;
-}
-.analyze-form-card form select[aria-hidden="true"]{
-  margin:20px !important;
-}
-.analyze-select-content{
-  padding-top:20px;
-  padding-right:20px;
-  padding-bottom:20px;
-  padding-left:20px;
-  box-sizing:border-box;
-}
-.analyze-select-item{
-  margin-top:5px;
-  margin-bottom:5px;
-}
-.analyze-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-  font-size:10px;
-  font-weight:800;
-  padding:3px 8px;
-  border-radius:999px;
-  border:1px solid var(--b2);
-  line-height:1.2;
-  letter-spacing:.02em;
-}
-.analyze-pill--cross{
-  background:rgba(6,182,212,.1);
-  border-color:rgba(6,182,212,.25);
-  color:var(--c);
-}
-.analyze-pill--up{
-  background:rgba(139, 92, 246,.1);
-  border-color:rgba(139, 92, 246,.28);
-  color:var(--p4);
-}
-.analyze-role-pill{
-  padding-inline:20px;
-  margin-inline:10px;
-}
-.analyze-stat-num{
-  font-size:clamp(30px,5vw,42px);
-  font-weight:900;
-  letter-spacing:-0.04em;
-  color:var(--t);
-  font-variant-numeric:tabular-nums;
-  line-height:1;
-}
-.analyze-stat-num--go{ color:var(--go); }
-.analyze-stat-num--c{ color:var(--c); }
-.analyze-stat-num--p{ color:var(--p4); }
-.analyze-stat-label{
-  font-size:11px;
-  font-weight:600;
-  color:var(--tm);
-  margin-top:5px;
-}
-.analyze-share-panel.gc{
-  padding:clamp(32px,4.5vw,48px);
-  text-align:center;
-  border-radius:var(--r20);
-  background:linear-gradient(140deg,rgba(124, 58, 237,.1) 0%,rgba(6,182,212,.05) 60%,var(--glass-bg) 100%);
-  border-color:rgba(124, 58, 237,.25);
-  box-shadow:0 8px 48px rgba(124, 58, 237,.1);
-}
-/* ═══ Value estimate cards ═══ */
-.analyze-value-card{
-  border-radius:var(--r16);
-  border:1px solid var(--b1);
-  padding:clamp(18px,3vw,24px);
-  background:var(--s1);
-  transition:var(--ds-t);
-}
-.analyze-value-card:hover{
-  border-color:var(--b2);
-  box-shadow:0 8px 28px rgba(0,0,0,.12);
-  transform:translateY(-1px);
-}
-.analyze-value-card--primary{
-  border-color:rgba(124, 58, 237,.3);
-  background:linear-gradient(145deg,rgba(124, 58, 237,.07) 0%,rgba(124, 58, 237,.03) 100%);
-  box-shadow:0 4px 24px rgba(124, 58, 237,.08);
-}
-.analyze-value-card--primary:hover{
-  border-color:rgba(124, 58, 237,.45);
-  box-shadow:0 12px 40px rgba(124, 58, 237,.14);
-}
-.analyze-anchor-card{
-  border-radius:var(--r16);
-  border:1px solid rgba(251,191,36,.38);
-  background:linear-gradient(165deg, rgba(251,191,36,.09) 0%, var(--s1) 50%);
-  overflow:hidden;
-  transition:var(--ds-t);
-  box-shadow:0 2px 12px rgba(0,0,0,.08);
-}
-.analyze-anchor-card:hover{
-  border-color:rgba(251,191,36,.55);
-  box-shadow:0 12px 36px rgba(251,191,36,.1), 0 4px 16px rgba(0,0,0,.16);
-  transform:translateY(-1px);
-}
-.analyze-summary-box{
-  border-radius:var(--r16);
-  border:1px solid rgba(124, 58, 237,.3);
-  background:linear-gradient(145deg,rgba(124, 58, 237,.09) 0%,rgba(124, 58, 237,.04) 100%);
-  padding:clamp(22px,3.2vw,34px);
-  box-shadow:0 0 52px rgba(124, 58, 237,.14),0 4px 20px rgba(0,0,0,.08);
-}
-.analyze-product-card{
-  background:var(--s1);
-  border:1px solid var(--b1);
-  border-radius:var(--r12);
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  height:100%;
-  transition:var(--ds-t);
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
-}
-.analyze-product-card:hover{
-  border-color:rgba(124, 58, 237,.3);
-  box-shadow:0 8px 24px rgba(0,0,0,.18);
-  transform:translateY(-1px);
-}
-.analyze-progress-card.gc{
-  padding:clamp(24px,3.5vw,36px);
-  box-shadow:0 4px 28px rgba(0,0,0,.12);
-}
 
-/* Analyze page — align with landing hero + CTAs */
-.analyze-page .hbadge{margin-inline:auto;}
-.analyze-page .hbadge--success{
-  border-color:rgba(139, 92, 246,.28);
-  background:rgba(139, 92, 246,.08);
-}
-.analyze-page .hbadge--success .hbadge-pill{
-  background:linear-gradient(135deg,#8b5cf6,#6d28d9);
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-}
-.analyze-page .hbadge--success .hbadge-txt{color:var(--gr);}
-.analyze-hero{
-  max-width:900px;
-  margin-inline:auto;
-  margin-bottom:clamp(32px,5vw,52px);
-  text-align:center;
-}
-.analyze-page-main--marketing > header.analyze-hero:first-child{
-  min-height:calc(100svh - env(safe-area-inset-top, 0px) - var(--page-hero-pt));
-  min-height:calc(100dvh - env(safe-area-inset-top, 0px) - var(--page-hero-pt));
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  box-sizing:border-box;
-  padding-bottom:clamp(20px,4vw,36px);
-  margin-bottom:0;
-}
-.analyze-hero h1.ht{margin-bottom:22px;}
-.analyze-hero .ht .grad{
-  margin-top:6px;
-  padding-bottom:14px;
-}
-/* Arabic / long single-line hero: keep gradient headline readable (not .63em of h1) */
-.analyze-hero .ht .grad.analyze-hero-accent{
-  display:block;
-  flex-direction:unset;
-  font-size:clamp(1.25rem,4.5vw,2.25rem);
-  line-height:1.18;
-  margin-top:4px;
-  padding:6px 0 14px;
-  background-image:none;
-  -webkit-background-clip:unset;
-  background-clip:unset;
-  -webkit-text-fill-color:unset;
-  color:rgba(255,255,255,1);
-  background-size:unset;
-  animation:none;
-}
-.analyze-hero-trust{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:14px;
-  margin-bottom:0;
-}
-.analyze-hero-trust-item{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  font-size:12px;
-  font-weight:600;
-  color:var(--tm);
-  padding:5px 13px;
-  border-radius:999px;
-  border:1px solid var(--b1);
-  background:var(--s1);
-  backdrop-filter:blur(8px);
-  transition:var(--ds-t);
-}
-.analyze-hero-trust-item:hover{
-  border-color:rgba(124, 58, 237,.28);
-  color:var(--t);
-}
 .btn-p:disabled{
   opacity:.55;
   cursor:not-allowed;
   transform:none!important;
   pointer-events:none;
 }
-.analyze-sbar{
-  display:grid;
-  width:100%;
-  box-sizing:border-box;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  max-width:100%;
-  margin:0 auto;
-}
-.analyze-sbi{
-  padding:clamp(20px,3vw,28px) clamp(14px,2vw,20px);
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  min-width:0;
-  border-radius:var(--r16);
-  border:1px solid var(--b1);
-  background:var(--s1);
-  transition:var(--ds-t);
-  position:relative;
-  overflow:hidden;
-}
-.analyze-sbi::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(145deg,rgba(124, 58, 237,.04) 0%,transparent 55%);
-  pointer-events:none;
-}
-.analyze-sbi:hover{
-  border-color:var(--b2);
-  box-shadow:0 12px 36px rgba(0,0,0,.15);
-  transform:translateY(-2px);
-}
-.analyze-sbi-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  margin-bottom:6px;
-}
-@media (min-width:640px){
-  .analyze-sbar{grid-template-columns:repeat(4,1fr);}}
-.analyze-sbar--3{
-  grid-template-columns:1fr 1fr;
-  max-width:760px;
-}
-@media (min-width:640px){
-  .analyze-sbar--3{grid-template-columns:repeat(3,1fr);}}
-.analyze-progress-rule{
-  width:3px;
-  min-height:18px;
-  margin-inline-start:17px;
-  border-radius:3px;
-  background:linear-gradient(180deg,rgba(124, 58, 237,.85),rgba(6,182,212,.55));
-  opacity:.55;
-}
-.analyze-section-head .st{margin-bottom:8px;}
-.analyze-results-head{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-  padding-bottom:clamp(8px,1.5vw,16px);
-}
-
-/* Analyze — navigation, form hierarchy, jump links */
-.analyze-page{
-  scroll-behavior:smooth;
-}
-.analyze-page [id^="analyze-"]{
-  scroll-margin-top:clamp(72px,12vh,120px);
-}
-#analyze-anchors{
-  scroll-margin-top:0;
-  scroll-margin-bottom:0;
-  padding-block:0;
-  padding-inline:0;
-}
-.analyze-breadcrumb{
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:6px;
-  margin:0 0 clamp(16px,3vw,24px);
-  font-size:13px;
-  font-weight:600;
-  color:var(--tm);
-}
-.analyze-breadcrumb__a{
-  color:var(--p3);
-  text-decoration:none;
-}
-.analyze-breadcrumb__a:hover{text-decoration:underline;}
-.analyze-breadcrumb__sep{
-  width:14px;
-  height:14px;
-  opacity:.45;
-  flex-shrink:0;
-}
-[dir="rtl"] .analyze-breadcrumb__sep{transform:scaleX(-1);}
-.analyze-form-section-title{
-  width:100%;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:var(--tm);
-  margin-bottom:14px;
-}
-.analyze-how-steps{
-  list-style:none;
-  margin:0 0 clamp(28px,4.5vw,42px);
-  padding:0;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-  width:100%;
-  max-width:880px;
-  margin-inline:auto;
-}
-@media (min-width:768px){
-  .analyze-how-steps{
-    grid-template-columns:repeat(3,1fr);
-    gap:14px;
-  }}
-.analyze-how-steps li{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:center;
-  text-align:center;
-  padding:24px 20px 20px;
-  border-radius:10px;
-  border:1px solid var(--b1);
-  background:var(--s1);
-  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 4px 20px rgba(0,0,0,.07);
-  transition:var(--ds-t);
-}
-.analyze-how-steps li:hover{
-  border-color:rgba(124, 58, 237,.32);
-  box-shadow:0 12px 40px rgba(0,0,0,.16),0 1px 0 rgba(255,255,255,.06) inset;
-  transform:translateY(-3px);
-}
-.analyze-how-steps .analyze-how-num{
-  flex-shrink:0;
-  width:46px;
-  height:46px;
-  border-radius:14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  font-weight:900;
-  background:linear-gradient(135deg,rgba(124, 58, 237,.25),rgba(6,182,212,.15));
-  color:var(--p3);
-  border:1px solid rgba(124, 58, 237,.3);
-  box-shadow:0 4px 16px rgba(124, 58, 237,.22);
-  letter-spacing:-.02em;
-}
-.analyze-how-steps p{
-  margin:0;
-  font-size:13px;
-  line-height:1.55;
-  font-weight:600;
-  color:var(--t);
-}
-.analyze-optional-details summary{
-  cursor:pointer;
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 14px;
-  border-radius:var(--r12);
-  border:1px dashed var(--b2);
-  background:rgba(124, 58, 237,.04);
-  font-size:13px;
-  font-weight:700;
-  color:var(--t);
-  transition:var(--ds-t);
-}
-.analyze-optional-details summary:hover{
-  border-color:rgba(124, 58, 237,.35);
-  background:rgba(124, 58, 237,.07);
-}
-.analyze-optional-details summary::-webkit-details-marker{display:none;}
-.analyze-optional-details .analyze-opt-chevron{
-  flex-shrink:0;
-  opacity:.65;
-  transition:transform .2s ease;
-}
-.analyze-optional-details[open] .analyze-opt-chevron{
-  transform:rotate(180deg);
-}
-.analyze-optional-details .analyze-opt-body{
-  padding-top:16px;
-  margin-top:10px;
-  margin-bottom:10px;
-}
-.analyze-jump-nav{
-  position:sticky;
-  top:0;
-  z-index:4;
-  display:flex;
-  flex-direction:column;
-  flex-wrap:nowrap;
-  justify-content:flex-start;
-  align-items:center;
-  gap:8px 12px;
-  margin:-4px 0 clamp(22px,3.5vw,32px);
-  padding:12px 14px;
-  border-radius:var(--r12);
-  border:1px solid var(--b1);
-  background:var(--glass-bg);
-  backdrop-filter:var(--glass-blur);
-  -webkit-backdrop-filter:var(--glass-blur);
-  box-shadow:0 8px 32px rgba(0,0,0,.12);
-}
-.analyze-jump-nav__label{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-  color:var(--tm);
-  flex-shrink:0;
-}
-.analyze-jump-nav__track{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  min-width:0;
-  flex:1;
-}
-.analyze-jump-nav__a{
-  font-size:12px;
-  font-weight:700;
-  padding:6px 12px;
-  border-radius:999px;
-  border:1px solid var(--b2);
-  background:var(--s1);
-  color:var(--t);
-  text-decoration:none;
-  transition:var(--ds-t);
-  white-space:nowrap;
-}
-.analyze-jump-nav__a:hover{
-  border-color:rgba(124, 58, 237,.4);
-  color:var(--p3);
-}
-.analyze-input-focus:focus-visible{
-  outline:2px solid rgba(124, 58, 237,.45);
-  outline-offset:2px;
-}
-
-/* ═══════════════════════════════════════════
-   Analyze — Widget Frame (AnchorGroupCard)
-   ═══════════════════════════════════════════ */
-.analyze-anchor-group-card{
-  width:fit-content;
-  height:fit-content;
-  max-width:100%;
-  border-radius:var(--r20);
-  border:1px solid var(--b1);
-  background:var(--s1);
-  padding:clamp(20px,3vw,28px);
-  padding-inline-start:clamp(24px,3.5vw,32px);
-  box-shadow:0 4px 24px rgba(0,0,0,.10),0 1px 0 rgba(255,255,255,.04) inset;
-  transition:var(--ds-t);
-  position:relative;
-  overflow:hidden;
-}
-.analyze-anchor-group-card::before{
-  content:'';
-  position:absolute;
-  top:0;
-  inset-inline-start:0;
-  width:4px;
-  height:100%;
-  background:linear-gradient(180deg,var(--go) 0%,rgba(251,191,36,.2) 100%);
-}
-.analyze-anchor-group-card:hover{
-  border-color:rgba(251,191,36,.22);
-  box-shadow:0 16px 48px rgba(0,0,0,.16),0 1px 0 rgba(255,255,255,.06) inset;
-}
-.analyze-anchor-group-inner{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
-@media(min-width:768px){
-  .analyze-anchor-group-inner{
-    gap:20px;
-  }}
-.analyze-anchor-product-col{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.analyze-anchor-goals-box{
-  border-radius:var(--r12);
-  border:1px solid rgba(124, 58, 237,.15);
-  background:rgba(124, 58, 237,.04);
-  padding:10px 12px;
-  space-y:4px;
-}
-/* Analyze store widget: outer shell uses `.phone-mockup-wrap` (see Analyze.tsx). */
-.analyze-widget-chrome{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-bottom:1px solid rgba(124, 58, 237,.12);
-  background:linear-gradient(135deg,rgba(124, 58, 237,.09) 0%,rgba(124, 58, 237,.05) 100%);
-}
-.analyze-widget-chrome-dots{
-  display:flex;
-  gap:4px;
-  flex-shrink:0;
-}
-.analyze-widget-chrome-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-}
-.analyze-widget-chrome-dot:nth-child(1){background:rgba(239,68,68,.55);}
-.analyze-widget-chrome-dot:nth-child(2){background:rgba(251,191,36,.55);}
-.analyze-widget-chrome-dot:nth-child(3){background:rgba(139, 92, 246,.55);}
-.analyze-widget-product-section{
-  padding:10px 12px;
-  border-bottom:1px solid var(--b1);
-  display:grid;
-  grid-template-columns:68px 1fr;
-  gap:10px;
-  align-items:start;
-}
-.analyze-widget-product-img{
-  width:68px;
-  height:68px;
-  border-radius:10px;
-  overflow:hidden;
-  background:var(--s2);
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.analyze-widget-product-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.analyze-widget-rec-panel{
-  padding:10px 12px;
-}
-.analyze-widget-rec-header{
-  display:flex;
-  align-items:center;
-  gap:5px;
-  font-size:12px;
-  line-height:normal;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.07em;
-  color:var(--p3);
-  margin-bottom:8px;
-}
-.analyze-widget-rec-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 10px;
-  border-radius:10px;
-  background:rgba(124, 58, 237,.04);
-  border:1px solid rgba(124, 58, 237,.1);
-  margin-top:0;
-  margin-bottom:10px;
-  transition:var(--ds-t);
-  cursor:default;
-}
-.analyze-widget-rec-row:first-child{margin-top:10px;}
-.analyze-widget-rec-row:last-child{margin-bottom:0;}
-.analyze-widget-rec-row:hover{
-  background:rgba(124, 58, 237,.09);
-  border-color:rgba(124, 58, 237,.22);
-}
-.analyze-widget-rec-img{
-  width:32px;
-  height:32px;
-  border-radius:7px;
-  overflow:hidden;
-  background:var(--s2);
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.analyze-widget-rec-img img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-/* Anchor group header row */
-.analyze-anchor-group-header{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  margin-bottom:18px;
-  padding-bottom:16px;
-  border-bottom:1px solid var(--b1);
-}
-.analyze-anchor-group-index{
-  flex-shrink:0;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:13px;
-  font-weight:900;
-  background:rgba(251,191,36,.15);
-  color:var(--go);
-  border:1px solid rgba(251,191,36,.3);
-  margin-top:1px;
-}
-@keyframes analyze-scan-pulse{
-  from{opacity:.45;}
-  to{opacity:1;}
-}
-
-/* ════════════════════════════════════════════════════════
-   ANALYZE — RESULTS PAGE AUDIT COMPONENTS
-   ════════════════════════════════════════════════════════ */
-
-/* ─── Done Badge (results header celebration element) ─── */
-.analyze-done-badge{
-  position:relative;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 18px 8px 14px;
-  border-radius:999px;
-  border:1px solid rgba(139, 92, 246,.3);
-  background:rgba(139, 92, 246,.08);
-  font-size:13px;
-  font-weight:700;
-  color:rgba(139, 92, 246,.9);
-  cursor:default;
-  overflow:hidden;
-}
-.analyze-done-badge__glow{
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139, 92, 246,.18),transparent);
-  pointer-events:none;
-}
-.analyze-done-badge__icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  background:rgba(139, 92, 246,.15);
-  color:rgba(139, 92, 246,.9);
-  flex-shrink:0;
-}
-
-/* ─── AI Summary label row ─── */
-.analyze-summary-label-row{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-}
-.analyze-summary-label-icon{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:24px;
-  height:24px;
-  border-radius:8px;
-  background:linear-gradient(135deg,rgba(124, 58, 237,.25),rgba(6,182,212,.15));
-  color:var(--p3);
-  flex-shrink:0;
-}
-.analyze-summary-label-text{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--p3);
-}
-
-/* ─── Success Story Card ─── */
-.analyze-story-card{
-  border-radius:var(--r16);
-  border:1px solid var(--b1);
-  background:var(--s1);
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  min-height:160px;
-  transition:var(--ds-t);
-}
-.analyze-story-card:hover{
-  border-color:var(--b2);
-  box-shadow:0 10px 32px rgba(0,0,0,.14);
-  transform:translateY(-2px);
-}
-.analyze-story-card__bar{
-  height:4px;
-  flex-shrink:0;
-  background:var(--story-color,var(--p3));
-}
-.analyze-story-card__body{
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  flex:1;
-}
-.analyze-story-card__header{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.analyze-story-card__avatar{
-  width:28px;
-  height:28px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:10px;
-  font-weight:800;
-  flex-shrink:0;
-}
-.analyze-story-card__name{
-  font-size:12px;
-  font-weight:700;
-  color:var(--t);
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-.analyze-story-card__text{
-  font-size:10px;
-  line-height:1.55;
-  color:var(--tm);
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-  flex:1;
-}
-.analyze-story-card__metrics{
-  margin-top:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  padding-top:8px;
-  border-top:1px solid var(--b1);
-}
-.analyze-story-card__metric-val{
-  font-size:11px;
-  font-weight:700;
-  color:var(--p3);
-}
-
-/* ─── Info/Disclaimer cards ─── */
-.analyze-info-card{
-  border-radius:var(--r16);
-  border:1px solid var(--b1);
-  background:var(--s1);
-  padding:clamp(18px,2.8vw,24px);
-  display:flex;
-  gap:16px;
-  align-items:flex-start;
-  transition:var(--ds-t);
-}
-.analyze-info-card:hover{
-  border-color:var(--b2);
-}
-.analyze-info-card__icon{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-}
-
-/* ─── Report page header ─── */
-.analyze-report-header{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.analyze-report-meta{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.analyze-report-store-url{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:13px;
-  font-weight:500;
-  color:var(--tm);
-  text-decoration:none;
-  transition:color .2s;
-  padding:6px 12px;
-  border-radius:999px;
-  border:1px solid var(--b1);
-  background:var(--s1);
-  width:fit-content;
-  max-width:100%;
-}
-.analyze-report-store-url:hover{
-  color:var(--t);
-  border-color:var(--b2);
-}
-.analyze-report-timestamp{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 14px;
-  border-radius:var(--r12);
-  border:1px solid rgba(124, 58, 237,.2);
-  background:rgba(124, 58, 237,.05);
-  width:fit-content;
-  max-width:100%;
-}
-.analyze-report-timestamp__icon{
-  width:26px;
-  height:26px;
-  border-radius:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(124, 58, 237,.12);
-  color:var(--p3);
-  flex-shrink:0;
-}
-.analyze-report-timestamp__body{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  flex-wrap:wrap;
-  font-size:12px;
-}
-.analyze-report-timestamp__date{
-  font-weight:700;
-  color:var(--t);
-}
-.analyze-report-timestamp__sep{
-  color:var(--tm);
-  font-weight:300;
-}
-.analyze-report-timestamp__time{
-  font-weight:600;
-  color:var(--p3);
-  font-variant-numeric:tabular-nums;
-  letter-spacing:.02em;
-}
-.analyze-report-anchor-hero{
-  grid-column:1 / span 1;
-}
-
-/* ─── Report page layout (shared report URL) ─── */
-.analyze-page-main.analyze-report-page{
-  align-items:stretch;
-  padding-top:calc(env(safe-area-inset-top, 0px) + clamp(44px, 10vw, 80px));
-  padding-bottom:clamp(40px, 7vw, 76px);
-}
-.landing-shell .analyze-report-shell-inner{
-  display:flex;
-  flex-direction:column;
-  flex:1 1 auto;
-  width:100%;
-  min-height:min(100vh, 100dvh);
-  box-sizing:border-box;
-}
-.analyze-page-main.analyze-report-page.analyze-report-page--centered{
-  justify-content:center;
-  align-items:center;
-  flex:1 1 auto;
-  min-height:0;
-}
-.analyze-report-page--centered .analyze-report-container:not(.analyze-report-stack){
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  width:100%;
-  max-width:100%;
-  flex:1 1 auto;
-  min-height:0;
-  box-sizing:border-box;
-}
-.analyze-report-container{
-  width:100%;
-  max-width:min(900px, 100%);
-  margin-inline:auto;
-  box-sizing:border-box;
-}
-.analyze-report-stack{
-  display:flex;
-  flex-direction:column;
-  gap:clamp(1.75rem, 4.5vw, 2.5rem);
-  padding-bottom:clamp(0.25rem, 1.5vw, 0.75rem);
-}
-.analyze-report-state{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  box-sizing:border-box;
-}
-.analyze-report-state--invalid{
-  min-height:min(52vh, 560px);
-  padding-block:clamp(3rem, 12vw, 5rem);
-  gap:1.25rem;
-}
-.analyze-report-state--loading{
-  min-height:min(48vh, 480px);
-  padding-block:clamp(2.5rem, 10vw, 4rem);
-}
-.analyze-report-state--error{
-  padding-block:clamp(1.5rem, 5vw, 2rem);
-}
-.analyze-report-state__title{
-  font-size:clamp(1.05rem, 3vw, 1.2rem);
-  font-weight:700;
-  margin:0;
-  max-width:28rem;
-  line-height:1.45;
-}
-.analyze-report-loading{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:1rem;
-  text-align:center;
-  padding-inline:clamp(0.75rem, 3vw, 1.25rem);
-}
-.analyze-report-loading__icon{
-  width:2.5rem;
-  height:2.5rem;
-}
-.analyze-report-loading__text{
-  font-size:clamp(0.95rem, 2.8vw, 1.05rem);
-  font-weight:600;
-  letter-spacing:0.01em;
-}
-.analyze-report-error-panel{
-  width:100%;
-  max-width:26rem;
-  margin-inline:auto;
-  text-align:center;
-  border-radius:var(--r20);
-  border:1px solid var(--b1);
-  background:var(--s1);
-  padding:clamp(1.75rem, 5vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
-  box-shadow:0 4px 28px rgba(0,0,0,.08), 0 1px 0 rgba(255,255,255,.04) inset;
-}
-.analyze-report-error-panel__title{
-  font-size:clamp(1.05rem, 3vw, 1.2rem);
-  font-weight:700;
-  margin:0 0 0.5rem;
-  line-height:1.35;
-}
-.analyze-report-error-panel__body{
-  font-size:0.875rem;
-  line-height:1.65;
-  margin:0 0 1.5rem;
-}
-.analyze-report-toolbar{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  gap:clamp(0.75rem, 2.5vw, 1.25rem);
-  padding-block:clamp(4px, 1.2vw, 8px);
-  padding-bottom:clamp(14px, 2.8vw, 22px);
-  border-bottom:1px solid var(--b1);
-}
-.analyze-report-toolbar .analyze-breadcrumb{
-  margin:0;
-  flex:1 1 auto;
-  min-width:min(100%, 200px);
-}
-.analyze-report-toolbar__nav{
-  justify-content:flex-start;
-}
-.analyze-report-toolbar__actions{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:flex-end;
-  gap:0.5rem 0.75rem;
-}
-.analyze-report-copy-btn{
-  min-height:40px;
-  padding-inline:0.9rem;
-}
-.analyze-report-hero{
-  border-radius:var(--r20);
-  border:1px solid rgba(124, 58, 237,.2);
-  background:linear-gradient(
-    165deg,
-    rgba(124, 58, 237,.085) 0%,
-    rgba(6,182,212,.035) 44%,
-    var(--glass-bg) 100%
-  );
-  box-shadow:0 2px 28px rgba(124, 58, 237,.07), 0 16px 48px rgba(0,0,0,.07);
-  padding:clamp(1.25rem, 4vw, 2rem) clamp(1.1rem, 3.5vw, 1.75rem);
-  display:flex;
-  flex-direction:column;
-  gap:clamp(1.15rem, 3.2vw, 1.75rem);
-}
-.analyze-report-hero__intro .analyze-report-meta{
-  gap:clamp(0.55rem, 1.8vw, 0.85rem);
-}
-.analyze-report-title{
-  font-size:clamp(1.28rem, 4vw, 1.8rem);
-  font-weight:900;
-  letter-spacing:-0.03em;
-  line-height:1.28;
-  margin:clamp(0.35rem, 1.2vw, 0.65rem) 0 0;
-  overflow-wrap:anywhere;
-  word-break:break-word;
-}
-.analyze-report-hero__meta-row{
-  display:flex;
-  flex-direction:column;
-  align-items:stretch;
-  gap:clamp(0.65rem, 2vw, 0.85rem);
-  margin-top:clamp(0.15rem, 1vw, 0.35rem);
-}
-@media (min-width:640px){
-  .analyze-report-hero__meta-row{
-    flex-direction:row;
-    flex-wrap:wrap;
-    align-items:stretch;
-  }
-  .analyze-report-store-url--hero{
-    flex:1 1 auto;
-    min-width:min(100%, 260px);
-  }
-  .analyze-report-timestamp--inline{
-    flex:0 1 auto;
-  }}
-.analyze-report-store-url--hero{
-  max-width:100%;
-  min-height:44px;
-  padding:8px 14px;
-  align-self:stretch;
-}
-.analyze-report-timestamp--inline{
-  width:100%;
-  max-width:100%;
-  min-height:44px;
-  padding:8px 14px;
-  box-sizing:border-box;
-  align-items:center;
-}
-@media (min-width:640px){
-  .analyze-report-timestamp--inline{
-    width:auto;
-    max-width:min(100%, 440px);
-    align-self:center;
-  }}
-.analyze-report-hero__stats{
-  padding-top:clamp(1rem, 2.8vw, 1.35rem);
-  margin-top:0;
-  border-top:1px solid rgba(124, 58, 237,.14);
-}
-.analyze-sbar--report-hero{
-  max-width:100%!important;
-  margin-inline:0;
-  gap:clamp(0.65rem, 2vw, 0.9rem);
-}
-@media (max-width:639px){
-  .analyze-sbar--report-hero.analyze-sbar--3{
-    grid-template-columns:1fr;
-  }}
-.analyze-sbar--report-hero .analyze-sbi{
-  padding:clamp(0.95rem, 2.8vw, 1.35rem) clamp(0.75rem, 2vw, 1.1rem);
-}
-.analyze-sbar--report-hero .analyze-stat-num{
-  font-size:clamp(1.65rem, 7vw, 2.25rem);
-}
-.analyze-sbar--report-hero .analyze-stat-label{
-  margin-top:0.35rem;
-  font-size:11px;
-  line-height:1.35;
-  padding-inline:0.25rem;
-}
-.analyze-summary-box--report{
-  padding:clamp(1.25rem, 3.5vw, 1.75rem) clamp(1.1rem, 3.2vw, 1.6rem);
-  border-radius:var(--r20);
-  display:flex;
-  flex-direction:column;
-  gap:0.65rem;
-}
-.analyze-summary-box--report .analyze-summary-label-row{
-  margin-bottom:0;
-}
-.analyze-summary-box--report__body{
-  margin:0;
-  font-size:clamp(0.875rem, 2.4vw, 0.9375rem);
-  line-height:1.75;
-}
-.analyze-anchor-group-card--report{
-  width:100%;
-  max-width:100%;
-  box-sizing:border-box;
-  padding:clamp(1.1rem, 3.2vw, 1.65rem) clamp(1rem, 3vw, 1.5rem);
-  padding-inline-start:clamp(1.15rem, 3.4vw, 1.65rem);
-}
-.analyze-anchor-group-card--report .analyze-anchor-group-header{
-  margin-bottom:clamp(0.85rem, 2.5vw, 1.1rem);
-  padding-bottom:clamp(0.75rem, 2vw, 1rem);
-}
-.analyze-report-anchor-reason{
-  border-radius:var(--r12);
-  padding:clamp(0.65rem, 2vw, 0.85rem) clamp(0.75rem, 2.2vw, 1rem);
-  margin-bottom:clamp(1rem, 2.8vw, 1.25rem);
-  border:1px solid rgba(251,191,36,.22);
-  background:rgba(251,191,36,.06);
-}
-.analyze-report-anchor-reason p{
-  margin:0;
-  font-size:0.8125rem;
-  line-height:1.65;
-}
-.analyze-report-product-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:clamp(0.75rem, 2.2vw, 1rem);
-  align-items:start;
-}
-@media (min-width:640px){
-  .analyze-report-product-grid{
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-  }}
-@media (min-width:1024px){
-  .analyze-report-product-grid{
-    grid-template-columns:repeat(4, minmax(0, 1fr));
-  }}
-.analyze-report-rec-col{
-  display:flex;
-  flex-direction:column;
-  gap:0.45rem;
-  min-width:0;
-}
-.analyze-report-rec-reason{
-  margin:0;
-  padding:0 0.125rem;
-  font-size:0.6875rem;
-  line-height:1.55;
-}
-.analyze-report-product-card{
-  height:100%;
-}
-.analyze-report-product-meta{
-  padding:clamp(0.65rem, 2vw, 0.85rem) clamp(0.65rem, 1.8vw, 0.85rem);
-  gap:0.35rem;
-}
-.analyze-report-product-title{
-  font-size:0.75rem;
-  line-height:1.35;
-}
-.analyze-report-product-price{
-  font-size:0.8125rem;
-  line-height:1.25;
-}
-.analyze-report-section-head{
-  margin-bottom:clamp(1.15rem, 3vw, 1.5rem);
-}
-.analyze-report-section-title{
-  font-size:clamp(1.15rem, 3.4vw, 1.5rem);
-  font-weight:800;
-  letter-spacing:-0.025em;
-  line-height:1.22;
-  margin:0;
-  color:var(--t);
-}
-.analyze-report-section-sub{
-  margin:clamp(0.45rem, 1.5vw, 0.65rem) 0 0;
-  font-size:clamp(0.875rem, 2.5vw, 0.9375rem);
-  line-height:1.65;
-  color:var(--tm);
-  max-width:38rem;
-}
-.analyze-report-reco-section{
-  padding-top:clamp(0.25rem, 1.5vw, 0.5rem);
-}
-.analyze-report-reco-list{
-  display:flex;
-  flex-direction:column;
-  gap:clamp(1.15rem, 3.2vw, 1.5rem);
-}
-
-/* ─── Share section header ─── */
-.analyze-share-header{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-.analyze-share-icon{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:rgba(124, 58, 237,.12);
-  border:1px solid rgba(124, 58, 237,.2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--p3);
-  flex-shrink:0;
-}
-
-
-
 
 /* ===== PRICING PAGE ===== */
 
@@ -5455,21 +4350,19 @@ section#live-demo.landing-white-accent .ssub {
 .ai-topup { overflow: visible; }
 
 /* ════════════════════════════════════════════════════════════════════════
-   TrackFlow homepage (src/pages/HomeTrackflow.tsx) — isolation layer.
-   The page is pure Tailwind and must NOT inherit ziadah's legacy global
-   element rules (section{} padding/position/z-index, heading text-fill, etc).
-   Scope a reset under .tf-home so those globals can't bleed in.
+   Home page (src/pages/HomeTrackflow.tsx).
+
+   This used to be an ISOLATION layer: the page was pure Tailwind and was
+   walled off from the legacy global element rules, including a
+   `padding-left/right: 1.6rem !important` that restored its own gutters.
+
+   The page is on the design system now, so the wall was keeping out the very
+   rules it should be following: measured at 1440, a home section got 16px of
+   inline padding where every other page's section got 72px, and the home page
+   ran 56px closer to the edge than the rest of the site. What is left is the
+   page's own typeface and colour, and nothing that fights the system.
    ════════════════════════════════════════════════════════════════════════ */
 .tf-home { width: 100%; color: #0a0a0b; }
-.tf-home section {
-  position: static;
-  z-index: auto;
-  overflow-x: visible;
-  /* override the global `section{ padding-left/right: …!important }` (line ~1223)
-     and restore the page's intended px-4 (1rem) gutters; vertical stays on py-* */
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-}
 .tf-home :is(h1, h2, h3, h4, h5, h6, p, span, a, em, strong, li, small, button) {
   -webkit-text-fill-color: currentColor;
 }
@@ -5529,3 +4422,121 @@ section#live-demo.landing-white-accent .ssub {
 }
 @media (prefers-reduced-motion: reduce) {
   .skip-link { transition: none; }}
+
+/* ── Section-aware colour ramp ──────────────────────────────────────────────
+   Ported with the rest of the design system. Token NAMES are Tailwind's, so
+   existing colour utilities in JSX keep compiling; what changed is what they
+   RESOLVE to. The `brand` and `ink` ramps no longer name a fixed hue — they
+   resolve through the SECTION's own triple, so `text-brand` inside a dark
+   band is pale and the same class on the light page is ink. That is the
+   system's rule stated as tokens: colour is a page property, not a
+   component's.
+
+   `@theme inline` matters here: it emits `var(--color-brand)` at the use site
+   rather than resolving at build time, which is what lets the value change
+   per section. */
+@theme inline {
+  /* Brand — resolves to whichever family the current section stamped. */
+  /* TEXT reads the section's ink. `--color` is the family base, a mid-tone
+     the capture uses for shapes (`.shapeBack { color: var(--color) }`) and
+     never for type - using it as a text colour puts #baf24a on #e5ffc3. */
+  --color-brand: var(--color-secondary, var(--general-black));
+  --color-brand-hover: var(--color-secondary, var(--general-black));
+  --color-brand-text: var(--color-secondary, var(--general-black));
+  --color-brand-bright: var(--color-secondary, var(--general-black));
+  --color-brand-light: var(--color-primary, var(--general-white));
+  /* TEXT, despite the name: every call site is `text-brand-pale`. Pointing
+     it at `--color-primary` painted the ink in the section's own ground
+     colour - exactly 1:1. It reads the ink like the rest of the ramp. */
+  --color-brand-pale: var(--color-secondary, var(--general-black));
+  --color-brand-deep: var(--color-secondary, var(--general-black));
+  --color-brand-border: color-mix(in srgb, var(--color-secondary, #07000c) 24%, transparent);
+  --color-brand-muted: color-mix(in srgb, var(--color-secondary, #07000c) 14%, transparent);
+  --color-brand-soft: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+
+  /* Neutral — ONE ink at MEASURED opacities.
+
+     The capture has no second grey ramp anywhere. Muted text inherits
+     `--color-secondary` and drops opacity, and every step below is a value
+     that actually appears in the ported modules:
+
+       0.85  faqAnswer
+       0.75  gridCardBody, listBody
+       0.6   listIndex
+       0.5   breadcrumb separator
+       0.2   inactive scrollable-list row, hairline rule
+       0.08  gridCard ground tint
+
+     `color-mix(X n%, transparent)` over an opaque ground composites
+     identically to `opacity: n` on X, so these tokens are the same mechanism
+     expressed as a colour - which is what the Tailwind bridge needs, since a
+     `--color-*` token cannot carry an opacity. Components that own their own
+     rule use `opacity` directly, as measured.
+
+     An earlier version invented a 92/78/66/62/52 ramp. Those numbers appear
+     nowhere in the capture and are gone. */
+  /* The MEASURED opacity steps, floored per family. One ink, several
+     opacities (CORRECTION A) - but the same opacity is not the same contrast
+     on every pair: 0.6 gives 5.22:1 on blue/inv and 2.91:1 on orange. Each
+     step is written at its measured value and lifted only where the family's
+     own pair cannot carry it, by `--ink-floor`, which `themeVars` stamps
+     beside the triple. `max()` means the measured number is what applies
+     wherever it passes. See docs/DEVIATIONS.md D-05 for the floor table. */
+  --color-ink: var(--color-secondary, var(--general-black));
+  --color-ink-deep: var(--color-secondary, var(--general-black));
+  --color-ink-strong: color-mix(in srgb, var(--color-secondary, #07000c) max(85%, var(--ink-floor, 0%)), transparent);
+  --color-ink-soft: color-mix(in srgb, var(--color-secondary, #07000c) max(75%, var(--ink-floor, 0%)), transparent);
+  --color-ink-muted: color-mix(in srgb, var(--color-secondary, #07000c) max(75%, var(--ink-floor, 0%)), transparent);
+  --color-ink-subtle: color-mix(in srgb, var(--color-secondary, #07000c) max(60%, var(--ink-floor, 0%)), transparent);
+  --color-ink-faint: color-mix(in srgb, var(--color-secondary, #07000c) max(50%, var(--ink-floor, 0%)), transparent);
+  --color-line-strong: color-mix(in srgb, var(--color-secondary, #07000c) 20%, transparent);
+  --color-line: color-mix(in srgb, var(--color-secondary, #07000c) 20%, transparent);
+  --color-surface-muted: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+  --color-surface-subtle: color-mix(in srgb, var(--color-secondary, #07000c) 8%, transparent);
+
+  /* Status — the reference carries two, plus a value up/down pair. The
+     `warning` ramp has its own pair (see above); it is not a section family
+     and no section can be grounded in it. */
+  --color-warning-subtle: color-mix(in srgb, var(--warning) 12%, transparent);
+  --color-warning-soft: color-mix(in srgb, var(--warning) 20%, transparent);
+  --color-warning-border: color-mix(in srgb, var(--warning) 40%, transparent);
+  --color-warning-pale: var(--status-warning-ink);
+  --color-warning: var(--warning);
+  --color-warning-strong: var(--status-warning-ink);
+  --color-warning-mid: var(--status-warning-ink);
+  --color-warning-text: var(--status-warning-ink);
+  --color-warning-dark: var(--status-warning-ink);
+  --color-warning-deep: var(--status-warning-ink);
+
+  /* Status — error. */
+  --color-error-subtle: color-mix(in srgb, var(--error) 10%, transparent);
+  --color-error-soft: color-mix(in srgb, var(--error) 18%, transparent);
+  --color-error-border: color-mix(in srgb, var(--error) 36%, transparent);
+  --color-error-light: var(--status-error-ink);
+  --color-error: var(--error);
+  --color-error-strong: var(--status-error-ink);
+  --color-error-text: var(--status-error-ink);
+
+  --color-danger-subtle: color-mix(in srgb, var(--error) 10%, transparent);
+  --color-danger-border: color-mix(in srgb, var(--error) 36%, transparent);
+  --color-danger-pale: var(--status-error-ink);
+  --color-danger-light: var(--status-error-ink);
+  --color-danger: var(--error);
+  --color-danger-strong: var(--status-error-ink);
+}
+
+/* ── Header mark ────────────────────────────────────────────────────────────
+   `.site-header` flips `data-theme` from its own hit test on the ground it is
+   over. Its controls follow because they read the neutral pair; the logo is a
+   two-tone raster and cannot, so both variants ship and this picks one. Only
+   one is ever laid out, so the bar's width does not change with the swap. */
+.header-logo--inv { display: none; }
+.site-header[data-theme="dark"] .header-logo--ink { display: none; }
+.site-header[data-theme="dark"] .header-logo--inv { display: block; }
+
+/* ── Scroll ownership ────────────────────────────────────────────────────────
+   Native smooth scrolling is the fallback. When Lenis is driving the page it
+   sets `data-lenis` on <html>; the two must never both animate the same
+   scroll, or anchor jumps fight each other. */
+html[data-lenis] { scroll-behavior: auto; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

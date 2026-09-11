@@ -7,7 +7,7 @@ const data: UseCasePageData = {
     title: "صفحة الشكر",
     subtitle: "بعد إتمام الشراء مباشرة — العميل في أعلى حالات الرضا والانفتاح. هذه اللحظة الذهبية لاقتراح منتج يكمل تجربته أو دعوته للطلب مجدداً.",
     tagline: "الراضي عن شرائه أكثر عميل مستعد للشراء مرة ثانية",
-    icon: "🎉",
+    icon: "",
   },
   whatWeDoTitle: "كيف يعمل زيادة في صفحة الشكر؟",
   whatWeDoDesc:
@@ -15,7 +15,7 @@ const data: UseCasePageData = {
   strategyTitle: "استراتيجيات زيادة في صفحة الشكر",
   strategies: [
     {
-      icon: "🎯",
+      icon: "",
       title: "منتج تكميلي ما بعد الشراء",
       desc: "يعرض منتجاً مكمّلاً مباشراً لما اشتراه العميل للتو — بمنطق 'معظم من اشتروا هذا أضافوا أيضاً...' لتحفيز الطلب الثاني.",
       color: "#8b5cf6",
@@ -27,7 +27,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "كوبون الشراء التالي",
       desc: "يمنح العميل كوبون خصم لطلبه القادم مع مدة محدودة (24-48 ساعة) لخلق شعور بالعجلة وإعادته للمتجر.",
       color: "#f59e0b",
@@ -48,9 +48,9 @@ const data: UseCasePageData = {
   exampleScenario: {
     title: "عميل اشترى هاتفاً جديداً",
     steps: [
-      "العميل أتم شراء هاتف Galaxy بسعر 1800 ⃁.",
+      "العميل أتم شراء هاتف ذكي بسعر 1800 ر.س.",
       "تظهر له صفحة شكر مخصصة من زيادة بدلاً من الصفحة الجامدة المعتادة.",
-      "يظهر له: 'عملاء اشتروا هذا الهاتف أضافوا أيضاً → واقي شاشة + غلاف + سماعة بلوتوث بحزمة 280 ⃁'.",
+      "يظهر له: 'عملاء اشتروا هذا الهاتف أضافوا أيضاً → واقي شاشة + غلاف + سماعة بلوتوث بحزمة 280 ر.س'.",
       "يظهر أيضاً كوبون 15% خصم لأي طلب خلال 48 ساعة القادمة.",
     ],
     result: "38% من هؤلاء العملاء أضافوا الإكسسوارات فوراً، و22% عادوا خلال 48 ساعة باستخدام الكوبون.",
@@ -63,7 +63,7 @@ const data: UseCasePageData = {
     title: "Thank You Page",
     subtitle: "Right after completing the purchase — the customer is at peak satisfaction and openness. This golden moment is perfect for suggesting a complementary product or inviting them to order again.",
     tagline: "A satisfied buyer is the most ready customer to buy again",
-    icon: "🎉",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah work on the thank you page?",
   whatWeDoDescEn:
@@ -71,7 +71,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ziadah's strategies on the thank you page",
   strategiesEn: [
     {
-      icon: "🎯",
+      icon: "",
       title: "Post-Purchase Complementary Product",
       desc: "Shows a directly complementary product to what the customer just bought — with the logic 'Most who bought this also added...' to stimulate the second order.",
       color: "#8b5cf6",
@@ -83,7 +83,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🏷️",
+      icon: "",
       title: "Next Purchase Coupon",
       desc: "Gives the customer a discount coupon for their next order with a limited time window (24-48 hours) to create urgency and bring them back.",
       color: "#f59e0b",
@@ -104,7 +104,7 @@ const data: UseCasePageData = {
   exampleScenarioEn: {
     title: "A customer who bought a new phone",
     steps: [
-      "The customer completed a Galaxy phone purchase at 1,800 SAR.",
+      "The customer completed a smartphone purchase at 1,800 SAR.",
       "A personalized thank you page from Ziadah appears instead of the usual static page.",
       "Shown: 'Customers who bought this phone also added → screen protector + case + Bluetooth earbuds as a bundle for 280 SAR'.",
       "Also shown: a 15% coupon for any order within the next 48 hours.",

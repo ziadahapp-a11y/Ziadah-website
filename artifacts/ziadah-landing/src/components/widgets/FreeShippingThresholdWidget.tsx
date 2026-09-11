@@ -1,109 +1,108 @@
 import { useMemo } from "react";
-import UseCaseWidgetPreview from "../UseCaseWidgetPreview";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { Editable } from "@/cms/components/Editable";
-import { cmsKey } from "@/cms/cmsKeys";
 import type { FreeShippingDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import {
+  WidgetShell,
+  ProductCollection,
+  ProductCard,
+  PromoBanner,
+  StatCard,
+  SummaryBar,
+  AddAllBar,
+  CartCheckoutRow,
+  DismissRow,
+  WidgetButton,
+  type ProductShape,
+  type CampaignStyle,
+} from "./kit";
 
-export default function FreeShippingThresholdWidget({ demo }: { demo?: FreeShippingDemo }) {
-  const t = useSiteT();
+/**
+ * The free-shipping meter, plus what would close the gap. The bar is the
+ * widget's whole argument, so it leads; the products under it are the means.
+ */
+export default function FreeShippingThresholdWidget({
+  demo,
+  shape = "list",
+  style = "embedded",
+}: {
+  demo?: FreeShippingDemo;
+  shape?: ProductShape;
+  style?: CampaignStyle;
+}) {
+  const t = siteTranslations;
   const { lang } = useLanguage();
-  const tr = useMemo(
-    () => mergeShowcaseDemo(t[lang].widgets.freeShipping, demo),
-    [t, lang, demo],
-  );
+  const isAr = lang === "ar";
+  const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.freeShipping, demo), [t, lang, demo]);
+  const currency = tr.currency.trim();
 
-  const progress = 69;
-
+  /* The file leads this one with an OFFER block rather than a meter: the
+     gradient banner states the reward and hands the shopper a way to pick
+     what closes the gap. The products follow, and the sheet closes on the
+     same summary, add-all and cart rows every other type uses. */
   return (
-    <UseCaseWidgetPreview
-      title={
-        <Editable contentKey={cmsKey(lang, "widgets", "freeShipping", "title")} label="Free shipping title" type="text">
-          {tr.title}
-        </Editable>
-      }
+    <WidgetShell
+      title={isAr ? "أضف المزيد من المنتجات" : "Add more products"}
       subtitle={
-        <Editable contentKey={cmsKey(lang, "widgets", "freeShipping", "subtitle")} label="Free shipping subtitle" type="text">
-          {tr.subtitle}
-        </Editable>
+        isAr
+          ? "اكتشف هذه المنتجات قبل إتمام طلبك."
+          : "Explore these great items before you checkout."
+      }
+      style={style}
+      dismissible={style !== "embedded"}
+      footer={
+        <>
+          <SummaryBar
+            label={
+              isAr ? `الإجمالي (${tr.products.length})` : `Total items (${tr.products.length})`
+            }
+            was={`${"56"} ${currency}`}
+            now={`${"40"} ${currency}`}
+            save={isAr ? "وفر 20%" : "Save 20%"}
+          />
+          <AddAllBar>{isAr ? "أضف الكل" : "Add all"}</AddAllBar>
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${"1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <div style={{ marginBottom: 12 }}>
-        <div style={{
-          padding: "10px 12px",
-          borderRadius: 10,
-          background: "rgba(124, 58, 237,.12)",
-          border: "1.5px solid rgba(124, 58, 237,.3)",
-          marginBottom: 12,
-        }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "var(--t)" }}>{tr.progressTitle}</span>
-            <span style={{ fontSize: 12, color: "#c084fc", fontWeight: 700 }}>{tr.remainingLabel}</span>
-          </div>
-          <div style={{
-            height: 7,
-            borderRadius: 10,
-            background: "var(--s3)",
-            overflow: "hidden",
-            marginBottom: 4,
-          }}>
-            <div style={{
-              height: "100%",
-              width: `${progress}%`,
-              borderRadius: 10,
-              background: "linear-gradient(90deg, rgba(124, 58, 237,0.6), rgba(139, 92, 246,0.5))",
-              transition: "width .5s ease",
-            }} />
-          </div>
-          <div style={{ fontSize: 12, color: "var(--td)", textAlign: "center" }}>
-            {tr.progressNote}
-          </div>
-        </div>
-        <div style={{ fontSize: 12, color: "var(--td)", marginBottom: 7 }}>{tr.suggestedLabel}</div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-          {tr.products.map((p, i) => (
-            <div key={i} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 9,
-              padding: "8px 10px",
-              borderRadius: 10,
-              background: "var(--s1)",
-              border: "1.5px solid var(--b1)",
-            }}>
-              <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: 8,
-                background: "rgba(245,158,11,.12)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 16,
-                flexShrink: 0,
-              }}>{p.emoji}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--t)" }}>{p.name}</div>
-                <div style={{ fontSize: 12, fontWeight: 800, color: "#c084fc" }}>{tr.currency}{p.price}</div>
-              </div>
-              <div style={{
-                width: 20,
-                height: 20,
-                borderRadius: 5,
-                background: "var(--s2)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-              }}>
-                <span style={{ color: "var(--td)", fontSize: 12, fontWeight: 900 }}>✓</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </UseCaseWidgetPreview>
+      <StatCard
+        value={`250 ${currency}`}
+        label={isAr ? "رصيد التوفير" : "Pricing balance"}
+        benefits={[
+          isAr ? "شحن مجاني" : "Free shipping",
+          isAr ? "الدفع عند الاستلام" : "Cash on delivery",
+        ]}
+      />
+      <PromoBanner
+        title={tr.progressTitle}
+        sub={tr.progressNote}
+        action={
+          <WidgetButton block>{isAr ? "اختر المنتجات" : "Choose products"}</WidgetButton>
+        }
+      />
+      <ProductCollection shape={shape}>
+        {tr.products.map((p, i) => (
+          <ProductCard
+            key={i}
+            name={p.name}
+            price={p.price}
+            currency={currency}
+            rating="4.95"
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            favourite={shape !== "list"}
+            action={<WidgetButton block>{isAr ? "أضف" : "Add"}</WidgetButton>}
+          />
+        ))}
+      </ProductCollection>
+    </WidgetShell>
   );
 }

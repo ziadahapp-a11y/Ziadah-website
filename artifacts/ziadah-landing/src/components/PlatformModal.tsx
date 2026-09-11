@@ -5,6 +5,7 @@ import { Plus, X } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
 import { platformAsset } from "@/utils/platformAsset";
 import FeatureRequestModal from "./FeatureRequestModal";
+import { sectionTheme } from "@/sections";
 
 interface PlatformModalProps {
   open: boolean;
@@ -41,12 +42,16 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
 
   if (!open) return null;
 
+  /* The tiles are the system's own cards. They were white panels with a
+     zinc border and a hover drop shadow - the modal was the last surface on
+     the site still built that way. */
   const tileClass =
-    "flex flex-col items-center justify-center gap-4 text-center rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all";
+    "card card--short card--clickable items-center justify-center gap-4 text-center";
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100100] flex items-center justify-center overflow-y-auto p-4 sm:p-5 bg-zinc-950/40 backdrop-blur-sm"
+      className="fixed inset-0 z-[100100] flex items-center justify-center overflow-y-auto p-4 sm:p-5 backdrop-blur-sm"
+      style={{ background: "color-mix(in srgb, var(--general-black) 45%, transparent)" }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -56,16 +61,21 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         initial={{ opacity: 0, y: 14, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-[min(920px,96vw)] max-h-[calc(100vh-40px)] overflow-auto rounded-3xl border border-zinc-200 bg-white p-6 sm:p-8 md:p-9 shadow-card-lg"
+        className="relative w-[min(920px,96vw)] max-h-[calc(100vh-40px)] overflow-auto rounded-3xl p-6 sm:p-8 md:p-9"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        style={{ direction: dir }}
+        /* The dialog stamps a family of its own, the way a band does. Without
+           it `--color-primary` and `--color-secondary` are unset inside the
+           portal - it renders outside `.page` - and every card class in here
+           would fall back to its bare default. */
+        {...sectionTheme("grey")}
+        style={{ direction: dir, background: "var(--color-primary)", color: "var(--color-secondary)" }}
       >
         <button
           type="button"
-          className="absolute top-3.5 flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+          className="chip is-small absolute top-3.5 h-9 w-9 justify-center !px-0"
           style={{ insetInlineEnd: 14 }}
           onClick={onClose}
           aria-label={isAr ? "إغلاق" : "Close"}
@@ -76,14 +86,14 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
         <div className="mb-7 text-center">
           <span
             id={titleId}
-            className="inline-block text-xs font-bold uppercase tracking-widest text-violet-600"
+            className="t-eyebrow"
           >
             {isAr ? "اختر منصتك" : "Choose your platform"}
           </span>
-          <h3 className="mt-2.5 text-2xl font-bold leading-tight text-zinc-950 md:text-3xl">
+          <h3 className="section-head-title--sm mt-2.5">
             {isAr ? "متجرك على أي منصة؟" : "Which platform is your store on?"}
           </h3>
-          <p className="mx-auto mt-2.5 max-w-xl text-sm leading-relaxed text-zinc-600 md:text-base">
+          <p className="sector-card-text mx-auto mt-2.5 max-w-xl">
             {isAr
               ? "فعّل زيادة في دقيقتين وابدأ رحلتك نحو مبيعات أعلى"
               : "Activate Ziadah in 2 minutes and start making more sales instantly"}
@@ -110,7 +120,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
                 className="h-9 w-auto max-w-full object-contain md:h-10"
               />
             </div>
-            <span className="text-xs leading-relaxed text-zinc-500">
+            <span className="card-eyebrow">
               {isAr ? "تثبيت من متجر تطبيقات زد" : "Install from Zid app store"}
             </span>
           </a>
@@ -134,7 +144,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
                 className="h-11 w-auto max-w-full object-contain md:h-12"
               />
             </div>
-            <span className="text-xs leading-relaxed text-zinc-500">
+            <span className="card-eyebrow">
               {isAr ? "تثبيت من متجر تطبيقات سلة" : "Install from Salla app store"}
             </span>
           </a>
@@ -142,24 +152,24 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           <button type="button" className={tileClass} onClick={() => setFeatureModalOpen(true)}>
             <div className="flex h-16 items-center justify-center">
               <span
-                className="flex h-12 w-12 items-center justify-center rounded-lg border border-violet-200 bg-violet-50 text-violet-600"
+                className="card-ico"
                 aria-hidden="true"
               >
                 <Plus className="h-6 w-6" />
               </span>
             </div>
             <div>
-              <span className="block text-lg font-bold leading-tight text-zinc-950">
+              <span className="sector-card-title block">
                 {isAr ? "أخرى" : "Other"}
               </span>
-              <span className="mt-1 block text-xs leading-relaxed text-zinc-500">
+              <span className="card-eyebrow mt-1 block">
                 {isAr ? "اقترح منصتك وسنتواصل معك" : "Suggest your platform and we will reach out"}
               </span>
             </div>
           </button>
         </div>
 
-        <p className="mt-7 text-center text-xs leading-relaxed text-zinc-500">
+        <p className="section-note mt-7">
           {isAr
             ? "تجربة مجانية 7 أيام · بدون بطاقة ائتمانية"
             : "7-day free trial · No credit card required"}

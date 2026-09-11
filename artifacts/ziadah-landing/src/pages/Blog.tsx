@@ -3,14 +3,14 @@ import { t } from "@/i18n/translations";
 import { blogPosts, categories } from "../data/blogPosts";
 import { navigateTo } from "@/components/PageTransition";
 import StandardPage from "../components/StandardPage";
+import { HeroLede, Section as DsSection, CatalogueIndex } from "@/sections";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, ItemListSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "../cms/siteContent";
-import { ArrowLeft, ArrowRight, Clock, Search } from "lucide-react";
-import { Eyebrow } from "@/components/trackflow";
+import { Clock, Search } from "lucide-react";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const legacyCategoryMap: Record<string, string> = {
   "استراتيجيات البيع": "sales-strategies",
@@ -32,8 +32,7 @@ function getInitialFilters() {
 }
 
 export default function Blog() {
-  const t = useSiteT();
-  const cmsMap = useSiteContentMap();
+  const t = siteTranslations;
   const { lang, isAr } = useLanguage();
   const tx = t[lang].blog;
   const pc = t[lang].pageClosingCta;
@@ -42,7 +41,6 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState(initial.cat);
   const [search, setSearch] = useState(initial.search);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
 
   function updateUrl(cat: string, searchVal: string) {
     // Preserve unrelated params (e.g. `mode=dark|light`) while updating blog filters.
@@ -96,20 +94,20 @@ export default function Blog() {
 
   const getTitle = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.title`] ?? p.title
-      : cmsMap[`blog.${p.slug}.titleEn`] ?? p.titleEn ?? p.title;
+      ? p.title
+      : p.titleEn ?? p.title;
   const getSummary = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.summary`] ?? p.summary
-      : cmsMap[`blog.${p.slug}.summaryEn`] ?? p.summaryEn ?? p.summary;
+      ? p.summary
+      : p.summaryEn ?? p.summary;
   const getReadTime = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.readTime`] ?? p.readTime
-      : cmsMap[`blog.${p.slug}.readTimeEn`] ?? p.readTimeEn ?? p.readTime;
+      ? p.readTime
+      : p.readTimeEn ?? p.readTime;
   const getPublishDate = (p: typeof blogPosts[0]) =>
     isAr
-      ? cmsMap[`blog.${p.slug}.publishDate`] ?? p.publishDate
-      : cmsMap[`blog.${p.slug}.publishDateEn`] ?? p.publishDateEn ?? p.publishDate;
+      ? p.publishDate
+      : p.publishDateEn ?? p.publishDate;
 
   const filtered = blogPosts.filter((post) => {
     const matchCat =
@@ -126,13 +124,14 @@ export default function Blog() {
   });
 
   const getCatLabel = (cat: typeof categories[number]) => isAr ? cat.label : cat.labelEn;
+  const catLabelOf = (p: typeof blogPosts[0]) => {
+    const c = categories.find((x) => x.id === p.category);
+    return c ? getCatLabel(c) : p.category;
+  };
+  /* The newest post leads the catalogue; the rest paginate under it. */
+  const [featuredPost, ...rest] = filtered;
   const pk = getPageKeywords("/blog");
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -144,8 +143,7 @@ export default function Blog() {
       canonical="/blog"
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
-      className="relative overflow-x-clip bg-white"
-      style={{ background: "#fff", color: "#09090b" }}
+      className="relative overflow-x-clip"
     >
     <>
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbBlog, url: "/blog" }]} />
@@ -156,127 +154,91 @@ export default function Blog() {
     />
 
       {/* HERO */}
-      <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 px-4">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-3xl text-center">
-          <div className="rv mb-4">
-            <Eyebrow>{tx.tag}</Eyebrow>
-          </div>
-          <h1 className="rv d1 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-5 leading-[1.05]">
-            {tx.heroTitle}
-          </h1>
-          <p className="rv d2 text-lg md:text-xl text-zinc-600 max-w-2xl mx-auto mb-9 leading-relaxed">
-            {tx.heroSub}
-          </p>
-
-          {/* Search */}
-          <div className="rv d3 relative max-w-xl mx-auto">
-            <input
-              type="search"
-              autoComplete="off"
-              value={search}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              placeholder={tx.searchPlaceholder}
-              className="w-full h-12 rounded-full border border-zinc-300 bg-white ps-5 pe-12 text-[15px] text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-violet-500/20 transition-colors"
-            />
-            <Search className="absolute end-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-zinc-400 pointer-events-none" />
-          </div>
+      {/* Dark, matching the blog POST page: the index and the article it
+          leads to now open the same way, and the catalogue below keeps the
+          grey it needs to read as a page of cards. */}
+      <HeroLede
+        compact
+        family="violet"
+        invert
+        eyebrow={tx.tag}
+        title={tx.heroTitle}
+        body={tx.heroSub}
+      >
+        {/* Search. An index opener hands the reader its contents, so the search
+            belongs inside the hero rather than in a band under it. */}
+        <div className="hero-search">
+          <input
+            type="search"
+            autoComplete="off"
+            value={search}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder={tx.searchPlaceholder}
+            className="hero-search-input"
+          />
+          <Search className="hero-search-ico" aria-hidden="true" />
         </div>
-      </section>
+      </HeroLede>
 
-      {/* CATEGORY FILTER */}
-      <section className="px-4 pb-12">
-        <div className="container mx-auto max-w-6xl">
-          <div className="flex flex-wrap gap-2.5 justify-center">
-            {categories.map((cat) => {
-              const active = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => handleCategoryChange(cat.id)}
-                  className={`rounded-full px-5 py-2.5 text-sm transition-colors border ${
-                    active
-                      ? "bg-zinc-950 border-zinc-950 text-white font-bold"
-                      : "bg-white border-zinc-200 text-zinc-700 font-semibold hover:border-zinc-300 hover:bg-zinc-50"
-                  }`}
-                >
-                  {getCatLabel(cat)}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ══════════════════ THE CATALOGUE ══════════════════
+          The reference's catalogue template, which had never been wired up
+          here. What it brings over the flat grid this replaces:
 
-      {/* BLOG GRID */}
-      <section className="px-4 pb-24">
-        <div className="container mx-auto max-w-6xl">
-          {filtered.length === 0 ? (
-            <div className="text-center py-20 text-zinc-500 text-base">
-              {tx.noResults}
-            </div>
-          ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((post) => {
-                const catObj = categories.find(c => c.id === post.category);
-                const catDisplay = catObj ? getCatLabel(catObj) : post.category;
-                return (
-                  <a
-                    key={post.slug}
-                    href={`/blog/${post.slug}`}
-                    className="rv group block rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all"
-                    onClick={(e) => {
-                      if (
-                        e.defaultPrevented ||
-                        e.ctrlKey ||
-                        e.metaKey ||
-                        e.shiftKey ||
-                        e.altKey ||
-                        e.button !== 0
-                      ) {
-                        return;
-                      }
-                      e.preventDefault();
-                      navigateTo(`/blog/${post.slug}`);
-                    }}
-                  >
-                    <article className="flex flex-col h-full">
-                      <div
-                        className="relative flex items-center justify-center h-44 border-b border-zinc-200"
-                        style={{ background: post.coverGradient }}
-                      >
-                        <span className="text-5xl drop-shadow-sm" aria-hidden>
-                          {post.coverIcon}
-                        </span>
-                        <span className="absolute top-3 start-3 inline-flex items-center px-2.5 py-1 rounded-full bg-violet-100 border border-violet-200 text-[11px] font-bold text-violet-700">
-                          {catDisplay}
-                        </span>
-                      </div>
-                      <div className="flex flex-col flex-1 p-6">
-                        <h2 className="text-lg font-bold text-zinc-950 leading-snug mb-2.5 line-clamp-2 group-hover:text-zinc-700 transition-colors">
-                          {getTitle(post)}
-                        </h2>
-                        <p className="text-sm text-zinc-600 leading-relaxed mb-5 line-clamp-3">
-                          {getSummary(post)}
-                        </p>
-                        <div className="mt-auto flex items-center justify-between text-xs text-zinc-500">
-                          <span className="inline-flex items-center gap-1.5">
-                            <Clock className="w-3.5 h-3.5" />
-                            <span className="num-ltr">{getReadTime(post)}</span> {tx.readSuffix}
-                          </span>
-                          <span className="num-ltr">{getPublishDate(post)}</span>
-                          <ArrowCTA className="w-4 h-4 text-violet-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </div>
-                      </div>
-                    </article>
-                  </a>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
+          - PAGINATION. Forty cards rendered on one page made /blog 6,931px
+            tall; the template shows ten and a page rail, which is what keeps
+            a listing at its measured height instead of growing with the
+            archive.
+          - A FEATURED opener, so the newest post leads rather than sitting
+            fourth in a uniform grid.
+          - The category filter as the template's own sub-nav.
+
+          It renders `bare` (deviation D-09): the reference's catalogue IS its
+          page, and Ziadah opens with a lede hero carrying a search box the
+          reference has no equivalent for. */}
+      <DsSection family="grey">
+        <CatalogueIndex
+          bare
+          title={tx.heroTitle}
+          subNav={categories.map((cat) => ({ key: cat.id, label: getCatLabel(cat) }))}
+          current={activeCategory}
+          onNav={handleCategoryChange}
+          featured={
+            featuredPost ? (
+              <a
+                href={`/blog/${featuredPost.slug}`}
+                className="card card--clickable cat-featured-card"
+                onClick={(e) => {
+                  if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                  e.preventDefault();
+                  navigateTo(`/blog/${featuredPost.slug}`);
+                }}
+              >
+                <p className="card-eyebrow">{catLabelOf(featuredPost)}</p>
+                <h2 className="cat-featured-title mt-6">{getTitle(featuredPost)}</h2>
+                <p className="card-body-text mt-6">{getSummary(featuredPost)}</p>
+                <div className="card-foot">
+                  <span className="card-cta">
+                    <Clock className="w-4 h-4" aria-hidden="true" />
+                    {getReadTime(featuredPost)} {tx.readSuffix}
+                  </span>
+                  <span className="card-eyebrow">{getPublishDate(featuredPost)}</span>
+                </div>
+              </a>
+            ) : null
+          }
+          cards={rest.map((post) => ({
+            key: post.slug,
+            category: catLabelOf(post),
+            title: getTitle(post),
+            excerpt: getSummary(post),
+            meta: `${getReadTime(post)} ${tx.readSuffix} · ${getPublishDate(post)}`,
+            onClick: () => navigateTo(`/blog/${post.slug}`),
+          }))}
+          footer={
+            filtered.length === 0 ? <p className="section-note">{tx.noResults}</p> : null
+          }
+        />
+      </DsSection>
       <PageClosingCta
         title={pc.blogIndexTitle}
         description={pc.blogIndexDesc}

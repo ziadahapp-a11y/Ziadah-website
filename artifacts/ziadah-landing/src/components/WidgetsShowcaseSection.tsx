@@ -1,10 +1,33 @@
 import { useMemo } from "react";
-import DraggableMarqueeRow from "@/components/DraggableMarqueeRow";
-import { buildWidgetShowcaseItems, type WidgetShowcaseKind } from "@/components/WidgetShowcaseCard";
+import UseCaseRow from "@/components/UseCaseRow";
+import {
+  buildWidgetShowcaseItems,
+  SHAPED_KINDS,
+  type ShapeFor,
+  type WidgetShowcaseKind,
+} from "@/components/WidgetShowcaseCard";
+import type { ProductShape } from "@/components/widgets/kit";
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
-import { getSectorWidgetShowcaseDemos } from "@/data/sectorWidgetShowcaseDemos";
+import { t as siteTranslations } from "@/i18n/translations";
+import { Section as DsSection, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
+
+/* READING ORDER, not data order. `widgetLabels` is indexed against
+   `widgetElements()` and cannot be reordered; this is the order a merchant
+   meets the seven in, which runs from the lightest ask to the heaviest:
+   discover, then complete, then bundle, then buy more, then close a shipping
+   gap, then upgrade - and the coupon last, because it is the only one that
+   costs margin. */
+const ROW_ORDER: WidgetShowcaseKind[] = [
+  "related",
+  "addons",
+  "bundle",
+  "volume",
+  "shipping",
+  "swap",
+  "coupon",
+];
 
 const KIND_TO_URL: Record<WidgetShowcaseKind, string> = {
   volume: "/use-cases/buy-more-save-more",
@@ -17,183 +40,94 @@ const KIND_TO_URL: Record<WidgetShowcaseKind, string> = {
 };
 
 /**
- * نفس قسم الصفحة الرئيسية (#widgets-showcase) — معاينات الويدجت المتحركة.
- * `variant="sector"`: ترويسة أقصر ومسافات مناسبة داخل صفحة القطاع.
+ * The home page's use-case band (#widgets-showcase): seven rows, one per use
+ * case.
+ *
+ * WHAT THIS DROPPED. A `variant="sector"` that rendered the same seven widgets
+ * as a two-row marquee with sector-themed demo products. Its only caller sat
+ * behind `showPlatformHub && !visualBundle` in `SectorDetail`, and both
+ * platform-hub sectors carry a visual bundle, so the condition was never true
+ * and the marquee rendered on zero routes. The prop, the marquee, the card
+ * renderer and the sector demo lookup went with it.
  */
-export default function WidgetsShowcaseSection({
-  variant = "landing",
-  sectorSlug,
-}: {
-  variant?: "landing" | "sector";
-  /** When set with `variant="sector"`, widget previews use sector-themed demo products. */
-  sectorSlug?: string;
-}) {
-  const { lang, dir } = useLanguage();
-  const t = useSiteT();
+export default function WidgetsShowcaseSection() {
+  const { lang } = useLanguage();
+  const t = siteTranslations;
   const tr = t[lang];
-  const sectorTr = tr.sectorsPage;
-  const showSectorEmbed = variant === "sector";
 
-  const sectorDemos = useMemo(
-    () => (showSectorEmbed ? getSectorWidgetShowcaseDemos(sectorSlug, lang) : undefined),
-    [showSectorEmbed, sectorSlug, lang],
-  );
+  const wLabels = tr.landing.widgetLabels;
+  /* THE THREE SHAPES, CYCLED DOWN THE BAND.
+     The file defines list, grid and carousel, and a band that shows one of
+     them seven times demonstrates a layout rather than a system. The cycle
+     runs over the kinds that HAVE a collection - Quantity and the coupon have
+     no products to lay out, so they sit out rather than consuming a turn and
+     breaking the rhythm for the rows that follow. */
+  const shapeFor = useMemo<ShapeFor>(() => {
+    const cycle: ProductShape[] = ["grid", "list", "carousel"];
+    const assigned = new Map<WidgetShowcaseKind, ProductShape>();
+    let i = 0;
+    for (const kind of ROW_ORDER) {
+      if (!SHAPED_KINDS.has(kind)) continue;
+      assigned.set(kind, cycle[i % cycle.length]!);
+      i += 1;
+    }
+    return (kind) => assigned.get(kind) ?? "list";
+  }, []);
 
-  const wLabels = tr.landing.widgetLabels as { label: string; desc: string }[];
   const allWidgets = useMemo(
-    () => buildWidgetShowcaseItems(wLabels, sectorDemos),
-    [wLabels, sectorDemos],
+    () => buildWidgetShowcaseItems(wLabels, undefined, shapeFor),
+    [wLabels, shapeFor],
   );
-  const row1 = allWidgets.slice(0, 4);
-  const row2 = [...allWidgets.slice(4), allWidgets[0], allWidgets[1], allWidgets[2]];
 
-  const renderCard = (item: (typeof allWidgets)[0], key: number) => {
-    const rgb = item.rgb;
-    const href = KIND_TO_URL[item.kind];
-    return (
-      <a
-        key={key}
-        href={href}
-        className="widget-creatify-card"
-        onClick={(e) => {
-          e.preventDefault();
-          navigateTo(href);
-        }}
-        style={{
-          width: 320,
-          height: 520,
-          flexShrink: 0,
-          display: "flex",
-          flexDirection: "column",
-          background: "#ffffff",
-          borderRadius: 24,
-          border: "1px solid rgb(228 228 231)" /* zinc-200 — design-system card border */,
-          overflow: "hidden",
-          // design-system .shadow-card (light SaaS elevation, not the old heavy dark drop)
-          boxShadow: "0 1px 2px rgba(0,0,0,0.02), 0 8px 24px -8px rgba(0,0,0,0.04)",
-          textDecoration: "none",
-          color: "inherit",
-          cursor: "pointer",
-          transition:
-            "transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1), border-color 0.25s cubic-bezier(.4,0,.2,1)",
-        }}
-      >
-        <div
-          className="widget-creatify-card__hero"
-          style={{
-            position: "relative",
-            flex: "1 1 auto",
-            overflow: "hidden",
-            padding: "22px 20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            // Light SaaS surface with only a faint wash of the widget's hue —
-            // keeps per-widget colour identity while reading as a clean white card.
-            background: `linear-gradient(180deg, rgba(${rgb},0.07) 0%, rgba(${rgb},0.025) 55%, #ffffff 100%)`,
-            borderBottom: "1px solid rgb(244 244 245)" /* zinc-100 divider to footer */,
-          }}
-        >
-          {/* single soft corner glow for depth — far lighter than the old saturated blobs */}
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: "-26%",
-              insetInlineEnd: "-20%",
-              width: "60%",
-              height: "60%",
-              background: `radial-gradient(circle at 50% 50%, rgba(${rgb},0.16) 0%, transparent 70%)`,
-              filter: "blur(30px)",
-              pointerEvents: "none",
-            }}
-          />
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              width: "100%",
-              maxHeight: "100%",
-            }}
-          >
-            {item.widget}
-          </div>
-        </div>
-        <div
-          style={{
-            padding: "18px 22px 22px",
-            textAlign: dir === "rtl" ? "right" : "left",
-            background: "#ffffff",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: "rgb(9 9 11)" /* zinc-950 */,
-              letterSpacing: "-0.5px",
-              lineHeight: 1.2,
-            }}
-          >
-            {item.label}
-          </div>
-          <div
-            style={{
-              marginTop: 6,
-              fontSize: 13,
-              fontWeight: 400,
-              color: "rgb(82 82 91)" /* zinc-600 */,
-              lineHeight: 1.5,
-            }}
-          >
-            {item.desc}
-          </div>
-        </div>
-      </a>
-    );
-  };
+  /* The seven, once each, in reading order. The marquee showed twenty-four
+     cards for these seven - three looped copies of each row, and the second
+     row re-added the first three to fill its width - so the same offer slid
+     past four times and no two use cases could be told apart. */
+  const rows = useMemo(
+    () =>
+      ROW_ORDER.map((kind) => allWidgets.find((w) => w.kind === kind)).filter(
+        (w): w is (typeof allWidgets)[number] => Boolean(w),
+      ),
+    [allWidgets],
+  );
 
+  /* On the design system rather than beside it. This used to paint its own
+     ground, its own 80px padding and its own head out of the legacy `.tc /
+     .stag / .st / .ssub` classes, which made it one of two bands on the home
+     page that broke the colour rhythm around them. */
   return (
-    <section
-      id="widgets-showcase"
-      style={{
-        position: "relative",
-        zIndex: 2,
-        padding: showSectorEmbed ? "36px 0 28px" : "80px 0",
-        background: "rgba(250, 250, 251, 1)",
-        scrollMarginTop: 120,
-      }}
-    >
-      <div style={{ maxWidth: 1300, margin: "0 auto", paddingInline: showSectorEmbed ? "24px" : "5%" }}>
-        <div className="tc" style={{ marginBottom: showSectorEmbed ? 36 : 56 }}>
-          <div className="stag rv on">
-            <span className="stag-dot" />
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTag : tr.landing.widgetsTag}
-          </div>
-          <h2 className="st rv on d1 font-semibold" style={{ marginTop: showSectorEmbed ? 10 : undefined }}>
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedTitle : tr.landing.widgetsTitle}
-          </h2>
-          <p className="ssub rv on d2" style={{ marginTop: showSectorEmbed ? 8 : undefined }}>
-            {showSectorEmbed ? sectorTr.sectorHubWidgetsEmbedSub : tr.landing.widgetsSubtitle}
-          </p>
+    <DsSection id="widgets-showcase" family="grey">
+      <SectionHead
+        center
+        kicker={tr.landing.widgetsTag}
+        title={tr.landing.widgetsTitle}
+        lead={tr.landing.widgetsSubtitle}
+      />
+      <Shell>
+        <div className="ucrow-list">
+          {rows.map((item, i) => (
+            <UseCaseRow
+              key={item.kind}
+              title={item.label}
+              description={item.desc}
+              whenToUse={item.whenToUse}
+              goal={item.goal}
+              example={item.example}
+              note={item.note}
+              preview={item.widget}
+              reverse={i % 2 === 1}
+              href={KIND_TO_URL[item.kind]}
+              hrefLabel={tr.landing.widgetRowLink}
+              onNavigate={navigateTo}
+              labels={{
+                whenToUse: tr.landing.widgetRowWhen,
+                goal: tr.landing.widgetRowGoal,
+                example: tr.landing.widgetRowExample,
+              }}
+            />
+          ))}
         </div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-        <DraggableMarqueeRow directionClass="marquee-rtl" duration="32s">
-          {[0, 1, 2].map((seg) => (
-            <div key={seg} className="marquee-segment">
-              {row1.map((item, i) => renderCard(item, seg * 100 + i))}
-            </div>
-          ))}
-        </DraggableMarqueeRow>
-        <DraggableMarqueeRow directionClass="marquee-ltr" duration="30s">
-          {[0, 1, 2].map((seg) => (
-            <div key={seg} className="marquee-segment">
-              {row2.map((item, i) => renderCard(item, seg * 100 + i))}
-            </div>
-          ))}
-        </DraggableMarqueeRow>
-      </div>
-    </section>
+      </Shell>
+    </DsSection>
   );
 }

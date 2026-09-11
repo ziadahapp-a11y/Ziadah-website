@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import {
   Search,
   Clock,
-  ChevronRight,
   ArrowRight,
   ArrowLeft,
   Lightbulb,
   AlertTriangle,
   MessageCircle,
+  ChevronRight,
   Zap,
   Settings,
   Bot,
@@ -33,25 +33,17 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, SupportArticleSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteContentMap, useSiteT } from "../cms/siteContent";
-import { useSupportArticleFields } from "../cms/useSupportArticleFields";
-import { Section, PrimaryButton } from "@/components/trackflow";
+import { useSupportArticleFields } from "@/hooks/useSupportArticleFields";
+import { supportCategoryIcon } from "@/lib/support-icons";
+import { HeroLede, Section } from "@/sections";
+import { Shell, Button as MkButton } from "@/components/mk";
+import { t as siteTranslations } from "@/i18n/translations";
 
 const FALLBACK_SUPPORT_ARTICLE = supportCategories[0]!.articles[0]!;
 
-/** Map the category emoji icons to lucide icons (DS uses lucide, never emoji). */
-const CATEGORY_ICON: Record<string, LucideIcon> = {
-  "⚡": Zap,
-  "⚙️": Settings,
-  "🤖": Bot,
-  "💳": CreditCard,
-  "🔧": Wrench,
-  "🖥️": Monitor,
-  "📈": TrendingUp,
-};
 
 export default function SupportArticle() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir, isAr } = useLanguage();
   const tx = t[lang].support;
   const pc = t[lang].pageClosingCta;
@@ -61,17 +53,16 @@ export default function SupportArticle() {
   const article = id ? getArticleById(id) : undefined;
   const category = article ? getCategoryById(article.categoryId) : undefined;
   const cmsFields = useSupportArticleFields(article ?? FALLBACK_SUPPORT_ARTICLE);
-  const cmsMap = useSiteContentMap();
-  const ArrowCTA = isAr ? ArrowLeft : ArrowRight;
+  const BackArrow = isAr ? ArrowRight : ArrowLeft;
 
   const siblingTitle = (a: FullArticle) =>
     isAr
-      ? cmsMap[`support.${a.id}.title`] ?? a.title
-      : cmsMap[`support.${a.id}.titleEn`] ?? a.titleEn ?? a.title;
+      ? a.title
+      : a.titleEn ?? a.title;
   const siblingTime = (a: FullArticle) =>
     isAr
-      ? cmsMap[`support.${a.id}.time`] ?? a.time
-      : cmsMap[`support.${a.id}.timeEn`] ?? a.timeEn ?? a.time;
+      ? a.time
+      : a.timeEn ?? a.time;
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -80,21 +71,23 @@ export default function SupportArticle() {
   const getCatLabel = (cat: { label: string; labelEn?: string }) => isAr ? cat.label : (cat.labelEn || cat.label);
 
   if (!article || !category) {
+    /* The miss is a band like any other, not a white slab with a zinc icon
+       tile on it. Grey, because the article body it stands in for is grey. */
     return (
-      <PageShell className="bg-white" style={{ background: "#fff" }}>
-        <div className="min-h-[70vh] flex items-center justify-center px-4">
-          <div className="text-center max-w-md">
-            <div className="w-16 h-16 rounded-2xl bg-zinc-100 flex items-center justify-center mx-auto mb-6">
-              <Search className="w-7 h-7 text-zinc-400" />
+      <div className="page" dir={dir}>
+        <Section family="grey" className="min-h-[70vh] flex items-center">
+          <Shell width="narrow">
+            <div className="text-center">
+              <span className="card-ico mx-auto mb-6" aria-hidden="true">
+                <Search className="w-5 h-5" />
+              </span>
+              <h1 className="section-head-title--sm mb-4">{tx.notFoundTitle}</h1>
+              <p className="t-body-18 mb-8">{tx.notFoundDesc}</p>
+              <MkButton onClick={() => navigateTo("/support")}>{tx.notFoundBtn}</MkButton>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-zinc-950 mb-3">{tx.notFoundTitle}</h1>
-            <p className="text-zinc-600 mb-8">{tx.notFoundDesc}</p>
-            <PrimaryButton onClick={() => navigateTo("/support")}>
-              {tx.notFoundBtn}
-            </PrimaryButton>
-          </div>
-        </div>
-      </PageShell>
+          </Shell>
+        </Section>
+      </div>
     );
   }
 
@@ -102,19 +95,18 @@ export default function SupportArticle() {
   const articleDesc = cmsFields.desc;
   const articleTime = cmsFields.time;
   const catLabel = getCatLabel(category);
-  const CategoryIcon = CATEGORY_ICON[category.icon] ?? BookOpen;
+  const CategoryIcon = supportCategoryIcon(category.icon);
   const pk = getPageKeywords("/support");
   const titleSuffixAr = "مركز مساعدة زيادة";
   const titleSuffixEn = "Ziadah Help Center";
-  const baseKey = `support.${article.id}`;
 
   return (
     <>
     <SEO
-      titleAr={`${cmsMap[`${baseKey}.title`] ?? article.title} — ${titleSuffixAr}`}
-      titleEn={`${cmsMap[`${baseKey}.titleEn`] ?? article.titleEn ?? article.title} — ${titleSuffixEn}`}
-      descriptionAr={cmsMap[`${baseKey}.desc`] ?? article.desc}
-      descriptionEn={cmsMap[`${baseKey}.descEn`] ?? article.descEn ?? article.desc}
+      titleAr={`${article.title} — ${titleSuffixAr}`}
+      titleEn={`${article.titleEn ?? article.title} — ${titleSuffixEn}`}
+      descriptionAr={article.desc}
+      descriptionEn={article.descEn ?? article.desc}
       canonical={`/support/article/${article.id}`}
       keywordsAr={pk?.keywordsAr}
       keywordsEn={pk?.keywordsEn}
@@ -130,88 +122,63 @@ export default function SupportArticle() {
       url={`/support/article/${article.id}`}
       articleSection={catLabel}
     />
-    <PageShell className="bg-white" style={{ background: "#fff" }}>
+    {/* No `bg-white` here. PageShell painting white put a hard slab under a
+        band that stamps its own family, which is what made this page read as
+        a document floating on the site rather than part of it. */}
+    <PageShell className="relative overflow-x-clip">
 
-      <Section band="white" className="!pt-16 md:!pt-20 !pb-20" containerClassName="max-w-3xl">
-        <article dir={dir}>
+      {/* ══════════════════ HERO ══════════════════
+          Same shape as the success-story detail page: the category and the
+          read time are the eyebrow, the way back to the index is the action,
+          and the visible breadcrumb goes - it duplicated that action while
+          the JSON-LD above still carries the trail for search. */}
+      <HeroLede
+        compact
+        center={false}
+        family="violet"
+        invert
+        eyebrow={
+          /* One inline-flex run, not loose inline children: `.t-eyebrow` is a
+             paragraph, and lucide's SVGs are block-level, so each icon was
+             taking a line of its own. */
+          <span className="inline-flex items-center gap-2 flex-wrap">
+            <CategoryIcon className="w-3.5 h-3.5" aria-hidden="true" />
+            {catLabel}
+            <span aria-hidden="true">·</span>
+            <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+            {articleTime} {tx.readSuffix}
+          </span>
+        }
+        title={articleTitle}
+        body={articleDesc}
+        actions={
+          <MkButton variant="tertiary" onClick={() => navigateTo("/support")}>
+            <BackArrow className="w-4 h-4" aria-hidden="true" />
+            <span className="ms-2">{tx.backToHelp}</span>
+          </MkButton>
+        }
+      />
 
-          {/* Breadcrumb */}
-          <nav className="flex items-center flex-wrap gap-2 mb-8 text-sm text-zinc-500">
-            <button
-              type="button"
-              onClick={() => navigateTo("/support")}
-              className="hover:text-zinc-950 transition-colors"
-            >
-              {tx.breadcrumbHelpCenter}
-            </button>
-            <ChevronRight className={`w-3.5 h-3.5 shrink-0 ${isAr ? "rotate-180" : ""}`} />
-            <button
-              type="button"
-              onClick={() => navigateTo("/support")}
-              className="hover:text-zinc-950 transition-colors"
-            >
-              {catLabel}
-            </button>
-            <ChevronRight className={`w-3.5 h-3.5 shrink-0 ${isAr ? "rotate-180" : ""}`} />
-            <span className="text-zinc-700 font-medium">{articleTitle}</span>
-          </nav>
-
-          {/* Article Header */}
-          <header className="mb-10">
-            <div className="flex items-center gap-3 flex-wrap mb-5">
-              <span
-                className="w-9 h-9 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0"
-                aria-hidden
-              >
-                <CategoryIcon className="w-5 h-5 text-white" />
-              </span>
-              <span className="inline-flex items-center rounded-full bg-violet-100 border border-violet-200 px-3 py-1 text-xs font-bold text-violet-700">
-                {catLabel}
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
-                <Clock className="w-3.5 h-3.5" />
-                <span className="num-ltr">{articleTime}</span> {tx.readSuffix}
-              </span>
-            </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950 leading-tight mb-4">
-              {articleTitle}
-            </h1>
-            <p className="text-lg text-zinc-600 leading-relaxed">{articleDesc}</p>
-          </header>
-
-          <div className="h-px bg-zinc-200 mb-10" />
-
-          {/* Article Content */}
-          <div className="flex flex-col gap-5">
+      {/* ══════════════════ ARTICLE BODY ══════════════════ */}
+      <Section family="grey">
+        <Shell width="narrow">
+          <article dir={dir} className="measure-read article-prose">
             {cmsFields.sections.map((section, i) => {
               if (section.type === "heading") {
-                return (
-                  <h2
-                    key={i}
-                    className="text-xl md:text-2xl font-bold text-zinc-950 mt-3 pb-2.5 border-b border-zinc-200"
-                  >
-                    {section.text}
-                  </h2>
-                );
+                return <h2 key={i} className="article-h2">{section.text}</h2>;
               }
 
               if (section.type === "paragraph") {
-                return (
-                  <p key={i} className="text-base md:text-[17px] text-zinc-700 leading-[1.9]">
-                    {section.text}
-                  </p>
-                );
+                return <p key={i} className="article-p">{section.text}</p>;
               }
 
               if (section.type === "numbered" && section.items) {
                 return (
-                  <div key={i} className="flex flex-col gap-2.5">
+                  <div key={i} className="article-ol">
                     {section.items.map((item, j) => (
-                      <div key={j} className="flex gap-3.5 items-start">
-                        <div className="w-7 h-7 rounded-lg bg-violet-100 border border-violet-200 text-violet-700 flex items-center justify-center shrink-0 text-sm font-bold num-ltr">
-                          {j + 1}
-                        </div>
-                        <p className="text-[15px] text-zinc-700 leading-relaxed pt-0.5 m-0">{item}</p>
+                      <div key={j} className="article-ol-row">
+                        <span className="article-ol-num inline-flex">{j + 1}</span>
+                        <p>{item}</p>
                       </div>
                     ))}
                   </div>
@@ -220,40 +187,26 @@ export default function SupportArticle() {
 
               if (section.type === "list" && section.items) {
                 return (
-                  <div key={i} className="flex flex-col gap-2">
+                  <div key={i} className="article-ul">
                     {section.items.map((item, j) => (
-                      <div key={j} className="flex gap-3 items-start rounded-lg bg-zinc-50 border border-zinc-200 px-3.5 py-2.5">
-                        <span className="w-1.5 h-1.5 rounded-full shrink-0 mt-2 bg-violet-600" />
-                        <p className="text-sm text-zinc-700 leading-relaxed m-0">{item}</p>
+                      <div key={j} className="article-ul-row">
+                        <span className="article-ul-dot" aria-hidden="true" />
+                        <p>{item}</p>
                       </div>
                     ))}
                   </div>
                 );
               }
 
-              if (section.type === "tip") {
+              if (section.type === "tip" || section.type === "warning") {
+                const warn = section.type === "warning";
+                const NoteIcon = warn ? AlertTriangle : Lightbulb;
                 return (
-                  <div key={i} className="flex gap-3 items-start rounded-xl bg-violet-50 border border-violet-200 p-4">
-                    <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
-                      <Lightbulb className="w-4 h-4 text-violet-600" />
-                    </div>
+                  <div key={i} className={`article-note${warn ? " article-note--warn" : ""}`}>
+                    <NoteIcon className="article-note-ico" aria-hidden="true" />
                     <div>
-                      <div className="text-[11px] font-bold tracking-widest text-violet-600 uppercase mb-1">{tx.tipLabel}</div>
-                      <p className="text-sm text-zinc-700 leading-relaxed m-0">{section.text}</p>
-                    </div>
-                  </div>
-                );
-              }
-
-              if (section.type === "warning") {
-                return (
-                  <div key={i} className="flex gap-3 items-start rounded-xl bg-amber-50 border border-amber-200 p-4">
-                    <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center shrink-0">
-                      <AlertTriangle className="w-4 h-4 text-amber-600" />
-                    </div>
-                    <div>
-                      <div className="text-[11px] font-bold tracking-widest text-amber-600 uppercase mb-1">{tx.warningLabel}</div>
-                      <p className="text-sm text-zinc-700 leading-relaxed m-0">{section.text}</p>
+                      <div className="article-note-label">{warn ? tx.warningLabel : tx.tipLabel}</div>
+                      <p>{section.text}</p>
                     </div>
                   </div>
                 );
@@ -261,62 +214,56 @@ export default function SupportArticle() {
 
               return null;
             })}
-          </div>
 
-          {/* Footer Actions */}
-          <div className="mt-14 pt-8 border-t border-zinc-200">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <button
-                type="button"
-                onClick={() => navigateTo("/support")}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 transition-colors"
-              >
-                <ArrowCTA className={`w-4 h-4 ${isAr ? "" : "rotate-180"}`} />
-                {tx.backToHelp}
-              </button>
-              <a
+            {/* Footer actions. The back link lives in the hero now, so what is
+                left down here is the one thing a reader who finished the
+                article and still has the question actually wants. */}
+            <div className="article-foot">
+              <MkButton
+                as="a"
+                variant="secondary"
                 href="https://api.whatsapp.com/send/?phone=966510131856"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-full bg-violet-50 border border-violet-200 text-violet-700 text-sm font-bold hover:bg-violet-100 transition-colors"
               >
-                <MessageCircle className="w-4 h-4" />
-                {tx.contactSupport}
-              </a>
+                <MessageCircle className="w-4 h-4" aria-hidden="true" />
+                <span className="ms-2">{tx.contactSupport}</span>
+              </MkButton>
             </div>
-          </div>
 
-          {/* Related Articles from same category */}
-          {(() => {
-            const siblings = category.articles.filter(a => a.id !== article.id).slice(0, 3);
-            if (!siblings.length) return null;
-            return (
-              <div className="mt-12">
-                <h3 className="text-lg font-bold text-zinc-950 mb-4">{tx.relatedArticles}</h3>
-                <div className="flex flex-col gap-3">
-                  {siblings.map(s => (
-                    <a
-                      key={s.id}
-                      href={`/support/article/${s.id}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(`/support/article/${s.id}`);
-                      }}
-                      className="flex items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-white p-5 text-start hover:border-zinc-300 hover:shadow-card transition-all"
-                    >
-                      <div>
-                        <div className="text-sm font-bold text-zinc-950">{siblingTitle(s)}</div>
-                        <div className="text-xs text-zinc-500 mt-1"><span className="num-ltr">{siblingTime(s)}</span> {tx.readSuffix}</div>
-                      </div>
-                      <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 ${isAr ? "rotate-180" : ""}`} />
-                    </a>
-                  ))}
+            {/* Siblings from the same category. */}
+            {(() => {
+              const siblings = category.articles.filter(a => a.id !== article.id).slice(0, 3);
+              if (!siblings.length) return null;
+              return (
+                <div>
+                  <h2 className="article-h2">{tx.relatedArticles}</h2>
+                  <div className="article-related">
+                    {siblings.map(s => (
+                      <a
+                        key={s.id}
+                        href={`/support/article/${s.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigateTo(`/support/article/${s.id}`);
+                        }}
+                        className="card card--short card--clickable card--flat flex-row items-center justify-between gap-4"
+                      >
+                        <div>
+                          <div className="t-sm-med">{siblingTitle(s)}</div>
+                          <div className="card-eyebrow mt-1">{siblingTime(s)} {tx.readSuffix}</div>
+                        </div>
+                        <ChevronRight className={`w-4 h-4 shrink-0 ${isAr ? "rotate-180" : ""}`} aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })()}
-        </article>
+              );
+            })()}
+          </article>
+        </Shell>
       </Section>
+
       <PageClosingCta
         title={pc.supportTitle}
         description={pc.supportDesc}

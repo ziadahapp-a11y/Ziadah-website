@@ -1,0 +1,437 @@
+/* =====================================================================
+   THE PRODUCT COMPOSITION
+
+   The product is the centre of gravity. Everything in this file exists to
+   keep that true at every width, and to make it impossible for the
+   decoration to cover the product.
+
+   THE BEZEL CONSTANT is the load-bearing number. `--frame-bezel` is the
+   device frame's own geometry: a 0.8rem border plus 2.4rem of padding. A
+   callout anchored at `100% - var(--frame-bezel)` has its inner edge exactly
+   on the boundary of the screen content, so it overlaps the FRAME and can
+   never reach a row, a figure or a button. Written from the frame's real
+   measurements rather than nudged until it looked clear.
+   ===================================================================== */
+.pfv {
+  /* The frame's TRUE geometry: a 0.8rem border plus 2.4rem of padding. */
+  --frame-bezel: 3.2rem;
+  /* `inset-inline-end: calc(100% - X)` puts the callout's inner edge X from
+     the frame's START edge, so a LARGER X reaches FURTHER INTO the content -
+     the opposite of clearance. Measured both ways: at X = bezel exactly,
+     sub-pixel rounding grazed the content by 1px at 1440; at X = bezel +
+     0.4rem it overlapped by 3-4px at every width. The inset is therefore
+     0.4rem SHORT of the bezel, which stops the callout inside the frame with
+     a hairline to spare. In rem rather than px because the frame is authored
+     in rem and the root is fluid. */
+  --frame-inset: 2.8rem;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  min-width: 0;
+  isolation: isolate;
+}
+
+/* The brand geometry as a field behind the product. Sized off the stage so it
+   scales with the composition instead of needing a breakpoint of its own. */
+/* Clamped to the composition's own box. The cluster still reads as an OPENED
+   field rather than a logo, because `ZiadahCluster` grows its viewBox with
+   `spread` - the spreading happens in SVG user space, not by making the
+   element bigger than its parent. The first version was 150% wide and the
+   matrix caught it escaping its container by 41-362px across 57 cells. */
+.pfv-motif {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  opacity: 0.16;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pfv-motif { transition: opacity 0.6s var(--ease-out-quint); }
+}
+
+/* ---------- the stage and the product ------------------------------- */
+.pfv-stage { position: relative; z-index: 2; display: grid; justify-items: center; width: 100%; min-width: 0; }
+
+.pfv-frame { position: relative; width: min(32rem, 100%); }
+.pfv--dashboard .pfv-frame,
+.pfv--editor .pfv-frame { width: min(52rem, 100%); }
+@media screen and (max-width: 767px) {
+  .pfv-frame { width: min(28rem, 100%); }
+  .pfv--dashboard .pfv-frame,
+  .pfv--editor .pfv-frame { width: 100%; }
+}
+
+/* The merchant surface. A dashboard is a wide light panel, not a phone - the
+   difference is the point, so it gets its own frame rather than the device's. */
+.board {
+  width: 100%;
+  border-radius: 2.4rem;
+  padding: 2.4rem;
+  background: var(--general-white);
+  border: 0.1rem solid color-mix(in srgb, var(--ziadah-ink, #1f0236) 12%, transparent);
+  box-shadow: 0 3.2rem 8rem -3.2rem rgb(0 11 36 / 0.32);
+  color: var(--general-black);
+}
+@media screen and (max-width: 767px) { .board { padding: 1.8rem; border-radius: 2rem; } }
+
+/* ---------- the callouts -------------------------------------------- */
+/* Below 1025 they leave the flow's edges and become a row under the product -
+   a different composition, not this one shrunk. */
+.pfv-callouts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-block-start: 1.6rem;
+}
+.pfv-callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  border-radius: 1.4rem;
+  background: color-mix(in srgb, var(--general-white) 10%, transparent);
+  border: 0.1rem solid color-mix(in srgb, var(--general-white) 18%, transparent);
+  backdrop-filter: blur(1.2rem);
+  white-space: nowrap;
+}
+/* On a light ground the glass reads as a smudge; the panel inverts. */
+.pfv--dashboard .pfv-callout,
+.pfv--editor .pfv-callout {
+  background: var(--general-white);
+  border-color: color-mix(in srgb, var(--ziadah-ink, #1f0236) 12%, transparent);
+  box-shadow: 0 1.2rem 3.2rem -1.2rem rgb(0 11 36 / 0.24);
+}
+.pfv-callout-label {
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(78%, var(--ink-floor, 0%)), transparent);
+}
+.pfv-callout-value { font-size: 1.5rem; font-weight: 500; color: var(--ziadah-violet-pale); }
+.pfv--dashboard .pfv-callout-value,
+.pfv--editor .pfv-callout-value { color: var(--ziadah-violet-dark); }
+
+/* SIDE-HANGING CALLOUTS ARE A PHONE COMPOSITION, NOT A UNIVERSAL ONE.
+   A 38rem device inside the stage leaves about 9rem of gutter each side, which
+   is where a callout goes. A 58rem dashboard leaves almost none - measured on
+   /en/features/analytics, the second callout hung 26px past the hero at 1600
+   and was cut by it, and again at 1440 and 1280. The answer is not a smaller
+   offset; it is that a wide surface has no gutters, so on the board and the
+   editor the callouts stay in flow beneath it. Same reasoning that split the
+   phone from the dashboard in the first place: different surface, different
+   composition. */
+@media screen and (min-width: 1025px) {
+  .pfv--phone .pfv-callouts { display: block; margin: 0; }
+  /* Capped and wrapping, so a longer translation lengthens the callout
+     downward instead of pushing it out of the composition. */
+  .pfv--phone .pfv-callout { position: absolute; max-width: 19rem; white-space: normal; }
+  .pfv--phone .pfv-callout--a { inset-inline-end: calc(100% - var(--frame-inset)); top: 16%; }
+  .pfv--phone .pfv-callout--b { inset-inline-start: calc(100% - var(--frame-inset)); bottom: 20%; }
+
+  /* Wide surfaces keep the flow row and give it a little more air. Without a
+     gutter to fill they do not need the phone's inline padding either. */
+  .pfv--dashboard, .pfv--editor { padding-inline: 0; }
+  .pfv--dashboard .pfv-callouts,
+  .pfv--editor .pfv-callouts { margin-block-start: 2.4rem; }
+}
+
+/* ---------- the 3D layer -------------------------------------------- */
+/* Absolute at >=1025 so the objects can sit at the composition's corners and
+   overlap the stage; in flow below that, at reduced scale, so they stay
+   VISIBLE rather than being hidden - the brief's "repositioned, not blindly
+   hidden". They are behind the product in z-order at every width. */
+.pfv-art { position: relative; z-index: 1; width: 100%; height: auto; }
+
+.pfv-art--hero { max-width: 22rem; }
+.pfv-art--support { max-width: 14rem; }
+
+@media screen and (min-width: 1025px) {
+  .pfv-art { position: absolute; }
+  .pfv-art--hero {
+    max-width: min(26rem, 34%);
+    inset-inline-end: -6%;
+    top: 4%;
+  }
+  .pfv-art--support {
+    max-width: min(17rem, 24%);
+    inset-inline-start: -4%;
+    bottom: 6%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  /* A corner pair under the product: both objects stay on screen, at a scale
+     that keeps the product the largest thing in the frame. */
+  .pfv { grid-template-columns: 1fr 1fr; grid-template-areas: "stage stage" "support hero"; column-gap: 2.4rem; }
+  .pfv-stage { grid-area: stage; }
+  .pfv-art--hero { grid-area: hero; justify-self: start; max-width: 15rem; margin-block-start: 1.6rem; }
+  .pfv-art--support { grid-area: support; justify-self: end; max-width: 11rem; margin-block-start: 1.6rem; }
+}
+@media screen and (max-width: 767px) {
+  .pfv-art--hero { max-width: 12rem; }
+  .pfv-art--support { max-width: 9rem; }
+  .pfv-motif { opacity: 0.12; }
+}
+
+/* =====================================================================
+   THE PRODUCT SCREENS
+   One vocabulary, two grounds: the dark device and the light board.
+   ===================================================================== */
+.pscreen { display: flex; flex-direction: column; gap: 0.8rem; width: 100%; font-size: 1.3rem; line-height: 1.45; }
+.pscreen--device { color: var(--general-white); --ps-face: rgb(255 255 255 / 0.07); --ps-hair: rgb(255 255 255 / 0.12); --ps-mute: rgb(255 255 255 / 0.62); --ps-accent: var(--ziadah-violet-pale); }
+.pscreen--board  { color: var(--general-black); --ps-face: var(--general-white-off); --ps-hair: rgb(0 11 36 / 0.1); --ps-mute: rgb(10 10 10 / 0.62); --ps-accent: var(--ziadah-violet-dark); }
+
+.pscreen-head { display: flex; align-items: center; gap: 0.8rem; margin-block-end: 0.4rem; }
+.pscreen-dot { flex: none; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--ziadah-violet); }
+.pscreen-title { font-size: 1.4rem; font-weight: 500; }
+.pscreen-badge {
+  margin-inline-start: auto; flex: none;
+  padding: 0.2rem 0.9rem; border-radius: 9999px;
+  border: 0.1rem solid var(--ps-hair);
+  font-size: 1.1rem; color: var(--ps-mute); white-space: nowrap;
+}
+.pscreen-badge.is-live { color: var(--ps-accent); border-color: color-mix(in srgb, var(--ziadah-violet) 40%, transparent); }
+
+.pscreen-label { font-size: 1.2rem; color: var(--ps-mute); margin: 0; }
+.pscreen-label--sub { margin-block-start: 1.2rem; }
+.pscreen-figure { font-size: 3.6rem; line-height: 1.1; font-weight: 400; margin: 0; }
+.pscreen-foot { font-size: 1.2rem; color: var(--ps-mute); margin: auto 0 0; padding-block-start: 1.2rem; }
+
+.pscreen-cta {
+  margin-block-start: 0.8rem; text-align: center;
+  padding: 1.1rem; border-radius: 9999px;
+  background: var(--ziadah-violet); color: var(--general-white);
+  font-size: 1.3rem; font-weight: 500;
+}
+
+.pscreen-rows { display: grid; gap: 0.8rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.pscreen-rows--tight { gap: 0.6rem; }
+.pscreen-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem; border-radius: 1.4rem;
+  background: var(--ps-face); min-width: 0;
+}
+.pscreen-row-mark { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 0.7rem; background: color-mix(in srgb, var(--ziadah-violet) 45%, transparent); }
+.pscreen-row-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pscreen-row-value { flex: none; font-weight: 500; white-space: nowrap; }
+.pscreen-row-go { flex: none; width: 1.6rem; height: 1.6rem; opacity: 0.5; }
+[dir="ltr"] .pscreen-row-go { transform: scaleX(-1); }
+
+/* the moment something lands */
+.pscreen-event {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  margin-block-start: 0.8rem; padding: 1.4rem 1.6rem; border-radius: 1.4rem;
+  background: color-mix(in srgb, var(--ziadah-violet) 18%, transparent);
+}
+.pscreen-event-label { font-size: 1.2rem; color: var(--ps-mute); }
+.pscreen-event-figure { font-size: 2rem; font-weight: 500; color: var(--ps-accent); }
+
+/* referral link */
+.pscreen-link {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  padding: 1rem 1.2rem; border-radius: 1.4rem;
+  border: 0.1rem dashed var(--ps-hair); background: var(--ps-face);
+}
+.pscreen-link-text { font-size: 1.2rem; color: var(--ps-mute); overflow: hidden; text-overflow: ellipsis; }
+.pscreen-link-copy { flex: none; font-size: 1.2rem; font-weight: 500; color: var(--ps-accent); }
+
+/* the tier ladder */
+.pscreen-ladder { display: grid; gap: 0.9rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.pscreen-rung { display: grid; grid-template-columns: 6.4rem minmax(0, 1fr); align-items: center; gap: 1.2rem; }
+.pscreen-rung-name { font-size: 1.2rem; color: var(--ps-mute); }
+.pscreen-rung.is-on .pscreen-rung-name { color: inherit; font-weight: 500; }
+.pscreen-rung-rail { height: 0.8rem; border-radius: 9999px; background: color-mix(in srgb, currentColor 12%, transparent); overflow: hidden; }
+.pscreen-rung-fill { display: block; height: 100%; border-radius: inherit; background: color-mix(in srgb, var(--ziadah-violet) 40%, transparent); }
+.pscreen-rung.is-on .pscreen-rung-fill { background: var(--ziadah-violet); }
+
+/* the membership object */
+.pscreen-card {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  padding: 2rem 1.6rem; border-radius: 1.6rem;
+  background: linear-gradient(135deg, var(--ziadah-violet), var(--ziadah-violet-dark));
+  color: var(--general-white);
+}
+.pscreen-card-brand { font-size: 1.4rem; font-weight: 500; }
+.pscreen-card-state { font-size: 1.1rem; padding: 0.2rem 0.8rem; border-radius: 9999px; background: rgb(255 255 255 / 0.22); }
+
+/* the occasion leaf */
+.pscreen-date {
+  align-self: flex-start; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  width: 5.6rem; height: 5.6rem; padding-block-end: 0.8rem;
+  border-radius: 1.2rem; background: var(--ps-face); overflow: hidden;
+}
+.pscreen-date-top { display: block; width: 100%; height: 1.2rem; background: var(--ziadah-violet); }
+.pscreen-date-num { font-size: 2rem; font-weight: 500; line-height: 1; margin-block-start: auto; }
+
+/* the wheel */
+.pscreen-wheel {
+  align-self: center; position: relative; width: 9.6rem; height: 9.6rem; border-radius: 50%; margin-block: 0.8rem;
+  background: conic-gradient(
+    var(--ziadah-violet) 0 45deg, color-mix(in srgb, currentColor 12%, transparent) 45deg 90deg,
+    var(--ziadah-violet) 90deg 135deg, color-mix(in srgb, currentColor 12%, transparent) 135deg 180deg,
+    var(--ziadah-violet) 180deg 225deg, color-mix(in srgb, currentColor 12%, transparent) 225deg 270deg,
+    var(--ziadah-violet) 270deg 315deg, color-mix(in srgb, currentColor 12%, transparent) 315deg 360deg);
+}
+.pscreen-wheel-pin { position: absolute; inset: 40%; border-radius: 50%; background: var(--general-black-light); }
+.pscreen--board .pscreen-wheel-pin { background: var(--general-white); }
+
+/* the analytics chart */
+.pscreen-bars { display: flex; align-items: flex-end; gap: 0.8rem; height: 11rem; margin-block-start: 0.8rem; }
+.pscreen-bar { flex: 1 1 0; min-width: 0; border-radius: 0.6rem 0.6rem 0 0; background: color-mix(in srgb, currentColor 14%, transparent); }
+.pscreen-bar.is-on { background: var(--ziadah-violet); }
+
+/* segment bands */
+.pscreen-bands { display: grid; gap: 0.8rem; margin: 0.4rem 0 0; padding: 0; list-style: none; }
+.pscreen-band { position: relative; display: flex; align-items: center; padding: 1rem 1.2rem; border-radius: 1.4rem; background: var(--ps-face); overflow: hidden; }
+.pscreen-band-bar { position: absolute; inset-block: 0; inset-inline-start: 0; background: color-mix(in srgb, var(--ziadah-violet) 16%, transparent); }
+.pscreen-band-name { position: relative; font-size: 1.3rem; }
+
+.pscreen-toggle { flex: none; width: 3.2rem; height: 1.8rem; border-radius: 9999px; background: color-mix(in srgb, currentColor 18%, transparent); position: relative; }
+.pscreen-toggle::after { content: ""; position: absolute; inset-block: 0.3rem; inset-inline-start: 0.3rem; width: 1.2rem; border-radius: 50%; background: currentColor; opacity: 0.7; }
+.pscreen-toggle.is-on { background: var(--ziadah-violet); }
+.pscreen-toggle.is-on::after { inset-inline-start: auto; inset-inline-end: 0.3rem; background: var(--general-white); opacity: 1; }
+
+/* the appearance editor: controls beside the customer's view */
+.pscreen-editor { display: grid; gap: 1.6rem; width: 100%; }
+@media screen and (min-width: 768px) { .pscreen-editor { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; } }
+.pscreen-swatches { display: flex; gap: 0.8rem; margin-block-start: 1rem; }
+.pscreen-swatch { width: 2.4rem; height: 2.4rem; border-radius: 0.8rem; background: color-mix(in srgb, currentColor 14%, transparent); }
+.pscreen-swatch.is-on { background: var(--ziadah-violet); }
+.pscreen-preview {
+  display: grid; gap: 1rem; padding: 1.6rem; border-radius: 1.6rem;
+  background: var(--ps-face); border: 0.1rem solid var(--ps-hair);
+}
+.pscreen-preview-label { font-size: 1.1rem; color: var(--ps-mute); }
+.pscreen-preview-body { display: grid; gap: 0.8rem; justify-items: start; }
+.pscreen-preview-bar { display: block; height: 0.8rem; width: 100%; border-radius: 9999px; background: color-mix(in srgb, currentColor 14%, transparent); }
+.pscreen-preview-bar--short { width: 62%; }
+.pscreen-preview-chip { padding: 0.4rem 1rem; border-radius: 9999px; background: var(--ziadah-violet); color: var(--general-white); font-size: 1.1rem; font-weight: 500; }
+
+/* =====================================================================
+   THE MECHANISM FIGURE
+
+   The supporting sections' visual language. Not a device, not a dashboard -
+   the point is that a reader scrolling past the hero feels the register
+   change rather than seeing the same product screenshot five more times.
+   ===================================================================== */
+.mech {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  padding: 3.2rem;
+  border-radius: var(--radius-media, 3.2rem);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  margin: 0;
+}
+@media screen and (max-width: 767px) { .mech { padding: 2.4rem; gap: 1.6rem; } }
+
+.mech-head { display: flex; align-items: baseline; gap: 1.2rem; }
+/* A NUMERAL IS CONTENT, NOT AN ORNAMENT. This was 24% ink, which measured
+   1.68:1 at 48px against a 3.0 requirement for large text - the same mistake
+   the codebase already has a rule for: low-alpha ink cannot carry a figure.
+   `--ink-floor` is each family's own smallest opacity that clears AA, so this
+   reads on the navy product grounds and on the white ones without a
+   per-section override. */
+.mech-index {
+  font-size: 4.8rem; line-height: 1; font-weight: 400;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(46%, var(--ink-floor, 0%)), transparent);
+}
+@media screen and (max-width: 767px) { .mech-index { font-size: 3.2rem; } }
+.mech-kicker {
+  font-size: 1.2rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(72%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .mech-kicker { letter-spacing: 0; text-transform: none; }
+
+.mech-rule { display: grid; gap: 1rem; }
+.mech-rule-label { font-size: 1.3rem; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(74%, var(--ink-floor, 0%)), transparent); }
+.mech-rule-bar {
+  display: block; height: 0.6rem; border-radius: 9999px;
+  background: linear-gradient(to var(--reveal-dir, right), var(--ziadah-violet) 0 38%, color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent) 38%);
+}
+[dir="rtl"] .mech-rule-bar { --reveal-dir: left; }
+
+.mech-statement { font-size: 2.4rem; line-height: 1.35; margin: 0; }
+[dir="rtl"] .mech-statement { line-height: 1.55; }
+@media screen and (max-width: 767px) { .mech-statement { font-size: 1.9rem; } }
+
+/* Three modules from the brand geometry, one lit - the connective motif at
+   its smallest scale. */
+.mech-modules { display: flex; gap: 0.8rem; margin-block-start: auto; }
+.mech-module {
+  width: 1.6rem; height: 1.6rem; border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent);
+}
+.mech-module--on { background: var(--ziadah-violet); transform: rotate(45deg); border-radius: 0.4rem; }
+
+/* =====================================================================
+   THE PRODUCT HERO — making the product actually dominant
+
+   MEASURED at 1440x900 before this block: the headline occupied 494x245 and
+   the product visual 505x505, inside a media column that was 656 wide and
+   capped at 505 by `.hero-media`. Two objects of equal weight is not "the
+   product is the hero" - it is a two-column marketing hero with a screenshot
+   in it, which is the thing this round exists to move past.
+
+   Three changes, each against a measured number rather than a feeling:
+     the media column gives up its 50.5rem cap and takes its full width;
+     the grid gives the media 9 of 16 columns instead of 8;
+     the device grows from 32rem to 38rem, and the dashboard from 52 to 58.
+
+   The headline is NOT enlarged to compensate - the brief is explicit that the
+   answer to a flat section is never a bigger heading. It keeps its measured
+   scale and the product outgrows it.
+   ===================================================================== */
+@media screen and (min-width: 1025px) {
+  /* Inline padding is the callouts' gutter: it reserves the room the overhang
+     needs INSIDE the composition, so nothing has to escape a parent. */
+  .pfv { padding-inline: 9rem; }
+  .hero-col-media:has(.pfv) { grid-column: 8 / span 9; margin-inline-end: 1.6rem; }
+  .hero-col-text:has(~ .hero-col-media .pfv) { grid-column: 1 / span 7; }
+  .hero-media:has(.pfv) { max-width: none; padding: 2.4rem 0; }
+  .media-slot--screen:has(.pfv) { min-height: 0; }
+
+  .pfv--phone .pfv-frame { width: min(38rem, 100%); }
+  .pfv--dashboard .pfv-frame,
+  .pfv--editor .pfv-frame { width: min(58rem, 100%); }
+}
+
+/* At 768-1024 the hero is one column and the media is centred; the product
+   still leads it, so the cap comes off there too. */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .hero-col-media:has(.pfv) { max-width: none; }
+  .hero-media:has(.pfv) { max-width: none; }
+  .pfv--phone .pfv-frame { width: min(34rem, 100%); }
+}
+
+/* The mechanism figure's progress rail and control set. */
+.mech-of {
+  margin-inline-start: auto;
+  font-size: 1.2rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
+.mech-rail { display: block; height: 0.4rem; border-radius: 9999px; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent); overflow: hidden; }
+.mech-rail-fill { display: block; height: 100%; border-radius: inherit; background: var(--ziadah-violet); transition: width 0.5s var(--ease-out-quint); }
+
+.mech-controls { display: grid; gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
+.mech-control {
+  display: flex; align-items: center; gap: 1.2rem;
+  padding: 1.2rem 1.4rem; border-radius: 1.4rem;
+  font-size: 1.6rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, transparent);
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(74%, var(--ink-floor, 0%)), transparent);
+  transition: background 0.35s var(--ease-out-quint), color 0.35s var(--ease-out-quint);
+}
+.mech-control.is-on {
+  background: color-mix(in srgb, var(--ziadah-violet) 14%, transparent);
+  color: var(--color-secondary, var(--general-black));
+  font-weight: 500;
+}
+.mech-control .mech-module { flex: none; }
+.mech-control.is-on .mech-module { background: var(--ziadah-violet); transform: rotate(45deg); border-radius: 0.4rem; }
+.mech-control-name { min-width: 0; }

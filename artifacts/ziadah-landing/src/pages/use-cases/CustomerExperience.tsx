@@ -34,7 +34,7 @@ const data: UseCasePageData = {
   strategyTitle: "أركان التخصيص في زيادة",
   strategies: [
     {
-      icon: "🪪",
+      icon: "",
       title: "طبقة الهوية الكاملة",
       desc: "بناء ملف زائر غني: مصدر الزيارة، الجهاز، المنطقة، تاريخ التصفح والشراء — أساس لا يُبنى التوصية بدونه.",
       color: "#8b5cf6",
@@ -46,19 +46,19 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🧠",
+      icon: "",
       title: "ذاكرة تراكمية",
       desc: "المشتريات السابقة، المنتجات التي شاهدها دون شراء، العودات المتكررة، وأوقات النشاط المفضلة — كلها تغذي النموذج مع الوقت.",
       color: "#8b5cf6",
     },
     {
-      icon: "👥",
+      icon: "",
       title: "ذكاء المجتمع",
       desc: "أنماط مستخرجة من عملاء يشبهون هذا الزائر في السلوك والاهتمام — توصيات مدعومة بسلوك حقيقي لا بتخمين.",
       color: "#f59e0b",
     },
     {
-      icon: "🌙",
+      icon: "",
       title: "السياق الزمني والموسمي",
       desc: "رمضان، ما قبل العيد، الجمعة السوداء، نهاية الأسبوع، وساعات الذروة — تُرجّح المنتجات والعروض المناسبة للحظة.",
       color: "#ec4899",
@@ -75,7 +75,7 @@ const data: UseCasePageData = {
     steps: [
       "نورة دخلت من إعلان رمضان على تجميل: المحرك يرفع أوزان العطور والهدايا الموسمية ويخفّض إلكترونيات الرياضة.",
       "تمرّرت طويلاً على كريمات البشرة وكبّرت صورة طقم عناية — تُسجَّل كإشارات نية قوية قبل الشراء.",
-      "ناصر زار من بحث عن «آيفون»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
+      "ناصر زار من بحث عن «هاتف ذكي»: يُكتشف نمط تقني رياضي من مشترياته السابقة وساعته القديمة في الملف.",
       "لناصر تظهر إكمالات تقنية ولياقة؛ لنورة تظهر عطور رمضان وبخور يكمّل سلّة العناية — من نفس المحرك، بمنطق مختلف.",
     ],
     result: "في deployments مشابهة: ارتفع متوسط قيمة الطلب بين 18% و34% في أول ستة أسابيع، ووصل معدل التحويل إلى ضعف أو ثلاثة أضعاف في فئات مختارة — دون ساعات إعداد أسبوعية من التاجر.",
@@ -86,11 +86,11 @@ const data: UseCasePageData = {
     <>
       <section style={{ position: "relative", zIndex: 2, padding: "0 5% 48px" }}>
         <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-          <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 28px", overflow: "hidden" }}>
-            <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 8, textAlign: "center" }}>
+          <div className="sector-card" style={{ overflow: "hidden" }}>
+            <h3 className="section-head-title--sm" style={{ marginBottom: 8, textAlign: "center" }}>
               {isAr ? "مقارنة سريعة" : "Quick comparison"}
             </h3>
-            <p className="text-zinc-600" style={{ fontSize: 14, textAlign: "center", marginBottom: 24, lineHeight: 1.7 }}>
+            <p className="sector-card-text" style={{ textAlign: "center", marginBottom: 24 }}>
               {isAr
                 ? "لماذا التوصيات التقليدية تتوقف مبكراً بينما محرك زيادة يستمر بالتعلم؟"
                 : "Why traditional recommendations plateau while Ziadah's engine keeps learning."}
@@ -189,7 +189,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "The pillars of personalization in Ziadah",
   strategiesEn: [
     {
-      icon: "🪪",
+      icon: "",
       title: "Full identity layer",
       desc: "A rich visitor profile: traffic source, device, region, browsing and purchase history — the foundation recommendations are built on.",
       color: "#8b5cf6",
@@ -201,19 +201,19 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🧠",
+      icon: "",
       title: "Cumulative memory",
       desc: "Past purchases, viewed-not-bought products, repeat visits, and preferred activity windows — all feeding the model over time.",
       color: "#8b5cf6",
     },
     {
-      icon: "👥",
+      icon: "",
       title: "Community intelligence",
       desc: "Patterns from customers who behave like this visitor — recommendations grounded in real cohort behavior, not guesswork.",
       color: "#f59e0b",
     },
     {
-      icon: "🌙",
+      icon: "",
       title: "Temporal & seasonal context",
       desc: "Ramadan, pre-Eid, Black Friday, weekends, peak hours — boosting the products and offers that fit the moment.",
       color: "#ec4899",
@@ -230,7 +230,7 @@ const data: UseCasePageData = {
     steps: [
       "Noura arrived from a Ramadan beauty ad: the engine raises weights for seasonal perfumes and gifts and de-emphasizes sports electronics.",
       "She lingered on skincare creams and zoomed a care set — logged as strong pre-purchase intent signals.",
-      "Nasser came from an iPhone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
+      "Nasser came from a smartphone search: a tech-and-fitness pattern is inferred from past purchases and his old watch in the profile.",
       "Nasser sees tech and fitness complements; Noura sees Ramadan scents and incense that complete a care basket — same engine, different logic.",
     ],
     result: "In comparable deployments: AOV rose between 18% and 34% in the first six weeks, and conversion reached 2–3× in selected categories — without weekly manual setup from the merchant.",

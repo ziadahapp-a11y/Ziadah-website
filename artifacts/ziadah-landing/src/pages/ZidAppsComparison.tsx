@@ -4,13 +4,13 @@ import PageShell from "@/components/PageShell";
 import SEO from "@/components/SEO";
 import { BreadcrumbSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useSiteT } from "@/cms/siteContent";
 import { getPageKeywords } from "@/seo/page-keywords";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import DsPageBackdrop from "@/components/DsPageBackdrop";
-import { Eyebrow } from "@/components/trackflow";
+import { HeroLede } from "@/sections";
 import "./zid-apps-comparison.css";
+import { t as siteTranslations } from "@/i18n/translations";
 
 type Bilingual = { ar: string; en: string };
 
@@ -57,8 +57,8 @@ const APPS = [
     // Ziyada — the brand column, highlighted with the canonical green.
     nameAr: "زيادة",
     nameEn: "Ziyada",
-    tint: "rgba(22 163 74 / 0.1)",
-    cellBg: "rgba(22 163 74 / 0.05)",
+    tint: "rgba(124 58 237 / 0.1)",
+    cellBg: "rgba(124 58 237 / 0.05)",
     thBg: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%)",
   },
   {
@@ -301,11 +301,11 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
         style={{
           fontSize: 12,
           fontWeight: 700,
-          color: "rgb(21 128 61)",
+          color: "rgb(72 0 134)",
           padding: "4px 8px",
           borderRadius: 7,
-          background: "rgba(22 163 74 / 0.1)",
-          border: "1px solid rgba(22 163 74 / 0.18)",
+          background: "rgba(124 58 237 / 0.1)",
+          border: "1px solid rgba(124 58 237 / 0.18)",
         }}
       >
         {tx(COPY.plan, lang)}
@@ -333,7 +333,7 @@ function CellContent({ value, lang }: { value: CellData; lang: "ar" | "en" }) {
 }
 
 export default function ZidAppsComparison() {
-  const t = useSiteT();
+  const t = siteTranslations;
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
   const pk = getPageKeywords("/zid-apps-comparison");
@@ -359,60 +359,25 @@ export default function ZidAppsComparison() {
       />
       <PageShell className="relative overflow-x-clip" style={{ color: "var(--t)" }}>
         <DsPageBackdrop />
+        {/* The green radial wash this used to paint by hand belonged to a
+            palette Ziadah does not use; the sections inside stamp their own
+            ground now, so the shell only carries direction and stacking. */}
         <section
           className="zi-wrap zi-compare-shell"
           data-nav-backdrop="light"
-          style={{
-            position: "relative",
-            zIndex: 2,
-            background:
-              "radial-gradient(120% 80% at 50% -10%, rgba(22 163 74 / 0.08) 0%, transparent 55%), linear-gradient(180deg, #ffffff 0%, #fafafa 60%, #f4f4f5 100%)",
-            direction: dir,
-          }}
+          style={{ position: "relative", zIndex: 2, direction: dir }}
         >
-          <div className="page-hero-viewport page-hero-viewport--center">
-            <div className="wrap" style={{ maxWidth: 1140, marginInline: "auto" }}>
-              <header
-              style={{
-                marginBottom: 0,
-                textAlign: "center",
-              }}
-            >
-              <Eyebrow className="mb-4">{isAr ? "مقارنة التطبيقات" : "Apps comparison"}</Eyebrow>
-              <h1
-                className="zi-compare-hero-title"
-                style={{
-                  fontSize: "clamp(28px, 3.8vw, 46px)",
-                  fontWeight: 800,
-                  margin: "0 0 14px",
-                  letterSpacing: isAr ? 0 : -0.5,
-                  color: "#09090b",
-                  lineHeight: 1.2,
-                }}
-              >
-                {tx(COPY.h1, lang)}
-              </h1>
-              <div
-                className="zi-compare-date-pill num-ltr"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  margin: 0,
-                  padding: "8px 16px",
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: "rgb(21 128 61)",
-                  background: "rgba(22 163 74 / 0.1)",
-                  border: "1px solid rgba(22 163 74 / 0.18)",
-                  borderRadius: 999,
-                  boxShadow: "0 4px 16px rgba(22 163 74 / 0.08)",
-                }}
-              >
-                {tx(COPY.dateNote, lang)}
-              </div>
-            </header>
-          </div>
-          </div>
+          <HeroLede
+            compact
+            family="grey"
+            eyebrow={isAr ? "مقارنة التطبيقات" : "Apps comparison"}
+            title={tx(COPY.h1, lang)}
+          >
+            {/* When the comparison was last checked. It is a fact about the
+                table below, not a claim, so it reads as a caption. */}
+            <p className="hero-caption num-ltr">{tx(COPY.dateNote, lang)}</p>
+          </HeroLede>
+
           <div
             style={{
               paddingInline: "var(--page-inline-pad)",
@@ -434,11 +399,11 @@ export default function ZidAppsComparison() {
                 overflowY: "auto",
                 maxHeight: "min(75vh, calc(100vh - 200px))",
                 WebkitOverflowScrolling: "touch",
-                borderRadius: 16,
-                border: "1px solid #e4e4e7",
-                boxShadow:
-                  "0 4px 6px rgba(24, 24, 27, 0.03), 0 20px 50px rgba(24, 24, 27, 0.06)",
-                background: "#ffffff",
+                /* The system's card ground rather than a white panel with a
+                   zinc border and two shadows: the table is a card, and a card
+                   is one tint of the section's own ink. */
+                borderRadius: "var(--radius-card, 1.6rem)",
+                background: "color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent)",
                 padding: "clamp(6px, 1.5vw, 14px)",
               }}
             >
@@ -464,7 +429,7 @@ export default function ZidAppsComparison() {
                         letterSpacing: isAr ? 0 : "0.02em",
                         textTransform: isAr ? "none" : "uppercase",
                         background: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
-                        borderBottom: "2px solid rgb(22 163 74)",
+                        borderBottom: "2px solid rgb(124 58 237)",
                         width: 200,
                         position: "sticky",
                         top: 0,
@@ -483,11 +448,11 @@ export default function ZidAppsComparison() {
                           padding: "16px 10px",
                           textAlign: "center",
                           fontWeight: 800,
-                          color: i === 0 ? "rgb(21 128 61)" : "#3f3f46",
+                          color: i === 0 ? "rgb(72 0 134)" : "#3f3f46",
                           fontSize: 13,
                           letterSpacing: isAr ? 0 : "0.04em",
                           background: app.thBg,
-                          borderBottom: i === 0 ? "2px solid rgb(22 163 74)" : "2px solid #e4e4e7",
+                          borderBottom: i === 0 ? "2px solid rgb(124 58 237)" : "2px solid #e4e4e7",
                           minWidth: 100,
                           position: "sticky",
                           top: 0,
@@ -513,9 +478,9 @@ export default function ZidAppsComparison() {
                               fontSize: 14,
                               color: "#09090b",
                               background: "linear-gradient(90deg, rgba(237, 233, 254, 0.7) 0%, rgba(245, 243, 255, 0.6) 48%, rgba(244, 244, 245, 0.5) 100%)",
-                              borderTop: ri > 0 ? "1px solid rgba(22 163 74 / 0.12)" : undefined,
+                              borderTop: ri > 0 ? "1px solid rgba(124 58 237 / 0.12)" : undefined,
                               textAlign: isAr ? "right" : "left",
-                              borderInlineStart: "4px solid rgb(22 163 74)",
+                              borderInlineStart: "4px solid rgb(124 58 237)",
                               letterSpacing: isAr ? 0 : "0.01em",
                             }}
                           >

@@ -8,7 +8,7 @@ const data: UseCasePageData = {
     title: "البيع المتقاطع",
     subtitle: "اقترح للعميل ما يكمّل شراءه — منتجات مرتبطة وظيفياً أو موضوعياً تضيف قيمة حقيقية لتجربته وترفع قيمة سلته.",
     tagline: "من يشتري شامبو ينسى البلسم — حتى تذكّره زيادة",
-    icon: "🔗",
+    icon: "",
   },
   whatWeDoTitle: "ما هو البيع المتقاطع وكيف ينفّذه زيادة؟",
   whatWeDoDesc:
@@ -16,7 +16,7 @@ const data: UseCasePageData = {
   strategyTitle: "أساليب البيع المتقاطع في زيادة",
   strategies: [
     {
-      icon: "🛒",
+      icon: "",
       title: "اشتروا مع بعض (BTAT)",
       desc: "يستخرج من قاعدة بيانات الطلبات الحقيقية أكثر المنتجات التي تُشترى معاً — ثم يعرضها معاً بمنطق اجتماعي موثوق: 'عملاء اشتروا هذا اشتروا أيضاً...'",
       color: "#8b5cf6",
@@ -28,13 +28,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "حزم Combo ذكية",
       desc: "يجمّع منتجات متكاملة في حزمة بسعر مخفوض يظهر التوفير بوضوح. العميل يشعر أنه الرابح والمتجر يرفع قيمة الطلب.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "تخصيص حسب الملف",
       desc: "ليس كل عميل يناسبه نفس الاقتراح. زيادة يراعي الجنس، المنطقة، الميزانية المعتادة، وعدد الطلبات السابقة لاختيار الاقتراح الأنسب.",
       color: "#f59e0b",
@@ -67,8 +67,8 @@ const data: UseCasePageData = {
       }
       tabs={[
         {
-          labelAr: "📱 مثال حي",
-          labelEn: "📱 Live Demo",
+          labelAr: "مثال حي",
+          labelEn: "Live Demo",
           content: <CrossSellWidget />,
         },
         {
@@ -76,13 +76,13 @@ const data: UseCasePageData = {
           labelEn: "⚖️ Cross-sell vs Upsell",
           placement: "below",
           content: (
-            <div className="rounded-2xl border border-zinc-200 bg-white shadow-card p-8 md:p-10" style={{ width: "100%" }}>
+            <div className="sector-card" style={{ width: "100%" }}>
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>
                 {isAr ? "الفرق بين البيع المتقاطع والبيع البديل" : "Cross-selling vs. Upselling"}
               </h3>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
                 <div className="rounded-xl border border-violet-200 bg-violet-50/60" style={{ padding: "24px 28px" }}>
-                  <div className="text-violet-700" style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>{isAr ? "🔗 البيع المتقاطع (Cross-sell)" : "🔗 Cross-Selling"}</div>
+                  <div className="text-violet-700" style={{ fontSize: 18, fontWeight: 800, marginBottom: 12 }}>{isAr ? "البيع المتقاطع (Cross-sell)" : "Cross-Selling"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
                     {(isAr
                       ? ["يقترح منتجات مكمّلة", "يزيد عدد المنتجات في السلة", "يعمل على صفحة المنتج والسلة", "مثال: هاتف + غلاف + واقي شاشة"]
@@ -121,7 +121,7 @@ const data: UseCasePageData = {
     title: "Cross-Selling",
     subtitle: "Suggest what completes the customer's purchase — functionally or thematically related products that add real value to their experience and increase cart value.",
     tagline: "Someone buying shampoo forgets the conditioner — until Ziadah reminds them",
-    icon: "🔗",
+    icon: "",
   },
   whatWeDoTitleEn: "What is cross-selling and how does Ziadah implement it?",
   whatWeDoDescEn:
@@ -129,7 +129,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Cross-selling methods in Ziadah",
   strategiesEn: [
     {
-      icon: "🛒",
+      icon: "",
       title: "Bought Together (BTAT)",
       desc: "Extracts from the real order database the most frequently co-purchased products — then displays them together with trusted social proof: 'Customers who bought this also bought...'",
       color: "#8b5cf6",
@@ -141,13 +141,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Smart Combo Bundles",
       desc: "Combines complementary products in a discounted bundle that clearly shows savings. The customer feels like a winner and the store increases order value.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Profile-Based Personalization",
       desc: "Not every customer suits the same suggestion. Ziadah considers gender, region, typical budget, and past order count to choose the most relevant suggestion.",
       color: "#f59e0b",

@@ -7,11 +7,9 @@ import {
   Mail,
   Lightbulb,
   MessageCircle,
-  CalendarClock,
   ExternalLink,
   Play,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import PageShell from "../components/PageShell";
 import { categories, videoLibrary, searchArticles } from "../data/support-data";
 import { navigateTo } from "@/components/PageTransition";
@@ -19,16 +17,18 @@ import SEO from "../components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema } from "../components/JsonLd";
 import { useLanguage } from "../i18n/LanguageContext";
-import { useSiteT } from "../cms/siteContent";
 import FeatureRequestModal from "../components/FeatureRequestModal";
 import PlatformModal from "../components/PlatformModal";
 import PageClosingCta from "../components/PageClosingCta";
-import { useMeetingBooking } from "@/components/MeetingBookingProvider";
-import { Section, SectionHeading, Eyebrow } from "@/components/trackflow";
+import { Section, SectionHead } from "@/sections";
+import { Shell } from "@/components/mk";
+import { HeroLede } from "@/sections";
+import { t as siteTranslations } from "@/i18n/translations";
+import { supportCategoryIcon } from "@/lib/support-icons";
 
 export default function Support() {
   const { lang, isAr } = useLanguage();
-  const t = useSiteT();
+  const t = siteTranslations;
   const tx = t[lang].support;
   const navTr = t[lang].nav;
   const pc = t[lang].pageClosingCta;
@@ -38,7 +38,6 @@ export default function Support() {
   const [search, setSearch] = useState("");
   const [featureModalOpen, setFeatureModalOpen] = useState(false);
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
-  const { openMeetingBooking } = useMeetingBooking();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,12 +60,8 @@ export default function Support() {
   const getArticleDesc = (a: { desc: string; descEn?: string }) => isAr ? a.desc : (a.descEn || a.desc);
   const getArticleTime = (a: { time: string; timeEn?: string }) => isAr ? a.time : (a.timeEn || a.time);
 
-  const quickLinks: (
-    | { label: string; href: string; icon: string; desc: string; ext: true }
-    | { label: string; icon: string; desc: string; meeting: true }
-  )[] = [
+  const quickLinks: { label: string; href: string; icon: string; desc: string; ext: true }[] = [
     { label: tx.quickTalkSupport, href: "https://api.whatsapp.com/send/?phone=966510131856", icon: "💬", desc: tx.quickTalkSupportDesc, ext: true },
-    { label: tx.quickBookMeeting, icon: "📅", desc: tx.quickBookMeetingDesc, meeting: true },
     { label: tx.quickZidDash, href: "https://web.ziadah.app/", icon: "🔗", desc: tx.quickZidDashDesc, ext: true },
     { label: tx.quickSallaDash, href: "https://dashboard.ziadah.app/", icon: "🔗", desc: tx.quickSallaDashDesc, ext: true },
   ];
@@ -80,11 +75,6 @@ export default function Support() {
     v6: { title: "Success Stories from Saudi Merchants", description: "Real experiences from merchants who achieved amazing results with Ziadah", category: "Success Stories" },
   };
 
-  const gridStyle = {
-    backgroundImage:
-      "linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px)",
-    backgroundSize: "48px 48px",
-  } as const;
 
   return (
     <>
@@ -98,167 +88,139 @@ export default function Support() {
       keywordsEn={pk?.keywordsEn}
     />
     <BreadcrumbSchema items={[{ name: tx.breadcrumbHome, url: "/" }, { name: tx.breadcrumbSupport, url: "/support" }]} />
-    <PageShell className="relative overflow-x-clip bg-white support-page" style={{ background: "#fff" }}>
+    <PageShell className="relative overflow-x-clip support-page">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-20 pb-24 md:pt-28 md:pb-28 px-4 border-b border-zinc-200">
-        <div className="absolute inset-0 bg-grid-fade opacity-60 -z-10" style={gridStyle} />
-        <div className="container mx-auto relative max-w-3xl text-center">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="mb-5">
-            <Eyebrow>{tx.tag}</Eyebrow>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-6 leading-[1.08]"
-          >
-            {tx.heroTitle}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-lg md:text-xl text-zinc-600 max-w-xl mx-auto mb-10 leading-relaxed"
-          >
-            {tx.heroSub}
-          </motion.p>
-
-          {/* Search */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="relative max-w-xl mx-auto"
-          >
-            <Search className="absolute top-1/2 -translate-y-1/2 end-4 w-5 h-5 text-zinc-400 pointer-events-none" />
-            <input
-              type="search"
-              autoComplete="off"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder={tx.searchPlaceholder}
-              className={`w-full h-14 rounded-2xl border border-zinc-200 bg-white text-zinc-950 text-base shadow-card placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 transition-colors pe-14 ${search.trim() ? "ps-12" : "ps-5"}`}
-            />
-            {!!search && (
-              <button
-                type="button"
-                aria-label={isAr ? "مسح البحث" : "Clear search"}
-                onClick={() => setSearch("")}
-                className="absolute top-1/2 -translate-y-1/2 start-4 w-6 h-6 flex items-center justify-center rounded-full text-zinc-500 hover:bg-zinc-100 transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-          </motion.div>
-
-          {/* Search Results Dropdown */}
-          {search.trim() && (
-            <div className="relative max-w-xl mx-auto mt-3 rounded-2xl border border-zinc-200 bg-white shadow-card-lg overflow-hidden text-start z-20">
-              {searchResults.length > 0 ? (
-                <>
-                  <div className="px-5 py-3 text-xs font-bold tracking-widest text-zinc-400 uppercase border-b border-zinc-100">
-                    <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
-                  </div>
-                  {searchResults.map((a, i) => (
-                    <a
-                      key={i}
-                      href={`/support/article/${a.id}`}
-                      className="flex items-start gap-3 px-5 py-4 cursor-pointer hover:bg-zinc-50 border-b border-zinc-100 last:border-b-0 transition-colors"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigateTo(`/support/article/${a.id}`);
-                        setSearch("");
-                      }}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-bold text-zinc-950">{getArticleTitle(a)}</div>
-                        <div className="text-xs text-zinc-500 mt-0.5">
-                          {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
-                        </div>
-                      </div>
-                      <ChevronRight className={`w-4 h-4 text-zinc-400 shrink-0 mt-1 ${isAr ? "rotate-180" : ""}`} />
-                    </a>
-                  ))}
-                </>
-              ) : (
-                <div className="px-5 py-6 text-sm text-zinc-500 text-center">
-                  {tx.noResults} «{search}»
-                </div>
-              )}
-            </div>
+      <HeroLede
+        compact
+        family="grey"
+        eyebrow={tx.tag}
+        title={tx.heroTitle}
+        body={tx.heroSub}
+      >
+        {/* The search is the help centre's front door, so it sits in the hero
+            rather than in a band under it, and its results open in place. */}
+        <div className="hero-search">
+          <input
+            type="search"
+            autoComplete="off"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder={tx.searchPlaceholder}
+            className={`hero-search-input${search.trim() ? " is-clearable" : ""}`}
+          />
+          <Search className="hero-search-ico" aria-hidden="true" />
+          {!!search && (
+            <button
+              type="button"
+              aria-label={isAr ? "مسح البحث" : "Clear search"}
+              onClick={() => setSearch("")}
+              className="hero-search-clear"
+            >
+              <X aria-hidden="true" />
+            </button>
           )}
         </div>
-      </section>
+
+        {search.trim() && (
+          <div className="hero-search-results">
+            {searchResults.length > 0 ? (
+              <>
+                <div className="hero-search-count">
+                  <span className="num-ltr">{searchResults.length}</span> {tx.resultCount}
+                </div>
+                {searchResults.map((a, i) => (
+                  <a
+                    key={i}
+                    href={`/support/article/${a.id}`}
+                    className="hero-search-hit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateTo(`/support/article/${a.id}`);
+                      setSearch("");
+                    }}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="hero-search-hit-title">{getArticleTitle(a)}</div>
+                      <div className="hero-search-hit-meta">
+                        {a.categoryLabel} · {getArticleTime(a)} {tx.readSuffix}
+                      </div>
+                    </div>
+                    <ChevronRight className={`hero-search-hit-ico${isAr ? " rotate-180" : ""}`} aria-hidden="true" />
+                  </a>
+                ))}
+              </>
+            ) : (
+              <div className="hero-search-empty">
+                {tx.noResults} «{search}»
+              </div>
+            )}
+          </div>
+        )}
+      </HeroLede>
 
       {/* ─── QUICK LINKS ─── */}
-      <Section band="white">
-        <SectionHeading eyebrow={tx.tag} title={tx.contactSupport} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <Section family="violet">
+        <SectionHead center kicker={tx.tag} title={tx.contactSupport} />
+        <Shell width="wide">
+        <div className="cards-grid">
           <a
             href="mailto:support@ziadah.app"
-            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+            className="rv card card--short card--clickable flex-row items-center gap-4"
           >
-            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
-              <Mail className="w-5 h-5 text-white" />
+            <span className="card-ico">
+              <Mail className="w-5 h-5" aria-hidden="true" />
             </span>
-            <div className="flex-1 min-w-0">
-              <div className="text-base font-bold text-zinc-950">{navTr.email}</div>
-              <div className="text-sm text-zinc-600 mt-0.5">{navTr.emailSub}</div>
-            </div>
+            <span className="flex-1 min-w-0">
+              <span className="block t-sm-med">{navTr.email}</span>
+              <span className="card-body-text">{navTr.emailSub}</span>
+            </span>
           </a>
           <button
             type="button"
             onClick={() => setFeatureModalOpen(true)}
-            className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+            className="rv card card--short card--clickable flex-row items-center gap-4"
           >
-            <span className="w-11 h-11 rounded-lg bg-zinc-950 flex items-center justify-center shrink-0">
-              <Lightbulb className="w-5 h-5 text-white" />
+            <span className="card-ico">
+              <Lightbulb className="w-5 h-5" aria-hidden="true" />
             </span>
-            <div className="flex-1 min-w-0">
-              <div className="text-base font-bold text-zinc-950">{navTr.featureRequest}</div>
-              <div className="text-sm text-zinc-600 mt-0.5">{navTr.featureRequestSub}</div>
-            </div>
+            <span className="flex-1 min-w-0">
+              <span className="block t-sm-med">{navTr.featureRequest}</span>
+              <span className="card-body-text">{navTr.featureRequestSub}</span>
+            </span>
           </button>
           {quickLinks.map(l => {
-            const Icon = "meeting" in l ? CalendarClock : l.icon === "💬" ? MessageCircle : ExternalLink;
+            const Icon = l.icon === "💬" ? MessageCircle : ExternalLink;
             const inner = (
               <>
-                <span className="w-11 h-11 rounded-lg bg-zinc-100 flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5 text-zinc-700" />
+                <span className="card-ico">
+                  <Icon className="w-5 h-5" aria-hidden="true" />
                 </span>
-                <div className="flex-1 min-w-0">
-                  <div className="text-base font-bold text-zinc-950">{l.label}</div>
-                  <div className="text-sm text-zinc-600 mt-0.5">{l.desc}</div>
-                </div>
+                <span className="flex-1 min-w-0">
+                  <span className="block t-sm-med">{l.label}</span>
+                  <span className="card-body-text">{l.desc}</span>
+                </span>
               </>
             );
-            return "meeting" in l ? (
-              <button
-                key={l.label}
-                type="button"
-                onClick={() => openMeetingBooking()}
-                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
-              >
-                {inner}
-              </button>
-            ) : (
+            return (
               <a
                 key={l.label}
                 href={l.href}
                 target="_blank"
                 rel="noreferrer"
-                className="rv flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 hover:border-zinc-300 hover:shadow-card transition-all text-start"
+                className="rv card card--short card--clickable flex-row items-center gap-4"
               >
                 {inner}
               </a>
             );
           })}
         </div>
+        </Shell>
       </Section>
 
       {/* ─── CATEGORIES + ARTICLES ─── */}
-      <Section band="muted">
+      <Section family="grey">
+        <Shell width="wide">
         {/* mobile category pills */}
         <div className="rv flex gap-2 overflow-x-auto pb-2 mb-8 lg:hidden">
           {categories.map((c) => (
@@ -266,15 +228,12 @@ export default function Support() {
               key={c.id}
               type="button"
               onClick={() => setActiveCategory(c.id)}
-              className={`shrink-0 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition-colors ${
-                activeCategory === c.id
-                  ? "bg-zinc-950 text-white border-zinc-950"
-                  : "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300"
-              }`}
+              className="chip shrink-0 gap-2"
+              aria-pressed={activeCategory === c.id}
             >
-              <span aria-hidden>{c.icon}</span>
+              {(() => { const I = supportCategoryIcon(c.icon); return <I className="w-4 h-4" aria-hidden="true" />; })()}
               {getCatLabel(c)}
-              <span className="text-xs opacity-70 num-ltr">{c.articles.length}</span>
+              <span className="chip-count num-ltr">{c.articles.length}</span>
             </button>
           ))}
         </div>
@@ -282,19 +241,18 @@ export default function Support() {
         <div className="grid lg:grid-cols-[260px_1fr] gap-8">
           {/* sidebar */}
           <aside className="hidden lg:block">
-            <div className="rv rounded-2xl border border-zinc-200 bg-white p-3 shadow-card sticky top-24">
+            <div className="rv card card--short !p-3 sticky top-24">
               {categories.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setActiveCategory(c.id)}
-                  className={`w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-start transition-colors ${
-                    activeCategory === c.id ? "bg-zinc-950 text-white" : "text-zinc-700 hover:bg-zinc-50"
-                  }`}
+                  className="cat-link"
+                  aria-pressed={activeCategory === c.id}
                 >
-                  <span className="text-lg" aria-hidden>{c.icon}</span>
-                  <span className="flex-1 text-sm font-bold">{getCatLabel(c)}</span>
-                  <span className={`text-xs num-ltr ${activeCategory === c.id ? "text-zinc-300" : "text-zinc-400"}`}>{c.articles.length}</span>
+                  {(() => { const I = supportCategoryIcon(c.icon); return <I className="w-4 h-4 shrink-0" aria-hidden="true" />; })()}
+                  <span className="flex-1 t-sm-med">{getCatLabel(c)}</span>
+                  <span className="card-eyebrow num-ltr">{c.articles.length}</span>
                 </button>
               ))}
             </div>
@@ -304,8 +262,8 @@ export default function Support() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl" aria-hidden>{activeCat.icon}</span>
-              <h2 className="text-xl md:text-2xl font-bold text-zinc-950">{getCatLabel(activeCat)}</h2>
-              <span className="inline-flex items-center rounded-full bg-zinc-100 px-3 py-1 text-xs font-bold text-zinc-600 num-ltr">
+              <h2 className="t-head-1">{getCatLabel(activeCat)}</h2>
+              <span className="pill pill--soon num-ltr">
                 {activeCat.articles.length} {tx.articleCount}
               </span>
             </div>
@@ -319,55 +277,60 @@ export default function Support() {
                     e.preventDefault();
                     navigateTo(`/support/article/${a.id}`);
                   }}
-                  className="rounded-2xl border border-zinc-200 bg-white p-6 cursor-pointer hover:border-zinc-300 hover:shadow-card transition-all flex flex-col gap-3.5"
+                  className="card card--short card--clickable"
                 >
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-bold num-ltr shrink-0"
+                  <span
+                    className="card-ico !w-9 !h-9 !rounded-lg text-sm font-bold num-ltr"
+                    /* The numeral is the category's own hue, which at full
+                       strength measures 4.23:1 on the card - under AA. Mixed
+                       78% with black it keeps the hue and clears 4.5:1 on both
+                       the white card and its own 13% tile. */
                     style={{
-                      background: `${activeCat.color}1c`,
-                      border: `1px solid ${activeCat.color}44`,
-                      color: activeCat.color,
+                      background: `${activeCat.color}22`,
+                      color: `color-mix(in srgb, ${activeCat.color} 78%, #000)`,
                     }}
                   >
                     {i + 1}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{getArticleTitle(a)}</div>
-                    <div className="text-sm text-zinc-600 leading-relaxed">{getArticleDesc(a)}</div>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-zinc-500">
-                    <Clock className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="flex-1 min-w-0">
+                    <span className="block t-sm-med mb-1.5">{getArticleTitle(a)}</span>
+                    <span className="card-body-text">{getArticleDesc(a)}</span>
+                  </span>
+                  <span className="card-eyebrow card-foot justify-start gap-1.5">
+                    <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                     {getArticleTime(a)} {tx.readSuffix}
-                    <ChevronRight className={`w-4 h-4 ms-auto text-zinc-300 ${isAr ? "rotate-180" : ""}`} />
-                  </div>
+                    <ChevronRight className={`card-arrow w-4 h-4 ms-auto opacity-50 ${isAr ? "rotate-180" : ""}`} aria-hidden="true" />
+                  </span>
                 </a>
               ))}
             </div>
           </div>
         </div>
+        </Shell>
       </Section>
 
       {/* ─── VIDEO LIBRARY ─── */}
-      <Section band="white">
+      <Section family="violet">
+        <Shell width="wide">
         <div className="flex items-end justify-between gap-4 flex-wrap mb-12">
           <div>
-            <Eyebrow className="mb-3">{tx.videoTag}</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-bold text-zinc-950 mb-2 leading-tight">{tx.videoTitle}</h2>
-            <p className="text-lg text-zinc-600">{tx.videoSub}</p>
+            <p className="t-eyebrow mb-3">{tx.videoTag}</p>
+            <h2 className="section-head-title--md mb-2">{tx.videoTitle}</h2>
+            <p className="section-lead">{tx.videoSub}</p>
           </div>
-          <span className="inline-flex items-center rounded-full bg-violet-100 border border-violet-200 px-4 py-1.5 text-xs font-bold text-violet-700">
-            {tx.videoComingSoon}
-          </span>
+          <span className="pill pill--soon">{tx.videoComingSoon}</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="cards-grid">
           {videoLibrary.map((v) => {
             const vEn = videoTitlesEn[v.id];
             const vTitle = isAr ? v.title : (vEn?.title || v.title);
             const vDesc = isAr ? v.description : (vEn?.description || v.description);
             const vCat = isAr ? v.category : (vEn?.category || v.category);
             return (
-              <div key={v.id} className="rounded-2xl border border-zinc-200 bg-white overflow-hidden hover:border-zinc-300 hover:shadow-card transition-all flex flex-col">
+              <div key={v.id} className="card card--short !p-0 overflow-hidden">
+                {/* The thumbnail stays a dark plate: it stands in for a video
+                    still, which is a picture and not a card. */}
                 <div className="relative aspect-video mockup-card flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 bg-grid-dark opacity-40 pointer-events-none" />
                   <div className="relative w-14 h-14 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
@@ -376,21 +339,25 @@ export default function Support() {
                   <span className="absolute bottom-2.5 start-2.5 rounded-md bg-black/60 backdrop-blur px-2.5 py-1 text-[11px] font-bold text-white num-ltr">
                     {v.duration}
                   </span>
-                  <span className="absolute top-2.5 end-2.5 rounded-full bg-violet-500/90 px-3 py-1 text-[10px] font-bold text-zinc-950">
+                  {/* White on the brand violet, not near-black: `#7c3aed` at 90%
+                      over a dark still gave 3.92:1 behind 10px type. White on
+                      the same ground is 5.6:1. */}
+                  <span className="absolute top-2.5 end-2.5 rounded-full px-3 py-1 text-[10px] font-bold" style={{ background: "var(--ziadah-violet)", color: "var(--general-white)" }}>
                     {vCat}
                   </span>
                   <span className="absolute top-2.5 start-2.5 rounded-full bg-white/15 backdrop-blur px-2.5 py-1 text-[10px] font-bold text-white">
                     {tx.videoSoonLabel}
                   </span>
                 </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="text-base font-bold text-zinc-950 leading-snug mb-1.5">{vTitle}</div>
-                  <div className="text-sm text-zinc-600 leading-relaxed">{vDesc}</div>
+                <div className="p-5 flex-1 flex flex-col gap-1.5">
+                  <div className="t-sm-med">{vTitle}</div>
+                  <div className="card-body-text">{vDesc}</div>
                 </div>
               </div>
             );
           })}
         </div>
+        </Shell>
       </Section>
 
       {/* ─── ACTIVATION CTA (same shell as home) ─── */}

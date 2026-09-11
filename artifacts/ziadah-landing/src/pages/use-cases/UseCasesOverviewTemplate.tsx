@@ -11,18 +11,18 @@ type UseCasesOverviewKind =
 function getData(kind: UseCasesOverviewKind): UseCasePageData {
   const map: Record<UseCasesOverviewKind, UseCasePageData> = {
     "by-pages": {
-      hero: { tag: "الحلول", title: "حسب الصفحات", subtitle: "صفحة عامة تجمع كل الحلول المصنفة حسب صفحة المتجر.", tagline: "ابدأ من صفحة متجرك", icon: "🧭" },
+      hero: { tag: "الحلول", title: "حسب الصفحات", subtitle: "صفحة عامة تجمع كل الحلول المصنفة حسب صفحة المتجر.", tagline: "ابدأ من صفحة متجرك", icon: "" },
       whatWeDoTitle: "حلول حسب الصفحة",
       whatWeDoDesc: "اختر نقطة الظهور التي تريد تحسينها: الصفحة الرئيسية، صفحة المنتج، السلة، الدفع، أو صفحة الشكر.",
       strategyTitle: "أبرز المسارات",
       strategies: [
-        { icon: "📄", title: "صفحة المنتج", desc: "توصيات مباشرة بجوار المنتج.", color: "#8b5cf6" },
-        { icon: "🛒", title: "صفحة السلة", desc: "رفع قيمة الطلب قبل الإتمام داخل السلة.", color: "#06b6d4" },
-        { icon: "💳", title: "صفحة الدفع", desc: "تحسين العرض في آخر خطوة قبل الإتمام.", color: "#8b5cf6" },
-        { icon: "🙏", title: "صفحة الشكر", desc: "اقتراحات ما بعد الشراء لزيادة التكرار.", color: "#f59e0b" },
-        { icon: "🏠", title: "الصفحة الرئيسية", desc: "تخصيص أول تجربة للزائر.", color: "#7c3aed" },
-        { icon: "🗂️", title: "صفحة التصنيف", desc: "عرض منتجات مكملة حسب الفئة.", color: "#4f46e5" },
-        { icon: "🌐", title: "جميع الصفحات", desc: "تفعيل نفس المنطق عبر كامل المتجر.", color: "#ec4899" },
+        { icon: "", title: "صفحة المنتج", desc: "توصيات مباشرة بجوار المنتج.", color: "#8b5cf6" , href: "/use-cases/product-page" },
+        { icon: "", title: "صفحة السلة", desc: "رفع قيمة الطلب قبل الإتمام داخل السلة.", color: "#06b6d4" , href: "/use-cases/cart" },
+        { icon: "", title: "صفحة الدفع", desc: "تحسين العرض في آخر خطوة قبل الإتمام.", color: "#8b5cf6" , href: "/use-cases/checkout" },
+        { icon: "", title: "صفحة الشكر", desc: "اقتراحات ما بعد الشراء لزيادة التكرار.", color: "#f59e0b" , href: "/use-cases/thank-you" },
+        { icon: "", title: "الصفحة الرئيسية", desc: "تخصيص أول تجربة للزائر.", color: "#7c3aed" , href: "/use-cases/home" },
+        { icon: "", title: "صفحة التصنيف", desc: "عرض منتجات مكملة حسب الفئة.", color: "#4f46e5" , href: "/use-cases/category" },
+        { icon: "", title: "جميع الصفحات", desc: "تفعيل نفس المنطق عبر كامل المتجر.", color: "#ec4899" , href: "/use-cases/all-pages" },
       ],
       stats: [
         { value: "+32%", label: "زيادة متوسط السلة", color: "#8b5cf6" },
@@ -32,18 +32,18 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitle: "استعرض حلول حسب الصفحات",
       ctaDesc: "اختر الصفحة الأنسب لبدء التحسين في متجرك.",
-      heroEn: { tag: "Solutions", title: "By Page", subtitle: "A general page for all solutions grouped by store page.", tagline: "Start from your page", icon: "🧭" },
+      heroEn: { tag: "Solutions", title: "By Page", subtitle: "A general page for all solutions grouped by store page.", tagline: "Start from your page", icon: "" },
       whatWeDoTitleEn: "Solutions by page",
       whatWeDoDescEn: "Choose where to optimize: home page, product page, cart, checkout, or thank-you page.",
       strategyTitleEn: "Top tracks",
       strategiesEn: [
-        { icon: "📄", title: "Product Page", desc: "Contextual recommendations near products.", color: "#8b5cf6" },
-        { icon: "🛒", title: "Cart Page", desc: "Lift AOV inside the cart.", color: "#06b6d4" },
-        { icon: "💳", title: "Checkout Page", desc: "Optimize offers before payment.", color: "#8b5cf6" },
-        { icon: "🙏", title: "Thank You Page", desc: "Post-purchase recommendations.", color: "#f59e0b" },
-        { icon: "🏠", title: "Home Page", desc: "Personalize the first touch.", color: "#7c3aed" },
-        { icon: "🗂️", title: "Category Page", desc: "Suggest complementary products by category.", color: "#4f46e5" },
-        { icon: "🌐", title: "All Pages", desc: "Enable logic across the full store.", color: "#ec4899" },
+        { icon: "", title: "Product Page", desc: "Contextual recommendations near products.", color: "#8b5cf6" , href: "/use-cases/product-page" },
+        { icon: "", title: "Cart Page", desc: "Lift AOV inside the cart.", color: "#06b6d4" , href: "/use-cases/cart" },
+        { icon: "", title: "Checkout Page", desc: "Optimize offers before payment.", color: "#8b5cf6" , href: "/use-cases/checkout" },
+        { icon: "", title: "Thank You Page", desc: "Post-purchase recommendations.", color: "#f59e0b" , href: "/use-cases/thank-you" },
+        { icon: "", title: "Home Page", desc: "Personalize the first touch.", color: "#7c3aed" , href: "/use-cases/home" },
+        { icon: "", title: "Category Page", desc: "Suggest complementary products by category.", color: "#4f46e5" , href: "/use-cases/category" },
+        { icon: "", title: "All Pages", desc: "Enable logic across the full store.", color: "#ec4899" , href: "/use-cases/all-pages" },
       ],
       statsEn: [
         { value: "+32%", label: "Average cart uplift", color: "#8b5cf6" },
@@ -55,7 +55,12 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ctaDescEn: "Pick the best page to start improving your store.",
       seo: { title: "الحلول حسب الصفحات — زيادة", titleEn: "Solutions by Page — Ziadah", description: "صفحة عامة لحلول زيادة حسب صفحات المتجر.", descriptionEn: "General overview of Ziadah solutions by store pages.", canonical: "/use-cases/by-pages" },
       heroVisual: (
-        <PageHeroPhone float1="📈 +32% متوسط السلة" float2="🛒 اشترِ أكثر ووفّر">
+        <PageHeroPhone
+          float1="+32% متوسط السلة"
+          float2="اشترِ أكثر ووفّر"
+          float1En="+32% average cart"
+          float2En="Buy more, save more"
+        >
           <ProductPageMockup />
         </PageHeroPhone>
       ),
@@ -67,10 +72,10 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       whatWeDoDesc: "قسّم التحسين حسب الفعل: إضافة للسلة، إزالة من السلة، أو البحث عن بديل مناسب.",
       strategyTitle: "أنشطة رئيسية",
       strategies: [
-        { icon: "🔗", title: "Cross-Sell", desc: "منتجات مكملة بشكل ذكي.", color: "#8b5cf6" },
-        { icon: "⬆️", title: "Upsell", desc: "بدائل أعلى قيمة بوقت مناسب.", color: "#06b6d4" },
-        { icon: "➕", title: "إضافة للسلة", desc: "تحفيز اتخاذ القرار في لحظة الإضافة.", color: "#8b5cf6" },
-        { icon: "➖", title: "إزالة من السلة", desc: "تقليل التردد قبل فقدان العميل.", color: "#f59e0b" },
+        { icon: "", title: "Cross-Sell", desc: "منتجات مكملة بشكل ذكي.", color: "#8b5cf6" , href: "/use-cases/cross-sell" },
+        { icon: "⬆️", title: "Upsell", desc: "بدائل أعلى قيمة بوقت مناسب.", color: "#06b6d4" , href: "/use-cases/upsell" },
+        { icon: "➕", title: "إضافة للسلة", desc: "تحفيز اتخاذ القرار في لحظة الإضافة.", color: "#8b5cf6" , href: "/use-cases/add-to-cart" },
+        { icon: "➖", title: "إزالة من السلة", desc: "تقليل التردد قبل فقدان العميل.", color: "#f59e0b" , href: "/use-cases/remove-from-cart" },
       ],
       stats: [
         { value: "+27%", label: "تحسن قيمة الطلب", color: "#8b5cf6" },
@@ -85,10 +90,10 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       whatWeDoDescEn: "Optimize by action: add-to-cart, remove-from-cart, and upgrade intent.",
       strategyTitleEn: "Core activities",
       strategiesEn: [
-        { icon: "🔗", title: "Cross-Sell", desc: "Smart complementary products.", color: "#8b5cf6" },
-        { icon: "⬆️", title: "Upsell", desc: "Higher-value alternatives at the right time.", color: "#06b6d4" },
-        { icon: "➕", title: "Add to Cart", desc: "Reinforce intent at add moment.", color: "#8b5cf6" },
-        { icon: "➖", title: "Remove from Cart", desc: "Prevent loss before exit.", color: "#f59e0b" },
+        { icon: "", title: "Cross-Sell", desc: "Smart complementary products.", color: "#8b5cf6" , href: "/use-cases/cross-sell" },
+        { icon: "⬆️", title: "Upsell", desc: "Higher-value alternatives at the right time.", color: "#06b6d4" , href: "/use-cases/upsell" },
+        { icon: "➕", title: "Add to Cart", desc: "Reinforce intent at add moment.", color: "#8b5cf6" , href: "/use-cases/add-to-cart" },
+        { icon: "➖", title: "Remove from Cart", desc: "Prevent loss before exit.", color: "#f59e0b" , href: "/use-cases/remove-from-cart" },
       ],
       statsEn: [
         { value: "+27%", label: "Order value uplift", color: "#8b5cf6" },
@@ -101,16 +106,16 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       seo: { title: "الحلول حسب الأنشطة — زيادة", titleEn: "Solutions by Activity — Ziadah", description: "صفحة عامة لحلول زيادة المصنفة حسب أنشطة العميل.", descriptionEn: "General overview of Ziadah solutions grouped by customer actions.", canonical: "/use-cases/by-activity" },
     },
     "by-presentation": {
-      hero: { tag: "الحلول", title: "حسب طريقة العرض", subtitle: "صفحة عامة لأساليب العرض: منتجات ذات صلة، حزم، وإضافات.", tagline: "اعرض الحل بالشكل المناسب", icon: "🧩" },
+      hero: { tag: "الحلول", title: "حسب طريقة العرض", subtitle: "صفحة عامة لأساليب العرض: منتجات ذات صلة، حزم، وإضافات.", tagline: "اعرض الحل بالشكل المناسب", icon: "" },
       whatWeDoTitle: "حلول حسب طريقة العرض",
       whatWeDoDesc: "اختر أسلوب العرض الذي يناسب تجربة متجرك: قائمة، حزمة، أو عرض كمية.",
       strategyTitle: "أنماط العرض",
       strategies: [
-        { icon: "🔗", title: "منتجات ذات صلة", desc: "اقتراحات بجانب المنتج الرئيسي.", color: "#8b5cf6" },
-        { icon: "💬", title: "Add-ons", desc: "خيارات إضافية خفيفة أثناء الشراء.", color: "#06b6d4" },
-        { icon: "🤝", title: "اشترِ معًا", desc: "منتجات متوافقة في عرض واحد.", color: "#8b5cf6" },
-        { icon: "📦", title: "Bundle Deals", desc: "حزم وكومبو بصفقة واضحة.", color: "#f59e0b" },
-        { icon: "📈", title: "اشترِ أكثر ووفر أكثر", desc: "عروض كمية لزيادة السلة.", color: "#7c3aed" },
+        { icon: "", title: "منتجات ذات صلة", desc: "اقتراحات بجانب المنتج الرئيسي.", color: "#8b5cf6" , href: "/use-cases/related-products" },
+        { icon: "", title: "Add-ons", desc: "خيارات إضافية خفيفة أثناء الشراء.", color: "#06b6d4" , href: "/use-cases/addons" },
+        { icon: "", title: "اشترِ معًا", desc: "منتجات متوافقة في عرض واحد.", color: "#8b5cf6" , href: "/use-cases/buy-together" },
+        { icon: "", title: "Bundle Deals", desc: "حزم وكومبو بصفقة واضحة.", color: "#f59e0b" , href: "/use-cases/bundle-deals" },
+        { icon: "", title: "اشترِ أكثر ووفر أكثر", desc: "عروض كمية لزيادة السلة.", color: "#7c3aed" , href: "/use-cases/buy-more-save-more" },
       ],
       stats: [
         { value: "+24%", label: "قبول العروض", color: "#8b5cf6" },
@@ -120,16 +125,16 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitle: "اختر طريقة العرض المناسبة",
       ctaDesc: "حل واحد يمكن عرضه بأكثر من أسلوب حسب سلوك عميلك.",
-      heroEn: { tag: "Solutions", title: "By Display Type", subtitle: "A general page for display modes: related products, bundles, and add-ons.", tagline: "Show the right format", icon: "🧩" },
+      heroEn: { tag: "Solutions", title: "By Display Type", subtitle: "A general page for display modes: related products, bundles, and add-ons.", tagline: "Show the right format", icon: "" },
       whatWeDoTitleEn: "Solutions by display type",
       whatWeDoDescEn: "Choose the display format that fits your store UX: list, bundle, or quantity offer.",
       strategyTitleEn: "Display patterns",
       strategiesEn: [
-        { icon: "🔗", title: "Related Products", desc: "Suggestions near the main item.", color: "#8b5cf6" },
-        { icon: "💬", title: "Add-ons", desc: "Light options while buying.", color: "#06b6d4" },
-        { icon: "🤝", title: "Buy Together", desc: "Compatible products in one offer.", color: "#8b5cf6" },
-        { icon: "📦", title: "Bundle Deals", desc: "Clear package offers.", color: "#f59e0b" },
-        { icon: "📈", title: "Buy More Save More", desc: "Quantity-based offers to increase cart value.", color: "#7c3aed" },
+        { icon: "", title: "Related Products", desc: "Suggestions near the main item.", color: "#8b5cf6" , href: "/use-cases/related-products" },
+        { icon: "", title: "Add-ons", desc: "Light options while buying.", color: "#06b6d4" , href: "/use-cases/addons" },
+        { icon: "", title: "Buy Together", desc: "Compatible products in one offer.", color: "#8b5cf6" , href: "/use-cases/buy-together" },
+        { icon: "", title: "Bundle Deals", desc: "Clear package offers.", color: "#f59e0b" , href: "/use-cases/bundle-deals" },
+        { icon: "", title: "Buy More Save More", desc: "Quantity-based offers to increase cart value.", color: "#7c3aed" , href: "/use-cases/buy-more-save-more" },
       ],
       statsEn: [
         { value: "+24%", label: "Offer acceptance", color: "#8b5cf6" },
@@ -142,17 +147,17 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       seo: { title: "الحلول حسب طريقة العرض — زيادة", titleEn: "Solutions by Display Type — Ziadah", description: "صفحة عامة لحلول زيادة المصنفة حسب طريقة العرض.", descriptionEn: "General overview of Ziadah solutions by display type.", canonical: "/use-cases/by-presentation" },
     },
     "by-goal": {
-      hero: { tag: "الحلول", title: "حسب الأهداف", subtitle: "صفحة عامة تساعدك تختار الحل بحسب الهدف التجاري.", tagline: "ابدأ من الهدف مباشرة", icon: "🎯" },
+      hero: { tag: "الحلول", title: "حسب الأهداف", subtitle: "صفحة عامة تساعدك تختار الحل بحسب الهدف التجاري.", tagline: "ابدأ من الهدف مباشرة", icon: "" },
       whatWeDoTitle: "حلول حسب الهدف",
       whatWeDoDesc: "حدد هدفك: رفع عدد المنتجات، زيادة القيمة، أو تحسين التحويل، ثم اختر المسار الأنسب.",
       strategyTitle: "أهداف شائعة",
       strategies: [
-        { icon: "🛒", title: "زيادة عدد منتجات السلة", desc: "دفع العميل لإضافة عناصر أكثر.", color: "#8b5cf6" },
-        { icon: "💰", title: "رفع قيمة الطلب", desc: "عروض ذكية على الكميات والبدائل.", color: "#06b6d4" },
-        { icon: "📈", title: "تحسين التحويل", desc: "تقليل التردد في اللحظات الحساسة.", color: "#8b5cf6" },
-        { icon: "🛡️", title: "تقليل التخلي", desc: "حماية الطلب من التسرب قبل الإتمام.", color: "#f59e0b" },
-        { icon: "🚚", title: "عرض الشحن المجاني", desc: "تحفيز الإكمال بإبراز عتبة الشحن.", color: "#7c3aed" },
-        { icon: "🎟️", title: "عروض الكوبونات", desc: "تشجيع الشراء بقيمة مضافة واضحة.", color: "#4f46e5" },
+        { icon: "", title: "زيادة عدد منتجات السلة", desc: "دفع العميل لإضافة عناصر أكثر.", color: "#8b5cf6" , href: "/use-cases/more-cart-items" },
+        { icon: "", title: "رفع قيمة الطلب", desc: "عروض ذكية على الكميات والبدائل.", color: "#06b6d4" , href: "/use-cases/increase-aov" },
+        { icon: "", title: "تحسين التحويل", desc: "تقليل التردد في اللحظات الحساسة.", color: "#8b5cf6" , href: "/use-cases/increase-conversion" },
+        { icon: "", title: "تقليل التخلي", desc: "حماية الطلب من التسرب قبل الإتمام.", color: "#f59e0b" , href: "/use-cases/reduce-abandon" },
+        { icon: "", title: "عرض الشحن المجاني", desc: "تحفيز الإكمال بإبراز عتبة الشحن.", color: "#7c3aed" , href: "/use-cases/free-shipping" },
+        { icon: "", title: "عروض الكوبونات", desc: "تشجيع الشراء بقيمة مضافة واضحة.", color: "#4f46e5" , href: "/use-cases/discount-coupon" },
       ],
       stats: [
         { value: "+29%", label: "تحسن القيمة", color: "#8b5cf6" },
@@ -162,17 +167,17 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitle: "اختر هدفك وابدأ الآن",
       ctaDesc: "نرتب لك الحلول بحسب الهدف الذي يهمك.",
-      heroEn: { tag: "Solutions", title: "By Goal", subtitle: "A general page to pick the right solution by business outcome.", tagline: "Start from your KPI", icon: "🎯" },
+      heroEn: { tag: "Solutions", title: "By Goal", subtitle: "A general page to pick the right solution by business outcome.", tagline: "Start from your KPI", icon: "" },
       whatWeDoTitleEn: "Solutions by goal",
       whatWeDoDescEn: "Define your objective first: more items, higher value, or better conversion.",
       strategyTitleEn: "Common goals",
       strategiesEn: [
-        { icon: "🛒", title: "More Cart Items", desc: "Encourage customers to add more items.", color: "#8b5cf6" },
-        { icon: "💰", title: "Higher AOV", desc: "Smart quantity and upgrade offers.", color: "#06b6d4" },
-        { icon: "📈", title: "Better Conversion", desc: "Reduce hesitation at key moments.", color: "#8b5cf6" },
-        { icon: "🛡️", title: "Reduce Abandonment", desc: "Protect orders from drop-off before checkout.", color: "#f59e0b" },
-        { icon: "🚚", title: "Free Shipping Display", desc: "Motivate completion with shipping threshold cues.", color: "#7c3aed" },
-        { icon: "🎟️", title: "Discount Coupon", desc: "Drive action with clear promotional value.", color: "#4f46e5" },
+        { icon: "", title: "More Cart Items", desc: "Encourage customers to add more items.", color: "#8b5cf6" , href: "/use-cases/more-cart-items" },
+        { icon: "", title: "Higher AOV", desc: "Smart quantity and upgrade offers.", color: "#06b6d4" },
+        { icon: "", title: "Better Conversion", desc: "Reduce hesitation at key moments.", color: "#8b5cf6" },
+        { icon: "", title: "Reduce Abandonment", desc: "Protect orders from drop-off before checkout.", color: "#f59e0b" , href: "/use-cases/reduce-abandon" },
+        { icon: "", title: "Free Shipping Display", desc: "Motivate completion with shipping threshold cues.", color: "#7c3aed" , href: "/use-cases/free-shipping" },
+        { icon: "", title: "Discount Coupon", desc: "Drive action with clear promotional value.", color: "#4f46e5" },
       ],
       statsEn: [
         { value: "+29%", label: "Value uplift", color: "#8b5cf6" },
@@ -190,7 +195,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       whatWeDoDesc: "نجمع إشارات السلوك والشراء لتقديم تجربة مخصصة في الوقت الفعلي.",
       strategyTitle: "ماذا يشمل التخصيص؟",
       strategies: [
-        { icon: "✨", title: "تخصيص تجربة العميل", desc: "تجربة مخصصة لكل زائر حسب سلوكه واهتمامه.", color: "#8b5cf6" },
+        { icon: "✨", title: "تخصيص تجربة العميل", desc: "تجربة مخصصة لكل زائر حسب سلوكه واهتمامه.", color: "#8b5cf6" , href: "/use-cases/customer-experience" },
       ],
       stats: [
         { value: "+26%", label: "تحسن التفاعل", color: "#8b5cf6" },
@@ -205,7 +210,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       whatWeDoDescEn: "Behavior and purchase signals power real-time personalized journeys.",
       strategyTitleEn: "What personalization includes",
       strategiesEn: [
-        { icon: "✨", title: "Customer Experience", desc: "Personalized journeys based on behavior and intent.", color: "#8b5cf6" },
+        { icon: "✨", title: "Customer Experience", desc: "Personalized journeys based on behavior and intent.", color: "#8b5cf6" , href: "/use-cases/customer-experience" },
       ],
       statsEn: [
         { value: "+26%", label: "Engagement uplift", color: "#8b5cf6" },

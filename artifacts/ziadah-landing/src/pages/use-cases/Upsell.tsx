@@ -16,13 +16,13 @@ const data: UseCasePageData = {
   strategyTitle: "أساليب البيع البديل في زيادة",
   strategies: [
     {
-      icon: "🏆",
+      icon: "",
       title: "الفئة الأعلى — القيمة الأوضح",
       desc: "يعرض النسخة المتميزة مع جدول مقارنة واضح يُبرز الفروقات الحقيقية. العميل يرى لماذا يستحق الفارق في السعر.",
       color: "#8b5cf6",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "الحجم الأكبر — التكلفة أقل",
       desc: "للمنتجات الاستهلاكية يعرض الحجم الأكبر مع حساب التكلفة لكل وحدة. العميل يدرك أن الأكبر أوفر — فيختاره.",
       color: "#06b6d4",
@@ -34,7 +34,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "الموديل الأحدث",
       desc: "للإلكترونيات والتقنية، يقارن بين الموديل الذي يشاهده العميل والأحدث — مع إبراز المزايا الجديدة بأسلوب واضح.",
       color: "#f59e0b",
@@ -49,10 +49,10 @@ const data: UseCasePageData = {
   exampleScenario: {
     title: "أمثلة تطبيقية حقيقية عبر قطاعات",
     steps: [
-      "🎧 إلكترونيات: عميل ينظر لسماعة بـ 120 ⃁ → يرى عرض 'سماعة بـ 190 ⃁ — عزل صوت فعّال + 20 ساعة بطارية + ضمان سنتان' مع مقارنة مباشرة.",
-      "💐 عطور: عميلة تنظر لعطر 30 مل → تجد 'النسخة 100 مل بـ 310 ⃁ (توفر 35% في سعر الـ مل)'.",
-      "🌿 عناية: عميل اختار كريم أساسي → يظهر كريم بريميوم بنفس الوزن وبـ 30 ⃁ إضافية مع قائمة مكونات نشطة أكثر.",
-      "📚 كورسات: مشترك في باقة أساسية → يرى ترقية للباقة المتقدمة بفارق 80 ⃁ مع 3 كورسات إضافية وشهادة.",
+      "🎧 إلكترونيات: عميل ينظر لسماعة بـ 120 ر.س → يرى عرض 'سماعة بـ 190 ر.س — عزل صوت فعّال + 20 ساعة بطارية + ضمان سنتان' مع مقارنة مباشرة.",
+      "💐 عطور: عميلة تنظر لعطر 30 مل → تجد 'النسخة 100 مل بـ 310 ر.س (توفر 35% في سعر الـ مل)'.",
+      "🌿 عناية: عميل اختار كريم أساسي → يظهر كريم بريميوم بنفس الوزن وبـ 30 ر.س إضافية مع قائمة مكونات نشطة أكثر.",
+      "📚 كورسات: مشترك في باقة أساسية → يرى ترقية للباقة المتقدمة بفارق 80 ر.س مع 3 كورسات إضافية وشهادة.",
     ],
     result: "معدل قبول عرض الترقية يتراوح بين 22 و35% عند تقديمه بالطريقة الصحيحة مع إبراز القيمة — وكل قبول يرفع الإيراد مباشرة.",
   },
@@ -66,11 +66,11 @@ const data: UseCasePageData = {
             ? "هكذا تبدو واجهة اقتراح الاستبدال كما يراها عميلك فعلياً"
             : "This is how the upgrade suggestion looks to your customer"
         }
-        tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <ProductSwapWidget /> }]}
+        tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <ProductSwapWidget /> }]}
       />
     <section style={{ position: "relative", zIndex: 2, padding: "0 5% 60px" }}>
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
-        <div className="rounded-2xl border border-zinc-200 bg-white shadow-card" style={{ padding: "36px 40px" }}>
+        <div className="sector-card" style={{ padding: "36px 40px" }}>
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>{isAr ? "متى يعمل Upsell ومتى لا يعمل؟" : "When upselling works — and when it doesn't"}</h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
             <div className="rounded-xl border border-violet-200 bg-violet-50/60" style={{ padding: "24px 28px" }}>
@@ -114,13 +114,13 @@ const data: UseCasePageData = {
   strategyTitleEn: "Upselling methods in Ziadah",
   strategiesEn: [
     {
-      icon: "🏆",
+      icon: "",
       title: "Higher Tier — Clearer Value",
       desc: "Displays the premium version with a clear comparison table highlighting real differences. The customer sees why the price difference is worth it.",
       color: "#8b5cf6",
     },
     {
-      icon: "📦",
+      icon: "",
       title: "Bigger Size — Lower Cost",
       desc: "For consumable products, shows the larger size with per-unit cost calculated. The customer realizes bigger is cheaper — and chooses it.",
       color: "#06b6d4",
@@ -132,7 +132,7 @@ const data: UseCasePageData = {
       color: "#8b5cf6",
     },
     {
-      icon: "🔄",
+      icon: "",
       title: "Newer Model",
       desc: "For electronics and tech, compares the model being viewed with the latest one — highlighting new features in a clear format.",
       color: "#f59e0b",

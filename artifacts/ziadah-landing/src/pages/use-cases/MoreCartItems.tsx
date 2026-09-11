@@ -9,7 +9,7 @@ const data: UseCasePageData = {
     subtitle:
       "الهدف ليس فقط رفع المبلغ — بل إضافة منتجات مكمّلة يحتاجها العميل في نفس الطلب: اقتراحات ذكية بعد الإضافة للسلة، واشتروا معاً، وإضافات بسعر صغير ترفع عدد البنود دون إزعاج.",
     tagline: "كل منتج إضافي في السلة = طلب أغنى بدون عميل جديد",
-    icon: "🛒",
+    icon: "",
   },
   whatWeDoTitle: "كيف يرفع زيادة عدد المنتجات في السلة؟",
   whatWeDoDesc:
@@ -17,7 +17,7 @@ const data: UseCasePageData = {
   strategyTitle: "أساليب زيادة بنود السلة",
   strategies: [
     {
-      icon: "🛒",
+      icon: "",
       title: "اشتروا معاً (BTAT)",
       desc: "يعرض منتجات اشتراها عملاء مشابهون مع نفس المنتج — اجتماعي وموثوق ويزيد عدد البنود.",
       color: "#8b5cf6",
@@ -29,13 +29,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "حزم تكمل الطلب",
       desc: "يجمع منتجات مترابطة في عرض واحد يشجّع على أخذ المجموعة كاملاً بدل منتج واحد.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "توقيت ذكي",
       desc: "لا يظهر كل شيء دفعة واحدة — يختار نقطة الرحلة التي تزيد احتمال قبول إضافة منتج آخر.",
       color: "#f59e0b",
@@ -65,7 +65,7 @@ const data: UseCasePageData = {
           ? "واجهة اقتراح تكميلي — يرفع عدد المنتجات في كل طلب"
           : "Complementary suggestion UI — more line items per order"
       }
-      tabs={[{ labelAr: "📱 معاينة", labelEn: "📱 Preview", content: <CrossSellWidget productLayout="row" /> }]}
+      tabs={[{ labelAr: "معاينة", labelEn: "Preview", content: <CrossSellWidget productLayout="row" /> }]}
     />
   ),
   ctaTitle: "زِد عدد المنتجات في كل طلب",
@@ -76,7 +76,7 @@ const data: UseCasePageData = {
     subtitle:
       "The goal isn't only raising the total — it's adding complementary items the customer needs in the same order: smart suggestions after add-to-cart, bought-together, and low-priced add-ons that increase line items without friction.",
     tagline: "Every extra line item = a richer order without a new customer",
-    icon: "🛒",
+    icon: "",
   },
   whatWeDoTitleEn: "How does Ziadah increase the number of products in the cart?",
   whatWeDoDescEn:
@@ -84,7 +84,7 @@ const data: UseCasePageData = {
   strategyTitleEn: "Ways to grow cart line items",
   strategiesEn: [
     {
-      icon: "🛒",
+      icon: "",
       title: "Bought Together (BTAT)",
       desc: "Shows products similar customers bought with the same item — social proof that increases line count.",
       color: "#8b5cf6",
@@ -96,13 +96,13 @@ const data: UseCasePageData = {
       color: "#06b6d4",
     },
     {
-      icon: "🎁",
+      icon: "",
       title: "Bundles that complete the order",
       desc: "Groups related products in one offer so customers take the full set instead of a single SKU.",
       color: "#8b5cf6",
     },
     {
-      icon: "🎯",
+      icon: "",
       title: "Smart timing",
       desc: "Doesn’t show everything at once — chooses journey points where an extra item is most likely to be accepted.",
       color: "#f59e0b",

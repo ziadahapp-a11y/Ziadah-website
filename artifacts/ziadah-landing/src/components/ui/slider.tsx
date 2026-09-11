@@ -15,10 +15,16 @@ const Slider = React.forwardRef<
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
-      <SliderPrimitive.Range className="absolute h-full bg-primary" />
+    {/* The three parts carry NAMES, not colours. They used to paint
+        themselves from `--primary` / `--background`, which are page-level
+        tokens: dropped into an inverted section the track came out near-black
+        on near-black and the control read as a flat line. The sizing and the
+        colour now live in `.slider-*` (ziadah-sections.css), where they take
+        the section's own ink the way every other component does. */}
+    <SliderPrimitive.Track className="slider-track relative w-full grow overflow-hidden rounded-full">
+      <SliderPrimitive.Range className="slider-range absolute h-full" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb className="slider-thumb block rounded-full transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50" />
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName

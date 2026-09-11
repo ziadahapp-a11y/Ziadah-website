@@ -1,6 +1,5 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
 import { pinoHttp } from "pino-http";
 import router from "./routes";
 import { logger } from "./lib/logger";
@@ -92,7 +91,8 @@ app.use(
   }),
 );
 
-app.use(cookieParser());
+/* No cookie parser: it was here for the CMS session cookie, and nothing sets
+   or reads a cookie any more. */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

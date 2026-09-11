@@ -34,6 +34,18 @@ function parseBlogPosts() {
   return posts;
 }
 
+/* The capability registry, read the same way the sectors are: by slug, from
+   the file the pages themselves render, so a new capability reaches the
+   sitemap without anyone remembering to add it here. */
+function parseFeatureSlugs() {
+  const raw = readUtf8("src/lib/features-data.ts");
+  const slugs = [];
+  const re = /\{ slug: "([^"]+)"/g;
+  let m;
+  while ((m = re.exec(raw)) !== null) slugs.push(m[1]);
+  return slugs;
+}
+
 function parseSectorSlugs() {
   const raw = readUtf8("src/data/sectors.ts");
   const slugs = [];
@@ -112,9 +124,11 @@ const STATIC_MAIN = [
   { path: "/", priority: "1.0", freq: "weekly" },
   { path: "/features", priority: "0.9", freq: "monthly" },
   { path: "/pricing", priority: "0.9", freq: "monthly" },
+  { path: "/use-cases", priority: "0.90", freq: "weekly" },
+  { path: "/platforms", priority: "0.80", freq: "monthly" },
+  { path: "/about", priority: "0.70", freq: "monthly" },
   { path: "/affiliate", priority: "0.6", freq: "monthly" },
   { path: "/calculator", priority: "0.85", freq: "monthly" },
-  { path: "/analyze", priority: "0.88", freq: "weekly" },
   { path: "/success-stories", priority: "0.85", freq: "monthly" },
   { path: "/blog", priority: "0.9", freq: "weekly" },
   { path: "/support", priority: "0.75", freq: "monthly" },
@@ -128,6 +142,7 @@ const STATIC_MAIN = [
 function main() {
   const blogPosts = parseBlogPosts();
   const sectorSlugs = parseSectorSlugs();
+  const featureSlugs = parseFeatureSlugs();
   const supportIds = parseSupportArticleIds();
   const today = new Date().toISOString().slice(0, 10);
 
@@ -154,6 +169,10 @@ function main() {
     emitPair(`/sectors/${slug}`, today, "weekly", "0.8");
   }
 
+  for (const slug of featureSlugs) {
+    emitPair(`/features/${slug}`, today, "monthly", "0.7");
+  }
+
   for (const p of USE_CASE_PATHS) {
     emitPair(p, today, "monthly", "0.65");
   }
@@ -171,7 +190,7 @@ function main() {
 
   fs.writeFileSync(OUT, parts.join("\n"), "utf8");
   console.log(
-    `sitemap: wrote ${OUT} (${blogPosts.length} blog posts, ${sectorSlugs.length} sectors, ${supportIds.length} support articles)`
+    `sitemap: wrote ${OUT} (${blogPosts.length} blog posts, ${sectorSlugs.length} sectors, ${featureSlugs.length} features, ${supportIds.length} support articles)`
   );
 }
 
