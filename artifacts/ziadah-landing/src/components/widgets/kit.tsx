@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { productImage } from "@/lib/product-images";
 
@@ -66,7 +67,12 @@ export function ProductTile({
      photo would have no edge and the row would lose its rhythm. The hairline
      gives the tile back its silhouette. */
   const src = productImage(name);
-  if (src) {
+  /* A path whose file is not there yet must not print a broken image: the
+     catalogue is filled in over time, and a gap should look like the
+     unphotographed case, which is the tile below. */
+  const [broken, setBroken] = useState(false);
+  useEffect(() => setBroken(false), [src]);
+  if (src && !broken) {
     return (
       <span
         aria-hidden="true"
@@ -88,6 +94,7 @@ export function ProductTile({
           height={size}
           loading="lazy"
           decoding="async"
+          onError={() => setBroken(true)}
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
       </span>
