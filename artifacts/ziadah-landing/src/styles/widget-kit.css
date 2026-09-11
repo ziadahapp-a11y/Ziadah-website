@@ -567,6 +567,10 @@
 .wk-deal-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: end; }
 .wk-deal-perk { font-size: 11px; line-height: 14px; color: var(--wk-good); }
 .wk-pct {
+  /* "-20%" is one LTR token. Without isolation the leading minus is a neutral
+     character and RTL reorders it to the end, printing "20%-". */
+  direction: ltr;
+  unicode-bidi: isolate;
   padding: 2px 8px;
   border-radius: 32px;
   background: color-mix(in srgb, var(--wk-warn) 10%, transparent);

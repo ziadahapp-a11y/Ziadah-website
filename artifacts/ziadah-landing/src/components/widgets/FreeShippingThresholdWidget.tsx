@@ -14,6 +14,7 @@ import {
   CartCheckoutRow,
   DismissRow,
   WidgetButton,
+  arabicDigits,
   type ProductShape,
   type CampaignStyle,
 } from "./kit";
@@ -43,14 +44,22 @@ export default function FreeShippingThresholdWidget({
      same summary, add-all and cart rows every other type uses. */
   return (
     <WidgetShell
-      title={tr.progressTitle}
-      subtitle={tr.remainingLabel}
+      title={isAr ? "أضف المزيد من المنتجات" : "Add more products"}
+      subtitle={
+        isAr
+          ? "اكتشف هذه المنتجات قبل إتمام طلبك."
+          : "Explore these great items before you checkout."
+      }
       style={style}
       dismissible={style !== "embedded"}
       footer={
         <>
           <SummaryBar
-            label={isAr ? `الإجمالي (${tr.products.length})` : `Total items (${tr.products.length})`}
+            label={
+              isAr
+                ? `الإجمالي (${arabicDigits(tr.products.length)})`
+                : `Total items (${tr.products.length})`
+            }
             was={`${isAr ? "٥٦" : "56"} ${currency}`}
             now={`${isAr ? "٤٠" : "40"} ${currency}`}
             save={isAr ? "وفّر ٢٠٪" : "Save 20%"}
@@ -79,7 +88,9 @@ export default function FreeShippingThresholdWidget({
       <PromoBanner
         title={tr.progressTitle}
         sub={tr.progressNote}
-        action={<WidgetButton block>{tr.suggestedLabel}</WidgetButton>}
+        action={
+          <WidgetButton block>{isAr ? "اختر المنتجات" : "Choose products"}</WidgetButton>
+        }
       />
       <ProductCollection shape={shape}>
         {tr.products.map((p, i) => (

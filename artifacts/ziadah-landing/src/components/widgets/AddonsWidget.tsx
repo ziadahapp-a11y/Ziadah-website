@@ -13,6 +13,7 @@ import {
   AddAllBar,
   CartCheckoutRow,
   DismissRow,
+  arabicDigits,
   type ProductShape,
   type CampaignStyle,
 } from "./kit";
@@ -57,7 +58,7 @@ export default function AddonsWidget({
       footer={
         <>
           <SummaryBar
-            label={isAr ? `الإجمالي (${picked})` : `Total items (${picked})`}
+            label={isAr ? `الإجمالي (${arabicDigits(picked)})` : `Total items (${picked})`}
             now={`${total} ${currency}`}
             save={isAr ? "وفّر ٢٠٪" : "Save 20%"}
           />
