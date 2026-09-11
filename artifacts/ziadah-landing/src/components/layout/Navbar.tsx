@@ -523,6 +523,15 @@ export function Navbar() {
         className={drawer.isOpen ? "mob-nav is-open" : "mob-nav"}
         ref={drawer.drawerRef as React.RefObject<HTMLDivElement>}
         aria-label={t("قائمة الجوال", "Mobile menu")}
+        /* Lenis calls `preventDefault()` on every wheel and touchmove so it can
+           drive the page from its own virtual scroll. That swallows the events
+           a NESTED scroller needs, and this panel is one: `.mob-level` is the
+           scroll port, and the solutions sub-panel is 1785px of it inside a
+           663px viewport, so on a phone most of the list could not be reached
+           at all. `data-lenis-prevent` is Lenis's own opt-out - it walks up
+           from the event target looking for it - and on the panel root it
+           covers every level inside. */
+        data-lenis-prevent=""
       >
         {/* The panel's own close control. The header's toggle already flips to
             an X and a "close menu" label, but the panel paints over it - it is
