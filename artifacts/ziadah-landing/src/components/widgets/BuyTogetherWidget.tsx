@@ -3,7 +3,19 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import type { BuyTogetherDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { mergeShowcaseDemo } from "@/data/sectorWidgetShowcaseDemos";
 import { t as siteTranslations } from "@/i18n/translations";
-import { WidgetShell, ProductList, CheckRow, WidgetButton, WidgetTag, Totals, Price } from "./kit";
+import {
+  WidgetShell,
+  ProductCollection,
+  ProductCard,
+  WidgetButton,
+  StatCard,
+  SummaryBar,
+  AddAllBar,
+  CartCheckoutRow,
+  DismissRow,
+  type ProductShape,
+  type CampaignStyle,
+} from "./kit";
 
 /**
  * "اشتروا مع بعض": the product being viewed, plus what ships with it, as one
@@ -13,9 +25,18 @@ import { WidgetShell, ProductList, CheckRow, WidgetButton, WidgetTag, Totals, Pr
  * same 4.9 - and the tag that marks the product the shopper is already on
  * reads as a tag rather than as a third violet box.
  */
-export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) {
+export default function BuyTogetherWidget({
+  demo,
+  shape = "list",
+  style = "embedded",
+}: {
+  demo?: BuyTogetherDemo;
+  shape?: ProductShape;
+  style?: CampaignStyle;
+}) {
   const t = siteTranslations;
   const { lang } = useLanguage();
+  const isAr = lang === "ar";
   const tr = useMemo(() => mergeShowcaseDemo(t[lang].widgets.buyTogether, demo), [t, lang, demo]);
   const currency = tr.currency.trim();
 
@@ -26,46 +47,66 @@ export default function BuyTogetherWidget({ demo }: { demo?: BuyTogetherDemo }) 
   const total = tr.items.reduce((s, p, i) => (checked[i] ? s + p.price : s), 0);
   const picked = checked.filter(Boolean).length;
 
+  /* The set, as the file draws it: every member is a full product card that can be taken or left, and the summary underneath moves with the selection. */
   return (
     <WidgetShell
       title={tr.title}
       subtitle={tr.descLabel}
+      style={style}
+      dismissible={style !== "embedded"}
       footer={
-        /* The label used to end in a dangling "—" with the total appended by
-           the caller, so dropping the total left the button reading
-           "اشترِ الطقم كاملاً — ر.س". The label is a whole sentence now and
-           the total rides beside it, which is where a store puts it. */
-        <WidgetButton block>
-          {tr.btnBuy}
-          <span className="wk-btn-num">
-            <bdi>{total}</bdi> {currency}
-          </span>
-        </WidgetButton>
+        <>
+          <SummaryBar
+            label={isAr ? `الإجمالي (${picked})` : `Total items (${picked})`}
+            now={`${total} ${currency}`}
+            save={isAr ? "وفّر ٢٠٪" : "Save 20%"}
+          />
+          <AddAllBar>{isAr ? "أضف الكل" : "Add all"}</AddAllBar>
+          <CartCheckoutRow
+            cartLabel={isAr ? "السلة" : "Cart"}
+            cartValue={`${isAr ? "١٬٤٥٤" : "1,454"} ${currency}`}
+            checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
+          />
+          <DismissRow
+            optOut={isAr ? "لا تعرضها مرة أخرى" : "Do not show again"}
+            skip={isAr ? "تخطي" : "Skip"}
+          />
+        </>
       }
     >
-      <ProductList>
+      <StatCard
+        value={`${isAr ? "٢٥٠" : "250"} ${currency}`}
+        label={isAr ? "رصيد التوفير" : "Pricing balance"}
+        benefits={[
+          isAr ? "شحن مجاني" : "Free shipping",
+          isAr ? "الدفع عند الاستلام" : "Cash on delivery",
+        ]}
+      />
+      <ProductCollection shape={shape}>
         {tr.items.map((p, i) => (
-          <CheckRow
+          <ProductCard
             key={i}
             name={p.name}
             price={String(p.price)}
-            was={p.originalPrice ? String(p.originalPrice) : undefined}
+            was={p.originalPrice != null ? String(p.originalPrice) : undefined}
             currency={currency}
-            tag={p.tag ? <WidgetTag>{p.tag}</WidgetTag> : undefined}
-            checked={!!checked[i]}
-            onToggle={() => toggle(i)}
+            rating="4.95"
+            reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
+            checked={checked[i]}
+            selected={checked[i]}
+            favourite={shape !== "list"}
+            action={
+              <WidgetButton
+                block
+                variant={checked[i] ? "muted" : "primary"}
+                onClick={() => toggle(i)}
+              >
+                {checked[i] ? (isAr ? "مُضاف" : "Added") : isAr ? "أضف" : "Add"}
+              </WidgetButton>
+            }
           />
         ))}
-      </ProductList>
-      <Totals
-        rows={[
-          {
-            k: `${picked} / ${tr.items.length}`,
-            v: <Price value={String(total)} currency={currency} size={16} />,
-            total: true,
-          },
-        ]}
-      />
+      </ProductCollection>
     </WidgetShell>
   );
 }

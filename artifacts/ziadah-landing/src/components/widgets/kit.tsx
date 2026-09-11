@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { Check, ChevronLeft, Copy, Heart, Plus, Square, Star, Truck } from "lucide-react";
+import { Check, ChevronDown, ChevronLeft, Copy, Heart, Plus, ShoppingCart, Square, Star, Truck } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { productImage } from "@/lib/product-images";
 
@@ -285,7 +285,9 @@ export function WidgetButton({
   onClick,
 }: {
   children: ReactNode;
-  variant?: "primary" | "ghost";
+  /** `muted` is the file's "Added": the item already in the cart, stood down
+      so the eye goes to the alternatives that can still be acted on. */
+  variant?: "primary" | "ghost" | "muted";
   block?: boolean;
   onClick?: () => void;
 }) {
@@ -495,6 +497,8 @@ export function ProductCard({
   reviews,
   discount,
   favourite,
+  selected,
+  checked,
   action,
 }: {
   name: string;
@@ -509,11 +513,20 @@ export function ProductCard({
   discount?: string;
   /** Shows the wishlist chip the grid and carousel cards carry. */
   favourite?: boolean;
+  /** The card the widget is pointing at - outlined, as the file draws it. */
+  selected?: boolean;
+  /** The tick the Cart Value frame puts on a product already chosen. */
+  checked?: boolean;
   action?: ReactNode;
 }) {
   const { isAr } = useLanguage();
   return (
-    <article className="wk-card">
+    <article className={`wk-card${selected ? " is-sel" : ""}`}>
+      {checked ? (
+        <span className="wk-card-check" aria-hidden="true">
+          <Check />
+        </span>
+      ) : null}
       <div className="wk-card-img">
         <ProductTile name={name} size={120} radius={0} />
         {discount ? (
@@ -670,6 +683,150 @@ export function DismissRow({ optOut, skip }: { optOut: ReactNode; skip: ReactNod
       <button type="button" className="wk-skip">
         {skip}
       </button>
+    </div>
+  );
+}
+
+/** A quantity tier, as the file's Quantity section draws it: a radio row that
+    states its own saving and opens to its option pickers when chosen. */
+export function DealRow({
+  name,
+  sub,
+  price,
+  was,
+  currency,
+  percent,
+  perk,
+  selected,
+  options,
+  action,
+  onClick,
+}: {
+  name: ReactNode;
+  sub?: ReactNode;
+  price?: string;
+  was?: string;
+  currency?: string;
+  /** The saving chip, e.g. "-20%". */
+  percent?: ReactNode;
+  /** The line under the price, e.g. free shipping. */
+  perk?: ReactNode;
+  selected?: boolean;
+  /** Shown only while this tier is the chosen one. */
+  options?: ReactNode[];
+  action?: ReactNode;
+  onClick?: () => void;
+}) {
+  return (
+    <div className={`wk-deal${selected ? " is-sel" : ""}`} onClick={onClick}>
+      <div className="wk-deal-main">
+        <span className="wk-radio" aria-hidden="true" />
+        <span className="wk-deal-body">
+          <span className="wk-deal-name">{name}</span>
+          {sub ? <span className="wk-deal-sub">{sub}</span> : null}
+        </span>
+        <span className="wk-deal-side">
+          <span className="wk-meta">
+            {price != null && currency != null ? (
+              <Price value={price} was={was} currency={currency} />
+            ) : null}
+            {percent ? <span className="wk-pct">{percent}</span> : null}
+          </span>
+          {perk ? <span className="wk-deal-perk">{perk}</span> : null}
+        </span>
+      </div>
+      {selected && options?.length
+        ? options.map((o, i) => (
+            <span key={i} className="wk-select">
+              <span>{o}</span>
+              <ChevronDown aria-hidden="true" />
+            </span>
+          ))
+        : null}
+      {selected ? action : null}
+    </div>
+  );
+}
+
+/** Free Shipping's offer block: the one place the kit spends a gradient. */
+export function PromoBanner({
+  title,
+  sub,
+  action,
+}: {
+  title: ReactNode;
+  sub?: ReactNode;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="wk-promo">
+      <div className="wk-promo-main">
+        <span className="wk-promo-ico">
+          <Truck aria-hidden="true" />
+        </span>
+        <div>
+          <p className="wk-promo-title">{title}</p>
+          {sub ? <p className="wk-promo-sub">{sub}</p> : null}
+        </div>
+      </div>
+      {action}
+    </div>
+  );
+}
+
+/** Cart Value's rail of rewards, with the reached ones filled. */
+export function Milestones({
+  note,
+  steps,
+}: {
+  note?: ReactNode;
+  steps: { label: ReactNode; done?: boolean }[];
+}) {
+  return (
+    <div className="wk-milestones">
+      {note ? <p className="wk-milestone-note">{note}</p> : null}
+      <div className="wk-milestone-rail">
+        {steps.map((s, i) => (
+          <span key={i} className={`wk-milestone${s.done ? " is-done" : ""}`}>
+            <span className="wk-milestone-dot">
+              <Check aria-hidden="true" />
+            </span>
+            <span>{s.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** The violet block Cart Value puts its tracker in. */
+export function WidgetPanel({
+  title,
+  sub,
+  children,
+}: {
+  title: ReactNode;
+  sub?: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <div className="wk-panel">
+      <div className="wk-promo-main">
+        <span className="wk-stat-ico" style={{ color: "var(--wk-brand)" }}>
+          <ShoppingCart aria-hidden="true" />
+        </span>
+        <div>
+          <p className="wk-promo-title" style={{ color: "var(--wk-ink)" }}>
+            {title}
+          </p>
+          {sub ? (
+            <p className="wk-promo-sub" style={{ color: "var(--wk-muted)", opacity: 1 }}>
+              {sub}
+            </p>
+          ) : null}
+        </div>
+      </div>
+      {children}
     </div>
   );
 }

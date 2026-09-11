@@ -522,6 +522,174 @@
 @keyframes wk-spin { to { transform: rotate(360deg); } }
 .wk-link { border: 0; background: none; padding: 0; font-family: inherit; font-size: 13px; color: var(--wk-brand); cursor: pointer; }
 
+/* ── THE DEAL ROW ─────────────────────────────────────────────────────
+   The file's Quantity section: tiers as RADIO rows, not buttons in a strip.
+   Each states its own saving and its own perk, and the chosen one opens to
+   show the per-item option pickers and the commit. */
+.wk-deals { display: flex; flex-direction: column; gap: 12px; }
+.wk-deal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--wk-panel);
+  text-align: start;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.wk-deal.is-sel { border-color: color-mix(in srgb, var(--wk-brand) 45%, transparent); background: var(--wk-ground); }
+.wk-deal-main { display: flex; align-items: flex-start; gap: 12px; }
+/* The radio is drawn, not an input: a preview is a picture of a storefront
+   and a native radio would inherit the visitor's platform styling. */
+.wk-radio {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-block-start: 2px;
+  border: 2px solid color-mix(in srgb, var(--wk-brand) 60%, transparent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.wk-deal.is-sel .wk-radio::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--wk-brand);
+}
+.wk-deal-body { flex: 1 0 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.wk-deal-name { font-size: 14px; line-height: 20px; font-weight: 600; }
+.wk-deal-sub { font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk-deal-side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: end; }
+.wk-deal-perk { font-size: 11px; line-height: 14px; color: var(--wk-good); }
+.wk-pct {
+  padding: 2px 8px;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--wk-warn) 10%, transparent);
+  color: var(--wk-warn);
+  font-size: 11px;
+  line-height: 16px;
+}
+/* The picker the chosen tier reveals. Drawn, for the same reason as the
+   radio: a native select is the visitor's OS, not the merchant's store. */
+.wk-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--wk-ink) 6%, transparent);
+  font-size: 12px;
+  color: var(--wk-muted);
+}
+.wk-select svg { width: 16px; height: 16px; flex: none; }
+
+/* ── THE PROMO BANNER ─────────────────────────────────────────────────
+   Free Shipping's own block: the one place in the kit that spends a
+   gradient, because it is the one block that is an OFFER rather than a
+   product. Ink to brand, so it still belongs to the section. */
+.wk-promo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--wk-ink) 42%, var(--wk-brand) 140%);
+  color: var(--wk-ground);
+}
+.wk-promo-main { display: flex; align-items: center; gap: 12px; }
+.wk-promo-ico {
+  flex: none;
+  display: flex;
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--wk-ground);
+  color: var(--wk-brand);
+}
+.wk-promo-ico svg { width: 20px; height: 20px; }
+.wk-promo-title { margin: 0; font-size: 16px; line-height: 22px; font-weight: 500; }
+.wk-promo-sub { margin: 2px 0 0; font-size: 12px; line-height: 16px; opacity: 0.78; }
+.wk-promo .wk-btn { background: var(--wk-ground); color: var(--wk-brand); }
+
+/* ── THE MILESTONE TRACKER ────────────────────────────────────────────
+   Cart Value: a rail of rewards with the reached ones filled. The rail is
+   one track behind the dots rather than a segment per gap, so the fill can
+   run past a dot without the seams showing. */
+.wk-milestones { display: flex; flex-direction: column; gap: 10px; }
+.wk-milestone-note { margin: 0; font-size: 13px; line-height: 18px; font-weight: 500; color: var(--wk-brand); }
+.wk-milestone-rail { position: relative; display: flex; justify-content: space-between; gap: 8px; }
+.wk-milestone-rail::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 7px;
+  inset-inline: 8px;
+  height: 3px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--wk-ink) 12%, transparent);
+}
+.wk-milestone {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+  color: var(--wk-muted);
+}
+.wk-milestone-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--wk-ink) 16%, transparent);
+  display: grid;
+  place-items: center;
+  color: transparent;
+}
+.wk-milestone.is-done .wk-milestone-dot { background: var(--wk-good); color: #fff; }
+.wk-milestone.is-done { color: var(--wk-ink); }
+.wk-milestone-dot svg { width: 10px; height: 10px; }
+
+/* The cart-value panel the tracker sits in. */
+.wk-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--wk-brand) 8%, transparent);
+}
+
+/* "Added": the product already in the cart. Muted, so the eye goes to the
+   alternatives that can still be acted on. */
+.wk-btn--muted {
+  background: color-mix(in srgb, var(--wk-ink) 45%, transparent);
+  color: var(--wk-ground);
+}
+/* The card the widget is pointing at. */
+.wk-card.is-sel { outline: 1px solid color-mix(in srgb, var(--wk-brand) 45%, transparent); outline-offset: -1px; }
+.wk-card-check {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--wk-brand);
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.wk-card-check svg { width: 12px; height: 12px; }
+
 /* ── CAMPAIGN STYLES ──────────────────────────────────────────────────
    The file's "Campaign Styles" section: the same sheet, presented five
    ways. `embedded` is the sheet on the page; the other four put it on a
