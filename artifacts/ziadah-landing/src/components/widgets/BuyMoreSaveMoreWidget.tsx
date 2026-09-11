@@ -49,7 +49,7 @@ export default function BuyMoreSaveMoreWidget({
         <>
           <CartCheckoutRow
             cartLabel={isAr ? "السلة" : "Cart"}
-            cartValue={`${isAr ? "١٬٤٥٤" : "1,454"} ${currency}`}
+            cartValue={`${"1,454"} ${currency}`}
             checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
           />
           <DismissRow

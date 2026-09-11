@@ -1,6 +1,12 @@
 import { useMemo } from "react";
 import UseCaseRow from "@/components/UseCaseRow";
-import { buildWidgetShowcaseItems, type WidgetShowcaseKind } from "@/components/WidgetShowcaseCard";
+import {
+  buildWidgetShowcaseItems,
+  SHAPED_KINDS,
+  type ShapeFor,
+  type WidgetShowcaseKind,
+} from "@/components/WidgetShowcaseCard";
+import type { ProductShape } from "@/components/widgets/kit";
 import { navigateTo } from "@/components/PageTransition";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
@@ -50,10 +56,28 @@ export default function WidgetsShowcaseSection() {
   const tr = t[lang];
 
   const wLabels = tr.landing.widgetLabels;
-  /* GRID, not the list the kit defaults to. The rows give a preview a whole
-     column, and two products side by side fill it where a stack of full-width
-     rows leaves the card tall and half empty. */
-  const allWidgets = useMemo(() => buildWidgetShowcaseItems(wLabels, undefined, "grid"), [wLabels]);
+  /* THE THREE SHAPES, CYCLED DOWN THE BAND.
+     The file defines list, grid and carousel, and a band that shows one of
+     them seven times demonstrates a layout rather than a system. The cycle
+     runs over the kinds that HAVE a collection - Quantity and the coupon have
+     no products to lay out, so they sit out rather than consuming a turn and
+     breaking the rhythm for the rows that follow. */
+  const shapeFor = useMemo<ShapeFor>(() => {
+    const cycle: ProductShape[] = ["grid", "list", "carousel"];
+    const assigned = new Map<WidgetShowcaseKind, ProductShape>();
+    let i = 0;
+    for (const kind of ROW_ORDER) {
+      if (!SHAPED_KINDS.has(kind)) continue;
+      assigned.set(kind, cycle[i % cycle.length]!);
+      i += 1;
+    }
+    return (kind) => assigned.get(kind) ?? "list";
+  }, []);
+
+  const allWidgets = useMemo(
+    () => buildWidgetShowcaseItems(wLabels, undefined, shapeFor),
+    [wLabels, shapeFor],
+  );
 
   /* The seven, once each, in reading order. The marquee showed twenty-four
      cards for these seven - three looped copies of each row, and the second

@@ -463,17 +463,6 @@ export function PhoneFrame({
    against the band it lands on. See the header of `widget-kit.css`.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/**
- * Arabic-Indic digits for the counts the widgets print.
- *
- * The prices already come through the demo data in the right numerals; these
- * are the numbers the components compose themselves, and a Latin "2" beside an
- * Arabic-Indic price is the kind of mismatch that reads as a bug.
- */
-export function arabicDigits(n: number | string): string {
-  return String(n).replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[Number(d)]);
-}
-
 /** The three layouts the file's "Product Shape" section defines. */
 export type ProductShape = "list" | "grid" | "carousel";
 

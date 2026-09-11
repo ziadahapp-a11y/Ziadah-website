@@ -47,8 +47,8 @@ export default function CartValueWidget({
      the only one that carries ink, so the rail reads as progress rather than
      as four equal options. */
   const steps = [
-    { label: isAr ? "٥٪" : "05%", done: true },
-    { label: isAr ? "١٠٪" : "10%" },
+    { label: isAr ? "5%" : "05%", done: true },
+    { label: "10%" },
     { label: isAr ? "شحن مجاني" : "Free shipping" },
     { label: isAr ? "هدية" : "Gift" },
   ];
@@ -71,7 +71,7 @@ export default function CartValueWidget({
       }
     >
       <StatCard
-        value={`${isAr ? "٢٥٠" : "250"} ${currency}`}
+        value={`250 ${currency}`}
         label={isAr ? "رصيد التوفير" : "Pricing balance"}
         benefits={[
           isAr ? "شحن مجاني" : "Free shipping",
@@ -87,8 +87,8 @@ export default function CartValueWidget({
             price={p.price}
             currency={currency}
             rating="4.95"
-            reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
-            discount={i === 0 ? (isAr ? "٥٠٪" : "50%") : undefined}
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            discount={i === 0 ? ("50%") : undefined}
             checked={i === 0}
             selected={i === 0}
             favourite={shape !== "list"}
@@ -112,7 +112,7 @@ export default function CartValueWidget({
         <Milestones
           note={
             isAr
-              ? `أضف ١٥ ${currency} واحصل على خصم ٢٠٪`
+              ? `أضف 15 ${currency} واحصل على خصم 20%`
               : `Add 15 ${currency} and get 20% off`
           }
           steps={steps}

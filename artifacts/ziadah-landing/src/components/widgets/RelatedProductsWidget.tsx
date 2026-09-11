@@ -57,7 +57,7 @@ export default function RelatedProductsWidget({
           <WidgetButton block>{tr.btnAdd}</WidgetButton>
           <CartCheckoutRow
             cartLabel={isAr ? "السلة" : "Cart"}
-            cartValue={`${isAr ? "١٬٤٥٤" : "1,454"} ${currency}`}
+            cartValue={`${"1,454"} ${currency}`}
             checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
           />
           <DismissRow
@@ -68,7 +68,7 @@ export default function RelatedProductsWidget({
       }
     >
       <StatCard
-        value={`${isAr ? "٢٥٠" : "250"} ${currency}`}
+        value={`250 ${currency}`}
         label={isAr ? "رصيد التوفير" : "Pricing balance"}
         benefits={[
           isAr ? "شحن مجاني" : "Free shipping",
@@ -84,8 +84,8 @@ export default function RelatedProductsWidget({
             currency={currency}
             tag={tr.descLabel}
             rating="4.95"
-            reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
-            discount={i === 0 ? (isAr ? "٥٠٪" : "50%") : undefined}
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
+            discount={i === 0 ? ("50%") : undefined}
             favourite={shape !== "list"}
             action={<WidgetButton block>{isAr ? "أضف" : "Add"}</WidgetButton>}
           />

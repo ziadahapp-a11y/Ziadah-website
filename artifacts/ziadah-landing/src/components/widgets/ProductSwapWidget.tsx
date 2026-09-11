@@ -53,14 +53,14 @@ export default function ProductSwapWidget({
       footer={
         <>
           <SummaryBar
-            label={isAr ? "الإجمالي (١)" : "Total items (1)"}
+            label={isAr ? "الإجمالي (1)" : "Total items (1)"}
             was={tr.origPrice}
             now={tr.newPrice}
             save={tr.saveBadge}
           />
           <CartCheckoutRow
             cartLabel={isAr ? "السلة" : "Cart"}
-            cartValue={`${isAr ? "١٬٤٥٤" : "1,454"} ${currency}`}
+            cartValue={`${"1,454"} ${currency}`}
             checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
           />
           <DismissRow
@@ -71,7 +71,7 @@ export default function ProductSwapWidget({
       }
     >
       <StatCard
-        value={`${isAr ? "٢٥٠" : "250"} ${currency}`}
+        value={`250 ${currency}`}
         label={isAr ? "رصيد التوفير" : "Pricing balance"}
         benefits={[isAr ? "ضمان سنة" : "1-year warranty", isAr ? "شحن مجاني" : "Free shipping"]}
       />
@@ -82,8 +82,8 @@ export default function ProductSwapWidget({
           was={inCart.was}
           currency=""
           rating="4.95"
-          reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
-          discount={isAr ? "٥٠٪" : "50%"}
+          reviews={isAr ? "21 تقييماً" : "21 reviews"}
+          discount={"50%"}
           selected
           action={
             <WidgetButton block variant="muted">
@@ -98,7 +98,7 @@ export default function ProductSwapWidget({
             price={p.price}
             currency={currency}
             rating="4.95"
-            reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
             action={<WidgetButton block>{tr.btnUpgrade}</WidgetButton>}
           />
         ))}

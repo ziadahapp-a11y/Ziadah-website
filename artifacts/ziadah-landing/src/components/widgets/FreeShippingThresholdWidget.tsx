@@ -14,7 +14,6 @@ import {
   CartCheckoutRow,
   DismissRow,
   WidgetButton,
-  arabicDigits,
   type ProductShape,
   type CampaignStyle,
 } from "./kit";
@@ -56,18 +55,16 @@ export default function FreeShippingThresholdWidget({
         <>
           <SummaryBar
             label={
-              isAr
-                ? `الإجمالي (${arabicDigits(tr.products.length)})`
-                : `Total items (${tr.products.length})`
+              isAr ? `الإجمالي (${tr.products.length})` : `Total items (${tr.products.length})`
             }
-            was={`${isAr ? "٥٦" : "56"} ${currency}`}
-            now={`${isAr ? "٤٠" : "40"} ${currency}`}
-            save={isAr ? "وفّر ٢٠٪" : "Save 20%"}
+            was={`${"56"} ${currency}`}
+            now={`${"40"} ${currency}`}
+            save={isAr ? "وفر 20%" : "Save 20%"}
           />
           <AddAllBar>{isAr ? "أضف الكل" : "Add all"}</AddAllBar>
           <CartCheckoutRow
             cartLabel={isAr ? "السلة" : "Cart"}
-            cartValue={`${isAr ? "١٬٤٥٤" : "1,454"} ${currency}`}
+            cartValue={`${"1,454"} ${currency}`}
             checkoutLabel={isAr ? "إتمام الطلب" : "Checkout"}
           />
           <DismissRow
@@ -78,7 +75,7 @@ export default function FreeShippingThresholdWidget({
       }
     >
       <StatCard
-        value={`${isAr ? "٢٥٠" : "250"} ${currency}`}
+        value={`250 ${currency}`}
         label={isAr ? "رصيد التوفير" : "Pricing balance"}
         benefits={[
           isAr ? "شحن مجاني" : "Free shipping",
@@ -100,7 +97,7 @@ export default function FreeShippingThresholdWidget({
             price={p.price}
             currency={currency}
             rating="4.95"
-            reviews={isAr ? "٢١ تقييماً" : "21 reviews"}
+            reviews={isAr ? "21 تقييماً" : "21 reviews"}
             favourite={shape !== "list"}
             action={<WidgetButton block>{isAr ? "أضف" : "Add"}</WidgetButton>}
           />
