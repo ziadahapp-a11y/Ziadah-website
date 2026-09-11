@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useState } from "react";
+import { Check, ChevronLeft, Copy, Heart, Plus, Square, Star, Truck } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { productImage } from "@/lib/product-images";
 
@@ -139,20 +140,31 @@ export function WidgetShell({
   children,
   maxWidth = 320,
   footer,
+  style = "embedded",
+  dismissible = false,
 }: {
   title?: ReactNode;
   subtitle?: ReactNode;
   children: ReactNode;
   maxWidth?: number;
   footer?: ReactNode;
+  /** Which of the file's five campaign styles presents this sheet. */
+  style?: CampaignStyle;
+  /** Shows the sheet's own close control, as every framed style in the file does. */
+  dismissible?: boolean;
 }) {
   const { isAr } = useLanguage();
-  return (
+  const sheet = (
     <div
       className="wk"
       dir={isAr ? "rtl" : "ltr"}
       style={{ maxWidth, textAlign: isAr ? "right" : "left" }}
     >
+      {dismissible ? (
+        <button type="button" className="wk-close" aria-label={isAr ? "إغلاق" : "Close"}>
+          <CloseGlyph />
+        </button>
+      ) : null}
       {title ? (
         <div className="wk-head">
           <p className="wk-title">{title}</p>
@@ -163,7 +175,27 @@ export function WidgetShell({
       {footer ? <div className="wk-foot">{footer}</div> : null}
     </div>
   );
+  /* The campaign style is a WRAPPER, not a variant of the sheet: the file
+     presents one sheet five ways, and only the ground and the placement
+     change. `embedded` is the sheet on the page and needs no wrapper. */
+  if (style === "embedded") return sheet;
+  return (
+    <div className="wk-frame" data-style={style} dir={isAr ? "rtl" : "ltr"}>
+      {sheet}
+    </div>
+  );
 }
+
+function CloseGlyph() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <path d="M5 5l10 10M15 5L5 15" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** The five ways the file presents a sheet. */
+export type CampaignStyle = "embedded" | "popup" | "bottom-sheet" | "left-sheet" | "right-sheet";
 
 /* ── THE PRICE ──────────────────────────────────────────────────────────
    The riyal is a WORD, not a glyph stuck to the digits. It sits at the muted
@@ -417,6 +449,227 @@ export function PhoneFrame({
         {label ? <div className="wk-phone-bar">{label}</div> : null}
         <div className="wk-phone-body">{children}</div>
       </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE FIGMA PRIMITIVES
+
+   Ported from "Milestone 2.1 - Storefront Design" (node 333:1396). The
+   structure is the file's; the colour is the site's, so a sheet still reads
+   against the band it lands on. See the header of `widget-kit.css`.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/** The three layouts the file's "Product Shape" section defines. */
+export type ProductShape = "list" | "grid" | "carousel";
+
+export function ProductCollection({
+  shape = "list",
+  children,
+}: {
+  shape?: ProductShape;
+  children: ReactNode;
+}) {
+  return (
+    <div className="wk-collection" data-shape={shape}>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * One product, in whichever shape its collection is running.
+ *
+ * The card does not know its own shape - the collection sets it. That is how
+ * the file works too: the same card component appears in the list, grid and
+ * carousel frames with only its container changed.
+ */
+export function ProductCard({
+  name,
+  price,
+  was,
+  currency,
+  tag,
+  rating,
+  reviews,
+  discount,
+  favourite,
+  action,
+}: {
+  name: string;
+  price?: string;
+  was?: string;
+  currency?: string;
+  /** The category chip above the name. */
+  tag?: ReactNode;
+  rating?: string;
+  reviews?: ReactNode;
+  /** The percentage on the flag hanging off the image, e.g. "50%". */
+  discount?: string;
+  /** Shows the wishlist chip the grid and carousel cards carry. */
+  favourite?: boolean;
+  action?: ReactNode;
+}) {
+  const { isAr } = useLanguage();
+  return (
+    <article className="wk-card">
+      <div className="wk-card-img">
+        <ProductTile name={name} size={120} radius={0} />
+        {discount ? (
+          <span className="wk-sale">
+            <b>{discount}</b>
+            <span>{isAr ? "خصم" : "OFF"}</span>
+          </span>
+        ) : null}
+        {favourite ? (
+          <span className="wk-fav" aria-hidden="true">
+            <Heart />
+          </span>
+        ) : null}
+      </div>
+      <div className="wk-card-body">
+        <div className="wk-card-meta">
+          {tag ? <span className="wk-tag">{tag}</span> : null}
+          <span className="wk-name">{name}</span>
+          {rating ? (
+            <span className="wk-rating">
+              <span className="wk-rating-score">
+                <Star fill="currentColor" aria-hidden="true" />
+                {rating}
+              </span>
+              {reviews ? <span className="wk-reviews">{reviews}</span> : null}
+            </span>
+          ) : null}
+        </div>
+        <div className="wk-card-foot">
+          {price != null && currency != null ? (
+            <span className="wk-meta">
+              <Price value={price} was={was} currency={currency} />
+            </span>
+          ) : null}
+          {action}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/** The benefit strip: one number, its label, and what comes with it. */
+export function StatCard({
+  value,
+  label,
+  benefits,
+  copyLabel,
+}: {
+  value: ReactNode;
+  label: ReactNode;
+  benefits?: ReactNode[];
+  copyLabel?: ReactNode;
+}) {
+  return (
+    <div className="wk-stat">
+      <div className="wk-stat-main">
+        <span className="wk-stat-ico">
+          <Truck aria-hidden="true" />
+        </span>
+        <div className="wk-stat-body">
+          <div>
+            <p className="wk-stat-val">{value}</p>
+            <p className="wk-stat-lab">{label}</p>
+          </div>
+          {benefits?.length ? (
+            <div className="wk-stat-badges">
+              {benefits.map((b, i) => (
+                <span key={i} className="wk-stat-badge">
+                  <Check aria-hidden="true" />
+                  <span>{b}</span>
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+      {copyLabel ? (
+        <button type="button" className="wk-stat-copy">
+          <span>{copyLabel}</span>
+          <Copy aria-hidden="true" />
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+/** "Total items (2)" — what the sheet adds, struck against what it costs. */
+export function SummaryBar({
+  label,
+  was,
+  now,
+  save,
+}: {
+  label: ReactNode;
+  was?: ReactNode;
+  now: ReactNode;
+  save?: ReactNode;
+}) {
+  return (
+    <div className="wk-summary">
+      <span className="wk-summary-k">{label}</span>
+      <span className="wk-summary-v">
+        {was ? <span className="wk-summary-was">{was}</span> : null}
+        <span className="wk-summary-now">{now}</span>
+        {save ? <span className="wk-save">{save}</span> : null}
+      </span>
+    </div>
+  );
+}
+
+/** The commit: one black bar that takes the whole selection at once. */
+export function AddAllBar({ children }: { children: ReactNode }) {
+  return (
+    <button type="button" className="wk-addall">
+      <span>{children}</span>
+      <Plus aria-hidden="true" />
+    </button>
+  );
+}
+
+/** The cart's running total beside the way out of the sheet. */
+export function CartCheckoutRow({
+  cartLabel,
+  cartValue,
+  checkoutLabel,
+}: {
+  cartLabel: ReactNode;
+  cartValue: ReactNode;
+  checkoutLabel: ReactNode;
+}) {
+  const { isAr } = useLanguage();
+  return (
+    <div className="wk-cartrow">
+      <span className="wk-cart">
+        <b>{cartLabel}</b>
+        <span>{cartValue}</span>
+      </span>
+      <span className="wk-checkout">
+        <span>{checkoutLabel}</span>
+        <ChevronLeft style={{ transform: isAr ? undefined : "scaleX(-1)" }} aria-hidden="true" />
+      </span>
+    </div>
+  );
+}
+
+/** The footer every framed style in the file carries: opt out, or skip once. */
+export function DismissRow({ optOut, skip }: { optOut: ReactNode; skip: ReactNode }) {
+  return (
+    <div className="wk-dismiss">
+      <span className="wk-dismiss-opt">
+        <Square aria-hidden="true" />
+        {optOut}
+      </span>
+      <button type="button" className="wk-skip">
+        {skip}
+      </button>
     </div>
   );
 }
