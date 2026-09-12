@@ -298,11 +298,16 @@
 .wk-rating-score svg { width: 16px; height: 16px; color: #f5a623; }
 .wk-reviews { font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wk-ink) 40%, transparent); }
 
-/* `min-width: 0` so the price block is allowed to be the thing that wraps.
-   It already had `flex-wrap`, but as a flex ITEM in the list-card footer its
-   automatic minimum size was its widest child, so it never shrank far enough
-   for the wrap to engage and it ran 16px past an 87px footer instead. */
-.wk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+.wk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* IN THE LIST FOOTER ONLY, the price block may shrink and wrap - it sits in a
+   row beside the Add pill there and the two together did not fit an 87px
+   card. Everywhere else it keeps `min-width: auto`: unpinned globally it
+   shrank below its own content, and a 40px price in a 32px box is a worse
+   bug than the one being fixed. The pill is the half that yields first. */
+.wk-collection[data-shape="list"] > .wk-card .wk-card-foot .wk-meta {
+  min-width: 0;
+  flex: 0 1 auto;
+}
 .wk-price {
   display: inline-flex;
   align-items: center;

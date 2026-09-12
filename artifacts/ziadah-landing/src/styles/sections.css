@@ -237,7 +237,13 @@
   .hero-col-media { max-width: unset; margin: 0; margin-inline-end: 3.2rem; grid-column: 9 / span 8; }
 }
 
-.hero-block-text { position: relative; z-index: 3; padding: 3rem 0 2.5rem; }
+/* `min-width: 0` and `flex: 1 1 auto`, because above 1025 `.hero-col-text`
+   turns into a flex row and this becomes an item in it. An item's automatic
+   minimum is its min-content, so a long unbreakable English hero line - the
+   Arabic ones are shorter and never showed it - sized the block to 762px
+   inside a 688px column and the section's `overflow-x: clip` cut the end off
+   the headline. */
+.hero-block-text { position: relative; z-index: 3; padding: 3rem 0 2.5rem; min-width: 0; flex: 1 1 auto; }
 @media screen and (min-width: 768px) {
   .hero-block-text { display: flex; flex-wrap: wrap; padding: 5rem 0 3rem; }
 }
