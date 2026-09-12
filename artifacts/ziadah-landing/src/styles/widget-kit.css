@@ -107,10 +107,14 @@
   color: var(--wk-good);
 }
 .wk-stat-ico svg { width: 20px; height: 20px; }
-.wk-stat-body { flex: 1 0 0; min-width: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+/* `flex-wrap` on both, because the badges carry `white-space: nowrap` labels
+   and there is no width at which "Free shipping" and "Cash on delivery" will
+   shorten. Given no room they used to run straight out of the card; given
+   permission to wrap they drop under the figure instead. */
+.wk-stat-body { flex: 1 0 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .wk-stat-val { margin: 0; font-size: 20px; line-height: 24px; }
 .wk-stat-lab { margin: 4px 0 0; font-size: 12px; line-height: 16px; color: var(--wk-muted); }
-.wk-stat-badges { display: flex; align-items: center; gap: 16px; }
+.wk-stat-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; min-width: 0; }
 .wk-stat-badge { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; color: var(--wk-muted); }
 .wk-stat-badge svg { width: 20px; height: 20px; color: var(--wk-good); }
 .wk-stat-badge span { font-size: 10px; line-height: 14px; font-weight: 500; white-space: nowrap; }
@@ -251,6 +255,7 @@
 .wk-card-foot .wk-btn { width: 100%; }
 .wk-collection[data-shape="list"] > .wk-card .wk-card-foot {
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
@@ -293,11 +298,23 @@
 .wk-rating-score svg { width: 16px; height: 16px; color: #f5a623; }
 .wk-reviews { font-size: 12px; line-height: 16px; color: color-mix(in srgb, var(--wk-ink) 40%, transparent); }
 
-.wk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* `min-width: 0` so the price block is allowed to be the thing that wraps.
+   It already had `flex-wrap`, but as a flex ITEM in the list-card footer its
+   automatic minimum size was its widest child, so it never shrank far enough
+   for the wrap to engage and it ran 16px past an 87px footer instead. */
+.wk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
 .wk-price {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  /* Wrapping, and allowed to shrink. The price is a row of three parts - the
+     figure, its currency and the struck-through old price - and on the
+     narrowest list card the three do not fit on one line. Given no room to
+     wrap it ran 16px past the card; given permission, the old price drops
+     under the new one, which is the order they should be read in anyway. */
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+  gap: 2px 8px;
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
@@ -330,6 +347,16 @@
   white-space: nowrap;
 }
 .wk-btn.is-block { width: 100%; }
+/* A widget button never outgrows the card it sits in. `white-space: nowrap`
+   above is right - a two-line "Add to cart" inside a 32px pill looks broken -
+   but it made the English labels 169px wide in a 108px list-card footer and
+   the card sliced the pill in half. Capping the width and letting the label
+   ellipse keeps the pill whole and legible. */
+.wk-btn { max-width: 100%; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* In the list shape the footer is a row, so the pill has to be the part that
+   yields: the price beside it is the information, the pill is the affordance
+   and stays recognisable at any width. */
+.wk-collection[data-shape="list"] > .wk-card .wk-card-foot .wk-btn { flex: 0 1 auto; }
 .wk-btn--primary { background: var(--wk-ink); color: var(--wk-ground); }
 .wk-btn--ghost {
   background: color-mix(in srgb, var(--wk-brand) 8%, transparent);
@@ -765,7 +792,7 @@
    set instead of four separate advertisements. */
 .ppm-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(26rem, 100%), 1fr));
   gap: 4.8rem 3.2rem;
   justify-items: center;
 }
@@ -786,6 +813,11 @@
   display: flex;
   justify-content: center;
   padding-block: 3.2rem;
+  /* As a flex item on the sector hero its `min-width: auto` resolved to the
+     phone's min-content, so the stage itself grew past the mock that holds
+     it - the phone fitted, the box around it did not. */
+  min-width: 0;
+  max-width: 100%;
 }
 .ucp-float {
   position: absolute;

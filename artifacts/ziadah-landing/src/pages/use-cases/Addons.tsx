@@ -78,7 +78,7 @@ const data: UseCasePageData = {
               <h3 className="text-2xl md:text-3xl font-bold text-zinc-950 text-center" style={{ marginBottom: 20 }}>
                 {isAr ? "لماذا Multi-select أفضل من اقتراح إضافة واحدة؟" : "Why is multi-select better than a single suggestion?"}
               </h3>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 24 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(220px,100%),1fr))", gap: 24 }}>
                 <div className="rounded-xl border border-violet-200 bg-violet-50/60 p-6">
                   <div className="text-lg font-bold text-violet-700" style={{ marginBottom: 12 }}>{isAr ? " Multi-select (زيادة)" : " Multi-select (Ziadah)"}</div>
                   <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>

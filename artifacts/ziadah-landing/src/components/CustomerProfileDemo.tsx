@@ -159,7 +159,11 @@ export default function CustomerProfileDemo() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          /* `minmax(0, 1fr)`, not `1fr`: a `1fr` track still takes its MINIMUM
+             from the column's min-content and is allowed to exceed the grid,
+             which is how a profile column came out 341px inside a 326px
+             container on a phone. */
+          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
           gap: 0,
         }}
         className="cpd-grid"
@@ -454,7 +458,7 @@ export default function CustomerProfileDemo() {
       <style>{`
         @media (max-width: 700px) {
           .cpd-grid {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: minmax(0, 1fr) !important;
           }
           .cpd-grid > div:first-child {
             border-inline-end: none !important;

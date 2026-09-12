@@ -66,7 +66,7 @@ export default function SectorAiMlHighlights() {
                   key={link.href}
                   type="button"
                   onClick={() => navigateTo(link.href)}
-                  className="chip is-small text-start"
+                  className="chip is-small is-wrap"
                 >
                   {lang === "ar" ? link.labelAr : link.labelEn}
                 </button>
@@ -81,7 +81,7 @@ export default function SectorAiMlHighlights() {
                   key={link.href}
                   type="button"
                   onClick={() => navigateTo(link.href)}
-                  className="chip is-small text-start"
+                  className="chip is-small is-wrap"
                 >
                   {lang === "ar" ? link.labelAr : link.labelEn}
                 </button>
