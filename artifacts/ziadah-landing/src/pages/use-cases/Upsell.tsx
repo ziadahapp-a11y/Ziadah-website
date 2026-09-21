@@ -72,7 +72,7 @@ const data: UseCasePageData = {
       <div style={{ maxWidth: 1200, width: "100%", margin: "0 auto" }}>
         <div className="sector-card" style={{ padding: "36px 40px" }}>
           <h3 className="text-2xl md:text-3xl font-bold text-zinc-950" style={{ marginBottom: 20, textAlign: "center" }}>{isAr ? "متى يعمل Upsell ومتى لا يعمل؟" : "When upselling works — and when it doesn't"}</h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))", gap: 24 }}>
             <div className="rounded-xl border border-violet-200 bg-violet-50/60" style={{ padding: "24px 28px" }}>
               <div className="text-violet-700" style={{ fontSize: 17, fontWeight: 800, marginBottom: 12 }}>{isAr ? " يعمل بشكل ممتاز عندما" : " Works great when"}</div>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>

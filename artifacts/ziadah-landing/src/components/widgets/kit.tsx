@@ -438,6 +438,18 @@ export function PhoneFrame({
    * chip and a gold-to-cyan rule - which reads as four brands, not one store.
    */
   accent?: string;
+  /**
+   * A CAP, not a width. The stylesheet already sets `width: 100%` so the
+   * frame takes whatever column it is given; this only stops it growing past
+   * the size the demo was drawn at.
+   *
+   * It used to be written out as `width`, and an inline `width` beats the
+   * stylesheet. That was invisible on the sector cards, where the phone is a
+   * row-flex item and flex shrank it back down, and fatal on `.ucp-stage`,
+   * which turns into a COLUMN flex below 768 - width is the cross axis there,
+   * nothing shrinks, and a 300px frame hung 90px outside a 210px stage on
+   * every use-case and sector page.
+   */
   width?: number;
 }) {
   const { isAr } = useLanguage();
@@ -445,7 +457,7 @@ export function PhoneFrame({
     <div
       className="wk-phone"
       dir={isAr ? "rtl" : "ltr"}
-      style={{ width, ...(accent ? { ["--wk-accent" as string]: accent } : {}) } as CSSProperties}
+      style={{ maxWidth: width, ...(accent ? { ["--wk-accent" as string]: accent } : {}) } as CSSProperties}
     >
       <div className="wk-phone-screen">
         {label ? <div className="wk-phone-bar">{label}</div> : null}
