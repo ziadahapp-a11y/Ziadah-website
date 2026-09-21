@@ -48,7 +48,7 @@ export const DASHBOARDS = [
   { key: "zid", href: "https://web.ziadah.app/" },
 ] as const;
 
-export const WHATSAPP_SUPPORT_URL = "https://wa.me/966544357555";
+export const WHATSAPP_SUPPORT_URL = "https://wa.me/966510131856";
 export const SUPPORT_EMAIL = "support@ziadah.app";
 export const YOUTUBE_URL = "https://www.youtube.com/@ziadahapp";
 /** A merchant books a live walkthrough here rather than writing in first. */

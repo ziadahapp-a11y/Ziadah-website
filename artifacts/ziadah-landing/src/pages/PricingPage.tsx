@@ -12,6 +12,7 @@ import PageShell from "@/components/PageShell";
 import PlatformModal from "@/components/PlatformModal";
 import PageClosingCta from "@/components/PageClosingCta";
 import BilingualSEO from "@/components/BilingualSEO";
+import { WHATSAPP_SUPPORT_URL } from "@/lib/nav-data";
 import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { HeroLede, Section as DsSection, SectionHead } from "@/sections";
@@ -296,7 +297,10 @@ export default function PricingPage() {
                           <MkButton
                             as="a"
                             block
-                            href="https://wa.me/966544357555"
+                            /* The shared constant, not a second copy of the
+                               number. This one had already drifted a support line
+                               behind the rest of the site. */
+                            href={WHATSAPP_SUPPORT_URL}
                             target="_blank"
                             rel="noreferrer"
                           >
