@@ -34,7 +34,7 @@ export function Hero() {
   const { ref, entered } = useEnterOnce<HTMLDivElement>();
 
   const lines = t({
-    ar: ["كل عميل يشوف", "", "اللي يناسبه"],
+    ar: ["كل عميل يشوف", "المنتج", "اللي يناسبه"],
     en: ["Every shopper", "sees what", "actually fits"],
   });
 
@@ -67,8 +67,8 @@ export function Hero() {
           </h1>
           <p className="hero-home-lede">
             {t({
-              ar: "أغلب زوّار متجرك يشترون منتجاً واحداً ويطلعون. زيادة تعرض لكل عميل المنتج المناسب له في صفحة المنتج والسلة والدفع، فيرتفع متوسط قيمة الطلب بدون أي إنفاق إعلاني إضافي.",
-              en: "Most of your visitors buy one item and leave. Ziadah shows each shopper the product that fits them on the product page, the cart and checkout, so the average order value rises with no extra ad spend.",
+              ar: "زيادة تحلل المنتجات والطلبات وسلوك التصفح لتقترح لكل متسوق ما يناسبه في صفحة المنتج والسلة ومراحل الشراء. اختر هدفك ودع النظام يجهز العرض المناسب.",
+              en: "Ziadah uses products, orders, and browsing behavior to suggest relevant items across the shopping journey. Choose a goal and let the system prepare the offer.",
             })}
           </p>
           <div className="hero-home-actions">
@@ -110,11 +110,11 @@ export function Hero() {
             <div className="hero-home-chips" aria-hidden="true">
               <span className="hero-home-chip hero-home-chip--a">
                 <span className="hero-home-chip-label">{t({ ar: "متوسط الطلب", en: "Order value" })}</span>
-                <span className="hero-home-chip-amt num-ltr">+35%</span>
+                <span className="hero-home-chip-amt">{t({ ar: "اقتراحات مكملة", en: "Relevant add-ons" })}</span>
               </span>
               <span className="hero-home-chip hero-home-chip--b">
                 <span className="hero-home-chip-label">{t({ ar: "إضافة للسلة", en: "Cart add-ons" })}</span>
-                <span className="hero-home-chip-amt num-ltr">34%</span>
+                <span className="hero-home-chip-amt">{t({ ar: "حسب سلوك العميل", en: "Based on behavior" })}</span>
               </span>
             </div>
           </div>

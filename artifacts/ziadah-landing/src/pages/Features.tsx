@@ -53,17 +53,15 @@ const usecases: {
   Icon: LucideIcon;
   color: string;
   strategies: string[]; strategiesEn: string[];
-  result: string; resultEn: string;
-  stores: string; storesEn: string;
 }[] = [
-  { sector: "الأزياء والموضة", sectorEn: "Fashion & Apparel", Icon: Shirt, color: "#8b5cf6", strategies: ["تجميع الإطقم الكاملة", "عرض الإكسسوارات المكملة", "Upsell للفئة الأعلى", "كوبون للشراء الأول"], strategiesEn: ["Bundle complete outfits", "Show complementary accessories", "Upsell to premium tier", "First-purchase coupon"], result: "+35% متوسط الطلب", resultEn: "+35% average order value", stores: "+230 متجر", storesEn: "+230 stores" },
-  { sector: "الجمال والعناية", sectorEn: "Beauty & Skincare", Icon: Sparkles, color: "#ec4899", strategies: ["روتين العناية الكامل", "تجميع المنتجات المتكاملة", "Buy 3 وفر 20%", "عرض نسخة الحجم الكبير"], strategiesEn: ["Complete skincare routine", "Bundle complementary products", "Buy 3 save 20%", "Show larger size version"], result: "+32% متوسط الطلب", resultEn: "+32% average order value", stores: "+140 متجر", storesEn: "+140 stores" },
-  { sector: "الغذاء والمشروبات", sectorEn: "Food & Beverages", Icon: Apple, color: "#f59e0b", strategies: ["حزم التوفير الشهرية", "اشتر أكثر ووفر أكثر", "منتجات مكملة للوجبة", "اشتراكات دورية"], strategiesEn: ["Monthly savings bundles", "Buy more save more", "Meal complementary products", "Recurring subscriptions"], result: "+28% متوسط الطلب", resultEn: "+28% average order value", stores: "+180 متجر", storesEn: "+180 stores" },
-  { sector: "الإلكترونيات والتقنية", sectorEn: "Electronics & Technology", Icon: Laptop, color: "#06b6d4", strategies: ["ملحقات الجهاز (Add-ons)", "الحماية والضمان الممتد", "Upsell للموديل الأحدث", "حزمة الإعداد الكامل"], strategiesEn: ["Device accessories (Add-ons)", "Protection & extended warranty", "Upsell to newer model", "Complete setup bundle"], result: "+22% متوسط الطلب", resultEn: "+22% average order value", stores: "+90 متجر", storesEn: "+90 stores" },
-  { sector: "المنزل والديكور", sectorEn: "Home & Decor", Icon: Sofa, color: "#8b5cf6", strategies: ["تجميع مستلزمات الغرفة", "منتجات ذات صلة بالديكور", "Combo للأثاث المتكامل", "خصم الكميات"], strategiesEn: ["Bundle room essentials", "Decor-related products", "Combo for matching furniture", "Volume discounts"], result: "+26% متوسط الطلب", resultEn: "+26% average order value", stores: "+70 متجر", storesEn: "+70 stores" },
-  { sector: "الرياضة واللياقة", sectorEn: "Sports & Fitness", Icon: Dumbbell, color: "#6366f1", strategies: ["حزمة المستلزمات الرياضية", "منتجات التغذية + معدات", "روتين التمرين الكامل", "Upsell للإصدار المتميز"], strategiesEn: ["Sports essentials bundle", "Nutrition products + equipment", "Complete workout routine", "Upsell to premium edition"], result: "+30% متوسط الطلب", resultEn: "+30% average order value", stores: "+60 متجر", storesEn: "+60 stores" },
-  { sector: "الكتب والتعليم", sectorEn: "Books & Education", Icon: BookOpen, color: "#8b5cf6", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"], result: "+18% متوسط الطلب", resultEn: "+18% average order value", stores: "+40 متجر", storesEn: "+40 stores" },
-  { sector: "التبرعات والخيرية", sectorEn: "Donations & Charity", Icon: HandHeart, color: "#6d28d9", strategies: ["مشاريع تبرع مكملة", "زيادة مبلغ التبرع", "اشترك تبرعياً شهرياً", "عرض المشاريع ذات الأولوية"], strategiesEn: ["Complementary donation projects", "Increase donation amount", "Monthly donation subscription", "Show priority projects"], result: "+48% متوسط التبرع", resultEn: "+48% average donation", stores: "+40 منظمة", storesEn: "+40 organizations" },
+  { sector: "الأزياء والموضة", sectorEn: "Fashion & Apparel", Icon: Shirt, color: "#8b5cf6", strategies: ["تجميع الإطقم الكاملة", "عرض الإكسسوارات المكملة", "Upsell للفئة الأعلى", "كوبون للشراء الأول"], strategiesEn: ["Bundle complete outfits", "Show complementary accessories", "Upsell to premium tier", "First-purchase coupon"] },
+  { sector: "الجمال والعناية", sectorEn: "Beauty & Skincare", Icon: Sparkles, color: "#ec4899", strategies: ["روتين العناية الكامل", "تجميع المنتجات المتكاملة", "Buy 3 وفر 20%", "عرض نسخة الحجم الكبير"], strategiesEn: ["Complete skincare routine", "Bundle complementary products", "Buy 3 save 20%", "Show larger size version"] },
+  { sector: "الغذاء والمشروبات", sectorEn: "Food & Beverages", Icon: Apple, color: "#f59e0b", strategies: ["حزم التوفير الشهرية", "اشتر أكثر ووفر أكثر", "منتجات مكملة للوجبة", "اشتراكات دورية"], strategiesEn: ["Monthly savings bundles", "Buy more save more", "Meal complementary products", "Recurring subscriptions"] },
+  { sector: "الإلكترونيات والتقنية", sectorEn: "Electronics & Technology", Icon: Laptop, color: "#06b6d4", strategies: ["ملحقات الجهاز (Add-ons)", "الحماية والضمان الممتد", "Upsell للموديل الأحدث", "حزمة الإعداد الكامل"], strategiesEn: ["Device accessories (Add-ons)", "Protection & extended warranty", "Upsell to newer model", "Complete setup bundle"] },
+  { sector: "المنزل والديكور", sectorEn: "Home & Decor", Icon: Sofa, color: "#8b5cf6", strategies: ["تجميع مستلزمات الغرفة", "منتجات ذات صلة بالديكور", "Combo للأثاث المتكامل", "خصم الكميات"], strategiesEn: ["Bundle room essentials", "Decor-related products", "Combo for matching furniture", "Volume discounts"] },
+  { sector: "الرياضة واللياقة", sectorEn: "Sports & Fitness", Icon: Dumbbell, color: "#6366f1", strategies: ["حزمة المستلزمات الرياضية", "منتجات التغذية + معدات", "روتين التمرين الكامل", "Upsell للإصدار المتميز"], strategiesEn: ["Sports essentials bundle", "Nutrition products + equipment", "Complete workout routine", "Upsell to premium edition"] },
+  { sector: "الكتب والتعليم", sectorEn: "Books & Education", Icon: BookOpen, color: "#8b5cf6", strategies: ["سلسلة الكتب المرتبطة", "المستلزمات الدراسية", "Bundle الكورس + الكتاب", "اشتر 3 واحصل على خصم"], strategiesEn: ["Related book series", "School supplies", "Course + book bundle", "Buy 3 get a discount"] },
+  { sector: "التبرعات والخيرية", sectorEn: "Donations & Charity", Icon: HandHeart, color: "#6d28d9", strategies: ["مشاريع تبرع مكملة", "زيادة مبلغ التبرع", "اشترك تبرعياً شهرياً", "عرض المشاريع ذات الأولوية"], strategiesEn: ["Complementary donation projects", "Increase donation amount", "Monthly donation subscription", "Show priority projects"] },
 ];
 
 /* ─────────────────────────── component ─────────────────────────── */
@@ -136,6 +134,7 @@ export default function Features() {
             </button>
           ))}
         </div>
+        <img className="feature-hero-art" src="/images/ziadah-recommendations-art.png" alt="" loading="lazy" aria-hidden="true" />
       </HeroLede>
 
       {/* ══════════════════ THE SHAPE ══════════════════
@@ -165,7 +164,6 @@ export default function Features() {
           <Shell width="wide">
           <div className="flex flex-col gap-[1.6rem]">
             {goals.map((g, i) => {
-              const boost = isAr ? g.boost : g.boostEn;
               return (
                 <div
                   key={g.id}
@@ -207,10 +205,9 @@ export default function Features() {
                       </p>
                     </div>
                     <div>
-                      <div className="card-eyebrow mb-2">{ft.expectedResult}</div>
+                      <div className="card-eyebrow mb-2">{isAr ? "ما الذي تحسّنه" : "What it improves"}</div>
                       <div className="card-inset !mt-0 text-center">
-                        <div className="t-head-1 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{boost.split(" ")[0]}</div>
-                        <div className="card-eyebrow mt-1.5">{boost.substring(boost.indexOf(" ") + 1)}</div>
+                        <div className="card-body-text">{isAr ? g.subtitle : g.subtitleEn}</div>
                       </div>
                     </div>
                   </div>
@@ -347,7 +344,6 @@ export default function Features() {
           <Shell width="wide">
           <div className="cards-grid">
             {usecases.map((u, i) => {
-              const result = isAr ? u.result : u.resultEn;
               return (
                 <div
                   key={isAr ? u.sector : u.sectorEn}
@@ -360,13 +356,10 @@ export default function Features() {
                       </span>
                       <span className="min-w-0">
                         <span className="block t-head-2">{isAr ? u.sector : u.sectorEn}</span>
-                        <span className="card-eyebrow">{isAr ? u.stores : u.storesEn}</span>
+
                       </span>
                     </span>
-                    <span className="card-inset !mt-0 shrink-0 text-center !py-2.5 !px-3.5">
-                      <span className="block t-head-2 num-ltr" style={{ color: "var(--ziadah-violet)" }}>{result.split(" ")[0]}</span>
-                      <span className="card-eyebrow whitespace-nowrap">{result.substring(result.indexOf(" ") + 1)}</span>
-                    </span>
+
                   </div>
                   <div className="card-foot flex-col items-stretch">
                     <div className="card-eyebrow mb-2.5">{ft.bestStrategies}</div>

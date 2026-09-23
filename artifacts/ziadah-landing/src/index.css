@@ -4540,3 +4540,17 @@ section#live-demo.landing-white-accent .ssub {
    scroll, or anchor jumps fight each other. */
 html[data-lenis] { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+
+/* Capability overview artwork stays within the hero on small screens. */
+.feature-hero-art {
+  display: block;
+  width: min(100%, 42rem);
+  height: auto;
+  margin: 2rem auto 0;
+  border-radius: 1.5rem;
+  object-fit: contain;
+}
+@media (max-width: 640px) {
+  .feature-hero-art { margin-top: 1.25rem; border-radius: 1rem; }
+}

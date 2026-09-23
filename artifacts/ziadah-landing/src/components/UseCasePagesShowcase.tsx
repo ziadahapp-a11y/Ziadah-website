@@ -528,10 +528,8 @@ export function UseCaseGenericHeroMock({
       subtitle={hero.tagline}
       footer={<WidgetButton block>{isEn ? "Smart offers on" : "فعّل العروض الذكية"}</WidgetButton>}
     >
-      <WidgetHint>{isEn ? "Live insights" : "مؤشرات مباشرة"}</WidgetHint>
-      <Totals
-        rows={stats.slice(0, 2).map((st) => ({ k: st.label, v: <strong>{st.value}</strong> }))}
-      />
+      <WidgetHint>{isEn ? "Storefront preview" : "معاينة داخل المتجر"}</WidgetHint>
+      <p>{isEn ? "Relevant offers appear during the shopping journey." : "تظهر العروض المناسبة خلال رحلة التسوق."}</p>
     </WidgetShell>
   );
 }

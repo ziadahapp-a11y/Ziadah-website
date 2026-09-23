@@ -121,11 +121,7 @@ export default function FeatureProductPage({ slug }: { slug: string }) {
           title: t("مثال من متجر", "An example from a store"),
           body: isAr ? feature.example : feature.exampleEn,
         },
-        {
-          key: "boost",
-          title: t("الأثر المقيس", "The measured effect"),
-          body: isAr ? feature.boost : feature.boostEn,
-        },
+
       ]
     : ((isPresentation(feature)
         ? (isAr ? feature.positions : feature.positionsEn)
@@ -146,13 +142,7 @@ export default function FeatureProductPage({ slug }: { slug: string }) {
      it. A card with no value is never rendered, so a kind that has nothing
      measurable loses the band instead of showing an empty grid. */
   const factCards = isGoal(feature)
-    ? [
-        {
-          key: "boost",
-          title: isAr ? feature.boost : feature.boostEn,
-          body: t("الأثر المقيس على متاجر تستخدم زيادة", "The measured effect on stores running Ziadah"),
-        },
-      ]
+    ? []
     : isPresentation(feature)
       ? [
           {
