@@ -165,7 +165,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   /* quick-nav items */
   const quickNav = [
     { id: "uc-what",       ar: "كيف يعمل",       en: "How it works" },
-    { id: "uc-stats",      ar: "النتائج",          en: "Results" },
     { id: "uc-strategies", ar: "الاستراتيجيات",   en: "Strategies" },
     ...(exampleScenario ? [{ id: "uc-example", ar: "مثال حي", en: "Example" }] : []),
     ...(data.extraSections ? [{ id: "uc-showcase", ar: "الأدوات", en: "Tools" }] : []),
@@ -240,18 +239,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               title={whatWeDoTitle}
               lead={whatWeDoDesc}
             />
-          </Shell>
-          {/* The numbers are the argument of this section, so they carry the
-              display tier rather than sitting in cards that compete with it. */}
-          <Shell>
-            <ul id="uc-stats" className="uc-stats">
-              {stats.map((s) => (
-                <li key={s.label} className="uc-stat">
-                  <span className="uc-stat-value num-ltr">{s.value}</span>
-                  <span className="uc-stat-label">{s.label}</span>
-                </li>
-              ))}
-            </ul>
           </Shell>
         </Section>
 

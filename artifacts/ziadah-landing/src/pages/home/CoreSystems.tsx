@@ -169,10 +169,10 @@ export function Trust() {
       tone: "white",
       size: "tall",
       art: <BoardArt surface="proof" />,
-      title: t({ ar: "أكثر من 1,500 متجر يشغّل زيادة اليوم", en: "Over 1,500 stores run Ziadah today" }),
+      title: t({ ar: "اقتراحات مبنية على بيانات متجرك", en: "Recommendations based on your store data" }),
       support: t({
-        ar: "الأرقام تراكمية منذ الإطلاق عبر كل المتاجر، لا نتيجة متجر واحد.",
-        en: "The figures are cumulative since launch across every store, not one store's result.",
+        ar: "يقرأ زيادة المنتجات والطلبات وسلوك التصفح ليختار عروضاً مناسبة.",
+        en: "Ziadah uses your catalog, orders, and browsing behavior to prepare relevant offers.",
       }),
     },
     {

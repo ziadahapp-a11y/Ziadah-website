@@ -193,25 +193,13 @@ export function BoardArt({ surface }: { surface: string }) {
     /* ---- the aggregate numbers --------------------------------------- */
     case "proof":
       return (
-        <Panel title={t({ ar: "منذ الإطلاق", en: "Since launch" })}>
-          <p className="bart-label">{t({ ar: "مبيعات إضافية للتجار", en: "Extra sales for merchants" })}</p>
-          <p className="bart-fig num-ltr">{`+20M ${sar}`}</p>
-          <ul className="bart-rows bart-rows--tight">
-            {[
-              { k: "stores", n: t({ ar: "متجر يستخدم زيادة", en: "Stores using Ziadah" }), v: "+1,500" },
-              { k: "orders", n: t({ ar: "طلب فيه منتج مقترَح", en: "Orders with a suggested item" }), v: "+200K" },
-              { k: "impr", n: t({ ar: "مرة عُرض فيها اقتراح", en: "Suggestions shown" }), v: "+40M" },
-            ].map((r) => (
-              <li key={r.k} className="bart-row bart-row--flat">
-                <span className="bart-row-name bart-grow">{r.n}</span>
-                <span className="bart-row-amt num-ltr">{r.v}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="bart-foot">
-            {t({ ar: "أرقام تراكمية عبر كل المتاجر", en: "Cumulative across every store" })}
-          </p>
-        </Panel>
+        <img
+          src="/images/ziadah-recommendations-art.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "1rem" }}
+        />
       );
 
     default:
