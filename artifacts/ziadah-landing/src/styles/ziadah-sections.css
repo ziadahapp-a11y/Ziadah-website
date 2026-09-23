@@ -1689,22 +1689,60 @@
   line-height: 1.65;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(82%, var(--ink-floor, 0%)), transparent);
 }
-/* The worked example closes the card and carries the sector's real numbers,
-   so it gets its own ground and sits at the bottom whatever the card height. */
-.sdd-example {
-  margin: 2rem 0 0;
+/* THE WORKED EXAMPLE, AS A STOREFRONT PREVIEW.
+   This replaces the "Real examples" band that used to sit further up the page
+   as a separate carousel of dark phone mocks. That band had three scenarios
+   for a whole sector, none of them tied to the moment being described, and it
+   was the last thing on these pages still painting its own dark chrome
+   instead of the section's colours.
+   The preview is the same two-part argument the phone was making - here is
+   the moment, here is what Ziadah says about it - rendered from the example
+   string the card already carries, on the band's own ink, once per use case.
+   It sits at the bottom of the card whatever the card's height. */
+.sdd-preview {
   margin-block-start: auto;
-  padding: 1.4rem 1.6rem;
-  border-radius: var(--radius-card);
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
-  font-size: 1.4rem;
-  line-height: 1.6;
-  color: var(--color-secondary, #0a0a0a);
+  padding-block-start: 2rem;
+  display: grid;
+  gap: 0.8rem;
 }
-.sdd-example-k {
-  display: block;
-  margin-block-end: 0.4rem;
+.sdd-preview-k {
   font-size: 1.2rem;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .sdd-preview-k { text-transform: none; letter-spacing: 0; }
+/* A row is a storefront line: what it is, and what it costs or becomes. The
+   second row is the suggestion, so it carries the brand's one accent - the
+   only place colour appears inside a card, which is what makes it read as the
+   product speaking rather than as more copy. */
+.sdd-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  min-width: 0;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.sdd-preview-row--out {
+  background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 10%, transparent);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--ziadah-violet, #7c3aed) 24%, transparent);
+}
+.sdd-preview-tag {
+  flex: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(58%, var(--ink-floor, 0%)), transparent);
+}
+.sdd-preview-row--out .sdd-preview-tag {
+  color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, var(--color-secondary, #0a0a0a));
+}
+.sdd-preview-val {
+  min-width: 0;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: var(--color-secondary, #0a0a0a);
 }
