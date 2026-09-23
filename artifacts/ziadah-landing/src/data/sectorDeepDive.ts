@@ -57,9 +57,41 @@ export type SectorDeepDive = {
 };
 
 import { restaurantsCafesDeepDive } from "./sectorDeepDive/restaurantsCafes";
+import { beautyCareDeepDive } from "./sectorDeepDive/beautyCare";
+import { clinicsDeepDive } from "./sectorDeepDive/clinics";
+import { charitiesDeepDive } from "./sectorDeepDive/charities";
+import { deliveryAppsDeepDive } from "./sectorDeepDive/deliveryApps";
+import { ecommercePlatformsDeepDive } from "./sectorDeepDive/ecommercePlatforms";
+import { abayasFashionDeepDive } from "./sectorDeepDive/abayasFashion";
+import { healthFitnessDeepDive } from "./sectorDeepDive/healthFitness";
+import { digitalProductsDeepDive } from "./sectorDeepDive/digitalProducts";
+import { electronicsDeepDive } from "./sectorDeepDive/electronics";
+import { jewelryDeepDive } from "./sectorDeepDive/jewelry";
+import { homeSuppliesDeepDive } from "./sectorDeepDive/homeSupplies";
+import { serviceDesignDeepDive } from "./sectorDeepDive/serviceDesign";
+import { digitalCardsDeepDive } from "./sectorDeepDive/digitalCards";
+import { goldDeepDive } from "./sectorDeepDive/gold";
+import { livestockDeepDive } from "./sectorDeepDive/livestock";
 
+/** Every sector in `data/sectors` has an entry. Keyed by the same slug the
+ *  page routes on, so a sector cannot have a page without its moments. */
 export const sectorDeepDiveBySlug: Record<string, SectorDeepDive> = {
   "restaurants-cafes": restaurantsCafesDeepDive,
+  "beauty-care": beautyCareDeepDive,
+  clinics: clinicsDeepDive,
+  charities: charitiesDeepDive,
+  "delivery-apps": deliveryAppsDeepDive,
+  "ecommerce-platforms": ecommercePlatformsDeepDive,
+  "abayas-fashion": abayasFashionDeepDive,
+  "health-fitness": healthFitnessDeepDive,
+  "digital-products": digitalProductsDeepDive,
+  electronics: electronicsDeepDive,
+  jewelry: jewelryDeepDive,
+  "home-supplies": homeSuppliesDeepDive,
+  "service-design": serviceDesignDeepDive,
+  "digital-cards": digitalCardsDeepDive,
+  gold: goldDeepDive,
+  livestock: livestockDeepDive,
 };
 
 export function getSectorDeepDive(slug: string): SectorDeepDive | undefined {
