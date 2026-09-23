@@ -16,6 +16,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorVisualExamples from "@/components/SectorVisualExamples";
+import SectorUseCases from "@/components/SectorUseCases";
 import { navigateTo } from "@/components/PageTransition";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorHubPlaybook from "@/components/SectorHubPlaybook";
@@ -398,6 +399,13 @@ export default function SectorDetail() {
             </MkButton>
           </div>
         </article>
+
+        {/* Full-width bands, so outside the article's measure. This is the
+            part that answers "where does it fire in MY business", and it sits
+            after the sector's general argument and before the CTA - a
+            merchant reads the moments, then acts. */}
+        <SectorUseCases slug={sector.slug} />
+
         <PageClosingCta
           title={lang === "ar" ? `جاهز تفعّل زيادة في قطاع ${title}؟` : `Ready to activate Ziadah for ${title}?`}
           description={pc.sectorDetailDesc}

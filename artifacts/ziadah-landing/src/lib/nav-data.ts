@@ -13,6 +13,7 @@
  */
 import type { t as translations } from "@/i18n/translations";
 import { sectors } from "@/data/sectors";
+import { retailSectors, topLevelSectors } from "@/data/sectorTaxonomy";
 import { useCasesSolutionsMatrix } from "@/data/useCasesSolutionsMatrix";
 
 type Tree = (typeof translations)["ar"];
@@ -78,33 +79,34 @@ export function solutionGroups(tr: Tree): NavGroup[] {
 }
 
 /**
- * The three entry points into the sector tree, and the top of it rather than a
- * truncated list: `/sectors/ecommerce-stores` is itself an index over the
- * sixteen retail sectors, so putting all sixteen in the header would bury the
- * two non-retail sectors that need their own framing.
+ * The top of the sector tree rather than a truncated list of every sector.
+ *
+ * `/sectors/ecommerce-stores` is itself an index over the retail sectors, so
+ * listing all of those in the header would bury the sectors that are not a
+ * kind of online shop and need their own framing - a restaurant, a clinic, a
+ * charity, a delivery app.
  *
  * `ecommerce-stores` is spelled out here because it has no row in
- * `data/sectors` — it is a standalone index page, routed ahead of
- * `/sectors/:slug`. The other two are looked up, so their labels stay tied to
- * the pages they open.
+ * `data/sectors`: it is a standalone index page, routed ahead of
+ * `/sectors/:slug`. Everything else is looked up through the taxonomy, so a
+ * nav label stays tied to the page it opens and the retail count below cannot
+ * go stale when a sector is promoted out of the index.
  */
 export function sectorEntries(lang: "ar" | "en"): NavLink[] {
   const isAr = lang === "ar";
+  const retailCount = retailSectors().length;
   const index: NavLink = {
     label: isAr ? "المتاجر الإلكترونية" : "Ecommerce stores",
     href: "/sectors/ecommerce-stores",
     desc: isAr
-      ? "ستة عشر قطاعاً للتجزئة، لكل منها دليله"
-      : "Sixteen retail sectors, each with its own playbook",
+      ? `${retailCount} قطاعاً للتجزئة، لكل منها دليله`
+      : `${retailCount} retail sectors, each with its own playbook`,
   };
-  const rest = ["delivery-apps", "ecommerce-platforms"]
-    .map((slug) => sectors.find((s) => s.slug === slug))
-    .filter((s): s is (typeof sectors)[number] => Boolean(s))
-    .map((s) => ({
-      label: isAr ? s.titleAr : s.titleEn,
-      href: `/sectors/${s.slug}`,
-      desc: isAr ? s.taglineAr : s.taglineEn,
-    }));
+  const rest = topLevelSectors().map((s) => ({
+    label: isAr ? s.titleAr : s.titleEn,
+    href: `/sectors/${s.slug}`,
+    desc: isAr ? s.taglineAr : s.taglineEn,
+  }));
   return [index, ...rest];
 }
 

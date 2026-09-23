@@ -7,11 +7,9 @@ import SEO from "@/components/SEO";
 import { getPageKeywords } from "@/seo/page-keywords";
 import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { sectors } from "@/data/sectors";
+import { retailSectors } from "@/data/sectorTaxonomy";
 import { navigateTo } from "@/components/PageTransition";
 import { t as siteTranslations } from "@/i18n/translations";
-
-const EXCLUDED_SLUGS = new Set(["delivery-apps", "ecommerce-platforms"]);
 
 export default function EcommerceStoreSectors() {
   const t = siteTranslations;
@@ -23,7 +21,11 @@ export default function EcommerceStoreSectors() {
   const ld = t[lang].landing;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const pk = getPageKeywords("/sectors/ecommerce-stores");
-  const ecommerceSectors = sectors.filter((sector) => !EXCLUDED_SLUGS.has(sector.slug));
+  /* Read from the taxonomy rather than a local exclusion list: the four
+     sectors promoted to `/sectors` (restaurants, beauty, clinics, charities)
+     drop out of this index automatically, and cannot come back by someone
+     editing one list and not the other. */
+  const ecommerceSectors = retailSectors();
 
   useEffect(() => {
     const obs = new IntersectionObserver(

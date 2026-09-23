@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { ShoppingBag, Bike, Puzzle, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  ShoppingBag, Bike, Puzzle, UtensilsCrossed, Sparkles, Stethoscope, HeartHandshake,
+  ArrowRight, ArrowLeft, type LucideIcon,
+} from "lucide-react";
 import { Shell } from "@/components/mk";
 import { HeroLede, Section as DsSection, CardsGrid, CtaSection } from "@/sections";
 import PlatformModal from "@/components/PlatformModal";
@@ -9,6 +12,7 @@ import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components
 import { useLanguage } from "@/i18n/LanguageContext";
 import { navigateTo } from "@/components/PageTransition";
 import { t as siteTranslations } from "@/i18n/translations";
+import { retailSectors, topLevelSectors } from "@/data/sectorTaxonomy";
 
 export default function Sectors() {
   const t = siteTranslations;
@@ -20,35 +24,43 @@ export default function Sectors() {
   const ld = t[lang].landing;
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
   const pk = getPageKeywords("/sectors");
+  /* ONE CARD PER WAY OF SELLING, not one per integration.
+     This was three cards, and four of the businesses behind them - a
+     restaurant, a beauty counter, a clinic, a charity - were filed two levels
+     down inside "ecommerce stores". None of them is an online shop: a
+     restaurant takes orders at a table, a clinic books visits, a charity
+     collects donations. The retail index is still here and still the largest
+     bucket; it just no longer has to stand in for every business that happens
+     to run on Salla or Zid. */
+  const bucketIcons: Record<string, LucideIcon> = {
+    "restaurants-cafes": UtensilsCrossed,
+    "beauty-care": Sparkles,
+    clinics: Stethoscope,
+    charities: HeartHandshake,
+    "delivery-apps": Bike,
+    "ecommerce-platforms": Puzzle,
+  };
+  const retailCount = retailSectors().length;
   const sectorBuckets = [
     {
       slug: "ecommerce-stores",
       Icon: ShoppingBag,
       titleAr: "المتاجر الإلكترونية",
       titleEn: "Ecommerce Stores",
-      descAr: "نفس القطاعات الحالية مع أدلة تطبيق زيادة لكل نوع متجر.",
-      descEn: "The existing sector playbooks with detailed Ziadah implementation guides.",
+      descAr: `${retailCount} قطاعاً للتجزئة، لكل منها دليل تطبيق كامل.`,
+      descEn: `${retailCount} retail sectors, each with a full implementation playbook.`,
       href: "/sectors/ecommerce-stores",
     },
-    {
-      slug: "delivery-apps",
-      Icon: Bike,
-      titleAr: "تطبيقات التوصيل",
-      titleEn: "Delivery Apps",
-      descAr: "صفحة مخصصة لكيفية رفع الطلبات والقيمة في تطبيقات التوصيل.",
-      descEn: "A dedicated page for improving order value and conversion in delivery apps.",
-      href: "/sectors/delivery-apps",
-    },
-    {
-      slug: "ecommerce-platforms",
-      Icon: Puzzle,
-      titleAr: "منصات التسوق الإلكترونية",
-      titleEn: "Ecommerce Platforms",
-      descAr: "صفحة مخصصة لمنصات السوق المتعدد البائعين وتجارب الاكتشاف.",
-      descEn: "A dedicated page for marketplace-style platforms and discovery journeys.",
-      href: "/sectors/ecommerce-platforms",
-    },
-  ] as const;
+    ...topLevelSectors().map((sector) => ({
+      slug: sector.slug,
+      Icon: bucketIcons[sector.slug] ?? ShoppingBag,
+      titleAr: sector.titleAr,
+      titleEn: sector.titleEn,
+      descAr: sector.taglineAr,
+      descEn: sector.taglineEn,
+      href: `/sectors/${sector.slug}`,
+    })),
+  ];
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -69,8 +81,8 @@ export default function Sectors() {
       <SEO
         titleAr="القطاعات الرئيسية — زيادة"
         titleEn="Industry Categories — Ziadah"
-        descriptionAr="اختر نوع نشاطك: المتاجر الإلكترونية، تطبيقات التوصيل، أو منصات التسوق الإلكترونية."
-        descriptionEn="Choose your business type: ecommerce stores, delivery apps, or ecommerce platforms."
+        descriptionAr="اختر نوع نشاطك: المطاعم والمقاهي، العناية والتجميل، العيادات، الجمعيات الخيرية، تطبيقات التوصيل، منصات التسوق، أو المتاجر الإلكترونية."
+        descriptionEn="Choose your business type: restaurants and cafes, beauty and care, clinics, charities, delivery apps, ecommerce platforms, or online stores."
         canonical="/sectors"
         keywordsAr={pk?.keywordsAr}
         keywordsEn={pk?.keywordsEn}
@@ -86,8 +98,8 @@ export default function Sectors() {
         name={lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
         description={
           lang === "ar"
-            ? "اختر نوع نشاطك: المتاجر الإلكترونية، تطبيقات التوصيل، أو منصات التسوق الإلكترونية."
-            : "Choose your business type: ecommerce stores, delivery apps, or ecommerce platforms."
+            ? "اختر نوع نشاطك: المطاعم والمقاهي، العناية والتجميل، العيادات، الجمعيات الخيرية، تطبيقات التوصيل، منصات التسوق، أو المتاجر الإلكترونية."
+            : "Choose your business type: restaurants and cafes, beauty and care, clinics, charities, delivery apps, ecommerce platforms, or online stores."
         }
         url="/sectors"
       />
@@ -101,8 +113,8 @@ export default function Sectors() {
           title={lang === "ar" ? "القطاعات الرئيسية" : "Industry Categories"}
           body={
             lang === "ar"
-              ? "اختر القسم المناسب لنشاطك. المتاجر الإلكترونية تحتوي على القطاعات الحالية كاملة، مع صفحات مستقلة لتطبيقات التوصيل ومنصات التسوق الإلكترونية."
-              : "Choose the category that fits your business. Ecommerce Stores includes all existing sectors, with dedicated pages for Delivery Apps and Ecommerce Platforms."
+              ? "اختر القسم المناسب لنشاطك. لكل قطاع صفحة كاملة فيها حالات الاستخدام واللحظات التي تعمل فيها زيادة داخله، لا وصفاً عاماً يصلح للجميع."
+              : "Choose the category that fits your business. Every sector has a full page covering the use cases and the moments Ziadah works inside it, rather than one generic description for everyone."
           }
         />
 
