@@ -117,10 +117,10 @@ export const digitalProductsRich: SectorPageRich = {
     "Path drop-off by topic.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +35%", en: "AOV +35%" },
-    { ar: "نسبة الإرفاق +38%", en: "Attachment +38%" },
-    { ar: "نسبة التحويل +25%", en: "CVR +25%" },
-    { ar: "استرداد +28%", en: "Recovery +28%" },
+    { ar: "متوسط الطلب +35%", en: "AOV +35%", metric: "aov" },
+    { ar: "نسبة الإرفاق +38%", en: "Attachment +38%", metric: "attachment" },
+    { ar: "نسبة التحويل +25%", en: "CVR +25%", metric: "cvr" },
+    { ar: "استعادة السلات +28%", en: "Cart rescue +28%", metric: "rescue" },
   ],
   featureHowAr: [
     "شراء دورة → قالب عملي + مشروع تطبيقي من نفس الموضوع",

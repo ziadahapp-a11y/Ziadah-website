@@ -117,10 +117,10 @@ export const homeSuppliesRich: SectorPageRich = {
     "Seasonal cleaning bundles.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +38%", en: "AOV +38%" },
-    { ar: "سلة +42%", en: "Basket +42%" },
-    { ar: "هامش +40%", en: "Margin +40%" },
-    { ar: "نسبة التحويل +16%", en: "CVR +16%" },
+    { ar: "متوسط الطلب +38%", en: "AOV +38%", metric: "aov" },
+    { ar: "سلة +42%", en: "Basket +42%", metric: "basketAov" },
+    { ar: "هامش +40%", en: "Margin +40%", metric: "margin" },
+    { ar: "نسبة التحويل +16%", en: "CVR +16%", metric: "cvr" },
   ],
   featureHowAr: [
     "مكنسة → أكياس غبار متوافقة + فرشاة تنظيف بنفس الموديل",

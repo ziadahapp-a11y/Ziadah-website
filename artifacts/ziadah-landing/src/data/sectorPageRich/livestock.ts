@@ -117,10 +117,10 @@ export const livestockRich: SectorPageRich = {
     "Early booking window.",
   ],
   analyticKpis: [
-    { ar: "نسبة الإرفاق +55%", en: "Attach +55%" },
-    { ar: "متوسط الطلب +40%", en: "AOV +40%" },
-    { ar: "سلة +45%", en: "Basket +45%" },
-    { ar: "نسبة التحويل +35%", en: "CVR +35%" },
+    { ar: "نسبة الإرفاق +55%", en: "Attach +55%", metric: "attachment" },
+    { ar: "متوسط الطلب +40%", en: "AOV +40%", metric: "aov" },
+    { ar: "سلة +45%", en: "Basket +45%", metric: "basketAov" },
+    { ar: "نسبة التحويل +35%", en: "CVR +35%", metric: "cvr" },
   ],
   featureHowAr: [
     "ذبيحة → توابل مجففة + صلصة تقليدية من نفس المتجر",

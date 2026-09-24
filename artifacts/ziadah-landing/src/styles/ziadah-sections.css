@@ -1630,6 +1630,9 @@
 .sdd-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  /* Each card is as tall as its own content. Stretching them to a shared row
+     height is what created the void the sheet used to sit under. */
+  align-items: start;
   gap: 1.6rem;
 }
 @media screen and (min-width: 860px) {
@@ -1655,11 +1658,13 @@
 .sdd-case-title {
   margin: 0;
   min-width: 0;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   color: var(--color-secondary, #0a0a0a);
 }
+[dir="rtl"] .sdd-case-title { letter-spacing: 0; line-height: 1.4; }
 /* The channel tag, not a badge: it names where the moment happens and should
    read as a caption beside the title rather than compete with it. */
 .sdd-case-channel {
@@ -1672,8 +1677,18 @@
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
   white-space: nowrap;
 }
-.sdd-facts { display: grid; gap: 1.2rem; margin: 0; }
-.sdd-fact { display: grid; gap: 0.3rem; }
+.sdd-facts { display: grid; gap: 1.4rem; margin: 0; }
+.sdd-fact {
+  display: grid;
+  gap: 0.4rem;
+  padding-inline-start: 1.2rem;
+  border-inline-start: 0.2rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+/* The moment is the one a merchant scans for, so its rule carries the brand
+   and the other two stay quiet. */
+.sdd-fact:first-child {
+  border-inline-start-color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 55%, transparent);
+}
 .sdd-fact-k {
   font-size: 1.2rem;
   font-weight: 600;
@@ -1704,11 +1719,18 @@
    of the card whatever the card's height. `--wk` overrides are deliberate:
    the kit defaults to the section's ink, and on the violet band that would
    put a tinted sheet on a tinted ground with nothing separating them. */
+/* NOT `margin-block-start: auto`. That pinned the sheet to the foot of the
+   card, and in a grid row where the neighbour is taller it opened a void in
+   the middle of the shorter card - a hole the eye reads as a mistake. The
+   sheet follows its copy immediately and the card ends where its content
+   ends; `align-items: start` on the list is what stops the two stretching to
+   a shared height in the first place. */
 .sdd-widget {
-  margin-block-start: auto;
-  padding-block-start: 2rem;
+  margin-block-start: 2.4rem;
+  padding-block-start: 2.4rem;
+  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
   display: grid;
-  gap: 0.8rem;
+  gap: 1rem;
   min-width: 0;
 }
 .sdd-widget-stage {

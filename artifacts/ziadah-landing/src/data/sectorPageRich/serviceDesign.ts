@@ -117,10 +117,10 @@ export const serviceDesignRich: SectorPageRich = {
     "Retargeting hesitators.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +45%", en: "AOV +45%" },
-    { ar: "هامش +38%", en: "Margin +38%" },
-    { ar: "نسبة التحويل +32%", en: "CVR +32%" },
-    { ar: "متوسط الطلب +120%", en: "Launch AOV +120%" },
+    { ar: "متوسط قيمة المشروع +45%", en: "Project value +45%", metric: "aov" },
+    { ar: "هامش الربح +38%", en: "Margin +38%", metric: "margin" },
+    { ar: "نسبة التحويل +32%", en: "CVR +32%", metric: "cvr" },
+    { ar: "متوسط قيمة السلة +120%", en: "Bundle value +120%", metric: "basketAov" },
   ],
   featureHowAr: [
     "شراء شعار → أيقونات سوشيال + موشن من نفس البائع",

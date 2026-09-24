@@ -44,6 +44,24 @@ export type SectorWhyCard = SectorWhyCardPlain | SectorWhyCardSplit;
 
 export type SectorQuickTip = { num: string; ar: string; en: string };
 
+export type SectorMetric =
+  | "aov"
+  | "basketAov"
+  | "attachment"
+  | "ctr"
+  | "cvr"
+  | "margin"
+  | "retention"
+  | "rescue"
+  | "recurring"
+  | "gift";
+
+export type SectorPageKpi = {
+  ar: string;
+  en: string;
+  metric: SectorMetric;
+};
+
 export type SectorPageRich = {
   heroHeadlineAr: string;
   heroHeadlineEn: string;
@@ -64,7 +82,12 @@ export type SectorPageRich = {
   aiSignalsEn?: [string, string, string, string];
   analyticLinesAr?: [string, string, string, string, string];
   analyticLinesEn?: [string, string, string, string, string];
-  analyticKpis: [SectorPageLine, SectorPageLine, SectorPageLine, SectorPageLine];
+  /** The four headline numbers. `metric` names WHICH measure each one is, as
+      data rather than as something to be guessed from the prose: the render
+      used to sniff the string for keywords, and because the discriminating
+      word ("Combo", "Bundle") only ever appeared in the English, the Arabic
+      page fell through to the default and printed the same label twice. */
+  analyticKpis: [SectorPageKpi, SectorPageKpi, SectorPageKpi, SectorPageKpi];
   featureHowAr: SectorFeatureRowTuple;
   featureHowEn: SectorFeatureRowTuple;
   ctaHeadlineAr: string;

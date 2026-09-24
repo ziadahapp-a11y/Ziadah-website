@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit } from "@/data/sectorPageTypes";
+import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit, SectorMetric } from "@/data/sectorPageTypes";
 import PlatformModal from "@/components/PlatformModal";
 import { t as siteTranslations } from "@/i18n/translations";
 import { stripLeadIcon } from "@/lib/strip-icon";
@@ -260,28 +260,29 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   if (part === "bottom") {
     const linesAr = rich.analyticLinesAr;
     const linesEn = rich.analyticLinesEn;
-    const detectMetricType = (txt: string): "aov" | "basketAov" | "attachment" | "ctr" | "cvr" | "margin" => {
-      const s = txt.toLowerCase();
-      if (s.includes("combo") || s.includes("bundle") || s.includes("ecosystem") || s.includes("سلة")) return "basketAov";
-      if (s.includes("attachment") || s.includes("attach") || s.includes("الإرفاق")) return "attachment";
-      if (s.includes("ctr") || s.includes("النقر")) return "ctr";
-      if (s.includes("cvr") || s.includes("التحويل")) return "cvr";
-      if (s.includes("margin") || s.includes("الهامش")) return "margin";
-      return "aov";
-    };
-    const metricMetaByType = {
+    /* No more sniffing. Which measure a number is, is data - see the note on
+       `analyticKpis`. The label map is exhaustive over `SectorMetric`, so a
+       new measure cannot be added without a label and a glossary entry. */
+    const metricMetaByType: Record<SectorMetric, { label: string; glossary: string }> = {
       aov: { label: tr.sectorAnalyticsBarAov, glossary: tr.sectorMetricGlossaryAov },
       basketAov: { label: tr.sectorAnalyticsBarBasketAov, glossary: tr.sectorMetricGlossaryBasketAov },
       attachment: { label: tr.sectorAnalyticsBarAttachment, glossary: tr.sectorMetricGlossaryAttachment },
       ctr: { label: tr.sectorAnalyticsBarCtr, glossary: tr.sectorMetricGlossaryCtr },
       cvr: { label: tr.sectorAnalyticsBarCvr, glossary: tr.sectorMetricGlossaryCvr },
       margin: { label: tr.sectorAnalyticsBarMargin, glossary: tr.sectorMetricGlossaryMargin },
-    } as const;
-    const metricMeta = rich.analyticKpis.map((k) => {
-      const source = isAr ? k.ar : k.en;
-      const type = detectMetricType(source);
-      return metricMetaByType[type];
-    });
+      retention: { label: tr.sectorAnalyticsBarRetention, glossary: tr.sectorMetricGlossaryRetention },
+      rescue: { label: tr.sectorAnalyticsBarRescue, glossary: tr.sectorMetricGlossaryRescue },
+      recurring: { label: tr.sectorAnalyticsBarRecurring, glossary: tr.sectorMetricGlossaryRecurring },
+      gift: { label: tr.sectorAnalyticsBarGift, glossary: tr.sectorMetricGlossaryGift },
+    };
+    const metricMeta = rich.analyticKpis.map((k) => metricMetaByType[k.metric]);
+    /* "AOV +32%" / "متوسط الطلب +32%" / "74% CTR" -> "+32%" / "74%". Any
+       run of digits with an optional sign and percent, in either numeral
+       set. Falls back to the whole string when a KPI carries no figure. */
+    const kpiFigure = (txt: string): string => {
+      const m = txt.match(/[+\-\u2212]?[\d\u0660-\u0669\u06F0-\u06F9][\d\u0660-\u0669\u06F0-\u06F9.,]*\s*%/);
+      return m ? m[0].replace(/\s+/g, "") : txt;
+    };
     const metricInfoButton = (key: string, i: number, label: string) => (
       <span className="relative inline-flex items-center">
         <button
@@ -345,7 +346,7 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
       html && rich.analyticBarPcts ? (
         <div ref={barsRef} className="flex flex-col gap-3.5">
           <p className="card-eyebrow mb-1 mt-0">{tr.sectorAnalyticsKpis}</p>
-          <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+          <div className="grid gap-2" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))" }}>
             {rich.analyticKpis.map((k, i) => (
               <div
                 key={i}
@@ -355,8 +356,14 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
                   background: "color-mix(in srgb, var(--p) 8%, transparent)",
                 }}
               >
+                {/* THE FIGURE ALONE. The authored string carries both the
+                    measure and the number - "AOV +32%" - and the caption
+                    under it names the measure again, so the card said it
+                    twice and the number had to compete with the words for
+                    the eye. The figure is pulled out and the caption is left
+                    to do its job. */}
                 <div className="sector-html-kpiv sh-en text-xl">
-                  {isAr ? k.ar : k.en}
+                  {kpiFigure(isAr ? k.ar : k.en)}
                 </div>
                 <div className="sector-html-kpil text-[10px]">
                   <span className="inline-flex items-center gap-1.5">

@@ -280,6 +280,10 @@ export const t = {
       sectorAnalyticsBarAttachment: "معدل الإرفاق",
       sectorAnalyticsBarCvr: "نسبة التحويل",
       sectorAnalyticsBarMargin: "هامش الربح",
+      sectorAnalyticsBarRetention: "معدل الاحتفاظ",
+      sectorAnalyticsBarRescue: "استعادة السلات",
+      sectorAnalyticsBarRecurring: "التحوّل للتبرّع الشهري",
+      sectorAnalyticsBarGift: "متوسط التبرّع",
       sectorMetricGlossaryTitle: "شرح المصطلحات",
       sectorMetricGlossaryCtr:
         "CTR (Click-Through Rate) — معدل النقر أو نسبة النقر: نسبة الناس الذين نقروا على إعلانك أو رابطك من بين الذين شاهدوه. مثال: إذا شاهد 1000 شخص الإعلان ونقر 50 شخصًا، فـ CTR = 5%. هذا المؤشر يقيس مدى جاذبية الإعلان.",
@@ -293,6 +297,14 @@ export const t = {
         "CVR (Conversion Rate) — معدل التحويل: نسبة الزوار أو النقرات التي انتهت بشراء أو إكمال الإجراء المطلوب (مثل: تعبئة نموذج أو إتمام شراء).",
       sectorMetricGlossaryMargin:
         "Profit Margin — هامش الربح: النسبة المئوية من الربح بعد خصم التكاليف من المبيعات.",
+      sectorMetricGlossaryRetention:
+        "Retention Rate — معدل الاحتفاظ: نسبة العملاء الذين عادوا واشتروا مرة أخرى خلال فترة محددة، بدل أن يشتروا مرة واحدة ويختفوا.",
+      sectorMetricGlossaryRescue:
+        "Cart Rescue — استعادة السلات: نسبة السلات المتروكة التي عاد أصحابها وأتمّوا الطلب بعد تذكير أو اقتراح في الوقت المناسب.",
+      sectorMetricGlossaryRecurring:
+        "Recurring Conversion — التحوّل للتبرّع الشهري: نسبة المتبرّعين لمرة واحدة الذين تحوّلوا إلى تبرّع شهري متكرر، وهو أهم رقم في اقتصاد الجمعية.",
+      sectorMetricGlossaryGift:
+        "Average Gift — متوسط التبرّع: متوسط قيمة التبرّع الواحد. يقابل متوسط قيمة الطلب في المتاجر، لكن الوحدة هنا تبرّع لا طلب.",
       sectorSectionCta: "الخطوة التالية",
       sectorTrackingTriggers: [
         { ar: "الرئيسية", en: "Home" },
@@ -1394,6 +1406,10 @@ export const t = {
       sectorAnalyticsBarAttachment: "Attachment",
       sectorAnalyticsBarCvr: "CVR",
       sectorAnalyticsBarMargin: "Margin",
+      sectorAnalyticsBarRetention: "Retention",
+      sectorAnalyticsBarRescue: "Cart rescue",
+      sectorAnalyticsBarRecurring: "Monthly conversion",
+      sectorAnalyticsBarGift: "Average gift",
       sectorMetricGlossaryTitle: "Metric glossary",
       sectorMetricGlossaryCtr:
         "CTR (Click-Through Rate): the percentage of people who clicked your link/ad out of all who saw it (for example, 50 clicks out of 1000 views = 5%).",
@@ -1407,6 +1423,14 @@ export const t = {
         "CVR (Conversion Rate): the percentage of visits/clicks that complete the target action such as purchase or form submission.",
       sectorMetricGlossaryMargin:
         "Profit Margin: the percentage of profit remaining after subtracting costs from sales.",
+      sectorMetricGlossaryRetention:
+        "Retention Rate: the share of customers who came back and bought again within a period, rather than buying once and disappearing.",
+      sectorMetricGlossaryRescue:
+        "Cart Rescue: the share of abandoned carts whose owners came back and completed the order after a well-timed reminder or suggestion.",
+      sectorMetricGlossaryRecurring:
+        "Recurring Conversion: the share of one-off donors who moved to a recurring monthly gift - the number a charity's economics turn on.",
+      sectorMetricGlossaryGift:
+        "Average Gift: the average value of a single donation. It is the charity equivalent of average order value, but the unit is a gift rather than an order.",
       sectorSectionCta: "Next step",
       sectorTrackingTriggers: [
         { ar: "الرئيسية", en: "Home" },

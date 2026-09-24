@@ -683,20 +683,30 @@
   padding: 12px;
 }
 
+/* A FIGURE, NOT A LOGO. This was an accent-to-gold gradient clipped to the
+   text, which put a third fixed hue on a card that already sits on a violet
+   ground beside violet bars - and gradient-filled text is the least legible
+   way to print the one number the card exists for. It is ink now, at the
+   weight and size that makes it the first thing read. */
 .sector-html-kpiv {
-  font-size: 2.32rem;
+  font-size: 2.6rem;
   font-weight: 800;
+  line-height: 1.1;
   font-family: var(--sh-en);
-  background: linear-gradient(135deg, var(--sh-accent), var(--sh-gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-secondary, #0a0a0a);
+  /* The authored strings mix Arabic-Indic and Latin digits; a percentage is
+     a left-to-right run either way, and without this "+32%" reorders. */
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
 }
+[dir="rtl"] .sector-html-kpiv { text-align: end; }
 
 .sector-html-kpil {
-  font-size: max(12px, 1.056rem);
-  color: var(--td);
-  margin-top: 2px;
+  font-size: max(12px, 1.12rem);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+  margin-top: 0.4rem;
 }
 
 .sector-html-kpid {
@@ -749,27 +759,31 @@
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sector-html-bf1 {
-  background: linear-gradient(90deg, var(--p), var(--sh-accent));
-}
-
-.sector-html-bf2 {
-  background: linear-gradient(90deg, var(--sh-accent2), var(--sh-green));
-}
-
-.sector-html-bf3 {
-  background: linear-gradient(90deg, var(--sh-green), #00f0a0);
-}
-
+/* ONE HUE FOR FOUR BARS.
+   These were four different gradients - violet, cyan-to-green, green, gold -
+   on four bars of the same chart. Four hues in one picture reads as four
+   unrelated things, and none of them was the brand's. A bar chart encodes its
+   value in LENGTH; using colour as well says there is a second variable when
+   there is not. The four now share the brand's violet and differ only in how
+   far they run, which is the only thing that actually differs. */
+.sector-html-bf1,
+.sector-html-bf2,
+.sector-html-bf3,
 .sector-html-bf4 {
-  background: linear-gradient(90deg, var(--sh-gold), var(--sh-accent));
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ziadah-violet, #7c3aed) 72%, transparent),
+    var(--ziadah-violet, #7c3aed)
+  );
 }
 
 .sector-html-b-val {
   font-size: max(12px, 1.04rem);
   font-family: var(--sh-en);
   font-weight: 700;
-  color: var(--sh-accent);
+  /* The figure belongs to the section's ink, not to a second fixed accent:
+     the bar beside it is already carrying the brand's colour. */
+  color: var(--color-secondary, #0a0a0a);
   width: 32px;
   text-align: end;
 }

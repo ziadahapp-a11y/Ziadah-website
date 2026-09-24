@@ -117,10 +117,10 @@ export const abayasFashionRich: SectorPageRich = {
     "Drop-off points in browse paths.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +38%", en: "AOV +38%" },
-    { ar: "نسبة الإرفاق +30%", en: "Attachment +30%" },
-    { ar: "سلة +45%", en: "Basket +45%" },
-    { ar: "هامش +28%", en: "Margin +28%" },
+    { ar: "متوسط الطلب +38%", en: "AOV +38%", metric: "aov" },
+    { ar: "نسبة الإرفاق +30%", en: "Attachment +30%", metric: "attachment" },
+    { ar: "سلة +45%", en: "Basket +45%", metric: "basketAov" },
+    { ar: "هامش +28%", en: "Margin +28%", metric: "margin" },
   ],
   featureHowAr: [
     "عباية سوداء → شيل متناسق + حقيبة صغيرة بنفس الطابع",

@@ -117,10 +117,10 @@ export const restaurantsCafesRich: SectorPageRich = {
     "Peak vs off-peak.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +32%", en: "AOV +32%" },
-    { ar: "نسبة الإرفاق +40%", en: "Attachment +40%" },
-    { ar: "متوسط الطلب +48%", en: "Combo AOV +48%" },
-    { ar: "نسبة التحويل +30%", en: "CVR +30%" },
+    { ar: "متوسط الطلب +32%", en: "AOV +32%", metric: "aov" },
+    { ar: "نسبة الإرفاق +40%", en: "Attachment +40%", metric: "attachment" },
+    { ar: "متوسط الطلب +48%", en: "Combo AOV +48%", metric: "basketAov" },
+    { ar: "نسبة التحويل +30%", en: "CVR +30%", metric: "cvr" },
   ],
   featureHowAr: [
     "طبق رئيسي → مقبل + مشروب من نفس المطبخ",

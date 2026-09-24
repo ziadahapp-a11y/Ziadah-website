@@ -117,10 +117,10 @@ export const healthFitnessRich: SectorPageRich = {
     "Upsell performance by price tier.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +42%", en: "AOV +42%" },
-    { ar: "نسبة الإرفاق +33%", en: "Attachment +33%" },
-    { ar: "سلة +48%", en: "Basket +48%" },
-    { ar: "نسبة التحويل +18%", en: "CVR +18%" },
+    { ar: "متوسط الطلب +42%", en: "AOV +42%", metric: "aov" },
+    { ar: "نسبة الإرفاق +33%", en: "Attachment +33%", metric: "attachment" },
+    { ar: "سلة +48%", en: "Basket +48%", metric: "basketAov" },
+    { ar: "نسبة التحويل +18%", en: "CVR +18%", metric: "cvr" },
   ],
   featureHowAr: [
     "بروتين → أوميغا 3 + كرياتين \"يكملون البرنامج\" — حزمة مبنية على بيانات حقيقية",

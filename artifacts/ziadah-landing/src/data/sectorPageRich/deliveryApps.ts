@@ -119,10 +119,10 @@ export const deliveryAppsRich: SectorPageRich = {
     "🍰 Quick dessert — lunch window only — 81%",
   ],
   analyticKpis: [
-    { ar: "+34% متوسط الطلب", en: "+34% AOV" },
-    { ar: "74% نسبة النقر", en: "74% CTR" },
-    { ar: "30% استعادة السلات المتروكة", en: "30% cart rescue" },
-    { ar: "+35% نسبة الإرفاق", en: "+35% attachment" },
+    { ar: "+34% متوسط الطلب", en: "+34% AOV", metric: "aov" },
+    { ar: "74% نسبة النقر", en: "74% CTR", metric: "ctr" },
+    { ar: "30% استعادة السلات", en: "30% cart rescue", metric: "rescue" },
+    { ar: "+35% نسبة الإرفاق", en: "+35% attachment", metric: "attachment" },
   ],
   analyticBarPcts: [88, 74, 63, 51],
   featureHowAr: [

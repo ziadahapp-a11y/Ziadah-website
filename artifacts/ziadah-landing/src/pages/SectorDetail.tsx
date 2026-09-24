@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "@/components/PageShell";
@@ -171,6 +171,20 @@ export default function SectorDetail() {
     if (el) scrollToTarget(getMotionRuntime(), el, -getAnchorScrollTopOffset());
   };
 
+  /* One shape for both halves of the split column, so they cannot drift. */
+  const articleClass = `${htmlPlaybook ? "sector-html sector-html--compact " : ""}px-4`;
+  const articleStyle: CSSProperties = {
+    position: "relative",
+    zIndex: 2,
+    paddingTop: 48,
+    paddingBottom: 96,
+    maxWidth: 1152,
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+  };
+
   return (
     <>
       <SEO
@@ -239,21 +253,21 @@ export default function SectorDetail() {
           </>
         )}
 
-        <article
-          className={`${htmlPlaybook ? "sector-html sector-html--compact " : ""}px-4`}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            paddingTop: 48,
-            paddingBottom: 96,
-            maxWidth: 1152,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: 0,
-          }}
-        >
+        {/* THE ORDER IS THE ARGUMENT. The use-case band used to sit at the
+            very bottom, after setup instructions and best practices, which
+            asked a merchant to read how to configure a thing before they had
+            been shown it working. The page now runs: why this sector, then
+            the thing itself with a live sheet per moment, then how to get it,
+            then the proof, then the ask. The band is full-width, so the
+            column is split around it rather than the band squeezed into the
+            column. */}
+        <article className={articleClass} style={articleStyle}>
           {pageRich ? <SectorPageRichSections rich={pageRich} part="top" /> : null}
+        </article>
+
+        <SectorUseCases slug={sector.slug} />
+
+        <article className={articleClass} style={{ ...articleStyle, paddingTop: 64 }}>
           <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
             {sector.useCardLayout && sector.howToPhaseCards?.length ? (
               <div
@@ -384,12 +398,6 @@ export default function SectorDetail() {
             </MkButton>
           </div>
         </article>
-
-        {/* Full-width bands, so outside the article's measure. This is the
-            part that answers "where does it fire in MY business", and it sits
-            after the sector's general argument and before the CTA - a
-            merchant reads the moments, then acts. */}
-        <SectorUseCases slug={sector.slug} />
 
         <PageClosingCta
           title={lang === "ar" ? `جاهز تفعّل زيادة في قطاع ${title}؟` : `Ready to activate Ziadah for ${title}?`}

@@ -117,10 +117,10 @@ export const digitalCardsRich: SectorPageRich = {
     "Fraud alerts.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +48%", en: "AOV +48%" },
-    { ar: "سلة +42%", en: "Basket +42%" },
-    { ar: "متوسط الطلب +55%", en: "Ecosystem AOV +55%" },
-    { ar: "نسبة التحويل +28%", en: "CVR +28%" },
+    { ar: "متوسط الطلب +48%", en: "AOV +48%", metric: "aov" },
+    { ar: "متوسط قيمة السلة +42%", en: "Basket AOV +42%", metric: "basketAov" },
+    { ar: "نسبة الإرفاق +55%", en: "Attachment +55%", metric: "attachment" },
+    { ar: "نسبة التحويل +28%", en: "CVR +28%", metric: "cvr" },
   ],
   featureHowAr: [
     "بطاقة كونسول → اشتراك ألعاب من نفس المنظومة",
