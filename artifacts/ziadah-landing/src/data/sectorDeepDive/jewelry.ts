@@ -23,6 +23,21 @@ export const jewelryDeepDive: SectorDeepDive = {
         "Jewellery is worn as a set, not as a piece. A customer buying a lone necklace will hunt for matching earrings later, usually somewhere else.",
       exampleAr: "قلادة ١٬٤٠٠ ← الطقم الكامل ٣٬٢٠٠ بدل ٣٬٧٥٠، بصورة واحدة تجمع الثلاث.",
       exampleEn: "A 1,400 necklace → the full set at 3,200 instead of 3,750, in one image with all three.",
+          widget: {
+        titleAr: "الطقم كامل",
+        titleEn: "The full set",
+        mainAr: "قلادة ألماس",
+        mainEn: "Diamond necklace",
+        mainPrice: "1400",
+        hintAr: "بدل 3,750 منفصلة",
+        hintEn: "Instead of 3,750 separately",
+        suggest: [
+          { ar: "أقراط مطابقة", en: "Matching earrings", price: "1100" },
+          { ar: "سوار مطابق", en: "Matching bracelet", price: "1250" },
+        ],
+        ctaAr: "خذ الطقم بـ3,200",
+        ctaEn: "Take the set for 3,200",
+      },
     },
     {
       key: "size-anxiety",
@@ -40,6 +55,18 @@ export const jewelryDeepDive: SectorDeepDive = {
         "Size, not price, is the number one reason a jewellery basket is abandoned. Removing the anxiety converts hesitation into an order without discounting a single riyal.",
       exampleAr: "صفحة خاتم ← «تعديل المقاس مجاناً ٣٠ يوماً» بجانب زر الشراء لا في السياسات.",
       exampleEn: "A ring page → \"Free resizing for 30 days\" beside the buy button, not in the policies.",
+          widget: {
+        titleAr: "مقاسك مضمون",
+        titleEn: "Your size, guaranteed",
+        mainAr: "خاتم ألماس",
+        mainEn: "Diamond ring",
+        mainPrice: "4200",
+        suggest: [
+          { ar: "تعديل المقاس مجاناً خلال 30 يوماً", en: "Free resizing within 30 days", price: "مجاناً" },
+        ],
+        ctaAr: "أضف للسلة",
+        ctaEn: "Add to cart",
+      },
     },
     {
       key: "occasion-packaging",
@@ -57,6 +84,18 @@ export const jewelryDeepDive: SectorDeepDive = {
         "Someone spending three thousand on a necklace will not hesitate over a hundred for packaging that fits - but they will not go looking for it. Offering it at the right moment is near-pure margin.",
       exampleAr: "قلادة هدية ← علبة مخملية وبطاقة بخط اليد ١٢٠ ر.س، خيار واحد.",
       exampleEn: "A necklace as a gift → a velvet box and a handwritten card at 120 SAR, as one option.",
+          widget: {
+        titleAr: "تغليف يليق",
+        titleEn: "Packaging that fits",
+        mainAr: "قلادة — هدية",
+        mainEn: "Necklace - a gift",
+        mainPrice: "1400",
+        suggest: [
+          { ar: "علبة مخملية + بطاقة بخط اليد", en: "Velvet box + handwritten card", price: "120" },
+        ],
+        ctaAr: "أضف التغليف",
+        ctaEn: "Add the packaging",
+      },
     },
     {
       key: "care-kit",
@@ -74,6 +113,20 @@ export const jewelryDeepDive: SectorDeepDive = {
         "A piece that dulls after two months becomes a complaint about the store rather than a lesson in care. Selling the care kit protects the piece's reputation.",
       exampleAr: "سوار فضة ← «قماشة تلميع ٤٥ ر.س» مع سطر عن سبب التأكسد.",
       exampleEn: "A silver bracelet → \"A polishing cloth, 45 SAR\", with one line on why it tarnishes.",
+          widget: {
+        titleAr: "العناية بقطعتك",
+        titleEn: "Caring for your piece",
+        mainAr: "سوار فضة",
+        mainEn: "Silver bracelet",
+        mainPrice: "380",
+        hintAr: "الفضة تتأكسد، والتلميع يعيدها",
+        hintEn: "Silver tarnishes; polishing brings it back",
+        suggest: [
+          { ar: "قماشة تلميع", en: "Polishing cloth", price: "45" },
+        ],
+        ctaAr: "أضف القماشة",
+        ctaEn: "Add the cloth",
+      },
     },
     {
       key: "occasion-calendar",
@@ -91,6 +144,20 @@ export const jewelryDeepDive: SectorDeepDive = {
         "Someone who bought for an annual occasion will buy again, and the store that reminds them before the shop next door wins the whole order.",
       exampleAr: "اشترى في ١٢ مارس العام الماضي ← تذكير في ٢٦ فبراير مع القطع المشابهة.",
       exampleEn: "Bought on 12 March last year → a reminder on 26 February with similar pieces.",
+          widget: {
+        titleAr: "ذكرى زواجك",
+        titleEn: "Your anniversary",
+        mainAr: "اشتريت في 12 مارس العام الماضي",
+        mainEn: "Bought 12 March last year",
+        mainPrice: "—",
+        hintAr: "بعد أسبوعين — يكفي للشحن والتعديل",
+        hintEn: "Two weeks out - time to ship and resize",
+        suggest: [
+          { ar: "قلادة من نفس المجموعة", en: "A necklace from the same collection", price: "1650" },
+        ],
+        ctaAr: "اطلب الآن",
+        ctaEn: "Order now",
+      },
     },
     {
       key: "trade-up",
@@ -108,6 +175,20 @@ export const jewelryDeepDive: SectorDeepDive = {
         "Quality jargon means nothing to a non-specialist and makes them postpone. Translating it into a visible difference is what closes.",
       exampleAr: "خاتم ٤٬٢٠٠ ← «نفس التصميم بحجر أكبر، +٦٠٠» مع صورة مقارنة بالحجم الحقيقي.",
       exampleEn: "A 4,200 ring → \"Same design, larger stone, +600\", with a true-size comparison image.",
+          widget: {
+        titleAr: "الفرق بالعين",
+        titleEn: "The difference you can see",
+        mainAr: "خاتم — نصف قيراط",
+        mainEn: "Ring - half carat",
+        mainPrice: "4200",
+        hintAr: "أكبر بنصف قيراط",
+        hintEn: "Half a carat larger",
+        suggest: [
+          { ar: "نفس التصميم بحجر أكبر", en: "Same design, bigger stone", price: "+600" },
+        ],
+        ctaAr: "شاهد المقارنة",
+        ctaEn: "See them side by side",
+      },
     },
   ],
 };

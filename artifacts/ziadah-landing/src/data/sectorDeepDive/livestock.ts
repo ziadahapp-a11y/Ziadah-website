@@ -23,6 +23,20 @@ export const livestockDeepDive: SectorDeepDive = {
         "Preparation is the real margin here, because the animal's own price is broadly known to everyone. It also saves the customer an entire day.",
       exampleAr: "خروف نعيمي ← «تقطيع ٨٠، فرم الربع ٤٠، تغليف مفرز ٦٠».",
       exampleEn: "A Naimi sheep → \"Cutting 80, mincing a quarter 40, portioned packing 60\".",
+          widget: {
+        titleAr: "التجهيز",
+        titleEn: "Preparation",
+        mainAr: "خروف نعيمي",
+        mainEn: "Naimi sheep",
+        mainPrice: "1450",
+        suggest: [
+          { ar: "تقطيع", en: "Cutting", price: "80" },
+          { ar: "فرم الربع", en: "Mincing a quarter", price: "40" },
+          { ar: "تغليف مفرز", en: "Portioned packing", price: "60" },
+        ],
+        ctaAr: "أضف التجهيز",
+        ctaEn: "Add preparation",
+      },
     },
     {
       key: "occasion-timing",
@@ -40,6 +54,18 @@ export const livestockDeepDive: SectorDeepDive = {
         "Capacity in season is genuinely finite. Early booking spreads demand across days instead of hours, which is the difference between a good season and a chaotic one.",
       exampleAr: "قبل العيد بشهر ← «احجز الآن بسعر اليوم وموعد تسليم مؤكد».",
       exampleEn: "A month before Eid → \"Book now at today's price with a confirmed slot\".",
+          widget: {
+        titleAr: "احجز مبكراً",
+        titleEn: "Book early",
+        mainAr: "قبل العيد بشهر",
+        mainEn: "A month before Eid",
+        mainPrice: "—",
+        suggest: [
+          { ar: "سعر اليوم مثبّت + موعد مؤكد", en: "Today's price locked + a confirmed slot", price: "1450" },
+        ],
+        ctaAr: "احجز الآن",
+        ctaEn: "Book now",
+      },
     },
     {
       key: "size-guidance",
@@ -57,6 +83,20 @@ export const livestockDeepDive: SectorDeepDive = {
         "Translating into guest count usually raises the size chosen, and prevents the kind of embarrassment nobody forgets when the food runs out at a banquet.",
       exampleAr: "٢٥ كجم ← «يكفي ١٢-١٥ شخصاً»، و٣٥ كجم ← «١٨-٢٢ شخصاً».",
       exampleEn: "25kg → \"Serves 12-15\", and 35kg → \"Serves 18-22\".",
+          widget: {
+        titleAr: "كم شخصاً؟",
+        titleEn: "How many people?",
+        mainAr: "ذبيحة 25 كجم",
+        mainEn: "A 25kg animal",
+        mainPrice: "1450",
+        hintAr: "الـ25 يكفي 12-15 شخصاً",
+        hintEn: "25kg serves 12-15",
+        suggest: [
+          { ar: "35 كجم — يكفي 18-22 شخصاً", en: "35kg - serves 18-22", price: "1950" },
+        ],
+        ctaAr: "خذ الأكبر",
+        ctaEn: "Take the bigger one",
+      },
     },
     {
       key: "delivery-slot",
@@ -74,6 +114,18 @@ export const livestockDeepDive: SectorDeepDive = {
         "This sector cannot absorb a failed delivery: there is no trying again tomorrow. Precision is not a nicety here, it is an operating requirement.",
       exampleAr: "«الخميس ٤-٦ م» بدل «الخميس»، مع تأكيد قبل ساعة.",
       exampleEn: "\"Thursday 4-6pm\" instead of \"Thursday\", with a confirmation an hour ahead.",
+          widget: {
+        titleAr: "موعد التسليم",
+        titleEn: "Delivery window",
+        mainAr: "الخميس",
+        mainEn: "Thursday",
+        mainPrice: "—",
+        suggest: [
+          { ar: "الخميس 4-6 م — مع تأكيد قبل ساعة", en: "Thursday 4-6pm - confirmed an hour ahead", price: "—" },
+        ],
+        ctaAr: "أكّد الموعد",
+        ctaEn: "Confirm the window",
+      },
     },
     {
       key: "charity-share",
@@ -91,6 +143,18 @@ export const livestockDeepDive: SectorDeepDive = {
         "Many orders are meant for distribution anyway, and the customer handles it themselves with effort. Handling it for them raises the order and saves them a day.",
       exampleAr: "أضحية ← «وزّع الثلث على جهة خيرية باسمك، ٥٠ ر.س مع إثبات».",
       exampleEn: "An Eid sacrifice → \"Distribute a third to a charity in your name, 50 SAR, with proof\".",
+          widget: {
+        titleAr: "وزّع حصة",
+        titleEn: "Distribute a share",
+        mainAr: "أضحية",
+        mainEn: "An Eid sacrifice",
+        mainPrice: "1450",
+        suggest: [
+          { ar: "وزّع الثلث باسمك مع إثبات", en: "A third in your name, with proof", price: "50" },
+        ],
+        ctaAr: "أضف التوزيع",
+        ctaEn: "Add distribution",
+      },
     },
     {
       key: "repeat-occasion",
@@ -108,6 +172,18 @@ export const livestockDeepDive: SectorDeepDive = {
         "Orders here are annual and near-identical. A one-tap repeat removes the competition, because the customer never reaches the comparison stage.",
       exampleAr: "طلب عيد الأضحى الماضي ← «نفس الطلب: نعيمي ٣٠ كجم، مقطّع، نفس العنوان».",
       exampleEn: "Last Eid al-Adha's order → \"The same again: 30kg Naimi, cut, same address\".",
+          widget: {
+        titleAr: "نفس طلبك",
+        titleEn: "The same again",
+        mainAr: "عيد الأضحى الماضي: نعيمي 30 كجم، مقطّع",
+        mainEn: "Last Eid: 30kg Naimi, cut",
+        mainPrice: "1530",
+        suggest: [
+          { ar: "نفس النوع ونفس التجهيز ونفس العنوان", en: "Same type, same preparation, same address", price: "1530" },
+        ],
+        ctaAr: "أعد الطلب",
+        ctaEn: "Reorder",
+      },
     },
   ],
 };

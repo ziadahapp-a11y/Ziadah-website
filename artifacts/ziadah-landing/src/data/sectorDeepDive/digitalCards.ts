@@ -23,6 +23,20 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "The higher denomination means one visit instead of two and one processing fee instead of two. Both sides gain.",
       exampleAr: "بطاقة ٥٠ ← «١٠٠ تكفيك شهرين، وتدفع رسوم المعالجة مرة».",
       exampleEn: "A 50 card → \"100 covers two months, and you pay the processing fee once\".",
+          widget: {
+        titleAr: "اختر الفئة",
+        titleEn: "Choose your amount",
+        mainAr: "بطاقة 50",
+        mainEn: "A 50 card",
+        mainPrice: "50",
+        hintAr: "ورسوم معالجة مرة بدل مرتين",
+        hintEn: "And one processing fee instead of two",
+        suggest: [
+          { ar: "100 — تكفيك شهرين", en: "100 - covers two months", price: "100" },
+        ],
+        ctaAr: "خذ الـ100",
+        ctaEn: "Take the 100",
+      },
     },
     {
       key: "cross-platform",
@@ -40,6 +54,18 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "A gamer is locked to one platform. Suggesting a rival platform's card proves the store does not know them, which is the fastest way to lose the repeat.",
       exampleAr: "رصيد متجر الألعاب ← «عضوية الأونلاين ١٢ شهراً» لنفس المنصة.",
       exampleEn: "Game store credit → \"12-month online membership\" for the same platform.",
+          widget: {
+        titleAr: "لنفس المنصة",
+        titleEn: "For the same platform",
+        mainAr: "رصيد متجر الألعاب",
+        mainEn: "Game store credit",
+        mainPrice: "100",
+        suggest: [
+          { ar: "عضوية الأونلاين 12 شهراً", en: "12-month online membership", price: "185" },
+        ],
+        ctaAr: "أضف العضوية",
+        ctaEn: "Add the membership",
+      },
     },
     {
       key: "instant-delivery",
@@ -57,6 +83,18 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "Someone buying a card is buying it because they want it now. A store a riyal cheaper that delivers in an hour loses to one that delivers instantly.",
       exampleAr: "صفحة بطاقة ← «التسليم خلال ٣٠ ثانية» بجانب السعر لا في الأسفل.",
       exampleEn: "A card page → \"Delivered in 30 seconds\" beside the price, not at the bottom.",
+          widget: {
+        titleAr: "تسليم فوري",
+        titleEn: "Instant delivery",
+        mainAr: "بطاقة 100",
+        mainEn: "A 100 card",
+        mainPrice: "100",
+        suggest: [
+          { ar: "الكود خلال 30 ثانية", en: "Code in 30 seconds", price: "—" },
+        ],
+        ctaAr: "اشترِ الآن",
+        ctaEn: "Buy now",
+      },
     },
     {
       key: "reorder-rhythm",
@@ -74,6 +112,18 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "There is no loyalty in this sector, only habit. Whoever reminds first owns the habit, and a day late loses it.",
       exampleAr: "اشترى في ١ من كل شهر ← تذكير ٣٠ من الشهر بكود جاهز.",
       exampleEn: "Bought on the 1st each month → a reminder on the 30th with the code ready.",
+          widget: {
+        titleAr: "موعد بطاقتك",
+        titleEn: "Your card is due",
+        mainAr: "اشتريت في 1 من كل شهر",
+        mainEn: "Bought on the 1st each month",
+        mainPrice: "100",
+        suggest: [
+          { ar: "نفس البطاقة — كود جاهز", en: "The same card - code ready", price: "100" },
+        ],
+        ctaAr: "اشترِ بلمسة",
+        ctaEn: "Buy in one tap",
+      },
     },
     {
       key: "gift-code",
@@ -91,6 +141,18 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "A digital card is a common gift and an awkward one to present: forwarding a bare code reads as cold. Wrapping it digitally adds value at no cost.",
       exampleAr: "بطاقة ٢٠٠ ← «أرسلها مباشرة لرقمه مع رسالتك» بدل استلامها.",
       exampleEn: "A 200 card → \"Send it straight to their number with your message\" instead of receiving it.",
+          widget: {
+        titleAr: "أرسلها هدية",
+        titleEn: "Send it as a gift",
+        mainAr: "بطاقة 200",
+        mainEn: "A 200 card",
+        mainPrice: "200",
+        suggest: [
+          { ar: "أرسلها لرقمه مع رسالتك", en: "Send to their number with your message", price: "—" },
+        ],
+        ctaAr: "أرسلها الآن",
+        ctaEn: "Send it now",
+      },
     },
   ],
 };

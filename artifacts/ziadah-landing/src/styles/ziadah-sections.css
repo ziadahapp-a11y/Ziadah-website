@@ -1699,12 +1699,31 @@
    the moment, here is what Ziadah says about it - rendered from the example
    string the card already carries, on the band's own ink, once per use case.
    It sits at the bottom of the card whatever the card's height. */
-.sdd-preview {
+/* The live sheet's stage. The widget carries its own chrome from the kit, so
+   this only has to give it a storefront to stand on and keep it at the foot
+   of the card whatever the card's height. `--wk` overrides are deliberate:
+   the kit defaults to the section's ink, and on the violet band that would
+   put a tinted sheet on a tinted ground with nothing separating them. */
+.sdd-widget {
   margin-block-start: auto;
   padding-block-start: 2rem;
   display: grid;
   gap: 0.8rem;
+  min-width: 0;
 }
+.sdd-widget-stage {
+  display: flex;
+  justify-content: center;
+  padding: 1.6rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--general-white));
+  min-width: 0;
+}
+/* The kit hard-codes `max-width: 320` inline, sized for the marquee card
+   these previews used to live in. A card column is wider than that and the
+   sheet reads as a thumbnail at 320. Only `!important` beats an inline
+   style; the stage above is what actually bounds it. */
+.sdd-widget-stage > .wk { max-width: none !important; width: 100%; }
 .sdd-preview-k {
   font-size: 1.2rem;
   font-weight: 600;
@@ -1745,4 +1764,40 @@
   font-size: 1.4rem;
   line-height: 1.55;
   color: var(--color-secondary, #0a0a0a);
+}
+
+/* ---------- THE RICH SECTIONS, ON THE SECTION'S OWN COLOURS --------------
+   "Sector engine - customer profile and signals" and "Measurement and the
+   journey" paint their inner cards through three legacy variables that are
+   defined once, globally, as fixed brand violet:
+
+     --b1: rgba(124, 58, 237, .12)   --b2: rgba(124, 58, 237, .2)
+     --s1: rgba(124, 58, 237, .05)
+
+   A fixed hue is the one thing the colour system exists to prevent. Those
+   cards came out the same violet on a violet band, on a grey band and on an
+   inverted one, so they read as pasted in rather than as part of the page -
+   which is exactly how they look in the screenshots.
+
+   Redefining the three from the section's own ink converts every one of the
+   twenty inline `border: 1px solid var(--b2)` / `background: var(--s1)` uses
+   at once, with no call site touched. Written as a variable override rather
+   than as twenty rules because the inline styles would win against rules
+   anyway: a custom property is the only lever an inline style still reads. */
+#sector-ai-context,
+#section-metrics,
+#section-tracking,
+#section-analytics,
+#section-why {
+  --s1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, var(--general-white));
+  --b1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  --b2: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent);
+}
+/* The one place the brand's violet still belongs inside these sections: the
+   live signal dot and the engine's own accents, which name the product
+   rather than the surface. */
+#sector-ai-context .sector-html-al-num,
+#sector-ai-context .sector-html-ap-num {
+  background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 12%, transparent);
+  color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, var(--color-secondary, #0a0a0a));
 }

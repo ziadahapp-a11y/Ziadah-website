@@ -3,6 +3,9 @@ import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorDeepDive, type SectorUseCase } from "@/data/sectorDeepDive";
+import {
+  WidgetShell, WidgetHint, WidgetButton, ProductRow, ProductList,
+} from "@/components/widgets/kit";
 
 /**
  * THE SECTOR'S OWN MOMENTS, one card each.
@@ -33,29 +36,16 @@ export default function SectorUseCases({ slug }: { slug: string }) {
 
   if (!deep) return null;
 
-  /* THE EXAMPLE, AS A PREVIEW.
-     Every example was authored as "what triggers it → what Ziadah suggests",
-     which is the same two-part shape the old dark phone mock was drawing. So
-     it splits on that arrow and renders as two storefront rows rather than as
-     a sentence, and the four examples that are a list rather than a pair fall
-     back to one row. No second component and no second data source: the
-     example a merchant reads and the preview they look at are the same
-     string. */
-  const splitExample = (text: string): [string] | [string, string] => {
-    const parts = text.split(isAr ? "←" : "→");
-    if (parts.length !== 2) return [text.trim()];
-    return [parts[0]!.trim(), parts[1]!.trim()];
-  };
-
   const labels = {
     kicker: isAr ? "حالات الاستخدام" : "Use cases",
     title: isAr ? "أين تعمل زيادة داخل هذا القطاع؟" : "Where Ziadah fires inside this sector",
     trigger: isAr ? "اللحظة" : "The moment",
     scenario: isAr ? "ما يراه العميل" : "What the customer sees",
     why: isAr ? "لماذا ينجح هنا" : "Why it works here",
-    example: isAr ? "مثال واقعي" : "A real example",
-    before: isAr ? "اللحظة في المتجر" : "The moment in the store",
-    after: isAr ? "يقترح زيادة" : "Ziadah suggests",
+    example: isAr ? "مثال حي" : "Live example",
+    sees: isAr ? "ما يشاهده العميل" : "What the customer sees",
+    suggests: isAr ? "يقترح زيادة" : "Ziadah suggests",
+    currency: isAr ? "ر.س" : "SAR",
     all: isAr ? "كل القنوات" : "All channels",
     channelsTitle: isAr ? "القنوات" : "Channels",
     channelsLead: isAr
@@ -154,30 +144,48 @@ export default function SectorUseCases({ slug }: { slug: string }) {
                   </div>
                 </dl>
 
-                {(() => {
-                  const parts = splitExample(isAr ? uc.exampleAr : uc.exampleEn);
-                  return (
-                    <div className="sdd-preview">
-                      <span className="sdd-preview-k">{labels.example}</span>
-                      {parts.length === 2 ? (
-                        <>
-                          <div className="sdd-preview-row">
-                            <span className="sdd-preview-tag">{labels.before}</span>
-                            <span className="sdd-preview-val">{parts[0]}</span>
-                          </div>
-                          <div className="sdd-preview-row sdd-preview-row--out">
-                            <span className="sdd-preview-tag">{labels.after}</span>
-                            <span className="sdd-preview-val">{parts[1]}</span>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="sdd-preview-row">
-                          <span className="sdd-preview-val">{parts[0]}</span>
-                        </div>
-                      )}
+                {uc.widget ? (
+                  /* The real sheet, from the same kit the product ships. A
+                     picture of a widget ages the moment it ships; this one
+                     cannot, because it IS the components. */
+                  <div className="sdd-widget">
+                    <span className="sdd-preview-k">{labels.example}</span>
+                    <div className="sdd-widget-stage">
+                      <WidgetShell
+                        title={isAr ? uc.widget.titleAr : uc.widget.titleEn}
+                        footer={
+                          <WidgetButton block>
+                            {isAr ? uc.widget.ctaAr : uc.widget.ctaEn}
+                          </WidgetButton>
+                        }
+                      >
+                        <WidgetHint>{labels.sees}</WidgetHint>
+                        <ProductRow
+                          name={isAr ? uc.widget.mainAr : uc.widget.mainEn}
+                          price={uc.widget.mainPrice}
+                          currency={labels.currency}
+                        />
+                        <WidgetHint>
+                          {isAr
+                            ? uc.widget.hintAr ?? labels.suggests
+                            : uc.widget.hintEn ?? labels.suggests}
+                        </WidgetHint>
+                        <ProductList>
+                          {uc.widget.suggest.map((sg, i) => (
+                            <ProductRow
+                              key={i}
+                              name={isAr ? sg.ar : sg.en}
+                              price={sg.price}
+                              was={sg.was}
+                              currency={labels.currency}
+                              selected={i === 0}
+                            />
+                          ))}
+                        </ProductList>
+                      </WidgetShell>
                     </div>
-                  );
-                })()}
+                  </div>
+                ) : null}
               </article>
             ))}
           </div>

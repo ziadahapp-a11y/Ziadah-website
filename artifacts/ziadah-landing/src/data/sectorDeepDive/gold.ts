@@ -23,6 +23,18 @@ export const goldDeepDive: SectorDeepDive = {
         "A customer who comes back tomorrow to an unexplained different price loses trust. Stating the pricing mechanism up front protects that trust and resolves the hesitation at the same time.",
       exampleAr: "أسورة ٢٢ جرام ← «سعر اليوم ٨٬٤٠٠، ثابت حتى ٦ م».",
       exampleEn: "A 22-gram bangle → \"Today's price 8,400, held until 6pm\".",
+          widget: {
+        titleAr: "سعر اليوم",
+        titleEn: "Today's price",
+        mainAr: "أسورة 22 جرام",
+        mainEn: "22-gram bangle",
+        mainPrice: "8400",
+        suggest: [
+          { ar: "ثابت حتى 6:00 م", en: "Held until 6:00pm", price: "—" },
+        ],
+        ctaAr: "احجز بهذا السعر",
+        ctaEn: "Lock this price",
+      },
     },
     {
       key: "weight-vs-design",
@@ -40,6 +52,21 @@ export const goldDeepDive: SectorDeepDive = {
         "Showing an ornate high-making-charge design to a saver reads as an attempt to take advantage. Showing a bar to someone buying for a wedding reads as not listening. The difference between those two sales is the whole sector.",
       exampleAr: "قارن ثلاث قطع بالوزن ← تُعرض السبائك وأقل الأجور، لا الأطقم المرصّعة.",
       exampleEn: "Compared three pieces by weight → bars and the lowest making charges, not stone-set suites.",
+          widget: {
+        titleAr: "بالوزن",
+        titleEn: "By weight",
+        mainAr: "قارنت ثلاث قطع بالوزن",
+        mainEn: "Compared three pieces by weight",
+        mainPrice: "—",
+        hintAr: "أقل أجرة تصنيع",
+        hintEn: "Lowest making charges",
+        suggest: [
+          { ar: "سبيكة 50 جرام", en: "50-gram bar", price: "19500" },
+          { ar: "قطعة بأقل أجرة", en: "Lowest making charge", price: "7200" },
+        ],
+        ctaAr: "شاهد الكل",
+        ctaEn: "See all",
+      },
     },
     {
       key: "bridal-set",
@@ -57,6 +84,20 @@ export const goldDeepDive: SectorDeepDive = {
         "Whoever buys a bridal set buys all of it anyway, and splitting it across four visits opens the door to a competitor's gram price in between.",
       exampleAr: "خاتم شبكة ← «الشبكة كاملة ٨٥ جرام، الأجرة مجمّعة» بصورة واحدة.",
       exampleEn: "A bridal ring → \"The full set, 85 grams, one combined making charge\", in a single image.",
+          widget: {
+        titleAr: "الشبكة كاملة",
+        titleEn: "The full bridal set",
+        mainAr: "خاتم شبكة",
+        mainEn: "Bridal ring",
+        mainPrice: "6800",
+        hintAr: "الأجرة مجمّعة",
+        hintEn: "One combined making charge",
+        suggest: [
+          { ar: "الشبكة كاملة — 85 جرام", en: "The full set - 85 grams", price: "33200" },
+        ],
+        ctaAr: "شاهد الشبكة",
+        ctaEn: "See the set",
+      },
     },
     {
       key: "occasion-gold",
@@ -74,6 +115,19 @@ export const goldDeepDive: SectorDeepDive = {
         "Gold here is bought for a specific occasion rather than at random. Ordering the catalogue by season multiplies relevance with no discount at all.",
       exampleAr: "موسم مواليد ← أساور خفيفة ٥-٨ جرام في المقدمة.",
       exampleEn: "Newborn season → light 5-8 gram bangles at the front.",
+          widget: {
+        titleAr: "موسم المواليد",
+        titleEn: "Newborn season",
+        mainAr: "تصفّح في موسم المواليد",
+        mainEn: "Browsing in newborn season",
+        mainPrice: "—",
+        suggest: [
+          { ar: "أسورة مولود 5 جرام", en: "5-gram newborn bangle", price: "1950" },
+          { ar: "أسورة مولود 8 جرام", en: "8-gram newborn bangle", price: "3100" },
+        ],
+        ctaAr: "شاهد الكل",
+        ctaEn: "See all",
+      },
     },
     {
       key: "trade-in",
@@ -91,6 +145,20 @@ export const goldDeepDive: SectorDeepDive = {
         "Every household here has old gold nobody wears. Reminding the customer that it is credit rather than jewellery is what opens the budget.",
       exampleAr: "قطعة ١٢٬٠٠٠ خارج الميزانية ← «بدّل ٣٠ جرام قديم وينزل الفرق ١١٬٠٠٠».",
       exampleEn: "A 12,000 piece out of budget → \"Trade in 30 grams of old gold and the difference drops by 11,000\".",
+          widget: {
+        titleAr: "بدّل قديمك",
+        titleEn: "Trade in your old gold",
+        mainAr: "قطعة",
+        mainEn: "A piece",
+        mainPrice: "12000",
+        hintAr: "الفرق بعد الاستبدال: 1,000",
+        hintEn: "After trade-in: 1,000",
+        suggest: [
+          { ar: "احسم 30 جرام قديم", en: "Deduct 30 grams of old gold", price: "−11000" },
+        ],
+        ctaAr: "احسب البديل",
+        ctaEn: "Calculate the trade-in",
+      },
     },
     {
       key: "certificate",
@@ -108,6 +176,18 @@ export const goldDeepDive: SectorDeepDive = {
         "Gold is bought with resale in mind. A store that spells out its buy-back outsells a cheaper store that does not.",
       exampleAr: "قطعة ٩٬٥٠٠ ← «دمغة ٢١، شهادة، إعادة شراء بسعر اليوم ناقص الأجرة».",
       exampleEn: "A 9,500 piece → \"21k hallmark, certificate, buy-back at the day's price less the making charge\".",
+          widget: {
+        titleAr: "الضمان وإعادة الشراء",
+        titleEn: "Guarantee and buy-back",
+        mainAr: "قطعة — دمغة 21",
+        mainEn: "A piece - 21k hallmark",
+        mainPrice: "9500",
+        suggest: [
+          { ar: "شهادة + إعادة شراء بسعر اليوم", en: "Certificate + buy-back at the day's price", price: "—" },
+        ],
+        ctaAr: "أضف للسلة",
+        ctaEn: "Add to cart",
+      },
     },
   ],
 };

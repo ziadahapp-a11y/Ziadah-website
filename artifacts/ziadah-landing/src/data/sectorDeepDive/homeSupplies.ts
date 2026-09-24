@@ -23,6 +23,19 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "The customer liked the room, not the sofa. Selling what is in the photo turns that into an order; \"related products\" sends them back to browsing.",
       exampleAr: "كنبة ٢٬٩٠٠ ← «السجادة والطاولة من نفس الصورة، ١٬١٥٠ للاثنتين».",
       exampleEn: "A 2,900 sofa → \"The rug and table from the same photo, 1,150 for both\".",
+          widget: {
+        titleAr: "الغرفة كاملة",
+        titleEn: "The whole room",
+        mainAr: "كنبة ثلاثية",
+        mainEn: "Three-seat sofa",
+        mainPrice: "2900",
+        suggest: [
+          { ar: "سجادة من نفس الصورة", en: "The rug from the photo", price: "750" },
+          { ar: "طاولة جانبية", en: "Side table", price: "400" },
+        ],
+        ctaAr: "خذ الغرفة بـ1,150",
+        ctaEn: "Take the room for 1,150",
+      },
     },
     {
       key: "dimension-check",
@@ -40,6 +53,18 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "Returning furniture that will not fit through the door costs two heavy shipments, and is the most expensive return in all of ecommerce.",
       exampleAr: "خزانة عرضها ٩٥ سم ← «الباب القياسي ٨٠ سم، قِس قبل الطلب».",
       exampleEn: "A 95cm-wide wardrobe → \"A standard door is 80cm - measure before ordering\".",
+          widget: {
+        titleAr: "قِس قبل الطلب",
+        titleEn: "Measure before ordering",
+        mainAr: "خزانة — عرض 95 سم",
+        mainEn: "Wardrobe - 95cm wide",
+        mainPrice: "1850",
+        suggest: [
+          { ar: "الباب القياسي 80 سم", en: "A standard door is 80cm", price: "—" },
+        ],
+        ctaAr: "أضف للسلة",
+        ctaEn: "Add to cart",
+      },
     },
     {
       key: "consumable-cycle",
@@ -57,6 +82,20 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "Household consumables are guaranteed recurring revenue, and a store that does not remind hands it to the nearest shelf however much dearer it is.",
       exampleAr: "منظف ٥ لتر لأسرة من ٥، اشتُري ١ مارس ← تذكير ٢٠ أبريل.",
       exampleEn: "A 5-litre detergent for a household of five, bought 1 March → a reminder on 20 April.",
+          widget: {
+        titleAr: "موعد إعادة الطلب",
+        titleEn: "Time to reorder",
+        mainAr: "منظف 5 لتر — اشتُري 1 مارس",
+        mainEn: "5L detergent - bought 1 March",
+        mainPrice: "65",
+        hintAr: "لأسرة من 5، يكفي 7 أسابيع",
+        hintEn: "For a household of 5, about 7 weeks",
+        suggest: [
+          { ar: "نفس المنظف", en: "The same detergent", price: "65" },
+        ],
+        ctaAr: "أعد الطلب",
+        ctaEn: "Reorder",
+      },
     },
     {
       key: "bulk-household",
@@ -74,6 +113,18 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "Buying in quantity cuts shipments for the store and cuts decisions for the customer. Both sides win, which is rare.",
       exampleAr: "صابون يدين ٢٢ للحبة ← «٦ حبات ١١٠، الحبة ١٨٫٣».",
       exampleEn: "Hand soap at 22 each → \"6 for 110, that's 18.3 each\".",
+          widget: {
+        titleAr: "بسعر الوحدة",
+        titleEn: "Priced per unit",
+        mainAr: "صابون يدين — حبة",
+        mainEn: "Hand soap - single",
+        mainPrice: "22",
+        suggest: [
+          { ar: "6 حبات — الحبة 18.3", en: "6 pack - 18.3 each", price: "110" },
+        ],
+        ctaAr: "خذ الستة",
+        ctaEn: "Take the six",
+      },
     },
     {
       key: "seasonal-home",
@@ -91,6 +142,19 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "Household needs here swing hard by season, and a store showing the same ordering all year is selling summer in December.",
       exampleAr: "بداية رمضان ← أطقم الضيافة والصواني في المقدمة.",
       exampleEn: "The start of Ramadan → hosting sets and serving trays at the front.",
+          widget: {
+        titleAr: "موسم رمضان",
+        titleEn: "Ramadan season",
+        mainAr: "بداية رمضان",
+        mainEn: "Ramadan starts",
+        mainPrice: "—",
+        suggest: [
+          { ar: "طقم ضيافة", en: "Hosting set", price: "320" },
+          { ar: "صواني تقديم", en: "Serving trays", price: "185" },
+        ],
+        ctaAr: "شاهد الكل",
+        ctaEn: "See all",
+      },
     },
     {
       key: "assembly",
@@ -108,6 +172,18 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "Assembly is high-margin service revenue and also the fastest way to turn a good furniture experience bad when it is left to the customer unannounced.",
       exampleAr: "خزانة تحتاج تركيباً ← «تركيب في البيت ١٨٠ ر.س، ٤٥ دقيقة» مع الطلب.",
       exampleEn: "A wardrobe needing assembly → \"Home assembly 180 SAR, 45 minutes\", offered with the order.",
+          widget: {
+        titleAr: "التركيب",
+        titleEn: "Assembly",
+        mainAr: "خزانة — تحتاج تركيباً",
+        mainEn: "Wardrobe - needs assembling",
+        mainPrice: "1850",
+        suggest: [
+          { ar: "تركيب في البيت — 45 دقيقة", en: "Home assembly - 45 minutes", price: "180" },
+        ],
+        ctaAr: "أضف التركيب",
+        ctaEn: "Add assembly",
+      },
     },
   ],
 };

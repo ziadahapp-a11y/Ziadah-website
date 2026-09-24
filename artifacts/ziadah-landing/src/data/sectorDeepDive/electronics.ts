@@ -23,6 +23,21 @@ export const electronicsDeepDive: SectorDeepDive = {
         "The customer will buy protection within a fortnight anyway - from you or from a kiosk at the traffic lights. Selling it in the same order captures margin that was walking out.",
       exampleAr: "آيفون ١٥ برو ← جراب مطابق ١٢٠ + حامي شاشة ٨٥، بالمقاس لا بالفئة.",
       exampleEn: "iPhone 15 Pro → a model-matched case at 120 + a screen protector at 85, by fit and not by category.",
+          widget: {
+        titleAr: "احمِ جهازك",
+        titleEn: "Protect your device",
+        mainAr: "آيفون 15 برو",
+        mainEn: "iPhone 15 Pro",
+        mainPrice: "4999",
+        hintAr: "بالمقاس لا بالفئة",
+        hintEn: "By exact fit, not category",
+        suggest: [
+          { ar: "جراب مطابق للموديل", en: "A model-matched case", price: "120" },
+          { ar: "حامي شاشة", en: "Screen protector", price: "85" },
+        ],
+        ctaAr: "أضف الحماية",
+        ctaEn: "Add protection",
+      },
     },
     {
       key: "make-it-work",
@@ -40,6 +55,19 @@ export const electronicsDeepDive: SectorDeepDive = {
         "A customer who opens the box and cannot power the device writes a bad review about the store, not the manufacturer. The warning protects the rating before it lifts the basket.",
       exampleAr: "هاتف بلا شاحن في العلبة ← «يحتاج شاحن ٢٠ واط» + كيبل مناسب.",
       exampleEn: "A phone with no charger included → \"Needs a 20W charger\" + the right cable.",
+          widget: {
+        titleAr: "لا يأتي معه شاحن",
+        titleEn: "No charger in the box",
+        mainAr: "هاتف — العلبة بلا شاحن",
+        mainEn: "Phone - no charger included",
+        mainPrice: "2899",
+        suggest: [
+          { ar: "شاحن 20 واط", en: "20W charger", price: "95" },
+          { ar: "كيبل USB-C", en: "USB-C cable", price: "55" },
+        ],
+        ctaAr: "أضف ما يلزم",
+        ctaEn: "Add what it needs",
+      },
     },
     {
       key: "spec-upgrade",
@@ -57,6 +85,20 @@ export const electronicsDeepDive: SectorDeepDive = {
         "Storage is the one irreversible decision: it cannot be upgraded later. A customer not warned now buys a whole new device in two years over space.",
       exampleAr: "١٢٨ جيجا ← «٢٥٦ بـ٤٠٠ أكثر، ضعف المساحة ولا يمكن ترقيتها لاحقاً».",
       exampleEn: "128GB → \"256 for 400 more, double the space, and it cannot be upgraded later\".",
+          widget: {
+        titleAr: "اختر السعة",
+        titleEn: "Choose your storage",
+        mainAr: "128 جيجا",
+        mainEn: "128GB",
+        mainPrice: "4499",
+        hintAr: "لا يمكن ترقيتها لاحقاً",
+        hintEn: "It cannot be upgraded later",
+        suggest: [
+          { ar: "256 جيجا — ضعف المساحة", en: "256GB - double the space", price: "+400" },
+        ],
+        ctaAr: "خذ 256",
+        ctaEn: "Take the 256",
+      },
     },
     {
       key: "bundle-setup",
@@ -74,6 +116,20 @@ export const electronicsDeepDive: SectorDeepDive = {
         "Bundling the setup stops the customer splitting the order across three stores, which is the default when no bundle exists.",
       exampleAr: "شاشة ٢٧ بوصة ← «التجهيز كامل ١٨٥٠ بدل ٢١٤٠» مع الحامل والكيبل.",
       exampleEn: "A 27-inch monitor → \"The full setup at 1850 instead of 2140\", stand and cable included.",
+          widget: {
+        titleAr: "التجهيز كامل",
+        titleEn: "The full setup",
+        mainAr: "شاشة 27 بوصة",
+        mainEn: "27-inch monitor",
+        mainPrice: "1450",
+        hintAr: "بدل 2140 لو اشتريتها منفصلة",
+        hintEn: "Instead of 2140 bought separately",
+        suggest: [
+          { ar: "لوحة مفاتيح + ماوس + حامل", en: "Keyboard + mouse + stand", price: "400" },
+        ],
+        ctaAr: "خذ التجهيز بـ1850",
+        ctaEn: "Take the setup for 1850",
+      },
     },
     {
       key: "warranty",
@@ -91,6 +147,18 @@ export const electronicsDeepDive: SectorDeepDive = {
         "Warranty is the highest-margin line in the order and the lowest operational cost. It is also the fastest way to damage trust if pushed.",
       exampleAr: "لابتوب ٦٬٥٠٠ ← «ضمان سنتين إضافيتين ٤٥٠، يشمل الكسر العرضي» — مرة واحدة.",
       exampleEn: "A 6,500 laptop → \"Two extra years at 450, accidental damage included\" - shown once.",
+          widget: {
+        titleAr: "ضمان ممتد",
+        titleEn: "Extended warranty",
+        mainAr: "لابتوب",
+        mainEn: "Laptop",
+        mainPrice: "6500",
+        suggest: [
+          { ar: "سنتان إضافيتان — يشمل الكسر العرضي", en: "Two more years - accidental damage included", price: "450" },
+        ],
+        ctaAr: "أضف الضمان",
+        ctaEn: "Add the warranty",
+      },
     },
     {
       key: "consumables",
@@ -108,6 +176,20 @@ export const electronicsDeepDive: SectorDeepDive = {
         "Consumables are guaranteed recurring revenue that leaks entirely to the big marketplaces for one reason: they remind and the smaller store does not.",
       exampleAr: "فلتر ماء اشتُري في يناير بعمر ٦ أشهر ← تذكير في يونيو.",
       exampleEn: "A water filter bought in January with a six-month life → a reminder in June.",
+          widget: {
+        titleAr: "موعد تغيير الفلتر",
+        titleEn: "Time to change the filter",
+        mainAr: "فلتر ماء — اشتُري في يناير",
+        mainEn: "Water filter - bought in January",
+        mainPrice: "180",
+        hintAr: "عمره 6 أشهر",
+        hintEn: "Six-month life",
+        suggest: [
+          { ar: "فلتر بديل", en: "Replacement filter", price: "180" },
+        ],
+        ctaAr: "أعد الطلب",
+        ctaEn: "Reorder",
+      },
     },
   ],
 };

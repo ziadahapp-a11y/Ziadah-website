@@ -26,6 +26,31 @@ export type SectorChannel = {
   descEn: string;
 };
 
+/**
+ * THE LIVE PREVIEW for one moment: a real storefront sheet built from the
+ * shipped widget kit, not a picture of one and not a sentence describing one.
+ *
+ * It carries only what a sheet actually shows - the item the shopper already
+ * has, the thing Ziadah says about it, and the button - because a preview
+ * that carries more than the real widget does stops being a preview.
+ */
+export type SectorUseCaseWidget = {
+  /** The sheet's own header, in the storefront's voice. */
+  titleAr: string;
+  titleEn: string;
+  /** The item the shopper is already looking at or already has. */
+  mainAr: string;
+  mainEn: string;
+  mainPrice: string;
+  /** The line above the suggestions. Defaults to "Ziadah suggests". */
+  hintAr?: string;
+  hintEn?: string;
+  /** What Ziadah puts in front of them. One to three rows. */
+  suggest: { ar: string; en: string; price: string; was?: string }[];
+  ctaAr: string;
+  ctaEn: string;
+};
+
 export type SectorUseCase = {
   /** Stable key for React and for deep links. */
   key: string;
@@ -45,6 +70,8 @@ export type SectorUseCase = {
   exampleEn: string;
   /** Which channel it runs on, when the sector has more than one. */
   channel?: SectorChannel["code"];
+  /** The live sheet for this moment. Every use case has one. */
+  widget?: SectorUseCaseWidget;
 };
 
 export type SectorDeepDive = {

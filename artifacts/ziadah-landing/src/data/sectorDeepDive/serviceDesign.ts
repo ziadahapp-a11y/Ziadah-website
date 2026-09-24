@@ -23,6 +23,20 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "The middle package wins more often when the top one visibly exists. More importantly, written edges prevent the dispute that eats a project's entire margin.",
       exampleAr: "شعار: أساسي تعديلان ٧ أيام · متكامل ٥ تعديلات وهوية · شامل بلا حد و٣ أيام.",
       exampleEn: "A logo: Basic, 2 revisions, 7 days · Complete, 5 revisions plus identity · Full, unlimited, 3 days.",
+          widget: {
+        titleAr: "اختر باقتك",
+        titleEn: "Choose your package",
+        mainAr: "تصميم شعار",
+        mainEn: "Logo design",
+        mainPrice: "—",
+        suggest: [
+          { ar: "متكامل — 5 تعديلات وهوية", en: "Complete - 5 revisions plus identity", price: "4500" },
+          { ar: "أساسي — تعديلان، 7 أيام", en: "Basic - 2 revisions, 7 days", price: "1800" },
+          { ar: "شامل — بلا حد، 3 أيام", en: "Full - unlimited, 3 days", price: "7800" },
+        ],
+        ctaAr: "اطلب الباقة",
+        ctaEn: "Request the package",
+      },
     },
     {
       key: "rush-fee",
@@ -40,6 +54,18 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "Free rushing teaches the client that the schedule is always squeezable and wrecks every other project's timeline. Pricing it makes it a choice rather than a habit.",
       exampleAr: "طلب تسليم خلال يومين ← «مستعجل ٤٨ ساعة، +٤٠٪ على الباقة».",
       exampleEn: "A two-day request → \"Rush, 48 hours, +40% on the package\".",
+          widget: {
+        titleAr: "تسليم مستعجل",
+        titleEn: "Rush delivery",
+        mainAr: "باقة متكاملة — 7 أيام",
+        mainEn: "Complete package - 7 days",
+        mainPrice: "4500",
+        suggest: [
+          { ar: "48 ساعة بدل 7 أيام", en: "48 hours instead of 7 days", price: "+40٪" },
+        ],
+        ctaAr: "أضف الاستعجال",
+        ctaEn: "Add the rush",
+      },
     },
     {
       key: "source-files",
@@ -57,6 +83,18 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "Most post-delivery disputes are about source files. Making them a priced line item up front ends the argument and adds revenue.",
       exampleAr: "تصميم هوية ← «ملفات المصدر AI وPSD، ٦٠٠ ر.س» بند في العرض.",
       exampleEn: "A brand identity → \"AI and PSD source files, 600 SAR\" as a line in the quote.",
+          widget: {
+        titleAr: "ملفات المصدر",
+        titleEn: "Source files",
+        mainAr: "تصميم هوية — قارب على التسليم",
+        mainEn: "Brand identity - nearly delivered",
+        mainPrice: "—",
+        suggest: [
+          { ar: "ملفات AI و PSD قابلة للتعديل", en: "Editable AI and PSD files", price: "600" },
+        ],
+        ctaAr: "أضفها للعرض",
+        ctaEn: "Add to the quote",
+      },
     },
     {
       key: "retainer",
@@ -74,6 +112,20 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "Repeated projects mean repeated negotiation and income gaps. A retainer turns the same client from volatile to steady with no new sale at all.",
       exampleAr: "٣ طلبات في ٤ أشهر ← «عقد شهري ٢٠ ساعة، ٤٬٥٠٠ بدل التسعير كل مرة».",
       exampleEn: "3 requests in 4 months → \"A 20-hour monthly retainer at 4,500, instead of quoting each time\".",
+          widget: {
+        titleAr: "عقد شهري",
+        titleEn: "Monthly retainer",
+        mainAr: "3 طلبات في 4 أشهر",
+        mainEn: "3 requests in 4 months",
+        mainPrice: "—",
+        hintAr: "بدل التسعير كل مرة",
+        hintEn: "Instead of quoting each time",
+        suggest: [
+          { ar: "20 ساعة شهرياً", en: "20 hours a month", price: "4500/شهر" },
+        ],
+        ctaAr: "حوّله لعقد",
+        ctaEn: "Make it a retainer",
+      },
     },
     {
       key: "complementary-service",
@@ -91,6 +143,18 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "Selling the second service during the first reads as a distraction and endangers the first. Selling it after a successful delivery reads as the obvious next step.",
       exampleAr: "شعار سُلّم ← بعد أسبوع: «دليل الهوية الكامل، ٣٬٢٠٠».",
       exampleEn: "A logo delivered → a week later: \"The full brand guidelines, 3,200\".",
+          widget: {
+        titleAr: "الخطوة التالية",
+        titleEn: "The next step",
+        mainAr: "شعار — سُلّم قبل أسبوع",
+        mainEn: "Logo - delivered a week ago",
+        mainPrice: "—",
+        suggest: [
+          { ar: "دليل الهوية الكامل", en: "The full brand guidelines", price: "3200" },
+        ],
+        ctaAr: "اطلبها",
+        ctaEn: "Request it",
+      },
     },
     {
       key: "brief-quality",
@@ -108,6 +172,20 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "Every fact captured in the brief saves a revision round. This suggestion raises no price but raises margin more than any add-on does.",
       exampleAr: "نموذج بلا ألوان مفضلة ← «أضف ٣ أمثلة تعجبك، يختصر جولة تعديل».",
       exampleEn: "A form with no colour preference → \"Add 3 examples you like - it saves a revision round\".",
+          widget: {
+        titleAr: "أكمل البريف",
+        titleEn: "Complete the brief",
+        mainAr: "نموذج الطلب — بلا ألوان مفضلة",
+        mainEn: "Request form - no colour preference",
+        mainPrice: "—",
+        hintAr: "يختصر جولة تعديل",
+        hintEn: "It saves a revision round",
+        suggest: [
+          { ar: "أضف 3 أمثلة تعجبك", en: "Add 3 examples you like", price: "—" },
+        ],
+        ctaAr: "أكمل",
+        ctaEn: "Complete",
+      },
     },
   ],
 };

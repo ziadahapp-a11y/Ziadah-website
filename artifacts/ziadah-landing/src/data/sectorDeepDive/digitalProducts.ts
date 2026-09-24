@@ -23,6 +23,18 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "With physical goods a bundle concedes margin. Here it is entirely incremental, and yet most digital stores price as though they were selling shirts.",
       exampleAr: "قالب واحد ١٢٠ ← «الحزمة الكاملة ٨ قوالب بـ٣٩٠ بدل ٩٦٠».",
       exampleEn: "One template at 120 → \"The full pack, 8 templates for 390 instead of 960\".",
+          widget: {
+        titleAr: "الحزمة الكاملة",
+        titleEn: "The full pack",
+        mainAr: "قالب واحد",
+        mainEn: "One template",
+        mainPrice: "120",
+        suggest: [
+          { ar: "8 قوالب — الحزمة", en: "8 templates - the pack", price: "390", was: "960" },
+        ],
+        ctaAr: "خذ الحزمة",
+        ctaEn: "Take the pack",
+      },
     },
     {
       key: "activation",
@@ -40,6 +52,20 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "Someone who never used what they bought will not buy again and will ask for a refund. Usage is the precondition for the second purchase, and nothing else is.",
       exampleAr: "دورة اشتُريت قبل ٥ أيام بلا دخول ← «ابدأ بالدرس الأول، ٧ دقائق».",
       exampleEn: "A course bought 5 days ago with no login → \"Start with lesson one, 7 minutes\".",
+          widget: {
+        titleAr: "ابدأ من هنا",
+        titleEn: "Start here",
+        mainAr: "دورة — اشتُريت قبل 5 أيام",
+        mainEn: "A course - bought 5 days ago",
+        mainPrice: "—",
+        hintAr: "لم تفتحها بعد",
+        hintEn: "You haven't opened it yet",
+        suggest: [
+          { ar: "الدرس الأول — 7 دقائق", en: "Lesson one - 7 minutes", price: "—" },
+        ],
+        ctaAr: "ابدأ الآن",
+        ctaEn: "Start now",
+      },
     },
     {
       key: "tier-upgrade",
@@ -57,6 +83,18 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "Offering the higher plan before they touch the limit reads as greed. Offering it as they are about to hit it reads as a useful heads-up.",
       exampleAr: "٨ من ١٠ مشاريع ← «الباقة الأعلى: مشاريع بلا حد، +٤٠ شهرياً».",
       exampleEn: "8 of 10 projects used → \"The higher plan: unlimited projects, +40 a month\".",
+          widget: {
+        titleAr: "اقتربت من الحد",
+        titleEn: "You're near the limit",
+        mainAr: "باقتك — 8 من 10 مشاريع",
+        mainEn: "Your plan - 8 of 10 projects",
+        mainPrice: "—",
+        suggest: [
+          { ar: "الباقة الأعلى — مشاريع بلا حد", en: "The higher plan - unlimited", price: "+40/شهر" },
+        ],
+        ctaAr: "رقّ باقتك",
+        ctaEn: "Upgrade",
+      },
     },
     {
       key: "instant-upsell",
@@ -74,6 +112,18 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "The moment after payment is the highest-acceptance point in the whole funnel and costs nothing. But one offer only - a second one ruins the trust just earned.",
       exampleAr: "بعد شراء قالب ← «ملفات المصدر القابلة للتعديل، ٦٥ ر.س لمرة واحدة».",
       exampleEn: "After buying a template → \"The editable source files, 65 SAR one time\".",
+          widget: {
+        titleAr: "قبل أن تغادر",
+        titleEn: "Before you go",
+        mainAr: "تم الشراء — القالب جاهز للتحميل",
+        mainEn: "Purchased - ready to download",
+        mainPrice: "—",
+        suggest: [
+          { ar: "ملفات المصدر القابلة للتعديل", en: "The editable source files", price: "65" },
+        ],
+        ctaAr: "أضفها لمرة واحدة",
+        ctaEn: "Add it, one time only",
+      },
     },
     {
       key: "license-tier",
@@ -91,6 +141,18 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "Most people who buy the personal licence and use it commercially are not cheating, they misread it. Explaining by use sells the higher tier and protects your rights at once.",
       exampleAr: "قالب ١٢٠ شخصي ← «تجاري ٢٩٠: استخدمه في مشاريع عملائك».",
       exampleEn: "A 120 personal template → \"Commercial at 290: use it in your clients' work\".",
+          widget: {
+        titleAr: "اختر ترخيصك",
+        titleEn: "Choose your licence",
+        mainAr: "ترخيص شخصي — لمشاريعك",
+        mainEn: "Personal - your own projects",
+        mainPrice: "120",
+        suggest: [
+          { ar: "تجاري — لمشاريع عملائك", en: "Commercial - your clients' work", price: "290" },
+        ],
+        ctaAr: "خذ التجاري",
+        ctaEn: "Take the commercial",
+      },
     },
     {
       key: "update-cycle",
@@ -108,6 +170,18 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "The existing customer base is the real asset in digital products. Selling the new version to it with zero acquisition cost is the highest margin available.",
       exampleAr: "اشترى الإصدار ٢ ← «الإصدار ٣ بسعر ترقية ٤٥ بدل ١٢٠».",
       exampleEn: "Bought version 2 → \"Version 3 at an upgrade price of 45 instead of 120\".",
+          widget: {
+        titleAr: "إصدار جديد",
+        titleEn: "A new version",
+        mainAr: "تملك الإصدار 2",
+        mainEn: "You own version 2",
+        mainPrice: "—",
+        suggest: [
+          { ar: "الإصدار 3 — سعر ترقية", en: "Version 3 - upgrade price", price: "45", was: "120" },
+        ],
+        ctaAr: "رقّ الآن",
+        ctaEn: "Upgrade now",
+      },
     },
   ],
 };
