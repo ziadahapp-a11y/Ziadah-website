@@ -63,13 +63,12 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     <>
       {deep.channels?.length ? (
         <DsSection id="section-channels" family="grey">
-          {/* NOT centred. Every other content head on a sector page - "Why
-              Ziadah here", "How to apply", "Sector engine", "Measurement" -
-              starts at the reading edge above a start-aligned column. Two
-              centred heads in the middle of that read as lifted from another
-              page, and a centred head over start-aligned body copy leaves a
-              ragged relationship between the two. */}
+          {/* Centred. These two are full-width bands, not column sections:
+              the channels grid and the use-case grid both run edge to edge
+              under them, so the head belongs on the band's axis rather than
+              at the reading edge of a column that is not there. */}
           <SectionHead
+            center
             kicker={labels.channelsTitle}
             title={labels.channelsTitle}
             lead={labels.channelsLead}
@@ -89,6 +88,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
 
       <DsSection id="section-use-cases" family="violet">
         <SectionHead
+          center
           kicker={labels.kicker}
           title={labels.title}
           lead={isAr ? deep.introAr : deep.introEn}

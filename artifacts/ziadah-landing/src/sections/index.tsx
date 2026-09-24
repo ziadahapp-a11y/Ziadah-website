@@ -928,13 +928,13 @@ export function CtaSection({
   id?: string;
 }) {
   return (
-    <Section id={id} family={family} invert={invert}>
+    <Section id={id} family={family} invert={invert} className="section--cta">
       <Shell>
-        <div className="block block--content !min-h-0">
+        <div className="cta-block">
           {eyebrow ? <p className="t-eyebrow !mb-0">{eyebrow}</p> : null}
           <h2 className="block-heading-m">{title}</h2>
           {body ? <p className="block-body">{body}</p> : null}
-          <div className="hero-buttons justify-center !mt-0">
+          <div className="hero-buttons justify-center">
             {primary ? (
               <Button variant="invert" size="lg" onClick={primary.onClick} data-testid={primary.testId}>
                 {primary.label}

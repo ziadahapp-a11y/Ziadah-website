@@ -572,6 +572,48 @@
 [dir="rtl"] .block-heading-l { line-height: 1.2; letter-spacing: 0; }
 
 .block--content { flex-direction: column; justify-content: center; gap: 2.4rem; text-align: center; }
+
+/* ---------- THE CLOSING CTA ------------------------------------------
+   The band every marketing page ends on had been built out of `.block
+   .block--content`, and `block` is also a Tailwind display utility. Tailwind
+   emits `@layer utilities`, which resolves AFTER `@layer components` where
+   this file is imported, so `.block { display: block }` beat the design
+   system's `.block { display: flex }` on that one element: the flex column's
+   `gap: 2.4rem` stopped applying and the title, the lede and the button
+   stacked with no space between them at all.
+
+   The closer gets its own class rather than borrowing the grid-cell shape it
+   never needed. It is the only element on the site that used the bare `.block`
+   class, so nothing else moves.
+
+   The band is also balanced top and bottom. The section's default rhythm ends
+   11.6rem below the content because a section normally has another band under
+   it; the closer has the footer, and 159px of content inside 74px / 116px read
+   as content pinned to the top of an empty band. */
+.cta-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  min-width: 0;
+  text-align: center;
+}
+/* The lede sits between two centred items, so it is centred too rather than
+   filling the shell: `margin-inline: auto` on a stretched block is a no-op. */
+.cta-block .block-body { margin-inline: 0; }
+/* One extra step before the ask. The rest of the stack is one rhythm; the
+   button is the thing the band exists for. */
+.cta-block .hero-buttons { margin-top: 0.8rem; }
+.section--cta { padding-block: var(--section-space); }
+@media screen and (max-width: 767px) {
+  /* `.hero-buttons` goes full-width column below 768 because a hero's two
+     actions want equal bars. The closer has ONE action, and a 358px pill
+     reads as a bar across the band rather than a button. */
+  .cta-block .hero-buttons { flex-direction: row; align-items: center; justify-content: center; }
+  .cta-block .hero-buttons .button { width: auto; }
+}
 .block-heading-m { font-size: 4.8rem; line-height: 1; font-weight: 700; letter-spacing: -0.015em; min-width: 0; max-width: 100%; }
 @media screen and (max-width: 767px) { .block-heading-m { font-size: 3.2rem; } }
 [dir="rtl"] .block-heading-m { line-height: 1.22; letter-spacing: 0; }
@@ -1406,6 +1448,11 @@
 @media screen and (min-width: 1025px) { .section-lead { font-size: 2rem; line-height: 1.4; } }
 [dir="rtl"] .section-lead { line-height: 1.9; }
 .section-head--center .section-lead { margin-inline: auto; }
+/* `SectionHead` renders its lede as `.hero-body`, not `.section-lead`, so the
+   rule above never reached it: the lede kept its own 78rem measure anchored to
+   the reading edge while the kicker and the title centred above it, which is
+   the one thing a centred head must not do. */
+.section-head--center .hero-body { margin-inline: auto; }
 
 /* ---------- HERO FURNITURE -------------------------------------------
    `.hero` and its parts survive for the blocks that are not the page's own
