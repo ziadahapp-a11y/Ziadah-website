@@ -7,7 +7,13 @@
 .sector-html {
   --sh-accent: color-mix(in srgb, var(--p) 82%, #f59e0b 18%);
   --sh-accent2: color-mix(in srgb, var(--p) 55%, #22d3ee 45%);
-  --sh-green: #00d4a0;
+  /* WAS #00d4a0 - a saturated teal, and the only hue on these pages that was
+     neither the brand's violet nor grey. It coloured the AI match scores, the
+     live dot and a rule, which put a second brand on every sector page. The
+     token stays so its eight call sites keep working; what it resolves to is
+     now the brand's own colour, so "live" and "94% match" read as Ziadah
+     rather than as a different product. */
+  --sh-green: var(--ziadah-violet, #7c3aed);
   --sh-gold: #f5c030;
   --sh-border: color-mix(in srgb, var(--p) 35%, transparent);
   --sh-border2: color-mix(in srgb, var(--p) 55%, transparent);
