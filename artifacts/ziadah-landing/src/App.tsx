@@ -52,6 +52,7 @@ const Addons = lazy(() => import("@/pages/use-cases/Addons"));
 const BuyTogether = lazy(() => import("@/pages/use-cases/BuyTogether"));
 const BundleDeals = lazy(() => import("@/pages/use-cases/BundleDeals"));
 const BuyMoreSaveMore = lazy(() => import("@/pages/use-cases/BuyMoreSaveMore"));
+const BuyThemAll = lazy(() => import("@/pages/use-cases/BuyThemAll"));
 const CheckoutPage = lazy(() => import("@/pages/use-cases/CheckoutPage"));
 const AddToCartPage = lazy(() => import("@/pages/use-cases/AddToCartPage"));
 const RemoveFromCartPage = lazy(() => import("@/pages/use-cases/RemoveFromCartPage"));
@@ -159,6 +160,7 @@ function PublicRoutes() {
       <Route path="/use-cases/buy-together" component={BuyTogether} />
       <Route path="/use-cases/bundle-deals" component={BundleDeals} />
       <Route path="/use-cases/buy-more-save-more" component={BuyMoreSaveMore} />
+      <Route path="/use-cases/buy-them-all" component={BuyThemAll} />
       <Route path="/use-cases/checkout" component={CheckoutPage} />
       <Route path="/use-cases/add-to-cart" component={AddToCartPage} />
       <Route path="/use-cases/remove-from-cart" component={RemoveFromCartPage} />
