@@ -1,6 +1,7 @@
 import UseCaseLayout, { UseCasePageData } from "../../components/UseCaseLayout";
 import UseCaseLiveShowcase from "../../components/UseCaseLiveShowcase";
 import BuyThemAllWidget from "../../components/widgets/BuyThemAllWidget";
+import BuyThemAllDetails from "../../components/BuyThemAllDetails";
 
 /*
  * Every figure on this page is read off the product itself (the campaign
@@ -64,6 +65,7 @@ const data: UseCasePageData = {
     result: "العميل يرى الطقم كاملاً وسعره في مكان واحد ويضيفه بنقرة واحدة. الأسماء والأسعار توضيحية من مثال في اللوحة.",
   },
   extraSections: (isAr) => (
+    <>
     <UseCaseLiveShowcase
       isAr={isAr}
       title={isAr ? "كيف يظهر للعميل داخل المتجر؟" : "How does it look to customers in-store?"}
@@ -80,6 +82,8 @@ const data: UseCasePageData = {
         },
       ]}
     />
+    <BuyThemAllDetails isAr={isAr} />
+    </>
   ),
   ctaTitle: "فعّل «اشترِ الكل»",
   ctaDesc: "حدّد مجموعتك وسعرها من لوحة زيادة، ويضيفها عميلك بنقرة واحدة.",
