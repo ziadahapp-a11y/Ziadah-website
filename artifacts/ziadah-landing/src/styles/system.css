@@ -1394,6 +1394,13 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
 /* A chip used as a small inline tag rather than a filter control. Same ink and
    the same pressed state, at the size the surrounding body copy sets. */
 .chip.is-small { height: 3rem; padding-inline: 1.2rem; font-size: 1.3rem; background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent); }
+/* `.chip.is-small` and `.chip[aria-pressed="true"]` are both 0,2,0, so the
+   later one wins the `background` - and the size modifier is the later one.
+   That left every pressed SMALL chip painting the 8% resting tint under the
+   pressed rule's inverted ink: light on light, about 1.1:1, on every filter
+   rail on the site that uses the small size. The pressed ground is restored
+   at a specificity the size modifier cannot outrank. */
+.chip.is-small[aria-pressed="true"] { background: var(--color-secondary, var(--general-black)); }
 /* A chip carrying a TITLE rather than a one-word filter. `white-space: nowrap`
    and a fixed height are right for a filter rail, where every chip is a word;
    they are wrong for the blog and support links on the sector pages, where the

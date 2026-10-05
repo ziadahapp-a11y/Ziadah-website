@@ -43,6 +43,43 @@ for (const slug of sectorSlugs) {
   if (!registered.has(slug)) errors.push(`${slug}: no deep dive registered, so its use-case band renders nothing.`);
 }
 
+/* THE TWO SLUG LISTS MUST AGREE.
+   `sectorDeepDive.ts` repeats the goal, presentation and placement slugs that
+   `features-data.ts` owns, so the data layer does not have to import a module
+   that pulls in lucide icons. A repeated list is a list that drifts, and the
+   drift is silent: a renamed slug leaves a use case tagged with a value no
+   chip matches, so its card disappears behind every filter but "all". */
+const registryUnions = {
+  GoalSlug: "goals",
+  PresentationSlug: "presentations",
+  PlacementSlug: "placements",
+};
+const featuresSrc = read("src/lib/features-data.ts");
+for (const [unionName, listName] of Object.entries(registryUnions)) {
+  const unionBody = registry.match(
+    new RegExp(`export type ${unionName} =([\\s\\S]*?);`),
+  )?.[1];
+  if (!unionBody) {
+    errors.push(`sectorDeepDive.ts: cannot parse the ${unionName} union.`);
+    continue;
+  }
+  const declared = new Set([...unionBody.matchAll(/"([a-z0-9-]+)"/g)].map((m) => m[1]));
+  const listBody = featuresSrc.match(
+    new RegExp(`export const ${listName}[\\s\\S]*?\\n\\];`),
+  )?.[0];
+  if (!listBody) {
+    errors.push(`features-data.ts: cannot parse the ${listName} list.`);
+    continue;
+  }
+  const actual = new Set([...listBody.matchAll(/slug: "([a-z0-9-]+)"/g)].map((m) => m[1]));
+  for (const slug of actual) {
+    if (!declared.has(slug)) errors.push(`${unionName} is missing "${slug}", which ${listName} publishes.`);
+  }
+  for (const slug of declared) {
+    if (!actual.has(slug)) errors.push(`${unionName} declares "${slug}", which ${listName} does not publish.`);
+  }
+}
+
 const dir = "src/data/sectorDeepDive";
 for (const file of readdirSync(join(root, dir)).filter((f) => f.endsWith(".ts"))) {
   const src = read(join(dir, file));
@@ -60,4 +97,14 @@ if (errors.length) {
 const total = readdirSync(join(root, dir))
   .filter((f) => f.endsWith(".ts"))
   .reduce((n, f) => n + (read(join(dir, f)).match(/^\s+key: "/gm) || []).length, 0);
-console.log(`[sector-coverage] ${sectorSlugs.length} sectors, ${total} use cases, one live widget each.`);
+const taggedSectors = readdirSync(join(root, dir))
+  .filter((f) => f.endsWith(".ts"))
+  .filter((f) => {
+    const src = read(join(dir, f));
+    const cases = (src.match(/^\s+key: "/gm) || []).length;
+    return cases > 0 && (src.match(/^\s+goal: "/gm) || []).length === cases;
+  }).length;
+console.log(
+  `[sector-coverage] ${sectorSlugs.length} sectors, ${total} use cases, one live widget each; ` +
+  `${taggedSectors} on the five-W shape.`,
+);

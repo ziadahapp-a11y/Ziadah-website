@@ -51,6 +51,31 @@ export type SectorUseCaseWidget = {
   ctaEn: string;
 };
 
+/**
+ * THE PRODUCT'S OWN VOCABULARY, as slugs.
+ *
+ * These three unions are the slugs in `src/lib/features-data.ts`, repeated
+ * here rather than imported so the data layer stays free of the component
+ * layer's dependencies (that registry pulls in lucide icons). The repetition
+ * is the dangerous kind - two lists that can drift - so the build asserts
+ * they match, in `scripts/check-sector-coverage.mjs`. Change one, change both,
+ * or the build stops.
+ *
+ * Tagging a moment with its goal and its presentation is what lets a sector
+ * page PROVE its coverage rather than claim it: a merchant can see that every
+ * one of the five goals and every one of the five shapes is answered here, in
+ * this sector's own products, and the page can group by either.
+ */
+export type GoalSlug =
+  | "more-products" | "quantity-offers" | "product-swap" | "cart-value" | "discount-code";
+
+export type PresentationSlug =
+  | "related-products" | "add-ons" | "bought-together" | "combo" | "buy-more-save-more";
+
+export type PlacementSlug =
+  | "product-page" | "category-page" | "cart-page" | "checkout-page" | "thank-you-page"
+  | "exit-intent" | "home-page" | "search-page" | "smart-popup";
+
 export type SectorUseCase = {
   /** Stable key for React and for deep links. */
   key: string;
@@ -68,6 +93,20 @@ export type SectorUseCase = {
   /** A worked example with this sector's real products and real prices. */
   exampleAr: string;
   exampleEn: string;
+  /** WHO this fires for. The fifth W, and the one a generic page never
+   *  answers: not "a customer", but which customer in this sector, holding
+   *  what, at what stage of their own decision. */
+  whoAr?: string;
+  whoEn?: string;
+  /** WHERE it renders. A slug rather than prose, so the page names the
+   *  placement with the same words `/features` does and a reader can follow
+   *  one term across the whole site. */
+  placement?: PlacementSlug;
+  /** WHAT IT MOVES. One of the five goals the product publishes. */
+  goal?: GoalSlug;
+  /** WHAT SHAPE IT TAKES. One of the five presentations the product
+   *  publishes. Together with `goal` this is what the coverage grid reads. */
+  presentation?: PresentationSlug;
   /** Which channel it runs on, when the sector has more than one. */
   channel?: SectorChannel["code"];
   /** The live sheet for this moment. Every use case has one. */

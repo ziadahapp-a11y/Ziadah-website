@@ -1823,3 +1823,139 @@
   background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 12%, transparent);
   color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, var(--color-secondary, #0a0a0a));
 }
+
+/* ---------- THE FIVE-W USE-CASE BAND ---------------------------------
+   A sector whose moments are tagged with their goal and their shape gets
+   two extra pieces: a coverage grid that PROVES all five of each are
+   answered here, and a two-level filter so fifteen cards are a catalogue a
+   merchant can slice rather than a wall they scroll past.
+
+   Everything below reads the section's own triple. These bands sit on both
+   families (`grey` for the coverage, `violet` for the catalogue), so a hand
+   mixed colour would be wrong on one of them. */
+
+.ucx-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+}
+@media screen and (min-width: 860px) {
+  .ucx-cover { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.ucx-cover-col {
+  min-width: 0;
+  padding: 2.8rem 2.4rem;
+  border-radius: var(--radius-card);
+  background: var(--color-primary, #fff);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.ucx-cover-k {
+  margin: 0 0 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(62%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .ucx-cover-k { text-transform: none; letter-spacing: 0; }
+.ucx-cover-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.ucx-cover-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding-block: 1.3rem;
+  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+}
+.ucx-cover-row:first-child { border-block-start: 0; }
+.ucx-cover-name { min-width: 0; font-size: 1.7rem; font-weight: 500; }
+[dir="rtl"] .ucx-cover-name { line-height: 1.7; }
+/* The count is the whole point of the row, so it is the brand colour and not
+   a muted tail. A zero is the one thing this grid must not hide: it says this
+   sector has a gap, and it reads as a gap. */
+.ucx-cover-n {
+  flex: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* NOT `var(--color)`. That is the family's own base, and on the grey family
+     it resolves to #c8ceda - a pale grey that made the one number this grid
+     exists to show the faintest thing on the card. The brand token is the
+     right call here: the count is brand evidence, not section furniture. */
+  color: var(--ziadah-violet, #7c3aed);
+  font-variant-numeric: tabular-nums;
+}
+.ucx-cover-row[data-empty] .ucx-cover-name,
+.ucx-cover-row[data-empty] .ucx-cover-n {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(45%, var(--ink-floor, 0%)), transparent);
+}
+
+/* The two-level filter. The dimension switch is the question, the chips below
+   are the answers to it. */
+/* Centred, because the head above it is. A control rail pushed to the
+   reading edge under a centred title reads as belonging to the grid below
+   rather than to the question above. */
+.ucx-controls {
+  margin-block-end: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ucx-controls .sdd-filter { justify-content: center; }
+.ucx-dims {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-block-end: 1.6rem;
+  padding: 0.4rem;
+  border-radius: 999rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 7%, transparent);
+  /* It is a switch, not a rail: it hugs its own options instead of running
+     the width of the band. */
+  width: fit-content;
+  max-width: 100%;
+}
+.ucx-dim {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999rem;
+  background: transparent;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.ucx-dim:hover { color: var(--color-secondary, #0a0a0a); }
+.ucx-dim[aria-selected="true"] {
+  background: var(--color-secondary, #0a0a0a);
+  color: var(--color-primary, #fff);
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) { .ucx-dim { transition: none; } }
+
+/* The goal and the shape, on the card. Two tags and no more: the placement is
+   already one of the five Ws below, and a third pill here would compete with
+   the title. */
+.ucx-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.8rem; }
+.ucx-tag {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999rem;
+  background: color-mix(in srgb, var(--color, #7c3aed) 14%, transparent);
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 92%, transparent);
+}
+.ucx-tag.is-shape {
+  background: transparent;
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
+}
+
+.ucx-empty {
+  margin: 0 0 3.2rem;
+  font-size: 1.7rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
