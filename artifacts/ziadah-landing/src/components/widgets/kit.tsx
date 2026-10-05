@@ -77,6 +77,7 @@ export function ProductTile({
     return (
       <span
         aria-hidden="true"
+        className="wk-tile"
         style={{
           width: size,
           height: size,
@@ -147,6 +148,7 @@ export function WidgetShell({
   footer,
   style = "embedded",
   dismissible = false,
+  ds,
 }: {
   title?: ReactNode;
   subtitle?: ReactNode;
@@ -157,11 +159,19 @@ export function WidgetShell({
   style?: CampaignStyle;
   /** Shows the sheet's own close control, as every framed style in the file does. */
   dismissible?: boolean;
+  /**
+   * `"figma"` paints the sheet in the design system file's own tokens - a
+   * white card with one hairline - instead of resolving it onto the section
+   * triple. Used where many sheets sit together and have to read as one
+   * system rather than as part of the band.
+   */
+  ds?: "figma";
 }) {
   const { isAr } = useLanguage();
   const sheet = (
     <div
       className="wk"
+      data-ds={ds}
       dir={isAr ? "rtl" : "ltr"}
       style={{ maxWidth, textAlign: isAr ? "right" : "left" }}
     >

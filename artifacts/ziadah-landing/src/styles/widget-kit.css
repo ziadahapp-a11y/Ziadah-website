@@ -872,3 +872,125 @@
   font-weight: 700;
   color: var(--color-secondary, #0a0a0a);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE FIGMA MODE: `data-ds="figma"`
+
+   The kit above resolves every colour onto the section triple, so a preview
+   belongs to the band it lands on. That was the right call for a page with
+   one or two previews in it. It is the wrong call for the sector use-case
+   band, where fifteen previews sit side by side across five different
+   moments: there they stop reading as the product and start reading as the
+   page, and the merchant cannot tell one sheet from another.
+
+   In this mode the sheet is the Figma widget, literally. The values are the
+   design system file's own tokens (Ziadah App DS New tokens,
+   `KW5IvLzjZ1OXf0v9iJJHvj`), named here as they are named there so a reader
+   can check one against the other:
+
+     Neutral 100  #ffffff   the sheet and the row
+     Base 700     #e1e0e1   every hairline
+     Base 100     #07000c   ink
+     Base 300     #6a666d   muted ink, meta, subtitle
+     Base 400     #a3a0a5   struck-through old price
+     Prim 100     #4a008c   selected row border, toggle on
+     Prim 760     #f4e7ff   the total bar and the badge pill
+     Prim 900     #faf5ff   the product image tile
+     Sec 100      #480085   ink on Prim 760
+
+   Structure follows the same file: 16px sheet radius, 12px row radius, 8px
+   image radius, 10px row padding, 40px image. A sheet in this mode is white
+   on every band, which is the point: one system, fifteen times.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.wk[data-ds="figma"] {
+  --wk-ink: #07000c;
+  --wk-ground: #ffffff;
+  --wk-line: #e1e0e1;
+  --wk-panel: #ffffff;
+  --wk-stage: #faf5ff;
+  --wk-muted: #6a666d;
+  --wk-faint: #a3a0a5;
+  --wk-brand: #4a008c;
+  --wk-tint: #f4e7ff;
+  --wk-on-tint: #480085;
+  --wk-lift: none;
+
+  gap: 10px;
+  border-radius: 16px;
+  padding: 12px;
+  background: var(--wk-ground);
+  color: var(--wk-ink);
+  box-shadow: inset 0 0 0 1px var(--wk-line);
+}
+[dir="rtl"] .wk[data-ds="figma"] { --wk-lift: none; }
+
+.wk[data-ds="figma"] .wk-head { padding-inline: 0; gap: 4px; }
+.wk[data-ds="figma"] .wk-title { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--wk-ink); }
+.wk[data-ds="figma"] .wk-sub { font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk[data-ds="figma"] .wk-body,
+.wk[data-ds="figma"] .wk-foot { gap: 10px; }
+
+/* The row. One hairline, and the brand only when it is the selected one. */
+.wk[data-ds="figma"] .wk-row {
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--wk-ground);
+  box-shadow: inset 0 0 0 1px var(--wk-line);
+}
+.wk[data-ds="figma"] .wk-row.is-sel {
+  background: var(--wk-ground);
+  box-shadow: inset 0 0 0 1px var(--wk-brand);
+}
+.wk[data-ds="figma"] .wk-name { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--wk-ink); }
+.wk[data-ds="figma"] .wk-meta { font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+.wk[data-ds="figma"] .wk-price { font-size: 12px; line-height: 16px; color: var(--wk-ink); }
+.wk[data-ds="figma"] .wk-was { font-size: 12px; color: var(--wk-faint); }
+
+/* The product tile: 40px, 8px radius, the palest violet, and the photograph
+   fills it when there is one. */
+/* The tile sets its own size and radius inline, so the Figma mode has to
+   outrank an inline style. A custom property is the only lever an inline
+   style still reads, but the tile does not declare one - so these use
+   `!important`, deliberately and in one place, rather than threading a prop
+   through every one of the kit's twenty call sites. */
+.wk[data-ds="figma"] .wk-tile {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  background: var(--wk-stage) !important;
+  box-shadow: inset 0 0 0 1px var(--wk-line) !important;
+  font-size: 13px;
+  color: var(--wk-on-tint);
+}
+.wk[data-ds="figma"] .wk-tile img { border-radius: 8px; }
+
+/* The total bar and the badge: the one tinted block in the sheet. */
+.wk[data-ds="figma"] .wk-totals,
+.wk[data-ds="figma"] .wk-summary {
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--wk-tint);
+  color: var(--wk-on-tint);
+  box-shadow: none;
+}
+.wk[data-ds="figma"] .wk-tag {
+  background: var(--wk-tint);
+  color: var(--wk-on-tint);
+  box-shadow: none;
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 10px;
+}
+.wk[data-ds="figma"] .wk-hint { font-size: 12px; line-height: 16px; color: var(--wk-muted); }
+
+/* The one button, full width, the system's deep violet. */
+.wk[data-ds="figma"] .wk-btn {
+  border-radius: 999px;
+  background: var(--wk-brand);
+  color: #ffffff;
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 500;
+}

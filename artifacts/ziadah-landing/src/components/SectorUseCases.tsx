@@ -15,33 +15,31 @@ import {
 } from "@/components/widgets/kit";
 
 /**
- * THE SECTOR'S OWN MOMENTS, one card each, answering the same five questions.
+ * THE SECTOR'S MOMENTS, SHOWN RATHER THAN DESCRIBED.
  *
- * The rest of a sector page argues that Ziadah is worth having. This is the
- * part that answers "where exactly does it fire in MY business", which is the
- * question that actually closes a merchant, and the one the site could only
- * answer generically before.
+ * The previous version was five labelled paragraphs per card with a sheet
+ * underneath, fifteen times: about 1,800 words in one band, and the thing a
+ * merchant actually came to see - what the shopper is shown - was the last
+ * item on each card and the smallest. The argument was in the prose and the
+ * evidence was the footnote, which is backwards.
  *
- * TWO THINGS MAKE THIS DIFFERENT FROM A LIST OF FEATURES.
+ * The sheet is now the card's subject. It sits at the top at full width, in
+ * the design system file's own tokens (see `data-ds="figma"` in
+ * `widget-kit.css`), so fifteen of them read as one product rather than as
+ * fifteen decorations of the band they happen to sit on. Under it: the
+ * moment's name, one line for when it fires, and its two tags. The rest of
+ * the five Ws - who, where, why here - is one disclosure away, because it is
+ * what a merchant reads about the two or three moments they recognise, not
+ * about all fifteen.
  *
- * The five Ws. Every card answers who, when, what, where and why, in that
- * order, in the same five slots. A merchant scanning fifteen of them is
- * comparing moments, and a comparison is only possible when the answers sit
- * in fixed places. "Why" is always why it works HERE - a line that could be
- * pasted into another sector has failed.
- *
- * The coverage is PROVEN, not claimed. Each moment is tagged with the goal it
- * moves and the shape it takes, using the same slugs `/features` publishes, so
- * the band can show that all five goals and all five presentations are
- * answered in this sector with this sector's products, and can group by
- * either. Fifteen cards in one column is a wall; fifteen cards a merchant can
- * slice by "what do I want to move" is a catalogue.
- *
- * A sector whose moments are not tagged yet keeps the older four-field card,
- * so the two shapes coexist while the rest of the sectors are rewritten.
+ * THREE LAYOUTS, one switch. Which one a catalogue of fifteen sheets wants is
+ * a judgement that needs to be seen rather than argued, so all three are
+ * built and the page offers them: a three-up grid, a rail per goal, and the
+ * two-up split. The switch is temporary scaffolding for that decision.
  */
 
 type Dimension = "goal" | "presentation" | "placement";
+type Layout = "grid" | "rail" | "split";
 
 export default function SectorUseCases({ slug }: { slug: string }) {
   const { lang, dir } = useLanguage();
@@ -50,10 +48,9 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const [activeChannel, setActiveChannel] = useState<string>("all");
   const [dimension, setDimension] = useState<Dimension>("goal");
   const [activeTag, setActiveTag] = useState<string>("all");
+  const [layout, setLayout] = useState<Layout>("grid");
+  const [open, setOpen] = useState<string | null>(null);
 
-  /* The tagged shape is all-or-nothing per sector: a band that groups by goal
-     while a third of its cards have no goal would hide those cards behind
-     every chip but "all", which is worse than not grouping. */
   const tagged = Boolean(deep?.useCases.length) &&
     (deep?.useCases.every((u) => u.goal && u.presentation) ?? false);
 
@@ -61,7 +58,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     if (!deep) return [];
     let list = deep.useCases;
     if (activeChannel !== "all") list = list.filter((u) => u.channel === activeChannel);
-    if (tagged && activeTag !== "all") {
+    if (tagged && activeTag !== "all" && layout !== "rail") {
       list = list.filter((u) =>
         dimension === "goal" ? u.goal === activeTag
           : dimension === "presentation" ? u.presentation === activeTag
@@ -69,19 +66,19 @@ export default function SectorUseCases({ slug }: { slug: string }) {
       );
     }
     return list;
-  }, [deep, activeChannel, tagged, activeTag, dimension]);
+  }, [deep, activeChannel, tagged, activeTag, dimension, layout]);
 
   if (!deep) return null;
 
-  const labels = {
+  const L = {
     kicker: isAr ? "حالات الاستخدام" : "Use cases",
-    title: isAr ? "أين تعمل زيادة داخل هذا القطاع؟" : "Where Ziadah fires inside this sector",
+    title: isAr ? "أين تعمل زيادة داخل متجرك؟" : "Where Ziadah fires inside your store",
+    when: isAr ? "متى" : "When",
     who: isAr ? "مَن" : "Who",
-    trigger: isAr ? "متى" : "When",
-    scenario: isAr ? "ماذا يرى" : "What they see",
     where: isAr ? "أين" : "Where",
-    why: isAr ? "لماذا هنا" : "Why here",
-    example: isAr ? "مثال حي" : "Live example",
+    why: isAr ? "لماذا تنجح هنا" : "Why it works here",
+    more: isAr ? "التفاصيل" : "Details",
+    less: isAr ? "إخفاء" : "Hide",
     sees: isAr ? "ما يشاهده العميل" : "What the customer sees",
     suggests: isAr ? "يقترح زيادة" : "Ziadah suggests",
     currency: isAr ? "ر.س" : "SAR",
@@ -95,32 +92,25 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     byPresentation: isAr ? "حسب شكل العرض" : "By shape",
     byPlacement: isAr ? "حسب مكان العرض" : "By placement",
     groupLabel: isAr ? "طريقة التصفية" : "Group the moments by",
+    layoutLabel: isAr ? "شكل العرض (مؤقت للاختيار)" : "Layout (temporary, to choose from)",
+    layoutGrid: isAr ? "شبكة ثلاثية" : "Three-up grid",
+    layoutRail: isAr ? "صف لكل هدف" : "A rail per goal",
+    layoutSplit: isAr ? "عمودان" : "Two columns",
     coverKicker: isAr ? "التغطية" : "Coverage",
-    coverTitle: isAr
-      ? "كل أهداف زيادة وكل أشكال عرضها، هنا"
-      : "Every Ziadah goal and every shape, here",
+    coverTitle: isAr ? "كل أهداف زيادة وكل أشكال عرضها، هنا" : "Every Ziadah goal and every shape, here",
     coverLead: isAr
       ? "ليست قائمة مزايا. هذه كل أهداف زيادة الخمسة وكل أشكال عرضها الخمسة، لكل واحد منها لحظة حقيقية في هذا القطاع بمنتجاته وأسعاره."
       : "Not a feature list. These are all five of Ziadah's goals and all five of its shapes, each with a real moment in this sector, in its own products and at its own prices.",
     coverGoals: isAr ? "الأهداف" : "Goals",
     coverShapes: isAr ? "أشكال العرض" : "Shapes",
-    moment1: isAr ? "لحظة واحدة" : "1 moment",
-    moment2: isAr ? "لحظتان" : "2 moments",
-    momentsFew: isAr ? "لحظات" : "moments",
-    momentsMany: isAr ? "لحظة" : "moments",
     momentsNone: isAr ? "لا شيء هنا" : "none here",
-    empty: isAr ? "لا توجد لحظة بهذا التصنيف في هذا القطاع." : "No moment under this filter in this sector.",
+    empty: isAr ? "لا توجد لحظة بهذا التصنيف." : "No moment under this filter.",
   };
 
   const channelName = (code?: string) => {
-    if (!code) return null;
     const ch = deep.channels?.find((c) => c.code === code);
     return ch ? (isAr ? ch.nameAr : ch.nameEn) : null;
   };
-
-  /* The product's own words for its own slugs. Reading them out of
-     `features-data` rather than restating them here is what keeps one term
-     meaning one thing across `/features`, the home page and this band. */
   const goalName = (s?: GoalSlug) => {
     const g = goals.find((x) => x.slug === s);
     return g ? (isAr ? g.title : g.titleEn) : null;
@@ -138,55 +128,121 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     deep.useCases.filter((u) => pick(u) === value).length;
 
   /* Arabic counts its noun by the number in front of it: one is singular, two
-     is the dual, three to ten takes the plural, and eleven up goes back to the
-     singular. "6 لحظة" is wrong in every register, and a coverage grid whose
-     own labels are ungrammatical undermines the thing it is proving. */
+     is the dual, three to ten takes the plural, eleven up is singular again.
+     "6 لحظة" is wrong in every register, and a coverage grid whose own labels
+     are ungrammatical undermines the thing it is proving. */
   const momentCount = (n: number) => {
-    if (n === 0) return labels.momentsNone;
+    if (n === 0) return L.momentsNone;
     if (!isAr) return `${n} ${n === 1 ? "moment" : "moments"}`;
-    if (n === 1) return labels.moment1;
-    if (n === 2) return labels.moment2;
-    if (n <= 10) return `${n} ${labels.momentsFew}`;
-    return `${n} ${labels.momentsMany}`;
+    if (n === 1) return "لحظة واحدة";
+    if (n === 2) return "لحظتان";
+    if (n <= 10) return `${n} لحظات`;
+    return `${n} لحظة`;
   };
 
-  /* Only the tags this sector actually uses. A chip for a placement no moment
-     here runs on is a dead end, and a sector is not obliged to use all nine. */
   const used = (pick: (u: SectorUseCase) => string | undefined) =>
     new Set(deep.useCases.map(pick).filter(Boolean) as string[]);
 
   const chipsFor = (d: Dimension) => {
-    if (d === "goal") {
-      const u = used((x) => x.goal);
-      return goals.filter((g) => u.has(g.slug)).map((g) => ({ slug: g.slug, label: isAr ? g.title : g.titleEn }));
-    }
-    if (d === "presentation") {
-      const u = used((x) => x.presentation);
-      return presentations.filter((p) => u.has(p.slug)).map((p) => ({ slug: p.slug, label: isAr ? p.title : p.titleEn }));
-    }
-    const u = used((x) => x.placement);
-    return placements.filter((p) => u.has(p.slug)).map((p) => ({ slug: p.slug, label: isAr ? p.title : p.titleEn }));
+    const src = d === "goal" ? goals : d === "presentation" ? presentations : placements;
+    const u = used((x) => (d === "goal" ? x.goal : d === "presentation" ? x.presentation : x.placement));
+    return src.filter((x) => u.has(x.slug)).map((x) => ({ slug: x.slug, label: isAr ? x.title : x.titleEn }));
   };
 
-  const switchDimension = (d: Dimension) => {
-    setDimension(d);
-    setActiveTag("all");
+  /* THE CARD. One shape, three layouts: only the container changes, so a
+     merchant comparing layouts is comparing layouts and not three different
+     cards. */
+  const Card = ({ uc, compact }: { uc: SectorUseCase; compact?: boolean }) => {
+    const isOpen = open === uc.key;
+    return (
+      <article className="scq-card" data-compact={compact ? "" : undefined}>
+        {uc.widget ? (
+          <div className="scq-stage">
+            <WidgetShell
+              ds="figma"
+              maxWidth={compact ? 300 : 340}
+              title={isAr ? uc.widget.titleAr : uc.widget.titleEn}
+              footer={<WidgetButton block>{isAr ? uc.widget.ctaAr : uc.widget.ctaEn}</WidgetButton>}
+            >
+              <WidgetHint>{L.sees}</WidgetHint>
+              <ProductRow
+                name={isAr ? uc.widget.mainAr : uc.widget.mainEn}
+                price={uc.widget.mainPrice}
+                currency={L.currency}
+              />
+              <WidgetHint>
+                {isAr ? uc.widget.hintAr ?? L.suggests : uc.widget.hintEn ?? L.suggests}
+              </WidgetHint>
+              <ProductList>
+                {uc.widget.suggest.map((sg, i) => (
+                  <ProductRow
+                    key={i}
+                    name={isAr ? sg.ar : sg.en}
+                    price={sg.price}
+                    was={sg.was}
+                    currency={L.currency}
+                    selected={i === 0}
+                  />
+                ))}
+              </ProductList>
+            </WidgetShell>
+          </div>
+        ) : null}
+
+        <div className="scq-body">
+          <h3 className="scq-name">{isAr ? uc.titleAr : uc.titleEn}</h3>
+          <p className="scq-when">
+            <span className="scq-when-k">{L.when}</span>
+            {isAr ? uc.triggerAr : uc.triggerEn}
+          </p>
+          <p className="scq-tags">
+            {goalName(uc.goal) ? <span className="scq-tag">{goalName(uc.goal)}</span> : null}
+            {presentationName(uc.presentation) ? (
+              <span className="scq-tag is-shape">{presentationName(uc.presentation)}</span>
+            ) : null}
+            {channelName(uc.channel) ? (
+              <span className="scq-tag is-shape">{channelName(uc.channel)}</span>
+            ) : null}
+          </p>
+
+          {/* The remaining three Ws, one click away. A merchant reads these
+              for the two or three moments they recognise, not for fifteen. */}
+          <button
+            type="button"
+            className="scq-more"
+            aria-expanded={isOpen}
+            onClick={() => setOpen(isOpen ? null : uc.key)}
+          >
+            {isOpen ? L.less : L.more}
+            <span aria-hidden="true" className="scq-more-i">{isOpen ? "−" : "+"}</span>
+          </button>
+          {isOpen ? (
+            <dl className="scq-facts">
+              {uc.whoAr || uc.whoEn ? (
+                <div className="scq-fact">
+                  <dt>{L.who}</dt><dd>{isAr ? uc.whoAr : uc.whoEn}</dd>
+                </div>
+              ) : null}
+              {placementName(uc.placement) ? (
+                <div className="scq-fact">
+                  <dt>{L.where}</dt><dd>{placementName(uc.placement)}</dd>
+                </div>
+              ) : null}
+              <div className="scq-fact">
+                <dt>{L.why}</dt><dd>{isAr ? uc.whyAr : uc.whyEn}</dd>
+              </div>
+            </dl>
+          ) : null}
+        </div>
+      </article>
+    );
   };
 
   return (
     <>
       {deep.channels?.length ? (
         <DsSection id="section-channels" family="grey">
-          {/* Centred. These two are full-width bands, not column sections:
-              the channels grid and the use-case grid both run edge to edge
-              under them, so the head belongs on the band's axis rather than
-              at the reading edge of a column that is not there. */}
-          <SectionHead
-            center
-            kicker={labels.channelsTitle}
-            title={labels.channelsTitle}
-            lead={labels.channelsLead}
-          />
+          <SectionHead center kicker={L.channelsTitle} title={L.channelsTitle} lead={L.channelsLead} />
           <Shell>
             <div className="sdd-channels" dir={dir}>
               {deep.channels.map((ch) => (
@@ -200,76 +256,105 @@ export default function SectorUseCases({ slug }: { slug: string }) {
         </DsSection>
       ) : null}
 
-      {/* THE PROOF, before the catalogue. A merchant who has been told "it
-          does cross-selling" has heard a claim; a merchant who sees all five
-          goals and all five shapes each attached to a moment in their own
-          trade has seen the argument finished. */}
       {tagged ? (
         <DsSection id="section-coverage" family="grey">
-          <SectionHead center kicker={labels.coverKicker} title={labels.coverTitle} lead={labels.coverLead} />
+          <SectionHead center kicker={L.coverKicker} title={L.coverTitle} lead={L.coverLead} />
           <Shell>
-            <div className="ucx-cover" dir={dir}>
-              <div className="ucx-cover-col">
-                <h3 className="ucx-cover-k">{labels.coverGoals}</h3>
-                <ul className="ucx-cover-list">
-                  {goals.map((g) => {
-                    const n = countBy((u) => u.goal, g.slug);
-                    return (
-                      <li key={g.slug} className="ucx-cover-row" data-empty={n === 0 ? "" : undefined}>
-                        <span className="ucx-cover-name">{isAr ? g.title : g.titleEn}</span>
-                        <span className="ucx-cover-n">{momentCount(n)}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="ucx-cover-col">
-                <h3 className="ucx-cover-k">{labels.coverShapes}</h3>
-                <ul className="ucx-cover-list">
-                  {presentations.map((p) => {
-                    const n = countBy((u) => u.presentation, p.slug);
-                    return (
-                      <li key={p.slug} className="ucx-cover-row" data-empty={n === 0 ? "" : undefined}>
-                        <span className="ucx-cover-name">{isAr ? p.title : p.titleEn}</span>
-                        <span className="ucx-cover-n">{momentCount(n)}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
+            <div className="scq-cover" dir={dir}>
+              {([[L.coverGoals, goals, (u: SectorUseCase) => u.goal],
+                 [L.coverShapes, presentations, (u: SectorUseCase) => u.presentation]] as const).map(
+                ([heading, list, pick]) => (
+                  <div className="scq-cover-col" key={String(heading)}>
+                    <h3 className="scq-cover-k">{heading}</h3>
+                    <ul className="scq-cover-list">
+                      {list.map((x) => {
+                        const n = countBy(pick, x.slug);
+                        return (
+                          <li key={x.slug} className="scq-cover-row" data-empty={n === 0 ? "" : undefined}>
+                            <span className="scq-cover-name">{isAr ? x.title : x.titleEn}</span>
+                            <span className="scq-cover-n">{momentCount(n)}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ),
+              )}
             </div>
           </Shell>
         </DsSection>
       ) : null}
 
       <DsSection id="section-use-cases" family="violet">
-        <SectionHead
-          center
-          kicker={labels.kicker}
-          title={labels.title}
-          lead={isAr ? deep.introAr : deep.introEn}
-        />
+        <SectionHead center kicker={L.kicker} title={L.title} lead={isAr ? deep.introAr : deep.introEn} />
         <Shell>
+          {/* TEMPORARY. Three layouts built side by side so the right one can
+              be chosen by looking rather than by arguing. Delete this switch
+              and the two layouts not chosen once the decision is made. */}
+          {tagged ? (
+            <div className="scq-controls" dir={dir}>
+              <div className="scq-dims" role="tablist" aria-label={L.layoutLabel}>
+                {([["grid", L.layoutGrid], ["rail", L.layoutRail], ["split", L.layoutSplit]] as [Layout, string][])
+                  .map(([v, label]) => (
+                    <button
+                      key={v} type="button" role="tab" className="scq-dim"
+                      aria-selected={layout === v}
+                      onClick={() => { setLayout(v); setActiveTag("all"); setOpen(null); }}
+                    >
+                      {label}
+                    </button>
+                  ))}
+              </div>
+
+              {layout !== "rail" ? (
+                <>
+                  <div className="scq-dims is-sub" role="tablist" aria-label={L.groupLabel}>
+                    {([["goal", L.byGoal], ["presentation", L.byPresentation], ["placement", L.byPlacement]] as [Dimension, string][])
+                      .map(([d, label]) => (
+                        <button
+                          key={d} type="button" role="tab" className="scq-dim"
+                          aria-selected={dimension === d}
+                          onClick={() => { setDimension(d); setActiveTag("all"); }}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                  </div>
+                  <div className="sdd-filter" role="group" aria-label={L.groupLabel}>
+                    <button
+                      type="button" className="chip is-small"
+                      aria-pressed={activeTag === "all"}
+                      onClick={() => setActiveTag("all")}
+                    >
+                      {L.allTags} ({deep.useCases.length})
+                    </button>
+                    {chipsFor(dimension).map((c) => (
+                      <button
+                        key={c.slug} type="button" className="chip is-small"
+                        aria-pressed={activeTag === c.slug}
+                        onClick={() => setActiveTag(c.slug)}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          ) : null}
+
           {deep.channels?.length ? (
-            /* A filter, not a tab strip: every card stays reachable and "all"
-               is the default, because a merchant who does not yet run a kiosk
-               still wants to see what a kiosk would do. */
-            <div className="sdd-filter" dir={dir} role="group" aria-label={labels.channelsTitle}>
+            <div className="sdd-filter" dir={dir} role="group" aria-label={L.channelsTitle}>
               <button
-                type="button"
-                className="chip is-small"
-                aria-pressed={activeChannel === "all"}
-                onClick={() => setActiveChannel("all")}
+                type="button" className="chip is-small"
+                aria-pressed={activeChannel === "all"} onClick={() => setActiveChannel("all")}
               >
-                {labels.all}
+                {L.all}
               </button>
               {deep.channels.map((ch) => (
                 <button
-                  key={ch.code}
-                  type="button"
-                  className="chip is-small"
-                  aria-pressed={activeChannel === ch.code}
-                  onClick={() => setActiveChannel(ch.code)}
+                  key={ch.code} type="button" className="chip is-small"
+                  aria-pressed={activeChannel === ch.code} onClick={() => setActiveChannel(ch.code)}
                 >
                   {isAr ? ch.nameAr : ch.nameEn}
                 </button>
@@ -277,153 +362,29 @@ export default function SectorUseCases({ slug }: { slug: string }) {
             </div>
           ) : null}
 
-          {tagged ? (
-            /* Two levels, because fifteen cards need slicing twice: first the
-               question the merchant is asking (what do I want to move, how
-               should it look, where should it run), then the answer within
-               it. One flat row of fifteen chips would be the same wall in a
-               different shape. */
-            <div className="ucx-controls" dir={dir}>
-              <div className="ucx-dims" role="tablist" aria-label={labels.groupLabel}>
-                {([
-                  ["goal", labels.byGoal],
-                  ["presentation", labels.byPresentation],
-                  ["placement", labels.byPlacement],
-                ] as [Dimension, string][]).map(([d, label]) => (
-                  <button
-                    key={d}
-                    type="button"
-                    role="tab"
-                    className="ucx-dim"
-                    aria-selected={dimension === d}
-                    onClick={() => switchDimension(d)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-              <div className="sdd-filter" role="group" aria-label={labels.groupLabel}>
-                <button
-                  type="button"
-                  className="chip is-small"
-                  aria-pressed={activeTag === "all"}
-                  onClick={() => setActiveTag("all")}
-                >
-                  {labels.allTags} ({deep.useCases.length})
-                </button>
-                {chipsFor(dimension).map((c) => (
-                  <button
-                    key={c.slug}
-                    type="button"
-                    className="chip is-small"
-                    aria-pressed={activeTag === c.slug}
-                    onClick={() => setActiveTag(c.slug)}
-                  >
-                    {c.label}
-                  </button>
-                ))}
-              </div>
+          {layout === "rail" && tagged ? (
+            /* One rail per goal. The heading carries the argument ("this is
+               what raising cart value looks like in your trade") and the rail
+               carries the evidence. */
+            goals
+              .filter((g) => deep.useCases.some((u) => u.goal === g.slug))
+              .map((g) => (
+                <section key={g.slug} className="scq-rail-sec" dir={dir}>
+                  <h3 className="scq-rail-k">{isAr ? g.title : g.titleEn}</h3>
+                  <div className="scq-rail">
+                    {deep.useCases.filter((u) => u.goal === g.slug).map((uc) => (
+                      <Card key={uc.key} uc={uc} compact />
+                    ))}
+                  </div>
+                </section>
+              ))
+          ) : visible.length === 0 ? (
+            <p className="scq-empty">{L.empty}</p>
+          ) : (
+            <div className={`scq-list is-${layout}`} dir={dir}>
+              {visible.map((uc) => <Card key={uc.key} uc={uc} compact={layout === "grid"} />)}
             </div>
-          ) : null}
-
-          {visible.length === 0 ? <p className="ucx-empty">{labels.empty}</p> : null}
-
-          <div className="sdd-list" dir={dir}>
-            {visible.map((uc: SectorUseCase) => (
-              <article key={uc.key} className="sdd-case">
-                <header className="sdd-case-head">
-                  <h3 className="sdd-case-title">{isAr ? uc.titleAr : uc.titleEn}</h3>
-                  {channelName(uc.channel) ? (
-                    <span className="sdd-case-channel">{channelName(uc.channel)}</span>
-                  ) : null}
-                </header>
-
-                {uc.goal || uc.presentation ? (
-                  /* The two tags the grid proved, repeated on the card, so a
-                     merchant who filtered by goal can still see what shape
-                     this one takes without going back. */
-                  <p className="ucx-tags">
-                    {goalName(uc.goal) ? <span className="ucx-tag">{goalName(uc.goal)}</span> : null}
-                    {presentationName(uc.presentation) ? (
-                      <span className="ucx-tag is-shape">{presentationName(uc.presentation)}</span>
-                    ) : null}
-                  </p>
-                ) : null}
-
-                {/* A description list, because that is what this is: the five
-                    Ws as terms and their values, read in one fixed order. */}
-                <dl className="sdd-facts">
-                  {uc.whoAr || uc.whoEn ? (
-                    <div className="sdd-fact">
-                      <dt className="sdd-fact-k">{labels.who}</dt>
-                      <dd className="sdd-fact-v">{isAr ? uc.whoAr : uc.whoEn}</dd>
-                    </div>
-                  ) : null}
-                  <div className="sdd-fact">
-                    <dt className="sdd-fact-k">{labels.trigger}</dt>
-                    <dd className="sdd-fact-v">{isAr ? uc.triggerAr : uc.triggerEn}</dd>
-                  </div>
-                  <div className="sdd-fact">
-                    <dt className="sdd-fact-k">{labels.scenario}</dt>
-                    <dd className="sdd-fact-v">{isAr ? uc.scenarioAr : uc.scenarioEn}</dd>
-                  </div>
-                  {placementName(uc.placement) ? (
-                    <div className="sdd-fact">
-                      <dt className="sdd-fact-k">{labels.where}</dt>
-                      <dd className="sdd-fact-v">{placementName(uc.placement)}</dd>
-                    </div>
-                  ) : null}
-                  <div className="sdd-fact">
-                    <dt className="sdd-fact-k">{labels.why}</dt>
-                    <dd className="sdd-fact-v">{isAr ? uc.whyAr : uc.whyEn}</dd>
-                  </div>
-                </dl>
-
-                {uc.widget ? (
-                  /* The real sheet, from the same kit the product ships. A
-                     picture of a widget ages the moment it ships; this one
-                     cannot, because it IS the components. */
-                  <div className="sdd-widget">
-                    <span className="sdd-preview-k">{labels.example}</span>
-                    <div className="sdd-widget-stage">
-                      <WidgetShell
-                        title={isAr ? uc.widget.titleAr : uc.widget.titleEn}
-                        footer={
-                          <WidgetButton block>
-                            {isAr ? uc.widget.ctaAr : uc.widget.ctaEn}
-                          </WidgetButton>
-                        }
-                      >
-                        <WidgetHint>{labels.sees}</WidgetHint>
-                        <ProductRow
-                          name={isAr ? uc.widget.mainAr : uc.widget.mainEn}
-                          price={uc.widget.mainPrice}
-                          currency={labels.currency}
-                        />
-                        <WidgetHint>
-                          {isAr
-                            ? uc.widget.hintAr ?? labels.suggests
-                            : uc.widget.hintEn ?? labels.suggests}
-                        </WidgetHint>
-                        <ProductList>
-                          {uc.widget.suggest.map((sg, i) => (
-                            <ProductRow
-                              key={i}
-                              name={isAr ? sg.ar : sg.en}
-                              price={sg.price}
-                              was={sg.was}
-                              currency={labels.currency}
-                              selected={i === 0}
-                            />
-                          ))}
-                        </ProductList>
-                      </WidgetShell>
-                    </div>
-                  </div>
-                ) : null}
-              </article>
-            ))}
-          </div>
+          )}
         </Shell>
       </DsSection>
     </>
