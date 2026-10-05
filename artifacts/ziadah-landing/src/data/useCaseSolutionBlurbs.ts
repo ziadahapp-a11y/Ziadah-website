@@ -69,6 +69,10 @@ export const useCaseSolutionBlurbs: Record<string, UseCaseBlurb> = {
     ar: "شراء أكثر وفر أكثر — شرائح كمية واضحة.",
     en: "Tiered quantity savings with clear thresholds.",
   },
+  "/use-cases/buy-them-all": {
+    ar: "اشترِ الكل: مجموعة ثابتة بسعر واحد تُضاف للسلة بنقرة.",
+    en: "Buy them all: a fixed set at one price, added in one click.",
+  },
   "/use-cases/more-cart-items": {
     ar: "هدف: زيادة عدد بنود السلة بعروض مناسبة للكمية.",
     en: "Goal: more line items with quantity-aware offers.",

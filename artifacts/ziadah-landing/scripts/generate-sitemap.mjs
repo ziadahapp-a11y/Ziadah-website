@@ -106,6 +106,7 @@ const USE_CASE_PATHS = [
   "/use-cases/buy-together",
   "/use-cases/bundle-deals",
   "/use-cases/buy-more-save-more",
+  "/use-cases/buy-them-all",
   "/use-cases/checkout",
   "/use-cases/add-to-cart",
   "/use-cases/remove-from-cart",

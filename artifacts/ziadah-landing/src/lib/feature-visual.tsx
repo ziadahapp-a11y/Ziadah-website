@@ -4,6 +4,7 @@ import AddonsWidget from "@/components/widgets/AddonsWidget";
 import BuyTogetherWidget from "@/components/widgets/BuyTogetherWidget";
 import BundleDealsWidget from "@/components/widgets/BundleDealsWidget";
 import BuyMoreSaveMoreWidget from "@/components/widgets/BuyMoreSaveMoreWidget";
+import BuyThemAllWidget from "@/components/widgets/BuyThemAllWidget";
 import ProductSwapWidget from "@/components/widgets/ProductSwapWidget";
 import CouponWidget from "@/components/widgets/CouponWidget";
 import CrossSellWidget from "@/components/widgets/CrossSellWidget";
@@ -44,6 +45,7 @@ const VISUAL_OF: Record<string, ComponentType> = {
   "bought-together": BuyTogetherWidget,
   combo: BundleDealsWidget,
   "buy-more-save-more": BuyMoreSaveMoreWidget,
+  "buy-them-all": BuyThemAllWidget,
 
   /* Placements — where on the storefront it appears. Each takes the widget
      that genuinely runs at that placement, which is why `checkout-page` gets
