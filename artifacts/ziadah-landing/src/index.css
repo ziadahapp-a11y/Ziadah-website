@@ -107,8 +107,13 @@ html {
 
 :root {
   /* ---- layout ---- */
-  --site-container-max-width: 1920px;
-  --page-padding-x: 1.6rem;
+  /* 1920 meant "no maximum" in practice: at every width the container came
+     out as the viewport minus two gutters, so at 1440 the content column was
+     1392px wide and the page had 24px margins. A measured column, in px for
+     the same reason the type scale is - one rem is 12.3px at 1024 and 10px
+     at 1440, so a rem gutter grows on the way DOWN from desktop to tablet. */
+  --site-container-max-width: 1200px;
+  --page-padding-x: clamp(16px, 1.4vw + 6px, 32px);
   --columns-count: 16;
 
   /* The header switches height at 768, not 1025. `--header-dynamic-height` is
@@ -134,9 +139,9 @@ html {
   /* ---- shape ----
      1.6rem is the card radius everywhere, 3.2rem the large block and the
      pinned figure, 4.8rem the device frame, 10rem the pill. */
-  --radius-card: 1.6rem;
-  --radius-block: 3.2rem;
-  --radius-media: 1.6rem;
+  --radius-card: 16px;
+  --radius-block: 24px;
+  --radius-media: 16px;
   --radius-device: 4.8rem;
   --button-radius: 10rem;
 
@@ -207,9 +212,13 @@ html {
   --type-display: 4rem;
 
   /* ---- semantic ---- */
-  /* Section rhythm: 6.4rem 0, and 7.4rem 0 11.6rem at the desktop tier. */
-  --section-space: 6.4rem;
-  --section-space-bottom: 6.4rem;
+  /* MEASURED AND CUT. Was 6.4rem, and 7.4rem top / 11.6rem bottom at the
+     desktop tier: 190px of air per band at 1440, about ten bands a page, so
+     1900px of nothing to scroll past. The bottom now equals the top, because
+     a band is a band and the asymmetry was never a decision - it was two
+     values in two media queries. */
+  --section-space: clamp(48px, 2.2vw + 30px, 72px);
+  --section-space-bottom: var(--section-space);
 
   /* ---- status ink ----
      The TEXT role of each status family, kept behind one indirection so a
@@ -232,9 +241,10 @@ html {
 }
 
 @media screen and (min-width: 1025px) {
-  :root { --section-space: 7.4rem; --section-space-bottom: 11.6rem; }
+  /* The section and gutter tokens are now clamped once above and need no
+     tier override; re-declaring them here in rem is what reintroduced the
+     inversion. The type tokens keep their tier. */
   :root { --type-2: 2.8rem; --type-1: 4rem; --type-display: 5.6rem; }
-  :root { --page-padding-x: 2.4rem; }
 }
 
 @media (prefers-reduced-motion: reduce) { :root { --motion: 0; } }

@@ -2236,3 +2236,26 @@
   color: #4a008c;
 }
 [dir="rtl"] .pz-mark { letter-spacing: 0; }
+
+/* The spacing scale itself lives in `index.css`, unlayered, next to the
+   other tokens: a `:root` block inside `@layer components` loses to the
+   unlayered one no matter how late it is written, which is why the first
+   attempt at this measured as having changed nothing at all. */
+
+/* The grids that opened the widest. 64px and 80px between rows is a gap you
+   read as a missing section, not as breathing room. */
+.cards-grid,
+.slist,
+.bento-board,
+.block-grid { row-gap: clamp(20px, 1vw + 12px, 32px); }
+
+/* The grids that still opened widest after the token cut, named from a
+   sweep rather than guessed: `ucrow` and `ucrow-list` at 64px, the home
+   hero and the closing band at 80px. A gap that size reads as a missing
+   section rather than as breathing room. */
+.ucrow,
+.ucrow--reverse,
+.ucrow-list,
+.ucx-groups { row-gap: clamp(20px, 1vw + 12px, 32px); }
+.hero-home-inner,
+.closing-inner { row-gap: clamp(24px, 1.4vw + 14px, 40px); }
