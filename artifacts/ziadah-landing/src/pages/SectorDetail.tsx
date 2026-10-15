@@ -16,6 +16,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
 import SectorUseCases from "@/components/SectorUseCases";
+import SectorStoreDemo from "@/components/SectorStoreDemo";
 import { navigateTo } from "@/components/PageTransition";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorPageRichSections from "@/components/SectorPageRichSections";
@@ -264,6 +265,12 @@ export default function SectorDetail() {
         <article className={articleClass} style={articleStyle}>
           {pageRich ? <SectorPageRichSections rich={pageRich} part="top" /> : null}
         </article>
+
+        {/* PLAY FIRST, READ AFTER. The catalogue below explains the
+            moments; this lets a merchant trigger them. A reader who has made
+            the coupon fire themselves does not need the card that describes
+            it, and a reader who has not is far more likely to read it. */}
+        <SectorStoreDemo slug={sector.slug} />
 
         <SectorUseCases slug={sector.slug} />
 
