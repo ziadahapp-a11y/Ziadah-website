@@ -1960,56 +1960,69 @@
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
 }
 
-/* ---------- THE USE-CASE CATALOGUE, WIDGET FIRST ---------------------
-   The sheet is the card's subject, so it sits at the top at full width and
-   the words sit under it. Three layouts share one card: only the container
-   changes, so a comparison between layouts is a comparison of layouts. */
 
-.scq-card {
-  min-width: 0;
+
+/* ---------- PICK A MOMENT, SEE IT RUN -------------------------------
+   A list of the sector's moments. Click one and the real sheet opens under
+   it. One open at a time, so fifteen moments stay a list rather than
+   becoming the wall of cards this band used to be.
+
+   A sticky panel beside the list was the first attempt and it was wrong:
+   fifteen rows are far taller than one panel, so clicking the tenth moment
+   changed something off the top of the screen. */
+
+.scq-pick { display: block; }
+.scq-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+
+.scq-row {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: start;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 1.6rem;
-  padding: 1.6rem;
+  border: 0;
+  padding: 1.8rem 2rem;
   border-radius: var(--radius-card);
   background: var(--color-primary, #fff);
   box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  font: inherit;
+  color: inherit;
+  transition: box-shadow 0.18s ease;
 }
-/* The stage the sheet stands on. The sheet is white in the Figma mode, so it
-   needs a ground a shade off the card or it dissolves into it. */
-.scq-stage {
-  display: flex;
-  justify-content: center;
-  padding: 1.6rem;
-  border-radius: calc(var(--radius-card) - 0.6rem);
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--color-primary, #fff));
+@media (hover: hover) {
+  .scq-row:hover { box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 32%, transparent); }
 }
-/* The sheet keeps its device width. It is a picture of a phone-sized
-   storefront, and stretching it to the card's width turns a 40px tile and a
-   12px label into a sparse banner that looks nothing like the product. The
-   cap only yields when the card itself is narrower. */
-.scq-stage > .wk { width: 100%; }
+/* The open row carries the brand on its edge, and loses its bottom corners
+   so it reads as one piece with the sheet beneath it. */
+.scq-row[aria-expanded="true"] {
+  box-shadow: inset 0 0 0 0.2rem var(--ziadah-violet, #7c3aed);
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+@media (prefers-reduced-motion: reduce) { .scq-row { transition: none; } }
 
-.scq-body { display: flex; flex-direction: column; gap: 0.9rem; min-width: 0; }
-.scq-name { margin: 0; font-size: 2rem; font-weight: 600; letter-spacing: -0.01em; }
-[dir="rtl"] .scq-name { letter-spacing: 0; line-height: 1.45; }
-.scq-card[data-compact] .scq-name { font-size: 1.8rem; }
-
-/* One line, and the label is inline so it costs a word rather than a row. */
-.scq-when { margin: 0; font-size: 1.5rem; line-height: 1.6; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(72%, var(--ink-floor, 0%)), transparent); }
-.scq-when-k {
+.scq-row-main { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; flex: 1 1 auto; }
+.scq-row-n { font-size: 1.8rem; font-weight: 600; letter-spacing: -0.01em; }
+[dir="rtl"] .scq-row-n { letter-spacing: 0; line-height: 1.5; }
+.scq-row-w {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
+.scq-row-w-k {
   display: inline-block;
   margin-inline-end: 0.8rem;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--ziadah-violet, #7c3aed);
 }
-
-.scq-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
+.scq-row-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .scq-tag {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  padding: 0.4rem 1rem;
+  padding: 0.35rem 0.9rem;
   border-radius: 999rem;
   background: color-mix(in srgb, var(--color, #7c3aed) 14%, transparent);
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 92%, transparent);
@@ -2018,249 +2031,50 @@
   background: transparent;
   box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
 }
-
-.scq-more {
-  appearance: none; border: 0; background: none; cursor: pointer; padding: 0;
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  align-self: flex-start;
-  font: inherit; font-size: 1.4rem; font-weight: 600;
+.scq-row-go {
+  flex: none;
+  width: 3.2rem; height: 3.2rem;
+  display: grid; place-items: center;
+  border-radius: 999rem;
+  font-size: 1.8rem; line-height: 1;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 7%, transparent);
   color: var(--ziadah-violet, #7c3aed);
 }
-.scq-more-i { font-size: 1.6rem; line-height: 1; }
-.scq-facts { display: grid; gap: 1rem; margin: 0; padding-block-start: 0.4rem; }
-.scq-fact { display: grid; gap: 0.3rem; }
-.scq-fact dt { font-size: 1.2rem; font-weight: 600; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent); }
-.scq-fact dd { margin: 0; font-size: 1.5rem; line-height: 1.65; }
-
-/* ---- LAYOUT A: the three-up grid ---- */
-.scq-list { display: grid; gap: 1.6rem; align-items: start; grid-template-columns: minmax(0, 1fr); }
-@media screen and (min-width: 700px)  { .scq-list.is-grid  { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media screen and (min-width: 1100px) { .scq-list.is-grid  { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-/* ---- LAYOUT C: the two-up split ---- */
-@media screen and (min-width: 860px)  { .scq-list.is-split { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-/* ---- LAYOUT B: a rail per goal ---- */
-.scq-rail-sec { margin-block-end: 4rem; }
-.scq-rail-k {
-  margin: 0 0 1.6rem;
-  font-size: 2.2rem;
-  font-weight: 600;
-}
-[dir="rtl"] .scq-rail-k { line-height: 1.5; }
-.scq-rail {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(32rem, 82%);
-  gap: 1.6rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  /* The rail runs to the band edge rather than stopping at the column, so it
-     reads as something to drag. The padding keeps the first card off the
-     gutter and the negative margin gives the overflow somewhere to go. */
-  padding-inline: var(--page-padding-x, 1.6rem);
-  margin-inline: calc(var(--page-padding-x, 1.6rem) * -1);
-  padding-block-end: 0.8rem;
-}
-.scq-rail::-webkit-scrollbar { display: none; }
-.scq-rail > * { scroll-snap-align: start; }
-@media screen and (min-width: 860px) { .scq-rail { grid-auto-columns: 34rem; } }
-
-.scq-dims.is-sub { background: transparent; padding: 0; margin-block-end: 1.2rem; }
-.scq-dims.is-sub .scq-dim { font-size: 1.4rem; padding: 0.6rem 1.4rem; }
-.scq-dims.is-sub .scq-dim[aria-selected="true"] {
-  background: transparent;
-  color: var(--ziadah-violet, #7c3aed);
-  box-shadow: inset 0 0 0 0.1rem currentColor;
+.scq-row[aria-expanded="true"] .scq-row-go {
+  background: var(--ziadah-violet, #7c3aed);
+  color: #fff;
 }
 
-/* ---------- THE PLAYABLE STOREFRONT ---------------------------------
-   A working store on the left, a scorecard on the right. The store is a
-   phone-sized column because that is what it depicts; the scorecard is the
-   argument the merchant proves for themselves.
-
-   Colours are the Figma design system's, the same as the widget kit's figma
-   mode, so the demo and the sheets on the rest of the page are one product.
-   The one exception is the band ground, which stays the section's. */
-.sd-wrap {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2.4rem;
-  align-items: start;
-}
-@media screen and (min-width: 900px) {
-  .sd-wrap { grid-template-columns: minmax(0, 36rem) minmax(0, 1fr); }
-}
-
-.sd-phone {
-  min-width: 0;
-  border-radius: 2.4rem;
-  background: #ffffff;
-  box-shadow: inset 0 0 0 0.1rem #e1e0e1, 0 1.2rem 3.2rem rgba(10, 0, 20, 0.07);
-  overflow: hidden;
-  color: #07000c;
-}
-.sd-bar {
-  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
-  padding: 1.4rem 1.6rem;
-  background: #faf5ff;
-  border-block-end: 0.1rem solid #e1e0e1;
-}
-.sd-bar-t { font-size: 1.4rem; font-weight: 600; }
-.sd-cart-btn {
-  appearance: none; border: 0; cursor: pointer;
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  padding: 0.6rem 1.2rem; border-radius: 999rem;
-  background: #4a008c; color: #fff; font: inherit; font-size: 1.3rem; font-weight: 600;
-}
-.sd-cart-btn b { background: #fff; color: #4a008c; border-radius: 999rem; padding: 0 0.6rem; font-size: 1.2rem; }
-
-/* A fixed height with its own scroll, so the page does not jump a screen's
-   worth every time the visitor taps something. */
-.sd-screen {
-  display: flex; flex-direction: column; gap: 1.2rem;
-  padding: 1.6rem;
-  height: 58rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-.sd-h { margin: 0; font-size: 1.7rem; font-weight: 600; }
-.sd-back {
-  appearance: none; border: 0; background: none; cursor: pointer; padding: 0;
-  align-self: flex-start; font: inherit; font-size: 1.3rem; font-weight: 600; color: #6a666d;
-}
-.sd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.sd-tile {
-  appearance: none; cursor: pointer; text-align: start;
-  display: flex; flex-direction: column; gap: 0.6rem;
-  padding: 1rem; border: 0; border-radius: 1.2rem;
-  background: #fff; box-shadow: inset 0 0 0 0.1rem #e1e0e1; font: inherit;
-}
-.sd-tile-n { font-size: 1.3rem; font-weight: 500; color: #07000c; }
-.sd-tile-p { font-size: 1.3rem; color: #4a008c; font-weight: 600; }
-
-.sd-ph {
-  display: block; flex: none; border-radius: 0.8rem; overflow: hidden;
-  background: #faf5ff; box-shadow: inset 0 0 0 0.1rem #e1e0e1;
-}
-.sd-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.sd-rating { margin: 0; font-size: 1.3rem; color: #6a666d; }
-.sd-price { margin: 0; font-size: 1.8rem; font-weight: 600; display: flex; gap: 0.8rem; align-items: baseline; }
-.sd-price s, .sd-row-p s { color: #a3a0a5; font-size: 1.3rem; font-weight: 400; }
-
-.sd-row {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 1rem; border-radius: 1.2rem; background: #fff;
-  box-shadow: inset 0 0 0 0.1rem #e1e0e1;
-}
-.sd-row-main { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; flex: 1 1 auto; }
-.sd-row-n { font-size: 1.3rem; font-weight: 500; }
-.sd-row-p { font-size: 1.3rem; color: #07000c; display: flex; gap: 0.6rem; align-items: baseline; }
-.sd-qty, .sd-step { font-size: 1.3rem; font-weight: 600; color: #6a666d; flex: none; }
-
-.sd-cta {
-  appearance: none; border: 0; cursor: pointer; width: 100%;
-  padding: 1.2rem 1.6rem; border-radius: 999rem;
-  background: #4a008c; color: #fff; font: inherit; font-size: 1.4rem; font-weight: 600;
-}
-.sd-cta[disabled] { background: #e1e0e1; color: #6a666d; cursor: not-allowed; }
-.sd-mini {
-  appearance: none; border: 0; cursor: pointer; flex: none;
-  padding: 0.6rem 1.2rem; border-radius: 999rem;
-  background: #f4e7ff; color: #480085; font: inherit; font-size: 1.2rem; font-weight: 600;
-}
-.sd-leave {
-  appearance: none; border: 0; background: none; cursor: pointer;
-  font: inherit; font-size: 1.3rem; color: #6a666d; text-decoration: underline;
-}
-
-/* The offer. Everything Ziadah says inside the store carries this mark, so a
-   merchant can always tell what the shop did and what Ziadah did. */
-.sd-offer {
-  display: flex; flex-direction: column; gap: 0.9rem;
-  padding: 1.2rem; border-radius: 1.2rem;
-  background: #faf5ff; box-shadow: inset 0 0 0 0.1rem #e9d5ff;
-}
-.sd-offer-k {
-  margin: 0; display: flex; align-items: center; gap: 0.6rem;
-  font-size: 1.1rem; font-weight: 700; color: #4a008c;
-}
-.sd-offer-dot { width: 0.6rem; height: 0.6rem; border-radius: 999rem; background: #4a008c; flex: none; }
-.sd-offer-t { margin: 0; font-size: 1.4rem; font-weight: 600; line-height: 1.5; }
-.sd-note { margin: 0; font-size: 1.3rem; color: #6a666d; line-height: 1.6; }
-.sd-free { margin: 0; font-size: 1.3rem; font-weight: 600; color: #2e7d4f; }
-.sd-code {
-  margin: 0; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.08em;
-  padding: 0.8rem; border-radius: 0.8rem; background: #fff; text-align: center;
-  box-shadow: inset 0 0 0 0.1rem #e9d5ff;
-  direction: ltr;
-}
-.sd-done { margin: 0; font-size: 4rem; line-height: 1; color: #2e7d4f; }
-
-.sd-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.sd-chip {
-  appearance: none; border: 0; cursor: pointer;
-  padding: 0.6rem 1.2rem; border-radius: 999rem;
-  background: #fff; color: #07000c; font: inherit; font-size: 1.2rem;
-  box-shadow: inset 0 0 0 0.1rem #e1e0e1;
-}
-.sd-chip[aria-pressed="true"] { background: #4a008c; color: #fff; box-shadow: none; }
-
-.sd-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
-.sd-tier {
-  appearance: none; border: 0; cursor: pointer;
-  display: flex; flex-direction: column; gap: 0.2rem; align-items: center;
-  padding: 1rem 0.6rem; border-radius: 1rem; background: #fff; font: inherit;
-  box-shadow: inset 0 0 0 0.1rem #e1e0e1;
-}
-.sd-tier[aria-pressed="true"] { box-shadow: inset 0 0 0 0.2rem #4a008c; }
-.sd-tier b { font-size: 1.4rem; }
-.sd-tier span { font-size: 1.2rem; color: #07000c; }
-.sd-tier i { font-size: 1.1rem; font-style: normal; color: #2e7d4f; }
-
-.sd-meter { height: 0.6rem; border-radius: 999rem; background: #e9d5ff; overflow: hidden; }
-.sd-meter i { display: block; height: 100%; background: #4a008c; }
-
-.sd-sum { display: flex; justify-content: space-between; gap: 1.2rem; font-size: 1.4rem; }
-.sd-sum.is-off b { color: #2e7d4f; }
-.sd-sum.is-total { font-size: 1.7rem; font-weight: 700; padding-block-start: 0.8rem; border-block-start: 0.1rem solid #e1e0e1; }
-
-/* ---- the scorecard ---- */
-.sd-panel {
-  min-width: 0;
-  padding: 2.4rem;
+/* The sheet, under its row. */
+.scq-inline {
+  padding: 2rem;
   border-radius: var(--radius-card);
-  background: var(--color-primary, #fff);
-  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  /* A shade off the band, so the white sheet inside has an edge. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--color-primary, #fff));
+  box-shadow:
+    inset 0 0 0 0.2rem var(--ziadah-violet, #7c3aed),
+    inset 0 0.2rem 0 0 var(--color-primary, #fff);
 }
-.sd-panel-t { margin: 0 0 0.6rem; font-size: 2rem; font-weight: 600; }
-.sd-panel-l { margin: 0; font-size: 1.5rem; line-height: 1.6; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent); }
-.sd-score { margin: 1.6rem 0; font-size: 1.6rem; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent); }
-.sd-score b { font-size: 3.6rem; font-weight: 700; color: var(--ziadah-violet, #7c3aed); }
-.sd-types { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-.sd-type {
-  display: flex; gap: 1rem; align-items: flex-start;
-  padding-block: 1.1rem;
-  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
-  opacity: 0.45;
+.scq-stage-body { display: flex; flex-direction: column; gap: 1.4rem; align-items: center; }
+.scq-stage-k {
+  align-self: flex-start;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
 }
-.sd-type:first-child { border-block-start: 0; }
-.sd-type[data-on] { opacity: 1; }
-.sd-type-tick {
-  flex: none; width: 2.2rem; height: 2.2rem; border-radius: 999rem;
-  display: grid; place-items: center; font-size: 1.2rem; font-weight: 700;
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
-  color: var(--color-primary, #fff);
+.scq-stage-why {
+  margin: 0;
+  align-self: flex-start;
+  max-width: 62rem;
+  font-size: 1.45rem;
+  line-height: 1.7;
 }
-.sd-type[data-on] .sd-type-tick { background: var(--ziadah-violet, #7c3aed); color: #fff; }
-.sd-type-main { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-.sd-type-n { font-size: 1.5rem; font-weight: 600; }
-.sd-type-d { font-size: 1.3rem; line-height: 1.6; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(65%, var(--ink-floor, 0%)), transparent); }
-.sd-reset {
-  margin-block-start: 2rem;
-  appearance: none; border: 0; cursor: pointer;
-  padding: 1rem 2rem; border-radius: 999rem; font: inherit; font-size: 1.4rem; font-weight: 600;
-  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
-  color: var(--color-secondary, #0a0a0a);
+.scq-stage-why-k {
+  display: inline-block;
+  margin-inline-end: 0.8rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ziadah-violet, #7c3aed);
 }
