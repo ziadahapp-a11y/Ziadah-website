@@ -4,7 +4,7 @@ import { Button } from "@/components/mk";
 import { useT } from "@/lib/i18n";
 import { themeVars } from "@/sections";
 import { useEnterOnce } from "@/sections/scroll";
-import { DeviceFrame } from "./DeviceFrame";
+import FannedWidgets from "@/components/home/FannedWidgets";
 
 /**
  * The homepage hero.
@@ -88,36 +88,14 @@ export function Hero() {
           </p>
         </div>
 
+        {/* THE DECK, not a device. One screen in a phone said "Ziadah does a
+            thing" without saying how many. Five cards, each holding the real
+            widget the sector pages render, say the actual thing: these are
+            the shapes Ziadah can put on a storefront, and you can go through
+            them with the pointer, the keyboard or the dots. */}
         <div className="hero-home-stage">
           <span className="hero-home-glow" aria-hidden="true" />
-
-          {/* The frame is exactly the device's width and is the chips'
-              positioning context, which is what lets the desktop offsets be
-              written from the frame's real bezel - a 0.8rem border plus
-              2.4rem of padding - instead of nudged until they looked clear.
-              The chips are the frame's SECOND child, not the device's, so on
-              mobile they flow underneath it and the frame grows rather than
-              the chips landing on the last rows. */}
-          <div className="hero-home-frame">
-            <div className="hero-home-device">
-              <DeviceFrame />
-            </div>
-            {/* MEASURED. A chip hangs in the stage's own gutter and overlaps
-                only the device's 3.2rem bezel, so its whole width has to fit
-                that gutter plus the bezel - 167px at 1440, 128px at 1025. The
-                labels are short for that reason, not for tone: at "متوسط قيمة
-                الطلب" the chip came out 189px and ran past the stage. */}
-            <div className="hero-home-chips" aria-hidden="true">
-              <span className="hero-home-chip hero-home-chip--a">
-                <span className="hero-home-chip-label">{t({ ar: "متوسط الطلب", en: "Order value" })}</span>
-                <span className="hero-home-chip-amt num-ltr">+35%</span>
-              </span>
-              <span className="hero-home-chip hero-home-chip--b">
-                <span className="hero-home-chip-label">{t({ ar: "إضافة للسلة", en: "Cart add-ons" })}</span>
-                <span className="hero-home-chip-amt num-ltr">34%</span>
-              </span>
-            </div>
-          </div>
+          <FannedWidgets />
         </div>
       </div>
     </section>
