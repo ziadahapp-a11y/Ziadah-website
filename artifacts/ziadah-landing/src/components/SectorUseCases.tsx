@@ -7,6 +7,8 @@ import { goals, presentations } from "@/lib/features-data";
 import {
   WidgetShell, WidgetHint, WidgetButton, ProductRow, ProductList,
 } from "@/components/widgets/kit";
+import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
+import { productImage } from "@/lib/product-images";
 
 /**
  * PICK A MOMENT, SEE IT RUN.
@@ -33,6 +35,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const isAr = lang === "ar";
   const deep = getSectorDeepDive(slug);
   const [activeKey, setActiveKey] = useState<string | null>(null);
+  const [kind, setKind] = useState<WidgetKind>("kit");
 
   if (!deep?.useCases.length) return null;
 
@@ -111,8 +114,62 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     </div>
   );
 
+  /* A PRODUCT PAGE WITH THE OFFER INSIDE IT.
+     The design file never draws a widget on its own: it draws a storefront
+     screen with the widget sitting in it, because where it sits is half of
+     what it is. A sheet floating on our violet band is a component; the same
+     sheet under a product's own photo and price is the thing the merchant
+     will actually ship. */
+  const Phone = ({ k }: { k: WidgetKind }) => {
+    const heroName = isAr ? "سماعات لاسلكية" : "Wireless Earbuds";
+    const src = productImage(heroName);
+    return (
+      <div className="pz" dir={dir}>
+        <div className="pz-bar"><i /><i /><i /></div>
+        <div className="pz-screen">
+          <div className="pz-hero">{src ? <img src={src} alt="" loading="lazy" decoding="async" /> : null}</div>
+          <p className="pz-name">{heroName}</p>
+          <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
+          <span className="pz-add">{isAr ? "أضف للسلة" : "Add to cart"}</span>
+          <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
+          <StorefrontWidget kind={k} />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
+      {/* THE SHAPES. Five real widget families from the design file, each in
+          the storefront screen it belongs to. This is the band that answers
+          "what does Ziadah put on my page", before the list answers "when". */}
+      <DsSection id="section-shapes" family="grey">
+        <SectionHead
+          center
+          kicker={isAr ? "أشكال العرض" : "The shapes"}
+          title={isAr ? "ما الذي يظهر فعلاً في صفحة منتجك" : "What actually appears on your product page"}
+          lead={isAr
+            ? "خمسة أشكال، كل واحد شاشة متجر كاملة لا بطاقة معلّقة في الهواء. اضغط أي شكل وشوفه داخل الصفحة."
+            : "Five shapes, each one a full storefront screen rather than a card floating in mid-air. Pick a shape and see it inside the page."}
+        />
+        <Shell>
+          <div className="scq-shapes" dir={dir}>
+            <div className="sdd-filter" role="group">
+              {WIDGET_KINDS.map((k) => (
+                <button
+                  key={k} type="button" className="chip is-small"
+                  aria-pressed={kind === k}
+                  onClick={() => setKind(k)}
+                >
+                  {widgetKindLabel(k, isAr)}
+                </button>
+              ))}
+            </div>
+            <Phone k={kind} />
+          </div>
+        </Shell>
+      </DsSection>
+
       {/* The channels band survives the simplification. Only sectors that
           sell on more than one surface declare channels, and for those it
           answers a question the moment list does not: WHERE the order is
