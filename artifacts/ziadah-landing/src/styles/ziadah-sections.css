@@ -2078,3 +2078,120 @@
   font-weight: 700;
   color: var(--ziadah-violet, #7c3aed);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE TYPE SCALE
+
+   MEASURED BEFORE WRITING. A sweep of six routes at 1440 found an H1 at
+   98px, H2 at six different sizes on one site (16, 30, 32, 44, 48, 64) and
+   H3 at five. There was no scale to break; there was no scale.
+
+   WHY PX AND CLAMP, NOT REM. The root font size is viewport-proportional and
+   its slope CHANGES at the tablet break: `1.19904vw` from 768 to 1024, then
+   `0.694444vw` from 1025 up. So one rem is about 12.3px at 1024 and 10px at
+   1440, and the same rem value renders LARGER on a tablet than on a desktop.
+   Every display rule in the system therefore carries two or three media
+   queries whose only job is to undo that inversion. A px ladder with clamp
+   sidesteps it: one declaration per role, fluid between a floor and a
+   ceiling, and the same intent at every width.
+
+   THE LADDER, at 390 / 768 / 1440 / 1920:
+     display-1  30 / 35 / 50 / 56   the home hero, once per page
+     display-2  28 / 32 / 44 / 48   a page's own opener
+     h2         23 / 25 / 33 / 34   a section's title
+     h3         19 / 20 / 23 / 24   a block inside a section
+     h4         17 / 18 / 19 / 20   a card title
+     lead       16 / 16 / 18 / 18   the sentence under a title
+     body       16                  everything else
+     sm         14                  meta, captions in a card
+     cap        12                  labels and eyebrows
+
+   This block is last in the last imported stylesheet, so it outranks the
+   media queries it replaces at equal specificity without !important. The
+   rules those queries live in are left in place: they are the measured
+   record of the reference, and deleting them would lose it. */
+:root {
+  --t-display-1: clamp(30px, 2.2vw + 18px, 56px);
+  --t-display-2: clamp(28px, 1.9vw + 17px, 48px);
+  --t-h2:        clamp(23px, 1.1vw + 17px, 34px);
+  --t-h3:        clamp(19px, 0.5vw + 16px, 24px);
+  --t-h4:        clamp(17px, 0.3vw + 15px, 20px);
+  --t-lead:      clamp(16px, 0.25vw + 14px, 18px);
+  --t-body:      16px;
+  --t-sm:        14px;
+  --t-cap:       12px;
+}
+
+/* ---- display 1: the one hero per page ---- */
+.hero-home-title { font-size: var(--t-display-1); }
+
+/* ---- display 2: a page's opener ---- */
+.hero-title,
+.hero-title--compact,
+.article-title,
+.legal-title,
+.block-heading-xl { font-size: var(--t-display-2); }
+
+/* ---- h2: a section's title ---- */
+.faq-heading,
+.block-heading-l,
+.block-heading-m,
+.slist-title,
+.cat-featured-title,
+.closing-title,
+.bhead-title,
+.section-title,
+.section-head-title--md { font-size: var(--t-h2); }
+
+/* ---- h3: a block inside a section ----
+   `ucrow-title` at 36, `slist-row-title` at 32 and `bcard-title` at 28 were
+   the three biggest remaining offenders in the sweep: all of them are the
+   title of a row or a card inside a band, which is the h3 role, and all
+   three were larger than some pages' h2. */
+.section-head-title--sm,
+.ucrow-title,
+.slist-row-title,
+.bcard-title,
+.skewing-text { font-size: var(--t-h3); }
+
+/* Figures are not headings. A number that carries a result keeps its own
+   weight, one step under the section title, so it still reads as a figure
+   without competing with the band's heading. */
+.stat-num,
+.calc-figure,
+.calc-result,
+.bart-fig,
+.wk-amount,
+.device-balance { font-size: clamp(26px, 0.9vw + 20px, 36px); }
+
+/* ---- the sentence under a title ---- */
+.hero-body,
+.section-lead,
+.block-body { font-size: var(--t-lead); }
+
+/* RTL runs taller than Latin at the same size, and these are the lines most
+   likely to wrap. The leading is set here with the size so the two cannot
+   drift apart again. */
+[dir="rtl"] .hero-home-title,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-title--compact,
+[dir="rtl"] .article-title,
+[dir="rtl"] .legal-title,
+[dir="rtl"] .block-heading-xl { line-height: 1.3; }
+[dir="rtl"] .faq-heading,
+[dir="rtl"] .block-heading-l,
+[dir="rtl"] .block-heading-m,
+[dir="rtl"] .slist-title,
+[dir="rtl"] .cat-featured-title,
+[dir="rtl"] .closing-title,
+[dir="rtl"] .bhead-title,
+[dir="rtl"] .section-title,
+[dir="rtl"] .section-head-title--md { line-height: 1.4; }
+[dir="rtl"] .section-head-title--sm,
+[dir="rtl"] .ucrow-title,
+[dir="rtl"] .slist-row-title,
+[dir="rtl"] .bcard-title { line-height: 1.5; }
+/* `.bcard-caption .bcard-title` is 0,2,0 and outranked the single-class rule
+   above, which is why it stayed at 28 after the first pass. Matched here
+   rather than raised to !important. */
+.bcard-caption .bcard-title { font-size: var(--t-h3); }
