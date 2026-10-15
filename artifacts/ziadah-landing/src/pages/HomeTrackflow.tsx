@@ -5,6 +5,7 @@ import PlatformModal from "@/components/PlatformModal";
 import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorsBriefSection from "@/components/SectorsBriefSection";
 import { Hero } from "./home/Hero";
+import ShapesAi from "@/components/home/ShapesAi";
 import { CoreSystems, Trust } from "./home/CoreSystems";
 import { HowItWorks } from "./home/HowItWorks";
 import { Calculator } from "./home/Calculator";
@@ -86,6 +87,10 @@ export default function HomeTrackflow() {
           what gives every section below it the system's rhythm. */}
       <div className="page">
         <Hero />
+        {/* Straight after the hero, because the deck up there raises the
+            question this band answers: five shapes, fine - who decides which
+            one, and on what? */}
+        <ShapesAi />
         <CoreSystems />
         <WidgetsShowcaseSection />
         <Trust />
