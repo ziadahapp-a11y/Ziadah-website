@@ -284,27 +284,28 @@
 [dir="rtl"] .fan-card-stage { transform: translateX(50%) scale(0.66); }
 
 /* THE CARD IS A PEEK, SO IT FADES RATHER THAN CUTS.
-   The sheets are genuinely different heights - a coupon is four lines, the
-   buy-more-save-more sheet runs 880px - and a card sized for the tallest
-   would be a 620px slab in a hero. So the card keeps its size and the tall
-   sheets run past its foot.
+   The sheets are genuinely different heights, so a tall one runs past the
+   card's foot, and a hard edge through a product row reads as a broken
+   render. The foot fades to the card's own white instead.
 
-   What matters is that the overrun reads as a peek and not as a defect. A
-   hard edge through the middle of a product row looks like the render broke;
-   the same overrun under a fade reads as "there is more of this", which is
-   true, and which is what the page below the hero goes on to show. The fade
-   is a mask rather than a painted gradient so it works on the white card and
-   on whatever band the deck is dropped into. */
-.fan-card {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
+   AN OVERLAY, NOT A MASK. This was `mask-image` on every card. A mask forces
+   the browser to re-composite the whole card on each frame it moves, and the
+   deck moves a dozen of them at once, in 3D: measured at 4x CPU throttle the
+   home page scrolled at a median 117ms a frame (about 8fps) with the masks and
+   33ms without. The card is white, so a white gradient on top looks the same
+   and costs nothing to move. */
+.fan-card::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 46px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
 }
-/* The active card is the one being read, so it fades over a shorter run: a
-   deep fade on the card in front hides the thing the reader is looking at. */
-.fan-card[data-active] {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
-}
+/* The front card is the one being read, so it fades over a shorter run. */
+.fan-card[data-active]::after { height: 28px; }
 
 .fan { cursor: grab; }
 .fan[data-dragging] { cursor: grabbing; }
@@ -472,7 +473,21 @@
 /* THE STAGE. Sticky so it stays beside whichever row is open while the list
    scrolls. It re-enters on every change, which is what tells the eye the
    sheet changed along with the row. */
-.sacc-stage-col { position: sticky; top: calc(var(--header-height, 72px) + 20px); min-width: 0; }
+/* The whole band pins, so the stage column no longer needs its own sticky. */
+.sacc-stage-col { min-width: 0; }
+
+/* THE PIN. On wide screens the track is taller than its content by the runway
+   (set inline) and the pin sticks inside it, centred in the space under the
+   header. `min-height` is what centres it: content shorter than that space is
+   centred by the flex box, and taller content simply starts at the top. */
+.sacc-track[data-wide] .sacc-pin {
+  position: sticky;
+  top: calc(var(--header-dynamic-height, 66px) + 16px);
+  min-height: calc(100svh - var(--header-dynamic-height, 66px) - 32px);
+  display: flex;
+  align-items: center;
+}
+.sacc-track[data-wide] .sacc-pin > .sacc { width: 100%; }
 .sacc-stage { animation: sacc-in 0.32s ease both; }
 @keyframes sacc-in {
   from { opacity: 0; transform: translateY(8px); }
@@ -501,3 +516,13 @@
   .sacc-panel, .sacc-item[data-open] .sacc-panel { transition: none; }
   .sacc-stage { animation: none; }
 }
+
+/* FILL: the stage is as tall as the list, whatever sheet is in it. Used where
+   the stage is a phone, which has a fixed outline and so cannot hug. The sheet
+   inside is scaled to the room the phone has left. */
+.sacc[data-wide][data-fill] { align-items: stretch; }
+.sacc[data-fill] .sacc-stage-col,
+.sacc[data-fill] .sacc-stage { height: 100%; }
+.sacc[data-fill] .pz { height: 100%; max-width: none; display: flex; flex-direction: column; }
+.sacc[data-fill] .pz-screen { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.sacc[data-fill] .pz-fit { flex: 1 1 0; min-height: 0; }

@@ -141,9 +141,8 @@ export default function SectorDetail() {
     ...hubQuick,
     ...(!pageRich ? ([{ id: "section-how-to", labelAr: "التطبيق", labelEn: "Setup" }] as const) : []),
     ...(slim ? [] : ([{ id: "section-how-help", labelAr: "الحلول", labelEn: "Solutions" }] as const)),
-    /* The examples moved into the use-case band, so the rail follows them
-       there rather than scrolling to an id that no longer exists. */
-    { id: "section-use-cases", labelAr: "حالات الاستخدام", labelEn: "Use cases" },
+    /* The sector's examples are the live-examples band. */
+    { id: "section-shapes", labelAr: "أمثلة حية", labelEn: "Live examples" },
     ...(slim ? [] : ([{ id: "section-experience", labelAr: "التجربة", labelEn: "Experience" }] as const)),
     ...(pageRich
       ? ([

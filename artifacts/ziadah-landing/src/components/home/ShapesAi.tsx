@@ -90,7 +90,6 @@ export default function ShapesAi() {
           <ShapeAccordion
             items={items}
             label={t("أشكال العرض", "The shapes")}
-            stageMax={580}
             stage={(key, { wide }) => (
               <div className="sacc-card">
                 <FitWidget hug height={wide ? 540 : 460}>

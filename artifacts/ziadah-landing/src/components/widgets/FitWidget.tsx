@@ -33,6 +33,7 @@ export default function FitWidget({
   height = 520,
   className,
   hug = false,
+  fill = false,
 }: {
   children: ReactNode;
   /** The box the sheet has to fit into. With `hug`, the most it may grow to. */
@@ -53,6 +54,13 @@ export default function FitWidget({
    * next render.
    */
   hug?: boolean;
+  /**
+   * Take whatever height the parent gives the box, from CSS, and scale the
+   * sheet to fit it. For a box inside a flex column that has been stretched to
+   * match something else - the phone beside a list - where neither a fixed nor
+   * a hugging height is right.
+   */
+  fill?: boolean;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -92,7 +100,7 @@ export default function FitWidget({
     <div
       ref={box}
       className={`fitw${className ? ` ${className}` : ""}`}
-      style={hug ? undefined : { height }}
+      style={hug || fill ? undefined : { height }}
     >
       <div ref={inner} className="fitw-in">
         {children}

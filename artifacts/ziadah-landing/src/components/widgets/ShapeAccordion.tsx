@@ -11,8 +11,7 @@ export type AccordionItem = {
   extra?: ReactNode;
 };
 
-/** True once the viewport is at least `minPx` wide. Client-rendered, so the
- *  first render already knows; there is no server markup to disagree with. */
+/** True once the viewport is at least `minPx` wide. */
 function useWide(minPx: number) {
   const q = `(min-width: ${minPx}px)`;
   const [wide, setWide] = useState(() =>
@@ -29,129 +28,112 @@ function useWide(minPx: number) {
 }
 
 const WIDE_AT = 900;
+/** Scroll spent on each row while the band is pinned. */
+const PX_PER_ROW = 110;
+/** The gap kept between the site header and the pinned content. */
+const PIN_GAP = 16;
 
 /**
- * A STACKED, COLLAPSIBLE LIST WITH A LIVE STAGE BESIDE IT.
+ * A STACKED, COLLAPSIBLE LIST WITH A LIVE STAGE BESIDE IT, PINNED WHILE IT PLAYS.
  *
- * It replaces the row of chips that every shape band used to be. Chips are
- * tabs, and a tab strip asks the visitor to do something before anything
- * happens. This list does it for them: as the band scrolls through the
- * screen the rows open one after another and the stage follows, and a click
- * on any row takes over.
+ * WIDE SCREENS. When the band reaches the top of the screen it pins, centred in
+ * the space under the header, and the page's scroll is spent on the rows: each
+ * one opens in turn and the stage follows. The page itself does not move until
+ * the last row has had its turn, and then it carries on. Nothing here steals
+ * the wheel: it is plain `position: sticky` inside a taller track, so touchpads,
+ * keyboards and scrollbars all behave as they always do.
  *
- * ONE ROW IS ALWAYS OPEN. The stage has to show something, so collapsing the
- * open row would leave either an empty stage or a stage that disagrees with
- * the list. Clicking an open row is therefore a no-op.
+ * The cost is the track's height: `PX_PER_ROW` for every row after the first,
+ * about 1,200px for twelve. That is the price of scroll that moves only the
+ * list, and it is paid on desktop only.
  *
- * WHAT DRIVES THE OPENING: THE ROW CROSSING A LINE, MEASURED COLLAPSED
- * A row opens when it crosses a line a little past the middle of the screen,
- * so the open row is always the one the visitor is reading and the stage is
- * on screen beside it. That is what `useScrollActive` in `sections/scroll.ts`
- * does, with one difference that matters: it reads where the rows ARE, and
- * these rows move. Opening one grows it, which pushes every row below it down,
- * which can carry one across the line and flip the selection back - the list
- * would argue with itself at every boundary.
+ * A CLICK SCROLLS TO THE ROW'S PLACE IN THE TRACK. The open row is a pure
+ * function of scroll position, so a click that merely set state would be
+ * overwritten by the next scroll event. Scrolling there keeps the page and the
+ * open row in agreement, and the same scroll is what the visitor was doing
+ * anyway. Rows are not re-evaluated for a moment afterwards so the trip there
+ * does not flick through every row in between.
  *
- * So each row's position is computed as if every row were COLLAPSED: the
- * list's top edge plus the row number times a fixed stride, the stride being
- * the collapsed button's height and the grid gap. Nothing in that sum changes
- * when a row opens, so the opening cannot feed back on itself.
+ * NARROW SCREENS. No pin, no scroll-driven opening. The stage sits inside the
+ * open row and a tap opens it. A row that grows by a whole widget above the
+ * reader shifts everything under their thumb, and browsers disagree on whether
+ * to compensate.
  *
- * NO EXTRA PAGE HEIGHT. The band keeps its natural height and the rows open
- * as it scrolls past, which is about one row per 60px of scroll. Pinning the
- * section and letting scroll advance it would add several screens of
- * scrolling the visitor did not ask for.
- *
- * An earlier version keyed the opening off the band's TOP edge. The last row
- * then opened when the band was mostly scrolled away, with under a third of
- * the stage still on screen. Keyed off the row itself, that cannot happen.
- *
- * A CLICK PINS THE CHOICE until the band leaves the screen, so the list does
- * not keep re-opening rows under a visitor who is reading one.
- *
- * NARROW SCREENS: the stage moves INSIDE the open row, and opening by scroll
- * is switched off. A row that grows by a whole widget while it opens, above
- * the point the visitor is reading, shifts everything beneath it under their
- * thumb, and browsers do not agree on whether to compensate. Tapping works;
- * scrolling just scrolls.
+ * ONE ROW IS ALWAYS OPEN, because the stage has to show something.
  */
 export default function ShapeAccordion({
   items,
   stage,
   label,
-  stageMax = 0,
+  fill = false,
 }: {
   items: AccordionItem[];
   /** What the stage shows for the open row. `wide` says where it is drawn. */
   stage: (key: string, ctx: { wide: boolean }) => ReactNode;
   /** Names the list for a screen reader. */
   label: string;
-  /**
-   * The tallest the stage ever gets, in px.
-   *
-   * The stage hugs its sheet, so its height changes with the open row. On a
-   * band where the stage is the taller column that changes the band's own
-   * height, and everything below it shifts every time a row opens - while the
-   * visitor is scrolling. Holding the band at the stage's maximum keeps the
-   * page still. Where the list is the taller column this has no effect.
-   */
-  stageMax?: number;
+  /** Stretch the stage to the list's height instead of letting it hug its content. */
+  fill?: boolean;
 }) {
   const uid = useId();
   const wide = useWide(WIDE_AT);
   const n = items.length;
   const [open, setOpen] = useState(0);
-  const root = useRef<HTMLDivElement>(null);
-  const listEl = useRef<HTMLUListElement>(null);
-  const pinned = useRef(false);
+  const track = useRef<HTMLDivElement>(null);
+  const lockUntil = useRef(0);
 
   const idx = Math.min(open, Math.max(0, n - 1));
+  const runway = Math.max(0, n - 1) * PX_PER_ROW;
 
-  /* ---- opening by scroll (wide only) --------------------------------- */
+  const pinTop = () => {
+    const h = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--header-dynamic-height"),
+    );
+    return (Number.isFinite(h) ? h : 66) + PIN_GAP;
+  };
+
+  /* ---- the open row follows scroll (wide only) ----------------------- */
   useEffect(() => {
     if (!wide || n < 2) return;
-    const el = root.current;
+    const el = track.current;
     if (!el) return;
     let raf = 0;
+    let top = pinTop();
 
     const measure = () => {
       raf = 0;
-      const band = el.getBoundingClientRect();
-      const H = window.innerHeight;
-      /* Off screen releases the pin, so coming back to the band starts
-         following the scroll again. */
-      if (band.bottom < 0 || band.top > H) pinned.current = false;
-      if (pinned.current) return;
-
-      const ul = listEl.current;
-      const btn = ul?.querySelector<HTMLElement>(".sacc-btn");
-      if (!ul || !btn) return;
-      const gap = parseFloat(getComputedStyle(ul).rowGap) || 0;
-      const stride = btn.offsetHeight + gap;
-      /* The line the rows open on, a little past the middle: the open row is
-         where the eye already is, and the stage beside it is mostly on screen. */
-      const line = H * 0.55;
-      const top = ul.getBoundingClientRect().top;
-      /* The last row whose COLLAPSED centre has crossed the line. */
-      const next = Math.max(0, Math.min(n - 1, Math.floor((line - top - btn.offsetHeight / 2) / stride)));
+      if (performance.now() < lockUntil.current) return;
+      /* How far the pin has travelled: zero as the band's top edge reaches
+         the pin line, `runway` once the last row has had its turn. */
+      const scrolled = top - el.getBoundingClientRect().top;
+      const p = Math.max(0, Math.min(1, scrolled / runway));
+      const next = Math.min(n - 1, Math.floor(p * n));
       setOpen((cur) => (cur === next ? cur : next));
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
+    const onResize = () => { top = pinTop(); onScroll(); };
 
     measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
       if (raf) cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
-  }, [wide, n]);
+  }, [wide, n, runway]);
 
   const choose = useCallback((i: number) => {
-    pinned.current = true;
     setOpen(i);
-  }, []);
+    const el = track.current;
+    if (!wide || !el || n < 2) return;
+    /* Aim for the middle of the row's share of the track. */
+    const want = ((i + 0.5) / n) * runway;
+    const y = window.scrollY + el.getBoundingClientRect().top - (pinTop() - want);
+    lockUntil.current = performance.now() + 900;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+  }, [wide, n, runway]);
 
   /* Arrow keys move between the rows' buttons; Home and End jump to the ends.
      This moves focus only. Opening stays a deliberate Enter or Space. */
@@ -174,61 +156,63 @@ export default function ShapeAccordion({
 
   return (
     <div
-      ref={root}
-      className="sacc"
+      ref={track}
+      className="sacc-track"
       data-wide={wide ? "" : undefined}
-      style={wide && stageMax ? { minHeight: stageMax } : undefined}
     >
-      <ul ref={listEl} className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
-        {items.map((it, i) => {
-          const on = i === idx;
-          const btnId = `${uid}-b${i}`;
-          const panelId = `${uid}-p${i}`;
-          return (
-            <li key={it.key} className="sacc-item" data-open={on ? "" : undefined}>
-              <h3 className="sacc-h">
-                <button
-                  type="button"
-                  id={btnId}
-                  className="sacc-btn"
-                  aria-expanded={on}
-                  aria-controls={panelId}
-                  onClick={() => choose(i)}
-                >
-                  <span className="sacc-n" aria-hidden="true">{i + 1}</span>
-                  <span className="sacc-t">{it.title}</span>
-                  <span className="sacc-i" aria-hidden="true">{on ? "−" : "+"}</span>
-                </button>
-              </h3>
-              <div
-                id={panelId}
-                role="region"
-                aria-labelledby={btnId}
-                className="sacc-panel"
-              >
-                <div className="sacc-panel-in">
-                  <div className="sacc-body">
-                    {it.note ? <p className="sacc-note">{it.note}</p> : null}
-                    {it.extra}
-                    {/* Narrow: the stage lives in the open row. */}
-                    {!wide && on ? (
-                      <div className="sacc-inline">{stage(it.key, { wide })}</div>
-                    ) : null}
+      <div className="sacc-pin">
+        <div className="sacc" data-wide={wide ? "" : undefined} data-fill={fill ? "" : undefined}>
+          <ul className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
+            {items.map((it, i) => {
+              const on = i === idx;
+              const btnId = `${uid}-b${i}`;
+              const panelId = `${uid}-p${i}`;
+              return (
+                <li key={it.key} className="sacc-item" data-open={on ? "" : undefined}>
+                  <h3 className="sacc-h">
+                    <button
+                      type="button"
+                      id={btnId}
+                      className="sacc-btn"
+                      aria-expanded={on}
+                      aria-controls={panelId}
+                      onClick={() => choose(i)}
+                    >
+                      <span className="sacc-n" aria-hidden="true">{i + 1}</span>
+                      <span className="sacc-t">{it.title}</span>
+                      <span className="sacc-i" aria-hidden="true">{on ? "−" : "+"}</span>
+                    </button>
+                  </h3>
+                  <div id={panelId} role="region" aria-labelledby={btnId} className="sacc-panel">
+                    <div className="sacc-panel-in">
+                      <div className="sacc-body">
+                        {it.note ? <p className="sacc-note">{it.note}</p> : null}
+                        {it.extra}
+                        {!wide && on ? (
+                          <div className="sacc-inline">{stage(it.key, { wide })}</div>
+                        ) : null}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                </li>
+              );
+            })}
+          </ul>
 
-      {wide ? (
-        <div className="sacc-stage-col">
-          <div key={current.key} className="sacc-stage">
-            {stage(current.key, { wide })}
-          </div>
+          {wide ? (
+            <div className="sacc-stage-col">
+              <div key={current.key} className="sacc-stage">
+                {stage(current.key, { wide })}
+              </div>
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      </div>
+      {/* THE RUNWAY IS A REAL CHILD, NOT PADDING. A sticky element is confined
+          to its parent's CONTENT box, and padding is outside it: with the
+          runway as padding-bottom the pin had no room to travel and scrolled
+          away like any other block. */}
+      {wide ? <div className="sacc-runway" aria-hidden="true" style={{ height: runway }} /> : null}
     </div>
   );
 }
