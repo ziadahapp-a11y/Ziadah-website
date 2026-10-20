@@ -144,6 +144,7 @@ export default function WidgetsShowcaseSection() {
           <ShapeAccordion
             items={items}
             label={tr.landing.widgetsTag}
+            stageMax={580}
             stage={(key, { wide }) => {
               const row = rows.find((r) => r.kind === key);
               if (!row) return null;

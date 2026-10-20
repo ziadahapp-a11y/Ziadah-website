@@ -43,20 +43,28 @@ const WIDE_AT = 900;
  * open row would leave either an empty stage or a stage that disagrees with
  * the list. Clicking an open row is therefore a no-op.
  *
- * WHAT DRIVES THE OPENING, AND WHY IT IS NOT THE ROWS
- * `useScrollActive` in `sections/scroll.ts` derives the current item from row
- * positions. That works for a list whose rows keep their height. This one
- * does not: opening a row grows it, which moves every row below it, which can
- * move one across the line the hook is reading - so the list would argue with
- * itself at every boundary. Here the open row is derived from the position of
- * the BAND's top edge and the viewport height alone. Nothing inside the band
- * can change either, so the opening cannot feed back on itself.
+ * WHAT DRIVES THE OPENING: THE ROW CROSSING A LINE, MEASURED COLLAPSED
+ * A row opens when it crosses a line a little past the middle of the screen,
+ * so the open row is always the one the visitor is reading and the stage is
+ * on screen beside it. That is what `useScrollActive` in `sections/scroll.ts`
+ * does, with one difference that matters: it reads where the rows ARE, and
+ * these rows move. Opening one grows it, which pushes every row below it down,
+ * which can carry one across the line and flip the selection back - the list
+ * would argue with itself at every boundary.
  *
- * NO EXTRA PAGE HEIGHT. The band keeps its natural height. The twelve rows
- * are spread across the stretch of scroll during which the band is on screen,
- * roughly a hundred pixels each. The alternative, pinning the section and
- * letting scroll advance it, adds several screens of scrolling the visitor
- * did not ask for.
+ * So each row's position is computed as if every row were COLLAPSED: the
+ * list's top edge plus the row number times a fixed stride, the stride being
+ * the collapsed button's height and the grid gap. Nothing in that sum changes
+ * when a row opens, so the opening cannot feed back on itself.
+ *
+ * NO EXTRA PAGE HEIGHT. The band keeps its natural height and the rows open
+ * as it scrolls past, which is about one row per 60px of scroll. Pinning the
+ * section and letting scroll advance it would add several screens of
+ * scrolling the visitor did not ask for.
+ *
+ * An earlier version keyed the opening off the band's TOP edge. The last row
+ * then opened when the band was mostly scrolled away, with under a third of
+ * the stage still on screen. Keyed off the row itself, that cannot happen.
  *
  * A CLICK PINS THE CHOICE until the band leaves the screen, so the list does
  * not keep re-opening rows under a visitor who is reading one.
@@ -71,18 +79,30 @@ export default function ShapeAccordion({
   items,
   stage,
   label,
+  stageMax = 0,
 }: {
   items: AccordionItem[];
   /** What the stage shows for the open row. `wide` says where it is drawn. */
   stage: (key: string, ctx: { wide: boolean }) => ReactNode;
   /** Names the list for a screen reader. */
   label: string;
+  /**
+   * The tallest the stage ever gets, in px.
+   *
+   * The stage hugs its sheet, so its height changes with the open row. On a
+   * band where the stage is the taller column that changes the band's own
+   * height, and everything below it shifts every time a row opens - while the
+   * visitor is scrolling. Holding the band at the stage's maximum keeps the
+   * page still. Where the list is the taller column this has no effect.
+   */
+  stageMax?: number;
 }) {
   const uid = useId();
   const wide = useWide(WIDE_AT);
   const n = items.length;
   const [open, setOpen] = useState(0);
   const root = useRef<HTMLDivElement>(null);
+  const listEl = useRef<HTMLUListElement>(null);
   const pinned = useRef(false);
 
   const idx = Math.min(open, Math.max(0, n - 1));
@@ -96,19 +116,24 @@ export default function ShapeAccordion({
 
     const measure = () => {
       raf = 0;
-      const r = el.getBoundingClientRect();
+      const band = el.getBoundingClientRect();
       const H = window.innerHeight;
       /* Off screen releases the pin, so coming back to the band starts
          following the scroll again. */
-      if (r.bottom < 0 || r.top > H) pinned.current = false;
+      if (band.bottom < 0 || band.top > H) pinned.current = false;
       if (pinned.current) return;
-      /* The first row opens as the band's top edge passes 78% of the way down
-         the screen, the last as its bottom edge nears the middle. `700` is
-         the band's typical height; it is a constant on purpose, because a
-         measured height would change as rows open. */
-      const travel = 0.5 * H + 700;
-      const p = (0.78 * H - r.top) / travel;
-      const next = Math.max(0, Math.min(n - 1, Math.floor(p * n)));
+
+      const ul = listEl.current;
+      const btn = ul?.querySelector<HTMLElement>(".sacc-btn");
+      if (!ul || !btn) return;
+      const gap = parseFloat(getComputedStyle(ul).rowGap) || 0;
+      const stride = btn.offsetHeight + gap;
+      /* The line the rows open on, a little past the middle: the open row is
+         where the eye already is, and the stage beside it is mostly on screen. */
+      const line = H * 0.55;
+      const top = ul.getBoundingClientRect().top;
+      /* The last row whose COLLAPSED centre has crossed the line. */
+      const next = Math.max(0, Math.min(n - 1, Math.floor((line - top - btn.offsetHeight / 2) / stride)));
       setOpen((cur) => (cur === next ? cur : next));
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(measure); };
@@ -148,8 +173,13 @@ export default function ShapeAccordion({
   const current = items[idx];
 
   return (
-    <div ref={root} className="sacc" data-wide={wide ? "" : undefined}>
-      <ul className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
+    <div
+      ref={root}
+      className="sacc"
+      data-wide={wide ? "" : undefined}
+      style={wide && stageMax ? { minHeight: stageMax } : undefined}
+    >
+      <ul ref={listEl} className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
         {items.map((it, i) => {
           const on = i === idx;
           const btnId = `${uid}-b${i}`;

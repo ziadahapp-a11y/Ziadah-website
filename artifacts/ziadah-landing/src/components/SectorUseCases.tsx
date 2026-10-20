@@ -145,6 +145,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
             <ShapeAccordion
               items={shapeItems}
               label={isAr ? "أشكال العرض" : "The shapes"}
+              stageMax={840}
               stage={(key) => phone(key as WidgetKind)}
             />
           </div>

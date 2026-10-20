@@ -646,7 +646,11 @@
    pressed states out of zinc and violet utilities. */
 .sector-filter {
   position: sticky;
-  top: 0;
+  /* Under the site header, not under the viewport edge. At `top: 0` it stuck
+     BEHIND the 65px nav bar the moment sticky started working, hiding the
+     chips it exists to show. `.cmp-head` and `.uc-rail` carry the same offset
+     for the same reason. */
+  top: var(--header-dynamic-height);
   z-index: 30;
   padding-block: 1.2rem;
   background: color-mix(in srgb, var(--general-white) 85%, transparent);
@@ -659,6 +663,18 @@
   justify-content: center;
   gap: 0.8rem;
 }
+/* PINNED ONLY WHERE IT IS ONE ROW.
+   From the tablet tier up the 13 chips wrap to three rows, a 165px bar. Pinned,
+   that is 230px of a 900px screen with the header, a quarter of the viewport
+   spent on a filter for the whole length of the grid. This never pinned on
+   desktop, because sticky did not work anywhere on the site; when it started
+   working the three-row bar was the one result that was worse than the page
+   it fixed. Below 768 the row scrolls sideways and is about 60px, which is
+   what a pinned bar should cost. */
+@media screen and (min-width: 768px) {
+  .sector-filter { position: static; }
+}
+
 /* Below the tablet tier the row scrolls sideways instead of stacking into
    four rows of chips that push the grid off the first screen. */
 @media screen and (max-width: 767px) {
