@@ -209,9 +209,9 @@
   font: inherit;
   text-align: start;
   transform:
-    translateX(calc(var(--d) * 118px + var(--fan-tilt) * 14px + var(--fan-drag)))
-    translateZ(calc(var(--far) * -90px))
-    rotate(calc((var(--d) * 7deg) + (var(--fan-tilt) * 2deg)));
+    translateX(calc(var(--off, 0px) + var(--fan-tilt) * 14px + var(--fan-drag)))
+    translateZ(calc(var(--far) * -40px))
+    rotate(calc(var(--rot, 0deg) + (var(--fan-tilt) * 2deg)));
   transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
   opacity: calc(1 - var(--far) * 0.14);
 }
@@ -227,9 +227,9 @@
 /* RTL fans the other way, like a deck held in the other hand. */
 [dir="rtl"] .fan-card {
   transform:
-    translateX(calc(var(--d) * -118px - var(--fan-tilt) * 14px + var(--fan-drag)))
-    translateZ(calc(var(--far) * -90px))
-    rotate(calc((var(--d) * -7deg) - (var(--fan-tilt) * 2deg)));
+    translateX(calc(var(--off, 0px) * -1 - var(--fan-tilt) * 14px + var(--fan-drag)))
+    translateZ(calc(var(--far) * -40px))
+    rotate(calc(var(--rot, 0deg) * -1 - (var(--fan-tilt) * 2deg)));
 }
 .fan-card[data-active] {
   box-shadow: 0 26px 60px rgba(10, 0, 20, 0.22), inset 0 0 0 1.5px #4a008c;

@@ -32,22 +32,61 @@
      min-content width, and a media card holds a product surface that does not
      want to shrink. This is the sixth place in this codebase that needs it. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1.6rem;
+  gap: 14px;
   width: 100%;
   align-items: start;
 }
 .bboard-col {
   display: grid;
-  gap: 1.6rem;
+  gap: 14px;
   /* The offset that makes the two stacks read as one composition: the right
      column starts a third of a short card lower, so no two cards in the board
      share a top edge. */
   align-content: start;
 }
-@media screen and (min-width: 1025px) {
-  .bboard-col--right { margin-block-start: 8rem; }
+@media screen and (min-width: 768px) {
+  .bboard-col--right { margin-block-start: 44px; }
 }
-@media screen and (max-width: 1024px) {
+
+/* THREE COLUMNS ONCE THE BOARD HOLDS EIGHT TILES.
+   Two bands of four became one band of eight, and in two columns that was a
+   1,664px board whose shorter column ran out 364px above the taller one - a
+   third of a screen of nothing, at the exact spot the page is making its main
+   argument.
+
+   `columns` rather than a third grid track, because a balanced multi-column
+   flow is what this composition always wanted: the cards are different
+   heights ON PURPOSE, and a grid with eight auto-placed items of mixed height
+   either stretches them to a common row or leaves the same ragged hole one
+   level down. Multicol balances the heights itself and keeps the ragged
+   bottom edge that makes the board read as a composition.
+
+   The two column wrappers go `display: contents` so their cards become the
+   multicol content directly. `order` stops applying - multicol is not a flex
+   or grid container - so the cards flow in DOM order, which is the authored
+   reading order anyway. */
+@media screen and (min-width: 1025px) {
+  .bboard {
+    display: block;
+    columns: 3;
+    column-gap: 14px;
+  }
+  .bboard-col,
+  .bboard-col--right { display: contents; margin-block-start: 0; }
+  .bboard > .bboard-col > .bcard {
+    /* A card split across a column break is unreadable: the caption lands at
+       the top of the next column, away from the art it names. */
+    break-inside: avoid;
+    margin-block-end: 14px;
+  }
+}
+/* COLLAPSE AT 768, NOT AT 1024.
+   A 1024px viewport holds a 992px container, which is two 489px columns -
+   wider than the 420px these cards were drawn at. Collapsing there stacked
+   all four tiles plus a two-row strip, and that single rule is why the board
+   measured 2,306px at 1024 against 1,470px at 1440. The two-column board is
+   not a desktop luxury; it is the layout, and a tablet has room for it. */
+@media screen and (max-width: 767px) {
   .bboard { grid-template-columns: minmax(0, 1fr); }
   /* The columns stop being boxes and their cards become items of the board
      itself, so `order` can interleave them. */
@@ -59,7 +98,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 3.2rem;
+  border-radius: var(--radius-block);
   overflow: hidden;
   isolation: isolate;
   min-width: 0;
@@ -93,39 +132,42 @@
 }
 
 /* Heights are the board's rhythm, so they are explicit rather than emergent.
-   `min-height` only - a card always grows for its own content. */
-.bcard--tall  { min-height: 52rem; }
-.bcard--short { min-height: 30rem; }
-@media screen and (max-width: 1024px) {
-  .bcard--tall  { min-height: 44rem; }
-  .bcard--short { min-height: 26rem; }
-}
-@media screen and (max-width: 767px) {
-  .bcard--tall  { min-height: 38rem; }
-  .bcard--short { min-height: 22rem; }
-  .bcard { border-radius: 2.4rem; }
-}
+   `min-height` only - a card always grows for its own content.
+
+   IN PIXELS, AND SMALLER, FOR TWO MEASURED REASONS.
+
+   The rem ladder here ran BACKWARDS. One rem is ~12.3px at 1024 and 10px at
+   1440, so `52rem` desktop was 520px while the "smaller" `44rem` tablet rule
+   was 541px. Every step down this file took made the card bigger, which is
+   why the two boards measured 1,654 and 1,704px at 1440 but 3,094 and
+   3,166px at 1024 for identical content.
+
+   And 520px was too tall regardless. A tall card holds a title, two lines of
+   support and one product surface; at 520 the surface floated in a well and
+   the board needed two full screens for four tiles. 340 is the height at
+   which the surface fills its stage. */
+.bcard--tall  { min-height: clamp(260px, 12vw + 150px, 340px); }
+.bcard--short { min-height: clamp(180px, 6vw + 120px, 215px); }
 
 /* ---------- heading variant ------------------------------------------ */
 .bcard--heading {
   justify-content: space-between;
-  gap: 1.4rem;
-  padding: 3.2rem;
+  gap: 12px;
+  padding: clamp(18px, 1vw + 12px, 26px);
 }
-@media screen and (max-width: 767px) { .bcard--heading { padding: 2.4rem; } }
 
 .bcard-mark {
   display: grid;
   place-items: center;
-  width: 4.8rem;
-  height: 4.8rem;
-  border-radius: 1.6rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   flex: none;
   background: color-mix(in srgb, currentColor 10%, transparent);
 }
-.bcard-mark svg { width: 2.2rem; height: 2.2rem; }
+.bcard-mark svg { width: 19px; height: 19px; }
 
-.bcard-body { display: flex; flex-direction: column; gap: 1.2rem; }
+.bcard-body { display: flex; flex-direction: column; gap: 8px; }
 .bcard-title {
   font-size: 3.2rem;
   line-height: 1.2;
@@ -161,10 +203,9 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: 3.2rem 3.2rem 0;
+  padding: clamp(14px, 1vw + 8px, 22px) clamp(14px, 1vw + 8px, 22px) 0;
   pointer-events: none;
 }
-@media screen and (max-width: 767px) { .bcard-stage { padding: 2.4rem 2.4rem 0; } }
 .bcard-stage::before {
   content: "";
   position: absolute;
@@ -175,15 +216,14 @@
 
 .bcard-caption {
   position: relative;
-  padding: 2.8rem 3.2rem 3.2rem;
+  padding: clamp(14px, 0.8vw + 8px, 20px) clamp(16px, 1vw + 10px, 24px) clamp(16px, 1vw + 10px, 24px);
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: space-around;
   justify-content: space-evenly;
-  gap: 0.8rem;
+  gap: 6px;
 }
-@media screen and (max-width: 767px) { .bcard-caption { padding: 2.4rem; } }
 
 .bcard-caption .bcard-title { font-size: 2.8rem; }
 @media screen and (max-width: 767px) { .bcard-caption .bcard-title { font-size: 2.2rem; } }
@@ -195,8 +235,8 @@
 .bhead {
   display: block;
   text-align: center;
-  gap: 2.4rem 6.4rem;
-  margin-block-end: 4.8rem;
+  gap: 16px 44px;
+  margin-block-end: 32px;
   align-items: end;
 }
 @media screen and (min-width: 1025px) {
@@ -242,9 +282,10 @@
 }
 
 /* ---------- the board section shell ---------------------------------- */
-.bsection { padding-block: 12rem; }
-@media screen and (max-width: 1024px) { .bsection { padding-block: 9rem; } }
-@media screen and (max-width: 767px)  { .bsection { padding-block: 6.4rem; } }
+/* The same clamp every other band runs on. `12rem` was 120px at 1440 and the
+   "smaller" `9rem` tablet rule was 111px, so the step down was 9px - two
+   bands of near-identical padding pretending to be a responsive ladder. */
+.bsection { padding-block: var(--section-space); }
 .bsection[data-family] { background: var(--color-primary); color: var(--color-secondary); }
 
 /* A single trailing row of compact tiles under a board - the "and these too"
@@ -252,23 +293,21 @@
 .bstrip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.6rem;
-  margin-block-start: 1.6rem;
+  gap: 14px;
+  margin-block-start: 14px;
 }
-@media screen and (max-width: 1024px) { .bstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.bstrip .bcard--short { min-height: 24rem; }
+@media screen and (max-width: 767px) { .bstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.bstrip .bcard--short { min-height: clamp(130px, 4vw + 95px, 160px); }
 /* Two across on a phone, not four stacked slabs: these are a SET, and a set
    read one item per screen stops being one. The pair keeps the strip to two
    screens instead of four and the titles are short enough to hold. */
 @media screen and (max-width: 767px) {
-  .bstrip .bcard--short { min-height: 17rem; }
-  .bstrip .bcard--heading { padding: 2rem; gap: 1.6rem; }
-  .bstrip .bcard-mark { width: 3.6rem; height: 3.6rem; border-radius: 1.2rem; }
-  .bstrip .bcard-mark svg { width: 1.8rem; height: 1.8rem; }
+  .bstrip .bcard--heading { padding: 14px; gap: 10px; }
+  .bstrip .bcard-mark { width: 32px; height: 32px; border-radius: 10px; }
+  .bstrip .bcard-mark svg { width: 16px; height: 16px; }
 }
-.bstrip .bcard-title { font-size: 2.2rem; }
-@media screen and (max-width: 767px) { .bstrip .bcard-title { font-size: 1.7rem; } }
-@media screen and (max-width: 767px) { .bstrip .bcard-support { font-size: 1.3rem; } }
+.bstrip .bcard-title { font-size: var(--t-h4); }
+.bstrip .bcard-support { font-size: var(--t-cap); }
 
 /* ---------- enter ----------------------------------------------------- */
 /* The scene timeline is gone; what is left is one entrance per card, which is
@@ -278,7 +317,7 @@
    thrown error, or a stylesheet that loads before the runtime => the board
    renders. A board is the section's whole content; it may never depend on a
    script to become visible. */
-html[data-motion-ready] .bcard { opacity: 0; transform: translateY(2.4rem); }
+html[data-motion-ready] .bcard { opacity: 0; transform: translateY(18px); }
 html[data-motion-ready] .bboard[data-revealed] .bcard,
 html[data-motion-ready] .bstrip[data-revealed] .bcard {
   opacity: 1;
@@ -343,7 +382,23 @@ html[data-motion-ready] .bstrip[data-revealed] .bcard {
   line-height: 1.45;
   overflow: hidden;
 }
-@media screen and (max-width: 767px) { .bart { padding: 1.6rem; border-radius: 2rem; } }
+/* THE ART IS THE SAME PIXEL SIZE ON A PHONE AS ON A DESKTOP, AND THAT IS WHY
+   THE BOARD IS 2,820px ON A PHONE.
+   `.bart` is a composed mini-UI, not an image: rows, labels and chips sized
+   in rem. One rem is 10px below 768 and 10px at 1440, so a surface drawn to
+   fill a 593px-wide desktop card renders at the identical height inside a
+   322px-wide phone card - 371px of art on a card 322px across. Measured, the
+   eight surfaces came to 2,157px of the board's 2,820.
+
+   `zoom` rather than `transform: scale()`: a transform paints smaller and
+   leaves the layout box at full size, so the card would stay exactly as tall
+   as it is now and the art would simply float in it. `zoom` scales the box
+   too, which is the entire point. It scales the rem lengths inside with it,
+   so the surface shrinks as one piece rather than as a grid whose text no
+   longer fits its rows. */
+@media screen and (max-width: 767px) {
+  .bart { padding: 1.6rem; border-radius: 2rem; zoom: 0.78; }
+}
 
 .bart-head { display: flex; align-items: center; gap: 0.8rem; margin-block-end: 0.4rem; }
 .bart-dot { flex: none; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--ziadah-violet); }

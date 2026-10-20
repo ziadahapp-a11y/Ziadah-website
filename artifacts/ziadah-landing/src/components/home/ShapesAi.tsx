@@ -53,6 +53,23 @@ export default function ShapesAi() {
         )}
       />
       <Shell>
+        {/* THE CHIPS, FULL WIDTH, ABOVE BOTH COLUMNS.
+            Twelve shape names inside a 400px stage wrapped onto four lines
+            and stood 144px tall - taller than some of the widgets they
+            select. Across the band's whole width they are two lines, and the
+            stage goes back to being a stage. */}
+        <div className="ais-pick sdd-filter" role="group" aria-label={t("أشكال العرض", "The shapes")} dir={dir}>
+          {WIDGET_KINDS.map((k) => (
+            <button
+              key={k} type="button" className="chip is-small"
+              aria-pressed={kind === k}
+              onClick={() => setKind(k)}
+            >
+              {widgetKindLabel(k, isAr)}
+            </button>
+          ))}
+        </div>
+
         <div className="ais" dir={dir}>
           <ul className="ais-reads">
             {reads.map((r, i) => (
@@ -71,17 +88,6 @@ export default function ShapesAi() {
           </ul>
 
           <div className="ais-stage">
-            <div className="sdd-filter" role="group" aria-label={t("أشكال العرض", "The shapes")}>
-              {WIDGET_KINDS.map((k) => (
-                <button
-                  key={k} type="button" className="chip is-small"
-                  aria-pressed={kind === k}
-                  onClick={() => setKind(k)}
-                >
-                  {widgetKindLabel(k, isAr)}
-                </button>
-              ))}
-            </div>
             <FitWidget height={560}><StorefrontWidget kind={kind} /></FitWidget>
           </div>
         </div>

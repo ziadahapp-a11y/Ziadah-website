@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import UseCaseRow from "@/components/UseCaseRow";
 import {
   buildWidgetShowcaseItems,
@@ -12,6 +12,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
 import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
+import FitWidget from "@/components/widgets/FitWidget";
 
 /* READING ORDER, not data order. `widgetLabels` is indexed against
    `widgetElements()` and cannot be reordered; this is the order a merchant
@@ -91,6 +92,21 @@ export default function WidgetsShowcaseSection() {
     [allWidgets],
   );
 
+  /* ONE ROW AT A TIME, BECAUSE SEVEN STACKED ROWS WERE A THIRD OF THE PAGE.
+     Measured: the band ran 5,803px at 1440 and 8,712px at 390 - 32% of the
+     whole home page - for seven repetitions of one idea. Worse, each row put
+     315px of copy beside a stage up to 958px tall, so roughly 640px of every
+     row was blank column next to the text. That is what "the elements are
+     badly distributed" looks like in numbers.
+
+     Seven tabs and one row says the same thing in about 900px, and says it
+     better: the seven are now a set a merchant can compare by clicking rather
+     than a scroll they have to survive. The stage is fitted rather than free,
+     so switching tabs does not jump the page - the tallest preview and the
+     shortest now occupy the same box. */
+  const [active, setActive] = useState(0);
+  const row = rows[active] ?? rows[0];
+
   /* On the design system rather than beside it. This used to paint its own
      ground, its own 80px padding and its own head out of the legacy `.tc /
      .stag / .st / .ssub` classes, which made it one of two bands on the home
@@ -104,19 +120,36 @@ export default function WidgetsShowcaseSection() {
         lead={tr.landing.widgetsSubtitle}
       />
       <Shell>
-        <div className="ucrow-list">
+        {/* The seven, as a tab strip. `aria-pressed` rather than a tablist
+            role: the panel below is not swapped wholesale, it is one row whose
+            contents change, and claiming a tablist would promise arrow-key
+            navigation between panels that do not exist. */}
+        <div className="ucrow-tabs" role="group" aria-label={tr.landing.widgetsTag}>
           {rows.map((item, i) => (
-            <UseCaseRow
+            <button
               key={item.kind}
-              title={item.label}
-              description={item.desc}
-              whenToUse={item.whenToUse}
-              goal={item.goal}
-              example={item.example}
-              note={item.note}
-              preview={item.widget}
-              reverse={i % 2 === 1}
-              href={KIND_TO_URL[item.kind]}
+              type="button"
+              className="chip is-small"
+              aria-pressed={i === active}
+              onClick={() => setActive(i)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+
+        {row ? (
+          <div className="ucrow-one">
+            <UseCaseRow
+              key={row.kind}
+              title={row.label}
+              description={row.desc}
+              whenToUse={row.whenToUse}
+              goal={row.goal}
+              example={row.example}
+              note={row.note}
+              preview={<FitWidget height={560}>{row.widget}</FitWidget>}
+              href={KIND_TO_URL[row.kind]}
               hrefLabel={tr.landing.widgetRowLink}
               onNavigate={navigateTo}
               labels={{
@@ -125,8 +158,8 @@ export default function WidgetsShowcaseSection() {
                 example: tr.landing.widgetRowExample,
               }}
             />
-          ))}
-        </div>
+          </div>
+        ) : null}
       </Shell>
     </DsSection>
   );

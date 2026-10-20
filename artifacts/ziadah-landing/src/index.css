@@ -223,6 +223,18 @@ html {
   --section-space: clamp(48px, 2.2vw + 30px, 72px);
   --section-space-bottom: var(--section-space);
 
+  /* THE PINNED FIGURE'S HEIGHT, DECLARED RATHER THAN DEFAULTED.
+     Four rules in `sections.css` read `var(--items-image-height, 55.8rem)` -
+     the sticky column's offset, the rows' trailing padding, the figure's own
+     floor - and nothing ever declared it, so all four ran on the fallback.
+     55.8rem is 558px at 1440, 686px at 1024 and 558px on a 390px phone,
+     which is how the how-it-works band came to measure 1,467px at 1440 and
+     2,549px on a phone whose whole viewport is 844.
+
+     Declaring it here fixes all four at once, and in px it finally scales
+     with the viewport instead of against it. */
+  --items-image-height: clamp(300px, 26vw + 90px, 440px);
+
   /* ---- status ink ----
      The TEXT role of each status family, kept behind one indirection so a
      section can re-point it. `@theme inline` substitutes a token's DEFINITION

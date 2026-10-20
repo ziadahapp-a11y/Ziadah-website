@@ -32,28 +32,48 @@ const storeLogos = [
 ];
 
 /**
- * The systems board: what Ziadah actually does, laid out as a composition
- * rather than as a run of identical cards.
+ * ONE BOARD, NOT TWO.
  *
- * WHAT THIS REPLACES. Four bands that each made one point on the same grid:
- * a 100-dot three-way comparison, the four pillars as a 2x2 of equal cards,
- * a placements-and-platforms pair, and a widgets showcase. Between them they
- * argued one thing - the engine picks per shopper, and it runs everywhere -
- * across roughly four screens of identical rectangles.
+ * This file used to export two bands - `CoreSystems` ("what Ziadah does") and
+ * `Trust` ("real stores, real numbers") - rendered one after the other with
+ * the widgets band between them. They were the same component twice: head,
+ * two-column bento, four-tile strip. Measured at 1440 they were 1,654 and
+ * 1,704px, so 3,358px of the home page, and at 1024 they were 3,094 and
+ * 3,166px because every size in the board was authored in rem.
  *
- * Two of the four pillars are product SURFACES here rather than descriptions
- * of them, which is the difference the board buys: a card that shows the
- * ranked suggestion with its reasons makes the argument the dot grid was
- * spending a screen on.
+ * Two heads is what made it read as two pages. Nobody arriving at a landing
+ * page needs "what it does" and "why trust it" announced as separate
+ * arguments - they are one argument, and a merchant weighs the capability and
+ * the proof of it in the same breath.
  *
- * The 100-dot comparison is gone rather than restyled. Its claim - a store
- * with no recommendations converts 8 carts in 100 and Ziadah converts 34 - is
- * the same claim the hero's chips, the calculator and this board's own
- * numbers each make, and it was making it with three hundred squares.
+ * So: one head, one board of eight tiles in two columns of four, and both
+ * strips kept. NOTHING WAS DELETED - every tile, every claim and the logo
+ * marquee all survive the merge. What went is one head, one board wrapper and
+ * one section's worth of vertical padding, which is about 1,000px at 1440 and
+ * considerably more at 1024.
+ *
+ * The dark step the two bands used to give the page (light board, then
+ * inverted board) is now carried inside the band by the two `ink` strips,
+ * which is where it was doing its work anyway.
+ *
+ * WHAT THIS REPLACED EARLIER. Four bands that each made one point on the same
+ * grid: a 100-dot three-way comparison, the four pillars as a 2x2 of equal
+ * cards, a placements-and-platforms pair, and a widgets showcase. The dot
+ * comparison is gone rather than restyled - its claim is the same one the
+ * hero's chips, the calculator and this board's own numbers each make, and it
+ * was making it with three hundred squares.
  */
 export function CoreSystems() {
   const t = useT();
+  const logosRef = useRef<HTMLDivElement>(null);
+  useMarqueeShiftSync(logosRef);
 
+  /* FOUR PER COLUMN, ALTERNATING CAPABILITY AND PROOF.
+     The two boards' tiles are interleaved rather than concatenated: a reader
+     going down the left column meets what Ziadah does, then the record of it
+     doing that, then the next thing it does. Stacking all four capability
+     tiles and then all four proof tiles would have kept the two-page reading
+     this merge exists to end. */
   const left: BoardTile[] = [
     {
       key: "suggestions",
@@ -75,94 +95,6 @@ export function CoreSystems() {
       art: <BoardArt surface="bundle" />,
       title: t({ ar: "منتجات تُشترى معاً، كحزمة بنقرة", en: "Bought-together items, as a one-click bundle" }),
     },
-  ];
-
-  const right: BoardTile[] = [
-    {
-      key: "upsell",
-      variant: "heading",
-      tone: "pale",
-      size: "short",
-      Icon: ShoppingCart,
-      title: t({ ar: "ترقية في السلة والدفع", en: "An upgrade at the cart and at checkout" }),
-      support: t({
-        ar: "ضمان، إضافة صغيرة، أو «أكمل لـ200 وخذ شحن مجاني» - قبل ما يخلص الشراء، لا بعده.",
-        en: "A warranty, a small add-on, or “reach 200 for free shipping” - before the purchase ends, not after it.",
-      }),
-    },
-    {
-      key: "performance",
-      variant: "media",
-      tone: "white",
-      size: "tall",
-      art: <BoardArt surface="performance" />,
-      title: t({ ar: "يتعلّم من كل طلب ويعيد الترتيب", en: "It learns from every order and reorders itself" }),
-      support: t({
-        ar: "كل نقرة وكل طلب يغذّي المحرك، فيعرف أي مكان عرض يحوّل أعلى ويرفعه تلقائياً.",
-        en: "Every click and order feeds the engine, so it learns which placement converts best and promotes it on its own.",
-      }),
-    },
-  ];
-
-  /* Where the widget runs. These are four of the nine placements in
-     `features-data`; the button under the board is how a reader reaches the
-     other five, rather than this strip growing into a second grid. */
-  const strip: BoardTile[] = [
-    { key: "product", variant: "heading", tone: "ink", size: "short", Icon: FileText,
-      title: t({ ar: "صفحة المنتج", en: "Product page" }),
-      support: t({ ar: "مرحلة الاهتمام", en: "The consideration moment" }) },
-    { key: "cart", variant: "heading", tone: "ink", size: "short", Icon: ShoppingCart,
-      title: t({ ar: "صفحة السلة", en: "Cart page" }),
-      support: t({ ar: "آخر فرصة قبل الدفع", en: "The last chance before checkout" }) },
-    { key: "checkout", variant: "heading", tone: "ink", size: "short", Icon: CreditCard,
-      title: t({ ar: "صفحة الدفع", en: "Checkout" }),
-      support: t({ ar: "العميل ملتزم بالشراء", en: "The shopper is committed" }) },
-    { key: "category", variant: "heading", tone: "ink", size: "short", Icon: FolderTree,
-      title: t({ ar: "صفحة الفئة", en: "Category page" }),
-      support: t({ ar: "وهو يتصفّح ويقارن", en: "While they browse and compare" }) },
-  ];
-
-  return (
-    <section className="bsection" id="systems" {...sectionTheme("violet", false)}>
-      <div className="container">
-        <BoardHead
-          eyebrow={t({ ar: "وش تسوّي زيادة", en: "What Ziadah does" })}
-          title={t({ ar: "أربعة أشياء ترفع سلّة عميلك", en: "Four things that grow your customer's cart" })}
-          lede={t({
-            ar: `${FEATURE_COUNT} قدرة بين هدف وطريقة عرض ومكان، كلها في لوحة واحدة وبدون تعديل على قالب متجرك.`,
-            en: `${FEATURE_COUNT} capabilities across goals, presentations and placements - all in one dashboard, with no edit to your storefront theme.`,
-          })}
-        />
-        <BentoBoard left={left} right={right} />
-        <BentoStrip tiles={strip} />
-
-        <div className="bsection-foot">
-          <Button as={Link} href="/features" variant="primary" size="lg" data-testid="systems-all-features">
-            {t({ ar: "شوف كل حالات الاستخدام والمميزات", en: "See every use case and feature" })}
-          </Button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/**
- * The trust board. Its dominant card is the aggregate record - what merchants
- * running Ziadah have actually made - and its counterweight is what the
- * connector reads, because a recommendation engine reads a store's catalogue
- * and its buying behaviour and that deserves a card rather than a footnote.
- *
- * WHAT THIS REPLACES. The proof band (four stats and a logo marquee) and the
- * platform half of the placements band. Two light bands making one point, now
- * one dark one - which is also what gives the page its hard light/dark step
- * in the middle instead of a run of pale violet.
- */
-export function Trust() {
-  const t = useT();
-  const logosRef = useRef<HTMLDivElement>(null);
-  useMarqueeShiftSync(logosRef);
-
-  const left: BoardTile[] = [
     {
       key: "proof",
       variant: "media",
@@ -186,6 +118,30 @@ export function Trust() {
   ];
 
   const right: BoardTile[] = [
+    {
+      key: "upsell",
+      variant: "heading",
+      tone: "pale",
+      size: "short",
+      Icon: ShoppingCart,
+      title: t({ ar: "ترقية في السلة والدفع", en: "An upgrade at the cart and at checkout" }),
+      support: t({
+        ar: "ضمان، إضافة صغيرة، أو «أكمل لـ200 وخذ شحن مجاني» - قبل ما يخلص الشراء، لا بعده.",
+        en: "A warranty, a small add-on, or \u201creach 200 for free shipping\u201d - before the purchase ends, not after it.",
+      }),
+    },
+    {
+      key: "performance",
+      variant: "media",
+      tone: "white",
+      size: "tall",
+      art: <BoardArt surface="performance" />,
+      title: t({ ar: "يتعلّم من كل طلب ويعيد الترتيب", en: "It learns from every order and reorders itself" }),
+      support: t({
+        ar: "كل نقرة وكل طلب يغذّي المحرك، فيعرف أي مكان عرض يحوّل أعلى ويرفعه تلقائياً.",
+        en: "Every click and order feeds the engine, so it learns which placement converts best and promotes it on its own.",
+      }),
+    },
     {
       key: "platforms",
       variant: "heading",
@@ -212,10 +168,27 @@ export function Trust() {
     },
   ];
 
-  const strip: BoardTile[] = [
-    /* NOT a reviews tile. The reviews have their own band now, and a tile
-       saying they exist beside a band showing them is the same claim twice.
-       This says the thing the page states nowhere else. */
+  /* Where the widget runs. These are four of the nine placements in
+     `features-data`; the button under the board is how a reader reaches the
+     other five, rather than this strip growing into a second grid. */
+  const placements: BoardTile[] = [
+    { key: "product", variant: "heading", tone: "ink", size: "short", Icon: FileText,
+      title: t({ ar: "صفحة المنتج", en: "Product page" }),
+      support: t({ ar: "مرحلة الاهتمام", en: "The consideration moment" }) },
+    { key: "cart", variant: "heading", tone: "ink", size: "short", Icon: ShoppingCart,
+      title: t({ ar: "صفحة السلة", en: "Cart page" }),
+      support: t({ ar: "آخر فرصة قبل الدفع", en: "The last chance before checkout" }) },
+    { key: "checkout", variant: "heading", tone: "ink", size: "short", Icon: CreditCard,
+      title: t({ ar: "صفحة الدفع", en: "Checkout" }),
+      support: t({ ar: "العميل ملتزم بالشراء", en: "The shopper is committed" }) },
+    { key: "category", variant: "heading", tone: "ink", size: "short", Icon: FolderTree,
+      title: t({ ar: "صفحة الفئة", en: "Category page" }),
+      support: t({ ar: "وهو يتصفّح ويقارن", en: "While they browse and compare" }) },
+  ];
+
+  const assurances: BoardTile[] = [
+    /* NOT a reviews tile. The reviews have their own band; a tile saying they
+       exist beside a band showing them is the same claim twice. */
     { key: "independent", variant: "heading", tone: "ink", size: "short", Icon: BadgeCheck,
       title: t({ ar: "منتج مستقل", en: "An independent product" }),
       support: t({ ar: "غير تابع لأي منصة ولا معتمد منها", en: "Not owned or endorsed by any platform" }) },
@@ -231,22 +204,27 @@ export function Trust() {
   ];
 
   return (
-    <section className="bsection" id="trust" {...sectionTheme("violet", true)}>
+    <section className="bsection" id="systems" {...sectionTheme("violet", false)}>
       <div className="container">
+        {/* ONE HEAD FOR BOTH ARGUMENTS. The two it replaces were "what Ziadah
+            does" and "real stores, and numbers you can check" - a capability
+            claim and its evidence, which is one sentence, not two bands. */}
         <BoardHead
-          eyebrow={t({ ar: "الثقة", en: "Trust" })}
-          title={t({ ar: "متاجر حقيقية، وأرقام تقدر تراجعها", en: "Real stores, and numbers you can check" })}
+          eyebrow={t({ ar: "وش تسوّي زيادة", en: "What Ziadah does" })}
+          title={t({ ar: "يرفع سلّة عميلك، وبأرقام تقدر تراجعها", en: "It grows your customer's cart, with numbers you can check" })}
           lede={t({
-            ar: "محرّك التوصيات يقرأ كتالوجك وسلوك الشراء في متجرك. هذا يفرض وضوحاً في ما يقرأه، وفي ما تقدر توقفه.",
-            en: "A recommendation engine reads your catalogue and your store's buying behaviour. That demands clarity about what it reads, and about what you can switch off.",
+            ar: `${FEATURE_COUNT} قدرة بين هدف وطريقة عرض ومكان، كلها في لوحة واحدة وبدون تعديل على قالب متجرك - ويشغّلها أكثر من 1,500 متجر اليوم.`,
+            en: `${FEATURE_COUNT} capabilities across goals, presentations and placements, all in one dashboard and with no edit to your storefront theme - and over 1,500 stores run it today.`,
           })}
         />
         <BentoBoard left={left} right={right} />
-        <BentoStrip tiles={strip} />
+        {/* Two strips, both kept. They answer different questions - where the
+            widget runs, and what you are signing up to - and at 160px a row
+            neither is worth the argument it would cost to cut. */}
+        <BentoStrip tiles={placements} />
+        <BentoStrip tiles={assurances} />
 
-        {/* The names behind the count on the proof card. This ran as its own
-            band above the fold; it is evidence for the trust argument, so it
-            belongs to it. */}
+        {/* The names behind the count on the proof card. */}
         <div className="logos-mask marquee-row bsection-layers">
           <div
             ref={logosRef}
@@ -271,6 +249,12 @@ export function Trust() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="bsection-foot">
+          <Button as={Link} href="/features" variant="primary" size="lg" data-testid="systems-all-features">
+            {t({ ar: "شوف كل حالات الاستخدام والمميزات", en: "See every use case and feature" })}
+          </Button>
         </div>
       </div>
     </section>

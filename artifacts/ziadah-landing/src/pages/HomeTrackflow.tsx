@@ -6,7 +6,7 @@ import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorsBriefSection from "@/components/SectorsBriefSection";
 import { Hero } from "./home/Hero";
 import ShapesAi from "@/components/home/ShapesAi";
-import { CoreSystems, Trust } from "./home/CoreSystems";
+import { CoreSystems } from "./home/CoreSystems";
 import { HowItWorks } from "./home/HowItWorks";
 import { Calculator } from "./home/Calculator";
 import { Pricing } from "./home/Pricing";
@@ -93,7 +93,6 @@ export default function HomeTrackflow() {
         <ShapesAi />
         <CoreSystems />
         <WidgetsShowcaseSection />
-        <Trust />
         <SectorsBriefSection />
         <HowItWorks />
         <Testimonials />

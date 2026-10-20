@@ -21,6 +21,28 @@ import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel } from "@/components/wi
  *   neither   it is a legible fan of five cards with the active one upright,
  *             and `prefers-reduced-motion` removes the tilt entirely
  */
+/* THE SPREAD IS DAMPED, NOT LINEAR.
+   A flat 118px per card was drawn for a deck of five. The deck now holds
+   twelve, which at 118px puts the outermost card 590px from the centre - off
+   the side of the stage and, at 1440, clean off the viewport, where the
+   section's `overflow-x: clip` slices it. A sliced card in a hero reads as a
+   rendering fault, not as depth.
+
+   So the first neighbour on each side still steps a full card-width out -
+   that gap is what makes the deck legible as separate cards - and every card
+   behind it steps a quarter of that. The fan keeps its shape, the back of it
+   compresses the way a real fan of cards does, and the outermost card stays
+   on the stage. The rotation is capped for the same reason: `d * 7deg` at
+   six cards out is 42 degrees, which is a card lying on its side. */
+const NEAR = 112;
+const FAR = 26;
+const fanOffset = (d: number) => {
+  const mag = Math.abs(d);
+  if (mag === 0) return 0;
+  return Math.sign(d) * (NEAR + FAR * (mag - 1));
+};
+const fanRotate = (d: number) => Math.sign(d) * Math.min(Math.abs(d) * 5, 16);
+
 export default function FannedWidgets() {
   const { isAr } = useLanguage();
   const [active, setActive] = useState(0);
@@ -139,6 +161,8 @@ export default function FannedWidgets() {
               }}
               style={{
                 ["--d" as string]: d,
+                ["--off" as string]: `${fanOffset(d)}px`,
+                ["--rot" as string]: `${fanRotate(d)}deg`,
                 ["--far" as string]: far,
                 zIndex: n - far,
               }}

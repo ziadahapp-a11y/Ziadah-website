@@ -896,47 +896,63 @@
 .ucrow-list {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 4.8rem;
+  gap: 32px;
 }
+
+/* THE TAB STRIP. Seven names on one or two lines, so the set is visible at a
+   glance before anything is clicked - which is the thing seven stacked rows
+   could never do, because no screen ever held more than one of them. */
+.ucrow-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-block-end: 28px;
+}
+.ucrow-one { min-width: 0; }
+
 .ucrow {
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 20px;
   align-items: start;
-  /* A grid item's `min-width: auto` is the same trap one level down: without
-     this the row itself re-expands to its content's min-content width. */
+  /* A grid item's `min-width: auto` re-expands the row to its content's
+     min-content width without this. */
   min-width: 0;
 }
-/* A hairline between rows rather than a card around each one: the rows are one
-   list, and seven boxes on a band that already has a ground reads as seven
-   things rather than seven parts of one. */
 .ucrow-list > .ucrow + .ucrow {
-  padding-block-start: 4.8rem;
-  border-block-start: 0.1rem solid var(--line);
+  padding-block-start: 32px;
+  border-block-start: 1px solid var(--line);
 }
 
+/* PIXELS, NOT REM, FOR EVERY BOX IN THIS BAND.
+   One rem is ~12.3px at 1024 and 10px at 1440, so every rem-sized gap and
+   type size in here rendered LARGER on a tablet than on a desktop. Measured:
+   this band ran 8,458px at 1024 against 5,803px at 1440 for identical
+   content. A clamp ladder in px is the same size everywhere and grows with
+   the viewport rather than against it. */
 .ucrow-copy { min-width: 0; }
 .ucrow-title {
-  font-size: 3.2rem;
-  line-height: 1.2;
+  font-size: var(--t-h3);
+  line-height: 1.25;
   font-weight: 700;
   letter-spacing: -0.015em;
   margin: 0;
 }
-[dir="rtl"] .ucrow-title { letter-spacing: 0; line-height: 1.35; }
+[dir="rtl"] .ucrow-title { letter-spacing: 0; line-height: 1.4; }
 .ucrow-desc {
-  margin: 1.2rem 0 0;
-  font-size: 1.8rem;
+  margin: 8px 0 0;
+  font-size: var(--t-lead);
   line-height: 1.6;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
 }
 
-.ucrow-facts { display: grid; gap: 1.2rem; margin: 2.4rem 0 0; }
-.ucrow-fact { display: grid; gap: 0.4rem; }
+.ucrow-facts { display: grid; gap: 10px; margin: 18px 0 0; }
+.ucrow-fact { display: grid; gap: 2px; }
 /* The term, not a heading: 66% is the floor that clears 4.5:1 at this size on
    both families, the same figure `.card-eyebrow` is set from. */
 .ucrow-fact-k {
-  font-size: 1.3rem;
+  font-size: var(--t-cap);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -946,31 +962,31 @@
 [dir="rtl"] .ucrow-fact-k { text-transform: none; letter-spacing: 0; }
 .ucrow-fact-v {
   margin: 0;
-  font-size: 1.6rem;
+  font-size: var(--t-sm);
   line-height: 1.6;
   color: var(--color-secondary, #0a0a0a);
 }
 
 .ucrow-note {
-  margin: 2rem 0 0;
-  padding: 1.4rem 1.8rem;
+  margin: 14px 0 0;
+  padding: 10px 14px;
   border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
-  font-size: 1.5rem;
+  font-size: var(--t-cap);
   line-height: 1.6;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
 }
 
 .ucrow-link {
   display: inline-block;
-  margin-block-start: 2rem;
-  font-size: 1.6rem;
+  margin-block-start: 16px;
+  font-size: var(--t-sm);
   font-weight: 500;
   color: var(--color-secondary, #0a0a0a);
   text-decoration: underline;
-  text-underline-offset: 0.4rem;
+  text-underline-offset: 4px;
 }
-.ucrow-link:hover { text-decoration-thickness: 0.2rem; }
+.ucrow-link:hover { text-decoration-thickness: 2px; }
 
 /* The preview's ground. Flat near-white, because the widget inside it is
    pretending to be on a store page and a store page is not tinted. */
@@ -979,37 +995,45 @@
   min-width: 0;
   border-radius: var(--radius-card);
   background: var(--general-white);
-  padding: 2.4rem 2rem;
+  padding: 16px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-/* The widgets are built at a fixed pixel width. The stage caps them so a
-   narrow phone cannot push one past the viewport, which is the whole reason
-   this band used to need `overflow-x: clip` on the section. */
-.ucrow-stage-inner { width: 100%; max-width: 42rem; }
+.ucrow-stage-inner { width: 100%; max-width: 360px; }
 /* `WidgetShell` hard-codes `max-width: 320` as an INLINE style, sized for the
-   320px marquee card these previews used to live in. A row gives them a whole
-   column, and at 320 in it the preview reads as a thumbnail of the thing
-   rather than the thing. Only an `!important` beats an inline style; the cap
-   above is what actually bounds them. */
+   320px marquee card these previews used to live in. Only an `!important`
+   beats an inline style; the cap above is what actually bounds them. */
 .ucrow-stage-inner > .wk { max-width: none !important; }
 
 @media screen and (min-width: 1025px) {
-  .ucrow-list { gap: 6.4rem; }
-  .ucrow-list > .ucrow + .ucrow { padding-block-start: 6.4rem; }
+  .ucrow-list { gap: 40px; }
+  .ucrow-list > .ucrow + .ucrow { padding-block-start: 40px; }
   .ucrow {
     flex-direction: row;
     align-items: center;
-    gap: 6.4rem;
+    gap: 48px;
   }
   /* `row-reverse`, not `order`: it swaps the painted sides and leaves the DOM
      order alone, so the copy is still read before the preview it explains. It
      is direction-relative too, so Arabic needs no mirrored rule. */
   .ucrow--reverse { flex-direction: row-reverse; }
-  .ucrow-copy { flex: 1 1 0; }
-  .ucrow-stage { flex: 1 1 0; padding: 3.2rem; }
-  .ucrow-title { font-size: 3.6rem; }
+  /* THE STAGE IS SIZED TO THE SHEET, NOT TO THE LEFTOVER.
+     A proportional split gave the stage ~640px to hold a 360px sheet, so the
+     preview sat in 140px of white on either side and read as a small thing in
+     a big empty box - the same "badly distributed" complaint the band was
+     rebuilt to answer, one level down. Fixing the stage at the sheet's width
+     plus its padding puts the slack back in the text column, where it is
+     measure rather than emptiness. */
+  /* BOTH COLUMNS CAPPED, AND THE PAIR CENTRED.
+     Sizing the stage to the sheet handed all the leftover width to the copy -
+     768px of column for 440px of right-aligned Arabic, which put ~330px of
+     nothing between the two halves of the row. Slack in a row belongs in the
+     margins, not down the middle of it: a reader's eye crosses the middle,
+     and it should not have to cross a void to do it. */
+  .ucrow { justify-content: center; }
+  .ucrow-copy { flex: 0 1 520px; }
+  .ucrow-stage { flex: 0 0 clamp(340px, 32%, 420px); padding: 20px; }
 }
 
 /* ---------- A NUMBERED ARTICLE ------------------------------------------
@@ -2167,7 +2191,15 @@
 /* ---- the sentence under a title ---- */
 .hero-body,
 .section-lead,
+.bhead-lede,
 .block-body { font-size: var(--t-lead); }
+
+/* ---- the support line inside a card ----
+   `1.6rem` is 16px at 1440 and 19.7px at 1024, so every card's support text
+   was a size and a half bigger on a tablet than on the desktop it was
+   designed at. These are the last rem-sized body runs on the page. */
+.bcard-support,
+.ucrow-fact-v { font-size: var(--t-sm); }
 
 /* RTL runs taller than Latin at the same size, and these are the lines most
    likely to wrap. The leading is set here with the size so the two cannot
@@ -2267,9 +2299,22 @@
   gap: 3.2rem;
   align-items: start;
 }
+/* 1.1 TO 1, NOT 1fr TO 40rem.
+   `40rem` was 400px at 1440 and 492px at 1024 - the stage grew as the screen
+   shrank. Worse, it left the reads column 752px wide for 288px of text, so
+   480px of the band was blank space beside a widget squeezed into 352. Two
+   near-equal columns put the text at a readable measure and give the widget
+   the room it was drawn at. */
 @media screen and (min-width: 900px) {
-  .ais { grid-template-columns: minmax(0, 1fr) minmax(0, 40rem); gap: 4.8rem; }
+  /* The stage column is sized to the WIDGET, not to the leftover. A sheet is
+     about 380px wide and up to 880 tall, and `FitWidget` scales it by
+     `min(box-h / sheet-h, box-w / sheet-w)` - so a short, wide box shrinks it
+     on height and then strands it in the middle of its own width. At 420 by
+     560 the box has the sheet's proportions and the sheet stays legible. */
+  .ais { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 36px; }
 }
+.ais-pick { justify-content: center; margin-block-end: 24px; }
+.ais-stage { justify-self: center; width: 100%; max-width: 420px; }
 .ais-reads { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; }
 .ais-read { display: flex; gap: 1.6rem; align-items: flex-start; }
 .ais-read-n {
