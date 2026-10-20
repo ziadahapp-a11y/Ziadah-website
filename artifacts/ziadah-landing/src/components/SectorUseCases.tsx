@@ -9,6 +9,7 @@ import {
 } from "@/components/widgets/kit";
 import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
 import { productImage } from "@/lib/product-images";
+import FitWidget from "@/components/widgets/FitWidget";
 
 /**
  * PICK A MOMENT, SEE IT RUN.
@@ -45,8 +46,8 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const activeId = activeKey ?? list[0].key;
 
   const L = {
-    kicker: isAr ? "حالات الاستخدام" : "Use cases",
-    title: isAr ? "اضغط أي حالة وشوفها تشتغل" : "Tap any moment and watch it run",
+    kicker: isAr ? "أمثلة حية" : "Live examples",
+    title: isAr ? "اضغط أي حالة وشوف المثال الحي" : "Tap any moment and see the live example",
     lead: isAr
       ? "هذه اللحظات التي تشتغل فيها زيادة داخل هذا القطاع. اختر واحدة من القائمة وتظهر لك كما يراها عميلك تماماً، بمنتجات القطاع وأسعاره."
       : "These are the moments Ziadah fires in this sector. Pick one and it appears exactly as your customer sees it, in this sector's products and prices.",
@@ -106,7 +107,11 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const Detail = ({ uc }: { uc: SectorUseCase }) => (
     <div className="scq-stage-body">
       <span className="scq-stage-k">{L.live}</span>
-      <Sheet uc={uc} />
+      {/* Fitted, not cropped. The sheets are genuinely different heights, so
+          a fixed stage either cuts the tall ones or wells the short ones. */}
+      <FitWidget height={520}>
+        <Sheet uc={uc} />
+      </FitWidget>
       <p className="scq-stage-why">
         <span className="scq-stage-why-k">{L.why}</span>
         {isAr ? uc.whyAr : uc.whyEn}
@@ -132,7 +137,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
           <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
           <span className="pz-add">{isAr ? "أضف للسلة" : "Add to cart"}</span>
           <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
-          <StorefrontWidget kind={k} />
+          <FitWidget height={470}><StorefrontWidget kind={k} /></FitWidget>
         </div>
       </div>
     );

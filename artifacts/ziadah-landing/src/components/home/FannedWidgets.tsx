@@ -25,8 +25,17 @@ export default function FannedWidgets() {
   const { isAr } = useLanguage();
   const [active, setActive] = useState(0);
   const [tilt, setTilt] = useState(0);
+  const [drag, setDrag] = useState(0);
   const stage = useRef<HTMLDivElement>(null);
+  /* The pointer id and the x it went down at. A ref, not state: it changes on
+     every pointermove and nothing renders from it. */
+  const grab = useRef<{ id: number; x: number } | null>(null);
   const n = WIDGET_KINDS.length;
+
+  /* How far the deck has to travel before it counts as a step. Below this a
+     drag is a wobble and snaps back, which is what makes a tap on a card
+     still read as a tap rather than a half-swipe. */
+  const STEP = 90;
 
   /* The pointer moves the whole fan a few degrees rather than any one card:
      a deck that follows the cursor reads as a physical object, a card that
@@ -34,12 +43,42 @@ export default function FannedWidgets() {
   const onMove = useCallback((e: React.PointerEvent) => {
     const el = stage.current;
     if (!el) return;
+    if (grab.current && grab.current.id === e.pointerId) {
+      setDrag(e.clientX - grab.current.x);
+      return;
+    }
     const r = el.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5;
     setTilt(Math.max(-1, Math.min(1, x * 2)));
   }, []);
 
   const step = useCallback((d: number) => setActive((i) => (i + d + n) % n), [n]);
+
+  /* DRAG AND SWIPE, one set of handlers. Pointer events cover the mouse, the
+     finger and the pen, so there is no separate touch path to keep in sync
+     with this one.
+
+     `setPointerCapture` is what makes a drag survive leaving the card it
+     started on: without it the deck stops following the moment the finger
+     crosses onto a neighbour, which on a fan of overlapping cards is
+     immediately. */
+  const onDown = useCallback((e: React.PointerEvent) => {
+    grab.current = { id: e.pointerId, x: e.clientX };
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+  }, []);
+
+  const onUp = useCallback((e: React.PointerEvent) => {
+    const g = grab.current;
+    grab.current = null;
+    setDrag(0);
+    if (!g || g.id !== e.pointerId) return;
+    const dx = e.clientX - g.x;
+    if (Math.abs(dx) < STEP) return;
+    /* RTL reads the other way, so a drag toward the start edge means "next"
+       in both directions of text. */
+    const dir = isAr ? -1 : 1;
+    step(dx > 0 ? -dir : dir);
+  }, [step, isAr]);
 
   useEffect(() => {
     const el = stage.current;
@@ -58,8 +97,17 @@ export default function FannedWidgets() {
         ref={stage}
         className="fan"
         onPointerMove={onMove}
-        onPointerLeave={() => setTilt(0)}
-        style={{ ["--fan-tilt" as string]: tilt }}
+        onPointerDown={onDown}
+        onPointerUp={onUp}
+        onPointerCancel={onUp}
+        onPointerLeave={() => { setTilt(0); }}
+        data-dragging={grab.current ? "" : undefined}
+        style={{
+          ["--fan-tilt" as string]: tilt,
+          /* The deck follows the finger while it is down, damped so a long
+             drag does not throw the cards off the stage. */
+          ["--fan-drag" as string]: `${Math.max(-140, Math.min(140, drag * 0.55))}px`,
+        }}
       >
         {WIDGET_KINDS.map((kind, i) => {
           /* Distance from the active card drives everything: how far out it
@@ -82,7 +130,13 @@ export default function FannedWidgets() {
               data-active={d === 0 ? "" : undefined}
               aria-label={widgetKindLabel(kind, isAr)}
               aria-pressed={d === 0}
-              onClick={() => setActive(i)}
+              onClick={(e) => {
+                /* A drag that ends on a card fires a click too. If the deck
+                   moved far enough to be a swipe, the swipe already chose
+                   the card and this click would overrule it. */
+                if (Math.abs(drag) > 6) { e.preventDefault(); return; }
+                setActive(i);
+              }}
               style={{
                 ["--d" as string]: d,
                 ["--far" as string]: far,

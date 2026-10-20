@@ -3,6 +3,7 @@ import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
+import FitWidget from "@/components/widgets/FitWidget";
 
 /**
  * WHAT THE MODEL DECIDES, AND WHAT IT PUTS ON THE PAGE.
@@ -44,7 +45,7 @@ export default function ShapesAi() {
     <DsSection id="section-ai-shapes" family="grey">
       <SectionHead
         center
-        kicker={t("الذكاء الاصطناعي", "The AI")}
+        kicker={t("أمثلة حية", "Live examples")}
         title={t("النموذج يقرر ماذا يُعرض. الأشكال تقرر كيف يظهر.", "The model decides what to offer. The shapes decide how it looks.")}
         lead={t(
           "مو قائمة منتجات عشوائية. زيادة تقرأ السلة وسجلّ متجرك وقطاعك، تختار العرض المناسب، ثم تضعه في الشكل الذي يناسب اللحظة - كل هذا بدون تعديل على قالب متجرك.",
@@ -81,7 +82,7 @@ export default function ShapesAi() {
                 </button>
               ))}
             </div>
-            <StorefrontWidget kind={kind} />
+            <FitWidget height={560}><StorefrontWidget kind={kind} /></FitWidget>
           </div>
         </div>
       </Shell>

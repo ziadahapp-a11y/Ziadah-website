@@ -13,9 +13,17 @@ import {
  * `kind` is the vocabulary the rest of the site uses to ask for one.
  */
 
-export type WidgetKind = "kit" | "steps" | "routine" | "bmsm" | "drawer";
+export type WidgetKind =
+  | "kit" | "steps" | "routine" | "bmsm" | "drawer"
+  | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue" | "coupon" | "thankyou";
 
-export const WIDGET_KINDS: WidgetKind[] = ["kit", "steps", "routine", "bmsm", "drawer"];
+/* The order a merchant meets them in a real shop: what is on the product
+   page, then what happens at add-to-cart, then the cart, then the exit, then
+   after the order. */
+export const WIDGET_KINDS: WidgetKind[] = [
+  "replace", "quantity", "kit", "steps", "routine", "buythemall",
+  "addmore", "bmsm", "cartvalue", "drawer", "coupon", "thankyou",
+];
 
 export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
   const m: Record<WidgetKind, [string, string]> = {
@@ -24,6 +32,13 @@ export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
     routine: ["أقسام منسّقة", "Curated sections"],
     bmsm: ["اشتر أكثر ووفر أكثر", "Buy more, save more"],
     drawer: ["درج السلة", "Cart drawer"],
+    replace: ["استبدال المنتج", "Product swap"],
+    quantity: ["عرض الكميات", "Quantity offer"],
+    addmore: ["أضف المزيد", "Add more"],
+    buythemall: ["خذها كلها", "Buy them all"],
+    cartvalue: ["رفع قيمة السلة", "Cart value"],
+    coupon: ["كود الخصم", "Coupon"],
+    thankyou: ["بعد الشراء", "Post-purchase"],
   };
   return isAr ? m[kind][0] : m[kind][1];
 }
@@ -125,6 +140,116 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
           <Option name={n("cable")} price={sar(95)} chosen />
           <Option name={n("wired")} price={sar(140)} />
         </div>
+      </Sheet>
+    );
+  }
+
+  if (kind === "replace") {
+    return (
+      <Sheet
+        title={t("بـ١٢٠ ر.س أكثر: شحن لاسلكي وبطارية أطول", "For 120 more: wireless charging and longer battery")}
+        sub={t("نفس الفئة، شريحة أعلى.", "Same category, one tier up.")}
+        footer={<><PriceBar label={t("الفرق", "The difference")} was={sar(320)} now={t("+120 ر.س", "+SAR 120")} /><Cta>{t("بدّلها بالأعلى", "Swap to the higher one")}</Cta></>}
+      >
+        <AddRow name={n("earbuds")} meta={t("ما تتصفّحه الآن", "What you are viewing")} price={sar(320)} action={<Pill tone="grey">{t("الحالي", "Current")}</Pill>} />
+        <AddRow name={n("wcharger")} meta={t("شحن لاسلكي · بطارية أطول", "Wireless charging · longer battery")} price={sar(440)} action={<Pill>{t("الأعلى", "Upgrade")}</Pill>} />
+      </Sheet>
+    );
+  }
+
+  if (kind === "quantity") {
+    return (
+      <Sheet
+        title={t("خذها بالكمية وسعر الحبة ينزل", "Take the pack and the unit price drops")}
+        sub={t("الكيبل يُفقد ويُترك. من يشتري واحداً يعود بعد شهرين.", "A cable gets lost and left behind. Whoever buys one comes back in two months.")}
+        footer={<><PriceBar label={t("٣ قطع · ١٠٠ ر.س للحبة", "3 items · 100 each")} was={sar(285)} now={sar(300)} /><Cta>{t("أضف ٣", "Add 3")}</Cta></>}
+      >
+        <AddRow name={n("cable")} price={sar(95)} action={<Pill tone="grey">{t("حبة", "One")}</Pill>} />
+        <Tiers
+          reached={2}
+          tiers={[
+            { label: t("حبة", "1"), off: sar(95) },
+            { label: t("٣ قطع", "3"), off: sar(265) },
+            { label: t("٥ قطع", "5"), off: sar(410) },
+            { label: t("١٠ قطع", "10"), off: sar(760) },
+          ]}
+        />
+      </Sheet>
+    );
+  }
+
+  if (kind === "addmore") {
+    return (
+      <Sheet
+        title={t("أكمل جهازك", "Complete your device")}
+        sub={t("تظهر لحظة الإضافة للسلة، لا قبلها.", "Shown the moment it enters the cart, not before.")}
+        footer={<Cta>{t("أضف الاثنين", "Add both")}</Cta>}
+      >
+        <AddRow name={n("earbuds")} meta={t("أُضيف للتو", "Just added")} price={sar(320)} action={<Pill tone="green">{t("أُضيف", "Added")}</Pill>} />
+        <AddRow name={n("case")} price={sar(120)} />
+        <AddRow name={n("screen")} price={sar(85)} />
+      </Sheet>
+    );
+  }
+
+  if (kind === "buythemall") {
+    return (
+      <Sheet
+        title={t("الثلاثة بسعر واحد", "All three at one price")}
+        sub={t("سماعات + غطاء + واقي شاشة.", "Earbuds + case + screen protector.")}
+        chips={<Pill tone="green">{t("وفّرت ٢٦ ر.س", "Save SAR 26")}</Pill>}
+        footer={<><PriceBar label={t("الطقم كامل", "The whole set")} was={sar(525)} now={sar(499)} /><Cta>{t("خذها كلها", "Buy them all")}</Cta></>}
+      >
+        <div className="sf-grid">
+          <Option name={n("earbuds")} price={sar(320)} chosen />
+          <Option name={n("case")} price={sar(120)} chosen />
+          <Option name={n("screen")} price={sar(85)} chosen />
+          <Option name={n("cable")} price={sar(95)} />
+        </div>
+      </Sheet>
+    );
+  }
+
+  if (kind === "cartvalue") {
+    return (
+      <Sheet
+        title={t("ناقص ٥٨ ر.س للشحن المجاني", "58 SAR away from free delivery")}
+        sub={t("أضف أي واحدة واحذف رسوم الشحن.", "Add either one and the delivery fee goes.")}
+        footer={<><PriceBar label={t("سلتك الآن", "Your cart")} now={sar(242)} /><Cta>{t("أكمل العتبة", "Close the gap")}</Cta></>}
+      >
+        <Progress pct={81} />
+        <Nudge title={t("أضف واحدة من هذي وتوصل ٣٠٠ ر.س", "Add one of these to reach 300")}>
+          <AddRow name={n("case")} price={sar(120)} />
+          <AddRow name={n("screen")} price={sar(85)} />
+        </Nudge>
+      </Sheet>
+    );
+  }
+
+  if (kind === "coupon") {
+    return (
+      <Sheet
+        onClose
+        title={t("قبل ما تطلع: خصم ١٠٪", "Before you go: 10% off")}
+        sub={t("صالح ١٥ دقيقة على هذه السلة.", "Valid for 15 minutes on this cart.")}
+        footer={<><PriceBar label={t("بعد الخصم", "After the discount")} was={sar(525)} now={sar(472)} /><Cta>{t("فعّل الكود", "Apply the code")}</Cta></>}
+      >
+        <p className="sf-code">ZIADAH10</p>
+        <AddRow name={n("earbuds")} price={sar(320)} action={<Pill tone="grey">{t("في السلة", "In cart")}</Pill>} />
+      </Sheet>
+    );
+  }
+
+  if (kind === "thankyou") {
+    return (
+      <Sheet
+        title={t("تم طلبك", "Your order is placed")}
+        sub={t("يُشترى عادةً بعد هذا الطلب.", "Usually bought after this order.")}
+        footer={<Cta>{t("أضفها لطلب جديد", "Add to a new order")}</Cta>}
+      >
+        <Success>{t("وصلك إشعار بالتفاصيل", "A confirmation is on its way")}</Success>
+        <AddRow name={n("wcharger")} price={sar(180)} />
+        <AddRow name={n("wired")} price={sar(140)} />
       </Sheet>
     );
   }

@@ -182,6 +182,7 @@
 
 .fan {
   --fan-tilt: 0;
+  --fan-drag: 0px;
   position: relative;
   width: 100%;
   height: 460px;
@@ -208,7 +209,7 @@
   font: inherit;
   text-align: start;
   transform:
-    translateX(calc(var(--d) * 118px + var(--fan-tilt) * 14px))
+    translateX(calc(var(--d) * 118px + var(--fan-tilt) * 14px + var(--fan-drag)))
     translateZ(calc(var(--far) * -90px))
     rotate(calc((var(--d) * 7deg) + (var(--fan-tilt) * 2deg)));
   transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
@@ -226,7 +227,7 @@
 /* RTL fans the other way, like a deck held in the other hand. */
 [dir="rtl"] .fan-card {
   transform:
-    translateX(calc(var(--d) * -118px - var(--fan-tilt) * 14px))
+    translateX(calc(var(--d) * -118px - var(--fan-tilt) * 14px + var(--fan-drag)))
     translateZ(calc(var(--far) * -90px))
     rotate(calc((var(--d) * -7deg) - (var(--fan-tilt) * 2deg)));
 }
@@ -264,6 +265,14 @@
 }
 [dir="rtl"] .fan-card-stage { transform: translateX(50%) scale(0.66); }
 
+/* While the finger is down the cards must not ease: a transition on a
+   dragged element lags the finger by its own duration, which reads as the
+   deck being heavy rather than responsive. */
+.fan[data-dragging] .fan-card { transition: none; }
+.fan { cursor: grab; }
+.fan[data-dragging] { cursor: grabbing; }
+.fan[data-dragging] .fan-card { cursor: grabbing; }
+
 @media (prefers-reduced-motion: reduce) {
   .fan-card { transition: none; }
   .fan { --fan-tilt: 0 !important; }
@@ -275,12 +284,15 @@
   .fan { height: 420px; }
   .fan-card {
     width: 258px;
-    transform: translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
+    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
     opacity: calc(1 - var(--far) * 0.45);
   }
   [dir="rtl"] .fan-card {
-    transform: translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
+    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
   }
+  /* The back cards stop swallowing the swipe on a phone, where the whole
+     stage is one target. */
+  .fan-card:not([data-active]) { pointer-events: none; }
   .fan-card:not([data-active]) { pointer-events: none; }
 }
 
@@ -298,3 +310,8 @@
   font-weight: 600;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
 }
+
+/* The fit box. The sheet is scaled from its top centre so a short one sits
+   under the label rather than floating in the middle of the well. */
+.fitw { display: grid; place-items: start center; width: 100%; overflow: hidden; }
+.fitw-in { transform-origin: top center; will-change: transform; }
