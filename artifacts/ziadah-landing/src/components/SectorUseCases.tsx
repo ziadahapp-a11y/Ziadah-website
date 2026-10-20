@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorDeepDive, type GoalSlug, type PresentationSlug, type SectorUseCase } from "@/data/sectorDeepDive";
 import { goals, presentations } from "@/lib/features-data";
+import SectorSheet from "@/components/widgets/SectorSheet";
 import {
-  WidgetShell, WidgetHint, WidgetButton, ProductRow, ProductList,
-} from "@/components/widgets/kit";
-import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
+  StorefrontWidget, WIDGET_KINDS, widgetKindLabel, widgetKindWhen, type WidgetKind,
+} from "@/components/widgets/storefrontSets";
+import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 import { productImage } from "@/lib/product-images";
 import FitWidget from "@/components/widgets/FitWidget";
 
@@ -36,7 +37,18 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const isAr = lang === "ar";
   const deep = getSectorDeepDive(slug);
   const [activeKey, setActiveKey] = useState<string | null>(null);
-  const [kind, setKind] = useState<WidgetKind>("kit");
+
+  /* Hooks stay above the early return. The shape list does not depend on the
+     sector, only on the language, so it is built once per language. */
+  const shapeItems = useMemo<AccordionItem[]>(
+    () =>
+      WIDGET_KINDS.map((k) => ({
+        key: k,
+        title: widgetKindLabel(k, isAr),
+        note: widgetKindWhen(k, isAr),
+      })),
+    [isAr],
+  );
 
   if (!deep?.useCases.length) return null;
 
@@ -69,48 +81,13 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     return p ? (isAr ? p.title : p.titleEn) : null;
   };
 
-  /* The sheet, exactly as it ships. `ds="figma"` keeps it the design system's
-     white card on any band, so every moment's preview is the same product. */
-  const Sheet = ({ uc }: { uc: SectorUseCase }) => {
-    if (!uc.widget) return null;
-    const w = uc.widget;
-    return (
-      <WidgetShell
-        ds="figma"
-        maxWidth={340}
-        title={isAr ? w.titleAr : w.titleEn}
-        footer={<WidgetButton block>{isAr ? w.ctaAr : w.ctaEn}</WidgetButton>}
-      >
-        <WidgetHint>{L.sees}</WidgetHint>
-        <ProductRow
-          name={isAr ? w.mainAr : w.mainEn}
-          price={w.mainPrice}
-          currency={L.currency}
-        />
-        <WidgetHint>{isAr ? w.hintAr ?? L.suggests : w.hintEn ?? L.suggests}</WidgetHint>
-        <ProductList>
-          {w.suggest.map((sg, i) => (
-            <ProductRow
-              key={i}
-              name={isAr ? sg.ar : sg.en}
-              price={sg.price}
-              was={sg.was}
-              currency={L.currency}
-              selected={i === 0}
-            />
-          ))}
-        </ProductList>
-      </WidgetShell>
-    );
-  };
-
   const Detail = ({ uc }: { uc: SectorUseCase }) => (
     <div className="scq-stage-body">
       <span className="scq-stage-k">{L.live}</span>
       {/* Fitted, not cropped. The sheets are genuinely different heights, so
           a fixed stage either cuts the tall ones or wells the short ones. */}
       <FitWidget height={520}>
-        <Sheet uc={uc} />
+        <SectorSheet uc={uc} />
       </FitWidget>
       <p className="scq-stage-why">
         <span className="scq-stage-why-k">{L.why}</span>
@@ -124,8 +101,14 @@ export default function SectorUseCases({ slug }: { slug: string }) {
      screen with the widget sitting in it, because where it sits is half of
      what it is. A sheet floating on our violet band is a component; the same
      sheet under a product's own photo and price is the thing the merchant
-     will actually ship. */
-  const Phone = ({ k }: { k: WidgetKind }) => {
+     will actually ship.
+
+     A render FUNCTION, not a component. Declared as `const Phone = () => ...`
+     inside this component it is a new component type on every render, so
+     React unmounts and remounts the whole phone each time the use-case list
+     below changes state - and the sheet inside refits from scratch. Called as
+     `phone(kind)` it is just JSX, and the phone keeps its identity. */
+  const phone = (k: WidgetKind) => {
     const heroName = isAr ? "سماعات لاسلكية" : "Wireless Earbuds";
     const src = productImage(heroName);
     return (
@@ -137,7 +120,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
           <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
           <span className="pz-add">{isAr ? "أضف للسلة" : "Add to cart"}</span>
           <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
-          <FitWidget height={470}><StorefrontWidget kind={k} /></FitWidget>
+          <FitWidget hug height={470}><StorefrontWidget kind={k} /></FitWidget>
         </div>
       </div>
     );
@@ -154,23 +137,17 @@ export default function SectorUseCases({ slug }: { slug: string }) {
           kicker={isAr ? "أشكال العرض" : "The shapes"}
           title={isAr ? "ما الذي يظهر فعلاً في صفحة منتجك" : "What actually appears on your product page"}
           lead={isAr
-            ? "خمسة أشكال، كل واحد شاشة متجر كاملة لا بطاقة معلّقة في الهواء. اضغط أي شكل وشوفه داخل الصفحة."
-            : "Five shapes, each one a full storefront screen rather than a card floating in mid-air. Pick a shape and see it inside the page."}
+            ? `${WIDGET_KINDS.length} شكلاً، كل واحد شاشة متجر كاملة لا بطاقة معلّقة في الهواء. تنفتح الأشكال تباعاً مع التمرير، ويمكن الضغط على أي منها.`
+            : `${WIDGET_KINDS.length} shapes, each one a full storefront screen rather than a card floating in mid-air. They open one after another as you scroll, and any of them can be clicked.`}
         />
         <Shell>
-          <div className="scq-shapes" dir={dir}>
-            <div className="sdd-filter" role="group">
-              {WIDGET_KINDS.map((k) => (
-                <button
-                  key={k} type="button" className="chip is-small"
-                  aria-pressed={kind === k}
-                  onClick={() => setKind(k)}
-                >
-                  {widgetKindLabel(k, isAr)}
-                </button>
-              ))}
-            </div>
-            <Phone k={kind} />
+          <div dir={dir}>
+            <ShapeAccordion
+              items={shapeItems}
+              label={isAr ? "أشكال العرض" : "The shapes"}
+              stageMax={840}
+              stage={(key) => phone(key as WidgetKind)}
+            />
           </div>
         </Shell>
       </DsSection>

@@ -223,6 +223,18 @@ html {
   --section-space: clamp(48px, 2.2vw + 30px, 72px);
   --section-space-bottom: var(--section-space);
 
+  /* THE PINNED FIGURE'S HEIGHT, DECLARED RATHER THAN DEFAULTED.
+     Four rules in `sections.css` read `var(--items-image-height, 55.8rem)` -
+     the sticky column's offset, the rows' trailing padding, the figure's own
+     floor - and nothing ever declared it, so all four ran on the fallback.
+     55.8rem is 558px at 1440, 686px at 1024 and 558px on a 390px phone,
+     which is how the how-it-works band came to measure 1,467px at 1440 and
+     2,549px on a phone whose whole viewport is 844.
+
+     Declaring it here fixes all four at once, and in px it finally scales
+     with the viewport instead of against it. */
+  --items-image-height: clamp(300px, 26vw + 90px, 440px);
+
   /* ---- status ink ----
      The TEXT role of each status family, kept behind one indirection so a
      section can re-point it. `@theme inline` substitutes a token's DEFINITION
@@ -521,7 +533,22 @@ body{
   font-size:1.6rem;
   background:var(--page-background);
   color:var(--t);
+  /* CLIP, NOT HIDDEN - THE ROOT CAUSE OF EVERY DEAD `position: sticky`.
+     `overflow-x: hidden` forces the other axis to compute to `auto`, which
+     makes the element a SCROLL CONTAINER. `html` already carries `hidden`, so
+     it propagates to the viewport and body's own value then applies to body
+     itself: body, and `#root` below, were both scroll containers whose height
+     equals their content, so they never scrolled. A sticky element sticks
+     against its nearest scrolling ancestor, and that was a box that never
+     moves. Measured: no sticky element on any template held its position,
+     including the pinned figure in how-it-works.
+     `clip` cuts overflow exactly as `hidden` does but creates no scroll
+     container, so sticky resolves against the viewport again. The `hidden`
+     line above it is the fallback for browsers that predate `clip` (Safari
+     before 16, Chrome before 90): they drop the second declaration and keep
+     the old behaviour, which is no worse than it was. */
   overflow-x:hidden;
+  overflow-x:clip;
   transition:background .35s ease,color .35s ease;
   overscroll-behavior-y:auto;
   touch-action:auto;
@@ -530,7 +557,9 @@ body{
 #root{
   min-height:100svh;
   min-height:100dvh;
+  /* See `body` above: clip, so this is not a scroll container. */
   overflow-x:hidden;
+  overflow-x:clip;
   direction:inherit;
   touch-action:auto;
 }

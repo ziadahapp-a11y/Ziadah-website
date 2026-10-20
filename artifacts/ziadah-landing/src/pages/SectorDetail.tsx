@@ -211,7 +211,7 @@ export default function SectorDetail() {
           <>
             <PageProgress value={scrollProg} />
             <div className="sector-html">
-              <SectorHtmlHero rich={pageRich} sectorTitle={title} sectorsBreadcrumb={tr.breadcrumbSectors} onScrollTo={scrollToSection} />
+              <SectorHtmlHero rich={pageRich} sectorTitle={title} sectorsBreadcrumb={tr.breadcrumbSectors} onScrollTo={scrollToSection} slug={params.slug ?? ""} />
               <PageRail items={railItems} />
             </div>
           </>

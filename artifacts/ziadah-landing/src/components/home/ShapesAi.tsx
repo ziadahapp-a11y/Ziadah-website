@@ -1,26 +1,33 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
+import {
+  StorefrontWidget, WIDGET_KINDS, widgetKindLabel, widgetKindWhen, type WidgetKind,
+} from "@/components/widgets/storefrontSets";
 import FitWidget from "@/components/widgets/FitWidget";
+import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 
 /**
  * WHAT THE MODEL DECIDES, AND WHAT IT PUTS ON THE PAGE.
  *
- * The home page listed capabilities and counted them. It never showed the
- * two halves of the actual product: a model that decides WHAT to offer, and
- * a set of shapes that decide HOW the offer looks. A merchant reading
- * "nineteen capabilities" learns a number; a merchant seeing the model's
- * three inputs beside a live kit builder learns the product.
+ * The home page listed capabilities and counted them. It never showed the two
+ * halves of the actual product: a model that decides WHAT to offer, and a set
+ * of shapes that decide HOW the offer looks. A merchant reading "nineteen
+ * capabilities" learns a number; a merchant seeing the model's three inputs
+ * above a live list of every shape learns the product.
  *
- * The widgets here are the same components the sector pages and the hero
- * deck render. Three surfaces, one source: none of them can show a shape the
+ * The three inputs sit in a row, and the shapes are a collapsible list that
+ * opens itself as the band scrolls past, one row after another, with the
+ * sheet for the open row beside it. It used to be a strip of chips, which is
+ * a tab strip, which asks the visitor to click before anything happens.
+ *
+ * The widgets are the same components the sector pages and the hero deck
+ * render. Three surfaces, one source: none of them can show a shape the
  * product does not ship.
  */
 export default function ShapesAi() {
   const { isAr, dir } = useLanguage();
-  const [kind, setKind] = useState<WidgetKind>("bmsm");
   const t = (ar: string, en: string) => (isAr ? ar : en);
 
   const reads = [
@@ -41,6 +48,16 @@ export default function ShapesAi() {
     },
   ];
 
+  const items = useMemo<AccordionItem[]>(
+    () =>
+      WIDGET_KINDS.map((k) => ({
+        key: k,
+        title: widgetKindLabel(k, isAr),
+        note: widgetKindWhen(k, isAr),
+      })),
+    [isAr],
+  );
+
   return (
     <DsSection id="section-ai-shapes" family="grey">
       <SectionHead
@@ -53,7 +70,7 @@ export default function ShapesAi() {
         )}
       />
       <Shell>
-        <div className="ais" dir={dir}>
+        <div dir={dir}>
           <ul className="ais-reads">
             {reads.map((r, i) => (
               <li key={i} className="ais-read">
@@ -64,26 +81,24 @@ export default function ShapesAi() {
                 </span>
               </li>
             ))}
-            <li className="ais-note">
-              {t("والقرار يتحدّث مع كل طلب جديد. ما تضبطه مرة ويقف.",
-                 "And the decision updates with every new order. You do not set it once and leave it.")}
-            </li>
           </ul>
+          <p className="ais-note">
+            {t("والقرار يتحدّث مع كل طلب جديد. ما تضبطه مرة ويقف.",
+               "And the decision updates with every new order. You do not set it once and leave it.")}
+          </p>
 
-          <div className="ais-stage">
-            <div className="sdd-filter" role="group" aria-label={t("أشكال العرض", "The shapes")}>
-              {WIDGET_KINDS.map((k) => (
-                <button
-                  key={k} type="button" className="chip is-small"
-                  aria-pressed={kind === k}
-                  onClick={() => setKind(k)}
-                >
-                  {widgetKindLabel(k, isAr)}
-                </button>
-              ))}
-            </div>
-            <FitWidget height={560}><StorefrontWidget kind={kind} /></FitWidget>
-          </div>
+          <ShapeAccordion
+            items={items}
+            label={t("أشكال العرض", "The shapes")}
+            stageMax={580}
+            stage={(key, { wide }) => (
+              <div className="sacc-card">
+                <FitWidget hug height={wide ? 540 : 460}>
+                  <StorefrontWidget kind={key as WidgetKind} />
+                </FitWidget>
+              </div>
+            )}
+          />
         </div>
       </Shell>
     </DsSection>

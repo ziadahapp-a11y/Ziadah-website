@@ -658,7 +658,11 @@
 }
 .slist-container { position: relative; padding: 6rem 0 7rem; }
 @media screen and (min-width: 768px)  { .slist-container { padding: 4.4rem 0; } }
-@media screen and (min-width: 1025px) { .slist-container { padding: 8rem 0 15rem; } }
+/* 8rem/15rem was 80/150px at 1440 and 98/185px at 1024 - a band whose
+   padding grew as the screen shrank. The 150px foot was also never a
+   decision: it is the room the last row needs to reach the pinned figure,
+   and that room is `--items-image-height`'s job, not a constant's. */
+@media screen and (min-width: 1025px) { .slist-container { padding: clamp(40px, 2vw + 24px, 56px) 0 clamp(48px, 3vw + 26px, 80px); } }
 
 .slist-grid { display: flex; flex-direction: column; }
 @media screen and (min-width: 768px) {
@@ -677,11 +681,11 @@
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
-  margin-bottom: 7.3rem;
+  margin-bottom: 40px;
   text-align: center;
 }
-@media screen and (min-width: 768px)  { .slist-head { margin-bottom: 4rem; grid-column: 3 / span 4; } }
-@media screen and (min-width: 1025px) { .slist-head { margin-bottom: 6rem; grid-column: 5 / span 8; } }
+@media screen and (min-width: 768px)  { .slist-head { margin-bottom: clamp(24px, 1.4vw + 14px, 40px); grid-column: 3 / span 4; } }
+@media screen and (min-width: 1025px) { .slist-head { margin-bottom: clamp(28px, 1.6vw + 16px, 44px); grid-column: 5 / span 8; } }
 .slist-title { font-size: 6.4rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
 @media screen and (max-width: 767px) { .slist-title { font-size: 4rem; } }
 [dir="rtl"] .slist-title { line-height: 1.2; letter-spacing: 0; }
@@ -796,7 +800,15 @@
 [dir="rtl"] .slist-row-title { line-height: 1.45; }
 .slist-row-body { font-size: 1.8rem; line-height: 1.5; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }   /* MEASURED .listBody 0.75 */
 [dir="rtl"] .slist-row-body { line-height: 1.8; }
-.slist-row-media { margin-top: 1.6rem; border-radius: var(--radius-card); overflow: hidden; }
+/* THE SAME DEFECT AS THE BOARD ART, ONE BAND DOWN.
+   Each step repeats its figure inline on a phone, and those figures are
+   composed in rem - so a surface drawn for a 592px desktop column renders at
+   the identical pixel height inside a 358px phone row. Measured, the four
+   inline figures came to 1,173px of the band's 2,195px of rows.
+   `zoom` scales the layout box with the paint; a transform would shrink the
+   picture and leave the row exactly as tall as it is now. */
+.slist-row-media { margin-top: 14px; border-radius: var(--radius-card); overflow: hidden; }
+@media screen and (max-width: 767px) { .slist-row-media { zoom: 0.82; } }
 @media screen and (min-width: 768px) { .slist-row-media { display: none; } }
 
 /* The `lead` mobile composition: one figure under the head, none in the rows.
@@ -1579,8 +1591,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
-  padding: 2.4rem;
+  /* A plan card is a name, a price, a note and five lines. Measured, it was
+     530px tall at 1440 for a 156px list - 374px of chrome around the thing
+     the reader came for, four times across. The gap and the padding are
+     where that went. */
+  gap: 12px;
+  padding: clamp(16px, 1vw + 10px, 22px);
   border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
 }
@@ -1603,8 +1619,8 @@
   white-space: nowrap;
 }
 .price-name { font-size: 2.4rem; line-height: 1.33; font-weight: 500; }
-.price-note { font-size: 1.6rem; line-height: 1.5; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }   /* MEASURED body step 0.75 */
-.price-list { display: grid; gap: 1.2rem; margin-top: auto; font-size: 1.6rem; line-height: 1.5; }
+.price-note { font-size: var(--t-sm); line-height: 1.5; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent); }   /* MEASURED body step 0.75 */
+.price-list { display: grid; gap: 8px; margin-top: auto; font-size: var(--t-sm); line-height: 1.55; }
 .price-list > li { display: flex; align-items: start; gap: 0.8rem; }
 
 /* ---------- ROI CALCULATOR ---------------------------------------------

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Rocket, ArrowDown } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich } from "@/data/sectorPageTypes";
@@ -8,12 +8,17 @@ import { HeroSplit } from "@/sections";
 import {
   PhoneFrame, WidgetShell, ProductList, ProductRow, WidgetHint,
 } from "@/components/widgets/kit";
+import CardDeck, { type DeckCard } from "@/components/widgets/CardDeck";
+import SectorSheet from "@/components/widgets/SectorSheet";
+import { getSectorDeepDive } from "@/data/sectorDeepDive";
 
 type Props = {
   rich: SectorPageRich;
   sectorTitle: string;
   sectorsBreadcrumb: string;
   onScrollTo: (id: string) => void;
+  /** Which sector's moments fill the hero deck. */
+  slug: string;
 };
 
 
@@ -43,10 +48,32 @@ function splitLine(text: string) {
  * own `rich` data, and the phone is unchanged: it is the one thing on the page
  * that shows rather than tells.
  */
-export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, onScrollTo }: Props) {
+export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, onScrollTo, slug }: Props) {
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
   const [platformModalOpen, setPlatformModalOpen] = useState(false);
+
+  /* THE DECK IS THIS SECTOR'S OWN MOMENTS.
+     The home hero fans the twelve storefront shapes, because the home page
+     argues that there are twelve. A sector page argues something narrower -
+     here is what Ziadah fires in YOUR shop - so the cards are the sector's
+     own use cases, each rendering the widget its data already carries, in
+     that sector's products and prices. A beauty page opens on a vitamin C
+     serum because `beautyCare.ts` says so; nothing here knows what beauty is.
+
+     Not every sector uses every shape, and that is the point: a deck of five
+     moments on one sector and fifteen on another is the honest picture. */
+  const deck = useMemo<DeckCard[]>(() => {
+    const deep = getSectorDeepDive(slug);
+    if (!deep) return [];
+    return deep.useCases
+      .filter((uc) => uc.widget)
+      .map((uc) => ({
+        key: uc.key,
+        label: isAr ? uc.titleAr : uc.titleEn,
+        node: <SectorSheet uc={uc} />,
+      }));
+  }, [slug, isAr]);
 
   const useSplit = Boolean(
     (rich.heroHeadlineLine1Ar && rich.heroHeadlineLine2Ar) || (rich.heroHeadlineLine1En && rich.heroHeadlineLine2En),
@@ -100,12 +127,20 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
           </>
         }
         media={
-          /* The sector's evidence: its real orders, and what Ziadah suggests
-             against them. On the kit's neutral phone now - it used to be a
-             frame with a gold-to-cyan gradient strip holding white rows with
-             an emoji where the product photo goes and "25 SAR" on an Arabic
-             page. Nineteen to forty-three emoji per sector page came from
-             here. */
+          /* The sector's evidence: its real moments, as the sheets a shopper
+             would meet, fanned so the whole set is visible before anything is
+             clicked. This used to be ONE static phone holding one order and
+             one suggestion list - a single frame standing in for a sector
+             that fires five to fifteen different offers.
+
+             The phone survives only as a fallback. A sector whose data has no
+             widgets would otherwise render an empty hero, and an empty hero
+             is worse than an old one. */
+          deck.length ? (
+            <div dir={dir} className="sector-hero-deck">
+              <CardDeck cards={deck} label={sectorTitle} cardHeight={330} />
+            </div>
+          ) : (
           <div dir={dir} className="ucp-stage">
             {ft1 ? <p className="ucp-float ucp-float--1">{ft1}</p> : null}
             <PhoneFrame label={phoneBar} width={300}>
@@ -137,6 +172,7 @@ export default function SectorHtmlHero({ rich, sectorTitle, sectorsBreadcrumb, o
             </PhoneFrame>
             {ft2 ? <p className="ucp-float ucp-float--2">{ft2}</p> : null}
           </div>
+          )
         }
       />
       <PlatformModal open={platformModalOpen} onClose={() => setPlatformModalOpen(false)} />

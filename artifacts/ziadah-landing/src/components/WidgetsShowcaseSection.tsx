@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import UseCaseRow from "@/components/UseCaseRow";
 import {
   buildWidgetShowcaseItems,
   SHAPED_KINDS,
@@ -12,6 +11,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
 import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
+import FitWidget from "@/components/widgets/FitWidget";
+import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 
 /* READING ORDER, not data order. `widgetLabels` is indexed against
    `widgetElements()` and cannot be reordered; this is the order a merchant
@@ -91,6 +92,41 @@ export default function WidgetsShowcaseSection() {
     [allWidgets],
   );
 
+  /* A COLLAPSIBLE LIST, NOT A TAB STRIP, AND NOT SEVEN STACKED ROWS.
+     Seven stacked rows were a third of the home page: 5,803px at 1440 for one
+     idea repeated, each row putting 315px of copy beside a stage up to 958px
+     tall. A row of tabs fixed the height and kept the wrong interaction - a
+     tab asks the visitor to click before anything happens.
+
+     This is the same list the AI band and the sector pages use. The seven open
+     one after another as the band scrolls past, the sheet for the open one
+     sits beside it, and a click takes over. The open row says WHEN the offer
+     appears, in one line, and links to the page that explains the rest. The
+     old rows also carried a goal, an example and, for the coupon, a caveat;
+     the coupon's caveat said the same thing its "when" line already says, and
+     the goal and example live on the linked page. */
+  const items = useMemo<AccordionItem[]>(
+    () =>
+      rows.map((item) => {
+        const href = KIND_TO_URL[item.kind];
+        return {
+          key: item.kind,
+          title: item.label,
+          note: item.whenToUse,
+          extra: (
+            <a
+              className="sacc-link"
+              href={href}
+              onClick={(e) => { e.preventDefault(); navigateTo(href); }}
+            >
+              {tr.landing.widgetRowLink}
+            </a>
+          ),
+        };
+      }),
+    [rows, tr.landing.widgetRowLink],
+  );
+
   /* On the design system rather than beside it. This used to paint its own
      ground, its own 80px padding and its own head out of the legacy `.tc /
      .stag / .st / .ssub` classes, which made it one of two bands on the home
@@ -104,28 +140,21 @@ export default function WidgetsShowcaseSection() {
         lead={tr.landing.widgetsSubtitle}
       />
       <Shell>
-        <div className="ucrow-list">
-          {rows.map((item, i) => (
-            <UseCaseRow
-              key={item.kind}
-              title={item.label}
-              description={item.desc}
-              whenToUse={item.whenToUse}
-              goal={item.goal}
-              example={item.example}
-              note={item.note}
-              preview={item.widget}
-              reverse={i % 2 === 1}
-              href={KIND_TO_URL[item.kind]}
-              hrefLabel={tr.landing.widgetRowLink}
-              onNavigate={navigateTo}
-              labels={{
-                whenToUse: tr.landing.widgetRowWhen,
-                goal: tr.landing.widgetRowGoal,
-                example: tr.landing.widgetRowExample,
-              }}
-            />
-          ))}
+        <div dir={lang === "ar" ? "rtl" : "ltr"}>
+          <ShapeAccordion
+            items={items}
+            label={tr.landing.widgetsTag}
+            stageMax={580}
+            stage={(key, { wide }) => {
+              const row = rows.find((r) => r.kind === key);
+              if (!row) return null;
+              return (
+                <div className="sacc-card">
+                  <FitWidget hug height={wide ? 540 : 460}>{row.widget}</FitWidget>
+                </div>
+              );
+            }}
+          />
         </div>
       </Shell>
     </DsSection>
