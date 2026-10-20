@@ -117,10 +117,10 @@ export const electronicsRich: SectorPageRich = {
     "High-ticket rescue acceptance.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +38%", en: "AOV +38%" },
-    { ar: "نسبة الإرفاق +40%", en: "Attachment +40%" },
-    { ar: "متوسط الطلب +70%", en: "Bundle AOV +70%" },
-    { ar: "استرداد 28%", en: "28% rescue" },
+    { ar: "متوسط الطلب +38%", en: "AOV +38%", metric: "aov" },
+    { ar: "نسبة الإرفاق +40%", en: "Attachment +40%", metric: "attachment" },
+    { ar: "متوسط قيمة السلة +70%", en: "Bundle AOV +70%", metric: "basketAov" },
+    { ar: "استعادة السلات 28%", en: "28% cart rescue", metric: "rescue" },
   ],
   featureHowAr: [
     "هاتف ذكي → سماعات لاسلكية + ساعة ذكية من نفس المنظومة",

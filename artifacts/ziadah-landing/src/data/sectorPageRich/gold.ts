@@ -117,10 +117,10 @@ export const goldRich: SectorPageRich = {
     "Wedding seasons.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +52%", en: "AOV +52%" },
-    { ar: "متوسط الطلب +15%", en: "Gift attach +15%" },
-    { ar: "هامش +28%", en: "Margin +28%" },
-    { ar: "متوسط الطلب +85%", en: "Bundle AOV +85%" },
+    { ar: "متوسط الطلب +52%", en: "AOV +52%", metric: "aov" },
+    { ar: "متوسط الطلب +15%", en: "Gift attach +15%", metric: "attachment" },
+    { ar: "هامش +28%", en: "Margin +28%", metric: "margin" },
+    { ar: "متوسط الطلب +85%", en: "Bundle AOV +85%", metric: "basketAov" },
   ],
   featureHowAr: [
     "سوار → طوق خفيف + أقراط بنفس العيار واللون",

@@ -117,10 +117,10 @@ export const charitiesRich: SectorPageRich = {
     "Impact transparency reporting.",
   ],
   analyticKpis: [
-    { ar: "أثر +35%", en: "Impact +35%" },
-    { ar: "احتفاظ +45%", en: "Retention +45%" },
-    { ar: "متوسط الطلب +68%", en: "AOV +68%" },
-    { ar: "أثر +55%", en: "Impact +55%" },
+    { ar: "متوسط التبرّع +35%", en: "Average gift +35%", metric: "gift" },
+    { ar: "التحوّل للتبرّع الشهري +45%", en: "Monthly conversion +45%", metric: "recurring" },
+    { ar: "معدل الاحتفاظ +68%", en: "Retention +68%", metric: "retention" },
+    { ar: "إتمام المشاريع +55%", en: "Project completion +55%", metric: "cvr" },
   ],
   featureHowAr: [
     "تبرع كسوة → مشروع غذائي في نفس المنطقة",

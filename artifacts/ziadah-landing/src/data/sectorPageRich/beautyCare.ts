@@ -117,10 +117,10 @@ export const beautyCareRich: SectorPageRich = {
     "Reporting by skin type.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +36%", en: "AOV +36%" },
-    { ar: "نسبة الإرفاق +32%", en: "Attachment +32%" },
-    { ar: "متوسط الطلب +62%", en: "Bundle +62%" },
-    { ar: "هامش +28%", en: "Margin +28%" },
+    { ar: "متوسط الطلب +36%", en: "AOV +36%", metric: "aov" },
+    { ar: "نسبة الإرفاق +32%", en: "Attachment +32%", metric: "attachment" },
+    { ar: "متوسط الطلب +62%", en: "Bundle +62%", metric: "basketAov" },
+    { ar: "هامش +28%", en: "Margin +28%", metric: "margin" },
   ],
   featureHowAr: [
     "كريم ليلي → واقي شمس صباحي + تونر من نفس الخط",

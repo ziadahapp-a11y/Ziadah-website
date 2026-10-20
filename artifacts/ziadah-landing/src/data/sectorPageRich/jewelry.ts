@@ -117,10 +117,10 @@ export const jewelryRich: SectorPageRich = {
     "Seasonal occasions.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +42%", en: "AOV +42%" },
-    { ar: "متوسط الطلب +85%", en: "Bundle AOV +85%" },
-    { ar: "هامش +35%", en: "Margin +35%" },
-    { ar: "نسبة التحويل +22%", en: "CVR +22%" },
+    { ar: "متوسط الطلب +42%", en: "AOV +42%", metric: "aov" },
+    { ar: "متوسط الطلب +85%", en: "Bundle AOV +85%", metric: "basketAov" },
+    { ar: "هامش +35%", en: "Margin +35%", metric: "margin" },
+    { ar: "نسبة التحويل +22%", en: "CVR +22%", metric: "cvr" },
   ],
   featureHowAr: [
     "سلسلة ذهبية → أقراط بنفس الحجر والطابع",

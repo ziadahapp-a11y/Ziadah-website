@@ -117,10 +117,10 @@ export const clinicsRich: SectorPageRich = {
     "Health data privacy.",
   ],
   analyticKpis: [
-    { ar: "متوسط الطلب +42%", en: "AOV +42%" },
-    { ar: "نسبة الإرفاق +38%", en: "Attachment +38%" },
-    { ar: "احتفاظ +40%", en: "Retention +40%" },
-    { ar: "نسبة التحويل +28%", en: "CVR +28%" },
+    { ar: "متوسط قيمة الزيارة +42%", en: "Visit value +42%", metric: "aov" },
+    { ar: "نسبة الإرفاق +38%", en: "Attachment +38%", metric: "attachment" },
+    { ar: "معدل الاحتفاظ +40%", en: "Retention +40%", metric: "retention" },
+    { ar: "نسبة التحويل +28%", en: "CVR +28%", metric: "cvr" },
   ],
   featureHowAr: [
     "حجز تنظيف أسنان → فرشاة كهربائية + خيط مائي موصى بهما",

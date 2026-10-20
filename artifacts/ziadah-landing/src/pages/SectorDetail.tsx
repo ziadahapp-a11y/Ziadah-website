@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { t } from "@/i18n/translations";
 import { useParams } from "wouter";
 import PageShell from "@/components/PageShell";
@@ -15,10 +15,9 @@ import { BreadcrumbSchema, WebPageSchema, SoftwareAppSchema } from "@/components
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorBySlug, getSectorSeoTitle } from "@/data/sectors";
 import { getSectorVisuals } from "@/data/sectorVisuals";
-import SectorVisualExamples from "@/components/SectorVisualExamples";
+import SectorUseCases from "@/components/SectorUseCases";
 import { navigateTo } from "@/components/PageTransition";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
-import SectorHubPlaybook from "@/components/SectorHubPlaybook";
 import SectorPageRichSections from "@/components/SectorPageRichSections";
 import SectorHtmlHero from "@/components/SectorHtmlHero";
 import SectorDeliveryUseCases from "@/components/SectorDeliveryUseCases";
@@ -142,7 +141,9 @@ export default function SectorDetail() {
     ...hubQuick,
     ...(!pageRich ? ([{ id: "section-how-to", labelAr: "التطبيق", labelEn: "Setup" }] as const) : []),
     ...(slim ? [] : ([{ id: "section-how-help", labelAr: "الحلول", labelEn: "Solutions" }] as const)),
-    { id: "section-examples", labelAr: "الأمثلة", labelEn: "Examples" },
+    /* The examples moved into the use-case band, so the rail follows them
+       there rather than scrolling to an id that no longer exists. */
+    { id: "section-use-cases", labelAr: "حالات الاستخدام", labelEn: "Use cases" },
     ...(slim ? [] : ([{ id: "section-experience", labelAr: "التجربة", labelEn: "Experience" }] as const)),
     ...(pageRich
       ? ([
@@ -168,6 +169,20 @@ export default function SectorDetail() {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) scrollToTarget(getMotionRuntime(), el, -getAnchorScrollTopOffset());
+  };
+
+  /* One shape for both halves of the split column, so they cannot drift. */
+  const articleClass = `${htmlPlaybook ? "sector-html sector-html--compact " : ""}px-4`;
+  const articleStyle: CSSProperties = {
+    position: "relative",
+    zIndex: 2,
+    paddingTop: 48,
+    paddingBottom: 96,
+    maxWidth: 1152,
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
   };
 
   return (
@@ -238,21 +253,22 @@ export default function SectorDetail() {
           </>
         )}
 
-        <article
-          className={`${htmlPlaybook ? "sector-html sector-html--compact " : ""}px-4`}
-          style={{
-            position: "relative",
-            zIndex: 2,
-            paddingTop: 48,
-            paddingBottom: 96,
-            maxWidth: 1152,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "column",
-            gap: 0,
-          }}
-        >
+        {/* THE ORDER IS THE ARGUMENT. The use-case band used to sit at the
+            very bottom, after setup instructions and best practices, which
+            asked a merchant to read how to configure a thing before they had
+            been shown it working. The page now runs: why this sector, then
+            the thing itself with a live sheet per moment, then how to get it,
+            then the proof, then the ask. The band is full-width, so the
+            column is split around it rather than the band squeezed into the
+            column. */}
+        <article className={articleClass} style={articleStyle}>
           {pageRich ? <SectorPageRichSections rich={pageRich} part="top" /> : null}
+        </article>
+
+
+        <SectorUseCases slug={sector.slug} />
+
+        <article className={articleClass} style={{ ...articleStyle, paddingTop: 64 }}>
           <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
             {sector.useCardLayout && sector.howToPhaseCards?.length ? (
               <div
@@ -318,34 +334,19 @@ export default function SectorDetail() {
           </SectionBlock>
           ) : null}
 
-          {/* `showPlatformHub` is true only for `delivery-apps` and
-              `ecommerce-platforms`, and `sectorVisuals.ts` carries a bundle for
-              both, so the fallback that used to sit here -
-              `showPlatformHub && !visualBundle` - could never be true. It
-              rendered `LandingSolutionsMatrix` and the widget marquee on zero
-              routes. Both are gone; the playbook below is what these two
-              sectors have always actually shown. */}
-          {showPlatformHub && visualBundle ? <SectorHubPlaybook bundle={visualBundle} /> : null}
+          {/* `SectorHubPlaybook` used to render here for the two platform-hub
+              sectors. It was an eyebrow, a lead line and a marquee of dark
+              widget cards - the same off-system chrome as the "Real examples"
+              band, and now redundant: both sectors carry their own moments
+              with previews in the use-case band below. */}
 
-          {!showPlatformHub && visualBundle ? (
-            <div
-              id="section-examples"
-              className="rv d3 sector-block"
-              style={{ marginBottom: 20, scrollMarginTop: 120 }}
-            >
-              <h2 className="section-head-title--sm mb-5">{tr.sectionExamples}</h2>
-              <SectorVisualExamples bundle={visualBundle} />
-            </div>
-          ) : null}
-          {!showPlatformHub && !visualBundle ? (
-            <SectionBlock title={tr.sectionExamples} delayClass="d3" sectionId="section-examples">
-              <ul className="sector-list">
-                {(lang === "ar" ? sector.examplesAr : sector.examplesEn).map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-            </SectionBlock>
-          ) : null}
+          {/* "Real examples" used to sit here: a carousel of three dark phone
+              mocks per sector, none of them attached to the moment it was
+              illustrating, and the last thing on this page still painting its
+              own chrome rather than the section's colours. Every use case now
+              carries its own worked example as a storefront preview inside
+              its card, so the two are one section instead of two, and the
+              count went from three examples per sector to one per moment. */}
 
           {!slim ? (
             <SectionBlock title={tr.sectionExperience} delayClass="d1" sectionId="section-experience">
@@ -398,6 +399,7 @@ export default function SectorDetail() {
             </MkButton>
           </div>
         </article>
+
         <PageClosingCta
           title={lang === "ar" ? `جاهز تفعّل زيادة في قطاع ${title}؟` : `Ready to activate Ziadah for ${title}?`}
           description={pc.sectorDetailDesc}

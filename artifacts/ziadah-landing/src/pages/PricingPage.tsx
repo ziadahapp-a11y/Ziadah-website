@@ -18,7 +18,7 @@ import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { HeroLede, Section as DsSection, SectionHead } from "@/sections";
 import { Shell, Button as MkButton } from "@/components/mk";
 import { t as siteTranslations } from "@/i18n/translations";
-import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pricing-data";
+import { usePricingPlans, maxAnnualDiscount, currencyLabel, type BillingMode, type Currency } from "@/lib/pricing-data";
 
 type PlanKey = "s" | "g" | "p" | "b";
 type FeatureVal = boolean | string | null;
@@ -155,14 +155,17 @@ export default function PricingPage() {
 
      rendered as a tofu box beside every figure on this page. */
 
-  const riyal = isAr ? "ر.س" : "SAR";
+  /* Arabic opens in riyals and English in dollars, because that is what each
+     reader is most likely to be paying in - and either can switch. */
+  const [currency, setCurrency] = useState<Currency>(isAr ? "sar" : "usd");
+  const riyal = currencyLabel(currency, isAr);
   const ld = t[lang].landing;
   const pc = t[lang].pageClosingCta;
   const dir = isAr ? "rtl" : "ltr";
 
 
   /* One table, shared with the home page's pricing band. */
-  const plans = usePricingPlans();
+  const plans = usePricingPlans(currency);
 
   const toggleGroup = (title: string) =>
     setOpen((prev) => ({ ...prev, [title]: !prev[title] }));
@@ -204,6 +207,24 @@ export default function PricingPage() {
               <button type="button" role="tab" aria-selected={mode === "y"} className="hero-tab" onClick={() => setMode("y")}>
                 {isAr ? "سنوي" : "Yearly"}
                 <span className="hero-tab-note">{isAr ? `وفّر حتى ${maxAnnualDiscount(plans)}` : `Save up to ${maxAnnualDiscount(plans)}`}</span>
+              </button>
+            </div>
+
+            {/* The currency sits beside the billing cycle because it changes
+                the same numbers. Two switches, one row, both above the cards
+                they govern. */}
+            <div className="hero-tabs is-currency" role="tablist" aria-label={isAr ? "العملة" : "Currency"}>
+              <button
+                type="button" role="tab" aria-selected={currency === "sar"}
+                className="hero-tab" onClick={() => setCurrency("sar")}
+              >
+                {isAr ? "ريال" : "SAR"}
+              </button>
+              <button
+                type="button" role="tab" aria-selected={currency === "usd"}
+                className="hero-tab" onClick={() => setCurrency("usd")}
+              >
+                {isAr ? "دولار" : "USD"}
               </button>
             </div>
           </HeroLede>
@@ -283,7 +304,7 @@ export default function PricingPage() {
 
                       {mode === "y" && !selTopup && (
                         <div className="card-eyebrow mb-3">
-                          {isAr ? `يُدفع ${plan.yAnnual} ر.س سنوياً` : `Billed ${plan.yAnnual} SAR/year`}
+                          {isAr ? `يُدفع ${plan.yAnnual} ${riyal} سنوياً` : `Billed ${plan.yAnnual} ${riyal}/year`}
                         </div>
                       )}
 

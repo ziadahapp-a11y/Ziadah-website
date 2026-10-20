@@ -117,10 +117,10 @@ export const ecommercePlatformsRich: SectorPageRich = {
     "Exposure share reviewed weekly.",
   ],
   analyticKpis: [
-    { ar: "نسبة النقر +40%", en: "CTR +40%" },
-    { ar: "متوسط الطلب +25%", en: "AOV +25%" },
-    { ar: "نسبة الإرفاق +35%", en: "Attachment +35%" },
-    { ar: "هامش +22%", en: "Margin +22%" },
+    { ar: "نسبة النقر +40%", en: "CTR +40%", metric: "ctr" },
+    { ar: "متوسط الطلب +25%", en: "AOV +25%", metric: "aov" },
+    { ar: "نسبة الإرفاق +35%", en: "Attachment +35%", metric: "attachment" },
+    { ar: "هامش +22%", en: "Margin +22%", metric: "margin" },
   ],
   featureHowAr: [
     "لابتوب بائع A → ملحقات بائع B الأسرع شحناً — قواعد المنصة تتحكم بالأولوية",

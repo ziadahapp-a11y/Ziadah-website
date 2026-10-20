@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   THE STOREFRONT WIDGETS
+
+   Every value here is read off the real frames on `Storefront · shopper
+   (Desktop + Mobile)` in the design system file, not inferred from a
+   description. The colours are the file's own tokens, absolute rather than
+   section-relative: a storefront sheet is a picture of the merchant's shop,
+   and it looks the same on whatever band of ours it lands on. That is the
+   whole point of showing it.
+
+   Type is px for the same reason the widget kit's is: the sheet depicts a
+   414-wide phone, so its scale is set by the device it shows, not by our
+   viewport.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.sf {
+  --sf-ink: #07000c;
+  --sf-muted: #6a666d;
+  --sf-faint: #a3a0a5;
+  --sf-line: #e1e0e1;
+  --sf-brand: #4a008c;
+  --sf-tint: #f4e7ff;
+  --sf-pale: #faf5ff;
+  --sf-ok: #197a4b;
+  --sf-ok-bg: #eafaf1;
+  --sf-warn: #8a5a00;
+  --sf-warn-bg: #fff8e8;
+
+  width: 100%;
+  max-width: 380px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--sf-line);
+  color: var(--sf-ink);
+  font-family: var(--font, inherit);
+  text-align: start;
+}
+
+.sf-head { display: flex; flex-direction: column; gap: 6px; }
+.sf-head-row { display: flex; align-items: flex-start; gap: 12px; }
+.sf-title { margin: 0; flex: 1 1 auto; font-size: 17px; line-height: 1.35; font-weight: 600; }
+.sf-x { flex: none; font-size: 20px; line-height: 1; color: var(--sf-muted); }
+.sf-sub { margin: 0; font-size: 12px; line-height: 1.5; color: var(--sf-muted); }
+.sf-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sf-body { display: flex; flex-direction: column; gap: 12px; }
+.sf-foot { display: flex; flex-direction: column; gap: 10px; }
+
+.sf-pill {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; white-space: nowrap;
+}
+.sf-pill.is-violet { background: var(--sf-tint); color: var(--sf-brand); }
+.sf-pill.is-green  { background: var(--sf-ok-bg); color: var(--sf-ok); }
+.sf-pill.is-amber  { background: var(--sf-warn-bg); color: var(--sf-warn); }
+.sf-pill.is-grey   { background: #f3f3f4; color: var(--sf-muted); }
+
+/* The tier ladder. A reached step is green because it is money already
+   saved; an unreached one is grey because it is not a promise yet. */
+.sf-bar { height: 6px; border-radius: 999px; background: var(--sf-tint); overflow: hidden; }
+.sf-bar i { display: block; height: 100%; background: var(--sf-brand); border-radius: 999px; }
+.sf-tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.sf-tier {
+  display: flex; flex-direction: column; gap: 2px; align-items: center;
+  padding: 7px 4px; border-radius: 8px; background: #f7f7f8; text-align: center;
+}
+.sf-tier b { font-size: 11px; font-weight: 600; color: var(--sf-muted); }
+.sf-tier i { font-size: 10px; font-style: normal; color: var(--sf-faint); }
+.sf-tier[data-on] { background: var(--sf-ok-bg); }
+.sf-tier[data-on] b, .sf-tier[data-on] i { color: var(--sf-ok); }
+
+/* Belt and braces against the system's bare-element rules: the sheet is a
+   picture of someone else's storefront and owns every box inside it. */
+.sf *, .sf *::before, .sf *::after { box-sizing: border-box; }
+.sf section, .sf header, .sf article { padding: 0; margin: 0; }
+.sf-group { display: flex; flex-direction: column; gap: 8px; padding: 0; }
+.sf-group-h { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.sf-group-l { font-size: 13px; font-weight: 600; }
+.sf-group-m { font-size: 11px; color: var(--sf-faint); }
+.sf-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+
+.sf-tile {
+  display: block; flex: none; border-radius: 8px; overflow: hidden;
+  background: var(--sf-pale); box-shadow: inset 0 0 0 1px var(--sf-line);
+}
+.sf-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* A choice. The violet edge is the whole signal: no fill, no shadow, so a
+   grid of six options reads as one object with one thing selected. */
+.sf-opt {
+  display: flex; flex-direction: column; gap: 5px;
+  min-width: 0; padding: 8px;
+  border-radius: 10px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--sf-line);
+}
+.sf-opt > .sf-tile { width: 100% !important; height: 62px !important; }
+.sf-opt[data-chosen] { box-shadow: inset 0 0 0 1.5px var(--sf-brand); }
+.sf-opt[data-locked] { background: #fafafa; }
+.sf-opt-n { font-size: 12px; font-weight: 600; line-height: 1.35; }
+.sf-opt-p { font-size: 11px; color: var(--sf-muted); }
+.sf-opt-a { margin-block-start: 2px; }
+.sf-add { font-size: 11px; font-weight: 700; color: var(--sf-brand); }
+.sf-locked { font-size: 11px; color: var(--sf-faint); }
+
+.sf-sizes { display: flex; flex-wrap: wrap; gap: 4px; }
+.sf-size {
+  min-width: 22px; padding: 3px 5px; border-radius: 6px; text-align: center;
+  font-size: 10px; font-weight: 600; color: var(--sf-muted);
+  box-shadow: inset 0 0 0 1px var(--sf-line);
+}
+.sf-size[data-on] { background: var(--sf-brand); color: #fff; box-shadow: none; }
+
+/* A numbered step. */
+.sf-step {
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 10px;
+  padding: 10px 12px; border-radius: 10px;
+  box-shadow: inset 0 0 0 1.5px var(--sf-brand);
+}
+.sf-step-k { grid-column: 1 / -1; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: var(--sf-ok); text-transform: uppercase; }
+[dir="rtl"] .sf-step-k { letter-spacing: 0; text-transform: none; }
+.sf-step-n { font-size: 13px; font-weight: 600; }
+.sf-swap { grid-row: 2; font-size: 11px; font-weight: 700; color: var(--sf-brand); text-align: end; }
+.sf-step-p { grid-column: 1; font-size: 11px; color: var(--sf-muted); }
+
+.sf-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 10px;
+  box-shadow: inset 0 0 0 1px var(--sf-line); background: #fff;
+}
+.sf-row-main { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1 1 auto; }
+.sf-row-n { font-size: 12px; font-weight: 600; }
+.sf-row-m { font-size: 11px; color: var(--sf-muted); }
+.sf-row-p { font-size: 12px; font-weight: 600; flex: none; }
+
+/* The nudge. Amber, never green: this is the thing NOT yet done. */
+.sf-nudge {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 10px; border-radius: 10px;
+  background: var(--sf-warn-bg);
+}
+.sf-nudge-t { margin: 0; font-size: 11px; font-weight: 700; color: var(--sf-warn); }
+
+.sf-price {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 10px 12px; border-radius: 10px;
+}
+.sf-price[data-tone="violet"] { background: var(--sf-tint); }
+.sf-price-l { flex: 1 1 auto; font-size: 12px; font-weight: 600; color: var(--sf-brand); }
+.sf-price-w { font-size: 12px; color: var(--sf-faint); }
+.sf-price-n { font-size: 18px; font-weight: 700; color: var(--sf-brand); }
+
+.sf-cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px; border-radius: 999px;
+  background: #0b0310; color: #fff;
+  font-size: 13px; font-weight: 600;
+}
+.sf-cta i { font-style: normal; }
+
+.sf-ok {
+  margin: 0; display: flex; align-items: center; gap: 7px;
+  padding: 9px 11px; border-radius: 10px;
+  background: var(--sf-ok-bg); color: var(--sf-ok);
+  font-size: 12px; font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE FANNED DECK, in the home hero.
+
+   Five cards, each holding a real widget, arranged by ONE number: the
+   card's distance from the active one. Distance drives the spread, the
+   rotation and the fall-back, so the fan stays a fan whatever the deck
+   size, and there is no per-card nudging to drift out of sync.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.fan-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 100%; }
+
+.fan {
+  --fan-tilt: 0;
+  --fan-drag: 0px;
+  position: relative;
+  width: 100%;
+  height: 460px;
+  display: grid;
+  place-items: center;
+  /* The deck sits in 3D so the inactive cards fall back rather than just
+     shrinking: depth is what makes a stack read as a stack. */
+  perspective: 1400px;
+  touch-action: pan-y;
+}
+
+.fan-card {
+  position: absolute;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  width: 268px;
+  height: 400px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 18px 44px rgba(10, 0, 20, 0.16), inset 0 0 0 1px #e1e0e1;
+  overflow: hidden;
+  font: inherit;
+  text-align: start;
+  transform:
+    translateX(calc(var(--d) * 118px + var(--fan-tilt) * 14px + var(--fan-drag)))
+    translateZ(calc(var(--far) * -90px))
+    rotate(calc((var(--d) * 7deg) + (var(--fan-tilt) * 2deg)));
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: calc(1 - var(--far) * 0.14);
+}
+/* `calc()` rejects px multiplied by px. The first version wrote
+   `var(--fan-tilt) * 14px * 1px`, which made the whole transform invalid, so
+   the browser dropped the declaration and the five cards stacked at dead
+   centre: a fan that never fanned, with no error anywhere to say why.
+
+   MEASURED, not guessed: at a 72px spread a 268px card left only 72px of each
+   neighbour exposed, and the active card covered the centre of both cards
+   beside it - a click aimed at a back card landed on the front one. 118px
+   leaves 118px of face on every card, which is a target rather than a sliver. */
+/* RTL fans the other way, like a deck held in the other hand. */
+[dir="rtl"] .fan-card {
+  transform:
+    translateX(calc(var(--d) * -118px - var(--fan-tilt) * 14px + var(--fan-drag)))
+    translateZ(calc(var(--far) * -90px))
+    rotate(calc((var(--d) * -7deg) - (var(--fan-tilt) * 2deg)));
+}
+.fan-card[data-active] {
+  box-shadow: 0 26px 60px rgba(10, 0, 20, 0.22), inset 0 0 0 1.5px #4a008c;
+  opacity: 1;
+}
+.fan-card:focus-visible { outline: 3px solid #4a008c; outline-offset: 4px; }
+
+.fan-card-tag {
+  position: absolute;
+  inset-block-start: 10px;
+  inset-inline-start: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f4e7ff;
+  color: #4a008c;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* The widget inside is the real component at its real size, scaled to fit
+   the card. Scaling beats re-authoring a small variant: one source, and the
+   card can never show a widget the product does not ship. */
+.fan-card-stage {
+  display: block;
+  position: absolute;
+  inset-block-start: 40px;
+  inset-inline-start: 50%;
+  width: 380px;
+  transform: translateX(-50%) scale(0.66);
+  transform-origin: top center;
+  pointer-events: none;
+}
+[dir="rtl"] .fan-card-stage { transform: translateX(50%) scale(0.66); }
+
+/* While the finger is down the cards must not ease: a transition on a
+   dragged element lags the finger by its own duration, which reads as the
+   deck being heavy rather than responsive. */
+.fan[data-dragging] .fan-card { transition: none; }
+.fan { cursor: grab; }
+.fan[data-dragging] { cursor: grabbing; }
+.fan[data-dragging] .fan-card { cursor: grabbing; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fan-card { transition: none; }
+  .fan { --fan-tilt: 0 !important; }
+}
+
+/* Below the tablet break the fan becomes a single card: five rotated cards
+   in a 358px column is a pile, not a deck. */
+@media screen and (max-width: 860px) {
+  .fan { height: 420px; }
+  .fan-card {
+    width: 258px;
+    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
+    opacity: calc(1 - var(--far) * 0.45);
+  }
+  [dir="rtl"] .fan-card {
+    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
+  }
+  /* The back cards stop swallowing the swipe on a phone, where the whole
+     stage is one target. */
+  .fan-card:not([data-active]) { pointer-events: none; }
+  .fan-card:not([data-active]) { pointer-events: none; }
+}
+
+.fan-dots { display: flex; gap: 8px; }
+.fan-dot {
+  appearance: none; border: 0; cursor: pointer;
+  width: 9px; height: 9px; border-radius: 999px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.fan-dot[aria-pressed="true"] { background: var(--ziadah-violet, #7c3aed); transform: scale(1.35); }
+.fan-now {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
+
+/* The fit box. The sheet is scaled from its top centre so a short one sits
+   under the label rather than floating in the middle of the well. */
+.fitw { display: grid; place-items: start center; width: 100%; overflow: hidden; }
+.fitw-in { transform-origin: top center; will-change: transform; }

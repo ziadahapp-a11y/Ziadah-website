@@ -2,8 +2,9 @@ import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { Button, Shell } from "@/components/mk";
 import { useT } from "@/lib/i18n";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { Section, SectionHead } from "@/sections";
-import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pricing-data";
+import { usePricingPlans, maxAnnualDiscount, currencyLabel, type BillingMode, type Currency } from "@/lib/pricing-data";
 
 /**
  * Pricing.
@@ -28,8 +29,13 @@ import { usePricingPlans, maxAnnualDiscount, type BillingMode } from "@/lib/pric
  */
 export function Pricing({ onActivate }: { onActivate?: () => void }) {
   const t = useT();
-  const riyal = t({ ar: "ر.س", en: "SAR" });
-  const plans = usePricingPlans();
+  const { isAr } = useLanguage();
+  /* The home band follows the page's language rather than offering its own
+     switch: a second currency control on a band whose job is to send the
+     reader to /pricing would be a decision asked twice. */
+  const currency: Currency = isAr ? "sar" : "usd";
+  const riyal = currencyLabel(currency, isAr);
+  const plans = usePricingPlans(currency);
   const [mode, setMode] = useState<BillingMode>("y");
   const annual = mode === "y";
 

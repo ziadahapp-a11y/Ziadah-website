@@ -162,21 +162,23 @@ export function useMegaMenu(): MegaMenu {
         setOpenKey(null);
       },
     },
-    itemProps: (key: string) => ({
+    /* CLICK ONLY. The panel used to open on hover, which meant a pointer
+       crossing the nav on its way to the page threw a 960px panel over the
+       content it was heading for. Everything that existed to rescue that -
+       the hover-intent grace period, the geometric corridor between trigger
+       and panel, the two CSS bridges - was machinery for a problem the
+       interaction created. A panel this size is a deliberate act, so it waits
+       to be asked.
+
+       The handlers stay on the item so the shape of the API does not change
+       for every caller; they just no longer open anything. `onMouseLeave`
+       still cancels a pending timer, because the keyboard path can set one. */
+    itemProps: (_key: string) => ({
       onMouseEnter: () => {
         if (hoverTimer.current) clearTimeout(hoverTimer.current);
-        if (window.innerWidth < DESKTOP_MIN) return;
-        openedByHover.current = true;
-        setOpenKey(key);
       },
       onMouseLeave: () => {
-        // Hover intent: a short grace period so crossing the gap between the
-        // trigger and the panel doesn't close it.
         if (hoverTimer.current) clearTimeout(hoverTimer.current);
-        hoverTimer.current = setTimeout(() => {
-          hoverTimer.current = null;
-          setOpenKey((cur) => (cur === key ? null : cur));
-        }, HOVER_CLOSE_DELAY);
       },
     }),
     triggerProps: (key: string) => ({

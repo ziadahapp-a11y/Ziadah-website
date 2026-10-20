@@ -77,6 +77,7 @@ export function ProductTile({
     return (
       <span
         aria-hidden="true"
+        className="wk-tile"
         style={{
           width: size,
           height: size,
@@ -113,10 +114,15 @@ export function ProductTile({
         flex: "none",
         display: "grid",
         placeItems: "center",
-        /* Two stops of one hue, low saturation. Saturated tiles would compete
-           with the price, which is the thing the row exists to show. */
-        background: `linear-gradient(145deg, hsl(${h} 42% 92%), hsl(${(h + 40) % 360} 38% 85%))`,
-        color: `hsl(${h} 45% 32%)`,
+        /* IN THE BRAND'S NEIGHBOURHOOD, not on the whole wheel. `hueOf` used
+           to return anything from 0 to 360, so a page of unphotographed
+           products came out a rainbow - a dozen unrelated hues beside a
+           violet widget on a violet band. The hash still separates one tile
+           from the next, but it now moves within +/-18 degrees of the brand's
+           violet and varies the lightness, which is enough to tell two tiles
+           apart and not enough to read as a second palette. */
+        background: `linear-gradient(145deg, hsl(${262 + (h % 37) - 18} 34% ${90 + (h % 5)}%), hsl(${262 + (h % 29) - 14} 30% ${83 + (h % 5)}%))`,
+        color: `hsl(${262 + (h % 25) - 12} 38% 34%)`,
         fontSize: Math.round(size * 0.42),
         fontWeight: 600,
         lineHeight: 1,
@@ -142,6 +148,7 @@ export function WidgetShell({
   footer,
   style = "embedded",
   dismissible = false,
+  ds,
 }: {
   title?: ReactNode;
   subtitle?: ReactNode;
@@ -152,11 +159,19 @@ export function WidgetShell({
   style?: CampaignStyle;
   /** Shows the sheet's own close control, as every framed style in the file does. */
   dismissible?: boolean;
+  /**
+   * `"figma"` paints the sheet in the design system file's own tokens - a
+   * white card with one hairline - instead of resolving it onto the section
+   * triple. Used where many sheets sit together and have to read as one
+   * system rather than as part of the band.
+   */
+  ds?: "figma";
 }) {
   const { isAr } = useLanguage();
   const sheet = (
     <div
       className="wk"
+      data-ds={ds}
       dir={isAr ? "rtl" : "ltr"}
       style={{ maxWidth, textAlign: isAr ? "right" : "left" }}
     >

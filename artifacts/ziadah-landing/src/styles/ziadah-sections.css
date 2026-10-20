@@ -1577,3 +1577,772 @@
   .stories-grid:has(> :last-child:nth-child(3n + 1)) > :last-child { grid-column: span 6; }
   .stories-grid:has(> :last-child:nth-child(3n + 2)) > :nth-last-child(-n + 2) { grid-column: span 3; }
 }
+
+/* ---------- THE SECTOR DEEP DIVE -----------------------------------------
+   The sector's own moments, one card each, and the surfaces they run on.
+
+   Written from the section's colour triple like everything else on the band,
+   so the same markup reads correctly on the violet and grey families and in
+   either direction. No fixed track minimums: the home page's use-case rows
+   were cut off on a phone for exactly that reason, so every track here is
+   `minmax(0, 1fr)` with the column count coming from a media query. */
+.sdd-channels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+}
+@media screen and (min-width: 700px) {
+  .sdd-channels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (min-width: 1025px) {
+  .sdd-channels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.sdd-channel {
+  min-width: 0;
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  background: var(--general-white);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+}
+.sdd-channel-name {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--general-black);
+}
+.sdd-channel-desc {
+  margin: 0.8rem 0 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, #0a0a0a 70%, transparent);
+}
+
+/* The filter rail. `is-small` chips already carry the pressed state from the
+   system, so this only has to lay them out and let them wrap. */
+.sdd-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-block-end: 3.2rem;
+}
+
+.sdd-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /* Each card is as tall as its own content. Stretching them to a shared row
+     height is what created the void the sheet used to sit under. */
+  align-items: start;
+  gap: 1.6rem;
+}
+@media screen and (min-width: 860px) {
+  .sdd-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.sdd-case {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 2.8rem 2.4rem;
+  border-radius: var(--radius-card);
+  background: var(--color-primary, #fff);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.sdd-case-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-block-end: 1.6rem;
+}
+.sdd-case-title {
+  margin: 0;
+  min-width: 0;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-secondary, #0a0a0a);
+}
+[dir="rtl"] .sdd-case-title { letter-spacing: 0; line-height: 1.4; }
+/* The channel tag, not a badge: it names where the moment happens and should
+   read as a caption beside the title rather than compete with it. */
+.sdd-case-channel {
+  flex: none;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(66%, var(--ink-floor, 0%)), transparent);
+  white-space: nowrap;
+}
+.sdd-facts { display: grid; gap: 1.4rem; margin: 0; }
+.sdd-fact {
+  display: grid;
+  gap: 0.4rem;
+  padding-inline-start: 1.2rem;
+  border-inline-start: 0.2rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+/* The moment is the one a merchant scans for, so its rule carries the brand
+   and the other two stay quiet. */
+.sdd-fact:first-child {
+  border-inline-start-color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 55%, transparent);
+}
+.sdd-fact-k {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+/* Arabic has no letter case, and tracking out an Arabic word breaks the joins. */
+[dir="rtl"] .sdd-fact-k { text-transform: none; letter-spacing: 0; }
+.sdd-fact-v {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(82%, var(--ink-floor, 0%)), transparent);
+}
+/* THE WORKED EXAMPLE, AS A STOREFRONT PREVIEW.
+   This replaces the "Real examples" band that used to sit further up the page
+   as a separate carousel of dark phone mocks. That band had three scenarios
+   for a whole sector, none of them tied to the moment being described, and it
+   was the last thing on these pages still painting its own dark chrome
+   instead of the section's colours.
+   The preview is the same two-part argument the phone was making - here is
+   the moment, here is what Ziadah says about it - rendered from the example
+   string the card already carries, on the band's own ink, once per use case.
+   It sits at the bottom of the card whatever the card's height. */
+/* The live sheet's stage. The widget carries its own chrome from the kit, so
+   this only has to give it a storefront to stand on and keep it at the foot
+   of the card whatever the card's height. `--wk` overrides are deliberate:
+   the kit defaults to the section's ink, and on the violet band that would
+   put a tinted sheet on a tinted ground with nothing separating them. */
+/* NOT `margin-block-start: auto`. That pinned the sheet to the foot of the
+   card, and in a grid row where the neighbour is taller it opened a void in
+   the middle of the shorter card - a hole the eye reads as a mistake. The
+   sheet follows its copy immediately and the card ends where its content
+   ends; `align-items: start` on the list is what stops the two stretching to
+   a shared height in the first place. */
+.sdd-widget {
+  margin-block-start: 2.4rem;
+  padding-block-start: 2.4rem;
+  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+.sdd-widget-stage {
+  display: flex;
+  justify-content: center;
+  padding: 1.6rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--general-white));
+  min-width: 0;
+}
+/* The kit hard-codes `max-width: 320` inline, sized for the marquee card
+   these previews used to live in. A card column is wider than that and the
+   sheet reads as a thumbnail at 320. Only `!important` beats an inline
+   style; the stage above is what actually bounds it. */
+.sdd-widget-stage > .wk { max-width: none !important; width: 100%; }
+.sdd-preview-k {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .sdd-preview-k { text-transform: none; letter-spacing: 0; }
+/* A row is a storefront line: what it is, and what it costs or becomes. The
+   second row is the suggestion, so it carries the brand's one accent - the
+   only place colour appears inside a card, which is what makes it read as the
+   product speaking rather than as more copy. */
+.sdd-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  min-width: 0;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+}
+.sdd-preview-row--out {
+  background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 10%, transparent);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--ziadah-violet, #7c3aed) 24%, transparent);
+}
+.sdd-preview-tag {
+  flex: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(58%, var(--ink-floor, 0%)), transparent);
+}
+.sdd-preview-row--out .sdd-preview-tag {
+  color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, var(--color-secondary, #0a0a0a));
+}
+.sdd-preview-val {
+  min-width: 0;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: var(--color-secondary, #0a0a0a);
+}
+
+/* ---------- THE RICH SECTIONS, ON THE SECTION'S OWN COLOURS --------------
+   "Sector engine - customer profile and signals" and "Measurement and the
+   journey" paint their inner cards through three legacy variables that are
+   defined once, globally, as fixed brand violet:
+
+     --b1: rgba(124, 58, 237, .12)   --b2: rgba(124, 58, 237, .2)
+     --s1: rgba(124, 58, 237, .05)
+
+   A fixed hue is the one thing the colour system exists to prevent. Those
+   cards came out the same violet on a violet band, on a grey band and on an
+   inverted one, so they read as pasted in rather than as part of the page -
+   which is exactly how they look in the screenshots.
+
+   Redefining the three from the section's own ink converts every one of the
+   twenty inline `border: 1px solid var(--b2)` / `background: var(--s1)` uses
+   at once, with no call site touched. Written as a variable override rather
+   than as twenty rules because the inline styles would win against rules
+   anyway: a custom property is the only lever an inline style still reads. */
+#sector-ai-context,
+#section-metrics,
+#section-tracking,
+#section-analytics,
+#section-why {
+  --s1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 4%, var(--general-white));
+  --b1: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  --b2: color-mix(in srgb, var(--color-secondary, #0a0a0a) 16%, transparent);
+}
+/* The one place the brand's violet still belongs inside these sections: the
+   live signal dot and the engine's own accents, which name the product
+   rather than the surface. */
+#sector-ai-context .sector-html-al-num,
+#sector-ai-context .sector-html-ap-num {
+  background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 12%, transparent);
+  color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, var(--color-secondary, #0a0a0a));
+}
+
+/* ---------- THE FIVE-W USE-CASE BAND ---------------------------------
+   A sector whose moments are tagged with their goal and their shape gets
+   two extra pieces: a coverage grid that PROVES all five of each are
+   answered here, and a two-level filter so fifteen cards are a catalogue a
+   merchant can slice rather than a wall they scroll past.
+
+   Everything below reads the section's own triple. These bands sit on both
+   families (`grey` for the coverage, `violet` for the catalogue), so a hand
+   mixed colour would be wrong on one of them. */
+
+.scq-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+}
+@media screen and (min-width: 860px) {
+  .scq-cover { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.scq-cover-col {
+  min-width: 0;
+  padding: 2.8rem 2.4rem;
+  border-radius: var(--radius-card);
+  background: var(--color-primary, #fff);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.scq-cover-k {
+  margin: 0 0 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(62%, var(--ink-floor, 0%)), transparent);
+}
+[dir="rtl"] .scq-cover-k { text-transform: none; letter-spacing: 0; }
+.scq-cover-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.scq-cover-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding-block: 1.3rem;
+  border-block-start: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+}
+.scq-cover-row:first-child { border-block-start: 0; }
+.scq-cover-name { min-width: 0; font-size: 1.7rem; font-weight: 500; }
+[dir="rtl"] .scq-cover-name { line-height: 1.7; }
+/* The count is the whole point of the row, so it is the brand colour and not
+   a muted tail. A zero is the one thing this grid must not hide: it says this
+   sector has a gap, and it reads as a gap. */
+.scq-cover-n {
+  flex: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* NOT `var(--color)`. That is the family's own base, and on the grey family
+     it resolves to #c8ceda - a pale grey that made the one number this grid
+     exists to show the faintest thing on the card. The brand token is the
+     right call here: the count is brand evidence, not section furniture. */
+  color: var(--ziadah-violet, #7c3aed);
+  font-variant-numeric: tabular-nums;
+}
+.scq-cover-row[data-empty] .scq-cover-name,
+.scq-cover-row[data-empty] .scq-cover-n {
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(45%, var(--ink-floor, 0%)), transparent);
+}
+
+/* The two-level filter. The dimension switch is the question, the chips below
+   are the answers to it. */
+/* Centred, because the head above it is. A control rail pushed to the
+   reading edge under a centred title reads as belonging to the grid below
+   rather than to the question above. */
+.scq-controls {
+  margin-block-end: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scq-controls .sdd-filter { justify-content: center; }
+.scq-dims {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-block-end: 1.6rem;
+  padding: 0.4rem;
+  border-radius: 999rem;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 7%, transparent);
+  /* It is a switch, not a rail: it hugs its own options instead of running
+     the width of the band. */
+  width: fit-content;
+  max-width: 100%;
+}
+.scq-dim {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999rem;
+  background: transparent;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+  font: inherit;
+  font-size: 1.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.scq-dim:hover { color: var(--color-secondary, #0a0a0a); }
+.scq-dim[aria-selected="true"] {
+  background: var(--color-secondary, #0a0a0a);
+  color: var(--color-primary, #fff);
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) { .scq-dim { transition: none; } }
+
+/* The goal and the shape, on the card. Two tags and no more: the placement is
+   already one of the five Ws below, and a third pill here would compete with
+   the title. */
+.scq-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.8rem; }
+.scq-tag {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999rem;
+  background: color-mix(in srgb, var(--color, #7c3aed) 14%, transparent);
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 92%, transparent);
+}
+.scq-tag.is-shape {
+  background: transparent;
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
+}
+
+.scq-empty {
+  margin: 0 0 3.2rem;
+  font-size: 1.7rem;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
+
+
+
+/* ---------- PICK A MOMENT, SEE IT RUN -------------------------------
+   A list of the sector's moments. Click one and the real sheet opens under
+   it. One open at a time, so fifteen moments stay a list rather than
+   becoming the wall of cards this band used to be.
+
+   A sticky panel beside the list was the first attempt and it was wrong:
+   fifteen rows are far taller than one panel, so clicking the tenth moment
+   changed something off the top of the screen. */
+
+.scq-pick { display: block; }
+.scq-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+
+.scq-row {
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  border: 0;
+  padding: 1.8rem 2rem;
+  border-radius: var(--radius-card);
+  background: var(--color-primary, #fff);
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+  font: inherit;
+  color: inherit;
+  transition: box-shadow 0.18s ease;
+}
+@media (hover: hover) {
+  .scq-row:hover { box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 32%, transparent); }
+}
+/* The open row carries the brand on its edge, and loses its bottom corners
+   so it reads as one piece with the sheet beneath it. */
+.scq-row[aria-expanded="true"] {
+  box-shadow: inset 0 0 0 0.2rem var(--ziadah-violet, #7c3aed);
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+@media (prefers-reduced-motion: reduce) { .scq-row { transition: none; } }
+
+.scq-row-main { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; flex: 1 1 auto; }
+.scq-row-n { font-size: 1.8rem; font-weight: 600; letter-spacing: -0.01em; }
+[dir="rtl"] .scq-row-n { letter-spacing: 0; line-height: 1.5; }
+.scq-row-w {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(70%, var(--ink-floor, 0%)), transparent);
+}
+.scq-row-w-k {
+  display: inline-block;
+  margin-inline-end: 0.8rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ziadah-violet, #7c3aed);
+}
+.scq-row-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.scq-tag {
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999rem;
+  background: color-mix(in srgb, var(--color, #7c3aed) 14%, transparent);
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 92%, transparent);
+}
+.scq-tag.is-shape {
+  background: transparent;
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 22%, transparent);
+}
+.scq-row-go {
+  flex: none;
+  width: 3.2rem; height: 3.2rem;
+  display: grid; place-items: center;
+  border-radius: 999rem;
+  font-size: 1.8rem; line-height: 1;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 7%, transparent);
+  color: var(--ziadah-violet, #7c3aed);
+}
+.scq-row[aria-expanded="true"] .scq-row-go {
+  background: var(--ziadah-violet, #7c3aed);
+  color: #fff;
+}
+
+/* The sheet, under its row. */
+.scq-inline {
+  padding: 2rem;
+  border-radius: var(--radius-card);
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  /* A shade off the band, so the white sheet inside has an edge. */
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--color-primary, #fff));
+  box-shadow:
+    inset 0 0 0 0.2rem var(--ziadah-violet, #7c3aed),
+    inset 0 0.2rem 0 0 var(--color-primary, #fff);
+}
+.scq-stage-body { display: flex; flex-direction: column; gap: 1.4rem; align-items: center; }
+.scq-stage-k {
+  align-self: flex-start;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(60%, var(--ink-floor, 0%)), transparent);
+}
+.scq-stage-why {
+  margin: 0;
+  align-self: flex-start;
+  max-width: 62rem;
+  font-size: 1.45rem;
+  line-height: 1.7;
+}
+.scq-stage-why-k {
+  display: inline-block;
+  margin-inline-end: 0.8rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ziadah-violet, #7c3aed);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE TYPE SCALE
+
+   MEASURED BEFORE WRITING. A sweep of six routes at 1440 found an H1 at
+   98px, H2 at six different sizes on one site (16, 30, 32, 44, 48, 64) and
+   H3 at five. There was no scale to break; there was no scale.
+
+   WHY PX AND CLAMP, NOT REM. The root font size is viewport-proportional and
+   its slope CHANGES at the tablet break: `1.19904vw` from 768 to 1024, then
+   `0.694444vw` from 1025 up. So one rem is about 12.3px at 1024 and 10px at
+   1440, and the same rem value renders LARGER on a tablet than on a desktop.
+   Every display rule in the system therefore carries two or three media
+   queries whose only job is to undo that inversion. A px ladder with clamp
+   sidesteps it: one declaration per role, fluid between a floor and a
+   ceiling, and the same intent at every width.
+
+   THE LADDER, at 390 / 768 / 1440 / 1920:
+     display-1  30 / 35 / 50 / 56   the home hero, once per page
+     display-2  28 / 32 / 44 / 48   a page's own opener
+     h2         23 / 25 / 33 / 34   a section's title
+     h3         19 / 20 / 23 / 24   a block inside a section
+     h4         17 / 18 / 19 / 20   a card title
+     lead       16 / 16 / 18 / 18   the sentence under a title
+     body       16                  everything else
+     sm         14                  meta, captions in a card
+     cap        12                  labels and eyebrows
+
+   This block is last in the last imported stylesheet, so it outranks the
+   media queries it replaces at equal specificity without !important. The
+   rules those queries live in are left in place: they are the measured
+   record of the reference, and deleting them would lose it. */
+:root {
+  --t-display-1: clamp(30px, 2.2vw + 18px, 56px);
+  --t-display-2: clamp(28px, 1.9vw + 17px, 48px);
+  --t-h2:        clamp(23px, 1.1vw + 17px, 34px);
+  --t-h3:        clamp(19px, 0.5vw + 16px, 24px);
+  --t-h4:        clamp(17px, 0.3vw + 15px, 20px);
+  --t-lead:      clamp(16px, 0.25vw + 14px, 18px);
+  --t-body:      16px;
+  --t-sm:        14px;
+  --t-cap:       12px;
+}
+
+/* ---- display 1: the one hero per page ---- */
+.hero-home-title { font-size: var(--t-display-1); }
+
+/* ---- display 2: a page's opener ---- */
+.hero-title,
+.hero-title--compact,
+.article-title,
+.legal-title,
+.block-heading-xl { font-size: var(--t-display-2); }
+
+/* ---- h2: a section's title ---- */
+.faq-heading,
+.block-heading-l,
+.block-heading-m,
+.slist-title,
+.cat-featured-title,
+.closing-title,
+.bhead-title,
+.section-title,
+.section-head-title--md { font-size: var(--t-h2); }
+
+/* ---- h3: a block inside a section ----
+   `ucrow-title` at 36, `slist-row-title` at 32 and `bcard-title` at 28 were
+   the three biggest remaining offenders in the sweep: all of them are the
+   title of a row or a card inside a band, which is the h3 role, and all
+   three were larger than some pages' h2. */
+.section-head-title--sm,
+.ucrow-title,
+.slist-row-title,
+.bcard-title,
+.skewing-text { font-size: var(--t-h3); }
+
+/* Figures are not headings. A number that carries a result keeps its own
+   weight, one step under the section title, so it still reads as a figure
+   without competing with the band's heading. */
+.stat-num,
+.calc-figure,
+.calc-result,
+.bart-fig,
+.wk-amount,
+.device-balance { font-size: clamp(26px, 0.9vw + 20px, 36px); }
+
+/* ---- the sentence under a title ---- */
+.hero-body,
+.section-lead,
+.block-body { font-size: var(--t-lead); }
+
+/* RTL runs taller than Latin at the same size, and these are the lines most
+   likely to wrap. The leading is set here with the size so the two cannot
+   drift apart again. */
+[dir="rtl"] .hero-home-title,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-title--compact,
+[dir="rtl"] .article-title,
+[dir="rtl"] .legal-title,
+[dir="rtl"] .block-heading-xl { line-height: 1.3; }
+[dir="rtl"] .faq-heading,
+[dir="rtl"] .block-heading-l,
+[dir="rtl"] .block-heading-m,
+[dir="rtl"] .slist-title,
+[dir="rtl"] .cat-featured-title,
+[dir="rtl"] .closing-title,
+[dir="rtl"] .bhead-title,
+[dir="rtl"] .section-title,
+[dir="rtl"] .section-head-title--md { line-height: 1.4; }
+[dir="rtl"] .section-head-title--sm,
+[dir="rtl"] .ucrow-title,
+[dir="rtl"] .slist-row-title,
+[dir="rtl"] .bcard-title { line-height: 1.5; }
+/* `.bcard-caption .bcard-title` is 0,2,0 and outranked the single-class rule
+   above, which is why it stayed at 28 after the first pass. Matched here
+   rather than raised to !important. */
+.bcard-caption .bcard-title { font-size: var(--t-h3); }
+
+/* ---------- THE PRODUCT PAGE THE WIDGET LIVES IN --------------------
+   The design file never draws a widget alone: it draws a storefront screen
+   with the widget in it, because where it sits is half of what it is. */
+.scq-shapes { display: flex; flex-direction: column; align-items: center; gap: 2.4rem; }
+.scq-shapes .sdd-filter { justify-content: center; margin-block-end: 0; }
+
+.pz {
+  width: 100%;
+  max-width: 41.4rem;
+  border-radius: 2.8rem;
+  background: #f5f5f6;
+  box-shadow: inset 0 0 0 0.1rem #e1e0e1, 0 1.6rem 4rem rgba(10, 0, 20, 0.1);
+  overflow: hidden;
+  color: #07000c;
+}
+.pz-bar { display: flex; gap: 0.5rem; justify-content: flex-end; padding: 1.2rem 1.6rem 0; }
+.pz-bar i { width: 1.6rem; height: 0.5rem; border-radius: 999rem; background: #c9c7cb; }
+.pz-screen { display: flex; flex-direction: column; gap: 1rem; padding: 1.6rem; }
+.pz-hero {
+  height: 15rem; border-radius: 1.4rem; overflow: hidden;
+  background: #faf5ff; box-shadow: inset 0 0 0 0.1rem #e1e0e1;
+}
+.pz-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pz-name { margin: 0; font-size: 1.7rem; font-weight: 600; }
+.pz-price { margin: 0; font-size: 1.6rem; font-weight: 700; display: flex; gap: 0.8rem; align-items: baseline; }
+.pz-price s { font-size: 1.3rem; font-weight: 400; color: #a3a0a5; }
+.pz-add {
+  display: block; text-align: center;
+  padding: 1.1rem; border-radius: 999rem;
+  background: #fff; color: #07000c; font-size: 1.3rem; font-weight: 600;
+  box-shadow: inset 0 0 0 0.1rem #e1e0e1;
+}
+/* The one label that says which part of the page is ours. */
+.pz-mark {
+  align-self: flex-start;
+  margin-block-start: 0.6rem;
+  font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em;
+  color: #4a008c;
+}
+[dir="rtl"] .pz-mark { letter-spacing: 0; }
+
+/* The spacing scale itself lives in `index.css`, unlayered, next to the
+   other tokens: a `:root` block inside `@layer components` loses to the
+   unlayered one no matter how late it is written, which is why the first
+   attempt at this measured as having changed nothing at all. */
+
+/* The grids that opened the widest. 64px and 80px between rows is a gap you
+   read as a missing section, not as breathing room. */
+.cards-grid,
+.slist,
+.bento-board,
+.block-grid { row-gap: clamp(20px, 1vw + 12px, 32px); }
+
+/* The grids that still opened widest after the token cut, named from a
+   sweep rather than guessed: `ucrow` and `ucrow-list` at 64px, the home
+   hero and the closing band at 80px. A gap that size reads as a missing
+   section rather than as breathing room. */
+.ucrow,
+.ucrow--reverse,
+.ucrow-list,
+.ucx-groups { row-gap: clamp(20px, 1vw + 12px, 32px); }
+.hero-home-inner,
+.closing-inner { row-gap: clamp(24px, 1.4vw + 14px, 40px); }
+
+/* ---------- WHAT THE MODEL READS, BESIDE WHAT IT RENDERS ------------- */
+.ais {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3.2rem;
+  align-items: start;
+}
+@media screen and (min-width: 900px) {
+  .ais { grid-template-columns: minmax(0, 1fr) minmax(0, 40rem); gap: 4.8rem; }
+}
+.ais-reads { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; }
+.ais-read { display: flex; gap: 1.6rem; align-items: flex-start; }
+.ais-read-n {
+  flex: none;
+  width: 3rem; height: 3rem;
+  display: grid; place-items: center;
+  border-radius: 999rem;
+  background: var(--ziadah-violet, #7c3aed);
+  color: #fff;
+  font-size: 1.4rem; font-weight: 700;
+}
+.ais-read-main { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.ais-read-k { font-size: 1.8rem; font-weight: 600; }
+[dir="rtl"] .ais-read-k { line-height: 1.5; }
+.ais-read-v {
+  font-size: 1.5rem; line-height: 1.7;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(72%, var(--ink-floor, 0%)), transparent);
+}
+.ais-note {
+  margin-block-start: 0.4rem;
+  padding: 1.4rem 1.8rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color, #7c3aed) 12%, transparent);
+  font-size: 1.5rem; font-weight: 600; line-height: 1.6;
+}
+.ais-stage {
+  min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 1.6rem;
+  padding: 2.4rem;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 5%, var(--color-primary, #fff));
+  box-shadow: inset 0 0 0 0.1rem color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+.ais-stage .sdd-filter { justify-content: center; margin-block-end: 0; }
+
+/* ---------- THE HEADER, SIZED DOWN --------------------------------
+   The bar was 98px at 1440 with 16px triggers in 42px pills - a header
+   that took a tenth of the viewport before any content. */
+.nav-trigger { height: 36px; font-size: 14px; padding-inline: 12px; }
+@media screen and (max-width: 1280px) { .nav-trigger { padding-inline: 9px; font-size: 13px; } }
+.header-logo { height: 28px; }
+.header-actions .button-holder { font-size: 13px; }
+
+/* ---------- THE SCROLLING STEP LIST, REBALANCED ---------------------
+   MEASURED on the home page's four steps at 1440. On the 16-column grid the
+   figure took columns 1-7 and the rows took 10-14, which leaves columns 8,
+   9, 15 and 16 holding nothing: a 364px text column and a 516px figure
+   inside a 1200px container, with 320px of dead space between and after
+   them. The rows also carried 135px of top padding, pushing the first step
+   below the figure it belongs to.
+
+   And the inactive rows sat at 0.5 opacity. A reader is meant to be able to
+   read all four steps and watch the figure follow, not to decipher three
+   grey ones while the fourth is legible. 0.72 keeps the active row clearly
+   ahead without making the others a puzzle. */
+@media screen and (min-width: 1025px) {
+  .slist-rows { grid-column: 9 / span 8; padding-block-start: 4rem; }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .slist-rows { grid-column: 5 / span 4; }
+}
+.slist-row-inner { opacity: 0.72; }
+.slist-row.is-active .slist-row-inner { opacity: 1; }
+
+/* The figure is the thing the steps are about, so it gets the room the
+   dead columns were holding. */
+@media screen and (min-width: 1025px) {
+  .slist-figures { grid-column: 1 / span 8; }
+  .slist-figure { max-width: 46rem; margin-inline: auto; }
+}
+
+/* The currency switch sits beside the billing switch, a size down: the
+   billing cycle changes what you commit to, the currency only changes how
+   the same number is written. */
+.hero-tabs.is-currency { margin-block-start: 1rem; }
+.hero-tabs.is-currency .hero-tab { font-size: 13px; padding-block: 0.7rem; }
