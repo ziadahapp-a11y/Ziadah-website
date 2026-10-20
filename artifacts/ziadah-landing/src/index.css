@@ -120,8 +120,11 @@ html {
      ADDITIVE — the header plus whatever announcement bars are stacked above it
      — so every sticky offset re-seats itself when the bar is toggled. Nothing
      downstream may hard-code a pixel offset. */
-  --header-desktop: 9.8rem;
-  --header-mobile: 8.3rem;
+  /* MEASURED AND CUT. 9.8rem rendered as a 98px header at 1440 and 83px on a
+     phone, where the whole viewport is 844px tall. In px for the same reason
+     the rest of the scale is: a rem header grows on the way DOWN to tablet. */
+  --header-desktop: clamp(60px, 1.2vw + 48px, 72px);
+  --header-mobile: 60px;
   --header-height: var(--header-mobile);
   --header-banner-height: 0rem;
   --header-dynamic-height: calc(var(--header-height) + var(--header-banner-height));
