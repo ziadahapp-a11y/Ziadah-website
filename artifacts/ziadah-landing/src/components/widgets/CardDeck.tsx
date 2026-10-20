@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode,
+} from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 export type DeckCard = {
@@ -11,38 +13,75 @@ export type DeckCard = {
 };
 
 /**
- * THE FANNED DECK, AS A COMPONENT RATHER THAN A HOME-PAGE FIXTURE.
+ * THE FANNED DECK.
  *
- * It was written for the home hero and hard-wired to the twelve storefront
- * shapes. The sector heroes and the solution heroes want the same object with
- * different cards in it - a sector's own moments, or the shapes around one
- * mechanism - so the deck now takes its cards as data and knows nothing about
- * what is on them.
+ * Written for the home hero and now shared by the sector and solution heroes,
+ * so it takes its cards as data and knows nothing about what is on them.
  *
- * THREE WAYS IN, because a hero has to work for everyone:
- *   pointer   moving across the stage tilts the fan; dragging throws it;
- *             clicking a card brings it to the front
- *   keyboard  the cards are buttons in tab order; arrow keys step the deck
- *   neither   it is a legible fan with the active card upright, and
- *             `prefers-reduced-motion` removes the tilt entirely
+ * FOUR WAYS TO MOVE IT
+ *   click     a card comes to the front
+ *   drag      press ANY card and the whole deck follows the pointer one to one,
+ *             then glides on and settles on the nearest card
+ *   keyboard  arrow keys step it; tabbing to a card brings it forward
+ *   itself    it advances every three seconds, and stops the moment anything
+ *             says a person is looking at it (see `paused` below)
  *
- * THE SPREAD IS DAMPED, NOT LINEAR. A flat step per card was drawn for a deck
- * of five; at twelve it puts the outermost card off the side of the viewport,
- * where the section's `overflow-x: clip` slices it, and a sliced card in a
- * hero reads as a rendering fault rather than as depth. So the first
- * neighbour on each side steps a full card out - that gap is what makes the
- * deck legible as separate cards - and everything behind it steps a quarter
- * of that. The rotation is capped for the same reason: a linear `d * 7deg` at
- * six cards out is a card lying on its side.
+ * WHY THE DECK IS DRAWN BY A LOOP AND NOT BY CSS TRANSITIONS
+ * The earlier version snapped each card to an integer slot and let a CSS
+ * transition ease between slots. That cannot follow a finger: a transition
+ * restarts on every change and lags the pointer by its own duration, so a drag
+ * could only be a threshold that fired one step. Here the deck has a real
+ * position in card units, a float. A frame loop eases that position toward a
+ * goal, and each frame writes the cards' custom properties straight onto the
+ * DOM. The stylesheet still owns the transform's shape; only the numbers move.
+ * React re-renders only when the front card changes, never per frame.
+ *
+ * THE DECK IS A RING, so a card can leave one side and arrive on the other.
+ * That crossing is a jump, so the card is faded to nothing over the stretch
+ * before it and faded back in after, and it happens at the far back of the
+ * fan where nothing is looking.
  */
 const NEAR = 112;
 const FAR = 26;
-const fanOffset = (d: number) => {
-  const mag = Math.abs(d);
-  if (mag === 0) return 0;
-  return Math.sign(d) * (NEAR + FAR * (mag - 1));
+/** How long a card stays in front before the deck moves on. */
+const AUTOPLAY_MS = 3000;
+/** Movement below this is a tap, and stays a tap. */
+const DRAG_START_PX = 6;
+
+/** Where a card sits at distance `d` from the front. Continuous through zero:
+ *  the first neighbour is a full step out, everything behind steps a quarter
+ *  of that, so the fan compresses at the back the way a held fan does. */
+const spread = (d: number) => {
+  const m = Math.abs(d);
+  return m <= 1 ? d * NEAR : Math.sign(d) * (NEAR + FAR * (m - 1));
 };
-const fanRotate = (d: number) => Math.sign(d) * Math.min(Math.abs(d) * 5, 16);
+const turn = (d: number) => Math.sign(d) * Math.min(Math.abs(d) * 5, 16);
+
+/** Shortest signed distance on a ring of `n`, in the half-open window
+ *  [lo, hi). The window is shifted half a card so that at rest, with whole
+ *  positions, every card of an EVEN deck is inside it - a symmetric window
+ *  would put the card exactly opposite the front on the boundary. */
+const ring = (x: number, n: number) => {
+  const hi = Math.floor(n / 2) + 0.5;
+  const lo = hi - n;
+  return x - n * Math.floor((x - lo) / n);
+};
+const edgeFade = (d: number, n: number) => {
+  const hi = Math.floor(n / 2) + 0.5;
+  const lo = hi - n;
+  const k = (v: number) => Math.min(1, Math.max(0, v / 0.4));
+  return k(hi - d) * k(d - lo);
+};
+
+type Press = {
+  id: number;
+  x0: number;
+  pos0: number;
+  moved: boolean;
+  /** Recent pointer samples, for the speed the deck is thrown at. */
+  samples: { x: number; t: number }[];
+};
+type Source = "hover" | "drag" | "focus" | "hidden" | "off";
 
 export default function CardDeck({
   cards,
@@ -58,82 +97,270 @@ export default function CardDeck({
    * It is a prop because the decks hold genuinely different objects. The
    * twelve storefront shapes run up to 880px natural and want the full card;
    * a sector's moment sheets run 294 to 461, and in a card sized for the
-   * shapes they left a third of it empty under every sheet. One size for both
-   * means one of the two decks is wrong.
+   * shapes they left a third of it empty under every sheet.
    */
   cardHeight?: number;
 }) {
   const { isAr } = useLanguage();
-  const [active, setActive] = useState(0);
-  const [tilt, setTilt] = useState(0);
-  const [drag, setDrag] = useState(0);
-  const stage = useRef<HTMLDivElement>(null);
-  /* The pointer id and the x it went down at. A ref, not state: it changes on
-     every pointermove and nothing renders from it. */
-  const grab = useRef<{ id: number; x: number } | null>(null);
   const n = cards.length;
 
-  /* How far the deck has to travel before it counts as a step. Below this a
-     drag is a wobble and snaps back, which is what keeps a tap on a card
-     reading as a tap rather than as a half-swipe. */
-  const STEP = 90;
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reduced, setReduced] = useState(false);
 
-  /* The pointer moves the whole fan a few degrees rather than any one card: a
-     deck that follows the cursor reads as a physical object, a card that
-     follows the cursor reads as a bug. */
-  const onMove = useCallback((e: React.PointerEvent) => {
+  const stage = useRef<HTMLDivElement>(null);
+  const els = useRef<(HTMLButtonElement | null)[]>([]);
+  /* Where the deck IS and where it is GOING, in cards, unbounded. */
+  const pos = useRef(0);
+  const goal = useRef(0);
+  const tilt = useRef(0);
+  const tiltGoal = useRef(0);
+  const frame = useRef(0);
+  const lastT = useRef(0);
+  const press = useRef<Press | null>(null);
+  const dragging = useRef(false);
+  const swallowUntil = useRef(0);
+  const reducedRef = useRef(false);
+  const sources = useRef<Record<Source, boolean>>({
+    hover: false, drag: false, focus: false, hidden: false, off: false,
+  });
+
+  /* ---- drawing ------------------------------------------------------- */
+  const paint = useCallback(() => {
+    const p = pos.current;
+    for (let i = 0; i < n; i += 1) {
+      const el = els.current[i];
+      if (!el) continue;
+      const d = ring(i - p, n);
+      const m = Math.abs(d);
+      el.style.setProperty("--off", `${spread(d).toFixed(2)}px`);
+      el.style.setProperty("--rot", `${turn(d).toFixed(3)}deg`);
+      el.style.setProperty("--far", m.toFixed(3));
+      el.style.setProperty("--edge", edgeFade(d, n).toFixed(3));
+      el.style.zIndex = String(1000 - Math.round(m * 100));
+    }
+    const a = ((Math.round(p) % n) + n) % n;
+    setActive((prev) => (prev === a ? prev : a));
+  }, [n]);
+
+  /* The frame loop. It runs only while something is still moving, so a deck
+     at rest costs nothing. `dt` is capped so a tab that was backgrounded does
+     not come back and teleport the deck. */
+  const run = useCallback(() => {
+    if (frame.current) return;
+    lastT.current = performance.now();
+    const step = (now: number) => {
+      const dt = Math.min(0.05, (now - lastT.current) / 1000);
+      lastT.current = now;
+      let busy = false;
+
+      const diff = goal.current - pos.current;
+      if (reducedRef.current) {
+        pos.current = goal.current;
+      } else if (Math.abs(diff) > 0.0004) {
+        /* Tight while a finger is holding it, loose once it is let go: the
+           first reads as attached, the second as momentum. */
+        const tau = dragging.current ? 0.045 : 0.17;
+        pos.current += diff * (1 - Math.exp(-dt / tau));
+        busy = true;
+      } else {
+        pos.current = goal.current;
+      }
+
+      if (reducedRef.current) {
+        tilt.current = 0;
+      } else {
+        const td = tiltGoal.current - tilt.current;
+        if (Math.abs(td) > 0.001) {
+          tilt.current += td * (1 - Math.exp(-dt / 0.25));
+          busy = true;
+        } else {
+          tilt.current = tiltGoal.current;
+        }
+      }
+
+      paint();
+      stage.current?.style.setProperty("--fan-tilt", tilt.current.toFixed(4));
+      frame.current = busy ? requestAnimationFrame(step) : 0;
+    };
+    frame.current = requestAnimationFrame(step);
+  }, [paint]);
+
+  /* Cards are painted before the browser does, so the first frame is already
+     a fan and not a stack that snaps open. */
+  useLayoutEffect(() => {
+    if (pos.current >= n || goal.current >= n) { pos.current = 0; goal.current = 0; }
+    paint();
+  }, [cards, n, paint]);
+
+  useEffect(() => () => { if (frame.current) cancelAnimationFrame(frame.current); }, []);
+
+  /* ---- moving -------------------------------------------------------- */
+  /* To a card by index, the short way round the ring. */
+  const goTo = useCallback((index: number) => {
+    const base = Math.round(goal.current);
+    goal.current = base + ring(index - base, n);
+    run();
+  }, [n, run]);
+
+  const go = useCallback((delta: number) => {
+    goal.current = Math.round(goal.current) + delta;
+    run();
+  }, [run]);
+
+  /* ---- when it may run by itself ------------------------------------- */
+  /* Five reasons to stand still: a pointer is over it, a finger is on it,
+     the keyboard is in it, the tab is hidden, or it is scrolled out of view.
+     Auto-moving content that cannot be paused fails WCAG 2.2.2, and a deck
+     that keeps turning under a cursor that is about to click is a worse bug
+     than any of the above. */
+  const setSource = useCallback((k: Source, v: boolean) => {
+    const s = sources.current;
+    if (s[k] === v) return;
+    s[k] = v;
+    setPaused(s.hover || s.drag || s.focus || s.hidden || s.off);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => { reducedRef.current = mq.matches; setReduced(mq.matches); };
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    const onVis = () => setSource("hidden", document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    onVis();
+    const el = stage.current;
+    let io: IntersectionObserver | undefined;
+    if (el && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        ([entry]) => setSource("off", !entry.isIntersecting),
+        { threshold: 0.25 },
+      );
+      io.observe(el);
+    }
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      io?.disconnect();
+    };
+  }, [setSource]);
+
+  /* The interval is torn down and rebuilt whenever `paused` flips, so after
+     any interaction the next move is a FULL three seconds away rather than
+     whatever was left on an old timer. */
+  useEffect(() => {
+    if (paused || reduced || n < 2) return;
+    const id = window.setInterval(() => go(1), AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+  }, [paused, reduced, n, go]);
+
+  /* ---- pointer ------------------------------------------------------- */
+  /* NOTHING IS CAPTURED ON POINTER-DOWN.
+     The first version captured the pointer on the stage immediately. A
+     captured pointer sends the following `click` to the capturing element, so
+     no card's own click handler ever ran: measured, 0 of 12 clicks changed a
+     card, and with capture disabled the same 12 all did. Capture now starts
+     only once the pointer has travelled DRAG_START_PX, so a tap stays a tap
+     and still reaches the card, while a drag still survives leaving it. */
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    press.current = {
+      id: e.pointerId,
+      x0: e.clientX,
+      pos0: pos.current,
+      moved: false,
+      samples: [{ x: e.clientX, t: e.timeStamp }],
+    };
+  };
+
+  const pxPerCard = () => (window.matchMedia("(max-width: 860px)").matches ? 70 : 120);
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = stage.current;
     if (!el) return;
-    if (grab.current && grab.current.id === e.pointerId) {
-      setDrag(e.clientX - grab.current.x);
+    const p = press.current;
+
+    if (p && p.id === e.pointerId) {
+      const dx = e.clientX - p.x0;
+      if (!p.moved) {
+        if (Math.abs(dx) < DRAG_START_PX) return;
+        p.moved = true;
+        /* Re-zero here so the deck does not jump by the threshold. Starting
+           from `pos.current` rather than `goal.current` also catches a deck
+           that is mid-glide where it actually is. */
+        p.x0 = e.clientX;
+        p.pos0 = pos.current;
+        goal.current = pos.current;
+        dragging.current = true;
+        el.setPointerCapture?.(e.pointerId);
+        el.setAttribute("data-dragging", "");
+        setSource("drag", true);
+        return;
+      }
+      /* The deck follows the pointer, not the other way round. RTL mirrors
+         the fan, so it mirrors the sign. */
+      const dir = isAr ? 1 : -1;
+      goal.current = p.pos0 + (dir * (e.clientX - p.x0)) / pxPerCard();
+      p.samples.push({ x: e.clientX, t: e.timeStamp });
+      while (p.samples.length > 2 && e.timeStamp - p.samples[0].t > 110) p.samples.shift();
+      run();
       return;
     }
+
+    /* Not pressed: the whole fan leans a few degrees toward the pointer. A
+       deck that follows the cursor reads as an object; a card that follows it
+       reads as a bug. */
     const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    setTilt(Math.max(-1, Math.min(1, x * 2)));
-  }, []);
+    tiltGoal.current = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - 0.5) * 2));
+    run();
+  };
 
-  const step = useCallback((d: number) => setActive((i) => (i + d + n) % n), [n]);
+  const endPress = (e: React.PointerEvent<HTMLDivElement>, cancelled: boolean) => {
+    const p = press.current;
+    if (!p || p.id !== e.pointerId) return;
+    press.current = null;
+    if (!p.moved) return;
 
-  /* DRAG AND SWIPE, one set of handlers. Pointer events cover the mouse, the
-     finger and the pen, so there is no separate touch path to keep in sync.
+    dragging.current = false;
+    stage.current?.removeAttribute("data-dragging");
+    try { stage.current?.releasePointerCapture?.(e.pointerId); } catch { /* already released */ }
+    /* A drag that ends over a card can still fire a click. The swipe already
+       chose where the deck goes; the click would overrule it. */
+    swallowUntil.current = performance.now() + 120;
+    setSource("drag", false);
 
-     `setPointerCapture` is what makes a drag survive leaving the card it
-     started on: without it the deck stops following the moment the finger
-     crosses onto a neighbour, which on a fan of overlapping cards is
-     immediately. */
-  const onDown = useCallback((e: React.PointerEvent) => {
-    grab.current = { id: e.pointerId, x: e.clientX };
-    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-  }, []);
+    if (cancelled) { goal.current = Math.round(pos.current); run(); return; }
 
-  const onUp = useCallback((e: React.PointerEvent) => {
-    const g = grab.current;
-    grab.current = null;
-    setDrag(0);
-    if (!g || g.id !== e.pointerId) return;
-    const dx = e.clientX - g.x;
-    if (Math.abs(dx) < STEP) return;
-    /* RTL reads the other way, so a drag toward the start edge means "next"
-       in both directions of text. */
-    const dir = isAr ? -1 : 1;
-    step(dx > 0 ? -dir : dir);
-  }, [step, isAr]);
+    /* THROWN, NOT PLACED. The release speed is projected a fraction of a
+       second ahead and the deck settles on the card it would have reached,
+       so a quick flick travels further than a slow one. */
+    const s = p.samples;
+    let v = 0;
+    if (s.length >= 2) {
+      const a = s[0];
+      const b = s[s.length - 1];
+      const secs = (b.t - a.t) / 1000;
+      if (secs > 0.01) v = ((isAr ? 1 : -1) * (b.x - a.x)) / pxPerCard() / secs;
+    }
+    const thrown = pos.current + Math.max(-3, Math.min(3, v * 0.22));
+    goal.current = Math.round(thrown);
+    run();
+  };
 
+  /* ---- keyboard ------------------------------------------------------ */
   useEffect(() => {
     const el = stage.current;
     if (!el) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); step(isAr ? -1 : 1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); step(isAr ? 1 : -1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); go(isAr ? -1 : 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(isAr ? 1 : -1); }
     };
     el.addEventListener("keydown", onKey);
     return () => el.removeEventListener("keydown", onKey);
-  }, [step, isAr]);
-
-  /* A deck that has lost cards - a sector with fewer moments than the last
-     one rendered - must not keep pointing past the end of its own list. */
-  useEffect(() => { setActive((i) => (i < n ? i : 0)); }, [n]);
+  }, [go, isAr]);
 
   if (!n) return null;
 
@@ -142,63 +369,49 @@ export default function CardDeck({
       <div
         ref={stage}
         className="fan"
-        onPointerMove={onMove}
-        onPointerDown={onDown}
-        onPointerUp={onUp}
-        onPointerCancel={onUp}
-        onPointerLeave={() => { setTilt(0); }}
-        data-dragging={grab.current ? "" : undefined}
-        style={{
-          ["--fan-card-h" as string]: `${cardHeight}px`,
-          ["--fan-tilt" as string]: tilt,
-          /* The deck follows the finger while it is down, damped so a long
-             drag does not throw the cards off the stage. */
-          ["--fan-drag" as string]: `${Math.max(-140, Math.min(140, drag * 0.55))}px`,
+        role="group"
+        aria-roledescription="carousel"
+        aria-label={label}
+        style={{ ["--fan-card-h" as string]: `${cardHeight}px` }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={(e) => endPress(e, false)}
+        onPointerCancel={(e) => endPress(e, true)}
+        onPointerEnter={() => setSource("hover", true)}
+        onPointerLeave={() => { tiltGoal.current = 0; run(); setSource("hover", false); }}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setSource("focus", false);
         }}
       >
-        {cards.map((card, i) => {
-          /* Distance from the active card drives everything: how far out it
-             sits, how much it turns, how far back it falls. One number, so
-             the fan stays a fan at any deck size.
-
-             WRAPPED, so the deck is a ring rather than a row. A plain
-             `i - active` puts every other card on one side, and with the
-             first card active the whole deck fans off one edge of the stage.
-             Wrapping keeps half on each side whichever card is up. */
-          let d = i - active;
-          if (d > n / 2) d -= n;
-          if (d < -n / 2) d += n;
-          const far = Math.abs(d);
-          return (
-            <button
-              key={card.key}
-              type="button"
-              className="fan-card"
-              data-active={d === 0 ? "" : undefined}
-              aria-label={card.label}
-              aria-pressed={d === 0}
-              onClick={(e) => {
-                /* A drag that ends on a card fires a click too. If the deck
-                   moved far enough to be a swipe, the swipe already chose the
-                   card and this click would overrule it. */
-                if (Math.abs(drag) > 6) { e.preventDefault(); return; }
-                setActive(i);
-              }}
-              style={{
-                ["--d" as string]: d,
-                ["--off" as string]: `${fanOffset(d)}px`,
-                ["--rot" as string]: `${fanRotate(d)}deg`,
-                ["--far" as string]: far,
-                zIndex: n - far,
-              }}
-            >
-              <span className="fan-card-tag">{card.label}</span>
-              <span className="fan-card-stage" aria-hidden={d !== 0}>
-                {card.node}
-              </span>
-            </button>
-          );
-        })}
+        {cards.map((card, i) => (
+          <button
+            key={card.key}
+            ref={(el) => { els.current[i] = el; }}
+            type="button"
+            className="fan-card"
+            data-active={i === active ? "" : undefined}
+            aria-label={card.label}
+            aria-pressed={i === active}
+            onFocus={(e) => {
+              /* Keyboard focus only. A mouse click also focuses a button, and
+                 treating that as "the keyboard is here" would pause the deck
+                 for good after the first click. */
+              if (e.currentTarget.matches(":focus-visible")) {
+                setSource("focus", true);
+                goTo(i);
+              }
+            }}
+            onClick={(e) => {
+              if (performance.now() < swallowUntil.current) { e.preventDefault(); return; }
+              goTo(i);
+            }}
+          >
+            <span className="fan-card-tag">{card.label}</span>
+            <span className="fan-card-stage" aria-hidden={i !== active}>
+              {card.node}
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* The deck's own controls. Dots rather than arrows, because the point
@@ -211,7 +424,7 @@ export default function CardDeck({
             className="fan-dot"
             aria-pressed={i === active}
             aria-label={card.label}
-            onClick={() => setActive(i)}
+            onClick={() => goTo(i)}
           />
         ))}
       </div>

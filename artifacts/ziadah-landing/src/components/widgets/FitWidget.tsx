@@ -32,11 +32,27 @@ export default function FitWidget({
   children,
   height = 520,
   className,
+  hug = false,
 }: {
   children: ReactNode;
-  /** The box the sheet has to fit into. */
+  /** The box the sheet has to fit into. With `hug`, the most it may grow to. */
   height?: number;
   className?: string;
+  /**
+   * Size the box to the sheet instead of holding it at `height`.
+   *
+   * A fixed box is right when something around it has to stay put. It is
+   * wrong for a stage that shows one sheet at a time: the sheets run from 294
+   * to 880px, so a box tall enough for the biggest leaves the short ones
+   * floating at the top of a well of white. In this mode a short sheet gets a
+   * box exactly its height, and only one taller than `height` is scaled down.
+   *
+   * The box's height is written to the DOM here, never through React's
+   * `style`, for the same reason the transform is: this effect measures with
+   * the box in a known state, and a React-owned height would be reset by the
+   * next render.
+   */
+  hug?: boolean;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -53,11 +69,14 @@ export default function FitWidget({
       i.style.transform = "none";
       const nh = i.offsetHeight;
       const nw = i.offsetWidth;
-      const bh = b.clientHeight;
+      /* Hugging, the limit is the prop and not whatever the box measures
+         now: the box's own height is what this pass is about to set. */
+      const bh = hug ? height : b.clientHeight;
       const bw = b.clientWidth;
       if (!nh || !nw) return;
       const next = Math.min(1, bh / nh, bw / nw);
       i.style.transform = next < 1 ? `scale(${next})` : "none";
+      if (hug) b.style.height = `${Math.ceil(nh * next)}px`;
     };
 
     fit();
@@ -67,13 +86,13 @@ export default function FitWidget({
     ro.observe(b);
     ro.observe(i);
     return () => ro.disconnect();
-  }, [children, height]);
+  }, [children, height, hug]);
 
   return (
     <div
       ref={box}
       className={`fitw${className ? ` ${className}` : ""}`}
-      style={{ height }}
+      style={hug ? undefined : { height }}
     >
       <div ref={inner} className="fitw-in">
         {children}

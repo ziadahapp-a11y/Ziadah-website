@@ -1,5 +1,4 @@
-import { useMemo, useState } from "react";
-import UseCaseRow from "@/components/UseCaseRow";
+import { useMemo } from "react";
 import {
   buildWidgetShowcaseItems,
   SHAPED_KINDS,
@@ -13,6 +12,7 @@ import { t as siteTranslations } from "@/i18n/translations";
 import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import FitWidget from "@/components/widgets/FitWidget";
+import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 
 /* READING ORDER, not data order. `widgetLabels` is indexed against
    `widgetElements()` and cannot be reordered; this is the order a merchant
@@ -92,20 +92,40 @@ export default function WidgetsShowcaseSection() {
     [allWidgets],
   );
 
-  /* ONE ROW AT A TIME, BECAUSE SEVEN STACKED ROWS WERE A THIRD OF THE PAGE.
-     Measured: the band ran 5,803px at 1440 and 8,712px at 390 - 32% of the
-     whole home page - for seven repetitions of one idea. Worse, each row put
-     315px of copy beside a stage up to 958px tall, so roughly 640px of every
-     row was blank column next to the text. That is what "the elements are
-     badly distributed" looks like in numbers.
+  /* A COLLAPSIBLE LIST, NOT A TAB STRIP, AND NOT SEVEN STACKED ROWS.
+     Seven stacked rows were a third of the home page: 5,803px at 1440 for one
+     idea repeated, each row putting 315px of copy beside a stage up to 958px
+     tall. A row of tabs fixed the height and kept the wrong interaction - a
+     tab asks the visitor to click before anything happens.
 
-     Seven tabs and one row says the same thing in about 900px, and says it
-     better: the seven are now a set a merchant can compare by clicking rather
-     than a scroll they have to survive. The stage is fitted rather than free,
-     so switching tabs does not jump the page - the tallest preview and the
-     shortest now occupy the same box. */
-  const [active, setActive] = useState(0);
-  const row = rows[active] ?? rows[0];
+     This is the same list the AI band and the sector pages use. The seven open
+     one after another as the band scrolls past, the sheet for the open one
+     sits beside it, and a click takes over. The open row says WHEN the offer
+     appears, in one line, and links to the page that explains the rest. The
+     old rows also carried a goal, an example and, for the coupon, a caveat;
+     the coupon's caveat said the same thing its "when" line already says, and
+     the goal and example live on the linked page. */
+  const items = useMemo<AccordionItem[]>(
+    () =>
+      rows.map((item) => {
+        const href = KIND_TO_URL[item.kind];
+        return {
+          key: item.kind,
+          title: item.label,
+          note: item.whenToUse,
+          extra: (
+            <a
+              className="sacc-link"
+              href={href}
+              onClick={(e) => { e.preventDefault(); navigateTo(href); }}
+            >
+              {tr.landing.widgetRowLink}
+            </a>
+          ),
+        };
+      }),
+    [rows, tr.landing.widgetRowLink],
+  );
 
   /* On the design system rather than beside it. This used to paint its own
      ground, its own 80px padding and its own head out of the legacy `.tc /
@@ -120,46 +140,21 @@ export default function WidgetsShowcaseSection() {
         lead={tr.landing.widgetsSubtitle}
       />
       <Shell>
-        {/* The seven, as a tab strip. `aria-pressed` rather than a tablist
-            role: the panel below is not swapped wholesale, it is one row whose
-            contents change, and claiming a tablist would promise arrow-key
-            navigation between panels that do not exist. */}
-        <div className="ucrow-tabs" role="group" aria-label={tr.landing.widgetsTag}>
-          {rows.map((item, i) => (
-            <button
-              key={item.kind}
-              type="button"
-              className="chip is-small"
-              aria-pressed={i === active}
-              onClick={() => setActive(i)}
-            >
-              {item.label}
-            </button>
-          ))}
+        <div dir={lang === "ar" ? "rtl" : "ltr"}>
+          <ShapeAccordion
+            items={items}
+            label={tr.landing.widgetsTag}
+            stage={(key, { wide }) => {
+              const row = rows.find((r) => r.kind === key);
+              if (!row) return null;
+              return (
+                <div className="sacc-card">
+                  <FitWidget hug height={wide ? 540 : 460}>{row.widget}</FitWidget>
+                </div>
+              );
+            }}
+          />
         </div>
-
-        {row ? (
-          <div className="ucrow-one">
-            <UseCaseRow
-              key={row.kind}
-              title={row.label}
-              description={row.desc}
-              whenToUse={row.whenToUse}
-              goal={row.goal}
-              example={row.example}
-              note={row.note}
-              preview={<FitWidget height={560}>{row.widget}</FitWidget>}
-              href={KIND_TO_URL[row.kind]}
-              hrefLabel={tr.landing.widgetRowLink}
-              onNavigate={navigateTo}
-              labels={{
-                whenToUse: tr.landing.widgetRowWhen,
-                goal: tr.landing.widgetRowGoal,
-                example: tr.landing.widgetRowExample,
-              }}
-            />
-          </div>
-        ) : null}
       </Shell>
     </DsSection>
   );

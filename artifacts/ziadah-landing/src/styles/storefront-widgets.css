@@ -182,7 +182,6 @@
 
 .fan {
   --fan-tilt: 0;
-  --fan-drag: 0px;
   position: relative;
   width: 100%;
   /* The stage clears the tallest card plus the room the fan needs to rotate
@@ -193,8 +192,13 @@
   /* The deck sits in 3D so the inactive cards fall back rather than just
      shrinking: depth is what makes a stack read as a stack. */
   perspective: 1400px;
+  /* Vertical swipes still scroll the page; horizontal ones belong to the deck.
+     Without `user-select: none` a mouse drag selects the card labels. */
   touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 }
+.fan-card img { -webkit-user-drag: none; }
 
 .fan-card {
   position: absolute;
@@ -210,12 +214,22 @@
   overflow: hidden;
   font: inherit;
   text-align: start;
+  /* THE NUMBERS COME FROM THE DECK'S FRAME LOOP, THE SHAPE STAYS HERE.
+     `--off`, `--rot`, `--far` and `--edge` are rewritten every frame while the
+     deck moves, so there is NO transition on transform: a transition would
+     restart on each write and lag the pointer by its own duration, which is
+     exactly why the earlier deck could not follow a finger. Easing is the
+     loop's job. */
   transform:
-    translateX(calc(var(--off, 0px) + var(--fan-tilt) * 14px + var(--fan-drag)))
-    translateZ(calc(var(--far) * -40px))
-    rotate(calc(var(--rot, 0deg) + (var(--fan-tilt) * 2deg)));
-  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, opacity 0.3s ease;
-  opacity: calc(1 - var(--far) * 0.14);
+    translateX(calc(var(--off, 0px) + var(--fan-tilt, 0) * 14px))
+    translateZ(calc(var(--far, 0) * -40px))
+    rotate(calc(var(--rot, 0deg) + var(--fan-tilt, 0) * 2deg));
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+  /* Continuous in distance, so there is no pop as a card becomes the front
+     one. `--edge` is the ring's wrap fade: it takes a card to nothing just
+     before it crosses from one side of the fan to the other. */
+  opacity: calc(var(--edge, 1) * max(0.18, 1 - var(--far, 0) * 0.14));
 }
 /* `calc()` rejects px multiplied by px. The first version wrote
    `var(--fan-tilt) * 14px * 1px`, which made the whole transform invalid, so
@@ -229,13 +243,15 @@
 /* RTL fans the other way, like a deck held in the other hand. */
 [dir="rtl"] .fan-card {
   transform:
-    translateX(calc(var(--off, 0px) * -1 - var(--fan-tilt) * 14px + var(--fan-drag)))
-    translateZ(calc(var(--far) * -40px))
-    rotate(calc(var(--rot, 0deg) * -1 - (var(--fan-tilt) * 2deg)));
+    translateX(calc(var(--off, 0px) * -1 - var(--fan-tilt, 0) * 14px))
+    translateZ(calc(var(--far, 0) * -40px))
+    rotate(calc(var(--rot, 0deg) * -1 - var(--fan-tilt, 0) * 2deg));
 }
+/* No `opacity: 1` here any more: `data-active` flips at the halfway point
+   between two cards, and forcing the opacity at that instant made the card
+   pop. Distance already gives the front card full opacity. */
 .fan-card[data-active] {
   box-shadow: 0 26px 60px rgba(10, 0, 20, 0.22), inset 0 0 0 1.5px #4a008c;
-  opacity: 1;
 }
 .fan-card:focus-visible { outline: 3px solid #4a008c; outline-offset: 4px; }
 
@@ -290,10 +306,6 @@
   mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
 }
 
-/* While the finger is down the cards must not ease: a transition on a
-   dragged element lags the finger by its own duration, which reads as the
-   deck being heavy rather than responsive. */
-.fan[data-dragging] .fan-card { transition: none; }
 .fan { cursor: grab; }
 .fan[data-dragging] { cursor: grabbing; }
 .fan[data-dragging] .fan-card { cursor: grabbing; }
@@ -307,17 +319,27 @@
    in a 358px column is a pile, not a deck. */
 @media screen and (max-width: 860px) {
   .fan { height: calc(var(--fan-card-h, 400px) + 20px); }
+  /* The neighbours slide half as far as on desktop and peek out beside the
+     front card, so a drag has something to move: before, they sat dead behind
+     it and a swipe changed nothing the finger could see. The drag's
+     pixels-per-card is set to match (70), so the card under the finger keeps
+     pace with it. */
   .fan-card {
     width: 258px;
-    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
-    opacity: calc(1 - var(--far) * 0.45);
+    transform:
+      translateX(calc(var(--off, 0px) * 0.5))
+      translateZ(calc(var(--far, 0) * -60px))
+      scale(calc(1 - min(var(--far, 0), 3) * 0.06));
+    opacity: calc(var(--edge, 1) * max(0, 1 - var(--far, 0) * 0.45));
   }
   [dir="rtl"] .fan-card {
-    transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
+    transform:
+      translateX(calc(var(--off, 0px) * -0.5))
+      translateZ(calc(var(--far, 0) * -60px))
+      scale(calc(1 - min(var(--far, 0), 3) * 0.06));
   }
   /* The back cards stop swallowing the swipe on a phone, where the whole
      stage is one target. */
-  .fan-card:not([data-active]) { pointer-events: none; }
   .fan-card:not([data-active]) { pointer-events: none; }
 }
 
@@ -340,3 +362,142 @@
    under the label rather than floating in the middle of the well. */
 .fitw { display: grid; place-items: start center; width: 100%; overflow: hidden; }
 .fitw-in { transform-origin: top center; will-change: transform; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE COLLAPSIBLE SHAPE LIST
+   A stack of rows, one open at a time, with the live sheet in a sticky stage
+   beside it. It replaced a strip of chips on three bands. Sizes are px and
+   the shared type tokens, never rem: rem is 10px at 1440 and ~12.3px at 1024,
+   so a rem-sized row rendered larger on a tablet than on the desktop it was
+   drawn for.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.sacc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.sacc[data-wide] {
+  /* The stage is sized to the SHEET (about 380px), not to the leftover. The
+     leftover went to the list, where it is reading measure. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  gap: 36px;
+}
+
+.sacc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+
+.sacc-item {
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 6%, transparent);
+  box-shadow: inset 0 0 0 1.5px transparent;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.sacc-item[data-open] {
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--ziadah-violet, #7c3aed), 0 10px 28px rgba(10, 0, 20, 0.07);
+}
+
+.sacc-h { margin: 0; padding: 0; font: inherit; }
+.sacc-btn {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: start;
+  border-radius: inherit;
+}
+.sacc-btn:focus-visible { outline: 3px solid #4a008c; outline-offset: 2px; }
+
+.sacc-n {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.sacc-item[data-open] .sacc-n { background: var(--ziadah-violet, #7c3aed); color: #fff; }
+.sacc-t { flex: 1 1 auto; min-width: 0; font-size: var(--t-body); font-weight: 600; line-height: 1.4; }
+.sacc-i { flex: none; font-size: 18px; line-height: 1; opacity: 0.55; transition: opacity 0.2s ease; }
+.sacc-btn:hover .sacc-i { opacity: 1; }
+
+/* THE OPEN ROW GROWS BY ANIMATING A GRID TRACK, NOT `height`.
+   `0fr` to `1fr` needs no measured height, so a note that wraps to a second
+   line on a narrow column opens to exactly its own height. A closed panel is
+   `visibility: hidden`, delayed until the collapse finishes: otherwise a link
+   inside a closed row stays in the tab order, invisible. */
+.sacc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0.32s;
+}
+.sacc-item[data-open] .sacc-panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear 0s;
+}
+.sacc-panel-in { overflow: hidden; min-height: 0; }
+/* Indented to sit under the title, past the number badge (26 + 12 gap). */
+.sacc-body { padding: 0 14px 14px; padding-inline-start: 52px; }
+.sacc-note {
+  margin: 0;
+  font-size: var(--t-sm);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-secondary, #0a0a0a) max(75%, var(--ink-floor, 0%)), transparent);
+}
+.sacc-link {
+  display: inline-block;
+  margin-block-start: 10px;
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sacc-link:hover { text-decoration-thickness: 2px; }
+
+/* THE STAGE. Sticky so it stays beside whichever row is open while the list
+   scrolls. It re-enters on every change, which is what tells the eye the
+   sheet changed along with the row. */
+.sacc-stage-col { position: sticky; top: calc(var(--header-height, 72px) + 20px); min-width: 0; }
+.sacc-stage { animation: sacc-in 0.32s ease both; }
+@keyframes sacc-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* The white card the sheet sits on, for the bands whose sheet is a bare
+   widget. The sector band does not use it: its sheet sits in a phone. */
+.sacc-card {
+  width: 100%;
+  padding: 20px;
+  border-radius: var(--radius-card);
+  background: #fff;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
+}
+
+@media screen and (max-width: 899px) {
+  /* The stage is inside the open row now, so the note no longer needs the
+     badge's indent and the stage runs the row's full width. */
+  .sacc-body { padding-inline-start: 14px; }
+  .sacc-inline { margin-block-start: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sacc-item, .sacc-n, .sacc-i { transition: none; }
+  .sacc-panel, .sacc-item[data-open] .sacc-panel { transition: none; }
+  .sacc-stage { animation: none; }
+}

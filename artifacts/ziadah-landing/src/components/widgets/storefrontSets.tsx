@@ -43,6 +43,73 @@ export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
   return isAr ? m[kind][0] : m[kind][1];
 }
 
+/**
+ * WHEN EACH SHAPE APPEARS, IN ONE LINE.
+ *
+ * The collapsible lists on the home page and the sector pages open a row to
+ * this and nothing else beside the live sheet. One line, and always the same
+ * question answered: at what moment does the shopper meet this? "What it is"
+ * is the sheet itself, and "why it works" lives on the page each shape links
+ * to, so neither is repeated here.
+ *
+ * It sits next to `widgetKindLabel` so a shape's name and its moment are
+ * edited in the same place and cannot drift apart across the three bands that
+ * list them.
+ */
+export function widgetKindWhen(kind: WidgetKind, isAr: boolean): string {
+  const m: Record<WidgetKind, [string, string]> = {
+    replace: [
+      "صفحة المنتج، حين يفتح العميل منتجاً له بديل أفضل أو أعلى فئة.",
+      "On the product page, when the shopper opens an item that has a better or higher-tier alternative.",
+    ],
+    quantity: [
+      "صفحة المنتج، قبل الإضافة للسلة: يختار العميل الكمية ويرى سعر الوحدة ينزل.",
+      "On the product page, before add-to-cart: the shopper picks a quantity and watches the unit price drop.",
+    ],
+    kit: [
+      "حين يحتاج المنتج مكمّلات من فئات مختلفة: يختار العميل قطعة من كل مجموعة والسعر ينزل مع الطقم.",
+      "When a product needs parts from different groups: pick one from each and the kit price drops.",
+    ],
+    steps: [
+      "حين يكون للشراء ترتيب: يبني العميل حزمته خطوة بخطوة ويرى التوفير يكبر.",
+      "When a purchase has an order to it: the shopper builds the bundle a step at a time and watches the saving grow.",
+    ],
+    routine: [
+      "حين يكون المنتج جزءاً من روتين أو مجموعة: أقسام منسّقة تعرض كل خطوة بمنتجاتها.",
+      "When a product belongs to a routine or a set: curated sections show each step with its products.",
+    ],
+    buythemall: [
+      "صفحة المنتج: منتجات تُشترى معاً تدخل السلة كلها بنقرة واحدة.",
+      "On the product page: items bought together go into the cart in one click.",
+    ],
+    addmore: [
+      "لحظة الإضافة للسلة: إضافات صغيرة تكمّل المنتج قبل أن يتابع العميل.",
+      "At add-to-cart: small add-ons that complete the product before the shopper moves on.",
+    ],
+    bmsm: [
+      "المنتج أو السلة: شرائح تدريجية، كل قطعة زيادة تفتح خصماً أكبر.",
+      "On the product or in the cart: tiered discounts, every extra piece unlocks a bigger one.",
+    ],
+    cartvalue: [
+      "في السلة: شريط يبيّن كم ناقص للشحن المجاني أو للهدية، مع منتجات تسدّ الفرق.",
+      "In the cart: a bar showing how far to free shipping or a gift, with products that close the gap.",
+    ],
+    drawer: [
+      "لحظة إضافة المنتج: يدخل درج السلة باقتراحات مرتبطة بما أُضيف للتو.",
+      "The moment an item is added: the cart drawer slides in with suggestions tied to what was just added.",
+    ],
+    coupon: [
+      "قبل الدفع: يظهر كود الخصم لمن يتردد أو يهمّ بالمغادرة، لا للجميع.",
+      "Before checkout: the coupon appears for shoppers who hesitate or are about to leave, not for everyone.",
+    ],
+    thankyou: [
+      "بعد إتمام الطلب: عرض واحد في صفحة الشكر قبل أن يغلقها العميل.",
+      "After the order: one offer on the thank-you page before the shopper closes it.",
+    ],
+  };
+  return isAr ? m[kind][0] : m[kind][1];
+}
+
 const P = {
   earbuds: { ar: "سماعات لاسلكية", en: "Wireless Earbuds" },
   wired: { ar: "سماعات سلكية", en: "Wired earphones" },
