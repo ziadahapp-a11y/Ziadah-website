@@ -18,6 +18,24 @@ import { t as translations } from "@/i18n/translations";
 export type PlanKey = "s" | "g" | "p" | "b";
 export type BillingMode = "m" | "y";
 
+/**
+ * TWO PRICE LISTS, NOT ONE AND A CONVERSION.
+ *
+ * The dollar prices are not the riyal ones divided at the peg. They are
+ * close to it - 790 / 3.75 is 210.7 and the dollar plan is 210 - but the two
+ * smaller plans are rounded to a marketing number rather than a rate (29 SAR
+ * is 7.73 USD and the plan is 10; 290 is 77.3 and the plan is 80). A site
+ * that divides at runtime would quietly contradict the billing system on
+ * exactly the two plans most people buy, so both lists are stated.
+ */
+export type Currency = "sar" | "usd";
+
+export function currencyLabel(c: Currency, isAr: boolean): string {
+  if (c === "usd") return isAr ? "$" : "USD";
+  /* The official riyal glyph (U+20C1) is not in the loaded font. */
+  return isAr ? "ر.س" : "SAR";
+}
+
 export type Plan = {
   key: PlanKey;
   name: string;
@@ -40,21 +58,45 @@ export type Plan = {
   aiPointsY: string;
 };
 
-export function usePricingPlans(): Plan[] {
+/** Monthly, monthly-when-annual, the annual charge, and twelve months at the
+ *  monthly rate struck beside it. Keyed by plan then currency. */
+const PRICES: Record<PlanKey, Record<Currency, {
+  m: string | number; y: string | number; annual: string | number; orig: string; disc: string;
+}>> = {
+  s: {
+    sar: { m: 29, y: 24, annual: 290, orig: "348", disc: "17%" },
+    usd: { m: 10, y: 8, annual: 100, orig: "120", disc: "17%" },
+  },
+  g: {
+    sar: { m: 290, y: 249, annual: "2,990", orig: "3,480", disc: "14%" },
+    usd: { m: 80, y: 67, annual: 800, orig: "960", disc: "17%" },
+  },
+  p: {
+    sar: { m: 790, y: 666, annual: "7,990", orig: "9,480", disc: "16%" },
+    usd: { m: 210, y: 175, annual: "2,100", orig: "2,520", disc: "17%" },
+  },
+  b: {
+    sar: { m: "1,990", y: "1,333", annual: "15,990", orig: "23,880", disc: "33%" },
+    usd: { m: 530, y: 358, annual: "4,300", orig: "6,360", disc: "32%" },
+  },
+};
+
+export function usePricingPlans(currency: Currency = "sar"): Plan[] {
   const { lang } = useLanguage();
   const isAr = lang === "ar";
   const ld = translations[lang].landing;
+  const px = (k: PlanKey) => PRICES[k][currency];
 
   return [
     {
       key: "s",
+      mPrice: px("s").m,
+      yPrice: px("s").y,
+      yAnnual: px("s").annual,
+      yOrig: px("s").orig,
+      yDisc: px("s").disc,
       name: isAr ? "الانطلاقة" : "Starter",
       desc: isAr ? "للمبتدئين والراغبين بالتجربة" : "For beginners",
-      mPrice: 29,
-      yPrice: 24,
-      yAnnual: 290,
-      yOrig: "348",
-      yDisc: "17%",
       badge: null,
       featured: false,
       featIntro: null,
@@ -64,13 +106,13 @@ export function usePricingPlans(): Plan[] {
     },
     {
       key: "g",
+      mPrice: px("g").m,
+      yPrice: px("g").y,
+      yAnnual: px("g").annual,
+      yOrig: px("g").orig,
+      yDisc: px("g").disc,
       name: isAr ? "النمو" : "Growth",
       desc: isAr ? "للتجار الأفراد" : "For individual merchants",
-      mPrice: 290,
-      yPrice: 249,
-      yAnnual: "2,990",
-      yOrig: "3,480",
-      yDisc: "14%",
       badge: null,
       featured: false,
       featIntro: ld.planGrowthIntro as string,
@@ -80,13 +122,13 @@ export function usePricingPlans(): Plan[] {
     },
     {
       key: "p",
+      mPrice: px("p").m,
+      yPrice: px("p").y,
+      yAnnual: px("p").annual,
+      yOrig: px("p").orig,
+      yDisc: px("p").disc,
       name: isAr ? "الاحترافية" : "Professional",
       desc: isAr ? "للشركات والمؤسسات" : "For companies",
-      mPrice: 790,
-      yPrice: 666,
-      yAnnual: "7,990",
-      yOrig: "9,480",
-      yDisc: "16%",
       badge: isAr ? "الأكثر طلباً" : "Most Popular",
       featured: true,
       featIntro: ld.planProIntro as string,
@@ -96,13 +138,13 @@ export function usePricingPlans(): Plan[] {
     },
     {
       key: "b",
+      mPrice: px("b").m,
+      yPrice: px("b").y,
+      yAnnual: px("b").annual,
+      yOrig: px("b").orig,
+      yDisc: px("b").disc,
       name: isAr ? "الأعمال" : "Business",
       desc: isAr ? "قيمة مخصصة للمنشآت الكبيرة" : "Custom value for large organizations",
-      mPrice: "1,990",
-      yPrice: "1,333",
-      yAnnual: "15,990",
-      yOrig: "23,880",
-      yDisc: "33%",
       badge: isAr ? "للمتاجر الكبيرة" : "For Large Stores",
       featured: false,
       featIntro: ld.planBusinessIntro as string,

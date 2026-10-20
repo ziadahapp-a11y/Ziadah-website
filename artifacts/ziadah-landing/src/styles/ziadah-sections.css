@@ -2340,3 +2340,9 @@
   .slist-figures { grid-column: 1 / span 8; }
   .slist-figure { max-width: 46rem; margin-inline: auto; }
 }
+
+/* The currency switch sits beside the billing switch, a size down: the
+   billing cycle changes what you commit to, the currency only changes how
+   the same number is written. */
+.hero-tabs.is-currency { margin-block-start: 1rem; }
+.hero-tabs.is-currency .hero-tab { font-size: 13px; padding-block: 0.7rem; }
