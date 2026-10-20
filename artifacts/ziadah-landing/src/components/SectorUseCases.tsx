@@ -4,9 +4,7 @@ import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { getSectorDeepDive, type GoalSlug, type PresentationSlug, type SectorUseCase } from "@/data/sectorDeepDive";
 import { goals, presentations } from "@/lib/features-data";
-import {
-  WidgetShell, WidgetHint, WidgetButton, ProductRow, ProductList,
-} from "@/components/widgets/kit";
+import SectorSheet from "@/components/widgets/SectorSheet";
 import { StorefrontWidget, WIDGET_KINDS, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
 import { productImage } from "@/lib/product-images";
 import FitWidget from "@/components/widgets/FitWidget";
@@ -69,48 +67,13 @@ export default function SectorUseCases({ slug }: { slug: string }) {
     return p ? (isAr ? p.title : p.titleEn) : null;
   };
 
-  /* The sheet, exactly as it ships. `ds="figma"` keeps it the design system's
-     white card on any band, so every moment's preview is the same product. */
-  const Sheet = ({ uc }: { uc: SectorUseCase }) => {
-    if (!uc.widget) return null;
-    const w = uc.widget;
-    return (
-      <WidgetShell
-        ds="figma"
-        maxWidth={340}
-        title={isAr ? w.titleAr : w.titleEn}
-        footer={<WidgetButton block>{isAr ? w.ctaAr : w.ctaEn}</WidgetButton>}
-      >
-        <WidgetHint>{L.sees}</WidgetHint>
-        <ProductRow
-          name={isAr ? w.mainAr : w.mainEn}
-          price={w.mainPrice}
-          currency={L.currency}
-        />
-        <WidgetHint>{isAr ? w.hintAr ?? L.suggests : w.hintEn ?? L.suggests}</WidgetHint>
-        <ProductList>
-          {w.suggest.map((sg, i) => (
-            <ProductRow
-              key={i}
-              name={isAr ? sg.ar : sg.en}
-              price={sg.price}
-              was={sg.was}
-              currency={L.currency}
-              selected={i === 0}
-            />
-          ))}
-        </ProductList>
-      </WidgetShell>
-    );
-  };
-
   const Detail = ({ uc }: { uc: SectorUseCase }) => (
     <div className="scq-stage-body">
       <span className="scq-stage-k">{L.live}</span>
       {/* Fitted, not cropped. The sheets are genuinely different heights, so
           a fixed stage either cuts the tall ones or wells the short ones. */}
       <FitWidget height={520}>
-        <Sheet uc={uc} />
+        <SectorSheet uc={uc} />
       </FitWidget>
       <p className="scq-stage-why">
         <span className="scq-stage-why-k">{L.why}</span>

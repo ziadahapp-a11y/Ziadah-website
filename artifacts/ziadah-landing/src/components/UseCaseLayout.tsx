@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Rocket, ArrowDown, CheckCircle2, BarChart3, Package, Zap } from "lucide-react";
 import PlatformModal from "./PlatformModal";
 import { navigateTo } from "./PageTransition";
@@ -15,6 +15,9 @@ import { t as siteTranslations } from "@/i18n/translations";
 import { Button, Shell } from "@/components/mk";
 import { HeroSplit, Section, SectionHead, CardsGrid, CtaSection } from "@/sections";
 import { stripLeadIcon } from "@/lib/strip-icon";
+import CardDeck, { type DeckCard } from "@/components/widgets/CardDeck";
+import { StorefrontWidget, widgetKindLabel } from "@/components/widgets/storefrontSets";
+import { useCaseDeckKinds } from "@/lib/use-case-deck";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
 export interface UseCaseHero {
@@ -108,6 +111,27 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
   const strategies = isEn && data.strategiesEn ? data.strategiesEn : data.strategies;
   const stats = isEn && data.statsEn ? data.statsEn : data.stats;
   const exampleScenario = isEn && data.exampleScenarioEn ? data.exampleScenarioEn : data.exampleScenario;
+  /* THE HERO DECK, THE SAME OBJECT THE HOME PAGE AND THE SECTORS FAN.
+     A solution page used to open on one static phone, which is a strange
+     thing for a page whose subject is a shape: it showed the shape as a
+     picture rather than as the component. The deck shows the page's own shape
+     in front and the shapes that sit beside it in a real shop behind, so the
+     reader sees where this one fits before reading a word about it.
+
+     Keyed off the page's own canonical path rather than the router, because
+     that is the path the page declares it IS - the router would also match a
+     language prefix the map does not care about. */
+  const deckKinds = useCaseDeckKinds(data.seo?.canonical ?? "");
+  const deck = useMemo<DeckCard[]>(
+    () =>
+      deckKinds.map((kind) => ({
+        key: kind,
+        label: widgetKindLabel(kind, !isEn),
+        node: <StorefrontWidget kind={kind} />,
+      })),
+    [deckKinds, isEn],
+  );
+
   const centralizedPlans = data.seo?.canonical ? planLabelsForUseCasePath(data.seo.canonical, lang) : [];
   const plans =
     centralizedPlans.length > 0
@@ -227,7 +251,17 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               </Button>
             </>
           }
-          media={data.heroVisual ?? <DefaultUseCaseHeroPhone hero={hero} stats={stats} />}
+          media={
+            /* The deck wins where the page has one. `heroVisual` stays the
+               fallback for the handful of pages that draw something the deck
+               cannot - a whole storefront page mock-up rather than a widget -
+               and the default phone stays the floor under both. */
+            deck.length ? (
+              <CardDeck cards={deck} label={hero.title} />
+            ) : (
+              data.heroVisual ?? <DefaultUseCaseHeroPhone hero={hero} stats={stats} />
+            )
+          }
         />
 
         <PageRail items={quickNav} />

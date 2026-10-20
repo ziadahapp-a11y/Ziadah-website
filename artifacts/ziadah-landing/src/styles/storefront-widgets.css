@@ -185,7 +185,9 @@
   --fan-drag: 0px;
   position: relative;
   width: 100%;
-  height: 460px;
+  /* The stage clears the tallest card plus the room the fan needs to rotate
+     its outer cards without their corners leaving the box. */
+  height: calc(var(--fan-card-h, 400px) + 60px);
   display: grid;
   place-items: center;
   /* The deck sits in 3D so the inactive cards fall back rather than just
@@ -201,7 +203,7 @@
   padding: 0;
   cursor: pointer;
   width: 268px;
-  height: 400px;
+  height: var(--fan-card-h, 400px);
   border-radius: 20px;
   background: #fff;
   box-shadow: 0 18px 44px rgba(10, 0, 20, 0.16), inset 0 0 0 1px #e1e0e1;
@@ -265,6 +267,29 @@
 }
 [dir="rtl"] .fan-card-stage { transform: translateX(50%) scale(0.66); }
 
+/* THE CARD IS A PEEK, SO IT FADES RATHER THAN CUTS.
+   The sheets are genuinely different heights - a coupon is four lines, the
+   buy-more-save-more sheet runs 880px - and a card sized for the tallest
+   would be a 620px slab in a hero. So the card keeps its size and the tall
+   sheets run past its foot.
+
+   What matters is that the overrun reads as a peek and not as a defect. A
+   hard edge through the middle of a product row looks like the render broke;
+   the same overrun under a fade reads as "there is more of this", which is
+   true, and which is what the page below the hero goes on to show. The fade
+   is a mask rather than a painted gradient so it works on the white card and
+   on whatever band the deck is dropped into. */
+.fan-card {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 46px), transparent 100%);
+}
+/* The active card is the one being read, so it fades over a shorter run: a
+   deep fade on the card in front hides the thing the reader is looking at. */
+.fan-card[data-active] {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 28px), transparent 100%);
+}
+
 /* While the finger is down the cards must not ease: a transition on a
    dragged element lags the finger by its own duration, which reads as the
    deck being heavy rather than responsive. */
@@ -281,7 +306,7 @@
 /* Below the tablet break the fan becomes a single card: five rotated cards
    in a 358px column is a pile, not a deck. */
 @media screen and (max-width: 860px) {
-  .fan { height: 420px; }
+  .fan { height: calc(var(--fan-card-h, 400px) + 20px); }
   .fan-card {
     width: 258px;
     transform: translateX(var(--fan-drag)) translateZ(calc(var(--far) * -60px)) scale(calc(1 - var(--far) * 0.06));
