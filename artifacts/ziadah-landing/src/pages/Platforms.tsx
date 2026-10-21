@@ -4,6 +4,7 @@ import { BreadcrumbSchema, WebPageSchema } from "@/components/JsonLd";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { navigateTo } from "@/components/PageTransition";
 import { Button, Shell } from "@/components/mk";
+import { AUTO_LINE } from "@/lib/auto-message";
 import { HeroLede, Section, SectionHead, CtaSection, FaqBlock, MediaSlot } from "@/sections";
 import { EcosystemGraph } from "@/components/art/EcosystemGraph";
 import { PLATFORMS, RESPONSIBILITIES } from "@/lib/platforms-data";
@@ -73,8 +74,8 @@ export default function Platforms() {
           eyebrow={t("المنصات", "Platforms")}
           title={t("أين يعمل زيادة", "Where Ziadah runs")}
           body={t(
-            "زيادة محرّك توصيات قائم بذاته — ليس إضافة لمنصة متجر. المنصة التي يعمل عليها متجرك هي مكان الاتصال فقط: الموصّل يقرأ الكتالوج وسلوك الشراء، وكل ما بعد ذلك يحدث داخل زيادة ويظهر لعميلك في متجرك.",
-            "Ziadah is a recommendation engine in its own right — not an add-on to a store platform. Whichever platform your store runs on is only the point of connection: the connector reads your catalogue and your buying behaviour, and everything after that happens inside Ziadah and surfaces to your shopper in your own storefront.",
+            `${AUTO_LINE.ar}. زيادة محرّك توصيات قائم بذاته — ليس إضافة لمنصة متجر. المنصة التي يعمل عليها متجرك هي مكان الاتصال فقط: الموصّل يقرأ الكتالوج وسلوك الشراء، وكل ما بعد ذلك يحدث داخل زيادة ويظهر لعميلك في متجرك.`,
+            `${AUTO_LINE.en}. Ziadah is a recommendation engine in its own right — not an add-on to a store platform. Whichever platform your store runs on is only the point of connection: the connector reads your catalogue and your buying behaviour, and everything after that happens inside Ziadah and surfaces to your shopper in your own storefront.`,
           )}
           actions={
             <Button

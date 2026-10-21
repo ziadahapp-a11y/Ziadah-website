@@ -1,10 +1,11 @@
 import { Link } from "wouter";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/mk";
 import { useT } from "@/lib/i18n";
 import { themeVars } from "@/sections";
 import { useEnterOnce } from "@/sections/scroll";
 import FannedWidgets from "@/components/home/FannedWidgets";
+import { AUTO_LINE } from "@/lib/auto-message";
 
 /**
  * The homepage hero.
@@ -70,6 +71,10 @@ export function Hero() {
               ar: "تطبيق زيادة يقرأ السلة وسجل الطلبات ويقترح لكل عميل منتجات تناسبه في صفحة المنتج والسلة والدفع، فيرتفع متوسط قيمة الطلب بدون إنفاق إعلاني إضافي.",
               en: "The Ziadah app reads the cart and order history and suggests products that fit each shopper on the product page, the cart and checkout, so average order value rises with no extra ad spend.",
             })}
+          </p>
+          <p className="hero-home-auto">
+            <Sparkles className="hero-home-auto-ico" aria-hidden="true" />
+            {t(AUTO_LINE)}
           </p>
           <div className="hero-home-actions">
             <Button as={Link} href="/features" variant="secondary" size="lg" data-testid="hero-features">

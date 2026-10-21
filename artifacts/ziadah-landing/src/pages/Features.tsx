@@ -43,6 +43,7 @@ import { featureHref } from "@/lib/features-data";
 import { navigateTo } from "@/components/PageTransition";
 import { Section as DsSection, SectionHead, MediaSlot, HeroLede } from "@/sections";
 import { Shell } from "@/components/mk";
+import { AUTO_LINE } from "@/lib/auto-message";
 import { CapabilityStack } from "@/components/art/CapabilityStack";
 
 
@@ -117,7 +118,7 @@ export default function Features() {
         family="violet"
         eyebrow={ft.heroTag}
         title={<span dangerouslySetInnerHTML={{ __html: ft.heroTitle }} />}
-        body={ft.heroSub}
+        body={<>{ft.heroSub}<br />{isAr ? AUTO_LINE.ar : AUTO_LINE.en}</>}
       >
         {/* The four tabs are the registry's own divisions, so they belong in
             the hero: the page hands the reader its contents before it starts

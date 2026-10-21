@@ -1,6 +1,8 @@
 import { type ReactNode } from "react";
 import { Zap } from "lucide-react";
 import { CtaSection } from "@/sections";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { AUTO_LINE } from "@/lib/auto-message";
 
 /**
  * The closing CTA every marketing page ends on — fifteen standalone pages plus
@@ -31,12 +33,14 @@ export default function PageClosingCta({
   /** Deprecated: retained for compatibility, and ignored. */
   dark?: boolean;
 }) {
+  const { lang } = useLanguage();
   return (
     <CtaSection
       family="violet"
       title={title}
       body={description}
-      note={note != null && note !== "" ? note : undefined}
+      /* Every closing band ends on the same sentence unless a page has its own. */
+      note={note != null && note !== "" ? note : AUTO_LINE[lang]}
       primary={{
         label: (
           <>

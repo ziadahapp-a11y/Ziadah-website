@@ -29,34 +29,34 @@ export function HowItWorks() {
     () => [
       {
         key: "0",
-        title: t({ ar: "اربط متجرك بنقرة", en: "Connect your store in one click" }),
+        title: t({ ar: "فعّل التطبيق بنقرة", en: "Activate the app in one click" }),
         note: t({
-          ar: "موصّل جاهز لزد وسلة - التثبيت من لوحة المنصة نفسها. ما تحتاج مطوّر ولا تعديل على قالب متجرك: تثبيت، تفعيل، وخلصت.",
-          en: "A ready-made connector for Zid and Salla - installed from the platform's own dashboard. No developer and no theme edit: install, activate, done.",
+          ar: "من لوحة زد أو سلة نفسها. ما تحتاج مطوّر ولا تعديل على قالب متجرك. تفعيل، وخلصت أنت.",
+          en: "From your Zid or Salla dashboard itself. No developer and no theme edit. Activate, and you are done.",
         }),
       },
       {
         key: "1",
-        title: t({ ar: "اختر أماكن العرض", en: "Pick the placements" }),
+        title: t({ ar: "زيادة يقرأ متجرك", en: "Ziadah reads your store" }),
         note: t({
-          ar: `فعّل الودجت في صفحة المنتج، السلة، الدفع، الفئات - أو كلها. ${FEATURE_COUNT} قدرة جاهزة بين هدف وطريقة عرض ومكان، من لوحة وحدة.`,
-          en: `Switch the widget on for the product page, the cart, checkout, categories - or all of them. ${FEATURE_COUNT} ready capabilities across goals, presentations and placements, from one dashboard.`,
+          ar: "يحلّل كتالوجك وسجل الطلبات وسلوك التصفّح والمنتجات اللي تُشترى معاً، بدون أي إعداد منك.",
+          en: "It analyses your catalogue, order history, browsing and which products get bought together, with no setup from you.",
         }),
       },
       {
         key: "2",
-        title: t({ ar: "الذكاء يتعلّم كتالوجك وعملاءك", en: "The AI learns your catalogue and your shoppers" }),
+        title: t({ ar: "يضبط كل شي بنفسه بالذكاء الاصطناعي", en: "Sets everything up by itself with AI" }),
         note: t({
-          ar: "تطبيق زيادة يحلّل سلوك التصفّح والطلبات السابقة والمنتجات اللي تُشترى معاً، ويبني اقتراحاً شخصياً لكل عميل - بدون أي إعداد يدوي منك.",
-          en: "The Ziadah app analyses browsing, past orders and which products get bought together, and builds a personal suggestion for each shopper - with no manual setup from you.",
+          ar: `يختار الأماكن والأشكال والعروض لكل عميل، ويضبطها في صفحة المنتج والسلة والدفع. ${FEATURE_COUNT} قدرة جاهزة، وما تضبط منها شي بيدك.`,
+          en: `It picks the places, shapes and offers for each shopper and sets them up on the product page, cart and checkout. ${FEATURE_COUNT} ready capabilities, and you set none of them by hand.`,
         }),
       },
       {
         key: "3",
-        title: t({ ar: "قِس كل ريال، وحسّن", en: "Measure every riyal, and improve" }),
+        title: t({ ar: "يختبر ويحسّن، وأنت تشوف الأثر", en: "Tests and improves, and you see the lift" }),
         note: t({
-          ar: "تشوف بالضبط أي مكان عرض وأي طريقة اقتراح ترفع متوسط الطلب، مع تقارير قبل/بعد - والتطبيق يعيد الترتيب تلقائياً حسب ما يشتغل فعلاً.",
-          en: "See exactly which placement and which kind of suggestion raises the average order, with before/after reports - and the app reorders itself by what actually works.",
+          ar: "تشوف بالضبط أي مكان وأي اقتراح يرفع متوسط الطلب، مع تقارير قبل وبعد. والتطبيق يعيد الترتيب تلقائياً حسب اللي يشتغل فعلاً.",
+          en: "See exactly which placement and which suggestion raises the average order, with before and after reports. The app reorders itself by what actually works.",
         }),
       },
     ],
@@ -72,7 +72,7 @@ export function HowItWorks() {
             <SectionHead
               center
               kicker={t({ ar: "كيف يشتغل تطبيق زيادة - 4 خطوات", en: "How the Ziadah app works - 4 steps" })}
-              title={t({ ar: "من ربط المتجر إلى أول طلب أكبر", en: "From store connect to your first bigger order" })}
+              title={t({ ar: "فعّل، وزيادة يضبط الباقي بالذكاء الاصطناعي", en: "Activate, and Ziadah sets up the rest with AI" })}
             />
           }
           items={items}

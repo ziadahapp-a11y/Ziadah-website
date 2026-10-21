@@ -19,6 +19,7 @@ import SectorUseCases from "@/components/SectorUseCases";
 import { navigateTo } from "@/components/PageTransition";
 import SectorAiMlHighlights from "@/components/SectorAiMlHighlights";
 import SectorPageRichSections from "@/components/SectorPageRichSections";
+import { AutoStrip, SectorAuto } from "@/components/SectorAuto";
 import SectorHtmlHero from "@/components/SectorHtmlHero";
 import SectorDeliveryUseCases from "@/components/SectorDeliveryUseCases";
 import { getSectorPageRich } from "@/data/sectorPageRich";
@@ -129,7 +130,7 @@ export default function SectorDetail() {
   const richQuick = pageRich
     ? [
         { id: "section-why", labelAr: tr.sectorNavWhy, labelEn: t.en.sectorsPage.sectorNavWhy },
-        { id: "section-how-to", labelAr: tr.sectorNavPhases, labelEn: t.en.sectorsPage.sectorNavPhases },
+        { id: "section-how-to", labelAr: "كيف يشتغل", labelEn: "How it works" },
         { id: "sector-ai-context", labelAr: tr.sectorNavAi, labelEn: t.en.sectorsPage.sectorNavAi },
         ...(sector.slug === "delivery-apps"
           ? [{ id: "section-usecases", labelAr: tr.sectorNavUseCases, labelEn: t.en.sectorsPage.sectorNavUseCases }]
@@ -139,7 +140,7 @@ export default function SectorDetail() {
   const quickSections = [
     ...richQuick,
     ...hubQuick,
-    ...(!pageRich ? ([{ id: "section-how-to", labelAr: "التطبيق", labelEn: "Setup" }] as const) : []),
+    ...(!pageRich ? ([{ id: "section-how-to", labelAr: "كيف يشتغل", labelEn: "How it works" }] as const) : []),
     ...(slim ? [] : ([{ id: "section-how-help", labelAr: "الحلول", labelEn: "Solutions" }] as const)),
     /* The sector's examples are the live-examples band. */
     { id: "section-shapes", labelAr: "أمثلة حية", labelEn: "Live examples" },
@@ -154,12 +155,11 @@ export default function SectorDetail() {
                 { id: "section-tracking", labelAr: tr.sectorNavTrack, labelEn: t.en.sectorsPage.sectorNavTrack },
                 { id: "section-analytics", labelAr: tr.sectorNavAnalytics, labelEn: t.en.sectorsPage.sectorNavAnalytics },
               ] as const)),
-          ...(slim ? [] : ([{ id: "section-best", labelAr: "أفضل الممارسات", labelEn: "Best Practices" }] as const)),
           { id: "section-sector-cta", labelAr: tr.sectorNavCta, labelEn: t.en.sectorsPage.sectorNavCta },
         ] as const)
       : slim
         ? ([] as const)
-        : ([{ id: "section-best", labelAr: "أفضل الممارسات", labelEn: "Best Practices" }] as const)),
+        : ([] as const)),
   ] as const;
 
   /* `quickSections` carries `labelAr`/`labelEn`; the shared rail speaks
@@ -262,6 +262,8 @@ export default function SectorDetail() {
             then the proof, then the ask. The band is full-width, so the
             column is split around it rather than the band squeezed into the
             column. */}
+        <AutoStrip />
+
         <article className={articleClass} style={articleStyle}>
           {pageRich ? <SectorPageRichSections rich={pageRich} part="top" /> : null}
         </article>
@@ -270,38 +272,7 @@ export default function SectorDetail() {
         <SectorUseCases slug={sector.slug} />
 
         <article className={articleClass} style={{ ...articleStyle, paddingTop: 64 }}>
-          <SectionBlock title={tr.sectionHowToApply} delayClass="d1" sectionId="section-how-to">
-            {sector.useCardLayout && sector.howToPhaseCards?.length ? (
-              <div
-                className="grid gap-3.5"
-                style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))" }}
-              >
-                {sector.howToPhaseCards.map((card, i) => (
-                  <div
-                    key={i}
-                    className={`rv d${(i % 3) + 1} sector-card`}
-                  >
-                    <div className="flex items-start gap-2.5 mb-3">
-                      <h3 className="sector-card-title">
-                        {lang === "ar" ? card.titleAr : card.titleEn}
-                      </h3>
-                    </div>
-                    <ul className="sector-list sector-list--sm">
-                      {(slim ? (lang === "ar" ? card.bulletsAr : card.bulletsEn).slice(0, 2) : lang === "ar" ? card.bulletsAr : card.bulletsEn).map((b, j) => (
-                        <li key={j}>{b}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <ol className="sector-list">
-                {howTo.map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ol>
-            )}
-          </SectionBlock>
+          <SectorAuto rich={pageRich} sectorTitle={title} />
 
           {showPlatformHub ? <SectorAiMlHighlights /> : null}
           {pageRich ? <SectorPageRichSections rich={pageRich} part="ai" /> : null}
@@ -362,34 +333,6 @@ export default function SectorDetail() {
           ) : null}
 
           {pageRich ? <SectorPageRichSections rich={pageRich} part="bottom" /> : null}
-
-          {!slim ? (
-            <SectionBlock title={tr.sectionBestPractices} delayClass="d1" sectionId="section-best">
-              {sector.useCardLayout && sector.bestCards?.length ? (
-                <div
-                  className="grid gap-3"
-                  style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))" }}
-                >
-                  {sector.bestCards.map((bc, i) => (
-                    <div
-                      key={i}
-                      className={`rv d${(i % 3) + 1} sector-card flex items-start gap-2.5`}
-                    >
-                      <p className="sector-card-text">
-                        {lang === "ar" ? bc.textAr : bc.textEn}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <ul className="sector-list">
-                  {best.map((line, i) => (
-                    <li key={i}>{line}</li>
-                  ))}
-                </ul>
-              )}
-            </SectionBlock>
-          ) : null}
 
           {pageRich ? <SectorPageRichSections rich={pageRich} part="foot" /> : null}
 
