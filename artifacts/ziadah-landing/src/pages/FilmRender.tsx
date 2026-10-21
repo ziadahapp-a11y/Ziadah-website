@@ -10,7 +10,7 @@ export default function FilmRender() {
       {/* The site's own header and footer would sit on top of the recording. */}
       <style>{".site-header, .site-footer, footer, [data-header] { display: none !important; } body { overflow: hidden; }"}</style>
       <div style={{ position: "fixed", inset: 0, background: "#fff" }}>
-        <ActivationFilm capture />
+        <ActivationFilm capture portrait={new URLSearchParams(window.location.search).has("portrait")} />
       </div>
     </>
   );

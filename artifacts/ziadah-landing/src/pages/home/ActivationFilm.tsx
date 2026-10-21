@@ -29,7 +29,16 @@ import { StorefrontWidget, widgetKindLabel, type WidgetKind } from "@/components
 
 const W = 1920;
 const H = 1080;
+/** The phone layout: 4:5, panel on top, the grids narrower. Chosen from the
+ *  container's width, so the same film is a landscape window on a desktop and
+ *  a portrait one on a phone, with the same story and the same timing. */
+const PW = 1080;
+const PH = 1350;
+const PORTRAIT_BELOW = 720;
 export const FILM_SECONDS = 30;
+/** How fast the clock runs on the page. The film is written in 30 stage
+ *  seconds and recorded at 1x; on the page it runs 1.5x, so a loop is 20s. */
+export const FILM_SPEED = 1.5;
 
 const clamp = (x: number) => Math.min(1, Math.max(0, x));
 const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
@@ -68,12 +77,13 @@ const KINDS: { kind: WidgetKind; page: { ar: string; en: string }; event: { ar: 
   { kind: "routine", page: { ar: "السلة", en: "Cart" }, event: { ar: "عند فتح السلة", en: "On opening the cart" }, pick: false },
   { kind: "cartvalue", page: { ar: "الدفع", en: "Checkout" }, event: { ar: "قبل إتمام الطلب", en: "Before checkout" }, pick: false },
 ];
-const COLS = 6;
-const CELL_W = 194;
-const CELL_H = 364;
-const SHEET_SCALE = 0.4;
+/** The zoomed-out grid of every offer, per layout. */
+const GRID = {
+  land: { cols: 6, cw: 194, ch: 364, sc: 0.4 },
+  port: { cols: 4, cw: 258, ch: 252, sc: 0.24 },
+} as const;
 
-export default function ActivationFilm({ capture = false }: { capture?: boolean }) {
+export default function ActivationFilm({ capture = false, portrait: forcePortrait }: { capture?: boolean; portrait?: boolean }) {
   const { isAr } = useLanguage();
   const tx = (ar: string, en: string) => (isAr ? ar : en);
   const nm = (it: PackItem) => (isAr ? it.ar : it.en);
@@ -82,6 +92,10 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
   const host = useRef<HTMLDivElement>(null);
   const [t, setT] = useState(capture ? 0 : 0);
   const [scale, setScale] = useState(capture ? 1 : 0.6);
+  const [portrait, setPortrait] = useState(!!forcePortrait);
+  const SW = portrait ? PW : W;
+  const SH = portrait ? PH : H;
+  const G = portrait ? GRID.port : GRID.land;
 
   /* The clock. On the page it runs only while the film is at least a quarter
      visible; reduced motion gets the last, finished frame and no clock. */
@@ -103,7 +117,7 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
     const obs = typeof IntersectionObserver === "undefined" || !el ? null : new IntersectionObserver(([e]) => { on = e.isIntersecting; last = performance.now(); }, { threshold: 0.25 });
     if (obs && el) obs.observe(el); else on = true;
     const tick = (now: number) => {
-      if (on) setT((p) => (p + (now - last) / 1000) % FILM_SECONDS);
+      if (on) setT((p) => (p + ((now - last) / 1000) * FILM_SPEED) % FILM_SECONDS);
       last = now;
       raf = requestAnimationFrame(tick);
     };
@@ -116,12 +130,17 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
     if (capture) return;
     const el = host.current;
     if (!el) return;
-    const fit = () => setScale(el.clientWidth / W);
+    const fit = () => {
+      const w = el.clientWidth;
+      const p = forcePortrait ?? w < PORTRAIT_BELOW;
+      setPortrait(p);
+      setScale(w / (p ? PW : W));
+    };
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [capture]);
+  }, [capture, forcePortrait]);
 
   const shelf = useMemo(() => {
     const extra = Object.values(SECTOR_PACKS).slice(1, 4).map((p) => p.main);
@@ -145,8 +164,9 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
 
   /* ---- scene A: the click ---- */
   const cur = io3(seg(t, 1.2, 3.2));
-  const curX = lerp(1380, 1010, cur) + (t > 3.4 ? lerp(0, 90, seg(t, 4.2, 5.4)) : 0);
-  const curY = lerp(900, 585, cur) + (t > 3.4 ? lerp(0, 120, seg(t, 4.2, 5.4)) : 0);
+  const tgt = portrait ? { x0: 880, y0: 1000, x1: 590, y1: 700 } : { x0: 1380, y0: 900, x1: 1010, y1: 585 };
+  const curX = lerp(tgt.x0, tgt.x1, cur) + (t > 3.4 ? lerp(0, 90, seg(t, 4.2, 5.4)) : 0);
+  const curY = lerp(tgt.y0, tgt.y1, cur) + (t > 3.4 ? lerp(0, 120, seg(t, 4.2, 5.4)) : 0);
   const clickK = seg(t, 3.3, 3.6);
   const active = t >= 3.5;
   const ripple = seg(t, 3.4, 4.2);
@@ -174,11 +194,12 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
       ref={host}
       className="film"
       data-capture={capture ? "" : undefined}
-      style={capture ? { width: W, height: H } : undefined}
+      data-portrait={portrait ? "" : undefined}
+      style={capture ? { width: SW, height: SH } : undefined}
       aria-label={tx("فيلم يوضح كيف يفعّل التاجر زيادة ثم يضبط زيادة كل شي بنفسه", "A film showing the merchant activate Ziadah and Ziadah then set everything up by itself")}
       role="img"
     >
-      <div className="film-stage" dir={isAr ? "rtl" : "ltr"} style={{ width: W, height: H, transform: `scale(${scale})`, opacity: loopFade }}>
+      <div className="film-stage" dir={isAr ? "rtl" : "ltr"} style={{ width: SW, height: SH, transform: `scale(${scale})`, opacity: loopFade }}>
         <div className="film-win">
           <div className="film-bar">
             <i /><i /><i />
@@ -272,12 +293,12 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
                   {KINDS.map((k, i) => {
                     const a = 12.1 + i * 0.05;
                     const fly = out3(seg(t, a, a + 1.25));
-                    const col = isAr ? COLS - 1 - (i % COLS) : i % COLS;
-                    const row = Math.floor(i / COLS);
-                    const x1 = col * CELL_W + (CELL_W - 340 * SHEET_SCALE) / 2;
-                    const y1 = row * (CELL_H + 8);
-                    const x0 = (COLS * CELL_W) / 2 - 170 * 0.12;
-                    const y0 = CELL_H - 80;
+                    const col = isAr ? G.cols - 1 - (i % G.cols) : i % G.cols;
+                    const row = Math.floor(i / G.cols);
+                    const x1 = col * G.cw + (G.cw - 340 * G.sc) / 2;
+                    const y1 = row * (G.ch + 8);
+                    const x0 = (G.cols * G.cw) / 2 - 170 * 0.12;
+                    const y0 = G.ch - 60;
                     const decide = 13.9 + i * 0.16;
                     const judged = seg(t, decide, decide + 0.35);
                     const yes = k.pick;
@@ -293,7 +314,7 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
                           filter: !yes && judged > 0 ? `grayscale(${judged})` : undefined,
                         }}
                       >
-                        <div className="film-xc-sheet" data-yes={yes && judged > 0.5 ? "" : undefined} style={{ transform: `scale(${lerp(0.12, SHEET_SCALE, fly)})` }}>{burst[i]}</div>
+                        <div className="film-xc-sheet" data-yes={yes && judged > 0.5 ? "" : undefined} style={{ transform: `scale(${lerp(0.12, G.sc, fly)})` }}>{burst[i]}</div>
                         <div className="film-xc-meta" style={{ opacity: seg(t, a + 0.85, a + 1.35) }}>
                           <b>{widgetKindLabel(k.kind, isAr)}</b>
                           <small>{tx(k.page.ar, k.page.en)}</small>

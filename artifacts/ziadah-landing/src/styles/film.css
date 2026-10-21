@@ -156,3 +156,97 @@
 .film-end-line { max-width: 1420px; text-align: center; font-size: 84px; font-weight: 700; line-height: 1.3; }
 .film-end-chips { display: flex; gap: 24px; }
 .film-end-chips span { padding: 14px 44px; border-radius: 999px; background: var(--f-tint); color: var(--f-violet); font-size: 40px; font-weight: 600; }
+
+/* ═══ THE PHONE LAYOUT ═══════════════════════════════════════════════════════
+   4:5, stage 1080x1350. The assistant's panel moves on top as a compact strip,
+   the grids get narrower, and type is a little smaller. Same story, same
+   timing, same clock. */
+.film[data-portrait] { aspect-ratio: 4 / 5; border-radius: 22px; }
+.film[data-portrait] .film-win { inset: 24px; border-radius: 24px; }
+.film[data-portrait] .film-bar { height: 64px; padding: 0 22px; }
+.film[data-portrait] .film-bar i { width: 15px; height: 15px; }
+.film[data-portrait] .film-addr { font-size: 24px; padding: 6px 26px; }
+.film[data-portrait] .film-body { inset: 64px 0 0 0; }
+
+/* A: the click, stacked */
+.film[data-portrait] .film-market { gap: 34px; }
+.film[data-portrait] .film-market-head { width: 900px; }
+.film[data-portrait] .film-pill { font-size: 28px; padding: 12px 26px; }
+.film[data-portrait] .film-search { font-size: 28px; padding: 14px 26px; }
+.film[data-portrait] .film-app { width: 900px; height: auto; flex-direction: column; gap: 22px; padding: 44px 40px; text-align: center; }
+.film[data-portrait] .film-app-ic { width: 140px; height: 140px; border-radius: 36px; }
+.film[data-portrait] .film-app-name { font-size: 60px; }
+.film[data-portrait] .film-app-sub { font-size: 32px; }
+.film[data-portrait] .film-btn-wrap { width: 100%; height: 100px; margin: 8px 0 0; }
+.film[data-portrait] .film-btn { font-size: 40px; }
+.film[data-portrait] .film-toast { font-size: 30px; bottom: 56px; }
+
+/* B-D: panel on top, canvas below */
+.film[data-portrait] .film-work { flex-direction: column; }
+.film[data-portrait] .film-panel { order: -1; width: auto; flex: none; padding: 22px 30px 20px; gap: 12px; border-inline-start: 0; border-bottom: 2px solid var(--f-line); }
+.film[data-portrait] .film-panel-head b { font-size: 30px; }
+.film[data-portrait] .film-panel-av { width: 52px; height: 52px; border-radius: 16px; }
+.film[data-portrait] .film-msg { display: none; }
+.film[data-portrait] .film-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.film[data-portrait] .film-steps li { gap: 14px; align-items: center; }
+.film[data-portrait] .film-steps p { font-size: 25px; line-height: 1.25; }
+.film[data-portrait] .film-steps small { font-size: 20px; margin-top: 0; }
+.film[data-portrait] .film-step-ic { width: 38px; height: 38px; margin-top: 0; }
+.film[data-portrait] .film-spin { width: 18px; height: 18px; }
+.film[data-portrait] .film-ready { font-size: 24px; padding: 12px 18px; }
+.film[data-portrait] .film-prog { margin-top: 4px; height: 10px; }
+.film[data-portrait] .film-canvas { flex: 1 1 0; }
+.film[data-portrait] .film-layer { inset: 22px 24px; }
+.film[data-portrait] .film-h { font-size: 40px; gap: 14px; flex-wrap: wrap; }
+.film[data-portrait] .film-h small { font-size: 22px; padding: 4px 16px; }
+
+/* read the store */
+.film[data-portrait] .film-count { gap: 32px; font-size: 26px; margin-top: 8px; }
+.film[data-portrait] .film-count b { font-size: 48px; }
+.film[data-portrait] .film-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.film[data-portrait] .film-tile { height: 196px; padding: 14px; gap: 4px; border-radius: 22px; }
+.film[data-portrait] .film-tile-ic { width: 84px; height: 84px; border-radius: 22px; }
+.film[data-portrait] .film-tile-ic svg { width: 42px; height: 42px; }
+.film[data-portrait] .film-tile-n { font-size: 22px; margin-top: 4px; }
+.film[data-portrait] .film-tile-p { font-size: 20px; }
+.film[data-portrait] .film-tile-ok { width: 36px; height: 36px; top: 10px; }
+
+/* study the buyers */
+.film[data-portrait] .film-pairs { gap: 18px; margin-top: 20px; }
+.film[data-portrait] .film-pair { height: 150px; padding: 0 22px; gap: 14px; border-radius: 26px; }
+.film[data-portrait] .film-pair-ic { width: 92px; height: 92px; border-radius: 22px; }
+.film[data-portrait] .film-pair-ic svg { width: 44px; height: 44px; }
+.film[data-portrait] .film-plus { font-size: 40px; }
+.film[data-portrait] .film-pair-mid { padding-inline: 8px; }
+.film[data-portrait] .film-pair-mid p { font-size: 22px; margin-bottom: 10px; }
+.film[data-portrait] .film-pct { width: 96px; font-size: 40px; }
+
+/* every offer, zoomed out */
+.film[data-portrait] .film-xgrid { width: 1032px; height: 770px; margin-top: 12px; }
+.film[data-portrait] .film-xc { width: 82px; }
+.film[data-portrait] .film-xc-sheet[data-yes] { box-shadow: 0 0 0 20px var(--f-green); }
+.film[data-portrait] .film-xc-meta { top: 172px; left: -88px; width: 258px; }
+.film[data-portrait] .film-xc-meta b { font-size: 21px; }
+.film[data-portrait] .film-xc-meta small { font-size: 15px; }
+.film[data-portrait] .film-xc-badge { width: 36px; height: 36px; top: -14px; right: -12px; }
+.film[data-portrait] .film-xc-no { left: -30px; top: 56px; width: 142px; font-size: 16px; padding: 4px 0; }
+
+/* in the store */
+.film[data-portrait] .film-store { inset: 22px 0; gap: 0; }
+.film[data-portrait] .film-store-col { width: 344px; }
+.film[data-portrait] .film-tag { font-size: 24px; padding: 6px 22px; }
+.film[data-portrait] .film-sheet { transform: none; }
+
+/* results */
+.film[data-portrait] .film-kpis { grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 18px; }
+.film[data-portrait] .film-kpi { padding: 22px 18px; border-radius: 24px; gap: 6px; }
+.film[data-portrait] .film-kpi small { font-size: 20px; line-height: 1.3; }
+.film[data-portrait] .film-kpi b { font-size: 40px; }
+.film[data-portrait] .film-kpi em { font-size: 22px; padding: 2px 14px; }
+.film[data-portrait] .film-bars { height: 380px; gap: 14px; margin-top: 30px; }
+
+/* the end card */
+.film[data-portrait] .film-end { gap: 36px; padding: 0 56px; }
+.film[data-portrait] .film-end-logo { height: 96px; }
+.film[data-portrait] .film-end-line { font-size: 62px; }
+.film[data-portrait] .film-end-chips span { font-size: 32px; padding: 10px 32px; }
