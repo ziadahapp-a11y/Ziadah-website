@@ -180,13 +180,16 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
   );
 
   if (kind === "kit") {
-    /* The In-progress frame: photo, titles, two pills, a bar, a card per
-       group (required, pick-up-to, locked) and the kit price. */
+    /* The In-progress frame: titles, two pills, a bar, a card per group
+       (required, pick-up-to, locked) and the kit price. The frame opens on a
+       240px photo of the kit; here the phone's own header already shows the
+       product, and the photo made the sheet 1,290px tall, which a phone stage
+       can only show at half size and so illegibly. Dropped, and the cards
+       are denser (see `data-dense`), so the sheet fits at a readable scale. */
     const was = main.price + a.price + b.price + c.price;
     const now = off(was, 12);
     return (
-      <FwPage>
-        <FwHero name={nm(main)} />
+      <FwPage dense>
         <FwTitles
           title={t("كوّن طقمك", "Build your kit")}
           sub={t("قطعة أساسية، حتى قطعتين تكمّلانها، وإضافة مضمّنة.", "One main piece, up to 2 that go with it, and an included extra.")}

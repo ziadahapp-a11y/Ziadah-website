@@ -14,10 +14,10 @@ import { ProductIcon } from "@/lib/product-icons";
  */
 
 /** The page the frame is drawn on: grey, 20px of side padding. */
-export function FwPage({ children, sheet }: { children: ReactNode; sheet?: boolean }) {
+export function FwPage({ children, sheet, dense }: { children: ReactNode; sheet?: boolean; dense?: boolean }) {
   const { isAr } = useLanguage();
   return (
-    <div className="fw" dir={isAr ? "rtl" : "ltr"} data-sheet={sheet ? "" : undefined}>
+    <div className="fw" dir={isAr ? "rtl" : "ltr"} data-sheet={sheet ? "" : undefined} data-dense={dense ? "" : undefined}>
       {children}
     </div>
   );
