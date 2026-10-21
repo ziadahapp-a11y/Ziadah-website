@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Check, ChevronDown, ChevronLeft, Copy, Heart, Plus, ShoppingCart, Square, Star, Truck } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { productImage } from "@/lib/product-images";
+import { ProductIcon } from "@/lib/product-icons";
 
 /**
  * THE STOREFRONT PREVIEW KIT.
@@ -43,12 +44,6 @@ function hueOf(name: string): number {
   let h = 0;
   for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
   return h;
-}
-
-/** The first real glyph of the name, skipping quotes and brackets. */
-function initialOf(name: string): string {
-  const m = name.trim().match(/[\p{L}\p{N}]/u);
-  return m ? m[0] : "•";
 }
 
 export function ProductTile({
@@ -129,7 +124,7 @@ export function ProductTile({
         userSelect: "none",
       }}
     >
-      {initialOf(name)}
+      <ProductIcon name={name} size={size} />
     </span>
   );
 }

@@ -1,6 +1,7 @@
 import { type ReactNode } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { productImage } from "@/lib/product-images";
+import { ProductIcon } from "@/lib/product-icons";
 
 /**
  * THE STOREFRONT WIDGETS, AS THE DESIGN FILE DRAWS THEM.
@@ -89,7 +90,7 @@ function Tile({ name, size = 40 }: { name: string; size?: number }) {
   const src = productImage(name);
   return (
     <span className="sf-tile" style={{ width: size, height: size }} aria-hidden="true">
-      {src ? <img src={src} alt="" loading="lazy" decoding="async" /> : null}
+      {src ? <img src={src} alt="" loading="lazy" decoding="async" /> : <span className="sf-tile-ic"><ProductIcon name={name} size={size} /></span>}
     </span>
   );
 }

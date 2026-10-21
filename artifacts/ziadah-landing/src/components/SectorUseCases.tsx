@@ -9,6 +9,8 @@ import {
 import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 import { productImage } from "@/lib/product-images";
 import FitWidget from "@/components/widgets/FitWidget";
+import { ProductIcon } from "@/lib/product-icons";
+import { packForSector } from "@/data/sectorProductPacks";
 
 /**
  * THE SECTOR PAGE'S LIVE EXAMPLES.
@@ -29,6 +31,8 @@ export default function SectorUseCases({ slug }: { slug: string }) {
   const { lang, dir } = useLanguage();
   const isAr = lang === "ar";
   const deep = getSectorDeepDive(slug);
+  /* The sector's own five products, in every sheet and in the phone's header. */
+  const pack = packForSector(slug);
 
   const shapeItems = useMemo<AccordionItem[]>(
     () =>
@@ -51,8 +55,10 @@ export default function SectorUseCases({ slug }: { slug: string }) {
      inside this component it is a new type on every render, so React remounts
      the whole phone whenever anything above it changes state. */
   const phone = (k: WidgetKind) => {
-    const heroName = isAr ? "سماعات لاسلكية" : "Wireless Earbuds";
+    const heroName = isAr ? pack.main.ar : pack.main.en;
     const src = productImage(heroName);
+    const price = pack.main.price;
+    const was = Math.round(price * 1.25);
     return (
       <div className="pz" dir={dir}>
         <div className="pz-bar"><i /><i /><i /></div>
@@ -61,15 +67,15 @@ export default function SectorUseCases({ slug }: { slug: string }) {
               the point, and a 150px photo plus name, price and button took
               half the phone and left the sheet at a third of its size. */}
           <div className="pz-strip">
-            <div className="pz-hero">{src ? <img src={src} alt="" loading="lazy" decoding="async" /> : null}</div>
+            <div className="pz-hero">{src ? <img src={src} alt="" loading="lazy" decoding="async" /> : <span className="sf-tile-ic"><ProductIcon name={heroName} size={64} /></span>}</div>
             <div className="pz-info">
               <p className="pz-name">{heroName}</p>
-              <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
+              <p className="pz-price">{isAr ? `${price} ر.س` : `SAR ${price}`} <s>{isAr ? `${was} ر.س` : `SAR ${was}`}</s></p>
             </div>
             <span className="pz-add">{isAr ? "أضف" : "Add"}</span>
           </div>
           <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
-          <FitWidget fill grow={1.25} className="pz-fit"><StorefrontWidget kind={k} /></FitWidget>
+          <FitWidget fill grow={1.25} className="pz-fit"><StorefrontWidget kind={k} pack={pack} /></FitWidget>
         </div>
       </div>
     );

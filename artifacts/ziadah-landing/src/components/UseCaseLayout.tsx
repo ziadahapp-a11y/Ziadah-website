@@ -16,7 +16,11 @@ import { Button, Shell } from "@/components/mk";
 import { HeroSplit, Section, SectionHead, CardsGrid, CtaSection } from "@/sections";
 import { stripLeadIcon } from "@/lib/strip-icon";
 import CardDeck, { type DeckCard } from "@/components/widgets/CardDeck";
-import { StorefrontWidget, widgetKindLabel } from "@/components/widgets/storefrontSets";
+import {
+  StorefrontWidget, widgetKindLabel, widgetKindWhen, type WidgetKind,
+} from "@/components/widgets/storefrontSets";
+import FitWidget from "@/components/widgets/FitWidget";
+import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 import { useCaseDeckKinds } from "@/lib/use-case-deck";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
@@ -132,6 +136,22 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     [deckKinds, isEn],
   );
 
+  /* THE LIVE EXAMPLES: the same collapsible list the home page uses, with this
+     page's own shapes as its rows - the ones the hero fans, in the same order.
+     The numbered scenario and the old mock-ups that used to sit here described
+     the shape in words and in pictures drawn for one page each; the sheet
+     itself is the example. */
+  const exampleItems = useMemo<AccordionItem[]>(
+    () =>
+      deckKinds.map((kind) => ({
+        key: kind,
+        title: widgetKindLabel(kind, !isEn),
+        note: widgetKindWhen(kind, !isEn),
+      })),
+    [deckKinds, isEn],
+  );
+  const hasShapes = exampleItems.length > 0;
+
   const centralizedPlans = data.seo?.canonical ? planLabelsForUseCasePath(data.seo.canonical, lang) : [];
   const plans =
     centralizedPlans.length > 0
@@ -191,8 +211,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
     { id: "uc-what",       ar: "كيف يعمل",       en: "How it works" },
     { id: "uc-stats",      ar: "النتائج",          en: "Results" },
     { id: "uc-strategies", ar: "الاستراتيجيات",   en: "Strategies" },
-    ...(exampleScenario ? [{ id: "uc-example", ar: "مثال حي", en: "Example" }] : []),
-    ...(data.extraSections ? [{ id: "uc-showcase", ar: "الأدوات", en: "Tools" }] : []),
+    ...(hasShapes || exampleScenario ? [{ id: "uc-example", ar: "أمثلة حية", en: "Live examples" }] : []),
   ];
 
   /* ─── shared labels ─── */
@@ -303,7 +322,31 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           </Shell>
         </Section>
 
-        {exampleScenario ? (
+        {hasShapes ? (
+          <Section id="uc-example" family="grey">
+            <SectionHead
+              center
+              size="md"
+              kicker={isEn ? "Live examples" : "أمثلة حية"}
+              title={isEn ? "How it looks in your store" : "كيف يظهر في متجرك"}
+            />
+            <Shell>
+              <div dir={dir}>
+                <ShapeAccordion
+                  items={exampleItems}
+                  label={isEn ? "The shapes" : "أشكال العرض"}
+                  stage={(key, { wide }) => (
+                    <div className="sacc-card">
+                      <FitWidget hug grow={1.3} height={wide ? 690 : 480}>
+                        <StorefrontWidget kind={key as WidgetKind} />
+                      </FitWidget>
+                    </div>
+                  )}
+                />
+              </div>
+            </Shell>
+          </Section>
+        ) : exampleScenario ? (
           <Section id="uc-example" family="grey">
             <Shell width="narrow">
               <SectionHead center
@@ -385,12 +428,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
             </div>
           </Shell>
         </Section>
-
-        {data.extraSections ? (
-          <section id="uc-showcase" className="w-full">
-            {typeof data.extraSections === "function" ? data.extraSections(!isEn) : data.extraSections}
-          </section>
-        ) : null}
 
         <CtaSection
           family="violet"
