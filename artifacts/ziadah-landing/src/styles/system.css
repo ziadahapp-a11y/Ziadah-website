@@ -1614,3 +1614,18 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
 .header-actions .button svg,
 .header-actions .login-menu .button svg { width: 16px; height: 16px; flex: none; }
 .header-actions { gap: 8px; }
+
+/* THE LABEL SITS IN THE MIDDLE OF THE PILL. The 36px height above was set on
+   the button, but the visible face is `.button-holder`, which kept its own
+   42px height and an uneven 16/15px of vertical padding, so the text hung a few
+   pixels low. The holder takes the same height, and equal vertical padding. */
+.header-actions .button-holder,
+.header-actions .login-menu .button-holder {
+  height: 36px;
+  padding-block: 0;
+}
+/* With the holder's vertical padding gone, the two label layers are only as tall
+   as their text, so the hover layer (parked one layer-height below) peeked in.
+   Both layers fill the holder, which parks the hover layer fully out of sight. */
+.header-actions .button-label,
+.header-actions .button-hover-label { height: 36px; padding-block: 0; }
