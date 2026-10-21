@@ -231,8 +231,8 @@ export const categories: Category[] = [
         categoryId: "start",
         title: "ربط المنتجات والفئات",
         titleEn: "Linking Products and Categories",
-        desc: "كيف يتعرف الذكاء الاصطناعي على كتالوج منتجاتك تلقائياً.",
-        descEn: "How AI automatically recognizes your product catalog.",
+        desc: "كيف يتعرف الذكاء الاصطناعي على كتالوج منتجاتك تلقائياً ويربط كل منتج بفئته من غير إعداد يدوي منك.",
+        descEn: "How AI automatically recognizes your product catalog and links each product to its category with no manual setup.",
         time: "4 دقائق",
         timeEn: "3 min",
         sections: [
@@ -1727,8 +1727,8 @@ export const categories: Category[] = [
         categoryId: "technical",
         title: "إضافة فريق العمل وإدارة الصلاحيات",
         titleEn: "Adding Team Members and Managing Permissions",
-        desc: "كيف تضيف أعضاء للفريق وتحدد صلاحيات كل منهم.",
-        descEn: "How to add team members and set permissions for each one.",
+        desc: "كيف تضيف أعضاء للفريق وتحدد صلاحيات كل منهم، ومن يقدر يعدّل الإعدادات ومن يكتفي بمشاهدة التقارير.",
+        descEn: "How to add team members and set permissions for each one, including who can edit settings and who can only view reports.",
         time: "5 دقائق",
         timeEn: "3 min",
         sections: [
