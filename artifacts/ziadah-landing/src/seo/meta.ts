@@ -18,9 +18,18 @@ export function absolutePageUrl(path: string, lang: "ar" | "en"): string {
  * `/` is `/og/index.png`; `/en` is `/og/en.png`; `/en/sectors/gold` is
  * `/og/en/sectors/gold.png`.
  */
+/**
+ * Link-preview caches (Slack, WhatsApp, X, LinkedIn) key the image on its URL,
+ * so a card that was ever wrong stays wrong for as long as the URL is the same.
+ * Raise this whenever the cards change; the files themselves do not move.
+ * v2: the Arabic cards of v1 were blank.
+ */
+export const OG_VERSION = "2";
+
 export function ogImagePath(path: string, lang: "ar" | "en"): string {
   const served = pathWithLang(path, lang);
-  return served === "/" ? "/og/index.png" : `/og${served.replace(/\/$/, "")}.png`;
+  const file = served === "/" ? "/og/index.png" : `/og${served.replace(/\/$/, "")}.png`;
+  return `${file}?v=${OG_VERSION}`;
 }
 
 /** Max length for `<title>` (full string including brand if present). */

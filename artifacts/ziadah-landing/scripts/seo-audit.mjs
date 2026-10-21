@@ -110,9 +110,10 @@ for (const route of routes) {
   if (ogLocale && ogLocale !== (lang === "ar" ? "ar_SA" : "en_US")) add("ERROR", route, "og-locale", ogLocale);
   if (ogImg && twImg && ogImg !== twImg) add("WARN", route, "og-twitter-image-differ");
   if (ogImg) {
-    const rel = ogImg.replace(SITE, "");
+    const rel = ogImg.replace(SITE, "").split("?")[0];
     if (!fs.existsSync(path.join(DIST, rel))) add("ERROR", route, "og-image-missing-file", rel);
     else if (rel === "/opengraph.jpg") add("WARN", route, "og-image-is-the-generic-one");
+    else if (fs.statSync(path.join(DIST, rel)).size < 20000) add("ERROR", route, "og-image-blank", `${rel} is ${fs.statSync(path.join(DIST, rel)).size} bytes`);
   }
 
   /* one h1 */
