@@ -1,0 +1,63 @@
+name: Deploy production
+
+# Vercel's own build machines cannot run Chrome, so the prerender (one real HTML
+# file per page and language, with its own head and preview card) runs here and
+# the finished output is uploaded to Vercel. Preview builds on other branches
+# are still made by Vercel and stay a plain SPA.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+env:
+  VERCEL_ORG_ID: team_0gvIQ23cBjoQnTNw8m5tIqbm
+  VERCEL_PROJECT_ID: prj_SxvsLKafP67rnYGJoG48P5hGLlHT
+  # Read by buildCommand in artifacts/ziadah-landing/vercel.json.
+  PRERENDER: "1"
+  PRERENDER_CONCURRENCY: "2"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Chrome for the prerender
+        working-directory: artifacts/ziadah-landing
+        run: npx puppeteer browsers install chrome
+
+      - run: npm install --global vercel@latest
+
+      - name: Pull the project settings
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build, with the prerender
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+      - name: Audit the built pages
+        run: node artifacts/ziadah-landing/scripts/seo-audit.mjs --strict
+        # The build output is also at artifacts/ziadah-landing/dist/public.
+
+      - name: Upload the finished build
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

@@ -1,6 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
-  "buildCommand": "node scripts/generate-sitemap.mjs && vite build --config vite.config.ts",
-  "outputDirectory": "dist/public"
+  "buildCommand": "node scripts/generate-sitemap.mjs && vite build --config vite.config.ts && if [ \"$PRERENDER\" = \"1\" ]; then node scripts/prerender.mjs; fi",
+  "outputDirectory": "dist/public",
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  }
 }
