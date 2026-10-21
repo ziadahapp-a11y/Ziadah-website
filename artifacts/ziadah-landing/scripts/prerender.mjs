@@ -188,12 +188,12 @@ async function main() {
     "--disable-background-timer-throttling",
     "--disable-backgrounding-occluded-windows",
     "--disable-renderer-backgrounding",
-    "--js-flags=--max-old-space-size=256",
+    "--js-flags=--max-old-space-size=768",
   ];
 
   async function launchBrowser() {
     try {
-      return await puppeteer.launch({ headless: true, args: LAUNCH_ARGS });
+      return await puppeteer.launch({ headless: true, args: LAUNCH_ARGS, protocolTimeout: 90000 });
     } catch (err) {
       console.error(`[prerender] could not launch Chromium — failing build. (${err.message})`);
       console.error("[prerender] install the browser with: npx puppeteer browsers install chrome");
@@ -210,13 +210,17 @@ async function main() {
   const failedRoutes = [];
 
   const ogPages = {};
-  const ogPool = [];
-  async function writeOg(route, meta) {
-    const lang = route === "/en" || route.startsWith("/en/") ? "en" : "ar";
-    const html = ogCard({ route, lang, title: meta.title, description: meta.description, image: meta.image, origin });
-    const pg = ogPool.pop() || (await browser.newPage());
-    try {
-      await pg.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
+  /* The cards are drawn AFTER every page is rendered, one at a time in a tab of
+     their own. Drawn inside the render workers they ran in background tabs next
+     to four others, where Chromium stalls screenshots and the run fell over. */
+  async function writeAllOg() {
+    const pg = await browser.newPage();
+    await pg.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
+    let n = 0;
+    for (const [route, meta] of Object.entries(ogPages)) {
+      const lang = route === "/en" || route.startsWith("/en/") ? "en" : "ar";
+      const html = ogCard({ route, lang, title: meta.title, description: meta.description, image: meta.image, origin });
+      await pg.bringToFront();
       await pg.setContent(html, { waitUntil: "load", timeout: 20000 });
       await pg.evaluate(async () => {
         await document.fonts.ready;
@@ -225,9 +229,10 @@ async function main() {
       const out = path.join(DIST, ogFile(route));
       fs.mkdirSync(path.dirname(out), { recursive: true });
       await pg.screenshot({ path: out, type: "png", clip: { x: 0, y: 0, width: 1200, height: 630 } });
-    } finally {
-      ogPool.push(pg);
+      n++;
     }
+    await pg.close().catch(() => {});
+    console.log(`[prerender] wrote ${n} preview card(s).`);
   }
 
   async function renderOnce(route) {
@@ -297,8 +302,7 @@ async function main() {
           image: document.querySelector(".pz-hero img")?.getAttribute("src") || "",
         };
       }, SHELL);
-      if (!ogPages[route]) ogPages[route] = meta;
-      await writeOg(route, meta);
+      ogPages[route] = meta;
       const html = "<!DOCTYPE html>\n" + (await page.evaluate(() => document.documentElement.outerHTML));
       const outDir = route === "/" ? DIST : path.join(DIST, route);
       fs.mkdirSync(outDir, { recursive: true });
@@ -347,6 +351,7 @@ async function main() {
   }
   await Promise.all(Array.from({ length: Math.min(concurrency, routes.length) }, worker));
 
+  await writeAllOg();
   await browser.close().catch(() => {});
   server.close();
   console.log(`[prerender] wrote ${done} route(s)${failed ? `, ${failed} failed` : ""}.`);
