@@ -29,12 +29,17 @@ export type ProductPack = {
   up: PackItem;
   /** The one line under the quantity sheet's title. */
   qtyNote: { ar: string; en: string };
+  /** Size options, for a shelf whose products come in sizes. Omitted, no size row. */
+  sizes?: string[];
+  /** The category tag on a product card ("Audio device" in the frame). */
+  tag: { ar: string; en: string };
 };
 
 const it = (ar: string, en: string, price: number): PackItem => ({ ar, en, price });
 
 export const SECTOR_PACKS: Record<string, ProductPack> = {
   "delivery-apps": {
+    tag: { ar: "وجبات", en: "Meals" },
     main: it("برجر كلاسيك", "Classic Burger", 28),
     a: it("بطاطس مقرمشة كبيرة", "Large crispy fries", 12),
     b: it("مشروب كولا 500مل", "Cola 500ml", 6),
@@ -46,6 +51,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "restaurants-cafes": {
+    tag: { ar: "قائمة الطعام", en: "Menu" },
     main: it("شاورما عادي", "Regular shawarma wrap", 22),
     a: it("بطاطس ودجز", "Wedges Fries", 14),
     b: it("مشروبات غازية ×4", "Soft drinks ×4", 20),
@@ -57,6 +63,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "beauty-care": {
+    tag: { ar: "عناية بالبشرة", en: "Skincare" },
     main: it("كريم مرطب SPF 50", "SPF 50 moisturizer", 120),
     a: it("غسول لطيف", "Gentle cleanser", 65),
     b: it("تونر مكمل", "Matching toner", 70),
@@ -68,6 +75,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   jewelry: {
+    tag: { ar: "مجوهرات", en: "Jewellery" },
     main: it("مسبحة فضة 925", "925 Silver Prayer Beads", 160),
     a: it("حرز فضة", "Silver amulet", 90),
     b: it("صندوق هدايا مخملي", "Velvet Gift Box", 60),
@@ -79,6 +87,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   gold: {
+    tag: { ar: "ذهب", en: "Gold" },
     main: it("خاتم ذهب 18 قيراط", "18k gold ring", 980),
     a: it("علبة حفظ فاخرة", "Luxury storage box", 85),
     b: it("طوق خفيف 21 قيراط", "Light 21k necklace", 1450),
@@ -90,6 +99,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   electronics: {
+    tag: { ar: "إلكترونيات", en: "Electronics" },
     main: it("سماعات لاسلكية", "Wireless Earbuds", 320),
     a: it("غطاء حماية الهاتف", "Phone Protective Case", 120),
     b: it("واقي شاشة زجاجي", "Glass Screen Protector", 85),
@@ -101,6 +111,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "ecommerce-platforms": {
+    tag: { ar: "منتجات", en: "Products" },
     main: it("سماعات لاسلكية", "Wireless Earbuds", 320),
     a: it("حقيبة يد صغيرة", "Small handbag", 210),
     b: it("زيت أرجان طبيعي", "Natural argan oil", 75),
@@ -112,6 +123,8 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "abayas-fashion": {
+    tag: { ar: "أزياء", en: "Fashion" },
+    sizes: ["52", "54", "56", "58"],
     main: it("عباية كريب سوداء", "Black crepe abaya", 320),
     a: it("طرحة شيفون", "Chiffon scarf", 70),
     b: it("حقيبة يد صغيرة", "Small handbag", 210),
@@ -123,6 +136,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "health-fitness": {
+    tag: { ar: "لياقة", en: "Fitness" },
     main: it("حذاء ركض", "Running shoes", 280),
     a: it("قارورة مياه رياضية", "Sports water bottle", 45),
     b: it("مفرشة يوغا", "Yoga mat", 95),
@@ -134,6 +148,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   clinics: {
+    tag: { ar: "عناية طبية", en: "Care" },
     main: it("واقي شمس صباحي", "AM sunscreen", 95),
     a: it("غسول لطيف", "Gentle cleanser", 65),
     b: it("سيروم ليلي", "Night serum", 140),
@@ -145,6 +160,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   charities: {
+    tag: { ar: "تبرعات", en: "Donations" },
     main: it("سلة غذائية", "Food basket", 150),
     a: it("سقيا ماء", "Water donation", 30),
     b: it("حقيبة مدرسية", "School bag", 120),
@@ -156,6 +172,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "digital-cards": {
+    tag: { ar: "بطاقات", en: "Cards" },
     main: it("بطاقة هدية 100", "Gift card 100", 100),
     a: it("بطاقة ألعاب 50", "Gaming card 50", 50),
     b: it("بطاقة شحن جوال 30", "Mobile top-up card 30", 30),
@@ -167,6 +184,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "digital-products": {
+    tag: { ar: "منتجات رقمية", en: "Digital" },
     main: it("دورة تصميم أساسيات", "Design fundamentals course", 199),
     a: it("كتاب إلكتروني", "E-book", 49),
     b: it("قالب جاهز", "Ready template", 79),
@@ -178,6 +196,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   livestock: {
+    tag: { ar: "ذبائح", en: "Livestock" },
     main: it("خروف نعيمي", "Naimi lamb", 1400),
     a: it("خدمة التقطيع", "Cutting service", 40),
     b: it("خدمة التوصيل المبرّد", "Chilled delivery", 60),
@@ -189,6 +208,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "home-supplies": {
+    tag: { ar: "مستلزمات المنزل", en: "Home" },
     main: it("طقم أكواب زجاج", "Glass cup set", 85),
     a: it("منظف أرضيات", "Floor cleaner", 25),
     b: it("سلة غسيل", "Laundry basket", 60),
@@ -200,6 +220,7 @@ export const SECTOR_PACKS: Record<string, ProductPack> = {
     },
   },
   "service-design": {
+    tag: { ar: "خدمات تصميم", en: "Design" },
     main: it("تصميم شعار", "Logo design", 450),
     a: it("بطاقة أعمال", "Business card", 90),
     b: it("قالب منشورات", "Social post template", 120),

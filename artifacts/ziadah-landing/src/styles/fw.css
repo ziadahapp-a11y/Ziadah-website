@@ -1,0 +1,364 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   THE FIGMA WIDGET KIT (`fw-*`)
+
+   Every number here is read off the mobile frames in the Storefront Design
+   file (414 wide), through get_design_context, not drawn by eye. The older
+   `sf-*` kit was an approximation of an earlier version of that file: a
+   different violet (#4a008c against the file's #8700ff), type at 11-13px where
+   the frames use 12/14/16/20/24, and containers the frames do not have.
+
+   Tokens, all from the file:
+     ink #07000c   muted #6a666d   faint #88858b   line #e1e0e1
+     violet #8700ff   deep #480085   tint #f4e7ff   pale #faf5ff
+     green #2eb853   panel #fbfbfb   page #f5f5f5
+   Type is px: the widget depicts a 414px phone, so its scale belongs to the
+   phone and not to our viewport.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.fw {
+  --fw-ink: #07000c;
+  --fw-muted: #6a666d;
+  --fw-faint: #88858b;
+  --fw-line: #e1e0e1;
+  --fw-violet: #8700ff;
+  --fw-deep: #480085;
+  --fw-tint: #f4e7ff;
+  --fw-pale: #faf5ff;
+  --fw-green: #2eb853;
+  --fw-panel: #fbfbfb;
+
+  width: 100%;
+  max-width: 414px;
+  margin-inline: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  padding: 8px 20px 24px;
+  border-radius: 24px;
+  background: #f5f5f5;
+  color: var(--fw-ink);
+  font-family: var(--font, inherit);
+  text-align: start;
+}
+.fw *, .fw *::before, .fw *::after { box-sizing: border-box; }
+.fw p, .fw h3 { margin: 0; }
+
+.fw-title { font-size: 24px; line-height: 32px; font-weight: 500; color: var(--fw-ink); }
+.fw-sub { font-size: 14px; line-height: 20px; font-weight: 400; color: var(--fw-muted); }
+.fw-h { font-size: 16px; line-height: 20px; font-weight: 500; color: var(--fw-ink); }
+
+/* The step chips: one row that runs off the edge, as it does in the frame. */
+.fw-chips { display: flex; gap: 10px; overflow: hidden; margin-inline: -20px; padding-inline: 20px; }
+.fw-chip {
+  flex: none; display: flex; align-items: center; gap: 10px; padding: 12px;
+  border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px var(--fw-line);
+  font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-ink); white-space: nowrap;
+}
+.fw-chip i {
+  flex: none; width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center;
+  font-style: normal; font-size: 12px; line-height: 16px; font-weight: 500;
+  background: #f5f5f5; color: var(--fw-muted);
+}
+.fw-chip[data-state="done"] i { background: var(--fw-green); color: #fff; }
+.fw-chip[data-state="on"] { background: var(--fw-tint); box-shadow: inset 0 0 0 1px var(--fw-violet); color: var(--fw-deep); }
+.fw-chip[data-state="on"] i { background: var(--fw-violet); color: #fff; }
+
+/* A product card: media, name, and a price with its state at the end. */
+.fw-cards { display: flex; flex-wrap: wrap; gap: 12px; }
+.fw-card {
+  width: 167px; padding: 10px; border-radius: 12px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--fw-line);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.fw-card[data-on] { box-shadow: inset 0 0 0 1px var(--fw-violet); }
+.fw-media {
+  width: 100%; height: 88px; border-radius: 8px; background: var(--fw-pale); overflow: hidden;
+  display: grid; place-items: center; color: var(--fw-deep);
+}
+.fw-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.fw-name { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-ink); }
+.fw-meta { display: flex; align-items: center; gap: 6px; }
+.fw-meta > span:first-child { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-muted); }
+.fw-meta > .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-act {
+  padding: 3px 10px; border-radius: 999px; background: #f5f5f5;
+  font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-ink);
+}
+.fw-card[data-on] .fw-act { padding: 5px 10px; background: var(--fw-tint); color: var(--fw-violet); }
+
+/* The line under the cards: an aside and its one action. */
+.fw-note {
+  display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 12px;
+  background: var(--fw-panel); box-shadow: inset 0 0 0 1px var(--fw-line);
+  font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted);
+}
+.fw-note svg { flex: none; width: 18px; height: 18px; color: var(--fw-ink); }
+.fw-note .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-note b { padding: 5px 10px; border-radius: 999px; background: #fff; font-weight: 500; color: var(--fw-violet); }
+
+/* The total card: the price line and the one black button. */
+.fw-total {
+  display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 18px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--fw-line);
+}
+.fw-total-row { display: flex; align-items: center; gap: 8px; }
+.fw-total-row .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-total-l { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-deep); }
+.fw-total-was { font-size: 14px; line-height: 20px; font-weight: 400; color: var(--fw-faint); text-decoration: line-through; }
+.fw-total-now { font-size: 20px; line-height: 24px; font-weight: 500; color: var(--fw-violet); }
+.fw-cta {
+  display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px;
+  border-radius: 100px; background: var(--fw-ink); color: #fff;
+  font-size: 14px; line-height: 20px; font-weight: 400;
+}
+.fw-cta svg { flex: none; width: 16px; height: 16px; }
+
+/* The banner a finished set earns: green on a pale green ground. */
+.fw-ok {
+  display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 14px; background: #effaf2;
+  font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-green);
+}
+.fw-ok svg { flex: none; width: 20px; height: 20px; }
+
+/* A chosen step as a row: media, kicker over name over price, one action. */
+.fw-step {
+  display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 14px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--fw-violet);
+}
+.fw-step .fw-media { flex: none; width: 56px; height: 56px; border-radius: 10px; }
+.fw-step-main { flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; gap: 2px; }
+.fw-step-k { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-green); text-transform: uppercase; }
+.fw-step-n { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-ink); }
+.fw-step-p { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted); }
+.fw-step-a { flex: none; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-violet); }
+
+/* The total with the tinted price panel inside it. */
+.fw-total[data-tint] { border-radius: 20px; }
+.fw-total[data-tint] .fw-total-row { padding: 14px; border-radius: 14px; background: var(--fw-tint); }
+
+/* The kit frame: a hero photo, two pills, a bar, and a card per group. */
+.fw-hero { height: 240px; border-radius: 16px; background: var(--fw-pale); overflow: hidden; display: grid; place-items: center; color: var(--fw-deep); flex: none; }
+.fw-hero img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.fw-titles { display: flex; flex-direction: column; gap: 6px; }
+.fw-pills { display: flex; align-items: center; gap: 8px; }
+.fw-pill { padding: 5px 10px; border-radius: 999px; font-size: 12px; line-height: 16px; font-weight: 500; white-space: nowrap; background: #f5f5f5; color: var(--fw-muted); }
+.fw-pill[data-tone="tint"] { background: var(--fw-tint); color: var(--fw-deep); }
+.fw-pill[data-tone="green"] { background: #effaf2; color: var(--fw-green); }
+.fw-bar { height: 8px; border-radius: 20px; background: #ecebec; overflow: hidden; flex: none; }
+.fw-bar i { display: block; height: 100%; border-radius: 20px; background: #4a008c; }
+.fw-group { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 1px var(--fw-line); }
+.fw-group[data-panel] { background: var(--fw-panel); }
+.fw-group-h { display: flex; align-items: center; gap: 8px; }
+.fw-group-h .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-group-t { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-ink); }
+.fw-group-cards { display: flex; flex-wrap: wrap; gap: 10px; }
+.fw-card[data-fluid] { flex: 0 0 calc(50% - 5px); width: auto; min-width: 0; }
+.fw-card .fw-lock { flex: none; width: 16px; height: 16px; color: var(--fw-ink); }
+.fw-cta[data-muted] { background: #9c999e; color: #ecebec; }
+
+/* The tier card: a label with a count pill, a bar, and the ladder. */
+.fw-prog { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 1px var(--fw-line); }
+.fw-prog-h { display: flex; align-items: center; gap: 8px; }
+.fw-prog-h .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-prog-t { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-deep); }
+.fw-tiers { display: flex; gap: 8px; }
+.fw-tier {
+  flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: 10px; border-radius: 10px; background: #f5f5f5; font-size: 12px; line-height: 16px; text-align: center;
+}
+.fw-tier b { font-weight: 500; color: var(--fw-muted); }
+.fw-tier span { font-weight: 400; color: var(--fw-faint); }
+.fw-tier[data-on] { background: #effaf2; }
+.fw-tier[data-on] b, .fw-tier[data-on] span { color: var(--fw-green); }
+
+/* A card with a size row, as the buy-more frame draws it: 92px of media, the
+   price on its own line, then S M L XL. */
+.fw-card[data-sz] .fw-media { height: 92px; }
+.fw-price { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted); }
+.fw-sizes { display: flex; gap: 5px; }
+.fw-size {
+  flex: 1 1 0; min-width: 1px; padding: 4px 0; border-radius: 6px; background: #fff; box-shadow: inset 0 0 0 1px var(--fw-line);
+  text-align: center; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-muted);
+}
+.fw-size[data-on] { background: var(--fw-violet); box-shadow: inset 0 0 0 1px var(--fw-violet); color: #fff; }
+
+/* THE OVERLAY AND THE SHEET. The modal and bottom-sheet frames are drawn on a
+   dark ground (#262a2e) with a white sheet over it, and that ground is part of
+   what the frame is: a white sheet on our white card would have no edge. */
+.fw-ov { width: 100%; max-width: 414px; margin-inline: auto; padding-top: 56px; border-radius: 24px; background: #262a2e; overflow: hidden; box-sizing: border-box; }
+.fw-ov[data-mode="center"] { padding: 28px 16px; }
+.fw[data-sheet] { max-width: none; margin: 0; padding: 20px; border-radius: 24px 24px 0 0; background: #fff; }
+.fw-ov[data-mode="center"] .fw[data-sheet] { border-radius: 24px; }
+.fw-handle { width: 48px; height: 4px; border-radius: 999px; background: var(--fw-line); flex: none; }
+.fw-sheet-h { display: flex; align-items: flex-start; gap: 12px; }
+.fw-sheet-h > div { flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; gap: 4px; }
+.fw-sheet-t { font-size: 20px; line-height: 24px; font-weight: 500; color: var(--fw-ink); }
+.fw-sheet-s { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted); }
+.fw-x { flex: none; width: 20px; height: 20px; color: var(--fw-ink); }
+
+/* A product row: 48px media, name over a note, a status, a price. */
+.fw-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; background: var(--fw-panel); }
+.fw-item .fw-media { flex: none; width: 48px; height: 48px; border-radius: 8px; }
+.fw-item-main { flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; }
+.fw-item-main b { font-weight: 500; color: var(--fw-ink); }
+.fw-item-main span { font-weight: 400; color: var(--fw-muted); }
+.fw-item-p { flex: none; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-ink); }
+.fw-tag { flex: none; padding: 5px 10px; border-radius: 999px; font-size: 12px; line-height: 16px; font-weight: 500; background: #fff; color: var(--fw-violet); }
+.fw-tag[data-tone="green"] { background: #effaf2; color: var(--fw-green); }
+
+/* The amber panel: the one thing that would unlock the next tier. */
+.fw-amber { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; background: #fdf6ed; }
+.fw-amber > p { font-size: 12px; line-height: 16px; font-weight: 500; color: #8a5a0b; }
+
+/* A tinted price panel with no card around it. */
+.fw-sub-total { display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 12px; background: var(--fw-tint); }
+.fw-sub-total .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-link { align-self: center; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-violet); }
+.fw-total[data-r20] { border-radius: 20px; }
+
+/* A green line with an icon: a perk the offer carries. */
+.fw-perk { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 12px; background: #effaf2; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-green); }
+.fw-perk svg { flex: none; width: 18px; height: 18px; color: var(--fw-ink); }
+/* "Do not show again" on the left, Skip on the right. */
+.fw-foot { display: flex; align-items: center; gap: 8px; }
+.fw-foot .fw-fill { flex: 1 1 0; min-width: 1px; }
+.fw-foot label { display: flex; align-items: center; gap: 12px; font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted); }
+.fw-foot svg { flex: none; width: 20px; height: 20px; color: var(--fw-muted); }
+.fw-foot b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-violet); }
+
+/* ═══════════════ THE MODAL FAMILY (`fm-*`) ═══════════════
+   The "Product Types", "Quantity" and "Cart Value" frames are a different
+   family from the bundle frames above: a white modal over a black 80% ground,
+   product cards with media, tag, rating and price, and rgba ink instead of
+   solid greys. Values are read off those frames. */
+.fw-ov[data-tone="black"] { background: rgba(0, 0, 0, 0.8); padding: 28px 20px; }
+.fm {
+  --fm-violet: #8700ff; --fm-ink: #07000c;
+  position: relative; display: flex; flex-direction: column; gap: 16px; padding: 20px 12px; border-radius: 24px;
+  background: #fff; color: var(--fm-ink); font-family: var(--font, inherit); text-align: start; box-sizing: border-box;
+}
+.fm *, .fm *::before, .fm *::after { box-sizing: border-box; }
+.fm p { margin: 0; }
+.fm-x { position: absolute; top: 24px; inset-inline-end: 24px; width: 20px; height: 20px; color: var(--fm-ink); }
+.fm-head { display: flex; flex-direction: column; gap: 4px; padding-inline: 8px; padding-inline-end: 36px; }
+.fm-head b { font-size: 20px; line-height: 24px; font-weight: 500; color: var(--fm-ink); }
+.fm-head span { font-size: 12px; line-height: 16px; font-weight: 400; color: rgba(7, 0, 12, 0.6); }
+
+.fm-stat { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; border-radius: 8px; background: rgba(46, 184, 83, 0.08); }
+.fm-stat-ic { flex: none; display: grid; place-items: center; padding: 8px; border-radius: 8px; background: #fff; filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.08)); }
+.fm-stat-ic svg { width: 20px; height: 20px; color: var(--fm-ink); }
+.fm-stat-main { flex: 1 1 0; min-width: 1px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.fm-bal { display: flex; flex-direction: column; gap: 4px; }
+.fm-bal b { font-size: 20px; line-height: 24px; font-weight: 400; color: var(--fm-ink); }
+.fm-bal span { font-size: 12px; line-height: 16px; color: #70747d; }
+.fm-perks { display: flex; align-items: center; gap: 16px; }
+.fm-perk { display: flex; flex-direction: column; gap: 4px; font-size: 10px; line-height: 14px; font-weight: 500; color: #70747d; }
+.fm-perk svg { width: 24px; height: 24px; color: var(--fw-green, #2eb853); }
+
+.fm-list { display: flex; flex-direction: column; gap: 12px; }
+.fm-card { display: flex; height: 120px; overflow: hidden; border-radius: 8px; background: #fff; box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08); }
+.fm-card[data-on] { box-shadow: inset 0 0 0 1px rgba(135, 0, 255, 0.4), 4px 4px 8px rgba(0, 0, 0, 0.08); }
+.fm-media { position: relative; flex: none; width: 120px; height: 120px; background: #fff; overflow: hidden; display: grid; place-items: center; color: #480085; }
+.fm-media img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.fm-badge {
+  position: absolute; top: 0; inset-inline-start: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 2px 6px 6px; border-radius: 0 0 20px 20px; background: #07000c; box-shadow: inset 0 -1px 0 #8700ff, inset 1px 0 0 #8700ff, inset -1px 0 0 #8700ff;
+  color: #fff; font-weight: 500;
+}
+.fm-badge b { font-size: 10px; line-height: 14px; font-weight: 500; }
+.fm-badge i { font-size: 8px; line-height: 12px; font-style: normal; font-weight: 500; }
+.fm-det { flex: 1 1 0; min-width: 1px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 10px 8px; background: #f8f8f8; }
+.fm-info { display: flex; flex-direction: column; gap: 4px; }
+.fm-tag { align-self: flex-start; padding: 4px 6px; border-radius: 4px; background: rgba(135, 0, 255, 0.12); font-size: 8px; line-height: 12px; color: var(--fm-violet); }
+.fm-title { font-size: 14px; line-height: 20px; font-weight: 500; color: rgba(7, 0, 12, 0.86); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fm-rate { display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; }
+.fm-rate span:first-child { display: flex; align-items: center; gap: 4px; color: rgba(7, 0, 12, 0.8); }
+.fm-rate svg { width: 16px; height: 16px; color: #f5b301; fill: #f5b301; }
+.fm-rate span:last-child { color: rgba(7, 0, 12, 0.4); }
+.fm-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.fm-price { display: flex; align-items: center; gap: 8px; }
+.fm-price s { font-size: 14px; line-height: 20px; color: rgba(7, 0, 12, 0.4); }
+.fm-price b { font-size: 16px; line-height: 20px; font-weight: 500; color: rgba(7, 0, 12, 0.92); }
+.fm-btn { flex: none; padding: 8px 16px; border-radius: 100px; background: #07000c; color: #fff; font-size: 12px; line-height: 16px; font-weight: 400; white-space: nowrap; }
+.fm-btn[data-added] { background: rgba(7, 0, 12, 0.6); }
+.fm-copy { align-self: center; width: 24px; height: 24px; color: var(--fm-violet); margin-block: -4px; }
+
+.fm-total { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; background: rgba(135, 0, 255, 0.08); }
+.fm-total > b { font-size: 16px; line-height: 20px; font-weight: 500; color: var(--fm-ink); }
+.fm-save { display: flex; align-items: center; gap: 12px; }
+.fm-save s { font-size: 12px; line-height: 16px; color: rgba(7, 0, 12, 0.6); }
+.fm-save strong { font-size: 16px; line-height: 20px; font-weight: 400; color: var(--fm-violet); }
+.fm-save em { padding: 6px 8px; border-radius: 32px; background: rgba(184, 46, 46, 0.08); box-shadow: inset 0 0 0 1px rgba(184, 46, 46, 0.2); font-size: 12px; line-height: 16px; font-style: normal; color: #b82e2e; }
+.fm-actions { display: flex; gap: 12px; }
+.fm-cart { flex: 1 1 0; min-width: 1px; display: flex; align-items: center; justify-content: space-between; padding: 8px; border-radius: 20px; background: rgba(135, 0, 255, 0.08); font-weight: 500; }
+.fm-cart span { font-size: 14px; line-height: 20px; color: var(--fm-ink); }
+.fm-cart b { font-size: 16px; line-height: 20px; font-weight: 500; color: var(--fm-violet); }
+.fm-go { flex: 1 1 0; min-width: 1px; display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 20px; background: #07000c; color: #fff; font-size: 16px; line-height: 20px; font-weight: 500; }
+.fm-go svg { width: 20px; height: 20px; }
+.fm-foot { display: flex; align-items: center; justify-content: space-between; padding-inline: 8px; }
+.fm-foot label { display: flex; align-items: center; gap: 12px; font-size: 12px; line-height: 16px; color: rgba(7, 0, 12, 0.6); }
+.fm-foot svg { width: 20px; height: 20px; color: rgba(7, 0, 12, 0.6); }
+.fm-foot b { font-size: 14px; line-height: 20px; font-weight: 400; color: var(--fm-violet); }
+.fm-addall { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 20px; background: #07000c; color: #fff; font-size: 16px; line-height: 20px; font-weight: 500; }
+.fm-addall svg { width: 20px; height: 20px; }
+
+/* The deal list: a radio, a name, a price with its discount. */
+.fm-deal { display: flex; flex-direction: column; gap: 16px; padding: 16px; border-radius: 8px; background: #f8f8f8; }
+.fm-deal[data-on] { box-shadow: inset 0 0 0 1px rgba(135, 0, 255, 0.4); }
+.fm-deal-h { display: flex; align-items: center; gap: 16px; }
+.fm-radio { flex: none; width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--fm-violet); display: grid; place-items: center; background: #fff; }
+.fm-deal[data-on] .fm-radio::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--fm-violet); }
+.fm-deal-n { flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; gap: 4px; }
+.fm-deal-n b { font-size: 16px; line-height: 20px; font-weight: 500; color: var(--fm-ink); }
+.fm-deal-n span { font-size: 12px; line-height: 16px; color: rgba(7, 0, 12, 0.6); }
+.fm-deal-p { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.fm-deal-p > div { display: flex; align-items: flex-start; gap: 8px; }
+.fm-deal-p s { font-size: 10px; line-height: 14px; color: rgba(7, 0, 12, 0.4); }
+.fm-deal-p b { font-size: 16px; line-height: 20px; font-weight: 500; color: rgba(7, 0, 12, 0.92); }
+.fm-deal-p em { padding: 4px 8px; border-radius: 16px; background: rgba(232, 41, 74, 0.08); font-size: 10px; line-height: 14px; font-style: normal; font-weight: 500; color: #e8294a; }
+.fm-deal-p span { font-size: 10px; line-height: 14px; font-weight: 500; color: #25903c; }
+.fm-deal-add { display: flex; align-items: center; justify-content: center; padding: 8px 12px; border-radius: 20px; background: #07000c; color: #fff; font-size: 12px; line-height: 16px; font-weight: 500; }
+
+/* The cart-value card: a feature icon, a title, milestones, checkout. */
+.fm-value { display: flex; flex-direction: column; gap: 16px; padding: 16px; border-radius: 12px; background: rgba(135, 0, 255, 0.08); }
+.fm-value-h { display: flex; align-items: center; gap: 12px; }
+.fm-value-ic { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 12px; background: #fff; filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.08)); }
+.fm-value-ic svg { width: 20px; height: 20px; color: var(--fm-violet); }
+.fm-value-t { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fm-value-t b { font-size: 16px; line-height: 20px; font-weight: 500; }
+.fm-value-t span { font-size: 12px; line-height: 16px; color: rgba(7, 0, 12, 0.6); }
+.fm-ms { display: flex; flex-direction: column; gap: 8px; }
+.fm-ms > b { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fm-violet); }
+.fm-seg { display: flex; gap: 6px; }
+.fm-seg i { flex: 1 1 0; height: 4px; border-radius: 100px; background: rgba(7, 0, 12, 0.08); }
+.fm-seg i[data-on] { background: #2eb853; }
+.fm-tiers { display: flex; gap: 6px; align-items: flex-start; }
+.fm-tier { flex: 1 1 0; min-width: 1px; display: flex; align-items: center; gap: 8px; font-size: 12px; line-height: 16px; color: rgba(7, 0, 12, 0.6); }
+.fm-tier svg { flex: none; width: 16px; height: 16px; color: rgba(7, 0, 12, 0.3); }
+.fm-tier[data-on] { font-weight: 600; color: #2eb853; }
+.fm-tier[data-on] svg { color: #2eb853; }
+
+/* The fullscreen announcement: black, a framed media block, white button. */
+.fm-full { display: flex; flex-direction: column; justify-content: center; gap: 20px; min-height: 640px; padding: 20px; border-radius: 24px; background: #07000c; color: #fff; font-family: var(--font, inherit); text-align: start; box-sizing: border-box; }
+.fm-full p { margin: 0; }
+.fm-full-x { align-self: flex-end; width: 24px; height: 24px; color: #fff; }
+.fm-full-media { position: relative; height: 260px; border-radius: 16px; background: #f4e7ff; box-shadow: inset 0 0 0 1px #fff; overflow: hidden; display: grid; place-items: center; color: #480085; }
+.fm-full-media img { width: 70%; height: 70%; object-fit: contain; }
+.fm-full-badge { position: absolute; top: 15px; inset-inline-start: 15px; padding: 8px 14px; border-radius: 40px; background: #8700ff; color: #fff; font-size: 14px; font-weight: 700; }
+.fm-full-t { font-size: 24px; line-height: 32px; font-weight: 500; }
+.fm-full-d { font-size: 14px; line-height: 20px; font-weight: 400; }
+.fm-full-cta { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 100px; background: #fff; color: #07000c; font-size: 14px; line-height: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); }
+.fm-full-cta svg { width: 16px; height: 16px; }
+.fm-full-later { text-align: center; font-size: 14px; line-height: 20px; }
+
+/* The product photographs are cut-outs on white. On a tinted tile a bare photo
+   shows as a white square, so the white is multiplied into the tile's colour. */
+.fw-media img, .fw-hero img, .fm-full-media img { mix-blend-mode: multiply; }
+
+/* A percentage height inside a grid cell resolves against the content, not the
+   box, so a landscape photo overflowed and was clipped. The photo fills the box
+   by position instead. */
+.fw-media, .fw-hero { position: relative; }
+.fw-media img, .fw-hero img { position: absolute; inset: 0; }
