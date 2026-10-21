@@ -41,7 +41,7 @@ const DECKS: Record<string, WidgetKind[]> = {
   "customer-experience": ["routine", "steps", "drawer", "thankyou"],
 
   /* ---- by mechanism: the page's own shape, then its relatives ---- */
-  "related-products": ["routine", "buythemall", "addmore", "kit"],
+  "related-products": ["related", "routine", "buythemall", "addmore"],
   "addons": ["addmore", "kit", "steps", "buythemall"],
   "buy-together": ["buythemall", "kit", "steps", "routine"],
   "bundle-deals": ["kit", "steps", "buythemall", "bmsm"],

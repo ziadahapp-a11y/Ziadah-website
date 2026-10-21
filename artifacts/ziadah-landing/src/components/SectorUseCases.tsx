@@ -57,12 +57,19 @@ export default function SectorUseCases({ slug }: { slug: string }) {
       <div className="pz" dir={dir}>
         <div className="pz-bar"><i /><i /><i /></div>
         <div className="pz-screen">
-          <div className="pz-hero">{src ? <img src={src} alt="" loading="lazy" decoding="async" /> : null}</div>
-          <p className="pz-name">{heroName}</p>
-          <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
-          <span className="pz-add">{isAr ? "أضف للسلة" : "Add to cart"}</span>
+          {/* A compact product strip, not a whole product page: the sheet is
+              the point, and a 150px photo plus name, price and button took
+              half the phone and left the sheet at a third of its size. */}
+          <div className="pz-strip">
+            <div className="pz-hero">{src ? <img src={src} alt="" loading="lazy" decoding="async" /> : null}</div>
+            <div className="pz-info">
+              <p className="pz-name">{heroName}</p>
+              <p className="pz-price">{isAr ? "320 ر.س" : "SAR 320"} <s>{isAr ? "399 ر.س" : "SAR 399"}</s></p>
+            </div>
+            <span className="pz-add">{isAr ? "أضف" : "Add"}</span>
+          </div>
           <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
-          <FitWidget fill className="pz-fit"><StorefrontWidget kind={k} /></FitWidget>
+          <FitWidget fill grow={1.25} className="pz-fit"><StorefrontWidget kind={k} /></FitWidget>
         </div>
       </div>
     );

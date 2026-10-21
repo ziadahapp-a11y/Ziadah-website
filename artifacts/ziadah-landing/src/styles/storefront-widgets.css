@@ -88,7 +88,12 @@
   display: block; flex: none; border-radius: 8px; overflow: hidden;
   background: var(--sf-pale); box-shadow: inset 0 0 0 1px var(--sf-line);
 }
-.sf-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* THE WHOLE PRODUCT, NOT A CROP OF IT. These were `object-fit: cover`, and the
+   option tile was a 62px-high strip, so a pair of earbuds or a phone case was
+   cut to its middle. The photos are products on white, so `contain` shows all
+   of one and the tile's own white fills the rest. */
+.sf-tile { background: #fff; }
+.sf-tile img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 /* A choice. The violet edge is the whole signal: no fill, no shadow, so a
    grid of six options reads as one object with one thing selected. */
@@ -98,7 +103,8 @@
   border-radius: 10px; background: #fff;
   box-shadow: inset 0 0 0 1px var(--sf-line);
 }
-.sf-opt > .sf-tile { width: 100% !important; height: 62px !important; }
+/* Full width of the option, in a wide frame (a square one made the sheets so tall they had to shrink to a narrow column): the picture is the point of a choice. */
+.sf-opt > .sf-tile { width: 100% !important; height: auto !important; aspect-ratio: 5 / 4; }
 .sf-opt[data-chosen] { box-shadow: inset 0 0 0 1.5px var(--sf-brand); }
 .sf-opt[data-locked] { background: #fafafa; }
 .sf-opt-n { font-size: 12px; font-weight: 600; line-height: 1.35; }
@@ -531,3 +537,15 @@
 /* The dark step card, as tall as the list it sits beside. */
 .sacc[data-fill] .how-fig { height: 100%; display: flex; }
 .sacc[data-fill] .how-fig > .stepfig { flex: 1 1 auto; height: 100%; max-width: none; }
+
+/* A short sheet is centred beside the list it belongs to rather than hung from
+   the top of a column twice its height. */
+.sacc[data-wide]:not([data-fill]) .sacc-stage-col { display: flex; align-items: center; justify-content: center; align-self: stretch; }
+.sacc[data-wide]:not([data-fill]) .sacc-stage { width: 100%; }
+.sacc-card { padding: 14px; }
+
+/* The compact product strip at the top of the phone. */
+.pz-strip { display: flex; align-items: center; gap: 12px; }
+.pz-strip .pz-hero { flex: none; width: 64px; height: 64px; border-radius: 12px; }
+.pz-info { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
+.pz-strip .pz-add { flex: none; padding: 8px 16px; width: auto; }

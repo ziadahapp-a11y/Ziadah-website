@@ -2,7 +2,6 @@ import { useState } from "react";
 import SEO from "@/components/SEO";
 import { OrganizationSchema, SoftwareAppSchema, WebSiteSchema } from "@/components/JsonLd";
 import PlatformModal from "@/components/PlatformModal";
-import WidgetsShowcaseSection from "@/components/WidgetsShowcaseSection";
 import SectorsBriefSection from "@/components/SectorsBriefSection";
 import { Hero } from "./home/Hero";
 import ShapesAi from "@/components/home/ShapesAi";
@@ -92,7 +91,6 @@ export default function HomeTrackflow() {
             one, and on what? */}
         <ShapesAi />
         <CoreSystems />
-        <WidgetsShowcaseSection />
         <SectorsBriefSection />
         <HowItWorks />
         <Testimonials />
