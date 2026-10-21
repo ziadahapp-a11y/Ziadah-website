@@ -135,7 +135,11 @@ function createServer() {
       const urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
       let filePath = path.join(DIST, urlPath);
       if (urlPath !== "/" && urlPath !== "/index.html" && fs.existsSync(filePath) && fs.statSync(filePath).isFile() && !filePath.endsWith(`${path.sep}index.html`)) {
-        res.writeHead(200, { "Content-Type": MIME[path.extname(filePath)] || "application/octet-stream" });
+        // The preview-card tab is built with setContent, so its origin is
+        // about:blank and the browser fetches every font from here as a
+        // cross-origin request. Without this header it refuses them, and the
+        // cards were drawn in the system fallback font instead of Rubik.
+        res.writeHead(200, { "Content-Type": MIME[path.extname(filePath)] || "application/octet-stream", "Access-Control-Allow-Origin": "*" });
         fs.createReadStream(filePath).pipe(res);
         return;
       }
@@ -222,10 +226,17 @@ async function main() {
       const html = ogCard({ route, lang, title: meta.title, description: meta.description, image: meta.image, origin });
       await pg.bringToFront();
       await pg.setContent(html, { waitUntil: "load", timeout: 20000 });
-      await pg.evaluate(async () => {
+      const sample = `${meta.title} ${meta.description}`;
+      await pg.evaluate(async (txt) => {
+        // Fonts load lazily, per face and per unicode range, so ask for the
+        // weights the card uses with the text it shows, then wait.
+        await Promise.all(["400", "600", "700"].map((w) => document.fonts.load(`${w} 28px Rubik`, txt)));
         await document.fonts.ready;
         await Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; }))));
-      });
+      }, sample);
+      // A card in the fallback font is a wrong card: stop rather than ship it.
+      const rubik = await pg.evaluate((txt) => document.fonts.check("700 40px Rubik", txt), sample);
+      if (!rubik) throw new Error(`preview card for ${route}: Rubik did not load`);
       const out = path.join(DIST, ogFile(route));
       fs.mkdirSync(path.dirname(out), { recursive: true });
       // captureBeyondViewport:false matters for Arabic: in a right-to-left page
