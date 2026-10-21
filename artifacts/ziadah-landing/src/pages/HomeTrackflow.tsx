@@ -7,6 +7,7 @@ import { Hero } from "./home/Hero";
 import ShapesAi from "@/components/home/ShapesAi";
 import { CoreSystems } from "./home/CoreSystems";
 import { HowItWorks } from "./home/HowItWorks";
+import { FilmBand } from "./home/FilmBand";
 import { Calculator } from "./home/Calculator";
 import { Pricing } from "./home/Pricing";
 import { Testimonials } from "./home/Testimonials";
@@ -86,6 +87,8 @@ export default function HomeTrackflow() {
           what gives every section below it the system's rhythm. */}
       <div className="page">
         <Hero />
+        {/* The sentence the hero says, shown happening. */}
+        <FilmBand />
         {/* Straight after the hero, because the deck up there raises the
             question this band answers: five shapes, fine - who decides which
             one, and on what? */}

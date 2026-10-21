@@ -36,6 +36,7 @@
 @import "./styles/widget-kit.css" layer(components);
 @import "./styles/storefront-widgets.css" layer(components);
 @import "./styles/fw.css" layer(components);
+@import "./styles/film.css" layer(components);
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
