@@ -12,6 +12,17 @@ export function absolutePageUrl(path: string, lang: "ar" | "en"): string {
   return `${SITE_URL}${pathWithLang(path, lang)}`;
 }
 
+/**
+ * The social preview image for a page, one per route and language, written at
+ * build time by `scripts/prerender.mjs` (`ogFile`): keep the two in step.
+ * `/` is `/og/index.png`; `/en` is `/og/en.png`; `/en/sectors/gold` is
+ * `/og/en/sectors/gold.png`.
+ */
+export function ogImagePath(path: string, lang: "ar" | "en"): string {
+  const served = pathWithLang(path, lang);
+  return served === "/" ? "/og/index.png" : `/og${served.replace(/\/$/, "")}.png`;
+}
+
 /** Max length for `<title>` (full string including brand if present). */
 export function clampMetaTitle(text: string, max = 60): string {
   const t = text.trim();
