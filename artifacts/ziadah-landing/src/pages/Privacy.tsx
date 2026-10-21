@@ -12,11 +12,11 @@ const sections = {
   ar: [
     {
       title: "مقدمة",
-      body: "تلتزم زيادة (\"التطبيق\"، \"نحن\") بحماية خصوصية أصحاب المتاجر على منصتي زد وسلة ومستخدمي متاجرهم. توضح هذه السياسة أنواع البيانات التي نجمعها، وكيفية استخدامها وحمايتها، عند استخدامك لتطبيق زيادة وخدماته المرتبطة بالتوصيات الذكية لرفع متوسط قيمة الطلب.",
+      body: "تلتزم زيادة (\"التطبيق\"، \"نحن\") بحماية خصوصية أصحاب المتاجر على منصات زد وسلة وشوبيفاي ومستخدمي متاجرهم. توضح هذه السياسة أنواع البيانات التي نجمعها، وكيفية استخدامها وحمايتها، عند استخدامك لتطبيق زيادة وخدماته المرتبطة بالتوصيات الذكية لرفع متوسط قيمة الطلب.",
     },
     {
       title: "البيانات التي نجمعها",
-      body: "نجمع بيانات حساب التاجر (الاسم، البريد الإلكتروني، بيانات المتجر عبر واجهات زد وسلة الرسمية)، وبيانات تشغيلية عن المنتجات والطلبات والتفاعل مع التوصيات داخل المتجر، بالإضافة إلى بيانات تقنية أساسية مثل نوع المتصفح وسجلات الاستخدام لأغراض تحسين الأداء وكشف الأعطال.",
+      body: "نجمع بيانات حساب التاجر (الاسم، البريد الإلكتروني، بيانات المتجر عبر واجهات زد وسلة وشوبيفاي الرسمية)، وبيانات تشغيلية عن المنتجات والطلبات والتفاعل مع التوصيات داخل المتجر، بالإضافة إلى بيانات تقنية أساسية مثل نوع المتصفح وسجلات الاستخدام لأغراض تحسين الأداء وكشف الأعطال.",
     },
     {
       title: "كيف نستخدم بياناتك",
@@ -50,11 +50,11 @@ const sections = {
   en: [
     {
       title: "Introduction",
-      body: "Ziadah (\"the App\", \"we\") is committed to protecting the privacy of merchants on Zid and Salla and their store visitors. This policy explains what data we collect and how we use and protect it when you use Ziadah's AI-powered product recommendation service.",
+      body: "Ziadah (\"the App\", \"we\") is committed to protecting the privacy of merchants on Zid, Salla and Shopify and their store visitors. This policy explains what data we collect and how we use and protect it when you use Ziadah's AI-powered product recommendation service.",
     },
     {
       title: "Data We Collect",
-      body: "We collect merchant account data (name, email, and store data via the official Zid and Salla APIs), operational data about products, orders, and recommendation interactions inside your store, and basic technical data such as browser type and usage logs for performance monitoring and troubleshooting.",
+      body: "We collect merchant account data (name, email, and store data via the official Zid, Salla and Shopify APIs), operational data about products, orders, and recommendation interactions inside your store, and basic technical data such as browser type and usage logs for performance monitoring and troubleshooting.",
     },
     {
       title: "How We Use Your Data",

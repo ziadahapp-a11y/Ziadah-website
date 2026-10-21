@@ -47,8 +47,8 @@ const COPY = {
     en: "Compared the apps? Now try Ziadah on your store",
   } as Bilingual,
   closingDesc: {
-    ar: "تفعيل سريع على زد أو سلة — نفس الخصائص التي رأيتها في الجدول.",
-    en: "Fast activation on Zid or Salla — the same capabilities you saw in the table.",
+    ar: "تفعيل سريع على زد أو سلة أو شوبيفاي — نفس الخصائص التي رأيتها في الجدول.",
+    en: "Fast activation on Zid, Salla or Shopify — the same capabilities you saw in the table.",
   } as Bilingual,
 } as const;
 

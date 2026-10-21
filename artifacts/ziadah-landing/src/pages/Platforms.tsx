@@ -48,8 +48,8 @@ export default function Platforms() {
       <SEO
         titleAr="المنصات — أين يعمل زيادة"
         titleEn="Platforms — where Ziadah runs"
-        descriptionAr="موصّلات زيادة لمنصات المتاجر: زد وسلة يعملان اليوم، وشوبيفاي قيد التطوير. ما الذي يقرأه كل موصّل، وكيف يتم الربط بدون مطوّر."
-        descriptionEn="Ziadah's store-platform connectors: Zid and Salla work today, Shopify is in development. What each connector reads, and how connecting works without a developer."
+        descriptionAr="موصّلات زيادة لمنصات المتاجر: زد وسلة وشوبيفاي تعمل اليوم. ما الذي يقرأه كل موصّل، وكيف يتم الربط بدون مطوّر."
+        descriptionEn="Ziadah's store-platform connectors: Zid, Salla and Shopify work today. What each connector reads, and how connecting works without a developer."
         canonical="/platforms"
       />
       <BreadcrumbSchema
@@ -113,10 +113,17 @@ export default function Platforms() {
           <SectionHead center
             size="md"
             kicker={t("الموصّلات", "Connectors")}
-            title={t(
-              `موصّلان يعملان اليوم، و${planned === 1 ? "واحد" : planned} قيد التطوير`,
-              `Two connectors work today, ${planned === 1 ? "one is" : `${planned} are`} in development`,
-            )}
+            title={
+              planned === 0
+                ? t(
+                    `${["", "موصّل واحد", "موصّلان", "ثلاثة موصّلات"][connected.length] ?? `${connected.length} موصّلات`} تعمل اليوم`,
+                    `${["", "One connector works", "Two connectors work", "Three connectors work"][connected.length] ?? `${connected.length} connectors work`} today`,
+                  )
+                : t(
+                    `${connected.length} موصّلات تعمل اليوم، و${planned} قيد التطوير`,
+                    `${connected.length} connectors work today, ${planned} in development`,
+                  )
+            }
             lead={t(
               "زيادة منتج مستقل، وليس تطبيقاً تابعاً لأي منصة ولا معتمداً منها. «يعمل اليوم» يعني أن الموصّل منشور ويشتغل. «قيد التطوير» يعني أنه لم يُطلق بعد — ولا نعده بتاريخ.",
               "Ziadah is an independent product — not one platform's app, and not endorsed by any of them. “Works today” means the connector is published and running. “In development” means it has not shipped, and we do not promise a date.",
@@ -206,10 +213,10 @@ export default function Platforms() {
           heading={t("أسئلة عن الربط", "Questions about connecting")}
           items={[
             {
-              q: t("هل تطبيق زيادة تابع لزد أو سلة؟", "Is Ziadah a Zid or Salla product?"),
+              q: t("هل تطبيق زيادة تابع لزد أو سلة أو شوبيفاي؟", "Is Ziadah a Zid, Salla or Shopify product?"),
               a: t(
-                "لا. زيادة منتج مستقل وغير تابع لأي منصة. زد وسلة منصتان يتصل بهما زيادة عبر موصّل منشور في متجر تطبيقات كل منهما.",
-                "No. Ziadah is an independent product, not owned by or endorsed by any platform. Zid and Salla are two platforms Ziadah connects to, through a connector published in each one's app market.",
+                "لا. زيادة منتج مستقل وغير تابع لأي منصة. زد وسلة وشوبيفاي ثلاث منصات يتصل بها زيادة عبر موصّل لكل منها.",
+                "No. Ziadah is an independent product, not owned by or endorsed by any platform. Zid, Salla and Shopify are three platforms Ziadah connects to, through a connector for each.",
               ),
             },
             {

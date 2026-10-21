@@ -36,11 +36,12 @@ export type NavGroup = {
   items: NavLink[];
 };
 
-/** The Zid and Salla listings this app is actually published on. */
+/** The listings this app is published on. Shopify points at the platforms
+ *  page until its app-market link exists, then at the listing itself. */
 export const PLATFORMS = [
   { key: "salla", href: "https://apps.salla.sa/ar/app/1099604538", live: true },
   { key: "zid", href: "https://apps.zid.sa/application/1826", live: true },
-  { key: "shopify", href: "#", live: false },
+  { key: "shopify", href: "/platforms", live: true },
 ] as const;
 
 /** Where an existing merchant signs in, per platform. */

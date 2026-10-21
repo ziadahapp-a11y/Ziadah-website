@@ -12,15 +12,15 @@ const sections = {
   ar: [
     {
       title: "القبول بالشروط",
-      body: "باستخدامك تطبيق زيادة أو تثبيته على متجرك عبر منصة زد أو سلة، فإنك توافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق عليها، يرجى عدم استخدام التطبيق.",
+      body: "باستخدامك تطبيق زيادة أو تثبيته على متجرك عبر منصة زد أو سلة أو شوبيفاي، فإنك توافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق عليها، يرجى عدم استخدام التطبيق.",
     },
     {
       title: "وصف الخدمة",
-      body: "زيادة هو تطبيق SaaS يقدّم توصيات منتجات ذكية داخل متاجر زد وسلة (مثل اشترِ معاً، منتجات ذات صلة، وعروض رفع القيمة) بهدف زيادة متوسط قيمة الطلب ومعدل التحويل، مع لوحة تحكم لمتابعة الأداء وضبط الإعدادات.",
+      body: "زيادة هو تطبيق SaaS يقدّم توصيات منتجات ذكية داخل متاجر زد وسلة وشوبيفاي (مثل اشترِ معاً، منتجات ذات صلة، وعروض رفع القيمة) بهدف زيادة متوسط قيمة الطلب ومعدل التحويل، مع لوحة تحكم لمتابعة الأداء وضبط الإعدادات.",
     },
     {
       title: "شروط الاشتراك والدفع",
-      body: "يتم تفعيل التطبيق عبر خطط اشتراك دورية معروضة داخل صفحة الأسعار وتشمل الضريبة المضافة حسب الأنظمة السعودية. تُجدَّد الاشتراكات تلقائياً في نهاية كل دورة فوترة ما لم يتم إلغاؤها، وتُصدر الفواتير عبر منصة المتجر (زد أو سلة) أو عبر مزود الدفع المعتمد لدينا.",
+      body: "يتم تفعيل التطبيق عبر خطط اشتراك دورية معروضة داخل صفحة الأسعار وتشمل الضريبة المضافة حسب الأنظمة السعودية. تُجدَّد الاشتراكات تلقائياً في نهاية كل دورة فوترة ما لم يتم إلغاؤها، وتُصدر الفواتير عبر منصة المتجر (زد أو سلة أو شوبيفاي) أو عبر مزود الدفع المعتمد لدينا.",
     },
     {
       title: "سياسة الاسترداد",
@@ -50,15 +50,15 @@ const sections = {
   en: [
     {
       title: "Acceptance of Terms",
-      body: "By installing or using Ziadah on your Zid or Salla store, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.",
+      body: "By installing or using Ziadah on your Zid, Salla or Shopify store, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.",
     },
     {
       title: "Service Description",
-      body: "Ziadah is a SaaS application that surfaces AI-driven product recommendations (such as Buy Together, related products, and upsell offers) inside Zid and Salla stores to increase average order value and conversion, together with a dashboard for tracking performance and managing settings.",
+      body: "Ziadah is a SaaS application that surfaces AI-driven product recommendations (such as Buy Together, related products, and upsell offers) inside Zid, Salla and Shopify stores to increase average order value and conversion, together with a dashboard for tracking performance and managing settings.",
     },
     {
       title: "Subscription and Payment Terms",
-      body: "Ziadah is activated through recurring subscription plans listed on our pricing page, inclusive of VAT as required under Saudi regulations. Subscriptions renew automatically at the end of each billing cycle unless cancelled, and invoices are issued via your store platform (Zid or Salla) or our approved payment provider.",
+      body: "Ziadah is activated through recurring subscription plans listed on our pricing page, inclusive of VAT as required under Saudi regulations. Subscriptions renew automatically at the end of each billing cycle unless cancelled, and invoices are issued via your store platform (Zid, Salla or Shopify) or our approved payment provider.",
     },
     {
       title: "Refund Policy",

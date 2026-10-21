@@ -14,15 +14,15 @@ type Section = { title: string; body: string };
 type Method = { title: string; body: string };
 
 const intro = {
-  ar: "توضّح هذه الصفحة كيف يطلب التاجر حذف حسابه وبيانات متجره من تطبيق زيادة، وما الذي يُحذف، ومدة تنفيذ الطلب. صُمّمت هذه التعليمات لتتوافق مع متطلبات حذف بيانات المستخدم لدى منصات Meta وSnapchat وGoogle وTikTok، إضافةً إلى منصتَي زد وسلة ونظام حماية البيانات الشخصية في المملكة العربية السعودية.",
-  en: "This page explains how a merchant can request deletion of their account and store data from Ziadah, what gets deleted, and how long it takes. These instructions are designed to satisfy the user-data-deletion requirements of Meta, Snapchat, Google, and TikTok, as well as the Zid and Salla marketplaces and Saudi Arabia's Personal Data Protection Law (PDPL).",
+  ar: "توضّح هذه الصفحة كيف يطلب التاجر حذف حسابه وبيانات متجره من تطبيق زيادة، وما الذي يُحذف، ومدة تنفيذ الطلب. صُمّمت هذه التعليمات لتتوافق مع متطلبات حذف بيانات المستخدم لدى منصات Meta وSnapchat وGoogle وTikTok، إضافةً إلى منصتَي زد وسلة وشوبيفاي ونظام حماية البيانات الشخصية في المملكة العربية السعودية.",
+  en: "This page explains how a merchant can request deletion of their account and store data from Ziadah, what gets deleted, and how long it takes. These instructions are designed to satisfy the user-data-deletion requirements of Meta, Snapchat, Google, and TikTok, as well as the Zid, Salla and Shopify marketplaces and Saudi Arabia's Personal Data Protection Law (PDPL).",
 };
 
 const methods: { ar: Method[]; en: Method[] } = {
   ar: [
     {
       title: "1. إلغاء تثبيت التطبيق من متجرك",
-      body: "من لوحة تحكم متجرك على زد أو سلة، افتح التطبيقات ثم أزل تطبيق زيادة. يُنشئ الإلغاء إشعاراً تلقائياً (webhook) نبدأ عنده بحذف رموز الوصول (tokens) وبيانات متجرك المرتبطة بالتطبيق.",
+      body: "من لوحة تحكم متجرك على زد أو سلة أو شوبيفاي، افتح التطبيقات ثم أزل تطبيق زيادة. يُنشئ الإلغاء إشعاراً تلقائياً (webhook) نبدأ عنده بحذف رموز الوصول (tokens) وبيانات متجرك المرتبطة بالتطبيق.",
     },
     {
       title: "2. من داخل لوحة تحكم زيادة",
@@ -36,7 +36,7 @@ const methods: { ar: Method[]; en: Method[] } = {
   en: [
     {
       title: "1. Uninstall the app from your store",
-      body: "From your Zid or Salla dashboard, open Apps and remove the Ziadah app. Uninstalling triggers an automatic webhook, at which point we begin deleting the access tokens and store data linked to the app.",
+      body: "From your Zid, Salla or Shopify dashboard, open Apps and remove the Ziadah app. Uninstalling triggers an automatic webhook, at which point we begin deleting the access tokens and store data linked to the app.",
     },
     {
       title: "2. From inside the Ziadah dashboard",
@@ -53,7 +53,7 @@ const sections: { ar: Section[]; en: Section[] } = {
   ar: [
     {
       title: "البيانات التي يمكن حذفها",
-      body: "يشمل الطلب حذف: بيانات حساب التاجر (الاسم والبريد الإلكتروني)، بيانات المتجر المستوردة عبر واجهات زد وسلة (المنتجات والطلبات)، رموز الوصول (OAuth tokens)، بيانات التفاعل مع التوصيات، والتقارير والتحليلات المرتبطة بحسابك.",
+      body: "يشمل الطلب حذف: بيانات حساب التاجر (الاسم والبريد الإلكتروني)، بيانات المتجر المستوردة عبر واجهات زد وسلة وشوبيفاي (المنتجات والطلبات)، رموز الوصول (OAuth tokens)، بيانات التفاعل مع التوصيات، والتقارير والتحليلات المرتبطة بحسابك.",
     },
     {
       title: "التحقق من الهوية",
@@ -83,7 +83,7 @@ const sections: { ar: Section[]; en: Section[] } = {
   en: [
     {
       title: "Data that can be deleted",
-      body: "A request covers: merchant account data (name and email), store data imported via the Zid and Salla APIs (products and orders), OAuth access tokens, recommendation-interaction data, and the reports and analytics linked to your account.",
+      body: "A request covers: merchant account data (name and email), store data imported via the Zid, Salla and Shopify APIs (products and orders), OAuth access tokens, recommendation-interaction data, and the reports and analytics linked to your account.",
     },
     {
       title: "Identity verification",

@@ -1509,14 +1509,14 @@ export const categories: Category[] = [
       {
         id: "technical-integration",
         categoryId: "technical",
-        title: "كيف يتكامل زيادة مع زد وسلة؟",
-        titleEn: "How Does Ziadah Integrate with Zid and Salla?",
+        title: "كيف يتكامل زيادة مع زد وسلة وشوبيفاي؟",
+        titleEn: "How Does Ziadah Integrate with Zid, Salla and Shopify?",
         desc: "شرح الاتصال التقني بين زيادة والمنصتين وكيف تتم المزامنة.",
         descEn: "Explanation of the technical connection between Ziadah and both platforms and how sync works.",
         time: "6 دقائق",
         timeEn: "4 min",
         sections: [
-          { type: "paragraph", text: "زيادة يتكامل مع منصتي زد وسلة عبر واجهات برمجية (API) رسمية ومعتمدة. هذا التكامل العميق هو ما يجعل التوصيات دقيقة وفورية." },
+          { type: "paragraph", text: "زيادة يتكامل مع منصات زد وسلة وشوبيفاي عبر واجهات برمجية (API) رسمية ومعتمدة. هذا التكامل العميق هو ما يجعل التوصيات دقيقة وفورية." },
           { type: "heading", text: "آلية الربط التقني" },
           { type: "paragraph", text: "عند تثبيت زيادة، يحصل على OAuth token - وهو مفتاح وصول آمن يتيح له قراءة بيانات المنتجات والطلبات دون الحاجة لكلمة مرورك. هذا المفتاح مشفر ويمكن إلغاؤه في أي وقت." },
           { type: "heading", text: "المزامنة المستمرة" },
@@ -1527,13 +1527,13 @@ export const categories: Category[] = [
             "الفئات: مزامنة عند أي تغيير"
           ]},
           { type: "heading", text: "إدارة الصلاحيات الممنوحة" },
-          { type: "paragraph", text: "في أي وقت يمكنك مراجعة الصلاحيات الممنوحة لزيادة من لوحة تحكم زد أو سلة، في قسم التطبيقات. الصلاحيات تقتصر على القراءة فقط - لا يمكن لزيادة تعديل بيانات متجرك." },
+          { type: "paragraph", text: "في أي وقت يمكنك مراجعة الصلاحيات الممنوحة لزيادة من لوحة تحكم زد أو سلة أو شوبيفاي، في قسم التطبيقات. الصلاحيات تقتصر على القراءة فقط - لا يمكن لزيادة تعديل بيانات متجرك." },
           { type: "heading", text: "الأداء والسرعة" },
           { type: "paragraph", text: "نظام التكامل مصمم بـ Edge Computing - خوادمنا موجودة في مناطق قريبة من المملكة لضمان سرعة استجابة أقل من 100 مللي ثانية في معظم الحالات." },
           { type: "tip", text: "إذا لاحظت تأخراً في ظهور تغييرات المنتجات في توصيات زيادة، يمكنك إجراء \"مزامنة يدوية\" من لوحة تحكم زيادة في قسم الإعدادات." },
         ],
         sectionsEn: [
-          { type: "paragraph", text: "Ziadah integrates with both Zid and Salla platforms through official, certified APIs. This deep integration is what makes recommendations accurate and instant." },
+          { type: "paragraph", text: "Ziadah integrates with the Zid, Salla and Shopify platforms through official, certified APIs. This deep integration is what makes recommendations accurate and instant." },
           { type: "heading", text: "Technical Connection Mechanism" },
           { type: "paragraph", text: "When you install Ziadah, it receives an OAuth token — a secure access key that allows it to read product and order data without needing your password. This key is encrypted and can be revoked at any time." },
           { type: "heading", text: "Continuous Sync" },
@@ -1544,7 +1544,7 @@ export const categories: Category[] = [
             "Categories: Synced on any change"
           ]},
           { type: "heading", text: "Managing Granted Permissions" },
-          { type: "paragraph", text: "At any time, you can review the permissions granted to Ziadah from your Zid or Salla dashboard, in the Apps section. Permissions are read-only — Ziadah cannot modify your store's data." },
+          { type: "paragraph", text: "At any time, you can review the permissions granted to Ziadah from your Zid, Salla or Shopify dashboard, in the Apps section. Permissions are read-only — Ziadah cannot modify your store's data." },
           { type: "heading", text: "Performance and Speed" },
           { type: "paragraph", text: "The integration system is built with Edge Computing — our servers are located in regions close to Saudi Arabia to ensure a response time of less than 100 milliseconds in most cases." },
           { type: "tip", text: "If you notice a delay in product changes appearing in Ziadah's recommendations, you can perform a \"Manual Sync\" from the Ziadah dashboard in the Settings section." },
@@ -1562,7 +1562,7 @@ export const categories: Category[] = [
         sections: [
           { type: "paragraph", text: "زيادة مصمم للعمل مع الثيمات القياسية تلقائياً، لكن الثيمات المخصصة أو المعدّلة قد تحتاج بعض الضبط الإضافي لضمان ظهور التوصيات بشكل صحيح." },
           { type: "heading", text: "الثيمات القياسية (تعمل تلقائياً)" },
-          { type: "paragraph", text: "معظم ثيمات زد وسلة الرسمية تدعم زيادة بشكل كامل بدون أي تدخل يدوي. يمكنك التحقق من توافق ثيمك في قائمة الثيمات المدعومة في لوحة تحكم زيادة." },
+          { type: "paragraph", text: "معظم ثيمات زد وسلة وشوبيفاي الرسمية تدعم زيادة بشكل كامل بدون أي تدخل يدوي. يمكنك التحقق من توافق ثيمك في قائمة الثيمات المدعومة في لوحة تحكم زيادة." },
           { type: "heading", text: "الثيمات المخصصة - ما قد تحتاجه" },
           { type: "list", items: [
             "تأكد من وجود حاوية HTML بـ class أو ID محدد لكل نقطة اقتراح",
@@ -1584,7 +1584,7 @@ export const categories: Category[] = [
         sectionsEn: [
           { type: "paragraph", text: "Ziadah is designed to work with standard themes automatically, but custom or modified themes may need some additional adjustments to ensure recommendations appear correctly." },
           { type: "heading", text: "Standard Themes (Work Automatically)" },
-          { type: "paragraph", text: "Most official Zid and Salla themes fully support Ziadah without any manual intervention. You can verify your theme's compatibility in the supported themes list in the Ziadah dashboard." },
+          { type: "paragraph", text: "Most official Zid, Salla and Shopify themes fully support Ziadah without any manual intervention. You can verify your theme's compatibility in the supported themes list in the Ziadah dashboard." },
           { type: "heading", text: "Custom Themes — What You May Need" },
           { type: "list", items: [
             "Ensure an HTML container with a specific class or ID exists for each suggestion point",
@@ -1925,7 +1925,7 @@ export const categories: Category[] = [
           { type: "heading", text: "شريط الأداء العلوي" },
           { type: "paragraph", text: "في أعلى الداشبورد ستجد شريطاً يعرض دائماً: الإيرادات الإضافية اليوم، الطلبات التي تضمنت اقتراح، ونسبة الإيرادات الإضافية من إجمالي المبيعات. هذا الشريط يُحدَّث في الوقت الفعلي." },
           { type: "heading", text: "اختيار المتجر والمنصة" },
-          { type: "paragraph", text: "إذا كنت تدير أكثر من متجر (على زد أو سلة)، يمكنك التبديل بينها من القائمة المنسدلة في أعلى يمين الشاشة. كل متجر له بياناته وإعداداته المستقلة." },
+          { type: "paragraph", text: "إذا كنت تدير أكثر من متجر (على زد أو سلة أو شوبيفاي)، يمكنك التبديل بينها من القائمة المنسدلة في أعلى يمين الشاشة. كل متجر له بياناته وإعداداته المستقلة." },
           { type: "tip", text: "نصيحة: اضغط على أيقونة الجرس في الشريط العلوي لتفعيل إشعارات الأداء — ستصلك تنبيهات عند وصول اقتراح معين لحد معين من المبيعات." },
         ],
         sectionsEn: [
@@ -1943,7 +1943,7 @@ export const categories: Category[] = [
           { type: "heading", text: "The performance bar" },
           { type: "paragraph", text: "A bar across the top of the dashboard always shows extra revenue today, the orders that included a recommendation, and what share of total sales the extra revenue represents. It updates in real time." },
           { type: "heading", text: "Switching store and platform" },
-          { type: "paragraph", text: "If you run more than one store on Zid or Salla, switch between them from the dropdown at the top of the screen. Each store keeps its own data and its own settings." },
+          { type: "paragraph", text: "If you run more than one store on Zid, Salla or Shopify, switch between them from the dropdown at the top of the screen. Each store keeps its own data and its own settings." },
           { type: "tip", text: "Tip: click the bell in the top bar to turn on performance alerts. You will be notified when a widget crosses a sales threshold you set." },
         ],
       },
@@ -2465,7 +2465,7 @@ export const categories: Category[] = [
             "إشعار انتهاء الاشتراك: قبل 7 أيام و3 أيام من الانتهاء",
           ]},
           { type: "heading", text: "ربط المتجر وإلغاء الربط" },
-          { type: "paragraph", text: "من قسم الإعدادات > التكاملات يمكنك مراجعة حالة الربط مع منصة زد أو سلة، وتحديث صلاحيات الوصول، أو إلغاء الربط إذا أردت نقل التطبيق." },
+          { type: "paragraph", text: "من قسم الإعدادات > التكاملات يمكنك مراجعة حالة الربط مع منصة زد أو سلة أو شوبيفاي، وتحديث صلاحيات الوصول، أو إلغاء الربط إذا أردت نقل التطبيق." },
           { type: "warning", text: "تحذير: إلغاء ربط المتجر سيوقف جميع الاقتراحات فوراً. إذا كنت تريد فقط إيقاف مؤقت، استخدم وضع \"إيقاف مؤقت\" من لوحة الاقتراحات بدلاً من إلغاء الربط." },
         ],
         sectionsEn: [
@@ -2491,7 +2491,7 @@ export const categories: Category[] = [
             "Subscription expiry: 7 days and 3 days before it lapses",
           ]},
           { type: "heading", text: "Connecting and disconnecting the store" },
-          { type: "paragraph", text: "Settings > Integrations shows the state of the connection to Zid or Salla, lets you refresh access permissions, and lets you disconnect if you are moving the app." },
+          { type: "paragraph", text: "Settings > Integrations shows the state of the connection to Zid, Salla or Shopify, lets you refresh access permissions, and lets you disconnect if you are moving the app." },
           { type: "warning", text: "Warning: disconnecting stops every widget immediately. If you only want a pause, use \"Paused\" on the widgets themselves rather than disconnecting the store." },
         ],
       },

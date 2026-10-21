@@ -166,8 +166,8 @@ const data: UseCasePageData = {
   seo: {
     title: "عروض الحزم — زيادة",
     titleEn: "Bundle Deals — Ziadah",
-    description: "اجمع منتجين أو أكثر في حزمة بسعر مخفوض وارفع قيمة الطلب دفعة واحدة. زيادة يُنشئ عروض الحزم الذكية لمتجرك على زد وسلة.",
-    descriptionEn: "Combine two or more products in a discounted bundle and boost order value instantly. Ziadah creates smart bundle deals for your Zid and Salla store.",
+    description: "اجمع منتجين أو أكثر في حزمة بسعر مخفوض وارفع قيمة الطلب دفعة واحدة. زيادة يُنشئ عروض الحزم الذكية لمتجرك على زد وسلة وشوبيفاي.",
+    descriptionEn: "Combine two or more products in a discounted bundle and boost order value instantly. Ziadah creates smart bundle deals for your Zid, Salla and Shopify store.",
     canonical: "/use-cases/bundle-deals",
   },
 };

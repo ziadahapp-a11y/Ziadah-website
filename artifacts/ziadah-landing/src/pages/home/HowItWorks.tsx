@@ -31,8 +31,8 @@ export function HowItWorks() {
         key: "0",
         title: t({ ar: "فعّل التطبيق بنقرة", en: "Activate the app in one click" }),
         note: t({
-          ar: "من لوحة زد أو سلة نفسها. ما تحتاج مطوّر ولا تعديل على قالب متجرك. تفعيل، وخلصت أنت.",
-          en: "From your Zid or Salla dashboard itself. No developer and no theme edit. Activate, and you are done.",
+          ar: "من لوحة زد أو سلة أو شوبيفاي نفسها. ما تحتاج مطوّر ولا تعديل على قالب متجرك. تفعيل، وخلصت أنت.",
+          en: "From your Zid, Salla or Shopify dashboard itself. No developer and no theme edit. Activate, and you are done.",
         }),
       },
       {

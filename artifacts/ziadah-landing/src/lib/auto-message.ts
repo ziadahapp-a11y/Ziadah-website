@@ -19,8 +19,8 @@ export const AUTO_SPLIT = {
   you: {
     title: { ar: "أنت تفعّل", en: "You activate" },
     body: {
-      ar: "تثبّت التطبيق من لوحة زد أو سلة بنقرة. هذا كل اللي عليك.",
-      en: "Install the app from your Zid or Salla dashboard in one click. That is all you do.",
+      ar: "تثبّت التطبيق من لوحة زد أو سلة أو شوبيفاي بنقرة. هذا كل اللي عليك.",
+      en: "Install the app from your Zid, Salla or Shopify dashboard in one click. That is all you do.",
     },
   },
   ziadah: {

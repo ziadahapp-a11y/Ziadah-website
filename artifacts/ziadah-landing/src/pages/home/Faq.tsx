@@ -40,8 +40,8 @@ export function HomeFaq() {
     {
       q: t({ ar: "أحتاج مطوّر للتركيب؟", en: "Do I need a developer to install it?" }),
       a: t({
-        ar: "أبداً. على زد وسلة، التثبيت بنقرة وحدة من متجر التطبيقات — تفعّل الودجت وتختار أماكن العرض، وخلصت خلال دقائق.",
-        en: "Not at all. On Zid and Salla it's a one-click install from the app market — enable the widget, pick your placements, and you're live in minutes.",
+        ar: "أبداً. على زد وسلة وشوبيفاي، التثبيت بنقرة وحدة من متجر التطبيقات — تفعّل الودجت وتختار أماكن العرض، وخلصت خلال دقائق.",
+        en: "Not at all. On Zid, Salla and Shopify it's a one-click install from the app market — enable the widget, pick your placements, and you're live in minutes.",
       }),
     },
     {
