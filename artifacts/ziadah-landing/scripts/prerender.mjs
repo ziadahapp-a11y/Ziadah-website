@@ -228,7 +228,12 @@ async function main() {
       });
       const out = path.join(DIST, ogFile(route));
       fs.mkdirSync(path.dirname(out), { recursive: true });
-      await pg.screenshot({ path: out, type: "png", clip: { x: 0, y: 0, width: 1200, height: 630 } });
+      // captureBeyondViewport:false matters for Arabic: in a right-to-left page
+      // the default clip lands off the page and the PNG comes out one flat
+      // colour (4 KB), which shipped on every Arabic URL.
+      await pg.screenshot({ path: out, type: "png", clip: { x: 0, y: 0, width: 1200, height: 630 }, captureBeyondViewport: false });
+      // A drawn card is never this small. Fail the run rather than ship a blank.
+      if (fs.statSync(out).size < 20000) throw new Error(`preview card for ${route} came out blank (${fs.statSync(out).size} bytes)`);
       n++;
     }
     await pg.close().catch(() => {});
@@ -265,7 +270,7 @@ async function main() {
       // before React has rendered. Also wait for the per-page og:image Helmet owns and for the h1.
       await page
         .waitForFunction(
-          "document.head.querySelector('meta[property=\"og:image\"][content$=\".png\"]') && document.querySelector('h1')",
+          "document.head.querySelector('meta[property=\"og:image\"][content*=\"/og/\"]') && document.querySelector('h1')",
           { timeout: 8000 },
         )
         .catch(() => console.warn(`[prerender] ${route}: per-page og:image or h1 never appeared`));
