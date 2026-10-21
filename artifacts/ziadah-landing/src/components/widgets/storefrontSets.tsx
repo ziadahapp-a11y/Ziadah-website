@@ -14,19 +14,20 @@ import {
  */
 
 export type WidgetKind =
-  | "kit" | "steps" | "routine" | "bmsm" | "drawer"
+  | "related" | "kit" | "steps" | "routine" | "bmsm" | "drawer"
   | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue" | "coupon" | "thankyou";
 
 /* The order a merchant meets them in a real shop: what is on the product
    page, then what happens at add-to-cart, then the cart, then the exit, then
    after the order. */
 export const WIDGET_KINDS: WidgetKind[] = [
-  "replace", "quantity", "kit", "steps", "routine", "buythemall",
+  "related", "replace", "quantity", "kit", "steps", "routine", "buythemall",
   "addmore", "bmsm", "cartvalue", "drawer", "coupon", "thankyou",
 ];
 
 export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
   const m: Record<WidgetKind, [string, string]> = {
+    related: ["منتجات ذات صلة", "Related products"],
     kit: ["كوّن طقمك", "Build your kit"],
     steps: ["حزمة بخطوات", "Step by step package"],
     routine: ["أقسام منسّقة", "Curated sections"],
@@ -56,8 +57,39 @@ export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
  * edited in the same place and cannot drift apart across the three bands that
  * list them.
  */
+/**
+ * THE PAGE THAT EXPLAINS EACH SHAPE.
+ *
+ * The home page used to carry a second band of seven "use cases", each with a
+ * link to its page. That band was the same thing as the shapes list, so it is
+ * gone and its links live on the shapes instead: an open row ends with the
+ * page where the shape is explained in full.
+ */
+export function widgetKindHref(kind: WidgetKind): string {
+  const m: Record<WidgetKind, string> = {
+    related: "/use-cases/related-products",
+    replace: "/use-cases/upsell",
+    quantity: "/use-cases/buy-more-save-more",
+    kit: "/use-cases/bundle-deals",
+    steps: "/use-cases/bundle-deals",
+    routine: "/use-cases/cross-sell",
+    buythemall: "/use-cases/buy-together",
+    addmore: "/use-cases/addons",
+    bmsm: "/use-cases/buy-more-save-more",
+    cartvalue: "/use-cases/free-shipping",
+    drawer: "/use-cases/add-to-cart",
+    coupon: "/use-cases/discount-coupon",
+    thankyou: "/use-cases/thank-you",
+  };
+  return m[kind];
+}
+
 export function widgetKindWhen(kind: WidgetKind, isAr: boolean): string {
   const m: Record<WidgetKind, [string, string]> = {
+    related: [
+      "صفحة المنتج، حين يتصفّح العميل منتجاً: منتجات يحبها من اشترى القطعة نفسها.",
+      "On the product page, while the shopper browses: products people who bought this item also liked.",
+    ],
     replace: [
       "صفحة المنتج، حين يفتح العميل منتجاً له بديل أفضل أو أعلى فئة.",
       "On the product page, when the shopper opens an item that has a better or higher-tier alternative.",
@@ -255,6 +287,23 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
         <AddRow name={n("earbuds")} meta={t("أُضيف للتو", "Just added")} price={sar(320)} action={<Pill tone="green">{t("أُضيف", "Added")}</Pill>} />
         <AddRow name={n("case")} price={sar(120)} />
         <AddRow name={n("screen")} price={sar(85)} />
+      </Sheet>
+    );
+  }
+
+  if (kind === "related") {
+    return (
+      <Sheet
+        title={t("منتجات ذات صلة", "Related products")}
+        sub={t("يحبها من اشترى القطعة نفسها.", "Liked by people who bought this item.")}
+        footer={<Cta>{t("أضف المحدد للسلة", "Add selected to cart")}</Cta>}
+      >
+        <div className="sf-grid">
+          <Option name={n("cable")} price={sar(95)} />
+          <Option name={n("screen")} price={sar(85)} />
+          <Option name={n("case")} price={sar(120)} />
+          <Option name={n("wcharger")} price={sar(180)} />
+        </div>
       </Sheet>
     );
   }

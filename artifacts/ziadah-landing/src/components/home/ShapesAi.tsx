@@ -3,8 +3,9 @@ import { Section as DsSection, SectionHead } from "@/sections";
 import { Shell } from "@/components/mk";
 import { useLanguage } from "@/i18n/LanguageContext";
 import {
-  StorefrontWidget, WIDGET_KINDS, widgetKindLabel, widgetKindWhen, type WidgetKind,
+  StorefrontWidget, WIDGET_KINDS, widgetKindHref, widgetKindLabel, widgetKindWhen, type WidgetKind,
 } from "@/components/widgets/storefrontSets";
+import { navigateTo } from "@/components/PageTransition";
 import FitWidget from "@/components/widgets/FitWidget";
 import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 
@@ -54,6 +55,15 @@ export default function ShapesAi() {
         key: k,
         title: widgetKindLabel(k, isAr),
         note: widgetKindWhen(k, isAr),
+        extra: (
+          <a
+            className="sacc-link"
+            href={widgetKindHref(k)}
+            onClick={(e) => { e.preventDefault(); navigateTo(widgetKindHref(k)); }}
+          >
+            {isAr ? "اعرف أكثر" : "Learn more"}
+          </a>
+        ),
       })),
     [isAr],
   );
@@ -92,7 +102,7 @@ export default function ShapesAi() {
             label={t("أشكال العرض", "The shapes")}
             stage={(key, { wide }) => (
               <div className="sacc-card">
-                <FitWidget hug height={wide ? 540 : 460}>
+                <FitWidget hug grow={1.3} height={wide ? 690 : 480}>
                   <StorefrontWidget kind={key as WidgetKind} />
                 </FitWidget>
               </div>

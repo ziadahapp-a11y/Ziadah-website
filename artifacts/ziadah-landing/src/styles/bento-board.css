@@ -1046,31 +1046,23 @@ html[data-motion-ready] .hero-home-inner[data-revealed] > *:nth-child(2) { trans
    px and the shared type tokens throughout.
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ---- 1. what it does ---- */
-.cs-caps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-@media screen and (max-width: 1024px) { .cs-caps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media screen and (max-width: 560px) { .cs-caps { grid-template-columns: minmax(0, 1fr); } }
-.cs-cap {
-  /* The art reads its colours from these, the same set the white tile used. */
-  --bart-face: var(--general-white-off);
-  --bart-hair: rgb(0 11 36 / 0.1);
-  --bart-mute: rgb(10 10 10 / 0.62);
-  --bart-accent: var(--ziadah-violet-dark);
-  --bart-shadow: none;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-  border-radius: var(--radius-block);
-  background: #fff;
-  color: #07000c;
+/* ---- 1. the goals ---- */
+.cs-goals { display: grid; grid-template-columns: repeat(auto-fit, minmax(196px, 1fr)); gap: 14px; }
+.cs-goal {
+  display: flex; flex-direction: column; gap: 8px; min-width: 0;
+  padding: 20px; border-radius: var(--radius-block);
+  background: #fff; color: #07000c;
 }
-/* The art is clipped, not scaled: it is a composed mini-UI drawn for a wider
-   card, and its first rows are the point. */
-.cs-cap-art { height: 220px; padding: 14px 14px 0; overflow: hidden; pointer-events: none; }
-.cs-cap-body { display: grid; gap: 6px; padding: 14px 18px 20px; align-content: start; }
-.cs-cap-t { margin: 0; font-size: var(--t-h4); font-weight: 600; line-height: 1.35; }
-.cs-cap-s { margin: 0; font-size: var(--t-sm); line-height: 1.65; color: var(--bart-mute); }
+.cs-goal-ico {
+  width: 38px; height: 38px; display: grid; place-items: center; margin-block-end: 4px;
+  border-radius: 12px; background: #f4e7ff; color: #4a008c;
+}
+.cs-goal-ico svg { width: 19px; height: 19px; }
+.cs-goal-t { margin: 0; font-size: var(--t-body); font-weight: 700; line-height: 1.4; }
+.cs-goal-s { margin: 0; font-size: var(--t-sm); line-height: 1.6; color: rgb(10 10 10 / 0.62); flex: 1 1 auto; }
+.cs-goal-b { margin: 8px 0 0; padding-block-start: 12px; border-block-start: 1px solid rgb(10 10 10 / 0.1); display: grid; gap: 2px; }
+.cs-goal-v { font-size: var(--t-h3); font-weight: 700; line-height: 1.15; color: #4a008c; }
+.cs-goal-k { font-size: var(--t-cap); line-height: 1.5; color: rgb(10 10 10 / 0.62); }
 
 /* ---- 2. proof ---- */
 .cs-proof {
@@ -1089,17 +1081,14 @@ html[data-motion-ready] .hero-home-inner[data-revealed] > *:nth-child(2) { trans
 .cs-stat-k { font-size: var(--t-sm); line-height: 1.5; opacity: 0.8; }
 .cs-proof-note { margin: 16px 0 0; text-align: center; font-size: var(--t-cap); opacity: 0.65; }
 
-/* ---- 3. how it fits ---- */
-.cs-cols { margin-block-start: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-@media screen and (max-width: 900px) { .cs-cols { grid-template-columns: minmax(0, 1fr); } }
-.cs-col {
-  padding: 20px;
-  border-radius: var(--radius-block);
+/* ---- 3. trust ---- */
+.cs-trust { margin-block-start: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media screen and (max-width: 900px) { .cs-trust { grid-template-columns: minmax(0, 1fr); } }
+.cs-trust-i {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 18px 20px; border-radius: var(--radius-block);
   background: color-mix(in srgb, var(--color-secondary) 7%, transparent);
 }
-.cs-col-t { margin: 0 0 14px; font-size: var(--t-body); font-weight: 700; }
-.cs-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.cs-row { display: flex; gap: 12px; align-items: flex-start; }
 .cs-row-ico {
   flex: none; width: 34px; height: 34px; display: grid; place-items: center;
   border-radius: 10px; background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
@@ -1107,7 +1096,7 @@ html[data-motion-ready] .hero-home-inner[data-revealed] > *:nth-child(2) { trans
 .cs-row-ico svg { width: 17px; height: 17px; }
 .cs-row-main { display: grid; gap: 2px; min-width: 0; }
 .cs-row-t { font-size: var(--t-sm); font-weight: 600; line-height: 1.45; }
-.cs-row-s { font-size: var(--t-cap); line-height: 1.55; opacity: 0.72; }
+.cs-row-s { font-size: var(--t-cap); line-height: 1.6; opacity: 0.75; }
 
 .bsection .logos-mask { margin-block: 18px; }
 /* The bars are percentages of their box, so the box needs a real height: in

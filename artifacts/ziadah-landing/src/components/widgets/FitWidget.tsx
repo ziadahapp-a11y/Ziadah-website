@@ -34,6 +34,7 @@ export default function FitWidget({
   className,
   hug = false,
   fill = false,
+  grow = 1,
 }: {
   children: ReactNode;
   /** The box the sheet has to fit into. With `hug`, the most it may grow to. */
@@ -61,6 +62,16 @@ export default function FitWidget({
    * a hugging height is right.
    */
   fill?: boolean;
+  /**
+   * The most the sheet may be scaled UP, as a multiple (1 = never).
+   *
+   * Sheets are drawn at about 340px wide. In a 440px stage that left a
+   * gutter of white down both sides and a sheet that read as a small thing in
+   * a big card. Letting it grow to the card's width fixes that, and a cap
+   * keeps a coupon from being blown up until it stops looking like the
+   * product.
+   */
+  grow?: number;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -82,8 +93,12 @@ export default function FitWidget({
       const bh = hug ? height : b.clientHeight;
       const bw = b.clientWidth;
       if (!nh || !nw) return;
-      const next = Math.min(1, bh / nh, bw / nw);
-      i.style.transform = next < 1 ? `scale(${next})` : "none";
+      const next = Math.min(grow, bh / nh, bw / nw);
+      /* In a filled box a sheet shorter than the room is centred in it, not
+         left against the top: the box is as tall as a list beside it. */
+      const off = fill ? Math.max(0, (bh - nh * next) / 2) : 0;
+      i.style.transform =
+        next === 1 && !off ? "none" : `translateY(${off}px) scale(${next})`;
       if (hug) b.style.height = `${Math.ceil(nh * next)}px`;
     };
 
@@ -94,7 +109,7 @@ export default function FitWidget({
     ro.observe(b);
     ro.observe(i);
     return () => ro.disconnect();
-  }, [children, height, hug]);
+  }, [children, height, hug, fill, grow]);
 
   return (
     <div
