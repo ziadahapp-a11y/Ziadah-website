@@ -128,10 +128,23 @@ const PRODUCT_IMAGES: Record<string, string> = {
   "مشروب غازي": "/products/delivery-06.webp",
   "Soft drink": "/products/delivery-06.webp",
 
+  /* ── SECTOR SHELVES (`data/sectorProductPacks.ts`) ──
+     A pack names a product the way its sector says it; where the photograph
+     already exists under another name, it is pointed at here rather than shot
+     twice. Products with no photograph are not listed: they wear an icon. */
+  "حذاء ركض": "/products/shoe-running.webp",
+  "Running shoes": "/products/shoe-running.webp",
+  "سيروم ليلي": "/products/serum-night.webp",
+  "Night serum": "/products/serum-night.webp",
+  "علبة حفظ فاخرة": "/products/gift-box-velvet.webp",
+  "Luxury storage box": "/products/gift-box-velvet.webp",
+  "طوق خفيف 21 قيراط": "/products/necklace-gold-ruby.webp",
+  "Light 21k necklace": "/products/necklace-gold-ruby.webp",
+
   /* ── NOT A PRODUCT, BUT IT RENDERS IN A PRODUCT ROW ──
      A warranty is a line item, not an object, so its tile is the shield the
      rest of the site uses for cover. `سلة غير مكتملة` and
-     `خصم 12٪ على الطلب الحالي` are a cart state and an offer; there is nothing
+     `خصم 12% على الطلب الحالي` are a cart state and an offer; there is nothing
      to photograph, so they keep the letter tile. */
   "ضمان إضافي سنة": "/products/retail-05.webp",
   "One extra year of warranty": "/products/retail-05.webp",

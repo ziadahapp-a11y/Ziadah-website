@@ -21,7 +21,7 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "في السلع المادية الحزمة تنازل عن هامش. هنا هي ربح إضافي بالكامل، ومع ذلك معظم متاجر المنتجات الرقمية تسعّر كأنها تبيع قمصاناً.",
       whyEn:
         "With physical goods a bundle concedes margin. Here it is entirely incremental, and yet most digital stores price as though they were selling shirts.",
-      exampleAr: "قالب واحد ١٢٠ ← «الحزمة الكاملة ٨ قوالب بـ٣٩٠ بدل ٩٦٠».",
+      exampleAr: "قالب واحد 120 ← «الحزمة الكاملة 8 قوالب بـ390 بدل 960».",
       exampleEn: "One template at 120 → \"The full pack, 8 templates for 390 instead of 960\".",
           widget: {
         titleAr: "الحزمة الكاملة",
@@ -50,7 +50,7 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "من لم يستخدم ما اشتراه لن يشتري ثانية وسيطلب استرداداً. الاستخدام هو مقدمة الشراء الثاني، ولا شيء آخر.",
       whyEn:
         "Someone who never used what they bought will not buy again and will ask for a refund. Usage is the precondition for the second purchase, and nothing else is.",
-      exampleAr: "دورة اشتُريت قبل ٥ أيام بلا دخول ← «ابدأ بالدرس الأول، ٧ دقائق».",
+      exampleAr: "دورة اشتُريت قبل 5 أيام بلا دخول ← «ابدأ بالدرس الأول، 7 دقائق».",
       exampleEn: "A course bought 5 days ago with no login → \"Start with lesson one, 7 minutes\".",
           widget: {
         titleAr: "ابدأ من هنا",
@@ -74,14 +74,14 @@ export const digitalProductsDeepDive: SectorDeepDive = {
       triggerAr: "المستخدم اقترب من حد باقته.",
       triggerEn: "The user approaches their plan's limit.",
       scenarioAr:
-        "يُعرض الترقية عند ٨٠٪ من الحد لا عند الاشتراك: «استخدمت ٨ من ١٠ مشاريع». الحاجة أثبتت نفسها قبل العرض.",
+        "يُعرض الترقية عند 80% من الحد لا عند الاشتراك: «استخدمت 8 من 10 مشاريع». الحاجة أثبتت نفسها قبل العرض.",
       scenarioEn:
         "The upgrade is offered at 80% of the limit rather than at signup: \"8 of your 10 projects used\". The need has proved itself before the offer.",
       whyAr:
         "عرض الباقة الأعلى قبل أن يلمس المستخدم الحد يقرأ كجشع. عرضها وهو يوشك أن يصطدم بالحد يقرأ كتنبيه مفيد.",
       whyEn:
         "Offering the higher plan before they touch the limit reads as greed. Offering it as they are about to hit it reads as a useful heads-up.",
-      exampleAr: "٨ من ١٠ مشاريع ← «الباقة الأعلى: مشاريع بلا حد، +٤٠ شهرياً».",
+      exampleAr: "8 من 10 مشاريع ← «الباقة الأعلى: مشاريع بلا حد، +40 شهرياً».",
       exampleEn: "8 of 10 projects used → \"The higher plan: unlimited projects, +40 a month\".",
           widget: {
         titleAr: "اقتربت من الحد",
@@ -110,7 +110,7 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "لحظة ما بعد الدفع أعلى لحظة قبول في القمع كله ولا تكلف شيئاً. لكن عرضاً واحداً فقط، لأن الثاني يفسد الثقة التي بُنيت للتو.",
       whyEn:
         "The moment after payment is the highest-acceptance point in the whole funnel and costs nothing. But one offer only - a second one ruins the trust just earned.",
-      exampleAr: "بعد شراء قالب ← «ملفات المصدر القابلة للتعديل، ٦٥ ر.س لمرة واحدة».",
+      exampleAr: "بعد شراء قالب ← «ملفات المصدر القابلة للتعديل، 65 ر.س لمرة واحدة».",
       exampleEn: "After buying a template → \"The editable source files, 65 SAR one time\".",
           widget: {
         titleAr: "قبل أن تغادر",
@@ -139,7 +139,7 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "معظم من يشتري الترخيص الشخصي ويستخدمه تجارياً لا يغشّ بل لم يفهم. التوضيح بالاستخدام يبيع الترخيص الأعلى ويحمي حقوقك معاً.",
       whyEn:
         "Most people who buy the personal licence and use it commercially are not cheating, they misread it. Explaining by use sells the higher tier and protects your rights at once.",
-      exampleAr: "قالب ١٢٠ شخصي ← «تجاري ٢٩٠: استخدمه في مشاريع عملائك».",
+      exampleAr: "قالب 120 شخصي ← «تجاري 290: استخدمه في مشاريع عملائك».",
       exampleEn: "A 120 personal template → \"Commercial at 290: use it in your clients' work\".",
           widget: {
         titleAr: "اختر ترخيصك",
@@ -168,7 +168,7 @@ export const digitalProductsDeepDive: SectorDeepDive = {
         "قاعدة العملاء الحاليين هي الأصل الحقيقي في المنتجات الرقمية. بيع الإصدار الجديد لهم بلا تكلفة اكتساب هو أعلى هامش ممكن.",
       whyEn:
         "The existing customer base is the real asset in digital products. Selling the new version to it with zero acquisition cost is the highest margin available.",
-      exampleAr: "اشترى الإصدار ٢ ← «الإصدار ٣ بسعر ترقية ٤٥ بدل ١٢٠».",
+      exampleAr: "اشترى الإصدار 2 ← «الإصدار 3 بسعر ترقية 45 بدل 120».",
       exampleEn: "Bought version 2 → \"Version 3 at an upgrade price of 45 instead of 120\".",
           widget: {
         titleAr: "إصدار جديد",

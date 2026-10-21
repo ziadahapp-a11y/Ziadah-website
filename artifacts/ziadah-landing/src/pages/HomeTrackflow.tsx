@@ -73,7 +73,7 @@ export default function HomeTrackflow() {
       <SEO
         titleAr="زيادة — ارفع متوسط قيمة الطلب بالذكاء الاصطناعي"
         titleEn="Ziadah — Raise your average order value with AI"
-        descriptionAr="تطبيق زيادة يقترح لكل عميل المنتجات المناسبة في صفحة المنتج والسلة والدفع، فيرفع متوسط قيمة الطلب ومبيعاتك حتى 35٪. فعّل على زد بنقرة وحدة."
+        descriptionAr="تطبيق زيادة يقترح لكل عميل المنتجات المناسبة في صفحة المنتج والسلة والدفع، فيرفع متوسط قيمة الطلب ومبيعاتك حتى 35%. فعّل على زد بنقرة وحدة."
         descriptionEn="Ziadah recommends the right products to every customer across product, cart, and checkout — lifting your average order value and sales by up to 35%. One-click activation on Zid."
         canonical="/"
       />

@@ -14,14 +14,14 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
       triggerAr: "السلة أقل من الحد الأدنى للمطعم.",
       triggerEn: "The basket is under the restaurant's minimum.",
       scenarioAr:
-        "الفجوة بالريال مع صنفين يسدّانها بالضبط، مرتّبين بأقل تجاوز. العميل الذي يرى «ناقصك ٩ ر.س» ولا يرى بماذا يسدّها يترك السلة.",
+        "الفجوة بالريال مع صنفين يسدّانها بالضبط، مرتّبين بأقل تجاوز. العميل الذي يرى «ناقصك 9 ر.س» ولا يرى بماذا يسدّها يترك السلة.",
       scenarioEn:
         "The gap in riyals with two items that close it exactly, sorted by smallest overshoot. A user who sees \"9 SAR short\" and no way to close it abandons the basket.",
       whyAr:
         "السلة المتروكة عند الحد الأدنى أكثر تسرّب في تطبيقات التوصيل، وسببها معلوماتي لا سعري: العميل لا يعرف ماذا يضيف.",
       whyEn:
         "Abandonment at the minimum is the biggest leak in delivery apps, and the cause is informational rather than price: the user does not know what to add.",
-      exampleAr: "السلة ٤١، الحد ٥٠ ← «كوكيز ٨» أو «مشروب ٩»، لا طبق بـ٣٥.",
+      exampleAr: "السلة 41، الحد 50 ← «كوكيز 8» أو «مشروب 9»، لا طبق بـ35.",
       exampleEn: "Basket at 41, minimum 50 → \"cookies 8\" or \"a drink 9\", not a 35 SAR dish.",
           widget: {
         titleAr: "ناقصك للحد الأدنى",
@@ -53,7 +53,7 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
         "هذه النافذة الوحيدة التي لا يزاحم فيها الاقتراحُ شيئاً: لا طابور ولا تصفّح ولا قرار آخر مفتوح.",
       whyEn:
         "This is the one window where a suggestion competes with nothing: no queue, no browsing, no other open decision.",
-      exampleAr: "طلب خرج من المطبخ خلال ٨ دقائق ← «أضف تحلية قبل الخروج».",
+      exampleAr: "طلب خرج من المطبخ خلال 8 دقائق ← «أضف تحلية قبل الخروج».",
       exampleEn: "Order leaving the kitchen in 8 minutes → \"Add a dessert before it goes\".",
           widget: {
         titleAr: "قبل ما يخرج",
@@ -84,7 +84,7 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
         "المستخدم الذي يقرر بسرعة يطلب أكثر. اختصار القرار يرفع التكرار، والصنف الجديد الوحيد يوسّع السلة دون أن يبطئه.",
       whyEn:
         "A user who decides fast orders more often. Shortening the decision lifts frequency, and the single new item widens the basket without slowing them down.",
-      exampleAr: "٩ م خميس ← «المعتاد: شاورما وبيبسي» + «جرّب البطاطس بالجبن».",
+      exampleAr: "9 م خميس ← «المعتاد: شاورما وبيبسي» + «جرّب البطاطس بالجبن».",
       exampleEn: "9pm Thursday → \"The usual: shawarma and a Pepsi\" + \"Try the cheese fries\".",
           widget: {
         titleAr: "المعتاد",
@@ -113,7 +113,7 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
         "الطلب الجماعي أعلى سلة في التطبيق وأقل تكلفة توصيل لكل ريال. تسهيله تقنياً يضاعف القيمة دون أي خصم.",
       whyEn:
         "A group order is the highest basket in the app and the lowest delivery cost per riyal. Making it technically easy doubles the value with no discount at all.",
-      exampleAr: "١٢:٣٠ ظهراً من موقع مكتبي ← «صينية ٦ أشخاص» + رابط مشاركة السلة.",
+      exampleAr: "12:30 ظهراً من موقع مكتبي ← «صينية 6 أشخاص» + رابط مشاركة السلة.",
       exampleEn: "12:30pm from an office location → \"A 6-person platter\" + a basket-sharing link.",
           widget: {
         titleAr: "طلب جماعي",
@@ -144,7 +144,7 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
         "التصفّح الطويل بلا طلب إشارة شلل اختيار لا عدم رغبة. تضييق الخيارات إلى واحد هو الحل، وتوسيعها يزيد الشلل.",
       whyEn:
         "Long browsing without ordering signals choice paralysis rather than disinterest. Narrowing to one is the fix; widening makes it worse.",
-      exampleAr: "٣ دقائق تصفّح بلا طلب ← «مشويات الدانة، ٢٥ دقيقة، ٤٫٧» — اقتراح واحد.",
+      exampleAr: "3 دقائق تصفّح بلا طلب ← «مشويات الدانة، 25 دقيقة، 4.7» — اقتراح واحد.",
       exampleEn: "3 minutes browsing with no order → \"Al-Dana Grills, 25 minutes, 4.7\" - one suggestion.",
           widget: {
         titleAr: "جرّب هذا",
@@ -175,7 +175,7 @@ export const deliveryAppsDeepDive: SectorDeepDive = {
         "التقييم في تطبيقات التوصيل يتبع الوقت لا الطعم. اقتراح صنف بطيء في الذروة يكسب ريالاً ويخسر نجمة.",
       whyEn:
         "Ratings in delivery apps follow time rather than taste. Suggesting a slow item at peak earns a riyal and loses a star.",
-      exampleAr: "٨:٣٠ م والمطبخ مزدحم ← تُقترح السندويتشات لا المشاوي.",
+      exampleAr: "8:30 م والمطبخ مزدحم ← تُقترح السندويتشات لا المشاوي.",
       exampleEn: "8:30pm with a busy kitchen → sandwiches are suggested, not grills.",
           widget: {
         titleAr: "الأسرع الآن",

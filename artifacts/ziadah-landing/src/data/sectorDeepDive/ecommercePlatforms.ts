@@ -21,7 +21,7 @@ export const ecommercePlatformsDeepDive: SectorDeepDive = {
         "التوصية في المنصات وظيفتها عكس وظيفتها في المتجر: المتجر يوسّع الاكتشاف والمنصة تحسم القرار.",
       whyEn:
         "Recommendation on a marketplace does the opposite job to recommendation in a store: a store widens discovery, a marketplace closes a decision.",
-      exampleAr: "٦ دقائق تصفّح بلا إضافة ← ٣ خيارات: الأرخص، الأعلى تقييماً، الأسرع وصولاً.",
+      exampleAr: "6 دقائق تصفّح بلا إضافة ← 3 خيارات: الأرخص، الأعلى تقييماً، الأسرع وصولاً.",
       exampleEn: "6 minutes browsing with nothing added → 3 options: cheapest, best rated, fastest to arrive.",
           widget: {
         titleAr: "ثلاثة خيارات",
@@ -54,7 +54,7 @@ export const ecommercePlatformsDeepDive: SectorDeepDive = {
         "الطلب المقسوم على ثلاثة بائعين يعني ثلاث شحنات وثلاث فرص تأخير وثلاث فرص لتقييم سيئ. التجميع يرفع السلة ويخفض المخاطرة.",
       whyEn:
         "An order split across three sellers means three shipments, three chances of delay and three chances of a bad rating. Consolidating raises the basket and lowers the risk.",
-      exampleAr: "منتج من بائع «أ» ← «منتجان آخران من نفس البائع، شحنة واحدة وتوفير ٢٥».",
+      exampleAr: "منتج من بائع «أ» ← «منتجان آخران من نفس البائع، شحنة واحدة وتوفير 25».",
       exampleEn: "An item from seller A → \"Two more from the same seller: one shipment, 25 saved\".",
           widget: {
         titleAr: "من نفس البائع",
@@ -86,7 +86,7 @@ export const ecommercePlatformsDeepDive: SectorDeepDive = {
         "المنصة التي يظهر فيها بائع واحد دائماً تفقد البائعين الآخرين، وفقدان جانب العرض يقتل المنصة أسرع من فقدان جانب الطلب.",
       whyEn:
         "A marketplace where one seller always appears loses the others, and losing the supply side kills a marketplace faster than losing the demand side.",
-      exampleAr: "٥ بائعين لنفس المنتج ← دوران الظهور بينهم بوزن التقييم لا بحجم البائع.",
+      exampleAr: "5 بائعين لنفس المنتج ← دوران الظهور بينهم بوزن التقييم لا بحجم البائع.",
       exampleEn: "5 sellers of the same item → rotation weighted by rating rather than by seller size.",
           widget: {
         titleAr: "بائعون متكافئون",
@@ -147,7 +147,7 @@ export const ecommercePlatformsDeepDive: SectorDeepDive = {
         "المنصة تُقيَّم بتجربة التسليم لا بالسعر. ترتيب العروض بالسعر وحده يكسب طلباً اليوم ويخسر مستخدماً بعد تأخيرة واحدة.",
       whyEn:
         "A marketplace is judged on delivery, not on price. Ranking on price alone wins an order today and loses a user after one late arrival.",
-      exampleAr: "عرضان بفارق ٣ ر.س ← يتقدّم «يصل غداً» على «يصل خلال ٥ أيام».",
+      exampleAr: "عرضان بفارق 3 ر.س ← يتقدّم «يصل غداً» على «يصل خلال 5 أيام».",
       exampleEn: "Two offers 3 SAR apart → \"Arrives tomorrow\" outranks \"Arrives in 5 days\".",
           widget: {
         titleAr: "أيهما يصل أولاً",
@@ -177,7 +177,7 @@ export const ecommercePlatformsDeepDive: SectorDeepDive = {
         "الخوارزمية التي ترتّب بالأداء وحده تخنق كل بائع جديد، فلا ينضم أحد. المنصة تحتاج ضخ بائعين أكثر مما تحتاج ترتيباً مثالياً.",
       whyEn:
         "An algorithm ranking purely on performance strangles every new seller, so nobody joins. A marketplace needs a flow of sellers more than it needs a perfect ranking.",
-      exampleAr: "بائع جديد ← حصة ظهور محددة أول ٣٠ يوماً، ثم الترتيب بالأداء.",
+      exampleAr: "بائع جديد ← حصة ظهور محددة أول 30 يوماً، ثم الترتيب بالأداء.",
       exampleEn: "A new seller → a fixed share of impressions for 30 days, then ranked on performance.",
           widget: {
         titleAr: "بائع جديد",

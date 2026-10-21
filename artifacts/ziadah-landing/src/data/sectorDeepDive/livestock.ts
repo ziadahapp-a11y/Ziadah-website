@@ -21,7 +21,7 @@ export const livestockDeepDive: SectorDeepDive = {
         "التجهيز هو الهامش الحقيقي في هذا القطاع لأن سعر الذبيحة نفسها شبه معلوم للجميع. وهو أيضاً ما يوفّر على العميل يوماً كاملاً.",
       whyEn:
         "Preparation is the real margin here, because the animal's own price is broadly known to everyone. It also saves the customer an entire day.",
-      exampleAr: "خروف نعيمي ← «تقطيع ٨٠، فرم الربع ٤٠، تغليف مفرز ٦٠».",
+      exampleAr: "خروف نعيمي ← «تقطيع 80، فرم الربع 40، تغليف مفرز 60».",
       exampleEn: "A Naimi sheep → \"Cutting 80, mincing a quarter 40, portioned packing 60\".",
           widget: {
         titleAr: "التجهيز",
@@ -74,14 +74,14 @@ export const livestockDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتردّد بين حجمين.",
       triggerEn: "The customer hesitates between two sizes.",
       scenarioAr:
-        "يُترجم الوزن إلى عدد أشخاص: «هذا يكفي ١٢-١٥ شخصاً». العميل يعرف عدد ضيوفه ولا يعرف كم كيلو يحتاجون.",
+        "يُترجم الوزن إلى عدد أشخاص: «هذا يكفي 12-15 شخصاً». العميل يعرف عدد ضيوفه ولا يعرف كم كيلو يحتاجون.",
       scenarioEn:
         "Weight is translated into people: \"This serves 12-15\". The customer knows how many guests are coming and not how many kilos that is.",
       whyAr:
         "الترجمة إلى عدد الضيوف ترفع الحجم المختار غالباً، وتمنع الإحراج الذي لا يُنسى حين لا يكفي الطعام في وليمة.",
       whyEn:
         "Translating into guest count usually raises the size chosen, and prevents the kind of embarrassment nobody forgets when the food runs out at a banquet.",
-      exampleAr: "٢٥ كجم ← «يكفي ١٢-١٥ شخصاً»، و٣٥ كجم ← «١٨-٢٢ شخصاً».",
+      exampleAr: "25 كجم ← «يكفي 12-15 شخصاً»، و35 كجم ← «18-22 شخصاً».",
       exampleEn: "25kg → \"Serves 12-15\", and 35kg → \"Serves 18-22\".",
           widget: {
         titleAr: "كم شخصاً؟",
@@ -112,7 +112,7 @@ export const livestockDeepDive: SectorDeepDive = {
         "هذا القطاع لا يحتمل تسليماً فاشلاً: لا يمكن إعادة المحاولة غداً. دقة الموعد ليست رفاهية بل شرط عمل.",
       whyEn:
         "This sector cannot absorb a failed delivery: there is no trying again tomorrow. Precision is not a nicety here, it is an operating requirement.",
-      exampleAr: "«الخميس ٤-٦ م» بدل «الخميس»، مع تأكيد قبل ساعة.",
+      exampleAr: "«الخميس 4-6 م» بدل «الخميس»، مع تأكيد قبل ساعة.",
       exampleEn: "\"Thursday 4-6pm\" instead of \"Thursday\", with a confirmation an hour ahead.",
           widget: {
         titleAr: "موعد التسليم",
@@ -141,7 +141,7 @@ export const livestockDeepDive: SectorDeepDive = {
         "كثير من الطلبات يُراد بها التوزيع أصلاً، والعميل يتولاه بنفسه بعناء. تولّيه عنه يرفع قيمة الطلب ويوفّر عليه يوماً.",
       whyEn:
         "Many orders are meant for distribution anyway, and the customer handles it themselves with effort. Handling it for them raises the order and saves them a day.",
-      exampleAr: "أضحية ← «وزّع الثلث على جهة خيرية باسمك، ٥٠ ر.س مع إثبات».",
+      exampleAr: "أضحية ← «وزّع الثلث على جهة خيرية باسمك، 50 ر.س مع إثبات».",
       exampleEn: "An Eid sacrifice → \"Distribute a third to a charity in your name, 50 SAR, with proof\".",
           widget: {
         titleAr: "وزّع حصة",
@@ -170,7 +170,7 @@ export const livestockDeepDive: SectorDeepDive = {
         "طلبات هذا القطاع سنوية ومتطابقة تقريباً. إعادة الطلب بلمسة تلغي المنافسة لأن العميل لا يصل إلى مرحلة المقارنة.",
       whyEn:
         "Orders here are annual and near-identical. A one-tap repeat removes the competition, because the customer never reaches the comparison stage.",
-      exampleAr: "طلب عيد الأضحى الماضي ← «نفس الطلب: نعيمي ٣٠ كجم، مقطّع، نفس العنوان».",
+      exampleAr: "طلب عيد الأضحى الماضي ← «نفس الطلب: نعيمي 30 كجم، مقطّع، نفس العنوان».",
       exampleEn: "Last Eid al-Adha's order → \"The same again: 30kg Naimi, cut, same address\".",
           widget: {
         titleAr: "نفس طلبك",

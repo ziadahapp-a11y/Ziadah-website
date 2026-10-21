@@ -549,3 +549,10 @@
 .pz-strip .pz-hero { flex: none; width: 64px; height: 64px; border-radius: 12px; }
 .pz-info { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
 .pz-strip .pz-add { flex: none; padding: 8px 16px; width: auto; }
+
+/* THE ICON TILE: a product with no photograph wears an icon for its kind, on
+   the same violet field the letter used to sit on. */
+.sf-tile-ic {
+  width: 100%; height: 100%; display: grid; place-items: center;
+  background: linear-gradient(145deg, #f3ecff, #e6dbfb); color: #5b2fb0;
+}

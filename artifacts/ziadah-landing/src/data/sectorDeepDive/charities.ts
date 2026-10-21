@@ -22,14 +22,14 @@ export const charitiesDeepDive: SectorDeepDive = {
       triggerAr: "المتبرّع أتمّ تبرّعاً لمرة واحدة.",
       triggerEn: "The donor completes a one-off gift.",
       scenarioAr:
-        "بعد الشكر لا قبله، يُعرض تحويل المبلغ نفسه إلى شهري مع أثره التراكمي: «٢٠٠ شهرياً = كفالة طالب سنة كاملة». الرقم نفسه، أفق مختلف.",
+        "بعد الشكر لا قبله، يُعرض تحويل المبلغ نفسه إلى شهري مع أثره التراكمي: «200 شهرياً = كفالة طالب سنة كاملة». الرقم نفسه، أفق مختلف.",
       scenarioEn:
         "After the thank-you, never before it, the same amount is offered as monthly with its cumulative effect: \"200 a month covers a student for a full year\". Same figure, different horizon.",
       whyAr:
         "المتبرّع الشهري يساوي أضعاف المتبرّع العارض، واللحظة الوحيدة التي يكون فيها مستعداً للالتزام هي بعد تبرّع أتمّه للتو وهو راضٍ عنه.",
       whyEn:
         "A monthly donor is worth many times an occasional one, and the only moment they are open to committing is right after a gift they have just made and feel good about.",
-      exampleAr: "تبرّع ٢٠٠ ر.س ← «اجعله شهرياً: ٢٠٠ × ١٢ يكفل طالباً سنة كاملة».",
+      exampleAr: "تبرّع 200 ر.س ← «اجعله شهرياً: 200 × 12 يكفل طالباً سنة كاملة».",
       exampleEn: "A 200 SAR gift → \"Make it monthly: 200 × 12 covers one student for a year\".",
           widget: {
         titleAr: "شكراً لتبرّعك",
@@ -50,17 +50,17 @@ export const charitiesDeepDive: SectorDeepDive = {
       key: "completion-gap",
       titleAr: "إكمال مشروع قارب على الاكتمال",
       titleEn: "Completing a project that is nearly there",
-      triggerAr: "المتبرّع يتصفّح مشروعاً بلغ ٩٠٪ من هدفه.",
+      triggerAr: "المتبرّع يتصفّح مشروعاً بلغ 90% من هدفه.",
       triggerEn: "The donor is viewing a project that has reached 90% of its goal.",
       scenarioAr:
-        "يُعرض المبلغ المتبقي بالضبط: «باقي ٤٠٠ ر.س ويكتمل حفر البئر». التبرّع الذي يُكمل مشروعاً له أثر نفسي أكبر من تبرّع يُضاف إلى صندوق مفتوح.",
+        "يُعرض المبلغ المتبقي بالضبط: «باقي 400 ر.س ويكتمل حفر البئر». التبرّع الذي يُكمل مشروعاً له أثر نفسي أكبر من تبرّع يُضاف إلى صندوق مفتوح.",
       scenarioEn:
         "The exact remaining amount is shown: \"400 SAR left and the well is complete\". A gift that finishes something lands differently from a gift added to an open fund.",
       whyAr:
         "«أتممت مشروعاً» شعور يختلف تماماً عن «ساهمت في صندوق». الرقم المحدد والنهاية المرئية هما ما يحوّل التصفّح إلى تبرّع.",
       whyEn:
         "\"I finished something\" is a different feeling from \"I contributed to a fund\". A specific figure and a visible finish line are what turn browsing into giving.",
-      exampleAr: "بئر بلغت ١١٬٦٠٠ من ١٢٬٠٠٠ ← «أتمّها بـ٤٠٠ ر.س».",
+      exampleAr: "بئر بلغت 11,600 من 12,000 ← «أتمّها بـ400 ر.س».",
       exampleEn: "A well at 11,600 of 12,000 → \"Finish it with 400 SAR\".",
           widget: {
         titleAr: "أتمّ المشروع",
@@ -116,14 +116,14 @@ export const charitiesDeepDive: SectorDeepDive = {
       triggerAr: "مضى على تبرّع سابق وقت كافٍ ليظهر أثره.",
       triggerEn: "Enough time has passed on a previous gift for its effect to be visible.",
       scenarioAr:
-        "تصل رسالة أثر أولاً بلا طلب فيها إطلاقاً: «بئرك تعمل منذ ثلاثة أشهر، تخدم ٤٠ أسرة». طلب التبرّع التالي يأتي في رسالة منفصلة لاحقاً.",
+        "تصل رسالة أثر أولاً بلا طلب فيها إطلاقاً: «بئرك تعمل منذ ثلاثة أشهر، تخدم 40 أسرة». طلب التبرّع التالي يأتي في رسالة منفصلة لاحقاً.",
       scenarioEn:
         "An impact message arrives first with no ask in it at all: \"Your well has been running three months, serving 40 families\". The next ask comes in a separate message later.",
       whyAr:
         "الجمعية التي لا تخبر المتبرّع بما حدث بتبرّعه تطلب منه أن يثق مرتين. إظهار الأثر أولاً هو ما يجعل الطلب الثاني مقبولاً.",
       whyEn:
         "A charity that never tells a donor what happened is asking them to trust twice. Showing the effect first is what makes the second ask welcome.",
-      exampleAr: "تبرّع بئر في يناير ← أبريل: «بئرك تعمل، ٤٠ أسرة» بلا أي طلب.",
+      exampleAr: "تبرّع بئر في يناير ← أبريل: «بئرك تعمل، 40 أسرة» بلا أي طلب.",
       exampleEn: "A well funded in January → April: \"Your well is running, 40 families\", with no ask attached.",
           widget: {
         titleAr: "أثر تبرّعك",
@@ -147,14 +147,14 @@ export const charitiesDeepDive: SectorDeepDive = {
       triggerAr: "المتبرّع في شاشة اختيار المبلغ.",
       triggerEn: "The donor is on the amount screen.",
       scenarioAr:
-        "كل مبلغ مكتوب بما يفعله لا برقمه وحده: «١٠٠ = سلة غذائية لأسرة، ٣٠٠ = ثلاث أسر، ٥٠٠ = أسرة شهراً كاملاً». الترتيب يبدأ من المتوسط لا من الأعلى.",
+        "كل مبلغ مكتوب بما يفعله لا برقمه وحده: «100 = سلة غذائية لأسرة، 300 = ثلاث أسر، 500 = أسرة شهراً كاملاً». الترتيب يبدأ من المتوسط لا من الأعلى.",
       scenarioEn:
         "Every amount is written as what it does rather than as a figure alone: \"100 = a food basket for a family, 300 = three families, 500 = one family for a whole month\". The ladder starts from the middle, not the top.",
       whyAr:
         "المبلغ المجرّد يُقارن بالميزانية، والمبلغ المترجم إلى أثر يُقارن بالأثر. والبدء بالأعلى يقرأ كضغط ويخفض المتوسط بدل أن يرفعه.",
       whyEn:
         "A bare figure is compared against a budget; a figure translated into effect is compared against the effect. And leading with the highest amount reads as pressure and lowers the average rather than raising it.",
-      exampleAr: "١٠٠ سلة غذائية · ٣٠٠ ثلاث أسر · ٥٠٠ أسرة شهراً — الافتراضي ٣٠٠.",
+      exampleAr: "100 سلة غذائية · 300 ثلاث أسر · 500 أسرة شهراً — الافتراضي 300.",
       exampleEn: "100 one basket · 300 three families · 500 a family for a month - with 300 preselected.",
           widget: {
         titleAr: "اختر مبلغك",
@@ -187,7 +187,7 @@ export const charitiesDeepDive: SectorDeepDive = {
         "معظم انقطاع التبرّع الشهري سببه تقني لا قرار. معاملته كقرار — برسائل عاطفية — تحوّل مشكلة بطاقة إلى انسحاب حقيقي.",
       whyEn:
         "Most lapsed monthly giving is technical, not a decision. Treating it as a decision, with emotional messaging, turns a card problem into a real withdrawal.",
-      exampleAr: "فشل خصم ١ مايو ← رسالة واحدة بلا لوم ورابط تحديث البطاقة.",
+      exampleAr: "فشل خصم 1 مايو ← رسالة واحدة بلا لوم ورابط تحديث البطاقة.",
       exampleEn: "A failed charge on 1 May → one blame-free message and a link to update the card.",
           widget: {
         titleAr: "تبرّعك الشهري متوقف",

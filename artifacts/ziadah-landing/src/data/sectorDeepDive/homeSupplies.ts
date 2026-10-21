@@ -21,7 +21,7 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "العميل أعجبته الغرفة لا الكنبة. بيع ما في الصورة يحوّل الإعجاب إلى طلب، وعرض «منتجات ذات صلة» يعيده للتصفّح.",
       whyEn:
         "The customer liked the room, not the sofa. Selling what is in the photo turns that into an order; \"related products\" sends them back to browsing.",
-      exampleAr: "كنبة ٢٬٩٠٠ ← «السجادة والطاولة من نفس الصورة، ١٬١٥٠ للاثنتين».",
+      exampleAr: "كنبة 2,900 ← «السجادة والطاولة من نفس الصورة، 1,150 للاثنتين».",
       exampleEn: "A 2,900 sofa → \"The rug and table from the same photo, 1,150 for both\".",
           widget: {
         titleAr: "الغرفة كاملة",
@@ -44,14 +44,14 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتردّد في صفحة قطعة كبيرة.",
       triggerEn: "The customer hesitates on a large piece.",
       scenarioAr:
-        "تُعرض الأبعاد بوضوح مع مقارنة مرجعية مألوفة: «أعرض من باب قياسي بـ١٥ سم». التردد هنا مكاني لا سعري.",
+        "تُعرض الأبعاد بوضوح مع مقارنة مرجعية مألوفة: «أعرض من باب قياسي بـ15 سم». التردد هنا مكاني لا سعري.",
       scenarioEn:
         "Dimensions appear plainly with a familiar reference: \"15cm wider than a standard doorway\". The hesitation here is spatial, not financial.",
       whyAr:
         "إرجاع قطعة أثاث لا تمرّ من الباب يكلف شحنة ثقيلة مرتين وهو أغلى إرجاع في التجارة الإلكترونية كلها.",
       whyEn:
         "Returning furniture that will not fit through the door costs two heavy shipments, and is the most expensive return in all of ecommerce.",
-      exampleAr: "خزانة عرضها ٩٥ سم ← «الباب القياسي ٨٠ سم، قِس قبل الطلب».",
+      exampleAr: "خزانة عرضها 95 سم ← «الباب القياسي 80 سم، قِس قبل الطلب».",
       exampleEn: "A 95cm-wide wardrobe → \"A standard door is 80cm - measure before ordering\".",
           widget: {
         titleAr: "قِس قبل الطلب",
@@ -80,7 +80,7 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "المستهلكات المنزلية إيراد متكرر مضمون، والمتجر الذي لا يذكّر يتنازل عنه لأقرب رفّ مهما كان أغلى.",
       whyEn:
         "Household consumables are guaranteed recurring revenue, and a store that does not remind hands it to the nearest shelf however much dearer it is.",
-      exampleAr: "منظف ٥ لتر لأسرة من ٥، اشتُري ١ مارس ← تذكير ٢٠ أبريل.",
+      exampleAr: "منظف 5 لتر لأسرة من 5، اشتُري 1 مارس ← تذكير 20 أبريل.",
       exampleEn: "A 5-litre detergent for a household of five, bought 1 March → a reminder on 20 April.",
           widget: {
         titleAr: "موعد إعادة الطلب",
@@ -104,14 +104,14 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
       triggerAr: "العميل يشتري صنفاً يُستهلك بكثرة.",
       triggerEn: "The customer buys a high-consumption item.",
       scenarioAr:
-        "يُعرض العدد الأكبر بسعر الوحدة: «٦ حبات بـ١١٠ بدل ٦ × ٢٢». المستهلك المنزلي لا يفسد ولا يحتاج تخزيناً خاصاً.",
+        "يُعرض العدد الأكبر بسعر الوحدة: «6 حبات بـ110 بدل 6 × 22». المستهلك المنزلي لا يفسد ولا يحتاج تخزيناً خاصاً.",
       scenarioEn:
         "The larger count is priced per unit: \"6 for 110 instead of 6 × 22\". Household consumables do not spoil and need no special storage.",
       whyAr:
         "شراء الكمية يقلّل عدد الشحنات على المتجر ويقلّل عدد القرارات على العميل. الطرفان يربحان وهو نادر.",
       whyEn:
         "Buying in quantity cuts shipments for the store and cuts decisions for the customer. Both sides win, which is rare.",
-      exampleAr: "صابون يدين ٢٢ للحبة ← «٦ حبات ١١٠، الحبة ١٨٫٣».",
+      exampleAr: "صابون يدين 22 للحبة ← «6 حبات 110، الحبة 18.3».",
       exampleEn: "Hand soap at 22 each → \"6 for 110, that's 18.3 each\".",
           widget: {
         titleAr: "بسعر الوحدة",
@@ -170,7 +170,7 @@ export const homeSuppliesDeepDive: SectorDeepDive = {
         "التركيب هامش خدمي عالٍ وهو أيضاً أكثر ما يحوّل تجربة أثاث جيدة إلى سيئة حين يُترك للعميل بلا تنبيه.",
       whyEn:
         "Assembly is high-margin service revenue and also the fastest way to turn a good furniture experience bad when it is left to the customer unannounced.",
-      exampleAr: "خزانة تحتاج تركيباً ← «تركيب في البيت ١٨٠ ر.س، ٤٥ دقيقة» مع الطلب.",
+      exampleAr: "خزانة تحتاج تركيباً ← «تركيب في البيت 180 ر.س، 45 دقيقة» مع الطلب.",
       exampleEn: "A wardrobe needing assembly → \"Home assembly 180 SAR, 45 minutes\", offered with the order.",
           widget: {
         titleAr: "التركيب",

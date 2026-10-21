@@ -82,7 +82,7 @@ export function Hero() {
           <p className="hero-home-note">
             <ShieldCheck className="hero-home-note-ico" aria-hidden="true" />
             {t({
-              ar: "تجربة ٧ أيام · تثبيت بنقرة · بدون مطوّر",
+              ar: "تجربة 7 أيام · تثبيت بنقرة · بدون مطوّر",
               en: "7-day trial · one-click install · no developer",
             })}
           </p>
