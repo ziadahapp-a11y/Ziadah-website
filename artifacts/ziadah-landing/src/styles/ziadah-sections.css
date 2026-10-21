@@ -2002,6 +2002,12 @@
 .calc2-v { font-size: clamp(38px, 3.2vw + 14px, 68px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
 .calc2-v small { font-size: 0.4em; font-weight: 600; opacity: 0.8; }
 .calc2-from { margin: 0 0 14px; font-size: var(--t-sm); opacity: 0.75; }
+/* `[dir="rtl"] .num-ltr` pins numbers to the right edge, which beat the
+   card's `text-align: center` and left the figure and its range off-centre. */
+.calc2-result { align-items: center; }
+[dir="rtl"] .calc2-result .num-ltr,
+.calc2-result .num-ltr { text-align: center; }
+.calc2-result .calc2-v, .calc2-result .calc2-from, .calc2-result .calc2-k { width: 100%; }
 /* `.num-ltr` makes its box inline, so the two tick labels shrank to content and
    sat together at one edge instead of at the two ends of the slider. */
 .calc2-ticks.num-ltr { display: flex; width: 100%; justify-content: space-between; }
