@@ -1,6 +1,10 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { DEFAULT_PACK, type ProductPack } from "@/data/sectorProductPacks";
 import {
+  FmOverlay, FmModal, FmHead, FmStat, FmList, FmCard, FmCopy, FmTotal, FmActions, FmAddAll, FmFoot, FmDeal, FmValue,
+} from "@/components/widgets/fm";
+import { FwPage, FwHead, FwH, FwChips, FwCards, FwCard, FwNote, FwTotal, FwOk, FwStep, FwHero, FwTitles, FwPill, FwPills, FwBar, FwGroup, FwProg, FwSizeCard, FwOverlay, FwHandle, FwSheetHead, FwItem, FwAmber, FwSubTotal, FwLink, FwCta, FwPerk, FwFoot } from "@/components/widgets/fw";
+import {
   Sheet, Pill, Progress, Tiers, Option, Group, Step, AddRow, Nudge, PriceBar, Cta, Success,
 } from "@/components/widgets/storefront";
 
@@ -16,14 +20,14 @@ import {
 
 export type WidgetKind =
   | "related" | "kit" | "steps" | "routine" | "bmsm" | "drawer"
-  | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue" | "coupon" | "thankyou";
+  | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue";
 
 /* The order a merchant meets them in a real shop: what is on the product
    page, then what happens at add-to-cart, then the cart, then the exit, then
    after the order. */
 export const WIDGET_KINDS: WidgetKind[] = [
   "related", "replace", "quantity", "kit", "steps", "routine", "buythemall",
-  "addmore", "bmsm", "cartvalue", "drawer", "coupon", "thankyou",
+  "addmore", "bmsm", "cartvalue", "drawer",
 ];
 
 export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
@@ -39,8 +43,6 @@ export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
     addmore: ["أضف المزيد", "Add more"],
     buythemall: ["خذها كلها", "Buy them all"],
     cartvalue: ["رفع قيمة السلة", "Cart value"],
-    coupon: ["كود الخصم", "Coupon"],
-    thankyou: ["بعد الشراء", "Post-purchase"],
   };
   return isAr ? m[kind][0] : m[kind][1];
 }
@@ -79,8 +81,6 @@ export function widgetKindHref(kind: WidgetKind): string {
     bmsm: "/use-cases/buy-more-save-more",
     cartvalue: "/use-cases/free-shipping",
     drawer: "/use-cases/add-to-cart",
-    coupon: "/use-cases/discount-coupon",
-    thankyou: "/use-cases/thank-you",
   };
   return m[kind];
 }
@@ -131,14 +131,6 @@ export function widgetKindWhen(kind: WidgetKind, isAr: boolean): string {
       "لحظة إضافة المنتج: يدخل درج السلة باقتراحات مرتبطة بما أُضيف للتو.",
       "The moment an item is added: the cart drawer slides in with suggestions tied to what was just added.",
     ],
-    coupon: [
-      "قبل الدفع: يظهر كود الخصم لمن يتردد أو يهمّ بالمغادرة، لا للجميع.",
-      "Before checkout: the coupon appears for shoppers who hesitate or are about to leave, not for everyone.",
-    ],
-    thankyou: [
-      "بعد إتمام الطلب: عرض واحد في صفحة الشكر قبل أن يغلقها العميل.",
-      "After the order: one offer on the thank-you page before the shopper closes it.",
-    ],
   };
   return isAr ? m[kind][0] : m[kind][1];
 }
@@ -163,48 +155,95 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
   const sar = (v: number | string) => (isAr ? `${v} ر.س` : `SAR ${v}`);
   const { main, a, b, c, up } = pack;
   const off = (total: number, pct: number) => Math.round(total * (1 - pct / 100));
+  /* The modal family's product card: the struck price is what 20% off came from. */
+  const was20 = (v: number) => Math.round(v / 0.8);
+  const card = (it: { ar: string; en: string; price: number }, action: string, actionEn: string, on?: boolean) => (
+    <FmCard
+      name={nm(it)}
+      tag={nm(pack.tag)}
+      was={sar(was20(it.price))}
+      now={sar(it.price)}
+      off="20%"
+      reviews={t("21 تقييم", "21 reviews")}
+      action={t(action, actionEn)}
+      on={on}
+    />
+  );
+  const modalHead = (
+    <>
+      <FmHead title={t("أضف منتجات أكثر", "Add more products")} sub={t("اكتشف هذه المنتجات قبل إتمام الطلب.", "Explore these great items before you checkout.")} />
+      <FmStat amount={sar(250)} label={t("رصيد التسعير", "Pricing balance")} perks={[t("شحن مجاني", "Free Shipping"), t("الدفع عند الاستلام", "Cash on Delivery")]} />
+    </>
+  );
+  const modalFoot = (
+    <FmFoot label={t("لا تُظهر هذا مرة ثانية", "Do not show again")} skip={t("تخطّي", "Skip")} />
+  );
 
   if (kind === "kit") {
-    const was = main.price + a.price + b.price;
-    const now = off(was, 10);
+    /* The In-progress frame: photo, titles, two pills, a bar, a card per
+       group (required, pick-up-to, locked) and the kit price. */
+    const was = main.price + a.price + b.price + c.price;
+    const now = off(was, 12);
     return (
-      <Sheet
-        title={t("كوّن طقمك", "Build your kit")}
-        sub={t("اختر قطعة من كل مجموعة، والسعر ينزل مع الطقم.", "Pick one from each group and the kit price drops.")}
-        chips={<><Pill>{t("2 من 3 مختارة", "2 of 3 chosen")}</Pill><Pill tone="green">{t(`وفّرت ${was - now} ر.س`, `Save SAR ${was - now}`)}</Pill></>}
-        footer={<><PriceBar label={t("سعر الطقم", "Kit price")} was={sar(was)} now={sar(now)} /><Cta>{t("أضف الطقم للسلة", "Add kit to cart")}</Cta></>}
-      >
-        <Progress pct={66} />
-        <Group label={t("الأساسي", "The main piece")} meta={t("مطلوب · اختر 1", "Required · pick 1")}>
-          <Option name={nm(main)} price={sar(main.price)} chosen />
-          <Option name={nm(up)} price={sar(up.price)} />
-        </Group>
-        <Group label={t("يكمّله", "What goes with it")} meta={t("مطلوب · اختر 1", "Required · pick 1")}>
-          <Option name={nm(a)} price={sar(a.price)} chosen />
-          <Option name={nm(b)} price={sar(b.price)} />
-        </Group>
-        <Group label={t("يُضاف دائماً", "Always included")} meta={t("مقفل", "Locked")}>
-          <Option name={nm(c)} price={t("مُضمّن", "Included")} locked />
-        </Group>
-      </Sheet>
+      <FwPage>
+        <FwHero name={nm(main)} />
+        <FwTitles
+          title={t("كوّن طقمك", "Build your kit")}
+          sub={t("قطعة أساسية، حتى قطعتين تكمّلانها، وإضافة مضمّنة.", "One main piece, up to 2 that go with it, and an included extra.")}
+        />
+        <FwPills>
+          <FwPill tone="tint">{t("3 من 5 مختارة", "3 of 5 chosen")}</FwPill>
+          <FwPill tone="green">{t(`وفّرت ${was - now} ر.س`, `Save SAR ${was - now}`)}</FwPill>
+        </FwPills>
+        <FwBar pct={60} />
+        <FwGroup title={t("الأساسي", "The main piece")} rule={t("مطلوب · اختر 1", "Required · pick 1")}>
+          <FwCard fluid name={nm(main)} price={sar(main.price)} on action={t("مختار", "Chosen")} />
+          <FwCard fluid name={nm(up)} price={sar(up.price)} action={t("أضف", "Add")} />
+        </FwGroup>
+        <FwGroup title={t("يكمّله", "Goes with it")} rule={t("اختر حتى 2", "Pick up to 2")}>
+          <FwCard fluid name={nm(a)} price={sar(a.price)} on action={t("مختار", "Chosen")} />
+          <FwCard fluid name={nm(b)} price={sar(b.price)} on action={t("مختار", "Chosen")} />
+        </FwGroup>
+        <FwGroup panel title={t("يُضاف دائماً", "Always included")} rule={t("مقفل", "Locked")}>
+          <FwCard fluid locked name={nm(c)} price={t("مُضمّن", "Included")} />
+        </FwGroup>
+        <FwTotal label={t("سعر الطقم", "Kit price")} was={sar(was)} now={sar(now)} cta={t("أضف الطقم للسلة", "Add kit to cart")} />
+      </FwPage>
     );
   }
 
   if (kind === "steps") {
-    const was = main.price + up.price + b.price;
-    const now = off(was, 15);
+    /* The Step 02 frame: four step chips, the open step's two options, an
+       aside about the optional step, and the package total. */
+    const was = main.price + a.price + b.price + c.price;
+    const now = off(was, 12);
     return (
-      <Sheet
-        title={t("جهّز طلبك خطوة خطوة", "Build your order, step by step")}
-        sub={t("3 خطوات، وتقدر تستبدل أي واحدة.", "Three steps, and any one can be swapped.")}
-        chips={<Pill tone="grey">{t("الخطوة 2 من 3", "Step 2 of 3")}</Pill>}
-        footer={<><PriceBar label={t("سعر الحزمة", "Package price")} was={sar(was)} now={sar(now)} /><Cta>{t("أكمل الخطوة الثالثة", "Continue to step 3")}</Cta></>}
-      >
-        <Progress pct={66} />
-        <Step n={1} kicker={t("البداية", "Start")} name={nm(main)} price={sar(main.price)} swap />
-        <Step n={2} kicker={t("الأفضل", "The upgrade")} name={nm(up)} price={sar(up.price)} swap />
-        <AddRow name={nm(b)} meta={t("الخطوة 3 · لم تُختر بعد", "Step 3 · not chosen yet")} price={sar(b.price)} />
-      </Sheet>
+      <FwPage>
+        <FwHead
+          title={t("جهّز طلبك خطوة خطوة", "Build your order, step by step")}
+          sub={t("أربع خطوات، خصم 12% على الطقم كامل.", "Four steps, 12% off the whole set.")}
+        />
+        <FwChips
+          steps={[
+            { n: "01", label: nm(main), state: "done" },
+            { n: "02", label: nm(a), state: "on" },
+            { n: "03", label: nm(b), state: "todo" },
+            { n: "04", label: nm(c), state: "todo" },
+          ]}
+        />
+        <FwH>{t("الخطوة 02 · اختر قطعتك الثانية", "Step 02 · Choose your second piece")}</FwH>
+        <FwCards>
+          <FwCard name={nm(a)} price={sar(a.price)} action={t("أضف", "Add")} />
+          <FwCard name={nm(b)} price={sar(b.price)} on action={t("مختار", "Chosen")} />
+        </FwCards>
+        <FwNote text={t("الخطوة 04 اختيارية.", "Step 04 is optional.")} action={t("تخطّي", "Skip")} />
+        <FwTotal
+          label={t("سعر الحزمة", "Package total")}
+          was={sar(was)}
+          now={sar(now)}
+          cta={t("أكمل للخطوة 03", "Continue to step 03")}
+        />
+      </FwPage>
     );
   }
 
@@ -212,220 +251,212 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
     const was = main.price + a.price + c.price;
     const now = off(was, 15);
     return (
-      <Sheet
-        title={t("طلبك كامل", "Your full set")}
-        sub={t("اخترت الثلاث قطع كلها.", "All three pieces chosen.")}
-        footer={<><PriceBar label={t("سعر الطقم كامل", "Full set price")} was={sar(was)} now={sar(now)} /><Cta>{t("أضف الطقم كامل", "Add the full set")}</Cta></>}
-      >
-        <Success>{t(`اكتمل الطقم، وفّرت ${was - now} ر.س`, `Set complete, you save SAR ${was - now}`)}</Success>
-        <Step n={1} kicker={t("الأساسي", "Main")} name={nm(main)} price={sar(main.price)} swap />
-        <Step n={2} kicker={t("يكمّله", "Goes with it")} name={nm(a)} price={sar(a.price)} swap />
-        <Step n={3} kicker={t("إضافة", "Extra")} name={nm(c)} price={sar(c.price)} swap />
-      </Sheet>
+      <FwPage>
+        <FwHead title={t("طلبك كامل", "Build your set")} sub={t("اخترت الخطوات الثلاث كلها.", "All 3 steps chosen.")} />
+        <FwOk>{t(`اكتمل الطقم، وفّرت ${was - now} ر.س`, `Set complete, you save SAR ${was - now}`)}</FwOk>
+        <FwStep kicker={t("1 · الأساسي", "1 · Main")} name={nm(main)} price={sar(main.price)} action={t("استبدل", "Swap")} />
+        <FwStep kicker={t("2 · يكمّله", "2 · Goes with it")} name={nm(a)} price={sar(a.price)} action={t("استبدل", "Swap")} />
+        <FwStep kicker={t("3 · إضافة", "3 · Extra")} name={nm(c)} price={sar(c.price)} action={t("استبدل", "Swap")} />
+        <FwTotal tint label={t("سعر الطقم", "Set price")} was={sar(was)} now={sar(now)} cta={t("أضف الطقم للسلة", "Add set to cart")} />
+      </FwPage>
     );
   }
 
   if (kind === "bmsm") {
+    /* The In-progress frame: the tier card on top, the products with their
+       size rows, and the price for what is in the cart. */
     const was = a.price + b.price + c.price;
     const now = off(was, 10);
+    const sizes = pack.sizes;
+    const sz = sizes?.[1];
     return (
-      <Sheet
-        title={t("اشتر أكثر ووفر أكثر", "Buy more, save more")}
-        sub={t("اخلط أي منتجات تبغاها.", "Mix any products you like.")}
-        footer={<><PriceBar label={t("3 قطع · خصم 10%", "3 items · 10% off")} was={sar(was)} now={sar(now)} /><Cta>{t("أضف واحدة بعد لخصم 15%", "Add 1 more for 15% off")}</Cta></>}
-      >
-        <div className="sf-nudge">
-          <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}</p>
-          <Progress pct={60} />
-          <Tiers
-            reached={2}
-            tiers={[
-              { label: t("2 قطع", "2 items"), off: t("5%", "5% off") },
-              { label: t("3 قطع", "3 items"), off: t("10%", "10% off") },
-              { label: t("4 قطع", "4 items"), off: t("15%", "15% off") },
-              { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
-            ]}
-          />
-        </div>
-        <div className="sf-grid">
-          <Option name={nm(a)} price={sar(a.price)} chosen />
-          <Option name={nm(b)} price={sar(b.price)} chosen />
-          <Option name={nm(c)} price={sar(c.price)} chosen />
-          <Option name={nm(main)} price={sar(main.price)} />
-        </div>
-      </Sheet>
+      <FwPage>
+        <FwHead title={t("اشتر أكثر ووفر أكثر", "Buy more, save more")} sub={t("اخلط أي منتجات تبغاها.", "Mix any items you like.")} />
+        <FwProg
+          title={t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}
+          count={t("3 في السلة", "3 in cart")}
+          pct={60}
+          tiers={[
+            { label: t("2 قطع", "2 items"), off: t("خصم 5%", "5% off"), on: true },
+            { label: t("3 قطع", "3 items"), off: t("خصم 10%", "10% off"), on: true },
+            { label: t("4 قطع", "4 items"), off: t("خصم 15%", "15% off") },
+            { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
+          ]}
+        />
+        <FwCards>
+          <FwSizeCard name={nm(a)} price={sar(a.price)} on sizes={sizes} size={sz} />
+          <FwSizeCard name={nm(b)} price={sar(b.price)} on sizes={sizes} size={sz} />
+          <FwSizeCard name={nm(c)} price={sar(c.price)} on sizes={sizes} size={sz} />
+          <FwSizeCard name={nm(main)} price={sar(main.price)} sizes={sizes} />
+        </FwCards>
+        <FwTotal r20 label={t("3 قطع · خصم 10%", "3 items · 10% off")} was={sar(was)} now={sar(now)} cta={t("أضف واحدة بعد لخصم 15%", "Add 1 more for 15% off")} />
+      </FwPage>
     );
   }
 
   if (kind === "replace") {
-    const diff = up.price - main.price;
+    /* Replace Added Product: the added card, two to swap with, the total. */
+    const sum = main.price + a.price;
     return (
-      <Sheet
-        title={t(`بـ${diff} ر.س أكثر: الفئة الأعلى`, `For SAR ${diff} more: the higher tier`)}
-        sub={t("نفس الفئة، شريحة أعلى.", "Same category, one tier up.")}
-        footer={<><PriceBar label={t("الفرق", "The difference")} was={sar(main.price)} now={t(`+${diff} ر.س`, `+SAR ${diff}`)} /><Cta>{t("بدّلها بالأعلى", "Swap to the higher one")}</Cta></>}
-      >
-        <AddRow name={nm(main)} meta={t("ما تتصفّحه الآن", "What you are viewing")} price={sar(main.price)} action={<Pill tone="grey">{t("الحالي", "Current")}</Pill>} />
-        <AddRow name={nm(up)} meta={t("الأعلى في الفئة نفسها", "The top of the same range")} price={sar(up.price)} action={<Pill>{t("الأعلى", "Upgrade")}</Pill>} />
-      </Sheet>
+      <FmOverlay>
+        <FmModal>
+          {modalHead}
+          <FmList>
+            {card(main, "أُضيف", "Added", true)}
+            {card(a, "استبدل", "Replace")}
+            {card(b, "استبدل", "Replace")}
+            <FmTotal label={t("مجموع المنتجات (2)", "Total items (2)")} was={sar(was20(sum))} now={sar(sum)} save={t("وفّر 20%", "Save 20%")} />
+            <FmActions cart={t("السلة", "Cart")} amount={sar(sum + c.price)} checkout={t("إتمام الطلب", "Checkout")} />
+          </FmList>
+          {modalFoot}
+        </FmModal>
+      </FmOverlay>
     );
   }
 
   if (kind === "quantity") {
+    /* Add more save more: a radio list of deals, the open one carries the button. */
     const u = c.price;
-    const tier = (n: number, pct: number) => off(u * n, pct);
+    const deal = (n: number, pct: number) => ({ was: u * n, now: off(u * n, pct) });
+    const d1 = deal(1, 0), d3 = deal(3, 7), d5 = deal(5, 14);
     return (
-      <Sheet
-        title={t("خذها بالكمية وسعر الحبة ينزل", "Take the pack and the unit price drops")}
-        sub={t(pack.qtyNote.ar, pack.qtyNote.en)}
-        footer={<><PriceBar label={t(`3 قطع · ${Math.round(tier(3, 7) / 3)} ر.س للحبة`, `3 items · ${Math.round(tier(3, 7) / 3)} each`)} was={sar(u * 3)} now={sar(tier(3, 7))} /><Cta>{t("أضف 3", "Add 3")}</Cta></>}
-      >
-        <AddRow name={nm(c)} price={sar(u)} action={<Pill tone="grey">{t("حبة", "One")}</Pill>} />
-        <Tiers
-          reached={2}
-          tiers={[
-            { label: t("حبة", "1"), off: sar(u) },
-            { label: t("3 قطع", "3"), off: sar(tier(3, 7)) },
-            { label: t("5 قطع", "5"), off: sar(tier(5, 14)) },
-            { label: t("10 قطع", "10"), off: sar(tier(10, 20)) },
-          ]}
-        />
-      </Sheet>
+      <FmOverlay>
+        <FmModal>
+          <FmHead title={t("اشتر أكثر ووفر أكثر", "Add more save more")} sub={t(pack.qtyNote.ar, pack.qtyNote.en)} />
+          <FmList>
+            <FmDeal name={nm(c)} note={t("حبة واحدة", "One piece")} was={sar(was20(u))} now={sar(d1.now)} off="-20%" />
+            <FmDeal name={t("3 قطع", "Pack of 3")} note={t("سعر الحبة أقل", "A lower price each")} was={sar(d3.was)} now={sar(d3.now)} off="-7%" ship={t("شحن مجاني", "Free shipping")} />
+            <FmDeal on name={t("5 قطع", "Pack of 5")} note={t("أفضل سعر للحبة", "The best price each")} was={sar(d5.was)} now={sar(d5.now)} off="-14%" ship={t("شحن مجاني", "Free shipping")} cta={t("أضف للسلة", "Add to Cart")} />
+          </FmList>
+        </FmModal>
+      </FmOverlay>
     );
   }
 
   if (kind === "addmore") {
+    /* Bought Together + Add-ons: the added card, then products with options. */
+    const sum = main.price + a.price;
     return (
-      <Sheet
-        title={t("أكمل طلبك", "Complete your order")}
-        sub={t("تظهر لحظة الإضافة للسلة، لا قبلها.", "Shown the moment it enters the cart, not before.")}
-        footer={<Cta>{t("أضف الاثنين", "Add both")}</Cta>}
-      >
-        <AddRow name={nm(main)} meta={t("أُضيف للتو", "Just added")} price={sar(main.price)} action={<Pill tone="green">{t("أُضيف", "Added")}</Pill>} />
-        <AddRow name={nm(a)} price={sar(a.price)} />
-        <AddRow name={nm(b)} price={sar(b.price)} />
-      </Sheet>
+      <FmOverlay>
+        <FmModal>
+          {modalHead}
+          <FmList>
+            {card(main, "أُضيف", "Added", true)}
+            <FmCopy />
+            {card(a, "الخيارات", "See options")}
+            <FmCopy />
+            {card(b, "الخيارات", "See options")}
+            <FmTotal label={t("مجموع المنتجات (2)", "Total items (2)")} was={sar(was20(sum))} now={sar(sum)} save={t("وفّر 20%", "Save 20%")} />
+            <FmAddAll>{t("أضف الكل", "Add all")}</FmAddAll>
+          </FmList>
+          {modalFoot}
+        </FmModal>
+      </FmOverlay>
     );
   }
 
   if (kind === "related") {
+    /* Related Products: three cards to add, then the cart line. */
     return (
-      <Sheet
-        title={t("منتجات ذات صلة", "Related products")}
-        sub={t("يحبها من اشترى القطعة نفسها.", "Liked by people who bought this item.")}
-        footer={<Cta>{t("أضف المحدد للسلة", "Add selected to cart")}</Cta>}
-      >
-        <div className="sf-grid">
-          <Option name={nm(c)} price={sar(c.price)} />
-          <Option name={nm(b)} price={sar(b.price)} />
-          <Option name={nm(a)} price={sar(a.price)} />
-          <Option name={nm(up)} price={sar(up.price)} />
-        </div>
-      </Sheet>
+      <FmOverlay>
+        <FmModal>
+          {modalHead}
+          <FmList>
+            {card(a, "أضف", "Add")}
+            {card(b, "أضف", "Add")}
+            {card(c, "أضف", "Add")}
+            <FmActions cart={t("السلة", "Cart")} amount={sar(main.price)} checkout={t("إتمام الطلب", "Checkout")} />
+          </FmList>
+          {modalFoot}
+        </FmModal>
+      </FmOverlay>
     );
   }
 
   if (kind === "buythemall") {
+    /* The Buy-them-all frame: a bottom sheet with the perk line, one row per
+       product, the set price and one button. */
     const was = main.price + a.price + b.price;
-    const now = off(was, 5);
+    const now = off(was, 20);
     return (
-      <Sheet
-        title={t("الثلاثة بسعر واحد", "All three at one price")}
-        sub={`${nm(main)} + ${nm(a)} + ${nm(b)}`}
-        chips={<Pill tone="green">{t(`وفّرت ${was - now} ر.س`, `Save SAR ${was - now}`)}</Pill>}
-        footer={<><PriceBar label={t("الطقم كامل", "The whole set")} was={sar(was)} now={sar(now)} /><Cta>{t("خذها كلها", "Buy them all")}</Cta></>}
-      >
-        <div className="sf-grid">
-          <Option name={nm(main)} price={sar(main.price)} chosen />
-          <Option name={nm(a)} price={sar(a.price)} chosen />
-          <Option name={nm(b)} price={sar(b.price)} chosen />
-          <Option name={nm(c)} price={sar(c.price)} />
-        </div>
-      </Sheet>
+      <FwOverlay>
+        <FwPage sheet>
+          <FwSheetHead
+            title={t(`أكمل طقم ${nm(main)}`, `Complete the ${nm(main)} set`)}
+            sub={t("ثلاثة منتجات بسعر واحد.", "Three products, one price.")}
+          />
+          <FwPerk>{t("شحن مجاني واسترداد 20 ر.س", "Free shipping and SAR 20 cashback")}</FwPerk>
+          <FwItem name={nm(main)} note={sar(main.price)} price={sar(main.price)} />
+          <FwItem name={nm(a)} note={sar(a.price)} price={sar(a.price)} />
+          <FwItem name={nm(b)} note={sar(b.price)} price={sar(b.price)} />
+          <FwSubTotal label={t("3 قطع", "3 items")} was={sar(was)} now={sar(now)} />
+          <FwCta>{t("أضف الكل للسلة", "Add all to cart")}</FwCta>
+          <FwFoot label={t("لا تُظهر هذا مرة ثانية", "Do not show again")} skip={t("تخطّي", "Skip")} />
+        </FwPage>
+      </FwOverlay>
     );
   }
 
   if (kind === "cartvalue") {
-    /* The gap is always smaller than either product offered to close it, so
-       either one gets the shopper over the line. */
-    const cart = main.price + c.price;
-    const gap = Math.max(5, Math.round(Math.min(a.price, b.price) * 0.6));
-    const goal = cart + gap;
+    /* Cart Value, embedded: the products to add and the milestone card. */
+    const gap = Math.max(5, Math.round(Math.min(a.price, b.price) * 0.4));
     return (
-      <Sheet
-        title={t(`ناقص ${gap} ر.س للشحن المجاني`, `SAR ${gap} away from free delivery`)}
-        sub={t("أضف أي واحدة واحذف رسوم الشحن.", "Add either one and the delivery fee goes.")}
-        footer={<><PriceBar label={t("سلتك الآن", "Your cart")} now={sar(cart)} /><Cta>{t("أكمل العتبة", "Close the gap")}</Cta></>}
-      >
-        <Progress pct={Math.round((cart / goal) * 100)} />
-        <Nudge title={t(`أضف واحدة من هذي وتوصل ${goal} ر.س`, `Add one of these to reach ${goal}`)}>
-          <AddRow name={nm(a)} price={sar(a.price)} />
-          <AddRow name={nm(b)} price={sar(b.price)} />
-        </Nudge>
-      </Sheet>
+      <FmOverlay>
+        <FmModal close={false}>
+          {modalHead}
+          <FmList>
+            {card(main, "أُضيف", "Added", true)}
+            {card(a, "أضف", "Add")}
+            {card(b, "أضف", "Add")}
+          </FmList>
+          <FmValue
+            title={t("ارفع قيمة سلتك", "Increase Cart Value")}
+            sub={t("أكمل المراحل بالأسفل لتحصل على أفضل قيمة للسلة.", "Complete the milestones below to get the best cart value.")}
+            hint={t(`أضف ${gap} ر.س واحصل على خصم 20%`, `Add ${gap} SAR and get 20% off`)}
+            tiers={["05%", "10%", t("شحن مجاني", "Free shipping"), t("هدية", "Gift")]}
+            done={1}
+            checkout={t("إتمام الطلب", "Checkout")}
+          />
+        </FmModal>
+      </FmOverlay>
     );
   }
 
-  if (kind === "coupon") {
-    const was = main.price + a.price + b.price;
-    return (
-      <Sheet
-        onClose
-        title={t("قبل ما تطلع: خصم 10%", "Before you go: 10% off")}
-        sub={t("صالح 15 دقيقة على هذه السلة.", "Valid for 15 minutes on this cart.")}
-        footer={<><PriceBar label={t("بعد الخصم", "After the discount")} was={sar(was)} now={sar(off(was, 10))} /><Cta>{t("فعّل الكود", "Apply the code")}</Cta></>}
-      >
-        <p className="sf-code">ZIADAH10</p>
-        <AddRow name={nm(main)} price={sar(main.price)} action={<Pill tone="grey">{t("في السلة", "In cart")}</Pill>} />
-      </Sheet>
-    );
-  }
-
-  if (kind === "thankyou") {
-    return (
-      <Sheet
-        title={t("تم طلبك", "Your order is placed")}
-        sub={t("يُشترى عادةً بعد هذا الطلب.", "Usually bought after this order.")}
-        footer={<Cta>{t("أضفها لطلب جديد", "Add to a new order")}</Cta>}
-      >
-        <Success>{t("وصلك إشعار بالتفاصيل", "A confirmation is on its way")}</Success>
-        <AddRow name={nm(c)} price={sar(c.price)} />
-        <AddRow name={nm(a)} price={sar(a.price)} />
-      </Sheet>
-    );
-  }
-
+  /* The cart drawer: a bottom sheet over the dark ground, with the tier card,
+     the item that was just added, the amber panel, subtotal and checkout. */
   const was = main.price + a.price + b.price;
+  const sizes = pack.sizes;
   return (
-    <Sheet
-      onClose
-      title={t("أُضيف إلى سلتك", "Added to your cart")}
-      sub={t("تبقّت قطعة واحدة لخصم 15%.", "You are 1 item away from 15% off.")}
-      footer={<PriceBar label={t("المجموع", "Subtotal")} was={sar(was)} now={sar(off(was, 10))} />}
-    >
-      <div className="sf-nudge">
-        <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}</p>
-        <Progress pct={60} />
-        <Tiers
-          reached={2}
+    <FwOverlay>
+      <FwPage sheet>
+        <FwHandle />
+        <FwSheetHead title={t("أُضيف إلى سلتك", "Added to your cart")} sub={t("تبقّت قطعة واحدة لخصم 15%.", "You are 1 item away from 15% off.")} />
+        <FwProg
+          title={t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}
+          count={t("3 في السلة", "3 in cart")}
+          pct={60}
           tiers={[
-            { label: t("2 قطع", "2 items"), off: t("5%", "5% off") },
-            { label: t("3 قطع", "3 items"), off: t("10%", "10% off") },
-            { label: t("4 قطع", "4 items"), off: t("15%", "15% off") },
+            { label: t("2 قطع", "2 items"), off: t("خصم 5%", "5% off"), on: true },
+            { label: t("3 قطع", "3 items"), off: t("خصم 10%", "10% off"), on: true },
+            { label: t("4 قطع", "4 items"), off: t("خصم 15%", "15% off") },
             { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
           ]}
         />
-      </div>
-      <AddRow
-        name={nm(main)}
-        meta={t("أُضيف للتو", "Just added")}
-        price={sar(main.price)}
-        action={<Pill tone="green">{t("أُضيف", "Just added")}</Pill>}
-      />
-      <Nudge title={t("أضف واحدة من هذي لتصل لخصم 15%", "Add one of these to reach 15% off")}>
-        <AddRow name={nm(a)} price={sar(a.price)} />
-        <AddRow name={nm(b)} price={sar(b.price)} />
-      </Nudge>
-    </Sheet>
+        <FwItem
+          name={nm(main)}
+          note={sizes ? t(`المقاس ${sizes[0]} · 1`, `Size ${sizes[0]} · 1`) : t("الكمية 1", "Qty 1")}
+          price={sar(main.price)}
+          tag={t("أُضيف للتو", "Just added")}
+          tone="green"
+        />
+        <FwAmber title={t("أضف واحدة من هذي لتصل لخصم 15%", "Add one of these to reach 15% off")}>
+          <FwItem name={nm(a)} note={sizes ? t("أي مقاس", "Any size") : t("متوفر", "In stock")} price={sar(a.price)} tag={t("أضف", "Add")} />
+          <FwItem name={nm(b)} note={sizes ? t("أي مقاس", "Any size") : t("متوفر", "In stock")} price={sar(b.price)} tag={t("أضف", "Add")} />
+        </FwAmber>
+        <FwSubTotal label={t("المجموع", "Subtotal")} was={sar(was)} now={sar(off(was, 10))} />
+        <FwCta>{t("إتمام الطلب", "Checkout")}</FwCta>
+        <FwLink>{t("تابع التسوق", "Keep shopping")}</FwLink>
+      </FwPage>
+    </FwOverlay>
   );
 }

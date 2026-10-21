@@ -35,6 +35,7 @@
 @import "./styles/ziadah-sections.css" layer(components);
 @import "./styles/widget-kit.css" layer(components);
 @import "./styles/storefront-widgets.css" layer(components);
+@import "./styles/fw.css" layer(components);
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TRACKFLOW DESIGN SYSTEM (Adstellar-inspired light SaaS)
