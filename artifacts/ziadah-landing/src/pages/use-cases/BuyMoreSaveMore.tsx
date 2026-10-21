@@ -167,7 +167,7 @@ const data: UseCasePageData = {
     title: "عروض الكميات — زيادة",
     titleEn: "Quantity Offers — Ziadah",
     description: "زيادة يُحفّز عملاءك لشراء كميات أكبر بنفس المنتج عبر عروض تدريجية واضحة. النتائج: وحدات أكثر في كل طلب وإيرادات أعلى.",
-    descriptionEn: "Motivate your customers to buy larger quantities with smart tiered offers. Ziadah automatically creates incentive tier tables for your Zid and Salla store.",
+    descriptionEn: "Motivate your customers to buy larger quantities with smart tiered offers. Ziadah automatically creates incentive tier tables for your Zid, Salla and Shopify store.",
     canonical: "/use-cases/buy-more-save-more",
   },
 };

@@ -389,8 +389,7 @@ export function Navbar() {
                         <a
                           key={p.name}
                           href={p.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           className="mega-card"
                         >
                           {inner}
@@ -636,8 +635,7 @@ export function Navbar() {
                       key={p.name}
                       className="mob-row mob-sub"
                       href={p.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       onClick={drawer.close}
                       tabIndex={subTab}
                     >

@@ -25,7 +25,7 @@ export function OrganizationSchema() {
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
     logo: "https://www.ziadah.app/logo-en.svg",
-    description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة عبر توصيات مخصصة وعروض ذكية",
+    description: "تطبيق ذكاء اصطناعي لتحسين مبيعات متاجر زد وسلة وشوبيفاي عبر توصيات مخصصة وعروض ذكية",
     /* These are the entity's profiles as far as a search engine is concerned,
        so they have to be the accounts that actually exist. All three were
        stale and none matched the footer: `twitter.com/ziadah_app` against
@@ -71,7 +71,7 @@ export function SoftwareAppSchema() {
     name: "Ziadah",
     alternateName: "زيادة",
     url: "https://www.ziadah.app",
-    description: "تطبيق ذكاء اصطناعي لمتاجر زد وسلة يرفع متوسط قيمة الطلب ومعدل التحويل عبر توصيات مخصصة",
+    description: "تطبيق ذكاء اصطناعي لمتاجر زد وسلة وشوبيفاي يرفع متوسط قيمة الطلب ومعدل التحويل عبر توصيات مخصصة",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     inLanguage: ["ar", "en"],
@@ -198,7 +198,7 @@ export function WebSiteSchema() {
     alternateName: "Ziadah",
     url: "https://www.ziadah.app",
     description:
-      "Ziadah — AI product recommendations and ecommerce growth for Zid & Salla merchants in Saudi Arabia and the GCC. | زيادة: اقتراح منتجات ذكي ونمو مبيعات لمتاجر زد وسلة.",
+      "Ziadah — AI product recommendations and ecommerce growth for Zid, Salla & Shopify merchants in Saudi Arabia and the GCC. | زيادة: اقتراح منتجات ذكي ونمو مبيعات لمتاجر زد وسلة وشوبيفاي.",
     inLanguage: ["ar", "en"],
     potentialAction: {
       "@type": "SearchAction",
@@ -225,7 +225,7 @@ export function HowToSchema() {
         "@type": "HowToStep",
         position: 1,
         name: "فعّل التطبيق",
-        text: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة، ما يحتاج خبرة تقنية.",
+        text: "بضغطة زر واحدة في منصة زد أو سلة أو شوبيفاي. يتفعل مباشرة، ما يحتاج خبرة تقنية.",
         url: "https://www.ziadah.app/#hiw"
       },
       {
@@ -402,7 +402,7 @@ export function ItemListSchema({ posts, name, description }: {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: name ?? "مدوّنة زيادة — مقالات ونصائح التجارة الإلكترونية",
-    description: description ?? "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصتي زد وسلة",
+    description: description ?? "مقالات ومحتوى تعليمي لأصحاب المتاجر الإلكترونية في منصات زد وسلة وشوبيفاي",
     url: listUrl,
     inLanguage: lang,
     itemListElement: posts.map((post, index) => {
@@ -454,8 +454,8 @@ export function PricingPageSchema() {
       "@type": "ItemList",
       name: isAr ? "باقات زيادة" : "Ziadah Plans",
       description: isAr
-        ? "أربع باقات لمتاجر زد وسلة: الانطلاقة والنمو والاحترافية والأعمال"
-        : "Four plans for Zid & Salla stores: Starter, Growth, Professional, and Business",
+        ? "أربع باقات لمتاجر زد وسلة وشوبيفاي: الانطلاقة والنمو والاحترافية والأعمال"
+        : "Four plans for Zid, Salla & Shopify stores: Starter, Growth, Professional, and Business",
       url,
       numberOfItems: 4,
       itemListElement: [

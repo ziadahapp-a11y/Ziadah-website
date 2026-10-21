@@ -175,9 +175,9 @@ export default function PricingPage() {
     <>
       <BilingualSEO
         titleAr="أسعار زيادة — اختر الباقة المناسبة لمتجرك"
-        titleEn="Ziadah Pricing — Plans for Zid & Salla Stores"
+        titleEn="Ziadah Pricing — Plans for Zid, Salla & Shopify Stores"
         descriptionAr="تعرّف على باقات زيادة الأربع: الانطلاقة والنمو والاحترافية والأعمال. اقتراحات ومبيعات لامحدودة في كل الباقات — شاملة ضريبة القيمة المضافة."
-        descriptionEn="Explore Ziadah's four AI-powered plans for Zid & Salla stores: Starter, Growth, Professional, and Business — unlimited suggestions, unlimited sales, VAT included."
+        descriptionEn="Explore Ziadah's four AI-powered plans for Zid, Salla & Shopify stores: Starter, Growth, Professional, and Business — unlimited suggestions, unlimited sales, VAT included."
         canonical="/pricing"
         keywordsAr="أسعار زيادة، باقات زيادة، اشتراك زيادة، تجربة مجانية، اقتراح منتجات، ذكاء اصطناعي، زد، سلة"
         keywordsEn="Ziadah pricing, Ziadah plans, Zid app pricing, Salla app pricing, AI ecommerce subscription"

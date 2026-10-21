@@ -82,10 +82,10 @@ export default function About() {
   return (
     <>
       <SEO
-        titleAr="عن زيادة — محرّك اقتراح المنتجات لمتاجر زد وسلة"
-        titleEn="About Ziadah — the product recommendation engine for Zid and Salla stores"
-        descriptionAr="ما هو زيادة وما ليس: محرّك يقترح المنتج المناسب لكل مشترٍ داخل متجرك، يعمل فوق زد وسلة بدون مطوّر وبدون تعديل على القالب."
-        descriptionEn="What Ziadah is and what it is not: an engine that suggests the right product to each shopper inside your store, running on top of Zid and Salla with no developer and no theme edits."
+        titleAr="عن زيادة — محرّك اقتراح المنتجات لمتاجر زد وسلة وشوبيفاي"
+        titleEn="About Ziadah — the product recommendation engine for Zid, Salla and Shopify stores"
+        descriptionAr="ما هو زيادة وما ليس: محرّك يقترح المنتج المناسب لكل مشترٍ داخل متجرك، يعمل فوق زد وسلة وشوبيفاي بدون مطوّر وبدون تعديل على القالب."
+        descriptionEn="What Ziadah is and what it is not: an engine that suggests the right product to each shopper inside your store, running on top of Zid, Salla and Shopify with no developer and no theme edits."
         canonical="/about"
       />
       <BreadcrumbSchema

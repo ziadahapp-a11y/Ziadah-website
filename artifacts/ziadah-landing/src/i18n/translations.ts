@@ -138,7 +138,7 @@ export const t = {
       helpCenterLink: "مركز المساعدة",
     },
     seo: {
-      brandLogoAlt: "زيادة — منصة تجارة إلكترونية بالذكاء الاصطناعي لمتاجر زد وسلة",
+      brandLogoAlt: "زيادة — منصة تجارة إلكترونية بالذكاء الاصطناعي لمتاجر زد وسلة وشوبيفاي",
       platformLogoAltZid: "شعار منصة زد — تكامل تطبيق زيادة للتوصيات الذكية",
       platformLogoAltSalla: "شعار منصة سلة — تكامل تطبيق زيادة للتوصيات الذكية",
     },
@@ -149,7 +149,7 @@ export const t = {
       privacyH1: "سياسة الخصوصية لتطبيق زيادة للتجارة الإلكترونية",
       termsTitle: "الشروط والأحكام — تطبيق زيادة",
       termsDesc:
-        "شروط استخدام خدمة زيادة كبرمجية ذكاء اصطناعي للمتاجر على زد وسلة، بما يشمل الاشتراك والفوترة والمسؤوليات.",
+        "شروط استخدام خدمة زيادة كبرمجية ذكاء اصطناعي للمتاجر على زد وسلة وشوبيفاي، بما يشمل الاشتراك والفوترة والمسؤوليات.",
       termsH1: "الشروط والأحكام لخدمة زيادة SaaS",
       dataDeletionTitle: "طلب حذف البيانات — تطبيق زيادة",
       dataDeletionDesc:
@@ -159,7 +159,7 @@ export const t = {
     successStoriesPage: {
       seoTitle: "قصص نجاح متاجر — زيادة وذكاء اصطناعي للتجارة",
       seoDesc:
-        "ثلاث عشرة قصة نجاح من متاجر إلكترونية: تحويلات ومبيعات بالريال مع استراتيجيات توصية ذكية عبر تطبيق زيادة لزد وسلة.",
+        "ثلاث عشرة قصة نجاح من متاجر إلكترونية: تحويلات ومبيعات بالريال مع استراتيجيات توصية ذكية عبر تطبيق زيادة لزد وسلة وشوبيفاي.",
       heroTag: "قصص نجاح حقيقية",
       heroH1Gradient: "أثر مستدام لمتجرك",
       heroH1Sub: "بأرقام موثقة من تجار يستخدمون تطبيق زيادة",
@@ -171,26 +171,26 @@ export const t = {
     },
     pageClosingCta: {
       sectorsHubTitle: "قطاعك التالي يبدأ بتفعيل زيادة",
-      sectorsHubDesc: "اختَر دليلك وفعّل التوصيات الذكية على زد أو سلة في دقائق.",
+      sectorsHubDesc: "اختَر دليلك وفعّل التوصيات الذكية على زد أو سلة أو شوبيفاي في دقائق.",
       ecommerceSectorsTitle: "جاهز تطبّق الدليل على متجرك؟",
       ecommerceSectorsDesc: "كل قطاع معه أمثلة جاهزة في زيادة — فعّل وابدأ بنفس اليوم.",
       sectorDetailDesc: "طبّق نفس الأمثلة والحلول الظاهرة أعلاه على متجرك.",
       blogIndexTitle: "من القراءة إلى التفعيل",
       blogIndexDesc: "نفّذ ما تتعلمه على متجرك — فعّل توصيات زيادة الذكية.",
       blogPostTitle: "نفّذ هذا على متجرك",
-      blogPostDesc: "حوّل ما قرأته إلى مبيعات مع تفعيل سريع على زد أو سلة.",
+      blogPostDesc: "حوّل ما قرأته إلى مبيعات مع تفعيل سريع على زد أو سلة أو شوبيفاي.",
       supportTitle: "جاهز تفعّل بعد ما اطلعت؟",
       supportDesc: "اربط متجرك وابدأ بنفس خطوات مركز المساعدة — خلال دقائق.",
       legalTitle: "جاهز تستخدم زيادة مع الالتزام بهذه السياسات؟",
       legalDesc: "فعّل التطبيق على متجرك واستفد من التوصيات الذكية وفق الشروط المعروضة.",
       pricingTitle: "فعّل متجرك اليوم",
       pricingDesc:
-        "7 أيام تجربة مجانية · بدون بطاقة ائتمانية · إلغاء في أي وقت · تفعيل فوري على زد وسلة وبيع",
+        "7 أيام تجربة مجانية · بدون بطاقة ائتمانية · إلغاء في أي وقت · تفعيل فوري على زد وسلة وشوبيفاي",
     },
     sectorsPage: {
       seoTitle: "القطاعات — زيادة للمتاجر حسب مجالك",
       seoDesc:
-        "دليل تطبيق زيادة لكل قطاع: كيف تفعّل الحلول، كيف تخدم زيادة قطاعك، أمثلة وتجارب وأفضل الممارسات لمتاجر زد وسلة.",
+        "دليل تطبيق زيادة لكل قطاع: كيف تفعّل الحلول، كيف تخدم زيادة قطاعك، أمثلة وتجارب وأفضل الممارسات لمتاجر زد وسلة وشوبيفاي.",
       heroTag: "قطاعات",
       heroTitle: "القطاعات",
       heroSub:
@@ -233,7 +233,7 @@ export const t = {
       sectorHubMatrixTabsHint: "اختر تصنيفاً أدناه؛ يظهر ملخص الفئة ثم تفاصيل كل مسار (عنوان + مختصر + الرابط).",
       sectorHubWidgetsEmbedTag: "معاينة",
       sectorHubWidgetsEmbedTitle: "عناصر عرض التوصيات كما تظهر لعملائك",
-      sectorHubWidgetsEmbedSub: "اسحب الصف لاستكشاف الأنماط — نفس المكوّنات على زد وسلة.",
+      sectorHubWidgetsEmbedSub: "اسحب الصف لاستكشاف الأنماط — نفس المكوّنات على زد وسلة وشوبيفاي.",
       sectorHubExamplesEmbedTitle: "أمثلة واقعية في سياق قطاعك",
       sectorHubExamplesEmbedSub:
         "لمحة بصرية لسلة العميل واقتراحات الذكاء الاصطناعي — لكل سيناريو زر يفتح صفحة حالة الاستخدام المناسبة.",
@@ -346,7 +346,7 @@ export const t = {
       heroTitle1: "زيادة متوسط قيمة طلباتك",
       heroTitleEm: "",
       heroTitleGrad: "باقتراح منتجات بالذكاء الاصطناعي\nمخصصة لكل عميل في متجرك",
-      heroSub: "فعّل تطبيق زيادة <strong>بضغطة زر واحدة</strong> على زد أو سلة؛ يتعلّم من عملائك تلقائياً ويمنح كل عميل <strong>تجربة مخصصة 100%</strong> حسب منطقته وجهازه ومشترياته السابقة.",
+      heroSub: "فعّل تطبيق زيادة <strong>بضغطة زر واحدة</strong> على زد أو سلة أو شوبيفاي؛ يتعلّم من عملائك تلقائياً ويمنح كل عميل <strong>تجربة مخصصة 100%</strong> حسب منطقته وجهازه ومشترياته السابقة.",
       ctaPrimary: "فعّل الآن",
       ctaSecondary: "اكتشف الحلول",
       stat1Value: "+1500",
@@ -367,7 +367,7 @@ export const t = {
       hiwSubtitle: "التعلم الآلي يدرس عملاء متجرك الإلكتروني من أول زيارة ويتحسّن يوماً بعد يوم",
       step1Label: "الخطوة 1",
       step1Title: "فعّل التطبيق",
-      step1Desc: "بضغطة زر واحدة في منصة زد أو سلة. يتفعل مباشرة, مايحتاج خبرة تقنية..",
+      step1Desc: "بضغطة زر واحدة في منصة زد أو سلة أو شوبيفاي. يتفعل مباشرة, مايحتاج خبرة تقنية..",
       step1Chip: "30 ثانية فقط",
       step2Label: "الخطوة 2",
       step2Title: "الذكاء الاصطناعي يتعلم",
@@ -384,7 +384,7 @@ export const t = {
       solutionsMatrixHubCta: "صفحة التجميع",
       widgetsTag: "أمثلة حية",
       widgetsTitle: "حالات الاستخدام في متجرك",
-      widgetsSubtitle: "هكذا تظهر التوصيات الذكية لعملائك على زد وسلة — دون تغيير تصميم واجهتك",
+      widgetsSubtitle: "هكذا تظهر التوصيات الذكية لعملائك على زد وسلة وشوبيفاي — دون تغيير تصميم واجهتك",
       /* The three terms each use-case row labels its facts with. */
       widgetRowWhen: "متى تستخدمها",
       widgetRowGoal: "الهدف",
@@ -710,12 +710,12 @@ export const t = {
       ctaNote: "+700 متجر سبقوك · +20 مليون ر.س مبيعات إضافية",
       seoTitle: "تطبيق زيادة - اقتراح المنتجات بالذكاء الاصطناعي",
       seoDesc:
-        "زيادة: منصة SaaS للتوصيات الذكية على زد وسلة. فعّل التطبيق وارفع مبيعات متجرك الإلكتروني وتحسين التحويل والتجربة تلقائياً في السعودية والخليج.",
+        "زيادة: منصة SaaS للتوصيات الذكية على زد وسلة وشوبيفاي. فعّل التطبيق وارفع مبيعات متجرك الإلكتروني وتحسين التحويل والتجربة تلقائياً في السعودية والخليج.",
     },
     features: {
       seoTitle: "خصائص تطبيق زيادة — ذكاء اصطناعي للتجارة الإلكترونية",
       seoDesc:
-        "استكشف أهداف التوصية وطرق العرض والأنشطة في تطبيق زيادة: مبيعات أعلى، سلة أكبر، وتحويل أفضل لمتجرك على زد وسلة دون تعقيد تقني.",
+        "استكشف أهداف التوصية وطرق العرض والأنشطة في تطبيق زيادة: مبيعات أعلى، سلة أكبر، وتحويل أفضل لمتجرك على زد وسلة وشوبيفاي دون تعقيد تقني.",
       breadcrumbHome: "الرئيسية",
       breadcrumbFeatures: "الخصائص",
       heroTag: "الخصائص التفصيلية",
@@ -740,7 +740,7 @@ export const t = {
       journeyMapSub: "كيف تدعم تطبيق زيادة التاجر في كل مرحلة من التصفح حتى ما بعد الشراء",
       bestStrategies: "أفضل الاستراتيجيات:",
       ctaTitle: "جاهز لتفعيل خصائص الذكاء الاصطناعي في متجرك؟",
-      ctaSub: "زيادة يختار تلقائياً أنسب هدف وطريقة عرض لكل عميل على زد أو سلة",
+      ctaSub: "زيادة يختار تلقائياً أنسب هدف وطريقة عرض لكل عميل على زد أو سلة أو شوبيفاي",
       ctaBtn: "فعل تطبيق زيادة",
     },
     useCaseLayout: {
@@ -799,11 +799,11 @@ export const t = {
     blog: {
       seoTitle: "مدوّنة زيادة — التجارة الإلكترونية والذكاء الاصطناعي",
       seoDesc:
-        "مقالات عملية عن التجارة الإلكترونية في السعودية والخليج، وذكاء اصطناعي للمتاجر على زد وسلة، واستراتيجيات نمو المبيعات ومتوسط قيمة الطلب.",
+        "مقالات عملية عن التجارة الإلكترونية في السعودية والخليج، وذكاء اصطناعي للمتاجر على زد وسلة وشوبيفاي، واستراتيجيات نمو المبيعات ومتوسط قيمة الطلب.",
       tag: "مدوّنة زيادة",
       heroTitle: "مدوّنة زيادة",
       heroSub:
-        "محتوى تعليمي لأصحاب المتاجر الإلكترونية: ذكاء اصطناعي، تخصيص التجربة، وزيادة التحويل على منصتي زد وسلة",
+        "محتوى تعليمي لأصحاب المتاجر الإلكترونية: ذكاء اصطناعي، تخصيص التجربة، وزيادة التحويل على منصات زد وسلة وشوبيفاي",
       searchPlaceholder: "ابحث في المقالات...",
       noResults: "لم يتم العثور على مقالات مطابقة. جرّب بحثاً مختلفاً.",
       readSuffix: "قراءة",
@@ -817,7 +817,7 @@ export const t = {
     support: {
       seoTitle: "مركز مساعدة زيادة — دعم منصة التجارة الذكية",
       seoDesc:
-        "دليل إعداد تطبيق زيادة على زد وسلة، التحليلات، والحملات. مقالات مفصّلة وفريق دعم يرد خلال ساعة لعملاء السعودية والخليج.",
+        "دليل إعداد تطبيق زيادة على زد وسلة وشوبيفاي، التحليلات، والحملات. مقالات مفصّلة وفريق دعم يرد خلال ساعة لعملاء السعودية والخليج.",
       tag: "مركز الدعم والمساعدة",
       heroTitle: "تحتاج خدمة أو مساعدة؟",
       heroSub: "إجابات وتجارب عملية لكل خطوة مع تطبيق زيادة SaaS",
@@ -1234,7 +1234,7 @@ export const t = {
       validationDesc: "Please describe the feature you want.",
     },
     footer: {
-      tagline: "AI ecommerce SaaS that lifts order value and conversion for Zid and Salla stores automatically.",
+      tagline: "AI ecommerce SaaS that lifts order value and conversion for Zid, Salla and Shopify stores automatically.",
       product: "Product",
       howItWorks: "How It Works",
       goalsDisplay: "Goals & Display",
@@ -1264,7 +1264,7 @@ export const t = {
       helpCenterLink: "Help Center",
     },
     seo: {
-      brandLogoAlt: "Ziadah — AI ecommerce platform for Zid and Salla merchants",
+      brandLogoAlt: "Ziadah — AI ecommerce platform for Zid, Salla and Shopify merchants",
       platformLogoAltZid: "Zid platform logo — Ziadah smart recommendations integration",
       platformLogoAltSalla: "Salla platform logo — Ziadah AI recommendations integration",
     },
@@ -1275,7 +1275,7 @@ export const t = {
       privacyH1: "Privacy Policy for Ziadah AI Ecommerce Platform",
       termsTitle: "Terms & Conditions — Ziadah",
       termsDesc:
-        "Legal terms for using Ziadah as AI ecommerce software on Zid and Salla, including billing, subscriptions, and responsibilities.",
+        "Legal terms for using Ziadah as AI ecommerce software on Zid, Salla and Shopify, including billing, subscriptions, and responsibilities.",
       termsH1: "Terms of Service for Ziadah SaaS",
       dataDeletionTitle: "Data Deletion Request — Ziadah",
       dataDeletionDesc:
@@ -1285,7 +1285,7 @@ export const t = {
     successStoriesPage: {
       seoTitle: "Ecommerce Success Stories — Ziadah AI Results",
       seoDesc:
-        "Thirteen merchant case studies with real conversions and SAR sales: AI recommendation strategies with Ziadah for Zid and Salla stores in Saudi Arabia and the GCC.",
+        "Thirteen merchant case studies with real conversions and SAR sales: AI recommendation strategies with Ziadah for Zid, Salla and Shopify stores in Saudi Arabia and the GCC.",
       heroTag: "Real Success Stories",
       heroH1Gradient: "Lasting growth for your online store",
       heroH1Sub: "Verified metrics from merchants using the Ziadah platform",
@@ -1297,26 +1297,26 @@ export const t = {
     },
     pageClosingCta: {
       sectorsHubTitle: "Your next vertical starts with activating Ziadah",
-      sectorsHubDesc: "Pick your playbook and turn on smart recommendations on Zid or Salla in minutes.",
+      sectorsHubDesc: "Pick your playbook and turn on smart recommendations on Zid, Salla or Shopify in minutes.",
       ecommerceSectorsTitle: "Ready to apply the guide to your store?",
       ecommerceSectorsDesc: "Every vertical includes ready examples in Ziadah — activate and ship the same day.",
       sectorDetailDesc: "Apply the same examples and playbooks above to your store.",
       blogIndexTitle: "From reading to activation",
       blogIndexDesc: "Ship what you learn on your store — turn on Ziadah AI recommendations.",
       blogPostTitle: "Ship this on your store",
-      blogPostDesc: "Turn what you read into revenue with a fast Zid or Salla activation.",
+      blogPostDesc: "Turn what you read into revenue with a fast Zid, Salla or Shopify activation.",
       supportTitle: "Ready to activate after browsing help?",
       supportDesc: "Connect your store and follow the same help-center steps — in minutes.",
       legalTitle: "Ready to use Ziadah under these policies?",
       legalDesc: "Activate the app on your store and get smart recommendations under the terms shown here.",
       pricingTitle: "Activate Your Store Today",
       pricingDesc:
-        "7-day free trial · No credit card · Cancel anytime · Instant activation on Zid, Salla & Bea",
+        "7-day free trial · No credit card · Cancel anytime · Instant activation on Zid, Salla & Shopify",
     },
     sectorsPage: {
       seoTitle: "Industries — Ziadah for your vertical",
       seoDesc:
-        "How to apply Ziadah by industry: activation, how Ziadah serves your sector, examples, experience notes, and best practices for Zid and Salla stores.",
+        "How to apply Ziadah by industry: activation, how Ziadah serves your sector, examples, experience notes, and best practices for Zid, Salla and Shopify stores.",
       heroTag: "Industries",
       heroTitle: "Industries",
       heroSub:
@@ -1359,7 +1359,7 @@ export const t = {
       sectorHubMatrixTabsHint: "Pick a category below to see its summary and every path (title, blurb, link).",
       sectorHubWidgetsEmbedTag: "Preview",
       sectorHubWidgetsEmbedTitle: "Widgets as shoppers see them",
-      sectorHubWidgetsEmbedSub: "Drag the rows to explore patterns — same building blocks on Zid and Salla.",
+      sectorHubWidgetsEmbedSub: "Drag the rows to explore patterns — same building blocks on Zid, Salla and Shopify.",
       sectorHubExamplesEmbedTitle: "Real scenarios in your industry",
       sectorHubExamplesEmbedSub:
         "A visual slice of the cart and AI suggestions — each scenario links to the matching use-case page.",
@@ -1473,7 +1473,7 @@ export const t = {
       heroTitleEm: "",
       heroTitleGrad: "with AI product recommendations\ntailored to every shopper",
       heroSub:
-        "Activate the Ziadah app <strong>in one click</strong> on Zid or Salla. It learns your customers automatically and gives everyone a <strong>100% personalized experience</strong> by region, device, and purchase history.",
+        "Activate the Ziadah app <strong>in one click</strong> on Zid, Salla or Shopify. It learns your customers automatically and gives everyone a <strong>100% personalized experience</strong> by region, device, and purchase history.",
       ctaPrimary: "Activate now",
       ctaSecondary: "Explore solutions",
       stat1Value: "+1500",
@@ -1495,7 +1495,7 @@ export const t = {
       hiwSubtitle: "Machine learning studies your ecommerce shoppers from visit one and improves every day",
       step1Label: "Step 1",
       step1Title: "Activate the App",
-      step1Desc: "One click on the Zid or Salla platform. Activates immediately, no technical expertise needed.",
+      step1Desc: "One click on the Zid, Salla or Shopify platform. Activates immediately, no technical expertise needed.",
       step1Chip: "Only 30 seconds",
       step2Label: "Step 2",
       step2Title: "AI Learns",
@@ -1512,7 +1512,7 @@ export const t = {
       solutionsMatrixHubCta: "Hub page",
       widgetsTag: "Live Examples",
       widgetsTitle: "Use cases in your store",
-      widgetsSubtitle: "How smart recommendations appear on Zid and Salla without redesigning your theme",
+      widgetsSubtitle: "How smart recommendations appear on Zid, Salla and Shopify without redesigning your theme",
       widgetRowWhen: "When to use it",
       widgetRowGoal: "Goal",
       widgetRowExample: "Example",
@@ -1835,12 +1835,12 @@ export const t = {
       ctaNote: "+700 stores ahead of you · +$5M in additional sales",
       seoTitle: "Ziadah Platform — AI Product Recommendations",
       seoDesc:
-        "Ziadah: AI-powered SaaS for Zid and Salla. Turn on personalized recommendations to grow revenue, conversion, and customer experience for Saudi and GCC merchants.",
+        "Ziadah: AI-powered SaaS for Zid, Salla and Shopify. Turn on personalized recommendations to grow revenue, conversion, and customer experience for Saudi and GCC merchants.",
     },
     features: {
       seoTitle: "Ziadah AI Features — Smart Ecommerce Upsell & Cross-sell",
       seoDesc:
-        "Explore goals, display types, and journey placements in Ziadah: higher AOV, stronger conversion, and smarter merchandising for Zid and Salla without heavy setup.",
+        "Explore goals, display types, and journey placements in Ziadah: higher AOV, stronger conversion, and smarter merchandising for Zid, Salla and Shopify without heavy setup.",
       breadcrumbHome: "Home",
       breadcrumbFeatures: "Features",
       heroTag: "Detailed Features",
@@ -1862,7 +1862,7 @@ export const t = {
       availableTactics: "Available Tactics:",
       availablePlans: "Available in Plans:",
       journeyMapTitle: "Customer journey & Ziadah AI touchpoints",
-      journeyMapSub: "How the platform supports merchants from browse to post-purchase on Zid and Salla",
+      journeyMapSub: "How the platform supports merchants from browse to post-purchase on Zid, Salla and Shopify",
       bestStrategies: "Best Strategies:",
       ctaTitle: "Ready to turn on AI merchandising in your store?",
       ctaSub: "Ziadah picks the right goal and widget for each shopper automatically",
@@ -1924,7 +1924,7 @@ export const t = {
     calculator: {
       seoTitle: "Ziadah AI Impact Calculator — Revenue Uplift Estimate",
       seoDesc:
-        "Estimate extra ecommerce revenue from Ziadah AI recommendations. Enter traffic, conversion rate, and AOV to see a directional uplift for Zid or Salla stores.",
+        "Estimate extra ecommerce revenue from Ziadah AI recommendations. Enter traffic, conversion rate, and AOV to see a directional uplift for Zid, Salla or Shopify stores.",
       breadcrumbHome: "Home",
       breadcrumbCalc: "Calculator",
       tag: "Interactive Tool",
@@ -2207,11 +2207,11 @@ export const t = {
     blog: {
       seoTitle: "Ziadah Blog — AI Ecommerce Growth & Zid / Salla",
       seoDesc:
-        "Guides for Saudi and GCC merchants: AI personalization, conversion and AOV tactics, and platform tutorials for Zid and Salla powered by Ziadah.",
+        "Guides for Saudi and GCC merchants: AI personalization, conversion and AOV tactics, and platform tutorials for Zid, Salla and Shopify powered by Ziadah.",
       tag: "Ziadah Blog",
       heroTitle: "AI ecommerce insights & Ziadah merchant blog",
       heroSub:
-        "Practical articles on online retail, AI recommendations, and revenue growth for Zid and Salla storefronts",
+        "Practical articles on online retail, AI recommendations, and revenue growth for Zid, Salla and Shopify storefronts",
       searchPlaceholder: "Search articles...",
       noResults: "No matching articles found. Try a different search.",
       readSuffix: "read",
@@ -2225,7 +2225,7 @@ export const t = {
     support: {
       seoTitle: "Ziadah Help Center — AI Ecommerce App Support",
       seoDesc:
-        "Install and configure Ziadah on Zid or Salla, read analytics guides, and optimize AI campaigns. Human support replies within an hour for Saudi business hours.",
+        "Install and configure Ziadah on Zid, Salla or Shopify, read analytics guides, and optimize AI campaigns. Human support replies within an hour for Saudi business hours.",
       tag: "Help & Support Center",
       heroTitle: "Ziadah help center for smart ecommerce stores",
       heroSub: "Step-by-step articles and answers for every stage of Ziadah SaaS",
