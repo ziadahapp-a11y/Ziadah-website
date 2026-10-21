@@ -146,8 +146,10 @@ export default function SectorDetail() {
     ...(slim ? [] : ([{ id: "section-experience", labelAr: "التجربة", labelEn: "Experience" }] as const)),
     ...(pageRich
       ? ([
+          /* Measuring is the last row of the engine band, which the rail
+             already lists as "sector-ai-context". */
           ...(htmlPlaybook
-            ? ([{ id: "section-metrics", labelAr: tr.sectorSectionMetrics, labelEn: t.en.sectorsPage.sectorSectionMetrics }] as const)
+            ? ([] as const)
             : ([
                 { id: "section-tracking", labelAr: tr.sectorNavTrack, labelEn: t.en.sectorsPage.sectorNavTrack },
                 { id: "section-analytics", labelAr: tr.sectorNavAnalytics, labelEn: t.en.sectorsPage.sectorNavAnalytics },

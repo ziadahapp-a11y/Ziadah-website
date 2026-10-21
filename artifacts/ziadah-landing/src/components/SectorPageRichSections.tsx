@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import type { SectorPageRich, SectorWhyCard, SectorWhyCardSplit, SectorMetric } from "@/data/sectorPageTypes";
 import PlatformModal from "@/components/PlatformModal";
+import SectorEngine from "@/components/SectorEngine";
 import { t as siteTranslations } from "@/i18n/translations";
 import { stripLeadIcon } from "@/lib/strip-icon";
 
@@ -95,132 +96,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
   }
 
   if (part === "ai") {
-    const recLines = (isAr ? rich.aiRecsAr : rich.aiRecsEn).map((s) => {
-      const lastSpace = s.lastIndexOf(" ");
-      const tail = lastSpace > 0 ? s.slice(lastSpace + 1) : "";
-      if (tail && (/[%٪]/.test(tail) || /^\d/.test(tail))) {
-        return { name: s.slice(0, lastSpace).trim(), pct: tail };
-      }
-      return { name: s, pct: "" };
-    });
+    if (html) return <SectorEngine rich={rich} />;
 
-    const profileCard = (
-      <div className="relative overflow-hidden rounded-2xl px-5 py-[18px]" style={{ border: "1px solid var(--b2)", background: "var(--s1)" }}>
-        <div
-          className="absolute top-0 left-0 right-0 h-0.5"
-          style={{
-            background: "var(--ziadah-violet)",
-          }}
-        />
-        <div className="flex items-center gap-3 mb-3.5">
-          {/* The avatar was a 👤 on a violet-to-amber gradient disc. A customer
-              profile panel does not need a picture of a person to say it is
-              about a person, and the gradient was the only place on this card
-              carrying a second hue. */}
-          <div>
-            <div className="text-sm font-extrabold text-zinc-950">{isAr ? "ملف العميل الذكي" : "Smart customer profile"}</div>
-            <div className="sh-en text-[11px] text-zinc-600">
-              {isAr ? "يتحدث مع كل طلب" : "Updates with every order"}
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-1.5 mb-3.5">
-          {(isAr ? rich.aiProfileTagsAr : rich.aiProfileTagsEn).split("|").map((tag, ti) => (
-            <span
-              key={ti}
-              className="sh-en text-[11px] px-2.5 py-1 rounded-full text-zinc-950"
-              style={{
-                border: "1px solid var(--b2)",
-                background: "rgba(124, 58, 237,.08)",
-              }}
-            >
-              {tag.trim()}
-            </span>
-          ))}
-        </div>
-        <div className="sector-html-pc-recs-label sh-en">{tr.sectorAiRecsPersonalizedLabel}</div>
-        <div className="flex flex-col gap-2">
-          {recLines.map((r, ri) => (
-            <div key={ri} className="sector-html-pc-rec">
-              <span className="flex-1 text-xs font-bold leading-[1.35]">{stripLeadIcon(r.name)}</span>
-              {r.pct ? <span className="sector-html-pcr-match sh-en">{r.pct}</span> : null}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-
-    if (html && rich.aiCompactPoints) {
-      return (
-        <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
-          <div className="sector-html-ai-layout sector-html-ai-layout--compact">
-            <div className="sector-html-ai-vis sector-html-ai-vis--profileonly">{profileCard}</div>
-            <div className="sector-html-ai-compact-col">
-              {rich.aiCompactPoints.map((pt, i) => (
-                <div key={i} className="sector-html-ai-point">
-                  <div className="sector-html-ap-num sh-en">{i + 1}</div>
-                  <div>
-                    <div className="sector-html-ap-title">{isAr ? pt.titleAr : pt.titleEn}</div>
-                    <p className="sector-html-ap-desc">{isAr ? pt.descAr : pt.descEn}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    const layers = rich.aiLayers;
-
-    if (html && layers) {
-      const sigLines = isAr ? rich.aiSignalsAr ?? [] : rich.aiSignalsEn ?? [];
-
-      return (
-        <div id="sector-ai-context" className="rv d1 sector-block mb-5" style={{ scrollMarginTop: 120 }}>
-          <h2 className="section-head-title--sm mb-3 mt-0">{tr.sectorSectionAiContext}</h2>
-          <div className="sector-html-ai-layout">
-            <div>
-              {layers.map((layer, i) => (
-                <div key={i} className="sector-html-ai-layer">
-                  <div className="sector-html-al-num sh-en">{i + 1}</div>
-                  <div>
-                    <div className="sector-html-al-title">{isAr ? layer.titleAr : layer.titleEn}</div>
-                    {!isAr ? <span className="sector-html-al-en">{layer.titleAr}</span> : null}
-                    <p className="sector-html-al-desc">{isAr ? layer.descAr : layer.descEn}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="sector-html-ai-vis">
-              {profileCard}
-
-              {sigLines.length > 0 ? (
-                <div className="rounded-2xl px-[18px] py-4" style={{ border: "1px solid var(--b2)", background: "var(--s1)" }}>
-                  <div className="sector-html-sc-head sh-en">{tr.sectorAiSignalsTrackedHead}</div>
-                  <div className="sector-html-sc-grid">
-                    {sigLines.map((line, i) => {
-                      const sp = line.indexOf(" ");
-                      const head = sp > 0 ? line.slice(0, sp) : line;
-                      const tail = sp > 0 ? line.slice(sp + 1) : "";
-                      return (
-                        <div key={i} className="sector-html-sc-item">
-                          <div className="text-base mb-1" aria-hidden>
-                            {head}
-                          </div>
-                          <div className="text-xs font-bold text-zinc-950 leading-[1.35]">{tail}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      );
-    }
 
     const sig = isAr ? rich.aiSignalsAr : rich.aiSignalsEn;
 
@@ -445,15 +322,8 @@ export default function SectorPageRichSections({ rich, part }: { rich: SectorPag
       </>
     );
 
-    if (html) {
-      return (
-        <div id="section-metrics" className="rv d2 sector-block mb-4" style={{ scrollMarginTop: 120 }}>
-          <h2 className="section-head-title--sm mb-4 mt-0">{tr.sectorSectionMetrics}</h2>
-          {trackingBlockHtml}
-          {dashboardBlock}
-        </div>
-      );
-    }
+    /* The measuring half of the sector page now lives in `SectorEngine`. */
+    if (html) return null;
 
     return (
       <>
