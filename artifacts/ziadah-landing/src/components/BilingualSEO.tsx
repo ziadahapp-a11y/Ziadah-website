@@ -4,11 +4,10 @@ import {
   SITE_URL,
   SITE_NAME,
   absolutePageUrl,
+  ogImagePath,
   clampMetaDescription,
   clampMetaTitle,
 } from "@/seo/meta";
-
-const DEFAULT_OG_IMAGE = `${SITE_URL}/opengraph.jpg`;
 
 const DEFAULTS = {
   ar: {
@@ -47,7 +46,7 @@ export default function BilingualSEO({
   canonical,
   keywordsAr,
   keywordsEn,
-  ogImage = DEFAULT_OG_IMAGE,
+  ogImage,
   type = "website",
   publishDate,
   author,
@@ -79,7 +78,9 @@ export default function BilingualSEO({
   const canonicalUrl = absolutePageUrl(basePath, lang);
   const urlAr = absolutePageUrl(basePath, "ar");
   const urlEn = absolutePageUrl(basePath, "en");
-  const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${SITE_URL}${ogImage}`;
+  /* A page gets its own card, in its own language, unless it names a picture. */
+  const ogSrc = ogImage ?? ogImagePath(basePath, lang);
+  const ogImageUrl = ogSrc.startsWith("http") ? ogSrc : `${SITE_URL}${ogSrc}`;
 
   const htmlLang = lang === "ar" ? "ar" : "en";
 
@@ -107,6 +108,8 @@ export default function BilingualSEO({
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:alt" content={documentTitle} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content={lang === "ar" ? "ar_SA" : "en_US"} />
@@ -125,6 +128,7 @@ export default function BilingualSEO({
       <meta name="twitter:title" content={documentTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:image:alt" content={documentTitle} />
     </Helmet>
   );
 }

@@ -556,3 +556,17 @@
   width: 100%; height: 100%; display: grid; place-items: center;
   background: linear-gradient(145deg, #f3ecff, #e6dbfb); color: #5b2fb0;
 }
+
+/* THE LIST IS AS TALL AS THE STAGE, AND THE ROWS SHARE THE HEIGHT.
+   A three-row list beside a 700px modal used to stop after 190px and leave a
+   void under it. Wide, the list is a column that fills the stage's height: the
+   open row takes the largest share and the closed ones split the rest, each
+   with its title centred in its own share. With many rows the list is already
+   taller than the stage and nothing changes. */
+.sacc[data-wide] { align-items: stretch; }
+.sacc[data-wide] .sacc-list { display: flex; flex-direction: column; align-self: stretch; }
+.sacc[data-wide] .sacc-item { display: flex; flex-direction: column; flex: 1 1 auto; }
+.sacc[data-wide] .sacc-item[data-open] { flex-grow: 3; }
+.sacc[data-wide] .sacc-item:not([data-open]) .sacc-h { flex: 1 1 auto; display: flex; }
+.sacc[data-wide] .sacc-item:not([data-open]) .sacc-btn { height: 100%; }
+.sacc[data-wide] .sacc-item[data-open] .sacc-panel { flex: 1 1 auto; }

@@ -23,6 +23,7 @@ import { t as siteTranslations } from "@/i18n/translations";
 import { navigateTo, navigateToHash } from "@/components/PageTransition";
 import PlatformModal from "@/components/PlatformModal";
 import { analytics } from "@/lib/analytics";
+import { pathWithLang } from "@/seo/meta";
 import { Button, Pill, Shell } from "@/components/mk";
 import { useMegaMenu, useDrawer } from "@/components/mk/useMenus";
 import { useHeaderScrolled } from "@/motion/components";
@@ -406,7 +407,7 @@ export function Navbar() {
 
               <li>
                 <a
-                  href={`/${lang}/pricing`}
+                  href={pathWithLang("/pricing", lang)}
                   onClick={(e) => {
                     e.preventDefault();
                     go("/pricing");

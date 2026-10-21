@@ -4,6 +4,7 @@ import { SiTiktok } from "react-icons/si";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
+import { pathWithLang } from "@/seo/meta";
 import {
   MEETING_BOOKING_URL,
   SUPPORT_EMAIL,
@@ -36,7 +37,7 @@ export function Footer() {
     e.preventDefault();
     navigateTo(to);
   };
-  const href = (to: string) => `/${lang}${to}`;
+  const href = (to: string) => pathWithLang(to, lang);
 
   const groups = [
     {

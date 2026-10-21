@@ -760,7 +760,7 @@ export function CatalogueIndex({
   return (
     <Wrapper>
       <Shell>
-        {title ? <h1 className="sr-only">{title}</h1> : null}
+        {title ? (bare ? <h2 className="sr-only">{title}</h2> : <h1 className="sr-only">{title}</h1>) : null}
         {subNav && subNav.length > 0 ? (
           <nav className="cat-subnav" aria-label="Sections">
             {subNav.map((l) => (

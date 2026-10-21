@@ -238,6 +238,24 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://www.ziadah.app/data-deletion</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/data-deletion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/data-deletion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/data-deletion" />
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.ziadah.app/en/data-deletion</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/data-deletion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/data-deletion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ziadah.app/data-deletion" />
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.ziadah.app/sectors</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.ziadah.app/sectors" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.ziadah.app/en/sectors" />

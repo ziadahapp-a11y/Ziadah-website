@@ -53,7 +53,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitleEn: "Explore solutions by page",
       ctaDescEn: "Pick the best page to start improving your store.",
-      seo: { title: "الحلول حسب الصفحات — زيادة", titleEn: "Solutions by Page — Ziadah", description: "صفحة عامة لحلول زيادة حسب صفحات المتجر.", descriptionEn: "General overview of Ziadah solutions by store pages.", canonical: "/use-cases/by-pages" },
+      seo: { title: "الحلول حسب الصفحات — زيادة", titleEn: "Solutions by Page — Ziadah", description: "تصفح حلول زيادة حسب صفحة المتجر: الرئيسية والمنتج والسلة والدفع. فعّل التطبيق وزيادة يضبط الحلول المناسبة لكل صفحة بالذكاء الاصطناعي.", descriptionEn: "Browse Ziadah solutions by store page: home, product, cart and checkout. Activate the app and Ziadah sets up the right solution for each page with AI.", canonical: "/use-cases/by-pages" },
       heroVisual: (
         <PageHeroPhone
           float1="+32% متوسط السلة"
@@ -103,7 +103,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitleEn: "Start with activity-based solutions",
       ctaDescEn: "Pick the behavior you want to improve first.",
-      seo: { title: "الحلول حسب الأنشطة — زيادة", titleEn: "Solutions by Activity — Ziadah", description: "صفحة عامة لحلول زيادة المصنفة حسب أنشطة العميل.", descriptionEn: "General overview of Ziadah solutions grouped by customer actions.", canonical: "/use-cases/by-activity" },
+      seo: { title: "الحلول حسب الأنشطة — زيادة", titleEn: "Solutions by Activity — Ziadah", description: "حلول زيادة مرتبة حسب نشاط العميل في متجرك: التصفح والإضافة للسلة والشراء. فعّل التطبيق وزيادة يضبط كل شي بنفسه بالذكاء الاصطناعي.", descriptionEn: "Ziadah solutions grouped by what the customer is doing in your store: browsing, adding to cart and buying. Activate the app and Ziadah sets it all up with AI.", canonical: "/use-cases/by-activity" },
     },
     "by-presentation": {
       hero: { tag: "الحلول", title: "حسب طريقة العرض", subtitle: "صفحة عامة لأساليب العرض: منتجات ذات صلة، حزم، وإضافات.", tagline: "اعرض الحل بالشكل المناسب", icon: "" },
@@ -144,7 +144,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitleEn: "Choose the best display type",
       ctaDescEn: "One solution can be shown in multiple formats.",
-      seo: { title: "الحلول حسب طريقة العرض — زيادة", titleEn: "Solutions by Display Type — Ziadah", description: "صفحة عامة لحلول زيادة المصنفة حسب طريقة العرض.", descriptionEn: "General overview of Ziadah solutions by display type.", canonical: "/use-cases/by-presentation" },
+      seo: { title: "الحلول حسب طريقة العرض — زيادة", titleEn: "Solutions by Display Type — Ziadah", description: "حلول زيادة مصنفة حسب طريقة العرض: نوافذ منبثقة وأدراج وبطاقات داخل الصفحة. شاهد كل شكل مباشرة واختر الأنسب لمتجرك.", descriptionEn: "Ziadah solutions by display type: modals, drawers and in-page cards. See each format live and pick the one that fits your store.", canonical: "/use-cases/by-presentation" },
     },
     "by-goal": {
       hero: { tag: "الحلول", title: "حسب الأهداف", subtitle: "صفحة عامة تساعدك تختار الحل بحسب الهدف التجاري.", tagline: "ابدأ من الهدف مباشرة", icon: "" },
@@ -187,7 +187,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitleEn: "Choose your goal and start",
       ctaDescEn: "We organize solutions by the KPI you care about.",
-      seo: { title: "الحلول حسب الأهداف — زيادة", titleEn: "Solutions by Goal — Ziadah", description: "صفحة عامة لحلول زيادة المصنفة حسب الهدف التجاري.", descriptionEn: "General overview of Ziadah solutions grouped by business goals.", canonical: "/use-cases/by-goal" },
+      seo: { title: "الحلول حسب الأهداف — زيادة", titleEn: "Solutions by Goal — Ziadah", description: "اختر هدفك التجاري: رفع قيمة السلة أو زيادة الإضافات أو تقليل التخلي. زيادة يقترح الحلول المناسبة ويضبطها بنفسه بالذكاء الاصطناعي.", descriptionEn: "Pick your business goal: raise cart value, lift add-ons or cut abandonment. Ziadah proposes the right solutions and sets them up itself with AI.", canonical: "/use-cases/by-goal" },
     },
     "by-experience": {
       hero: { tag: "الحلول", title: "تخصيص التجربة", subtitle: "صفحة عامة لحلول التخصيص وتجربة العميل الذكية.", tagline: "كل عميل يرى ما يناسبه", icon: "✨" },
@@ -220,7 +220,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
       ],
       ctaTitleEn: "Activate personalization",
       ctaDescEn: "Give each customer an automatically tailored journey.",
-      seo: { title: "تخصيص التجربة — زيادة", titleEn: "Experience Personalization — Ziadah", description: "صفحة عامة لحلول تخصيص التجربة في زيادة.", descriptionEn: "General overview of Ziadah experience personalization solutions.", canonical: "/use-cases/by-experience" },
+      seo: { title: "تخصيص التجربة — زيادة", titleEn: "Experience Personalization — Ziadah", description: "حلول زيادة لتخصيص تجربة كل عميل بحسب سلوكه وسلته. فعّل التطبيق وزيادة يضبط التخصيص بنفسه بالذكاء الاصطناعي.", descriptionEn: "Ziadah solutions that personalize each shopper's experience by behavior and cart. Activate the app and Ziadah sets up the personalization itself with AI.", canonical: "/use-cases/by-experience" },
     },
   };
 
