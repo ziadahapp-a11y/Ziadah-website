@@ -15,6 +15,8 @@ import "./index.css";
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
 const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
 const Landing = lazy(() => import("@/pages/HomeTrackflow"));
+/* Not linked and not in the sitemap: the film at full size, for recording it. */
+const FilmRender = lazy(() => import("@/pages/FilmRender"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
@@ -126,6 +128,7 @@ function PublicRoutes() {
       <Route path="/support/article/:id" component={SupportArticle} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/data-deletion" component={DataDeletion} />
+      <Route path="/__film" component={FilmRender} />
       <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
       <Route path="/features/:slug">
