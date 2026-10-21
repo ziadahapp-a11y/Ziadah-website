@@ -1594,3 +1594,23 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
 .mega--single .mega-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .mega-groups { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 .mega-cards--promoted { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+
+/* THE HEADER'S BUTTON CLUSTER, ON THE NAV'S OWN SCALE.
+   The nav links are 36px tall, 14px, weight 500. The buttons beside them were
+   42px, 16px and weight 400, and the language switch a third size again at
+   34px, so the two ends of the bar read as two different components. All four
+   buttons (language, book a meeting, log in, activate) now use the nav's
+   height, type size and weight, with one padding and one icon size. */
+.header-actions .button,
+.header-actions .login-menu .button {
+  height: 36px;
+  min-height: 36px;
+  padding-inline: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  gap: 6px;
+}
+.header-actions .button svg,
+.header-actions .login-menu .button svg { width: 16px; height: 16px; flex: none; }
+.header-actions { gap: 8px; }
