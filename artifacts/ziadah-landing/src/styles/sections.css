@@ -3747,3 +3747,10 @@ a.plat-item-link:hover {
    different place than the title above it. Only the non-centred wrapper gets
    this, so the centred heroes are untouched. */
 .hero-lede--start .hero-body { text-align: start; max-width: 780px; margin-inline-end: auto; }
+
+/* THE SPLIT HERO (every sector and solution page) HAS THE SAME FAULT.
+   Its eyebrow and title sit on the inline-start edge, and the description
+   under them inherited `.hero-body`'s `text-align: center`, so a wrapped
+   line began a few dozen px in from the title above it. The lede, its
+   buttons and its note all follow the start edge. */
+.hero-split .hero-text-b .hero-body { text-align: start; }
