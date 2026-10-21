@@ -233,8 +233,6 @@ async function main() {
   async function writeAllOg() {
     const pg = await browser.newPage();
     await pg.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
-    const fp = await browser.newPage();
-    await fp.setViewport({ width: 900, height: 900, deviceScaleFactor: 1 });
     const fans = new Map();
     /* Three real widget sheets on a transparent page: one picture per
        language, shelf and shape, shared by every page that wants it. */
@@ -243,6 +241,11 @@ async function main() {
       const sector = /^\/sectors\/([^/]+)$/.exec(base)?.[1] ?? "";
       const key = `${lang}|${sector}|${KIND_BY_HREF[base] ?? ""}`;
       if (fans.has(key)) return fans.get(key);
+      /* A tab per picture: a second transparent screenshot on the same tab
+         never returned and the run died on the protocol timeout. */
+      const fp = await browser.newPage();
+      try {
+      await fp.setViewport({ width: 900, height: 900, deviceScaleFactor: 1 });
       await fp.goto(`${origin}${lang === "en" ? "/en" : ""}/__og-fan?path=${encodeURIComponent(base)}`, { waitUntil: "load", timeout: 30000 });
       await fp.waitForSelector("#og-fan", { timeout: 20000 });
       await fp.evaluate(async () => {
@@ -254,6 +257,9 @@ async function main() {
       const uri = `data:image/png;base64,${buf.toString("base64")}`;
       fans.set(key, uri);
       return uri;
+      } finally {
+        await fp.close().catch(() => {});
+      }
     };
     let n = 0;
     for (const [route, meta] of Object.entries(ogPages)) {
@@ -283,7 +289,6 @@ async function main() {
       n++;
     }
     await pg.close().catch(() => {});
-    await fp.close().catch(() => {});
     console.log(`[prerender] wrote ${n} preview card(s) with ${fans.size} widget fans.`);
   }
 
