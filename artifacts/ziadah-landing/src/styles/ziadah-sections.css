@@ -2074,3 +2074,21 @@
    stages, so the list does not move when the open row changes. */
 .eng-block .sacc-list { align-content: start; }
 @media screen and (min-width: 900px) { .eng-card { min-height: 440px; } }
+
+/* ---------- THE AUTO LINE (`AutoStrip`) AND THE WHO-DOES-WHAT BAND --------
+   One sentence under every sector hero, and the band that says who does what.
+   px and the shared type tokens, never rem. */
+.auto-strip { padding: 16px var(--gutter, 20px); display: flex; justify-content: center; background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 8%, #fff); }
+.auto-strip p { margin: 0; display: flex; align-items: flex-start; gap: 10px; max-width: 880px; text-align: start; font-size: var(--t-body); line-height: 1.6; font-weight: 700; color: #1a0033; }
+.auto-strip svg { flex: none; width: 20px; height: 20px; margin-block-start: 3px; color: var(--ziadah-violet, #7c3aed); }
+.auto-band h2 { margin: 0 0 16px; }
+.auto-band-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media screen and (min-width: 760px) { .auto-band-grid { grid-template-columns: 1fr 1.6fr; } }
+.auto-band-card { display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: var(--radius-card); background: #fff; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent); text-align: start; }
+.auto-band-card[data-main] { box-shadow: inset 0 0 0 1.5px var(--ziadah-violet, #7c3aed); }
+.auto-band-card b { font-size: var(--t-body); font-weight: 700; }
+.auto-band-card p { margin: 0; font-size: var(--t-sm); line-height: 1.7; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 75%, transparent); }
+.auto-band-card .auto-band-tuned { font-weight: 600; color: var(--color-secondary, #0a0a0a); }
+
+/* The one sentence, under a solution page's "how it works" lead. */
+.uc-auto { margin: 20px auto 0; max-width: 640px; text-align: center; font-size: var(--t-body); line-height: 1.6; font-weight: 700; color: var(--ziadah-violet, #7c3aed); }

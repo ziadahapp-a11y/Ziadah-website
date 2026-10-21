@@ -17,6 +17,7 @@ import { PricingPageSchema } from "@/components/JsonLd";
 import { AI_TOPUPS, parsePrice, fmtPrice } from "@/data/aiTopups";
 import { HeroLede, Section as DsSection, SectionHead } from "@/sections";
 import { Shell, Button as MkButton } from "@/components/mk";
+import { AUTO_LINE } from "@/lib/auto-message";
 import { t as siteTranslations } from "@/i18n/translations";
 import { usePricingPlans, maxAnnualDiscount, currencyLabel, type BillingMode, type Currency } from "@/lib/pricing-data";
 
@@ -193,8 +194,8 @@ export default function PricingPage() {
             title={isAr ? "اختر الباقة المناسبة لمتجرك" : "Choose the right plan for your store"}
             body={
               isAr
-                ? "اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة"
-                : "Unlimited suggestions & sales in all plans · VAT included"
+                ? `${AUTO_LINE.ar}. اقتراحات ومبيعات لامحدودة في كل الباقات · شاملة الضريبة`
+                : `${AUTO_LINE.en}. Unlimited suggestions & sales in all plans · VAT included`
             }
           >
             {/* Monthly against yearly changes every number in the grid below,

@@ -22,6 +22,7 @@ import {
 import FitWidget from "@/components/widgets/FitWidget";
 import ShapeAccordion, { type AccordionItem } from "@/components/widgets/ShapeAccordion";
 import { useCaseDeckKinds } from "@/lib/use-case-deck";
+import { AUTO_LINE } from "@/lib/auto-message";
 
 /* ───────────────────────── interfaces ─────────────────────────── */
 export interface UseCaseHero {
@@ -216,7 +217,6 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
 
   /* ─── shared labels ─── */
   const activateNow = tr.useCaseLayout.activateNow;
-  const ctaNote     = tr.useCaseLayout.ctaNote;
   const reportsTag  = tr.useCaseLayout.reportsTag;
   const reportsTitle= tr.useCaseLayout.reportsTitle;
   const reportsDesc = tr.useCaseLayout.reportsDesc;
@@ -293,6 +293,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
               title={whatWeDoTitle}
               lead={whatWeDoDesc}
             />
+            <p className="uc-auto">{isEn ? AUTO_LINE.en : AUTO_LINE.ar}</p>
           </Shell>
           {/* The numbers are the argument of this section, so they carry the
               display tier rather than sitting in cards that compete with it. */}
@@ -433,7 +434,7 @@ export default function UseCaseLayout({ data }: { data: UseCasePageData }) {
           family="violet"
           title={ctaTitle}
           body={ctaDesc}
-          note={ctaNote}
+          note={isEn ? AUTO_LINE.en : AUTO_LINE.ar}
           primary={{
             label: activateNow,
             onClick: () => setPlatformModalOpen(true),
