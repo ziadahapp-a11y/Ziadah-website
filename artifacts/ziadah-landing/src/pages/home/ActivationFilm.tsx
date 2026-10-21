@@ -1,10 +1,10 @@
 import { memo, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { Check, Sparkles, Store, ShoppingCart, PackageSearch, Layers } from "lucide-react";
+import { Check, Sparkles, Store, X } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { AUTO_LINE } from "@/lib/auto-message";
 import { DEFAULT_PACK, SECTOR_PACKS, type PackItem } from "@/data/sectorProductPacks";
 import { ProductIcon } from "@/lib/product-icons";
-import { StorefrontWidget } from "@/components/widgets/storefrontSets";
+import { StorefrontWidget, widgetKindLabel, type WidgetKind } from "@/components/widgets/storefrontSets";
 
 /**
  * THE ACTIVATION FILM.
@@ -43,15 +43,35 @@ const num = (n: number) => Math.round(n).toLocaleString("en-US");
 const STEPS = [
   { ar: "قراءة المنتجات والفئات", en: "Reading products and categories", meta: { ar: "248 منتج · 12 فئة", en: "248 products · 12 categories" }, a: 7.0, b: 9.4 },
   { ar: "تحليل سلوك المشترين", en: "Studying how buyers shop", meta: { ar: "1,420 طلب", en: "1,420 orders" }, a: 9.4, b: 11.8 },
-  { ar: "اختيار العروض لكل صفحة", en: "Choosing offers for every page", meta: { ar: "4 عروض", en: "4 offers" }, a: 11.8, b: 14.6 },
-  { ar: "تركيبها في متجرك", en: "Putting them in your store", meta: { ar: "صفحة المنتج · السلة", en: "Product page · Cart" }, a: 14.6, b: 21.0 },
+  { ar: "اختيار ما يناسب متجرك من العروض", en: "Picking the offers that fit your store", meta: { ar: "3 من 11 عرضاً", en: "3 of 11 offers" }, a: 11.8, b: 17.0 },
+  { ar: "تركيبها في متجرك", en: "Putting them in your store", meta: { ar: "صفحة المنتج · السلة", en: "Product page · Cart" }, a: 17.0, b: 22.4 },
 ] as const;
 
 /** A sheet is built once and handed to the stage as a constant element, so the
  *  per-frame render never re-renders the sheet itself. */
-const Sheet = memo(function Sheet({ kind }: { kind: "related" | "drawer" }) {
+const Sheet = memo(function Sheet({ kind }: { kind: WidgetKind }) {
   return <StorefrontWidget kind={kind} pack={DEFAULT_PACK} />;
 });
+
+/** Every shape Ziadah can show, where it appears and on what event. Only some
+ *  suit any one store, so the film picks three of the eleven and says so. */
+const KINDS: { kind: WidgetKind; page: { ar: string; en: string }; event: { ar: string; en: string }; pick: boolean }[] = [
+  { kind: "related", page: { ar: "صفحة المنتج", en: "Product page" }, event: { ar: "عند فتح المنتج", en: "On opening a product" }, pick: true },
+  { kind: "kit", page: { ar: "صفحة المنتج", en: "Product page" }, event: { ar: "عند فتح المنتج", en: "On opening a product" }, pick: false },
+  { kind: "steps", page: { ar: "صفحة المنتج", en: "Product page" }, event: { ar: "عند فتح المنتج", en: "On opening a product" }, pick: false },
+  { kind: "quantity", page: { ar: "صفحة المنتج", en: "Product page" }, event: { ar: "عند اختيار الكمية", en: "On choosing a quantity" }, pick: true },
+  { kind: "buythemall", page: { ar: "صفحة المنتج", en: "Product page" }, event: { ar: "عند فتح المنتج", en: "On opening a product" }, pick: false },
+  { kind: "replace", page: { ar: "بعد الإضافة", en: "After adding" }, event: { ar: "عند الإضافة للسلة", en: "On add to cart" }, pick: false },
+  { kind: "addmore", page: { ar: "بعد الإضافة", en: "After adding" }, event: { ar: "عند الإضافة للسلة", en: "On add to cart" }, pick: false },
+  { kind: "drawer", page: { ar: "السلة", en: "Cart" }, event: { ar: "عند فتح السلة", en: "On opening the cart" }, pick: true },
+  { kind: "bmsm", page: { ar: "السلة", en: "Cart" }, event: { ar: "عند تعديل السلة", en: "On changing the cart" }, pick: false },
+  { kind: "routine", page: { ar: "السلة", en: "Cart" }, event: { ar: "عند فتح السلة", en: "On opening the cart" }, pick: false },
+  { kind: "cartvalue", page: { ar: "الدفع", en: "Checkout" }, event: { ar: "قبل إتمام الطلب", en: "Before checkout" }, pick: false },
+];
+const COLS = 6;
+const CELL_W = 194;
+const CELL_H = 364;
+const SHEET_SCALE = 0.4;
 
 export default function ActivationFilm({ capture = false }: { capture?: boolean }) {
   const { isAr } = useLanguage();
@@ -107,18 +127,20 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
     const extra = Object.values(SECTOR_PACKS).slice(1, 4).map((p) => p.main);
     return [DEFAULT_PACK.main, DEFAULT_PACK.a, DEFAULT_PACK.b, DEFAULT_PACK.c, DEFAULT_PACK.up, ...extra];
   }, []);
+  const burst = useMemo(() => KINDS.map((k) => <Sheet key={k.kind} kind={k.kind} />), []);
   const sheetRelated = useMemo(() => <Sheet kind="related" />, []);
+  const sheetQuantity = useMemo(() => <Sheet kind="quantity" />, []);
   const sheetDrawer = useMemo(() => <Sheet kind="drawer" />, []);
 
   /* ---- scene weights ---- */
   const sceneA = win(t, 0, 6.4, 0.4, 0.6);
-  const work = win(t, 6.0, 26.4, 0.6, 0.6);
+  const work = win(t, 6.0, 26.8, 0.6, 0.6);
   const canvasRead = win(t, 6.4, 9.6, 0.5, 0.5);
   const canvasBuy = win(t, 9.4, 12.0, 0.5, 0.5);
-  const canvasPick = win(t, 11.8, 14.8, 0.5, 0.5);
-  const canvasStore = win(t, 14.6, 21.6, 0.6, 0.6);
-  const canvasKpi = win(t, 21.4, 26.4, 0.6, 0.6);
-  const endCard = win(t, 26.0, 30.0, 0.8, 0.8) * (t > 29.2 ? 1 - seg(t, 29.2, 30) : 1);
+  const canvasPick = win(t, 11.8, 17.2, 0.3, 0.5);
+  const canvasStore = win(t, 17.0, 22.8, 0.5, 0.6);
+  const canvasKpi = win(t, 22.6, 26.8, 0.6, 0.6);
+  const endCard = win(t, 26.4, 30.0, 0.8, 0.8) * (t > 29.2 ? 1 - seg(t, 29.2, 30) : 1);
   const loopFade = t > 29.4 ? 1 - seg(t, 29.4, 30) : 1;
 
   /* ---- scene A: the click ---- */
@@ -132,8 +154,8 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
 
   /* ---- the panel ---- */
   const done = (i: number) => seg(t, STEPS[i].b - 0.25, STEPS[i].b);
-  const allDone = t >= 21.0;
-  const progress = clamp((t - 7.0) / (21.0 - 7.0));
+  const allDone = t >= 22.4;
+  const progress = clamp((t - 7.0) / (22.4 - 7.0));
 
   /* ---- scene: read ---- */
   const scan = seg(t, 7.0, 9.2);
@@ -240,22 +262,47 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
                 </div>
               </div>
 
-              {/* choose the offers */}
-              <div className="film-layer" style={box(canvasPick, 24)}>
-                <p className="film-h">{tx("يختار العرض المناسب لكل صفحة", "Choosing the right offer for every page")}</p>
-                <div className="film-picks">
-                  {([
-                    [tx("صفحة المنتج", "Product page"), tx("منتجات ذات صلة", "Related products"), Layers],
-                    [tx("صفحة المنتج", "Product page"), tx("استبدال بمنتج أعلى", "Step-up swap"), PackageSearch],
-                    [tx("السلة", "Cart"), tx("حزمة بخصم", "Discounted bundle"), ShoppingCart],
-                    [tx("درج السلة", "Cart drawer"), tx("أضف قطعة لخصم أكبر", "Add one more for a bigger discount"), ShoppingCart],
-                  ] as const).map(([where, what, Icon], i) => {
-                    const k = out3(seg(t, 12.2 + i * 0.4, 13.2 + i * 0.4));
+              {/* every offer, and the few that fit this store */}
+              <div className="film-layer" style={box(canvasPick, 0)}>
+                <p className="film-h">
+                  {tx("يختار ما يناسب متجرك من كل العروض", "It picks only what fits your store")}
+                  <small style={{ opacity: seg(t, 15.4, 15.9) }}>{tx("3 من 11", "3 of 11")}</small>
+                </p>
+                <div className="film-xgrid">
+                  {KINDS.map((k, i) => {
+                    const a = 12.1 + i * 0.05;
+                    const fly = out3(seg(t, a, a + 1.25));
+                    const col = isAr ? COLS - 1 - (i % COLS) : i % COLS;
+                    const row = Math.floor(i / COLS);
+                    const x1 = col * CELL_W + (CELL_W - 340 * SHEET_SCALE) / 2;
+                    const y1 = row * (CELL_H + 8);
+                    const x0 = (COLS * CELL_W) / 2 - 170 * 0.12;
+                    const y0 = CELL_H - 80;
+                    const decide = 13.9 + i * 0.16;
+                    const judged = seg(t, decide, decide + 0.35);
+                    const yes = k.pick;
+                    const gone = yes ? 0 : seg(t, 16.0, 16.6);
+                    const dim = yes ? 1 : lerp(1, 0.3, judged);
                     return (
-                      <div key={i} className="film-pick" style={{ opacity: k, transform: `translateX(${(1 - k) * (isAr ? -50 : 50)}px)` }}>
-                        <span className="film-pick-ic"><Icon size={52} strokeWidth={1.6} /></span>
-                        <div><small>{where}</small><p>{what}</p></div>
-                        <span className="film-pick-ok" style={{ opacity: seg(t, 13.0 + i * 0.4, 13.5 + i * 0.4) }}><Check size={30} strokeWidth={3.5} /></span>
+                      <div
+                        key={k.kind}
+                        className="film-xc"
+                        style={{
+                          transform: `translate(${lerp(x0, x1, fly)}px, ${lerp(y0, y1, fly)}px) rotate(${(1 - fly) * (i % 2 ? 22 : -22)}deg)`,
+                          opacity: Math.min(seg(t, a, a + 0.4), 1 - gone) * dim,
+                          filter: !yes && judged > 0 ? `grayscale(${judged})` : undefined,
+                        }}
+                      >
+                        <div className="film-xc-sheet" data-yes={yes && judged > 0.5 ? "" : undefined} style={{ transform: `scale(${lerp(0.12, SHEET_SCALE, fly)})` }}>{burst[i]}</div>
+                        <div className="film-xc-meta" style={{ opacity: seg(t, a + 0.85, a + 1.35) }}>
+                          <b>{widgetKindLabel(k.kind, isAr)}</b>
+                          <small>{tx(k.page.ar, k.page.en)}</small>
+                          <small>{tx(k.event.ar, k.event.en)}</small>
+                        </div>
+                        <span className="film-xc-badge" data-yes={yes ? "" : undefined} style={{ opacity: judged > 0.5 ? 1 : 0, transform: `scale(${0.6 + 0.4 * judged})` }}>
+                          {yes ? <Check size={26} strokeWidth={3.5} /> : <X size={24} strokeWidth={3.5} />}
+                        </span>
+                        {!yes ? <span className="film-xc-no" style={{ opacity: judged > 0.6 ? 1 : 0 }}>{tx("لا يناسب متجرك", "Not for your store")}</span> : null}
                       </div>
                     );
                   })}
@@ -264,14 +311,16 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
 
               {/* put them in the store */}
               <div className="film-layer film-store" style={box(canvasStore, 24)}>
-                <div className="film-store-col" style={{ opacity: out3(seg(t, 15.0, 15.8)), transform: `translateY(${(1 - out3(seg(t, 15.0, 16.0))) * 80}px)` }}>
-                  <span className="film-tag">{tx("صفحة المنتج", "Product page")}</span>
-                  <div className="film-sheet">{sheetRelated}</div>
-                </div>
-                <div className="film-store-col" style={{ opacity: out3(seg(t, 17.6, 18.4)), transform: `translateY(${(1 - out3(seg(t, 17.6, 18.6))) * 80}px)` }}>
-                  <span className="film-tag">{tx("السلة", "Cart")}</span>
-                  <div className="film-sheet">{sheetDrawer}</div>
-                </div>
+                {([
+                  [tx("صفحة المنتج", "Product page"), sheetRelated, 17.3],
+                  [tx("اختيار الكمية", "Quantity"), sheetQuantity, 19.0],
+                  [tx("السلة", "Cart"), sheetDrawer, 20.7],
+                ] as const).map(([tag, el, at], i) => (
+                  <div key={i} className="film-store-col" style={{ opacity: out3(seg(t, at, at + 0.7)), transform: `translateY(${(1 - out3(seg(t, at, at + 1.0))) * 80}px)` }}>
+                    <span className="film-tag">{tag}</span>
+                    <div className="film-sheet">{el}</div>
+                  </div>
+                ))}
               </div>
 
               {/* results */}
@@ -280,23 +329,23 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
                 <div className="film-kpis">
                   <div className="film-kpi">
                     <small>{tx("متوسط قيمة الطلب", "Average order value")}</small>
-                    <b>{sar(lerp(212, 286, kpi(22.0)))}</b>
-                    <em>+{Math.round(35 * kpi(22.0))}%</em>
+                    <b>{sar(lerp(212, 286, kpi(23.0)))}</b>
+                    <em>+{Math.round(35 * kpi(23.0))}%</em>
                   </div>
                   <div className="film-kpi">
                     <small>{tx("عروض تعمل الآن", "Offers running now")}</small>
-                    <b>{Math.round(4 * kpi(22.4))}</b>
+                    <b>{Math.round(3 * kpi(23.2))}</b>
                     <em>{tx("تلقائياً", "automatically")}</em>
                   </div>
                   <div className="film-kpi">
                     <small>{tx("طلبات فيها منتج مقترح", "Orders with a suggested item")}</small>
-                    <b>{Math.round(38 * kpi(22.8))}%</b>
+                    <b>{Math.round(38 * kpi(23.4))}%</b>
                     <em>{tx("وتتحسن", "and improving")}</em>
                   </div>
                 </div>
                 <div className="film-bars">
                   {[28, 34, 31, 44, 52, 61, 70, 78].map((h, i) => (
-                    <i key={i} style={{ height: `${h * out3(seg(t, 22.2 + i * 0.12, 23.4 + i * 0.12))}%` }} />
+                    <i key={i} style={{ height: `${h * out3(seg(t, 23.2 + i * 0.12, 24.4 + i * 0.12))}%` }} />
                   ))}
                 </div>
               </div>
@@ -327,16 +376,16 @@ export default function ActivationFilm({ capture = false }: { capture?: boolean 
                   );
                 })}
               </ul>
-              <p className="film-ready" style={box(out3(seg(t, 21.2, 21.9)), 20)}><Check size={30} strokeWidth={3.5} /> {tx("جاهز: العروض تعمل في متجرك", "Ready: the offers are live in your store")}</p>
+              <p className="film-ready" style={box(out3(seg(t, 22.6, 23.3)), 20)}><Check size={30} strokeWidth={3.5} /> {tx("جاهز: العروض تعمل في متجرك", "Ready: the offers are live in your store")}</p>
               <div className="film-prog"><i style={{ width: `${(allDone ? 1 : progress) * 100}%` }} /></div>
             </aside>
           </div>
 
           {/* ───────── end card ───────── */}
           <div className="film-end" style={{ opacity: endCard, visibility: endCard > 0 ? "visible" : "hidden" }}>
-            <img src={isAr ? "/logo-ar.svg" : "/logo-en.svg"} alt="" className="film-end-logo" style={box(out3(seg(t, 26.4, 27.2)), 20)} />
-            <p className="film-end-line" style={box(out3(seg(t, 26.8, 27.8)), 30)}>{tx(AUTO_LINE.ar, AUTO_LINE.en)}</p>
-            <div className="film-end-chips" style={box(out3(seg(t, 27.6, 28.4)), 20)}>
+            <img src={isAr ? "/logo-ar.svg" : "/logo-en.svg"} alt="" className="film-end-logo" style={box(out3(seg(t, 26.8, 27.5)), 20)} />
+            <p className="film-end-line" style={box(out3(seg(t, 27.1, 28.0)), 30)}>{tx(AUTO_LINE.ar, AUTO_LINE.en)}</p>
+            <div className="film-end-chips" style={box(out3(seg(t, 27.8, 28.6)), 20)}>
               <span>{tx("زد", "Zid")}</span><span>{tx("سلة", "Salla")}</span><span>{tx("شوبيفاي", "Shopify")}</span>
             </div>
           </div>
