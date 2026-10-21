@@ -11,7 +11,7 @@ import type { SectorDeepDive } from "../sectorDeepDive";
 export const clinicsDeepDive: SectorDeepDive = {
   slug: "clinics",
   introAr:
-    "العيادة لا تبيع منتجاً بل تحجز وقتاً. الوحدة هنا موعد، والقيد تقويم لا مخزون، والقطاع منظّم: لا يجوز لأي اقتراح أن يقرأ كتوصية طبية ولا أن يعد بنتيجة. لذلك كل لحظة أدناه تقترح جلسة أو باقة أو تحضيراً أو متابعة — ولا تقترح تشخيصاً، ولا إجراءً لم يسأل عنه المراجع بنفسه.",
+    "العيادة لا تبيع منتجاً بل تحجز وقتاً. الوحدة هنا موعد، والقيد تقويم لا مخزون، والقطاع منظّم: لا يجوز لأي اقتراح أن يقرأ كتوصية طبية ولا أن يعد بنتيجة. لذلك كل لحظة أدناه تقترح جلسة أو باقة أو تحضيراً أو متابعة — ولا تقترح تشخيصاً، ولا علاجاً لم يسأل عنه المراجع بنفسه.",
   introEn:
     "A clinic does not sell a product, it books time. The unit is an appointment, the constraint is a calendar rather than stock, and the sector is regulated: no suggestion may read as medical advice or promise an outcome. So every moment below suggests a session, a package, preparation or follow-up - never a diagnosis, and never a procedure the patient did not ask about themselves.",
   useCases: [
@@ -19,7 +19,7 @@ export const clinicsDeepDive: SectorDeepDive = {
       key: "package-vs-single",
       titleAr: "الباقة بدل الجلسة المفردة",
       titleEn: "The package instead of the single session",
-      triggerAr: "المراجع يحجز جلسة واحدة من إجراء يحتاج عادة سلسلة.",
+      triggerAr: "المراجع يحجز جلسة واحدة من علاج يحتاج عادة سلسلة جلسات.",
       triggerEn: "The patient books a single session of a procedure that normally needs a series.",
       scenarioAr:
         "تُعرض الباقة مع عدد الجلسات وسعر الجلسة داخلها: «6 جلسات — الجلسة 320 بدل 450». لا وعد بنتيجة، رقم فقط.",
@@ -29,7 +29,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "المراجع الذي يحجز جلسة واحدة من سلسلة سيحجز الباقي على أي حال أو ينقطع. الباقة تثبّت الالتزام وتملأ التقويم مقدماً، وهي أهم رقم في اقتصاد العيادة.",
       whyEn:
         "A patient booking one session of a series will either book the rest anyway or drop out. The package locks in the commitment and fills the calendar in advance, which is the number a clinic's economics turn on.",
-      exampleAr: "جلسة ليزر 450 ← باقة 6 جلسات 1920 (الجلسة 320).",
+      exampleAr: "جلسة ليزر بسعر 450، فتُعرض عليه باقة 6 جلسات بسعر 1920 (الجلسة 320).",
       exampleEn: "One laser session at 450 → a 6-session package at 1920 (320 each).",
           widget: {
         titleAr: "باقة أم جلسة؟",
@@ -50,7 +50,7 @@ export const clinicsDeepDive: SectorDeepDive = {
       key: "aftercare",
       titleAr: "منتجات ما بعد الجلسة",
       titleEn: "Aftercare products",
-      triggerAr: "الجلسة انتهت والإجراء له متطلبات عناية معروفة.",
+      triggerAr: "الجلسة انتهت والعلاج له متطلبات عناية معروفة.",
       triggerEn: "The session is done and the procedure has known aftercare requirements.",
       scenarioAr:
         "تُعرض مستلزمات ما بعد الجلسة المعتمدة في العيادة — واقٍ شمسي طبي، مرطّب مهدّئ — بوصفها جزءاً من التعليمات لا عرضاً تجارياً.",
@@ -60,7 +60,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "العناية بعد الجلسة تحدد النتيجة فعلاً، والمراجع الذي يشتريها من صيدلية عشوائية قد يشتري الخطأ. البيع هنا يخدم النتيجة قبل أن يخدم الفاتورة.",
       whyEn:
         "Aftercare genuinely determines the result, and a patient who buys it from a random pharmacy may buy the wrong thing. Selling it here serves the outcome before it serves the bill.",
-      exampleAr: "بعد جلسة تقشير ← واقٍ شمسي طبي 180 ومرطّب مهدّئ 140 ضمن تعليمات الخروج.",
+      exampleAr: "بعد جلسة تقشير: واقٍ شمسي طبي بسعر 180 ومرطّب مهدّئ بسعر 140 ضمن تعليمات الخروج.",
       exampleEn: "After a peel → a 180 SAR medical sunscreen and a 140 SAR calming moisturiser, inside the discharge instructions.",
           widget: {
         titleAr: "تعليمات ما بعد الجلسة",
@@ -92,7 +92,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "الفجوة بين الجلسة والمتابعة هي المكان الذي تخسر فيه العيادات المراجعين. سدّها لا يحتاج حملة تسويق بل اقتراحاً في اللحظة الصحيحة.",
       whyEn:
         "The gap between a session and its follow-up is where clinics lose patients. Closing it does not need a marketing campaign, just a suggestion at the right moment.",
-      exampleAr: "جلسة اليوم ← «المتابعة بعد 4 أسابيع، الثلاثاء 14 الساعة 6 مساءً» بضغطة.",
+      exampleAr: "جلسة اليوم، ثم «المتابعة بعد 4 أسابيع، الثلاثاء 14 الساعة 6 مساءً» بضغطة واحدة.",
       exampleEn: "Today's session → \"Follow-up in 4 weeks: Tuesday the 14th at 6pm\", in one tap.",
           widget: {
         titleAr: "موعد المتابعة",
@@ -113,7 +113,7 @@ export const clinicsDeepDive: SectorDeepDive = {
       key: "prep-instructions",
       titleAr: "تحضير ما قبل الموعد",
       titleEn: "Preparation before the appointment",
-      triggerAr: "الحجز تم والإجراء له شروط تحضير.",
+      triggerAr: "تم الحجز لعلاج له شروط تحضير.",
       triggerEn: "A booking is made for a procedure with preparation requirements.",
       scenarioAr:
         "تصل تعليمات التحضير قبل الموعد بوقت كافٍ، ومعها ما يلزم شراؤه إن لزم. الموعد الذي يُلغى لعدم التحضير خسارة مزدوجة: وقت ضائع في التقويم ومراجع محبط.",
@@ -123,7 +123,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "الإلغاء في اللحظة الأخيرة أغلى مشكلة تشغيلية في العيادة، وأكثر أسبابه بساطة: المراجع لم يعرف ما عليه فعله قبل الحضور.",
       whyEn:
         "Last-minute cancellation is the most expensive operational problem a clinic has, and its commonest cause is the simplest: the patient did not know what to do beforehand.",
-      exampleAr: "حجز يوم الخميس ← تذكير الثلاثاء بتعليمات التحضير وما يُشترى مسبقاً.",
+      exampleAr: "حجز يوم الخميس، ثم تذكير يوم الثلاثاء بتعليمات التحضير وما يُشترى مسبقاً.",
       exampleEn: "A Thursday booking → a Tuesday reminder with the preparation steps and anything to buy first.",
           widget: {
         titleAr: "قبل موعدك",
@@ -155,7 +155,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "كل زيارة إضافية تكلف المراجع مواصلات وإجازة من العمل. ضمّ خدمتين في زيارة يرفع قيمة الموعد ويخفض عبء المراجع في آن.",
       whyEn:
         "Every extra visit costs the patient travel and time off work. Combining two services in one visit raises the value of the appointment and lowers their burden at once.",
-      exampleAr: "تنظيف أسنان ← «تبييض في نفس الموعد، 40 دقيقة إضافية» بدل زيارة ثانية.",
+      exampleAr: "تنظيف أسنان، فيُقترح «تبييض في نفس الموعد، 40 دقيقة إضافية» بدل زيارة ثانية.",
       exampleEn: "A dental cleaning → \"Whitening in the same appointment, 40 minutes more\" instead of a second visit.",
           widget: {
         titleAr: "في نفس الموعد",
@@ -186,7 +186,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "العيادة تعرف تاريخ آخر زيارة ولا أحد غيرها يعرفه. تحويل تلك المعرفة إلى تذكير في وقته هو أرخص مصدر مواعيد لدى أي عيادة.",
       whyEn:
         "The clinic knows the date of the last visit and nobody else does. Turning that into a timely reminder is the cheapest source of appointments any clinic has.",
-      exampleAr: "آخر تنظيف في مارس ← تذكير في سبتمبر مع أقرب ثلاثة مواعيد متاحة.",
+      exampleAr: "آخر تنظيف في مارس، فيصله تذكير في سبتمبر مع أقرب ثلاثة مواعيد متاحة.",
       exampleEn: "Last cleaning in March → a September reminder with the next three open slots.",
           widget: {
         titleAr: "فحصك الدوري",
@@ -218,7 +218,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "العائلة السعودية تنسّق زياراتها أصلاً، والعيادة التي لا تسهّل ذلك تدفع العائلة لتقسيم زياراتها بين عيادتين.",
       whyEn:
         "Families already coordinate their visits, and a clinic that does not make that easy pushes them to split between two clinics.",
-      exampleAr: "حجز الأب الخميس 5 م ← «الأبناء 5:30 و6 م في نفس الزيارة؟»",
+      exampleAr: "حجز الأب الخميس 5 م، فيُسأل: «الأبناء 5:30 و6 م في نفس الزيارة؟»",
       exampleEn: "Father booked Thursday 5pm → \"The children at 5:30 and 6 in the same visit?\"",
           widget: {
         titleAr: "مواعيد العائلة",
@@ -250,7 +250,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "ساعة فارغة في تقويم العيادة تكلفة كاملة لا تُسترد: الطاقم حاضر والإيجار يجري. ملء الفتحة أهم من بيع أي شيء إضافي.",
       whyEn:
         "An empty hour in a clinic calendar is a full unrecoverable cost: the staff are there and the rent is running. Filling the hole matters more than selling anything extra.",
-      exampleAr: "إلغاء موعد 4 م ← عرض فوري على قائمة انتظار نفس الخدمة، ودُفع بديل للملغي.",
+      exampleAr: "إلغاء موعد 4 م، فيُعرض فوراً على قائمة انتظار نفس الخدمة، ويُقترح على من ألغى موعد بديل.",
       exampleEn: "A 4pm cancellation → offered instantly to that service's waiting list, with an alternative pushed to the person who cancelled.",
           widget: {
         titleAr: "موعد شاغر",
