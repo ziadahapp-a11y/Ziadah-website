@@ -95,18 +95,3 @@ export function BlockGrid() {
     </section>
   );
 }
-
-/** The page's legal footnote. */
-export function Disclaimer() {
-  const t = useT();
-  return (
-    <div id="home-disclaimer" className="home-disclaimer">
-      <div className="container">
-        {t({
-          ar: "الأسعار شاملة ضريبة القيمة المضافة\nالنتائج تقديرية وتختلف حسب القطاع وحجم الكتالوج وسلوك العملاء",
-          en: "Prices are VAT-inclusive\nResults are estimates and vary by sector, catalogue size and shopper behaviour",
-        })}
-      </div>
-    </div>
-  );
-}

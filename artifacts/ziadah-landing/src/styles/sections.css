@@ -3739,3 +3739,11 @@ a.plat-item-link:hover {
   .ishift-move-head,
   [dir="rtl"] .ishift-move-head { transform: rotate(135deg); }
 }
+
+/* A START-ALIGNED HERO KEEPS ITS DESCRIPTION AT THE START TOO.
+   `.hero-body` is `text-align: center` for the centred heroes. On the other
+   variant, where the eyebrow and the title sit on the inline-start edge, that
+   left the description centred under them, so each wrapped line began at a
+   different place than the title above it. Only the non-centred wrapper gets
+   this, so the centred heroes are untouched. */
+.hero-lede--start .hero-body { text-align: start; max-width: 780px; margin-inline-end: auto; }

@@ -19,7 +19,7 @@ export function HomeFaq() {
     {
       q: t({ ar: "كيف تختلف زيادة عن الاقتراحات الجاهزة في متجري؟", en: "How is Ziadah different from my store's built-in recommendations?" }),
       a: t({
-        ar: "الاقتراحات الجاهزة عادة تعرض «الأكثر مبيعاً» للجميع. زيادة تبني اقتراح شخصي لكل عميل بناءً على تصفّحه وسلّته وطلباته السابقة والمنتجات اللي تُشترى معاً — فترتفع نسبة الإضافة ومتوسط قيمة الطلب بشكل واضح.",
+        ar: "الاقتراحات الجاهزة عادة تعرض «الأكثر مبيعاً» للجميع. تطبيق زيادة يبني اقتراحاً شخصياً لكل عميل بناءً على تصفّحه وسلّته وطلباته السابقة والمنتجات اللي تُشترى معاً — فترتفع نسبة الإضافة ومتوسط قيمة الطلب بشكل واضح.",
         en: "Built-in blocks usually show the same best-sellers to everyone. Ziadah builds a personalized set for each shopper from their browsing, cart, past orders, and frequently-bought-together items — so add-on rate and average order value rise noticeably.",
       }),
     },

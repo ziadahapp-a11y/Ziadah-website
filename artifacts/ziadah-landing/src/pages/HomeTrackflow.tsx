@@ -12,7 +12,7 @@ import { Calculator } from "./home/Calculator";
 import { Pricing } from "./home/Pricing";
 import { Testimonials } from "./home/Testimonials";
 import { HomeFaq } from "./home/Faq";
-import { BlockGrid, Disclaimer } from "./home/BlockGrid";
+import { BlockGrid } from "./home/BlockGrid";
 
 /**
  * Homepage composition.
@@ -74,7 +74,7 @@ export default function HomeTrackflow() {
       <SEO
         titleAr="زيادة — ارفع متوسط قيمة الطلب بالذكاء الاصطناعي"
         titleEn="Ziadah — Raise your average order value with AI"
-        descriptionAr="زيادة تقترح لكل عميل المنتجات المناسبة في صفحة المنتج والسلة والدفع، فترفع متوسط قيمة الطلب ومبيعاتك حتى 35٪. فعّل على زد بنقرة وحدة."
+        descriptionAr="تطبيق زيادة يقترح لكل عميل المنتجات المناسبة في صفحة المنتج والسلة والدفع، فيرفع متوسط قيمة الطلب ومبيعاتك حتى 35٪. فعّل على زد بنقرة وحدة."
         descriptionEn="Ziadah recommends the right products to every customer across product, cart, and checkout — lifting your average order value and sales by up to 35%. One-click activation on Zid."
         canonical="/"
       />
@@ -100,7 +100,6 @@ export default function HomeTrackflow() {
         <Pricing onActivate={openPlatforms} />
         <HomeFaq />
         <BlockGrid />
-        <Disclaimer />
       </div>
 
       <PlatformModal open={platformOpen} onClose={() => setPlatformOpen(false)} />

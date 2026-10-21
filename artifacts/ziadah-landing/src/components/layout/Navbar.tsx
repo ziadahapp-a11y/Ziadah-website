@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Globe,
   ChevronDown,
@@ -120,16 +120,21 @@ export function Navbar() {
      merchant reads the axis they are shopping by, and the columns are of
      comparable height so nothing stretches. `experience` holds a single entry,
      so it rides under `activity` rather than opening a column of its own. */
+  /* THREE COLUMNS, like every other panel. Five groups balance as pages (8
+     lines), presentation + experience (8), activity + goal (11). `experience`
+     holds one entry, so it rides under another group rather than taking a
+     column. */
   const solutionColumns: NavGroup[][] = [
     solutions.filter((g) => g.hubHref === "/use-cases/by-pages"),
     solutions.filter(
-      (g) => g.hubHref === "/use-cases/by-activity" || g.hubHref === "/use-cases/by-experience",
+      (g) => g.hubHref === "/use-cases/by-presentation" || g.hubHref === "/use-cases/by-experience",
     ),
-    solutions.filter((g) => g.hubHref === "/use-cases/by-presentation"),
-    solutions.filter((g) => g.hubHref === "/use-cases/by-goal"),
+    solutions.filter(
+      (g) => g.hubHref === "/use-cases/by-activity" || g.hubHref === "/use-cases/by-goal",
+    ),
   ].filter((col) => col.length > 0);
 
-  /* Four promoted solutions, above the groups. Named here rather than derived,
+  /* Three promoted solutions, above the groups, one per column. Named here rather than derived,
      because promotion is an editorial decision: these are the four a merchant
      arrives asking for, and the panel should answer before it starts
      classifying. The previous cards were whichever entries happened to carry a
@@ -141,7 +146,6 @@ export function Navbar() {
     "/use-cases/cross-sell",
     "/use-cases/upsell",
     "/use-cases/add-to-cart",
-    "/use-cases/related-products",
   ];
   const solutionItems = solutions.flatMap((g) => g.items);
   const solutionCards = PROMOTED.map((href) =>
@@ -397,20 +401,6 @@ export function Navbar() {
                       );
                     })}
                   </div>
-                  <div className="mega-links">
-                    <p className="mega-heading">{t("تسجيل الدخول", "Log in")}</p>
-                    {DASHBOARDS.map((d) => (
-                      <a
-                        key={d.key}
-                        className="mega-link"
-                        href={d.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {tr.nav[d.key]}
-                      </a>
-                    ))}
-                  </div>
                 </div>
               </li>
 
@@ -495,6 +485,7 @@ export function Navbar() {
               <CalendarDays className="w-4 h-4" aria-hidden="true" />
               {t("احجز اجتماع", "Book a meeting")}
             </Button>
+            <LoginMenu label={t("تسجيل الدخول", "Log in")} names={{ salla: tr.nav.salla, zid: tr.nav.zid }} />
             <Button variant="primary" onClick={startNow} data-testid="nav-start">
               {tr.nav.startNow}
             </Button>
@@ -765,5 +756,64 @@ function HelpCard({ item }: { item: HelpItem }) {
     <button className="mega-card" onClick={item.onClick}>
       {inner}
     </button>
+  );
+}
+
+
+/**
+ * LOG IN, BESIDE THE PRIMARY ACTION.
+ *
+ * It lived inside the platforms panel, under a "Log in" heading, which is the
+ * last place a returning merchant looks: they are not shopping for a platform,
+ * they already have one. It is now a button of its own next to "Activate now".
+ * Dashboards differ per platform, so it opens a two-line menu rather than
+ * guessing which one a visitor uses.
+ *
+ * Desktop only. The mobile drawer keeps its own copy in the platforms drill,
+ * where there is room for a list.
+ */
+function LoginMenu({ label, names }: { label: string; names: Record<"salla" | "zid", string> }) {
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const away = (e: MouseEvent) => { if (!root.current?.contains(e.target as Node)) setOpen(false); };
+    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("mousedown", away);
+    document.addEventListener("keydown", esc);
+    return () => { document.removeEventListener("mousedown", away); document.removeEventListener("keydown", esc); };
+  }, [open]);
+
+  return (
+    <div ref={root} className="login-menu btn-desktop-only">
+      <Button
+        variant="tertiary"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        data-testid="nav-login"
+      >
+        {label}
+        <ChevronDown className="nav-caret" aria-hidden="true" />
+      </Button>
+      {open ? (
+        <div className="login-pop" role="menu">
+          {DASHBOARDS.map((d) => (
+            <a
+              key={d.key}
+              role="menuitem"
+              className="mega-link"
+              href={d.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+            >
+              {names[d.key]}
+            </a>
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }

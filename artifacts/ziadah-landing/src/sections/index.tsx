@@ -222,7 +222,7 @@ export function HeroLede({
     >
       {ground}
       <Shell className="hero-container">
-        <div className={cn(center && "mx-auto max-w-[96rem] text-center")}>
+        <div className={cn(center ? "mx-auto max-w-[96rem] text-center" : "hero-lede--start")}>
           {eyebrow ? <p className="t-eyebrow">{eyebrow}</p> : null}
           <h1 className={cn("hero-title", compact && "hero-title--compact")}>{title}</h1>
           {body ? (

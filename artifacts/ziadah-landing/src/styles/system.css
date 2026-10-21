@@ -629,26 +629,26 @@ html.no-scroll { overflow: hidden; }
 }
 
 /* ---------- MEGA MENU ------------------------------------------------
-   MEASURED: a floating panel, max-width 96rem, radius 2.4rem, 2fr 1fr, sitting
-   1rem above the header's bottom edge. Not a full-bleed bar. */
+   MEASURED: a floating panel, max-width 960px, radius 24px, 2fr 1fr, sitting
+   10px above the header's bottom edge. Not a full-bleed bar. */
 .mega {
   position: absolute;
-  top: calc(var(--header-height) - 1rem);
+  top: calc(var(--header-height) - 10px);
   inset-inline: var(--page-padding-x);
-  max-width: 96rem;
+  max-width: 960px;
   margin-inline: auto;
   z-index: var(--z-dropdown);
-  padding: 2.4rem;
-  border-radius: 2.4rem;
+  padding: 24px;
+  border-radius: 24px;
   background: var(--general-white);
   color: var(--general-black);
-  box-shadow: 0 2rem 6rem rgb(10 10 10 / 0.12);
+  box-shadow: 0 20px 60px rgb(10 10 10 / 0.12);
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2.4rem;
+  gap: 24px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-0.8rem);
+  transform: translateY(-8px);
   transition: opacity calc(var(--motion) * var(--motion-speed)) ease,
               transform calc(var(--motion) * var(--motion-speed)) var(--spring-ease),
               visibility 0s linear calc(var(--motion) * var(--motion-speed));
@@ -662,12 +662,12 @@ html.no-scroll { overflow: hidden; }
    does, and at a human pace (a step every 40ms) the panel closed at y=76 and
    only came back at y=87 once the pointer landed on it. Pausing in the strip,
    or travelling diagonally toward a card on the far side, left it shut.
-   `1.9rem` is measured, not guessed. The gap is the distance from the trigger's
-   bottom to the panel's top, and it is 1.83rem at EVERY desktop width - 13px at
+   `19px` is measured, not guessed. The gap is the distance from the trigger's
+   bottom to the panel's top, and it is 18.3px at EVERY desktop width - 13px at
    1025, 18.3px at 1440, 24.4px at 1920 - because both ends scale with the fluid
-   root. 1.9rem covers it with about 0.7px to spare, which overlaps the trigger
+   root. 19px covers it with about 0.7px to spare, which overlaps the trigger
    row by less than a pixel and leaves sibling triggers hoverable.
-   (A first attempt used 1rem, reasoning from the `- 1rem` in the panel's own
+   (A first attempt used 10px, reasoning from the `- 10px` in the panel's own
    `top`. That covered barely half the gap: the trigger does not reach the
    header's full height, so the offset in the calc is not the gap.)
    `position: absolute` is load-bearing: `.mega` is a grid, and a static
@@ -675,7 +675,7 @@ html.no-scroll { overflow: hidden; }
 .mega::before {
   content: "";
   position: absolute;
-  top: -1.9rem;
+  top: -19px;
   /* Spans the viewport, not just the panel. The panel is centred under a 96rem
      cap while the triggers sit at the edges of a much wider header, so at 1025,
      1280 and 1920 the trigger is horizontally OUTSIDE the panel and a straight
@@ -684,10 +684,10 @@ html.no-scroll { overflow: hidden; }
      interactive content, so bridging all of it is safe, and it only exists
      while a panel is open. */
   inset-inline: -50vw;
-  height: 1.9rem;
+  height: 19px;
 }
 /* The panel bridge alone is not enough, because the panel is centred under a
-   96rem cap while the triggers sit at the edge of a much wider header. MEASURED:
+   960px cap while the triggers sit at the edge of a much wider header. MEASURED:
    the crossing survives at 1440 and 1600 - where the trigger happens to fall
    just inside the panel's span - and fails at 1025, 1280 and 1920, where the
    trigger is outside it entirely and the drop lands in the strip the panel does
@@ -709,7 +709,7 @@ html.no-scroll { overflow: hidden; }
     position: absolute;
     top: 100%;
     inset-inline: 0;
-    height: 1.9rem;
+    height: 19px;
   }
 }
 /* Below the desktop tier the panel is replaced by the drill-down. `display:
@@ -728,16 +728,16 @@ html.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-content: start;
-  gap: 0.8rem;
+  gap: 8px;
 }
 /* MEASURED: `display: block`, padding 1.6rem, radius 1.6rem. */
 .mega-card {
   display: block;
   min-width: 0;
   width: 100%;
-  padding: 1.6rem;
+  padding: 16px;
   border: 0;
-  border-radius: 1.6rem;
+  border-radius: 16px;
   background: none;
   color: inherit;
   font: inherit;
@@ -747,7 +747,7 @@ html.no-scroll { overflow: hidden; }
 }
 /* MEASURED: `display: block`. The badge and the platform mark sit inline in the
    line box, the way the reference's own `.badge` does. */
-.mega-card-title { display: block; font-size: 1.8rem; font-weight: 500; color: var(--general-black); }
+.mega-card-title { display: block; font-size: 18px; font-weight: 500; color: var(--general-black); }
 .mega-card-desc {
   /* MEASURED: the reference description is one line, two at most (an explicit
      <br> in `Perps` and `Card`). Clamped to that, so a longer Ziadah sentence
@@ -757,33 +757,33 @@ html.no-scroll { overflow: hidden; }
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
-  margin-top: 0.4rem;
-  font-size: 1.4rem;
+  margin-top: 4px;
+  font-size: 14px;
   font-weight: 400;
   color: var(--general-gray-dark);
 }
 /* MEASURED: the reference card carries no icon. The grey 3.2rem tile that stood
-   here cost 4.39rem of the text column (title measured 21.61rem against the
-   reference's 26.00rem). What remains is the brand mark on the platform cards,
+   here cost 43.9px of the text column (title measured 216.1px against the
+   reference's 260px). What remains is the brand mark on the platform cards,
    inline at the title's own size, because there the logo IS the row's identity. */
 .mega-logo {
   display: inline-block;
-  vertical-align: -0.3rem;
-  width: 2rem;
-  height: 2rem;
-  margin-inline-end: 0.8rem;
+  vertical-align: -3px;
+  width: 20px;
+  height: 20px;
+  margin-inline-end: 8px;
   color: var(--general-black);
 }
 
-.mega-links { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.mega-links { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mega-heading {
-  font-size: 1.2rem;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   /* DOCUMENTED DEVIATION D-01, same reason as the footer legal row. */
   color: var(--general-gray-dark);
-  padding: 0.8rem 1.2rem;
+  padding: 8px 12px;
 }
 [dir="rtl"] .mega-heading { text-transform: none; letter-spacing: 0; }
 /* MEASURED: `display: block`. The badge is inline, as `.badge` is on the
@@ -792,12 +792,12 @@ html.no-scroll { overflow: hidden; }
   display: block;
   width: 100%;
   min-width: 0;
-  padding: 0.8rem 1.2rem;
+  padding: 8px 12px;
   border: 0;
-  border-radius: 1rem;
+  border-radius: 10px;
   background: none;
   font: inherit;
-  font-size: 1.5rem;
+  font-size: 15px;
   font-weight: 500;
   color: var(--general-gray-dark);
   text-align: start;
@@ -806,7 +806,7 @@ html.no-scroll { overflow: hidden; }
               color calc(var(--motion) * var(--motion-speed)) ease;
 }
 .mega-link:focus-visible,
-.mega-card:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+.mega-card:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 @media (hover: hover) {
   .mega-card:hover { background: var(--general-white-off); }
   .mega-link:hover { background: var(--general-white-off); color: var(--general-black); }
@@ -828,10 +828,10 @@ html.no-scroll { overflow: hidden; }
    peers of each other, not a two-column list. */
 .mega-cards--promoted {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.8rem;
-  padding-bottom: 1.6rem;
-  margin-bottom: 1.6rem;
-  border-bottom: 0.1rem solid var(--general-gray-light);
+  gap: 8px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--general-gray-light);
 }
 @media screen and (max-width: 1279px) {
   .mega-cards--promoted { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -840,12 +840,12 @@ html.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
-  gap: 2.4rem 1.6rem;
+  gap: 24px 16px;
 }
 /* A column can hold more than one group - `by-experience` has a single entry
    and rides under `by-activity` rather than opening a column for one link. */
-.mega-column { display: flex; flex-direction: column; gap: 2.4rem; min-width: 0; }
-.mega-group { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.mega-column { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.mega-group { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
 /* The heading IS the group's index page, so it is a control, not a label: it
    takes the link's own box so the column reads as one aligned stack, and
@@ -854,20 +854,20 @@ html.no-scroll { overflow: hidden; }
   display: block;
   width: 100%;
   min-width: 0;
-  margin-bottom: 0.4rem;
-  padding: 0.8rem 1.2rem;
+  margin-bottom: 4px;
+  padding: 8px 12px;
   border: 0;
-  border-radius: 1rem;
+  border-radius: 10px;
   background: none;
   font: inherit;
-  font-size: 1.5rem;
+  font-size: 15px;
   font-weight: 600;
   color: var(--general-black);
   text-align: start;
   cursor: pointer;
   transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
 }
-.mega-group-title:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+.mega-group-title:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 @media (hover: hover) { .mega-group-title:hover { background: var(--general-white-off); } }
 
 /* The catch-all, on its own row under the groups: it is not a sixth grouping,
@@ -876,28 +876,28 @@ html.no-scroll { overflow: hidden; }
 .mega-all {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 6px;
   align-self: start;
-  margin-top: 1.6rem;
-  padding: 0.8rem 1.2rem;
+  margin-top: 16px;
+  padding: 8px 12px;
   border: 0;
-  border-radius: 1rem;
+  border-radius: 10px;
   background: none;
   font: inherit;
-  font-size: 1.5rem;
+  font-size: 15px;
   font-weight: 600;
   color: var(--general-black);
   cursor: pointer;
   transition: background-color calc(var(--motion) * var(--motion-speed)) ease;
 }
-.mega-all:focus-visible { outline: 0.2rem solid currentColor; outline-offset: -0.2rem; }
+.mega-all:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }
 @media (hover: hover) { .mega-all:hover { background: var(--general-white-off); } }
 /* The rule spans the panel, so it is drawn by the grid row rather than by the
    control, which is only as wide as its label. */
-.mega--groups .mega-groups { padding-bottom: 1.6rem; border-bottom: 0.1rem solid var(--general-gray-light, rgb(10 10 10 / 8%)); }
+.mega--groups .mega-groups { padding-bottom: 16px; border-bottom: 1px solid var(--general-gray-light, rgb(10 10 10 / 8%)); }
 /* The caret is a chevron rotated into an arrow, pointing the way the reader
    reads - so it flips with direction rather than pointing out of the panel. */
-.mega-all-caret { width: 1.6rem; height: 1.6rem; transform: rotate(-90deg); }
+.mega-all-caret { width: 16px; height: 16px; transform: rotate(-90deg); }
 [dir="rtl"] .mega-all-caret { transform: rotate(90deg); }
 
 /* Five groups do not fit four columns at the narrow desktop tier. */
@@ -1537,3 +1537,60 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
 }
 .footer-copy { margin-inline-start: auto; }
 @media screen and (max-width: 767px) { .footer-copy { margin-inline-start: 0; width: 100%; } }
+
+/* ---------- MEGA MENU: SIZED LIKE THE REST OF THE SITE -------------------
+   Every size in the panel was rem, and rem is 10px at 1440 but 13.3px from 1920
+   up, so the panel was a third bigger on the large screens it sits on: about
+   1,240 x 790px, most of the screen, with 21px description text leaking in
+   from the body size. The rules above are now px at their 1440 value; this
+   trims them, on the same scale the page uses. */
+.mega { max-width: 880px; padding: 20px; border-radius: 20px; gap: 20px; }
+.mega-card { padding: 12px 14px; border-radius: 12px; }
+.mega-card-title { font-size: var(--t-body); }
+.mega-card-desc { font-size: var(--t-sm); line-height: 1.5; margin-top: 2px; }
+.mega-heading { font-size: var(--t-cap); padding: 6px 12px; }
+.mega-link { font-size: var(--t-sm); padding: 6px 12px; border-radius: 8px; }
+.mega-group-title { font-size: var(--t-sm); padding: 6px 12px; margin-bottom: 2px; border-radius: 8px; }
+.mega-groups { gap: 18px 12px; }
+.mega-column { gap: 14px; }
+.mega-all { font-size: var(--t-sm); padding: 6px 12px; margin-top: 10px; }
+.mega--groups .mega-groups { padding-bottom: 12px; }
+/* The panel is now a fixed 880px at every desktop width, so the narrow-desktop
+   fallbacks above (three columns, two promoted cards) are obsolete: they were
+   written for a panel that grew with the viewport. Left in, at 1100px they
+   stacked the solutions panel to 827px, taller than the screen. */
+@media screen and (max-width: 1279px) {
+  .mega-groups { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mega-cards--promoted { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ---------- LOG IN, BESIDE THE PRIMARY ACTION ---------------------------
+   A small popover under the button, aligned to its inline end so it opens
+   toward the page rather than off the edge of the header. */
+.login-menu { position: relative; }
+.login-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  min-width: 150px;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+  color: #07000c;
+  box-shadow: 0 16px 40px rgb(10 10 10 / 0.16), inset 0 0 0 1px rgb(10 10 10 / 0.08);
+  z-index: var(--z-dropdown);
+  display: grid;
+  gap: 2px;
+}
+.login-pop .mega-link { color: #07000c; }
+
+/* ---------- ONE PANEL ANATOMY: THREE COLUMNS ----------------------------
+   Every mega panel is the same 880px, three columns. The cards-plus-links
+   panels are already 2fr/1fr, which is two card columns and one link column;
+   the platforms panel is three cards across; the solutions panel is three
+   groups across. */
+.mega, .mega--groups, .mega--single { grid-template-columns: minmax(0, 1fr); }
+.mega:not(.mega--groups):not(.mega--single) { grid-template-columns: 2fr 1fr; }
+.mega--single .mega-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mega-groups { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.mega-cards--promoted { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }

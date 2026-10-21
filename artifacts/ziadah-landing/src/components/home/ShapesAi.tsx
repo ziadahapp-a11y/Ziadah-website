@@ -65,7 +65,7 @@ export default function ShapesAi() {
         kicker={t("أمثلة حية", "Live examples")}
         title={t("النموذج يقرر ماذا يُعرض. الأشكال تقرر كيف يظهر.", "The model decides what to offer. The shapes decide how it looks.")}
         lead={t(
-          "مو قائمة منتجات عشوائية. زيادة تقرأ السلة وسجلّ متجرك وقطاعك، تختار العرض المناسب، ثم تضعه في الشكل الذي يناسب اللحظة - كل هذا بدون تعديل على قالب متجرك.",
+          "مو قائمة منتجات عشوائية. تطبيق زيادة يقرأ السلة وسجلّ متجرك وقطاعك، يختار العرض المناسب، ثم يضعه في الشكل الذي يناسب اللحظة - كل هذا بدون تعديل على قالب متجرك.",
           "Not a random product list. Ziadah reads the cart, your store's own history and your sector, picks the offer, then puts it in the shape that fits the moment - with no edit to your theme.",
         )}
       />
@@ -90,7 +90,6 @@ export default function ShapesAi() {
           <ShapeAccordion
             items={items}
             label={t("أشكال العرض", "The shapes")}
-            stageMax={580}
             stage={(key, { wide }) => (
               <div className="sacc-card">
                 <FitWidget hug height={wide ? 540 : 460}>

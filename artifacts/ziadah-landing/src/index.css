@@ -98,12 +98,19 @@
 }
 
 html {
-  font-size: 10px;                                  /* < 768  — fixed */
+  /* A FIXED 10px AT EVERY WIDTH.
+     This used to be fluid - 1.19904vw from 768, 0.694444vw from 1025, capped at
+     13.33px - so one rem was ~12.3px at 1024, 10px at 1440 and 13.3px at 1920.
+     Everything still written in rem therefore changed size with the window, and
+     in the wrong direction at tablet: body text was 16px at 1440, 20px at 1024
+     and 21px at 1920; H3 was 24, 29.5 and 32. Measured on all 20 page templates,
+     every one drifted by more than 15%.
+     Every rem on the site was tuned to look right at 1440, where the root is
+     10px, so pinning it there makes the rest match without touching them. The
+     px scales (type, spacing, containers) never depended on it. */
+  font-size: 10px;
   -webkit-font-smoothing: antialiased;
 }
-@media screen and (min-width: 768px)  { html { font-size: 1.19904vw; } }   /* 100vw / 83.4 */
-@media screen and (min-width: 1025px) { html { font-size: 0.694444vw; } }  /* 100vw / 144 */
-@media screen and (min-width: 1920px) { html { font-size: 13.3333px; } }   /* cap */
 
 :root {
   /* ---- layout ---- */
@@ -1770,8 +1777,6 @@ h1.ht{font-size:72px;font-weight:600;line-height:.97;letter-spacing:-3px;margin-
   background:rgba(255,255,255,.95);
   border:1px solid rgba(124, 58, 237,.2);
   box-shadow:0 2px 14px rgba(124, 58, 237,.08);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
 }
 .landing-hero-band .lc:hover{
   border-color:rgba(124, 58, 237,.4);
@@ -1835,7 +1840,6 @@ section#why.landing-white-accent{
   background:rgba(255,255,255,.9);
   border:1px solid rgba(124, 58, 237,.2);
   box-shadow:0 2px 14px rgba(124, 58, 237,.08);
-  backdrop-filter:blur(8px);
 }
 .landing-white-accent .lc:hover{
   border-color:rgba(124, 58, 237,.4);
@@ -2044,9 +2048,16 @@ section.cta-sec.landing-white-accent .cta-box .cta-glow{
 section.cta-sec.landing-white-accent .cta-box h2{color:var(--lv-accent-deep);display:flex;}
 section.cta-sec.landing-white-accent .cta-box p{color:var(--lv-accent)!important;font-weight:500;}
 section.cta-sec.landing-white-accent .cta-note{color:var(--lv-accent-mid)!important;}
-.logos-mask{overflow:hidden;mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);}
+/* EDGE FADES AS OVERLAYS, NOT A MASK. A mask over a track that slides forces
+   the browser to re-composite the whole 7,000px strip every frame; two
+   gradients in the band's own colour sit on top and cost nothing to move. */
+.logos-mask{overflow:hidden;position:relative;}
+.logos-mask::before,.logos-mask::after{content:"";position:absolute;inset-block:0;width:12%;z-index:2;pointer-events:none;}
+.logos-mask::before{inset-inline-start:0;background:linear-gradient(to right,var(--color-primary,#fff),transparent);}
+.logos-mask::after{inset-inline-end:0;background:linear-gradient(to left,var(--color-primary,#fff),transparent);}
 .logos-mask .marquee-segment{gap:12px;}
-.lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:border-color var(--duration-base,240ms) var(--ease-standard);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;}
+/* No backdrop-filter: 48 of these slide under a masked container, and a live blur on each re-samples what is behind it every frame. Their backgrounds are already opaque enough that the blur showed nothing. */
+.lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:border-color var(--duration-base,240ms) var(--ease-standard);display:flex;align-items:center;justify-content:center;}
 .lc:hover{border-color:var(--b2);}
 .logo-img{height:40px;width:auto;max-width:140px;object-fit:contain;opacity:0.85;transition:opacity .3s;}
 .lc:hover .logo-img{opacity:1;}

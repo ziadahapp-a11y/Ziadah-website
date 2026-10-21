@@ -445,7 +445,7 @@ export const sectors: SectorContent[] = [
       "Summer abaya in cart → sunglasses or flats in the same style family.",
     ],
     experienceAr:
-      "متاجر الأزياء تحتاج توازناً بين الإلهام والبساطة؛ زيادة تختار اللحظة والمكان المناسبين لعرض الإضافات دون إزعاج واجهة العلامة.",
+      "متاجر الأزياء تحتاج توازناً بين الإلهام والبساطة؛ تطبيق زيادة يختار اللحظة والمكان المناسبين لعرض الإضافات دون إزعاج واجهة العلامة.",
     experienceEn:
       "Fashion brands need inspiration without clutter; Ziadah picks the right moment and placement so add-ons feel native to your brand UI.",
     bestPracticesAr: [
@@ -539,7 +539,7 @@ export const sectors: SectorContent[] = [
       "Coding course → advanced module or capstone project upsell.",
     ],
     experienceAr:
-      "المنتج الرقمي يُباع بالوضوح والتسلسل؛ زيادة تربط الخطوة التالية المنطقية بعد الشراء.",
+      "المنتج الرقمي يُباع بالوضوح والتسلسل؛ تطبيق زيادة يربط الخطوة التالية المنطقية بعد الشراء.",
     experienceEn:
       "Digital goods sell on clarity and sequence; Ziadah surfaces the logical next step post-purchase.",
     bestPracticesAr: [
@@ -650,7 +650,7 @@ export const sectors: SectorContent[] = [
     titleEn: "Beauty & Personal Care",
     taglineAr: "مع سلة تفهم عميلك الباحث عن الجمال",
     taglineEn: "With Salla, understand your beauty-seeking customer",
-    seoDescAr: "روتين عناية، عطور، ومكياج — زيادة تربط المنتجات في رحلة جمال متكاملة.",
+    seoDescAr: "روتين عناية، عطور، ومكياج — تطبيق زيادة يربط المنتجات في رحلة جمال متكاملة.",
     seoDescEn: "Skincare routines, fragrance, makeup — connected beauty journeys.",
     howToApplyAr: [
       "جمّع المنتجات في «روتينات» حسب نوع البشرة أو الهدف.",
