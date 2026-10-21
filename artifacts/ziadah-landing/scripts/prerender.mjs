@@ -60,23 +60,35 @@ function ogFile(route) {
   return `og/${slug}.png`;
 }
 
+// The shape each solution page is about, read from the app's own map so the
+// two cannot drift (widgetKindHref in storefrontSets.tsx).
+const KIND_BY_HREF = (() => {
+  const src = fs.readFileSync(path.join(ROOT, "src/components/widgets/storefrontSets.tsx"), "utf8");
+  const block = src.slice(src.indexOf("export function widgetKindHref"), src.indexOf("export function widgetKindWhen"));
+  const map = {};
+  for (const m of block.matchAll(/(\w+):\s*"(\/use-cases\/[^"]+)"/g)) if (!map[m[2]]) map[m[2]] = m[1];
+  return map;
+})();
+
 const OG_TYPES = {
   ar: { sectors: "قطاع", "use-cases": "حل", features: "ميزة", blog: "مقال", support: "مركز المساعدة", pricing: "الأسعار", platforms: "المنصات", calculator: "الحاسبة", "success-stories": "قصص نجاح", about: "عن زيادة", affiliate: "الشركاء", default: "تطبيق زيادة" },
   en: { sectors: "Industry", "use-cases": "Solution", features: "Feature", blog: "Article", support: "Help centre", pricing: "Pricing", platforms: "Platforms", calculator: "Calculator", "success-stories": "Success stories", about: "About Ziadah", affiliate: "Partners", default: "Ziadah app" },
 };
 
-function ogCard({ route, lang, title, description, image, origin }) {
+function ogCard({ route, lang, title, description, fan, origin }) {
   const OG_CSS = globalThis.OG_CSS;
   const isAr = lang === "ar";
   const first = route.replace(/^\/en(\/|$)/, "/").split("/").filter(Boolean)[0] || "";
   const kind = (OG_TYPES[lang][first] ?? OG_TYPES[lang].default);
   const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const clean = (t) => t.replace(/\s*[|\-\u2013\u2014]\s*(Ziadah|زيادة)\s*$/i, "").trim();
-  const t = esc(clean(title).slice(0, 90));
-  const d = esc(description.replace(/\s+/g, " ").slice(0, 150));
-  const panel = image
-    ? `<div class="tile"><img src="${esc(image)}" alt=""></div>`
-    : `<div class="stack"><i></i><i></i><i></i></div>`;
+  // A hyphen inside a Latin word is a line-break point: "Add-ons" came out as
+  // "Add-" and "ons" on two lines. A non-breaking hyphen keeps the word whole.
+  const hold = (v) => v.replace(/([A-Za-z0-9])-(?=[A-Za-z0-9])/g, "$1\u2011");
+  const t = esc(hold(clean(title).slice(0, 90)));
+  const d = esc(hold(description.replace(/\s+/g, " ").slice(0, 150)));
+  // Every card carries real widget sheets (see src/pages/OgFan.tsx).
+  const panel = `<img class="fan" src="${fan}" alt="">`;
   return `<!doctype html><html lang="${lang}" dir="${isAr ? "rtl" : "ltr"}"><head><meta charset="utf-8"><base href="${origin}/">
 <link rel="stylesheet" href="/assets/${OG_CSS}">
 <style>
@@ -90,7 +102,8 @@ h1{font-size:${(clean(title).length > 48 ? 56 : 68)}px;line-height:1.25;font-wei
 p{font-size:28px;line-height:1.55;color:rgba(255,255,255,.78);margin-top:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .foot{display:flex;align-items:center;gap:20px;font-size:26px;color:rgba(255,255,255,.7)}
 .foot img{height:52px;width:auto}
-.side{flex:none;width:380px;display:flex;align-items:center;justify-content:center;padding-inline-end:56px}
+.side{flex:none;width:500px;display:flex;align-items:center;justify-content:center;padding-inline-end:24px;overflow:hidden}
+.fan{width:500px;height:500px;object-fit:contain;display:block}
 .tile{width:340px;height:340px;border-radius:36px;background:#fff;display:grid;place-items:center;box-shadow:0 30px 80px rgba(0,0,0,.35)}
 .tile img{width:84%;height:84%;object-fit:contain}
 .stack{position:relative;width:300px;height:360px}
@@ -220,10 +233,32 @@ async function main() {
   async function writeAllOg() {
     const pg = await browser.newPage();
     await pg.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
+    const fp = await browser.newPage();
+    await fp.setViewport({ width: 900, height: 900, deviceScaleFactor: 1 });
+    const fans = new Map();
+    /* Three real widget sheets on a transparent page: one picture per
+       language, shelf and shape, shared by every page that wants it. */
+    const fanFor = async (route, lang) => {
+      const base = route.replace(/^\/en(?=\/|$)/, "").replace(/\/$/, "") || "/";
+      const sector = /^\/sectors\/([^/]+)$/.exec(base)?.[1] ?? "";
+      const key = `${lang}|${sector}|${KIND_BY_HREF[base] ?? ""}`;
+      if (fans.has(key)) return fans.get(key);
+      await fp.goto(`${origin}${lang === "en" ? "/en" : ""}/__og-fan?path=${encodeURIComponent(base)}`, { waitUntil: "load", timeout: 30000 });
+      await fp.waitForSelector("#og-fan", { timeout: 20000 });
+      await fp.evaluate(async () => {
+        await document.fonts.ready;
+        await Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; }))));
+        await new Promise((r) => setTimeout(r, 300));
+      });
+      const buf = await fp.screenshot({ type: "png", omitBackground: true, clip: { x: 0, y: 0, width: 900, height: 900 }, captureBeyondViewport: false });
+      const uri = `data:image/png;base64,${buf.toString("base64")}`;
+      fans.set(key, uri);
+      return uri;
+    };
     let n = 0;
     for (const [route, meta] of Object.entries(ogPages)) {
       const lang = route === "/en" || route.startsWith("/en/") ? "en" : "ar";
-      const html = ogCard({ route, lang, title: meta.title, description: meta.description, image: meta.image, origin });
+      const html = ogCard({ route, lang, title: meta.title, description: meta.description, fan: await fanFor(route, lang), origin });
       await pg.bringToFront();
       await pg.setContent(html, { waitUntil: "load", timeout: 20000 });
       const sample = `${meta.title} ${meta.description}`;
@@ -248,7 +283,8 @@ async function main() {
       n++;
     }
     await pg.close().catch(() => {});
-    console.log(`[prerender] wrote ${n} preview card(s).`);
+    await fp.close().catch(() => {});
+    console.log(`[prerender] wrote ${n} preview card(s) with ${fans.size} widget fans.`);
   }
 
   async function renderOnce(route) {

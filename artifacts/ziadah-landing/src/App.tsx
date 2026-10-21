@@ -17,6 +17,8 @@ const SuccessStoryDetail = lazy(() => import("@/pages/SuccessStoryDetail"));
 const Landing = lazy(() => import("@/pages/HomeTrackflow"));
 /* Not linked and not in the sitemap: the film at full size, for recording it. */
 const FilmRender = lazy(() => import("@/pages/FilmRender"));
+/* Not linked and not in the sitemap: three widget sheets on a transparent page, for the preview cards. */
+const OgFan = lazy(() => import("@/pages/OgFan"));
 const Support = lazy(() => import("@/pages/Support"));
 const SupportArticle = lazy(() => import("@/pages/SupportArticle"));
 const Features = lazy(() => import("@/pages/Features"));
@@ -129,6 +131,7 @@ function PublicRoutes() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/data-deletion" component={DataDeletion} />
       <Route path="/__film" component={FilmRender} />
+      <Route path="/__og-fan" component={OgFan} />
       <Route path="/terms" component={Terms} />
       <Route path="/features" component={Features} />
       <Route path="/features/:slug">

@@ -482,25 +482,10 @@
 }
 .sacc-link:hover { text-decoration-thickness: 2px; }
 
-/* THE STAGE. Sticky so it stays beside whichever row is open while the list
-   scrolls. It re-enters on every change, which is what tells the eye the
+/* THE STAGE. It re-enters on every change, which is what tells the eye the
    sheet changed along with the row. */
-/* The whole band pins, so the stage column no longer needs its own sticky. */
 .sacc-stage-col { min-width: 0; }
 
-/* THE PIN. On wide screens the track is taller than its content by the runway
-   (set inline) and the pin sticks inside it, centred in the space under the
-   header. `min-height` is what centres it: content shorter than that space is
-   centred by the flex box, and taller content simply starts at the top. */
-.sacc-track[data-wide] .sacc-pin {
-  position: sticky;
-  top: calc(var(--header-dynamic-height, 66px) + 16px);
-  min-height: calc(100svh - var(--header-dynamic-height, 66px) - 32px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.sacc-track[data-wide] .sacc-pin > * { width: 100%; }
 .sacc-stage { animation: sacc-in 0.32s ease both; }
 @keyframes sacc-in {
   from { opacity: 0; transform: translateY(8px); }
