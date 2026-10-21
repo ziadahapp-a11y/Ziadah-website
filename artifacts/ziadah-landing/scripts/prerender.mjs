@@ -104,6 +104,12 @@ p{font-size:28px;line-height:1.55;color:rgba(255,255,255,.78);margin-top:20px;di
 <div class="side">${panel}</div></body></html>`;
 }
 
+// The app shell exactly as vite emitted it. Routes are served this shell (never
+// a file the run has already overwritten): rendering "/" replaces
+// dist/public/index.html with prerendered HTML, and a later route that booted
+// from THAT would start with the home page's head and body.
+const SHELL = fs.readFileSync(path.join(DIST, "index.html"), "utf8");
+
 // --- Minimal static server with SPA fallback --------------------------------
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -128,14 +134,14 @@ function createServer() {
     try {
       const urlPath = decodeURIComponent((req.url || "/").split("?")[0]);
       let filePath = path.join(DIST, urlPath);
-      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+      if (urlPath !== "/" && urlPath !== "/index.html" && fs.existsSync(filePath) && fs.statSync(filePath).isFile() && !filePath.endsWith(`${path.sep}index.html`)) {
         res.writeHead(200, { "Content-Type": MIME[path.extname(filePath)] || "application/octet-stream" });
         fs.createReadStream(filePath).pipe(res);
         return;
       }
       // SPA fallback — serve the app shell so the client router can render the route.
       res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-      fs.createReadStream(path.join(DIST, "index.html")).pipe(res);
+      res.end(SHELL);
     } catch {
       res.writeHead(500);
       res.end("error");
@@ -242,7 +248,14 @@ async function main() {
       // react-helmet-async applies the head on the frame AFTER mount. Serialising
       // before it lands shipped every page with index.html's own head, so every
       // preview was the home page's. Wait for the tags it owns.
-      await page.waitForFunction("document.head.querySelector('[data-rh]')", { timeout: 8000 }).catch(() => {});
+      const expectCanonical = SITE + (route === "/" ? "/" : route);
+      await page
+        .waitForFunction(
+          (url) => [...document.head.querySelectorAll('link[rel="canonical"]')].some((l) => l.getAttribute("href") === url),
+          { timeout: 8000 },
+          expectCanonical,
+        )
+        .catch(() => console.warn(`[prerender] ${route}: head never reached its own canonical`));
       // Drop the pre-React splash so the static HTML shows real content.
       await page.evaluate(() => {
         document.getElementById("initial-loader")?.remove();
@@ -252,7 +265,7 @@ async function main() {
       // og/twitter). Helmet adds the page's tags BESIDE them rather than over
       // them, and a crawler reads the first one it meets, which is the static
       // one. Where Helmet owns a tag, the static twin goes.
-      const meta = await page.evaluate(() => {
+      const meta = await page.evaluate((shell) => {
         const head = document.head;
         const key = (el) => {
           const n = el.tagName.toLowerCase();
@@ -265,11 +278,16 @@ async function main() {
           }
           return null;
         };
-        const owned = new Set([...head.querySelectorAll("[data-rh]")].map(key).filter(Boolean));
+        // The shell's own tags, by exact markup. Where the page has put a tag of
+        // the same kind beside one of them, the shell's is the one that goes.
+        const shellSigs = new Set(
+          [...new DOMParser().parseFromString(shell, "text/html").head.children].map((el) => el.outerHTML),
+        );
+        const count = {};
+        [...head.children].forEach((el) => { const k = key(el); if (k) count[k] = (count[k] || 0) + 1; });
         [...head.children].forEach((el) => {
-          if (el.hasAttribute("data-rh")) return;
           const k = key(el);
-          if (k && owned.has(k)) el.remove();
+          if (k && count[k] > 1 && shellSigs.has(el.outerHTML)) { el.remove(); count[k]--; }
         });
         const get = (sel, attr = "content") => document.head.querySelector(sel)?.getAttribute(attr) || "";
         return {
@@ -278,7 +296,7 @@ async function main() {
           lang: document.documentElement.getAttribute("lang") || "ar",
           image: document.querySelector(".pz-hero img")?.getAttribute("src") || "",
         };
-      });
+      }, SHELL);
       if (!ogPages[route]) ogPages[route] = meta;
       await writeOg(route, meta);
       const html = "<!DOCTYPE html>\n" + (await page.evaluate(() => document.documentElement.outerHTML));
