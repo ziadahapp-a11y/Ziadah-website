@@ -58,6 +58,15 @@ function parseSectorSlugs() {
   return slugs;
 }
 
+function parseSuccessStorySlugs() {
+  const raw = readUtf8("src/data/successStoriesData.ts");
+  const slugs = [];
+  const re = /^\s+slug:\s*"([^"]+)"/gm;
+  let m;
+  while ((m = re.exec(raw)) !== null) slugs.push(m[1]);
+  return slugs;
+}
+
 function parseSupportArticleIds() {
   const raw = readUtf8("src/data/support-data.ts");
   const ids = [];
@@ -145,6 +154,7 @@ function main() {
   const sectorSlugs = parseSectorSlugs();
   const featureSlugs = parseFeatureSlugs();
   const supportIds = parseSupportArticleIds();
+  const storySlugs = parseSuccessStorySlugs();
   const today = new Date().toISOString().slice(0, 10);
 
   const parts = [];
@@ -176,6 +186,10 @@ function main() {
 
   for (const p of USE_CASE_PATHS) {
     emitPair(p, today, "monthly", "0.65");
+  }
+
+  for (const slug of storySlugs) {
+    emitPair(`/success-stories/${slug}`, today, "monthly", "0.6");
   }
 
   for (const id of supportIds) {
