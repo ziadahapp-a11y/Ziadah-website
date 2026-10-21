@@ -42,7 +42,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "العميل سيشتري الحماية خلال أسبوعين على أي حال - إما منك أو من محل عند الإشارة. بيعها معه في نفس الطلب يلتقط ربحاً كان سيخرج من الباب.",
       whyEn:
         "The customer will buy protection within a fortnight anyway - from you or from a kiosk at the traffic lights. Selling it in the same order captures margin that was walking out.",
-      exampleAr: "آيفون ١٥ برو ← جراب مطابق ١٢٠ + حامي شاشة ٨٥، بالمقاس لا بالفئة.",
+      exampleAr: "آيفون 15 برو ← جراب مطابق 120 + حامي شاشة 85، بالمقاس لا بالفئة.",
       exampleEn: "iPhone 15 Pro → a model-matched case at 120 + a screen protector at 85, by fit and not by category.",
       widget: {
         titleAr: "احمِ جهازك",
@@ -79,7 +79,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "العميل الذي يفتح الصندوق ولا يجد ما يشغّل الجهاز يكتب تقييماً سيئاً عن المتجر لا عن المُصنّع. التنبيه يحمي التقييم قبل أن يرفع السلة.",
       whyEn:
         "A customer who opens the box and cannot power the device writes a bad review about the store, not the manufacturer. The warning protects the rating before it lifts the basket.",
-      exampleAr: "هاتف بلا شاحن في العلبة ← «يحتاج شاحن ٢٠ واط» + كيبل مناسب.",
+      exampleAr: "هاتف بلا شاحن في العلبة ← «يحتاج شاحن 20 واط» + كيبل مناسب.",
       exampleEn: "A phone with no charger included → \"Needs a 20W charger\" + the right cable.",
       widget: {
         titleAr: "لا يأتي معه شاحن",
@@ -109,14 +109,14 @@ export const electronicsDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتصفّح أدنى سعة من موديل.",
       triggerEn: "The customer is viewing the lowest storage tier of a model.",
       scenarioAr:
-        "يُعرض الفرق للسعة الأعلى مع ما يعنيه عملياً: «+٤٠٠ ر.س = ضعف المساحة، حوالي ٢٠٬٠٠٠ صورة إضافية».",
+        "يُعرض الفرق للسعة الأعلى مع ما يعنيه عملياً: «+400 ر.س = ضعف المساحة، حوالي 20,000 صورة إضافية».",
       scenarioEn:
         "The difference to the higher tier appears with what it means in practice: \"+400 SAR = double the space, roughly 20,000 more photos\".",
       whyAr:
         "السعة قرار لا رجعة فيه: لا يمكن ترقيتها لاحقاً. العميل الذي لا يُنبّه الآن يشتري جهازاً كاملاً بعد سنتين بسبب مساحة.",
       whyEn:
         "Storage is the one irreversible decision: it cannot be upgraded later. A customer not warned now buys a whole new device in two years over space.",
-      exampleAr: "١٢٨ جيجا ← «٢٥٦ بـ٤٠٠ أكثر، ضعف المساحة ولا يمكن ترقيتها لاحقاً».",
+      exampleAr: "128 جيجا ← «256 بـ400 أكثر، ضعف المساحة ولا يمكن ترقيتها لاحقاً».",
       exampleEn: "128GB → \"256 for 400 more, double the space, and it cannot be upgraded later\".",
       widget: {
         titleAr: "اختر السعة",
@@ -152,7 +152,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "تجميع التجهيز في حزمة يمنع العميل من تفريق طلبه على ثلاثة متاجر، وهو ما يفعله افتراضياً حين لا يجد الحزمة.",
       whyEn:
         "Bundling the setup stops the customer splitting the order across three stores, which is the default when no bundle exists.",
-      exampleAr: "شاشة ٢٧ بوصة ← «التجهيز كامل ١٨٥٠ بدل ٢١٤٠» مع الحامل والكيبل.",
+      exampleAr: "شاشة 27 بوصة ← «التجهيز كامل 1850 بدل 2140» مع الحامل والكيبل.",
       exampleEn: "A 27-inch monitor → \"The full setup at 1850 instead of 2140\", stand and cable included.",
       widget: {
         titleAr: "التجهيز كامل",
@@ -188,7 +188,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "الضمان أعلى هامش في الطلب كله وأقل تكلفة تشغيل. لكنه أيضاً أسرع شيء يفسد الثقة إن أُلحّ عليه.",
       whyEn:
         "Warranty is the highest-margin line in the order and the lowest operational cost. It is also the fastest way to damage trust if pushed.",
-      exampleAr: "لابتوب ٦٬٥٠٠ ← «ضمان سنتين إضافيتين ٤٥٠، يشمل الكسر العرضي» - مرة واحدة.",
+      exampleAr: "لابتوب 6,500 ← «ضمان سنتين إضافيتين 450، يشمل الكسر العرضي» - مرة واحدة.",
       exampleEn: "A 6,500 laptop → \"Two extra years at 450, accidental damage included\" - shown once.",
       widget: {
         titleAr: "ضمان ممتد",
@@ -222,7 +222,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "المستهلكات إيراد متكرر مضمون يتسرّب كاملاً للمتاجر الكبرى لمجرد أنها تذكّر والمتجر الصغير لا يذكّر.",
       whyEn:
         "Consumables are guaranteed recurring revenue that leaks entirely to the big marketplaces for one reason: they remind and the smaller store does not.",
-      exampleAr: "فلتر ماء اشتُري في يناير بعمر ٦ أشهر ← تذكير في يونيو.",
+      exampleAr: "فلتر ماء اشتُري في يناير بعمر 6 أشهر ← تذكير في يونيو.",
       exampleEn: "A water filter bought in January with a six-month life → a reminder in June.",
       widget: {
         titleAr: "موعد تغيير الفلتر",
@@ -251,14 +251,14 @@ export const electronicsDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتصفّح جهازاً اشتراه مئات العملاء قبله.",
       triggerEn: "The customer is viewing a device hundreds of customers bought before them.",
       scenarioAr:
-        "تُعرض أكثر ثلاث قطع اشتُريت مع هذا الموديل تحديداً، بنسبة صريحة: «٦٨٪ ممن اشتروا هذه الشاشة أخذوا معها ذراع التثبيت».",
+        "تُعرض أكثر ثلاث قطع اشتُريت مع هذا الموديل تحديداً، بنسبة صريحة: «68% ممن اشتروا هذه الشاشة أخذوا معها ذراع التثبيت».",
       scenarioEn:
         "The three parts most often bought with this exact model appear with the share stated plainly: \"68% of people who bought this monitor took the arm mount with it\".",
       whyAr:
         "في الإلكترونيات لا يثق المشتري الجديد برأي المتجر، لكنه يثق بسلوك من سبقه. الرقم يُحوّل الاقتراح من بيع إلى معلومة.",
       whyEn:
         "In electronics a new buyer does not trust the store's opinion but does trust the behaviour of those before them. The number turns a pitch into information.",
-      exampleAr: "شاشة ٢٧ بوصة ← «٦٨٪ أخذوا ذراع التثبيت، ٤١٪ أخذوا كيبل DisplayPort».",
+      exampleAr: "شاشة 27 بوصة ← «68% أخذوا ذراع التثبيت، 41% أخذوا كيبل DisplayPort».",
       exampleEn: "A 27-inch monitor → \"68% took the arm mount, 41% took a DisplayPort cable\".",
       widget: {
         titleAr: "اشتروها مع بعض",
@@ -288,14 +288,14 @@ export const electronicsDeepDive: SectorDeepDive = {
       triggerAr: "العميل أضاف قطعة استهلاكية رخيصة تُفقد وتتكرر: كيبل، شاحن، بطارية.",
       triggerEn: "The customer adds a cheap, losable, repeat item: a cable, a charger, a battery.",
       scenarioAr:
-        "يُعرض جدول تصاعدي صغير: واحد بـ٤٥، ثلاثة بـ١١٠، خمسة بـ١٦٥. لا ضغط ولا مؤقت - الجدول وحده يكفي لأن المنطق ظاهر.",
+        "يُعرض جدول تصاعدي صغير: واحد بـ45، ثلاثة بـ110، خمسة بـ165. لا ضغط ولا مؤقت - الجدول وحده يكفي لأن المنطق ظاهر.",
       scenarioEn:
         "A small progressive table appears: one for 45, three for 110, five for 165. No pressure and no timer - the table is enough because the logic is visible.",
       whyAr:
         "الكيبل يُفقد ويُقص ويُترك في المكتب. من يشتري واحداً يعود بعد شهرين، وغالباً لمتجر آخر. بيع ثلاثة الآن يشتري شهرين من عدم العودة.",
       whyEn:
         "A cable gets lost, frayed, left at the office. Whoever buys one comes back in two months, usually to another store. Selling three now buys two months of not coming back.",
-      exampleAr: "كيبل USB-C ٤٥ ← «٣ بـ١١٠ (وفّر ٢٥)، ٥ بـ١٦٥ (وفّر ٦٠)».",
+      exampleAr: "كيبل USB-C 45 ← «3 بـ110 (وفّر 25)، 5 بـ165 (وفّر 60)».",
       exampleEn: "A USB-C cable at 45 → \"3 for 110 (save 25), 5 for 165 (save 60)\".",
       widget: {
         titleAr: "خذها بالكمية",
@@ -322,17 +322,17 @@ export const electronicsDeepDive: SectorDeepDive = {
       placement: "cart-page",
       goal: "cart-value",
       presentation: "related-products",
-      triggerAr: "قيمة السلة تحت عتبة الشحن المجاني بأقل من ١٠٠ ر.س.",
+      triggerAr: "قيمة السلة تحت عتبة الشحن المجاني بأقل من 100 ر.س.",
       triggerEn: "The cart is under the free-shipping threshold by less than 100 SAR.",
       scenarioAr:
-        "يُعرض الناقص بالضبط، ومعه قطعتان سعرهما يغطّيه ويستعملهما العميل فعلاً: «ناقص ٥٨ ر.س للشحن المجاني».",
+        "يُعرض الناقص بالضبط، ومعه قطعتان سعرهما يغطّيه ويستعملهما العميل فعلاً: «ناقص 58 ر.س للشحن المجاني».",
       scenarioEn:
         "The exact gap appears alongside two items priced to cover it that the customer will genuinely use: \"58 SAR away from free delivery\".",
       whyAr:
-        "العميل يدفع ٣٠ ر.س شحناً أو يضيف ٥٨ ر.س بضاعة. الثاني أفضل للطرفين، لكنه لا يحدث إلا إذا عرفه ورأى بماذا يكمله.",
+        "العميل يدفع 30 ر.س شحناً أو يضيف 58 ر.س بضاعة. الثاني أفضل للطرفين، لكنه لا يحدث إلا إذا عرفه ورأى بماذا يكمله.",
       whyEn:
         "The customer pays 30 in delivery or adds 58 in goods. The second is better for both sides, but only happens if they know the gap and can see what closes it.",
-      exampleAr: "سلة ١٤٢ وعتبة ٢٠٠ ← «ناقص ٥٨» + حامل جوال ٦٥ أو حافظة كوابل ٦٠.",
+      exampleAr: "سلة 142 وعتبة 200 ← «ناقص 58» + حامل جوال 65 أو حافظة كوابل 60.",
       exampleEn: "A 142 cart against a 200 threshold → \"58 to go\" + a phone stand at 65 or a cable case at 60.",
       widget: {
         titleAr: "ناقص 58 ر.س للشحن المجاني",
@@ -366,10 +366,10 @@ export const electronicsDeepDive: SectorDeepDive = {
       scenarioEn:
         "A time-boxed coupon appears for this cart specifically, worth less than the device's margin and more than the usual price gap in the market.",
       whyAr:
-        "في الإلكترونيات الفرق بين متجرين غالباً ٢٪ إلى ٤٪. كوبون ٥٪ يُنهي المقارنة، وهو أرخص بكثير من خسارة الطلب كاملاً بملحقاته.",
+        "في الإلكترونيات الفرق بين متجرين غالباً 2% إلى 4%. كوبون 5% يُنهي المقارنة، وهو أرخص بكثير من خسارة الطلب كاملاً بملحقاته.",
       whyEn:
         "In electronics the gap between two stores is usually 2% to 4%. A 5% coupon ends the comparison, and it is far cheaper than losing the whole order with its accessories.",
-      exampleAr: "سلة ٥٬٢٠٠ عند المغادرة ← «خصم ٥٪ لمدة ١٥ دقيقة على هذه السلة».",
+      exampleAr: "سلة 5,200 عند المغادرة ← «خصم 5% لمدة 15 دقيقة على هذه السلة».",
       exampleEn: "A 5,200 cart at exit → \"5% off for 15 minutes on this cart\".",
       widget: {
         titleAr: "قبل ما تطلع",
@@ -405,7 +405,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "في صفحة الفئة العميل ما زال يقارن، فالترقية مقبولة. بعد ما يدخل صفحة المنتج يكون قد اختار، والترقية تقرأ كمحاولة بيع.",
       whyEn:
         "On the category page the customer is still comparing, so an upgrade is welcome. Once inside the product page they have chosen, and an upgrade reads as a sales push.",
-      exampleAr: "سماعة ٣٢٠ ← «بـ١٨٠ أكثر: عزل ضوضاء فعّال وبطارية ضعف المدة».",
+      exampleAr: "سماعة 320 ← «بـ180 أكثر: عزل ضوضاء فعّال وبطارية ضعف المدة».",
       exampleEn: "A 320 headphone → \"For 180 more: active noise cancelling and double the battery\".",
       widget: {
         titleAr: "فرق واحد يستحق",
@@ -441,7 +441,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "المنصة بيد واحدة تجربة ناقصة يكتشفها المشتري في أول جلسة. الحزمة تبيع نتيجة مفهومة، وهي أسهل من إقناعه بثلاث قطع منفصلة.",
       whyEn:
         "A console with one controller is an incomplete experience the buyer discovers in the first session. The bundle sells an outcome, which is easier than arguing for three separate parts.",
-      exampleAr: "منصة ألعاب ← «يلعبون اثنين من أول يوم: يد ثانية + لعبة + اشتراك ٣ أشهر، ٧٩٠ بدل ٩٣٠».",
+      exampleAr: "منصة ألعاب ← «يلعبون اثنين من أول يوم: يد ثانية + لعبة + اشتراك 3 أشهر، 790 بدل 930».",
       exampleEn: "A console → \"Two can play on day one: second controller + a game + 3-month subscription, 790 instead of 930\".",
       widget: {
         titleAr: "يلعبون اثنين من أول يوم",
@@ -477,7 +477,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "من يصوّر يعرف أن البطاقة تمتلئ أو تتلف في أسوأ وقت. عرض الكمية هنا لا يُقنع بشراء زائد، بل يوافق عادة موجودة أصلاً.",
       whyEn:
         "Anyone who shoots knows a card fills up or fails at the worst moment. The quantity offer here is not persuading an extra purchase, it is agreeing with a habit that already exists.",
-      exampleAr: "بطاقة ١٢٨ جيجا ١٤٠ ← «٢ بـ٢٥٠، ٣ بـ٣٤٥ (١١٥ للحبة)».",
+      exampleAr: "بطاقة 128 جيجا 140 ← «2 بـ250، 3 بـ345 (115 للحبة)».",
       exampleEn: "A 128GB card at 140 → \"2 for 250, 3 for 345 (115 each)\".",
       widget: {
         titleAr: "بطاقة احتياطية في الحقيبة",
@@ -514,7 +514,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "الباحث عن اسم قطعة محدد قرر الشراء، لكنه غالباً لا يعرف المتطلّب المخفي. إظهاره في نتائج البحث يمنع طلباً مرتجعاً أو تذكرة دعم.",
       whyEn:
         "Someone searching an exact part name has decided to buy but usually does not know the hidden requirement. Showing it in the results prevents a return or a support ticket.",
-      exampleAr: "بحث «كرت شاشة ٤٠٧٠» ← «يحتاج مزوّد طاقة ٧٥٠ واط على الأقل» مع المتوافق.",
+      exampleAr: "بحث «كرت شاشة 4070» ← «يحتاج مزوّد طاقة 750 واط على الأقل» مع المتوافق.",
       exampleEn: "A search for \"4070 graphics card\" → \"Needs at least a 750W power supply\" with the compatible one.",
       widget: {
         titleAr: "يحتاج مزوّد طاقة 750 واط",
@@ -550,7 +550,7 @@ export const electronicsDeepDive: SectorDeepDive = {
         "حذف القطعة الغالية إشارة ميزانية لا إشارة رفض. من يُعرض عليه خصم فوراً يتعلّم أن ينتظر الخصم؛ ومن يُعرض عليه بديل يشتري اليوم.",
       whyEn:
         "Removing the expensive line is a budget signal, not a rejection. Offer a discount immediately and the customer learns to wait for one; offer an alternative and they buy today.",
-      exampleAr: "حذف لابتوب ٦٬٥٠٠ ← «نفس الموديل بذاكرة أقل ٥٬٢٠٠» أو «مجدّد بضمان سنة ٤٬٧٠٠».",
+      exampleAr: "حذف لابتوب 6,500 ← «نفس الموديل بذاكرة أقل 5,200» أو «مجدّد بضمان سنة 4,700».",
       exampleEn: "A 6,500 laptop removed → \"The same model with less memory at 5,200\" or \"Refurbished with a year's warranty at 4,700\".",
       widget: {
         titleAr: "في بدائل قبل ما تلغي",

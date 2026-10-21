@@ -14,14 +14,14 @@ export const goldDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتصفّح قطعة وسعر الجرام يتحرك.",
       triggerEn: "The customer is viewing a piece while the gram price moves.",
       scenarioAr:
-        "يُعرض سعر اليوم مع مدة ثباته صراحة: «هذا السعر ثابت حتى ٦ مساءً». الشفافية هنا ليست ضغطاً بل واقع السوق.",
+        "يُعرض سعر اليوم مع مدة ثباته صراحة: «هذا السعر ثابت حتى 6 مساءً». الشفافية هنا ليست ضغطاً بل واقع السوق.",
       scenarioEn:
         "Today's price is shown with how long it holds, stated plainly: \"This price holds until 6pm\". The transparency here is not pressure, it is how the market works.",
       whyAr:
         "العميل الذي يعود غداً ويجد السعر تغيّر بلا تفسير يفقد الثقة. الإعلان المسبق عن آلية التسعير يحمي الثقة ويحسم التردد في الوقت نفسه.",
       whyEn:
         "A customer who comes back tomorrow to an unexplained different price loses trust. Stating the pricing mechanism up front protects that trust and resolves the hesitation at the same time.",
-      exampleAr: "أسورة ٢٢ جرام ← «سعر اليوم ٨٬٤٠٠، ثابت حتى ٦ م».",
+      exampleAr: "أسورة 22 جرام ← «سعر اليوم 8,400، ثابت حتى 6 م».",
       exampleEn: "A 22-gram bangle → \"Today's price 8,400, held until 6pm\".",
           widget: {
         titleAr: "سعر اليوم",
@@ -82,7 +82,7 @@ export const goldDeepDive: SectorDeepDive = {
         "من يشتري الشبكة يشتريها كاملة على أي حال، وتفريقها على أربع زيارات يفتح الباب لمقارنة سعر الجرام عند المنافس بينها.",
       whyEn:
         "Whoever buys a bridal set buys all of it anyway, and splitting it across four visits opens the door to a competitor's gram price in between.",
-      exampleAr: "خاتم شبكة ← «الشبكة كاملة ٨٥ جرام، الأجرة مجمّعة» بصورة واحدة.",
+      exampleAr: "خاتم شبكة ← «الشبكة كاملة 85 جرام، الأجرة مجمّعة» بصورة واحدة.",
       exampleEn: "A bridal ring → \"The full set, 85 grams, one combined making charge\", in a single image.",
           widget: {
         titleAr: "الشبكة كاملة",
@@ -113,7 +113,7 @@ export const goldDeepDive: SectorDeepDive = {
         "الذهب في السعودية يُشترى لمناسبة محددة لا بشكل عشوائي. ترتيب المعروض بالموسم يضاعف الصلة بلا أي خصم.",
       whyEn:
         "Gold here is bought for a specific occasion rather than at random. Ordering the catalogue by season multiplies relevance with no discount at all.",
-      exampleAr: "موسم مواليد ← أساور خفيفة ٥-٨ جرام في المقدمة.",
+      exampleAr: "موسم مواليد ← أساور خفيفة 5-8 جرام في المقدمة.",
       exampleEn: "Newborn season → light 5-8 gram bangles at the front.",
           widget: {
         titleAr: "موسم المواليد",
@@ -143,7 +143,7 @@ export const goldDeepDive: SectorDeepDive = {
         "كل بيت سعودي فيه ذهب قديم لا يُلبس. تذكير العميل بأنه رصيد لا حلية هو ما يفتح الميزانية.",
       whyEn:
         "Every household here has old gold nobody wears. Reminding the customer that it is credit rather than jewellery is what opens the budget.",
-      exampleAr: "قطعة ١٢٬٠٠٠ خارج الميزانية ← «بدّل ٣٠ جرام قديم وينزل الفرق ١١٬٠٠٠».",
+      exampleAr: "قطعة 12,000 خارج الميزانية ← «بدّل 30 جرام قديم وينزل الفرق 11,000».",
       exampleEn: "A 12,000 piece out of budget → \"Trade in 30 grams of old gold and the difference drops by 11,000\".",
           widget: {
         titleAr: "بدّل قديمك",
@@ -174,7 +174,7 @@ export const goldDeepDive: SectorDeepDive = {
         "الذهب يُشترى بنية إمكان البيع. المتجر الذي يوضّح إعادة الشراء يبيع أكثر من المتجر الأرخص بلا توضيح.",
       whyEn:
         "Gold is bought with resale in mind. A store that spells out its buy-back outsells a cheaper store that does not.",
-      exampleAr: "قطعة ٩٬٥٠٠ ← «دمغة ٢١، شهادة، إعادة شراء بسعر اليوم ناقص الأجرة».",
+      exampleAr: "قطعة 9,500 ← «دمغة 21، شهادة، إعادة شراء بسعر اليوم ناقص الأجرة».",
       exampleEn: "A 9,500 piece → \"21k hallmark, certificate, buy-back at the day's price less the making charge\".",
           widget: {
         titleAr: "الضمان وإعادة الشراء",

@@ -185,7 +185,7 @@ export function Calculator({
       <Shell>
         <p className="hero-caption calc-basis">
           {t({
-            ar: "بناءً على متاجر تستخدم زيادة، نفترض أن ~20٪ من الطلبات تقبل الاقتراح فترتفع قيمتها ~30٪.",
+            ar: "بناءً على متاجر تستخدم زيادة، نفترض أن ~20% من الطلبات تقبل الاقتراح فترتفع قيمتها ~30%.",
             en: "Based on stores using Ziadah, we assume ~20% of orders accept the suggestion, lifting their value ~30%.",
           })}
         </p>

@@ -162,15 +162,15 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
       <Sheet
         title={t("كوّن طقم جهازك", "Build your device kit")}
         sub={t("اختر قطعة من كل مجموعة، والسعر ينزل مع الطقم.", "Pick one from each group and the kit price drops.")}
-        chips={<><Pill>{t("٢ من ٣ مختارة", "2 of 3 chosen")}</Pill><Pill tone="green">{t("وفّرت ٥٥ ر.س", "Save SAR 55")}</Pill></>}
+        chips={<><Pill>{t("2 من 3 مختارة", "2 of 3 chosen")}</Pill><Pill tone="green">{t("وفّرت 55 ر.س", "Save SAR 55")}</Pill></>}
         footer={<><PriceBar label={t("سعر الطقم", "Kit price")} was={sar(525)} now={sar(470)} /><Cta>{t("أضف الطقم للسلة", "Add kit to cart")}</Cta></>}
       >
         <Progress pct={66} />
-        <Group label={t("الصوت", "Audio")} meta={t("مطلوب · اختر ١", "Required · pick 1")}>
+        <Group label={t("الصوت", "Audio")} meta={t("مطلوب · اختر 1", "Required · pick 1")}>
           <Option name={n("earbuds")} price={sar(320)} chosen />
           <Option name={n("wired")} price={sar(140)} />
         </Group>
-        <Group label={t("الحماية", "Protection")} meta={t("مطلوب · اختر ١", "Required · pick 1")}>
+        <Group label={t("الحماية", "Protection")} meta={t("مطلوب · اختر 1", "Required · pick 1")}>
           <Option name={n("case")} price={sar(120)} chosen />
           <Option name={n("screen")} price={sar(85)} />
         </Group>
@@ -186,14 +186,14 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
     return (
       <Sheet
         title={t("جهّز مكتبك خطوة خطوة", "Set up your desk, step by step")}
-        sub={t("٣ خطوات، وتقدر تستبدل أي واحدة.", "Three steps, and any one can be swapped.")}
-        chips={<Pill tone="grey">{t("الخطوة ٢ من ٣", "Step 2 of 3")}</Pill>}
+        sub={t("3 خطوات، وتقدر تستبدل أي واحدة.", "Three steps, and any one can be swapped.")}
+        chips={<Pill tone="grey">{t("الخطوة 2 من 3", "Step 2 of 3")}</Pill>}
         footer={<><PriceBar label={t("سعر الحزمة", "Package price")} was={sar(545)} now={sar(465)} /><Cta>{t("أكمل الخطوة الثالثة", "Continue to step 3")}</Cta></>}
       >
         <Progress pct={66} />
         <Step n={1} kicker={t("اسمع", "Listen")} name={n("earbuds")} price={sar(320)} swap />
         <Step n={2} kicker={t("اشحن", "Charge")} name={n("wcharger")} price={sar(180)} swap />
-        <AddRow name={n("screen")} meta={t("الخطوة ٣ · لم تُختر بعد", "Step 3 · not chosen yet")} price={sar(85)} />
+        <AddRow name={n("screen")} meta={t("الخطوة 3 · لم تُختر بعد", "Step 3 · not chosen yet")} price={sar(85)} />
       </Sheet>
     );
   }
@@ -205,7 +205,7 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
         sub={t("اخترت الثلاث قطع كلها.", "All three pieces chosen.")}
         footer={<><PriceBar label={t("سعر الجهاز كامل", "Full setup price")} was={sar(525)} now={sar(446)} /><Cta>{t("أضف الجهاز كامل", "Add the full setup")}</Cta></>}
       >
-        <Success>{t("اكتمل الجهاز، وفّرت ٧٩ ر.س", "Setup complete, you save SAR 79")}</Success>
+        <Success>{t("اكتمل الجهاز، وفّرت 79 ر.س", "Setup complete, you save SAR 79")}</Success>
         <Step n={1} kicker={t("الصوت", "Audio")} name={n("earbuds")} price={sar(320)} swap />
         <Step n={2} kicker={t("الحماية", "Protection")} name={n("case")} price={sar(120)} swap />
         <Step n={3} kicker={t("الشحن", "Charging")} name={n("cable")} price={sar(95)} swap />
@@ -218,18 +218,18 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
       <Sheet
         title={t("اشتر أكثر ووفر أكثر", "Buy more, save more")}
         sub={t("اخلط أي ملحقات تبغاها.", "Mix any accessories you like.")}
-        footer={<><PriceBar label={t("٣ قطع · خصم ١٠٪", "3 items · 10% off")} was={sar(525)} now={sar(472)} /><Cta>{t("أضف واحدة بعد لخصم ١٥٪", "Add 1 more for 15% off")}</Cta></>}
+        footer={<><PriceBar label={t("3 قطع · خصم 10%", "3 items · 10% off")} was={sar(525)} now={sar(472)} /><Cta>{t("أضف واحدة بعد لخصم 15%", "Add 1 more for 15% off")}</Cta></>}
       >
         <div className="sf-nudge">
-          <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم ١٥٪", "Add 1 more item to unlock 15% off")}</p>
+          <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}</p>
           <Progress pct={60} />
           <Tiers
             reached={2}
             tiers={[
-              { label: t("٢ قطع", "2 items"), off: t("٥٪", "5% off") },
-              { label: t("٣ قطع", "3 items"), off: t("١٠٪", "10% off") },
-              { label: t("٤ قطع", "4 items"), off: t("١٥٪", "15% off") },
-              { label: t("٥ قطع", "5 items"), off: t("٢٠٪ + شحن", "20% + ship") },
+              { label: t("2 قطع", "2 items"), off: t("5%", "5% off") },
+              { label: t("3 قطع", "3 items"), off: t("10%", "10% off") },
+              { label: t("4 قطع", "4 items"), off: t("15%", "15% off") },
+              { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
             ]}
           />
         </div>
@@ -246,7 +246,7 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
   if (kind === "replace") {
     return (
       <Sheet
-        title={t("بـ١٢٠ ر.س أكثر: شحن لاسلكي وبطارية أطول", "For 120 more: wireless charging and longer battery")}
+        title={t("بـ120 ر.س أكثر: شحن لاسلكي وبطارية أطول", "For 120 more: wireless charging and longer battery")}
         sub={t("نفس الفئة، شريحة أعلى.", "Same category, one tier up.")}
         footer={<><PriceBar label={t("الفرق", "The difference")} was={sar(320)} now={t("+120 ر.س", "+SAR 120")} /><Cta>{t("بدّلها بالأعلى", "Swap to the higher one")}</Cta></>}
       >
@@ -261,16 +261,16 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
       <Sheet
         title={t("خذها بالكمية وسعر الحبة ينزل", "Take the pack and the unit price drops")}
         sub={t("الكيبل يُفقد ويُترك. من يشتري واحداً يعود بعد شهرين.", "A cable gets lost and left behind. Whoever buys one comes back in two months.")}
-        footer={<><PriceBar label={t("٣ قطع · ١٠٠ ر.س للحبة", "3 items · 100 each")} was={sar(285)} now={sar(300)} /><Cta>{t("أضف ٣", "Add 3")}</Cta></>}
+        footer={<><PriceBar label={t("3 قطع · 100 ر.س للحبة", "3 items · 100 each")} was={sar(285)} now={sar(300)} /><Cta>{t("أضف 3", "Add 3")}</Cta></>}
       >
         <AddRow name={n("cable")} price={sar(95)} action={<Pill tone="grey">{t("حبة", "One")}</Pill>} />
         <Tiers
           reached={2}
           tiers={[
             { label: t("حبة", "1"), off: sar(95) },
-            { label: t("٣ قطع", "3"), off: sar(265) },
-            { label: t("٥ قطع", "5"), off: sar(410) },
-            { label: t("١٠ قطع", "10"), off: sar(760) },
+            { label: t("3 قطع", "3"), off: sar(265) },
+            { label: t("5 قطع", "5"), off: sar(410) },
+            { label: t("10 قطع", "10"), off: sar(760) },
           ]}
         />
       </Sheet>
@@ -313,7 +313,7 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
       <Sheet
         title={t("الثلاثة بسعر واحد", "All three at one price")}
         sub={t("سماعات + غطاء + واقي شاشة.", "Earbuds + case + screen protector.")}
-        chips={<Pill tone="green">{t("وفّرت ٢٦ ر.س", "Save SAR 26")}</Pill>}
+        chips={<Pill tone="green">{t("وفّرت 26 ر.س", "Save SAR 26")}</Pill>}
         footer={<><PriceBar label={t("الطقم كامل", "The whole set")} was={sar(525)} now={sar(499)} /><Cta>{t("خذها كلها", "Buy them all")}</Cta></>}
       >
         <div className="sf-grid">
@@ -329,12 +329,12 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
   if (kind === "cartvalue") {
     return (
       <Sheet
-        title={t("ناقص ٥٨ ر.س للشحن المجاني", "58 SAR away from free delivery")}
+        title={t("ناقص 58 ر.س للشحن المجاني", "58 SAR away from free delivery")}
         sub={t("أضف أي واحدة واحذف رسوم الشحن.", "Add either one and the delivery fee goes.")}
         footer={<><PriceBar label={t("سلتك الآن", "Your cart")} now={sar(242)} /><Cta>{t("أكمل العتبة", "Close the gap")}</Cta></>}
       >
         <Progress pct={81} />
-        <Nudge title={t("أضف واحدة من هذي وتوصل ٣٠٠ ر.س", "Add one of these to reach 300")}>
+        <Nudge title={t("أضف واحدة من هذي وتوصل 300 ر.س", "Add one of these to reach 300")}>
           <AddRow name={n("case")} price={sar(120)} />
           <AddRow name={n("screen")} price={sar(85)} />
         </Nudge>
@@ -346,8 +346,8 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
     return (
       <Sheet
         onClose
-        title={t("قبل ما تطلع: خصم ١٠٪", "Before you go: 10% off")}
-        sub={t("صالح ١٥ دقيقة على هذه السلة.", "Valid for 15 minutes on this cart.")}
+        title={t("قبل ما تطلع: خصم 10%", "Before you go: 10% off")}
+        sub={t("صالح 15 دقيقة على هذه السلة.", "Valid for 15 minutes on this cart.")}
         footer={<><PriceBar label={t("بعد الخصم", "After the discount")} was={sar(525)} now={sar(472)} /><Cta>{t("فعّل الكود", "Apply the code")}</Cta></>}
       >
         <p className="sf-code">ZIADAH10</p>
@@ -374,19 +374,19 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
     <Sheet
       onClose
       title={t("أُضيف إلى سلتك", "Added to your cart")}
-      sub={t("تبقّت قطعة واحدة لخصم ١٥٪.", "You are 1 item away from 15% off.")}
+      sub={t("تبقّت قطعة واحدة لخصم 15%.", "You are 1 item away from 15% off.")}
       footer={<PriceBar label={t("المجموع", "Subtotal")} was={sar(525)} now={sar(472)} />}
     >
       <div className="sf-nudge">
-        <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم ١٥٪", "Add 1 more item to unlock 15% off")}</p>
+        <p className="sf-nudge-t">{t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}</p>
         <Progress pct={60} />
         <Tiers
           reached={2}
           tiers={[
-            { label: t("٢ قطع", "2 items"), off: t("٥٪", "5% off") },
-            { label: t("٣ قطع", "3 items"), off: t("١٠٪", "10% off") },
-            { label: t("٤ قطع", "4 items"), off: t("١٥٪", "15% off") },
-            { label: t("٥ قطع", "5 items"), off: t("٢٠٪ + شحن", "20% + ship") },
+            { label: t("2 قطع", "2 items"), off: t("5%", "5% off") },
+            { label: t("3 قطع", "3 items"), off: t("10%", "10% off") },
+            { label: t("4 قطع", "4 items"), off: t("15%", "15% off") },
+            { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
           ]}
         />
       </div>
@@ -396,7 +396,7 @@ export function StorefrontWidget({ kind }: { kind: WidgetKind }) {
         price={sar(320)}
         action={<Pill tone="green">{t("أُضيف", "Just added")}</Pill>}
       />
-      <Nudge title={t("أضف واحدة من هذي لتصل لخصم ١٥٪", "Add one of these to reach 15% off")}>
+      <Nudge title={t("أضف واحدة من هذي لتصل لخصم 15%", "Add one of these to reach 15% off")}>
         <AddRow name={n("case")} price={sar(120)} />
         <AddRow name={n("screen")} price={sar(85)} />
       </Nudge>

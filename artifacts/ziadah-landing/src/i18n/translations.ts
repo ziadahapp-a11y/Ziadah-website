@@ -622,7 +622,7 @@ export const t = {
       pricingSub: "باقات مصممة حسب حجم متجرك - شاملة الضريبة",
       monthly: "شهري",
       yearly: "سنوي",
-      yearlyDiscount: "وفّر حتى 33٪",
+      yearlyDiscount: "وفّر حتى 33%",
       perMonth: "/ شهر",
       perYear: "سنوياً",
       monthlyEquivPrefix: "يُدفع",

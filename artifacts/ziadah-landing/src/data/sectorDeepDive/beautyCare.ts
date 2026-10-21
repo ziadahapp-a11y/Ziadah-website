@@ -50,7 +50,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
       key: "refill-timing",
       titleAr: "توقيت النفاد: قبل أن تنتهي العبوة",
       titleEn: "Refill timing: before the bottle runs out",
-      triggerAr: "مضت ستة أسابيع على شراء سيروم بحجم ٣٠ مل.",
+      triggerAr: "مضت ستة أسابيع على شراء سيروم بحجم 30 مل.",
       triggerEn: "Six weeks have passed since a 30ml serum was bought.",
       scenarioAr:
         "اقتراح إعادة الشراء يصل قبل النفاد بأيام لا بعده بأسابيع، لأن الانقطاع عن الروتين أسبوعاً واحداً يكسر العادة وقد لا تعود.",
@@ -60,7 +60,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
         "معظم متاجر العناية تخسر العميلة في الفجوة بين النفاد وتذكّر الشراء. حجم العبوة ومعدل الاستخدام معلومان، فالتوقيت حساب لا تخمين.",
       whyEn:
         "Most beauty stores lose the customer in the gap between running out and remembering to reorder. Bottle size and usage rate are both known, so the timing is arithmetic rather than a guess.",
-      exampleAr: "سيروم ٣٠ مل اشتُري في ١ مارس ← تذكير في ٨ أبريل مع عرض على الحجم الأكبر.",
+      exampleAr: "سيروم 30 مل اشتُري في 1 مارس ← تذكير في 8 أبريل مع عرض على الحجم الأكبر.",
       exampleEn: "A 30ml serum bought on 1 March → a reminder on 8 April, with an offer on the larger size.",
           widget: {
         titleAr: "قارب على النفاد",
@@ -122,7 +122,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
         "كل إرجاع بسبب درجة خاطئة يكلف الشحن مرتين ويكلف الثقة مرة. المطابقة الصحيحة ترفع الطلب وتخفض الإرجاع في الوقت نفسه.",
       whyEn:
         "Every return over a wrong shade costs shipping twice and trust once. Matching correctly raises the order and lowers returns at the same time.",
-      exampleAr: "أساس درجة ٣٢٠ ← كونسيلر ٣٢٠ وبودرة شفافة، لا الدرجة الأكثر مبيعاً.",
+      exampleAr: "أساس درجة 320 ← كونسيلر 320 وبودرة شفافة، لا الدرجة الأكثر مبيعاً.",
       exampleEn: "Foundation in 320 → concealer in 320 and a translucent powder, not the top-selling shade.",
           widget: {
         titleAr: "الدرجة المطابقة",
@@ -147,14 +147,14 @@ export const beautyCareDeepDive: SectorDeepDive = {
       triggerAr: "العميلة اشترت حجم سفر أو عينة قبل أسابيع.",
       triggerEn: "The customer bought a travel size or a sample weeks ago.",
       scenarioAr:
-        "بعد مدة كافية للتجربة، يُعرض الحجم الكامل مع فرق سعر الوحدة صريحاً: «الحجم الكامل يوفّر ٤٠٪ على المل».",
+        "بعد مدة كافية للتجربة، يُعرض الحجم الكامل مع فرق سعر الوحدة صريحاً: «الحجم الكامل يوفّر 40% على المل».",
       scenarioEn:
         "After enough time to have tried it, the full size appears with the unit-price difference spelled out: \"The full size saves 40% per ml\".",
       whyAr:
         "العينة أداة بيع لا منتج. المتجر الذي لا يتابعها بعرض الحجم الكامل في الوقت الصحيح دفع تكلفة التجربة وترك الربح.",
       whyEn:
         "A sample is a sales tool, not a product. A store that does not follow it with the full size at the right moment has paid for the trial and left the margin.",
-      exampleAr: "عينة كريم ١٥ مل بـ٤٥ ← الحجم ٥٠ مل بـ١٢٠ (توفير ٤٠٪ على المل).",
+      exampleAr: "عينة كريم 15 مل بـ45 ← الحجم 50 مل بـ120 (توفير 40% على المل).",
       exampleEn: "A 15ml sample at 45 → the 50ml at 120 (40% less per ml).",
           widget: {
         titleAr: "من العينة للحجم الكامل",
@@ -162,7 +162,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
         mainAr: "عينة كريم 15 مل",
         mainEn: "15ml sample",
         mainPrice: "45",
-        hintAr: "يوفّر 40٪ على المل",
+        hintAr: "يوفّر 40% على المل",
         hintEn: "40% less per ml",
         suggest: [
           { ar: "الحجم الكامل 50 مل", en: "Full size, 50ml", price: "120" },
@@ -178,14 +178,14 @@ export const beautyCareDeepDive: SectorDeepDive = {
       triggerAr: "السلة فيها خطوتان من روتين معرّف من ثلاث.",
       triggerEn: "The cart holds two steps of a three-step routine.",
       scenarioAr:
-        "«ناقصك التونر ويصير روتين الليل كامل بـ٤٥ أقل» — يسمّي الخطوة الناقصة بالاسم، فالعميلة لا تبحث في مئة منتج عن الخطوة الصحيحة.",
+        "«ناقصك التونر ويصير روتين الليل كامل بـ45 أقل» — يسمّي الخطوة الناقصة بالاسم، فالعميلة لا تبحث في مئة منتج عن الخطوة الصحيحة.",
       scenarioEn:
         "\"One toner away from the complete night routine, 45 less\" - it names the missing step, so she is not hunting through a hundred products for the right one.",
       whyAr:
         "بيع الروتين كاملاً يرفع قيمة الطلب ويرفع النتيجة التي تراها العميلة، وهي وحدها ما يعيدها. الحزمة هنا ليست خصماً بل وصفة.",
       whyEn:
         "Selling the whole routine raises the order and raises the result she actually sees, which is the only thing that brings her back. The bundle here is a prescription, not a discount.",
-      exampleAr: "غسول + سيروم في السلة ← «أضف التونر، الروتين كامل ٢٦٠ بدل ٣٠٥».",
+      exampleAr: "غسول + سيروم في السلة ← «أضف التونر، الروتين كامل 260 بدل 305».",
       exampleEn: "Cleanser + serum in the cart → \"Add the toner: the full routine at 260 instead of 305\".",
           widget: {
         titleAr: "روتين الليل كامل",
@@ -216,7 +216,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
         "قطاع العناية مليء بالأصناف الصغيرة عالية الهامش، وهي أنسب ما يسدّ فجوة شحن دون أن يبدو الاقتراح ابتزازاً.",
       whyEn:
         "Beauty is full of small high-margin items, which are exactly what closes a shipping gap without the suggestion reading as a squeeze.",
-      exampleAr: "السلة ١٦٥، الشحن المجاني عند ٢٠٠ ← ماسك ورقي ١٥ × ٢ أو حجم سفر ٣٥.",
+      exampleAr: "السلة 165، الشحن المجاني عند 200 ← ماسك ورقي 15 × 2 أو حجم سفر 35.",
       exampleEn: "Cart at 165, free shipping at 200 → two sheet masks at 15, or a travel size at 35.",
           widget: {
         titleAr: "الشحن المجاني",
@@ -248,7 +248,7 @@ export const beautyCareDeepDive: SectorDeepDive = {
         "المُهدي يشتري بمنطق معاكس تماماً للمشترية لنفسها: يريد الأمان والمظهر لا الملاءمة. اقتراح سيروم متخصص لهدية اقتراح خاطئ مهما كان جيداً.",
       whyEn:
         "A gift buyer shops on the opposite logic to someone buying for herself: they want safety and presentation, not suitability. Suggesting a specialist serum as a gift is a wrong suggestion however good the serum is.",
-      exampleAr: "تغليف هدية مُفعّل ← مجموعة عناية جاهزة ٣٢٠، لا سيروم متخصص للبشرة الحساسة.",
+      exampleAr: "تغليف هدية مُفعّل ← مجموعة عناية جاهزة 320، لا سيروم متخصص للبشرة الحساسة.",
       exampleEn: "Gift wrapping on → a ready 320 SAR care set, not a specialist sensitive-skin serum.",
           widget: {
         titleAr: "هدية جاهزة",

@@ -66,14 +66,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "الضيف اختار لاتيه وسط وفتح ورقة الصنف.",
       triggerEn: "The guest picks a medium latte and opens the item sheet.",
       scenarioAr:
-        "يظهر خيار الحجم الأكبر ومعه الفرق وحده: «كبير +٣ ر.س»، لا «كبير ٢٢ ر.س». الفرق رقم صغير يُقارن بالكوب، أما السعر الكامل فيُقارن بالميزانية.",
+        "يظهر خيار الحجم الأكبر ومعه الفرق وحده: «كبير +3 ر.س»، لا «كبير 22 ر.س». الفرق رقم صغير يُقارن بالكوب، أما السعر الكامل فيُقارن بالميزانية.",
       scenarioEn:
         "The larger size appears with the difference alone: \"Large +3 SAR\", never \"Large 22 SAR\". A difference is a small number compared against the cup; a full price is compared against the budget.",
       whyAr:
         "هامش الترقية في المشروبات من أعلى الهوامش في المقهى، لأن التكلفة الإضافية حليب وكوب لا أكثر. وهي أسهل موافقة في القائمة كلها: لا تضيف صنفاً ولا تطيل الانتظار.",
       whyEn:
         "Size upgrades carry some of the highest margin in a cafe, because the added cost is milk and a cup. It is also the easiest yes on the menu: it adds no item and no waiting time.",
-      exampleAr: "لاتيه وسط ١٩ ر.س ← كبير بفرق ٣ ر.س. نفس الكوب، نفس الانتظار.",
+      exampleAr: "لاتيه وسط 19 ر.س ← كبير بفرق 3 ر.س. نفس الكوب، نفس الانتظار.",
       exampleEn: "Medium latte 19 SAR → large for 3 SAR more. Same cup, same wait.",
           widget: {
         titleAr: "اختر حجمك",
@@ -105,7 +105,7 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         "الإضافات هامشها شبه كامل. والترتيب بالفرع لا بالسلسلة يهم: فرع الجامعة يطلب شوت إضافي، وفرع العوائل يطلب كريمة.",
       whyEn:
         "Modifiers are almost pure margin. Ranking by branch rather than by chain matters: the campus branch orders an extra shot, the family branch orders cream.",
-      exampleAr: "لاتيه ← شوت إضافي +٤ ر.س، حليب لوز، بندق. ثلاث شرائح، لمسة واحدة.",
+      exampleAr: "لاتيه ← شوت إضافي +4 ر.س، حليب لوز، بندق. ثلاث شرائح، لمسة واحدة.",
       exampleEn: "Latte → extra shot +4 SAR, almond milk, hazelnut. Three chips, one tap.",
           widget: {
         titleAr: "أضف لمستك",
@@ -132,14 +132,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "الضيف أضاف برجر بلا جانبية ولا مشروب.",
       triggerEn: "The guest adds a burger with no side and no drink.",
       scenarioAr:
-        "مفتاح واحد: «اجعلها وجبة +٩ ر.س». يُرسل للكاشير كوجبة مركّبة لا كثلاثة أصناف منفصلة، فالمطبخ يقرأها صحيحة والفاتورة تطلع صحيحة.",
+        "مفتاح واحد: «اجعلها وجبة +9 ر.س». يُرسل للكاشير كوجبة مركّبة لا كثلاثة أصناف منفصلة، فالمطبخ يقرأها صحيحة والفاتورة تطلع صحيحة.",
       scenarioEn:
         "A single toggle: \"Make it a meal +9 SAR\". It reaches the POS as one combo rather than three loose items, so the kitchen reads it right and the bill prints right.",
       whyAr:
         "الضيف الذي يطلب برجر وحده غالباً سيشتري مشروباً على أي حال. الوجبة تلتقط ذلك الشراء قبل أن يخرج من الباب بدلاً من أن يضيع.",
       whyEn:
         "A guest ordering a lone burger will usually buy a drink anyway. The meal captures that purchase before they leave rather than losing it.",
-      exampleAr: "برجر ٣٢ ر.س ← وجبة بـ٤١ ر.س (بطاطس ومشروب مقابل ٩).",
+      exampleAr: "برجر 32 ر.س ← وجبة بـ41 ر.س (بطاطس ومشروب مقابل 9).",
       exampleEn: "Burger 32 SAR → meal at 41 SAR (fries and a drink for 9).",
           widget: {
         titleAr: "اجعلها وجبة",
@@ -169,7 +169,7 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         "«يُطلب معه» في الصباح غيره في المساء. الكرواسون يرافق القهوة الساعة الثامنة، والكيك يرافقها الساعة التاسعة مساءً، ونفس الاقتراح في الوقت الخطأ يُرفض.",
       whyEn:
         "What goes with what in the morning is not what goes with it at night. A croissant rides with coffee at eight; cake rides with it at nine in the evening. The same suggestion at the wrong hour gets declined.",
-      exampleAr: "شاورما عادي ١٨ ر.س ← «يُطلب معه» كنافة ميني ١٥ ر.س.",
+      exampleAr: "شاورما عادي 18 ر.س ← «يُطلب معه» كنافة ميني 15 ر.س.",
       exampleEn: "Regular shawarma 18 SAR → \"ordered with it\": mini kunafa 15 SAR.",
           widget: {
         titleAr: "يُطلب معه",
@@ -192,14 +192,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "السلة فيها اثنان من ثلاثة أصناف في حزمة معرّفة.",
       triggerEn: "The cart holds two of the three items in a defined bundle.",
       scenarioAr:
-        "لا يُعرض العرض من البداية بل عند اقترابه: «ناقصك عصير برتقال ويصير فطور بـ٨ ر.س أقل». الاقتراح يسمّي الصنف الناقص بالضبط، فالضيف لا يبحث.",
+        "لا يُعرض العرض من البداية بل عند اقترابه: «ناقصك عصير برتقال ويصير فطور بـ8 ر.س أقل». الاقتراح يسمّي الصنف الناقص بالضبط، فالضيف لا يبحث.",
       scenarioEn:
         "The offer is not advertised up front but at the edge of it: \"One orange juice away from the breakfast bundle, 8 SAR off\". It names the missing item exactly, so the guest does not go hunting.",
       whyAr:
         "العرض المعروض مسبقاً خصم على شيء كان سيُشترى. العرض المعروض عند نقص صنف واحد يضيف ذلك الصنف. الفرق بينهما هو الفرق بين تكلفة وربح.",
       whyEn:
         "An offer shown up front is a discount on something already being bought. An offer shown one item short adds that item. The difference between the two is the difference between a cost and a margin.",
-      exampleAr: "قهوة ساخنة + كرواسون زبدة في السلة ← «أضف عصير برتقال ١٤ ووفّر ٨».",
+      exampleAr: "قهوة ساخنة + كرواسون زبدة في السلة ← «أضف عصير برتقال 14 ووفّر 8».",
       exampleEn: "Hot coffee + butter croissant in the cart → \"Add an orange juice at 14 and save 8\".",
           widget: {
         titleAr: "أكمل العرض",
@@ -224,14 +224,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "الضيف أضاف صنفين من المخبوزات.",
       triggerEn: "The guest adds two pastries.",
       scenarioAr:
-        "«أي ٣ مخبوزات بـ٣٠ ر.س» — بلا تحديد أيها. الضيف يختار الثالث بنفسه، فيشعر أنه اختار لا أنه بيع عليه.",
+        "«أي 3 مخبوزات بـ30 ر.س» — بلا تحديد أيها. الضيف يختار الثالث بنفسه، فيشعر أنه اختار لا أنه بيع عليه.",
       scenarioEn:
         "\"Any 3 pastries for 30 SAR\" - without naming which. The guest picks the third themselves, so it reads as a choice rather than a sell.",
       whyAr:
         "حزمة «أي ن» تصرّف المخزون بطيء الحركة دون خصمه صراحة، وتحافظ على سعر القائمة لمن يشتري صنفاً واحداً.",
       whyEn:
         "An any-N bundle moves slow stock without visibly discounting it, and keeps the list price intact for anyone buying a single item.",
-      exampleAr: "كرواسون زعتر ١٢ + مافن توت ١٢ + دانش جبن ١٣ = ٣٧ ← ٣٠ ر.س.",
+      exampleAr: "كرواسون زعتر 12 + مافن توت 12 + دانش جبن 13 = 37 ← 30 ر.س.",
       exampleEn: "Zaatar croissant 12 + blueberry muffin 12 + cheese danish 13 = 37 → 30 SAR.",
           widget: {
         titleAr: "أي 3 مخبوزات",
@@ -258,10 +258,10 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       scenarioEn:
         "A progress bar states the gap in riyals, with exactly two items that close it - fast to prepare, not retail, and sorted by smallest overshoot rather than highest price.",
       whyAr:
-        "ترتيب المقترحات بأقل تجاوز لا بأعلى سعر هو الفرق بين مساعدة وابتزاز. الضيف الذي ينقصه ٧ ر.س لا يُعرض عليه صنف بـ٤٢.",
+        "ترتيب المقترحات بأقل تجاوز لا بأعلى سعر هو الفرق بين مساعدة وابتزاز. الضيف الذي ينقصه 7 ر.س لا يُعرض عليه صنف بـ42.",
       whyEn:
         "Sorting by smallest overshoot rather than highest price is the difference between helping and squeezing. A guest 7 SAR short is not offered a 42 SAR item.",
-      exampleAr: "السلة ٤٣ ر.س، شريحة ٥٠ تعطي ٥٪ ← «٧ ر.س وتوصل». يُقترح كرواسون ١٢ لا علبة كوكيز ٤٢.",
+      exampleAr: "السلة 43 ر.س، شريحة 50 تعطي 5% ← «7 ر.س وتوصل». يُقترح كرواسون 12 لا علبة كوكيز 42.",
       exampleEn: "Cart at 43 SAR, the 50 tier gives 5% → \"7 SAR to go\". It suggests a 12 SAR croissant, not a 42 SAR cookie box.",
           widget: {
         titleAr: "اشتر أكثر ووفّر أكثر",
@@ -269,13 +269,13 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         mainAr: "سلتك الحالية",
         mainEn: "Your cart",
         mainPrice: "43",
-        hintAr: "7 ر.س وتوصل لشريحة 5٪",
+        hintAr: "7 ر.س وتوصل لشريحة 5%",
         hintEn: "7 SAR to the 5% tier",
         suggest: [
           { ar: "كرواسون زبدة", en: "Butter croissant", price: "12" },
           { ar: "كوكيز حبة", en: "Single cookie", price: "8" },
         ],
-        ctaAr: "أضف وادخل شريحة 5٪",
+        ctaAr: "أضف وادخل شريحة 5%",
         ctaEn: "Add and unlock 5%",
       },
     },
@@ -287,14 +287,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "إضافة صنف سترفع السلة إلى شريحة خصم أعلى.",
       triggerEn: "Adding an item would push the cart into a higher tier.",
       scenarioAr:
-        "يُعرض سعران: سعر القائمة، وتحته «فعلياً يكلفك ١٣٫١٠» — لأن إضافته فتحت خصماً على الطلب كله. الرقم محسوب لا تسويقي: هو الفرق بين ما ستدفعه بالصنف وبدونه.",
+        "يُعرض سعران: سعر القائمة، وتحته «فعلياً يكلفك 13.10» — لأن إضافته فتحت خصماً على الطلب كله. الرقم محسوب لا تسويقي: هو الفرق بين ما ستدفعه بالصنف وبدونه.",
       scenarioEn:
         "Two prices show: the list price, and under it \"actually costs you 13.10\" - because adding it unlocked a discount on the whole order. The figure is computed, not marketing: it is what you pay with the item minus what you pay without it.",
       whyAr:
         "هذا الرقم هو أصدق حجة في الصفحة، وهو أيضاً ما تُنسب إليه الإيرادات في التقارير. لا يُعرض إلا حين يكون فعلاً أقل من سعر القائمة.",
       whyEn:
         "This is the most honest argument on the page, and it is also what revenue attribution is measured against. It only ever shows when it is genuinely lower than the list price.",
-      exampleAr: "تشيز كيك ١٨ ر.س على سلة ٦٢ ← فعلياً ١٣٫١٠ لأن الطلب دخل شريحة الـ٥٪.",
+      exampleAr: "تشيز كيك 18 ر.س على سلة 62 ← فعلياً 13.10 لأن الطلب دخل شريحة الـ5%.",
       exampleEn: "Cheesecake 18 SAR on a 62 SAR cart → actually 13.10, because the order crossed the 5% tier.",
           widget: {
         titleAr: "فعلياً يكلفك",
@@ -358,7 +358,7 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         "الحلى أعلى هامش في قائمة المطعم وأكثر صنف يُنسى. التوقيت وحده هو الفرق، ولا أحد في الصالة يملك وقتاً لمتابعة عشرين طاولة بالساعة.",
       whyEn:
         "Dessert is the highest-margin line on a restaurant menu and the most forgotten one. Timing alone is the difference, and nobody on the floor has time to watch twenty tables by the clock.",
-      exampleAr: "طاولة طلبت مشاوي ٧:٤٠ ← ٨:٠٠ تنبيه: «كنافة وقهوة عربية للطاولة؟»",
+      exampleAr: "طاولة طلبت مشاوي 7:40 ← 8:00 تنبيه: «كنافة وقهوة عربية للطاولة؟»",
       exampleEn: "A table ordered grills at 7:40 → 8:00 alert: \"Kunafa and Arabic coffee for the table?\"",
           widget: {
         titleAr: "وقت الحلى",
@@ -391,7 +391,7 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         "دقائق الانتظار وقت ميت يقضيه الضيف في جواله أصلاً، وهو الوقت الوحيد الذي لا يزاحم فيه الاقتراحُ طابوراً.",
       whyEn:
         "The wait is dead time the guest already spends on their phone, and it is the only window where a suggestion competes with nothing.",
-      exampleAr: "طلب برجر ٨:٠٢ ← ٨:٠٣ رسالة: «كوكيز طازج خرج الآن، ٨ ر.س؟»",
+      exampleAr: "طلب برجر 8:02 ← 8:03 رسالة: «كوكيز طازج خرج الآن، 8 ر.س؟»",
       exampleEn: "Burger ordered 8:02 → 8:03 message: \"Fresh cookies just came out, 8 SAR?\"",
           widget: {
         titleAr: "أضفه لطلبي",
@@ -416,14 +416,14 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
       triggerAr: "الطلب جهز وكان فيه قهوة.",
       triggerEn: "The order is ready and it contained coffee.",
       scenarioAr:
-        "اقتراح واحد لا يتكرر: «أعجبتك قهوتنا؟ كيس حبوب ٢٥٠ جم». يظهر بعد إغلاق نافذة التحضير لا قبلها، لأن قبلها الضيف لم يذق بعد.",
+        "اقتراح واحد لا يتكرر: «أعجبتك قهوتنا؟ كيس حبوب 250 جم». يظهر بعد إغلاق نافذة التحضير لا قبلها، لأن قبلها الضيف لم يذق بعد.",
       scenarioEn:
         "One suggestion that never repeats: \"Liked our coffee? A 250g bag of beans\". It appears after the preparation window closes, not before - before it, the guest has not tasted anything yet.",
       whyAr:
         "بيع الحبوب هامشه أعلى من الكوب وقيمته أطول أثراً، لكنه يحتاج دليلاً ذوقياً. عرضه مع الطلب يسبق الدليل.",
       whyEn:
         "Selling beans carries more margin than a cup and a longer tail, but it needs proof by taste. Offering it with the order gets ahead of the proof.",
-      exampleAr: "لاتيه إسباني في الطلب ← بعد الجهوز: «نفس الحبوب، كيس ٢٥٠ جم».",
+      exampleAr: "لاتيه إسباني في الطلب ← بعد الجهوز: «نفس الحبوب، كيس 250 جم».",
       exampleEn: "A Spanish latte in the order → after it is ready: \"The same beans, 250g bag\".",
           widget: {
         titleAr: "أعجبتك قهوتنا؟",
@@ -455,7 +455,7 @@ export const restaurantsCafesDeepDive: SectorDeepDive = {
         "العميل المتكرر يطلب نفس الشيء لأنه أسهل لا لأنه أفضل. اقتراح واحد جديد في كل زيارة يرفع سلة العميل مدى الحياة دون أن يبدو بيعاً.",
       whyEn:
         "A repeat customer orders the same thing because it is easier, not because it is better. One new item per visit lifts their lifetime basket without reading as a sell.",
-      exampleAr: "«المعتاد: لاتيه كبير وكرواسون» + «جرّب اللاتيه الإسباني، ٢١ ر.س».",
+      exampleAr: "«المعتاد: لاتيه كبير وكرواسون» + «جرّب اللاتيه الإسباني، 21 ر.س».",
       exampleEn: "\"The usual: large latte and a croissant\" + \"Try the Spanish latte, 21 SAR\".",
           widget: {
         titleAr: "أهلاً بعودتك",

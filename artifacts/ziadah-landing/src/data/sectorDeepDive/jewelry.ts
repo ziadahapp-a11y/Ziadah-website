@@ -21,7 +21,7 @@ export const jewelryDeepDive: SectorDeepDive = {
         "المجوهرات تُلبس كطقم لا كقطعة. العميل الذي يشتري قلادة وحدها سيبحث عن أقراط مطابقة لاحقاً، وغالباً في متجر آخر.",
       whyEn:
         "Jewellery is worn as a set, not as a piece. A customer buying a lone necklace will hunt for matching earrings later, usually somewhere else.",
-      exampleAr: "قلادة ١٬٤٠٠ ← الطقم الكامل ٣٬٢٠٠ بدل ٣٬٧٥٠، بصورة واحدة تجمع الثلاث.",
+      exampleAr: "قلادة 1,400 ← الطقم الكامل 3,200 بدل 3,750، بصورة واحدة تجمع الثلاث.",
       exampleEn: "A 1,400 necklace → the full set at 3,200 instead of 3,750, in one image with all three.",
           widget: {
         titleAr: "الطقم كامل",
@@ -46,14 +46,14 @@ export const jewelryDeepDive: SectorDeepDive = {
       triggerAr: "العميل يتردّد في صفحة خاتم أو سوار.",
       triggerEn: "The customer hesitates on a ring or bracelet page.",
       scenarioAr:
-        "يُعرض دليل المقاسات وخدمة التعديل المجاني بوضوح، لا في صفحة سياسات بعيدة: «تعديل المقاس مجاناً خلال ٣٠ يوماً».",
+        "يُعرض دليل المقاسات وخدمة التعديل المجاني بوضوح، لا في صفحة سياسات بعيدة: «تعديل المقاس مجاناً خلال 30 يوماً».",
       scenarioEn:
         "The size guide and free resizing are shown plainly, not buried in a policy page: \"Free resizing within 30 days\".",
       whyAr:
         "المقاس هو السبب الأول لترك سلة المجوهرات، وليس السعر. إزالة القلق تحوّل تردداً إلى طلب دون خصم ريال واحد.",
       whyEn:
         "Size, not price, is the number one reason a jewellery basket is abandoned. Removing the anxiety converts hesitation into an order without discounting a single riyal.",
-      exampleAr: "صفحة خاتم ← «تعديل المقاس مجاناً ٣٠ يوماً» بجانب زر الشراء لا في السياسات.",
+      exampleAr: "صفحة خاتم ← «تعديل المقاس مجاناً 30 يوماً» بجانب زر الشراء لا في السياسات.",
       exampleEn: "A ring page → \"Free resizing for 30 days\" beside the buy button, not in the policies.",
           widget: {
         titleAr: "مقاسك مضمون",
@@ -82,7 +82,7 @@ export const jewelryDeepDive: SectorDeepDive = {
         "من يدفع ثلاثة آلاف على قلادة لن يتردد في مئة على تغليف يليق، لكنه لن يبحث عنه بنفسه. عرضه في اللحظة الصحيحة هامش شبه كامل.",
       whyEn:
         "Someone spending three thousand on a necklace will not hesitate over a hundred for packaging that fits - but they will not go looking for it. Offering it at the right moment is near-pure margin.",
-      exampleAr: "قلادة هدية ← علبة مخملية وبطاقة بخط اليد ١٢٠ ر.س، خيار واحد.",
+      exampleAr: "قلادة هدية ← علبة مخملية وبطاقة بخط اليد 120 ر.س، خيار واحد.",
       exampleEn: "A necklace as a gift → a velvet box and a handwritten card at 120 SAR, as one option.",
           widget: {
         titleAr: "تغليف يليق",
@@ -111,7 +111,7 @@ export const jewelryDeepDive: SectorDeepDive = {
         "القطعة التي تبهت بعد شهرين تصير شكوى في المتجر لا درساً في العناية. بيع أدوات العناية يحمي سمعة القطعة.",
       whyEn:
         "A piece that dulls after two months becomes a complaint about the store rather than a lesson in care. Selling the care kit protects the piece's reputation.",
-      exampleAr: "سوار فضة ← «قماشة تلميع ٤٥ ر.س» مع سطر عن سبب التأكسد.",
+      exampleAr: "سوار فضة ← «قماشة تلميع 45 ر.س» مع سطر عن سبب التأكسد.",
       exampleEn: "A silver bracelet → \"A polishing cloth, 45 SAR\", with one line on why it tarnishes.",
           widget: {
         titleAr: "العناية بقطعتك",
@@ -142,7 +142,7 @@ export const jewelryDeepDive: SectorDeepDive = {
         "من اشترى لمناسبة سنوية سيشتري لها مجدداً، والمتجر الذي يذكّره قبل المحل المجاور يكسب الطلب كله.",
       whyEn:
         "Someone who bought for an annual occasion will buy again, and the store that reminds them before the shop next door wins the whole order.",
-      exampleAr: "اشترى في ١٢ مارس العام الماضي ← تذكير في ٢٦ فبراير مع القطع المشابهة.",
+      exampleAr: "اشترى في 12 مارس العام الماضي ← تذكير في 26 فبراير مع القطع المشابهة.",
       exampleEn: "Bought on 12 March last year → a reminder on 26 February with similar pieces.",
           widget: {
         titleAr: "ذكرى زواجك",
@@ -166,14 +166,14 @@ export const jewelryDeepDive: SectorDeepDive = {
       triggerAr: "العميل يقارن بين قطعتين متقاربتين.",
       triggerEn: "The customer is comparing two close pieces.",
       scenarioAr:
-        "يُشرح الفرق بما يُرى لا بمصطلح: «حجر أكبر بنصف قيراط، وفرق ٦٠٠ ر.س»، لا «نقاء VS1 بدل SI2».",
+        "يُشرح الفرق بما يُرى لا بمصطلح: «حجر أكبر بنصف قيراط، وفرق 600 ر.س»، لا «نقاء VS1 بدل SI2».",
       scenarioEn:
         "The difference is explained in what can be seen rather than in jargon: \"Half a carat bigger, 600 SAR apart\", not \"VS1 clarity instead of SI2\".",
       whyAr:
         "مصطلحات الجودة لا تعني شيئاً لغير المتخصص، وتجعله يؤجّل القرار. ترجمتها إلى فرق مرئي هي ما يحسم.",
       whyEn:
         "Quality jargon means nothing to a non-specialist and makes them postpone. Translating it into a visible difference is what closes.",
-      exampleAr: "خاتم ٤٬٢٠٠ ← «نفس التصميم بحجر أكبر، +٦٠٠» مع صورة مقارنة بالحجم الحقيقي.",
+      exampleAr: "خاتم 4,200 ← «نفس التصميم بحجر أكبر، +600» مع صورة مقارنة بالحجم الحقيقي.",
       exampleEn: "A 4,200 ring → \"Same design, larger stone, +600\", with a true-size comparison image.",
           widget: {
         titleAr: "الفرق بالعين",

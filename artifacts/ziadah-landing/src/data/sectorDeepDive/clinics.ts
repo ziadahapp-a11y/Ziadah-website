@@ -22,14 +22,14 @@ export const clinicsDeepDive: SectorDeepDive = {
       triggerAr: "المراجع يحجز جلسة واحدة من إجراء يحتاج عادة سلسلة.",
       triggerEn: "The patient books a single session of a procedure that normally needs a series.",
       scenarioAr:
-        "تُعرض الباقة مع عدد الجلسات وسعر الجلسة داخلها: «٦ جلسات — الجلسة ٣٢٠ بدل ٤٥٠». لا وعد بنتيجة، رقم فقط.",
+        "تُعرض الباقة مع عدد الجلسات وسعر الجلسة داخلها: «6 جلسات — الجلسة 320 بدل 450». لا وعد بنتيجة، رقم فقط.",
       scenarioEn:
         "The package appears with its session count and the per-session price inside it: \"6 sessions - 320 each instead of 450\". No outcome promised, just the arithmetic.",
       whyAr:
         "المراجع الذي يحجز جلسة واحدة من سلسلة سيحجز الباقي على أي حال أو ينقطع. الباقة تثبّت الالتزام وتملأ التقويم مقدماً، وهي أهم رقم في اقتصاد العيادة.",
       whyEn:
         "A patient booking one session of a series will either book the rest anyway or drop out. The package locks in the commitment and fills the calendar in advance, which is the number a clinic's economics turn on.",
-      exampleAr: "جلسة ليزر ٤٥٠ ← باقة ٦ جلسات ١٩٢٠ (الجلسة ٣٢٠).",
+      exampleAr: "جلسة ليزر 450 ← باقة 6 جلسات 1920 (الجلسة 320).",
       exampleEn: "One laser session at 450 → a 6-session package at 1920 (320 each).",
           widget: {
         titleAr: "باقة أم جلسة؟",
@@ -60,7 +60,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "العناية بعد الجلسة تحدد النتيجة فعلاً، والمراجع الذي يشتريها من صيدلية عشوائية قد يشتري الخطأ. البيع هنا يخدم النتيجة قبل أن يخدم الفاتورة.",
       whyEn:
         "Aftercare genuinely determines the result, and a patient who buys it from a random pharmacy may buy the wrong thing. Selling it here serves the outcome before it serves the bill.",
-      exampleAr: "بعد جلسة تقشير ← واقٍ شمسي طبي ١٨٠ ومرطّب مهدّئ ١٤٠ ضمن تعليمات الخروج.",
+      exampleAr: "بعد جلسة تقشير ← واقٍ شمسي طبي 180 ومرطّب مهدّئ 140 ضمن تعليمات الخروج.",
       exampleEn: "After a peel → a 180 SAR medical sunscreen and a 140 SAR calming moisturiser, inside the discharge instructions.",
           widget: {
         titleAr: "تعليمات ما بعد الجلسة",
@@ -92,7 +92,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "الفجوة بين الجلسة والمتابعة هي المكان الذي تخسر فيه العيادات المراجعين. سدّها لا يحتاج حملة تسويق بل اقتراحاً في اللحظة الصحيحة.",
       whyEn:
         "The gap between a session and its follow-up is where clinics lose patients. Closing it does not need a marketing campaign, just a suggestion at the right moment.",
-      exampleAr: "جلسة اليوم ← «المتابعة بعد ٤ أسابيع، الثلاثاء ١٤ الساعة ٦ مساءً» بضغطة.",
+      exampleAr: "جلسة اليوم ← «المتابعة بعد 4 أسابيع، الثلاثاء 14 الساعة 6 مساءً» بضغطة.",
       exampleEn: "Today's session → \"Follow-up in 4 weeks: Tuesday the 14th at 6pm\", in one tap.",
           widget: {
         titleAr: "موعد المتابعة",
@@ -148,14 +148,14 @@ export const clinicsDeepDive: SectorDeepDive = {
       triggerAr: "المراجع يحجز خدمة لها خدمة مكمّلة شائعة.",
       triggerEn: "The patient books a service that commonly pairs with another.",
       scenarioAr:
-        "يُعرض ضمّ الخدمة المكمّلة لنفس الزيارة مع توفير الوقت صريحاً: «في نفس الموعد، ٢٠ دقيقة إضافية». الوقت هنا حجة أقوى من السعر.",
+        "يُعرض ضمّ الخدمة المكمّلة لنفس الزيارة مع توفير الوقت صريحاً: «في نفس الموعد، 20 دقيقة إضافية». الوقت هنا حجة أقوى من السعر.",
       scenarioEn:
         "Adding the paired service to the same visit is offered with the time saving stated: \"In the same appointment, 20 minutes more\". Time is a stronger argument here than price.",
       whyAr:
         "كل زيارة إضافية تكلف المراجع مواصلات وإجازة من العمل. ضمّ خدمتين في زيارة يرفع قيمة الموعد ويخفض عبء المراجع في آن.",
       whyEn:
         "Every extra visit costs the patient travel and time off work. Combining two services in one visit raises the value of the appointment and lowers their burden at once.",
-      exampleAr: "تنظيف أسنان ← «تبييض في نفس الموعد، ٤٠ دقيقة إضافية» بدل زيارة ثانية.",
+      exampleAr: "تنظيف أسنان ← «تبييض في نفس الموعد، 40 دقيقة إضافية» بدل زيارة ثانية.",
       exampleEn: "A dental cleaning → \"Whitening in the same appointment, 40 minutes more\" instead of a second visit.",
           widget: {
         titleAr: "في نفس الموعد",
@@ -218,7 +218,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "العائلة السعودية تنسّق زياراتها أصلاً، والعيادة التي لا تسهّل ذلك تدفع العائلة لتقسيم زياراتها بين عيادتين.",
       whyEn:
         "Families already coordinate their visits, and a clinic that does not make that easy pushes them to split between two clinics.",
-      exampleAr: "حجز الأب الخميس ٥ م ← «الأبناء ٥:٣٠ و٦ م في نفس الزيارة؟»",
+      exampleAr: "حجز الأب الخميس 5 م ← «الأبناء 5:30 و6 م في نفس الزيارة؟»",
       exampleEn: "Father booked Thursday 5pm → \"The children at 5:30 and 6 in the same visit?\"",
           widget: {
         titleAr: "مواعيد العائلة",
@@ -250,7 +250,7 @@ export const clinicsDeepDive: SectorDeepDive = {
         "ساعة فارغة في تقويم العيادة تكلفة كاملة لا تُسترد: الطاقم حاضر والإيجار يجري. ملء الفتحة أهم من بيع أي شيء إضافي.",
       whyEn:
         "An empty hour in a clinic calendar is a full unrecoverable cost: the staff are there and the rent is running. Filling the hole matters more than selling anything extra.",
-      exampleAr: "إلغاء موعد ٤ م ← عرض فوري على قائمة انتظار نفس الخدمة، ودُفع بديل للملغي.",
+      exampleAr: "إلغاء موعد 4 م ← عرض فوري على قائمة انتظار نفس الخدمة، ودُفع بديل للملغي.",
       exampleEn: "A 4pm cancellation → offered instantly to that service's waiting list, with an alternative pushed to the person who cancelled.",
           widget: {
         titleAr: "موعد شاغر",

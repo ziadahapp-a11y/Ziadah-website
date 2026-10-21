@@ -60,7 +60,7 @@ export function BlockGrid() {
           </h2>
           <p className="closing-lede">
             {t({
-              ar: "ثبّت زيادة على متجرك، اختر مكان عرض واحد، وشوف أول اقتراح يوصل لعميلك. التجربة ٧ أيام كاملة وتقدر تلغيها بأي وقت.",
+              ar: "ثبّت زيادة على متجرك، اختر مكان عرض واحد، وشوف أول اقتراح يوصل لعميلك. التجربة 7 أيام كاملة وتقدر تلغيها بأي وقت.",
               en: "Install Ziadah on your store, pick one placement, and watch the first suggestion reach a shopper. The trial runs a full 7 days and you can cancel any time.",
             })}
           </p>

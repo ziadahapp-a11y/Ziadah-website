@@ -26,7 +26,7 @@ export function HomeFaq() {
     {
       q: t({ ar: "كم بترفع مبيعاتي فعلياً؟", en: "How much will it actually lift my sales?" }),
       a: t({
-        ar: "المتاجر اللي تستخدم زيادة تشوف عادة ارتفاع 15–35٪ في متوسط قيمة الطلب خلال أول 30 يوم، لأن كل عميل يشوف منتجات تناسبه فعلاً. النتائج تختلف حسب القطاع وحجم الكتالوج.",
+        ar: "المتاجر اللي تستخدم زيادة تشوف عادة ارتفاع 15–35% في متوسط قيمة الطلب خلال أول 30 يوم، لأن كل عميل يشوف منتجات تناسبه فعلاً. النتائج تختلف حسب القطاع وحجم الكتالوج.",
         en: "Stores using Ziadah typically see a 15–35% lift in average order value within the first 30 days, because every shopper sees products that genuinely fit them. Results vary by sector and catalog size.",
       }),
     },

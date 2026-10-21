@@ -14,14 +14,14 @@ export const digitalCardsDeepDive: SectorDeepDive = {
       triggerAr: "العميل اختار فئة متوسطة من بطاقة.",
       triggerEn: "The customer picks a mid denomination.",
       scenarioAr:
-        "تُعرض الفئة الأعلى بفرقها وبما تعنيه: «١٠٠ بدل ٥٠، يكفي الاشتراك شهرين بدل شهر». الفائدة بالوقت لا بالرقم.",
+        "تُعرض الفئة الأعلى بفرقها وبما تعنيه: «100 بدل 50، يكفي الاشتراك شهرين بدل شهر». الفائدة بالوقت لا بالرقم.",
       scenarioEn:
         "The higher denomination appears with its difference and its meaning: \"100 instead of 50 covers two months instead of one\". The benefit stated in time, not in figures.",
       whyAr:
         "الفئة الأعلى تعني زيارة واحدة بدل زيارتين ورسوم معالجة مرة بدل مرتين. العميل يربح والمتجر يربح.",
       whyEn:
         "The higher denomination means one visit instead of two and one processing fee instead of two. Both sides gain.",
-      exampleAr: "بطاقة ٥٠ ← «١٠٠ تكفيك شهرين، وتدفع رسوم المعالجة مرة».",
+      exampleAr: "بطاقة 50 ← «100 تكفيك شهرين، وتدفع رسوم المعالجة مرة».",
       exampleEn: "A 50 card → \"100 covers two months, and you pay the processing fee once\".",
           widget: {
         titleAr: "اختر الفئة",
@@ -52,7 +52,7 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "اللاعب مرتبط بمنصة واحدة. اقتراح بطاقة منصة منافسة عليه دليل على أن المتجر لا يعرفه، وهو أسرع ما يفقد التكرار.",
       whyEn:
         "A gamer is locked to one platform. Suggesting a rival platform's card proves the store does not know them, which is the fastest way to lose the repeat.",
-      exampleAr: "رصيد متجر الألعاب ← «عضوية الأونلاين ١٢ شهراً» لنفس المنصة.",
+      exampleAr: "رصيد متجر الألعاب ← «عضوية الأونلاين 12 شهراً» لنفس المنصة.",
       exampleEn: "Game store credit → \"12-month online membership\" for the same platform.",
           widget: {
         titleAr: "لنفس المنصة",
@@ -74,14 +74,14 @@ export const digitalCardsDeepDive: SectorDeepDive = {
       triggerAr: "العميل يقارن بين متجرك ومتجر آخر.",
       triggerEn: "The customer is comparing your store with another.",
       scenarioAr:
-        "يُعرض زمن التسليم صراحة بجانب السعر: «الكود خلال ٣٠ ثانية». في قطاع لا يمكن المنافسة فيه بالسعر، السرعة هي المنتج.",
+        "يُعرض زمن التسليم صراحة بجانب السعر: «الكود خلال 30 ثانية». في قطاع لا يمكن المنافسة فيه بالسعر، السرعة هي المنتج.",
       scenarioEn:
         "Delivery time is stated beside the price: \"Code in 30 seconds\". In a sector where price competition is impossible, speed is the product.",
       whyAr:
         "العميل الذي يشتري بطاقة يشتريها لأنه يريدها الآن. متجر أرخص بريال ويسلّم بعد ساعة يخسر أمام متجر يسلّم فوراً.",
       whyEn:
         "Someone buying a card is buying it because they want it now. A store a riyal cheaper that delivers in an hour loses to one that delivers instantly.",
-      exampleAr: "صفحة بطاقة ← «التسليم خلال ٣٠ ثانية» بجانب السعر لا في الأسفل.",
+      exampleAr: "صفحة بطاقة ← «التسليم خلال 30 ثانية» بجانب السعر لا في الأسفل.",
       exampleEn: "A card page → \"Delivered in 30 seconds\" beside the price, not at the bottom.",
           widget: {
         titleAr: "تسليم فوري",
@@ -110,7 +110,7 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "لا ولاء في هذا القطاع، فيه عادة فقط. من يذكّر أولاً يملك العادة، ومن يتأخر يوماً يخسرها.",
       whyEn:
         "There is no loyalty in this sector, only habit. Whoever reminds first owns the habit, and a day late loses it.",
-      exampleAr: "اشترى في ١ من كل شهر ← تذكير ٣٠ من الشهر بكود جاهز.",
+      exampleAr: "اشترى في 1 من كل شهر ← تذكير 30 من الشهر بكود جاهز.",
       exampleEn: "Bought on the 1st each month → a reminder on the 30th with the code ready.",
           widget: {
         titleAr: "موعد بطاقتك",
@@ -139,7 +139,7 @@ export const digitalCardsDeepDive: SectorDeepDive = {
         "البطاقة الرقمية هدية شائعة وصعبة التقديم: إرسال كود نصي بلا سياق يبدو بارداً. تغليفها رقمياً يرفع القيمة بلا تكلفة.",
       whyEn:
         "A digital card is a common gift and an awkward one to present: forwarding a bare code reads as cold. Wrapping it digitally adds value at no cost.",
-      exampleAr: "بطاقة ٢٠٠ ← «أرسلها مباشرة لرقمه مع رسالتك» بدل استلامها.",
+      exampleAr: "بطاقة 200 ← «أرسلها مباشرة لرقمه مع رسالتك» بدل استلامها.",
       exampleEn: "A 200 card → \"Send it straight to their number with your message\" instead of receiving it.",
           widget: {
         titleAr: "أرسلها هدية",

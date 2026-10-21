@@ -131,7 +131,7 @@ const PRODUCT_IMAGES: Record<string, string> = {
   /* ── NOT A PRODUCT, BUT IT RENDERS IN A PRODUCT ROW ──
      A warranty is a line item, not an object, so its tile is the shield the
      rest of the site uses for cover. `سلة غير مكتملة` and
-     `خصم 12٪ على الطلب الحالي` are a cart state and an offer; there is nothing
+     `خصم 12% على الطلب الحالي` are a cart state and an offer; there is nothing
      to photograph, so they keep the letter tile. */
   "ضمان إضافي سنة": "/products/retail-05.webp",
   "One extra year of warranty": "/products/retail-05.webp",

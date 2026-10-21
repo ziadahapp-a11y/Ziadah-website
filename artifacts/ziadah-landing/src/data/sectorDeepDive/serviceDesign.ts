@@ -21,7 +21,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "الباقة الوسطى تُختار أكثر حين يكون للعليا وجود واضح. والأهم أن الحدود المكتوبة تمنع الخلاف الذي يأكل ربح المشروع كله.",
       whyEn:
         "The middle package wins more often when the top one visibly exists. More importantly, written edges prevent the dispute that eats a project's entire margin.",
-      exampleAr: "شعار: أساسي تعديلان ٧ أيام · متكامل ٥ تعديلات وهوية · شامل بلا حد و٣ أيام.",
+      exampleAr: "شعار: أساسي تعديلان 7 أيام · متكامل 5 تعديلات وهوية · شامل بلا حد و3 أيام.",
       exampleEn: "A logo: Basic, 2 revisions, 7 days · Complete, 5 revisions plus identity · Full, unlimited, 3 days.",
           widget: {
         titleAr: "اختر باقتك",
@@ -45,14 +45,14 @@ export const serviceDesignDeepDive: SectorDeepDive = {
       triggerAr: "العميل يسأل عن تسليم أسرع من المعتاد.",
       triggerEn: "The client asks for faster delivery than standard.",
       scenarioAr:
-        "يُعرض التسليم المستعجل بسعره صراحة بدل الوعد المجاني: «٤٨ ساعة بدل ٧ أيام، +٤٠٪».",
+        "يُعرض التسليم المستعجل بسعره صراحة بدل الوعد المجاني: «48 ساعة بدل 7 أيام، +40%».",
       scenarioEn:
         "Rush delivery is priced plainly instead of promised free: \"48 hours instead of 7 days, +40%\".",
       whyAr:
         "الاستعجال المجاني يُعلّم العميل أن الجدول قابل للضغط دائماً، ويدمّر جدول المشاريع الأخرى. تسعيره يجعله خياراً لا عادة.",
       whyEn:
         "Free rushing teaches the client that the schedule is always squeezable and wrecks every other project's timeline. Pricing it makes it a choice rather than a habit.",
-      exampleAr: "طلب تسليم خلال يومين ← «مستعجل ٤٨ ساعة، +٤٠٪ على الباقة».",
+      exampleAr: "طلب تسليم خلال يومين ← «مستعجل 48 ساعة، +40% على الباقة».",
       exampleEn: "A two-day request → \"Rush, 48 hours, +40% on the package\".",
           widget: {
         titleAr: "تسليم مستعجل",
@@ -61,7 +61,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         mainEn: "Complete package - 7 days",
         mainPrice: "4500",
         suggest: [
-          { ar: "48 ساعة بدل 7 أيام", en: "48 hours instead of 7 days", price: "+40٪" },
+          { ar: "48 ساعة بدل 7 أيام", en: "48 hours instead of 7 days", price: "+40%" },
         ],
         ctaAr: "أضف الاستعجال",
         ctaEn: "Add the rush",
@@ -81,7 +81,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "معظم النزاعات بعد التسليم على ملفات المصدر. جعلها بنداً مسعّراً من البداية ينهي النقاش ويضيف إيراداً.",
       whyEn:
         "Most post-delivery disputes are about source files. Making them a priced line item up front ends the argument and adds revenue.",
-      exampleAr: "تصميم هوية ← «ملفات المصدر AI وPSD، ٦٠٠ ر.س» بند في العرض.",
+      exampleAr: "تصميم هوية ← «ملفات المصدر AI وPSD، 600 ر.س» بند في العرض.",
       exampleEn: "A brand identity → \"AI and PSD source files, 600 SAR\" as a line in the quote.",
           widget: {
         titleAr: "ملفات المصدر",
@@ -110,7 +110,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "المشروع المتكرر يعني تفاوضاً متكرراً وفجوات دخل. العقد يحوّل العميل نفسه من متقلب إلى ثابت بلا بيع جديد.",
       whyEn:
         "Repeated projects mean repeated negotiation and income gaps. A retainer turns the same client from volatile to steady with no new sale at all.",
-      exampleAr: "٣ طلبات في ٤ أشهر ← «عقد شهري ٢٠ ساعة، ٤٬٥٠٠ بدل التسعير كل مرة».",
+      exampleAr: "3 طلبات في 4 أشهر ← «عقد شهري 20 ساعة، 4,500 بدل التسعير كل مرة».",
       exampleEn: "3 requests in 4 months → \"A 20-hour monthly retainer at 4,500, instead of quoting each time\".",
           widget: {
         titleAr: "عقد شهري",
@@ -141,7 +141,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "بيع الخدمة الثانية أثناء الأولى يقرأ كتشتيت ويهدد الأولى. بيعها بعد التسليم الناجح يقرأ كخطوة طبيعية.",
       whyEn:
         "Selling the second service during the first reads as a distraction and endangers the first. Selling it after a successful delivery reads as the obvious next step.",
-      exampleAr: "شعار سُلّم ← بعد أسبوع: «دليل الهوية الكامل، ٣٬٢٠٠».",
+      exampleAr: "شعار سُلّم ← بعد أسبوع: «دليل الهوية الكامل، 3,200».",
       exampleEn: "A logo delivered → a week later: \"The full brand guidelines, 3,200\".",
           widget: {
         titleAr: "الخطوة التالية",
@@ -170,7 +170,7 @@ export const serviceDesignDeepDive: SectorDeepDive = {
         "كل معلومة تُلتقط في البريف توفّر جولة تعديل. هذا الاقتراح لا يرفع السعر لكنه يرفع الهامش أكثر من أي إضافة.",
       whyEn:
         "Every fact captured in the brief saves a revision round. This suggestion raises no price but raises margin more than any add-on does.",
-      exampleAr: "نموذج بلا ألوان مفضلة ← «أضف ٣ أمثلة تعجبك، يختصر جولة تعديل».",
+      exampleAr: "نموذج بلا ألوان مفضلة ← «أضف 3 أمثلة تعجبك، يختصر جولة تعديل».",
       exampleEn: "A form with no colour preference → \"Add 3 examples you like - it saves a revision round\".",
           widget: {
         titleAr: "أكمل البريف",

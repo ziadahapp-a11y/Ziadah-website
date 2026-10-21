@@ -21,7 +21,7 @@ export const abayasFashionDeepDive: SectorDeepDive = {
         "صورة المنتج هي الإعلان. عرض القطع التي فيها بالضبط يحوّل الإعجاب بالصورة إلى طلب، بينما عرض «منتجات ذات صلة» يعيدها للتصفّح.",
       whyEn:
         "The product photo is the advert. Offering exactly the pieces in it turns liking the image into an order, whereas \"related products\" sends her back to browsing.",
-      exampleAr: "عباية ٤٥٠ ← «الطرحة والحقيبة من نفس الصورة، ٢٢٠ للاثنتين».",
+      exampleAr: "عباية 450 ← «الطرحة والحقيبة من نفس الصورة، 220 للاثنتين».",
       exampleEn: "A 450 abaya → \"The scarf and bag from the same photo, 220 for both\".",
           widget: {
         titleAr: "الإطلالة كاملة",
@@ -114,7 +114,7 @@ export const abayasFashionDeepDive: SectorDeepDive = {
         "أعلى سلة في الأزياء وأقل إرجاع فيها هما نفس الشيء: تصميم جرّبته العميلة ونجح. تكراره بلون ثانٍ ربح بلا مخاطرة.",
       whyEn:
         "The highest basket in fashion and the lowest return rate are the same thing: a design she has tried and that worked. Repeating it in another colour is margin with no risk.",
-      exampleAr: "عباية سوداء اشتُريت ونجح مقاسها ← «نفس القصّة بالكحلي، الثانية بـ٢٠٪ أقل».",
+      exampleAr: "عباية سوداء اشتُريت ونجح مقاسها ← «نفس القصّة بالكحلي، الثانية بـ20% أقل».",
       exampleEn: "A black abaya bought and fitting well → \"The same cut in navy, 20% off the second\".",
           widget: {
         titleAr: "بلون ثانٍ",
@@ -122,7 +122,7 @@ export const abayasFashionDeepDive: SectorDeepDive = {
         mainAr: "عباية سوداء — نجح مقاسها",
         mainEn: "The black one - it fitted",
         mainPrice: "450",
-        hintAr: "الثانية بـ20٪ أقل",
+        hintAr: "الثانية بـ20% أقل",
         hintEn: "20% off the second",
         suggest: [
           { ar: "نفس القصّة بالكحلي", en: "The same cut in navy", price: "360", was: "450" },
@@ -145,7 +145,7 @@ export const abayasFashionDeepDive: SectorDeepDive = {
         "دفع العميلة لقطعة ثانية كبيرة لسد فجوة شحن يرفع السلة اليوم ويرفع الإرجاع بعد أسبوع، والنتيجة خسارة صافية.",
       whyEn:
         "Pushing a second large garment to close a shipping gap raises the basket today and raises returns next week, which nets out negative.",
-      exampleAr: "السلة ٣٨٠، الشحن المجاني ٤٠٠ ← طرحة ٤٥ لا عباية ٣٩٠.",
+      exampleAr: "السلة 380، الشحن المجاني 400 ← طرحة 45 لا عباية 390.",
       exampleEn: "Cart at 380, free shipping at 400 → a 45 SAR scarf, not a 390 SAR abaya.",
           widget: {
         titleAr: "الشحن المجاني",

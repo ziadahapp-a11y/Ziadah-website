@@ -358,7 +358,7 @@ export default function PricingPage() {
                           <Zap className="w-3.5 h-3.5 shrink-0" style={{ color: "var(--ziadah-violet)" }} aria-hidden="true" />
                           <span className="flex-1 text-start truncate">
                             {selTopup
-                              ? `${selTopup.points.toLocaleString()} ${isAr ? "نقطة إضافية" : "extra pts"}`
+                              ? `${selTopup.points.toLocaleString("en-US")} ${isAr ? "نقطة إضافية" : "extra pts"}`
                               : isAr ? "نقاط إضافية اختيارية" : "Optional extra points"}
                           </span>
                           {selTopup && (
@@ -389,7 +389,7 @@ export default function PricingPage() {
                                 className={`topup-item${topupSel[plan.key] === ti ? " is-on" : ""}`}
                                 onClick={() => selectTopup(plan.key, ti)}
                               >
-                                <span>{pkg.points.toLocaleString()} {isAr ? "نقطة" : "pts"}</span>
+                                <span>{pkg.points.toLocaleString("en-US")} {isAr ? "نقطة" : "pts"}</span>
                                 <span>+{fmtPrice(pkg.price)} {riyal}</span>
                               </button>
                             ))}
