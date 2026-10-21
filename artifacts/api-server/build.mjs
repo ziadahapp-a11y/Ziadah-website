@@ -117,8 +117,12 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
  * Build the ziadah-landing SPA and copy it into the Vercel static output so
  * the same deployment serves the website at "/" and the API at "/api/*"
  * (same origin — the frontend calls "/api" relatively, no CORS). Skips the
- * Puppeteer prerender step for a fast, reliable build.
+ * Puppeteer prerender step for a fast, reliable build, unless PRERENDER=1:
+ * Vercel's build machines cannot run Chrome, so only the GitHub deploy
+ * workflow sets it, and then the prerendered pages and preview cards are
+ * copied into the static output with the SPA.
  */
+const prerender = process.env.PRERENDER === "1";
 async function buildFrontendStatic() {
   // eslint-disable-next-line no-console
   console.log("[api-server] building ziadah-landing SPA…");
@@ -127,6 +131,11 @@ async function buildFrontendStatic() {
     ["--filter", "@workspace/ziadah-landing", "run", "build:spa"],
     { cwd: repoRoot, stdio: "inherit", env: { ...process.env, NODE_ENV: "production" } },
   );
+  if (prerender) {
+    // eslint-disable-next-line no-console
+    console.log("[api-server] prerendering ziadah-landing pages…");
+    execFileSync("node", ["scripts/prerender.mjs"], { cwd: landingDir, stdio: "inherit", env: process.env });
+  }
   const builtSpa = path.resolve(landingDir, "dist/public");
   await access(builtSpa); // fail loudly if the SPA build produced nothing
   await cp(builtSpa, vercelStaticDir, { recursive: true });
@@ -185,6 +194,10 @@ async function buildVercelOutput() {
           { src: "^/api(?:/.*)?$", dest: "/api" },
           // …otherwise serve the SPA's static assets…
           { handle: "filesystem" },
+          // …a prerendered page lives at /<route>/index.html, which the
+          // filesystem step does not map from /<route> by itself. `check`
+          // falls through to the shell when no such file exists…
+          ...(prerender ? [{ src: "^/(.+?)/?$", dest: "/$1/index.html", check: true }] : []),
           // …and fall back to the SPA shell for client-side routes.
           { src: "/(.*)", dest: "/index.html" },
         ],
