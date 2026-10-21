@@ -205,7 +205,7 @@ export default function Platforms() {
           heading={t("أسئلة عن الربط", "Questions about connecting")}
           items={[
             {
-              q: t("هل زيادة تطبيق تابع لزد أو سلة؟", "Is Ziadah a Zid or Salla product?"),
+              q: t("هل تطبيق زيادة تابع لزد أو سلة؟", "Is Ziadah a Zid or Salla product?"),
               a: t(
                 "لا. زيادة منتج مستقل وغير تابع لأي منصة. زد وسلة منصتان يتصل بهما زيادة عبر موصّل منشور في متجر تطبيقات كل منهما.",
                 "No. Ziadah is an independent product, not owned by or endorsed by any platform. Zid and Salla are two platforms Ziadah connects to, through a connector published in each one's app market.",

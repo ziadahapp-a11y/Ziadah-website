@@ -65,21 +65,6 @@
 .device-row-when { font-size: 1.1rem; color: color-mix(in srgb, var(--general-white) 60%, transparent); }
 .device-row-amount { font-size: 1.3rem; font-weight: 500; }
 
-/* ---------- scene 4: disclaimer -------------------------------------- */
-/* MEASURED height (not min-height) 14 / 11 / 9rem. */
-.home-disclaimer {
-  background: var(--general-white);
-  font-size: 1.2rem;
-  line-height: 1.5;
-  /* DOCUMENTED DEVIATION D-01: the captured `--general-gray-mid` is 2.39:1. */
-  color: var(--general-gray-dark);
-  height: 14rem;
-  display: flex;
-  align-items: center;
-  white-space: pre-line;
-}
-@media screen and (max-width: 1024px) { .home-disclaimer { height: 11rem; } }
-@media screen and (max-width: 767px)  { .home-disclaimer { height: 9rem; } }
 
 
 /* ---------- ROI calculator, inside the pinned scrollable-list column -----

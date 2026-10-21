@@ -98,7 +98,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
             kicker={isAr ? "القنوات" : "Channels"}
             title={isAr ? "القنوات" : "Channels"}
             lead={isAr
-              ? "زيادة لا تعمل في مكان واحد. هذه الأسطح التي يُبنى عليها الطلب في هذا القطاع."
+              ? "تطبيق زيادة لا يعمل في مكان واحد. هذه الأسطح التي يُبنى عليها الطلب في هذا القطاع."
               : "Ziadah does not run in one place. These are the surfaces the order is built on in this sector."}
           />
           <Shell>

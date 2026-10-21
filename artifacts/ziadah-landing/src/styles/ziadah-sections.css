@@ -1980,3 +1980,28 @@
    the same number is written. */
 .hero-tabs.is-currency { margin-block-start: 1rem; }
 .hero-tabs.is-currency .hero-tab { font-size: 13px; padding-block: 0.7rem; }
+
+/* ---------- THE CALCULATOR, SIMPLIFIED -------------------------------
+   Three inputs as plain rows on the left, one answer on the right. Colours
+   come from the section's own pair, so it flips with `invert`. */
+.calc2 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: stretch; margin-block-start: 8px; }
+@media screen and (min-width: 900px) { .calc2 { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; } }
+.calc2-controls,
+.calc2-result {
+  border-radius: var(--radius-block);
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+  padding: 24px;
+}
+.calc2-controls { display: grid; gap: 26px; align-content: center; }
+.calc2-field { display: grid; gap: 12px; }
+.calc2-field-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.calc2-field-k { font-size: var(--t-body); font-weight: 600; }
+.calc2-ticks { display: flex; justify-content: space-between; font-size: var(--t-cap); opacity: 0.65; }
+.calc2-result { display: flex; flex-direction: column; justify-content: center; gap: 10px; text-align: center; }
+.calc2-k { font-size: var(--t-sm); opacity: 0.8; }
+.calc2-v { font-size: clamp(38px, 3.2vw + 14px, 68px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.calc2-v small { font-size: 0.4em; font-weight: 600; opacity: 0.8; }
+.calc2-from { margin: 0 0 14px; font-size: var(--t-sm); opacity: 0.75; }
+/* `.num-ltr` makes its box inline, so the two tick labels shrank to content and
+   sat together at one edge instead of at the two ends of the slider. */
+.calc2-ticks.num-ltr { display: flex; width: 100%; justify-content: space-between; }

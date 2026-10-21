@@ -1563,3 +1563,34 @@ html[data-motion-ready] [data-reveal] { opacity: 0; }
   .mega-groups { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .mega-cards--promoted { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+
+/* ---------- LOG IN, BESIDE THE PRIMARY ACTION ---------------------------
+   A small popover under the button, aligned to its inline end so it opens
+   toward the page rather than off the edge of the header. */
+.login-menu { position: relative; }
+.login-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  min-width: 150px;
+  padding: 6px;
+  border-radius: 14px;
+  background: #fff;
+  color: #07000c;
+  box-shadow: 0 16px 40px rgb(10 10 10 / 0.16), inset 0 0 0 1px rgb(10 10 10 / 0.08);
+  z-index: var(--z-dropdown);
+  display: grid;
+  gap: 2px;
+}
+.login-pop .mega-link { color: #07000c; }
+
+/* ---------- ONE PANEL ANATOMY: THREE COLUMNS ----------------------------
+   Every mega panel is the same 880px, three columns. The cards-plus-links
+   panels are already 2fr/1fr, which is two card columns and one link column;
+   the platforms panel is three cards across; the solutions panel is three
+   groups across. */
+.mega, .mega--groups, .mega--single { grid-template-columns: minmax(0, 1fr); }
+.mega:not(.mega--groups):not(.mega--single) { grid-template-columns: 2fr 1fr; }
+.mega--single .mega-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mega-groups { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.mega-cards--promoted { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }

@@ -34,8 +34,8 @@ export function Hero() {
   const { ref, entered } = useEnterOnce<HTMLDivElement>();
 
   const lines = t({
-    ar: ["كل عميل يشوف", "", "اللي يناسبه"],
-    en: ["Every shopper", "sees what", "actually fits"],
+    ar: ["المنتج المناسب", "للعميل المناسب", "في اللحظة المناسبة"],
+    en: ["The right product", "for the right shopper", "at the right moment"],
   });
 
   return (
@@ -54,8 +54,8 @@ export function Hero() {
         <div className="hero-home-copy">
           <p className="hero-home-eyebrow">
             {t({
-              ar: "محرّك توصيات بالذكاء الاصطناعي لمتاجر زد وسلة",
-              en: "An AI recommendation engine for Zid and Salla stores",
+              ar: "تطبيق اقتراح المنتجات بالذكاء الاصطناعي",
+              en: "AI product suggestions for online stores",
             })}
           </p>
           <h1 className="hero-home-title">
@@ -67,8 +67,8 @@ export function Hero() {
           </h1>
           <p className="hero-home-lede">
             {t({
-              ar: "أغلب زوّار متجرك يشترون منتجاً واحداً ويطلعون. زيادة تعرض لكل عميل المنتج المناسب له في صفحة المنتج والسلة والدفع، فيرتفع متوسط قيمة الطلب بدون أي إنفاق إعلاني إضافي.",
-              en: "Most of your visitors buy one item and leave. Ziadah shows each shopper the product that fits them on the product page, the cart and checkout, so the average order value rises with no extra ad spend.",
+              ar: "تطبيق زيادة يقرأ السلة وسجل الطلبات ويقترح لكل عميل منتجات تناسبه في صفحة المنتج والسلة والدفع، فيرتفع متوسط قيمة الطلب بدون إنفاق إعلاني إضافي.",
+              en: "The Ziadah app reads the cart and order history and suggests products that fit each shopper on the product page, the cart and checkout, so average order value rises with no extra ad spend.",
             })}
           </p>
           <div className="hero-home-actions">

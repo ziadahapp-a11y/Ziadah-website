@@ -66,6 +66,7 @@ export default function ShapeAccordion({
   stage,
   label,
   fill = false,
+  head,
 }: {
   items: AccordionItem[];
   /** What the stage shows for the open row. `wide` says where it is drawn. */
@@ -74,6 +75,16 @@ export default function ShapeAccordion({
   label: string;
   /** Stretch the stage to the list's height instead of letting it hug its content. */
   fill?: boolean;
+  /**
+   * A heading that pins WITH the list, above it.
+   *
+   * While the band is pinned the page's own heading has scrolled away, and a
+   * short list left alone in a screenful of space is a card with no caption.
+   * For a band whose heading and list fit the window together, pass the
+   * heading here. A band too tall for both (twelve rows plus a heading) should
+   * not: it would push the list off the bottom of the window.
+   */
+  head?: ReactNode;
 }) {
   const uid = useId();
   const wide = useWide(WIDE_AT);
@@ -161,6 +172,7 @@ export default function ShapeAccordion({
       data-wide={wide ? "" : undefined}
     >
       <div className="sacc-pin">
+        {head}
         <div className="sacc" data-wide={wide ? "" : undefined} data-fill={fill ? "" : undefined}>
           <ul className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
             {items.map((it, i) => {

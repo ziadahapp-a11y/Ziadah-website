@@ -485,9 +485,10 @@
   top: calc(var(--header-dynamic-height, 66px) + 16px);
   min-height: calc(100svh - var(--header-dynamic-height, 66px) - 32px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
-.sacc-track[data-wide] .sacc-pin > .sacc { width: 100%; }
+.sacc-track[data-wide] .sacc-pin > * { width: 100%; }
 .sacc-stage { animation: sacc-in 0.32s ease both; }
 @keyframes sacc-in {
   from { opacity: 0; transform: translateY(8px); }
@@ -526,3 +527,7 @@
 .sacc[data-fill] .pz { height: 100%; max-width: none; display: flex; flex-direction: column; }
 .sacc[data-fill] .pz-screen { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
 .sacc[data-fill] .pz-fit { flex: 1 1 0; min-height: 0; }
+
+/* The dark step card, as tall as the list it sits beside. */
+.sacc[data-fill] .how-fig { height: 100%; display: flex; }
+.sacc[data-fill] .how-fig > .stepfig { flex: 1 1 auto; height: 100%; max-width: none; }

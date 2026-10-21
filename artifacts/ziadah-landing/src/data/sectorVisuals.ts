@@ -1027,7 +1027,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
         overlayKind: "banner",
         overlayTitleAr: "مرتّبة حسب تفضيلاتك وميزانيتك",
         overlayTitleEn: "Ranked for your prefs & budget",
-        overlayBodyAr: "زيادة تعيد ترتيب العناصر بناءً على سجل التصفح والسعر المعتاد لشرائك.",
+        overlayBodyAr: "تطبيق زيادة يعيد ترتيب العناصر بناءً على سجل التصفح والسعر المعتاد لشرائك.",
         overlayBodyEn: "Ziadah re-ranks items from browse history and usual price comfort.",
         overlayPrimaryAr: "تطبيق",
         overlayPrimaryEn: "Got it",

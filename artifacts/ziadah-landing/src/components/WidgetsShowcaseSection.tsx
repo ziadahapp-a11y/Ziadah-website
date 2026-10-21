@@ -133,15 +133,17 @@ export default function WidgetsShowcaseSection() {
      page that broke the colour rhythm around them. */
   return (
     <DsSection id="widgets-showcase" family="grey">
-      <SectionHead
-        center
-        kicker={tr.landing.widgetsTag}
-        title={tr.landing.widgetsTitle}
-        lead={tr.landing.widgetsSubtitle}
-      />
       <Shell>
         <div dir={lang === "ar" ? "rtl" : "ltr"}>
           <ShapeAccordion
+            head={
+              <SectionHead
+                center
+                kicker={tr.landing.widgetsTag}
+                title={tr.landing.widgetsTitle}
+                lead={tr.landing.widgetsSubtitle}
+              />
+            }
             items={items}
             label={tr.landing.widgetsTag}
             stage={(key, { wide }) => {
