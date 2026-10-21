@@ -109,7 +109,7 @@ export default function CardDeck({
   const [reduced, setReduced] = useState(false);
 
   const stage = useRef<HTMLDivElement>(null);
-  const els = useRef<(HTMLButtonElement | null)[]>([]);
+  const els = useRef<(HTMLElement | null)[]>([]);
   /* Where the deck IS and where it is GOING, in cards, unbounded. */
   const pos = useRef(0);
   const goal = useRef(0);
@@ -384,14 +384,28 @@ export default function CardDeck({
         }}
       >
         {cards.map((card, i) => (
-          <button
+          /* A div with the button role, NOT a <button>: the card holds a whole
+             widget sheet, and that has real buttons in it. A button inside a
+             button is invalid HTML; a browser parsing the prerendered page
+             closes the outer one early and throws the rest of the page out of
+             #root, where it stayed after the app mounted (a second copy of the
+             page and a sideways scroll on phones). */
+          <div
             key={card.key}
             ref={(el) => { els.current[i] = el; }}
-            type="button"
+            role="button"
+            tabIndex={0}
             className="fan-card"
             data-active={i === active ? "" : undefined}
             aria-label={card.label}
             aria-pressed={i === active}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                if (e.target !== e.currentTarget) return;
+                e.preventDefault();
+                goTo(i);
+              }
+            }}
             onFocus={(e) => {
               /* Keyboard focus only. A mouse click also focuses a button, and
                  treating that as "the keyboard is here" would pause the deck
@@ -410,7 +424,7 @@ export default function CardDeck({
             <span className="fan-card-stage" aria-hidden={i !== active}>
               {card.node}
             </span>
-          </button>
+          </div>
         ))}
       </div>
 

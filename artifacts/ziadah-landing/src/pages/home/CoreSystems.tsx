@@ -65,7 +65,7 @@ export function CoreSystems() {
   const strip = (title: string) => title.replace(/\s*\([^)]*\)\s*/g, " ").trim();
 
   const stats = [
-    { v: "+1,500", k: t({ ar: "متجر يشغّل زيادة اليوم", en: "stores run Ziadah today" }) },
+    { v: "+1,500", k: t({ ar: "متجر شغّل زيادة", en: "stores activated Ziadah" }) },
     { v: t({ ar: "+20M ر.س", en: "+SAR 20M" }), k: t({ ar: "مبيعات إضافية للتجار", en: "extra sales for merchants" }) },
     { v: "+200K", k: t({ ar: "طلب فيه منتج مقترح", en: "orders with a suggested item" }) },
     { v: "+40M", k: t({ ar: "مرة عُرض فيها اقتراح", en: "times a suggestion was shown" }) },

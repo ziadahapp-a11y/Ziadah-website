@@ -132,6 +132,20 @@ for (const route of routes) {
   const noAlt = imgs.filter((t) => attr(t, "alt") === null);
   if (noAlt.length) add("WARN", route, "img-without-alt", `${noAlt.length} of ${imgs.length}`);
 
+  /* a button inside a button, or a link inside a link, is invalid HTML: a
+     browser parsing the page closes the outer one early and throws the rest of
+     it out of #root */
+  {
+    let depth = { button: 0, a: 0 };
+    let nested = false;
+    for (const m of body.matchAll(/<(\/?)(button|a)\b/gi)) {
+      const t = m[2].toLowerCase();
+      if (m[1]) depth[t] = Math.max(0, depth[t] - 1);
+      else if (++depth[t] > 1) { nested = true; break; }
+    }
+    if (nested) add("ERROR", route, "nested-interactive", "a <button> or <a> sits inside another one");
+  }
+
   /* internal links that resolve to nothing */
   const hrefs = [...body.matchAll(/<a\b[^>]*\shref="(\/[^"#?]*)/gi)].map((m) => m[1].replace(/\/$/, "") || "/");
   const dead = [...new Set(hrefs)].filter((h) => !routeSet.has(h) && !fs.existsSync(path.join(DIST, h)) && !fs.existsSync(path.join(DIST, h, "index.html")));

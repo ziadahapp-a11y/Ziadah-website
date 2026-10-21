@@ -37,8 +37,8 @@ const PH = 1350;
 const PORTRAIT_BELOW = 720;
 export const FILM_SECONDS = 30;
 /** How fast the clock runs on the page. The film is written in 30 stage
- *  seconds and recorded at 1x; on the page it runs 1.5x, so a loop is 20s. */
-export const FILM_SPEED = 1.5;
+ *  seconds and recorded at 1x; on the page it runs 2x, so a loop is 15s. */
+export const FILM_SPEED = 2;
 
 const clamp = (x: number) => Math.min(1, Math.max(0, x));
 const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));
@@ -113,16 +113,44 @@ export default function ActivationFilm({ capture = false, portrait: forcePortrai
     let raf = 0;
     let last = performance.now();
     let on = false;
+    /* The film re-renders its whole stage on every tick. Doing that at 60fps
+       while the page is being scrolled or pressed made both stutter, so it
+       ticks at 30fps and stands still while the user scrolls or has a button
+       or finger down, then carries on from the same frame. */
+    let busyUntil = 0;
+    let pressed = false;
+    const busy = () => { busyUntil = performance.now() + 180; };
+    const down = () => { pressed = true; };
+    const up = () => { pressed = false; busy(); };
+    window.addEventListener("scroll", busy, { passive: true });
+    window.addEventListener("wheel", busy, { passive: true });
+    window.addEventListener("touchmove", busy, { passive: true });
+    window.addEventListener("pointerdown", down, { passive: true });
+    window.addEventListener("pointerup", up, { passive: true });
+    window.addEventListener("pointercancel", up, { passive: true });
     const el = host.current;
     const obs = typeof IntersectionObserver === "undefined" || !el ? null : new IntersectionObserver(([e]) => { on = e.isIntersecting; last = performance.now(); }, { threshold: 0.25 });
     if (obs && el) obs.observe(el); else on = true;
+    const FRAME = 1000 / 30;
     const tick = (now: number) => {
-      if (on) setT((p) => (p + ((now - last) / 1000) * FILM_SPEED) % FILM_SECONDS);
-      last = now;
       raf = requestAnimationFrame(tick);
+      const dt = now - last;
+      if (dt < FRAME) return;
+      last = now;
+      if (!on || pressed || now < busyUntil) return;
+      setT((p) => (p + (Math.min(dt, 100) / 1000) * FILM_SPEED) % FILM_SECONDS);
     };
     raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); obs?.disconnect(); };
+    return () => {
+      cancelAnimationFrame(raf);
+      obs?.disconnect();
+      window.removeEventListener("scroll", busy);
+      window.removeEventListener("wheel", busy);
+      window.removeEventListener("touchmove", busy);
+      window.removeEventListener("pointerdown", down);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+    };
   }, [capture]);
 
   /* The stage is scaled to its container's width. */
@@ -311,7 +339,6 @@ export default function ActivationFilm({ capture = false, portrait: forcePortrai
                         style={{
                           transform: `translate(${lerp(x0, x1, fly)}px, ${lerp(y0, y1, fly)}px) rotate(${(1 - fly) * (i % 2 ? 22 : -22)}deg)`,
                           opacity: Math.min(seg(t, a, a + 0.4), 1 - gone) * dim,
-                          filter: !yes && judged > 0 ? `grayscale(${judged})` : undefined,
                         }}
                       >
                         <div className="film-xc-sheet" data-yes={yes && judged > 0.5 ? "" : undefined} style={{ transform: `scale(${lerp(0.12, G.sc, fly)})` }}>{burst[i]}</div>

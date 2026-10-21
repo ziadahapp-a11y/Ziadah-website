@@ -14,7 +14,16 @@ if (typeof window !== "undefined" && "scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
-createRoot(document.getElementById("root")!).render(
+/* The prerendered page is replaced, not hydrated, so anything the HTML parser
+   threw out of #root (invalid nesting in a prerendered page does that) would
+   stay in <body> beside the live app. Nothing else belongs there before
+   React mounts. */
+const rootEl = document.getElementById("root")!;
+for (const el of Array.from(document.body.children)) {
+  if (el !== rootEl && !/^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(el.tagName)) el.remove();
+}
+
+createRoot(rootEl).render(
   <HelmetProvider>
     <App />
   </HelmetProvider>

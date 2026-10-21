@@ -1078,5 +1078,5 @@ export function getSectorBySlug(slug: string): SectorContent | undefined {
 
 export function getSectorSeoTitle(sector: SectorContent, lang: "ar" | "en"): string {
   const name = lang === "ar" ? sector.titleAr : sector.titleEn;
-  return lang === "ar" ? `${name} — زيادة وذكاء اصطناعي للمتجر` : `${name} — Ziadah AI for your store`;
+  return lang === "ar" ? `${name} — زيادة: ذكاء اصطناعي لمتجرك` : `${name} — Ziadah AI for your store`;
 }
