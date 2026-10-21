@@ -21,24 +21,24 @@ import { WIDGET_KINDS } from "@/components/widgets/storefrontSets";
 const DECKS: Record<string, WidgetKind[]> = {
   /* ---- by placement: what that page of a shop can carry ---- */
   "product-page": ["replace", "kit", "quantity", "buythemall"],
-  "cart": ["drawer", "cartvalue", "addmore", "coupon"],
-  "checkout": ["cartvalue", "addmore", "coupon", "drawer"],
-  "thank-you": ["thankyou", "routine", "addmore"],
+  "cart": ["drawer", "cartvalue", "addmore"],
+  "checkout": ["cartvalue", "addmore", "drawer"],
+  "thank-you": ["routine", "addmore"],
   "home": ["routine", "buythemall", "kit"],
   "category": ["buythemall", "routine", "kit", "quantity"],
   "add-to-cart": ["drawer", "addmore", "buythemall", "kit"],
-  "remove-from-cart": ["replace", "coupon", "cartvalue"],
+  "remove-from-cart": ["replace", "cartvalue"],
   /* The page whose whole argument is "everywhere" gets the whole set. */
   "all-pages": WIDGET_KINDS,
 
   /* ---- by goal: the shapes that move that number ---- */
   "increase-aov": ["bmsm", "kit", "cartvalue", "addmore", "buythemall"],
-  "reduce-abandon": ["drawer", "coupon", "cartvalue", "addmore"],
-  "increase-conversion": ["replace", "coupon", "cartvalue", "thankyou"],
+  "reduce-abandon": ["drawer", "cartvalue", "addmore"],
+  "increase-conversion": ["replace", "cartvalue"],
   "more-cart-items": ["addmore", "cartvalue", "bmsm", "buythemall"],
   "cross-sell": ["buythemall", "kit", "addmore", "routine"],
   "upsell": ["replace", "quantity", "bmsm", "kit"],
-  "customer-experience": ["routine", "steps", "drawer", "thankyou"],
+  "customer-experience": ["routine", "steps", "drawer"],
 
   /* ---- by mechanism: the page's own shape, then its relatives ---- */
   "related-products": ["related", "routine", "buythemall", "addmore"],
@@ -47,13 +47,13 @@ const DECKS: Record<string, WidgetKind[]> = {
   "bundle-deals": ["kit", "steps", "buythemall", "bmsm"],
   "buy-more-save-more": ["bmsm", "quantity", "cartvalue"],
   "free-shipping": ["cartvalue", "addmore", "drawer"],
-  "discount-coupon": ["coupon", "bmsm", "cartvalue"],
+  "discount-coupon": ["bmsm", "cartvalue"],
 
   /* ---- the overview pages ---- */
-  "by-pages": ["drawer", "replace", "cartvalue", "thankyou", "buythemall"],
+  "by-pages": ["drawer", "replace", "cartvalue", "buythemall"],
   "by-activity": ["kit", "routine", "steps", "bmsm"],
-  "by-goal": ["bmsm", "cartvalue", "buythemall", "replace", "coupon"],
-  "by-experience": ["routine", "steps", "drawer", "thankyou"],
+  "by-goal": ["bmsm", "cartvalue", "buythemall", "replace"],
+  "by-experience": ["routine", "steps", "drawer"],
   /* Same reasoning as `all-pages`: the subject is the set. */
   "by-presentation": WIDGET_KINDS,
 };

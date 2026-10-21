@@ -1,8 +1,7 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { DEFAULT_PACK, type ProductPack } from "@/data/sectorProductPacks";
-import { X } from "lucide-react";
 import {
-  FmOverlay, FmModal, FmHead, FmStat, FmList, FmCard, FmCopy, FmTotal, FmActions, FmAddAll, FmFoot, FmDeal, FmValue, FmFull, FmFullMedia, FmFullCta,
+  FmOverlay, FmModal, FmHead, FmStat, FmList, FmCard, FmCopy, FmTotal, FmActions, FmAddAll, FmFoot, FmDeal, FmValue,
 } from "@/components/widgets/fm";
 import { FwPage, FwHead, FwH, FwChips, FwCards, FwCard, FwNote, FwTotal, FwOk, FwStep, FwHero, FwTitles, FwPill, FwPills, FwBar, FwGroup, FwProg, FwSizeCard, FwOverlay, FwHandle, FwSheetHead, FwItem, FwAmber, FwSubTotal, FwLink, FwCta, FwPerk, FwFoot } from "@/components/widgets/fw";
 import {
@@ -21,14 +20,14 @@ import {
 
 export type WidgetKind =
   | "related" | "kit" | "steps" | "routine" | "bmsm" | "drawer"
-  | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue" | "coupon" | "thankyou";
+  | "replace" | "quantity" | "addmore" | "buythemall" | "cartvalue";
 
 /* The order a merchant meets them in a real shop: what is on the product
    page, then what happens at add-to-cart, then the cart, then the exit, then
    after the order. */
 export const WIDGET_KINDS: WidgetKind[] = [
   "related", "replace", "quantity", "kit", "steps", "routine", "buythemall",
-  "addmore", "bmsm", "cartvalue", "drawer", "coupon", "thankyou",
+  "addmore", "bmsm", "cartvalue", "drawer",
 ];
 
 export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
@@ -44,8 +43,6 @@ export function widgetKindLabel(kind: WidgetKind, isAr: boolean): string {
     addmore: ["أضف المزيد", "Add more"],
     buythemall: ["خذها كلها", "Buy them all"],
     cartvalue: ["رفع قيمة السلة", "Cart value"],
-    coupon: ["كود الخصم", "Coupon"],
-    thankyou: ["بعد الشراء", "Post-purchase"],
   };
   return isAr ? m[kind][0] : m[kind][1];
 }
@@ -84,8 +81,6 @@ export function widgetKindHref(kind: WidgetKind): string {
     bmsm: "/use-cases/buy-more-save-more",
     cartvalue: "/use-cases/free-shipping",
     drawer: "/use-cases/add-to-cart",
-    coupon: "/use-cases/discount-coupon",
-    thankyou: "/use-cases/thank-you",
   };
   return m[kind];
 }
@@ -135,14 +130,6 @@ export function widgetKindWhen(kind: WidgetKind, isAr: boolean): string {
     drawer: [
       "لحظة إضافة المنتج: يدخل درج السلة باقتراحات مرتبطة بما أُضيف للتو.",
       "The moment an item is added: the cart drawer slides in with suggestions tied to what was just added.",
-    ],
-    coupon: [
-      "قبل الدفع: يظهر كود الخصم لمن يتردد أو يهمّ بالمغادرة، لا للجميع.",
-      "Before checkout: the coupon appears for shoppers who hesitate or are about to leave, not for everyone.",
-    ],
-    thankyou: [
-      "بعد إتمام الطلب: عرض واحد في صفحة الشكر قبل أن يغلقها العميل.",
-      "After the order: one offer on the thank-you page before the shopper closes it.",
     ],
   };
   return isAr ? m[kind][0] : m[kind][1];
@@ -432,34 +419,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
           />
         </FmModal>
       </FmOverlay>
-    );
-  }
-
-  if (kind === "coupon") {
-    /* Promote and announce, fullscreen: black ground, framed media, white button. */
-    return (
-      <FmFull>
-        <X className="fm-full-x" aria-hidden="true" />
-        <FmFullMedia name={nm(main)} badge={t("خصم 20%", "20% OFF")} />
-        <p className="fm-full-t">{t(`خصم 20% على ${nm(main)}`, `20% off ${nm(main)}`)}</p>
-        <p className="fm-full-d">{t("العرض لفترة محدودة. استخدم الكود عند الدفع.", "For a limited time. Use the code at checkout.")}</p>
-        <FmFullCta>{t("تسوّق الآن", "Shop now")}</FmFullCta>
-        <p className="fm-full-later">{t("لاحقاً", "Later")}</p>
-      </FmFull>
-    );
-  }
-
-  if (kind === "thankyou") {
-    return (
-      <Sheet
-        title={t("تم طلبك", "Your order is placed")}
-        sub={t("يُشترى عادةً بعد هذا الطلب.", "Usually bought after this order.")}
-        footer={<Cta>{t("أضفها لطلب جديد", "Add to a new order")}</Cta>}
-      >
-        <Success>{t("وصلك إشعار بالتفاصيل", "A confirmation is on its way")}</Success>
-        <AddRow name={nm(c)} price={sar(c.price)} />
-        <AddRow name={nm(a)} price={sar(a.price)} />
-      </Sheet>
     );
   }
 
