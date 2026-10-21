@@ -134,6 +134,7 @@ const STATIC_MAIN = [
   { path: "/support", priority: "0.75", freq: "monthly" },
   { path: "/privacy", priority: "0.3", freq: "yearly" },
   { path: "/terms", priority: "0.3", freq: "yearly" },
+  { path: "/data-deletion", priority: "0.3", freq: "yearly" },
   { path: "/sectors", priority: "0.85", freq: "weekly" },
   { path: "/sectors/ecommerce-stores", priority: "0.85", freq: "weekly" },
   { path: "/zid-apps-comparison", priority: "0.75", freq: "monthly" },

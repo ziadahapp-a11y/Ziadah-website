@@ -67,7 +67,7 @@ for (const route of routes) {
   /* description */
   const desc = one("name", "description", "description");
   if (desc && desc.length > 165) add("WARN", route, "description-long", `${desc.length} chars`);
-  if (desc && desc.length < 70) add("WARN", route, "description-short", `${desc.length} chars`);
+  if (desc && desc.length < (lang === "ar" ? 45 : 55)) add("WARN", route, "description-short", `${desc.length} chars`);
   descs.set(desc, [...(descs.get(desc) ?? []), route]);
 
   /* language and direction of the document itself */

@@ -166,7 +166,7 @@ const data: UseCasePageData = {
   ctaDescEn: "Every visit is an opportunity — let Ziadah suggest the right product with a direct add button.",
   seo: {
     title: "المنتجات ذات الصلة — زيادة",
-    titleEn: "Related Products — Ziadah",
+    titleEn: "Related Products Use Case: Suggest the Right Item — Ziadah",
     description: "اعرض لكل عميل المنتجات الأقرب لاهتمامه مع زر الإضافة الجاهز. زيادة يُخصّص التوصيات لكل زائر بناءً على سلوكه الفعلي.",
     descriptionEn: "Show each customer the products closest to their interests with a ready add button. Ziadah personalizes recommendations for every visitor based on their actual behavior.",
     canonical: "/use-cases/related-products",

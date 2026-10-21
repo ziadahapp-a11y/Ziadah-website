@@ -158,7 +158,7 @@ const data: UseCasePageData = {
   ctaDescEn: "One customer choosing the better version equals two orders — activate Upsell with Ziadah today.",
   seo: {
     title: "استبدال المنتجات (Upsell) — زيادة",
-    titleEn: "Product Swap (Upsell) — Ziadah",
+    titleEn: "Upsell Use Case: Convince Shoppers to Upgrade — Ziadah",
     description: "أقنع عميلك بالترقية للنسخة الأعلى قيمة مع زيادة. عروض Upsell ذكية تُبرز الفارق الحقيقي وترفع قيمة الطلب بشكل مقنع.",
     descriptionEn: "Convince your customers to upgrade to the higher-value version with Ziadah. Smart upsell offers highlight the real difference and convincingly increase order value.",
     canonical: "/use-cases/upsell",
