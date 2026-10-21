@@ -1,77 +1,49 @@
 import { useLayoutEffect, useRef, type ReactNode } from "react";
 
 /**
- * SHOW THE WHOLE SHEET, WHATEVER ITS HEIGHT.
+ * ONE SIZE FOR EVERY SHEET.
  *
- * The twelve widget shapes are genuinely different heights - the kit builder
- * runs three groups of options, the coupon is four lines - so any fixed box
- * either crops the tall ones or leaves the short ones floating in a well.
- * Both were happening: the kit sheet was cut off at the bottom of its stage,
- * which is the one thing a preview must never do, because a merchant reading
- * a cropped widget cannot tell whether the crop is the design.
+ * Every widget shape is laid out at the same natural width, STANDARD_WIDTH,
+ * and shown at the same scale: 1 when the box is wide enough, and the box's
+ * width over STANDARD_WIDTH when it is not. The scale never depends on the
+ * sheet's height. It used to: each sheet was shrunk until it fitted the box,
+ * so the kit (822px tall) was drawn at 0.58 on a phone and the next shape at
+ * 0.89, and the text in one was half the size of the text in the other.
  *
- * So the box is fixed and the SHEET is scaled to fit it. The scale is
- * measured, not guessed: the wrapper reports its own height, the sheet
- * reports its natural one, and the ratio is applied as a transform. It never
- * scales UP - a short sheet stays its real size and centres, because a coupon
- * blown up to 1.4x stops looking like the product.
+ * Height is the content's job now. A shape that would be taller than the
+ * stage has fewer items, not a smaller type size (see the packs and
+ * storefrontSets); the sheet is measured here and its box follows it.
  *
  * `useLayoutEffect` rather than `useEffect`: the scale has to be in place
- * before the browser paints, or the sheet is visibly drawn at full size and
- * then snaps down on every mount and every change of shape.
+ * before the browser paints, or the sheet is drawn at full size and snaps
+ * down on every mount and every change of shape.
  *
- * THE TRANSFORM IS WRITTEN TO THE DOM, NOT HELD IN STATE. The first version
- * kept the scale in `useState` and let React render it. Measuring requires
- * clearing the transform first, and clearing it meant React's record of the
- * style no longer matched the DOM - so when the effect set the same scale
- * again, React saw an unchanged prop and wrote nothing, leaving the sheet at
- * its natural size. Every shape rendered unscaled, and two of the twelve ran
- * straight out of their box. One owner for one property.
+ * THE TRANSFORM IS WRITTEN TO THE DOM, NOT HELD IN STATE. Measuring requires
+ * clearing the transform first, and clearing it through React's `style`
+ * desynchronised React's record from the DOM, so an unchanged prop wrote
+ * nothing and the sheet stayed at its natural size. One owner per property.
  */
+export const STANDARD_WIDTH = 340;
+
 export default function FitWidget({
   children,
-  height = 520,
   className,
   hug = false,
   fill = false,
-  grow = 1,
+  height = 700,
 }: {
   children: ReactNode;
-  /** The box the sheet has to fit into. With `hug`, the most it may grow to. */
-  height?: number;
   className?: string;
-  /**
-   * Size the box to the sheet instead of holding it at `height`.
-   *
-   * A fixed box is right when something around it has to stay put. It is
-   * wrong for a stage that shows one sheet at a time: the sheets run from 294
-   * to 880px, so a box tall enough for the biggest leaves the short ones
-   * floating at the top of a well of white. In this mode a short sheet gets a
-   * box exactly its height, and only one taller than `height` is scaled down.
-   *
-   * The box's height is written to the DOM here, never through React's
-   * `style`, for the same reason the transform is: this effect measures with
-   * the box in a known state, and a React-owned height would be reset by the
-   * next render.
-   */
+  /** Size the box to the sheet, however tall it is. */
   hug?: boolean;
   /**
-   * Take whatever height the parent gives the box, from CSS, and scale the
-   * sheet to fit it. For a box inside a flex column that has been stretched to
-   * match something else - the phone beside a list - where neither a fixed nor
-   * a hugging height is right.
+   * Take whatever height the parent gives the box, and centre the sheet in
+   * it. For a box inside a flex column stretched to match something else,
+   * where neither a fixed nor a hugging height is right.
    */
   fill?: boolean;
-  /**
-   * The most the sheet may be scaled UP, as a multiple (1 = never).
-   *
-   * Sheets are drawn at about 340px wide. In a 440px stage that left a
-   * gutter of white down both sides and a sheet that read as a small thing in
-   * a big card. Letting it grow to the card's width fixes that, and a cap
-   * keeps a coupon from being blown up until it stops looking like the
-   * product.
-   */
-  grow?: number;
+  /** The box's height at the standard scale, when it neither hugs nor fills; the sheet is centred in it. */
+  height?: number;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -83,23 +55,21 @@ export default function FitWidget({
 
     const fit = () => {
       /* The sheet's natural size, read with the transform removed: measuring
-         a scaled element returns the scaled box, so leaving the old scale on
-         would make every pass converge on a smaller number than the last. */
+         a scaled element returns the scaled box. */
       i.style.transform = "none";
       const nh = i.offsetHeight;
-      const nw = i.offsetWidth;
-      /* Hugging, the limit is the prop and not whatever the box measures
-         now: the box's own height is what this pass is about to set. */
-      const bh = hug ? height : b.clientHeight;
       const bw = b.clientWidth;
-      if (!nh || !nw) return;
-      const next = Math.min(grow, bh / nh, bw / nw);
-      /* In a filled box a sheet shorter than the room is centred in it, not
-         left against the top: the box is as tall as a list beside it. */
-      const off = fill ? Math.max(0, (bh - nh * next) / 2) : 0;
-      i.style.transform =
-        next === 1 && !off ? "none" : `translateY(${off}px) scale(${next})`;
-      if (hug) b.style.height = `${Math.ceil(nh * next)}px`;
+      if (!nh || !bw) return;
+      const next = Math.min(1, bw / STANDARD_WIDTH);
+      const shown = nh * next;
+      /* The box is a floor, not a crop: `height` is for the standard scale, so
+         it shrinks with it, and a sheet taller than that makes the box taller,
+         because a cropped preview cannot be told from a design. */
+      if (hug) b.style.height = `${Math.ceil(shown)}px`;
+      else if (!fill) b.style.height = `${Math.ceil(Math.max(height * next, shown))}px`;
+      const off = hug ? 0 : Math.max(0, (b.clientHeight - shown) / 2);
+      const dx = (bw - STANDARD_WIDTH * next) / 2;
+      i.style.transform = `translate(${dx}px, ${off}px) scale(${next})`;
     };
 
     fit();
@@ -109,7 +79,7 @@ export default function FitWidget({
     ro.observe(b);
     ro.observe(i);
     return () => ro.disconnect();
-  }, [children, height, hug, fill, grow]);
+  }, [children, hug, fill, height]);
 
   return (
     <div

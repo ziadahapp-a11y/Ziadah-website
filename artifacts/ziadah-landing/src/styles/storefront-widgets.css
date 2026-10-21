@@ -367,8 +367,14 @@
 
 /* The fit box. The sheet is scaled from its top centre so a short one sits
    under the label rather than floating in the middle of the well. */
-.fitw { display: grid; place-items: start center; width: 100%; overflow: hidden; }
-.fitw-in { transform-origin: top center; will-change: transform; }
+/* Layout direction only: every sheet sets its own `dir`. The sheet is placed with
+   an explicit translate, because a sheet wider than a phone-sized box does not
+   centre by alignment (it falls back to the start edge and spills past the
+   other one, which in a right-to-left page cut the left side off). */
+.fitw { display: block; direction: ltr; width: 100%; overflow: hidden; }
+/* The standard sheet width: keep in step with STANDARD_WIDTH in FitWidget. Every
+   shape is laid out this wide, so the scale (and the type size) is the same. */
+.fitw-in { width: 340px; transform-origin: top left; will-change: transform; }
 
 /* ═══════════════════════════════════════════════════════════════════════
    THE COLLAPSIBLE SHAPE LIST
@@ -532,7 +538,7 @@
 .sacc[data-fill] .sacc-stage { height: 100%; }
 .sacc[data-fill] .pz { height: 100%; max-width: none; display: flex; flex-direction: column; }
 .sacc[data-fill] .pz-screen { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-.sacc[data-fill] .pz-fit { flex: 1 1 0; min-height: 0; }
+.sacc[data-fill] .pz-fit { flex: none; }
 
 /* The dark step card, as tall as the list it sits beside. */
 .sacc[data-fill] .how-fig { height: 100%; display: flex; }
