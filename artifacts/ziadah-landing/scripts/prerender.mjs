@@ -262,13 +262,13 @@ async function main() {
         )
         .catch(() => console.warn(`[prerender] ${route}: head never reached its own canonical`));
       // The home's canonical equals the static shell's, so the wait above passes
-      // before React has rendered. Also wait for a tag Helmet owns and for the h1.
+      // before React has rendered. Also wait for the per-page og:image Helmet owns and for the h1.
       await page
         .waitForFunction(
-          "document.head.querySelector('[data-rh]') && document.querySelector('h1')",
+          "document.head.querySelector('meta[property=\"og:image\"][content$=\".png\"]') && document.querySelector('h1')",
           { timeout: 8000 },
         )
-        .catch(() => console.warn(`[prerender] ${route}: Helmet head or h1 never appeared`));
+        .catch(() => console.warn(`[prerender] ${route}: per-page og:image or h1 never appeared`));
       // Drop the pre-React splash so the static HTML shows real content.
       await page.evaluate(() => {
         document.getElementById("initial-loader")?.remove();
