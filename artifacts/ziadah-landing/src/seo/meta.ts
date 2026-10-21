@@ -23,8 +23,9 @@ export function absolutePageUrl(path: string, lang: "ar" | "en"): string {
  * so a card that was ever wrong stays wrong for as long as the URL is the same.
  * Raise this whenever the cards change; the files themselves do not move.
  * v2: the Arabic cards of v1 were blank.
+ * v3: the cards were drawn in a fallback font; now Rubik.
  */
-export const OG_VERSION = "2";
+export const OG_VERSION = "3";
 
 export function ogImagePath(path: string, lang: "ar" | "en"): string {
   const served = pathWithLang(path, lang);
