@@ -3,7 +3,7 @@ import { DEFAULT_PACK, type ProductPack } from "@/data/sectorProductPacks";
 import {
   FmOverlay, FmModal, FmHead, FmStat, FmList, FmCard, FmCopy, FmTotal, FmActions, FmAddAll, FmFoot, FmDeal, FmValue,
 } from "@/components/widgets/fm";
-import { FwPage, FwHead, FwH, FwChips, FwCards, FwCard, FwNote, FwTotal, FwOk, FwStep, FwHero, FwTitles, FwPill, FwPills, FwBar, FwGroup, FwProg, FwSizeCard, FwOverlay, FwHandle, FwSheetHead, FwItem, FwAmber, FwSubTotal, FwLink, FwCta, FwPerk, FwFoot } from "@/components/widgets/fw";
+import { FwPage, FwHead, FwH, FwChips, FwCards, FwCard, FwTotal, FwOk, FwStep, FwHero, FwTitles, FwPill, FwPills, FwBar, FwGroup, FwProg, FwSizeCard, FwOverlay, FwHandle, FwSheetHead, FwItem, FwAmber, FwSubTotal, FwLink, FwCta, FwPerk, FwFoot } from "@/components/widgets/fw";
 import {
   Sheet, Pill, Progress, Tiers, Option, Group, Step, AddRow, Nudge, PriceBar, Cta, Success,
 } from "@/components/widgets/storefront";
@@ -181,24 +181,24 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
 
   if (kind === "kit") {
     /* The In-progress frame: titles, two pills, a bar, a card per group
-       (required, pick-up-to, locked) and the kit price. The frame opens on a
+       (required, pick-up-to) and the kit price. The frame opens on a
        240px photo of the kit; here the phone's own header already shows the
        product, and the photo made the sheet 1,290px tall, which a phone stage
        can only show at half size and so illegibly. Dropped, and the cards
        are denser (see `data-dense`), so the sheet fits at a readable scale. */
-    const was = main.price + a.price + b.price + c.price;
+    const was = main.price + a.price + b.price;
     const now = off(was, 12);
     return (
       <FwPage dense>
         <FwTitles
           title={t("كوّن طقمك", "Build your kit")}
-          sub={t("قطعة أساسية، حتى قطعتين تكمّلانها، وإضافة مضمّنة.", "One main piece, up to 2 that go with it, and an included extra.")}
+          sub={t("قطعة أساسية، وحتى قطعتين تكمّلانها.", "One main piece, and up to 2 that go with it.")}
         />
         <FwPills>
-          <FwPill tone="tint">{t("3 من 5 مختارة", "3 of 5 chosen")}</FwPill>
+          <FwPill tone="tint">{t("3 من 4 مختارة", "3 of 4 chosen")}</FwPill>
           <FwPill tone="green">{t(`وفّرت ${was - now} ر.س`, `Save SAR ${was - now}`)}</FwPill>
         </FwPills>
-        <FwBar pct={60} />
+        <FwBar pct={75} />
         <FwGroup title={t("الأساسي", "The main piece")} rule={t("مطلوب · اختر 1", "Required · pick 1")}>
           <FwCard fluid name={nm(main)} price={sar(main.price)} on action={t("مختار", "Chosen")} />
           <FwCard fluid name={nm(up)} price={sar(up.price)} action={t("أضف", "Add")} />
@@ -206,9 +206,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
         <FwGroup title={t("يكمّله", "Goes with it")} rule={t("اختر حتى 2", "Pick up to 2")}>
           <FwCard fluid name={nm(a)} price={sar(a.price)} on action={t("مختار", "Chosen")} />
           <FwCard fluid name={nm(b)} price={sar(b.price)} on action={t("مختار", "Chosen")} />
-        </FwGroup>
-        <FwGroup panel title={t("يُضاف دائماً", "Always included")} rule={t("مقفل", "Locked")}>
-          <FwCard fluid locked name={nm(c)} price={t("مُضمّن", "Included")} />
         </FwGroup>
         <FwTotal label={t("سعر الطقم", "Kit price")} was={sar(was)} now={sar(now)} cta={t("أضف الطقم للسلة", "Add kit to cart")} />
       </FwPage>
@@ -239,7 +236,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
           <FwCard name={nm(a)} price={sar(a.price)} action={t("أضف", "Add")} />
           <FwCard name={nm(b)} price={sar(b.price)} on action={t("مختار", "Chosen")} />
         </FwCards>
-        <FwNote text={t("الخطوة 04 اختيارية.", "Step 04 is optional.")} action={t("تخطّي", "Skip")} />
         <FwTotal
           label={t("سعر الحزمة", "Package total")}
           was={sar(was)}
@@ -268,20 +264,20 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
   if (kind === "bmsm") {
     /* The In-progress frame: the tier card on top, the products with their
        size rows, and the price for what is in the cart. */
-    const was = a.price + b.price + c.price;
-    const now = off(was, 10);
+    const was = a.price + b.price;
+    const now = off(was, 5);
     const sizes = pack.sizes;
     const sz = sizes?.[1];
     return (
       <FwPage>
         <FwHead title={t("اشتر أكثر ووفر أكثر", "Buy more, save more")} sub={t("اخلط أي منتجات تبغاها.", "Mix any items you like.")} />
         <FwProg
-          title={t("أضف قطعة واحدة وتفتح خصم 15%", "Add 1 more item to unlock 15% off")}
-          count={t("3 في السلة", "3 in cart")}
-          pct={60}
+          title={t("أضف قطعة واحدة وتفتح خصم 10%", "Add 1 more item to unlock 10% off")}
+          count={t("2 في السلة", "2 in cart")}
+          pct={40}
           tiers={[
             { label: t("2 قطع", "2 items"), off: t("خصم 5%", "5% off"), on: true },
-            { label: t("3 قطع", "3 items"), off: t("خصم 10%", "10% off"), on: true },
+            { label: t("3 قطع", "3 items"), off: t("خصم 10%", "10% off") },
             { label: t("4 قطع", "4 items"), off: t("خصم 15%", "15% off") },
             { label: t("5 قطع", "5 items"), off: t("20% + شحن", "20% + ship") },
           ]}
@@ -289,16 +285,14 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
         <FwCards>
           <FwSizeCard name={nm(a)} price={sar(a.price)} on sizes={sizes} size={sz} />
           <FwSizeCard name={nm(b)} price={sar(b.price)} on sizes={sizes} size={sz} />
-          <FwSizeCard name={nm(c)} price={sar(c.price)} on sizes={sizes} size={sz} />
-          <FwSizeCard name={nm(main)} price={sar(main.price)} sizes={sizes} />
         </FwCards>
-        <FwTotal r20 label={t("3 قطع · خصم 10%", "3 items · 10% off")} was={sar(was)} now={sar(now)} cta={t("أضف واحدة بعد لخصم 15%", "Add 1 more for 15% off")} />
+        <FwTotal r20 label={t("2 قطع · خصم 5%", "2 items · 5% off")} was={sar(was)} now={sar(now)} cta={t("أضف واحدة بعد لخصم 10%", "Add 1 more for 10% off")} />
       </FwPage>
     );
   }
 
   if (kind === "replace") {
-    /* Replace Added Product: the added card, two to swap with, the total. */
+    /* Replace Added Product: the added card, one to swap with, the total. */
     const sum = main.price + a.price;
     return (
       <FmOverlay>
@@ -307,7 +301,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
           <FmList>
             {card(main, "أُضيف", "Added", true)}
             {card(a, "استبدل", "Replace")}
-            {card(b, "استبدل", "Replace")}
             <FmTotal label={t("مجموع المنتجات (2)", "Total items (2)")} was={sar(was20(sum))} now={sar(sum)} save={t("وفّر 20%", "Save 20%")} />
             <FmActions cart={t("السلة", "Cart")} amount={sar(sum + c.price)} checkout={t("إتمام الطلب", "Checkout")} />
           </FmList>
@@ -347,8 +340,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
             {card(main, "أُضيف", "Added", true)}
             <FmCopy />
             {card(a, "الخيارات", "See options")}
-            <FmCopy />
-            {card(b, "الخيارات", "See options")}
             <FmTotal label={t("مجموع المنتجات (2)", "Total items (2)")} was={sar(was20(sum))} now={sar(sum)} save={t("وفّر 20%", "Save 20%")} />
             <FmAddAll>{t("أضف الكل", "Add all")}</FmAddAll>
           </FmList>
@@ -402,7 +393,7 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
 
   if (kind === "cartvalue") {
     /* Cart Value, embedded: the products to add and the milestone card. */
-    const gap = Math.max(5, Math.round(Math.min(a.price, b.price) * 0.4));
+    const gap = Math.max(5, Math.round(a.price * 0.4));
     return (
       <FmOverlay>
         <FmModal close={false}>
@@ -410,7 +401,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
           <FmList>
             {card(main, "أُضيف", "Added", true)}
             {card(a, "أضف", "Add")}
-            {card(b, "أضف", "Add")}
           </FmList>
           <FmValue
             title={t("ارفع قيمة سلتك", "Increase Cart Value")}
@@ -454,7 +444,6 @@ export function StorefrontWidget({ kind, pack = DEFAULT_PACK }: { kind: WidgetKi
         />
         <FwAmber title={t("أضف واحدة من هذي لتصل لخصم 15%", "Add one of these to reach 15% off")}>
           <FwItem name={nm(a)} note={sizes ? t("أي مقاس", "Any size") : t("متوفر", "In stock")} price={sar(a.price)} tag={t("أضف", "Add")} />
-          <FwItem name={nm(b)} note={sizes ? t("أي مقاس", "Any size") : t("متوفر", "In stock")} price={sar(b.price)} tag={t("أضف", "Add")} />
         </FwAmber>
         <FwSubTotal label={t("المجموع", "Subtotal")} was={sar(was)} now={sar(off(was, 10))} />
         <FwCta>{t("إتمام الطلب", "Checkout")}</FwCta>

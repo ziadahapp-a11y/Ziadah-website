@@ -75,7 +75,7 @@ export default function SectorUseCases({ slug }: { slug: string }) {
             <span className="pz-add">{isAr ? "أضف" : "Add"}</span>
           </div>
           <span className="pz-mark">{isAr ? "من زيادة" : "By Ziadah"}</span>
-          <FitWidget fill grow={1.25} className="pz-fit"><StorefrontWidget kind={k} pack={pack} /></FitWidget>
+          <FitWidget className="pz-fit"><StorefrontWidget kind={k} pack={pack} /></FitWidget>
         </div>
       </div>
     );

@@ -102,7 +102,7 @@ export default function ShapesAi() {
             label={t("أشكال العرض", "The shapes")}
             stage={(key, { wide }) => (
               <div className="sacc-card">
-                <FitWidget hug grow={1.3} height={wide ? 690 : 480}>
+                <FitWidget>
                   <StorefrontWidget kind={key as WidgetKind} />
                 </FitWidget>
               </div>
