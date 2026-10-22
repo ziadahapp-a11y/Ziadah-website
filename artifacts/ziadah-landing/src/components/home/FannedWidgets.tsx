@@ -18,12 +18,15 @@ import CardDeck, { type DeckCard } from "@/components/widgets/CardDeck";
  * lives in `CardDeck`, because the sector and solution heroes want the same
  * object with their own cards in it.
  */
+/** The seven shapes the hero leads with; the other four live on the shapes section. */
+const HERO_KINDS = ["related", "quantity", "drawer", "kit", "replace", "bmsm", "cartvalue"] as const;
+
 export default function FannedWidgets() {
   const { isAr } = useLanguage();
 
   const cards = useMemo<DeckCard[]>(
     () =>
-      WIDGET_KINDS.map((kind) => ({
+      WIDGET_KINDS.filter((k) => (HERO_KINDS as readonly string[]).includes(k)).map((kind) => ({
         key: kind,
         label: widgetKindLabel(kind, isAr),
         node: <StorefrontWidget kind={kind} />,
