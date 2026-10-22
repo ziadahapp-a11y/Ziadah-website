@@ -1,6 +1,7 @@
 import { Router, type Request, type Response } from "express";
 import nodemailer from "nodemailer";
 import { body, validationResult } from "express-validator";
+import { trackEvent } from "../lib/analytics";
 
 const router = Router();
 
@@ -58,6 +59,17 @@ router.post(
         </div>
       `,
       });
+
+      // Track successful feature request submission
+      await trackEvent(
+        "feature_request_submitted",
+        {
+          has_name: !!name,
+          has_email: !!email,
+          description_length: description.length,
+        },
+        req.headers as Record<string, string | string[] | undefined>
+      );
 
       res.json({ success: true });
     } catch {
