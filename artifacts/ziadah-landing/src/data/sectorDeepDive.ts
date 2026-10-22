@@ -70,7 +70,7 @@ export type GoalSlug =
   | "more-products" | "quantity-offers" | "product-swap" | "cart-value" | "discount-code";
 
 export type PresentationSlug =
-  | "related-products" | "add-ons" | "bought-together" | "combo" | "buy-more-save-more";
+  | "related-products" | "add-ons" | "bought-together" | "combo" | "buy-more-save-more" | "buy-them-all";
 
 export type PlacementSlug =
   | "product-page" | "category-page" | "cart-page" | "checkout-page" | "thank-you-page"
