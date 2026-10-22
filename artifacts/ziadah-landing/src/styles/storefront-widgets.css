@@ -236,6 +236,9 @@
      one. `--edge` is the ring's wrap fade: it takes a card to nothing just
      before it crosses from one side of the fan to the other. */
   opacity: calc(var(--edge, 1) * max(0.18, 1 - var(--far, 0) * 0.14));
+  /* Only the front card is sharp. `--far` is continuous, so the blur eases in
+     as a card leaves the front: 0 at the front, ~2px next to it, 6px at most. */
+  filter: blur(min(6px, calc(var(--far, 0) * 2.2px)));
 }
 /* `calc()` rejects px multiplied by px. The first version wrote
    `var(--fan-tilt) * 14px * 1px`, which made the whole transform invalid, so
