@@ -10,6 +10,7 @@ import { MotionProvider, useScrollTriggerRefresh } from "@/motion/MotionProvider
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { Analytics } from "@/components/Analytics";
 import { useLangAwareLocation } from "@/hooks/useLangAwareLocation";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import "./index.css";
 
 const SuccessStories = lazy(() => import("@/pages/SuccessStories"));
@@ -201,6 +202,7 @@ function AppShell() {
       <ScrollToTop />
       <RouteMotionSync />
       <Analytics />
+      <SpeedInsights />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Navbar />
         <main id="main-content" tabIndex={-1} style={{ outline: "none" }}>
