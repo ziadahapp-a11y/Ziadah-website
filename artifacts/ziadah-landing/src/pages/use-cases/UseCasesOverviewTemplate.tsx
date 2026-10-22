@@ -116,6 +116,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
         { icon: "", title: "اشترِ معًا", desc: "منتجات متوافقة في عرض واحد.", color: "#8b5cf6" , href: "/use-cases/buy-together" },
         { icon: "", title: "Bundle Deals", desc: "حزم وكومبو بصفقة واضحة.", color: "#f59e0b" , href: "/use-cases/bundle-deals" },
         { icon: "", title: "اشترِ أكثر ووفر أكثر", desc: "عروض كمية لزيادة السلة.", color: "#7c3aed" , href: "/use-cases/buy-more-save-more" },
+        { icon: "", title: "اشترِ الكل", desc: "مجموعة ثابتة بسعر واحد وبنقرة واحدة.", color: "#8b5cf6" , href: "/use-cases/buy-them-all" },
       ],
       stats: [
         { value: "+24%", label: "قبول العروض", color: "#8b5cf6" },
@@ -135,6 +136,7 @@ function getData(kind: UseCasesOverviewKind): UseCasePageData {
         { icon: "", title: "Buy Together", desc: "Compatible products in one offer.", color: "#8b5cf6" , href: "/use-cases/buy-together" },
         { icon: "", title: "Bundle Deals", desc: "Clear package offers.", color: "#f59e0b" , href: "/use-cases/bundle-deals" },
         { icon: "", title: "Buy More Save More", desc: "Quantity-based offers to increase cart value.", color: "#7c3aed" , href: "/use-cases/buy-more-save-more" },
+        { icon: "", title: "Buy Them All", desc: "A fixed set at one price, added in one click.", color: "#8b5cf6" , href: "/use-cases/buy-them-all" },
       ],
       statsEn: [
         { value: "+24%", label: "Offer acceptance", color: "#8b5cf6" },

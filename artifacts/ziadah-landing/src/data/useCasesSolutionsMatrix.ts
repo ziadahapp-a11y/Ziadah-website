@@ -49,6 +49,7 @@ export const useCasesSolutionsMatrix: SolutionMatrixGroup[] = [
       { href: "/use-cases/buy-together", titleKey: "buyTogether", subKey: "buyTogetherSub" },
       { href: "/use-cases/bundle-deals", titleKey: "bundleDeals", subKey: "bundleDealsSub" },
       { href: "/use-cases/buy-more-save-more", titleKey: "buyMoreSaveMore", subKey: "buyMoreSaveMoreSub" },
+      { href: "/use-cases/buy-them-all", titleKey: "buyThemAll", subKey: "buyThemAllSub" },
     ],
   },
   {

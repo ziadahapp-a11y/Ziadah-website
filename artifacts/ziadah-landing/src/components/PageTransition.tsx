@@ -36,6 +36,7 @@ const ROUTE_PRELOADS: Record<string, () => Promise<unknown>> = {
   "/use-cases/buy-together": () => import("@/pages/use-cases/BuyTogether"),
   "/use-cases/bundle-deals": () => import("@/pages/use-cases/BundleDeals"),
   "/use-cases/buy-more-save-more": () => import("@/pages/use-cases/BuyMoreSaveMore"),
+  "/use-cases/buy-them-all": () => import("@/pages/use-cases/BuyThemAll"),
   "/use-cases/checkout": () => import("@/pages/use-cases/CheckoutPage"),
   "/use-cases/add-to-cart": () => import("@/pages/use-cases/AddToCartPage"),
   "/use-cases/remove-from-cart": () => import("@/pages/use-cases/RemoveFromCartPage"),
