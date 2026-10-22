@@ -60,7 +60,18 @@ export default function FitWidget({
       const nh = i.offsetHeight;
       const bw = b.clientWidth;
       if (!nh || !bw) return;
-      const next = Math.min(1, bw / STANDARD_WIDTH);
+      /* A sheet inside a pinned accordion has to fit the window, or the pin
+         holds a band whose bottom is off the screen. Every sheet gets the same
+         factor (the room left under the header over the standard height), so
+         the shapes stay one size to each other; on a tall screen it is 1. */
+      const pin = b.closest<HTMLElement>(".sacc-pin");
+      let room = 1;
+      if (pin && window.matchMedia("(min-width: 900px)").matches) {
+        const head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-dynamic-height")) || 66;
+        const chrome = pin.getBoundingClientRect().height - b.getBoundingClientRect().height;
+        room = Math.max(0.6, (window.innerHeight - head - 32 - chrome) / height);
+      }
+      const next = Math.min(1, bw / STANDARD_WIDTH, room);
       const shown = nh * next;
       /* The box is a floor, not a crop: `height` is for the standard scale, so
          it shrinks with it, and a sheet taller than that makes the box taller,
@@ -78,7 +89,8 @@ export default function FitWidget({
     const ro = new ResizeObserver(fit);
     ro.observe(b);
     ro.observe(i);
-    return () => ro.disconnect();
+    window.addEventListener("resize", fit);
+    return () => { ro.disconnect(); window.removeEventListener("resize", fit); };
   }, [children, hug, fill, height]);
 
   return (
