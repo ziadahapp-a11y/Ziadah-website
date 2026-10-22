@@ -83,8 +83,11 @@ type Press = {
 };
 type Source = "hover" | "drag" | "focus" | "hidden" | "off";
 
+/** A fan holds at most this many cards; more than that is a pile, not a hand. */
+export const MAX_DECK_CARDS = 7;
+
 export default function CardDeck({
-  cards,
+  cards: allCards,
   label,
   cardHeight = 400,
 }: {
@@ -102,6 +105,7 @@ export default function CardDeck({
   cardHeight?: number;
 }) {
   const { isAr } = useLanguage();
+  const cards = allCards.slice(0, MAX_DECK_CARDS);
   const n = cards.length;
 
   const [active, setActive] = useState(0);
