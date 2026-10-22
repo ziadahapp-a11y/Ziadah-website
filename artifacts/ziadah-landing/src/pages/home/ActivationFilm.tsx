@@ -129,7 +129,15 @@ export default function ActivationFilm({ capture = false, portrait: forcePortrai
     window.addEventListener("pointerup", up, { passive: true });
     window.addEventListener("pointercancel", up, { passive: true });
     const el = host.current;
-    const obs = typeof IntersectionObserver === "undefined" || !el ? null : new IntersectionObserver(([e]) => { on = e.isIntersecting; last = performance.now(); }, { threshold: 0.25 });
+    /* It starts from the first frame every time it comes into view. Paused
+       off screen, it used to carry on from wherever it stopped, so a reader
+       scrolling down could land in the middle of it and never see the click
+       that starts the story. */
+    const obs = typeof IntersectionObserver === "undefined" || !el ? null : new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !on) setT(0);
+      on = e.isIntersecting;
+      last = performance.now();
+    }, { threshold: 0.15 });
     if (obs && el) obs.observe(el); else on = true;
     const FRAME = 1000 / 30;
     const tick = (now: number) => {
