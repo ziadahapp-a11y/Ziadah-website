@@ -436,7 +436,7 @@ function UseCaseRow({
               className="sector-html-btn sector-html-btn--ghost"
               onClick={() => navigateTo(c.href)}
             >
-              {learnMore} →
+              {learnMore} {isAr ? "←" : "→"}
             </button>
           </div>
         </div>

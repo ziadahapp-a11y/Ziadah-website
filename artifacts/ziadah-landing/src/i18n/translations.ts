@@ -896,7 +896,7 @@ export const t = {
       resultLabel: "الإيراد الإضافي الشهري",
       resultCurrency: " ر.س",
       resultNote: "بناءً على معدل قبول 20% للبيع التقاطعي والبيع البديل وزيادة 30% في متوسط قيمة الطلب",
-      btnDetailed: "الحاسبة التفصيلية →",
+      btnDetailed: "الحاسبة التفصيلية ←",
       btnStart: "ابدأ مجاناً",
     },
     widgets: {
@@ -1135,7 +1135,7 @@ export const t = {
         suggestionAdd: "+32 ر.س",
         totalLabel: "الإجمالي",
         grandTotal: "170 ر.س",
-        checkoutCta: "إتمام الشراء →",
+        checkoutCta: "إتمام الشراء ←",
       },
     },
   },

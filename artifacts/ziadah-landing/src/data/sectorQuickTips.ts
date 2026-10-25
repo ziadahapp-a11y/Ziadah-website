@@ -23,7 +23,7 @@ export const sectorQuickTipsBySlug: Record<string, [SectorQuickTip, SectorQuickT
     { num: "تقارير", ar: "تقارير منفصلة حسب الهدف", en: "Separate reports by goal" },
   ],
   "digital-products": [
-    { num: "مستوى", ar: "وسم مستوى: مبتدئ → محترف", en: "Level tag: beginner → pro" },
+    { num: "مستوى", ar: "وسم مستوى: مبتدئ ← محترف", en: "Level tag: beginner → pro" },
     { num: "شكر", ar: "صفحة الشكر لأفضل ترقية تالية", en: "Use thank-you page for next upsell" },
     { num: "30–60 د", ar: "قسيمة مؤقتة 30–60 دقيقة فقط", en: "Timed coupon 30–60 min only" },
   ],

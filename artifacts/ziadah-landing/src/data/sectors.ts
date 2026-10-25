@@ -173,7 +173,7 @@ export const sectors: SectorContent[] = [
         titleAr: "المرحلة 02 — خرائط التوافق",
         titleEn: "Phase 02 — Compatibility Maps",
         bulletsAr: [
-          "طبق رئيسي → مشروب/مقبل/حلى | سلة ناقصة → إضافات سريعة.",
+          "طبق رئيسي ← مشروب/مقبل/حلى | سلة ناقصة ← إضافات سريعة.",
           "شرائح: جديد، عائد، عالي التكرار، منخفض السلة.",
         ],
         bulletsEn: [
@@ -186,7 +186,7 @@ export const sectors: SectorContent[] = [
         titleAr: "المرحلة 03 — التفعيل التدريجي",
         titleEn: "Phase 03 — Progressive Rollout",
         bulletsAr: [
-          "صفحة المنتج → السلة → الدفع → ما قبل الحذف.",
+          "صفحة المنتج ← السلة ← الدفع ← ما قبل الحذف.",
           "Related → Add-ons → Bundles → Buy More Save More → Coupon.",
         ],
         bulletsEn: [
@@ -437,8 +437,8 @@ export const sectors: SectorContent[] = [
       "Reduces hesitation with premium alternatives (upsell) when behavior fits.",
     ],
     examplesAr: [
-      "عميلة تتصفح عباية سوداء → توصية بشيل بلون متناسق وحقيبة صغيرة.",
-      "سلة فيها عباية صيفية → اقتراح نظارات أو حذاء مسطح من نفس الطابع.",
+      "عميلة تتصفح عباية سوداء ← توصية بشيل بلون متناسق وحقيبة صغيرة.",
+      "سلة فيها عباية صيفية ← اقتراح نظارات أو حذاء مسطح من نفس الطابع.",
     ],
     examplesEn: [
       "Customer views a black abaya → coordinated shawl and small bag suggestions.",
@@ -485,8 +485,8 @@ export const sectors: SectorContent[] = [
       "Boosts buy-more-save-more on consumables with predictable repurchase.",
     ],
     examplesAr: [
-      "مشروب بروتين في السلة → كولاجين أو مالتودكسترين حسب سلوك الشريحة.",
-      "عميل يتصفح أحذية جري → شراب تقني أو زجاجة ماء من نفس النطاق السعري.",
+      "مشروب بروتين في السلة ← كولاجين أو مالتودكسترين حسب سلوك الشريحة.",
+      "عميل يتصفح أحذية جري ← شراب تقني أو زجاجة ماء من نفس النطاق السعري.",
     ],
     examplesEn: [
       "Protein in cart → collagen or carb companion based on segment behavior.",
@@ -531,8 +531,8 @@ export const sectors: SectorContent[] = [
       "Reduces abandonment with timely coupons on related digital items.",
     ],
     examplesAr: [
-      "شراء قالب تصميم → اقتراح أيقونات أو خط من نفس البائع.",
-      "كورس برمجة → مستوى أعلى أو مشروع عملي مرتبط.",
+      "شراء قالب تصميم ← اقتراح أيقونات أو خط من نفس البائع.",
+      "كورس برمجة ← مستوى أعلى أو مشروع عملي مرتبط.",
     ],
     examplesEn: [
       "Template purchase → icon pack or font from the same creator.",
@@ -577,8 +577,8 @@ export const sectors: SectorContent[] = [
       "Shows a higher-spec alternative when browsing signals performance interest.",
     ],
     examplesAr: [
-      "هاتف في السلة → سماعات أو ساعة من نفس المنظومة.",
-      "لابتوب → حقيبة أو ترقية ذاكرة إن توفرت.",
+      "هاتف في السلة ← سماعات أو ساعة من نفس المنظومة.",
+      "لابتوب ← حقيبة أو ترقية ذاكرة إن توفرت.",
     ],
     examplesEn: [
       "Phone in cart → earbuds or watch from the same ecosystem.",
@@ -623,8 +623,8 @@ export const sectors: SectorContent[] = [
       "Shows gifts within a price band inferred from the cart.",
     ],
     examplesAr: [
-      "سلسلة → أقراط بنفس الحجر أو الطابع.",
-      "خاتم خطوبة → ساعة أو علبة هدايا فاخرة.",
+      "سلسلة ← أقراط بنفس الحجر أو الطابع.",
+      "خاتم خطوبة ← ساعة أو علبة هدايا فاخرة.",
     ],
     examplesEn: [
       "Necklace → earrings with the same stone or motif.",
@@ -661,7 +661,7 @@ export const sectors: SectorContent[] = [
       "Enable bought-together for sequential use products.",
     ],
     howZiadahHelpsAr: [
-      "يقترح خطوة الروتين التالية (منظّف → سيروم).",
+      "يقترح خطوة الروتين التالية (منظّف ← سيروم).",
       "يعزز عروض الكمية على المستهلكات السريعة.",
     ],
     howZiadahHelpsEn: [
@@ -669,8 +669,8 @@ export const sectors: SectorContent[] = [
       "Pushes quantity deals on fast-moving consumables.",
     ],
     examplesAr: [
-      "كريم ليلي → واقي شمس صباحي من نفس الخط.",
-      "عطر → لوشن جسم بنفس العائلة العطرية.",
+      "كريم ليلي ← واقي شمس صباحي من نفس الخط.",
+      "عطر ← لوشن جسم بنفس العائلة العطرية.",
     ],
     examplesEn: [
       "Night cream → AM sunscreen from the same line.",
@@ -715,8 +715,8 @@ export const sectors: SectorContent[] = [
       "Raises tickets via family bundles or office lunch sets.",
     ],
     examplesAr: [
-      "برجر → بطاطس ومشروب بسعر حزمة.",
-      "قهوة مختصة → حلوى صغيرة من نفس المخبز.",
+      "برجر ← بطاطس ومشروب بسعر حزمة.",
+      "قهوة مختصة ← حلوى صغيرة من نفس المخبز.",
     ],
     examplesEn: [
       "Burger → fries and drink bundle.",
@@ -761,8 +761,8 @@ export const sectors: SectorContent[] = [
       "Nudges periodic buys for filters and batteries when data supports it.",
     ],
     examplesAr: [
-      "منظم خزانة → صناديق إضافية بنفس المقاس.",
-      "مكنسة كهربائية → أكياس غبار متوافقة.",
+      "منظم خزانة ← صناديق إضافية بنفس المقاس.",
+      "مكنسة كهربائية ← أكياس غبار متوافقة.",
     ],
     examplesEn: [
       "Closet organizer → extra bins in the same system.",
@@ -807,8 +807,8 @@ export const sectors: SectorContent[] = [
       "Links branding buyers to print or mockup services later.",
     ],
     examplesAr: [
-      "شراء هوية بصرية → أيقونات سوشيال إضافية.",
-      "تصميم موقع → صيانة شهرية أو استضافة.",
+      "شراء هوية بصرية ← أيقونات سوشيال إضافية.",
+      "تصميم موقع ← صيانة شهرية أو استضافة.",
     ],
     examplesEn: [
       "Brand kit → extra social icons.",
@@ -853,8 +853,8 @@ export const sectors: SectorContent[] = [
       "Connects donors to related projects based on past interest.",
     ],
     examplesAr: [
-      "تبرع كسوة شتاء → مشروع غذائي في نفس المنطقة.",
-      "كفالة طالب → تبرع إضافي لحقيبة مدرسية.",
+      "تبرع كسوة شتاء ← مشروع غذائي في نفس المنطقة.",
+      "كفالة طالب ← تبرع إضافي لحقيبة مدرسية.",
     ],
     examplesEn: [
       "Winter clothing fund → food aid in the same region.",
@@ -899,8 +899,8 @@ export const sectors: SectorContent[] = [
       "Offers follow-up bundles or recall visits with clear messaging.",
     ],
     examplesAr: [
-      "حجز تنظيف أسنان → فرشاة أو خيط مائي موصى به.",
-      "جلسة ليزر → كريم هدئان بعد الإجراء.",
+      "حجز تنظيف أسنان ← فرشاة أو خيط مائي موصى به.",
+      "جلسة ليزر ← كريم هدئان بعد الإجراء.",
     ],
     examplesEn: [
       "Cleaning appointment → recommended brush or water flosser.",
@@ -945,8 +945,8 @@ export const sectors: SectorContent[] = [
       "Pairs a game card with an in-game digital add-on when relevant.",
     ],
     examplesAr: [
-      "بطاقة 50 → اقتراح 100 عند عميل يشتري أسبوعياً.",
-      "اشتراك موسيقى → سماعات من المتجر الشريك.",
+      "بطاقة 50 ← اقتراح 100 عند عميل يشتري أسبوعياً.",
+      "اشتراك موسيقى ← سماعات من المتجر الشريك.",
     ],
     examplesEn: [
       "50 card → 100 suggestion for weekly buyers.",
@@ -991,8 +991,8 @@ export const sectors: SectorContent[] = [
       "Shows gift options near the cart’s price band.",
     ],
     examplesAr: [
-      "سوار ذهب → طوق خفيف بنفس التصميم.",
-      "سبيكة صغيرة → علبة حفظ أو شهادة مصداقية إضافية.",
+      "سوار ذهب ← طوق خفيف بنفس التصميم.",
+      "سبيكة صغيرة ← علبة حفظ أو شهادة مصداقية إضافية.",
     ],
     examplesEn: [
       "Gold bracelet → lightweight necklace in the same line.",
@@ -1037,8 +1037,8 @@ export const sectors: SectorContent[] = [
       "Raises AOV with complementary pantry items if you sell them.",
     ],
     examplesAr: [
-      "طلب ضأن كامل → تقطيع جاهز للطبخ العائلي.",
-      "حجز موسمي → تبرع بجزء ثابت من الثمن.",
+      "طلب ضأن كامل ← تقطيع جاهز للطبخ العائلي.",
+      "حجز موسمي ← تبرع بجزء ثابت من الثمن.",
     ],
     examplesEn: [
       "Whole lamb → family-style butcher cut.",

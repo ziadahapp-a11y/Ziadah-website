@@ -499,7 +499,7 @@ export const sectorVisualsBySlug: Record<string, SectorVisualBundle> = {
     scenarios: [
       {
         accent: "#7c3aed",
-        titleAr: "شعار → هوية",
+        titleAr: "شعار ← هوية",
         titleEn: "Logo → identity",
         contextAr: "شراء باقة شعار",
         contextEn: "Logo package purchased",

@@ -190,7 +190,7 @@ export default function SuccessStories() {
 
   const filterTabs = ["الكل", ...allSectors];
 
-  const SectorChevron = isAr ? ChevronRight : ChevronLeft;
+  const SectorChevron = isAr ? ChevronLeft : ChevronRight;
 
 
   return (

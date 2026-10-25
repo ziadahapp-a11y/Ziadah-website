@@ -30,7 +30,7 @@ function ThankYouPhoneScrollContent() {
     freeShip: isEn ? "Free Shipping" : "شحن مجاني",
     addToCart: isEn ? "Add to Cart" : "أضف للسلة",
     addAll: isEn ? "Add All & Save More" : "أضف الكل ووفّر أكثر",
-    continue: isEn ? "Continue Shopping →" : "→ متابعة التسوق",
+    continue: isEn ? "Continue Shopping →" : "← متابعة التسوق",
   };
 
   const cardBgs = ["#ede9fe,#ddd6fe", "#fce7f3,#fbcfe8", "#e0f2fe,#bae6fd"];

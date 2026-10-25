@@ -12,12 +12,12 @@ export const sectorLearningOverrides: Partial<Record<string, Partial<SectorConte
     seoDescEn:
       "Delivery apps with Ziadah: every use case, journey tracking, sector AI context, CTR/AOV measurement, and a full feature matrix — food, grocery, and pharmacy.",
     examplesAr: [
-      "🍔 Cross-sell طعام — بيتزا عائلية → مشروب 1 لتر + بطاطس ودجز — AOV +34%",
-      "➕ Add-ons — برجر دبل → جبن إضافي + صوص حار — Attachment +35%",
-      "📦 Bundle — ساندويتش → حزمة غداء مكتب كاملة -18% — AOV +60%",
-      "🛒 Buy More Save More بقالة — 1 مياه → 3 عبوات -15% — Basket +40%",
-      "💊 Related صيدلية — أموكسيسيلين → بروبيوتيك + فيتامين C — Attachment +35%",
-      "🗑️ Cart Rescue — حذف ستيك → دجاج مشوي 54ر.س — استرداد 30%",
+      "🍔 Cross-sell طعام — بيتزا عائلية ← مشروب 1 لتر + بطاطس ودجز — AOV +34%",
+      "➕ Add-ons — برجر دبل ← جبن إضافي + صوص حار — Attachment +35%",
+      "📦 Bundle — ساندويتش ← حزمة غداء مكتب كاملة -18% — AOV +60%",
+      "🛒 Buy More Save More بقالة — 1 مياه ← 3 عبوات -15% — Basket +40%",
+      "💊 Related صيدلية — أموكسيسيلين ← بروبيوتيك + فيتامين C — Attachment +35%",
+      "🗑️ Cart Rescue — حذف ستيك ← دجاج مشوي 54ر.س — استرداد 30%",
     ],
     examplesEn: [
       "🍔 Food cross-sell — family pizza → 1L drink + wedges — AOV +34%",
@@ -69,12 +69,12 @@ export const sectorLearningOverrides: Partial<Record<string, Partial<SectorConte
       { emoji: "📋", textAr: "وثّق A/B لتكوين playbook داخلي", textEn: "Document tests → playbook" },
     ],
     examplesAr: [
-      "🔍 Search — كرسي مكتب → ترتيب حسب النطاق السعري — CTR +40%",
-      "🔗 Cross-vendor — لابتوب A → ماوس ولوحة B أسرع شحناً — AOV +25%",
-      "➕ Add-ons — كاميرا → ذاكرة + بطارية — Attachment +35%",
+      "🔍 Search — كرسي مكتب ← ترتيب حسب النطاق السعري — CTR +40%",
+      "🔗 Cross-vendor — لابتوب A ← ماوس ولوحة B أسرع شحناً — AOV +25%",
+      "➕ Add-ons — كاميرا ← ذاكرة + بطارية — Attachment +35%",
       "📦 Bundle — حزمة مكتب منزلي من 4 بائعين -18% — AOV +60%",
-      "⬆️ Upsell — سماعة اقتصادية → ANC + ضمان — Margin +22%",
-      "🗑️ Cart Rescue — هاتف غالٍ → بديل وظيفي — استرداد 30%",
+      "⬆️ Upsell — سماعة اقتصادية ← ANC + ضمان — Margin +22%",
+      "🗑️ Cart Rescue — هاتف غالٍ ← بديل وظيفي — استرداد 30%",
     ],
     examplesEn: [
       "🔍 Search personalization — desk chair by price comfort — CTR +40%",
