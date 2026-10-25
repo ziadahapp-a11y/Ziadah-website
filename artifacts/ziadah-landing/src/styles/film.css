@@ -73,6 +73,9 @@
 
 /* ── scenes B-D ── */
 .film-work { display: flex; }
+/* RTL: the assistant's panel sits on the right, as in English, so reading starts there. */
+.film:not([data-portrait]) .film-stage[dir="rtl"] .film-work { flex-direction: row-reverse; }
+.film:not([data-portrait]) .film-stage[dir="rtl"] .film-panel { border-inline-start: 0; border-inline-end: 2px solid var(--f-line); }
 .film-canvas { position: relative; flex: 1 1 0; min-width: 0; }
 .film-layer { position: absolute; inset: 44px 56px; }
 .film-h { font-size: 54px; font-weight: 700; line-height: 1.25; display: flex; align-items: center; gap: 20px; }
