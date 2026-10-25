@@ -66,10 +66,11 @@ export default function FitWidget({
          the shapes stay one size to each other; on a tall screen it is 1. */
       const pin = b.closest<HTMLElement>(".sacc-pin");
       let room = 1;
-      if (pin && window.matchMedia("(min-width: 900px)").matches) {
+      if (pin) {
+        const narrow = !window.matchMedia("(min-width: 900px)").matches;
         const head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-dynamic-height")) || 66;
         const chrome = pin.getBoundingClientRect().height - b.getBoundingClientRect().height;
-        room = Math.max(0.6, (window.innerHeight - head - 32 - chrome) / height);
+        room = Math.max(narrow ? 0.45 : 0.6, (window.innerHeight - head - 32 - chrome) / height);
       }
       const next = Math.min(1, bw / STANDARD_WIDTH, room);
       const shown = nh * next;

@@ -28,8 +28,10 @@ function useWide(minPx: number) {
 }
 
 const WIDE_AT = 900;
-/** Scroll spent on each row while the band is pinned. */
+/** Scroll spent on each row while the band is pinned. A touch swipe covers more
+ *  ground per gesture than a wheel notch, so a phone spends a little less. */
 const PX_PER_ROW = 110;
+const PX_PER_ROW_NARROW = 90;
 /** The gap kept between the site header and the pinned content. */
 const PIN_GAP = 16;
 
@@ -54,10 +56,12 @@ const PIN_GAP = 16;
  * anyway. Rows are not re-evaluated for a moment afterwards so the trip there
  * does not flick through every row in between.
  *
- * NARROW SCREENS. No pin, no scroll-driven opening. The stage sits inside the
- * open row and a tap opens it. A row that grows by a whole widget above the
- * reader shifts everything under their thumb, and browsers disagree on whether
- * to compensate.
+ * NARROW SCREENS pin too. They used to have no pin: the stage sat inside the
+ * open row and a tap opened it, because a row that grows by a whole widget above
+ * the reader shifts everything under their thumb. A pinned band does not have
+ * that problem (the page does not move while the rows open), but it has to fit
+ * the screen: the closed rows become small numbered chips above the open row,
+ * and the sheet is scaled to the height that is left (see FitWidget).
  *
  * ONE ROW IS ALWAYS OPEN, because the stage has to show something.
  */
@@ -93,8 +97,11 @@ export default function ShapeAccordion({
   const track = useRef<HTMLDivElement>(null);
   const lockUntil = useRef(0);
 
+  /* Pinned at EVERY width: the band holds the screen and the page's scroll
+     opens the rows one after another. */
+  const pinned = n >= 2;
   const idx = Math.min(open, Math.max(0, n - 1));
-  const runway = Math.max(0, n - 1) * PX_PER_ROW;
+  const runway = Math.max(0, n - 1) * (wide ? PX_PER_ROW : PX_PER_ROW_NARROW);
 
   const pinTop = () => {
     const h = parseFloat(
@@ -103,9 +110,9 @@ export default function ShapeAccordion({
     return (Number.isFinite(h) ? h : 66) + PIN_GAP;
   };
 
-  /* ---- the open row follows scroll (wide only) ----------------------- */
+  /* ---- the open row follows scroll ------------------------------------ */
   useEffect(() => {
-    if (!wide || n < 2) return;
+    if (!pinned) return;
     const el = track.current;
     if (!el) return;
     let raf = 0;
@@ -132,19 +139,19 @@ export default function ShapeAccordion({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [wide, n, runway]);
+  }, [pinned, n, runway]);
 
   const choose = useCallback((i: number) => {
     setOpen(i);
     const el = track.current;
-    if (!wide || !el || n < 2) return;
+    if (!pinned || !el) return;
     /* Aim for the middle of the row's share of the track. */
     const want = ((i + 0.5) / n) * runway;
     const y = window.scrollY + el.getBoundingClientRect().top - (pinTop() - want);
     lockUntil.current = performance.now() + 900;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
-  }, [wide, n, runway]);
+  }, [pinned, n, runway]);
 
   /* Arrow keys move between the rows' buttons; Home and End jump to the ends.
      This moves focus only. Opening stays a deliberate Enter or Space. */
@@ -166,14 +173,20 @@ export default function ShapeAccordion({
   const current = items[idx];
 
   return (
+    <>
+    {/* On a phone the heading is not pinned with the list: pinned, it would take
+        screen the sheet needs (the tallest sheet no longer fitted). It scrolls
+        away like any heading. Wide, it pins WITH the list (see `head`). */}
+    {!wide ? head : null}
     <div
       ref={track}
       className="sacc-track"
       data-wide={wide ? "" : undefined}
+      data-pinned={pinned ? "" : undefined}
     >
       <div className="sacc-pin">
-        {head}
-        <div className="sacc" data-wide={wide ? "" : undefined} data-fill={fill ? "" : undefined}>
+        {wide ? head : null}
+        <div className="sacc" data-wide={wide ? "" : undefined} data-narrow={wide ? undefined : ""} data-fill={fill ? "" : undefined}>
           <ul className="sacc-list" aria-label={label} onKeyDown={onKeyDown}>
             {items.map((it, i) => {
               const on = i === idx;
@@ -224,7 +237,8 @@ export default function ShapeAccordion({
           to its parent's CONTENT box, and padding is outside it: with the
           runway as padding-bottom the pin had no room to travel and scrolled
           away like any other block. */}
-      {wide ? <div className="sacc-runway" aria-hidden="true" style={{ height: runway }} /> : null}
+      {pinned ? <div className="sacc-runway" aria-hidden="true" style={{ height: runway }} /> : null}
     </div>
+    </>
   );
 }

@@ -495,7 +495,7 @@
    (set inline) and the pin sticks inside it, centred in the space under the
    header. `min-height` is what centres it: content shorter than that space is
    centred by the flex box, and taller content simply starts at the top. */
-.sacc-track[data-wide] .sacc-pin {
+.sacc-track[data-pinned] .sacc-pin {
   position: sticky;
   top: calc(var(--header-dynamic-height, 66px) + 16px);
   min-height: calc(100svh - var(--header-dynamic-height, 66px) - 32px);
@@ -503,7 +503,7 @@
   flex-direction: column;
   justify-content: center;
 }
-.sacc-track[data-wide] .sacc-pin > * { width: 100%; }
+.sacc-track[data-pinned] .sacc-pin > * { width: 100%; }
 .sacc-stage { animation: sacc-in 0.32s ease both; }
 @keyframes sacc-in {
   from { opacity: 0; transform: translateY(8px); }
@@ -521,6 +521,23 @@
 }
 
 @media screen and (max-width: 899px) {
+  /* PINNED ON A PHONE, SO IT HAS TO FIT. The closed rows become numbered chips
+     in a wrapping strip and the open row sits under them; the title of a closed
+     row stays in the page for a screen reader, just not on the screen. */
+  .sacc[data-narrow] .sacc-list { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .sacc[data-narrow] .sacc-item { flex: none; }
+  /* A closed row is exactly its chip: its collapsed panel's note would otherwise
+     set the row's natural width, and every chip would take a line to itself. */
+  .sacc[data-narrow] .sacc-item:not([data-open]) { width: 38px; overflow: hidden; }
+  .sacc[data-narrow] .sacc-item[data-open] { order: 1; flex: 1 1 100%; }
+  .sacc[data-narrow] .sacc-item:not([data-open]) .sacc-btn {
+    width: 38px; height: 38px; padding: 0; gap: 0; justify-content: center;
+  }
+  .sacc[data-narrow] .sacc-item:not([data-open]) .sacc-t,
+  .sacc[data-narrow] .sacc-item:not([data-open]) .sacc-i {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
   /* The stage is inside the open row now, so the note no longer needs the
      badge's indent and the stage runs the row's full width. */
   .sacc-body { padding-inline-start: 14px; }
