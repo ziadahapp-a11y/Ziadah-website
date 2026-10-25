@@ -4,9 +4,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { t as siteTranslations } from "@/i18n/translations";
 import { navigateTo } from "@/components/PageTransition";
 import { Button, Shell } from "@/components/mk";
-import { HeroLede, Section, SectionHead, CtaSection, MediaSlot } from "@/sections";
-import { EcosystemGraph } from "@/components/art/EcosystemGraph";
-import { PLATFORMS } from "@/lib/platforms-data";
+import { HeroLede, Section, SectionHead, CtaSection } from "@/sections";
+import { PlatformCards } from "@/components/art/PlatformCards";
 import { analytics } from "@/lib/analytics";
 
 /**
@@ -76,8 +75,6 @@ export default function About() {
     },
   ];
 
-  const connected = PLATFORMS.filter((p) => p.status === "connected");
-  const connectedNames = connected.map((p) => (isAr ? p.name.ar : p.name.en)).join(t("، ", " and "));
 
   return (
     <>
@@ -175,19 +172,19 @@ export default function About() {
         <Section family="grey">
           <SectionHead center
             size="md"
-            kicker={t("أين نعمل", "Where we run")}
-            title={t("الموصّلات، بصراحة", "The connectors, plainly")}
+            kicker={t("أين يعمل", "Where it runs")}
+            title={t("على أي منصة تبيع، هو هناك", "Whichever platform you sell on, it is there")}
             lead={t(
-              `${connectedNames} يعملان اليوم. زيادة منتج مستقل، وليس تطبيقاً تابعاً لأي منصة ولا معتمداً منها.`,
-              `${connectedNames} work today. Ziadah is an independent product — not one platform's app, and not endorsed by any of them.`,
+              "ثبّته من متجر تطبيقات منصتك بضغطة واحدة، بلا مطوّر وبلا تعديل على القالب. زيادة منتج مستقل، وليس تطبيقاً تابعاً لأي منصة ولا معتمداً منها.",
+              "Install it from your platform's app market in one click, with no developer and no theme edits. Ziadah is an independent product, not one platform's app and not endorsed by any of them.",
             )}
           />
-          <MediaSlot className="media-slot--screen eco-slot">
-            <EcosystemGraph />
-          </MediaSlot>
+          <Shell width="wide">
+            <PlatformCards />
+          </Shell>
           <p className="about-plain">
             <Button variant="tertiary" onClick={() => go("/platforms")}>
-              {t("كل المنصات وما يقرأه كل موصّل", "Every platform, and what each connector reads")}
+              {t("ماذا يقرأ زيادة من كل منصة", "What Ziadah reads from each platform")}
             </Button>
           </p>
         </Section>

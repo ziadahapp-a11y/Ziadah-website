@@ -21,7 +21,7 @@ import { platformAsset } from "@/utils/platformAsset";
  */
 
 /** Marks live here rather than in the data, which stays framework-free. */
-function PlatformMark({ slug }: { slug: string }) {
+export function PlatformMark({ slug }: { slug: string }) {
   if (slug === "shopify") return <SiShopify className="eco-node-svg" />;
   const src =
     slug === "zid"
