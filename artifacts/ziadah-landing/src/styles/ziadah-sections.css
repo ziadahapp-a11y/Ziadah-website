@@ -149,7 +149,7 @@
 .uc-stat { display: grid; gap: 0.8rem; justify-content: space-evenly; }
 .uc-stat-value {
   font-size: var(--type-display);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -431,7 +431,7 @@
   border-block-end: 0.1rem solid var(--line);
   color: var(--ink-muted);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -447,7 +447,7 @@
 }
 .hero-search-hit:last-child { border-block-end: 0; }
 .hero-search-hit:hover { background: var(--surface-2); }
-.hero-search-hit-title { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+.hero-search-hit-title { font-size: 1.4rem; font-weight: 600; color: var(--ink); }
 .hero-search-hit-meta { margin-block-start: 0.2rem; font-size: 1.2rem; color: var(--ink-muted); }
 .hero-search-hit-ico { flex: none; width: 1.6rem; height: 1.6rem; margin-block-start: 0.4rem; color: var(--general-gray-mid); }
 .hero-search-empty { padding: 2.4rem 2rem; color: var(--ink-muted); font-size: 1.4rem; text-align: center; }
@@ -458,7 +458,7 @@
   display: block;
   margin-block-start: 1.2rem;
   font-size: 0.4em;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink-muted);
 }
 /* Stats inside a hero already sit under a lede, so they need less air above
@@ -517,7 +517,7 @@
   background: var(--surface-2);
   color: inherit;
   font-size: 0.85em;
-  font-weight: 700;
+  font-weight: 600;
 }
 .hero-tab[aria-selected="true"] .hero-tab-note { background: rgb(255 255 255 / 18%); }
 /* `.hero-note` is a flex row of note ITEMS - the trust line under a split
@@ -698,7 +698,7 @@
   border-radius: 0.8rem;
   background: color-mix(in srgb, currentColor 14%, transparent);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* A link in a vertical category list - the support centre's sidebar. It is a
@@ -854,7 +854,7 @@
   background: var(--ziadah-violet);
   color: var(--general-white);
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 /* A supplied mark keeps the white plate it was drawn for. */
 .review-avatar.has-logo { background: var(--general-white); }
@@ -916,7 +916,7 @@
   background: var(--color-secondary, var(--general-black));
   color: var(--color-primary, var(--general-white));
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* The closing quote. A card with a mark in its gutter rather than a violet
@@ -1089,7 +1089,7 @@
   border-bottom: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
   font-size: 21px;
   line-height: 1.4;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-secondary, #0a0a0a);
 }
 .article-p { font-size: 16px; line-height: 1.9; }
@@ -1114,7 +1114,7 @@
   background: var(--color-secondary, var(--general-black));
   color: var(--color-primary, var(--general-white));
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .article-ol-row p { font-size: 15px; line-height: 1.65; margin: 0; padding-block-start: 2px; }
 
@@ -1157,7 +1157,7 @@
 .article-note-label {
   margin-block-end: 4px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--note-tone, var(--ziadah-violet));
@@ -1218,7 +1218,7 @@
   border-bottom: 0.1rem solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent);
 }
 .cmp-col { padding: 1.6rem 1.2rem; text-align: center; }
-.cmp-col-name { font-size: 1.5rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.cmp-col-name { font-size: 1.5rem; font-weight: 600; color: var(--color-secondary, #0a0a0a); }
 .cmp-col-price {
   margin-block-start: 0.4rem;
   font-size: 1.3rem;
@@ -1247,7 +1247,7 @@
   /* HAND SET. A fixed light violet, not a step of the section's ink. */
   background: color-mix(in srgb, #d197ff 86%, transparent);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-secondary, #0a0a0a);
   cursor: pointer;
   transition: background var(--dur-fast, 0.2s) var(--ease, ease);
@@ -1271,7 +1271,7 @@
   height: 1.6rem;
   color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 28%, transparent);
 }
-.cmp-val { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.cmp-val { font-size: 1.4rem; font-weight: 600; color: var(--color-secondary, #0a0a0a); }
 
 /* The rest of the article vocabulary, added for the blog body. Same reasoning
    as `.article-prose` above - px type in a px-measured column, ink from the
@@ -1282,11 +1282,11 @@
   margin-block-start: 28px;
   font-size: 18px;
   line-height: 1.45;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-secondary, #0a0a0a);
 }
-.article-prose strong { font-weight: 700; color: var(--color-secondary, #0a0a0a); }
-.article-bold { font-size: 15px; font-weight: 700; color: var(--color-secondary, #0a0a0a); }
+.article-prose strong { font-weight: 600; color: var(--color-secondary, #0a0a0a); }
+.article-bold { font-size: 15px; font-weight: 600; color: var(--color-secondary, #0a0a0a); }
 
 /* The post's standfirst. The one place a violet rule earns its keep, because
    it marks the boundary between the summary and the article proper. */
@@ -1324,7 +1324,7 @@
   padding: 10px 16px;
   border: 1px solid color-mix(in srgb, var(--color-secondary, #0a0a0a) 14%, transparent);
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-secondary, #0a0a0a);
 }
 .article-table td {
@@ -1355,7 +1355,7 @@
   border-radius: var(--radius-card);
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 8%, transparent);
 }
-.sector-card-title { margin: 0; font-size: 1.6rem; font-weight: 700; line-height: 1.35; color: var(--color-secondary, #0a0a0a); }
+.sector-card-title { margin: 0; font-size: 1.6rem; font-weight: 600; line-height: 1.35; color: var(--color-secondary, #0a0a0a); }
 .sector-card-text {
   margin: 0;
   font-size: 1.4rem;
@@ -1850,7 +1850,7 @@
 }
 .pz-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pz-name { margin: 0; font-size: 1.7rem; font-weight: 600; }
-.pz-price { margin: 0; font-size: 1.6rem; font-weight: 700; display: flex; gap: 0.8rem; align-items: baseline; }
+.pz-price { margin: 0; font-size: 1.6rem; font-weight: 600; display: flex; gap: 0.8rem; align-items: baseline; }
 .pz-price s { font-size: 1.3rem; font-weight: 400; color: #a3a0a5; }
 .pz-add {
   display: block; text-align: center;
@@ -1862,7 +1862,7 @@
 .pz-mark {
   align-self: flex-start;
   margin-block-start: 0.6rem;
-  font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em;
+  font-size: 1.1rem; font-weight: 600; letter-spacing: 0.06em;
   color: #4a008c;
 }
 [dir="rtl"] .pz-mark { letter-spacing: 0; }
@@ -1920,7 +1920,7 @@
   background: var(--ziadah-violet, #7c3aed);
   color: #fff;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
 }
 .ais-read-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .ais-read-k { font-size: var(--t-body); font-weight: 600; line-height: 1.4; }
@@ -1999,7 +1999,7 @@
 .calc2-ticks { display: flex; justify-content: space-between; font-size: var(--t-cap); opacity: 0.65; }
 .calc2-result { display: flex; flex-direction: column; justify-content: center; gap: 10px; text-align: center; }
 .calc2-k { font-size: var(--t-sm); opacity: 0.8; }
-.calc2-v { font-size: clamp(38px, 3.2vw + 14px, 68px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.calc2-v { font-size: clamp(38px, 3.2vw + 14px, 68px); font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
 .calc2-v small { font-size: 0.4em; font-weight: 600; opacity: 0.8; }
 .calc2-from { margin: 0 0 14px; font-size: var(--t-sm); opacity: 0.75; }
 /* `[dir="rtl"] .num-ltr` pins numbers to the right edge, which beat the
@@ -2028,9 +2028,9 @@
   border-radius: var(--radius-card);
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent); }
 .eng-card-head { display: flex; flex-direction: column; gap: 2px; }
-.eng-card-head strong { font-size: var(--t-body); font-weight: 800; }
+.eng-card-head strong { font-size: var(--t-body); font-weight: 600; }
 .eng-card-head span { font-size: var(--t-cap); color: #5b5b66; }
-.eng-label { margin: 0; font-size: var(--t-cap); font-weight: 700; color: #5b5b66; }
+.eng-label { margin: 0; font-size: var(--t-cap); font-weight: 600; color: #5b5b66; }
 
 .eng-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .eng-chip { padding: 6px 12px; border-radius: 999px; font-size: var(--t-cap); line-height: 1.4;
@@ -2044,8 +2044,8 @@
 .eng-recs { display: grid; gap: 10px; }
 .eng-rec { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: center; padding: 14px;
   border-radius: 12px; background: #f4f4f6; }
-.eng-rec-name { font-size: var(--t-sm); font-weight: 700; line-height: 1.5; }
-.eng-rec-pct { font-size: var(--t-sm); font-weight: 800; color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, #0a0a0a); }
+.eng-rec-name { font-size: var(--t-sm); font-weight: 600; line-height: 1.5; }
+.eng-rec-pct { font-size: var(--t-sm); font-weight: 600; color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, #0a0a0a); }
 .eng-rec .eng-track { grid-column: 1 / -1; }
 
 .eng-track { display: block; height: 6px; border-radius: 999px; overflow: hidden; background: #e4e4ea; }
@@ -2054,12 +2054,12 @@
 
 .eng-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .eng-kpis li { display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 12px; background: #f4f4f6; }
-.eng-kpis b { font-size: 26px; line-height: 1.1; font-weight: 800; text-align: start; }
+.eng-kpis b { font-size: 26px; line-height: 1.1; font-weight: 600; text-align: start; }
 .eng-kpis span { font-size: var(--t-cap); color: #5b5b66; line-height: 1.4; }
 .eng-bars { display: grid; gap: 12px; }
 .eng-bar { display: grid; grid-template-columns: minmax(84px, 130px) 1fr 40px; gap: 12px; align-items: center; }
 .eng-bar-l { font-size: var(--t-cap); color: #3b3b45; line-height: 1.35; }
-.eng-bar-v { font-size: var(--t-cap); font-weight: 800; text-align: end; }
+.eng-bar-v { font-size: var(--t-cap); font-weight: 600; text-align: end; }
 .eng-live { display: inline-flex; align-items: center; gap: 6px; font-size: var(--t-cap);
   color: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 92%, #0a0a0a); }
 .eng-live i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -2079,19 +2079,19 @@
    One sentence under every sector hero, and the band that says who does what.
    px and the shared type tokens, never rem. */
 .auto-strip { padding: 16px var(--gutter, 20px); display: flex; justify-content: center; background: color-mix(in srgb, var(--ziadah-violet, #7c3aed) 8%, #fff); }
-.auto-strip p { margin: 0; display: flex; align-items: flex-start; gap: 10px; max-width: 880px; text-align: start; font-size: var(--t-body); line-height: 1.6; font-weight: 700; color: #1a0033; }
+.auto-strip p { margin: 0; display: flex; align-items: flex-start; gap: 10px; max-width: 880px; text-align: start; font-size: var(--t-body); line-height: 1.6; font-weight: 600; color: #1a0033; }
 .auto-strip svg { flex: none; width: 20px; height: 20px; margin-block-start: 3px; color: var(--ziadah-violet, #7c3aed); }
 .auto-band h2 { margin: 0 0 16px; }
 .auto-band-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media screen and (min-width: 760px) { .auto-band-grid { grid-template-columns: 1fr 1.6fr; } }
 .auto-band-card { display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: var(--radius-card); background: #fff; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary, #0a0a0a) 12%, transparent); text-align: start; }
 .auto-band-card[data-main] { box-shadow: inset 0 0 0 1.5px var(--ziadah-violet, #7c3aed); }
-.auto-band-card b { font-size: var(--t-body); font-weight: 700; }
+.auto-band-card b { font-size: var(--t-body); font-weight: 600; }
 .auto-band-card p { margin: 0; font-size: var(--t-sm); line-height: 1.7; color: color-mix(in srgb, var(--color-secondary, #0a0a0a) 75%, transparent); }
 .auto-band-card .auto-band-tuned { font-weight: 600; color: var(--color-secondary, #0a0a0a); }
 
 /* The one sentence, under a solution page's "how it works" lead. */
-.uc-auto { margin: 20px auto 0; max-width: 640px; text-align: center; font-size: var(--t-body); line-height: 1.6; font-weight: 700; color: var(--ziadah-violet, #7c3aed); }
+.uc-auto { margin: 20px auto 0; max-width: 640px; text-align: center; font-size: var(--t-body); line-height: 1.6; font-weight: 600; color: var(--ziadah-violet, #7c3aed); }
 
 /* =========================================================================
    UNSLOP PASS - HOME
@@ -2151,3 +2151,41 @@
 .ais-reads { gap: 12px; }
 @media screen and (min-width: 900px) { .ais-reads { gap: 16px; } }
 .ais-read { padding: 16px; }
+
+/* =========================================================================
+   UNSLOP PASS - SITE-WIDE SHARED CLASSES
+   Found by scanning the rendered DOM of every page template: the 700 weights
+   that were left after the home pass. 600 is the ceiling.
+   ========================================================================= */
+.ucx-title,
+.ucx-group-title,
+.chip-count,
+.pill--soon,
+.block-heading-m,
+.cat-card-title,
+.card-title,
+.clause-title,
+.uc-stat-value,
+.hero-title,
+.hero-title--compact,
+.cmp-val,
+.card-link,
+.section-head-title--md,
+.pz-price,
+.pz-mark,
+.auto-band-card b,
+.auto-strip p,
+.uc-auto,
+th { font-weight: 600; }
+
+/* Small text never takes negative tracking. */
+.ucx-group-title,
+.t-sm-med,
+.hero-title-sub { letter-spacing: 0; }
+
+/* Sentence case in English too: the ported eyebrows set uppercase with wide
+   tracking for Latin text. RTL already resets it; this makes LTR match. */
+.card-eyebrow,
+.t-eyebrow,
+.bhead-eyebrow,
+.mega-heading { text-transform: none; letter-spacing: 0; }
