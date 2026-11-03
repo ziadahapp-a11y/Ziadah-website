@@ -34,8 +34,13 @@ const decode = (s) => s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/
 
 const titles = new Map();
 const descs = new Map();
-const langOf = (route) => (route === "/en" || route.startsWith("/en/") ? "en" : "ar");
-const pairOf = (route) => (langOf(route) === "en" ? route.replace(/^\/en/, "") || "/" : route === "/" ? "/en" : `/en${route}`);
+const CODES = ["en", "fr", "de", "es", "it", "pt", "nl", "sv", "da", "no", "pl", "tr", "ja", "ko", "zh", "zh-tw"];
+const TAG = { ar: "ar", en: "en", fr: "fr", de: "de", es: "es", it: "it", pt: "pt", nl: "nl", sv: "sv", da: "da", no: "nb", pl: "pl", tr: "tr", ja: "ja", ko: "ko", zh: "zh-Hans", "zh-tw": "zh-Hant" };
+const langOf = (route) => { const seg = route.split("/")[1]; return CODES.includes(seg) ? seg : "ar"; };
+const plainOf = (route) => { const l = langOf(route); return l === "ar" ? route : route.slice(l.length + 1) || "/"; };
+const urlIn = (plain, l) => SITE + (l === "ar" ? (plain === "/" ? "/" : plain) : plain === "/" ? `/${l}` : `/${l}${plain}`);
+// Live languages are the ones the sitemap serves.
+const LIVE = ["ar", ...new Set(routes.map(langOf))].filter((v, i, a) => a.indexOf(v) === i);
 
 for (const route of routes) {
   const file = path.join(DIST, route === "/" ? "" : route, "index.html");
@@ -72,7 +77,7 @@ for (const route of routes) {
 
   /* language and direction of the document itself */
   const htmlTag = html.match(/<html\b[^>]*>/i)?.[0] ?? "";
-  if (attr(htmlTag, "lang") !== lang) add("ERROR", route, "html-lang", `lang=${attr(htmlTag, "lang")}, route is ${lang}`);
+  if (attr(htmlTag, "lang") !== TAG[lang]) add("ERROR", route, "html-lang", `lang=${attr(htmlTag, "lang")}, route is ${lang}`);
   if (attr(htmlTag, "dir") !== (lang === "ar" ? "rtl" : "ltr")) add("ERROR", route, "html-dir", `dir=${attr(htmlTag, "dir")}`);
 
   /* canonical and hreflang */
@@ -83,11 +88,10 @@ for (const route of routes) {
   const selfUrl = SITE + (route === "/" ? "/" : route);
   if (canonUrl && canonUrl !== selfUrl) add("ERROR", route, "canonical-not-self", `${canonUrl} vs ${selfUrl}`);
   const alts = Object.fromEntries(links.filter((t) => attr(t, "rel") === "alternate" && attr(t, "hreflang")).map((t) => [attr(t, "hreflang"), attr(t, "href")]));
-  const pair = SITE + (pairOf(route) === "/" ? "/" : pairOf(route));
-  const wantAr = lang === "ar" ? selfUrl : pair;
-  const wantEn = lang === "en" ? selfUrl : pair;
-  if (alts.ar !== wantAr) add("ERROR", route, "hreflang-ar", `${alts.ar} vs ${wantAr}`);
-  if (alts.en !== wantEn) add("ERROR", route, "hreflang-en", `${alts.en} vs ${wantEn}`);
+  for (const l of LIVE) {
+    const want = urlIn(plainOf(route), l);
+    if (alts[TAG[l]] !== want) add("ERROR", route, `hreflang-${l}`, `${alts[TAG[l]]} vs ${want}`);
+  }
   if (!alts["x-default"]) add("WARN", route, "hreflang-x-default");
 
   /* robots */
