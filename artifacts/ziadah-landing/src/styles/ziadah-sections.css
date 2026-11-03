@@ -548,7 +548,7 @@
 .calc-connector {
   background: var(--ziadah-violet);
   color: var(--general-white);
-  box-shadow: 0 0 0 0.5rem var(--surface), 0 0 2rem rgb(139 92 246 / 60%);
+  box-shadow: 0 0 0 0.5rem var(--surface);
 }
 
 /* The inverted control is a fixed `#480086`, chosen because no section ground
@@ -2092,3 +2092,62 @@
 
 /* The one sentence, under a solution page's "how it works" lead. */
 .uc-auto { margin: 20px auto 0; max-width: 640px; text-align: center; font-size: var(--t-body); line-height: 1.6; font-weight: 700; color: var(--ziadah-violet, #7c3aed); }
+
+/* =========================================================================
+   UNSLOP PASS - HOME
+   Overrides for classes that are defined in the ported Shaa files
+   (bento-board.css and friends). Those files stay byte-comparable with their
+   source, so the corrections live here, last in the last imported
+   stylesheet, and win at equal specificity without !important.
+   Class names, tokens and the load order are untouched.
+   ========================================================================= */
+
+/* COLOR - the hero ground is flat brand violet. The two radial washes (one
+   behind the copy, one behind the device) are decoration, not information. */
+.hero-home-field,
+[dir="rtl"] .hero-home-field,
+.hero-home-glow { background: none; }
+
+/* TYPE - 400/500 body, 600 at most for emphasis. Hierarchy comes from size
+   and colour, so the 700 weights step down one notch. */
+.hero-home-title,
+.cs-goal-t,
+.cs-goal-v,
+.cs-stat-v,
+.sacc-n,
+.sacc-i,
+.bhead-title,
+.faq-heading,
+.closing-title,
+.price-name,
+.footer-group-title,
+.calc2-v,
+.t-display-3,
+.landing-sectors-chip__label,
+.fan-card-tag,
+.pill--live,
+.review-avatar { font-weight: 600; }
+.hero-home-auto { font-weight: 500; }
+.page b,
+.page strong { font-weight: 600; }
+
+/* TYPE - small text never takes negative tracking. */
+.sacc-n,
+.sacc-t,
+.sacc-i,
+.cs-goal-t,
+.footer-group-title { letter-spacing: 0; }
+
+/* SPACING - every gap, padding and icon box in the goals / proof / trust
+   board lands on the 4px grid (14 and 18 were the strays). */
+.cs-goals { gap: 16px; }
+.cs-proof { margin-block-start: 16px; }
+.cs-stat { padding-inline: 16px; }
+@media screen and (max-width: 767px) { .cs-stats { row-gap: 16px; } }
+.cs-trust { margin-block-start: 16px; gap: 16px; }
+.cs-trust-i { padding: 16px 20px; }
+.cs-row-ico { width: 32px; height: 32px; }
+.cs-row-ico svg { width: 16px; height: 16px; }
+.ais-reads { gap: 12px; }
+@media screen and (min-width: 900px) { .ais-reads { gap: 16px; } }
+.ais-read { padding: 16px; }

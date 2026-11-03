@@ -129,7 +129,7 @@
 }
 .fw-step .fw-media { flex: none; width: 56px; height: 56px; border-radius: 10px; }
 .fw-step-main { flex: 1 1 0; min-width: 1px; display: flex; flex-direction: column; gap: 2px; }
-.fw-step-k { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-green); text-transform: uppercase; }
+.fw-step-k { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-green); }
 .fw-step-n { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fw-ink); }
 .fw-step-p { font-size: 12px; line-height: 16px; font-weight: 400; color: var(--fw-muted); }
 .fw-step-a { flex: none; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fw-violet); }
