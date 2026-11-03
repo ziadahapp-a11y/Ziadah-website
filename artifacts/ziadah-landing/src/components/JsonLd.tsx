@@ -75,6 +75,11 @@ export function SoftwareAppSchema() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     inLanguage: ["ar", "en"],
+    installUrl: [
+      "https://apps.zid.sa/application/1826",
+      "https://apps.salla.sa/ar/app/1099604538",
+      "https://apps.shopify.com/ziadah"
+    ],
     offers: [
       {
         "@type": "Offer",

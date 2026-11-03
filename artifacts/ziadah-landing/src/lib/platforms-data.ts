@@ -70,8 +70,7 @@ export const PLATFORMS: Platform[] = [
     slug: "shopify",
     name: { ar: "شوبيفاي", en: "Shopify" },
     status: "connected",
-    // No `href` yet: the app-market link is added here once it exists, and the
-    // install button appears with it.
+    href: "https://apps.shopify.com/ziadah",
     what: {
       ar: "الموصّل متاح لمتاجر شوبيفاي، بنفس آلية الربط بضغطة واحدة وبنفس الخطط والمزايا.",
       en: "The connector is available for Shopify stores, with the same one-click connect and the same plans and features.",

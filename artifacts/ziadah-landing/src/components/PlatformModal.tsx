@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Plus, X } from "lucide-react";
+import { SiShopify } from "react-icons/si";
 import { useLanguage } from "../i18n/LanguageContext";
 import { platformAsset } from "@/utils/platformAsset";
 import FeatureRequestModal from "./FeatureRequestModal";
@@ -100,7 +101,7 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
           <a
             className={tileClass}
             href="https://apps.zid.sa/application/1826"
@@ -146,6 +147,28 @@ export default function PlatformModal({ open, onClose }: PlatformModalProps) {
             </div>
             <span className="card-eyebrow">
               {isAr ? "تثبيت من متجر تطبيقات سلة" : "Install from Salla app store"}
+            </span>
+          </a>
+
+          <a
+            className={tileClass}
+            href="https://apps.shopify.com/ziadah"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="flex h-16 items-center justify-center">
+              <SiShopify
+                className="h-9 w-9 md:h-10 md:w-10"
+                role="img"
+                aria-label={
+                  isAr
+                    ? "منصة شوبيفاي — تفعيل تطبيق زيادة للتوصيات الذكية"
+                    : "Shopify platform — install Ziadah AI ecommerce app"
+                }
+              />
+            </div>
+            <span className="card-eyebrow">
+              {isAr ? "تثبيت من متجر تطبيقات شوبيفاي" : "Install from Shopify App Store"}
             </span>
           </a>
 
