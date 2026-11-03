@@ -46,7 +46,10 @@ export function tr(text: string, locale: Locale = active): string {
     return text;
   }
   const hit = loaded[locale]?.[key];
-  if (hit === undefined) return text;
+  if (hit === undefined) {
+    if (collecting && LATIN.test(key)) seen.add(key);
+    return text;
+  }
   const lead = text.match(/^\s*/)![0];
   const trail = text.match(/\s*$/)![0];
   return `${lead}${hit}${trail}`;

@@ -16,7 +16,8 @@ const DIST = path.join(ROOT, "dist/public");
 const known = new Set(JSON.parse(fs.readFileSync(path.join(import.meta.dirname, "strings.json"), "utf8")));
 const SITE = "https://www.ziadah.app";
 const xml = fs.readFileSync(path.join(ROOT, "dist/public/sitemap.xml"), "utf8");
-const routes = [...new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, "")).filter((r) => r === "/en" || r.startsWith("/en/")))];
+const LOC = process.env.LOCALE || "en";
+const routes = [...new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, "")).filter((r) => r === `/${LOC}` || r.startsWith(`/${LOC}/`)))];
 
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".woff": "font/woff" };
 const SHELL = fs.readFileSync(path.join(DIST, "index.html"));
@@ -63,6 +64,7 @@ const queue = [...only];
 await Promise.all(Array.from({ length: 4 }, async () => { while (queue.length) { await one(queue.shift()); i++; if (i % 25 === 0) console.log(`[collect] ${i}/${only.length}`); } }));
 await browser.close();
 server.close();
-const extra = [...found].filter((s) => !known.has(s)).sort();
-fs.writeFileSync(path.join(import.meta.dirname, "runtime-strings.json"), JSON.stringify(extra));
+// English run: strings the source scan missed. Language run: strings still untranslated.
+const extra = LOC === "en" ? [...found].filter((s) => !known.has(s)).sort() : [...found].sort();
+fs.writeFileSync(path.join(import.meta.dirname, LOC === "en" ? "runtime-strings.json" : `untranslated-${LOC}.json`), JSON.stringify(extra));
 console.log(`[collect] ${found.size} strings shown, ${extra.length} not in the source scan -> runtime-strings.json`);
