@@ -1,3 +1,4 @@
+import { stripLocalePrefix } from "@/i18n/languages";
 import { useEffect, useCallback, useRef } from "react";
 import { useLocation } from "wouter";
 import { useBlurTransition } from "@/components/BlurTransitionProvider";
@@ -92,12 +93,7 @@ function stripViteBase(pathname: string): string {
 function logicalPathname(pathname: string): string {
   let p = stripViteBase(pathname);
   p = p.replace(/\/$/, "") || "/";
-  if (p === "/en") return "/";
-  if (p.startsWith("/en/")) {
-    const rest = p.slice(3).replace(/\/$/, "") || "/";
-    return rest;
-  }
-  return p;
+  return stripLocalePrefix(p).replace(/\/$/, "") || "/";
 }
 
 function syncUrlHash(hash: string) {

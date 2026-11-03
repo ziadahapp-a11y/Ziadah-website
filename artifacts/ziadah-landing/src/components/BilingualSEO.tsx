@@ -1,5 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { useLanguage } from "../i18n/LanguageContext";
+import { ENABLED_LOCALES } from "../i18n/enabled";
+import { LOCALE_TAGS, OG_LOCALES, type Locale } from "../i18n/languages";
+import { tr } from "../i18n/catalog";
 import {
   SITE_URL,
   SITE_NAME,
@@ -52,20 +55,20 @@ export default function BilingualSEO({
   author,
   noIndex = false,
 }: BilingualSEOProps) {
-  const { lang } = useLanguage();
+  const { lang, locale } = useLanguage();
   const resolvedTitleAr = titleAr ?? DEFAULTS.ar.title;
   const resolvedTitleEn = titleEn ?? DEFAULTS.en.title;
   const resolvedDescAr = descriptionAr ?? DEFAULTS.ar.description;
   const resolvedDescEn = descriptionEn ?? DEFAULTS.en.description;
 
-  const rawTitleSegment = lang === "ar" ? resolvedTitleAr : resolvedTitleEn;
+  const rawTitleSegment = lang === "ar" ? resolvedTitleAr : tr(resolvedTitleEn, locale);
   const alreadyBranded = /ziadah|زيادة/i.test(rawTitleSegment);
   const finalTitleSegment = alreadyBranded
     ? rawTitleSegment
     : `${rawTitleSegment} | ${SITE_NAME}`;
   const documentTitle = clampMetaTitle(finalTitleSegment, 60);
   const description = clampMetaDescription(
-    lang === "ar" ? resolvedDescAr : resolvedDescEn,
+    lang === "ar" ? resolvedDescAr : tr(resolvedDescEn, locale),
     160,
   );
   const keywords =
@@ -75,21 +78,20 @@ export default function BilingualSEO({
 
   const pathRaw = canonical ?? "/";
   const basePath = pathRaw.startsWith("/") ? pathRaw : `/${pathRaw}`;
-  const canonicalUrl = absolutePageUrl(basePath, lang);
+  const canonicalUrl = absolutePageUrl(basePath, locale);
   const urlAr = absolutePageUrl(basePath, "ar");
-  const urlEn = absolutePageUrl(basePath, "en");
   /* A page gets its own card, in its own language, unless it names a picture. */
-  const ogSrc = ogImage ?? ogImagePath(basePath, lang);
+  const ogSrc = ogImage ?? ogImagePath(basePath, locale);
   const ogImageUrl = ogSrc.startsWith("http") ? ogSrc : `${SITE_URL}${ogSrc}`;
 
-  const htmlLang = lang === "ar" ? "ar" : "en";
+  const htmlLang = LOCALE_TAGS[locale];
 
   return (
     <Helmet>
       <title>{documentTitle}</title>
       <meta name="description" content={description} />
       {keywords ? <meta name="keywords" content={keywords} /> : null}
-      <html lang={htmlLang} dir={lang === "ar" ? "rtl" : "ltr"} />
+      <html lang={htmlLang} dir={locale === "ar" ? "rtl" : "ltr"} />
       {noIndex ? (
         <meta name="robots" content="noindex, nofollow" />
       ) : (
@@ -99,8 +101,9 @@ export default function BilingualSEO({
         />
       )}
       <link rel="canonical" href={canonicalUrl} />
-      <link rel="alternate" hrefLang="ar" href={urlAr} />
-      <link rel="alternate" hrefLang="en" href={urlEn} />
+      {ENABLED_LOCALES.map((l: Locale) => (
+        <link key={l} rel="alternate" hrefLang={LOCALE_TAGS[l]} href={absolutePageUrl(basePath, l)} />
+      ))}
       <link rel="alternate" hrefLang="x-default" href={urlAr} />
 
       <meta property="og:title" content={documentTitle} />
@@ -112,11 +115,10 @@ export default function BilingualSEO({
       <meta property="og:image:alt" content={documentTitle} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:locale" content={lang === "ar" ? "ar_SA" : "en_US"} />
-      <meta
-        property="og:locale:alternate"
-        content={lang === "ar" ? "en_US" : "ar_SA"}
-      />
+      <meta property="og:locale" content={OG_LOCALES[locale]} />
+      {ENABLED_LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta key={l} property="og:locale:alternate" content={OG_LOCALES[l]} />
+      ))}
       <meta property="og:url" content={canonicalUrl} />
       {publishDate ? (
         <meta property="article:published_time" content={publishDate} />

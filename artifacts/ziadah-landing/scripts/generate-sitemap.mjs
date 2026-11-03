@@ -86,12 +86,22 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
-function urlEntry(loc, locAr, locEn, lastmod, changefreq, priority) {
+/** Every language the site is served in; mirrors src/i18n/languages.ts. `ar` has no prefix. */
+const ALL_LOCALES = ["ar", "en", "fr", "de", "es", "it", "pt", "nl", "sv", "da", "no", "pl", "tr", "ja", "ko", "zh", "zh-tw"];
+// Live languages: ar and en, plus every language with a catalogue file (see src/i18n/enabled.ts).
+const LOCALES = ALL_LOCALES.filter(
+  (l) => l === "ar" || l === "en" || fs.existsSync(path.join(ROOT, "src/i18n/catalog", `${l}.json`)),
+);
+const HREFLANG = { no: "nb", zh: "zh-Hans", "zh-tw": "zh-Hant" };
+const locUrl = (pathNoHost, l) =>
+  l === "ar" ? (pathNoHost === "/" ? `${SITE}/` : `${SITE}${pathNoHost}`)
+    : pathNoHost === "/" ? `${SITE}/${l}` : `${SITE}/${l}${pathNoHost}`;
+
+function urlEntry(loc, alts, lastmod, changefreq, priority) {
   return `  <url>
     <loc>${esc(loc)}</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="${esc(locAr)}" />
-    <xhtml:link rel="alternate" hreflang="en" href="${esc(locEn)}" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(locAr)}" />
+${LOCALES.map((l) => `    <xhtml:link rel="alternate" hreflang="${HREFLANG[l] ?? l}" href="${esc(alts[l])}" />`).join("\n")}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${esc(alts.ar)}" />
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
@@ -167,10 +177,8 @@ function main() {
 
   /** @param {string} pathNoHost path like / or /blog/foo */
   function emitPair(pathNoHost, lastmod, freq, priority) {
-    const locAr = pathNoHost === "/" ? `${SITE}/` : `${SITE}${pathNoHost}`;
-    const locEn = pathNoHost === "/" ? `${SITE}/en` : `${SITE}/en${pathNoHost}`;
-    parts.push(urlEntry(locAr, locAr, locEn, lastmod, freq, priority));
-    parts.push(urlEntry(locEn, locAr, locEn, lastmod, freq, priority));
+    const alts = Object.fromEntries(LOCALES.map((l) => [l, locUrl(pathNoHost, l)]));
+    for (const l of LOCALES) parts.push(urlEntry(alts[l], alts, lastmod, freq, priority));
   }
 
   for (const s of STATIC_MAIN) {

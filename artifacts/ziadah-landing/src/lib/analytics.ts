@@ -19,7 +19,8 @@
 //      types — there is nowhere to put personal data by construction.
 
 export type Brand = "shaaa" | "ziadah" | "raasid" | "aakam";
-export type Locale = "ar" | "en";
+export type { Locale } from "@/i18n/languages";
+import type { Locale } from "@/i18n/languages";
 
 /** This site's brand. Each holding site sets its own; the schema is shared. */
 export const BRAND: Brand = "ziadah";

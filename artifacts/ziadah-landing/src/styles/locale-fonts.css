@@ -1,0 +1,9 @@
+/* East Asian languages: Rubik covers Latin, the riyal font covers the riyal
+   sign, and the language's own Noto Sans variable face covers the rest. The
+   faces are loaded on demand by `main.tsx` (only the visitor's language). */
+html[data-locale="ja"] body, html[data-locale="ja"] body * { font-family: "Rubik", "saudi_riyal", "Noto Sans JP Variable", system-ui, sans-serif; }
+html[data-locale="ko"] body, html[data-locale="ko"] body * { font-family: "Rubik", "saudi_riyal", "Noto Sans KR Variable", system-ui, sans-serif; }
+html[data-locale="zh"] body, html[data-locale="zh"] body * { font-family: "Rubik", "saudi_riyal", "Noto Sans SC Variable", system-ui, sans-serif; }
+html[data-locale="zh-tw"] body, html[data-locale="zh-tw"] body * { font-family: "Rubik", "saudi_riyal", "Noto Sans TC Variable", system-ui, sans-serif; }
+/* CJK has no word spaces; let long lines break anywhere sensible. */
+html[data-locale="ja"] body, html[data-locale="ko"] body, html[data-locale="zh"] body, html[data-locale="zh-tw"] body { word-break: auto-phrase; line-break: strict; }

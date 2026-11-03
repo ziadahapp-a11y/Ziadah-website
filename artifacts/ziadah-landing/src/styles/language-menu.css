@@ -1,0 +1,20 @@
+.lang-menu { position: relative; display: inline-block; }
+.lang-menu-btn {
+  appearance: none; display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer;
+  padding: 0.7rem 1.4rem; border-radius: 999px; font: inherit; font-size: 1.4rem; font-weight: 600;
+  color: inherit; background: transparent; border: 0.1rem solid currentColor;
+}
+.lang-menu-list {
+  position: absolute; inset-block-start: calc(100% + 0.8rem); inset-inline-end: 0; z-index: 60;
+  list-style: none; margin: 0; padding: 0.6rem; min-width: 18rem; max-height: 60vh; overflow-y: auto;
+  background: #fff; color: #0a0a0a; border-radius: 1.6rem; box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.22);
+  border: 0.1rem solid rgba(10, 10, 10, 0.12);
+}
+.lang-menu-item {
+  appearance: none; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  padding: 1rem 1.4rem; border: 0; border-radius: 1rem; background: transparent; cursor: pointer;
+  font: inherit; font-size: 1.5rem; color: inherit; text-align: start;
+}
+.lang-menu-item:hover, .lang-menu-item:focus-visible { background: rgba(10, 10, 10, 0.06); }
+.lang-menu-item[data-active] { font-weight: 700; }
+.mob-foot .lang-menu-list { inset-block-start: auto; inset-block-end: calc(100% + 0.8rem); inset-inline-end: auto; inset-inline-start: 0; }

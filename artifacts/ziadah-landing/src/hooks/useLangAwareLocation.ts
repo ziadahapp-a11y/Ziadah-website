@@ -1,6 +1,8 @@
 import { useBrowserLocation } from "wouter/use-browser-location";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { stripLocalePrefix, withLocalePrefix } from "@/i18n/languages";
 
+/** Path (with its query and hash kept) minus any language prefix. */
 export function stripEnPrefix(path: string) {
   const qIndex = path.indexOf("?");
   const hIndex = path.indexOf("#");
@@ -9,10 +11,7 @@ export function stripEnPrefix(path: string) {
     path.length;
   const pathname = path.slice(0, cutIndex);
   const suffix = path.slice(cutIndex);
-
-  if (pathname === "/en") return `/${suffix}`;
-  if (pathname.startsWith("/en/")) return `${pathname.slice(3)}${suffix}`;
-  return path;
+  return `${stripLocalePrefix(pathname)}${suffix}`;
 }
 
 export function useLangAwareLocation(): [
@@ -20,18 +19,12 @@ export function useLangAwareLocation(): [
   (to: string, options?: { replace?: boolean }) => void,
 ] {
   const [location, navigate] = useBrowserLocation();
-  const { lang } = useLanguage();
-  const isEn = lang === "en";
+  const { locale } = useLanguage();
   const normalizedLocation = stripEnPrefix(location);
 
   const langAwareNavigate = (to: string, options?: { replace?: boolean }) => {
     const plainTarget = stripEnPrefix(to);
-    const nextPath = isEn
-      ? plainTarget === "/"
-        ? "/en"
-        : `/en${plainTarget}`
-      : plainTarget;
-    navigate(nextPath, options);
+    navigate(withLocalePrefix(plainTarget, locale), options);
   };
 
   return [normalizedLocation, langAwareNavigate];

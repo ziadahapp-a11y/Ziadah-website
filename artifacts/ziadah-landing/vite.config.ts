@@ -31,7 +31,7 @@ export default defineConfig({
   base: basePath,
   envDir,
   plugins: [
-    react(),
+    react({ jsxImportSource: "i18n-jsx" }),
     tailwindcss(),
     runtimeErrorOverlay(),
     ...(process.env.NODE_ENV !== "production" &&
@@ -51,6 +51,10 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "src"),
+      /* Every JSX element goes through this runtime so the translation
+         catalogue can replace its strings on the way to the DOM. */
+      "i18n-jsx/jsx-dev-runtime": path.resolve(import.meta.dirname, "src/i18n/jsx/jsx-dev-runtime.ts"),
+      "i18n-jsx/jsx-runtime": path.resolve(import.meta.dirname, "src/i18n/jsx/jsx-runtime.ts"),
     },
     dedupe: ["react", "react-dom"],
   },

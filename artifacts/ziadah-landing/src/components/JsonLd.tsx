@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { absolutePageUrl } from "@/seo/meta";
+import { LOCALE_TAGS } from "@/i18n/languages";
 
 interface JsonLdProps {
   data: Record<string, unknown> | Record<string, unknown>[];
@@ -430,10 +431,10 @@ export function ItemListSchema({ posts, name, description }: {
 }
 
 export function PricingPageSchema() {
-  const { lang } = useLanguage();
+  const { lang, locale } = useLanguage();
   const isAr = lang === "ar";
   const base = "https://www.ziadah.app";
-  const url = isAr ? `${base}/pricing` : `${base}/en/pricing`;
+  const url = absolutePageUrl("/pricing", locale);
   const data = [
     {
       "@context": "https://schema.org",
@@ -444,12 +445,12 @@ export function PricingPageSchema() {
         ? "تعرّف على باقات زيادة الأربع: الانطلاقة والنمو والاحترافية والأعمال — اقتراحات ومبيعات لامحدودة في كل الباقات."
         : "Explore Ziadah's four plans: Starter, Growth, Professional, and Business — unlimited suggestions and sales in every plan.",
       url,
-      inLanguage: isAr ? "ar" : "en",
+      inLanguage: LOCALE_TAGS[locale],
       isPartOf: { "@type": "WebSite", name: "زيادة", url: base },
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: isAr ? base : `${base}/en` },
+          { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: absolutePageUrl("/", locale) },
           { "@type": "ListItem", position: 2, name: isAr ? "الأسعار" : "Pricing", item: url },
         ],
       },
@@ -555,10 +556,10 @@ export function PricingPageSchema() {
 }
 
 export function AffiliatePageSchema() {
-  const { lang } = useLanguage();
+  const { lang, locale } = useLanguage();
   const isAr = lang === "ar";
   const base = "https://www.ziadah.app";
-  const url = isAr ? `${base}/affiliate` : `${base}/en/affiliate`;
+  const url = absolutePageUrl("/affiliate", locale);
   const data = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -568,7 +569,7 @@ export function AffiliatePageSchema() {
       ? "اشترك في برنامج أفيليت زيادة — عمولة 10% على كل اشتراك سنوي، وخصم 10% لعملائك."
       : "Join Ziadah's affiliate program — earn 10% commission on every annual subscription and give your clients a 10% discount.",
     url,
-    inLanguage: isAr ? "ar" : "en",
+    inLanguage: LOCALE_TAGS[locale],
     isPartOf: { "@type": "WebSite", name: "زيادة", url: base },
     about: {
       "@type": "Thing",
@@ -577,7 +578,7 @@ export function AffiliatePageSchema() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: isAr ? base : `${base}/en` },
+        { "@type": "ListItem", position: 1, name: isAr ? "الرئيسية" : "Home", item: absolutePageUrl("/", locale) },
         { "@type": "ListItem", position: 2, name: isAr ? "برنامج الشراكة" : "Affiliate Program", item: url },
       ],
     },

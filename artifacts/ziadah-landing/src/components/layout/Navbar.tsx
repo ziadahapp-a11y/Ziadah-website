@@ -1,3 +1,4 @@
+import LanguageMenu from "./LanguageMenu";
 import { useEffect, useRef, useState } from "react";
 import {
   Globe,
@@ -96,11 +97,6 @@ export function Navbar() {
     analytics.ctaClick("nav_start", "platform_modal");
     closeMenus();
     setPlatformModalOpen(true);
-  };
-  const toggleLang = () => {
-    const to = isAr ? "en" : "ar";
-    analytics.languageSwitch(lang, to);
-    setLang(to);
   };
 
   const solutions = solutionGroups(tr);
@@ -458,17 +454,7 @@ export function Navbar() {
           <span className="header-spacer" />
 
           <div className="header-actions">
-            <Button
-              variant="tertiary"
-              size="small"
-              className="lang-desktop-only"
-              onClick={toggleLang}
-              aria-label={t("تغيير اللغة", "Toggle language")}
-              data-testid="nav-lang-toggle"
-            >
-              <Globe className="w-4 h-4" aria-hidden="true" />
-              {isAr ? "EN" : "ع"}
-            </Button>
+            <span className="lang-desktop-only"><LanguageMenu testId="nav-lang-toggle" /></span>
             {/* The booking link sits beside the primary action rather than
                 inside it: a merchant who wants a walkthrough before signing up
                 should not have to open a menu to find one. Desktop only - the
@@ -704,17 +690,7 @@ export function Navbar() {
             switcher sits here; the primary CTA keeps its button affordance
             beside it rather than becoming a text row. */}
         <div className="mob-foot">
-          <Button
-            variant="tertiary"
-            size="small"
-            onClick={toggleLang}
-            aria-label={t("تغيير اللغة", "Toggle language")}
-            data-testid="nav-lang-toggle-mobile"
-            tabIndex={drawer.isOpen ? 0 : -1}
-          >
-            <Globe className="w-4 h-4" aria-hidden="true" />
-            {isAr ? "EN" : "ع"}
-          </Button>
+          <LanguageMenu testId="nav-lang-toggle-mobile" tabIndex={drawer.isOpen ? 0 : -1} />
           <Button variant="primary" onClick={startNow} tabIndex={drawer.isOpen ? 0 : -1}>
             {tr.nav.startNow}
             <ArrowCTA className="w-4 h-4" aria-hidden="true" />

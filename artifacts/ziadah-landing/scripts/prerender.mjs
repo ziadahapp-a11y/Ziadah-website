@@ -75,11 +75,34 @@ const OG_TYPES = {
   en: { sectors: "Industry", "use-cases": "Solution", features: "Feature", blog: "Article", support: "Help centre", pricing: "Pricing", platforms: "Platforms", calculator: "Calculator", "success-stories": "Success stories", about: "About Ziadah", affiliate: "Partners", default: "Ziadah app" },
 };
 
+/* Languages are the first path segment (`/fr/pricing`); Arabic has none. */
+const LOCALE_CODES = ["en", "fr", "de", "es", "it", "pt", "nl", "sv", "da", "no", "pl", "tr", "ja", "ko", "zh", "zh-tw"];
+const langOfRoute = (route) => {
+  const seg = route.split("/")[1];
+  return LOCALE_CODES.includes(seg) ? seg : "ar";
+};
+const stripLang = (route) => {
+  const l = langOfRoute(route);
+  return l === "ar" ? route : route.slice(l.length + 1) || "/";
+};
+const catalogOf = (lang) => {
+  const f = path.join(ROOT, "src/i18n/catalog", `${lang}.json`);
+  return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : {};
+};
+const CATALOGS = {};
+const typeLabel = (lang, first) => {
+  const en = OG_TYPES.en[first] ?? OG_TYPES.en.default;
+  if (lang === "ar") return OG_TYPES.ar[first] ?? OG_TYPES.ar.default;
+  if (lang === "en") return en;
+  CATALOGS[lang] ??= catalogOf(lang);
+  return CATALOGS[lang][en] ?? en;
+};
+
 function ogCard({ route, lang, title, description, fan, origin }) {
   const OG_CSS = globalThis.OG_CSS;
   const isAr = lang === "ar";
-  const first = route.replace(/^\/en(\/|$)/, "/").split("/").filter(Boolean)[0] || "";
-  const kind = (OG_TYPES[lang][first] ?? OG_TYPES[lang].default);
+  const first = stripLang(route).split("/").filter(Boolean)[0] || "";
+  const kind = typeLabel(lang, first);
   const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const clean = (t) => t.replace(/\s*[|\-\u2013\u2014]\s*(Ziadah|زيادة)\s*$/i, "").trim();
   // A hyphen inside a Latin word is a line-break point: "Add-ons" came out as
@@ -237,7 +260,7 @@ async function main() {
     /* Three real widget sheets on a transparent page: one picture per
        language, shelf and shape, shared by every page that wants it. */
     const fanFor = async (route, lang) => {
-      const base = route.replace(/^\/en(?=\/|$)/, "").replace(/\/$/, "") || "/";
+      const base = stripLang(route).replace(/\/$/, "") || "/";
       const sector = /^\/sectors\/([^/]+)$/.exec(base)?.[1] ?? "";
       const key = `${lang}|${sector}|${KIND_BY_HREF[base] ?? ""}`;
       if (fans.has(key)) return fans.get(key);
@@ -246,7 +269,7 @@ async function main() {
       const fp = await browser.newPage();
       try {
       await fp.setViewport({ width: 900, height: 900, deviceScaleFactor: 1 });
-      await fp.goto(`${origin}${lang === "en" ? "/en" : ""}/__og-fan?path=${encodeURIComponent(base)}`, { waitUntil: "load", timeout: 30000 });
+      await fp.goto(`${origin}${lang === "ar" ? "" : `/${lang}`}/__og-fan?path=${encodeURIComponent(base)}`, { waitUntil: "load", timeout: 30000 });
       await fp.waitForSelector("#og-fan", { timeout: 20000 });
       await fp.evaluate(async () => {
         await document.fonts.ready;
@@ -263,7 +286,7 @@ async function main() {
     };
     let n = 0;
     for (const [route, meta] of Object.entries(ogPages)) {
-      const lang = route === "/en" || route.startsWith("/en/") ? "en" : "ar";
+      const lang = langOfRoute(route);
       const html = ogCard({ route, lang, title: meta.title, description: meta.description, fan: await fanFor(route, lang), origin });
       await pg.bringToFront();
       await pg.setContent(html, { waitUntil: "load", timeout: 20000 });

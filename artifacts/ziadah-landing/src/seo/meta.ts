@@ -1,14 +1,14 @@
+import { withLocalePrefix, type Locale } from "@/i18n/languages";
+
 export const SITE_URL = "https://www.ziadah.app";
 export const SITE_NAME = "Ziadah";
 
 /** Locale-prefixed path as served by the app (/en for English). */
-export function pathWithLang(path: string, lang: "ar" | "en"): string {
-  const p = path.startsWith("/") ? path : `/${path}`;
-  if (lang === "ar") return p;
-  return p === "/" ? "/en" : `/en${p}`;
+export function pathWithLang(path: string, lang: Locale): string {
+  return withLocalePrefix(path, lang);
 }
 
-export function absolutePageUrl(path: string, lang: "ar" | "en"): string {
+export function absolutePageUrl(path: string, lang: Locale): string {
   return `${SITE_URL}${pathWithLang(path, lang)}`;
 }
 
@@ -27,7 +27,7 @@ export function absolutePageUrl(path: string, lang: "ar" | "en"): string {
  */
 export const OG_VERSION = "3";
 
-export function ogImagePath(path: string, lang: "ar" | "en"): string {
+export function ogImagePath(path: string, lang: Locale): string {
   const served = pathWithLang(path, lang);
   const file = served === "/" ? "/og/index.png" : `/og${served.replace(/\/$/, "")}.png`;
   return `${file}?v=${OG_VERSION}`;
