@@ -22,6 +22,16 @@ const args = new Set(process.argv.slice(2));
 const sitemap = fs.readFileSync(path.join(DIST, "sitemap.xml"), "utf8");
 const routes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(SITE, "") || "/");
 const routeSet = new Set(routes);
+/* Mirror of scripts/prerender.mjs: Arabic and English are prerendered in full,
+   the other languages for top-level pages only. A deeper route in those is
+   served by the app shell and has no file to audit. */
+const DEEP = (process.env.PRERENDER_DEEP_LANGS || "ar,en").split(",");
+const prerendered = (route) => {
+  if (DEEP.includes("all")) return true;
+  const seg = route.split("/")[1];
+  const lang = ["en", "fr", "de", "es", "it", "pt", "nl", "sv", "da", "no", "pl", "tr", "ja", "ko", "zh", "zh-tw"].includes(seg) ? seg : "ar";
+  return DEEP.includes(lang) || route.split("/").filter(Boolean).length <= 2;
+};
 
 const findings = [];
 const add = (sev, route, code, detail = "") => findings.push({ sev, route, code, detail });
@@ -43,6 +53,7 @@ const urlIn = (plain, l) => SITE + (l === "ar" ? (plain === "/" ? "/" : plain) :
 const LIVE = ["ar", ...new Set(routes.map(langOf))].filter((v, i, a) => a.indexOf(v) === i);
 
 for (const route of routes) {
+  if (!prerendered(route)) continue;
   const file = path.join(DIST, route === "/" ? "" : route, "index.html");
   if (!fs.existsSync(file)) { add("ERROR", route, "no-html", "route is in the sitemap but was not built"); continue; }
   const html = fs.readFileSync(file, "utf8");
