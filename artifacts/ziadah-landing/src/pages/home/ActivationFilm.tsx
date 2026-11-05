@@ -37,8 +37,9 @@ const PH = 1350;
 const PORTRAIT_BELOW = 720;
 export const FILM_SECONDS = 30;
 /** How fast the clock runs on the page. The film is written in 30 stage
- *  seconds and recorded at 1x; on the page it runs 2x, so a loop is 15s. */
-export const FILM_SPEED = 2;
+ *  seconds and recorded at 1x. It ran 2x on the page (a 15s loop), which left
+ *  no time to read the text on each step; it now runs at 0.8x, a 37.5s loop. */
+export const FILM_SPEED = 0.8;
 
 const clamp = (x: number) => Math.min(1, Math.max(0, x));
 const seg = (t: number, a: number, b: number) => clamp((t - a) / (b - a));

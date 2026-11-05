@@ -11,7 +11,13 @@
   --f-panel: #fbf8ff;
   --f-green: #12b76a;
   position: relative;
-  width: 100%;
+  /* Never taller than the screen: on a laptop the full-width 16:9 frame is
+     taller than the viewport and the bottom of the film was cut off, so the
+     width is capped to what a viewport-high frame allows (minus the header and
+     the band's own heading), and the frame is centred. */
+  width: min(100%, calc((100vh - 200px) * 16 / 9));
+  min-width: min(100%, 560px);
+  margin-inline: auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 28px;
@@ -21,7 +27,7 @@
   /* Its own layout and paint island, so a tick does not reflow the page. */
   contain: layout paint style;
 }
-.film[data-capture] { aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+.film[data-capture] { width: 100%; min-width: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
 .film * { box-sizing: border-box; }
 .film p, .film small, .film b, .film em { margin: 0; }
 .film-stage { position: absolute; top: 0; left: 0; transform-origin: top left; will-change: transform; }
@@ -166,7 +172,7 @@
    4:5, stage 1080x1350. The assistant's panel moves on top as a compact strip,
    the grids get narrower, and type is a little smaller. Same story, same
    timing, same clock. */
-.film[data-portrait] { aspect-ratio: 4 / 5; border-radius: 22px; }
+.film[data-portrait] { width: min(100%, calc((100vh - 160px) * 4 / 5)); min-width: 0; aspect-ratio: 4 / 5; border-radius: 22px; }
 .film[data-portrait] .film-win { inset: 24px; border-radius: 24px; }
 .film[data-portrait] .film-bar { height: 64px; padding: 0 22px; }
 .film[data-portrait] .film-bar i { width: 15px; height: 15px; }
