@@ -14,6 +14,10 @@ for (const f of fs.readdirSync(dir).filter((x) => /^\d+\.json$/.test(x)).sort())
   const chunk = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, "chunks", f), "utf8"));
   const out = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
   let fb = 0;
+  // A chunk whose values mostly equal their English keys was never translated.
+  const words = chunk.filter((k) => /[A-Za-z]{4,}\s+[A-Za-z]{3,}/.test(k));
+  const same = words.filter((k) => out[k] === k).length;
+  if (words.length > 20 && same / words.length > 0.3) console.log(`  !! ${f}: ${same}/${words.length} phrases identical to English, chunk looks untranslated`);
   for (const k of chunk) {
     total++;
     const v = out[k];
