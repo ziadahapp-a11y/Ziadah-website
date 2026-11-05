@@ -425,7 +425,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 12px 16px;
   cursor: pointer;
   text-align: start;
   border-radius: inherit;
@@ -467,7 +467,7 @@
 }
 .sacc-panel-in { overflow: hidden; min-height: 0; }
 /* Indented to sit under the title, past the number badge (26 + 12 gap). */
-.sacc-body { padding: 0 14px 14px; padding-inline-start: 52px; }
+.sacc-body { padding: 0 16px 16px; padding-inline-start: 52px; }
 .sacc-note {
   margin: 0;
   font-size: var(--t-sm);
@@ -540,8 +540,8 @@
   }
   /* The stage is inside the open row now, so the note no longer needs the
      badge's indent and the stage runs the row's full width. */
-  .sacc-body { padding-inline-start: 14px; }
-  .sacc-inline { margin-block-start: 14px; }
+  .sacc-body { padding-inline-start: 16px; }
+  .sacc-inline { margin-block-start: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

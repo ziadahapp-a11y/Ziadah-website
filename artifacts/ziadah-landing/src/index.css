@@ -2059,7 +2059,7 @@ section.cta-sec.landing-white-accent .cta-note{color:var(--lv-accent-mid)!import
 .logos-mask::after{inset-inline-end:0;background:linear-gradient(to left,var(--color-primary,#fff),transparent);}
 .logos-mask .marquee-segment{gap:12px;}
 /* No backdrop-filter: 48 of these slide under a masked container, and a live blur on each re-samples what is behind it every frame. Their backgrounds are already opaque enough that the blur showed nothing. */
-.lc{padding:10px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:border-color var(--duration-base,240ms) var(--ease-standard);display:flex;align-items:center;justify-content:center;}
+.lc{padding:12px 24px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;white-space:nowrap;transition:border-color var(--duration-base,240ms) var(--ease-standard);display:flex;align-items:center;justify-content:center;}
 .lc:hover{border-color:var(--b2);}
 .logo-img{height:40px;width:auto;max-width:140px;object-fit:contain;opacity:0.85;transition:opacity .3s;}
 .lc:hover .logo-img{opacity:1;}
