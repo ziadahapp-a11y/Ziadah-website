@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ShieldCheck, Sparkles } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/mk";
 import { useT } from "@/lib/i18n";
 import { themeVars } from "@/sections";
@@ -46,9 +46,8 @@ export function Hero() {
       data-invert=""
       style={themeVars("violet", true)}
     >
-      {/* Two soft violet fields behind the composition, so the ground is lit
-          rather than a flat rectangle. Decorative, and the only gradient in
-          the band. */}
+      {/* The ground is flat brand violet: the radial washes that used to sit
+          here (and behind the stage) are switched off in ziadah-sections.css. */}
       <span className="hero-home-field" aria-hidden="true" />
 
       <div className="container hero-home-inner" ref={ref} data-revealed={entered ? "" : undefined}>
@@ -72,10 +71,7 @@ export function Hero() {
               en: "The Ziadah app reads the cart and order history and suggests products that fit each shopper on the product page, the cart and checkout, so average order value rises with no extra ad spend.",
             })}
           </p>
-          <p className="hero-home-auto">
-            <Sparkles className="hero-home-auto-ico" aria-hidden="true" />
-            {t(AUTO_LINE)}
-          </p>
+          <p className="hero-home-auto">{t(AUTO_LINE)}</p>
           <div className="hero-home-actions">
             <Button as={Link} href="/features" variant="secondary" size="lg" data-testid="hero-features">
               {t({ ar: "شوف حالات الاستخدام", en: "See the use cases" })}
