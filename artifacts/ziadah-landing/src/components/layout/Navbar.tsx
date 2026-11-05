@@ -186,12 +186,17 @@ export function Navbar() {
       Icon: Scale,
       onClick: () => go("/zid-apps-comparison"),
     },
-    {
-      label: t("احجز اجتماع", "Book a meeting"),
-      sub: t("جولة مباشرة على زيادة في متجرك", "A live walkthrough of Ziadah in your store"),
-      Icon: CalendarDays,
-      href: MEETING_BOOKING_URL,
-    },
+    /* The meeting link is offered in Arabic only. */
+    ...(isAr
+      ? [
+          {
+            label: t("احجز اجتماع", "Book a meeting"),
+            sub: t("جولة مباشرة على زيادة في متجرك", "A live walkthrough of Ziadah in your store"),
+            Icon: CalendarDays,
+            href: MEETING_BOOKING_URL,
+          },
+        ]
+      : []),
     {
       label: t("واتساب", "WhatsApp"),
       sub: t("رد سريع على استفساراتك", "Fast replies to your questions"),
@@ -459,19 +464,21 @@ export function Navbar() {
                 inside it: a merchant who wants a walkthrough before signing up
                 should not have to open a menu to find one. Desktop only - the
                 mobile drawer already carries it. */}
-            <Button
-              as="a"
-              variant="tertiary"
-              className="btn-desktop-only"
-              href={MEETING_BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="nav-meeting"
-            >
-              <CalendarDays className="w-4 h-4" aria-hidden="true" />
-              {t("احجز اجتماع", "Book a meeting")}
-            </Button>
-            <LoginMenu label={t("تسجيل الدخول", "Log in")} names={{ salla: tr.nav.salla, zid: tr.nav.zid }} />
+            {isAr ? (
+              <Button
+                as="a"
+                variant="tertiary"
+                className="btn-desktop-only"
+                href={MEETING_BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="nav-meeting"
+              >
+                <CalendarDays className="w-4 h-4" aria-hidden="true" />
+                {t("احجز اجتماع", "Book a meeting")}
+              </Button>
+            ) : null}
+            <LoginMenu label={t("تسجيل الدخول", "Log in")} names={{ salla: tr.nav.salla, zid: tr.nav.zid, shopify: t("شوبيفاي", "Shopify") }} />
             <Button variant="primary" onClick={startNow} data-testid="nav-start">
               {tr.nav.startNow}
             </Button>
@@ -646,7 +653,7 @@ export function Navbar() {
                     onClick={drawer.close}
                     tabIndex={subTab}
                   >
-                    {tr.nav[d.key]}
+                    {d.key === "shopify" ? t("شوبيفاي", "Shopify") : tr.nav[d.key]}
                   </a>
                 ))}
               </>
@@ -747,7 +754,7 @@ function HelpCard({ item }: { item: HelpItem }) {
  * Desktop only. The mobile drawer keeps its own copy in the platforms drill,
  * where there is room for a list.
  */
-function LoginMenu({ label, names }: { label: string; names: Record<"salla" | "zid", string> }) {
+function LoginMenu({ label, names }: { label: string; names: Record<"salla" | "zid" | "shopify", string> }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
 

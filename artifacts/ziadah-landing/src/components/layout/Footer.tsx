@@ -135,9 +135,11 @@ export function Footer() {
             <a href={href("/data-deletion")} onClick={go("/data-deletion")}>
               {tr.footer.dataDeletion}
             </a>
-            <a href={MEETING_BOOKING_URL} target="_blank" rel="noopener noreferrer">
-              {t("احجز اجتماع", "Book a meeting")}
-            </a>
+            {lang === "ar" ? (
+              <a href={MEETING_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                {t("احجز اجتماع", "Book a meeting")}
+              </a>
+            ) : null}
             <a href={WHATSAPP_SUPPORT_URL} target="_blank" rel="noopener noreferrer">
               {t("واتساب", "WhatsApp")}
             </a>

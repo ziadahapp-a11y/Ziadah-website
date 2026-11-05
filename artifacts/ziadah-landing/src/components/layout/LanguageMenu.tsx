@@ -50,7 +50,7 @@ export default function LanguageMenu({ testId, tabIndex }: { testId: string; tab
         <span>{LOCALE_NAMES[locale]}</span>
       </button>
       {open ? (
-        <ul id={id} role="listbox" className="lang-menu-list" aria-label={LOCALE_NAMES[locale]}>
+        <ul id={id} role="listbox" className="lang-menu-list" data-lenis-prevent="" aria-label={LOCALE_NAMES[locale]}>
           {ENABLED_LOCALES.map((l) => (
             <li key={l} role="option" aria-selected={l === locale}>
               <button type="button" lang={LOCALE_TAGS[l]} onClick={() => choose(l)} className="lang-menu-item" data-active={l === locale ? "" : undefined}>

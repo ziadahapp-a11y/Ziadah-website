@@ -47,6 +47,7 @@ export const PLATFORMS = [
 export const DASHBOARDS = [
   { key: "salla", href: "https://dashboard.ziadah.app/login" },
   { key: "zid", href: "https://web.ziadah.app/" },
+  { key: "shopify", href: "https://dashboard.ziadah.app" },
 ] as const;
 
 export const WHATSAPP_SUPPORT_URL = "https://wa.me/966510131856";
