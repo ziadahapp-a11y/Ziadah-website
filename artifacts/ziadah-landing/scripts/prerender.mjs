@@ -38,6 +38,21 @@ if (!fs.existsSync(path.join(DIST, "index.html"))) {
 }
 
 // --- Resolve routes from the generated sitemap (fallback to "/") ------------
+/* Arabic and English are prerendered in full. The other fifteen languages are
+   prerendered for the top-level pages only (home, pricing, platforms, ...): all
+   of them would be ~2,800 routes, over the deploy job's time budget at about
+   1.6s a route. Every other route in those languages is served by the app
+   shell, which loads its catalogue before React renders, so it is translated
+   on first paint either way. Set PRERENDER_DEEP_LANGS=all to render everything. */
+const DEEP_LANGS = (process.env.PRERENDER_DEEP_LANGS || "ar,en").split(",");
+const isDeepEnough = (route) => {
+  if (DEEP_LANGS.includes("all")) return true;
+  const seg = route.split("/")[1];
+  const lang = ["en", "fr", "de", "es", "it", "pt", "nl", "sv", "da", "no", "pl", "tr", "ja", "ko", "zh", "zh-tw"].includes(seg) ? seg : "ar";
+  if (DEEP_LANGS.includes(lang)) return true;
+  return route.split("/").filter(Boolean).length <= 2; // /fr or /fr/pricing
+};
+
 function readRoutes() {
   const sitemap = path.join(DIST, "sitemap.xml");
   if (!fs.existsSync(sitemap)) return ["/"];
@@ -45,7 +60,9 @@ function readRoutes() {
   const routes = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
     .map((m) => m[1].replace(SITE, "").trim())
     .filter((p) => p.startsWith("/"))
-    .map((p) => (p === "" ? "/" : p));
+    .map((p) => (p === "" ? "/" : p))
+    .filter(isDeepEnough)
+    .filter((p) => !process.env.PRERENDER_ONLY || process.env.PRERENDER_ONLY.split(",").includes(p));
   return [...new Set(routes.length ? routes : ["/"])];
 }
 
