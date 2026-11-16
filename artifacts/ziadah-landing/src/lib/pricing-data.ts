@@ -56,6 +56,9 @@ export type Plan = {
   /** AI points included, monthly and annually. */
   aiPoints: string;
   aiPointsY: string;
+  /** False when the plan is sold on annual billing only (Starter). In the
+   *  monthly view such a card shows its annual price and says so. */
+  monthly: boolean;
 };
 
 /** Monthly, monthly-when-annual, the annual charge, and twelve months at the
@@ -103,6 +106,7 @@ export function usePricingPlans(currency: Currency = "sar"): Plan[] {
       features: ld.planStarterFeatures as string[],
       aiPoints: "5",
       aiPointsY: "60",
+      monthly: false,
     },
     {
       key: "g",
@@ -119,6 +123,7 @@ export function usePricingPlans(currency: Currency = "sar"): Plan[] {
       features: ld.planGrowthFeatures as string[],
       aiPoints: "50",
       aiPointsY: "600",
+      monthly: true,
     },
     {
       key: "p",
@@ -135,6 +140,7 @@ export function usePricingPlans(currency: Currency = "sar"): Plan[] {
       features: ld.planProFeatures as string[],
       aiPoints: "500",
       aiPointsY: "6,000",
+      monthly: true,
     },
     {
       key: "b",
@@ -151,6 +157,7 @@ export function usePricingPlans(currency: Currency = "sar"): Plan[] {
       features: ld.planBusinessFeatures as string[],
       aiPoints: "5,000",
       aiPointsY: "60,000",
+      monthly: true,
     },
   ];
 }

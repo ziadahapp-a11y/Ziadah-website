@@ -89,7 +89,11 @@ export function Pricing({ onActivate }: { onActivate?: () => void }) {
 
       <Shell width="wide">
         <div className="price-grid price-grid--4">
-          {plans.map((plan) => (
+          {plans.map((plan) => {
+            /* Starter is sold on annual billing only: in the monthly view it
+               shows its annual card and says so. */
+            const planAnnual = annual || !plan.monthly;
+            return (
             <div key={plan.key} className={`price-card${plan.featured ? " is-flipped" : ""}`}>
               {plan.featured && (
                 <span className="price-flag">{t({ ar: "الأكثر اختياراً", en: "Most popular" })}</span>
@@ -99,20 +103,24 @@ export function Pricing({ onActivate }: { onActivate?: () => void }) {
               {/* The struck-through twelve-months-at-the-monthly-rate figure
                   only exists in annual mode, so it renders only there rather
                   than being hidden with a class. */}
-              {annual && (
+              {planAnnual && (
                 <p className="card-eyebrow num-ltr line-through">
                   {plan.yOrig} {riyal}
                 </p>
               )}
 
               <p className="t-display-3 num-ltr">
-                {annual ? plan.yPrice : plan.mPrice}
+                {planAnnual ? plan.yPrice : plan.mPrice}
                 <span className="t-body-18 align-middle ms-1 opacity-70">{riyal}</span>
                 <span className="price-note ms-2">{t({ ar: "/شهرياً", en: "/mo" })}</span>
               </p>
 
+              {!annual && !plan.monthly && (
+                <p className="card-eyebrow">{t({ ar: "متاحة بالدفع السنوي فقط", en: "Annual billing only" })}</p>
+              )}
+
               <p className="price-note">
-                {annual
+                {planAnnual
                   ? t({
                       ar: `يُدفع ${plan.yAnnual} ${riyal} سنوياً · ${plan.aiPointsY} نقطة ذكاء`,
                       en: `Billed ${plan.yAnnual} ${riyal}/year · ${plan.aiPointsY} AI points`,
@@ -136,7 +144,8 @@ export function Pricing({ onActivate }: { onActivate?: () => void }) {
                 ))}
               </ul>
             </div>
-          ))}
+            );
+          })}
         </div>
       </Shell>
     </Section>

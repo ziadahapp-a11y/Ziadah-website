@@ -236,13 +236,16 @@ export default function PricingPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
                 {plans.map((plan) => {
                   const featured = plan.featured;
-                  const basePrice = mode === "m" ? plan.mPrice : plan.yPrice;
+                  /* A plan sold on annual billing only shows its annual card even in
+                     the monthly view, with a line saying so. */
+                  const cm = mode === "m" && !plan.monthly ? "y" : mode;
+                  const basePrice = cm === "m" ? plan.mPrice : plan.yPrice;
                   const selTopup = topupSel[plan.key] != null ? AI_TOPUPS[topupSel[plan.key]!] : null;
-                  const topupBase = mode === "m" ? plan.mPrice : plan.yAnnual;
+                  const topupBase = cm === "m" ? plan.mPrice : plan.yAnnual;
                   const displayPrice = selTopup
                     ? fmtPrice(parsePrice(topupBase) + selTopup.price)
                     : basePrice;
-                  const priceLabel = selTopup && mode === "y"
+                  const priceLabel = selTopup && cm === "y"
                     ? (isAr ? "/ سنة" : "/ yr")
                     : (isAr ? "/ شهر" : "/ mo");
                   return (
@@ -272,7 +275,7 @@ export default function PricingPage() {
                       <p className="price-note mb-5">{plan.desc}</p>
 
                       {/* Discount row */}
-                      {mode === "y" && (
+                      {cm === "y" && (
                         <div className="flex items-center gap-2 mb-2">
                           <span className="card-eyebrow num-ltr line-through">
                             {plan.yOrig} {riyal}
@@ -291,11 +294,16 @@ export default function PricingPage() {
                         <span className="t-head-2 opacity-70">{riyal}</span>
                         <span className="price-note">{priceLabel}</span>
                       </div>
+                      {mode === "m" && !plan.monthly && (
+                        <p className="card-eyebrow mb-3">
+                          {isAr ? "متاحة بالدفع السنوي فقط" : "Annual billing only"}
+                        </p>
+                      )}
 
                       {selTopup && (
                         <div className="card-eyebrow flex flex-wrap items-center gap-1.5 mb-3">
                           <span>
-                            {isAr ? (mode === "y" ? "الخطة السنوية" : "الخطة") : (mode === "y" ? "Annual plan" : "Plan")}
+                            {isAr ? (cm === "y" ? "الخطة السنوية" : "الخطة") : (cm === "y" ? "Annual plan" : "Plan")}
                             : {topupBase} {riyal}
                           </span>
                           <span className="font-bold">+</span>
@@ -303,7 +311,7 @@ export default function PricingPage() {
                         </div>
                       )}
 
-                      {mode === "y" && !selTopup && (
+                      {cm === "y" && !selTopup && (
                         <div className="card-eyebrow mb-3">
                           {isAr ? `يُدفع ${plan.yAnnual} ${riyal} سنوياً` : `Billed ${plan.yAnnual} ${riyal}/year`}
                         </div>
@@ -341,11 +349,11 @@ export default function PricingPage() {
                           switched on whether the card happens to be featured. */}
                       <div className="chip self-start">
                         <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                        <span className="num-ltr font-bold">{mode === "m" ? plan.aiPoints : plan.aiPointsY}</span>
+                        <span className="num-ltr font-bold">{cm === "m" ? plan.aiPoints : plan.aiPointsY}</span>
                         <span className="opacity-80">
                           {isAr
-                            ? (mode === "m" ? "نقطة ذكاء / شهر" : "نقطة ذكاء / سنة")
-                            : (mode === "m" ? "AI points / mo" : "AI points / yr")}
+                            ? (cm === "m" ? "نقطة ذكاء / شهر" : "نقطة ذكاء / سنة")
+                            : (cm === "m" ? "AI points / mo" : "AI points / yr")}
                         </span>
                       </div>
 
@@ -464,7 +472,7 @@ export default function PricingPage() {
                     >
                       <div className="cmp-col-name">{plan.name}</div>
                       <div className="cmp-col-price num-ltr">
-                        {mode === "m" ? plan.mPrice : plan.yPrice}{" "}
+                        {mode === "m" && plan.monthly ? plan.mPrice : plan.yPrice}{" "}
                         <span>{riyal}/{isAr ? "شهر" : "mo"}</span>
                       </div>
                     </div>

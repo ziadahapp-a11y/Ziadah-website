@@ -54,8 +54,8 @@ export function HomeFaq() {
     {
       q: t({ ar: "كم تكلّف؟", en: "How much does it cost?" }),
       a: t({
-        ar: "الانطلاقة 29 ر.س/شهرياً للمتاجر الصغيرة · النمو 290 ر.س/شهرياً · الاحترافية 790 ر.س/شهرياً · الأعمال 1,990 ر.س/شهرياً. كل الباقات فيها تجربة مجانية 7 أيام وشاملة ضريبة القيمة المضافة.",
-        en: "Starter SAR 29/mo for small stores · Growth SAR 290/mo · Professional SAR 790/mo · Business SAR 1,990/mo. All plans include a 7-day free trial and are VAT-inclusive.",
+        ar: "الانطلاقة 24 ر.س/شهرياً بالدفع السنوي للمتاجر الصغيرة · النمو 290 ر.س/شهرياً · الاحترافية 790 ر.س/شهرياً · الأعمال 1,990 ر.س/شهرياً. كل الباقات فيها تجربة مجانية 7 أيام وشاملة ضريبة القيمة المضافة.",
+        en: "Starter SAR 24/mo billed annually for small stores · Growth SAR 290/mo · Professional SAR 790/mo · Business SAR 1,990/mo. All plans include a 7-day free trial and are VAT-inclusive.",
       }),
     },
     {

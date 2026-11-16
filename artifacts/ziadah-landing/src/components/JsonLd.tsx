@@ -479,7 +479,6 @@ export function PricingPageSchema() {
               priceCurrency: "SAR",
               priceSpecification: [
                 { "@type": "UnitPriceSpecification", price: "24", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "سنوي" : "Annual billing" },
-                { "@type": "UnitPriceSpecification", price: "29", priceCurrency: "SAR", unitText: "MONTH", name: isAr ? "شهري" : "Monthly billing" },
               ],
               availability: "https://schema.org/InStock",
               url,
