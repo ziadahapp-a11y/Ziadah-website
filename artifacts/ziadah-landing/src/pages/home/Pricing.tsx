@@ -89,7 +89,7 @@ export function Pricing({ onActivate }: { onActivate?: () => void }) {
 
       <Shell width="wide">
         <div className="price-grid price-grid--4">
-          {plans.map((plan) => {
+          {plans.filter((plan) => annual || plan.monthly).map((plan) => {
             /* Starter is sold on annual billing only: in the monthly view it
                shows its annual card and says so. */
             const planAnnual = annual || !plan.monthly;

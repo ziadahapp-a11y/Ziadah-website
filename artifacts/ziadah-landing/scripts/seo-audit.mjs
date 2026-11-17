@@ -122,7 +122,10 @@ for (const route of routes) {
   if (ogTitle && ogTitle !== title) add("WARN", route, "og-title-differs", `${ogTitle} vs ${title}`);
   if (ogDesc && ogDesc !== desc) add("WARN", route, "og-description-differs");
   if (ogUrl && ogUrl !== selfUrl) add("ERROR", route, "og-url-not-self", ogUrl);
-  if (ogLocale && ogLocale !== (lang === "ar" ? "ar_SA" : "en_US")) add("ERROR", route, "og-locale", ogLocale);
+  /* og:locale is the page's own language; the 15 other languages use their
+     own tag (src/i18n/languages.ts, OG_LOCALES). */
+  const OG = { ar: "ar_SA", en: "en_US", fr: "fr_FR", de: "de_DE", es: "es_ES", it: "it_IT", pt: "pt_BR", nl: "nl_NL", sv: "sv_SE", da: "da_DK", no: "nb_NO", pl: "pl_PL", tr: "tr_TR", ja: "ja_JP", ko: "ko_KR", zh: "zh_CN", "zh-tw": "zh_TW" };
+  if (ogLocale && ogLocale !== OG[lang]) add("ERROR", route, "og-locale", ogLocale);
   if (ogImg && twImg && ogImg !== twImg) add("WARN", route, "og-twitter-image-differ");
   if (ogImg) {
     const rel = ogImg.replace(SITE, "").split("?")[0];

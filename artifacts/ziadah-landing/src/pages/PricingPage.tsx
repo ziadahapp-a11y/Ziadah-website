@@ -234,7 +234,7 @@ export default function PricingPage() {
             <Shell width="wide">
               {/* Plan Cards */}
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-                {plans.map((plan) => {
+                {plans.filter((plan) => mode === "y" || plan.monthly).map((plan) => {
                   const featured = plan.featured;
                   /* A plan sold on annual billing only shows its annual card even in
                      the monthly view, with a line saying so. */
