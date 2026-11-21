@@ -53,7 +53,7 @@
 .sf-pill {
   display: inline-flex; align-items: center;
   padding: 3px 10px; border-radius: 999px;
-  font-size: 11px; font-weight: 700; white-space: nowrap;
+  font-size: 11px; font-weight: 600; white-space: nowrap;
 }
 .sf-pill.is-violet { background: var(--sf-tint); color: var(--sf-brand); }
 .sf-pill.is-green  { background: var(--sf-ok-bg); color: var(--sf-ok); }
@@ -110,7 +110,7 @@
 .sf-opt-n { font-size: 12px; font-weight: 600; line-height: 1.35; }
 .sf-opt-p { font-size: 11px; color: var(--sf-muted); }
 .sf-opt-a { margin-block-start: 2px; }
-.sf-add { font-size: 11px; font-weight: 700; color: var(--sf-brand); }
+.sf-add { font-size: 11px; font-weight: 600; color: var(--sf-brand); }
 .sf-locked { font-size: 11px; color: var(--sf-faint); }
 
 .sf-sizes { display: flex; flex-wrap: wrap; gap: 4px; }
@@ -127,10 +127,10 @@
   padding: 10px 12px; border-radius: 10px;
   box-shadow: inset 0 0 0 1.5px var(--sf-brand);
 }
-.sf-step-k { grid-column: 1 / -1; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; color: var(--sf-ok); text-transform: uppercase; }
+.sf-step-k { grid-column: 1 / -1; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: var(--sf-ok); text-transform: uppercase; }
 [dir="rtl"] .sf-step-k { letter-spacing: 0; text-transform: none; }
 .sf-step-n { font-size: 13px; font-weight: 600; }
-.sf-swap { grid-row: 2; font-size: 11px; font-weight: 700; color: var(--sf-brand); text-align: end; }
+.sf-swap { grid-row: 2; font-size: 11px; font-weight: 600; color: var(--sf-brand); text-align: end; }
 .sf-step-p { grid-column: 1; font-size: 11px; color: var(--sf-muted); }
 
 .sf-row {
@@ -149,7 +149,7 @@
   padding: 10px; border-radius: 10px;
   background: var(--sf-warn-bg);
 }
-.sf-nudge-t { margin: 0; font-size: 11px; font-weight: 700; color: var(--sf-warn); }
+.sf-nudge-t { margin: 0; font-size: 11px; font-weight: 600; color: var(--sf-warn); }
 
 .sf-price {
   display: flex; align-items: baseline; gap: 8px;
@@ -158,7 +158,7 @@
 .sf-price[data-tone="violet"] { background: var(--sf-tint); }
 .sf-price-l { flex: 1 1 auto; font-size: 12px; font-weight: 600; color: var(--sf-brand); }
 .sf-price-w { font-size: 12px; color: var(--sf-faint); }
-.sf-price-n { font-size: 18px; font-weight: 700; color: var(--sf-brand); }
+.sf-price-n { font-size: 18px; font-weight: 600; color: var(--sf-brand); }
 
 .sf-cta {
   display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -274,7 +274,7 @@
   background: #f4e7ff;
   color: #4a008c;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* The widget inside is the real component at its real size, scaled to fit
@@ -425,7 +425,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 12px 16px;
   cursor: pointer;
   text-align: start;
   border-radius: inherit;
@@ -440,7 +440,7 @@
   place-items: center;
   border-radius: 999px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   background: color-mix(in srgb, var(--color-secondary, #0a0a0a) 10%, transparent);
   transition: background-color 0.25s ease, color 0.25s ease;
 }
@@ -467,7 +467,7 @@
 }
 .sacc-panel-in { overflow: hidden; min-height: 0; }
 /* Indented to sit under the title, past the number badge (26 + 12 gap). */
-.sacc-body { padding: 0 14px 14px; padding-inline-start: 52px; }
+.sacc-body { padding: 0 16px 16px; padding-inline-start: 52px; }
 .sacc-note {
   margin: 0;
   font-size: var(--t-sm);
@@ -540,8 +540,8 @@
   }
   /* The stage is inside the open row now, so the note no longer needs the
      badge's indent and the stage runs the row's full width. */
-  .sacc-body { padding-inline-start: 14px; }
-  .sacc-inline { margin-block-start: 14px; }
+  .sacc-body { padding-inline-start: 16px; }
+  .sacc-inline { margin-block-start: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

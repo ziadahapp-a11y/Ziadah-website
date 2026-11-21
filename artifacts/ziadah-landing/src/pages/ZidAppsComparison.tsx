@@ -59,7 +59,7 @@ const APPS = [
     nameEn: "Ziyada",
     tint: "rgba(124 58 237 / 0.1)",
     cellBg: "rgba(124 58 237 / 0.05)",
-    thBg: "linear-gradient(180deg, #f5f3ff 0%, #ede9fe 100%)",
+    thBg: "#f5f3ff",
   },
   {
     // Competitor columns use neutral zinc tints (single brand color rule).
@@ -67,28 +67,28 @@ const APPS = [
     nameEn: "Namaa",
     tint: "rgba(113, 113, 122, 0.08)",
     cellBg: "rgba(244, 244, 245, 0.6)",
-    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+    thBg: "#fafafa",
   },
   {
     nameAr: "بووست",
     nameEn: "Boost",
     tint: "rgba(113, 113, 122, 0.08)",
     cellBg: "rgba(244, 244, 245, 0.6)",
-    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+    thBg: "#fafafa",
   },
   {
     nameAr: "تاسك اب",
     nameEn: "TaskUp",
     tint: "rgba(113, 113, 122, 0.08)",
     cellBg: "rgba(244, 244, 245, 0.6)",
-    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+    thBg: "#fafafa",
   },
   {
     nameAr: "رقمي",
     nameEn: "Raqmi",
     tint: "rgba(113, 113, 122, 0.08)",
     cellBg: "rgba(244, 244, 245, 0.6)",
-    thBg: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+    thBg: "#fafafa",
   },
 ] as const;
 
@@ -274,7 +274,7 @@ function CheckIcon() {
         width: 28,
         height: 28,
         borderRadius: "999px",
-        background: "linear-gradient(145deg, rgba(139, 92, 246, 0.14) 0%, rgba(124, 58, 237, 0.08) 100%)",
+        background: "rgba(139, 92, 246, 0.1)",
         border: "1px solid rgba(139, 92, 246, 0.22)",
       }}
       aria-hidden
@@ -428,7 +428,7 @@ export default function ZidAppsComparison() {
                         fontSize: 12,
                         letterSpacing: isAr ? 0 : "0.02em",
                         textTransform: isAr ? "none" : "uppercase",
-                        background: "linear-gradient(180deg, #fafafa 0%, #f4f4f5 100%)",
+                        background: "#fafafa",
                         borderBottom: "2px solid rgb(124 58 237)",
                         width: 200,
                         position: "sticky",
@@ -477,7 +477,7 @@ export default function ZidAppsComparison() {
                               fontWeight: 800,
                               fontSize: 14,
                               color: "#09090b",
-                              background: "linear-gradient(90deg, rgba(237, 233, 254, 0.7) 0%, rgba(245, 243, 255, 0.6) 48%, rgba(244, 244, 245, 0.5) 100%)",
+                              background: "rgba(237, 233, 254, 0.6)",
                               borderTop: ri > 0 ? "1px solid rgba(124 58 237 / 0.12)" : undefined,
                               textAlign: isAr ? "right" : "left",
                               borderInlineStart: "4px solid rgb(124 58 237)",
@@ -496,7 +496,7 @@ export default function ZidAppsComparison() {
                             <div
                               className="zi-compare-banner"
                               style={{
-                                background: "linear-gradient(145deg, #18181b 0%, #09090b 55%, #2e1065 100%)",
+                                background: "#18181b",
                                 color: "#fff",
                                 margin: "12px 4px",
                                 padding: "28px 18px 24px",

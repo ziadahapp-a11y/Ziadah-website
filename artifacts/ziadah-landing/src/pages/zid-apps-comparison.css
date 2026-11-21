@@ -20,14 +20,14 @@
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(124 58 237 / 0.45), rgba(72 0 134 / 0.35));
+  background: rgba(124 58 237 / 0.4);
   border-radius: 9px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .zi-compare-scroll::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(124 58 237 / 0.55), rgba(72 0 134 / 0.45));
+  background: rgba(124 58 237 / 0.55);
   background-clip: padding-box;
 }
 

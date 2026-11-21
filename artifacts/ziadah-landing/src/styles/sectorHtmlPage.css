@@ -105,7 +105,7 @@
   align-content: space-around;
   gap: 20px;
   font-size: 60px;
-  font-weight: 900;
+  font-weight: 600;
   line-height: 1.08;
   margin: 0 0 18px;
   color: var(--t);
@@ -328,7 +328,7 @@
 
 .sector-html-pb-app {
   font-size: max(12px, 1.152rem);
-  font-weight: 700;
+  font-weight: 600;
   font-family: var(--sh-en);
   color: var(--sh-accent);
   display: flex;
@@ -378,7 +378,7 @@
 .sector-html-or-price {
   font-size: 1.216rem;
   font-family: var(--sh-en);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--sh-accent);
 }
 
@@ -506,7 +506,7 @@
 
 .sector-html-aud-title {
   font-size: 1.792rem;
-  font-weight: 800;
+  font-weight: 600;
   margin: 0 0 10px;
   color: var(--t);
   line-height: 1.25;
@@ -594,14 +594,14 @@
   align-items: center;
   justify-content: center;
   font-size: 1.216rem;
-  font-weight: 700;
+  font-weight: 600;
   font-family: var(--sh-en);
   color: #fff;
 }
 
 .sector-html-al-title {
   font-size: 1.472rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 4px;
   color: var(--t);
 }
@@ -653,7 +653,7 @@
   font-size: max(12px, 1.04rem);
   font-family: var(--sh-en);
   color: var(--sh-green);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .sector-html-sc-grid {
@@ -696,7 +696,7 @@
    weight and size that makes it the first thing read. */
 .sector-html-kpiv {
   font-size: 2.6rem;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.1;
   font-family: var(--sh-en);
   color: var(--color-secondary, #0a0a0a);
@@ -786,7 +786,7 @@
 .sector-html-b-val {
   font-size: max(12px, 1.04rem);
   font-family: var(--sh-en);
-  font-weight: 700;
+  font-weight: 600;
   /* The figure belongs to the section's ink, not to a second fixed accent:
      the bar beside it is already carrying the brand's colour. */
   color: var(--color-secondary, #0a0a0a);
@@ -823,7 +823,7 @@
 }
 
 .sector-html-ft-name {
-  font-weight: 700;
+  font-weight: 600;
   display: block;
   color: var(--t);
 }
@@ -851,7 +851,7 @@
 .sector-html-chk {
   color: var(--sh-green);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -969,7 +969,7 @@
 /* Why — title + line */
 .sector-html-wc-title {
   font-size: 1.52rem;
-  font-weight: 800;
+  font-weight: 600;
   margin: 0 0 6px;
   color: var(--t);
   line-height: 1.25;
@@ -1035,14 +1035,14 @@
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   font-family: var(--sh-en);
   color: #fff;
 }
 
 .sector-html-ap-title {
   font-size: 1.44rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 4px;
   color: var(--t);
 }
@@ -1104,7 +1104,7 @@
 
 .sector-qt-num {
   font-size: 2.16rem;
-  font-weight: 800;
+  font-weight: 600;
   font-family: var(--sh-en);
   background: linear-gradient(135deg, var(--p), var(--sh-gold));
   -webkit-background-clip: text;
@@ -1523,7 +1523,7 @@ section#uc-showcase,
 /* Section headings inside the bespoke layout → TrackFlow heading scale */
 .landing-shell .sector-html h2 {
   font-size: clamp(2.4rem, 2.6vw, 3rem);
-  font-weight: 700;
+  font-weight: 600;
   color: #09090b;
   line-height: 1.2;
   letter-spacing: -0.01em;

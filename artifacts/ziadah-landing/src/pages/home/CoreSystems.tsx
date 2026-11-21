@@ -110,7 +110,6 @@ export function CoreSystems() {
             const b = split(isAr ? g.boost : g.boostEn);
             return (
               <article key={g.slug} className="cs-goal">
-                <span className="cs-goal-ico" aria-hidden="true"><g.Icon /></span>
                 <h3 className="cs-goal-t">{strip(isAr ? g.title : g.titleEn)}</h3>
                 <p className="cs-goal-s">{isAr ? g.subtitle : g.subtitleEn}</p>
                 <p className="cs-goal-b">
